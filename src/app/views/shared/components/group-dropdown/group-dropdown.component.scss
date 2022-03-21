@@ -1,0 +1,13 @@
+::ng-deep .mat-form-field {
+    .mat-select
+    {
+        font-size: 15px;
+        text-transform: capitalize;
+    }
+    .mat-select .mat-form-field-outline
+    {
+        
+        border-right: 35px solid #98bef2;
+    }
+}
+

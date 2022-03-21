@@ -1,0 +1,39 @@
+<mat-form-field  [ngClass]="matFormFieldClass" appearance="outline">
+  <mat-select
+    #customSelect
+    [placeholder]="placeholder"
+    [formControl]="control"
+    [required]="isRequired"
+    (selectionChange)="selectionChangeEvent($event)"
+    (blur)="blur()"
+    [ngClass]="matSelectClass"
+    [attr.disabled]="isDisabled"
+  >
+    <mat-option>
+      <ngx-mat-select-search
+
+        [formControl]="filterControl"
+        [placeholderLabel]="searchPlaceholder || 'Search...'"
+        [noEntriesFoundLabel]="'No Record Found...'"
+      ></ngx-mat-select-search>
+    </mat-option>
+    <mat-option style="padding: 0" *ngIf="isLoading" [ktBusy]="isLoading" type="SINGLE_CONTENT"></mat-option>
+    <mat-option>-- None --</mat-option>
+    <ng-container *ngFor="let option of filteredOptionList | async">
+      <mat-option [value]="propertyValue !== undefined || null ? option[propertyValue] : option">
+        <span style="font-size: 14px;">{{option[propertyName]}}</span>
+        <span *ngIf="secondaryPropertyName !== undefined"
+              style="font-size: 12px !important;">-{{option[secondaryPropertyName]}}</span>
+      </mat-option>
+    </ng-container>
+    <mat-option *ngIf="clickEvent && clickEventButtonName" style="padding: 0px"><button mat-flat-button style="width: 100%"
+                                                                                        (click)="emitClickEvent()"
+                                                                                        class="btn btn-light">{{ clickEventButtonName || 'clickEventButtonName' }}</button></mat-option>
+  </mat-select>
+  <mat-hint align="start">{{hintText}}</mat-hint>
+
+  <mat-error *ngIf="formControlDirective && !formControlDirective.control.valid &&
+             (formControlDirective.control.touched || formControlDirective.control.untouched)">
+    <strong>{{ errorMessage }}</strong>
+  </mat-error>
+</mat-form-field>

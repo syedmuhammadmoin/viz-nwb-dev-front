@@ -1,0 +1,74 @@
+// .mat-tree-node
+// {
+//     background-color: aliceblue;
+//     margin-bottom: 10px;
+//     border-radius: 20px 0px 20px 20px;
+// }
+.tree_arrow
+{
+    background-color: #2b3257;
+    color: #ffffff;
+    margin-right: 15px;
+    border-radius: 25px;
+}
+
+
+
+mat-tree-node div[id^='demo']
+{
+    background: #eef0f8;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 20px 0px 20px 20px;
+    padding: 5px 0px;
+    color: #2a3156;
+    font-weight: bold;
+}
+
+mat-tree-node div[id^='child']
+{
+    background: whitesmoke;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 20px 0px 20px 20px;
+    padding: 5px 0px;
+}
+
+.btn__add
+{
+    margin-left: 20px;
+    background-color: #fff;
+    border: 1px solid #4caf50;
+    color: #4caf50;
+    padding: 5px 10px;
+    height: 35px;
+    width: 35px;
+    line-height: 5px;
+    border-radius: 20px;
+}
+
+.btn__add i
+{
+    color: #4caf50;
+    font-size: 14px;
+}
+
+.btn__edit
+{
+    margin-left: 5px;
+    background-color: #fff;
+    border: 1px solid #ff9800;
+    padding: 5px 10px;
+    height: 35px;
+    width: 35px;
+    line-height: 5px;
+    border-radius: 20px;
+}
+
+.btn__edit i
+{
+    color: #ff9800;
+    font-size: 14px;
+}
+
+

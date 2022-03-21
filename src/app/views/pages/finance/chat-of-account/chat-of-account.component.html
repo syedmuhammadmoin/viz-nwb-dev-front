@@ -1,0 +1,41 @@
+<kt-portlet>
+  <kt-portlet-header [sticky]="false" [title]="'Chart of Account'" [class]="'card-head-lg'">
+    <!--<ng-container ktPortletTools>
+      <button (click)="addLevel3Dialog()" class="mr-3" mat-raised-button matTooltip="Add Head Account">Add Head
+        Account</button>
+      <button (click)="addLevel4Dialog()" mat-raised-button matTooltip="Add Transactional Account">Add Transactional
+        Account</button>
+    </ng-container>-->
+  </kt-portlet-header>
+
+  <kt-portlet-body>
+    <div class="col-md-12 col-lg-12 col-sm-12 my-5">
+      <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <div [id]="'child'+ node.id">
+            <button mat-icon-button disabled></button>
+            {{node.name}}
+            <button mat-icon-button [hidden]="node.level == 0 || node.level == 3" (click)="addNewItem(node)" class="btn__add"> <i class="fa fa-plus"></i></button>
+            <button mat-icon-button [hidden]="node.level == 0 || node.level == 1" (click)="editItem(node)" class="btn__edit"> <i class="fa fa-edit"></i></button>
+          </div>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <div [id]="'demo'+ node.id">
+            <button  class="tree_arrow" mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            {{node.name}}
+            <button class="btn__add" mat-icon-button [hidden]="node.level == 0 || node.level == 3 " (click)="addNewItem(node)"> <i class="fa fa-plus"></i></button>
+            <button class="btn__edit" mat-icon-button [hidden]="node.level == 0 || node.level == 1" (click)="editItem(node)"><i class="fa fa-edit"></i></button>
+          </div>
+        </mat-tree-node>
+      </mat-tree>
+    </div>
+  </kt-portlet-body>
+</kt-portlet>
+

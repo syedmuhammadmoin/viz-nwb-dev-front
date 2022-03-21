@@ -1,0 +1,93 @@
+
+
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+        <kt-portlet-header [sticky]="false" [title]="'Payment Detail'" [class]="'card-head-lg'">
+        <ng-container ktPortletTools>
+            <button [routerLink]="'/' + paymentRoute.ID_BASED_ROUTE('print' , paymentMaster?.id)" type="button" mat-raised-button  class="btn_white mr-3">
+                Print Payment Invoice
+            </button>
+            <button *ngIf="paymentMaster?.status === docStatus.Draft"
+                (click)="addPaymentDialog(paymentId)" class="btn_white mr-3" mat-raised-button type="button"> Edit
+            </button>
+            <h4 class="overall_statuses  {{docStatus[paymentMaster?.status]}}">Status:  {{docStatus[paymentMaster?.status]}}</h4>
+        </ng-container>
+        </kt-portlet-header>
+        <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mb-5">
+            
+            <div class="row mt-5">
+                <div class="col-md-12 col-lg-12">
+                    <div class="table-responsive">
+
+                    <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
+                        <tbody>
+                            <tr rowspan="1">
+                                <th class="" style="    border: 1px solid #8babdb; width: 15%;">Business Partner:</th>
+                                <td class="" style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.businessPartnerName}}</td>
+                                <th class="" style="    border: 1px solid #8babdb; width: 15%;">Gross Payment:</th>
+                                <td class="" style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.grossPayment}}</td>
+
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">Discount:</th>
+                                <td class="" style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.discount}}</td>
+                            </tr>
+                            <tr rowspan="1">
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">Account:</th>
+                                <td style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.accountName}}</td>
+
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">#Payment:</th>
+                                <td class="" style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.docNo}}</td>
+                                
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">Sales Tax:</th>
+                                <td class="" style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.salesTax}}</td>
+                            </tr>
+                            <tr rowspan="1">
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">Income Tax:</th>
+                                <td style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.incomeTax}}</td>
+
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">Description:</th>
+                                <td class="" style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.description}}</td>
+                                
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">Net Payment:</th>
+                                <td class="" style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.netPayment}}</td>
+                            </tr>
+
+                            <tr rowspan="1">
+                                <th class="" style="    border: 1px solid #8babdb;width: 15%;">Payment Date:</th>
+                                <td style="background: #595e791c; width: 20%;">
+                                    {{paymentMaster?.paymentDate | date: 'MMM d, y'}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </kt-portlet-body>
+
+        <mat-divider ></mat-divider>
+
+        <div class="kt-portlet__foot">
+            <div class="kt-form__actions kt-form__actions">
+            <div class="row ">
+                <div class="col-lg-12 text-right" *ngIf="paymentMaster?.isAllowedRole">
+                    <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+                    <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+                </div>
+            </div>
+            </div>
+        </div>
+    </kt-portlet>
+</div>
+  
+

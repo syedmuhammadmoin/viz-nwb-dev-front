@@ -1,0 +1,105 @@
+<kt-portlet>
+  <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" [title]="'Balance Sheet'">
+  </kt-portlet-header>
+  <form (ngSubmit)="onSubmit()" [formGroup]="balanceSheetForm" class="kt-form kt-form--label-align-right">
+    <div class="kt-portlet__body">
+      <div class="kt-form__section kt-form__section--first">
+        <div class="col-md-12 col-sm-12 col-lg-12">
+          <!-- region First Row -->
+          <div class="row">
+
+            <div class="col-lg-4">
+              <div class="form-group kt-form__group">
+                <label class="col-form-label">Date:</label>
+                <kt-date-input (blurEvent)="logValidationErrors(this.balanceSheetForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.docDate" formControlName="docDate" matFormFieldClass="full-width"
+                  placeholder="Enter Date">
+                </kt-date-input>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group kt-form__group">
+                <label class="col-form-label">Account:</label>
+                <kt-simple-dropdown [optionList]="ngxsService.accountsLevel4$" formControlName="transactional"
+                  placeholder="Select Account" propertyName="name" propertyValue="name" matFormFieldClass="full-width"
+                  searchPlaceholder="Search accounts...">
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-4">
+              <div class="form-group kt-form__group">
+                <label class="col-form-label">Department:</label>
+                <kt-simple-dropdown
+                  [optionList]="ngxsService.departments$"
+                  formControlName="department"
+                  placeholder="Select Department" matFormFieldClass="full-width" propertyName="name"
+                  propertyValue="name" searchPlaceholder="Search departments..."></kt-simple-dropdown>
+              </div>
+            </div>
+          </div>
+          <!-- endregion -->
+          <!-- region Second Row -->
+          <div class="row">
+            
+            <div class="col-lg-4">
+              <div class="form-group kt-form__group">
+                <label class="col-form-label">Location:</label>
+                <kt-simple-dropdown
+                  [optionList]="ngxsService.locations$"                
+                  formControlName="location"
+                  placeholder="Select Location" propertyName="name" propertyValue="name" matFormFieldClass="full-width"
+                  searchPlaceholder="Search location..."></kt-simple-dropdown>
+              </div>
+            </div>
+            <div class="col-lg-4">
+              <div class="form-group kt-form__group">
+                <label class="col-form-label">Warehouse:</label>
+                <kt-simple-dropdown
+                  [optionList]="ngxsService.warehouses$"               
+                  formControlName="warehouse"
+                  placeholder="Select Warehouse" matFormFieldClass="full-width" propertyName="name" propertyValue="name"
+                  searchPlaceholder="Search warehouse...">
+              </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-4 text-right justify-content-start align-items-center d-flex">
+              <div class="form-group kt-form__group">
+                <button class="mr-3 btn_white" mat-raised-button type="reset" (click)="reset()">Reset</button>
+                <button class="sub___btn" mat-raised-button type="submit">Fetch Records</button>
+                <!--For PDF-->
+                <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf>
+              </div>
+            </div>
+          </div>
+          <!-- endregion -->
+          <!-- region Action Row -->
+
+          <!-- endregion -->
+          <div class="row" style="padding-top: 10px;">
+            <div class="col-lg-12 text-right">
+              <div [ktBusy]="isLoading">
+                <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)" (gridReady)="onGridReady($event)"
+                [autoGroupColumnDef]="autoGroupColumnDef" [columnDefs]="columnDefs" [gridOptions]="gridOptions"
+                [groupMultiAutoColumn]="true" [rowData]="rowData" [suppressAggFuncInHeader]="true"
+                class="ag-theme-alpine" style="width: 100%; height: 500px;  ">
+              </ag-grid-angular>
+              </div>
+            </div>
+          </div>
+
+          <div class="row net-profit-row">
+            <div class="col-lg-6 h6">
+              <span>Total Asset: </span><span>{{asset}}</span>
+            </div>
+            <div class="col-lg-6 text-center h6">
+              <span>Total Equity & Liability: </span><span>{{equityNLiability}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</kt-portlet>

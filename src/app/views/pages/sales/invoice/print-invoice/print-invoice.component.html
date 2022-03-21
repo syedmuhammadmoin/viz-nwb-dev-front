@@ -1,0 +1,162 @@
+<div class="container " >
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button
+        printSectionId="main"
+        printTitle="Invoice"
+        ngxPrint
+        type="button"
+        mat-raised-button
+        [useExistingCss]="true"
+        class="sub___btn"
+        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+      </button>
+    </div>
+  </div>
+<div class="col-lg-10 mx-auto" id="main">
+  <div class="row">
+    <div class="bg-white">
+      <div class="print_header_area">
+        <div class="print-col-6 bg__white__logo" style="padding: 0px;">
+          <img src="../../../../../assets/media/logos/final-white-logo-xs.png" style="height: 70px;" alt="">
+          <!-- <p class="slogen-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
+          <h1 class="top-heading">INVOICE</h1>
+        </div>
+        <div class="print-col-5 ml-auto">
+          <div class="print-box">
+            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;">Invoice No: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span></h4>
+            <p style="margin-bottom: 0px;"></p>
+          </div>
+          <div class="print-box">
+            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;margin-top: 10px;">Invoice Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
+          </div>
+
+          <div class="print-box">
+            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;margin-top: 10px;">Due Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate| date: 'MMM d, y'}}</span></h4>
+          </div>
+
+          
+          <div class="print-box" style="margin-top: 8%;">
+            <h4 style="font-size: 22px;font-weight: 600;color: #283655;">Customer Name: </h4>
+            <p style="font-size: 16px;font-weight: 600;color: #283655;margin-bottom: 2px;">{{invoiceMaster?.customerName}}</p>
+            <p style="font-size: 15px;font-weight: 400;color: #283655;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="print_body_area mt-5">
+        <div class="print-col-12" style="padding: 0px;">
+          <div class="table-responsive">
+            <table class="table text-center" style="background-color: #fff;">
+              <thead class="thead-dark_color">
+                <tr style="background-color: #293756;">
+                  <th style="background-color: #293756; color: white;">S.No</th>
+                  <th style="background-color: #293756; color: white;">Item</th>
+                  <th style="background-color: #293756; color: white;">Description:</th>
+                  <th style="background-color: #293756; color: white;">Quantity:</th>
+                  <th style="background-color: #293756; color: white;">Price:</th>
+                  <th style="background-color: #293756; color: white;">Tax:</th>
+                  <th style="background-color: #293756; color: white;">SubTotal:</th>
+                  
+                  
+                </tr>
+                <tr *ngFor="let line of invoiceLines; index as i">
+                  <td>{{i + 1}}</td>
+                  <td>{{line?.itemName || '---'}}</td>
+                  <td class="description text-left">{{line?.description}}</td>
+                  <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                  <td class="text-right" style="background-color: #eef0f8;">{{line?.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                  <td class="text-right" style="background-color: #eef0f8;">{{line?.tax + '%'}}</td>
+                  <!-- <td class="text-right" style="background-color: #eef0f8;"><span>{{line?.subtotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></td> -->
+                  <td class="text-right" style="background-color: #eef0f8;"><span>---</span></td>
+                </tr>
+                
+                
+              </thead>
+            </table>
+          </div>
+        </div>
+
+
+        <div class="print-col-6" style="padding:0px; margin-top: 5%;">
+          <div class="print-box">
+            <p style="color: #fff;
+            font-family: inherit;
+            font-size: 18px;">Thankyou for your Business</p>
+          </div>
+        </div>
+
+        <div class="print-col-5 ml-auto" style="margin-top: 5%;">
+          <div class="print-box">
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;">Total Before Tax:
+              <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+            </h4>
+          </div>
+          <div class="print-box">
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;">Total Tax:
+              <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+            </h4>
+          </div>
+          
+          <div class="print-box">
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;border-top: 2px solid #283655;
+            padding-top: 10px;">Grand Total:
+              <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+            </h4>
+          </div>
+        </div>
+
+        <div class="print-col-3" style="padding:0px; ">
+          <!-- <p style="color: rgb(1 143 197);
+          font-size: 18px;
+          font-weight: bold;">Personal Info:</p>
+          <div class="print-box">
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #fff;margin-top: 10px;">Account #:
+              <span class="float-right" style="font-weight: 400;">123 456 789 10</span>
+            </h4>
+          </div>
+          <div class="print-box">
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #fff;margin-top: 10px;">A/C Name:
+              <span class="float-right" style="font-weight: 400;">Lorem ipsum</span>
+            </h4>
+          </div>
+          <div class="print-box">
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #fff;margin-top: 10px;">Bank Details:
+              <span class="float-right" style="font-weight: 400;">bank Details</span>
+            </h4>
+          </div>
+          <br>
+          <br> -->
+          <p style="color: rgb(169 170 174);
+          font-size: 18px;
+          font-weight: bold;">Terms and conditions:</p>
+          <div class="print-box">
+            <h4 style="font-size: 14px;line-height:18px;color: #fff;font-weight: 100;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            </h4>
+          </div>
+        </div>
+
+        <div class="print-col-4 ml-auto text-center" style="padding:0px; margin-top: 8%;color: #283655;">
+          ______________________________
+          <p>Authorised Sign</p>
+        </div>
+
+        
+
+        
+      </div>
+
+      <!-- <div class="print-foot-area">
+        <div class="print-col-12 text-center">
+          <p style="margin-bottom: 0px;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+        </div>
+      </div> -->
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+

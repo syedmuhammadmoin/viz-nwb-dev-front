@@ -1,0 +1,140 @@
+<div class="container">
+  <div class="row">
+    <!--region Widgets-->
+    <div class="col-md-3 col-sm-6 mb-5">
+      <div class="card" style="height: 150px">
+        <div class="row mx-auto my-auto">
+          <div class="col-3">
+            <!--            <i class="fa fa-address-book text-primary" style="vertical-align: middle;"></i>-->
+            <i class="fas fa-chart-line text-primary" style="font-size: 30px; vertical-align: middle;"></i>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-12 h1">Rs {{300000 | shortNumber}}</div>
+              <div class="col-12 h7">Total Receivable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-5">
+      <div class="card" style="height: 150px">
+        <div class="row mx-auto my-auto">
+          <div class="col-3">
+            <!--            <i class="fa fa-address-book" style="vertical-align: middle;"></i>-->
+            <i class="far fa-chart-bar text-success" style="font-size: 30px; vertical-align: middle;"></i>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-12 h1">Rs {{30000 | shortNumber}}</div>
+              <div class="col-12 h7">Total Payable</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-5">
+      <div class="card" style="height: 150px">
+        <div class="row mx-auto my-auto">
+          <div class="col-3">
+            <i class="fas fa-signal text-warning" style="font-size: 30px; vertical-align: middle;"></i>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-12 h1">Rs {{390000 | shortNumber}}</div>
+              <div class="col-12 h7">Net Profit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6 mb-5">
+      <div class="card" style="height: 150px">
+        <div class="row mx-auto my-auto">
+          <div class="col-3 text-center">
+            <!--            <i class="fa fa-address-book text-danger" style="font-size: 30px; vertical-align: middle;"></i>-->
+            <i class="fas fa-chart-area text-danger" style="font-size: 30px; vertical-align: middle;"></i>
+          </div>
+          <div class="col-9">
+            <div class="row">
+              <div class="col-12 h1">Rs {{90000 | shortNumber}}</div>
+              <div class="col-12 h7">Gross Profit</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--endregion-->
+    <!--region Graphs-->
+    <div class="col-md-6 mb-5">
+      <div id="chart" class="card">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [dataLabels]="chartOptions.dataLabels"
+          [grid]="chartOptions.grid"
+          [stroke]="chartOptions.stroke"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      </div>
+    </div>
+    <div class="col-md-6 mb-5">
+      <div id="pie-chart" class="card">
+        <apx-chart
+          [series]="pieChartOptions.series"
+          [chart]="pieChartOptions.chart"
+          [labels]="pieChartOptions.labels"
+          [responsive]="pieChartOptions.responsive"
+          [legend]="pieChartOptions.legend"
+          [title]="pieChartOptions.title"
+          [fill]="pieChartOptions.fill"
+          [dataLabels]="pieChartOptions.dataLabels"
+          [colors]="pieChartOptions.colors"
+        ></apx-chart>
+      </div>
+    </div>
+    <!--endregion-->
+    <!-- <div class="col-lg-6 col-xxl-4">
+       <kt-widget1-sales-stat cssClasses="card-stretch gutter-b"></kt-widget1-sales-stat>
+     </div>
+     <div class="col-lg-6 col-xxl-4">
+       <kt-widget9-recent-activities cssClasses="card-stretch gutter-b"></kt-widget9-recent-activities>
+     </div>
+     <div class="col-lg-6 col-xxl-4">
+       <kt-widget7-weekly-sales cssClasses="card-stretch card-stretch-half gutter-b"></kt-widget7-weekly-sales>
+       <kt-widget12-new-users cssClasses="card-stretch card-stretch-half gutter-b"></kt-widget12-new-users>
+
+     </div>
+     <div class="col-lg-6 col-xxl-4 order-1 order-xxl-1">
+       <kt-widget1-tasks-overview cssClasses="card-stretch gutter-b"></kt-widget1-tasks-overview>
+     </div>
+     <div class="col-xxl-8 order-2 order-xxl-1">
+       <kt-widget2-new-arrivals cssClasses="card-stretch gutter-b"></kt-widget2-new-arrivals>
+     </div>
+     <div class="col-lg-6 col-xxl-4 order-1 order-xxl-2">
+       <kt-widget3-authors cssClasses="card-stretch gutter-b"></kt-widget3-authors>
+     </div>
+     <div class="col-lg-6 col-xxl-4 order-1 order-xxl-2">
+       <kt-widget4-todo cssClasses="card-stretch gutter-b"></kt-widget4-todo>
+     </div>
+     <div class="col-lg-12 col-xxl-4 order-1 order-xxl-2">
+       <kt-widget8-trends cssClasses="card-stretch gutter-b"></kt-widget8-trends>
+     </div>-->
+  </div>
+  <!--<div class="row">
+    <div class="col-md-6">
+      <div id="chart" class="card">
+        <apx-chart
+          [series]="chartOptions.series"
+          [chart]="chartOptions.chart"
+          [xaxis]="chartOptions.xaxis"
+          [dataLabels]="chartOptions.dataLabels"
+          [grid]="chartOptions.grid"
+          [stroke]="chartOptions.stroke"
+          [title]="chartOptions.title"
+        ></apx-chart>
+      </div>
+    </div>
+  </div>-->
+</div>

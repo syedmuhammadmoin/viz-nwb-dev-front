@@ -1,0 +1,78 @@
+<div [ktBusy]="isLoading">
+  <kt-portlet>
+    <kt-portlet-header [sticky]="false" [title]="'Journal Entry Detail'" [class]="'card-head-lg'">
+      <ng-container ktPortletTools>
+        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+        <button [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_white mr-3" mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button>
+        <button *ngIf="journalEntryMaster?.status === docStatus.Draft"
+           [disabled]="!(permission.isGranted(permissions.JOURNALENTRY_EDIT))"
+           [ngClass]="!(permission.isGranted(permissions.JOURNALENTRY_EDIT)) ? 'disable' : '' "
+           [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('edit' , journalEntryMaster?.id)"
+           [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button" mat-raised-button class="btn_white mr-3">
+            Edit
+        </button>
+        <h4 class="overall_statuses {{docStatus[journalEntryMaster?.status]}}"> Status:  {{docStatus[journalEntryMaster?.status]}}  </h4>
+      </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="row mt-5">
+          <div class="col-md-12 col-lg-12">
+            <div class="table-responsive">
+              <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
+                <tbody>
+                  <tr rowspan="1">
+                      <th class="" style="    border: 1px solid #8babdb; width: 15%;">Document No:</th>
+                      <td class="" style="background: #595e791c; width: 20%;">
+                        {{journalEntryMaster?.docNo}}</td>
+                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Date:</th>
+                      <td class="" style="background: #595e791c; width: 20%;">
+                        {{journalEntryMaster?.date | date: 'MMM d, y'}}</td>
+                  </tr>
+                  <tr>
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Description:</th>
+                    <td style="background: #595e791c; width: 20%;">
+                      {{journalEntryMaster?.description || 'N/A'}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;" class="ag-theme-alpine"
+                [rowData]="journalEntryLines"
+                [columnDefs]="columnDefs"
+                [gridOptions]="gridOptions"
+                (firstDataRendered)="onFirstDataRendered($event)">
+            </ag-grid-angular>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-6 text-center ml-auto " style="padding: 0px 17px;">
+            <div class="" style="background-color: whitesmoke; color: #2c3251; padding: 10px 10px; font-size: 15px;">
+              <span class="mr-3"><strong>Total Debit</strong> <span> {{valueFormatter(journalEntryMaster?.totalDebit || 0)}}</span>
+              </span>
+              <span class="mr-3"><strong>Total Credit</strong> <span> {{valueFormatter(journalEntryMaster?.totalCredit || 0)}}</span>
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="journalEntryMaster?.isAllowedRole" class="text-right mt-10">
+          <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+          <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+        </div>
+      </div>
+    </kt-portlet-body>
+  </kt-portlet>
+</div>
+
+  
+  
+  
+
+

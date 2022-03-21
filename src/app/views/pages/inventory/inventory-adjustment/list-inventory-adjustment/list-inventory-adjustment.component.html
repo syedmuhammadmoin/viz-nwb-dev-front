@@ -1,0 +1,24 @@
+<kt-portlet>
+	<kt-portlet-header [sticky]="false" [title]="'Inventory Adjustments'" [class]="'card-head-lg'">
+		<ng-container ktPortletTools>
+			<button  mat-raised-button  matTooltip="Add Inventory Adjustment" class="btn_white" (click)='addInventoryAdjustment()'>Add Inventory Adjustment</button>
+		</ng-container>
+	</kt-portlet-header>
+  <kt-portlet-body>
+    <div class="col-md-12 col-sm-12 col-lg-12 my-5">
+      <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-alpine"
+        [rowData]="adjustmentList"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        (firstDataRendered)="onFirstDataRendered($event)"
+        (rowDoubleClicked)="onRowDoubleClicked($event)" 
+        [frameworkComponents]="frameworkComponents"
+        [tooltipShowDelay]="5"
+        [gridOptions]="gridOptions">
+      </ag-grid-angular>
+    </div>
+  </kt-portlet-body>
+</kt-portlet>
+
+
+

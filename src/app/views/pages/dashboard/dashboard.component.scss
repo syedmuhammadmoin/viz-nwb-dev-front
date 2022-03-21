@@ -1,0 +1,21 @@
+:host {
+	::ng-deep {
+		ngb-tabset > .nav-tabs {
+			display: none;
+		}
+	}
+}
+
+#chart {
+  max-width: 650px;
+  //margin: 35px auto;
+  padding: 15px;
+}
+
+#pie-chart {
+  padding: 15px;
+  max-width: 650px;
+  height: 100%;
+  //margin: 35px auto;
+  //padding: 0;
+}

@@ -1,0 +1,16 @@
+<kt-portlet>
+    <kt-portlet-header [sticky]="false" [title]="'Stock'" [class]="'card-head-lg'"></kt-portlet-header>
+    <kt-portlet-body>
+      <ag-grid-angular style="width: 100%; height: 500px; margin-top: 10px;" class="ag-theme-alpine"
+                       [rowData]="stockDetailData"
+                       [columnDefs]="columnDefs" (rowDoubleClicked)="onRowDoubleClicked($event)"
+                       [gridOptions]="gridOptions"
+                       [frameworkComponents]="frameworkComponents"
+                       (firstDataRendered)="onFirstDataRendered($event)"
+                       [defaultColDef]="defaultColDef"
+                       [tooltipShowDelay]="5">
+      </ag-grid-angular>
+    </kt-portlet-body>
+  </kt-portlet>
+  
+

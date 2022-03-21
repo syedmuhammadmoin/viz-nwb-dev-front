@@ -1,0 +1,46 @@
+<!--    [disabled]="readonly"-->
+<!--readonly="{{readonly}}"-->
+
+<mat-form-field [ngClass]="matFormFieldClass" appearance="outline">
+  <mat-select
+    #customGroupSelect
+    [placeholder]="placeholder"
+    [formControl]="control"
+    [required]="isRequired"
+    (blur)="blur()"
+    [ngClass]="matSelectClass"
+    (selectionChange)="selectionChange($event)"
+    [disabled]="isDisabled"
+  >
+    <mat-option>
+      <ngx-mat-select-search
+        [formControl]="filterControl"
+        [placeholderLabel]="searchPlaceholder || 'Search...'"
+        [noEntriesFoundLabel]="'No Record Found...'"
+      ></ngx-mat-select-search>
+    </mat-option>
+    <mat-option style="padding: 0" *ngIf="isLoading" [ktBusy]="isLoading" type="SINGLE_CONTENT"></mat-option>
+    <mat-option>-- None --</mat-option>
+    <ng-container *ngFor="let group of filteredOptionList | async">
+      <mat-optgroup [label]="group[groupPropertyName]">
+        <ng-container *ngFor="let options of group[groupChildrenName]">
+          <mat-option [value]="propertyValue !== undefined || null ? options[propertyValue] : options">
+            <span style="font-size: 14px;">{{options[propertyName]}}</span>
+            <span *ngIf="secondaryPropertyName !== undefined"
+                  style="font-size: 12px !important;">-{{options[secondaryPropertyName]}}</span>
+          </mat-option>
+        </ng-container>
+      </mat-optgroup>
+    </ng-container>
+    <mat-option *ngIf="clickEvent && clickEventButtonName" style="padding: 0px">
+      <button mat-flat-button style="width: 100%"
+              (click)="emitClickEvent()"
+              class="btn btn-light">{{ clickEventButtonName || 'clickEventButtonName' }}</button>
+    </mat-option>
+  </mat-select>
+  <mat-hint align="start">{{hintText}}</mat-hint>
+  <mat-error *ngIf="formControlDirective && !formControlDirective.control.valid
+     && formControlDirective.control.touched">
+    <strong>{{ errorMessage || 'Field is Required'}}</strong>
+  </mat-error>
+</mat-form-field>

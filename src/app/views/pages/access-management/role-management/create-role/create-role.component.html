@@ -1,0 +1,105 @@
+<div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
+    <div class="kt-portlet__head">
+      <div class="kt-portlet__head-caption">
+        <div class="kt-portlet__head-title">
+  
+          <h3 class="kt-portlet__head-text modal-header">
+            {{titleName}} <span (click)="onRoleDialogClose()" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
+          </h3>
+        </div>
+      </div>
+    </div>
+  
+    <!-- form start -->
+    <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+      <mat-tab-group [(selectedIndex)]="currentIndex">
+        <mat-tab label="Details">
+          <!-- portlet body starts -->
+          <div class="kt-portlet__body">
+            <!-- form first section starts -->
+            <div class="kt-form__section kt-form__section--first">
+  
+              <!-- first row starts -->
+              <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="row">
+                  <div class="col-lg-7 col-md-7 col-sm-7 mx-auto">
+                    <label class="col-form-label">Name:</label>
+                    <div class="form-group kt-form__group">
+                      <kt-input-field 
+                        formControlName="roleName" 
+                        matFormFieldClass="full-width" 
+                        placeholder="Enter Role name"
+                        [errorMessage]="[{condition: formErrors.roleName , error: formErrors.roleName}]"
+                        (blurEvent)="logValidationErrors(this.roleForm, formErrors, validationMessages)">
+                     </kt-input-field>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- first row ends -->
+  
+            </div>
+            <!-- form first section ends -->
+          </div>
+        </mat-tab>
+        <mat-tab label="Permissions" class="role__list">
+          <div class="row mx-auto">
+            <ng-container>
+              <div class="col-md-12 search_sticky">
+                <div class="p-1 input_style rounded rounded-pill shadow-sm mb-4">
+                  <div class="input-group">
+                    <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeholder="Search Permissions..." aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                    <div class="input-group-append">
+                      <button id="button-addon1" type="submit" class="btn btn-link text-primary" disabled><i class="fa fa-search"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+            <ng-container *ngFor="let claims of roleClaims | filter:searchText">
+  
+              <div class="col-md-6">
+                <!-- <div class="checkbox-with-label"> -->
+                <mat-checkbox [disabled]="isEditButtonShow" [checked]="claims.selected" (change)="onPermissionChange(claims, $event)">
+                  {{claims.viewValue}}
+  <!--                appConsts.PermissionsDisplayName[claims.value]-->
+                </mat-checkbox>
+                <!-- </div> -->
+              </div>
+            </ng-container>
+          </div>
+        </mat-tab>
+        <!-- <mat-tab label="Access Level" class="">
+          <div class="row mx-auto">
+          <kt-user-access-level [roleId]="_id" [userScopeData]="roleModel?.userScope"></kt-user-access-level>
+          </div>
+        </mat-tab> -->
+      </mat-tab-group>
+      <!-- portlet body ends -->
+      <mat-divider></mat-divider>
+      <!-- portlet footer start -->
+      <div class="kt-portlet__foot">
+        <!-- form action starts -->
+        <div class="kt-form__actions">
+          <div class="row">
+            <div class="col-lg-12 col-md-8 col-sm-8 col-9">
+              <div class="float-right">
+                <button *ngIf="!isEditButtonShow" class="mr-5 btn_white" mat-raised-button type="reset">Reset</button>
+                <button *ngIf="!isEditButtonShow" mat-raised-button type="submit" class="sub___btn"
+                  (click)="logValidationErrors(this.roleForm, this.formErrors, this.validationMessages)">Submit
+                </button>&nbsp;
+  
+                <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" type="button"
+                  (click)="toggleEdit()"><i class="fas fa-edit"></i> Edit
+                </button>&nbsp;
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- form action ends-->
+      </div>
+      <!-- portlet footer ends -->
+    </form>
+    <!-- form ends -->
+  </div>
+  

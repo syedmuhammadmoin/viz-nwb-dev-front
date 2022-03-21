@@ -1,0 +1,188 @@
+<div [ktBusy]="isLoading">
+  <kt-portlet>
+    <kt-portlet-header [sticky]="false" [title]="'Invoice Detail'" [class]="'card-head-lg'">
+      <ng-container ktPortletTools>
+        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+        <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button" mat-raised-button
+          class="btn_white mr-3">
+          Print Invoice
+        </button>
+        <button *ngIf="invoiceMaster?.status === docStatus.Draft"
+          [disabled]="!(permission.isGranted(permissions.INVOICE_EDIT))"
+          [ngClass]="!(permission.isGranted(permissions.INVOICE_EDIT)) ? 'disable' : '' "
+          [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
+          type="button" mat-raised-button class="btn_white mr-3">
+          Edit
+        </button>
+        <button (click)="openDialog()"
+          *ngIf="(invoiceMaster?.transactionId)"
+          [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE))"
+          [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' " class="btn_white mr-3"
+          mat-raised-button type="button"> Register Payment
+        </button>
+        <button
+          *ngIf="(invoiceMaster?.transactionId)"
+          [disabled]="!(permission.isGranted(permissions.CREDITNOTE_CREATE))"
+          [ngClass]="!(permission.isGranted(permissions.CREDITNOTE_CREATE)) ? 'disable' : '' "
+          [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}" type="button"
+          mat-raised-button class="btn_white mr-3">
+          Create Credit Note
+        </button>
+        <h4 class="overall_statuses {{docStatus[invoiceMaster?.status]}}"> Status: {{docStatus[invoiceMaster?.status]}} </h4>
+      </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+
+        <div class="row mt-5">
+          <div class="col-md-12 col-lg-12">
+            <div class="table-responsive">
+
+              <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
+                <tbody>
+                  <tr rowspan="1">
+                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">#Invoice:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{invoiceMaster?.docNo}}</td>
+                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">Customer Name:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{invoiceMaster?.customerName}}</td>
+                  </tr>
+                  <tr rowspan="1">
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Invoice Date:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</td>
+
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Due Date:</th>
+                    <td style="background: #595e791c; width: 20%;">
+                      {{invoiceMaster?.dueDate | date: 'MMM d, y'}}</td>
+                  </tr>
+                  <tr>
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{invoiceMaster?.contact ? invoiceMaster?.contact : "-"}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;"
+              class="ag-theme-alpine" [rowData]="invoiceLines" [columnDefs]="columnDefs"
+              (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+            </ag-grid-angular>
+          </div>
+        </div>
+
+        <div class="row mt-5">
+
+          <div *ngIf="bpUnReconPaymentList.length > 0"
+            class="col-md-6 col-6 ">
+            <table class="table table-bordered text-center styled-table">
+              <thead>
+                <tr>
+                  <th>Doc No</th>
+                  <th>Amount</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
+                  <td>
+                    <a
+                      [routerLink]="(unReconPay?.docType === 0) ? ('/' + PAYMENT.ID_BASED_ROUTE('details', unReconPay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , unReconPay?.id))">{{unReconPay.docNo}}</a>
+                  </td>
+                  <td>{{valueFormatter(unReconPay.amount)}}</td>
+                  <td>
+                    <button (click)="reconcile(i)" class="recon-btn" mat-raised-button>Reconcile
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="col-lg-4 ml-auto">
+            <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
+              <tr>
+                <th class="text-right" style="width: 70%;">Total Before Tax :</th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(totalBeforeTax || 0)}}</td>
+              </tr>
+              <tr>
+                <th class="text-right">Total Tax :</th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(totalTax || 0)}}</td>
+              </tr>
+              <tr>
+                <th class="text-right"
+                  style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Grand Total :</th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(totalInvoiceAmount || 0)}}</td>
+              </tr>
+
+              <tr *ngIf="paidAmountList.length > 0">
+                <td colspan="2">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title style="color: #3f4254;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold;">
+                          Paid Amount :
+                        </mat-panel-title>
+                        <mat-panel-description style="color: #3f4254;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold; flex-grow: 0;">
+                          {{valueFormatter(paidAmount || 0)}}
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+                      <table class="table text-center table-bordered">
+                        <tr>
+                          <th>Doc #</th>
+                          <th>Amount</th>
+                        </tr>
+                        <tr *ngFor="let pay of paidAmountList">
+                          <td><a
+                              [routerLink]="(pay?.docType === 0) ? ('/' + PAYMENT.ID_BASED_ROUTE('details', pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
+                              class="links">{{pay?.docNo}}</a></td>
+                          <td>
+                            <a [routerLink]="(pay?.docType === 0) ? ('/' + PAYMENT.ID_BASED_ROUTE('details', pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
+                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                          </td>
+                        </tr>
+                      </table>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </td>
+              </tr>
+
+              <tr *ngIf="(invoiceMaster?.transactionId)">
+                <th class="text-right"
+                  style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Pending Amount :
+                </th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(pendingAmount || 0)}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </kt-portlet-body>
+
+    <mat-divider class="mt-10"></mat-divider>
+
+    <div class="kt-portlet__foot">
+      <div class="kt-form__actions kt-form__actions">
+        <div class="row ">
+          <div class="col-lg-12 text-right" *ngIf="invoiceMaster?.isAllowedRole">
+            <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+            <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </kt-portlet>
+</div>

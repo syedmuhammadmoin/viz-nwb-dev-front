@@ -1,0 +1,24 @@
+<kt-portlet>
+	<kt-portlet-header [sticky]="false" [title]="'Debit Note'" [class]="'card-head-lg'">
+		<ng-container ktPortletTools>
+			<button  mat-raised-button  matTooltip="Add Debit Note" class="btn_white" (click)='addDebitNote()' >Add Debit Note</button>
+		</ng-container>
+	</kt-portlet-header>
+  <kt-portlet-body>
+    <div class="col-md-12 col-lg-12 col-sm-12 my-5">
+      <ag-grid-angular style="width: 100%; height: 500px;" class="ag-theme-alpine"
+        [rowData]="debitNoteList"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        (firstDataRendered)="onFirstDataRendered($event)"
+        (rowDoubleClicked)="onRowDoubleClicked($event)" 
+        [frameworkComponents]="frameworkComponents"
+        [tooltipShowDelay]="5"
+        [gridOptions]="gridOptions">
+      </ag-grid-angular>
+
+    </div>
+  </kt-portlet-body>
+</kt-portlet>
+
+

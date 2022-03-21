@@ -1,0 +1,121 @@
+<div [ktBusy]="isLoading">
+  <kt-portlet>
+    <kt-portlet-header [sticky]="false" [title]="'sales Order Detail'" [class]="'card-head-lg'">
+      <ng-container ktPortletTools>
+        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+        <button [routerLink]="'/' + SALES_ORDER.ID_BASED_ROUTE('print', salesOrderMaster?.id)" type="button" mat-raised-button
+          class="btn_white mr-3">
+          Print Sales Order
+        </button>
+        <button *ngIf="salesOrderMaster?.state === docStatus.Draft"
+          [disabled]="!(permission.isGranted(permissions.SALESORDER_EDIT))"
+          [ngClass]="!(permission.isGranted(permissions.SALESORDER_EDIT)) ? 'disable' : '' "
+          [routerLink]="'/' + SALES_ORDER.ID_BASED_ROUTE('edit', salesOrderMaster?.id)"
+          [queryParams]="{q: salesOrderMaster?.id, 'isSalesOrder': true}" type="button" mat-raised-button
+          class="btn_white mr-3">
+          Edit
+        </button>
+        <button
+          [disabled]="!(permission.isGranted(permissions.INVOICE_CREATE))"
+          [ngClass]="!(permission.isGranted(permissions.INVOICE_CREATE)) ? 'disable' : '' "
+          [routerLink]="'/' + INVOICE.CREATE" [queryParams]="{q: salesOrderMaster?.id, 'isSalesOrder': true}"
+          type="button" mat-raised-button class="btn_white mr-3">
+          Create Invoice
+        </button>
+        <button
+          [disabled]="!(permission.isGranted(permissions.GDN_CREATE))"
+          [ngClass]="!(permission.isGranted(permissions.GDN_CREATE)) ? 'disable' : '' "
+          [routerLink]="'/' + DISPATCH_NOTE.ID_BASED_ROUTE('edit', salesOrderMaster?.id)"
+          [queryParams]="{q: salesOrderMaster?.id, 'isSalesOrder': true}" type="button" mat-raised-button
+          class="btn_white mr-3">
+          Create GDN
+        </button>
+        <h4 class="overall_statuses {{salesOrderMaster?.status}}">Status:  {{salesOrderMaster?.status}} </h4>
+      </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+
+        <div class="row mt-5">
+          <div class="col-md-12 col-lg-12">
+            <div class="table-responsive">
+
+              <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
+                <tbody>
+                  <tr rowspan="1">
+                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">Doc #:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{salesOrderMaster?.docNo}}</td>
+                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">Customer Name:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{salesOrderMaster?.customer}}</td>
+                  </tr>
+                  <tr rowspan="1">
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">S.O Date:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{salesOrderMaster?.salesOrderDate | date: 'MMM d, y'}}</td>
+
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Due Date:</th>
+                    <td style="background: #595e791c; width: 20%;">
+                      {{salesOrderMaster?.dueDate | date: 'MMM d, y'}}</td>
+                  </tr>
+                  <tr>
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{salesOrderMaster?.contact ? salesOrderMaster?.contact : "-"}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-12">
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px;font-size: 14px;padding: 0px 6px;"
+              class="ag-theme-alpine" [rowData]="salesOrderLines" [columnDefs]="columnDefs"
+              (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+            </ag-grid-angular>
+          </div>
+        </div>
+
+
+        <div class="row mt-5">
+          <div class="col-lg-4 ml-auto">
+            <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
+              <tr>
+                <th class="text-right" style="width: 70%;">Total Before Tax :</th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(totalBeforeTax || 0)}}</td>
+              </tr>
+              <tr>
+                <th class="text-right">Total Tax :</th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(totalTax || 0)}}</td>
+              </tr>
+              <tr>
+                <th class="text-right"
+                  style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Grand Total :</th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(total || 0)}}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </kt-portlet-body>
+
+    <mat-divider class="mt-10"></mat-divider>
+
+    <div class="kt-portlet__foot">
+      <div class="kt-form__actions kt-form__actions">
+        <div class="row ">
+          <div class="col-lg-12 text-right" *ngIf="salesOrderMaster?.isAllowedRole">
+            <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+            <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </kt-portlet>
+</div>

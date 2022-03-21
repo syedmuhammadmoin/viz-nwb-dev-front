@@ -1,0 +1,23 @@
+<kt-portlet>
+	<kt-portlet-header [sticky]="false" [title]="'Workflows'" [class]="'card-head-lg'">
+		<ng-container ktPortletTools>
+			<button [disabled]="!(permission.isGranted(permissions.WORKFLOW_CREATE))" routerLink="/workflow/create" mat-raised-button class="btn_white"  matTooltip="Add Workflow">Add Workflow</button>
+		</ng-container>
+	</kt-portlet-header>
+  <kt-portlet-body>
+    <div class="col-md-12 col-lg-12 col-sm-12 my-5">
+      <ag-grid-angular
+        style="width: 100%; height: 500px;"
+        class="ag-theme-alpine"
+        [rowData]="workflowList"
+        (rowDoubleClicked)="onRowDoubleClicked($event)"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [frameworkComponents]="frameworkComponents"
+        (firstDataRendered)="onFirstDataRendered($event)"
+        [gridOptions]="gridOptions"
+        [tooltipShowDelay]="5">
+      </ag-grid-angular>
+    </div>
+</kt-portlet-body>
+</kt-portlet>
