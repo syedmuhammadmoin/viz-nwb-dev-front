@@ -206,14 +206,14 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         }
       );
     } else {
-
       delete this.budgetModel.id;
       this.budgetService.createBudget(this.budgetModel).pipe(
         take(1),
         finalize(() => this.isLoading = false))
         .subscribe(() => {
           this.toastService.success('Created Successfully', 'Budget')
-          this.router.navigate(['/', BUDGET.LIST])
+          console.log('/' + BUDGET.LIST)
+          this.router.navigate(['/' + BUDGET.LIST])
         },
         (err) => {
           //this.toastService.error('Something went wrong, please try again later.', 'Error Creating')

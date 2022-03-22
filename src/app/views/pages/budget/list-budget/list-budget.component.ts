@@ -81,6 +81,7 @@ export class ListBudgetComponent implements OnInit {
   }
 
   onRowDoubleClicked(event : RowDoubleClickedEvent){
+    console.log()
     this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details', event.data.id)]);
   }
 

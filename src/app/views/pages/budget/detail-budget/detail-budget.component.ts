@@ -56,6 +56,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
     injector: Injector
   ) {
     super(injector)
+    this.gridOptions = ({} as GridOptions);
     this.defaultColDef = { resizable: true };
   }
 
