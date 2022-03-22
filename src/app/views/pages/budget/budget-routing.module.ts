@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateBudgetComponent } from './create-budget/create-budget.component';
 import { CRUD_ROUTES } from '../../shared/AppRoutes';
+import { Permissions } from '../../shared/AppEnum';
+import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 
 const routes : Routes = [
   {
@@ -11,12 +13,12 @@ const routes : Routes = [
         path: CRUD_ROUTES.CREATE,
         component: CreateBudgetComponent,
         //canDeactivate: [FormConfirmationGuard],
-        // data: {
-        //   array: [
-        //     { permission: Permissions.BANKSTATEMENT_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard] 
+        data: {
+          array: [
+            { permission: Permissions.BUDGET_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard] 
       }
     ]
   }

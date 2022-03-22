@@ -10,7 +10,7 @@ export const environment = {
   // baseUrl: 'https://localhost:44351/api/'
   //baseUrl:'http://api.vizalys.com/api/',
   // baseUrl:'http://nwbtestapi.vizalys.com/api/'
-  baseUrl: 'http://192.168.250.65/api/'
+  baseUrl: 'http://192.168.33.65/api/'
   // baseUrl:'http://primeapi.vizalys.com/api/',
   // baseUrl:'http://192.168.18.3:8009/api/',
 };

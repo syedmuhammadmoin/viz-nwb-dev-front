@@ -59,7 +59,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12">
                               <kt-simple-dropdown 
-                               [optionList]="budgetAccounts$" 
+                               [optionList]="ngxsService.accountsLevel4$" 
                                [errorMessage]="'Account is Required'"
                                formControlName="accountId" 
                                matFormFieldClass="mobile-label full-width"
