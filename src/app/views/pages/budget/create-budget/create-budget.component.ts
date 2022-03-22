@@ -4,9 +4,12 @@ import { ActivatedRoute, Params, Router} from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BUDGET } from 'src/app/views/shared/AppRoutes';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IBudget } from '../model/IBudget';
+import { IBudgetLines } from '../model/IBudgetLines';
+import { IBudgetResponse } from '../model/IBudgetResponse';
 import { BudgetService } from '../service/budget.service';
 
 @Component({
@@ -100,7 +103,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   }
 
   public getBudgetMaster(id: any) {
-     this.budgetService.getBudgetById(id).subscribe((res) => {
+     this.budgetService.getBudgetById(id).subscribe((res: IApiResponse<IBudgetResponse>) => {
       // for mapping, getting values from budgetMaster because of fields disablility
       this.budgetMaster = res.result;
       this.patchBudget(this.budgetMaster);
@@ -110,13 +113,24 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     });
   }
 
-  public patchBudget(budgetMaster: any) {
+  public patchBudget(budgetMaster: IBudgetResponse) {
     this.budgetForm.patchValue({
       budgetName: budgetMaster.budgetName,
       from: budgetMaster.from,
       to: budgetMaster.to,
     });
     this.budgetForm.setControl('budgetLines', this.patchBudgetLines(budgetMaster.budgetLines));
+  }
+
+  private patchBudgetLines(budgetLines: IBudgetLines[]): FormArray {
+    const formArray = new FormArray([]);
+    budgetLines.forEach((line: IBudgetLines) => {
+      formArray.push(this.fb.group({
+        accountId: [line.accountId, [Validators.required]],
+        amount: [line.amount, [Validators.required,]],
+      }))
+    })
+    return formArray
   }
 
   // Form Reset
@@ -181,7 +195,8 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       this.budgetService.updateBudget(this.budgetModel)
         .pipe(
           take(1),
-          finalize(() => this.isLoading = false)).subscribe((res) => {
+          finalize(() => this.isLoading = false))
+          .subscribe(() => {
           this.toastService.success('Updated Successfully', 'Budget')
           this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , this.budgetModel.id)])
         },
@@ -195,12 +210,12 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       delete this.budgetModel.id;
       this.budgetService.createBudget(this.budgetModel).pipe(
         take(1),
-        finalize(() => this.isLoading = false)).subscribe(
-        () => {
+        finalize(() => this.isLoading = false))
+        .subscribe(() => {
           this.toastService.success('Created Successfully', 'Budget')
           this.router.navigate(['/', BUDGET.LIST])
         },
-        (err: any) => {
+        (err) => {
           //this.toastService.error('Something went wrong, please try again later.', 'Error Creating')
           console.log(err)
         }
@@ -215,17 +230,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.budgetModel.to = this.transformDate(this.budgetForm.value.to, 'yyyy-MM-dd');
     console.log(this.budgetModel);
     this.budgetModel.budgetLines = this.budgetForm.value.budgetLines;
-  }
-
-  private patchBudgetLines(budgetLines: any): FormArray {
-    const formArray = new FormArray([]);
-    budgetLines.forEach((line: any) => {
-      formArray.push(this.fb.group({
-        accountId: [line.accountId, [Validators.required]],
-        amount: [line.amount, [Validators.required,]],
-      }))
-    })
-    return formArray
   }
 }
 

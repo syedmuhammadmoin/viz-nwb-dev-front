@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, FirstDataRenderedEvent, GridOptions, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 import { Router } from '@angular/router';
@@ -47,7 +47,7 @@ export class ListBudgetComponent implements OnInit {
       {
         headerName: 'From', field: 'from',  menuTabs: ["filterMenuTab"],  filter: true, tooltipField: 'to',
   
-        cellRenderer: (params: any) => {
+        cellRenderer: (params: ICellRendererParams) => {
           const date = params.data.from != null ? params.data.from : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
         }
@@ -55,7 +55,7 @@ export class ListBudgetComponent implements OnInit {
       {
         headerName: 'To', field: 'to',  menuTabs: ["filterMenuTab"],  filter: true, tooltipField: 'to',
   
-        cellRenderer: (params: any) => {
+        cellRenderer: (params: ICellRendererParams) => {
           const date = params.data.to != null ? params.data.to : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
         }
