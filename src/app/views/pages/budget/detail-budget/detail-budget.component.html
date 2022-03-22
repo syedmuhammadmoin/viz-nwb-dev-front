@@ -1,0 +1,110 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" [title]="'Budget Detail'" [class]="'card-head-lg'">
+        <ng-container ktPortletTools>
+          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+          <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" type="button" mat-raised-button
+            class="btn_white mr-3">
+            Print Budget
+          </button>
+          <button *ngIf="invoiceMaster?.status === docStatus.Draft"
+            [disabled]="!(permission.isGranted(permissions.BUDGET_EDIT))"
+            [ngClass]="!(permission.isGranted(permissions.BUDGET_EDIT)) ? 'disable' : '' "
+            [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', budgetMaster?.id)" [queryParams]="{q: budgetMaster?.id, 'isBudget': true}"
+            type="button" mat-raised-button class="btn_white mr-3">
+            Edit
+          </button>
+          <h4 class="overall_statuses {{docStatus[budgetMaster?.status]}}"> Status: {{docStatus[budgetMaster?.status]}} </h4>
+        </ng-container>
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+  
+          <div class="row mt-5">
+            <div class="col-md-12 col-lg-12">
+              <div class="table-responsive">
+  
+                <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
+                  <tbody>
+                    <tr rowspan="1">
+                      <th class="" style="    border: 1px solid #8babdb; width: 15%;">#Invoice:</th>
+                      <td class="" style="background: #595e791c; width: 20%;">
+                        {{invoiceMaster?.docNo}}</td>
+                      <th class="" style="    border: 1px solid #8babdb; width: 15%;">Customer Name:</th>
+                      <td class="" style="background: #595e791c; width: 20%;">
+                        {{invoiceMaster?.customerName}}</td>
+                    </tr>
+                    <tr rowspan="1">
+                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Invoice Date:</th>
+                      <td class="" style="background: #595e791c; width: 20%;">
+                        {{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</td>
+  
+                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Due Date:</th>
+                      <td style="background: #595e791c; width: 20%;">
+                        {{invoiceMaster?.dueDate | date: 'MMM d, y'}}</td>
+                    </tr>
+                    <tr>
+                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
+                      <td class="" style="background: #595e791c; width: 20%;">
+                        {{invoiceMaster?.contact ? invoiceMaster?.contact : "-"}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-md-12 col-12">
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;"
+                class="ag-theme-alpine" [rowData]="invoiceLines" [columnDefs]="columnDefs"
+                (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+              </ag-grid-angular>
+            </div>
+          </div>
+  
+          <div class="row mt-5">
+  
+            <div *ngIf="bpUnReconPaymentList.length > 0"
+              class="col-md-6 col-6 ">
+              <table class="table table-bordered text-center styled-table">
+                <thead>
+                  <tr>
+                    <th>Doc No</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
+                    <td>
+                      <a
+                        [routerLink]="(unReconPay?.docType === 0) ? ('/' + PAYMENT.ID_BASED_ROUTE('details', unReconPay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , unReconPay?.id))">{{unReconPay.docNo}}</a>
+                    </td>
+                    <td>{{valueFormatter(unReconPay.amount)}}</td>
+                    <td>
+                      <button (click)="reconcile(i)" class="recon-btn" mat-raised-button>Reconcile
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+  
+            <div class="col-lg-4 ml-auto">
+              <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
+                <tr *ngIf="(invoiceMaster?.transactionId)">
+                  <th class="text-right"
+                    style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Total Amount :
+                  </th>
+                  <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                    {{valueFormatter(totalAmount || 0)}}</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+  
+        </div>
+      </kt-portlet-body>
+    </kt-portlet>
+  </div>

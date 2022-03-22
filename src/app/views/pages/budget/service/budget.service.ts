@@ -4,7 +4,6 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { environment } from 'src/environments/environment';
-import { IBudgetDropdown } from '../model/IBudgetDropdown';
 import { IBudgetResponse } from '../model/IBudgetResponse';
 import { IBudget } from '../model/IBudget';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -24,18 +23,18 @@ export class BudgetService {
       .pipe(catchError(this.handleError));
   }
 
-  getBudgetDropdown(): Observable<IApiResponse<IBudgetDropdown[]>> {
-    return this.httpClient.get<IApiResponse<IBudgetDropdown[]>>(this.baseUrl + '/dropdown')
+  getBudgetDropdown(): Observable<IApiResponse<IBudgetResponse[]>> {
+    return this.httpClient.get<IApiResponse<IBudgetResponse[]>>(this.baseUrl + '/dropdown')
       .pipe(catchError(this.handleError));
   }
 
-  getBudgetById(id: number): Observable<IBudgetResponse> {
-    return this.httpClient.get<IBudgetResponse>(this.baseUrl + '/' + id)
+  getBudgetById(id: number): Observable<IApiResponse<IBudgetResponse>> {
+    return this.httpClient.get<IApiResponse<IBudgetResponse>>(this.baseUrl + '/' + id)
       .pipe(catchError(this.handleError));
   }
 
-  createBudget(budget: IBudget): Observable<any> {
-    return this.httpClient.post<IBudget>(this.baseUrl , budget , {
+  createBudget(budget: IBudget): Observable<IApiResponse<IBudgetResponse>> {
+    return this.httpClient.post<IApiResponse<IBudgetResponse>>(this.baseUrl , budget , {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })

@@ -7,3 +7,4 @@ export interface IBudget {
     to: string;
     budgetLines: IBudgetLines[]
 }
+
