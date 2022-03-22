@@ -6,6 +6,7 @@ import { Permissions } from '../../shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { ListBudgetComponent } from './list-budget/list-budget.component';
 import { DetailBudgetComponent } from './detail-budget/detail-budget.component';
+import { PrintBudgetComponent } from './print-budget/print-budget.component';
 
 const routes : Routes = [
   {
@@ -53,6 +54,17 @@ const routes : Routes = [
           array: [
             { permission: Permissions.BUDGET_VIEW },
             { permission: Permissions.BUDGET_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard] 
+      },
+      {
+        path: CRUD_ROUTES.PRINT,
+        component: PrintBudgetComponent,
+        //canDeactivate: [FormConfirmationGuard],
+        data: {
+          array: [
+            { permission: Permissions.BUDGET_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 
