@@ -114,6 +114,14 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      {
+        path: APP_ROUTES.BUDGET,
+        loadChildren: () =>
+          import('./views/pages/budget/budget.module').then(
+            (m) => m.BudgetModule
+          ),
+          //canActivateChild: [AuthGuard]
+      },
 
       //finance Section
        // Lazy Load BANK ACCOUNT Module

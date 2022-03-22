@@ -19,6 +19,7 @@ export class DateInputComponent implements OnInit, Validators {
   @Input() formControlName: string;
   @Input() placeholder: string;
   @Input() hintText: string;
+  @Input() readonly: boolean;
   @Input() errorMessage: string;
   @Input() maxDate: Date;
   @Input() minDate: Date;

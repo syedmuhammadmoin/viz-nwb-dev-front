@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, DEPARTMENT, LOCATION, ORGANIZATION, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, SALES_ORDER, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, STOCK, INVENTORY_ADJUSTMENT, GOODS_RECEIVED_NOTE, DISPATCH_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -139,7 +139,11 @@ export class MenuConfig {
             Permissions.ORGANIZATION_VIEW,
             Permissions.ORGANIZATION_CREATE,
             Permissions.ORGANIZATION_EDIT,
-            Permissions.ORGANIZATION_DELETE
+            Permissions.ORGANIZATION_DELETE,
+            Permissions.BUDGET_VIEW,
+            Permissions.BUDGET_CREATE,
+            Permissions.BUDGET_EDIT,
+            Permissions.BUDGET_DELETE
           ],
           submenu: [
             // {
@@ -215,6 +219,16 @@ export class MenuConfig {
                 Permissions.PRODUCT_EDIT,
                 Permissions.PRODUCT_DELETE
               ]
+            },
+            {
+              title: 'Budget',
+              page: '/' + BUDGET.LIST,
+              // permission: [
+              //   Permissions.BUDGET_VIEW,
+              //   Permissions.BUDGET_CREATE,
+              //   Permissions.BUDGET_EDIT,
+              //   Permissions.BUDGET_DELETE
+              // ]
             },
           ]
         },
