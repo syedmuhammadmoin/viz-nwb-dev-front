@@ -5,11 +5,13 @@ import { PartialsModule } from '../../partials/partials.module';
 import { BudgetRoutingModule } from './budget-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from '../../shared/components/custom-tooltip/custom-tooltip.component';
+import { ListBudgetComponent } from './list-budget/list-budget.component';
 
 
 @NgModule({
   declarations: [
-    CreateBudgetComponent
+    CreateBudgetComponent,
+    ListBudgetComponent
   ],
   imports: [
     SharedModule,

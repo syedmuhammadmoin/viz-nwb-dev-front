@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { IBudgetDropdown } from '../model/IBudgetDropdown';
 import { IBudgetResponse } from '../model/IBudgetResponse';
 import { IBudget } from '../model/IBudget';
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +19,8 @@ export class BudgetService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getBudgets(): Observable<IBudgetResponse[]> {
-    return this.httpClient.get<IBudgetResponse[]>(this.baseUrl)
+  getBudgets(): Observable<IPaginationResponse<IBudgetResponse[]>> {
+    return this.httpClient.get<IPaginationResponse<IBudgetResponse[]>>(this.baseUrl)
       .pipe(catchError(this.handleError));
   }
 

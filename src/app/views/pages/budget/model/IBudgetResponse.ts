@@ -1,7 +1,6 @@
-import { IPaginationResponse } from "src/app/views/shared/IPaginationResponse";
 import { IBudgetLines } from "./IBudgetLines";
 
-export interface IBudgetResponse extends IPaginationResponse<IBudgetResponse> {
+export interface IBudgetResponse {
     id: number;
     budgetName: string;
     from: string;
