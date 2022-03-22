@@ -1,18 +1,19 @@
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ActivatedRoute, Router} from '@angular/router';
-
+import { ActivatedRoute, Params, Router} from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
-
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { BUDGET } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IBudget } from '../model/IBudget';
 import { BudgetService } from '../service/budget.service';
 
 @Component({
   selector: 'kt-create-budget',
   templateUrl: './create-budget.component.html',
-  styleUrls: ['./create-budget.component.scss']
+  styleUrls: ['./create-budget.component.scss'],
+  providers:[NgxsCustomService]
 })
 
 export class CreateBudgetComponent extends AppComponentBase implements OnInit {
@@ -27,6 +28,10 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
 
   //Title Name
   titleName: string = 'Create Budget'
+
+  budgetModel: IBudget;
+  totalAmount: number;
+  budgetMaster: any;
 
   // For Table Columns
   displayedColumns = ['accountId', 'amount', 'action']
@@ -50,9 +55,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     from: '',
     to: '',
   };
-  budgetModel: IBudget;
-  totalAmount: number;
-  budgetMaster: any;
 
   // constructor
   constructor(
@@ -61,6 +63,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     private router: Router,
     private budgetService: BudgetService,
     private cdr: ChangeDetectorRef,
+    public ngxsService: NgxsCustomService,
     public activatedRoute: ActivatedRoute,
     injector: Injector
   ) {
@@ -68,8 +71,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.addNewButtonService.getCampusTypes();
-    // creating form
     this.budgetForm = this.fb.group({
       budgetName: ['', [Validators.required]],
       from: ['', [Validators.required]],
@@ -78,18 +79,19 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         this.addBudgetLines()
       ])
     });
-    this.activatedRoute.params.subscribe((res) => {
+    this.activatedRoute.params.subscribe((res: Params) => {
       if (res && res.id) {
-        console.log('called by id', res)
         this.isLoading = true;
         this.titleName = 'Edit Budget'
         this.getBudgetMaster(res.id);
         this.cdr.markForCheck();
       } else {
-
         this.budgetModel = ({} as IBudget)
       }
     })
+
+    // get Accounts of level 4 from state
+    this.ngxsService.getAccountLevel4FromState()
     // this.getBudgetAccountsFromState();
     // this.budgetForm.get('from').valueChanges.subscribe((value) => {
     //   this.dateCondition = this.budgetForm.get('to').value < this.budgetForm.get('from').value
@@ -103,7 +105,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       this.budgetMaster = res.result;
       this.patchBudget(this.budgetMaster);
       this.budgetModel = res.result;
-      console.log('budget master', this.budgetModel);
       this.totalAmountCalculation()
       this.isLoading = false;
     });
@@ -173,18 +174,16 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     if (this.budgetForm.invalid) {
       return;
     }
-    console.log('form', this.budgetForm)
     this.mapFormValuesToBudgetModel();
     console.log(this.budgetModel)
     this.isLoading = true
     if (this.budgetModel.id) {
-      console.log('entered here', this.budgetModel.id)
       this.budgetService.updateBudget(this.budgetModel)
         .pipe(
           take(1),
           finalize(() => this.isLoading = false)).subscribe((res) => {
           this.toastService.success('Updated Successfully', 'Budget')
-          this.router.navigate(['budget/detail/' + this.budgetModel.id])
+          this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , this.budgetModel.id)])
         },
         (err) => {
           //this.toastService.error('Something went wrong, please try again later.', 'Error Updating')
@@ -199,7 +198,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         finalize(() => this.isLoading = false)).subscribe(
         () => {
           this.toastService.success('Created Successfully', 'Budget')
-          this.router.navigate(['budget/list'])
+          this.router.navigate(['/', BUDGET.LIST])
         },
         (err: any) => {
           //this.toastService.error('Something went wrong, please try again later.', 'Error Creating')
@@ -212,8 +211,8 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   // Mapping form value to budget model
   mapFormValuesToBudgetModel() {
     this.budgetModel.budgetName = this.budgetForm.value.budgetName;
-    this.budgetModel.from = this.dateHelperService.transformDate(this.budgetForm.value.from, 'yyyy-MM-dd');
-    this.budgetModel.to = this.dateHelperService.transformDate(this.budgetForm.value.to, 'yyyy-MM-dd');
+    this.budgetModel.from = this.transformDate(this.budgetForm.value.from, 'yyyy-MM-dd');
+    this.budgetModel.to = this.transformDate(this.budgetForm.value.to, 'yyyy-MM-dd');
     console.log(this.budgetModel);
     this.budgetModel.budgetLines = this.budgetForm.value.budgetLines;
   }

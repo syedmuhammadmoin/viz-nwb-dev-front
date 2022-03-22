@@ -223,12 +223,12 @@ export class MenuConfig {
             {
               title: 'Budget',
               page: '/' + BUDGET.LIST,
-              // permission: [
-              //   Permissions.BUDGET_VIEW,
-              //   Permissions.BUDGET_CREATE,
-              //   Permissions.BUDGET_EDIT,
-              //   Permissions.BUDGET_DELETE
-              // ]
+              permission: [
+                Permissions.BUDGET_VIEW,
+                Permissions.BUDGET_CREATE,
+                Permissions.BUDGET_EDIT,
+                Permissions.BUDGET_DELETE
+              ]
             },
           ]
         },

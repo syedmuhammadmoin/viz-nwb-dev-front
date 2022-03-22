@@ -120,7 +120,7 @@ const routes: Routes = [
           import('./views/pages/budget/budget.module').then(
             (m) => m.BudgetModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
 
       //finance Section
