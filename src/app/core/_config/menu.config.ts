@@ -15,18 +15,18 @@ export class MenuConfig {
           page: '/' + APP_ROUTES.DASHBOARD,
           translate: 'MENU.DASHBOARD',
         },
-        {
-          title: 'Add Journal Entry',
-          root: true,
-          alignment: 'left',
-          page: '/' + JOURNAL_ENTRY.CREATE
-        },
-        {
-          title: 'General Ledger',
-          root: true,
-          alignment: 'left',
-          page: '/' + APP_ROUTES.REPORT + '/' + REPORT.GENERAL_LEDGER
-        },
+        // {
+        //   title: 'Add Journal Entry',
+        //   root: true,
+        //   alignment: 'left',
+        //   page: '/' + JOURNAL_ENTRY.CREATE
+        // },
+        // {
+        //   title: 'General Ledger',
+        //   root: true,
+        //   alignment: 'left',
+        //   page: '/' + APP_ROUTES.REPORT + '/' + REPORT.GENERAL_LEDGER
+        // },
       ]
     },
     aside: {
