@@ -27,7 +27,7 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateJournalEntryComponent,
-        canDeactivate: [FormConfirmationGuard],
+        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.JOURNALENTRY_CREATE },

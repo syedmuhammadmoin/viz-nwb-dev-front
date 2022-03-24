@@ -27,7 +27,7 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateVendorBillComponent,
-        canDeactivate: [FormConfirmationGuard],
+        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BILL_CREATE },

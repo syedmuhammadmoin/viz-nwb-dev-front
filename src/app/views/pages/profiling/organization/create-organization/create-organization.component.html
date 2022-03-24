@@ -2,7 +2,7 @@
     <div class="kt-portlet__head">
         <div class="kt-portlet__head-caption">
             <div class="kt-portlet__head-title">
-                <h3 class="kt-portlet__head-text modal-header"> Create Organization <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
+                <h3 class="kt-portlet__head-text modal-header"> Create Campus <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
             </div>
         </div>
     </div>
@@ -53,10 +53,9 @@
                                     searchPlaceholder="Search Country"
                                     matFormFieldClass="full-width"
                                     placeholder="Select Country"
-                                    (blurEvent)="logValidationErrors(this.organizationForm, formErrors, validationMessages)"
                                     formControlName="country"
                                     [optionList]="countryList"
-                                    [errorMessage]="formErrors.country"
+                                    [hintText]="'Optional'"
                                     (selectionChange)="onChangeCountry($event.value)">
                                 </kt-simple-dropdown>
                             </div>
@@ -71,10 +70,9 @@
                                     searchPlaceholder="Search State"
                                     matFormFieldClass="full-width"
                                     placeholder="Select State"
-                                    (blurEvent)="logValidationErrors(this.organizationForm, formErrors, validationMessages)"
                                     formControlName="state"
                                     [optionList]="stateList2"
-                                    [errorMessage]="formErrors.state"
+                                    [hintText]="'Optional'"
                                     (selectionChange)="onChangeState($event.value)">
                                 </kt-simple-dropdown>
                             </div>
@@ -89,10 +87,9 @@
                                     searchPlaceholder="Search City"
                                     matFormFieldClass="full-width"
                                     placeholder="Select City"
-                                    (blurEvent)="logValidationErrors(this.organizationForm, formErrors, validationMessages)"
                                     formControlName="city"
                                     [optionList]="cityList2"
-                                    [errorMessage]="formErrors.city">
+                                    [hintText]="'Optional'">
                                 </kt-simple-dropdown>
                             </div>
                         </div>
@@ -151,10 +148,10 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group kt-form__group pt-2 pb-0">
-                                <label class="col-form-label pt-0">Income Tax Id:  </label>
+                                <label class="col-form-label pt-0">NTN No:  </label>
                                 <kt-input-field
                                     formControlName="incomeTaxId"
-                                    placeholder="Enter Income Tax Id"
+                                    placeholder="Enter NTN No"
                                     [hintText]="'Optional'">
                                 </kt-input-field>
                             </div>
@@ -205,10 +202,10 @@
                         </div>
                         <div class="col-lg-6 col-md-6">
                             <div class="form-group kt-form__group pt-2 pb-0">
-                                <label class="col-form-label pt-0">GST Registration no:</label>
+                                <label class="col-form-label pt-0">STN No:</label>
                                 <kt-input-field
                                     formControlName="gstRegistrationNo"
-                                    placeholder="Enter Registration Number"
+                                    placeholder="Enter STN No"
                                     [hintText]="'Optional'">
                                 </kt-input-field>
                             </div>

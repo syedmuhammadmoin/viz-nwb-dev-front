@@ -116,9 +116,9 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     )
   }
 
-  agingReport() {
-    this.router.navigate(['/'+BILL.AGING_REPORT]);
-  }
+  // agingReport() {
+  //   this.router.navigate(['/'+BILL.AGING_REPORT]);
+  // }
 }
 
 

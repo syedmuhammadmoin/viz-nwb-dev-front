@@ -1,0 +1,26 @@
+<kt-portlet>
+	<kt-portlet-header [sticky]="false" [title]="'Budgets'" [class]="'card-head-lg'">
+		<ng-container ktPortletTools>
+			<button (click)="addBudget()" class="btn_white" mat-raised-button  matTooltip="Add Budget">Add Budget</button>
+		</ng-container>
+	</kt-portlet-header>
+  <kt-portlet-body>
+      <div class="col-md-12 col-lg-12 col-sm-12 my-5">
+      <ag-grid-angular
+          style="width: 100%; height: 500px;" 
+          class="ag-theme-alpine" 
+          [defaultColDef]="defaultColDef"
+          [rowData]="budgetList"
+          [columnDefs]="columnDefs" 
+          (rowDoubleClicked)="onRowDoubleClicked($event)" 
+          (firstDataRendered)="onFirstDataRendered($event)"
+          [frameworkComponents]="frameworkComponents"
+          [tooltipShowDelay]="5"
+          [gridOptions]="gridOptions">
+        </ag-grid-angular>
+      </div>
+  </kt-portlet-body>
+</kt-portlet>
+
+
+

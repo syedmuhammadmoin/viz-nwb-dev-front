@@ -48,15 +48,15 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       required: 'Category is required',
       incorrect: 'Please select valid category'
     },
-    salesPrice: {
-      required: 'sales Price is required'
-    },
-    cost: {
-      required: 'Cost is required'
-    },
-    salesTax: {
-      required: 'sales Tax is required'
-    },
+    // salesPrice: {
+    //   required: 'sales Price is required'
+    // },
+    // cost: {
+    //   required: 'Cost is required'
+    // },
+    // salesTax: {
+    //   required: 'sales Tax is required'
+    // },
   }
 
   //error keys
@@ -65,9 +65,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     purchasedOrSold: '',
     productType: '',
     category: '',
-    salesPrice: '',
-    cost: '',
-    salesTax: '',
+    // salesPrice: '',
+    // cost: '',
+    // salesTax: '',
   }
 
   constructor(
@@ -86,9 +86,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       purchasedOrSold: ['', [Validators.required]],
       productType: ['', [Validators.required]],
       category: ['', [RequireMatch, Validators.required]],
-      salesPrice: ['', [Validators.required]],
-      cost: ['', [Validators.required]],
-      salesTax: ['', [Validators.required]],
+      salesPrice: [''],
+      cost: [''],
+      salesTax: [''],
       barcode: ['']
     });
 
@@ -148,32 +148,33 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.mapFormValueToProductModel();
-    if (this.product.id) {
-      this.ngxsService.productService.updateProduct(this.product)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(() => {
-            this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
-            this.toastService.success('Updated Successfully', 'Product')
-            this.onCloseDialog();
-          },
-          (err) => this.toastService.error('Something went wrong', 'Product')
-        );
-    } else {
-      delete this.product.id;
-      this.ngxsService.productService.addProduct(this.product)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(() => {
-            this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
-            this.toastService.success('Added Successfully', 'Product')
-            this.onCloseDialog();
-          },
-          (err) => this.toastService.error('Something went wrong', 'Product')
-        );
-    }
+    console.log(this.product)
+    // if (this.product.id) {
+    //   this.ngxsService.productService.updateProduct(this.product)
+    //     .pipe(
+    //       take(1),
+    //       finalize(() => this.isLoading = false))
+    //     .subscribe(() => {
+    //         this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
+    //         this.toastService.success('Updated Successfully', 'Product')
+    //         this.onCloseDialog();
+    //       },
+    //       (err) => this.toastService.error('Something went wrong', 'Product')
+    //     );
+    // } else {
+    //   delete this.product.id;
+    //   this.ngxsService.productService.addProduct(this.product)
+    //     .pipe(
+    //       take(1),
+    //       finalize(() => this.isLoading = false))
+    //     .subscribe(() => {
+    //         this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
+    //         this.toastService.success('Added Successfully', 'Product')
+    //         this.onCloseDialog();
+    //       },
+    //       (err) => this.toastService.error('Something went wrong', 'Product')
+    //     );
+    // }
   }
 
   // Mapping value from product form to product model
@@ -194,9 +195,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       purchasedOrSold: '',
       productType: '',
       category: '',
-      salesPrice: '',
-      cost: '',
-      salesTax: '',
+      // salesPrice: '',
+      // cost: '',
+      // salesTax: '',
     }
   }
 

@@ -34,7 +34,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   // For Table Columns
   // displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'ton', 'price', 'tax', 'subTotal', 'locationId', 'action']
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'locationId', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'action']
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -74,9 +74,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     billDate: {
       required: 'Bill Date is required.',
     },
-    dueDate: {
-      required: 'Due Date is required.',
-    },
+    // dueDate: {
+    //   required: 'Due Date is required.',
+    // },
     // contact: {
     //   required: 'Contact Name is required',
     //   minlength: 'Contact contains atleast 10 digits',
@@ -88,7 +88,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   formErrors = {
     vendorName: '',
     billDate: '',
-    dueDate: '',
+    //dueDate: '',
   };
 
   constructor(
@@ -113,8 +113,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       vendorName: ['', [Validators.required]],
       //vendorBillRef: [''],
       billDate: ['', [Validators.required]],
-      dueDate: ['', [Validators.required]],
-      contact: [''],
+      dueDate: [''],
+      // contact: [''],
       vendorBillLines: this.fb.array([
         this.addVendorBillLines()
       ])
@@ -126,7 +126,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       //vendorBillRef: '',
       billDate: null,
       dueDate: null,
-      contact: '',
+      //contact: '',
       billLines: []
     }
 
@@ -228,14 +228,14 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   addVendorBillLines(): FormGroup {
     return this.fb.group({
-      itemId: [0, [Validators.required]],
+      itemId: [0],
       description: ['', Validators.required],
       cost: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.required, Validators.min(1)]],
+      quantity: ['', [Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
-      locationId: ['', [Validators.required]],
+      //locationId: ['', [Validators.required]],
     });
   }
 
@@ -280,7 +280,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       //vendorBillRef: data.vendorBillRef,
       billDate: (data.billDate) ? data.billDate : data.poDate,
       dueDate: data.dueDate,
-      contact: data.contact,
+      //contact: data.contact,
     });
 
     this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.billLines))
@@ -301,7 +301,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
         tax: line.tax,
         subTotal: [{ value: line.subtotal, disabled: true }],
         accountId: line.accountId,
-        locationId: line.locationId,
+       // locationId: line.locationId,
       }))
     })
     return formArray
@@ -369,7 +369,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     //this.vendorBillModel.vendorBillRef = this.vendorBillForm.value.vendorBillRef;
     this.vendorBillModel.billDate = this.vendorBillForm.value.billDate;
     this.vendorBillModel.dueDate = this.vendorBillForm.value.dueDate;
-    this.vendorBillModel.contact = this.vendorBillForm.value.contact;
+    //this.vendorBillModel.contact = this.vendorBillForm.value.contact;
     this.vendorBillModel.billLines = this.vendorBillForm.value.vendorBillLines;
   }
 

@@ -237,6 +237,13 @@ export class AppConst {
     'Permissions.BankReconClaims.Edit': 'Bank Reconciliation Edit',
     'Permissions.BankReconClaims.Delete': 'Bank Reconciliation Delete',
 
+    //Budget
+    'Permissions.BudgetClaims.View': 'Budget View',
+    'Permissions.BudgetClaims.Create': 'Budget Create',
+    'Permissions.BudgetClaims.Edit': 'Budget Update',
+    'Permissions.BudgetClaims.Delete': 'Budget Delete',
+    'Permissions.BudgetReportClaims.View': 'Budget Report View',
+
     // Location
     'Permissions.LocationClaims.View': 'Location View',
     'Permissions.LocationClaims.Create': 'Location Create',

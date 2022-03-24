@@ -75,6 +75,14 @@ export class Permissions {
   static PRODUCT_EDIT = 'Permissions.ProductsClaims.Edit';
   static PRODUCT_DELETE = 'Permissions.ProductsClaims.Delete';
 
+  // Budget
+  static BUDGET_VIEW = 'Permissions.BudgetClaims.View';
+  static BUDGET_CREATE = 'Permissions.BudgetClaims.Create';
+  static BUDGET_EDIT = 'Permissions.BudgetClaims.Edit';
+  static BUDGET_DELETE = 'Permissions.BudgetClaims.Delete';
+  static BUDGET_REPORT_VIEW = 'Permissions.BudgetReportClaims.View';
+  static BUDGET_COMPARISON_REPORT_VIEW = 'Permissions.BudgetComparisonReportClaims.View';
+
   // Level 3
   static LEVEL3_VIEW = 'Permissions.Level3Claims.View';
   static LEVEL3_CREATE = 'Permissions.Level3Claims.Create';

@@ -6,6 +6,7 @@ import { AccountLevel4State } from 'src/app/core/shared-state/account-state/stor
 import { CityState } from 'src/app/core/shared-state/account-state/store/city.state';
 import { CountryState } from 'src/app/core/shared-state/account-state/store/country.state';
 import { StateState } from 'src/app/core/shared-state/account-state/store/state.state';
+import { BudgetService } from 'src/app/views/pages/budget/service/budget.service';
 import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
 import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
 import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
@@ -42,6 +43,7 @@ export class NgxsCustomService {
     public warehouseService: WarehouseService,
     public cscService: CscService,
     public bankAccountService: BankAccountService,
+    public budgetService: BudgetService,
     public store: Store,
   ) { }
 

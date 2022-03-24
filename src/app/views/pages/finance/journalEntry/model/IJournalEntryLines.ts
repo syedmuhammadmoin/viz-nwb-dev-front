@@ -5,5 +5,5 @@ export interface IJournalEntryLines {
         description     : string;
         debit           : number;
         credit          : number;
-        locationId        : number;
+        // locationId        : number;
 }

@@ -33,6 +33,9 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       openingBalance: {
         required: 'opening balance is required'
       },
+      'OBDate': {
+        'required': 'Opening Balance Date is required.'
+      },
       // currency: {
       //   required: 'currency is required'
       // }
@@ -43,6 +46,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       cashAccountName: '',
       //handler: '',
       openingBalance: '',
+      OBDate: ''
       //currency: '',
     }
   
@@ -62,6 +66,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         cashAccountName: ['', [Validators.required]],
         handler: [''],
         openingBalance: ['', [Validators.required]],
+        OBDate: ['', [Validators.required]],
         //currency: ['', [Validators.required]]
       });
   
@@ -74,6 +79,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
           cashAccountName: '',
           handler: '',
           openingBalance: null,
+          openingBalanceDate: null,
           currency: '',
         };
       }
@@ -103,7 +109,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         id: cashAccount.id,
         cashAccountName: cashAccount.cashAccountName,
         handler: cashAccount.handler,
-        openingBalance: cashAccount.openingBalance
+        openingBalance: cashAccount.openingBalance,
+        OBDate: cashAccount.openingBalanceDate,
         //currency: cashAccount.currency,
       });
       this.cashAccountForm.get('openingBalance').disable()
@@ -147,6 +154,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       this.cashAccountModel.cashAccountName = this.cashAccountForm.value.cashAccountName;
       this.cashAccountModel.handler = this.cashAccountForm.value.handler;
       this.cashAccountModel.openingBalance = this.cashAccountForm.value.openingBalance;
+      this.cashAccountModel.openingBalanceDate = this.cashAccountForm.value.OBDate;
       this.cashAccountModel.currency = 'PKR';
     }
 
@@ -154,6 +162,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       this.cashAccountForm.get('cashAccountName').reset()
       this.cashAccountForm.get('handler').reset()
       if(!this._id)  this.cashAccountForm.get('openingBalance').reset()
+      this.cashAccountForm.get('OBDate').reset()
       this.logValidationErrors(this.cashAccountForm , this.formErrors , this.validationMessages)
     }
   }

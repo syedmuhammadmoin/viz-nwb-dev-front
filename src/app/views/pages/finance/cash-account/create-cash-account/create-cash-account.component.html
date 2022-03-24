@@ -48,11 +48,24 @@
                           formControlName="openingBalance"
                           type="number"
                           placeholder="Enter Opening Balance"
-                          (blurEvent)="logValidationErrors(this.cashAccountForm, formErrors, validationMessages)"
+                          (blurEvent)="logValidationErrors(cashAccountForm, formErrors, validationMessages)"
                           [errorMessage]="[{ condition : formErrors.openingBalance , error : formErrors.openingBalance }]">
                         </kt-input-field>
                     </div>
                 </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Opening Balance Date:</label>
+                    <kt-date-input
+                    formControlName="OBDate"
+                    placeholder="Opening Balance Date"
+                    matFormFieldClass="full-width"
+                    (blurEvent)="logValidationErrors(cashAccountForm, formErrors, validationMessages)"
+                    [errorMessage]="formErrors.OBDate">
+                  </kt-date-input>
+                  </div>
+              </div>
   
                 <!-- <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group kt-form__group">

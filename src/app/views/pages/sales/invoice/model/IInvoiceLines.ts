@@ -6,5 +6,5 @@ export interface IInvoiceLines {
     quantity: number;
     tax: number;
     accountId: number;
-    locationId: Date;
+    // locationId: Date;
 }

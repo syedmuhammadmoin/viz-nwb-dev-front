@@ -22,11 +22,14 @@ import { LocationState } from '../pages/profiling/location/store/location.state'
 import { OrganizationState } from '../pages/profiling/organization/store/organization.state';
 import { WarehouseState } from '../pages/profiling/warehouse/store/warehouse.state';
 import{ GetList} from '../pages/profiling/store/profiling.action'
+import { DateHelperService } from './helpers/date-helper';
 
 export abstract class AppComponentBase {
   datePipe: DatePipe
   toastService: ToastrService
   permission: PermissionService
+
+  dateHelperService: DateHelperService
  
   protected constructor(injector: Injector) {
     this.datePipe = injector.get(DatePipe);
