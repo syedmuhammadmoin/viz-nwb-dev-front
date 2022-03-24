@@ -28,7 +28,7 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateInvoiceComponent,
-        canDeactivate: [FormConfirmationGuard],
+       // canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.INVOICE_CREATE },

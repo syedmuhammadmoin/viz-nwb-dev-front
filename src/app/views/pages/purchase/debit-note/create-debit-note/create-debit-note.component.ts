@@ -35,7 +35,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   purchaseOrderMaster: any;
 
   //For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'locationId', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'action']
 
   //Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -203,14 +203,14 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   addDebitNoteLines(): FormGroup {
     return this.fb.group({
-      itemId: ['', Validators.required],
+      itemId: [''],
       description: ['', Validators.required],
       cost: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.required, Validators.min(1)]],
+      quantity: ['', [Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
-      locationId: ['', [Validators.required]],
+      //locationId: ['', [Validators.required]],
     });
   }
 
@@ -273,7 +273,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         tax: line.tax,
         subTotal: [{ value: line.subtotal, disabled: true }],
         accountId: line.accountId,
-        locationId: line.locationId,
+        //locationId: line.locationId,
       }))
     })
     return formArray

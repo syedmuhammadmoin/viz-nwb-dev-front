@@ -155,28 +155,29 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.userModel = { ...this.userForm.value, id: this._id };
     this.userModel.userRole = this.userRole;
-    if (this.userModel.id) {
-      this.accessManagementService.updateUser(this.userModel).subscribe((res) => {
-        this.isLoading = false;
-        this.toastService.success('Updated Successfully', this.userModel.userName + '');
-        this.onCloseUserDialog();
-      }, (err) => {
-        this.isLoading = false;
-        // console.log(err);
-        this.toastService.error('' + err?.error?.message, 'Error');
-      })
-    } else {
-      console.log("yes eneterd")
-      this.accessManagementService.createUser(this.userModel).subscribe((res) => {
-        this.isLoading = false
-        this.toastService.success('Created Successfully', 'New User');
-        this.onCloseUserDialog();
-      }, (err) => {
-        this.isLoading = false;
-        // console.log(err);
-        this.toastService.error('' + err?.error?.message, 'Error');
-      })
-    }
+    console.log("model: ", this.userModel)
+    // if (this.userModel.id) {
+    //   this.accessManagementService.updateUser(this.userModel).subscribe((res) => {
+    //     this.isLoading = false;
+    //     this.toastService.success('Updated Successfully', this.userModel.userName + '');
+    //     this.onCloseUserDialog();
+    //   }, (err) => {
+    //     this.isLoading = false;
+    //     // console.log(err);
+    //     this.toastService.error('' + err?.error?.message, 'Error');
+    //   })
+    // } else {
+    //   console.log("yes eneterd")
+    //   this.accessManagementService.createUser(this.userModel).subscribe((res) => {
+    //     this.isLoading = false
+    //     this.toastService.success('Created Successfully', 'New User');
+    //     this.onCloseUserDialog();
+    //   }, (err) => {
+    //     this.isLoading = false;
+    //     // console.log(err);
+    //     this.toastService.error('' + err?.error?.message, 'Error');
+    //   })
+    // }
   }
   onCloseUserDialog() {
     this.dialogRef.close();

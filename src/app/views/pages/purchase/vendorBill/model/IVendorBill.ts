@@ -6,7 +6,7 @@ export interface IVendorBill {
     //vendorBillRef: string;
     billDate: Date;
     dueDate: Date;
-    contact: string;
+    //contact: string;
     billLines: IVendorBillLines[];
     isSubmit?: any;
 }

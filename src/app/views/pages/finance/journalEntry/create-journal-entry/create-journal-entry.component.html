@@ -20,7 +20,9 @@
               <div class="col-lg-5 col-sm-5 col-md-5">
                 <div class="form-group kt-form__group">
                   <label class="col-form-label pt-0">Description:</label>
-                  <kt-input-field formControlName="description" placeholder="Enter Description" [hintText]="'Optional'">
+                  <kt-input-field formControlName="description" placeholder="Enter Description" 
+                  (blurEvent)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)"
+                    [errorMessage]="[{ condition : formErrors.description , error : formErrors.description }]">
                   </kt-input-field>
                 </div>
               </div>
@@ -105,10 +107,10 @@
                         </mat-cell>
                       </ng-container>
                       <!-- Location Column -->
-                      <ng-container matColumnDef="locationId">
+                      <!-- <ng-container matColumnDef="locationId">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Location</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 mt-2"> -->
                             <!-- <kt-group-dropdown formControlName="locationId" placeholder="Select Location"
                              [optionList]="ngxsService.warehouses$"
                               clickEventButtonName="Add New Location"
@@ -117,7 +119,7 @@
                               groupPropertyName="name" groupChildrenName="locations" propertyName="name"
                               matFormFieldClass="full-width input_d_1" propertyValue="id">
                             </kt-group-dropdown> -->
-                            <kt-simple-dropdown 
+                            <!-- <kt-simple-dropdown 
                               placeholder="Select Location" 
                               propertyValue="id" 
                               propertyName="name"
@@ -128,7 +130,7 @@
                             </kt-simple-dropdown>
                           </div>
                         </mat-cell>
-                      </ng-container>
+                      </ng-container> -->
                       <!-- Action Column -->
                       <ng-container matColumnDef="action">
                         <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>

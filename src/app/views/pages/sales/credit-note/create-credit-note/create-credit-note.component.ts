@@ -39,7 +39,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   creditNoteForm: FormGroup;
 
   //For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'subTotal', 'locationId', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'subTotal', 'action']
 
   //Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -69,9 +69,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     customerName: {
       required: 'Customer Name is required.',
     },
-    salesPerson: {
-      required: 'sales Person is required.',
-    },
+    // salesPerson: {
+    //   required: 'sales Person is required.',
+    // },
     noteDate: {
       required: 'Note Date is required.',
     }
@@ -81,7 +81,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   formErrors = {
     customerName: '',
     noteDate: '',
-    contact: '',
+    //contact: '',
   };
 
   // Injecting in dependencies in constructor
@@ -207,11 +207,11 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       itemId: [''],
       description: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.required, Validators.min(1)]],
+      quantity: ['', [Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
-      locationId: ['', [Validators.required]],
+     // locationId: ['', [Validators.required]],
     });
   }
 
@@ -269,7 +269,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
         tax: line.tax,
         subTotal: [{ value: line.subtotal, disabled: true }],
         accountId: line.accountId,
-        locationId: line.locationId,
+       // locationId: line.locationId,
       }))
     })
     return formArray

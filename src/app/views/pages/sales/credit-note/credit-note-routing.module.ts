@@ -27,7 +27,7 @@ const route : Routes = [
         {
           path: CRUD_ROUTES.CREATE,
           component: CreateCreditNoteComponent,
-          canDeactivate: [FormConfirmationGuard],
+          //canDeactivate: [FormConfirmationGuard],
           data: {
           array: [
             { permission: Permissions.CREDITNOTE_CREATE },

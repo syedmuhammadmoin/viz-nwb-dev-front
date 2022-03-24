@@ -37,34 +37,37 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   warehouse: IWarehouse;
 
   //CSV list
-  countryList: ICountry[];
-  stateList: IState[];
-  cityList: ICity[];
+  // countryList: ICountry[];
+  // stateList: IState[];
+  // cityList: ICity[];
 
   //for optionList dropdown
-  stateList2: Subject<IState[]> = new Subject<IState[]>();
-  cityList2: Subject<ICity[]> = new Subject<ICity[]>();
+  // stateList2: Subject<IState[]> = new Subject<IState[]>();
+  // cityList2: Subject<ICity[]> = new Subject<ICity[]>();
 
   //validation messages
   validationMessages = {
     name: {
       required: 'Name is required'
     },
-    country: {
-      required: 'Country is required'
-    },
-    state: {
-      required: 'State is required'
-    },
-    city: {
-      required: 'City is required'
-    },
-    department: {
-      required: 'Department is required'
-    },
-    // manager: {
-    //   required: 'Manager is required'
+    // country: {
+    //   required: 'Country is required'
     // },
+    // state: {
+    //   required: 'State is required'
+    // },
+    // city: {
+    //   required: 'City is required'
+    // },
+    // department: {
+    //   required: 'Department is required'
+    // },
+    manager: {
+      required: 'Manager is required'
+    },
+    campus: {
+      required: 'Campus is required'
+    },
     // address: {
     //   required: 'Address is required'
     // }
@@ -73,11 +76,12 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   //error keys
   formErrors = {
     name: '',
-    country: '',
-    state: '',
-    city: '',
-    department: '',
-    //manager: '',
+    // country: '',
+    // state: '',
+    // city: '',
+    // department: '',
+    manager: '',
+    campus: '',
     //address: ''
   }
 
@@ -96,16 +100,17 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   ngOnInit() {
     this.warehouseForm = this.fb.group({
       name: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      city: ['', [Validators.required]],
-      department: ['', [Validators.required]],
-      manager: [''],
-      address: [''],
+      // country: ['', [Validators.required]],
+      // state: ['', [Validators.required]],
+      // city: ['', [Validators.required]],
+      //department: ['', [Validators.required]],
+      manager: ['', [Validators.required]],
+      campus: ['', [Validators.required]],
+      //address: [''],
     });
 
     //get country names
-    this.getCountryList();
+    //this.getCountryList();
 
     if (this._id) {
       this.isLoading = true
@@ -114,12 +119,13 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
       this.warehouse = {
         id: null,
         name: '',
-        country: '',
-        state: '',
-        city: '',
+        // country: '',
+        // state: '',
+        // city: '',
         manager: '',
-        address: '',
-        departmentId: null,
+        campus: ''
+        // address: '',
+        // departmentId: null,
       };
     }
     // get department list from state
@@ -138,52 +144,53 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
       );
   }
 
-  getCountryList() {
-    this.cscService.getCountries().subscribe((data: ICountry[]) => {
-      this.countryList = data;
-    });
-  }
+  // getCountryList() {
+  //   this.cscService.getCountries().subscribe((data: ICountry[]) => {
+  //     this.countryList = data;
+  //   });
+  // }
 
-  getStateLists(id: number) {
-    this.cscService.getStates(id).subscribe((data: IState[]) => {
-      this.stateList = data;
-      this.stateList2.next(this.stateList)
-    });
-  }
+  // getStateLists(id: number) {
+  //   this.cscService.getStates(id).subscribe((data: IState[]) => {
+  //     this.stateList = data;
+  //     this.stateList2.next(this.stateList)
+  //   });
+  // }
 
 
-  onChangeCountry(countryId: number) {
-    if (countryId) {
-      this.getStateLists(parseInt(countryId.toString()));
-      this.stateList2.next(this.stateList)
-    } 
-  }
+  // onChangeCountry(countryId: number) {
+  //   if (countryId) {
+  //     this.getStateLists(parseInt(countryId.toString()));
+  //     this.stateList2.next(this.stateList)
+  //   } 
+  // }
 
-  onChangeState(stateId: number) {
-    if (stateId) {
-      this.cscService.getCities(parseInt(stateId.toString())).subscribe(
-        (data: ICity[]) => {
-          this.cityList = data
-          this.cityList2.next(this.cityList)
-        });
-    }
-  }
+  // onChangeState(stateId: number) {
+  //   if (stateId) {
+  //     this.cscService.getCities(parseInt(stateId.toString())).subscribe(
+  //       (data: ICity[]) => {
+  //         this.cityList = data
+  //         this.cityList2.next(this.cityList)
+  //       });
+  //   }
+  // }
 
 
   //Edit Warehouse form
   editWarehouse(warehouse: IWarehouse) {
-    this.onChangeCountry(this.countryList.find(c => c.name == warehouse.country).id);
-    this.onChangeState(this.stateList.find(c => c.name == warehouse.state).id)
+    // this.onChangeCountry(this.countryList.find(c => c.name == warehouse.country).id);
+    // this.onChangeState(this.stateList.find(c => c.name == warehouse.state).id)
 
     this.warehouseForm.patchValue({
       id: warehouse.id,
       name: warehouse.name,
-      country: this.countryList.find(c => c.name == warehouse.country).id,
-      state: this.stateList.find(c => c.name == warehouse.state).id,
-      city: this.cityList.find(c => c.name == warehouse.city).id,
+      // country: this.countryList.find(c => c.name == warehouse.country).id,
+      // state: this.stateList.find(c => c.name == warehouse.state).id,
+      // city: this.cityList.find(c => c.name == warehouse.city).id,
       manager: warehouse.manager,
-      address: warehouse.address,
-      department: warehouse.departmentId,
+      campus: warehouse.campus,
+      // address: warehouse.address,
+      // department: warehouse.departmentId,
     });
   }
 
@@ -193,44 +200,46 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-    if (this.warehouse.id) {
-      this.ngxsService.warehouseService.updateWarehouse(this.warehouse)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(() => {            
-            this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
-            this.toastService.success('Updated Successfully', 'Warehouse')
-            this.onCloseDialog();
-          },
+    console.log(this.warehouse)
+    // if (this.warehouse.id) {
+    //   this.ngxsService.warehouseService.updateWarehouse(this.warehouse)
+    //     .pipe(
+    //       take(1),
+    //       finalize(() => this.isLoading = false))
+    //     .subscribe(() => {            
+    //         this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
+    //         this.toastService.success('Updated Successfully', 'Warehouse')
+    //         this.onCloseDialog();
+    //       },
          
-          (err) => this.toastService.error('Something went wrong', 'Warehouse')
-        );
-    } else {
-      delete this.warehouse.id;
-      this.ngxsService.warehouseService.addWarehouse(this.warehouse)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(() => {          
-            this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
-            this.toastService.success('Created Successfully', 'Warehouse')
-            this.onCloseDialog();
-          },
+    //       (err) => this.toastService.error('Something went wrong', 'Warehouse')
+    //     );
+    // } else {
+    //   delete this.warehouse.id;
+    //   this.ngxsService.warehouseService.addWarehouse(this.warehouse)
+    //     .pipe(
+    //       take(1),
+    //       finalize(() => this.isLoading = false))
+    //     .subscribe(() => {          
+    //         this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
+    //         this.toastService.success('Created Successfully', 'Warehouse')
+    //         this.onCloseDialog();
+    //       },
         
-          (err) => this.toastService.error('Something went wrong', 'Warehouse')
-        );
-    }
+    //       (err) => this.toastService.error('Something went wrong', 'Warehouse')
+    //     );
+    // }
   }
 // map form values to the warehouse model
   mapFormValueToClientModel() {
     this.warehouse.name = this.warehouseForm.value.name;
-    this.warehouse.country = this.countryList.find(c => c.id == this.warehouseForm.value.country).name;
-    this.warehouse.state = this.stateList.find(c => c.id == this.warehouseForm.value.state).name;
-    this.warehouse.city = this.cityList.find(c => c.id == this.warehouseForm.value.city).name;
+    // this.warehouse.country = this.countryList.find(c => c.id == this.warehouseForm.value.country).name;
+    // this.warehouse.state = this.stateList.find(c => c.id == this.warehouseForm.value.state).name;
+    // this.warehouse.city = this.cityList.find(c => c.id == this.warehouseForm.value.city).name;
     this.warehouse.manager = this.warehouseForm.value.manager;
-    this.warehouse.address = this.warehouseForm.value.address;
-    this.warehouse.departmentId = this.warehouseForm.value.department;
+    this.warehouse.campus = this.warehouseForm.value.campus;
+    // this.warehouse.address = this.warehouseForm.value.address;
+    // this.warehouse.departmentId = this.warehouseForm.value.department;
   }
   // add new department 
   openDepartmentDialog() {

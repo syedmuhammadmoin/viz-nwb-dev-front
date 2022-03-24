@@ -17,19 +17,6 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group">
-                                <label class="col-form-label pt-0">Account Number:</label>
-                                <kt-input-field
-                                  formControlName="accountNumber"
-                                  type="number"
-                                  placeholder="Enter account number"
-                                  (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
-                                  [errorMessage]="[{ condition : formErrors.accountNumber , error : formErrors.accountNumber }]">
-                                </kt-input-field>
-                            </div>
-                        </div>
-          
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Bank Name:</label>
                                 <kt-input-field
                                   formControlName="bankName"
@@ -39,35 +26,19 @@
                                 </kt-input-field>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                          <div class="form-group kt-form__group">
+                              <label class="col-form-label pt-0">Branch Name:</label>
+                              <kt-input-field
+                                formControlName="branch"
+                                placeholder="Enter branch name"
+                                [hintText]="'Optional'">
+                              </kt-input-field>
+                          </div>
+                      </div>
                     </div>
                     <!-- first row ends -->
                     <!-- second row starts -->
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-group kt-form__group">
-                                <label class="col-form-label pt-0">Branch Name:</label>
-                                <kt-input-field
-                                  formControlName="branch"
-                                  placeholder="Enter branch name"
-                                  [hintText]="'Optional'">
-                                </kt-input-field>
-                            </div>
-                        </div>
-          
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-group kt-form__group">
-                                <label class="col-form-label pt-0">Opening Balance:</label>
-                                <kt-input-field
-                                  formControlName="openingBalance"
-                                  type="number"
-                                  placeholder="Enter opening balance"
-                                  (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
-                                  [errorMessage]="[{ condition : formErrors.openingBalance , error : formErrors.openingBalance }]">
-                                </kt-input-field>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- second row ends -->
                     <div class="row">
                       <div class="col-lg-6 col-md-6 col-sm-6">
                           <div class="form-group kt-form__group">
@@ -80,23 +51,48 @@
                               </kt-input-field>
                           </div>
                       </div>
-        
                       <div class="col-lg-6 col-md-6 col-sm-6">
-                          <div class="form-group kt-form__group">
-                              <label class="col-form-label pt-0">Opening Balance Date:</label>
-                              <kt-date-input
-                                formControlName="OBDate"
-                                placeholder="Opening Balance Date"
-                                matFormFieldClass="full-width"
-                                (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
-                                [errorMessage]="formErrors.OBDate">
-                              </kt-date-input>
-                          </div>
+                        <div class="form-group kt-form__group">
+                          <label class="col-form-label pt-0">Account Number:</label>
+                          <kt-input-field
+                            formControlName="accountNumber"
+                            type="number"
+                            placeholder="Enter account number"
+                            (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
+                            [errorMessage]="[{ condition : formErrors.accountNumber , error : formErrors.accountNumber }]">
+                          </kt-input-field>
+                      </div>
+                    </div>
+                  </div>
+                    <!-- second row ends -->
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group kt-form__group">
+                            <label class="col-form-label pt-0">Opening Balance:</label>
+                            <kt-input-field
+                              formControlName="openingBalance"
+                              type="number"
+                              placeholder="Enter opening balance"
+                              (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : formErrors.openingBalance , error : formErrors.openingBalance }]">
+                            </kt-input-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="form-group kt-form__group">
+                          <label class="col-form-label pt-0">Opening Balance Date:</label>
+                          <kt-date-input
+                            formControlName="OBDate"
+                            placeholder="Opening Balance Date"
+                            matFormFieldClass="full-width"
+                            (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
+                            [errorMessage]="formErrors.OBDate">
+                          </kt-date-input>
                       </div>
                   </div>
-                  </div>
-                  <!--second row-->
+                </div>
               </div>
+            </div>
           </div>
   
           <mat-divider></mat-divider>

@@ -1,11 +1,11 @@
 export interface IBusinessPartner {
   id: number;
   businessPartnerType: string;
-  entity: string;
+  //entity: string;
   address: string;
-  country: string;
-  state: string;
-  city: string;
+  // country: string;
+  // state: string;
+  // city: string;
   name: string;
   phone: number;
   mobile: number;

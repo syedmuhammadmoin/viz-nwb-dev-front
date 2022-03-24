@@ -37,7 +37,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   invoiceForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'subTotal', 'locationId', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'subTotal', 'action']
 
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -74,9 +74,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     invoiceDate: {
       required: 'Invoice Date is required.',
     },
-    dueDate: {
-      required: 'Due Date is required.',
-    },
+    // dueDate: {
+    //   required: 'Due Date is required.',
+    // },
     // contact: {
     //   required: 'Contact Name is required.',
     // }
@@ -86,7 +86,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   formErrors = {
     customerName: '',
     invoiceDate: '',
-    dueDate: '',
+   // dueDate: '',
   };
 
   // Injecting in dependencies in constructor
@@ -110,8 +110,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.invoiceForm = this.fb.group({
       customerName: ['', [Validators.required]],
       invoiceDate: ['', [Validators.required]],
-      dueDate: ['', [Validators.required]],
-      contact: [''],
+      dueDate: [''],
+      //contact: [''],
       invoiceLines: this.fb.array([
         this.addInvoiceLines()
       ])
@@ -122,7 +122,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       customerId: null,
       invoiceDate: null,
       dueDate: null,
-      contact: '',
+     // contact: '',
       invoiceLines: []
     }
     // get customer from state
@@ -233,14 +233,14 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   // Add Invoice Lines
   addInvoiceLines(): FormGroup {
     return this.fb.group({
-      itemId: ['', Validators.required],
+      itemId: [''],
       description: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.required, Validators.min(1)]],
+      quantity: ['', [Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
-      locationId: [''],
+      // locationId: [''],
     });
   }
 
@@ -282,7 +282,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       customerName: data.customerId,
       invoiceDate: (data.invoiceDate) ? data.invoiceDate : data.salesOrderDate,
       dueDate: data.dueDate,
-      contact: data.contact
+      //contact: data.contact
     });
 
     this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines((this.salesOrderMaster) ? data.salesOrderLines : data.invoiceLines))
@@ -302,7 +302,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
         tax: line.tax,
         subTotal: [{ value: line.subtotal, disabled: true }],
         accountId: line.accountId,
-        locationId: line.locationId,
+        //locationId: line.locationId,
       }))
     })
     return formArray
@@ -368,7 +368,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.invoiceModel.customerId = this.invoiceForm.value.customerName;
     this.invoiceModel.invoiceDate = this.transformDate(this.invoiceForm.value.invoiceDate, 'yyyy-MM-dd');
     this.invoiceModel.dueDate = this.transformDate(this.invoiceForm.value.dueDate, 'yyyy-MM-dd');
-    this.invoiceModel.contact = this.invoiceForm.value.contact;
+    //this.invoiceModel.contact = this.invoiceForm.value.contact;
     this.invoiceModel.invoiceLines = this.invoiceForm.value.invoiceLines
   }
 

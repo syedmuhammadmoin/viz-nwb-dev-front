@@ -3,5 +3,6 @@ export interface ICashAccount {
     cashAccountName : string;
     handler         : string;
     openingBalance  : number;
+    openingBalanceDate: Date;
     currency        : string;
 }

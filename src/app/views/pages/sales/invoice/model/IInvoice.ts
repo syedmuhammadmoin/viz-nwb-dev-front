@@ -5,7 +5,7 @@ export interface IInvoice {
     customerId: number;
     invoiceDate: string;
     dueDate: string;
-    contact: string;
+    // contact: string;
     invoiceLines: IInvoiceLines[];
     isSubmit?: any;
 }

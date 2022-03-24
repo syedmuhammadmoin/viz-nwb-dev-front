@@ -63,7 +63,7 @@
                                     (clickEvent)="openProductDialog()" 
                                       propertyName="productName" 
                                       propertyValue="id" 
-                                      [errorMessage]="'Item is Required'" 
+                                      [hintText]="'Optional'"
                                       (selectionChange)="onItemSelected($event.value,i)">
                                     </kt-simple-dropdown>
                                   </div>
@@ -108,7 +108,7 @@
                                 <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
-                                    <kt-input-field
+                                    <!-- <kt-input-field
                                       formControlName="quantity"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Quantity"
@@ -121,6 +121,16 @@
                                                       { condition : debitNoteForm.get('debitNoteLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.quantity.touched , 
                                                         error : 'Minimum value is one' }]"
+                                      (change)="onChangeEvent($event , i , itemName)"
+                                      (keyup)="onChangeEvent($event , i , itemName)">
+                                    </kt-input-field> -->
+                                    <kt-input-field
+                                      formControlName="quantity"
+                                      matFormFieldClass="mobile-label full-width input_d_1"
+                                      placeholder="Enter Quantity"
+                                      #itemName
+                                      type="number"
+                                      [hintText]="'Optional'"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>
@@ -162,6 +172,7 @@
                                       placeholder="Enter Tax %"
                                       #itemName
                                       type="number"
+                                      [hintText]="'Optional'"
                                       (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : (debitNoteForm.get('debitNoteLines')['controls'][i].controls.tax.errors?.min ||
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.tax.errors?.max) &&
@@ -186,10 +197,10 @@
                                 </mat-cell>
                               </ng-container>
                               <!-- Location Column -->
-                              <ng-container matColumnDef="locationId">
+                              <!-- <ng-container matColumnDef="locationId">
                                 <mat-header-cell *matHeaderCellDef class="flex-1"> Location</mat-header-cell>
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1"> 
-                                  <div class="col-lg-12 col-sm-12 mt-2">
+                                  <div class="col-lg-12 col-sm-12 mt-2"> -->
                                     <!-- <kt-group-dropdown 
                                       formControlName="locationId" 
                                       placeholder="Select Location"
@@ -203,7 +214,7 @@
                                       propertyName="name" 
                                       propertyValue="id">
                                     </kt-group-dropdown> -->
-                                    <kt-simple-dropdown 
+                                    <!-- <kt-simple-dropdown 
                                      placeholder="Select Location" 
                                      propertyValue="id" 
                                      propertyName="name"
@@ -214,7 +225,7 @@
                                     </kt-simple-dropdown>
                                   </div>
                                 </mat-cell>
-                              </ng-container>
+                              </ng-container> -->
                               <!-- Action Column -->
                               <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>

@@ -35,7 +35,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   journalEntryForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['accountId', 'businessPartnerId', 'description', 'debit', 'credit', 'locationId', 'action']
+  displayedColumns = ['accountId', 'businessPartnerId', 'description', 'debit', 'credit', 'action']
 
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -54,15 +54,15 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     date: {
       required: 'Date is required.',
     },
-    // description: {
-    //   required: 'Description is required.',
-    // },
+    description: {
+      required: 'Description is required.',
+    },
   }
 
   // Error keys..
   formErrors = {
     date: '',
-    //description: ''
+    description: ''
   }
 
   // Injecting Dependencies
@@ -86,7 +86,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   ngOnInit() {
     this.journalEntryForm = this.fb.group({
       date: ['', [Validators.required]],
-      description: [''],
+      description: ['',[Validators.required]],
       journalEntryLines: this.fb.array([
         this.addJournalEntryLines()
       ])
@@ -172,7 +172,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       description: ['', Validators.required],
       debit: [0, Validators.required],
       credit: [0, Validators.required],
-      locationId: ['', Validators.required]
+      // locationId: ['', Validators.required]
     });
   }
 
@@ -221,7 +221,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         debit: line.debit,
         credit: line.credit,
         accountId: line.accountId,
-        locationId: line.locationId,
+        // locationId: line.locationId,
       }))
     })
     return formArray

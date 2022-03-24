@@ -24,13 +24,13 @@
                 </div>
               </div>
 
-              <div class="col-lg-3 col-sm-3 col-md-3">
+              <!-- <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group">
                   <label class="col-form-label pt-0">Contact:</label>
                   <kt-input-field formControlName="contact" matFormFieldClass="full-width" placeholder="Enter Contact" [hintText]="'Optional'">
                   </kt-input-field>
                 </div>
-              </div>
+              </div> -->
 
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group">
@@ -52,8 +52,7 @@
                     formControlName="dueDate" 
                     placeholder="Due Date" 
                     matFormFieldClass="full-width"
-                    (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
-                    [errorMessage]="formErrors.dueDate"
+                    [hintText]="'Optional'"
                     [minDate]="minDate"
                     dateCondition="dateCondition" 
                     dateMessage="Invoice">
@@ -78,9 +77,9 @@
                               clickEventButtonName="Add New Item"
                               (clickEvent)="openProductDialog()" 
                               formControlName="itemId"
-                              [errorMessage]="'Item is Required.'"
-                                placeholder="Select Item" matFormFieldClass="mobile-label full-width input_d_1"
-                                 (selectionChange)="onItemSelected($event.value, i)">
+                              hintText="Optional"
+                              placeholder="Select Item" matFormFieldClass="mobile-label full-width input_d_1"
+                              (selectionChange)="onItemSelected($event.value, i)">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>
@@ -118,7 +117,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <kt-input-field formControlName="quantity"
+                              <!-- <kt-input-field formControlName="quantity"
                                 matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
                                 #itemName type="number"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
@@ -130,7 +129,13 @@
                                                         error : 'Minimum value is one' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
-                              </kt-input-field>
+                              </kt-input-field> -->
+                              <kt-input-field formControlName="quantity"
+                              matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
+                              #itemName type="number" [hintText]="'Optional'"
+                              (change)="onChangeEvent($event , i , itemName)"
+                              (keyup)="onChangeEvent($event , i , itemName)">
+                            </kt-input-field>
                             </div>
                           </mat-cell>
                         </ng-container>
@@ -163,6 +168,7 @@
                               <kt-input-field formControlName="tax"
                                 matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Tax %"
                                 #itemName type="number"
+                                [hintText]="'Optional'"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : (invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.min ||
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.max) &&
@@ -186,10 +192,10 @@
                           </mat-cell>
                         </ng-container>
                         <!-- Location Column -->
-                        <ng-container matColumnDef="locationId">
+                        <!-- <ng-container matColumnDef="locationId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Location</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 mt-2"> -->
                               <!-- <kt-group-dropdown formControlName="locationId" placeholder="Select Location"
                                 matFormFieldClass="mobile-label full-width input_d_1"
                                 [optionList]="ngxsService.warehouses$"
@@ -198,7 +204,7 @@
                                 groupPropertyName="name" groupChildrenName="locations" propertyName="name"
                                 propertyValue="id">
                               </kt-group-dropdown> -->
-                              <kt-simple-dropdown 
+                              <!-- <kt-simple-dropdown 
                               placeholder="Select Location" 
                               propertyValue="id" 
                               propertyName="name"
@@ -209,7 +215,7 @@
                             </kt-simple-dropdown>
                             </div>
                           </mat-cell>
-                        </ng-container>
+                        </ng-container> -->
                         <!-- Action Column -->
                         <ng-container matColumnDef="action">
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>

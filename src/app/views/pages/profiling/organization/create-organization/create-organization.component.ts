@@ -45,15 +45,15 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
     'name': {
       'required': 'Name is required.',
     },
-    'country': {
-      'required': 'Country is required.',
-    },
-    'state': {
-      'required': 'State is required.',
-    },
-    'city': {
-      'required': 'City is required.'
-    },
+    // 'country': {
+    //   'required': 'Country is required.',
+    // },
+    // 'state': {
+    //   'required': 'State is required.',
+    // },
+    // 'city': {
+    //   'required': 'City is required.'
+    // },
     // 'phone': {
     //   'required': 'Phone is required.',
     // },
@@ -92,10 +92,10 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
 
   formErrors = {
     'name': '',
-    'country': '',
-    'state': '',
-    'city': '',
-    'phone': '',
+    // 'country': '',
+    // 'state': '',
+    // 'city': '',
+    // 'phone': '',
     // 'fax': '',
     // 'email': '',
     'website': '',
@@ -122,9 +122,9 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
     const websitePattern = '((https?://)?||www.)?([\\a-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?'
     this.organizationForm = this.fb.group({
       name: ['', [Validators.required]],
-      country: ['', [Validators.required]],
-      state: ['', [Validators.required]],
-      city: ['', [Validators.required]],
+      country: [''],
+      state: [''],
+      city: [''],
       phone: [''],
       address: [''],
       fax: [''],
@@ -220,9 +220,9 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
     this.organizationForm.patchValue({
       id: organization.id,
       name: organization.name,
-      country: this.countryList.find(c => c.name == organization.country).id,
-      state: this.stateList.find(c => c.name == organization.state).id,
-      city: this.cityList.find(c => c.name == organization.city).id,
+      country: (organization.country) ? this.countryList.find(c => c.name == organization.country).id : null,
+      state: (organization.state) ? this.stateList.find(c => c.name == organization.state).id : null,
+      city: (organization.city) ? this.cityList.find(c => c.name == organization.city).id : null,
       phone: organization.phone,
       address: organization.address,
       fax: organization.fax,
@@ -252,7 +252,8 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
           finalize(() => this.isLoading = false))
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
-            this.toastService.success('Updated Successfully', 'Organization')
+            // this.toastService.success('Updated Successfully', 'Organization')
+            this.toastService.success('Updated Successfully', 'Campus')
             this.onCloseDialog();
           },
           (err) => this.toastService.error('Something went wrong', 'Organization')
@@ -265,7 +266,8 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
           finalize(() => this.isLoading = false))
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
-            this.toastService.success('Created Successfully', 'Organization')
+            // this.toastService.success('Created Successfully', 'Organization')
+            this.toastService.success('Created Successfully', 'Campus')
             this.onCloseDialog();
           },
           (err) => this.toastService.error('Something went wrong', 'Organization')
@@ -275,9 +277,12 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
 
   mapFormValueToClientModel() {
     this.organization.name = this.organizationForm.value.name;
-    this.organization.country = this.countryList.find(c => c.id == this.organizationForm.value.country).name;
-    this.organization.state = this.stateList.find(c => c.id == this.organizationForm.value.state).name;
-    this.organization.city = this.cityList.find(c => c.id == this.organizationForm.value.city).name;
+    // this.organization.country = this.countryList.find(c => c.id == this.organizationForm.value.country).name;
+    // this.organization.state = this.stateList.find(c => c.id == this.organizationForm.value.state).name;
+    // this.organization.city = this.cityList.find(c => c.id == this.organizationForm.value.city).name;
+    this.organization.country = (this.organizationForm.value.country) ? this.countryList.find(c => c.id == this.organizationForm.value.country).name : null;
+    this.organization.state = (this.organizationForm.value.state) ? this.stateList.find(c => c.id == this.organizationForm.value.state).name : null;
+    this.organization.city = (this.organizationForm.value.city) ? this.cityList.find(c => c.id == this.organizationForm.value.city).name : null;
     this.organization.phone = this.organizationForm.value.phone;
     this.organization.fax = this.organizationForm.value.fax;
     this.organization.email = this.organizationForm.value.email;

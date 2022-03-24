@@ -128,18 +128,18 @@ export class MenuConfig {
             Permissions.WAREHOUSE_CREATE,
             Permissions.WAREHOUSE_EDIT,
             Permissions.WAREHOUSE_DELETE,
-            Permissions.LOCATION_VIEW,
-            Permissions.LOCATION_CREATE,
-            Permissions.LOCATION_EDIT,
-            Permissions.LOCATION_DELETE,
-            Permissions.DEPARTMENTS_VIEW,
-            Permissions.DEPARTMENTS_CREATE,
-            Permissions.DEPARTMENTS_EDIT,
-            Permissions.DEPARTMENTS_DELETE,
-            Permissions.ORGANIZATION_VIEW,
-            Permissions.ORGANIZATION_CREATE,
-            Permissions.ORGANIZATION_EDIT,
-            Permissions.ORGANIZATION_DELETE,
+            // Permissions.LOCATION_VIEW,
+            // Permissions.LOCATION_CREATE,
+            // Permissions.LOCATION_EDIT,
+            // Permissions.LOCATION_DELETE,
+            // Permissions.DEPARTMENTS_VIEW,
+            // Permissions.DEPARTMENTS_CREATE,
+            // Permissions.DEPARTMENTS_EDIT,
+            // Permissions.DEPARTMENTS_DELETE,
+            // Permissions.ORGANIZATION_VIEW,
+            // Permissions.ORGANIZATION_CREATE,
+            // Permissions.ORGANIZATION_EDIT,
+            // Permissions.ORGANIZATION_DELETE,
             Permissions.BUDGET_VIEW,
             Permissions.BUDGET_CREATE,
             Permissions.BUDGET_EDIT,
@@ -150,26 +150,26 @@ export class MenuConfig {
             // 	title: 'Client',
             //   page: '/client/list',
             // },
-            {
-              title: 'Organization',
-              page: '/' + ORGANIZATION.LIST,
-              permission: [
-                Permissions.ORGANIZATION_VIEW,
-                Permissions.ORGANIZATION_CREATE,
-                Permissions.ORGANIZATION_EDIT,
-                Permissions.ORGANIZATION_DELETE
-              ]
-            },
-            {
-              title: 'Department',
-              page: '/' + DEPARTMENT.LIST,
-              permission: [
-                Permissions.DEPARTMENTS_VIEW,
-                Permissions.DEPARTMENTS_CREATE,
-                Permissions.DEPARTMENTS_EDIT,
-                Permissions.DEPARTMENTS_DELETE
-              ]
-            },
+            // {
+            //   title: 'Campus',
+            //   page: '/' + ORGANIZATION.LIST,
+            //   permission: [
+            //     Permissions.ORGANIZATION_VIEW,
+            //     Permissions.ORGANIZATION_CREATE,
+            //     Permissions.ORGANIZATION_EDIT,
+            //     Permissions.ORGANIZATION_DELETE
+            //   ]
+            // },
+            // {
+            //   title: 'Department',
+            //   page: '/' + DEPARTMENT.LIST,
+            //   permission: [
+            //     Permissions.DEPARTMENTS_VIEW,
+            //     Permissions.DEPARTMENTS_CREATE,
+            //     Permissions.DEPARTMENTS_EDIT,
+            //     Permissions.DEPARTMENTS_DELETE
+            //   ]
+            // },
             {
               title: 'Warehouse',
               page: '/' + WAREHOUSE.LIST,
@@ -180,16 +180,16 @@ export class MenuConfig {
                 Permissions.WAREHOUSE_DELETE
               ]
             },
-            {
-              title: 'Location',
-              page: '/' + LOCATION.LIST,
-              permission: [
-                Permissions.LOCATION_VIEW,
-                Permissions.LOCATION_CREATE,
-                Permissions.LOCATION_EDIT,
-                Permissions.LOCATION_DELETE
-              ]
-            },
+            // {
+            //   title: 'Location',
+            //   page: '/' + LOCATION.LIST,
+            //   permission: [
+            //     Permissions.LOCATION_VIEW,
+            //     Permissions.LOCATION_CREATE,
+            //     Permissions.LOCATION_EDIT,
+            //     Permissions.LOCATION_DELETE
+            //   ]
+            // },
             {
               title: 'Business Partner', // <= Title of the page
               page: '/' + BUSINESS_PARTNER.LIST, // <= URL
@@ -270,9 +270,9 @@ export class MenuConfig {
             Permissions.LEVEL4_CREATE,
             Permissions.LEVEL4_EDIT,
             Permissions.LEVEL4_DELETE,
-            Permissions.CHARTOFACCOUNT_VIEW,
-            Permissions.BANK_RECON_VIEW,
-            Permissions.BANK_RECON_CREATE
+            // Permissions.CHARTOFACCOUNT_VIEW,
+            // Permissions.BANK_RECON_VIEW,
+            // Permissions.BANK_RECON_CREATE
           ],
           submenu: [
             {
@@ -319,24 +319,24 @@ export class MenuConfig {
                 Permissions.JOURNALENTRY_APPROVE,
               ]
             },
-            {
-              title: 'Bank Statement',
-              page: '/' + BANK_STATEMENT.LIST,
-              permission: [
-                Permissions.BANKSTATEMENT_VIEW,
-                Permissions.BANKSTATEMENT_CREATE,
-                Permissions.BANKSTATEMENT_EDIT,
-                Permissions.BANKSTATEMENT_DELETE,
-              ]
-            },
-            {
-              title: 'Bank Reconciliation',
-              page: '/' + BANK_RECONCILIATION.LIST,
-              permission: [
-                Permissions.BANK_RECON_VIEW,
-                Permissions.BANK_RECON_CREATE
-              ]
-            },
+            // {
+            //   title: 'Bank Statement',
+            //   page: '/' + BANK_STATEMENT.LIST,
+            //   permission: [
+            //     Permissions.BANKSTATEMENT_VIEW,
+            //     Permissions.BANKSTATEMENT_CREATE,
+            //     Permissions.BANKSTATEMENT_EDIT,
+            //     Permissions.BANKSTATEMENT_DELETE,
+            //   ]
+            // },
+            // {
+            //   title: 'Bank Reconciliation',
+            //   page: '/' + BANK_RECONCILIATION.LIST,
+            //   permission: [
+            //     Permissions.BANK_RECON_VIEW,
+            //     Permissions.BANK_RECON_CREATE
+            //   ]
+            // },
             {
               title: 'Chart Of Account',
               page: '/' + CHART_OF_ACCOUNT.LIST,
@@ -372,26 +372,26 @@ export class MenuConfig {
             Permissions.CREDITNOTE_DELETE,
             Permissions.CREDITNOTE_REVIEW,
             Permissions.CREDITNOTE_APPROVE,
-            Permissions.SALESORDER_VIEW,
-            Permissions.SALESORDER_CREATE,
-            Permissions.SALESORDER_EDIT,
-            Permissions.SALESORDER_DELETE,
-            Permissions.SALESORDER_REVIEW,
-            Permissions.SALESORDER_APPROVE,
+            // Permissions.SALESORDER_VIEW,
+            // Permissions.SALESORDER_CREATE,
+            // Permissions.SALESORDER_EDIT,
+            // Permissions.SALESORDER_DELETE,
+            // Permissions.SALESORDER_REVIEW,
+            // Permissions.SALESORDER_APPROVE,
           ],
           submenu: [
-            {
-              title: 'sales Order',
-              page: '/' + SALES_ORDER.LIST,
-              permission: [
-                Permissions.SALESORDER_VIEW,
-                Permissions.SALESORDER_CREATE,
-                Permissions.SALESORDER_EDIT,
-                Permissions.SALESORDER_DELETE,
-                Permissions.SALESORDER_REVIEW,
-                Permissions.SALESORDER_APPROVE,
-              ]
-            },
+            // {
+            //   title: 'sales Order',
+            //   page: '/' + SALES_ORDER.LIST,
+            //   permission: [
+            //     Permissions.SALESORDER_VIEW,
+            //     Permissions.SALESORDER_CREATE,
+            //     Permissions.SALESORDER_EDIT,
+            //     Permissions.SALESORDER_DELETE,
+            //     Permissions.SALESORDER_REVIEW,
+            //     Permissions.SALESORDER_APPROVE,
+            //   ]
+            // },
             {
               title: 'Invoice',
               page: '/' + INVOICE.LIST,
@@ -437,26 +437,26 @@ export class MenuConfig {
             Permissions.DEBITNOTE_DELETE,
             Permissions.DEBITNOTE_REVIEW,
             Permissions.DEBITNOTE_APPROVE,
-            Permissions.PURCHASEORDER_VIEW,
-            Permissions.PURCHASEORDER_CREATE,
-            Permissions.PURCHASEORDER_EDIT,
-            Permissions.PURCHASEORDER_DELETE,
-            Permissions.PURCHASEORDER_REVIEW,
-            Permissions.PURCHASEORDER_APPROVE,
+            // Permissions.PURCHASEORDER_VIEW,
+            // Permissions.PURCHASEORDER_CREATE,
+            // Permissions.PURCHASEORDER_EDIT,
+            // Permissions.PURCHASEORDER_DELETE,
+            // Permissions.PURCHASEORDER_REVIEW,
+            // Permissions.PURCHASEORDER_APPROVE,
           ],
           submenu: [
-            {
-              title: 'purchase Order',
-              page: '/' + PURCHASE_ORDER.LIST,
-              permission: [
-                Permissions.PURCHASEORDER_VIEW,
-                Permissions.PURCHASEORDER_CREATE,
-                Permissions.PURCHASEORDER_EDIT,
-                Permissions.PURCHASEORDER_DELETE,
-                Permissions.PURCHASEORDER_REVIEW,
-                Permissions.PURCHASEORDER_APPROVE,
-              ]
-            },
+            // {
+            //   title: 'purchase Order',
+            //   page: '/' + PURCHASE_ORDER.LIST,
+            //   permission: [
+            //     Permissions.PURCHASEORDER_VIEW,
+            //     Permissions.PURCHASEORDER_CREATE,
+            //     Permissions.PURCHASEORDER_EDIT,
+            //     Permissions.PURCHASEORDER_DELETE,
+            //     Permissions.PURCHASEORDER_REVIEW,
+            //     Permissions.PURCHASEORDER_APPROVE,
+            //   ]
+            // },
             {
               title: 'Vendor Bill',
               page: '/' + BILL.LIST,
