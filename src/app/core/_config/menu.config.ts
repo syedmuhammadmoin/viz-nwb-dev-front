@@ -108,7 +108,7 @@ export class MenuConfig {
 
         // { section: 'profiling' },
         {
-          title: 'profiling',
+          title: 'Profiling',
           bullet: 'dot',
           icon: 'flaticon2-grids',
           permission: [
@@ -170,16 +170,6 @@ export class MenuConfig {
             //     Permissions.DEPARTMENTS_DELETE
             //   ]
             // },
-            {
-              title: 'Warehouse',
-              page: '/' + WAREHOUSE.LIST,
-              permission: [
-                Permissions.WAREHOUSE_VIEW,
-                Permissions.WAREHOUSE_CREATE,
-                Permissions.WAREHOUSE_EDIT,
-                Permissions.WAREHOUSE_DELETE
-              ]
-            },
             // {
             //   title: 'Location',
             //   page: '/' + LOCATION.LIST,
@@ -221,6 +211,16 @@ export class MenuConfig {
               ]
             },
             {
+              title: 'Warehouse',
+              page: '/' + WAREHOUSE.LIST,
+              permission: [
+                Permissions.WAREHOUSE_VIEW,
+                Permissions.WAREHOUSE_CREATE,
+                Permissions.WAREHOUSE_EDIT,
+                Permissions.WAREHOUSE_DELETE
+              ]
+            },
+            {
               title: 'Budget',
               page: '/' + BUDGET.LIST,
               permission: [
@@ -234,7 +234,7 @@ export class MenuConfig {
         },
         //finance Portion
         {
-          title: 'finance',
+          title: 'Finance',
           bullet: 'dot',
           icon: 'flaticon-notepad',
           permission: [
@@ -270,6 +270,30 @@ export class MenuConfig {
             Permissions.LEVEL4_CREATE,
             Permissions.LEVEL4_EDIT,
             Permissions.LEVEL4_DELETE,
+            Permissions.INVOICE_VIEW,
+            Permissions.INVOICE_CREATE,
+            Permissions.INVOICE_EDIT,
+            Permissions.INVOICE_DELETE,
+            Permissions.INVOICE_REVIEW,
+            Permissions.INVOICE_APPROVE,
+            Permissions.CREDITNOTE_VIEW,
+            Permissions.CREDITNOTE_CREATE,
+            Permissions.CREDITNOTE_EDIT,
+            Permissions.CREDITNOTE_DELETE,
+            Permissions.CREDITNOTE_REVIEW,
+            Permissions.CREDITNOTE_APPROVE,
+            Permissions.BILL_VIEW,
+            Permissions.BILL_CREATE,
+            Permissions.BILL_EDIT,
+            Permissions.BILL_DELETE,
+            Permissions.BILL_REVIEW,
+            Permissions.BILL_APPROVE,
+            Permissions.DEBITNOTE_VIEW,
+            Permissions.DEBITNOTE_CREATE,
+            Permissions.DEBITNOTE_EDIT,
+            Permissions.DEBITNOTE_DELETE,
+            Permissions.DEBITNOTE_REVIEW,
+            Permissions.DEBITNOTE_APPROVE,
             // Permissions.CHARTOFACCOUNT_VIEW,
             // Permissions.BANK_RECON_VIEW,
             // Permissions.BANK_RECON_CREATE
@@ -319,6 +343,55 @@ export class MenuConfig {
                 Permissions.JOURNALENTRY_APPROVE,
               ]
             },
+            {
+              title: 'Invoice',
+              page: '/' + INVOICE.LIST,
+              permission: [
+                Permissions.INVOICE_VIEW,
+                Permissions.INVOICE_CREATE,
+                Permissions.INVOICE_EDIT,
+                Permissions.INVOICE_DELETE,
+                Permissions.INVOICE_REVIEW,
+                Permissions.INVOICE_APPROVE,
+              ]
+            },
+            {
+              title: 'Credit Note',
+              page: '/' + CREDIT_NOTE.LIST,
+              permission: [
+                Permissions.CREDITNOTE_VIEW,
+                Permissions.CREDITNOTE_CREATE,
+                Permissions.CREDITNOTE_EDIT,
+                Permissions.CREDITNOTE_DELETE,
+                Permissions.CREDITNOTE_REVIEW,
+                Permissions.CREDITNOTE_APPROVE,
+              ]
+            },
+            {
+              title: 'Vendor Bill',
+              page: '/' + BILL.LIST,
+              permission: [
+                Permissions.BILL_VIEW,
+                Permissions.BILL_CREATE,
+                Permissions.BILL_EDIT,
+                Permissions.BILL_DELETE,
+                Permissions.BILL_REVIEW,
+                Permissions.BILL_APPROVE,
+              ]
+            },
+            {
+              title: 'Debit Note',
+              page: '/' + DEBIT_NOTE.LIST,
+              permission: [
+                Permissions.DEBITNOTE_VIEW,
+                Permissions.DEBITNOTE_CREATE,
+                Permissions.DEBITNOTE_EDIT,
+                Permissions.DEBITNOTE_DELETE,
+                Permissions.DEBITNOTE_REVIEW,
+                Permissions.DEBITNOTE_APPROVE,
+              ]
+            },
+                  
             // {
             //   title: 'Bank Statement',
             //   page: '/' + BANK_STATEMENT.LIST,
@@ -355,262 +428,262 @@ export class MenuConfig {
           ]
         },
         // { section: 'sales' },
-        {
-          title: 'sales',
-          bullet: 'dot',
-          icon: 'flaticon2-delivery-package',
-          permission: [
-            Permissions.INVOICE_VIEW,
-            Permissions.INVOICE_CREATE,
-            Permissions.INVOICE_EDIT,
-            Permissions.INVOICE_DELETE,
-            Permissions.INVOICE_REVIEW,
-            Permissions.INVOICE_APPROVE,
-            Permissions.CREDITNOTE_VIEW,
-            Permissions.CREDITNOTE_CREATE,
-            Permissions.CREDITNOTE_EDIT,
-            Permissions.CREDITNOTE_DELETE,
-            Permissions.CREDITNOTE_REVIEW,
-            Permissions.CREDITNOTE_APPROVE,
-            // Permissions.SALESORDER_VIEW,
-            // Permissions.SALESORDER_CREATE,
-            // Permissions.SALESORDER_EDIT,
-            // Permissions.SALESORDER_DELETE,
-            // Permissions.SALESORDER_REVIEW,
-            // Permissions.SALESORDER_APPROVE,
-          ],
-          submenu: [
-            // {
-            //   title: 'sales Order',
-            //   page: '/' + SALES_ORDER.LIST,
-            //   permission: [
-            //     Permissions.SALESORDER_VIEW,
-            //     Permissions.SALESORDER_CREATE,
-            //     Permissions.SALESORDER_EDIT,
-            //     Permissions.SALESORDER_DELETE,
-            //     Permissions.SALESORDER_REVIEW,
-            //     Permissions.SALESORDER_APPROVE,
-            //   ]
-            // },
-            {
-              title: 'Invoice',
-              page: '/' + INVOICE.LIST,
-              permission: [
-                Permissions.INVOICE_VIEW,
-                Permissions.INVOICE_CREATE,
-                Permissions.INVOICE_EDIT,
-                Permissions.INVOICE_DELETE,
-                Permissions.INVOICE_REVIEW,
-                Permissions.INVOICE_APPROVE,
-              ]
-            },
-            {
-              title: 'Credit Note',
-              page: '/' + CREDIT_NOTE.LIST,
-              permission: [
-                Permissions.CREDITNOTE_VIEW,
-                Permissions.CREDITNOTE_CREATE,
-                Permissions.CREDITNOTE_EDIT,
-                Permissions.CREDITNOTE_DELETE,
-                Permissions.CREDITNOTE_REVIEW,
-                Permissions.CREDITNOTE_APPROVE,
-              ]
-            },
-          ]
-        },
+        // {
+        //   title: 'sales',
+        //   bullet: 'dot',
+        //   icon: 'flaticon2-delivery-package',
+        //   permission: [
+        //     Permissions.INVOICE_VIEW,
+        //     Permissions.INVOICE_CREATE,
+        //     Permissions.INVOICE_EDIT,
+        //     Permissions.INVOICE_DELETE,
+        //     Permissions.INVOICE_REVIEW,
+        //     Permissions.INVOICE_APPROVE,
+        //     Permissions.CREDITNOTE_VIEW,
+        //     Permissions.CREDITNOTE_CREATE,
+        //     Permissions.CREDITNOTE_EDIT,
+        //     Permissions.CREDITNOTE_DELETE,
+        //     Permissions.CREDITNOTE_REVIEW,
+        //     Permissions.CREDITNOTE_APPROVE,
+        //     // Permissions.SALESORDER_VIEW,
+        //     // Permissions.SALESORDER_CREATE,
+        //     // Permissions.SALESORDER_EDIT,
+        //     // Permissions.SALESORDER_DELETE,
+        //     // Permissions.SALESORDER_REVIEW,
+        //     // Permissions.SALESORDER_APPROVE,
+        //   ],
+        //   submenu: [
+        //     // {
+        //     //   title: 'sales Order',
+        //     //   page: '/' + SALES_ORDER.LIST,
+        //     //   permission: [
+        //     //     Permissions.SALESORDER_VIEW,
+        //     //     Permissions.SALESORDER_CREATE,
+        //     //     Permissions.SALESORDER_EDIT,
+        //     //     Permissions.SALESORDER_DELETE,
+        //     //     Permissions.SALESORDER_REVIEW,
+        //     //     Permissions.SALESORDER_APPROVE,
+        //     //   ]
+        //     // },
+        //     {
+        //       title: 'Invoice',
+        //       page: '/' + INVOICE.LIST,
+        //       permission: [
+        //         Permissions.INVOICE_VIEW,
+        //         Permissions.INVOICE_CREATE,
+        //         Permissions.INVOICE_EDIT,
+        //         Permissions.INVOICE_DELETE,
+        //         Permissions.INVOICE_REVIEW,
+        //         Permissions.INVOICE_APPROVE,
+        //       ]
+        //     },
+        //     {
+        //       title: 'Credit Note',
+        //       page: '/' + CREDIT_NOTE.LIST,
+        //       permission: [
+        //         Permissions.CREDITNOTE_VIEW,
+        //         Permissions.CREDITNOTE_CREATE,
+        //         Permissions.CREDITNOTE_EDIT,
+        //         Permissions.CREDITNOTE_DELETE,
+        //         Permissions.CREDITNOTE_REVIEW,
+        //         Permissions.CREDITNOTE_APPROVE,
+        //       ]
+        //     },
+        //   ]
+        // },
 
-        // { section: 'purchase' },
-        {
-          title: 'purchase',
-          bullet: 'dot',
-          icon: 'flaticon2-shopping-cart',
-          permission: [
-            Permissions.BILL_VIEW,
-            Permissions.BILL_CREATE,
-            Permissions.BILL_EDIT,
-            Permissions.BILL_DELETE,
-            Permissions.BILL_REVIEW,
-            Permissions.BILL_APPROVE,
-            Permissions.DEBITNOTE_VIEW,
-            Permissions.DEBITNOTE_CREATE,
-            Permissions.DEBITNOTE_EDIT,
-            Permissions.DEBITNOTE_DELETE,
-            Permissions.DEBITNOTE_REVIEW,
-            Permissions.DEBITNOTE_APPROVE,
-            // Permissions.PURCHASEORDER_VIEW,
-            // Permissions.PURCHASEORDER_CREATE,
-            // Permissions.PURCHASEORDER_EDIT,
-            // Permissions.PURCHASEORDER_DELETE,
-            // Permissions.PURCHASEORDER_REVIEW,
-            // Permissions.PURCHASEORDER_APPROVE,
-          ],
-          submenu: [
-            // {
-            //   title: 'purchase Order',
-            //   page: '/' + PURCHASE_ORDER.LIST,
-            //   permission: [
-            //     Permissions.PURCHASEORDER_VIEW,
-            //     Permissions.PURCHASEORDER_CREATE,
-            //     Permissions.PURCHASEORDER_EDIT,
-            //     Permissions.PURCHASEORDER_DELETE,
-            //     Permissions.PURCHASEORDER_REVIEW,
-            //     Permissions.PURCHASEORDER_APPROVE,
-            //   ]
-            // },
-            {
-              title: 'Vendor Bill',
-              page: '/' + BILL.LIST,
-              permission: [
-                Permissions.BILL_VIEW,
-                Permissions.BILL_CREATE,
-                Permissions.BILL_EDIT,
-                Permissions.BILL_DELETE,
-                Permissions.BILL_REVIEW,
-                Permissions.BILL_APPROVE,
-              ]
-            },
-            {
-              title: 'Debit Note',
-              page: '/' + DEBIT_NOTE.LIST,
-              permission: [
-                Permissions.DEBITNOTE_VIEW,
-                Permissions.DEBITNOTE_CREATE,
-                Permissions.DEBITNOTE_EDIT,
-                Permissions.DEBITNOTE_DELETE,
-                Permissions.DEBITNOTE_REVIEW,
-                Permissions.DEBITNOTE_APPROVE,
-              ]
-            },
-          ]
-        },
-        // { section: 'Inventory' },
-        {
-          title: 'Inventory',
-          bullet: 'dot',
-          icon: 'flaticon-open-box',
-          permission: [
-            Permissions.GRN_VIEW,
-            Permissions.GRN_CREATE,
-            Permissions.GRN_EDIT,
-            Permissions.GRN_DELETE,
-            Permissions.GDN_VIEW,
-            Permissions.GDN_CREATE,
-            Permissions.GDN_EDIT,
-            Permissions.GDN_DELETE,
-          ],
-          submenu: [
-            {
-              title: 'Stock',
-              page: '/' + STOCK.LIST,
-            },
-            {
-              title: 'inventory-adjustment',
-              page: '/' + INVENTORY_ADJUSTMENT.LIST,
-            },
-            {
-              title: 'Goods Received Note',
-              page: '/' + GOODS_RECEIVED_NOTE.LIST,
-              permission: [
-                Permissions.GRN_VIEW,
-                Permissions.GRN_CREATE,
-                Permissions.GRN_EDIT,
-                Permissions.GRN_DELETE
-              ],
-            },
-            {
-              title: 'Goods Dispatch Note',
-              page: '/' + DISPATCH_NOTE.LIST,
-              permission: [
-                Permissions.GDN_VIEW,
-                Permissions.GDN_CREATE,
-                Permissions.GDN_EDIT,
-                Permissions.GDN_DELETE
-              ],
-            },
-          ]
-        },
-        //endregion
+        // // { section: 'purchase' },
+        // {
+        //   title: 'purchase',
+        //   bullet: 'dot',
+        //   icon: 'flaticon2-shopping-cart',
+        //   permission: [
+        //     Permissions.BILL_VIEW,
+        //     Permissions.BILL_CREATE,
+        //     Permissions.BILL_EDIT,
+        //     Permissions.BILL_DELETE,
+        //     Permissions.BILL_REVIEW,
+        //     Permissions.BILL_APPROVE,
+        //     Permissions.DEBITNOTE_VIEW,
+        //     Permissions.DEBITNOTE_CREATE,
+        //     Permissions.DEBITNOTE_EDIT,
+        //     Permissions.DEBITNOTE_DELETE,
+        //     Permissions.DEBITNOTE_REVIEW,
+        //     Permissions.DEBITNOTE_APPROVE,
+        //     // Permissions.PURCHASEORDER_VIEW,
+        //     // Permissions.PURCHASEORDER_CREATE,
+        //     // Permissions.PURCHASEORDER_EDIT,
+        //     // Permissions.PURCHASEORDER_DELETE,
+        //     // Permissions.PURCHASEORDER_REVIEW,
+        //     // Permissions.PURCHASEORDER_APPROVE,
+        //   ],
+        //   submenu: [
+        //     // {
+        //     //   title: 'purchase Order',
+        //     //   page: '/' + PURCHASE_ORDER.LIST,
+        //     //   permission: [
+        //     //     Permissions.PURCHASEORDER_VIEW,
+        //     //     Permissions.PURCHASEORDER_CREATE,
+        //     //     Permissions.PURCHASEORDER_EDIT,
+        //     //     Permissions.PURCHASEORDER_DELETE,
+        //     //     Permissions.PURCHASEORDER_REVIEW,
+        //     //     Permissions.PURCHASEORDER_APPROVE,
+        //     //   ]
+        //     // },
+        //     {
+        //       title: 'Vendor Bill',
+        //       page: '/' + BILL.LIST,
+        //       permission: [
+        //         Permissions.BILL_VIEW,
+        //         Permissions.BILL_CREATE,
+        //         Permissions.BILL_EDIT,
+        //         Permissions.BILL_DELETE,
+        //         Permissions.BILL_REVIEW,
+        //         Permissions.BILL_APPROVE,
+        //       ]
+        //     },
+        //     {
+        //       title: 'Debit Note',
+        //       page: '/' + DEBIT_NOTE.LIST,
+        //       permission: [
+        //         Permissions.DEBITNOTE_VIEW,
+        //         Permissions.DEBITNOTE_CREATE,
+        //         Permissions.DEBITNOTE_EDIT,
+        //         Permissions.DEBITNOTE_DELETE,
+        //         Permissions.DEBITNOTE_REVIEW,
+        //         Permissions.DEBITNOTE_APPROVE,
+        //       ]
+        //     },
+        //   ]
+        // },
+        // // { section: 'Inventory' },
+        // {
+        //   title: 'Inventory',
+        //   bullet: 'dot',
+        //   icon: 'flaticon-open-box',
+        //   permission: [
+        //     Permissions.GRN_VIEW,
+        //     Permissions.GRN_CREATE,
+        //     Permissions.GRN_EDIT,
+        //     Permissions.GRN_DELETE,
+        //     Permissions.GDN_VIEW,
+        //     Permissions.GDN_CREATE,
+        //     Permissions.GDN_EDIT,
+        //     Permissions.GDN_DELETE,
+        //   ],
+        //   submenu: [
+        //     {
+        //       title: 'Stock',
+        //       page: '/' + STOCK.LIST,
+        //     },
+        //     {
+        //       title: 'inventory-adjustment',
+        //       page: '/' + INVENTORY_ADJUSTMENT.LIST,
+        //     },
+        //     {
+        //       title: 'Goods Received Note',
+        //       page: '/' + GOODS_RECEIVED_NOTE.LIST,
+        //       permission: [
+        //         Permissions.GRN_VIEW,
+        //         Permissions.GRN_CREATE,
+        //         Permissions.GRN_EDIT,
+        //         Permissions.GRN_DELETE
+        //       ],
+        //     },
+        //     {
+        //       title: 'Goods Dispatch Note',
+        //       page: '/' + DISPATCH_NOTE.LIST,
+        //       permission: [
+        //         Permissions.GDN_VIEW,
+        //         Permissions.GDN_CREATE,
+        //         Permissions.GDN_EDIT,
+        //         Permissions.GDN_DELETE
+        //       ],
+        //     },
+        //   ]
+        // },
+        // //endregion
 
-        //region Report
-        {
-          title: 'Report',
-          bullet: 'dot',
-          icon: 'flaticon2-graphic',
-          permission: [
-            Permissions.GENERALLEDGER_VIEW,
-            Permissions.TRIALBALANCE_VIEW,
-            Permissions.BALANCESHEET_VIEW,
-            Permissions.PROFITLOSS_VIEW
-          ],
-          submenu: [
-            {
-              title: 'General Ledger', // <= Title of the page
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.GENERAL_LEDGER, // <= URL
-              permission: [
-                Permissions.GENERALLEDGER_VIEW,
-              ]
-            },
-            {
-              title: 'Balance Sheet',
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
-              permission: [
-                Permissions.BALANCESHEET_VIEW,
-              ]
-            },
-            {
-              title: 'Profit & Loss',
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS,
-              permission: [
-                Permissions.PROFITLOSS_VIEW,
-              ]
-            },
-            {
-              title: 'Trial Balance',
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
-              permission: [
-                Permissions.TRIALBALANCE_VIEW,
-              ]
-            },
-          ]
-        },
-        // {section: 'Workflow'},
-        {
-          title: 'Workflow',
-          bullet: 'dot',
-          icon: 'flaticon-map',
-          permission: [
-            Permissions.WORKFLOW_CREATE,
-            Permissions.WORKFLOW_VIEW,
-            Permissions.WORKFLOW_EDIT,
-            Permissions.WORKFLOW_DELETE,
-            Permissions.STATUS_CREATE,
-            Permissions.STATUS_EDIT,
-            Permissions.STATUS_VIEW,
-            Permissions.STATUS_DELETE,
-          ],
-          submenu: [
-            {
-              title: 'Workflows',
-              page: '/' + WORKFLOW.LIST,
-              permission: [
-                Permissions.WORKFLOW_CREATE,
-                Permissions.WORKFLOW_VIEW,
-                Permissions.WORKFLOW_EDIT,
-                Permissions.WORKFLOW_DELETE,
-              ]
-            },
-            {
-              title: 'Status',
-              page: '/' + STATUS.LIST,
-              permission: [
-                Permissions.STATUS_CREATE,
-                Permissions.STATUS_EDIT,
-                Permissions.STATUS_VIEW,
-                Permissions.STATUS_DELETE,
-              ]
-            }
-          ]
-        },
+        // //region Report
+        // {
+        //   title: 'Report',
+        //   bullet: 'dot',
+        //   icon: 'flaticon2-graphic',
+        //   permission: [
+        //     Permissions.GENERALLEDGER_VIEW,
+        //     Permissions.TRIALBALANCE_VIEW,
+        //     Permissions.BALANCESHEET_VIEW,
+        //     Permissions.PROFITLOSS_VIEW
+        //   ],
+        //   submenu: [
+        //     {
+        //       title: 'General Ledger', // <= Title of the page
+        //       page: '/' + APP_ROUTES.REPORT + '/' + REPORT.GENERAL_LEDGER, // <= URL
+        //       permission: [
+        //         Permissions.GENERALLEDGER_VIEW,
+        //       ]
+        //     },
+        //     {
+        //       title: 'Balance Sheet',
+        //       page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
+        //       permission: [
+        //         Permissions.BALANCESHEET_VIEW,
+        //       ]
+        //     },
+        //     {
+        //       title: 'Profit & Loss',
+        //       page: '/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS,
+        //       permission: [
+        //         Permissions.PROFITLOSS_VIEW,
+        //       ]
+        //     },
+        //     {
+        //       title: 'Trial Balance',
+        //       page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
+        //       permission: [
+        //         Permissions.TRIALBALANCE_VIEW,
+        //       ]
+        //     },
+        //   ]
+        // },
+        // // {section: 'Workflow'},
+        // {
+        //   title: 'Workflow',
+        //   bullet: 'dot',
+        //   icon: 'flaticon-map',
+        //   permission: [
+        //     Permissions.WORKFLOW_CREATE,
+        //     Permissions.WORKFLOW_VIEW,
+        //     Permissions.WORKFLOW_EDIT,
+        //     Permissions.WORKFLOW_DELETE,
+        //     Permissions.STATUS_CREATE,
+        //     Permissions.STATUS_EDIT,
+        //     Permissions.STATUS_VIEW,
+        //     Permissions.STATUS_DELETE,
+        //   ],
+        //   submenu: [
+        //     {
+        //       title: 'Workflows',
+        //       page: '/' + WORKFLOW.LIST,
+        //       permission: [
+        //         Permissions.WORKFLOW_CREATE,
+        //         Permissions.WORKFLOW_VIEW,
+        //         Permissions.WORKFLOW_EDIT,
+        //         Permissions.WORKFLOW_DELETE,
+        //       ]
+        //     },
+        //     {
+        //       title: 'Status',
+        //       page: '/' + STATUS.LIST,
+        //       permission: [
+        //         Permissions.STATUS_CREATE,
+        //         Permissions.STATUS_EDIT,
+        //         Permissions.STATUS_VIEW,
+        //         Permissions.STATUS_DELETE,
+        //       ]
+        //     }
+        //   ]
+        // },
       //endregion
       ]
     },
