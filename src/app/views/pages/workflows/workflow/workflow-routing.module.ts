@@ -14,34 +14,34 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListWorkflowComponent,
-        // data: {
-        //   array: [
-        //     {permission: Permissions.WORKFLOW_VIEW},
-        //     {permission: Permissions.WORKFLOW_CREATE}
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            {permission: Permissions.WORKFLOW_VIEW},
+            {permission: Permissions.WORKFLOW_CREATE}
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateWorkflowComponent,
-        //canDeactivate: [FormConfirmationGuard],
-        // data: {
-        //   array: [
-        //     {permission: Permissions.WORKFLOW_CREATE},
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        canDeactivate: [FormConfirmationGuard],
+        data: {
+          array: [
+            {permission: Permissions.WORKFLOW_CREATE},
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.EDIT,
         component: CreateWorkflowComponent,
-        // data: {
-        //   array: [
-        //     {permission: Permissions.WORKFLOW_EDIT},
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            {permission: Permissions.WORKFLOW_EDIT},
+          ]
+        },
+        canActivate: [PermissionGuard]
       }
     ]
   },

@@ -665,36 +665,36 @@ export class MenuConfig {
           title: 'Workflow',
           bullet: 'dot',
           icon: 'flaticon-map',
-          // permission: [
-          //   Permissions.WORKFLOW_CREATE,
-          //   Permissions.WORKFLOW_VIEW,
-          //   Permissions.WORKFLOW_EDIT,
-          //   Permissions.WORKFLOW_DELETE,
-          //   Permissions.STATUS_CREATE,
-          //   Permissions.STATUS_EDIT,
-          //   Permissions.STATUS_VIEW,
-          //   Permissions.STATUS_DELETE,
-          // ],
+          permission: [
+            Permissions.WORKFLOW_CREATE,
+            Permissions.WORKFLOW_VIEW,
+            Permissions.WORKFLOW_EDIT,
+            Permissions.WORKFLOW_DELETE,
+            Permissions.STATUS_CREATE,
+            Permissions.STATUS_EDIT,
+            Permissions.STATUS_VIEW,
+            Permissions.STATUS_DELETE,
+          ],
           submenu: [
             {
               title: 'Workflows',
               page: '/' + WORKFLOW.LIST,
-              // permission: [
-              //   Permissions.WORKFLOW_CREATE,
-              //   Permissions.WORKFLOW_VIEW,
-              //   Permissions.WORKFLOW_EDIT,
-              //   Permissions.WORKFLOW_DELETE,
-              // ]
+              permission: [
+                Permissions.WORKFLOW_CREATE,
+                Permissions.WORKFLOW_VIEW,
+                Permissions.WORKFLOW_EDIT,
+                Permissions.WORKFLOW_DELETE,
+              ]
             },
             {
               title: 'Status',
               page: '/' + STATUS.LIST,
-              // permission: [
-              //   Permissions.STATUS_CREATE,
-              //   Permissions.STATUS_EDIT,
-              //   Permissions.STATUS_VIEW,
-              //   Permissions.STATUS_DELETE,
-              // ]
+              permission: [
+                Permissions.STATUS_CREATE,
+                Permissions.STATUS_EDIT,
+                Permissions.STATUS_VIEW,
+                Permissions.STATUS_DELETE,
+              ]
             }
           ]
         },

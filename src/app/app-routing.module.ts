@@ -311,7 +311,7 @@ const routes: Routes = [
           import('./views/pages/workflows/workflow/workflow.module').then(
             (m) => m.WorkflowModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
       // Lazy Load STATUS Module
       {
@@ -320,7 +320,7 @@ const routes: Routes = [
           import('./views/pages/workflows/status/status.module').then(
             (m) => m.StatusModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},

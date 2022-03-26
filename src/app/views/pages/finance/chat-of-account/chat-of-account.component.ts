@@ -70,19 +70,19 @@ export class ChatOfAccountComponent implements OnInit {
 
   addNewItem(node: FlatNode) {
     console.log(node);
-    if (node.level == 1) {
-      const dialogRef = this.dialog.open(CreateLevel3Component, {
-        width: '800px',
-        data: {parentId: node.id}
-      });
-      // Recalling getBankAccounts function on dialog close
-      dialogRef.afterClosed().subscribe(() => {
-        this.chartOfAccService.getChartOfAccount().subscribe((res) => {
-          this.dataSource.data = res.result;
-          this.cdRef.detectChanges();
-        })
-      });
-    }
+    // if (node.level == 1) {
+    //   const dialogRef = this.dialog.open(CreateLevel3Component, {
+    //     width: '800px',
+    //     data: {parentId: node.id}
+    //   });
+    //   // Recalling getBankAccounts function on dialog close
+    //   dialogRef.afterClosed().subscribe(() => {
+    //     this.chartOfAccService.getChartOfAccount().subscribe((res) => {
+    //       this.dataSource.data = res.result;
+    //       this.cdRef.detectChanges();
+    //     })
+    //   });
+    // }
     if (node.level == 2) {
       const dialogRef = this.dialog.open(CreateLevel4Component, {
         width: '800px',
@@ -101,20 +101,21 @@ export class ChatOfAccountComponent implements OnInit {
   }
 
   editItem(node) {
-    if (node.level === 2 && node.id) {
-      const dialogRef = this.dialog.open(CreateLevel3Component, {
-        width: '800px',
-        data: {modelId: node.id}
-      });
-      // Recalling getBankAccounts function on dialog close
-      dialogRef.afterClosed().subscribe(() => {
-        this.chartOfAccService.getChartOfAccount().subscribe((res) => {
-          this.dataSource.data = res.result;
-          this.cdRef.detectChanges();
-        })
-      });
-    }
+    // if (node.level === 2 && node.id) {
+    //   const dialogRef = this.dialog.open(CreateLevel3Component, {
+    //     width: '800px',
+    //     data: {modelId: node.id}
+    //   });
+    //   // Recalling getBankAccounts function on dialog close
+    //   dialogRef.afterClosed().subscribe(() => {
+    //     this.chartOfAccService.getChartOfAccount().subscribe((res) => {
+    //       this.dataSource.data = res.result;
+    //       this.cdRef.detectChanges();
+    //     })
+    //   });
+    // }
     if (node.level === 3 && node.id) {
+      console.log('nodeId : ', node.id)
       const dialogRef = this.dialog.open(CreateLevel4Component, {
         width: '800px',
         data: {modelId: node.id}

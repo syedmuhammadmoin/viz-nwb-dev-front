@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { GridOptions } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateStatusComponent } from '../create-status/create-status.component';
 import { IStatus } from '../model/IStatus';
@@ -32,7 +33,9 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      valueFormatter: (params) => { return AppConst.DocStatus[params.value].viewValue }
+      valueFormatter: (params) => { 
+        return AppConst.DocStatus[params.value].viewValue
+       }
     },
   ]
 
@@ -62,6 +65,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
 
   getAllStatus() {
     this.statusService.getStatuses().subscribe((res) => {
+      console.log(res.result)
       this.statusList = res.result;
       this.cdRef.detectChanges()
     });

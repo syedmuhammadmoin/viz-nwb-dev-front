@@ -17,8 +17,8 @@
           <div [id]="'child'+ node.id">
             <button mat-icon-button disabled></button>
             {{node.name}}
-            <button mat-icon-button [hidden]="node.level == 0 || node.level == 3" (click)="addNewItem(node)" class="btn__add"> <i class="fa fa-plus"></i></button>
-            <button mat-icon-button [hidden]="node.level == 0 || node.level == 1" (click)="editItem(node)" class="btn__edit"> <i class="fa fa-edit"></i></button>
+            <button mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 3" (click)="addNewItem(node)" class="btn__add"> <i class="fa fa-plus"></i></button>
+            <button mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 2" (click)="editItem(node)" class="btn__edit"> <i class="fa fa-edit"></i></button>
           </div>
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
@@ -30,8 +30,8 @@
               </mat-icon>
             </button>
             {{node.name}}
-            <button class="btn__add" mat-icon-button [hidden]="node.level == 0 || node.level == 3 " (click)="addNewItem(node)"> <i class="fa fa-plus"></i></button>
-            <button class="btn__edit" mat-icon-button [hidden]="node.level == 0 || node.level == 1" (click)="editItem(node)"><i class="fa fa-edit"></i></button>
+            <button class="btn__add" mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 3" (click)="addNewItem(node)"> <i class="fa fa-plus"></i></button>
+            <button class="btn__edit" mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 2" (click)="editItem(node)"><i class="fa fa-edit"></i></button>
           </div>
         </mat-tree-node>
       </mat-tree>

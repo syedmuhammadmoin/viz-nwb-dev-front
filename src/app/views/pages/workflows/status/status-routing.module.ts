@@ -12,15 +12,15 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListStatusComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.STATUS_CREATE },
-        //     { permission: Permissions.STATUS_EDIT },
-        //     { permission: Permissions.STATUS_VIEW },
-        //     { permission: Permissions.STATUS_DELETE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.STATUS_CREATE },
+            { permission: Permissions.STATUS_EDIT },
+            { permission: Permissions.STATUS_VIEW },
+            { permission: Permissions.STATUS_DELETE },
+          ]
+        },
+        canActivate: [PermissionGuard]
       }
     ]
   }
