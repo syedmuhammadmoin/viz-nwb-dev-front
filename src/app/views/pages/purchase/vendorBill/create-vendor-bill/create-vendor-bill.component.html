@@ -79,6 +79,22 @@
                     </kt-date-input>
                 </div>
               </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group">
+                    <label class="col-form-label">Campus:</label>
+                    <kt-simple-dropdown 
+                      placeholder="Select Campus" 
+                      propertyValue="id" 
+                      propertyName="name"
+                      formControlName="campusId" 
+                      (blurEvent)="logValidationErrors(vendorBillForm, formErrors, validationMessages)"
+                      matFormFieldClass="full-width input_d_1"
+                      [errorMessage]="'Campus is Required'" 
+                      [optionList]="ngxsService.campuses$">
+                    </kt-simple-dropdown>
+                </div>
+              </div>
             </div>
 
             <!--New Row-->

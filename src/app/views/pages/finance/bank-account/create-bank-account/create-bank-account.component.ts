@@ -6,12 +6,14 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {finalize, take} from "rxjs/operators";
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 
 
 @Component({
   selector: 'kt-create-bank-account',
   templateUrl: './create-bank-account.component.html',
-  styleUrls: ['./create-bank-account.component.scss']
+  styleUrls: ['./create-bank-account.component.scss'],
+  providers:[NgxsCustomService]
 })
 
 export class CreateBankAccountComponent extends AppComponentBase implements OnInit {
@@ -44,6 +46,9 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     'OBDate': {
       'required': 'Opening Balance Date is required.'
     },
+    'campusId': {
+      'required': 'Campus is required.'
+    },
   }
 
   //Error keys
@@ -53,7 +58,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
    // 'branch': '',
     'openingBalance': '',
     'accountTitle': '',
-    'OBDate': ''
+    'OBDate': '',
+    'campusId': ''
   }
 
   //Injecting dependencies
@@ -61,6 +67,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     private fb: FormBuilder,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     public dialogRef: MatDialogRef<CreateBankAccountComponent>,
+    public ngxsService: NgxsCustomService,
     private bankAccountService: BankAccountService,
     injector: Injector
   ) {
@@ -75,6 +82,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       openingBalance: ['', [Validators.required]],
       OBDate: ['', [Validators.required]],
       accountTitle: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
     });
 
 
@@ -90,6 +98,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         openingBalance: null,
         accountTitle: '',
         openingBalanceDate: null,
+        campusId: null,
         currency: ''
       };
     }
@@ -117,6 +126,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       openingBalance: bankAccount.openingBalance,
       OBDate: bankAccount.openingBalanceDate,
       accountTitle: bankAccount.accountTitle,
+      campusId: bankAccount.campusId,
       currency: 'PKR'
     });
     this.bankAccountForm.get('openingBalance').disable()
@@ -164,6 +174,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccount.openingBalance = this.bankAccountForm.value.openingBalance;
     this.bankAccount.accountTitle = this.bankAccountForm.value.accountTitle;
     this.bankAccount.openingBalanceDate = this.bankAccountForm.value.OBDate;
+    this.bankAccount.campusId = this.bankAccountForm.value.campusId;
     this.bankAccount.currency = 'PKR';
   }
 
@@ -178,6 +189,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccountForm.get('branch').reset()
     this.bankAccountForm.get('accountTitle').reset()
     this.bankAccountForm.get('OBDate').reset()
+    this.bankAccountForm.get('campusId').reset()
     if(!this._id)  this.bankAccountForm.get('openingBalance').reset()
     this.logValidationErrors(this.bankAccountForm , this.formErrors , this.validationMessages)
   }

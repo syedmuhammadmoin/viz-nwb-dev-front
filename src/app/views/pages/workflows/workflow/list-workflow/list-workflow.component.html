@@ -1,7 +1,8 @@
 <kt-portlet>
 	<kt-portlet-header [sticky]="false" [title]="'Workflows'" [class]="'card-head-lg'">
 		<ng-container ktPortletTools>
-			<button [disabled]="!(permission.isGranted(permissions.WORKFLOW_CREATE))" routerLink="/workflow/create" mat-raised-button class="btn_white"  matTooltip="Add Workflow">Add Workflow</button>
+			<!-- <button [disabled]="!(permission.isGranted(permissions.WORKFLOW_CREATE))" routerLink="/workflow/create" mat-raised-button class="btn_white"  matTooltip="Add Workflow">Add Workflow</button> -->
+      <button routerLink="/workflow/create" mat-raised-button class="btn_white"  matTooltip="Add Workflow">Add Workflow</button>
 		</ng-container>
 	</kt-portlet-header>
   <kt-portlet-body>

@@ -74,6 +74,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     billDate: {
       required: 'Bill Date is required.',
     },
+    campusId: {
+      required: 'Campus is required.',
+    },
     // dueDate: {
     //   required: 'Due Date is required.',
     // },
@@ -88,6 +91,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   formErrors = {
     vendorName: '',
     billDate: '',
+    campusId: null
     //dueDate: '',
   };
 
@@ -113,6 +117,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       vendorName: ['', [Validators.required]],
       //vendorBillRef: [''],
       billDate: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
       dueDate: [''],
       // contact: [''],
       vendorBillLines: this.fb.array([
@@ -126,6 +131,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       //vendorBillRef: '',
       billDate: null,
       dueDate: null,
+      campusId: null,
       //contact: '',
       billLines: []
     }
@@ -280,6 +286,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       //vendorBillRef: data.vendorBillRef,
       billDate: (data.billDate) ? data.billDate : data.poDate,
       dueDate: data.dueDate,
+      campusId: data.campusId
       //contact: data.contact,
     });
 
@@ -369,6 +376,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     //this.vendorBillModel.vendorBillRef = this.vendorBillForm.value.vendorBillRef;
     this.vendorBillModel.billDate = this.vendorBillForm.value.billDate;
     this.vendorBillModel.dueDate = this.vendorBillForm.value.dueDate;
+    this.vendorBillModel.campusId = this.vendorBillForm.value.campusId;
     //this.vendorBillModel.contact = this.vendorBillForm.value.contact;
     this.vendorBillModel.billLines = this.vendorBillForm.value.vendorBillLines;
   }

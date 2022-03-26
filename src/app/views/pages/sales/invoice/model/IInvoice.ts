@@ -6,6 +6,7 @@ export interface IInvoice {
     invoiceDate: string;
     dueDate: string;
     // contact: string;
+    campusId: number;
     invoiceLines: IInvoiceLines[];
     isSubmit?: any;
 }

@@ -65,13 +65,16 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     noteDate: {
       required: 'Note Date is required.',
     },
-
+    campusId: {
+      required: 'Campus is required.',
+    },
   };
 
   // error keys..
   formErrors = {
     vendorName: '',
     noteDate: '',
+    campusId: ''
     //department: '',
   };
 
@@ -96,6 +99,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     this.debitNoteForm = this.fb.group({
       vendorName: ['', [Validators.required]],
       noteDate: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
       //department: ['', [Validators.required]],
       debitNoteLines: this.fb.array([
         this.addDebitNoteLines()
@@ -106,6 +110,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       id: null,
       vendorId: null,
       noteDate: null,
+      campusId: null,
       //billTransactionId: null,
       debitNoteLines: []
     };
@@ -254,6 +259,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       vendorName: data.vendorId,
       vendorBillRef: data.vendorBillRef,
       noteDate: (data.noteDate) ? data.noteDate : data.billDate,
+      campusId: data.campusId
     });
 
     this.debitNoteForm.setControl('debitNoteLines', this.patchDebitNoteLines((this.billMaster) ? data.billLines : data.debitNoteLines))
@@ -346,6 +352,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     this.debitNoteModel.noteDate = this.transformDate(this.debitNoteForm.value.noteDate, 'yyyy-MM-dd');
     //this.debitNoteModel.billTransactionId = null;
     this.debitNoteModel.debitNoteLines = this.debitNoteForm.value.debitNoteLines;
+    this.debitNoteModel.campusId = this.debitNoteForm.value.campusId;
     // if (this.isBill) {
     //   this.debitNoteModel.billTransactionId = this.billMaster.transactionId;
     // }

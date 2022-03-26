@@ -74,6 +74,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     invoiceDate: {
       required: 'Invoice Date is required.',
     },
+    campusId: {
+      required: 'Campus is required.',
+    },
     // dueDate: {
     //   required: 'Due Date is required.',
     // },
@@ -86,6 +89,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   formErrors = {
     customerName: '',
     invoiceDate: '',
+    campusId: '',
    // dueDate: '',
   };
 
@@ -110,6 +114,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.invoiceForm = this.fb.group({
       customerName: ['', [Validators.required]],
       invoiceDate: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
       dueDate: [''],
       //contact: [''],
       invoiceLines: this.fb.array([
@@ -121,6 +126,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       id: null,
       customerId: null,
       invoiceDate: null,
+      campusId: null,
       dueDate: null,
      // contact: '',
       invoiceLines: []
@@ -282,6 +288,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       customerName: data.customerId,
       invoiceDate: (data.invoiceDate) ? data.invoiceDate : data.salesOrderDate,
       dueDate: data.dueDate,
+      campusId: data.campusId
       //contact: data.contact
     });
 
@@ -369,6 +376,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.invoiceModel.invoiceDate = this.transformDate(this.invoiceForm.value.invoiceDate, 'yyyy-MM-dd');
     this.invoiceModel.dueDate = this.transformDate(this.invoiceForm.value.dueDate, 'yyyy-MM-dd');
     //this.invoiceModel.contact = this.invoiceForm.value.contact;
+    this.invoiceModel.campusId = this.invoiceForm.value.campusId;
     this.invoiceModel.invoiceLines = this.invoiceForm.value.invoiceLines
   }
 

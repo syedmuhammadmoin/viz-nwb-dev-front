@@ -13,6 +13,8 @@ import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-accou
 import { BusinessPartnerService } from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 
 import { BusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/business-partner.state';
+import { CampusService } from 'src/app/views/pages/profiling/campus/service/campus.service';
+import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
 import { CategoryService } from 'src/app/views/pages/profiling/category/service/category.service';
 import { CategoryState } from 'src/app/views/pages/profiling/category/store/category.state';
 import { DepartmentService } from 'src/app/views/pages/profiling/department/service/department.service';
@@ -34,6 +36,7 @@ export class NgxsCustomService {
   constructor(
     // services
     public businessPartnerService: BusinessPartnerService,
+    public campusService: CampusService,
     public categoryService: CategoryService,
     public chartOfAccountService: ChartOfAccountService,
     public departmentService: DepartmentService,
@@ -52,6 +55,11 @@ export class NgxsCustomService {
   @Select(BusinessPartnerState.entities) businessPartners$: Observable<any>;
   @Select(BusinessPartnerState.isFetchCompleted) businessPartnerFetchCompleted$: Observable<any>;
   @Select(BusinessPartnerState.isLoading) businessPartnerIsLoading$: Observable<any>;
+
+  // Business Partner
+  @Select(CampusState.entities) campuses$: Observable<any>;
+  @Select(CampusState.isFetchCompleted) campusFetchCompleted$: Observable<any>;
+  @Select(CampusState.isLoading) campusIsLoading$: Observable<any>;
 
 
    // Business Partner Country
@@ -131,6 +139,21 @@ export class NgxsCustomService {
       }
     })
   }
+
+  // Get Campus From Store if available else fetch from the server and cache.
+  getCampusFromState() {
+    this.campusFetchCompleted$.subscribe((res) => {
+      console.log('Campus State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(CampusState, {
+          serviceClass: this.campusService,
+          methodName: 'getCampusDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
  // Get Country From Store if available else fetch from the server and cache.
  getCountryFromState() {
   this.countryFetchCompleted$.subscribe((res) => {

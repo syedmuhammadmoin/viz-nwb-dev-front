@@ -7,6 +7,7 @@ export interface IVendorBill {
     billDate: Date;
     dueDate: Date;
     //contact: string;
+    campusId: number;
     billLines: IVendorBillLines[];
     isSubmit?: any;
 }

@@ -4,5 +4,6 @@ export interface ICashAccount {
     handler         : string;
     openingBalance  : number;
     openingBalanceDate: Date;
+    campusId        : number;
     currency        : string;
 }

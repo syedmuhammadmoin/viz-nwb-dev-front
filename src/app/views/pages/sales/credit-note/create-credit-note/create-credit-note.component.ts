@@ -74,6 +74,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     // },
     noteDate: {
       required: 'Note Date is required.',
+    },
+    campusId: {
+      required: 'Campus is required.',
     }
   };
 
@@ -105,6 +108,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.creditNoteForm = this.fb.group({
       customerName: ['', [Validators.required]],
       noteDate: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
       creditNoteLines: this.fb.array([
         this.addCreditNoteLines()
       ])
@@ -114,6 +118,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       id: null,
       customerId: null,
       noteDate: null,
+      campusId: null,
       creditNoteLines: []
     };
 
@@ -250,6 +255,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.creditNoteForm.patchValue({
       customerName: data.customerId,
       noteDate: (data.noteDate) ? data.noteDate : data.invoiceDate,
+      campusId: data.campusId
     });
 
     this.creditNoteForm.setControl('creditNoteLines', this.patchCreditNoteLines((this.invoiceMaster) ? data.invoiceLines : data.creditNoteLines))
@@ -339,6 +345,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.creditNoteModel.customerId = this.creditNoteForm.value.customerName;
     this.creditNoteModel.noteDate = this.transformDate(this.creditNoteForm.value.noteDate, 'yyyy-MM-dd');
     this.creditNoteModel.creditNoteLines = this.creditNoteForm.value.creditNoteLines;
+    this.creditNoteModel.campusId = this.creditNoteForm.value.campusId;
     //if (this.isInvoice) { this.creditNoteModel.invoiceTransactionId = this.invoiceMaster.transactionId; }
   }
 

@@ -31,6 +31,7 @@ export const APP_ROUTES = {
   QUOTATION: 'quotation',
 
   //PROFILING
+  CAMPUS : 'campus',
   BUSINESS_PARTNER : 'business-partner',
   CATEGORY: 'category',
   DEPARTMENT: 'department',
@@ -189,6 +190,10 @@ export const CRUD_ROUTES = {
 
 
   //PROFILING SECTION
+  export const CAMPUS = {
+    LIST: APP_ROUTES.CAMPUS + '/' + CRUD_ROUTES.LIST,
+  }
+
   export const BUSINESS_PARTNER = {
     LIST: APP_ROUTES.BUSINESS_PARTNER + '/' + CRUD_ROUTES.LIST,
   }
