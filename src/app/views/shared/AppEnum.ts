@@ -286,10 +286,5 @@ export enum BusinessPartnerType {
   Employee
 }
 
-export enum ProductType {
-  Consumable,
-  Service,
-  FixedAsset
-}
 
 // Draft - Yellow,  Cancelled - Gray, Upaid - Red, Partial - Yellow,  Paid - Green, Submitted - Yellow, Reviewed - Green

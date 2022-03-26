@@ -39,7 +39,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   creditNoteForm: FormGroup;
 
   //For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'subTotal', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax',  'subTotal', 'warehouseId', 'action']
 
   //Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -84,6 +84,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   formErrors = {
     customerName: '',
     noteDate: '',
+    campusId:''
     //contact: '',
   };
 
@@ -127,6 +128,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.ngxsService.getAccountLevel4FromState()
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getProductFromState();
+    this.ngxsService.getCampusFromState()
     this.ngxsService.getLocationFromState();
 
     this.activatedRoute.queryParams.subscribe((param: Params) => {
@@ -209,13 +211,14 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   //Add Credit Note Lines
   addCreditNoteLines(): FormGroup {
     return this.fb.group({
-      itemId: [''],
+      itemId: [null],
       description: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.min(1)]],
+      quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
+      warehouseId: [null]
      // locationId: ['', [Validators.required]],
     });
   }
@@ -273,8 +276,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
         price: line.price,
         quantity: line.quantity,
         tax: line.tax,
-        subTotal: [{ value: line.subtotal, disabled: true }],
+        subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: line.accountId,
+        warehouseId: line.warehouseId
        // locationId: line.locationId,
       }))
     })

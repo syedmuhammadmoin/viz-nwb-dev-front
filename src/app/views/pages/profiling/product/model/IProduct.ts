@@ -1,12 +1,10 @@
 export interface IProduct {
     id: number;
     productName: string;
-    purchasedOrSold: string;
-    productType: string;
+    productType: number;
     categoryId: number;
     salesPrice: number;
-    cost: number;
+    purchasePrice: number;
     salesTax: number;
     barcode: string;
 }
-

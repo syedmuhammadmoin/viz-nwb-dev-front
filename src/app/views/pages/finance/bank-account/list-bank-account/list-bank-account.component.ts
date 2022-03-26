@@ -37,7 +37,10 @@ export class ListBankAccountComponent implements OnInit {
   columnDefs = [
     {headerName: 'Account Number', field: 'accountNumber', sortable: true, filter: true, tooltipField: 'accountNumber'},
     {headerName: 'Bank', field: 'bankName', sortable: true, filter: true ,tooltipField: 'accountNumber'},
-    {headerName: 'Branch', field: 'branch', sortable: true, filter: true ,tooltipField: 'accountNumber'},
+    {headerName: 'Branch', field: 'branch', sortable: true, filter: true ,tooltipField: 'accountNumber',
+    cellRenderer: (params : ICellRendererParams) => {
+      return (params.data.branch) || 'N/A'
+    }},
     {
       headerName: 'Opening Balance',
       field: 'openingBalance',
@@ -47,7 +50,8 @@ export class ListBankAccountComponent implements OnInit {
       cellRenderer: (params : ICellRendererParams) => {
         return params.data.openingBalance.toLocaleString()
       }
-    }
+    },
+    {headerName: 'Campus', field: 'campusName', sortable: true, filter: true, tooltipField: 'accountNumber'},
   ];
  
   ngOnInit() {

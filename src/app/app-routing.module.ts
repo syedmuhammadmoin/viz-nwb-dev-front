@@ -66,7 +66,7 @@ const routes: Routes = [
           import('./views/pages/profiling/campus/campus.module').then(
             (m) => m.CampusModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
        // Lazy Load CATEGORY Module
        {

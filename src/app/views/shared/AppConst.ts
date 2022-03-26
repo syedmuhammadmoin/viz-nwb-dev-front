@@ -1,9 +1,10 @@
 import {DocType} from './AppEnum';
 
 export class AppConst {
-  static PurchasedOrSold = {
-    1: 'Purchased',
-    2: 'Sold'
+  static ProductType = {
+    0: 'Consumable',
+    1: 'Service',
+    2: 'Fixed Asset'
   }
   static ConsumableOrService = {
     1: 'Consumable',

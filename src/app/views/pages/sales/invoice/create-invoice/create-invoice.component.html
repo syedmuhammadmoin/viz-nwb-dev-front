@@ -52,7 +52,8 @@
                     formControlName="dueDate" 
                     placeholder="Due Date" 
                     matFormFieldClass="full-width"
-                    [hintText]="'Optional'"
+                    (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
+                    [errorMessage]="formErrors.dueDate"
                     [minDate]="minDate"
                     dateCondition="dateCondition" 
                     dateMessage="Invoice">
@@ -133,7 +134,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <!-- <kt-input-field formControlName="quantity"
+                              <kt-input-field formControlName="quantity"
                                 matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
                                 #itemName type="number"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
@@ -145,13 +146,13 @@
                                                         error : 'Minimum value is one' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
-                              </kt-input-field> -->
-                              <kt-input-field formControlName="quantity"
+                              </kt-input-field>
+                              <!-- <kt-input-field formControlName="quantity"
                               matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
                               #itemName type="number" [hintText]="'Optional'"
                               (change)="onChangeEvent($event , i , itemName)"
                               (keyup)="onChangeEvent($event , i , itemName)">
-                            </kt-input-field>
+                            </kt-input-field> -->
                             </div>
                           </mat-cell>
                         </ng-container>
@@ -232,6 +233,22 @@
                             </div>
                           </mat-cell>
                         </ng-container> -->
+                        <ng-container matColumnDef="warehouseId">
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> Warehouse</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                            <div class="col-lg-12 col-sm-12 mt-2">
+                              <kt-simple-dropdown 
+                                placeholder="Select Warehouse" 
+                                propertyValue="id" 
+                                propertyName="name"
+                                [hintText]="'Optional'"
+                                formControlName="warehouseId" 
+                                matFormFieldClass="full-width input_d_1" 
+                                [optionList]="ngxsService.warehouses$">
+                              </kt-simple-dropdown>
+                            </div>
+                          </mat-cell>
+                        </ng-container>
                         <!-- Action Column -->
                         <ng-container matColumnDef="action">
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>

@@ -6,5 +6,6 @@ export interface IVendorBillLines {
     quantity: number;
     tax: number;
     accountId: number;
+    warehouseId: number;
    // locationId: number;
 }

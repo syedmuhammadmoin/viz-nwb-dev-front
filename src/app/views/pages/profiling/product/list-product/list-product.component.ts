@@ -36,15 +36,15 @@ export class ListProductComponent implements OnInit {
   }
 
   columnDefs = [
-    {headerName: 'Name', field: 'productName', sortable: true, filter: true, tooltipField: 'cost'},
-    {headerName: 'purchase or Sold', field: 'purchasedOrSold', sortable: true, filter: true, tooltipField: 'cost',
-      cellRenderer: (params: ICellRendererParams) => AppConst.PurchasedOrSold[params.value]},
-    {headerName: 'Type', field: 'productType', sortable: true, filter: true, tooltipField: 'cost',
-      cellRenderer: (params: ICellRendererParams) => AppConst.ConsumableOrService[params.value]},
-    {headerName: 'Category', field: 'categoryName', sortable: true, filter: true, tooltipField: 'cost'},
-    {headerName: 'Sale Price', field: 'salesPrice', sortable: true, filter: true, tooltipField: 'cost'},
-    {headerName: 'Cost', field: 'cost', sortable: true, filter: true, tooltipField: 'cost'},
-    {headerName: 'sales Tax', field: 'salesTax', sortable: true, filter: true, tooltipField: 'cost'}
+    {headerName: 'Name', field: 'productName', sortable: true, filter: true, tooltipField: 'salesTax'},
+    // {headerName: 'purchase or Sold', field: 'purchasedOrSold', sortable: true, filter: true, tooltipField: 'cost',
+    //   cellRenderer: (params: ICellRendererParams) => AppConst.PurchasedOrSold[params.value]},
+    {headerName: 'Type', field: 'productType', sortable: true, filter: true, tooltipField: 'salesTax',
+      cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
+    {headerName: 'Category', field: 'categoryName', sortable: true, filter: true, tooltipField: 'salesTax'},
+    {headerName: 'Sale Price', field: 'salesPrice', sortable: true, filter: true, tooltipField: 'salesTax'},
+    {headerName: 'Purchase Price', field: 'purchasePrice', sortable: true, filter: true, tooltipField: 'salesTax'},
+    {headerName: 'sales Tax', field: 'salesTax', sortable: true, filter: true, tooltipField: 'salesTax'}
   ];
 
   ngOnInit() {

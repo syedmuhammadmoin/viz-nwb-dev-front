@@ -51,7 +51,7 @@
                       <th style="background-color: #293756; color: white;">Description:</th>
                       <th style="background-color: #293756; color: white;">Account:</th>
                       <th style="background-color: #293756; color: white;">Business Partner</th>
-                      <th style="background-color: #293756; color: white;">Location</th>
+                      <th style="background-color: #293756; color: white;">Warehouse</th>
                       <th style="background-color: #293756; color: white;">Debit</th>
                       <th style="background-color: #293756; color: white;">Credit</th>
 
@@ -62,7 +62,7 @@
                       <td class="description" style="text-align: left !important;">{{line?.description}}</td>
                       <td>{{line?.accountName}}</td>
                       <td>{{line?.businessPartnerName}}</td>
-                      <td>{{line?.locationName}}</td>
+                      <td>{{line?.warehouseName}}</td>
                       <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{line?.debit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                       <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{line?.credit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     </tr>

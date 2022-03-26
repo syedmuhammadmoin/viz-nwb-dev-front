@@ -35,7 +35,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   purchaseOrderMaster: any;
 
   //For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal','warehouseId', 'action']
 
   //Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -123,7 +123,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
      this.ngxsService.getWarehouseFromState();
      // get item from state
      this.ngxsService.getProductFromState();
-     this.ngxsService.getLocationFromState();
+     //this.ngxsService.getLocationFromState();
+     this.ngxsService.getCampusFromState()
 
 
     //get id by using route
@@ -154,7 +155,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   onItemSelected(itemId: number, index: number) {
     var arrayControl = this.debitNoteForm.get('debitNoteLines') as FormArray;
     if (itemId) {
-      var cost = this.salesItem.find(i => i.id === itemId).cost
+      var cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       var tax = this.salesItem.find(i => i.id === itemId).salesTax
       //set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
@@ -208,13 +209,14 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   addDebitNoteLines(): FormGroup {
     return this.fb.group({
-      itemId: [''],
+      itemId: [null],
       description: ['', Validators.required],
       cost: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.min(1)]],
+      quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
+      warehouseId: [null]
       //locationId: ['', [Validators.required]],
     });
   }
@@ -277,8 +279,9 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         cost: line.cost,
         quantity: line.quantity,
         tax: line.tax,
-        subTotal: [{ value: line.subtotal, disabled: true }],
+        subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: line.accountId,
+        warehouseId: line.warehouseId
         //locationId: line.locationId,
       }))
     })

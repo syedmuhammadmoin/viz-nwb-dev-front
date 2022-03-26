@@ -30,16 +30,16 @@ export class InvoiceService {
             .pipe(catchError(this.handleError));
     }
 
-    createInvoice(Invoice: IInvoice): Observable<IApiResponse<IInvoice>> {
-        return this.httpClient.post<IApiResponse<IInvoice>>(this.baseUrl, Invoice, {
+    createInvoice(Invoice: IInvoice): Observable<any> {
+        return this.httpClient.post<any>(this.baseUrl, Invoice, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
         });
     }
 
-    updateInvoice(invoiceModel: IInvoice): Observable<IApiResponse<IInvoice>> {
-        return this.httpClient.put<IApiResponse<IInvoice>>(this.baseUrl + `/${invoiceModel.id}`, invoiceModel)
+    updateInvoice(invoiceModel: IInvoice): Observable<any> {
+        return this.httpClient.put<any>(this.baseUrl + `/${invoiceModel.id}`, invoiceModel)
     }
 
     workflow(workflow: IWorkflow): Observable<any> {

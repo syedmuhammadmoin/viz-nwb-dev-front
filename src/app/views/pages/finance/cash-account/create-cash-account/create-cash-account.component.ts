@@ -92,6 +92,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
           currency: '',
         };
       }
+
+      this.ngxsService.getCampusFromState()
     }
   
     // Dialogue close function

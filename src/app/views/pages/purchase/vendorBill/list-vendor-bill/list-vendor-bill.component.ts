@@ -40,7 +40,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     { headerName: 'Bill #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status' },
     { headerName: 'Vendor Name', field: 'vendorName', sortable: true, filter: true, tooltipField: 'status' },
     {
-      headerName: 'Bill',
+      headerName: 'Bill Date',
       field: 'billDate',
       sortable: true,
       filter: true,

@@ -140,10 +140,10 @@ export class MenuConfig {
             // Permissions.ORGANIZATION_CREATE,
             // Permissions.ORGANIZATION_EDIT,
             // Permissions.ORGANIZATION_DELETE,
-            // Permissions.CAMPUS_VIEW,
-            // Permissions.CAMPUS_CREATE,
-            // Permissions.CAMPUS_EDIT,
-            // Permissions.CAMPUS_DELETE
+            Permissions.CAMPUS_VIEW,
+            Permissions.CAMPUS_CREATE,
+            Permissions.CAMPUS_EDIT,
+            Permissions.CAMPUS_DELETE,
             Permissions.BUDGET_VIEW,
             Permissions.BUDGET_CREATE,
             Permissions.BUDGET_EDIT,
@@ -187,12 +187,22 @@ export class MenuConfig {
             {
               title: 'Campus', // <= Title of the page
               page: '/' + CAMPUS.LIST, // <= URL
-              // permission: [
-              //   Permissions.CAMPUS_VIEW,
-              //   Permissions.CAMPUS_CREATE,
-              //   Permissions.CAMPUS_EDIT,
-              //   Permissions.CAMPUS_DELETE
-              // ]
+              permission: [
+                Permissions.CAMPUS_VIEW,
+                Permissions.CAMPUS_CREATE,
+                Permissions.CAMPUS_EDIT,
+                Permissions.CAMPUS_DELETE
+              ]
+            },
+            {
+              title: 'Warehouse',
+              page: '/' + WAREHOUSE.LIST,
+              permission: [
+                Permissions.WAREHOUSE_VIEW,
+                Permissions.WAREHOUSE_CREATE,
+                Permissions.WAREHOUSE_EDIT,
+                Permissions.WAREHOUSE_DELETE
+              ]
             },
             {
               title: 'Business Partner', // <= Title of the page
@@ -222,16 +232,6 @@ export class MenuConfig {
                 Permissions.PRODUCT_CREATE,
                 Permissions.PRODUCT_EDIT,
                 Permissions.PRODUCT_DELETE
-              ]
-            },
-            {
-              title: 'Warehouse',
-              page: '/' + WAREHOUSE.LIST,
-              permission: [
-                Permissions.WAREHOUSE_VIEW,
-                Permissions.WAREHOUSE_CREATE,
-                Permissions.WAREHOUSE_EDIT,
-                Permissions.WAREHOUSE_DELETE
               ]
             },
             {

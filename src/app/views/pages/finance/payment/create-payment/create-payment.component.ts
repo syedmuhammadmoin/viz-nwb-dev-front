@@ -85,6 +85,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     grossPayment: {
       required: 'Gross Payment is required',
       min: 'Please insert correct Payment !'
+    },
+    campusId: {
+      required: 'Campus is required'
     }
   }
 
@@ -97,7 +100,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     businessPartner: '',
     account: '',
     paymentRegister: '',
-    grossPayment: ''
+    grossPayment: '',
+    campusId: ''
   }
 
   // Injecting dependencies
@@ -131,6 +135,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       description: ['', [Validators.required]],
       businessPartner: ['', [Validators.required]],
       account: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
       paymentRegister: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(0)]],
       discount: [0],
@@ -153,6 +158,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         accountId: null,
         paymentDate: null,
         paymentRegisterId: null,
+        campusId: null,
         description: '',
         grossPayment: null,
         discount: null,
@@ -164,7 +170,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.calculatingNetPayment();
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getAccountLevel4FromState();
-    
+    this.ngxsService.getCampusFromState()
     // //get business partner list from service
     // this.addButtonService.getBusinessPartnerTypes();
   }
@@ -193,6 +199,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       account: payment.accountId,
       paymentRegister: payment.paymentRegisterId,
       grossPayment: payment.grossPayment,
+      campusId: payment.campusId,
       salesTax: payment.salesTax,
       incomeTax: payment.incomeTax,
     });
@@ -250,6 +257,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.description = this.paymentForm.value.description;
     this.paymentModel.grossPayment = this.paymentForm.value.grossPayment;
     this.paymentModel.discount = this.paymentForm.value.discount;
+    this.paymentModel.campusId = this.paymentForm.value.campusId;
     this.paymentModel.salesTax = this.paymentForm.value.salesTax;
     this.paymentModel.incomeTax = this.paymentForm.value.incomeTax;
     this.paymentModel.paymentRegisterType = this.paymentForm.value.registerType

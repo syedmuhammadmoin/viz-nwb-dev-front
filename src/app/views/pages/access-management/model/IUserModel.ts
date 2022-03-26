@@ -6,5 +6,5 @@ export interface IUserModel {
     email: string;
     password: string;
     confirmPassword: string;
-    userRole: IUserRole[];
+    userRoles: IUserRole[];
 }

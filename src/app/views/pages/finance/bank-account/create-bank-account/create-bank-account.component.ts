@@ -102,6 +102,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         currency: ''
       };
     }
+    this.ngxsService.getCampusFromState()
   }
 
   getBankAccount(id: number) {
