@@ -3,7 +3,7 @@ export interface ICashAccount {
     cashAccountName : string;
     handler         : string;
     openingBalance  : number;
-    openingBalanceDate: Date;
+    openingBalanceDate: string;
     campusId        : number;
     currency        : string;
 }

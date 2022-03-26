@@ -6,6 +6,6 @@ export interface IBankAccount {
     branch: string;
     campusId: number;
     openingBalance: number;
-    openingBalanceDate: Date;
+    openingBalanceDate: string;
     currency: string;
 }

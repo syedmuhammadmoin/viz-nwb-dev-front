@@ -131,6 +131,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       currency: 'PKR'
     });
     this.bankAccountForm.get('openingBalance').disable()
+    this.bankAccountForm.get('OBDate').disable()
+    this.bankAccountForm.get('campusId').disable()
   }
 
   //submit Bank Account Form
@@ -174,7 +176,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccount.branch = this.bankAccountForm.value.branch;
     this.bankAccount.openingBalance = this.bankAccountForm.value.openingBalance;
     this.bankAccount.accountTitle = this.bankAccountForm.value.accountTitle;
-    this.bankAccount.openingBalanceDate = this.bankAccountForm.value.OBDate;
+    this.bankAccount.openingBalanceDate = this.transformDate(this.bankAccountForm.value.OBDate, 'yyyy-MM-dd');
     this.bankAccount.campusId = this.bankAccountForm.value.campusId;
     this.bankAccount.currency = 'PKR';
   }

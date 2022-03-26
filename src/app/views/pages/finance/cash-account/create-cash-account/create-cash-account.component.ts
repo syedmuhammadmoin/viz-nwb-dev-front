@@ -126,6 +126,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         //currency: cashAccount.currency,
       });
       this.cashAccountForm.get('openingBalance').disable()
+      this.cashAccountForm.get('OBDate').disable()
+      this.cashAccountForm.get('campusId').disable()
     }
   
     // submit cash account form
@@ -166,7 +168,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       this.cashAccountModel.cashAccountName = this.cashAccountForm.value.cashAccountName;
       this.cashAccountModel.handler = this.cashAccountForm.value.handler;
       this.cashAccountModel.openingBalance = this.cashAccountForm.value.openingBalance;
-      this.cashAccountModel.openingBalanceDate = this.cashAccountForm.value.OBDate;
+      this.cashAccountModel.openingBalanceDate = this.transformDate(this.cashAccountForm.value.OBDate, 'yyyy-MM-dd');
       this.cashAccountModel.campusId = this.cashAccountForm.value.campusId;
       this.cashAccountModel.currency = 'PKR';
     }
