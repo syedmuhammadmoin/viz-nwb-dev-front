@@ -104,10 +104,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       field: 'status',
       sortable: true,
       filter: true,
-      tooltipField: 'status',
-      cellRenderer: (params: ICellRendererParams) => {
-        return DocumentStatus[params.data.status]
-      }
+      tooltipField: 'status'
     },
   ];
 

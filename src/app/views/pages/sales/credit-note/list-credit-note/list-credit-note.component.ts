@@ -66,9 +66,6 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
       sortable: true, 
       filter: true, 
       tooltipField: 'noteDate', 
-      cellRenderer: (params: ICellRendererParams) => {
-        return DocumentStatus[params.data.status]
-      }
     },,
   ];
 

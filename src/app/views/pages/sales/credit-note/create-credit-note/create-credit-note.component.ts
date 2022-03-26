@@ -129,7 +129,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState()
-    this.ngxsService.getLocationFromState();
+   // this.ngxsService.getLocationFromState();
 
     this.activatedRoute.queryParams.subscribe((param: Params) => {
       const id = param.q;

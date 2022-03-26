@@ -4,14 +4,14 @@
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         <button [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_white mr-3" mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button>
-        <button *ngIf="journalEntryMaster?.status === docStatus.Draft"
+        <button *ngIf="(journalEntryMaster?.state === docStatus.Draft || journalEntryMaster?.state === docStatus.Rejected)"
            [disabled]="!(permission.isGranted(permissions.JOURNALENTRY_EDIT))"
            [ngClass]="!(permission.isGranted(permissions.JOURNALENTRY_EDIT)) ? 'disable' : '' "
            [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('edit' , journalEntryMaster?.id)"
            [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button" mat-raised-button class="btn_white mr-3">
             Edit
         </button>
-        <h4 class="overall_statuses {{docStatus[journalEntryMaster?.status]}}"> Status:  {{docStatus[journalEntryMaster?.status]}}  </h4>
+        <h4 class="overall_statuses {{docStatus[journalEntryMaster?.state]}}"> Status:  {{journalEntryMaster?.status}}  </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>

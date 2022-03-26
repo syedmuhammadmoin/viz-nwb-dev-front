@@ -7,7 +7,7 @@
           class="btn_white mr-3">
           Print Invoice
         </button>
-        <button *ngIf="invoiceMaster?.status === docStatus.Draft"
+        <button *ngIf="(invoiceMaster?.state === docStatus.Draft || invoiceMaster?.state === docStatus.Rejected)"
           [disabled]="!(permission.isGranted(permissions.INVOICE_EDIT))"
           [ngClass]="!(permission.isGranted(permissions.INVOICE_EDIT)) ? 'disable' : '' "
           [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
@@ -28,7 +28,7 @@
           mat-raised-button class="btn_white mr-3">
           Create Credit Note
         </button> -->
-        <h4 class="overall_statuses {{docStatus[invoiceMaster?.status]}}"> Status: {{docStatus[invoiceMaster?.status]}} </h4>
+        <h4 class="overall_statuses {{docStatus[invoiceMaster?.state]}}"> Status: {{invoiceMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>

@@ -61,10 +61,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
       field: 'status', 
       sortable: true, 
       filter: true, 
-      tooltipField: 'status', 
-      cellRenderer: (params: ICellRendererParams) => {
-        return DocumentStatus[params.data.status]
-      }
+      tooltipField: 'status',
     },
   ];
 

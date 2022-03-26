@@ -73,9 +73,6 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
       sortable: true, 
       filter: true, 
       tooltipField: 'status', 
-      cellRenderer: (params: ICellRendererParams) => {
-        return DocumentStatus[params.data.status]
-      }
     },
   ];
 

@@ -8,7 +8,7 @@
           class="btn_white mr-3">
           Print Vendor Bill
         </button>
-        <button *ngIf="billMaster?.status === docStatus.Draft"
+        <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)"
           [disabled]="!(permission.isGranted(permissions.BILL_EDIT))"
           [ngClass]="!(permission.isGranted(permissions.BILL_EDIT)) ? 'disable' : '' "
           [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
@@ -29,7 +29,7 @@
           class="btn_white mr-3" mat-raised-button>
           Create Debit Note
         </button> -->
-        <h4 class="overall_statuses {{docStatus[billMaster?.status]}}"> Status:  {{docStatus[billMaster?.status]}} </h4>
+        <h4 class="overall_statuses {{docStatus[billMaster?.state]}}"> Status:  {{billMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>

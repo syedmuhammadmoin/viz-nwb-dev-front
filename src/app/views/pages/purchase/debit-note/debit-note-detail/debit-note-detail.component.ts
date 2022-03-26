@@ -120,6 +120,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
 
   workflow(action: any) {
     this.isLoading = true
+    console.log(action , this.debitNoteMaster.id)
     this.debitNoteService.workflow({ action, docId: this.debitNoteMaster.id })
       .subscribe((res) => {
         this.getDebitNoteMasterData(this.debitNoteId);

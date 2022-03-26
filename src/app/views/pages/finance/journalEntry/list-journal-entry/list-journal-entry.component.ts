@@ -81,10 +81,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       field: 'status', 
       sortable: true, 
       filter: true, 
-      tooltipField: 'docNo', 
-      cellRenderer: (params: ICellRendererParams) => {
-        return DocumentStatus[params.data.status]
-      }
+      tooltipField: 'docNo'
     },
   ];
 

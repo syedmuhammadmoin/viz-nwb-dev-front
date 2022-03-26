@@ -477,13 +477,13 @@ kt-footer
   color: #7ce186;
 }
 
-.overall_statuses.Draft, .overall_statuses.Reconciled , .overall_statuses.In
+.overall_statuses.Draft, .overall_statuses.Reconciled , .overall_statuses.Reviewed, .overall_statuses.In , .overall_statuses.Partial
 {
   background: #f5c5192e;
   color: #f5c519;
 }
 
-.overall_statuses.Unpaid
+.overall_statuses.Unpaid, .overall_statuses.Rejected
 {
   background: #ff6a6a26;
   color: #ff6a6a;

@@ -7,7 +7,7 @@
           class="btn_white mr-3">
           Print Debit Note
         </button>
-        <button *ngIf="debitNoteMaster?.status === docStatus.Draft"
+        <button *ngIf="(debitNoteMaster?.state === docStatus.Draft || debitNoteMaster?.state === docStatus.Rejected)"
           [disabled]="!(permission.isGranted(permissions.DEBITNOTE_EDIT))"
           [ngClass]="!(permission.isGranted(permissions.DEBITNOTE_EDIT)) ? 'disable' : '' "
           [routerLink]= "'/' + DEBIT_NOTE.ID_BASED_ROUTE ('edit',debitNoteMaster?.id)"
@@ -15,7 +15,7 @@
           class="btn_white mr-3">
           Edit
         </button>
-        <h4 class="overall_statuses {{docStatus[debitNoteMaster?.status]}}"> Status:  {{docStatus[debitNoteMaster?.status]}} </h4>
+        <h4 class="overall_statuses {{docStatus[debitNoteMaster?.state]}}"> Status:  {{debitNoteMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>

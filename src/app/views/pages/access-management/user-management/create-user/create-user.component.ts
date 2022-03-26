@@ -123,6 +123,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.accessManagementService.getUser(id).subscribe((res) => {
       this.isLoading = false
       // TODO: Update User
+      console.log(res.result)
       this.userModel = res.result
       this.patchUser(this.userModel);
     })
