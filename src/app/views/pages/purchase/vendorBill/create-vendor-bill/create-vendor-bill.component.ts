@@ -34,7 +34,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   // For Table Columns
   // displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'ton', 'price', 'tax', 'subTotal', 'locationId', 'action']
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal','warehouseId', 'action']
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -74,9 +74,12 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     billDate: {
       required: 'Bill Date is required.',
     },
-    // dueDate: {
-    //   required: 'Due Date is required.',
-    // },
+    campusId: {
+      required: 'Campus is required.',
+    },
+    dueDate: {
+      required: 'Due Date is required.',
+    },
     // contact: {
     //   required: 'Contact Name is required',
     //   minlength: 'Contact contains atleast 10 digits',
@@ -88,7 +91,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   formErrors = {
     vendorName: '',
     billDate: '',
-    //dueDate: '',
+    campusId: null,
+    dueDate: '',
   };
 
   constructor(
@@ -113,7 +117,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       vendorName: ['', [Validators.required]],
       //vendorBillRef: [''],
       billDate: ['', [Validators.required]],
-      dueDate: [''],
+      campusId: ['', [Validators.required]],
+      dueDate: ['', [Validators.required]],
       // contact: [''],
       vendorBillLines: this.fb.array([
         this.addVendorBillLines()
@@ -126,6 +131,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       //vendorBillRef: '',
       billDate: null,
       dueDate: null,
+      campusId: null,
       //contact: '',
       billLines: []
     }
@@ -139,7 +145,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     // get item from state
     this.ngxsService.getProductFromState();
     // get locations
-    this.ngxsService.getLocationFromState();
+    //this.ngxsService.getLocationFromState();
+    this.ngxsService.getCampusFromState()
 
      // get id through route
     this.activatedRoute.queryParams.subscribe((param) => {
@@ -177,7 +184,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   onItemSelected(itemId: number, index: number) {
     const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
     if (itemId) {
-      const cost = this.salesItem.find(i => i.id === itemId).cost
+      const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const tax = this.salesItem.find(i => i.id === itemId).salesTax
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
@@ -228,13 +235,14 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   addVendorBillLines(): FormGroup {
     return this.fb.group({
-      itemId: [0],
+      itemId: [null],
       description: ['', Validators.required],
       cost: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.min(1)]],
+      quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
+      warehouseId: [null],
       //locationId: ['', [Validators.required]],
     });
   }
@@ -280,6 +288,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       //vendorBillRef: data.vendorBillRef,
       billDate: (data.billDate) ? data.billDate : data.poDate,
       dueDate: data.dueDate,
+      campusId: data.campusId
       //contact: data.contact,
     });
 
@@ -299,8 +308,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
         cost: line.cost,
         quantity: line.quantity,
         tax: line.tax,
-        subTotal: [{ value: line.subtotal, disabled: true }],
+        subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: line.accountId,
+        warehouseId: line.warehouseId
        // locationId: line.locationId,
       }))
     })
@@ -369,6 +379,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     //this.vendorBillModel.vendorBillRef = this.vendorBillForm.value.vendorBillRef;
     this.vendorBillModel.billDate = this.vendorBillForm.value.billDate;
     this.vendorBillModel.dueDate = this.vendorBillForm.value.dueDate;
+    this.vendorBillModel.campusId = this.vendorBillForm.value.campusId;
     //this.vendorBillModel.contact = this.vendorBillForm.value.contact;
     this.vendorBillModel.billLines = this.vendorBillForm.value.vendorBillLines;
   }

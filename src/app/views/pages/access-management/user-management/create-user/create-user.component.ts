@@ -111,7 +111,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       this.userModel = {
         id: null,
         userName: '',
-        userRole: [],
+        userRoles: [],
         email: '',
         password: '',
         confirmPassword: ''
@@ -123,6 +123,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.accessManagementService.getUser(id).subscribe((res) => {
       this.isLoading = false
       // TODO: Update User
+      console.log(res.result)
       this.userModel = res.result
       this.patchUser(this.userModel);
     })
@@ -130,7 +131,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   patchUser(userModel: IUserModel) {
     this.userForm.patchValue({ ...userModel })
     console.log(userModel)
-    this.userRole = userModel.userRole;
+    this.userRole = userModel.userRoles;
   }
 
   getRoles() {
@@ -154,7 +155,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.userModel = { ...this.userForm.value, id: this._id };
-    this.userModel.userRole = this.userRole;
+    this.userModel.userRoles = this.userRole;
     console.log("model: ", this.userModel)
     // if (this.userModel.id) {
     //   this.accessManagementService.updateUser(this.userModel).subscribe((res) => {

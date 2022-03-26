@@ -6,5 +6,6 @@ export interface IDebitNoteLines {
     quantity: number;
     tax: number;
     accountId: number;
+    warehouseId: number;
     //locationId: number;
 }

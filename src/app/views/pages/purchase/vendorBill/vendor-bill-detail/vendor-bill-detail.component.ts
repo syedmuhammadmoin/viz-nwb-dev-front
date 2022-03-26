@@ -74,7 +74,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
 
   //Defining columns for ag grid
   columnDefs = [
-    { headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Item', field: 'itemName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
@@ -90,13 +90,13 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       }
     },
     {
-      headerName: 'Sub total', field: 'subtotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Sub total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
     { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Location', field: 'locationName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
   ];
 
 

@@ -3,7 +3,6 @@ import { CityState } from './core/shared-state/account-state/store/city.state';
 import { StateState } from './core/shared-state/account-state/store/state.state';
 import { CountryState } from './core/shared-state/account-state/store/country.state';
 import { WarehouseState } from './views/pages/profiling/warehouse/store/warehouse.state';
-import { ProductsState } from './core/e-commerce/_reducers/product.reducers';
 import { DepartmentState } from './views/pages/profiling/department/store/department.state';
 import { LocationState } from './views/pages/profiling/location/store/location.state';
 import { OrganizationState } from './views/pages/profiling/organization/store/organization.state';
@@ -89,10 +88,10 @@ import { ProductResolverService } from './views/shared/resolver/product/product-
 import { SharedModule } from './views/shared/modules/shared.module';
 import { BankAccountResolverService } from './views/shared/resolver/bankAccount/bank-account-resolver.service';
 import { DepartmentResolverService } from './views/shared/resolver/department/department-resolver.service';
-import { AddModalButtonService } from './views/shared/services/add-modal-button/add-modal-button.service';
 import { BusinessPartnerState } from './views/pages/profiling/business-partner/store/business-partner.state';
 import { ProductState } from './views/pages/profiling/product/store/product.state.state';
 import { BankAccountState } from './views/pages/finance/bank-account/store/bank-account.state';
+import { CampusState } from './views/pages/profiling/campus/store/campus.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -141,6 +140,7 @@ export function getHighlightLanguages() {
     NgxPermissionsModule.forRoot(),
     NgxsModule.forRoot([
       BusinessPartnerState,
+      CampusState,
       CategoryState,
       OrganizationState,
       DepartmentState,
@@ -151,7 +151,7 @@ export function getHighlightLanguages() {
       CountryState,
       StateState,
       CityState,
-      BankAccountState,
+      BankAccountState
       
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),

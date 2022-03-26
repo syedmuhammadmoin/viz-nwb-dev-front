@@ -257,32 +257,32 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     this.isLoading = true;
     this.mapFormValueToClientModel();
     console.log(this.businessPartner)
-    // if (this.businessPartner.id) {
-    //   this.subscription2$ = this.ngxsService.businessPartnerService.updateBusinessPartner(this.businessPartner)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {
-    //         this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
-    //         this.toastService.success('Updated Successfully', 'Business Partner')
-    //         this.onCloseDialog();
-    //       },
-    //       (err) => this.toastService.error('Something went wrong', 'Business Partner')
-    //     );
-    // } else {
-    //   delete this.businessPartner['id'];
-    //   this.subscription3$ = this.ngxsService.businessPartnerService.addBusinessPartner(this.businessPartner)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {
-    //           this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
-    //           this.toastService.success('Added Successfully', 'Business Partner')
-    //           this.onCloseDialog();
-    //         },              
-    //         (err) => this.toastService.error('Something went wrong', 'Business Partner')
-    //     );
-    // }
+    if (this.businessPartner.id) {
+      this.subscription2$ = this.ngxsService.businessPartnerService.updateBusinessPartner(this.businessPartner)
+        .pipe(
+          take(1),
+          finalize(() => this.isLoading = false))
+        .subscribe(() => {
+            this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
+            this.toastService.success('Updated Successfully', 'Business Partner')
+            this.onCloseDialog();
+          },
+          (err) => this.toastService.error('Something went wrong', 'Business Partner')
+        );
+    } else {
+      delete this.businessPartner['id'];
+      this.subscription3$ = this.ngxsService.businessPartnerService.addBusinessPartner(this.businessPartner)
+        .pipe(
+          take(1),
+          finalize(() => this.isLoading = false))
+        .subscribe(() => {
+              this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
+              this.toastService.success('Added Successfully', 'Business Partner')
+              this.onCloseDialog();
+            },              
+            (err) => this.toastService.error('Something went wrong', 'Business Partner')
+        );
+    }
   }
 
   mapFormValueToClientModel() {

@@ -41,7 +41,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
 
   columnDefs = [
     {headerName: 'Name', field: 'name', sortable: true, filter: true, tooltipField: 'name'},
-    {headerName: 'Entity', field: 'entity', sortable: true, filter: true , tooltipField: 'name'},
+   // {headerName: 'Entity', field: 'entity', sortable: true, filter: true , tooltipField: 'name'},
     {
       headerName: 'Type',
       field: 'businessPartnerType',

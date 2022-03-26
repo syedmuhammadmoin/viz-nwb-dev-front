@@ -1,9 +1,10 @@
 import {DocType} from './AppEnum';
 
 export class AppConst {
-  static PurchasedOrSold = {
-    1: 'Purchased',
-    2: 'Sold'
+  static ProductType = {
+    0: 'Consumable',
+    1: 'Service',
+    2: 'Fixed Asset'
   }
   static ConsumableOrService = {
     1: 'Consumable',
@@ -298,7 +299,8 @@ export class AppConst {
     3: {value: 'Partial', viewValue: 'Partial'},
     4: {value: 'Paid', viewValue: 'Paid'},
     5: {value: 'Submitted', viewValue: 'Submitted'},
-    6: {value: 'Reviewed', viewValue: 'Reviewed'}
+    6: {value: 'Reviewed', viewValue: 'Reviewed'},
+    7: {value: 'Cancelled', viewValue: 'Cancelled'}
   }
 
   static workflowStates = [
@@ -318,11 +320,11 @@ export class AppConst {
     {value: 'Invoice', id: DocType.Invoice},
     {value: 'Bill', id: DocType.Bill},
     {value: 'Journal Voucher', id: DocType.JournalEntry},
-    {value: 'purchase Order', id: DocType.PurchaseOrder},
-    {value: 'sales Order', id: DocType.SalesOrder},
-    {value: 'Goods Receiving Note', id: DocType.GRN},
-    { value: 'Goods Dispatch Note', id: DocType.GDN },
-    { value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
+    //{value: 'purchase Order', id: DocType.PurchaseOrder},
+    //{value: 'sales Order', id: DocType.SalesOrder},
+    //{value: 'Goods Receiving Note', id: DocType.GRN},
+    //{ value: 'Goods Dispatch Note', id: DocType.GDN },
+    //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
   ]
 
 }

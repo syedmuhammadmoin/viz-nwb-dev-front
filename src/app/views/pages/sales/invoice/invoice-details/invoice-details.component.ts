@@ -100,15 +100,16 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     },
     {
       headerName: 'Subtotal',
-      field: 'subtotal',
+      field: 'subTotal',
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
+        console.log(params.value)
         return this.valueFormatter(params.value)
       }
     },
     { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Location', field: 'locationName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
+    { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
   ];
 
   ngOnInit() {

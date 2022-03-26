@@ -30,10 +30,10 @@
                                                                                         (click)="emitClickEvent()"
                                                                                         class="btn btn-light">{{ clickEventButtonName || 'clickEventButtonName' }}</button></mat-option>
   </mat-select>
-  <mat-hint align="start">{{hintText}}</mat-hint>
 
   <mat-error *ngIf="formControlDirective && !formControlDirective.control.valid &&
              (formControlDirective.control.touched || formControlDirective.control.untouched)">
     <strong>{{ errorMessage }}</strong>
   </mat-error>
+  <mat-hint>{{hintText}}</mat-hint>
 </mat-form-field>

@@ -79,6 +79,23 @@
                     </div>
                 </div> -->
             </div>
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="form-group kt-form__group">
+                      <label class="col-form-label pt-0">Campus:</label>
+                      <kt-simple-dropdown 
+                        placeholder="Select Campus" 
+                        propertyValue="id" 
+                        propertyName="name"
+                        formControlName="campusId" 
+                        (blurEvent)="logValidationErrors(cashAccountForm, formErrors, validationMessages)"
+                        matFormFieldClass="full-width input_d_1"
+                        [errorMessage]="'Campus is Required'" 
+                        [optionList]="ngxsService.campuses$">
+                      </kt-simple-dropdown>
+                  </div>
+              </div>
+          </div>
             <!-- second row ends -->
           </div>
          

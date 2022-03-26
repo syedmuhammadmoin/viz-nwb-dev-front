@@ -75,10 +75,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       field: 'status', 
       sortable: true, 
       filter: true, 
-      tooltipField: 'docNo', 
-      cellRenderer: (params: ICellRendererParams) => {
-        return DocumentStatus[params.data.status]
-      }
+      tooltipField: 'docNo',
     },
   ];
 
@@ -115,9 +112,9 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       })
   }
 
-  // agingReport() {
-  //   this.router.navigate(['/' + INVOICE.AGING_REPORT]);
-  // }
+  agingReport() {
+    this.router.navigate(['/' + INVOICE.AGING_REPORT]);
+  }
 }
 
 

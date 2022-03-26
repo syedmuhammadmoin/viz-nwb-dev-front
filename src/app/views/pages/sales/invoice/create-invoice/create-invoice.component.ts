@@ -37,7 +37,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   invoiceForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'subTotal', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'warehouseId' , 'subTotal', 'action']
 
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -74,9 +74,12 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     invoiceDate: {
       required: 'Invoice Date is required.',
     },
-    // dueDate: {
-    //   required: 'Due Date is required.',
-    // },
+    campusId: {
+      required: 'Campus is required.',
+    },
+    dueDate: {
+      required: 'Due Date is required.',
+    },
     // contact: {
     //   required: 'Contact Name is required.',
     // }
@@ -86,7 +89,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   formErrors = {
     customerName: '',
     invoiceDate: '',
-   // dueDate: '',
+    campusId: '',
+    dueDate: '',
   };
 
   // Injecting in dependencies in constructor
@@ -110,7 +114,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.invoiceForm = this.fb.group({
       customerName: ['', [Validators.required]],
       invoiceDate: ['', [Validators.required]],
-      dueDate: [''],
+      campusId: ['', [Validators.required]],
+      dueDate: ['',[Validators.required]],
       //contact: [''],
       invoiceLines: this.fb.array([
         this.addInvoiceLines()
@@ -121,6 +126,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       id: null,
       customerId: null,
       invoiceDate: null,
+      campusId: null,
+      contact: '',
       dueDate: null,
      // contact: '',
       invoiceLines: []
@@ -133,9 +140,10 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.ngxsService.getWarehouseFromState();
     // get item from state
     this.ngxsService.getProductFromState();
+    this.ngxsService.getCampusFromState()
     // get location from location
-    this.ngxsService.getLocationFromState();
-
+    //this.ngxsService.getLocationFromState();
+    
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isInvoice = param.isInvoice;
@@ -233,13 +241,14 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   // Add Invoice Lines
   addInvoiceLines(): FormGroup {
     return this.fb.group({
-      itemId: [''],
+      itemId: [null],
       description: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.min(1)]],
+      quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
+      warehouseId: [null],
       // locationId: [''],
     });
   }
@@ -277,15 +286,18 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   }
 
   //Patch Invoice Form through Invoice Or sales Order Master Data
-  patchInvoice(data: any) {
+  patchInvoice(data: IInvoice) {
     this.invoiceForm.patchValue({
       customerName: data.customerId,
-      invoiceDate: (data.invoiceDate) ? data.invoiceDate : data.salesOrderDate,
+      // invoiceDate: (data.invoiceDate) ? data.invoiceDate : data.salesOrderDate,
+      invoiceDate: data.invoiceDate ,
       dueDate: data.dueDate,
+      campusId: data.campusId
       //contact: data.contact
     });
 
-    this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines((this.salesOrderMaster) ? data.salesOrderLines : data.invoiceLines))
+    // this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines((this.salesOrderMaster) ? data.salesOrderLines : data.invoiceLines))
+    this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines(data.invoiceLines))
     this.totalCalculation();
   }
 
@@ -300,8 +312,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
         price: line.price,
         quantity: line.quantity,
         tax: line.tax,
-        subTotal: [{ value: line.subtotal, disabled: true }],
+        subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: line.accountId,
+        warehouseId: line.warehouseId
         //locationId: line.locationId,
       }))
     })
@@ -368,8 +381,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.invoiceModel.customerId = this.invoiceForm.value.customerName;
     this.invoiceModel.invoiceDate = this.transformDate(this.invoiceForm.value.invoiceDate, 'yyyy-MM-dd');
     this.invoiceModel.dueDate = this.transformDate(this.invoiceForm.value.dueDate, 'yyyy-MM-dd');
-    //this.invoiceModel.contact = this.invoiceForm.value.contact;
-    this.invoiceModel.invoiceLines = this.invoiceForm.value.invoiceLines
+    this.invoiceModel.contact = '';
+    this.invoiceModel.campusId = this.invoiceForm.value.campusId;
+    this.invoiceModel.invoiceLines = this.invoiceForm.value.invoiceLines;
   }
 
   //for save or submit

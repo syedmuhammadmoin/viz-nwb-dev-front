@@ -6,6 +6,6 @@ export interface IWarehouse {
     // city: string;
     // address: string;
     manager: string;
-    campus: string;
+    campusId: string;
    // departmentId: number;
 }

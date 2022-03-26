@@ -6,10 +6,12 @@ import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {finalize, take} from "rxjs/operators";
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 @Component({
   selector: 'kt-create-cash-account',
   templateUrl: './create-cash-account.component.html',
-  styleUrls: ['./create-cash-account.component.scss']
+  styleUrls: ['./create-cash-account.component.scss'],
+  providers:[NgxsCustomService]
 })
 export class CreateCashAccountComponent extends AppComponentBase implements OnInit {
   
@@ -25,16 +27,19 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
     // validation messages
     validationMessages = {
       cashAccountName: {
-        required: 'Cash Account Name is required'
+        required: 'Cash Account Name is required.'
       },
       // handler: {
       //   required: 'Manager/Handler is required'
       // },
       openingBalance: {
-        required: 'opening balance is required'
+        required: 'opening balance is required.'
       },
-      'OBDate': {
-        'required': 'Opening Balance Date is required.'
+      OBDate: {
+        required: 'Opening Balance Date is required.'
+      },
+      campusId: {
+        required: 'Campus is required.'
       },
       // currency: {
       //   required: 'currency is required'
@@ -46,7 +51,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       cashAccountName: '',
       //handler: '',
       openingBalance: '',
-      OBDate: ''
+      OBDate: '',
+      campusId: ''
       //currency: '',
     }
   
@@ -55,6 +61,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       private fb: FormBuilder,
       @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
       public  dialogRef: MatDialogRef<CreateCashAccountComponent>,
+      public ngxsService: NgxsCustomService,
       private cashAccountService: CashAccountService,
       injector: Injector
     ) {
@@ -67,6 +74,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         handler: [''],
         openingBalance: ['', [Validators.required]],
         OBDate: ['', [Validators.required]],
+        campusId: ['', [Validators.required]],
         //currency: ['', [Validators.required]]
       });
   
@@ -78,11 +86,14 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
           id: null,
           cashAccountName: '',
           handler: '',
+          campusId: null,
           openingBalance: null,
           openingBalanceDate: null,
           currency: '',
         };
       }
+
+      this.ngxsService.getCampusFromState()
     }
   
     // Dialogue close function
@@ -111,6 +122,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         handler: cashAccount.handler,
         openingBalance: cashAccount.openingBalance,
         OBDate: cashAccount.openingBalanceDate,
+        campusId: cashAccount.campusId
         //currency: cashAccount.currency,
       });
       this.cashAccountForm.get('openingBalance').disable()
@@ -155,6 +167,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       this.cashAccountModel.handler = this.cashAccountForm.value.handler;
       this.cashAccountModel.openingBalance = this.cashAccountForm.value.openingBalance;
       this.cashAccountModel.openingBalanceDate = this.cashAccountForm.value.OBDate;
+      this.cashAccountModel.campusId = this.cashAccountForm.value.campusId;
       this.cashAccountModel.currency = 'PKR';
     }
 
@@ -163,6 +176,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       this.cashAccountForm.get('handler').reset()
       if(!this._id)  this.cashAccountForm.get('openingBalance').reset()
       this.cashAccountForm.get('OBDate').reset()
+      this.cashAccountForm.get('campusId').reset()
       this.logValidationErrors(this.cashAccountForm , this.formErrors , this.validationMessages)
     }
   }

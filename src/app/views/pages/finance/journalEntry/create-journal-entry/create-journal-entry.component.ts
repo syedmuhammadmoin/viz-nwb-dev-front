@@ -35,7 +35,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   journalEntryForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['accountId', 'businessPartnerId', 'description', 'debit', 'credit', 'action']
+  displayedColumns = ['accountId', 'businessPartnerId', 'description', 'debit', 'credit', 'warehouseId', 'action']
 
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -57,12 +57,16 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     description: {
       required: 'Description is required.',
     },
+    campusId: {
+      required: 'Campus is required.',
+    },
   }
 
   // Error keys..
   formErrors = {
     date: '',
-    description: ''
+    description: '',
+    campusId: ''
   }
 
   // Injecting Dependencies
@@ -87,6 +91,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     this.journalEntryForm = this.fb.group({
       date: ['', [Validators.required]],
       description: ['',[Validators.required]],
+      campusId: ['',[Validators.required]],
       journalEntryLines: this.fb.array([
         this.addJournalEntryLines()
       ])
@@ -96,6 +101,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       id: null,
       date: null,
       description: '',
+      campusId: null,
       journalEntryLines: [],
     }
 
@@ -109,7 +115,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getWarehouseFromState();
-    this.ngxsService.getLocationFromState()
+    this.ngxsService.getCampusFromState()
+    //this.ngxsService.getLocationFromState()
 
     // get warehouse location list from service
     this.addButtonService.getLocationTypes();
@@ -172,6 +179,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       description: ['', Validators.required],
       debit: [0, Validators.required],
       credit: [0, Validators.required],
+      warehouseId: [],
       // locationId: ['', Validators.required]
     });
   }
@@ -204,6 +212,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     this.journalEntryForm.patchValue({
       date: journalEntry.date,
       description: journalEntry.description,
+      campusId: journalEntry.campusId
     });
 
     this.journalEntryForm.setControl('journalEntryLines', this.editJournalEntryLines(journalEntry.journalEntryLines));
@@ -221,6 +230,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         debit: line.debit,
         credit: line.credit,
         accountId: line.accountId,
+        warehouseId: line.warehouseId,
         // locationId: line.locationId,
       }))
     })
@@ -293,6 +303,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   mapFormValuesToJournalEntryModel() {
     this.journalEntryModel.date = this.transformDate(this.journalEntryForm.value.date, 'yyyy-MM-dd');
     this.journalEntryModel.description = this.journalEntryForm.value.description;
+    this.journalEntryModel.campusId = this.journalEntryForm.value.campusId;
     this.journalEntryModel.journalEntryLines = this.journalEntryForm.value.journalEntryLines;
   }
 

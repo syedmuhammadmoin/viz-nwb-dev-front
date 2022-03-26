@@ -11,6 +11,7 @@ export interface IPayment {
   discount: number;
   salesTax: number;
   incomeTax: number;
+  campusId: number;
   //documentTransactionId: number;
   isSubmit?: any;
 }

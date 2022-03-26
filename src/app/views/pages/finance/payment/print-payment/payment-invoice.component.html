@@ -47,6 +47,7 @@
                 <tr style="background-color: #293756;">
                   <th style="background-color: #293756; color: white;">Account:</th>
                   <th style="background-color: #293756; color: white;">Description:</th>
+                  <th style="background-color: #293756; color: white;">Campus:</th>
                   <th style="background-color: #293756; color: white;">Gross Payment:</th>
                   
                   
@@ -54,6 +55,7 @@
                 <tr>
                   <td >{{paymentMaster?.accountName}}</td>
                   <td class="description text-left">{{paymentMaster?.description}}</td>
+                  <td>{{paymentMaster?.campusName}}</td>
                   <td class="text-right" style="background-color: #eef0f8; ">{{paymentMaster?.grossPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                 </tr>
                 

@@ -31,6 +31,10 @@ export class ChartOfAccountService {
     return this.httpClient.get<IApiResponse<ILevel4[]>>(this.baseUrl + 'level4/dropdown');
   }
 
+  getLevel3AccountsDropdown(): Observable <IApiResponse<ILevel3[]>> {
+    return this.httpClient.get<IApiResponse<ILevel3[]>>(this.baseUrl + 'level3/dropdown');
+  }
+
   createLevel3Account(level3: ILevel3): Observable<ILevel3> {
     return this.httpClient.post<ILevel3>(this.baseUrl + 'level3', level3);
   }

@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, DEPARTMENT, LOCATION, ORGANIZATION, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, SALES_ORDER, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, STOCK, INVENTORY_ADJUSTMENT, GOODS_RECEIVED_NOTE, DISPATCH_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -140,6 +140,10 @@ export class MenuConfig {
             // Permissions.ORGANIZATION_CREATE,
             // Permissions.ORGANIZATION_EDIT,
             // Permissions.ORGANIZATION_DELETE,
+            Permissions.CAMPUS_VIEW,
+            Permissions.CAMPUS_CREATE,
+            Permissions.CAMPUS_EDIT,
+            Permissions.CAMPUS_DELETE,
             Permissions.BUDGET_VIEW,
             Permissions.BUDGET_CREATE,
             Permissions.BUDGET_EDIT,
@@ -151,7 +155,7 @@ export class MenuConfig {
             //   page: '/client/list',
             // },
             // {
-            //   title: 'Campus',
+            //   title: 'Organization',
             //   page: '/' + ORGANIZATION.LIST,
             //   permission: [
             //     Permissions.ORGANIZATION_VIEW,
@@ -181,6 +185,26 @@ export class MenuConfig {
             //   ]
             // },
             {
+              title: 'Campus', // <= Title of the page
+              page: '/' + CAMPUS.LIST, // <= URL
+              permission: [
+                Permissions.CAMPUS_VIEW,
+                Permissions.CAMPUS_CREATE,
+                Permissions.CAMPUS_EDIT,
+                Permissions.CAMPUS_DELETE
+              ]
+            },
+            {
+              title: 'Warehouse',
+              page: '/' + WAREHOUSE.LIST,
+              permission: [
+                Permissions.WAREHOUSE_VIEW,
+                Permissions.WAREHOUSE_CREATE,
+                Permissions.WAREHOUSE_EDIT,
+                Permissions.WAREHOUSE_DELETE
+              ]
+            },
+            {
               title: 'Business Partner', // <= Title of the page
               page: '/' + BUSINESS_PARTNER.LIST, // <= URL
               permission: [
@@ -208,16 +232,6 @@ export class MenuConfig {
                 Permissions.PRODUCT_CREATE,
                 Permissions.PRODUCT_EDIT,
                 Permissions.PRODUCT_DELETE
-              ]
-            },
-            {
-              title: 'Warehouse',
-              page: '/' + WAREHOUSE.LIST,
-              permission: [
-                Permissions.WAREHOUSE_VIEW,
-                Permissions.WAREHOUSE_CREATE,
-                Permissions.WAREHOUSE_EDIT,
-                Permissions.WAREHOUSE_DELETE
               ]
             },
             {
@@ -647,43 +661,43 @@ export class MenuConfig {
         //   ]
         // },
         // // {section: 'Workflow'},
-        // {
-        //   title: 'Workflow',
-        //   bullet: 'dot',
-        //   icon: 'flaticon-map',
-        //   permission: [
-        //     Permissions.WORKFLOW_CREATE,
-        //     Permissions.WORKFLOW_VIEW,
-        //     Permissions.WORKFLOW_EDIT,
-        //     Permissions.WORKFLOW_DELETE,
-        //     Permissions.STATUS_CREATE,
-        //     Permissions.STATUS_EDIT,
-        //     Permissions.STATUS_VIEW,
-        //     Permissions.STATUS_DELETE,
-        //   ],
-        //   submenu: [
-        //     {
-        //       title: 'Workflows',
-        //       page: '/' + WORKFLOW.LIST,
-        //       permission: [
-        //         Permissions.WORKFLOW_CREATE,
-        //         Permissions.WORKFLOW_VIEW,
-        //         Permissions.WORKFLOW_EDIT,
-        //         Permissions.WORKFLOW_DELETE,
-        //       ]
-        //     },
-        //     {
-        //       title: 'Status',
-        //       page: '/' + STATUS.LIST,
-        //       permission: [
-        //         Permissions.STATUS_CREATE,
-        //         Permissions.STATUS_EDIT,
-        //         Permissions.STATUS_VIEW,
-        //         Permissions.STATUS_DELETE,
-        //       ]
-        //     }
-        //   ]
-        // },
+        {
+          title: 'Workflow',
+          bullet: 'dot',
+          icon: 'flaticon-map',
+          permission: [
+            Permissions.WORKFLOW_CREATE,
+            Permissions.WORKFLOW_VIEW,
+            Permissions.WORKFLOW_EDIT,
+            Permissions.WORKFLOW_DELETE,
+            Permissions.STATUS_CREATE,
+            Permissions.STATUS_EDIT,
+            Permissions.STATUS_VIEW,
+            Permissions.STATUS_DELETE,
+          ],
+          submenu: [
+            {
+              title: 'Workflows',
+              page: '/' + WORKFLOW.LIST,
+              permission: [
+                Permissions.WORKFLOW_CREATE,
+                Permissions.WORKFLOW_VIEW,
+                Permissions.WORKFLOW_EDIT,
+                Permissions.WORKFLOW_DELETE,
+              ]
+            },
+            {
+              title: 'Status',
+              page: '/' + STATUS.LIST,
+              permission: [
+                Permissions.STATUS_CREATE,
+                Permissions.STATUS_EDIT,
+                Permissions.STATUS_VIEW,
+                Permissions.STATUS_DELETE,
+              ]
+            }
+          ]
+        },
       //endregion
       ]
     },

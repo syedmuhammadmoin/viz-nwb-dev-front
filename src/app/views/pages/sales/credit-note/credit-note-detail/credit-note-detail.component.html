@@ -7,7 +7,7 @@
           class="btn_white mr-3">
           Print Credit Note
         </button>
-        <button *ngIf="creditNoteMaster?.status === docStatus.Draft"
+        <button *ngIf="(creditNoteMaster?.state === docStatus.Draft || creditNoteMaster?.state === docStatus.Rejected)"
           [disabled]="!(permission.isGranted(permissions.CREDITNOTE_EDIT))"
           [ngClass]="!(permission.isGranted(permissions.CREDITNOTE_EDIT)) ? 'disable' : '' "
           [routerLink]="'/' + CREDIT_NOTE.ID_BASED_ROUTE('edit' , creditNoteMaster?.id)"
@@ -15,7 +15,7 @@
           class="btn_white mr-3">
           Edit
         </button>
-        <h4 class="overall_statuses {{docStatus[creditNoteMaster?.status]}}"> Status:  {{docStatus[creditNoteMaster?.status]}} </h4>
+        <h4 class="overall_statuses {{docStatus[creditNoteMaster?.state]}}"> Status:  {{creditNoteMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>

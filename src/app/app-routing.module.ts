@@ -60,6 +60,14 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      {
+        path: APP_ROUTES.CAMPUS,
+        loadChildren: () =>
+          import('./views/pages/profiling/campus/campus.module').then(
+            (m) => m.CampusModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
        // Lazy Load CATEGORY Module
        {
         path: APP_ROUTES.CATEGORY,

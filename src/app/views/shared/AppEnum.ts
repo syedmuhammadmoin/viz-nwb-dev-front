@@ -6,6 +6,12 @@ export class Permissions {
   static BUSINESSPARTNER_EDIT = 'Permissions.BusinessPartnerClaims.Edit'
   static BUSINESSPARTNER_DELETE = 'Permissions.BusinessPartnerClaims.Delete'
 
+  // Campus
+  static CAMPUS_CREATE = 'Permissions.CampusClaims.Create'
+  static CAMPUS_VIEW = 'Permissions.CampusClaims.View'
+  static CAMPUS_EDIT = 'Permissions.CampusClaims.Edit'
+  static CAMPUS_DELETE = 'Permissions.CampusClaims.Delete'
+
   // Bank Account
   static BANKACCOUNT_VIEW = 'Permissions.BankAccountClaims.View';
   static BANKACCOUNT_CREATE = 'Permissions.BankAccountClaims.Create';
@@ -250,8 +256,16 @@ export enum DocType {
 // }
 
 export enum DocumentStatus {
-  Draft,
-  Submitted
+    Draft,
+    Rejected,
+    Unpaid,
+    Partial,
+    Paid,
+    Submitted,
+    Reviewed,
+    Cancelled,
+    Unreconciled,
+    Reconciled
 }
 
 export enum PayrollType {
@@ -271,5 +285,6 @@ export enum BusinessPartnerType {
   Vendor,
   Employee
 }
+
 
 // Draft - Yellow,  Cancelled - Gray, Upaid - Red, Partial - Yellow,  Paid - Green, Submitted - Yellow, Reviewed - Green

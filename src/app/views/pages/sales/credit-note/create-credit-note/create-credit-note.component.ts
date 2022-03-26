@@ -39,7 +39,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   creditNoteForm: FormGroup;
 
   //For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax', 'subTotal', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'price', 'tax',  'subTotal', 'warehouseId', 'action']
 
   //Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -74,6 +74,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     // },
     noteDate: {
       required: 'Note Date is required.',
+    },
+    campusId: {
+      required: 'Campus is required.',
     }
   };
 
@@ -81,6 +84,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   formErrors = {
     customerName: '',
     noteDate: '',
+    campusId:''
     //contact: '',
   };
 
@@ -105,6 +109,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.creditNoteForm = this.fb.group({
       customerName: ['', [Validators.required]],
       noteDate: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
       creditNoteLines: this.fb.array([
         this.addCreditNoteLines()
       ])
@@ -114,6 +119,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       id: null,
       customerId: null,
       noteDate: null,
+      campusId: null,
       creditNoteLines: []
     };
 
@@ -122,7 +128,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.ngxsService.getAccountLevel4FromState()
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getProductFromState();
-    this.ngxsService.getLocationFromState();
+    this.ngxsService.getCampusFromState()
+   // this.ngxsService.getLocationFromState();
 
     this.activatedRoute.queryParams.subscribe((param: Params) => {
       const id = param.q;
@@ -204,13 +211,14 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   //Add Credit Note Lines
   addCreditNoteLines(): FormGroup {
     return this.fb.group({
-      itemId: [''],
+      itemId: [null],
       description: ['', Validators.required],
       price: ['', [Validators.required, Validators.min(1)]],
-      quantity: ['', [Validators.min(1)]],
+      quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
+      warehouseId: [null]
      // locationId: ['', [Validators.required]],
     });
   }
@@ -250,6 +258,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.creditNoteForm.patchValue({
       customerName: data.customerId,
       noteDate: (data.noteDate) ? data.noteDate : data.invoiceDate,
+      campusId: data.campusId
     });
 
     this.creditNoteForm.setControl('creditNoteLines', this.patchCreditNoteLines((this.invoiceMaster) ? data.invoiceLines : data.creditNoteLines))
@@ -267,8 +276,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
         price: line.price,
         quantity: line.quantity,
         tax: line.tax,
-        subTotal: [{ value: line.subtotal, disabled: true }],
+        subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: line.accountId,
+        warehouseId: line.warehouseId
        // locationId: line.locationId,
       }))
     })
@@ -339,6 +349,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.creditNoteModel.customerId = this.creditNoteForm.value.customerName;
     this.creditNoteModel.noteDate = this.transformDate(this.creditNoteForm.value.noteDate, 'yyyy-MM-dd');
     this.creditNoteModel.creditNoteLines = this.creditNoteForm.value.creditNoteLines;
+    this.creditNoteModel.campusId = this.creditNoteForm.value.campusId;
     //if (this.isInvoice) { this.creditNoteModel.invoiceTransactionId = this.invoiceMaster.transactionId; }
   }
 

@@ -25,7 +25,7 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateWorkflowComponent,
-        canDeactivate: [FormConfirmationGuard],
+        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             {permission: Permissions.WORKFLOW_CREATE},

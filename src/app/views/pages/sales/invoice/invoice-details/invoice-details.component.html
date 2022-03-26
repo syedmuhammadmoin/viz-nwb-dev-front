@@ -7,14 +7,14 @@
           class="btn_white mr-3">
           Print Invoice
         </button>
-        <button *ngIf="invoiceMaster?.status === docStatus.Draft"
+        <button *ngIf="(invoiceMaster?.state === docStatus.Draft || invoiceMaster?.state === docStatus.Rejected)"
           [disabled]="!(permission.isGranted(permissions.INVOICE_EDIT))"
           [ngClass]="!(permission.isGranted(permissions.INVOICE_EDIT)) ? 'disable' : '' "
           [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
           type="button" mat-raised-button class="btn_white mr-3">
           Edit
         </button>
-        <button (click)="openDialog()"
+        <!-- <button (click)="openDialog()"
           *ngIf="(invoiceMaster?.transactionId)"
           [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE))"
           [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' " class="btn_white mr-3"
@@ -27,8 +27,8 @@
           [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}" type="button"
           mat-raised-button class="btn_white mr-3">
           Create Credit Note
-        </button>
-        <h4 class="overall_statuses {{docStatus[invoiceMaster?.status]}}"> Status: {{docStatus[invoiceMaster?.status]}} </h4>
+        </button> -->
+        <h4 class="overall_statuses {{docStatus[invoiceMaster?.state]}}"> Status: {{invoiceMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -57,10 +57,15 @@
                     <td style="background: #595e791c; width: 20%;">
                       {{invoiceMaster?.dueDate | date: 'MMM d, y'}}</td>
                   </tr>
-                  <tr>
+                  <!-- <tr>
                     <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
                       {{invoiceMaster?.contact ? invoiceMaster?.contact : "-"}}</td>
+                  </tr> -->
+                  <tr>
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Campus:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{invoiceMaster?.campusName}}</td>
                   </tr>
                 </tbody>
               </table>

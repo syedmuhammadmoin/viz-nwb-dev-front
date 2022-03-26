@@ -38,9 +38,6 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     name: {
       required: 'Name is required'
     },
-    purchasedOrSold: {
-      required: 'purchase or Sold is required'
-    },
     productType: {
       required: 'Product Type is required'
     },
@@ -51,8 +48,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     // salesPrice: {
     //   required: 'sales Price is required'
     // },
-    // cost: {
-    //   required: 'Cost is required'
+    // purchasePrice: {
+    //   required: 'purchasePrice is required'
     // },
     // salesTax: {
     //   required: 'sales Tax is required'
@@ -62,11 +59,10 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //error keys
   formErrors = {
     name: '',
-    purchasedOrSold: '',
     productType: '',
     category: '',
     // salesPrice: '',
-    // cost: '',
+    // purchasePrice: '',
     // salesTax: '',
   }
 
@@ -83,12 +79,11 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.productForm = this.fb.group({
       name: ['', [Validators.required]],
-      purchasedOrSold: ['', [Validators.required]],
       productType: ['', [Validators.required]],
       category: ['', [RequireMatch, Validators.required]],
-      salesPrice: [''],
-      cost: [''],
-      salesTax: [''],
+      salesPrice: [0],
+      purchasePrice: [0],
+      salesTax: [0],
       barcode: ['']
     });
 
@@ -100,11 +95,10 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       this.product = {
         id: null,
         productName: '',
-        purchasedOrSold: '',
-        productType: '',
+        productType: null,
         categoryId: null,
         salesPrice: null,
-        cost: null,
+        purchasePrice: null,
         salesTax: null,
         barcode: '',
       }
@@ -131,11 +125,10 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     this.productForm.patchValue({
       id: product.id,
       name: product.productName,
-      purchasedOrSold: product.purchasedOrSold,
       productType: product.productType,
       category: product.categoryId,
       salesPrice: product.salesPrice,
-      cost: product.cost,
+      purchasePrice: product.purchasePrice,
       salesTax: product.salesTax,
       barcode: product.barcode
     });
@@ -149,54 +142,52 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.mapFormValueToProductModel();
     console.log(this.product)
-    // if (this.product.id) {
-    //   this.ngxsService.productService.updateProduct(this.product)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {
-    //         this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
-    //         this.toastService.success('Updated Successfully', 'Product')
-    //         this.onCloseDialog();
-    //       },
-    //       (err) => this.toastService.error('Something went wrong', 'Product')
-    //     );
-    // } else {
-    //   delete this.product.id;
-    //   this.ngxsService.productService.addProduct(this.product)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {
-    //         this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
-    //         this.toastService.success('Added Successfully', 'Product')
-    //         this.onCloseDialog();
-    //       },
-    //       (err) => this.toastService.error('Something went wrong', 'Product')
-    //     );
-    // }
+    if (this.product.id) {
+      this.ngxsService.productService.updateProduct(this.product)
+        .pipe(
+          take(1),
+          finalize(() => this.isLoading = false))
+        .subscribe(() => {
+            this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
+            this.toastService.success('Updated Successfully', 'Product')
+            this.onCloseDialog();
+          },
+          (err) => this.toastService.error('Something went wrong', 'Product')
+        );
+    } else {
+      delete this.product.id;
+      this.ngxsService.productService.addProduct(this.product)
+        .pipe(
+          take(1),
+          finalize(() => this.isLoading = false))
+        .subscribe(() => {
+            this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
+            this.toastService.success('Added Successfully', 'Product')
+            this.onCloseDialog();
+          },
+          (err) => this.toastService.error('Something went wrong', 'Product')
+        );
+    }
   }
 
   // Mapping value from product form to product model
   mapFormValueToProductModel() {
     this.product.productName = this.productForm.value.name;
-    this.product.purchasedOrSold = this.productForm.value.purchasedOrSold;
     this.product.productType = this.productForm.value.productType;
     this.product.categoryId = this.productForm.value.category;
-    this.product.salesPrice = this.productForm.value.salesPrice;
-    this.product.cost = this.productForm.value.cost;
-    this.product.salesTax = this.productForm.value.salesTax;
+    this.product.salesPrice = (this.productForm.value.salesPrice) ? this.productForm.value.salesPrice : 0;
+    this.product.purchasePrice = (this.productForm.value.purchasePrice) ? this.productForm.value.purchasePrice : 0 ;
+    this.product.salesTax = (this.productForm.value.salesTax) ?  this.productForm.value.salesTax : 0;
     this.product.barcode = this.productForm.value.barcode;
   }
 
   reset() {
     this.formErrors = {
       name: '',
-      purchasedOrSold: '',
       productType: '',
       category: '',
       // salesPrice: '',
-      // cost: '',
+      // purchasePrice: '',
       // salesTax: '',
     }
   }

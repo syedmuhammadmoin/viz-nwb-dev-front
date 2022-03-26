@@ -6,6 +6,7 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppComponentBase} from '../../../../../shared/app-component-base';
 import { ChartOfAccountService } from '../../service/chart-of-account.service';
 import { finalize, take } from 'rxjs/operators';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Component({
   selector: 'kt-create-level4',
@@ -63,10 +64,11 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     // getting data
     if (this.data.modelId) {
       this.isLoading = true;
-      this.chartOfAccountService.getLevel4AccountById(this.data.modelId).subscribe((res: ILevel4) => {
-        this.level4Model = res;
+      this.chartOfAccountService.getLevel4AccountById(this.data.modelId).subscribe((res: any) => {
+        this.level4Model = res.result;
         this.patchLevel4Form(this.level4Model);
       })
+      console.log(this.level4Form)
     }
     if (this.data.parentId) {
       this.isLoading = true;
@@ -87,6 +89,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.mapFormValuesToInvoiceModel();
     if (this.level4Model.id) {
+      console.log("after : ",this.level4Model)
       this.chartOfAccountService.updateLevel4Account(this.level4Model).pipe(
         take(1),
         finalize(() => this.isLoading = false))
@@ -113,8 +116,10 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
   // Mapping value to model
   mapFormValuesToInvoiceModel() {
+    console.log(this.level4Form.value.level3)
     this.level4Model.name = this.level4Form.value.transactionalAccount;
-    this.level4Model.level3_id = this.level4Model.level3_id || this.level4Form.value.level3;
+    // this.level4Model.level3_id = (this.level4Model.level3_id) || this.level4Form.value.level3;
+    this.level4Model.level3_id = this.level4Form.value.level3 || this.level4Model.level3_id;
   }
 
   // Dialogue close function
@@ -123,6 +128,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
   }
 
   private patchLevel4Form(level4Model: ILevel4) {
+    console.log("before : ",level4Model)
     this.level4Form.patchValue({
       transactionalAccount: level4Model.name,
       level3: level4Model.level3_id

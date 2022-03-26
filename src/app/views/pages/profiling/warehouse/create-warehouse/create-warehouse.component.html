@@ -44,12 +44,16 @@
                 <div class="col-lg-4 col-md-4">
                   <div class="form-group kt-form__group pt-2 pb-0">
                       <label class="col-form-label pt-0">Campus:</label>
-                      <kt-input-field
-                        formControlName="campus"
-                        placeholder="Enter Campus"
-                        (blurEvent)="logValidationErrors(warehouseForm, formErrors, validationMessages)"
-                        [errorMessage]="[{ condition : formErrors.campus , error : formErrors.campus }]">
-                      </kt-input-field>
+                      <kt-simple-dropdown 
+                       placeholder="Select Campus" 
+                       propertyValue="id" 
+                       propertyName="name"
+                       formControlName="campusId" 
+                       (blurEvent)="logValidationErrors(warehouseForm, formErrors, validationMessages)"
+                       matFormFieldClass="full-width input_d_1"
+                       [errorMessage]="'Campus is Required'" 
+                       [optionList]="ngxsService.campuses$">
+                      </kt-simple-dropdown>
                   </div>
                 </div>
 

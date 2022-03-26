@@ -76,13 +76,13 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       }
     },
     {
-      headerName: 'Sub total', field: 'subtotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Sub total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
     { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Location', field: 'locationName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
+    { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
   ];
 
   ngOnInit() {
@@ -120,6 +120,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
 
   workflow(action: any) {
     this.isLoading = true
+    console.log(action , this.debitNoteMaster.id)
     this.debitNoteService.workflow({ action, docId: this.debitNoteMaster.id })
       .subscribe((res) => {
         this.getDebitNoteMasterData(this.debitNoteId);

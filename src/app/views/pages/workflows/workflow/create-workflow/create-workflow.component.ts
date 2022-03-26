@@ -133,12 +133,12 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
   // Add Invoice Line Click
   addWorkflowLineClick(): void {
     const controls = this.workflowForm.controls.workflowLines as FormArray;
-    // if (!controls.value.some(x => this.statuses.find(y => y.id === x.nextStatusId).state === this.docStatus.Unpaid)) {
-    //   controls.push(this.addWorkflowLines());
-    //   this.table.renderRows();
-    // } else {
-    //   this.toastService.error('Document cannot move any further after approve', 'Workflow Error')
-    // }
+    if (!controls.value.some(x => this.statuses.find(y => y.id === x.nextStatusId).state === this.docStatus.Unpaid)) {
+      controls.push(this.addWorkflowLines());
+      this.table.renderRows();
+    } else {
+      this.toastService.error('Document cannot move any further after approve', 'Workflow Error')
+    }
   }
 
   // Add Invoice Lines
@@ -174,14 +174,14 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
       this.toastService.error('Please add workflow transitions', 'Error')
       return
     }
-    // if (!controls.value.some(x => this.statuses.find(y => y.id === x.nextStatusId).state === this.docStatus.Unpaid)) {
-    //   this.toastService.error('Approve status is required to complete the Workflow.', 'Workflow Error!');
-    //   return;
-    // }
-    // if (controls.value.some(x => this.statuses.find(y => y.id === x.currentStatusId).state === this.docStatus.Unpaid)) {
-    //   this.toastService.error('Current status can\'t be Approved.', 'Workflow Error!');
-    //   return;
-    // }
+    if (!controls.value.some(x => this.statuses.find(y => y.id === x.nextStatusId).state === this.docStatus.Unpaid)) {
+      this.toastService.error('Approve status is required to complete the Workflow.', 'Workflow Error!');
+      return;
+    }
+    if (controls.value.some(x => this.statuses.find(y => y.id === x.currentStatusId).state === this.docStatus.Unpaid)) {
+      this.toastService.error('Current status can\'t be Approved.', 'Workflow Error!');
+      return;
+    }
 
     this.isLoading = true
     this.mapFormValuesToworkflowModel();

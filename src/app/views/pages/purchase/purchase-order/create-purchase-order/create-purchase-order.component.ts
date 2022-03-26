@@ -155,7 +155,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   onItemSelected(itemId: number, index: number) {
     const arrayControl = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
     if (itemId) {
-      const cost = this.salesItem.find(i => i.id === itemId).cost
+      const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);

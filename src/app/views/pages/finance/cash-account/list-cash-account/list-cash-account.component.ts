@@ -36,7 +36,10 @@ export class ListCashAccountComponent implements OnInit {
 
   columnDefs = [
     {headerName: 'Cash Account Name', field: 'cashAccountName', sortable: true, filter: true, tooltipField: 'handler'},
-    {headerName: 'Manager Name / Handler', field: 'handler', sortable: true, filter: true ,tooltipField: 'handler'},
+    {headerName: 'Manager / Handler', field: 'handler', sortable: true, filter: true ,tooltipField: 'handler',
+    cellRenderer: (params : ICellRendererParams) => {
+      return (params.data.handler) || 'N/A'
+    }},
     {
       headerName: 'Opening Balance', 
       field: 'openingBalance' , 
@@ -47,6 +50,7 @@ export class ListCashAccountComponent implements OnInit {
         return params.data.openingBalance.toLocaleString()
       }
     },
+    {headerName: 'Campus', field: 'campusName', sortable: true, filter: true, tooltipField: 'handler'},
   ];
 
   ngOnInit() {

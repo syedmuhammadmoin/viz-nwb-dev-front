@@ -8,14 +8,14 @@
           class="btn_white mr-3">
           Print Vendor Bill
         </button>
-        <button *ngIf="billMaster?.status === docStatus.Draft"
+        <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)"
           [disabled]="!(permission.isGranted(permissions.BILL_EDIT))"
           [ngClass]="!(permission.isGranted(permissions.BILL_EDIT)) ? 'disable' : '' "
           [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
           type="button" class="btn_white mr-3" mat-raised-button>
           Edit
         </button>
-        <button (click)="openDialog()"
+        <!-- <button (click)="openDialog()"
           *ngIf="(billMaster?.transactionId)"
           [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE))"
           [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' " class="btn_white mr-3"
@@ -28,8 +28,8 @@
           [routerLink]="'/'+DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, 'isBill': true}" type="button"
           class="btn_white mr-3" mat-raised-button>
           Create Debit Note
-        </button>
-        <h4 class="overall_statuses {{docStatus[billMaster?.status]}}"> Status:  {{docStatus[billMaster?.status]}} </h4>
+        </button> -->
+        <h4 class="overall_statuses {{docStatus[billMaster?.state]}}"> Status:  {{billMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -48,9 +48,9 @@
                     <th class="" style="    border: 1px solid #8babdb; width: 15%;">Vendor Name:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
                       {{billMaster?.vendorName}}</td>
-                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Campus:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
-                      {{billMaster?.contact ? billMaster?.contact : "-"}}</td>
+                      {{billMaster?.campusName}}</td>
 
                     <!-- <th class="" style="    border: 1px solid #8babdb; width: 15%;">Vendor Bill Ref:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
