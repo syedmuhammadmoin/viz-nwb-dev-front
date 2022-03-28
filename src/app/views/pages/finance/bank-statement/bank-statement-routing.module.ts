@@ -25,7 +25,7 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateBankStatementComponent,
-        canDeactivate: [FormConfirmationGuard],
+       // canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BANKSTATEMENT_CREATE },

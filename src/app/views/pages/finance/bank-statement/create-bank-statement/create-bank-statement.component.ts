@@ -276,23 +276,22 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   calculateRunningTotal(openingBalance?: number) {
     const arrayControl = this.bankStatementForm.get('bankStmtLines') as FormArray;
-    this.openingBalance = this.openingBalance == null ? openingBalance : this.openingBalance;
-    if (this.cumulativeBalances[0] !== this.openingBalance) {
-      this.cumulativeBalances[0] = this.openingBalance;
-    }
-   
-    for (let i = 0; i < arrayControl.length; i++) {
-      const debitControl = arrayControl.at(i).get('debit');
-      const creditControl = arrayControl.at(i).get('credit');
-      const cumulativeControl = arrayControl.at(i).get('cumulativeBalance');
-      const sum = +debitControl.value - +creditControl.value
-      this.cumulativeBalance = sum !== 0 ? +this.cumulativeBalances[i] + sum : 0;
-      cumulativeControl.setValue(this.cumulativeBalance);
-      if (this.cumulativeBalances[i + 1] !== null) {
-        this.cumulativeBalances[i + 1] = this.cumulativeBalance;
+      this.openingBalance = this.openingBalance == null ? openingBalance : this.openingBalance;
+      if (this.cumulativeBalances[0] !== this.openingBalance) {
+        this.cumulativeBalances[0] = this.openingBalance;
       }
-    }
-    this.calculateClosingBalance()
+      for (let i = 0; i < arrayControl.length; i++) {
+        const debitControl = arrayControl.at(i).get('debit');
+        const creditControl = arrayControl.at(i).get('credit');
+        const cumulativeControl = arrayControl.at(i).get('cumulativeBalance');
+        const sum = +creditControl.value - +debitControl.value
+        this.cumulativeBalance = sum !== 0 ? +this.cumulativeBalances[i] + sum : 0;
+        cumulativeControl.setValue(this.cumulativeBalance);
+        if (this.cumulativeBalances[i + 1] !== null) {
+          this.cumulativeBalances[i + 1] = this.cumulativeBalance;
+        }
+      }
+      this.calculateClosingBalance()
   }
 
   calculateClosingBalance() {

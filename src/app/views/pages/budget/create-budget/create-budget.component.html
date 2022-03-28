@@ -84,7 +84,7 @@
                                (change)="totalAmountCalculation()"
                                (blurEvent)="logValidationErrors(budgetForm, formErrors, validationMessages)"
                                [errorMessage]="[{ condition : budgetForm.get('budgetLines')['controls'][i].controls.amount.errors?.required &&
-                                                              budgetForm.get('budgetLines')['controls'][i].controls.amount.touche , 
+                                                              budgetForm.get('budgetLines')['controls'][i].controls.amount.touched , 
                                                   error : 'Amount is required.' }]">
                               </kt-input-field>
                             </div>

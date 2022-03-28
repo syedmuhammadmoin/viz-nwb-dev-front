@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/Dialog'
-import { ColDef, FirstDataRenderedEvent, GridOptions, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { ICampus } from '../model/ICampus';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -21,7 +21,11 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   frameworkComponents : {[p: string]: unknown};
   gridOptions : GridOptions;
   defaultColDef : ColDef;
-  tooltipData : string = "double click to edit"
+  components: any;
+  gridApi: GridApi;
+  gridColumnApi: any;
+   //tooltipData : string = "double click to edit"
+   
   // constructor
   constructor(
     public dialog: MatDialog,
@@ -38,12 +42,19 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
 
 // defaults columns
   columnDefs = [
-    { headerName: 'Name', field: 'name', sortable: true, filter: true, tooltipField: 'name' },
+    { 
+      headerName: 'Name', 
+      field: 'name', 
+      sortable: true, 
+      filter: true, 
+      tooltipField: 'name',
+      cellRenderer: "loadingCellRenderer",
+     },
   ];
 // implimentation of ng OnInit
   ngOnInit() { 
 
-    this.getCampuses()
+    // this.getCampuses()
    
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
@@ -53,6 +64,24 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     }
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+
+    this.gridOptions = {
+      cacheBlockSize: 20,
+      rowModelType: "infinite",
+      paginationPageSize: 10,
+      pagination: true,
+      context: "double click to edit",
+    };
+
+    this.components = {
+      loadingCellRenderer: function (params) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
   }
 // data rendering on first
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -70,16 +99,37 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     });
     // Recalling getCampuses function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      this.getCampuses()
+      this.gridApi.setDatasource(this.dataSource)
+      this.cdRef.detectChanges();
     });
   }
 
-  getCampuses () : void {
-    this.campusService.getCampuses().subscribe((res: IPaginationResponse<ICampus[]>) => {
-      this.campusList = res.result;
-      this.cdRef.detectChanges()
-    })
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
   }
+
+  async getCampuses(params: any): Promise<IPaginationResponse<ICampus[]>> {
+    const result = await this.campusService.getCampuses().toPromise()
+    return result
+  }
+
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getCampuses(params);
+     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.cdRef.detectChanges();
+   },
+  };
+
+  // getCampuses () : void {
+  //   this.campusService.getCampuses().subscribe((res: IPaginationResponse<ICampus[]>) => {
+  //     this.campusList = res.result;
+  //     this.cdRef.detectChanges()
+  //   })
+  // }
 }
 
 

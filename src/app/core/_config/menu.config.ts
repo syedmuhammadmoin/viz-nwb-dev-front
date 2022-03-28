@@ -404,18 +404,17 @@ export class MenuConfig {
                 Permissions.DEBITNOTE_REVIEW,
                 Permissions.DEBITNOTE_APPROVE,
               ]
+            },    
+            {
+              title: 'Bank Statement',
+              page: '/' + BANK_STATEMENT.LIST,
+              permission: [
+                Permissions.BANKSTATEMENT_VIEW,
+                Permissions.BANKSTATEMENT_CREATE,
+                Permissions.BANKSTATEMENT_EDIT,
+                Permissions.BANKSTATEMENT_DELETE,
+              ]
             },
-                  
-            // {
-            //   title: 'Bank Statement',
-            //   page: '/' + BANK_STATEMENT.LIST,
-            //   permission: [
-            //     Permissions.BANKSTATEMENT_VIEW,
-            //     Permissions.BANKSTATEMENT_CREATE,
-            //     Permissions.BANKSTATEMENT_EDIT,
-            //     Permissions.BANKSTATEMENT_DELETE,
-            //   ]
-            // },
             // {
             //   title: 'Bank Reconciliation',
             //   page: '/' + BANK_RECONCILIATION.LIST,
@@ -439,6 +438,30 @@ export class MenuConfig {
                 Permissions.CHARTOFACCOUNT_VIEW
               ]
             },
+          ]
+        },
+        //Budget Portion
+        {
+          title: 'Budget',
+          bullet: 'dot',
+          icon: 'flaticon2-analytics',
+          permission: [
+            Permissions.BUDGET_VIEW,
+            Permissions.BUDGET_CREATE,
+            Permissions.BUDGET_EDIT,
+            Permissions.BUDGET_DELETE
+          ],
+          submenu: [
+            {
+              title: 'Budget',
+              page: '/' + BUDGET.LIST,
+              permission: [
+                Permissions.BUDGET_VIEW,
+                Permissions.BUDGET_CREATE,
+                Permissions.BUDGET_EDIT,
+                Permissions.BUDGET_DELETE
+              ]
+            }
           ]
         },
         // { section: 'sales' },

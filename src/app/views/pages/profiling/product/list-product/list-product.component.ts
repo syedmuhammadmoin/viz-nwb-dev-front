@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {ProductService} from '../service/product.service';
-import {ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent} from 'ag-grid-community';
 import {MatDialog} from '@angular/material/Dialog'
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {AppConst} from "src/app/views/shared/AppConst";
@@ -22,6 +22,9 @@ export class ListProductComponent implements OnInit {
   gridOptions: GridOptions;
   defaultColDef: ColDef;
   tooltipData: string = "double click to edit"
+  components: { loadingCellRenderer (params: any ) : unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
 
   constructor(
     private productService: ProductService,
@@ -36,7 +39,7 @@ export class ListProductComponent implements OnInit {
   }
 
   columnDefs = [
-    {headerName: 'Name', field: 'productName', sortable: true, filter: true, tooltipField: 'salesTax'},
+    {headerName: 'Name', field: 'productName', sortable: true, filter: true, tooltipField: 'salesTax', cellRenderer: "loadingCellRenderer"},
     // {headerName: 'purchase or Sold', field: 'purchasedOrSold', sortable: true, filter: true, tooltipField: 'cost',
     //   cellRenderer: (params: ICellRendererParams) => AppConst.PurchasedOrSold[params.value]},
     {headerName: 'Type', field: 'productType', sortable: true, filter: true, tooltipField: 'salesTax',
@@ -49,16 +52,31 @@ export class ListProductComponent implements OnInit {
 
   ngOnInit() {
 
-    this.getProducts()
+    this.gridOptions = {
+      cacheBlockSize: 20,
+      rowModelType: "infinite",
+      paginationPageSize: 10,
+      pagination: true,
+      rowHeight: 40,
+      headerHeight: 35,
+      context: "double click to edit",
+    };
 
-    this.gridOptions.rowHeight = 40;
-    this.gridOptions.headerHeight = 35;
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip'
     }
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    this.components = {
+      loadingCellRenderer: function (params: any) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -76,14 +94,35 @@ export class ListProductComponent implements OnInit {
     });
     // Recalling getProducts function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-     this.getProducts()
+      this.gridApi.setDatasource(this.dataSource)
+      this.cdRef.detectChanges();
     });
   }
 
-  getProducts() : void {
-    this.productService.getProducts().subscribe((res: IPaginationResponse<IProduct[]>) => {
-      this.productList = res.result;
-      this.cdRef.detectChanges();
-    })
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
   }
+
+  async getProducts(params: any): Promise<IPaginationResponse<IProduct[]>> {
+    const result = await this.productService.getProducts().toPromise()
+    return result
+  }
+
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getProducts(params);
+     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.cdRef.detectChanges();
+   },
+  };
+
+  // getProducts() : void {
+  //   this.productService.getProducts().subscribe((res: IPaginationResponse<IProduct[]>) => {
+  //     this.productList = res.result;
+  //     this.cdRef.detectChanges();
+  //   })
+  // }
 }
