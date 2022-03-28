@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 import { Router } from '@angular/router';
@@ -23,6 +23,9 @@ export class ListBudgetComponent implements OnInit {
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   tooltipData : string = "double click to edit"
+  components: { loadingCellRenderer (params: any ) : unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
 
   constructor( private _budgetService: BudgetService,
                public  dialog: MatDialog,
@@ -40,23 +43,29 @@ export class ListBudgetComponent implements OnInit {
     columnDefs = [
       // { headerName: 'Account', field: 'accountId', sortable: true, filter: true, tooltipField: 'to', },
       {
-        headerName: 'Budget', field: 'budgetName', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'to',
+        headerName: 'Budget', 
+        field: 'budgetName', 
+        menuTabs: ["filterMenuTab"], 
+        filter: true, 
+        tooltipField: 'to', 
+        cellRenderer: "loadingCellRenderer",
       },
-  
-      // { headerName: 'Amount', field: 'amount', sortable: true, filter: true, tooltipField: 'to', },
       {
         headerName: 'From', field: 'from',  menuTabs: ["filterMenuTab"],  filter: true, tooltipField: 'to',
   
-        cellRenderer: (params: ICellRendererParams) => {
-          const date = params.data.from != null ? params.data.from : null;
+        // valueFormatter: (params: ICellRendererParams) => {
+        //   return this.dateHelperService.transformDate(params.value, "MMM d, y");
+        // },
+        valueFormatter: (params: ValueFormatterParams) => {
+          const date = params.value != null ? params.value : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
         }
       },
       {
         headerName: 'To', field: 'to',  menuTabs: ["filterMenuTab"],  filter: true, tooltipField: 'to',
   
-        cellRenderer: (params: ICellRendererParams) => {
-          const date = params.data.to != null ? params.data.to : null;
+        valueFormatter: (params: ValueFormatterParams) => {
+          const date = params.value != null ? params.value : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
         }
       },
@@ -64,16 +73,31 @@ export class ListBudgetComponent implements OnInit {
  
   ngOnInit() {
 
-    this.getBudgets();
+    this.gridOptions = {
+      cacheBlockSize: 20,
+      rowModelType: "infinite",
+      paginationPageSize: 10,
+      pagination: true,
+      rowHeight: 40,
+      headerHeight: 35,
+      context: "double click to edit",
+    };
 
-    this.gridOptions.rowHeight = 40;
-    this.gridOptions.headerHeight = 35;
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip'
     }
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    this.components = {
+      loadingCellRenderer: function (params: any) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
   }
 
   onFirstDataRendered(params : FirstDataRenderedEvent) {
@@ -89,12 +113,32 @@ export class ListBudgetComponent implements OnInit {
     this.router.navigate(['/' + BUDGET.CREATE])
   }
 
-  getBudgets() : void {
-    this._budgetService.getBudgets().subscribe((res: IPaginationResponse<IBudgetResponse[]>) => {
-      this.budgetList = res.result;
-      this.cdRef.detectChanges();
-    })
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
   }
+
+  async getBudgets(params: any): Promise<IPaginationResponse<IBudgetResponse[]>> {
+    const result = await this._budgetService.getBudgets().toPromise()
+    return result
+  }
+
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getBudgets(params);
+     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.cdRef.detectChanges();
+   },
+  };
+
+  // getBudgets() : void {
+  //   this._budgetService.getBudgets().subscribe((res: IPaginationResponse<IBudgetResponse[]>) => {
+  //     this.budgetList = res.result;
+  //     this.cdRef.detectChanges();
+  //   })
+  // }
 }
 
  

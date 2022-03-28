@@ -23,7 +23,7 @@
                         formControlName="bankAccountId"
                         (blurEvent)="logValidationErrors(this.bankStatementForm, this.formErrors, this.validationMessages)"
                         errorMessage="Bank Account is Required" 
-                        propertyName="bankName" 
+                        propertyName="accountTitle" 
                         propertyValue="id"
                         matFormFieldClass="full-width"
                         [optionList]="ngxsService.bankAccounts$" 

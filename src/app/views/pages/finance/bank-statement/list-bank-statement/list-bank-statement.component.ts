@@ -38,7 +38,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
 
 
     columnDefs = [
-      {headerName: 'Bank Account', field: 'bankAccount.bankName', sortable: true, filter: true, tooltipField: 'description'},
+      {headerName: 'Bank Account', field: 'bankAccountName', sortable: true, filter: true, tooltipField: 'description'},
       {headerName: 'Description', field: 'description', sortable: true, filter: true ,tooltipField: 'description'},
       {
         headerName: 'Opening Balance', 

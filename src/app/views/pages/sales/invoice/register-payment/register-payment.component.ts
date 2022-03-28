@@ -204,7 +204,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'clearingAccountId';
-      this.propertyName = 'bankName';
+      this.propertyName = 'accountTitle';
     }
   }
 
