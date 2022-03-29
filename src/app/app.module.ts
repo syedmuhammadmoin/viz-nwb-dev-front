@@ -92,6 +92,8 @@ import { BusinessPartnerState } from './views/pages/profiling/business-partner/s
 import { ProductState } from './views/pages/profiling/product/store/product.state.state';
 import { BankAccountState } from './views/pages/finance/bank-account/store/bank-account.state';
 import { CampusState } from './views/pages/profiling/campus/store/campus.state';
+import { BudgetState } from './views/pages/budget/store/budget.state';
+import { StatusState } from './views/pages/workflows/status/store/status.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -151,8 +153,9 @@ export function getHighlightLanguages() {
       CountryState,
       StateState,
       CityState,
-      BankAccountState
-      
+      BankAccountState,
+      BudgetState,
+      StatusState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

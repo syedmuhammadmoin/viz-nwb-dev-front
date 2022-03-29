@@ -7,6 +7,7 @@ import { CityState } from 'src/app/core/shared-state/account-state/store/city.st
 import { CountryState } from 'src/app/core/shared-state/account-state/store/country.state';
 import { StateState } from 'src/app/core/shared-state/account-state/store/state.state';
 import { BudgetService } from 'src/app/views/pages/budget/service/budget.service';
+import { BudgetState } from 'src/app/views/pages/budget/store/budget.state';
 import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
 import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
 import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
@@ -28,6 +29,7 @@ import { ProductState } from 'src/app/views/pages/profiling/product/store/produc
 import { GetList } from 'src/app/views/pages/profiling/store/profiling.action';
 import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
 import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
+import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
 import { CscService } from 'src/app/views/shared/csc.service';
 
 export class NgxsCustomService {
@@ -62,21 +64,21 @@ export class NgxsCustomService {
   @Select(CampusState.isLoading) campusIsLoading$: Observable<any>;
 
 
-   // Business Partner Country
-   @Select(CountryState.entities) countries$: Observable<any>;
-   @Select(CountryState.isFetchCompleted) countryFetchCompleted$: Observable<any>;
-   @Select(CountryState.isLoading) countryIsLoading$: Observable<any>;
+  //  // Business Partner Country
+  //  @Select(CountryState.entities) countries$: Observable<any>;
+  //  @Select(CountryState.isFetchCompleted) countryFetchCompleted$: Observable<any>;
+  //  @Select(CountryState.isLoading) countryIsLoading$: Observable<any>;
 
 
-   // Business Partner State
-   @Select(StateState.entities) states$: Observable<any>;
-   @Select(StateState.isFetchCompleted) stateFetchCompleted$: Observable<any>;
-   @Select(StateState.isLoading) stateIsLoading$: Observable<any>;
+  //  // Business Partner State
+  //  @Select(StateState.entities) states$: Observable<any>;
+  //  @Select(StateState.isFetchCompleted) stateFetchCompleted$: Observable<any>;
+  //  @Select(StateState.isLoading) stateIsLoading$: Observable<any>;
 
-   //Business Partner Cities
-   @Select(CityState.entities) cities$: Observable<any>;
-   @Select(CityState.isFetchCompleted) cityFetchCompleted$: Observable<any>;
-   @Select(CityState.isLoading) cityIsLoading$: Observable<any>;
+  //  //Business Partner Cities
+  //  @Select(CityState.entities) cities$: Observable<any>;
+  //  @Select(CityState.isFetchCompleted) cityFetchCompleted$: Observable<any>;
+  //  @Select(CityState.isLoading) cityIsLoading$: Observable<any>;
 
   // Account Payable
   @Select(AccountLevel4State.entities) accountsLevel4$: Observable<any>;
@@ -90,21 +92,21 @@ export class NgxsCustomService {
   @Select(CategoryState.isLoading) categoryIsLoading$: Observable<any>;
 
 
-  // Department
-  @Select(DepartmentState.entities) departments$: Observable<any>;
-  @Select(DepartmentState.isFetchCompleted) departmentFetchCompleted$: Observable<any>;
-  @Select(DepartmentState.isLoading) departmentIsLoading$: Observable<any>;
+  // // Department
+  // @Select(DepartmentState.entities) departments$: Observable<any>;
+  // @Select(DepartmentState.isFetchCompleted) departmentFetchCompleted$: Observable<any>;
+  // @Select(DepartmentState.isLoading) departmentIsLoading$: Observable<any>;
 
 
-  // Location
-  @Select(LocationState.entities) locations$: Observable<any>;
-  @Select(LocationState.isFetchCompleted) locationFetchCompleted$: Observable<any>;
-  @Select(LocationState.isLoading) locationIsLoading$: Observable<any>;
+  // // Location
+  // @Select(LocationState.entities) locations$: Observable<any>;
+  // @Select(LocationState.isFetchCompleted) locationFetchCompleted$: Observable<any>;
+  // @Select(LocationState.isLoading) locationIsLoading$: Observable<any>;
 
-  // Organization
-  @Select(OrganizationState.entities) organizations$: Observable<any>;
-  @Select(OrganizationState.isFetchCompleted) organizationFetchCompleted$: Observable<any>;
-  @Select(OrganizationState.isLoading) organizationIsLoading$: Observable<any>;
+  // // Organization
+  // @Select(OrganizationState.entities) organizations$: Observable<any>;
+  // @Select(OrganizationState.isFetchCompleted) organizationFetchCompleted$: Observable<any>;
+  // @Select(OrganizationState.isLoading) organizationIsLoading$: Observable<any>;
 
   // Product
   @Select(ProductState.entities) products$: Observable<any>;
@@ -154,47 +156,75 @@ export class NgxsCustomService {
     })
   }
 
- // Get Country From Store if available else fetch from the server and cache.
- getCountryFromState() {
-  this.countryFetchCompleted$.subscribe((res) => {
-    console.log('Country State fetch completed: ', res);
-    if (!res) {
-      this.store.dispatch(new GetList(CountryState, {
-        serviceClass: this.cscService,
-        methodName: 'getCountries',
-        context: this
-      }))
-    }
-  })
-}
-
- // Get Country state From Store if available else fetch from the server and cache.
- getStateFromState() {
-  this.stateFetchCompleted$.subscribe((res) => {
-    console.log('Country State fetch completed: ', res);
-    if (!res) {
-      this.store.dispatch(new GetList(StateState, {
-        serviceClass: this.cscService,
-        methodName: 'getStates',
-        context: this
-      }))
-    }
-  })
-}
-
-  // Get City State From Store if available else fetch from the server and cache.
-  getCityFromState() {
-    this.cityFetchCompleted$.subscribe((res) => {
-      console.log('City State fetch completed: ', res);
+  // Get Budgets From Store if available else fetch from the server and cache.
+  getBudgetsFromState() {
+    this.campusFetchCompleted$.subscribe((res) => {
+      console.log('Budget State fetch completed: ', res);
       if (!res) {
-        this.store.dispatch(new GetList(CityState, {
-          serviceClass: this.cscService,
-          methodName: 'getCities',
+        this.store.dispatch(new GetList(BudgetState, {
+          serviceClass: this.campusService,
+          methodName: 'getBudgetDropdown',
           context: this
         }))
       }
     })
   }
+
+  // Get Status From Store if available else fetch from the server and cache.
+  getStatusFromState() {
+    this.campusFetchCompleted$.subscribe((res) => {
+      console.log('Status State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(StatusState, {
+          serviceClass: this.campusService,
+          methodName: 'getStatusDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+//  // Get Country From Store if available else fetch from the server and cache.
+//  getCountryFromState() {
+//   this.countryFetchCompleted$.subscribe((res) => {
+//     console.log('Country State fetch completed: ', res);
+//     if (!res) {
+//       this.store.dispatch(new GetList(CountryState, {
+//         serviceClass: this.cscService,
+//         methodName: 'getCountries',
+//         context: this
+//       }))
+//     }
+//   })
+// }
+
+//  // Get Country state From Store if available else fetch from the server and cache.
+//  getStateFromState() {
+//   this.stateFetchCompleted$.subscribe((res) => {
+//     console.log('Country State fetch completed: ', res);
+//     if (!res) {
+//       this.store.dispatch(new GetList(StateState, {
+//         serviceClass: this.cscService,
+//         methodName: 'getStates',
+//         context: this
+//       }))
+//     }
+//   })
+// }
+
+//   // Get City State From Store if available else fetch from the server and cache.
+//   getCityFromState() {
+//     this.cityFetchCompleted$.subscribe((res) => {
+//       console.log('City State fetch completed: ', res);
+//       if (!res) {
+//         this.store.dispatch(new GetList(CityState, {
+//           serviceClass: this.cscService,
+//           methodName: 'getCities',
+//           context: this
+//         }))
+//       }
+//     })
+//   }
 
    // Get All Level 4 Accounts State From Store if available else fetch from the server and cache.
   getAccountLevel4FromState() {
@@ -223,47 +253,47 @@ export class NgxsCustomService {
       }
     })
   }
-  // Get Department From Store if available else fetch from the server and cache.
-  getDepatmentFromState() {
-    this.departmentFetchCompleted$.subscribe((res) => {
-      console.log('Department State fetch completed: ', res);
-      if (!res) {
-        this.store.dispatch(new GetList(DepartmentState, {
-          serviceClass: this.departmentService,
-          methodName: 'getDepartmentsDropdown',
-          context: this
-        }))
-      }
-    })
-  }
+  // // Get Department From Store if available else fetch from the server and cache.
+  // getDepatmentFromState() {
+  //   this.departmentFetchCompleted$.subscribe((res) => {
+  //     console.log('Department State fetch completed: ', res);
+  //     if (!res) {
+  //       this.store.dispatch(new GetList(DepartmentState, {
+  //         serviceClass: this.departmentService,
+  //         methodName: 'getDepartmentsDropdown',
+  //         context: this
+  //       }))
+  //     }
+  //   })
+  // }
 
   
-  // Get Location From Store if available else fetch from the server and cache.
-  getLocationFromState() {
-    this.locationFetchCompleted$.subscribe((res) => {
-      console.log('Location Statefetch completed: ', res);
-      if (!res) {
-        this.store.dispatch(new GetList(LocationState, {
-          serviceClass: this.locationService,
-          methodName: 'getLocationsDropdown',
-          context: this
-        }))
-      }
-    })
-  }
-  // Get Organization From Store if available else fetch from the server and cache.
-  getOrganizationFromState() {
-    this.organizationFetchCompleted$.subscribe((res) => {
-      console.log('Organization State fetch completed: ', res);
-      if (!res) {
-        this.store.dispatch(new GetList(OrganizationState, {
-          serviceClass: this.organizationService,
-          methodName: 'getOrganizationsDropdown',
-          context: this
-        }))
-      }
-    })
-  }
+  // // Get Location From Store if available else fetch from the server and cache.
+  // getLocationFromState() {
+  //   this.locationFetchCompleted$.subscribe((res) => {
+  //     console.log('Location Statefetch completed: ', res);
+  //     if (!res) {
+  //       this.store.dispatch(new GetList(LocationState, {
+  //         serviceClass: this.locationService,
+  //         methodName: 'getLocationsDropdown',
+  //         context: this
+  //       }))
+  //     }
+  //   })
+  // }
+  // // Get Organization From Store if available else fetch from the server and cache.
+  // getOrganizationFromState() {
+  //   this.organizationFetchCompleted$.subscribe((res) => {
+  //     console.log('Organization State fetch completed: ', res);
+  //     if (!res) {
+  //       this.store.dispatch(new GetList(OrganizationState, {
+  //         serviceClass: this.organizationService,
+  //         methodName: 'getOrganizationsDropdown',
+  //         context: this
+  //       }))
+  //     }
+  //   })
+  // }
   // Get Product From Store if available else fetch from the server and cache.
   getProductFromState() {
     this.productFetchCompleted$.subscribe((res) => {

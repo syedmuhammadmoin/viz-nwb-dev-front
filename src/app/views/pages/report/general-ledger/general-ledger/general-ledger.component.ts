@@ -172,9 +172,9 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
      // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
      // get location from state
-     this.ngxsService.getLocationFromState();
+     //this.ngxsService.getLocationFromState();
      // get department from state
-     this.ngxsService.getDepatmentFromState();
+     //this.ngxsService.getDepatmentFromState();
 
    
 
