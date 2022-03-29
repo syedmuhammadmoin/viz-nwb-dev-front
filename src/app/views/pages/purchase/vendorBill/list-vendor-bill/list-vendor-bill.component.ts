@@ -26,6 +26,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(private router: Router,
     private vendorBillService: VendorBillService,
@@ -132,6 +133,12 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getBills(params);
+
+     if (!res.result) { 
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+     this.gridApi.hideOverlay();
+    }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.cdRef.detectChanges();

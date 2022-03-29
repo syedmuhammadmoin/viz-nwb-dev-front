@@ -18,6 +18,8 @@ export class UserListComponent implements OnInit {
   defaultColDef: any;
   userList: any;
   tooltipData: string = "double click to edit"
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+
 
   columnDefs = [
     { headerName: 'S.No', valueGetter: 'node.rowIndex + 1', tooltipField: 'userName' },
@@ -73,7 +75,6 @@ export class UserListComponent implements OnInit {
 
   getUsers() {
     this.accessManagementService.getUsers().subscribe((res: any) => {
-      console.log(res);
       this.userList = res.result
       this.cdRef.detectChanges();
     });

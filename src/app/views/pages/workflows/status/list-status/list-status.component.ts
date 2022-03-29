@@ -27,6 +27,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   columnDefs = [
     //{ headerName: "S.No", valueGetter: 'node.rowIndex + 1', tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
@@ -130,6 +131,12 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getStatuses(params);
+
+     if (!res.result) { 
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+     this.gridApi.hideOverlay();
+    }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.cdRef.detectChanges();

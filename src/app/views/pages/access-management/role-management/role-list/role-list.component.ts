@@ -18,6 +18,8 @@ export class RoleListComponent implements OnInit {
   defaultColDef: any;
   roleList: any;
   tooltipData: string = "double click to edit"
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+
 
   columnDefs = [
     { headerName: 'S.No', valueGetter: 'node.rowIndex + 1', tooltipField: 'name' },
@@ -70,7 +72,6 @@ export class RoleListComponent implements OnInit {
 
   getRoles() {
     this.accessManagementService.getRoles().subscribe((res: any) => {
-      console.log(res);
       this.roleList = res.result
       this.cdRef.detectChanges();
     });
