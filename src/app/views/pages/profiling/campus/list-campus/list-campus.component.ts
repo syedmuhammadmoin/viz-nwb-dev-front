@@ -24,6 +24,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   components: any;
   gridApi: GridApi;
   gridColumnApi: any;
+  overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';
    //tooltipData : string = "double click to edit"
    
   // constructor
@@ -117,7 +118,10 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   dataSource = {
     getRows: async (params: any) => {
-     const res = await this.getCampuses(params);
+    //  const res = await this.getCampuses(params);
+    const res = await this.getCampuses(params);
+     console.log(res)
+     if (!res.result) { this.gridApi.showNoRowsOverlay() }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.cdRef.detectChanges();

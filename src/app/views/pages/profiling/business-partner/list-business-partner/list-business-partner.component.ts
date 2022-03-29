@@ -27,6 +27,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';
   //tooltipData : string = "double click to edit"
 
   // constructor
