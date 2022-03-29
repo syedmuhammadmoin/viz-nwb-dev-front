@@ -1,9 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRenderer, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { CREDIT_NOTE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -24,6 +23,9 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
   tooltipData: string = "double click to view detail"
+  components: { loadingCellRenderer (params: any ) : unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
 
   constructor(
     private creditNoteService: CreditNoteService,
@@ -41,7 +43,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
 
 
   columnDefs = [
-    { headerName: 'Credit Note #', field: 'docNo', sortable: true, filter: true, tooltipField: 'noteDate', },
+    { headerName: 'Credit Note #', field: 'docNo', sortable: true, filter: true, tooltipField: 'noteDate', cellRenderer: "loadingCellRenderer" },
     { headerName: 'Customer', field: 'customerName', sortable: true, filter: true, tooltipField: 'noteDate', },
     {
       headerName: 'Note Date',
@@ -49,15 +51,14 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
       sortable: true,
       filter: true,
       tooltipField: 'noteDate',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.noteDate != null ? params.data.noteDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
       headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'noteDate',
-      cellRenderer: (params: ICellRendererParams) => {
-        return this.valueFormatter(params.data.totalAmount);
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value) || null;
       }
     },
     { 
@@ -71,15 +72,31 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
 
 
   ngOnInit() {
-    this.gridOptions.rowHeight = 40;
-    this.gridOptions.headerHeight = 35;
+    this.gridOptions = {
+      cacheBlockSize: 20,
+      rowModelType: "infinite",
+      paginationPageSize: 10,
+      pagination: true,
+      rowHeight: 40,
+      headerHeight: 35,
+      context: "double click to edit",
+    };
+
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip'
     }
-    this.frameworkComponents = { customTooltip: CustomTooltipComponent };
 
-    this.getCreditNoteList();
+    this.components = {
+      loadingCellRenderer: function (params: any) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -94,10 +111,30 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     this.router.navigate(['/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , event.data.id)]);
   }
 
-  getCreditNoteList() {
-    this.creditNoteService.getCreditNotes().subscribe((res: IPaginationResponse<ICreditNote[]>) => {
-        this.creditNoteList = res.result;
-        this.cdRef.markForCheck();
-      })
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
   }
+
+  async getCreditNotes(params: any): Promise<IPaginationResponse<ICreditNote[]>> {
+    const result = await this.creditNoteService.getCreditNotes().toPromise()
+    return result
+  }
+
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getCreditNotes(params);
+     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.cdRef.detectChanges();
+   },
+  };
+
+  // getCreditNoteList() {
+  //   this.creditNoteService.getCreditNotes().subscribe((res: IPaginationResponse<ICreditNote[]>) => {
+  //       this.creditNoteList = res.result;
+  //       this.cdRef.markForCheck();
+  //     })
+  // }
 }

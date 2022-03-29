@@ -9,7 +9,7 @@ export const environment = {
   // baseUrl:'http://api.vizalys.com/api/',
   // baseUrl:'http://nwbtestapi.vizalys.com/api/'
     // baseUrl: 'http://192.168.100.117:8080/api/'
-    baseUrl: 'http://192.168.169.65:8080/api/'
+    baseUrl: 'http://192.168.127.65:8080/api/'
 };
 
 /*

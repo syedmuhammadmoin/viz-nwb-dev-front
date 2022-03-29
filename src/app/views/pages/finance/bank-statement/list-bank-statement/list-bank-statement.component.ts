@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BANK_STATEMENT } from 'src/app/views/shared/AppRoutes';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -22,6 +22,9 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     frameworkComponents : {[p: string]: unknown};
     defaultColDef : ColDef;
     tooltipData : string = 'double click to edit'
+    components: { loadingCellRenderer (params: any ) : unknown };
+    gridApi: GridApi;
+    gridColumnApi: ColumnApi;
 
     constructor( private bankStatementService : BankStatementService,
                  private router: Router,
@@ -46,24 +49,39 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
         sortable: true, 
         filter: true ,
         tooltipField: 'description',
-        cellRenderer: (params : ICellRendererParams) => {
-          return params.data.openingBalance.toLocaleString(undefined , {maximumFractionDigits: 2})
+        valueFormatter: (params : ValueFormatterParams) => {
+          return this.valueFormatter(params.value) || null
         }
       }
     ];
   
     ngOnInit() {
 
-      this.getBankStatements()
-
-      this.gridOptions.rowHeight = 40;
-      this.gridOptions.headerHeight = 35;
-
+      this.gridOptions = {
+        cacheBlockSize: 20,
+        rowModelType: "infinite",
+        paginationPageSize: 10,
+        pagination: true,
+        rowHeight: 40,
+        headerHeight: 35,
+        context: "double click to edit",
+      };
+  
+      this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+  
       this.defaultColDef = {
         tooltipComponent: 'customTooltip'
       }
-
-      this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+  
+      this.components = {
+        loadingCellRenderer: function (params: any) {
+          if (params.value !== undefined) {
+            return params.value;
+          } else {
+            return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+          }
+        },
+      };
     }
 
     addBankStatement(){
@@ -78,12 +96,32 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       this.router.navigate(['/' + BANK_STATEMENT.ID_BASED_ROUTE('edit' ,  event.data.id )]);
     }
 
-    getBankStatements() {
-      this.bankStatementService.getBankStatements().subscribe((res: IPaginationResponse<IBankStatement[]>) => {
-      this.bankStatementList = res.result;
-      this.cdRef.markForCheck();
-    })
-  }
+    onGridReady(params: GridReadyEvent) {
+      this.gridApi = params.api;
+      this.gridColumnApi = params.columnApi;
+      params.api.setDatasource(this.dataSource);
+    }
+  
+    async getBankStatements(params: any): Promise<IPaginationResponse<IBankStatement[]>> {
+      const result = await  this.bankStatementService.getBankStatements().toPromise()
+      return result
+    }
+  
+    dataSource = {
+      getRows: async (params: any) => {
+       const res = await this.getBankStatements(params)
+       //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+       params.successCallback(res.result || 0, res.totalRecords);
+       this.cdRef.detectChanges();
+     },
+    };
+
+  //   getBankStatements() {
+  //     this.bankStatementService.getBankStatements().subscribe((res: IPaginationResponse<IBankStatement[]>) => {
+  //     this.bankStatementList = res.result;
+  //     this.cdRef.markForCheck();
+  //   })
+  // }
 }
 
 

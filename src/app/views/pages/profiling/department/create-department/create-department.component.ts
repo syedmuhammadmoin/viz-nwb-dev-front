@@ -122,7 +122,7 @@ export class CreateDepartmentComponent extends AppComponentBase implements OnIni
         };
       }
       //get orgnizationList from state      
-      this.ngxsService.getOrganizationFromState();
+      //this.ngxsService.getOrganizationFromState();
     }
   
   // get department by id

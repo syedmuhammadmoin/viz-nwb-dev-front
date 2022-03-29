@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { BankAccountService }          from '../service/bankAccount.service';
 import { CreateBankAccountComponent } from '../create-bank-account/create-bank-account.component';
 import { IBankAccount } from '../model/IBankAccount';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 
 @Component({
@@ -15,7 +16,7 @@ import { IBankAccount } from '../model/IBankAccount';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ListBankAccountComponent implements OnInit {
+export class ListBankAccountComponent extends AppComponentBase implements OnInit {
 
   bankAccountList: IBankAccount[];
   gridOptions : GridOptions;
@@ -29,7 +30,9 @@ export class ListBankAccountComponent implements OnInit {
   constructor( private _bankAccountService: BankAccountService,
                public  dialog: MatDialog,
                private cdRef: ChangeDetectorRef,
+               injector: Injector
              ) {
+               super(injector)
                 this.gridOptions = <GridOptions>(
                  { 
                   context : { componentParent : this } 
@@ -41,18 +44,15 @@ export class ListBankAccountComponent implements OnInit {
     {headerName: 'Account Title', field: 'accountTitle', sortable: true, filter: true, tooltipField: 'accountNumber', cellRenderer: "loadingCellRenderer"},
     {headerName: 'Account Number', field: 'accountNumber', sortable: true, filter: true, tooltipField: 'accountNumber'},
     {headerName: 'Bank', field: 'bankName', sortable: true, filter: true ,tooltipField: 'accountNumber'},
-    {headerName: 'Branch', field: 'branch', sortable: true, filter: true ,tooltipField: 'accountNumber',
-    cellRenderer: (params : ICellRendererParams) => {
-      return (params.data.branch) || 'N/A'
-    }},
+    {headerName: 'Branch', field: 'branch', sortable: true, filter: true ,tooltipField: 'accountNumber'},
     {
       headerName: 'Opening Balance',
       field: 'openingBalance',
       sortable: true, 
       filter: true ,
       tooltipField: 'accountNumber',
-      cellRenderer: (params : ICellRendererParams) => {
-        return params.data.openingBalance.toLocaleString()
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value) || 'N/A'
       }
     },
     {headerName: 'Campus', field: 'campusName', sortable: true, filter: true, tooltipField: 'accountNumber'},

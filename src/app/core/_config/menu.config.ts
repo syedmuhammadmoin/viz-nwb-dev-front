@@ -143,11 +143,7 @@ export class MenuConfig {
             Permissions.CAMPUS_VIEW,
             Permissions.CAMPUS_CREATE,
             Permissions.CAMPUS_EDIT,
-            Permissions.CAMPUS_DELETE,
-            Permissions.BUDGET_VIEW,
-            Permissions.BUDGET_CREATE,
-            Permissions.BUDGET_EDIT,
-            Permissions.BUDGET_DELETE
+            Permissions.CAMPUS_DELETE
           ],
           submenu: [
             // {
@@ -233,17 +229,7 @@ export class MenuConfig {
                 Permissions.PRODUCT_EDIT,
                 Permissions.PRODUCT_DELETE
               ]
-            },
-            {
-              title: 'Budget',
-              page: '/' + BUDGET.LIST,
-              permission: [
-                Permissions.BUDGET_VIEW,
-                Permissions.BUDGET_CREATE,
-                Permissions.BUDGET_EDIT,
-                Permissions.BUDGET_DELETE
-              ]
-            },
+            }
           ]
         },
         //finance Portion
