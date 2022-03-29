@@ -1,7 +1,7 @@
 import { DEBIT_NOTE } from '../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams } from 'ag-grid-community';
+import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { DebitNoteService } from '../service/debit-note.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -49,15 +49,14 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
       sortable: true,
       filter: true,
       tooltipField: 'vendor',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.noteDate != null ? params.data.noteDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       },
     },
     {
       headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'vendor',
-      valueFormatter: (params: ICellRendererParams) => {
-        return this.valueFormatter(params.value)
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value) || 'N/A'
       }
     },
     { 

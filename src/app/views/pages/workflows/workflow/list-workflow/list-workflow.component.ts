@@ -2,7 +2,7 @@ import { WORKFLOW } from './../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { WorkflowService } from '../service/workflow.service';
@@ -31,16 +31,16 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   gridColumnApi: ColumnApi;
 
   columnDefs = [
-    { headerName: 'S.NO', valueGetter: 'node.rowIndex + 1', tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Name', field: 'name', sortable: true, filter: true, tooltipField: 'name' },
+    //{ headerName: 'S.NO', valueGetter: 'node.rowIndex + 1', tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
+    { headerName: 'Name', field: 'name', sortable: true, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
     {
       headerName: 'Doc Type',
       field: 'docType',
       sortable: true,
       filter: true,
       tooltipField: 'name',
-      valueFormatter: (params) => {
-        return AppConst.Documents.find(x => x.id === params.value).value
+      valueFormatter: (params: ValueFormatterParams) => {
+      return (params.value) ? AppConst.Documents.find(x => x.id === params.value).value : null
       }
     },
     {
@@ -49,7 +49,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       sortable: true,
       filter: true,
       tooltipField: 'name',
-      valueFormatter: (params) => { return params.value ? 'Yes' : 'No' }
+      valueFormatter: (params: ValueFormatterParams) => { return params.value ? 'Yes' : 'No' }
     },
   ];
 

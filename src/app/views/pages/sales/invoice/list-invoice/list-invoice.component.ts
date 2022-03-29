@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -50,9 +50,8 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       sortable: true,
       filter: true,
       tooltipField: 'docNo',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.invoiceDate != null ? params.data.invoiceDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => { 
+        return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
@@ -61,15 +60,14 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       sortable: true,
       filter: true,
       tooltipField: 'docNo',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.dueDate != null ? params.data.dueDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
       headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'docNo',
-      cellRenderer: (params: ICellRendererParams) => {
-        return this.valueFormatter(params.data.totalAmount);
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value) || null;
       }
     },
     { 

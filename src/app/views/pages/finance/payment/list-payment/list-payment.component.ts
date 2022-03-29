@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -60,9 +60,8 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.paymentDate != null ? params.data.paymentDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
@@ -71,7 +70,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -81,7 +80,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -91,13 +90,13 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
       headerName: 'Net Payment', field: 'netPayment', sortable: true, filter: true, tooltipField: 'status',
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },

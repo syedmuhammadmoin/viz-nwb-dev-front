@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/Dialog'
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { JournalEntryService } from '../services/journal-entry.service';
@@ -52,16 +52,15 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       sortable: true,
       filter: true,
       tooltipField: 'docNo',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.date != null ? params.data.date : null;
-        return !date || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, tooltipField: 'docNo' },
     {
       headerName: 'Debit', field: 'totalDebit', sortable: true, filter: true, tooltipField: 'docNo',
-      cellRenderer: (params: ICellRendererParams) => {
-        return this.valueFormatter(params.data.totalDebit)
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
       }
       // cellRenderer: (params: ICellRendererParams) => {
       //   let debit: number = 0
@@ -73,8 +72,8 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     },
     {
       headerName: 'Credit', field: 'totalCredit', sortable: true, filter: true, tooltipField: 'docNo',
-      cellRenderer: (params: ICellRendererParams) => {
-        return this.valueFormatter(params.data.totalCredit)
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
       }
     },
     { 
@@ -141,7 +140,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
 
   dataSource = {
     getRows: async (params: any) => {
-     const res = await this.journalEntryService.getJournalEntries().toPromise()
+     const res = await this.getJournalEntries(params)
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.cdRef.detectChanges();

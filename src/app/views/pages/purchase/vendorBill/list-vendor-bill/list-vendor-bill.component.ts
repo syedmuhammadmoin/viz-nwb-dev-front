@@ -1,7 +1,7 @@
 import { BILL } from '../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams } from 'ag-grid-community';
+import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { VendorBillService } from '../services/vendor-bill.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from "../../../../shared/app-component-base";
@@ -49,9 +49,8 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.billDate != null ? params.data.billDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       },
     },
     {
@@ -60,14 +59,13 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      cellRenderer: (params: ICellRendererParams) => {
-        const date = params.data.dueDate != null ? params.data.dueDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       },
     },
     {
       headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'status',
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },

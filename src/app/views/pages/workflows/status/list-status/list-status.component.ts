@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { DocumentStatus } from 'src/app/views/shared/AppEnum';
@@ -29,16 +29,17 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   gridColumnApi: ColumnApi;
 
   columnDefs = [
-    { headerName: "S.No", valueGetter: 'node.rowIndex + 1', tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Status', field: 'status', sortable: true, filter: true, tooltipField: 'status' },
+    //{ headerName: "S.No", valueGetter: 'node.rowIndex + 1', tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
+    { headerName: 'Status', field: 'status', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
     {
       headerName: 'State',
       field: 'state',
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      valueFormatter: (params) => { 
-        return AppConst.DocStatus[params.value].viewValue
+      valueFormatter: (params: ValueFormatterParams) => { 
+        console.log(params.value)
+        return (params.value) ? AppConst.DocStatus[params.value].viewValue : null
        }
     },
   ]
