@@ -224,13 +224,13 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     const formArray = new FormArray([]);
     journalEntryLines.forEach((line: IJournalEntryLines) => {
       formArray.push(this.fb.group({
-        id: line.id,
-        description: line.description,
-        businessPartnerId: line.businessPartnerId,
-        debit: line.debit,
-        credit: line.credit,
-        accountId: line.accountId,
-        warehouseId: line.warehouseId,
+        id: [line.id, [Validators.required]],
+        description: [line.description, [Validators.required]],
+        businessPartnerId: [line.businessPartnerId, [Validators.required]],
+        debit: [line.debit, [Validators.required]],
+        credit: [line.credit, [Validators.required]],
+        accountId: [line.accountId, [Validators.required]],
+        warehouseId: [line.warehouseId],
         // locationId: line.locationId,
       }))
     })
