@@ -25,7 +25,8 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     components: { loadingCellRenderer (params: any ) : unknown };
     gridApi: GridApi;
     gridColumnApi: ColumnApi;
-
+    overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+    
     constructor( private bankStatementService : BankStatementService,
                  private router: Router,
                  private cdRef: ChangeDetectorRef,
@@ -110,6 +111,12 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     dataSource = {
       getRows: async (params: any) => {
        const res = await this.getBankStatements(params)
+
+       if (!res.result) { 
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+       this.gridApi.hideOverlay();
+      }
        //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
        params.successCallback(res.result || 0, res.totalRecords);
        this.cdRef.detectChanges();

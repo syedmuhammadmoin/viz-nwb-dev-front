@@ -27,6 +27,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
   //tooltipData : string = "double click to edit"
 
   // constructor
@@ -158,6 +159,12 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getBusinessPartners(params);
+
+     if (!res.result) { 
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+     this.gridApi.hideOverlay();
+    }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.cdRef.detectChanges();
