@@ -111,7 +111,9 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         (bankAccount: IApiResponse<IBankAccount>) => {
           this.isLoading = false;
           this.editBankAccount(bankAccount.result);
-          this.bankAccount = bankAccount.result;
+          this.bankAccount = bankAccount.result as IBankAccount;
+          console.log("bank account: ", this.bankAccount);
+          
         },
         (err) => console.log(err)
       );
@@ -142,32 +144,33 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
+    console.log(this.bankAccount)
     
-    if (this.bankAccount.id) {
-      this.bankAccountService.updateBankAccount(this.bankAccount)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(() => {
-          this.toastService.success('Updated Successfully', 'Bank Account')
-          this.onCloseDialog()
-        },
-        (err) => this.toastService.error('Something went wrong', 'Bank Account')
-      )
-    } else {
-      delete this.bankAccount['id'];
-      this.bankAccountService.addBankAccount(this.bankAccount)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(
-        () => {
-          this.toastService.success('Created Successfully', 'Bank Account')
-          this.onCloseDialog()
-        },
-        (err) => this.toastService.error('Something went wrong', 'Bank Account')
-      );
-    }
+    // if (this.bankAccount.id) {
+    //   this.bankAccountService.updateBankAccount(this.bankAccount)
+    //     .pipe(
+    //       take(1),
+    //       finalize(() => this.isLoading = false))
+    //     .subscribe(() => {
+    //       this.toastService.success('Updated Successfully', 'Bank Account')
+    //       this.onCloseDialog()
+    //     },
+    //     (err) => this.toastService.error('Something went wrong', 'Bank Account')
+    //   )
+    // } else {
+    //   delete this.bankAccount['id'];
+    //   this.bankAccountService.addBankAccount(this.bankAccount)
+    //     .pipe(
+    //       take(1),
+    //       finalize(() => this.isLoading = false))
+    //     .subscribe(
+    //     () => {
+    //       this.toastService.success('Created Successfully', 'Bank Account')
+    //       this.onCloseDialog()
+    //     },
+    //     (err) => this.toastService.error('Something went wrong', 'Bank Account')
+    //   );
+    // }
   }
 
   mapFormValueToClientModel() {
