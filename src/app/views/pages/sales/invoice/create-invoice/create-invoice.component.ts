@@ -66,6 +66,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   //sales Order
   subscription2$: Subscription
 
+  title: string = 'Create Invoice'
+
   // Validation messages..
   validationMessages = {
     customerName: {
@@ -149,6 +151,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       const isInvoice = param.isInvoice;
       const isSalesOrder = param.isSalesOrder;
       if (id && isInvoice) {
+        this.title = 'Edit Invoice'
         this.getInvoice(id);
       }
       else if (id && isSalesOrder) {

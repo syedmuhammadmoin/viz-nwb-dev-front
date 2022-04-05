@@ -23,6 +23,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
   
     // Cash account model
     cashAccountModel: ICashAccount;
+
+    title: string = 'Create Cash Account'
   
     // validation messages
     validationMessages = {
@@ -79,6 +81,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       });
   
       if (this._id) {
+        this.title = 'Edit Cash Account'
         this.isLoading = true
         this.getCashAccount(this._id);
       } else {

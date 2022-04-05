@@ -26,6 +26,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   //Bank account model
   bankAccount: IBankAccount;
 
+  title: string = 'Create Bank Account'
+
   //validation messages
   validationMessages = {
     'accountNumber': {
@@ -87,6 +89,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
 
     if (this._id) {
+      this.title = 'Edit Bank Account'
       this.isLoading = true
       this.getBankAccount(this._id);
     } else {

@@ -51,6 +51,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   // bank Statement Model
   bankStatementModel: IBankStatement; 
 
+  title: string = 'Create Bank Statement'
+
 
   // validation messages
   validationMessages = {
@@ -99,6 +101,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     this.activatedRoute.paramMap.subscribe(params => {
       const bankStatementId = +params.get('id');
       if (bankStatementId) {
+        this.title = 'Edit Bank Statement'
         this.isEdit = true;
         this.isLoading = true;
         this.getBankStatement(bankStatementId);

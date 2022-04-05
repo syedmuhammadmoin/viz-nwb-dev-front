@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header style="color:white !important;" [sticky]="false" [title]="'Create Debit Note'"
+    <kt-portlet-header style="color:white !important;" [sticky]="false" [title]="title"
       [class]="'card-head-lg'"></kt-portlet-header>
     <!--begin::Form-->
       <form [formGroup]="debitNoteForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">

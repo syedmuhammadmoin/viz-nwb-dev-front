@@ -57,6 +57,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
   paymentMaster: any;
 
+  title: string = 'Create Payment'
+
 
 
   // validation messages
@@ -145,6 +147,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
     // initializing payment model
     if (this._id) {
+      this.title = 'Edit Payment'
       this.isLoading = true;
       this.getPayment(this._id);
       this.cdRef.markForCheck();

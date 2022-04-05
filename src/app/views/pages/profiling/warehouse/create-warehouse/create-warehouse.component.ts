@@ -36,6 +36,8 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   //warehouse Model
   warehouse: IWarehouse;
 
+  title: string = 'Create Warehouse'
+
   //CSV list
   // countryList: ICountry[];
   // stateList: IState[];
@@ -113,6 +115,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     //this.getCountryList();
 
     if (this._id) {
+      this.title = 'Edit Warehouse'
       this.isLoading = true
       this.getWarehouse(this._id);
     } else {

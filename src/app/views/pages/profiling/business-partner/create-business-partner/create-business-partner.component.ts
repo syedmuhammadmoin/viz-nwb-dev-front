@@ -35,6 +35,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   //Model
   businessPartner: IBusinessPartner;
 
+  title: string = 'Create Business Partner'
+
   //country , state and city list
   // countryList: ICountry[] = [];
   // stateList: IState[] = [];
@@ -151,6 +153,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     //this.getCountryList();
 
     if (this._id) {
+      this.title = 'Edit Business Partner'
       this.isLoading = true;
       this.getBusinessPartner(this._id);
     } else {

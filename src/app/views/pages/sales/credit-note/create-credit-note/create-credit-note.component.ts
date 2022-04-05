@@ -64,6 +64,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   totalBeforeTax: number = 0;
   totalTax: number = 0;
 
+  title: string = 'Create Credit Note'
+
   // Validation messages..
   validationMessages = {
     customerName: {
@@ -136,6 +138,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       this.isCreditNote = param.isCreditNote;
       this.isInvoice = param.isInvoice;
       if (id && this.isCreditNote) {
+        this.title = 'Edit Credit Note'
         this.getCreditNote(id);
       }
       else if (id && this.isInvoice) {

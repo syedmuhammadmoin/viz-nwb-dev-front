@@ -15,7 +15,7 @@ import { StatusService } from '../service/status.service';
 export class CreateStatusComponent extends AppComponentBase implements OnInit {
 
   workflowStates = AppConst.workflowStates
-  titleName: string = "Create Status";
+  title: string = "Create Status";
   //For Loading
   isLoading: boolean;
   //Hide Submit And Cancel button
@@ -61,7 +61,7 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
 
     if (this._id) {
       this.isEditButtonShow = true;
-      this.titleName = 'Status Details';
+      this.title = 'Status Details';
       //disable all fields
 
       this.isLoading = true;
@@ -79,7 +79,7 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
   //Edit Form
   toggleEdit() {
     this.isEditButtonShow = false;
-    this.titleName = 'Edit Status'
+    this.title = 'Edit Status'
     this.statusForm.enable()
   }
 

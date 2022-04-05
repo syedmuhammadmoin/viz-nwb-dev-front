@@ -30,6 +30,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   // category model declaration
   category: ICategory;
 
+  title: string = 'Create Category'
+
   // validation messages
   validationMessages = {
     name: {
@@ -76,6 +78,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     });
 
     if (this._id) {
+      this.title = 'Edit Category'
       this.isLoading = true
       this.getCategory(this._id);
     } else {

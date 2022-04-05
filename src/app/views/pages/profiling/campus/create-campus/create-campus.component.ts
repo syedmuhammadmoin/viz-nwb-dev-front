@@ -28,6 +28,8 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   // campus model declaration
   campusModel: ICampus;
 
+  title: string = 'Create Campus'
+
   // validation messages
   validationMessages = {
     name: {
@@ -56,6 +58,7 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
     });
 
     if (this._id) {
+      this.title = 'Edit Campus'
       this.isLoading = true
       this.getCampus(this._id);
     } else {

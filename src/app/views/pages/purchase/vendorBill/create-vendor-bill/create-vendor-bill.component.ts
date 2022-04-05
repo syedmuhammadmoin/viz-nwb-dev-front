@@ -63,6 +63,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   minDate: Date
   dateCondition : boolean
 
+  title: string = 'Create Bill'
+
   // Validation messages..
   validationMessages = {
     vendorName: {
@@ -154,6 +156,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       this.isBill = param.isBill;
       this.isPurchaseOrder = param.isPurchaseOrder;
       if (id && this.isBill) {
+        this.title = 'Edit Bill'
         this.getBill(id);
         // this.getPurchaseOrder(id);
       }

@@ -57,6 +57,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   isBill: any;
   billMaster: any;
 
+  title: string = 'Create Debit Note'
+
   // Validation messages..
   validationMessages = {
     vendorName: {
@@ -133,6 +135,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       this.isDebitNote = param.isDebitNote;
       this.isBill = param.isBill;
       if (id && this.isDebitNote) {
+        this.title = 'Edit Debit Note'
         this.getDebitNote(id);
       }
       else if (id && this.isBill) {

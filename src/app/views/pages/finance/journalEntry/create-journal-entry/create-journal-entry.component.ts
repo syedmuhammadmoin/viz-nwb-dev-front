@@ -49,6 +49,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   debitTotal: number = 0;
   creditTotal: number = 0;
 
+  title: string = 'Create Journal Entry'
+
   // Validation messages
   validationMessages = {
     date: {
@@ -109,6 +111,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       const id = param.q;
       this.isJournalEntry = param.isJournalEntry;
       if (id && this.isJournalEntry) {
+        this.title = 'Edit Journal Entry'
         this.getJournalEntry(id);
       }
     })
