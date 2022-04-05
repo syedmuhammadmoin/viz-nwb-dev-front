@@ -24,9 +24,10 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
   frameworkComponents: {[p: string]: unknown};
   tooltipData : string = "double click to edit"
   components: { loadingCellRenderer (params: any ) : unknown };
-  gridApi: GridApi;
+  gridApi!: GridApi;
   gridColumnApi: ColumnApi;
-
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+  
   constructor( private _bankAccountService: BankAccountService,
                public  dialog: MatDialog,
                private cdRef: ChangeDetectorRef,
@@ -75,12 +76,15 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
     this.defaultColDef = {
       tooltipComponent: 'customTooltip'
     }
+    //this.gridApi.showNoRowsOverlay();
 
     this.components = {
       loadingCellRenderer: function (params: any) {
+        console.log(params.value)
         if (params.value !== undefined) {
           return params.value;
-        } else {
+        } 
+        else {
           return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
         }
       },
@@ -120,7 +124,13 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
 
   dataSource = {
     getRows: async (params: any) => {
-     const res = await this.getBankAccounts(params);
+    const res = await this.getBankAccounts(params);
+    
+    if (!res.result) { 
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+     this.gridApi.hideOverlay();
+    }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.cdRef.detectChanges();
