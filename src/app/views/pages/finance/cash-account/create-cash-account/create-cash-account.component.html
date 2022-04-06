@@ -20,7 +20,7 @@
                         <label class="col-form-label pt-0">Cash Account:</label>
                         <kt-input-field
                           formControlName="cashAccountName"
-                          placeholder="Enter Cash Acccount Name"
+                          placeholder="Enter Cash Account Name"
                           (blurEvent)="logValidationErrors(this.cashAccountForm, formErrors, validationMessages)"
                           [errorMessage]="[{ condition : formErrors.cashAccountName , error : formErrors.cashAccountName }]">
                         </kt-input-field>

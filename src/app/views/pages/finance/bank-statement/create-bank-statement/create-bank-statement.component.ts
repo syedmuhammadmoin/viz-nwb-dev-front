@@ -140,13 +140,13 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     const formArray = new FormArray([]);
     statementLines.forEach((line: IBankStatementLines) => {
       formArray.push(this.fb.group({
-        id: line.id,
-        reference: line.reference,
-        stmtDate: line.stmtDate,
-        label: line.label,
-        debit: line.debit,
-        credit: line.credit,
-        cumulativeBalance: 0
+        id: [line.id],
+        reference: [line.reference, [Validators.required]],
+        stmtDate: [line.stmtDate, [Validators.required]],
+        label: [line.label, [Validators.required]],
+        debit: [line.debit, [Validators.required]],
+        credit: [line.credit, [Validators.required]],
+        cumulativeBalance: [0]
       }))
       if (this.cumulativeBalances.length < statementLines.length) {
         this.cumulativeBalances.push(0);
@@ -157,6 +157,11 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   // submitting Form
   onSubmit() {
+
+    if (this.bankStatementForm.get('bankStmtLines').invalid) {
+      this.bankStatementForm.get('bankStmtLines').markAllAsTouched();
+    }
+
     if (this.bankStatementForm.invalid) {
       return
     }

@@ -31,7 +31,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   //validation messages
   validationMessages = {
     'accountNumber': {
-      'required': 'Account Number is required.'
+      'required': 'Account Number is required.',
+      'min': 'Please insert correct value.'
     },
     'bankName': {
       'required': 'Bank Name is required.'
@@ -40,7 +41,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     //   'required': 'Branch Name is required.'
     // },
     'openingBalance': {
-      'required': 'Opening Balance is required.'
+      'required': 'Opening Balance is required.',
+      'min': 'Please insert correct value.'
     },
     'accountTitle': {
       'required': 'Account Title is required.'
@@ -78,10 +80,10 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
   ngOnInit() {
     this.bankAccountForm = this.fb.group({
-      accountNumber: ['', [Validators.required]],
+      accountNumber: ['', [Validators.required, Validators.min(1)]],
       bankName: ['', [Validators.required]],
       branch: [''],
-      openingBalance: ['', [Validators.required]],
+      openingBalance: ['', [Validators.required, Validators.min(1)]],
       OBDate: ['', [Validators.required]],
       accountTitle: ['', [Validators.required]],
       campusId: ['', [Validators.required]],

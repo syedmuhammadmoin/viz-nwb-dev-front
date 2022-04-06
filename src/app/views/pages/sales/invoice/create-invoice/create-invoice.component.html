@@ -94,6 +94,7 @@
                               clickEventButtonName="Add New Item"
                               (clickEvent)="openProductDialog()" 
                               formControlName="itemId"
+                              isDisabledNone="true"
                               hintText="Optional"
                               placeholder="Select Item" matFormFieldClass="mobile-label full-width input_d_1"
                               (selectionChange)="onItemSelected($event.value, i)">
@@ -241,6 +242,7 @@
                                 placeholder="Select Warehouse" 
                                 propertyValue="id" 
                                 propertyName="name"
+                                isDisabledNone="true"
                                 [hintText]="'Optional'"
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width input_d_1" 

@@ -133,15 +133,28 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     const debit = (debitControl.value) !== null ? debitControl.value : null;
     const credit = (creditControl.value) !== null ? creditControl.value : null;
 
-    if (debit > 0) {
+    // if (debit > 0 || debit < 0) {
+    //   creditControl.setValue(0);
+    //   creditControl.disable();
+    // }
+    // else if (credit > 0 || credit < 0) {
+    //   debitControl.setValue(0);
+    //   debitControl.disable();
+    // }
+    // else if (debit === "" || credit === "") {
+    //   creditControl.enable();
+    //   debitControl.enable();
+    // }
+    if (debit) {
       creditControl.setValue(0);
       creditControl.disable();
     }
-    else if (credit > 0) {
+    else if (credit) {
       debitControl.setValue(0);
       debitControl.disable();
     }
-    else if (debit === "" || credit === "") {
+    // else if (debit === "" || credit === "") {
+      else if (!debit || !credit) {
       creditControl.enable();
       debitControl.enable();
     }
@@ -252,11 +265,12 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       return
     }
 
-    if (this.debitTotal !== this.creditTotal) {
-      this.toastService.error('Sum of Debit and Credit are not Equal', 'Error')
+    if (this.journalEntryForm.invalid) {
       return
     }
-    if (this.journalEntryForm.invalid) {
+
+    if (this.debitTotal !== this.creditTotal) {
+      this.toastService.error('Sum of Debit and Credit are not Equal', 'Error')
       return
     }
 

@@ -90,7 +90,16 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
     campusId: {
       required: 'Campus is required'
-    }
+    },
+    discount: {
+      min: 'Please insert correct value.'
+    },
+    salesTax: {
+      min: 'Please insert correct value.'
+    },
+    incomeTax: {
+      min: 'Please insert correct value.'
+    },
   }
 
   // Error keys
@@ -103,7 +112,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     account: '',
     paymentRegister: '',
     grossPayment: '',
-    campusId: ''
+    campusId: '',
+    discount: '',
+    salesTax: '',
+    incomeTax: ''
   }
 
   // Injecting dependencies
@@ -140,9 +152,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       campusId: ['', [Validators.required]],
       paymentRegister: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(0)]],
-      discount: [0],
-      salesTax: [0],
-      incomeTax: [0]
+      discount: [0 ,[Validators.min(0)]],
+      salesTax: [0,[Validators.min(0)]],
+      incomeTax: [0,[Validators.min(0)]]
     });
 
     // initializing payment model
@@ -203,6 +215,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       paymentRegister: payment.paymentRegisterId,
       grossPayment: payment.grossPayment,
       campusId: payment.campusId,
+      discount: payment.discount,
       salesTax: payment.salesTax,
       incomeTax: payment.incomeTax,
     });
@@ -259,10 +272,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.paymentRegisterId = this.paymentForm.value.paymentRegister;
     this.paymentModel.description = this.paymentForm.value.description;
     this.paymentModel.grossPayment = this.paymentForm.value.grossPayment;
-    this.paymentModel.discount = this.paymentForm.value.discount;
+    this.paymentModel.discount = this.paymentForm.value.discount || 0;
     this.paymentModel.campusId = this.paymentForm.value.campusId;
-    this.paymentModel.salesTax = this.paymentForm.value.salesTax;
-    this.paymentModel.incomeTax = this.paymentForm.value.incomeTax;
+    this.paymentModel.salesTax = this.paymentForm.value.salesTax || 0;
+    this.paymentModel.incomeTax = this.paymentForm.value.incomeTax || 0;
     this.paymentModel.paymentRegisterType = this.paymentForm.value.registerType
     //this.paymentModel.documentTransactionId = 0;
   }
