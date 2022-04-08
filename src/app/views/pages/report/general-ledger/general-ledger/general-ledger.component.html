@@ -27,7 +27,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Account:</label>
-                <kt-simple-dropdown [optionList]="ngxsService.accountsLevel4$" formControlName="accountName"
+                <kt-simple-dropdown [optionList]="ngxsService.accountsLevel4$" formControlName="accountName" isDisabledNone="true"
                   matFormFieldClass="full-width" placeholder="Select Account" propertyName="name" propertyValue="name"
                   hintText="Optional"
                   searchPlaceholder="Search accounts..."></kt-simple-dropdown>
@@ -58,7 +58,7 @@
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Business Partner:</label>
                 <kt-simple-dropdown [optionList]="ngxsService.businessPartners$"
-                  formControlName="businessPartnerName" matFormFieldClass="full-width"
+                  formControlName="businessPartnerName" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Business Partner" propertyName="name" propertyValue="name" hintText="Optional"
                   searchPlaceholder="Search Business Partner...">
                 </kt-simple-dropdown>
@@ -67,7 +67,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Campus:</label>
-                <kt-simple-dropdown [optionList]="ngxsService.campuses$"
+                <kt-simple-dropdown [optionList]="ngxsService.campuses$" isDisabledNone="true"
                   formControlName="campusName" matFormFieldClass="full-width" placeholder="Select Campus" hintText="Optional"
                   propertyName="name" propertyValue="name" searchPlaceholder="Search campus..."></kt-simple-dropdown>
               </div>
@@ -75,7 +75,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Warehouse:</label>
-                <kt-simple-dropdown [optionList]="ngxsService.warehouses$" hintText="Optional"
+                <kt-simple-dropdown [optionList]="ngxsService.warehouses$" hintText="Optional" isDisabledNone="true"
                   formControlName="warehouseName" matFormFieldClass="full-width" placeholder="Select Warehouse"
                   propertyName="name" propertyValue="name" searchPlaceholder="Search warehouse..."></kt-simple-dropdown>
               </div>
