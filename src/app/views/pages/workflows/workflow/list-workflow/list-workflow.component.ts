@@ -41,7 +41,6 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       filter: true,
       tooltipField: 'name',
       valueFormatter: (params: ValueFormatterParams) => {
-        console.log(params.value ? AppConst.Documents.find(x => x.id === params.value).value : null)
       return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
       }
     },

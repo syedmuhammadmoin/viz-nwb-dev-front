@@ -5,15 +5,16 @@ import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 import { CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
 import { GeneralLedgerService} from '../service/general-ledger.service';
-import { GridOptions} from 'ag-grid-community';
+import { GridOptions, ValueFormatterParams} from 'ag-grid-community';
 import { IGeneralLedger} from '../model/IGeneralLedger';
 import { finalize} from 'rxjs/operators';
-import { Permissions } from 'src/app/views/shared/AppEnum';
+import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { DepartmentService} from 'src/app/views/pages/profiling/department/service/department.service';
 import { LocationService} from 'src/app/views/pages/profiling/location/service/location.service';
 import { WarehouseService} from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { isEmpty} from 'lodash';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 function sumFunc(params) {
@@ -80,7 +81,15 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       {headerName: 'Account Name', field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
       {headerName: 'Date', field: 'docDate', sortable: true, filter: true},
       {headerName: 'Document No', field: 'docNo', sortable: true, filter: true},
-      {headerName: 'Document Type', field: 'docType', sortable: true, filter: true},
+      {
+        headerName: 'Document Type', 
+        field: 'docType', 
+        sortable: true, 
+        filter: true,
+        valueFormatter: (params: ValueFormatterParams) => {
+          return DocType[params.value]
+        } 
+      },
       {headerName: 'Description', field: 'description', filter: true},
       {headerName: 'Debit', field: 'debit', sortable: true, filter: true},
       {headerName: 'Credit', field: 'credit', sortable: true, filter: true},
@@ -119,10 +128,10 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   // Validation Messages
   validationMessages = {
     docDate: {
-      required: 'From Date is required'
+      required: 'Start Date is required.'
     },
     docDate2: {
-      required: 'To Date is required'
+      required: 'End Date is required.'
     }
   }
 
@@ -159,10 +168,11 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       docDate2: ['', [Validators.required]],
       accountName: [''],
       businessPartnerName: [''],
-      organization: [''],
-      department: [''],
-      warehouse: [''],
-      location: ['']
+      // organization: [''],
+      // department: [''],
+      warehouseName: [''],
+      campusName : ['']
+      //location: ['']
     });
 
      // get customer from state
@@ -171,6 +181,8 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
      this.ngxsService.getWarehouseFromState();    
      // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
+      // get Campuses from state
+     this.ngxsService.getCampusFromState()
      // get location from state
      //this.ngxsService.getLocationFromState();
      // get department from state
@@ -202,7 +214,18 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             }
           },
           {headerName: 'Document No', field: 'docNo', sortable: true, filter: true, cellStyle: {textAlign : 'left'}},
-          {headerName: 'Document Type', field: 'docType', sortable: true, filter: true, cellStyle: {textAlign : 'left'}},
+          {
+            headerName: 'Document Type', 
+            field: 'docType', 
+            sortable: true, 
+            filter: true, 
+            cellStyle: {textAlign : 'left'},
+            valueFormatter: (params: ValueFormatterParams) => {
+              return DocType[params.value]
+              // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
+            } 
+
+          },
           {headerName: 'Description', field: 'description', filter: true, cellStyle: {textAlign : 'left'}},
           {
             headerName: 'Debit',
@@ -236,6 +259,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       })
     ).subscribe((res) => {
       this.rowData = res.result;
+      console.log(res.result)
       this.recordsData = res.result;
       // for PDF
       (!isEmpty(res.result)) ? this.disability = false : this.disability = true;
@@ -262,10 +286,12 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.generalLedgerModel.docDate2 = this.formatDate(this.generalLedgerForm.value.docDate2) || '';
     this.generalLedgerModel.accountName = this.generalLedgerForm.value.accountName || '';
     this.generalLedgerModel.businessPartnerName = this.generalLedgerForm.value.businessPartnerName || '';
-    this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
-    this.generalLedgerModel.department = this.generalLedgerForm.value.department || '';
-    this.generalLedgerModel.warehouse = this.generalLedgerForm.value.warehouse || '';
-    this.generalLedgerModel.organization = this.generalLedgerForm.value.organization || '';
+    this.generalLedgerModel.warehouseName = this.generalLedgerForm.value.warehouseName || '';
+    this.generalLedgerModel.campusName = this.generalLedgerForm.value.campusName || '';
+    // this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
+    // this.generalLedgerModel.department = this.generalLedgerForm.value.department || '';
+    // this.generalLedgerModel.warehouse = this.generalLedgerForm.value.warehouse || '';
+    // this.generalLedgerModel.organization = this.generalLedgerForm.value.organization || '';
   }
 
   formatDate(date) {
