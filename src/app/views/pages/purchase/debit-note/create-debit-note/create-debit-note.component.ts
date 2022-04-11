@@ -59,6 +59,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   title: string = 'Create Debit Note'
 
+  dateLimit: Date = new Date()
+
   // Validation messages..
   validationMessages = {
     vendorName: {

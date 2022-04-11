@@ -28,6 +28,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
   title: string = 'Create Bank Account'
 
+  dateLimit : Date = new Date()
+
   //validation messages
   validationMessages = {
     'accountNumber': {
@@ -43,6 +45,9 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     'openingBalance': {
       'required': 'Opening Balance is required.',
       'min': 'Please insert correct value.'
+    },
+    'bankAccountType': {
+      'required': 'Account type is required.',
     },
     'accountTitle': {
       'required': 'Account Title is required.'
@@ -62,6 +67,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
    // 'branch': '',
     'openingBalance': '',
     'accountTitle': '',
+    'bankAccountType': '',
     'OBDate': '',
     'campusId': ''
   }
@@ -85,7 +91,9 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       branch: [''],
       openingBalance: ['', [Validators.required, Validators.min(1)]],
       OBDate: ['', [Validators.required]],
+      purpose: [''],
       accountTitle: ['', [Validators.required]],
+      bankAccountType: ['', [Validators.required]],
       campusId: ['', [Validators.required]],
     });
 
@@ -101,6 +109,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         bankName: '',
         branch: '',
         openingBalance: null,
+        purpose: '',
+        bankAccountType: null,
         accountTitle: '',
         openingBalanceDate: null,
         campusId: null,
@@ -110,15 +120,18 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.ngxsService.getCampusFromState()
   }
 
+  accountTypeList = [
+    {id: 0 , name: 'Current'},
+    {id: 1 , name: 'Saving'}
+  ]
+
   getBankAccount(id: number) {
     this.bankAccountService.getBankAccount(id)
       .subscribe(
         (bankAccount: IApiResponse<IBankAccount>) => {
           this.isLoading = false;
           this.editBankAccount(bankAccount.result);
-          this.bankAccount = bankAccount.result as IBankAccount;
-          console.log("bank account: ", this.bankAccount);
-          
+          this.bankAccount = bankAccount.result;
         },
         (err) => console.log(err)
       );
@@ -133,11 +146,14 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       branch: bankAccount.branch,
       openingBalance: bankAccount.openingBalance,
       OBDate: bankAccount.openingBalanceDate,
+      purpose: bankAccount.purpose,
+      bankAccountType: bankAccount.bankAccountType,
       accountTitle: bankAccount.accountTitle,
       campusId: bankAccount.campusId,
       currency: 'PKR'
     });
     this.bankAccountForm.get('openingBalance').disable()
+    this.bankAccountForm.get('bankAccountType').disable()
     this.bankAccountForm.get('OBDate').disable()
     this.bankAccountForm.get('campusId').disable()
   }
@@ -149,7 +165,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-    console.log(this.bankAccount)
+    //console.log(this.bankAccount)
     
     if (this.bankAccount.id) {
       this.bankAccountService.updateBankAccount(this.bankAccount)
@@ -184,6 +200,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccount.branch = this.bankAccountForm.value.branch;
     this.bankAccount.openingBalance = this.bankAccountForm.value.openingBalance;
     this.bankAccount.accountTitle = this.bankAccountForm.value.accountTitle;
+    this.bankAccount.bankAccountType = this.bankAccountForm.value.bankAccountType;
+    this.bankAccount.purpose = this.bankAccountForm.value.purpose;
     this.bankAccount.openingBalanceDate = this.transformDate(this.bankAccountForm.value.OBDate, 'yyyy-MM-dd');
     this.bankAccount.campusId = this.bankAccountForm.value.campusId;
     this.bankAccount.currency = 'PKR';
@@ -200,8 +218,12 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccountForm.get('branch').reset()
     this.bankAccountForm.get('accountTitle').reset()
     this.bankAccountForm.get('OBDate').reset()
+    this.bankAccountForm.get('purpose').reset()
     this.bankAccountForm.get('campusId').reset()
-    if(!this._id)  this.bankAccountForm.get('openingBalance').reset()
+    if(!this._id) {
+      this.bankAccountForm.get('bankAccountType').reset()
+      this.bankAccountForm.get('openingBalance').reset()
+    }
     this.logValidationErrors(this.bankAccountForm , this.formErrors , this.validationMessages)
   }
 }

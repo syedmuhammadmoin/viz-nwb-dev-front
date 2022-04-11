@@ -38,7 +38,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       required: 'Name is required.',
     },
     inventoryAccount: {
-      required: 'Inventory Account is required.',
+      required: 'Assets Account is required.',
     },
     revenueAccount: {
       required: 'Revenue Account is required.',
@@ -109,7 +109,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
 
   // Patching values to category form
   editCategory(category: ICategory) {
-    console.log(category)
+    //console.log(category)
     this.categoryForm.patchValue({
       id: category.id,
       name: category.name,

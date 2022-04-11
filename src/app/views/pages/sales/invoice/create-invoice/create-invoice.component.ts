@@ -341,7 +341,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
     this.isLoading = true;
     this.mapFormValuesToInvoiceModel();
-    console.log(this.invoiceModel)
+    //console.log(this.invoiceModel)
     if (this.invoiceModel.id) {
       this.invoiceService.updateInvoice(this.invoiceModel)
         .pipe(

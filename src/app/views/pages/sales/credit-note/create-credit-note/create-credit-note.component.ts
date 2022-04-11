@@ -66,6 +66,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
   title: string = 'Create Credit Note'
 
+  dateLimit: Date = new Date()
+
   // Validation messages..
   validationMessages = {
     customerName: {
@@ -309,7 +311,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
     this.isLoading = true;
     this.mapFormValuesToCreditNoteModel();
-    console.log(this.creditNoteModel)
+    //console.log(this.creditNoteModel)
     if (this.creditNoteModel.id) {
       this.creditNoteService.updateCreditNote(this.creditNoteModel)
         .pipe(

@@ -35,6 +35,7 @@
                         formControlName="noteDate"
                         placeholder="Note Date"
                         matFormFieldClass="full-width"
+                        [maxDate]="dateLimit"
                         (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.noteDate">
                       </kt-date-input>

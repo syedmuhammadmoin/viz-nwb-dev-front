@@ -25,6 +25,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
     cashAccountModel: ICashAccount;
 
     title: string = 'Create Cash Account'
+
+    dateLimit: Date = new Date()
   
     // validation messages
     validationMessages = {

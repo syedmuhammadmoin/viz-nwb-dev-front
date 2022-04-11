@@ -122,15 +122,12 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   getUserById(id: any) {
     this.accessManagementService.getUser(id).subscribe((res) => {
       this.isLoading = false
-      // TODO: Update User
-      console.log(res.result)
       this.userModel = res.result
       this.patchUser(this.userModel);
     })
   }
   patchUser(userModel: IUserModel) {
     this.userForm.patchValue({ ...userModel })
-    console.log(userModel)
     this.userRole = userModel.userRoles;
   }
 
@@ -143,7 +140,6 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   }
 
   onSubmit() { 
-    console.log(this.userRole)
     if(!this.userRole.some((x) => x.selected === true)) {
       this.toastService.warning('Atleast 1 Role is required', 'Form Error');
       this.currentIndex = 1;
@@ -156,7 +152,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.userModel = { ...this.userForm.value, id: this._id };
     this.userModel.userRoles = this.userRole;
-    console.log("model: ", this.userModel)
+    //console.log("model: ", this.userModel)
     if (this.userModel.id) {
       this.accessManagementService.updateUser(this.userModel).subscribe((res) => {
         this.isLoading = false;
@@ -164,18 +160,15 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
         this.onCloseUserDialog();
       }, (err) => {
         this.isLoading = false;
-        // console.log(err);
         this.toastService.error('' + err?.error?.message, 'Error');
       })
     } else {
-      console.log("yes eneterd")
       this.accessManagementService.createUser(this.userModel).subscribe((res) => {
         this.isLoading = false
         this.toastService.success('Created Successfully', 'New User');
         this.onCloseUserDialog();
       }, (err) => {
         this.isLoading = false;
-        // console.log(err);
         this.toastService.error('' + err?.error?.message, 'Error');
       })
     }

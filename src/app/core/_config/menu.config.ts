@@ -191,7 +191,7 @@ export class MenuConfig {
               ]
             },
             {
-              title: 'Warehouse',
+              title: 'Store',
               page: '/' + WAREHOUSE.LIST,
               permission: [
                 Permissions.WAREHOUSE_VIEW,

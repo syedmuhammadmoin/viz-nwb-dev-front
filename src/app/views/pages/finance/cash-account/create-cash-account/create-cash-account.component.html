@@ -61,6 +61,7 @@
                     formControlName="OBDate"
                     placeholder="Opening Balance Date"
                     matFormFieldClass="full-width"
+                    [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(cashAccountForm, formErrors, validationMessages)"
                     [errorMessage]="formErrors.OBDate">
                   </kt-date-input>

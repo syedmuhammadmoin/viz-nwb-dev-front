@@ -131,7 +131,7 @@ export class NgxsCustomService {
   // Get Business Partner From Store if available else fetch from the server and cache.
   getBusinessPartnerFromState() {
     this.businessPartnerFetchCompleted$.subscribe((res) => {
-      console.log('Business Partner State fetch completed: ', res);
+      //console.log('Business Partner State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BusinessPartnerState, {
           serviceClass: this.businessPartnerService,
@@ -145,7 +145,7 @@ export class NgxsCustomService {
   // Get Campus From Store if available else fetch from the server and cache.
   getCampusFromState() {
     this.campusFetchCompleted$.subscribe((res) => {
-      console.log('Campus State fetch completed: ', res);
+      //console.log('Campus State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CampusState, {
           serviceClass: this.campusService,
@@ -159,7 +159,7 @@ export class NgxsCustomService {
   // Get Budgets From Store if available else fetch from the server and cache.
   getBudgetsFromState() {
     this.campusFetchCompleted$.subscribe((res) => {
-      console.log('Budget State fetch completed: ', res);
+      //console.log('Budget State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BudgetState, {
           serviceClass: this.campusService,
@@ -173,7 +173,7 @@ export class NgxsCustomService {
   // Get Status From Store if available else fetch from the server and cache.
   getStatusFromState() {
     this.campusFetchCompleted$.subscribe((res) => {
-      console.log('Status State fetch completed: ', res);
+      //console.log('Status State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(StatusState, {
           serviceClass: this.campusService,
@@ -229,7 +229,7 @@ export class NgxsCustomService {
    // Get All Level 4 Accounts State From Store if available else fetch from the server and cache.
   getAccountLevel4FromState() {
     this.accountLevel4FetchCompleted$.subscribe((res) => {
-      console.log('Account level 4 FetchCompleted: ', res);
+      //console.log('Account level 4 FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AccountLevel4State, {
           serviceClass: this.chartOfAccountService,
@@ -243,7 +243,7 @@ export class NgxsCustomService {
   // Get Category From Store if available else fetch from the server and cache.
   getCategoryFromState() {
     this.categoryFetchCompleted$.subscribe((res) => {
-      console.log('Category State fetch completed: ', res);
+      //console.log('Category State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CategoryState, {
           serviceClass: this.categoryService,
@@ -297,7 +297,7 @@ export class NgxsCustomService {
   // Get Product From Store if available else fetch from the server and cache.
   getProductFromState() {
     this.productFetchCompleted$.subscribe((res) => {
-      console.log('Product State fetch completed: ', res);
+      //console.log('Product State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(ProductState, {
           serviceClass: this.productService,
@@ -310,7 +310,7 @@ export class NgxsCustomService {
   // Get Warehouse From Store if available else fetch from the server and cache.
   getWarehouseFromState() {
     this.warehouseFetchCompleted$.subscribe((res) => {
-      console.log('Warehouse State fetch completed: ', res);
+      //console.log('Warehouse State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(WarehouseState, {
           serviceClass: this.warehouseService,
@@ -325,7 +325,7 @@ export class NgxsCustomService {
    // Get Bank Account State From Store if available else fetch from the server and cache.
    getBankAccountFromState() {
     this.bankAccountFetchCompleted$.subscribe((res) => {
-      console.log('Bank Account State fetch completed: ', res);
+      //console.log('Bank Account State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BankAccountState, {
           serviceClass: this.bankAccountService,

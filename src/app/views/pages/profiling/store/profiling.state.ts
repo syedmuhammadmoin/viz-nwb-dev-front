@@ -59,7 +59,7 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   getAll({getState, setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
-    console.log('getAll: ', payload)
+    // console.log('getAll: ', payload)
     const serviceClass = payload.payload.serviceClass
     const methodName = payload.payload.methodName
 
@@ -81,7 +81,7 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   addEntity({setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
-    console.log(payload)
+    //console.log(payload)
     const serviceClass = payload.payload.serviceClass;
     const methodName = payload.payload.methodName
 
@@ -97,7 +97,7 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   setLoadingIndicator({setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
-    console.log(payload)
+    //console.log(payload)
     setState(
       setLoading(payload)
     )
@@ -140,7 +140,7 @@ export enum EntityActionType {
 }
 
 export function setLoading<T>(payload: any): StateOperator<ProfilingStateModel<T>> {
-  console.log('setLoading func: ', payload)
+  //console.log('setLoading func: ', payload)
   return (state: ProfilingStateModel<T>) => {
     return {
       ...state,

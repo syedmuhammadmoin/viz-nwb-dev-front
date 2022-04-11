@@ -40,6 +40,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
 
+  dateLimit: Date = new Date()
+
   // JournaL Entry Model
   journalEntryModel: IJournalEntry;
 
@@ -276,7 +278,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
     this.isLoading = true;
     this.mapFormValuesToJournalEntryModel();
-    console.log(this.journalEntryModel)
+    //console.log(this.journalEntryModel)
     if (this.journalEntryModel.id) {
       this.journalEntryService.updateJournalEntry(this.journalEntryModel)
         .pipe(
@@ -327,7 +329,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   //for save or submit
   isSubmit(val: number) {
     this.journalEntryModel.isSubmit = (val === 0) ? false : true;
-    console.log(val)
   }
   // open business partner dialog
   openBusinessPartnerDialog() {

@@ -118,9 +118,9 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
 
   //business partner type list
   typeList = [
-    {id : 0 , viewValue: 'Customer'},
-    {id : 1 , viewValue: 'Vendor'},
-    {id : 2 , viewValue: 'Employee'}
+    {id : 3 , viewValue: 'Supplier'},
+    {id : 4 , viewValue: 'Consultant'},
+    {id : 5 , viewValue: 'Contractor'}
   ];
 
   //business partner entity list
@@ -195,7 +195,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   }
 
   editBusinessPartner(businessPartner: IBusinessPartner) {
-    console.log(businessPartner.businessPartnerType)
+   // console.log(businessPartner.businessPartnerType)
     // this.onChangeCountry(this.countryList.find(c => c.name == businessPartner.country).id);
     // this.onChangeState(this.stateList.find(c => c.name == businessPartner.state).id)
 
@@ -259,7 +259,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-    console.log(this.businessPartner)
+    //console.log(this.businessPartner)
     if (this.businessPartner.id) {
       this.subscription2$ = this.ngxsService.businessPartnerService.updateBusinessPartner(this.businessPartner)
         .pipe(
@@ -290,7 +290,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
 
   mapFormValueToClientModel() {
     this.businessPartner.name = this.businessPartnerForm.value.name;
-    this.businessPartner.businessPartnerType = BusinessPartnerType[this.typeList[this.businessPartnerForm.value.businessPartnerType].viewValue]
+    this.businessPartner.businessPartnerType = this.businessPartnerForm.value.businessPartnerType
     // this.businessPartner.entity = this.entityList[this.businessPartnerForm.value.entity].viewValue;
     // this.businessPartner.country = this.countryList.find(c => c.id == this.businessPartnerForm.value.country).name;
     // this.businessPartner.state = this.stateList.find(c => c.id == this.businessPartnerForm.value.state).name;

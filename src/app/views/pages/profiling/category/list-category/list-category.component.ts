@@ -45,7 +45,7 @@ export class ListCategoryComponent implements OnInit {
       tooltipField: 'name',
       cellRenderer: "loadingCellRenderer"
      },
-    { headerName: 'Inventory Account', field: 'inventoryAccount', sortable: true, filter: true, tooltipField: 'name' },
+    { headerName: 'Assets Account', field: 'inventoryAccount', sortable: true, filter: true, tooltipField: 'name' },
     { headerName: 'Revenue Account', field: 'revenueAccount', sortable: true, filter: true, tooltipField: 'name' },
     { headerName: 'Cost Account', field: 'costAccount', sortable: true, filter: true, tooltipField: 'name' }
   ];

@@ -43,9 +43,7 @@ export class PrintInvoiceComponent implements OnInit {
   }
 
   getInvoiceData(id: number){
-    this.invoiceService.getInvoiceById(id).subscribe((res: IApiResponse<IInvoice>) =>
-      {
-        console.log(res.result)
+    this.invoiceService.getInvoiceById(id).subscribe((res: IApiResponse<IInvoice>) => {
         this.invoiceMaster = res.result;
         this.invoiceLines = res.result.invoiceLines;
         this.cdr.markForCheck();

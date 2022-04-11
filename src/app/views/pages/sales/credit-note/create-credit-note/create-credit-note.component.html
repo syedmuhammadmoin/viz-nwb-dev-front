@@ -26,7 +26,7 @@
                 <div class="form-group kt-form__group">
                   <label class="col-form-label pt-0">Note Date:</label>
                   <kt-date-input formControlName="noteDate" placeholder="Note Date" matFormFieldClass="full-width"
-                    (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
+                    (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)" [maxDate]="dateLimit"
                     [errorMessage]="formErrors.noteDate">
                   </kt-date-input>
                 </div>

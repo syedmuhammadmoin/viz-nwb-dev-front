@@ -144,7 +144,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.mapFormValueToProductModel();
-    console.log(this.product)
+    //console.log(this.product)
     if (this.product.id) {
       this.ngxsService.productService.updateProduct(this.product)
         .pipe(

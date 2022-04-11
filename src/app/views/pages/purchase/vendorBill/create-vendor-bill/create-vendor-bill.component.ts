@@ -34,7 +34,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   // For Table Columns
   // displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'ton', 'price', 'tax', 'subTotal', 'locationId', 'action']
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal','warehouseId', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'anyOtherTax', 'subTotal','warehouseId', 'action']
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -243,6 +243,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       cost: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
+      anyOtherTax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
       warehouseId: [null],
@@ -303,7 +304,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   patchBillLines(Lines: any): FormArray {
     const formArray = new FormArray([]);
     Lines.forEach((line: any) => {
-      console.log(line.subtotal);
+      //console.log(line.subtotal);
       formArray.push(this.fb.group({
         id: line.id,
         itemId: [line.itemId],
@@ -311,6 +312,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
         cost: [line.cost, [Validators.required, Validators.min(1)]],
         quantity: [line.quantity, [Validators.required,Validators.min(1)]],
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
+        anyOtherTax: [line.anyOtherTax, [Validators.max(100), Validators.min(0)]],
         subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId],
@@ -337,7 +339,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
     this.isLoading = true;
     this.mapFormValuesToVendorBillModel();
-    console.log(this.vendorBillModel)
+   // console.log(this.vendorBillModel)
     if (this.vendorBillModel.id) {
         this.billService.updateVendorBill(this.vendorBillModel)
           .pipe(

@@ -95,7 +95,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
   ];
 
@@ -165,7 +165,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     // initializing empty model
     this.transactionReconModel = {} as ITransactionRecon;
     this.mapTransactionReconModel(index);
-    console.log(this.transactionReconModel)
+    //console.log(this.transactionReconModel)
     this.vendorBillService.createTransitionReconcile(this.transactionReconModel).pipe(
       take(1),
       finalize(() => this.isLoading = false))
