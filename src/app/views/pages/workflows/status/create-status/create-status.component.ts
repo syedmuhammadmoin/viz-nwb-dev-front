@@ -107,15 +107,12 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
 
   //submitting state Form
   onSubmit() {
-    console.log('submitted');
     if (this.statusForm.invalid) {
       return
     }
 
     this.mapStatusformValuesToModel();
-    console.log(this.statusModel);
     if (this.statusModel.id) {
-      console.log('update')
       this.isLoading = true;
       this.statusService.updateStatus(this.statusModel)
         .pipe(
@@ -132,7 +129,6 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
           }
         );
     } else {
-      console.log('created')
       delete this.statusModel['id'];
       this.isLoading = true;
       this.statusService.createStatus(this.statusModel)
@@ -152,7 +148,6 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
     }
   }
   mapStatusformValuesToModel() {
-    console.log(this.statusModel);
     this.statusModel.state = this.statusForm.value.state;
     this.statusModel.status = this.statusForm.value.status;
   }

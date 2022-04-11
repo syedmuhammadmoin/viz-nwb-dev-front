@@ -19,7 +19,6 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 
 function sumFunc(params) {
   // let sum = 0;
-  console.log(params);
   if (params && params.values) {
     this.balance = params?.values[params?.values?.length - 1]
   }
@@ -193,13 +192,12 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   onSubmit() {
-    console.log("yes submit")
     if (this.generalLedgerForm.invalid) {
       this.logValidationErrors(this.generalLedgerForm, this.formErrors, this.validationMessages);
       return;
     }
     this.mapFormValueToModel();
-    console.log(this.generalLedgerModel);
+    // console.log(this.generalLedgerModel);
     this.isLoading = true;
     this.generalLedgerService.getLedger(this.generalLedgerModel).pipe(
       finalize(() => {
@@ -259,7 +257,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       })
     ).subscribe((res) => {
       this.rowData = res.result;
-      console.log(res.result)
       this.recordsData = res.result;
       // for PDF
       (!isEmpty(res.result)) ? this.disability = false : this.disability = true;

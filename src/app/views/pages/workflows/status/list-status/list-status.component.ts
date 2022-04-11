@@ -1,9 +1,8 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CreateStatusComponent } from '../create-status/create-status.component';
@@ -39,7 +38,6 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
       filter: true,
       tooltipField: 'status',
       valueFormatter: (params: ValueFormatterParams) => { 
-        console.log(params.value)
         return (params.value) ? AppConst.DocStatus[params.value].viewValue : null
        }
     },
@@ -90,18 +88,16 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
 
   getAllStatus() {
     this.statusService.getStatuses().subscribe((res) => {
-      console.log(res.result)
       this.statusList = res.result;
       this.cdRef.detectChanges()
     });
   }
 
-  onFirstDataRendered(params: any) {
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
-  onRowDoubleClicked(event: any) {
-    console.log(event);
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
     this.addStatusDialog(event.data.id)
   }
 
