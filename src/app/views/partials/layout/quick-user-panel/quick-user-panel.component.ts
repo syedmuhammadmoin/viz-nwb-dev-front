@@ -54,7 +54,6 @@ export class QuickUserPanelComponent extends AppComponentBase implements OnInit 
   logout() {
     this.authService.signOut().subscribe((isLoggedOut) => {
       if (isLoggedOut) {
-        console.log(isLoggedOut);
         this.router.navigate(['/auth/login']);
       } else {
         this.toastService.error('Something went wrong, we\'re\ working on it. We will notify you when it\'s\ done', 'Error')
