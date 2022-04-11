@@ -3,7 +3,7 @@
          <div class="kt-portlet__head-caption">
               <div class="kt-portlet__head-title">
                   <span class="kt-portlet__head-icon kt-hide"><i class="la la-gear"></i></span>
-                  <h3 class="kt-portlet__head-text modal-header"> Create Bank Account 
+                  <h3 class="kt-portlet__head-text modal-header"> {{title}} 
                     <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
                   </h3>
               </div>
@@ -65,6 +65,34 @@
                     </div>
                   </div>
                     <!-- second row ends -->
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                          <div class="form-group kt-form__group">
+                              <label class="col-form-label pt-0">Account Type:</label>
+                              <kt-simple-dropdown 
+                               placeholder="Select Account Type" 
+                               propertyValue="id" 
+                               propertyName="name"
+                               formControlName="bankAccountType" 
+                               (blurEvent)="logValidationErrors(bankAccountForm, formErrors, validationMessages)"
+                               matFormFieldClass="full-width input_d_1"
+                               [errorMessage]="'Account Type is Required'" 
+                               [optionList]="accountTypeList">
+                              </kt-simple-dropdown>
+                          </div>
+                      </div>
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group kt-form__group">
+                          <label class="col-form-label pt-0">Purpose:</label>
+                          <kt-input-field
+                            formControlName="purpose"
+                            type="text"
+                            placeholder="Enter Purpose"
+                            hintText="Optional">
+                          </kt-input-field>
+                      </div>
+                    </div>
+                  </div>
                   <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group kt-form__group">
@@ -84,6 +112,7 @@
                           <kt-date-input
                             formControlName="OBDate"
                             placeholder="Opening Balance Date"
+                            [maxDate]="dateLimit"
                             matFormFieldClass="full-width"
                             (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
                             [errorMessage]="formErrors.OBDate">

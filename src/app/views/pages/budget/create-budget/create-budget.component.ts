@@ -30,11 +30,12 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   dateCondition: boolean;
 
   //Title Name
-  titleName: string = 'Create Budget'
+  title: string = 'Create Budget'
 
   budgetModel: IBudget;
   totalAmount: number;
   budgetMaster: any;
+
 
   // For Table Columns
   displayedColumns = ['accountId', 'amount', 'action']
@@ -85,7 +86,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.activatedRoute.params.subscribe((res: Params) => {
       if (res && res.id) {
         this.isLoading = true;
-        this.titleName = 'Edit Budget'
+        this.title = 'Edit Budget'
         this.getBudgetMaster(res.id);
         this.cdr.markForCheck();
       } else {

@@ -104,11 +104,10 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
-        console.log(params.value)
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
   ];
 
@@ -137,7 +136,6 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   //Getting invoice master data
   getInvoiceData(id: number) {
     this.invoiceService.getInvoiceById(id).subscribe((res: IApiResponse<IInvoice>) => {
-      console.log(res.result)
       this.invoiceMaster = res.result;
       this.invoiceLines = res.result.invoiceLines;
       this.totalBeforeTax = this.invoiceMaster.totalBeforeTax;

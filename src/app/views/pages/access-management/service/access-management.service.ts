@@ -55,11 +55,11 @@ export class AccessManagementService {
     }
 
     resetPassword(body: IResetPassword): Observable<any> {
-        return //this.httpClient.put(environment.baseUrl + `Auth/Users/ResetPass/${body.userId}`, body)
+        return this.httpClient.put(environment.baseUrl + `auth/users/ResetPass/${body.userId}`, body)
     }
   
     changePassword(body: IResetPassword): Observable<any> {
-        return //this.httpClient.put(environment.baseUrl + `Auth/Users/changePassword/${body.loginUserId}`, body)
+        return this.httpClient.put(environment.baseUrl + `auth/users/changePassword/${body.loginUserId}`, body)
     }
 
     getUserScope(): Observable<IApiResponse<IOrganizationAccessLevel[]>> {

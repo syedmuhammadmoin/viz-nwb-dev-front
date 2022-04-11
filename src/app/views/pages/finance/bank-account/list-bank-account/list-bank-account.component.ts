@@ -80,7 +80,6 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
 
     this.components = {
       loadingCellRenderer: function (params: any) {
-        console.log(params.value)
         if (params.value !== undefined) {
           return params.value;
         } 

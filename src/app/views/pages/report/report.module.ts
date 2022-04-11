@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReportRoutingModule } from './report-routing.module';
 import { GeneralLedgerComponent } from './general-ledger/general-ledger/general-ledger.component';
-import {AgGridModule} from 'ag-grid-angular';
+import { AgGridModule} from 'ag-grid-angular';
 import {SharedModule} from '../../shared/modules/shared.module';
 import {TrialBalanceComponent} from './trial-balance/trial-balance/trial-balance.component';
 import { BalanceSheetComponent } from './balance-sheet/balance-sheet/balance-sheet.component';

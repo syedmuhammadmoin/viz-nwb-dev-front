@@ -33,6 +33,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //product model declaration
   product: IProduct;
 
+  title: string = 'Create Product'
+
   // validation messages
   validationMessages = {
     name: {
@@ -89,6 +91,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
 
     // checking router params for edit product
     if (this._id) {
+      this.title = 'Edit Product'
       this.isLoading = true;
       this.getProduct(this._id);
     } else {
@@ -141,7 +144,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.mapFormValueToProductModel();
-    console.log(this.product)
+    //console.log(this.product)
     if (this.product.id) {
       this.ngxsService.productService.updateProduct(this.product)
         .pipe(

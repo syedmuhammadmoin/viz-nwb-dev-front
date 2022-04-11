@@ -41,6 +41,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   @Input() matFormFieldClass: any | [] | string;
   @Input() matSelectClass: any | [] | string;
   @Input() isDisabled: boolean
+  @Input() isDisabledNone: boolean = false;
 
   @Output() clickEvent = new EventEmitter<any>();
   @Output() selectionChange = new EventEmitter<any>();

@@ -128,7 +128,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
     // })
     //this.roleModel.locationIds = this.locationIds
 
-    console.log("Rolle Model: ", this.roleModel)
+    //console.log("Rolle Model: ", this.roleModel)
     if (this.roleModel.id) {
       this.accessManagementService.updateRole(this.roleModel).subscribe((res) => {
         this.isLoading = false;
@@ -140,7 +140,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
         this.toastService.error('' + err?.error?.message, 'Error');
       })
     } else {
-      console.log('created');
+     // console.log('created');
       this.accessManagementService.createRole(this.roleModel).subscribe((res) => {
         this.isLoading = false
         this.toastService.success('Created Successfully', 'New Role');
@@ -165,7 +165,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
 
   getClaims() {
     this.accessManagementService.getClaims().subscribe((res) => {
-      console.log(res);
+     // console.log(res);
       res.result.forEach(element => {
         this.roleClaims.push(
           {

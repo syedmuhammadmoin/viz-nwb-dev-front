@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Create Journal Entry'" [class]="'card-head-lg'"></kt-portlet-header>
+    <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
     <!--begin::Form-->
     <form [formGroup]="journalEntryForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
       <div class="kt-portlet__body">
@@ -10,7 +10,7 @@
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group">
                   <label class="col-form-label pt-0">Date:</label>
-                  <kt-date-input formControlName="date" placeholder="JV Date"
+                  <kt-date-input formControlName="date" placeholder="JV Date" [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="formErrors.date">
                   </kt-date-input>
@@ -51,7 +51,7 @@
                     <mat-table #table [dataSource]="journalEntryForm.get('journalEntryLines')['controls']">
                       <!-- Account Column -->
                       <ng-container matColumnDef="accountId">
-                        <mat-header-cell *matHeaderCellDef class="flex-2"> Account</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> COA</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
@@ -98,7 +98,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-input-field formControlName="debit" matFormFieldClass="full-width input_d_1"
-                              placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)"
+                              placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" type = "number"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.touched , 
@@ -113,7 +113,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-input-field formControlName="credit" matFormFieldClass="full-width input_d_1"
-                              placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)"
+                              placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" type = "number"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.touched , 
@@ -156,6 +156,7 @@
                               placeholder="Select Warehouse" 
                               propertyValue="id" 
                               propertyName="name"
+                              isDisabledNone="true"
                               [hintText]="'Optional'"
                               formControlName="warehouseId" 
                               matFormFieldClass="full-width input_d_1"

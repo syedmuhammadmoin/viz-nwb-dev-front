@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Create Invoice'" [class]="'card-head-lg'"></kt-portlet-header>
+    <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
     <!--begin::Form-->
 
     <form [formGroup]="invoiceForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
@@ -39,8 +39,7 @@
                     formControlName="invoiceDate" 
                     placeholder="Invoice Date" matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
-                    [errorMessage]="formErrors.invoiceDate"
-                    [maxDate]="maxDate">
+                    [errorMessage]="formErrors.invoiceDate">
                   </kt-date-input>
                 </div>
               </div>
@@ -94,6 +93,7 @@
                               clickEventButtonName="Add New Item"
                               (clickEvent)="openProductDialog()" 
                               formControlName="itemId"
+                              isDisabledNone="true"
                               hintText="Optional"
                               placeholder="Select Item" matFormFieldClass="mobile-label full-width input_d_1"
                               (selectionChange)="onItemSelected($event.value, i)">
@@ -118,7 +118,7 @@
                         </ng-container>
                         <!-- Description Column -->
                         <ng-container matColumnDef="accountId">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> Account</mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef class="flex-1"> COA</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown placeholder="Select Account" propertyValue="id"
@@ -241,6 +241,7 @@
                                 placeholder="Select Warehouse" 
                                 propertyValue="id" 
                                 propertyName="name"
+                                isDisabledNone="true"
                                 [hintText]="'Optional'"
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width input_d_1" 

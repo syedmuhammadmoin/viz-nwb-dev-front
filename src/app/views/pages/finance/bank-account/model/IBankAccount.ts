@@ -5,6 +5,8 @@ export interface IBankAccount {
     bankName: string;
     branch: string;
     campusId: number;
+    bankAccountType: number,
+    purpose: string,
     openingBalance: number;
     openingBalanceDate: string;
     currency: string;

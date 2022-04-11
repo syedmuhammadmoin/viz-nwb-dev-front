@@ -15,21 +15,21 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
     const isLoggedIn = this.authSingleton.isLoggedIn();
-    console.log(isLoggedIn);
+    //console.log(isLoggedIn);
     
     if (!isLoggedIn && state.url === '/auth/login') {
-      console.log('very First If');
+      //console.log('very First If');
       return true;
     }
 
     if (!isLoggedIn) {
       this.router.navigateByUrl('/auth/login');
-      console.log('second IF');
+     // console.log('second IF');
       return false
     }
 
     if (state.url === '/auth/login' && isLoggedIn) {
-      console.log('Third If');
+      //console.log('Third If');
       this.router.navigate(['/dashboard']);
       return false;
     }
@@ -49,9 +49,9 @@ export class AuthGuard implements CanActivate {
     return this.canActivate(route, state);
   }
   selectBestRoute(): string {
-    console.log('bestRoute')
+   // console.log('bestRoute')
     if (!this.authSingleton.getCurrentUser()) {
-      console.log('best route if');
+      //console.log('best route if');
       return '/auth/login';
     }
     return '/dashboard';

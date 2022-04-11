@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header style="color:white !important;" [sticky]="false" [title]="'Create Debit Note'"
+    <kt-portlet-header style="color:white !important;" [sticky]="false" [title]="title"
       [class]="'card-head-lg'"></kt-portlet-header>
     <!--begin::Form-->
       <form [formGroup]="debitNoteForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
@@ -35,6 +35,7 @@
                         formControlName="noteDate"
                         placeholder="Note Date"
                         matFormFieldClass="full-width"
+                        [maxDate]="dateLimit"
                         (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.noteDate">
                       </kt-date-input>
@@ -75,8 +76,9 @@
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       searchPlaceholder="Select Item" 
                                       [optionList]="ngxsService.products$"
-                                    clickEventButtonName="Add New Item"
-                                    (clickEvent)="openProductDialog()" 
+                                      isDisabledNone="true"
+                                      clickEventButtonName="Add New Item"
+                                      (clickEvent)="openProductDialog()" 
                                       propertyName="productName" 
                                       propertyValue="id" 
                                       [hintText]="'Optional'"
@@ -241,6 +243,7 @@
                                       propertyValue="id" 
                                       propertyName="name"
                                       [hintText]="'Optional'"
+                                      isDisabledNone="true"
                                       formControlName="warehouseId" 
                                       matFormFieldClass="full-width input_d_1" 
                                       [optionList]="ngxsService.warehouses$">

@@ -2,7 +2,7 @@
     <div class="kt-portlet__head">
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
-            <h3 class="kt-portlet__head-text modal-header"> Create Payment
+            <h3 class="kt-portlet__head-text modal-header"> {{title}}
               <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
             </h3>
         </div>
@@ -37,6 +37,7 @@
                         <kt-date-input
                           formControlName="date"
                           placeholder="Payment Date"
+                          [maxDate]="dateLimit"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="formErrors.date">
                         </kt-date-input>
@@ -93,7 +94,7 @@
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
-                        <label class="col-form-label pt-0">Account:</label>
+                        <label class="col-form-label pt-0">COA:</label>
                         <kt-simple-dropdown
                           placeholder="Select Account"
                           searchPlaceholder="Search Accounts..."
@@ -130,6 +131,8 @@
                         <kt-input-field
                           formControlName="discount"
                           type = "number"
+                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
+                          [errorMessage]="[{ condition : formErrors.discount , error : formErrors.discount }]"
                           placeholder="Enter Discount">
                         </kt-input-field>
                     </div>
@@ -141,6 +144,8 @@
                         <kt-input-field
                           formControlName="salesTax"
                           type = "number"
+                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
+                          [errorMessage]="[{ condition : formErrors.salesTax , error : formErrors.salesTax }]"
                           placeholder="Enter Sales Tax">
                         </kt-input-field>
                     </div>
@@ -152,6 +157,8 @@
                         <kt-input-field
                           formControlName="incomeTax"
                           type = "number"
+                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
+                          [errorMessage]="[{ condition : formErrors.incomeTax , error : formErrors.incomeTax }]"
                           placeholder="Enter Income Tax">
                         </kt-input-field>
                     </div>
@@ -159,7 +166,19 @@
                 </div>
     
                 <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group">
+                        <label class="col-form-label pt-0">SRB Tax:</label>
+                        <kt-input-field
+                          formControlName="SRBTax"
+                          placeholder="Enter SRB Tax"
+                          type = "number"
+                          (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
+                          [errorMessage]="[{ condition : formErrors.SRBTax , error : formErrors.SRBTax }]">
+                        </kt-input-field>
+                    </div>
+                  </div>
+                  <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Description:</label>
                         <kt-input-field
@@ -170,7 +189,7 @@
                         </kt-input-field>
                     </div>
                   </div>
-                  <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown 

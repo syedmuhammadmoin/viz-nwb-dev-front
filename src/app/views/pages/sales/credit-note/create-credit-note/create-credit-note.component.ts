@@ -64,6 +64,10 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   totalBeforeTax: number = 0;
   totalTax: number = 0;
 
+  title: string = 'Create Credit Note'
+
+  dateLimit: Date = new Date()
+
   // Validation messages..
   validationMessages = {
     customerName: {
@@ -136,6 +140,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       this.isCreditNote = param.isCreditNote;
       this.isInvoice = param.isInvoice;
       if (id && this.isCreditNote) {
+        this.title = 'Edit Credit Note'
         this.getCreditNote(id);
       }
       else if (id && this.isInvoice) {
@@ -271,14 +276,14 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     Lines.forEach((line: any) => {
       formArray.push(this.fb.group({
         id: line.id,
-        itemId: line.itemId,
-        description: line.description,
-        price: line.price,
-        quantity: line.quantity,
-        tax: line.tax,
+        itemId: [line.itemId],
+        description: [line.description, Validators.required],
+        price: [line.price, [Validators.required, Validators.min(1)]],
+        quantity: [line.quantity, [Validators.required,Validators.min(1)]],
+        tax: [line.tax, [Validators.max(100), Validators.min(0)]],
         subTotal: [{ value: line.subTotal, disabled: true }],
-        accountId: line.accountId,
-        warehouseId: line.warehouseId
+        accountId: [line.accountId, [Validators.required]],
+        warehouseId: [line.warehouseId]
        // locationId: line.locationId,
       }))
     })
@@ -306,7 +311,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
     this.isLoading = true;
     this.mapFormValuesToCreditNoteModel();
-    console.log(this.creditNoteModel)
+    //console.log(this.creditNoteModel)
     if (this.creditNoteModel.id) {
       this.creditNoteService.updateCreditNote(this.creditNoteModel)
         .pipe(

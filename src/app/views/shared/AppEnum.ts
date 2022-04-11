@@ -283,8 +283,16 @@ export enum PayrollItemType {
 export enum BusinessPartnerType {
   Customer,
   Vendor,
-  Employee
+  Employee,
+  Supplier, 
+  Consultant, 
+  Contractor
 }
+
+ export enum bankAccountType {
+    Current,
+    Saving
+ }
 
 
 // Draft - Yellow,  Cancelled - Gray, Upaid - Red, Partial - Yellow,  Paid - Green, Submitted - Yellow, Reviewed - Green

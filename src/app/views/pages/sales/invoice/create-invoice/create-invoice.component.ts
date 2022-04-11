@@ -66,6 +66,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   //sales Order
   subscription2$: Subscription
 
+  title: string = 'Create Invoice'
+
   // Validation messages..
   validationMessages = {
     customerName: {
@@ -149,6 +151,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       const isInvoice = param.isInvoice;
       const isSalesOrder = param.isSalesOrder;
       if (id && isInvoice) {
+        this.title = 'Edit Invoice'
         this.getInvoice(id);
       }
       else if (id && isSalesOrder) {
@@ -307,14 +310,14 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
         id: line.id,
-        itemId: line.itemId,
-        description: line.description,
-        price: line.price,
-        quantity: line.quantity,
-        tax: line.tax,
+        itemId: [line.itemId],
+        description: [line.description , Validators.required],
+        price: [line.price , [Validators.required, Validators.min(1)]],
+        quantity: [line.quantity , [Validators.required,Validators.min(1)]],
+        tax: [line.tax , [Validators.max(100), Validators.min(0)]],
         subTotal: [{ value: line.subTotal, disabled: true }],
-        accountId: line.accountId,
-        warehouseId: line.warehouseId
+        accountId: [line.accountId , [Validators.required]],
+        warehouseId: [line.warehouseId],
         //locationId: line.locationId,
       }))
     })
@@ -338,7 +341,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
     this.isLoading = true;
     this.mapFormValuesToInvoiceModel();
-    console.log(this.invoiceModel)
+    //console.log(this.invoiceModel)
     if (this.invoiceModel.id) {
       this.invoiceService.updateInvoice(this.invoiceModel)
         .pipe(

@@ -49,7 +49,7 @@ export class ListWarehouseComponent implements OnInit {
     // {headerName: 'Country', field: 'country', sortable: true, filter: true, tooltipField: 'name'},
     // {headerName: 'State', field: 'state', sortable: true, filter: true, tooltipField: 'name'},
     // {headerName: 'City', field: 'city', sortable: true, filter: true, tooltipField: 'name'},
-    {headerName: 'Manager', field: 'manager', sortable: true, filter: true, tooltipField: 'name'},
+    {headerName: 'Store Officer/Incharge', field: 'manager', sortable: true, filter: true, tooltipField: 'name'},
     {headerName: 'Campus', field: 'campusName', sortable: true, filter: true, tooltipField: 'name'},
   ];
 

@@ -59,7 +59,7 @@ export class AddModalButtonService {
   }
   getDepartmentTypes() {
     this.departmentService.getDepartments().subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.departmentList.next(res.result);
     })
   }
@@ -75,7 +75,7 @@ export class AddModalButtonService {
   }
   getOrgnizationTypes() {
     this.orgnizationService.getOrganizations().subscribe((res) => {
-      console.log(res);
+     //console.log(res);
       this.orgnizationList.next(res.result);
     })
   }
@@ -91,7 +91,7 @@ export class AddModalButtonService {
   }
   getWarehouseTypes() {
     this.warehouseService.getWarehouses().subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.warehouseList.next(res.result);
     })
   }
@@ -108,7 +108,7 @@ export class AddModalButtonService {
   }
   getCategoryTypes() {
     this.categoryService.getCategories().subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.categoryList.next(res.result);
     })
   }
@@ -125,7 +125,7 @@ export class AddModalButtonService {
   }
   getBusinessPartnerTypes() {
     this.partnerService.getBusinessPartners().subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.partnerList.next(res.result);
     })
   }
@@ -141,13 +141,13 @@ export class AddModalButtonService {
   }
   getLocationTypes() {
     this.warehouseService.getWarehouses().subscribe((res) => {
-      console.log(res);
+     // console.log(res);
       this.warehouseLocationList.next(res.result);
     })
   }
   getLocationList() {
     this.locationService.getLocations().subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.locationList.next(res.result);
     })
   }
@@ -162,7 +162,7 @@ export class AddModalButtonService {
   }
   getProductTypes() {
     this.productService.getProducts().subscribe((res) => {
-      console.log(res);
+      //console.log(res);
       this.productList.next(res.result);
     })
   }

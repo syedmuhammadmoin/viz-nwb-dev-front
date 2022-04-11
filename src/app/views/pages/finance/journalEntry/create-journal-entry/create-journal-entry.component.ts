@@ -40,6 +40,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
 
+  dateLimit: Date = new Date()
+
   // JournaL Entry Model
   journalEntryModel: IJournalEntry;
 
@@ -48,6 +50,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   //variable for debit and credit sum
   debitTotal: number = 0;
   creditTotal: number = 0;
+
+  title: string = 'Create Journal Entry'
 
   // Validation messages
   validationMessages = {
@@ -109,6 +113,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       const id = param.q;
       this.isJournalEntry = param.isJournalEntry;
       if (id && this.isJournalEntry) {
+        this.title = 'Edit Journal Entry'
         this.getJournalEntry(id);
       }
     })
@@ -130,15 +135,28 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     const debit = (debitControl.value) !== null ? debitControl.value : null;
     const credit = (creditControl.value) !== null ? creditControl.value : null;
 
-    if (debit > 0) {
+    // if (debit > 0 || debit < 0) {
+    //   creditControl.setValue(0);
+    //   creditControl.disable();
+    // }
+    // else if (credit > 0 || credit < 0) {
+    //   debitControl.setValue(0);
+    //   debitControl.disable();
+    // }
+    // else if (debit === "" || credit === "") {
+    //   creditControl.enable();
+    //   debitControl.enable();
+    // }
+    if (debit) {
       creditControl.setValue(0);
       creditControl.disable();
     }
-    else if (credit > 0) {
+    else if (credit) {
       debitControl.setValue(0);
       debitControl.disable();
     }
-    else if (debit === "" || credit === "") {
+    // else if (debit === "" || credit === "") {
+      else if (!debit || !credit) {
       creditControl.enable();
       debitControl.enable();
     }
@@ -224,13 +242,13 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     const formArray = new FormArray([]);
     journalEntryLines.forEach((line: IJournalEntryLines) => {
       formArray.push(this.fb.group({
-        id: line.id,
-        description: line.description,
-        businessPartnerId: line.businessPartnerId,
-        debit: line.debit,
-        credit: line.credit,
-        accountId: line.accountId,
-        warehouseId: line.warehouseId,
+        id: [line.id, [Validators.required]],
+        description: [line.description, [Validators.required]],
+        businessPartnerId: [line.businessPartnerId, [Validators.required]],
+        debit: [line.debit, [Validators.required]],
+        credit: [line.credit, [Validators.required]],
+        accountId: [line.accountId, [Validators.required]],
+        warehouseId: [line.warehouseId],
         // locationId: line.locationId,
       }))
     })
@@ -249,17 +267,18 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       return
     }
 
-    if (this.debitTotal !== this.creditTotal) {
-      this.toastService.error('Sum of Debit and Credit are not Equal', 'Error')
+    if (this.journalEntryForm.invalid) {
       return
     }
-    if (this.journalEntryForm.invalid) {
+
+    if (this.debitTotal !== this.creditTotal) {
+      this.toastService.error('Sum of Debit and Credit are not Equal', 'Error')
       return
     }
 
     this.isLoading = true;
     this.mapFormValuesToJournalEntryModel();
-    console.log(this.journalEntryModel)
+    //console.log(this.journalEntryModel)
     if (this.journalEntryModel.id) {
       this.journalEntryService.updateJournalEntry(this.journalEntryModel)
         .pipe(
@@ -310,7 +329,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   //for save or submit
   isSubmit(val: number) {
     this.journalEntryModel.isSubmit = (val === 0) ? false : true;
-    console.log(val)
   }
   // open business partner dialog
   openBusinessPartnerDialog() {

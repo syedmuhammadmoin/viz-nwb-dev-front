@@ -23,6 +23,10 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
   
     // Cash account model
     cashAccountModel: ICashAccount;
+
+    title: string = 'Create Cash Account'
+
+    dateLimit: Date = new Date()
   
     // validation messages
     validationMessages = {
@@ -33,7 +37,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       //   required: 'Manager/Handler is required'
       // },
       openingBalance: {
-        required: 'opening balance is required.'
+        required: 'opening balance is required.',
+        min: 'Please insert correct value.'
       },
       OBDate: {
         required: 'Opening Balance Date is required.'
@@ -72,13 +77,14 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       this.cashAccountForm = this.fb.group({
         cashAccountName: ['', [Validators.required]],
         handler: [''],
-        openingBalance: ['', [Validators.required]],
+        openingBalance: ['', [Validators.required, Validators.min(1)]],
         OBDate: ['', [Validators.required]],
         campusId: ['', [Validators.required]],
         //currency: ['', [Validators.required]]
       });
   
       if (this._id) {
+        this.title = 'Edit Cash Account'
         this.isLoading = true
         this.getCashAccount(this._id);
       } else {

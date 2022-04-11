@@ -22,7 +22,7 @@ import { IAccount } from '../../../profiling/category/model/IAccount';
   selector: 'kt-register-payment',
   templateUrl: './register-payment.component.html',
   styleUrls: ['./register-payment.component.scss'],
-  providers:[PaymentService, CashAccountService,BankAccountService]
+  // providers:[PaymentService, CashAccountService,BankAccountService]
 })
 
 export class RegisterPaymentComponent extends AppComponentBase implements OnInit {
@@ -130,6 +130,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       businessPartnerId: null,
       accountId: null,
       campusId: null,
+      srbTax: null,
       paymentDate: null,
       paymentRegisterId: null,
       description: '',
@@ -144,7 +145,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   // Calculating net payment amount
   calculatingNetPayment(): void {
     this.registerPaymentForm.valueChanges.subscribe(val => {
-      this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
+      this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
     });
   }
 
@@ -182,6 +183,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     this.paymentModel.description = this.registerPaymentForm.value.description;
     this.paymentModel.grossPayment = this.registerPaymentForm.value.grossPayment;
     this.paymentModel.salesTax = this.registerPaymentForm.value.salesTax;
+    this.paymentModel.srbTax = this.registerPaymentForm.value.SRBTax;
     this.paymentModel.discount = 0;
     this.paymentModel.incomeTax = this.registerPaymentForm.value.incomeTax;
     //this.paymentModel.documentTransactionId = this.data.transactionId;

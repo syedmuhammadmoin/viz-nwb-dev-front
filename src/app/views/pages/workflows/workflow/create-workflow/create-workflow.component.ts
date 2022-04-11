@@ -43,6 +43,8 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
   // Invoice Model
   workflowModel = ({} as IWorkflow);
 
+  title: string = 'Create Workflow'
+
   // Validation messages..
   validationMessages = {
     name: {
@@ -87,6 +89,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
       console.log(param)
       const id = param.get('id');
       if (id) {
+        this.title = 'Edit Workflow'
         this.getWorkflow(id);
       }
     })

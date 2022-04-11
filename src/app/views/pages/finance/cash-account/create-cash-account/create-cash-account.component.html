@@ -3,7 +3,7 @@
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
           <span class="kt-portlet__head-icon kt-hide"><i class="la la-gear"></i></span>
-          <h3 class="kt-portlet__head-text modal-header"> Create Cash Account 
+          <h3 class="kt-portlet__head-text modal-header"> {{title}} 
             <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
           </h3>
         </div>
@@ -20,7 +20,7 @@
                         <label class="col-form-label pt-0">Cash Account:</label>
                         <kt-input-field
                           formControlName="cashAccountName"
-                          placeholder="Enter Cash Acccount Name"
+                          placeholder="Enter Cash Account Name"
                           (blurEvent)="logValidationErrors(this.cashAccountForm, formErrors, validationMessages)"
                           [errorMessage]="[{ condition : formErrors.cashAccountName , error : formErrors.cashAccountName }]">
                         </kt-input-field>
@@ -61,6 +61,7 @@
                     formControlName="OBDate"
                     placeholder="Opening Balance Date"
                     matFormFieldClass="full-width"
+                    [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(cashAccountForm, formErrors, validationMessages)"
                     [errorMessage]="formErrors.OBDate">
                   </kt-date-input>

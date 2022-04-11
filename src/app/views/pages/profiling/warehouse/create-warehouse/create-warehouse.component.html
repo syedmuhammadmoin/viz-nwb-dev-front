@@ -2,7 +2,7 @@
   <div class="kt-portlet__head">
     <div class="kt-portlet__head-caption">
       <div class="kt-portlet__head-title">
-        <h3 class="kt-portlet__head-text modal-header"> Create Warehouse <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
+        <h3 class="kt-portlet__head-text modal-header"> {{title}} <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
       </div>
     </div>
   </div>
@@ -31,10 +31,10 @@
 
                 <div class="col-lg-4 col-md-4">
                   <div class="form-group kt-form__group pt-2 pb-0">
-                      <label class="col-form-label pt-0">Supervisor/Manager:</label>
+                      <label class="col-form-label pt-0">Store Officer/Incharge:</label>
                       <kt-input-field
                         formControlName="manager"
-                        placeholder="Enter Supervisor/Manager"
+                        placeholder="Enter Officer/Incharge"
                         (blurEvent)="logValidationErrors(warehouseForm, formErrors, validationMessages)"
                         [errorMessage]="[{ condition : formErrors.manager , error : formErrors.manager }]">
                       </kt-input-field>

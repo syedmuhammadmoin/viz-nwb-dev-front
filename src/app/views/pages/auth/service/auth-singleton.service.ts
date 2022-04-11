@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
 import { User } from "src/app/core/auth";
 import { DecodeTokenService } from "src/app/views/shared/decode-token.service";
-import { environment } from "src/environments/environment";
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +15,7 @@ export class AuthSingletonService {
         if (this.decodeTokenService.getToken()) {
             const token = this.decodeTokenService.decode(this.decodeTokenService.getToken())
             isExpired = this.decodeTokenService.isTokenExpired();
-            console.log(isExpired);
+            //console.log(isExpired);
         }
         return !isExpired;
     }
@@ -39,7 +37,7 @@ export class AuthSingletonService {
         try {
             permission = this.getCurrentUser().permissions
         } catch (err) {
-            console.log('user permission error', err);
+            //console.log('user permission error', err);
             permission = false
         }
         return permission

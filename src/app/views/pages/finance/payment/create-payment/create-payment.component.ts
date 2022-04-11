@@ -57,6 +57,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
   paymentMaster: any;
 
+  title: string = 'Create Payment'
+
+  dateLimit: Date = new Date()
 
 
   // validation messages
@@ -88,7 +91,19 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
     campusId: {
       required: 'Campus is required'
-    }
+    },
+    discount: {
+      min: 'Please insert correct value.'
+    },
+    salesTax: {
+      min: 'Please insert correct value.'
+    },
+    incomeTax: {
+      min: 'Please insert correct value.'
+    },
+    SRBTax: {
+      min: 'Please insert correct value.'
+    },
   }
 
   // Error keys
@@ -101,7 +116,11 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     account: '',
     paymentRegister: '',
     grossPayment: '',
-    campusId: ''
+    campusId: '',
+    discount: '',
+    salesTax: '',
+    incomeTax: '',
+    SRBTax: ''
   }
 
   // Injecting dependencies
@@ -138,13 +157,18 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       campusId: ['', [Validators.required]],
       paymentRegister: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(0)]],
-      discount: [0],
-      salesTax: [0],
-      incomeTax: [0]
+      discount: [0 ,[Validators.min(0)]],
+      salesTax: [0,[Validators.min(0)]],
+      incomeTax: [0,[Validators.min(0)]],
+      SRBTax: [0,[Validators.min(0)]],
     });
+
+    this.paymentForm.get('registerType').setValue(2)
+    this.loadAccountList({value: 2})
 
     // initializing payment model
     if (this._id) {
+      this.title = 'Edit Payment'
       this.isLoading = true;
       this.getPayment(this._id);
       this.cdRef.markForCheck();
@@ -164,6 +188,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         discount: null,
         salesTax: null,
         incomeTax: null,
+        srbTax : null
         //documentTransactionId: null,
       }
     };    
@@ -190,6 +215,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   }
 
   editPayment(payment: IPayment) {
+    //console.log(payment.srbTax)
     this.paymentForm.patchValue({
       registerType: payment.paymentRegisterType,
       paymentType: payment.paymentType,
@@ -200,7 +226,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       paymentRegister: payment.paymentRegisterId,
       grossPayment: payment.grossPayment,
       campusId: payment.campusId,
+      discount: payment.discount,
       salesTax: payment.salesTax,
+      SRBTax : payment.srbTax ,
       incomeTax: payment.incomeTax,
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
@@ -219,7 +247,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
     this.isLoading = true;
     this.mapFormValueToPaymentModel();
-    console.log(this.paymentModel)
+    //console.log(this.paymentModel)
     if (this.paymentModel.id) {
       this.paymentService.updatePayment(this.paymentModel)
         .pipe(
@@ -256,10 +284,11 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.paymentRegisterId = this.paymentForm.value.paymentRegister;
     this.paymentModel.description = this.paymentForm.value.description;
     this.paymentModel.grossPayment = this.paymentForm.value.grossPayment;
-    this.paymentModel.discount = this.paymentForm.value.discount;
+    this.paymentModel.discount = this.paymentForm.value.discount || 0;
     this.paymentModel.campusId = this.paymentForm.value.campusId;
-    this.paymentModel.salesTax = this.paymentForm.value.salesTax;
-    this.paymentModel.incomeTax = this.paymentForm.value.incomeTax;
+    this.paymentModel.salesTax = this.paymentForm.value.salesTax || 0;
+    this.paymentModel.incomeTax = this.paymentForm.value.incomeTax || 0;
+    this.paymentModel.srbTax = this.paymentForm.value.SRBTax || 0;
     this.paymentModel.paymentRegisterType = this.paymentForm.value.registerType
     //this.paymentModel.documentTransactionId = 0;
   }
@@ -292,9 +321,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
  
   // Calculating net payment amount
   calculatingNetPayment(): void {
-    this.paymentForm.valueChanges.subscribe((val: IPayment) => {
+    this.paymentForm.valueChanges.subscribe((val) => {
       // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
-      this.netPayment = +(Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
+      this.netPayment = +(Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
     });
   }
   // open business partner dialog

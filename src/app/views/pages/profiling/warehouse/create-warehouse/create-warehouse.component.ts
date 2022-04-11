@@ -36,6 +36,8 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   //warehouse Model
   warehouse: IWarehouse;
 
+  title: string = 'Create Store'
+
   //CSV list
   // countryList: ICountry[];
   // stateList: IState[];
@@ -48,7 +50,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   //validation messages
   validationMessages = {
     name: {
-      required: 'Name is required'
+      required: 'Name is required.'
     },
     // country: {
     //   required: 'Country is required'
@@ -63,10 +65,10 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     //   required: 'Department is required'
     // },
     manager: {
-      required: 'Manager is required'
+      required: 'Officer Or Incharge is required.'
     },
     campusId: {
-      required: 'Campus is required'
+      required: 'Campus is required.'
     },
     // address: {
     //   required: 'Address is required'
@@ -113,6 +115,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     //this.getCountryList();
 
     if (this._id) {
+      this.title = 'Edit Store'
       this.isLoading = true
       this.getWarehouse(this._id);
     } else {
@@ -137,7 +140,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
       .subscribe(
         (warehouse: IApiResponse<IWarehouse>) => {
           this.isLoading = false;
-          console.log(warehouse)
+          //console.log(warehouse)
           this.editWarehouse(warehouse.result);
           this.warehouse = warehouse.result;
         },
@@ -201,7 +204,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-    console.log(this.warehouse)
+    //console.log(this.warehouse)
     if (this.warehouse.id) {
       this.ngxsService.warehouseService.updateWarehouse(this.warehouse)
         .pipe(
@@ -209,11 +212,11 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
           finalize(() => this.isLoading = false))
         .subscribe(() => {            
             this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
-            this.toastService.success('Updated Successfully', 'Warehouse')
+            this.toastService.success('Updated Successfully', 'Store')
             this.onCloseDialog();
           },
          
-          (err) => this.toastService.error('Something went wrong', 'Warehouse')
+          (err) => this.toastService.error('Something went wrong', 'Store')
         );
     } else {
       delete this.warehouse.id;
@@ -223,11 +226,11 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
           finalize(() => this.isLoading = false))
         .subscribe(() => {          
             this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
-            this.toastService.success('Created Successfully', 'Warehouse')
+            this.toastService.success('Created Successfully', 'Store')
             this.onCloseDialog();
           },
         
-          (err) => this.toastService.error('Something went wrong', 'Warehouse')
+          (err) => this.toastService.error('Something went wrong', 'Store')
         );
     }
   }
