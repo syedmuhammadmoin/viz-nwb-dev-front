@@ -86,7 +86,6 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
       workflowLines: this.fb.array([this.addWorkflowLines()])
     })
     this.activatedRoute.paramMap.subscribe((param) => {
-      console.log(param)
       const id = param.get('id');
       if (id) {
         this.title = 'Edit Workflow'
@@ -188,9 +187,8 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
 
     this.isLoading = true
     this.mapFormValuesToworkflowModel();
-    console.log(this.workflowModel);
+   // console.log(this.workflowModel);
     if (this.workflowModel.id) {
-      console.log('update');
       this.workflowService.updateWorkflow(this.workflowModel)
         .pipe(
           take(1),
@@ -211,9 +209,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
           }
         )
     } else {
-      console.log('create');
       delete this.workflowModel.id;
-      console.log('this.workflowModel', this.workflowModel);
       this.workflowService.createWorkflow(this.workflowModel)
         .pipe(
           take(1),
@@ -227,7 +223,6 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
             this.toastService.error('' + err?.error.message, 'Error Creating')
             this.isLoading = false;
             this.cdRef.detectChanges();
-            console.log(err)
           }
         );
     }
