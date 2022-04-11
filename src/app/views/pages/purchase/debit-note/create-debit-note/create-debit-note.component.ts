@@ -209,7 +209,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     const controls = <FormArray>this.debitNoteForm.controls['debitNoteLines'];
     controls.push(this.addDebitNoteLines());
     this.table.renderRows();
-    console.log(this.debitNoteForm)
   }
 
   addDebitNoteLines(): FormGroup {
@@ -313,9 +312,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
     this.isLoading = true;
     this.mapFormValuesToDebitNoteModel();
-    console.log(this.debitNoteModel)
+   // console.log(this.debitNoteModel)
     if (this.debitNoteModel.id) {
-      console.log(this.debitNoteModel)
       this.debitNoteService.updateDebitNote(this.debitNoteModel)
         .pipe(
           take(1),

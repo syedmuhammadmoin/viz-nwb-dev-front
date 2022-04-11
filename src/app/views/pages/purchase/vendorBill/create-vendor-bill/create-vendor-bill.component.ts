@@ -192,6 +192,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
+    
       // Calculating subtotal
       const quantity = arrayControl.at(index).get('quantity').value;
       const subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
@@ -204,10 +205,11 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
+    const otherTax = (arrayControl.at(index).get('anyOtherTax').value) !== null ? arrayControl.at(index).get('anyOtherTax').value : null;
     const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
 
     // calculating subTotal
-    const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
+    const subTotal = ((cost * quantity) + ((cost * quantity) * (salesTax / 100))) + otherTax
     arrayControl.at(index).get('subTotal').setValue(subTotal);
     this.totalCalculation();
   }
@@ -222,8 +224,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     arrayControl.controls.forEach((element, index) => {
       const cost = arrayControl.at(index).get('cost').value;
       const tax = arrayControl.at(index).get('tax').value;
+      const otherTax = arrayControl.at(index).get('anyOtherTax').value  || 0;
       const quantity = arrayControl.at(index).get('quantity').value;
-      this.totalTax += ((cost * quantity) * tax) / 100
+      this.totalTax += (((cost * quantity) * tax) / 100) + otherTax
       this.totalBeforeTax += cost * quantity;
       this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
     });

@@ -33,8 +33,6 @@ export class PrintDebitNoteComponent implements OnInit {
         const id = +params.get('id');
         if(id){
           this.getDebitNoteMasterData(id);
-        }else{
-          console.log('bong');
         }
       });
     }

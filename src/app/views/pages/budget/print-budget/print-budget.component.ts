@@ -45,7 +45,6 @@ export class PrintBudgetComponent implements OnInit {
 
   getBudgetData(id: number){
     this._budgetService.getBudgetById(id).subscribe((res: IApiResponse<IBudgetResponse>) =>{
-        console.log(res.result)
         this.budgetMaster = res.result;
         this.budgetLines = res.result.budgetLines;
         this.budgetLines.forEach((line: any) => {

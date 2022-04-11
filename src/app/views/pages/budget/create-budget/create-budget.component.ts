@@ -190,7 +190,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       return;
     }
     this.mapFormValuesToBudgetModel();
-    console.log(this.budgetModel)
+    //console.log(this.budgetModel)
     this.isLoading = true
     if (this.budgetModel.id) {
       this.budgetService.updateBudget(this.budgetModel)
@@ -213,7 +213,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         finalize(() => this.isLoading = false))
         .subscribe(() => {
           this.toastService.success('Created Successfully', 'Budget')
-          console.log('/' + BUDGET.LIST)
+          //console.log('/' + BUDGET.LIST)
           this.router.navigate(['/' + BUDGET.LIST])
         },
         (err) => {
@@ -229,7 +229,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.budgetModel.budgetName = this.budgetForm.value.budgetName;
     this.budgetModel.from = this.transformDate(this.budgetForm.value.from, 'yyyy-MM-dd');
     this.budgetModel.to = this.transformDate(this.budgetForm.value.to, 'yyyy-MM-dd');
-    console.log(this.budgetModel);
+  //  console.log(this.budgetModel);
     this.budgetModel.budgetLines = this.budgetForm.value.budgetLines;
   }
 }
