@@ -1,5 +1,6 @@
 // Angular
 import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { isEmpty } from 'lodash';
 // RxJS
 import { Subscription } from 'rxjs';
 // Layout
@@ -60,7 +61,9 @@ export class Subheader1Component implements OnInit, OnDestroy, AfterViewInit {
     }));
 
     this.subscriptions.push(this.subheaderService.breadcrumbs$.subscribe(bc => {
+    if(!isEmpty(bc)) {
       this.breadcrumbs = bc;
+    }
     }));
   }
 
