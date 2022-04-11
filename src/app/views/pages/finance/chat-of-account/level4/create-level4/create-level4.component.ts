@@ -68,7 +68,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
         this.level4Model = res.result;
         this.patchLevel4Form(this.level4Model);
       })
-      console.log(this.level4Form)
+      //console.log(this.level4Form)
     }
     if (this.data.parentId) {
       this.isLoading = true;
@@ -89,7 +89,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.mapFormValuesToInvoiceModel();
     if (this.level4Model.id) {
-      console.log("after : ",this.level4Model)
+      //console.log("after : ",this.level4Model)
       this.chartOfAccountService.updateLevel4Account(this.level4Model).pipe(
         take(1),
         finalize(() => this.isLoading = false))
@@ -116,7 +116,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
   // Mapping value to model
   mapFormValuesToInvoiceModel() {
-    console.log(this.level4Form.value.level3)
+    //console.log(this.level4Form.value.level3)
     this.level4Model.name = this.level4Form.value.transactionalAccount;
     // this.level4Model.level3_id = (this.level4Model.level3_id) || this.level4Form.value.level3;
     this.level4Model.level3_id = this.level4Form.value.level3 || this.level4Model.level3_id;
@@ -128,7 +128,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
   }
 
   private patchLevel4Form(level4Model: ILevel4) {
-    console.log("before : ",level4Model)
+    //console.log("before : ",level4Model)
     this.level4Form.patchValue({
       transactionalAccount: level4Model.name,
       level3: level4Model.level3_id

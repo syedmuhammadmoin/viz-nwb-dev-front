@@ -61,7 +61,7 @@ export class ChatOfAccountComponent implements OnInit {
   ngOnInit(): void {
     this.chartOfAccService.getChartOfAccount().subscribe((data) => {
       this.dataSource.data = data.result;
-      console.log('this.dataSource.data', this.dataSource.data);
+      //console.log('this.dataSource.data', this.dataSource.data);
       this.cdRef.detectChanges();
     });
   }
@@ -69,7 +69,7 @@ export class ChatOfAccountComponent implements OnInit {
   hasChild = (_: number, node: FlatNode) => node.expandable;
 
   addNewItem(node: FlatNode) {
-    console.log(node);
+    //console.log(node);
     // if (node.level == 1) {
     //   const dialogRef = this.dialog.open(CreateLevel3Component, {
     //     width: '800px',
@@ -115,7 +115,7 @@ export class ChatOfAccountComponent implements OnInit {
     //   });
     // }
     if (node.level === 3 && node.id) {
-      console.log('nodeId : ', node.id)
+      //console.log('nodeId : ', node.id)
       const dialogRef = this.dialog.open(CreateLevel4Component, {
         width: '800px',
         data: {modelId: node.id}

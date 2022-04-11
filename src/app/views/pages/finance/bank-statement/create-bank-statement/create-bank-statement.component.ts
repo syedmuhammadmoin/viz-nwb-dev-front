@@ -167,7 +167,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
     this.isLoading = true;
     this.mapFormValueToBankStatementModel();
-    console.log(this.bankStatementModel)
+    //console.log(this.bankStatementModel)
     if (this.bankStatementModel.id) {
       this.bankStatementService.updateBankStatement(this.bankStatementModel)
         .pipe(
@@ -181,7 +181,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
         );
     } else {
       delete this.bankStatementModel.id;
-      console.log(this.bankStatementModel)
+      //console.log(this.bankStatementModel)
       this.bankStatementService.addBankStatement(this.body)
         .pipe(
           take(1),
