@@ -134,9 +134,16 @@ export const CRUD_ROUTES = {
   }
 
   export const PAYMENT = {
-    LIST: APP_ROUTES.PAYMENT + '/' + CRUD_ROUTES.LIST,
+    LIST: APP_ROUTES.PAYMENT + '/basic/' + CRUD_ROUTES.LIST,
     ID_BASED_ROUTE (route: string , id: number) { 
-      return APP_ROUTES.PAYMENT + '/' + route + '/' + id
+      return APP_ROUTES.PAYMENT + '/basic/' + route + '/' + id
+    }
+  }
+
+  export const INTERNAL_RECEIPT = {
+    LIST: APP_ROUTES.PAYMENT + '/internal/' + CRUD_ROUTES.LIST,
+    ID_BASED_ROUTE (route: string , id: number) { 
+      return APP_ROUTES.PAYMENT + '/internal/' + route + '/' + id
     }
   }
 

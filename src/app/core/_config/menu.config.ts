@@ -332,6 +332,18 @@ export class MenuConfig {
               ]
             },
             {
+              title: 'Internal Receipt',
+              page: '/payment/internal/list',
+              permission: [
+                Permissions.INTERNALRECIPT_VIEW,
+                Permissions.INTERNALRECIPT_CREATE,
+                Permissions.INTERNALRECIPT_EDIT,
+                Permissions.INTERNALRECIPT_DELETE,
+                Permissions.INTERNALRECIPT_REVIEW,
+                Permissions.INTERNALRECIPT_APPROVE,
+              ]
+            },
+            {
               title: 'Journal Entry',
               page: '/' + JOURNAL_ENTRY.LIST,
               permission: [

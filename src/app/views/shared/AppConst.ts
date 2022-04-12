@@ -190,6 +190,14 @@ export class AppConst {
     'Permissions.PaymentClaims.Review': 'Payment Review',
     'Permissions.PaymentClaims.Approve': 'Payment Approve',
 
+    // Internal Receipt
+    'Permissions.InternalReciptClaims.View': 'Internal Recipt View',
+    'Permissions.InternalReciptClaims.Create': 'Internal Recipt Create',
+    'Permissions.InternalReciptClaims.Edit': 'Internal Recipt Update',
+    'Permissions.InternalReciptClaims.Delete': 'Internal Recipt Delete',
+    'Permissions.InternalReciptClaims.Review': 'Internal Recipt Review',
+    'Permissions.InternalReciptClaims.Approve': 'Internal Recipt Approve',
+
     // Credit Note
     'Permissions.CreditNoteClaims.View': 'Credit Note View',
     'Permissions.CreditNoteClaims.Create': 'Credit Note Create',
