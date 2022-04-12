@@ -25,6 +25,7 @@ import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Auth
 import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
 import { AUTH } from '../../shared/AppRoutes';
+import { ActionNotificationComponent } from '../../partials/content/crud';
 
 const routes: Routes = [
 	{
@@ -83,7 +84,8 @@ const routes: Routes = [
 		RegisterComponent,
 		ForgotPasswordComponent,
 		AuthNoticeComponent
-	]
+	],
+	entryComponents: [ActionNotificationComponent]
 })
 
 export class AuthModule {
@@ -91,7 +93,7 @@ export class AuthModule {
 		return {
 			ngModule: AuthModule,
 			providers: [
-				AuthService,
+				//AuthService,
 				AuthGuard
 			]
 		};
