@@ -6,6 +6,8 @@ import { PaymentService } from '../service/payment.service';
 import { Subscription } from 'rxjs';
 import { IPayment } from '../model/IPayment';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { DocType } from 'src/app/views/shared/AppEnum';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -19,6 +21,12 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
 
   gridOptions: GridOptions;
   paymentMaster: any;
+  selectedDocumented: any
+  documents = AppConst.Documents
+  paymentMasterData: any;
+  formName: any;
+  docType = DocType;
+
 
   //subscription
   subscription$: Subscription
@@ -29,7 +37,10 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     public sanitizer: DomSanitizer
-  ) { }
+  ) {
+    this.selectedDocumented = this.documents.find(x => x.id === this.activatedRoute.snapshot.data.docType).value
+    this.formName = this.selectedDocumented === 'Payment' ? 'Payment Voucher' : this.selectedDocumented 
+   }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params: Params) => {
@@ -49,7 +60,7 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
   }
 
   getPaymentMaster(id: number) {
-    this.paymentService.getPaymentById(id).subscribe((res: IApiResponse<IPayment>) => {
+    this.paymentService.getPaymentById(id, this.selectedDocumented).subscribe((res: IApiResponse<IPayment>) => {
       this.paymentMaster = res.result;
      // this.netPayment = (res.result.grossPayment - res.result.discount - res.result.incomeTax - res.result.salesTax);
       this.cdr.markForCheck();

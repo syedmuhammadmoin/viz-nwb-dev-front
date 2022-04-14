@@ -191,12 +191,12 @@ export class AppConst {
     'Permissions.PaymentClaims.Approve': 'Payment Approve',
 
     // Internal Receipt
-    'Permissions.InternalReciptClaims.View': 'Internal Recipt View',
-    'Permissions.InternalReciptClaims.Create': 'Internal Recipt Create',
-    'Permissions.InternalReciptClaims.Edit': 'Internal Recipt Update',
-    'Permissions.InternalReciptClaims.Delete': 'Internal Recipt Delete',
-    'Permissions.InternalReciptClaims.Review': 'Internal Recipt Review',
-    'Permissions.InternalReciptClaims.Approve': 'Internal Recipt Approve',
+    'Permissions.ReceiptClaims.View': 'Receipt View',
+    'Permissions.ReceiptClaims.Create': 'Receipt Create',
+    'Permissions.ReceiptClaims.Edit': 'Receipt Update',
+    'Permissions.ReceiptClaims.Delete': 'Receipt Delete',
+    'Permissions.ReceiptClaims.Review': 'Receipt Review',
+    'Permissions.ReceiptClaims.Approve': 'Receipt Approve',
 
     // Credit Note
     'Permissions.CreditNoteClaims.View': 'Credit Note View',
@@ -322,12 +322,13 @@ export class AppConst {
   ]
 
   static Documents = [
-    {value: 'Payment', id: DocType.Payment},
+    {value: 'Payment', id: DocType.Payment, route: 'voucher'},
     {value: 'Credit Note', id: DocType.CreditNote},
     {value: 'Debit Note', id: DocType.DebitNote},
     {value: 'Invoice', id: DocType.Invoice},
     {value: 'Bill', id: DocType.Bill},
     {value: 'Journal Voucher', id: DocType.JournalEntry},
+    {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'}
     //{value: 'purchase Order', id: DocType.PurchaseOrder},
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},

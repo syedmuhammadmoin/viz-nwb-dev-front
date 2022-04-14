@@ -158,18 +158,18 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     this.isLoading = true;
     this.mapFormValueToPaymentModel();
     delete this.paymentModel.id;
-    this.paymentService.addPayment(this.paymentModel)
-      .pipe(
-        take(1),
-        finalize(() => this.isLoading = false))
-      .subscribe(
-        (res) => {
-          this.toastService.success('' + res.message, 'Payment');
-          this.dialogRef.close(this.registerPaymentForm.value);
-          this.dialogRef.close()
-        },
-        (err) => console.log(err)
-      );
+    // this.paymentService.addPayment(this.paymentModel)
+    //   .pipe(
+    //     take(1),
+    //     finalize(() => this.isLoading = false))
+    //   .subscribe(
+    //     (res) => {
+    //       this.toastService.success('' + res.message, 'Payment');
+    //       this.dialogRef.close(this.registerPaymentForm.value);
+    //       this.dialogRef.close()
+    //     },
+    //     (err) => console.log(err)
+    //   );
   }
 
   // Mapping values from form to payment model

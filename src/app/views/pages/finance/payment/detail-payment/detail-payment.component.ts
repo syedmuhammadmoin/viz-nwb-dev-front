@@ -38,6 +38,11 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   action = ActionButton;
   docType = DocType;
 
+  printRoute: any;
+  selectedFormType: any;
+  formName: string;
+  documents = AppConst.Documents
+
   // need for routing
   paymentId: number;
 
@@ -48,6 +53,9 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
                  injector: Injector
                ) {
                    super(injector)
+                   this.selectedFormType = this.route.snapshot.data.docType;
+                   this.formName = this.documents.find(x=> x.id === this.selectedFormType).value;
+                   this.printRoute = this.documents.find(x=> x.id === this.selectedFormType).route;
                  }
   
     ngOnInit() {
@@ -63,7 +71,7 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   
     //Getting Payment Master data
     getPaymentData(id: number) {
-      this.subscription$ = this.paymentService.getPaymentById(id).subscribe(
+      this.subscription$ = this.paymentService.getPaymentById(id, this.documents.find(x=>x.id === this.selectedFormType).value).subscribe(
         (res) => {
           this.paymentMaster = res.result;
           // this.status = AppConst.ConsileOrReconcile[this.paymentMaster.bankReconStatus]
@@ -76,13 +84,13 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
           // const tax = res.result.salesTax + res.result.incomeTax
           this.cdr.markForCheck();
         }, 
-        (err) => console.log(err));
+       (err) => console.log(err));
   }
 
   addPaymentDialog(id?: number): void {
     const dialogRef = this.dialog.open(CreatePaymentComponent, {
       width: '760px',
-      data: id
+      data: {id, docType: this.selectedFormType}
     });
     // Recalling getInvoiceMasterData function on dialog close
     dialogRef.afterClosed().subscribe(() => {
@@ -93,15 +101,15 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   workflow(action: number) {
     this.isLoading = true;
     const body: IWorkflow = {docId: this.paymentMaster.id, action}
-    this.paymentService.paymentWorkflow(body).subscribe((res) => {
+    this.paymentService.paymentWorkflow(body, this.formName).subscribe((res) => {
       this.getPaymentData(this.paymentId);
       this.cdr.detectChanges();
       this.isLoading = false;
-      this.toastService.success('' + res.message, 'Payment');
+      this.toastService.success('' + res.message, '' + this.formName);
     }, (err) => {
       this.isLoading = false
       this.cdr.detectChanges();
-      this.toastService.error('' + err.error.message, 'Payment');
+      this.toastService.error('' + err.error.message, '' + this.formName);
     })
   }
 

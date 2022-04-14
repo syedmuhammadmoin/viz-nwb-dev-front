@@ -11,12 +11,13 @@ const documents = DocType
 
 const routes : Routes = [
   {
-    path:'basic',
+    path:'voucher',
     children: [
       {
         path: CRUD_ROUTES.LIST, 
         component: ListPaymentComponent,
         data: {
+          docType: documents.Payment,
           array: [
             { permission: Permissions.PAYMENT_VIEW },
             { permission: Permissions.PAYMENT_CREATE },
@@ -31,6 +32,7 @@ const routes : Routes = [
         path: CRUD_ROUTES.DETAILS,
         component: DetailPaymentComponent,
         data: {
+          docType: documents.Payment,
           array: [
             { permission: Permissions.PAYMENT_VIEW },
             { permission: Permissions.PAYMENT_CREATE },
@@ -42,6 +44,7 @@ const routes : Routes = [
         path: CRUD_ROUTES.PRINT,
         component: PaymentInvoiceComponent,
         data: {
+          docType: documents.Payment,
           array: [
             { permission: Permissions.PAYMENT_VIEW },
             { permission: Permissions.PAYMENT_CREATE },
@@ -52,17 +55,17 @@ const routes : Routes = [
     ]
   },
   {
-    path: 'internal',
+    path: 'receipt',
     children: [
       {
         path: CRUD_ROUTES.LIST,
         component: ListPaymentComponent,
         data: {
-          docType: documents.InternalReceipt,
+          docType: documents.Receipt,
           array: [
-            { permission: Permissions.INTERNALRECIPT_VIEW },
-            { permission: Permissions.INTERNALRECIPT_CREATE },
-            { permission: Permissions.INTERNALRECIPT_EDIT },
+            { permission: Permissions.RECEIPT_VIEW },
+            { permission: Permissions.RECEIPT_CREATE },
+            { permission: Permissions.RECEIPT_EDIT },
           ]
         },
         canActivate: [PermissionGuard],
@@ -71,11 +74,11 @@ const routes : Routes = [
         path: CRUD_ROUTES.DETAILS,
         component: DetailPaymentComponent,
         data: {
-          docType: documents.InternalReceipt,
+          docType: documents.Receipt,
           array: [
-            { permission: Permissions.INTERNALRECIPT_VIEW },
-            { permission: Permissions.INTERNALRECIPT_CREATE },
-            { permission: Permissions.INTERNALRECIPT_EDIT },
+            { permission: Permissions.RECEIPT_VIEW },
+            { permission: Permissions.RECEIPT_CREATE },
+            { permission: Permissions.RECEIPT_EDIT },
           ]
         },
         canActivate: [PermissionGuard],
@@ -84,11 +87,11 @@ const routes : Routes = [
         path: CRUD_ROUTES.PRINT,
         component: PaymentInvoiceComponent,
         data: {
-          docType: documents.InternalReceipt,
+          docType: documents.Receipt,
           array: [
-            { permission: Permissions.INTERNALRECIPT_VIEW },
-            { permission: Permissions.INTERNALRECIPT_CREATE },
-            { permission: Permissions.INTERNALRECIPT_EDIT },
+            { permission: Permissions.RECEIPT_VIEW },
+            { permission: Permissions.RECEIPT_CREATE },
+            { permission: Permissions.RECEIPT_EDIT },
           ]
         },
         canActivate: [PermissionGuard],

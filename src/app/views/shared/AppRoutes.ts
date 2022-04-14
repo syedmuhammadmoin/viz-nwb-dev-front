@@ -134,16 +134,16 @@ export const CRUD_ROUTES = {
   }
 
   export const PAYMENT = {
-    LIST: APP_ROUTES.PAYMENT + '/basic/' + CRUD_ROUTES.LIST,
+    LIST: APP_ROUTES.PAYMENT + '/voucher/' + CRUD_ROUTES.LIST,
     ID_BASED_ROUTE (route: string , id: number) { 
-      return APP_ROUTES.PAYMENT + '/basic/' + route + '/' + id
+      return APP_ROUTES.PAYMENT + '/voucher/' + route + '/' + id
     }
   }
 
-  export const INTERNAL_RECEIPT = {
-    LIST: APP_ROUTES.PAYMENT + '/internal/' + CRUD_ROUTES.LIST,
+  export const RECEIPT = {
+    LIST: APP_ROUTES.PAYMENT + '/receipt/' + CRUD_ROUTES.LIST,
     ID_BASED_ROUTE (route: string , id: number) { 
-      return APP_ROUTES.PAYMENT + '/internal/' + route + '/' + id
+      return APP_ROUTES.PAYMENT + '/receipt/' + route + '/' + id
     }
   }
 
