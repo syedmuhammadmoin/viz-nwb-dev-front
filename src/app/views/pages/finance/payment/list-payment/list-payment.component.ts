@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnDestroy, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -11,6 +11,7 @@ import { CreatePaymentComponent } from '../create-payment/create-payment.compone
 import { PAYMENT } from 'src/app/views/shared/AppRoutes';
 import { IPayment } from '../model/IPayment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-list-payment',
@@ -24,6 +25,9 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   public permissions = Permissions;
   docType = DocType
   paymentList: IPayment[];
+  FormName: string;
+  documents = AppConst.Documents;
+  selectedDocumentType: number;
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
@@ -40,9 +44,12 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     private router: Router,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute,
     injector: Injector
   ) {
     super(injector)
+    this.selectedDocumentType = this.activatedRoute.snapshot.data.docType;
+    this.FormName = this.documents.find(x => x.id === this.selectedDocumentType).value
     this.gridOptions = <GridOptions>(
       {
         context: { componentParent: this }
@@ -148,13 +155,13 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.router.navigate(['/' + PAYMENT.ID_BASED_ROUTE('details', event.data.id)]);
+    this.router.navigate(['/payment/'+ this.documents.find(x => x.id === this.selectedDocumentType).route +'/details/' + event.data.id])
   }
 
   addPaymentDialog(id?: number): void {
     const dialogRef = this.dialog.open(CreatePaymentComponent, {
       width: '800px',
-      data: id
+      data: { id, docType: this.selectedDocumentType }
     });
     // Recalling getPaymets function on dialog close
     dialogRef.afterClosed().subscribe(() => {
@@ -169,14 +176,15 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     params.api.setDatasource(this.dataSource);
   }
 
-  async getBankAccounts(params: any): Promise<IPaginationResponse<IPayment[]>> {
-    const result = await this.paymentService.getPayments().toPromise()
+  async getPayments(params: any): Promise<IPaginationResponse<IPayment[]>> {
+    const result = await this.paymentService.getPayments(this.documents.find(x => x.id === this.selectedDocumentType).value).toPromise()
+    console.log(result)
     return result
   }
 
   dataSource = {
     getRows: async (params: any) => {
-     const res = await this.getBankAccounts(params);
+     const res = await this.getPayments(params);
 
      if (!res.result) { 
       this.gridApi.showNoRowsOverlay() 

@@ -3,10 +3,10 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        <kt-portlet-header [sticky]="false" [title]="'Payment Detail'" [class]="'card-head-lg'">
+        <kt-portlet-header [sticky]="false" [title]="formName + ' Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
-            <button [routerLink]="'/' + paymentRoute.ID_BASED_ROUTE('print' , paymentMaster?.id)" type="button" mat-raised-button  class="btn_white mr-3">
-                Print Payment Invoice
+            <button [routerLink]="'/payment/' + printRoute + '/print/' + paymentMaster?.id" type="button" mat-raised-button  class="btn_white mr-3">
+                Print {{formName}}
             </button>
             <button *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected)"
                 (click)="addPaymentDialog(paymentId)" class="btn_white mr-3" mat-raised-button type="button"> Edit

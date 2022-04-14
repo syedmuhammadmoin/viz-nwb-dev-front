@@ -11,49 +11,64 @@ import { IPayment } from '../model/IPayment';
 @Injectable({
     providedIn: 'root',
   })
+
 export class PaymentService {
 
-    baseUrl = environment.baseUrl + 'payment';
+  baseUrl = environment.baseUrl + 'payment';
 
-    constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-    getPayments(): Observable<IPaginationResponse<IPayment[]>> {
-        return this.httpClient.get<IPaginationResponse<IPayment[]>>(this.baseUrl)
-            .pipe(catchError(this.handleError))
-    }
+  getPayments(paymentType: string): Observable<IPaginationResponse<IPayment[]>> {
+    const url = environment.baseUrl + paymentType.replace(/ /g, '');
+    return this.httpClient.get<IPaginationResponse<IPayment[]>>(url)
+      .pipe(catchError(this.handleError))
+  }
 
-    getPaymentById(id : number): Observable<IApiResponse<IPayment>> {
-        return this.httpClient.get<IApiResponse<IPayment>>(this.baseUrl +'/'+id)
-            .pipe(catchError(this.handleError))
-    }
+  getPaymentById(id : number, docType: string): Observable<IApiResponse<IPayment>> {
+    const url = environment.baseUrl + docType.replace(/ /g, '')
+    return this.httpClient.get<IApiResponse<IPayment>>(url +'/'+id)
+      .pipe(catchError(this.handleError)) 
+  }
 
-    addPayment(payment: IPayment): Observable<IApiResponse<IPayment>> {
-        return this.httpClient.post<IApiResponse<IPayment>>(`${this.baseUrl}`, payment, {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        }).pipe(catchError(this.handleError));
-    }
-
-    updatePayment(payment: IPayment): Observable<void> {
-        return this.httpClient.put<void>(this.baseUrl + `/${payment.id}`, payment, {
-          headers: new HttpHeaders({
+  addPayment(payment: IPayment, docType: string): Observable<IApiResponse<IPayment>> {
+    const url = environment.baseUrl + docType.replace(/ /g, '')
+    return this.httpClient.post<IApiResponse<IPayment>>(`${url}`, payment, {
+        headers: new HttpHeaders({
             'Content-Type': 'application/json'
-          })
-        });
-      }
+        })
+    }).pipe(catchError(this.handleError));
+  }
 
-      paymentWorkflow(body: IWorkflow): Observable<any> {
-        return this.httpClient.post(this.baseUrl + '/workflow', body)
-      }
+  updatePayment(payment: IPayment, docType: string): Observable<void> {
+    const url = environment.baseUrl + docType.replace(/ /g, '')
+    return this.httpClient.put<void>(url + `/${payment.id}`, payment, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
 
-    // for error handling.....
-    private handleError(errorResponse: HttpErrorResponse) {
-        if (errorResponse.error instanceof ErrorEvent) {
-            console.error('Client Side Error :', errorResponse.error.message);
-        } else {
-            console.error('Server Side Error :', errorResponse);
-        }
-        return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
-    }
+  paymentWorkflow(body: IWorkflow, docType: string): Observable<any> {
+    const url = environment.baseUrl + docType.replace(/ /g, '')
+    return this.httpClient.post(url + '/workflow', body)
+  }
+
+  // uploadFile(id: number, file: File): Observable<any> {
+
+  //   const formData = new FormData();
+  //   formData.append('file', file, file.name);
+
+  //   return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+  //     .pipe(catchError(this.handleError))
+  // }
+
+  // for error handling.....
+  private handleError(errorResponse: HttpErrorResponse) {
+      if (errorResponse.error instanceof ErrorEvent) {
+          console.error('Client Side Error :', errorResponse.error.message);
+      } else {
+          console.error('Server Side Error :', errorResponse);
+      }
+      return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
+  }
 }

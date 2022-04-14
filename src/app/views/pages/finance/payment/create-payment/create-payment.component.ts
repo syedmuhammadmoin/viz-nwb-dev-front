@@ -13,10 +13,9 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { PAYMENT } from 'src/app/views/shared/AppRoutes';
+import { PAYMENT, RECEIPT } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICashAccount } from '../../cash-account/model/ICashAccount';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
 import { MatRadioChange } from '@angular/material/radio';
 
@@ -33,6 +32,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   public permissions = Permissions;
   // doc type enum
   docType = DocType
+
+  formName: string = ''
   
   // for document type app constant
   documents = AppConst.Documents
@@ -57,7 +58,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
   paymentMaster: any;
 
-  title: string = 'Create Payment'
+  title: string = 'Create '
 
   dateLimit: Date = new Date()
 
@@ -67,9 +68,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     registerType: {
       required : 'Register Type is required'
     },
-    paymentType: {
-      required: 'Payment Type is required'
-    },
+    // paymentType: {
+    //   required: 'Payment Type is required'
+    // },
     date: {
       required: 'Date is required'
     },
@@ -109,7 +110,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   // Error keys
   formErrors = {
     registerType: '',
-    paymentType: '',
+   // paymentType: '',
     date: '',
     description: '',
     businessPartner: '',
@@ -134,22 +135,23 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     public ngxsService:NgxsCustomService,
     private route: Router,
     private cdRef: ChangeDetectorRef,
-    @Optional() @Inject(MAT_DIALOG_DATA) public _id: number,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreatePaymentComponent>,
     injector: Injector
   ) {
     super(injector)
+    this.formName = this.documents.find(x => x.id === this.data.docType).value
   }
 
   groups = [
-    {id: 1, viewValue: 'Inflow'},
-    {id: 2, viewValue: 'Outflow'}
+    {id: 0, viewValue: 'Inflow'},
+    {id: 1, viewValue: 'Outflow'}
   ];
 
   ngOnInit() {
     this.paymentForm = this.fb.group({
       registerType: ['', [Validators.required]],
-      paymentType: ['', [Validators.required]],
+      //paymentType: ['', [Validators.required]],
       date: ['', [Validators.required]],
       description: ['', [Validators.required]],
       businessPartner: ['', [Validators.required]],
@@ -167,10 +169,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.loadAccountList({value: 2})
 
     // initializing payment model
-    if (this._id) {
-      this.title = 'Edit Payment'
+    if (this.data.id) {
+      this.title = 'Edit '
       this.isLoading = true;
-      this.getPayment(this._id);
+      this.getPayment(this.data.id);
       this.cdRef.markForCheck();
     } else {
       // initializing payment model
@@ -201,7 +203,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   }
 
   getPayment(id: number) {
-    this.paymentService.getPaymentById(id)
+    this.paymentService.getPaymentById(id, this.documents.find(x => x.id === this.data.docType).value)
       .subscribe(
         (payment: IApiResponse<IPayment>) => {
           this.paymentMaster = payment.result;
@@ -217,7 +219,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   editPayment(payment: IPayment) {
     //console.log(payment.srbTax)
     this.paymentForm.patchValue({
-      registerType: payment.paymentRegisterType,
+      registerType: 2,
       paymentType: payment.paymentType,
       date: payment.paymentDate,
       description: payment.description,
@@ -228,7 +230,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       campusId: payment.campusId,
       discount: payment.discount,
       salesTax: payment.salesTax,
-      SRBTax : payment.srbTax ,
+      SRBTax : payment.srbTax || 0,
       incomeTax: payment.incomeTax,
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
@@ -247,28 +249,28 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
     this.isLoading = true;
     this.mapFormValueToPaymentModel();
-    //console.log(this.paymentModel)
+    console.log(this.paymentModel)
     if (this.paymentModel.id) {
-      this.paymentService.updatePayment(this.paymentModel)
+      this.paymentService.updatePayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
         .pipe(
           take(1),
           finalize(() => this.isLoading = false))
         .subscribe(() => {
-            this.toastService.success('Updated Successfully', 'Payment')
-            this.route.navigate(['/' + PAYMENT.ID_BASED_ROUTE('details' , this.paymentModel.id )])
+            this.toastService.success('Updated Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
+            this.route.navigate(['/payment/'+ this.documents.find(x => x.id === this.data.docType).route +'/details/' + this.paymentModel.id])
             this.onCloseDialog()
           },
           (err) => this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating')
         );
     } else {
       delete this.paymentModel.id;
-      this.subscription$ = this.paymentService.addPayment(this.paymentModel)
+      this.subscription$ = this.paymentService.addPayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
         .pipe(
           take(1),
           finalize(() => this.isLoading = false))
         .subscribe(() => {
-            this.toastService.success('Registered Successfully', 'Payment')
-            this.route.navigate(['/' + PAYMENT.LIST])
+            this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
+            this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : RECEIPT.LIST)])
             this.onCloseDialog();
           },
           (err) => this.toastService.error(`${err.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
@@ -277,7 +279,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   }
 
   mapFormValueToPaymentModel() {
-    this.paymentModel.paymentType = this.paymentForm.value.paymentType;
+    this.paymentModel.paymentType = (this.formName === "Payment") ? 1 : 0
     this.paymentModel.businessPartnerId = this.paymentForm.value.businessPartner;
     this.paymentModel.accountId = this.paymentForm.value.account;
     this.paymentModel.paymentDate = this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd');
@@ -289,7 +291,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.salesTax = this.paymentForm.value.salesTax || 0;
     this.paymentModel.incomeTax = this.paymentForm.value.incomeTax || 0;
     this.paymentModel.srbTax = this.paymentForm.value.SRBTax || 0;
-    this.paymentModel.paymentRegisterType = this.paymentForm.value.registerType
+    // this.paymentModel.paymentRegisterType = this.paymentForm.value.registerType
+    this.paymentModel.paymentRegisterType = 2
     //this.paymentModel.documentTransactionId = 0;
   }
 

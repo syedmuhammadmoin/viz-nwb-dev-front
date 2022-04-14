@@ -178,7 +178,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 			.subscribe(
 				() => { },
 				(e) => {
-					this.layoutUtilService.showActionNotification(e?.error?.message, null, 5000, true, false)
+					//this.layoutUtilService.showActionNotification(e?.error?.message, null, 5000, true, false)
 					this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN') + ', ' + e?.error?.message, 'danger');
 				});
 	}

@@ -250,6 +250,11 @@ export class MenuConfig {
             Permissions.PAYMENT_DELETE,
             Permissions.PAYMENT_REVIEW,
             Permissions.PAYMENT_APPROVE,
+            Permissions.RECEIPT_CREATE,
+            Permissions.RECEIPT_EDIT,
+            Permissions.RECEIPT_DELETE,
+            Permissions.RECEIPT_REVIEW,
+            Permissions.RECEIPT_APPROVE,
             Permissions.BANKSTATEMENT_VIEW,
             Permissions.BANKSTATEMENT_CREATE,
             Permissions.BANKSTATEMENT_EDIT,
@@ -329,6 +334,17 @@ export class MenuConfig {
                 Permissions.PAYMENT_DELETE,
                 Permissions.PAYMENT_REVIEW,
                 Permissions.PAYMENT_APPROVE,
+              ]
+            },
+            {
+              title: 'Receipt',
+              page: '/payment/receipt/list',
+              permission: [
+                Permissions.RECEIPT_CREATE,
+                Permissions.RECEIPT_EDIT,
+                Permissions.RECEIPT_DELETE,
+                Permissions.RECEIPT_REVIEW,
+                Permissions.RECEIPT_APPROVE,
               ]
             },
             {

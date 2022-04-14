@@ -147,6 +147,14 @@ export class Permissions {
   static PAYMENT_REVIEW = 'Permissions.PaymentClaims.Review';
   static PAYMENT_APPROVE = 'Permissions.PaymentClaims.Approve';
 
+  // Internal Recipt
+  static RECEIPT_VIEW = 'Permissions.ReceiptClaims.View';
+  static RECEIPT_CREATE = 'Permissions.ReceiptClaims.Create';
+  static RECEIPT_EDIT = 'Permissions.ReceiptClaims.Edit';
+  static RECEIPT_DELETE = 'Permissions.ReceiptClaims.Delete';
+  static RECEIPT_REVIEW = 'Permissions.ReceiptClaims.Review';
+  static RECEIPT_APPROVE = 'Permissions.ReceiptClaims.Approve';
+
   // Credit Note
   static CREDITNOTE_VIEW = 'Permissions.CreditNoteClaims.View';
   static CREDITNOTE_CREATE = 'Permissions.CreditNoteClaims.Create';
@@ -242,7 +250,10 @@ export enum DocType {
   SalesOrder,
   GRN,
   GDN,
-  InventoryAdjustment
+  InventoryAdjustment,
+  Quotation,
+  Requisition,
+  Receipt
 }
 
 // export enum DocStatus {
