@@ -25,16 +25,16 @@ const routes: Routes = [
         },
         canActivate: [PermissionGuard]
       },
-      // {
-      //   path: REPORT.TRIAL_BALANCE,
-      //   component: TrialBalanceComponent,
-      //   data: {
-      //     array: [
-      //       { permission: Permissions.TRIALBALANCE_VIEW },
-      //     ]
-      //   },
-      //   canActivate: [PermissionGuard]
-      // },
+      {
+        path: REPORT.TRIAL_BALANCE,
+        component: TrialBalanceComponent,
+        data: {
+          array: [
+            { permission: Permissions.TRIALBALANCE_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard]
+      },
       // {
       //   path: REPORT.BALANCE_SHEET,
       //   children:[

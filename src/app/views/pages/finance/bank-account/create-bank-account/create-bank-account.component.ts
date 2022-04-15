@@ -217,12 +217,12 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccountForm.get('bankName').reset()
     this.bankAccountForm.get('branch').reset()
     this.bankAccountForm.get('accountTitle').reset()
-    this.bankAccountForm.get('OBDate').reset()
     this.bankAccountForm.get('purpose').reset()
-    this.bankAccountForm.get('campusId').reset()
     if(!this._id) {
       this.bankAccountForm.get('bankAccountType').reset()
       this.bankAccountForm.get('openingBalance').reset()
+      this.bankAccountForm.get('OBDate').reset()
+      this.bankAccountForm.get('campusId').reset()
     }
     this.logValidationErrors(this.bankAccountForm , this.formErrors , this.validationMessages)
   }

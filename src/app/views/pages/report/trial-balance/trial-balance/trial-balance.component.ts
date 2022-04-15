@@ -9,7 +9,7 @@ import { DepartmentService } from 'src/app/views/pages/profiling/department/serv
 import { LocationService } from 'src/app/views/pages/profiling/location/service/location.service';
 import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
 import { ITrialBalance } from '../model/ITrialBalance';
-import { RowNode } from 'ag-grid-community';
+import { GridReadyEvent, RowNode, ValueFormatterParams } from 'ag-grid-community';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { TrialBalanceService } from '../service/trial-balance.service';
 import { isEmpty } from 'lodash';
@@ -35,6 +35,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   autoGroupColumnDef: any;
   trialBalanceForm: FormGroup;
   trialBalanceModel = {} as ITrialBalance
+  // totals = {} as any
+  totals : any = {}
 
   //data for PDF
   recordsData: any = []
@@ -91,8 +93,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
             headerName: 'Debit',
             field: 'debitOB',
             filter: 'agNumberColumnFilter',
-            aggFunc: 'sum',
-            valueFormatter: (params) => {
+            //aggFunc: 'sum',
+            valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             },
             cellClass: 'my__margin'
@@ -101,8 +103,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
             headerName: 'Credit',
             field: 'creditOB',
             filter: 'agNumberColumnFilter',
-            aggFunc: 'sum',
-            valueFormatter: (params) => {
+            //aggFunc: 'sum',
+            valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
           },
@@ -115,8 +117,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debit',
-            aggFunc: 'sum',
-            valueFormatter: (params) => {
+            //aggFunc: 'sum',
+            valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             }
           },
@@ -124,8 +126,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
             headerName: 'Credit',
             field: 'credit',
             filter: 'agNumberColumnFilter',
-            aggFunc: 'sum',
-            valueFormatter: (params) => {
+            //aggFunc: 'sum',
+            valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
           },
@@ -137,17 +139,17 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debitCB',
-            aggFunc: 'sum',
-            valueFormatter: (params) => {
+            //aggFunc: 'sum',
+            valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             }
           },
           {
             headerName: 'Credit',
             field: 'creditCB',
-            aggFunc: 'sum',
+            //aggFunc: 'sum',
             filter: 'agNumberColumnFilter',
-            valueFormatter: (params) => {
+            valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
           },
@@ -172,15 +174,18 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
       accountName: [''],
-      organization: [''],
-      warehouse: [''],
-      department: [''],
-      location: ['']
+      campusName: ['']
+      // organization: [''],
+      // warehouse: [''],
+      // department: [''],
+      // location: ['']
     });
      // get Ware house location from state
     this.ngxsService.getWarehouseFromState();    
     // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
+    // get Campuses of level 4 from state
+    this.ngxsService.getCampusFromState()
     // get location from state
     //this.ngxsService.getLocationFromState();
     // get department from state
@@ -191,7 +196,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     // params.api.sizeColumnsToFit();
   }
 
-  onGridReady(params) {
+  onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;    
   }
@@ -203,18 +208,21 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     }
 
     const body = { ...this.trialBalanceForm.value } as ITrialBalance
-    body.docDate = this.transformDate(new Date(body.docDate), 'MMM d, y')
-    body.docDate2 = this.transformDate(new Date(body.docDate2), 'MMM d, y')
-    console.log(body);
+    // body.docDate = this.transformDate(new Date(body.docDate), 'MMM d, y') 
+    // body.docDate2 = this.transformDate(new Date(body.docDate2), 'MMM d, y')
+    body.docDate = this.formatDate(body.docDate)
+    body.docDate2 = this.formatDate(body.docDate2)
+    
     this.isLoading = true;
     this.trialBalanceService.getTrialBalance(body).pipe(map((res: any) => {
       return res.result.map((response: ITrialBalance) => {
         return response
       });
     })).subscribe((result: ITrialBalance[]) => {
-      console.log(result);
       this.rowData = result;
       this.recordsData = result;
+      //this.totals = this.calculateTotal(result, 'creditCB', 'debitCB', 'creditOB', 'debitOB', 'credit', 'debit')
+    
       //for PDF
       (!isEmpty(result)) ? this.disability = false : this.disability = true;
       if (isEmpty(result)) {
@@ -228,6 +236,20 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
       }, 500)
     });
+  }
+
+  formatDate(date) {
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
 
@@ -245,10 +267,10 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     // list of columns fo aggregation
     const columnsWithAggregation = ['debitOB', 'creditOB', 'debit', 'credit', 'debitCB', 'creditCB']
     columnsWithAggregation.forEach(element => {
-      console.log('element', element);
+     // console.log('element', element);
       this.gridApi.forEachNodeAfterFilter((rowNode: RowNode) => {
         if (rowNode.data[element])
-          console.log('forEach if: ', rowNode.data[element]);
+          //console.log('forEach if: ', rowNode.data[element]);
         target[element] += Number(rowNode.data[element].toFixed(2));
 
         //for PDF
@@ -274,7 +296,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         }
       });
       if (target[element]) {
-        console.log('if: ', target[element]);
+        //console.log('if: ', target[element]);
         target[element] = target[element]
         // .toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
@@ -282,6 +304,21 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     target.accountName = 'Total'
     // console.log(target);
     return target;
+  }
+
+  calculateTotal(res: ITrialBalance[], ...keys) : any {
+    const objectToReturn = {}
+    keys.forEach((key) => {
+      res.map((item) => {
+        if (objectToReturn[key]) {
+          objectToReturn[key] += item[key]
+        } else {
+          objectToReturn[key] = item[key]
+        }
+      })
+    })
+    //console.log(objectToReturn)
+    return objectToReturn
   }
 
   reset() {

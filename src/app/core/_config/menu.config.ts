@@ -650,7 +650,7 @@ export class MenuConfig {
           icon: 'flaticon2-graphic',
           permission: [
             Permissions.GENERALLEDGER_VIEW,
-            // Permissions.TRIALBALANCE_VIEW,
+            Permissions.TRIALBALANCE_VIEW,
             // Permissions.BALANCESHEET_VIEW,
             // Permissions.PROFITLOSS_VIEW
           ],
@@ -676,13 +676,13 @@ export class MenuConfig {
             //     Permissions.PROFITLOSS_VIEW,
             //   ]
             // },
-            // {
-            //   title: 'Trial Balance',
-            //   page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
-            //   permission: [
-            //     Permissions.TRIALBALANCE_VIEW,
-            //   ]
-            // },
+            {
+              title: 'Trial Balance',
+              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
+              permission: [
+                Permissions.TRIALBALANCE_VIEW,
+              ]
+            },
           ]
         },
         // // {section: 'Workflow'},

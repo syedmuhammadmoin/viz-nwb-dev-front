@@ -29,8 +29,8 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Account:</label>
-                <kt-simple-dropdown formControlName="accountName" matFormFieldClass="full-width"
-                  placeholder="Select Account" [optionList]="ngxsService.accountsLevel4$"
+                <kt-simple-dropdown formControlName="accountName" matFormFieldClass="full-width" isDisabledNone="true"
+                  placeholder="Select Account" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
                   searchPlaceholder="Search accounts..." propertyName="name" propertyValue="name"></kt-simple-dropdown>
               </div>
             </div>
@@ -38,23 +38,33 @@
           <div class="row">
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
+                <label class="col-form-label">Campus:</label>
+                <kt-simple-dropdown formControlName="campusName" matFormFieldClass="full-width" isDisabledNone="true"
+                  placeholder="Select Campus" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
+                  searchPlaceholder="Search campuses..." propertyName="name" propertyValue="name"></kt-simple-dropdown>
+              </div>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col-lg-4">
+              <div class="form-group kt-form__group">
                 <label class="col-form-label">Department:</label>
-                <!-- <kt-simple-dropdown formControlName="department" matFormFieldClass="full-width"
+                <kt-simple-dropdown formControlName="department" matFormFieldClass="full-width"
                   placeholder="Select Department" 
                   [optionList]="ngxsService.departments$"
                     
                   searchPlaceholder="Search departments..." propertyName="name" propertyValue="name">
-                </kt-simple-dropdown> -->
+                </kt-simple-dropdown> 
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Location:</label>
-                <!-- <kt-simple-dropdown formControlName="location" matFormFieldClass="full-width"
+                 <kt-simple-dropdown formControlName="location" matFormFieldClass="full-width"
                   placeholder="Select Location" 
                   [optionList]="ngxsService.locations$"
                  
-                  searchPlaceholder="Search location..." propertyName="name" propertyValue="name"></kt-simple-dropdown> -->
+                  searchPlaceholder="Search location..." propertyName="name" propertyValue="name"></kt-simple-dropdown> 
               </div>
             </div>
             <div class="col-lg-4">
@@ -67,16 +77,16 @@
                   searchPlaceholder="Search warehouse..." propertyName="name" propertyValue="name"></kt-simple-dropdown>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- endregion -->
           <!-- region Second Row -->
           <div class="row">
-            <div class="col-lg-4 text-right justify-content-start align-items-center d-flex">
+            <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mb-3">
               <div class="form-group kt-form__group">
                 <button class="mr-3 btn_white" mat-raised-button type="reset" (click)="reset()">Reset</button>
                 <button class="sub___btn" mat-raised-button type="submit">Fetch Records</button>
                 <!--For PDF-->
-                <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf>
+                <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
               </div>
             </div>
           </div>
@@ -87,11 +97,16 @@
           <div class="row" style="padding-top: 10px;">
             <div class="col-lg-12 text-right">
               <div [ktBusy]="isLoading">
-                <ag-grid-angular style="width: 100%; height: 500px; margin-top: 10px;" class="ag-theme-alpine"
+                <!-- <ag-grid-angular style="width: 100%; height: 500px; margin-top: 10px;" class="ag-theme-alpine"
                 [rowData]="rowData" [columnDefs]="columnDefs" [autoGroupColumnDef]="autoGroupColumnDef"
                 [gridOptions]="gridOptions" (firstDataRendered)="onFirstDataRendered($event)"
                 (gridReady)="onGridReady($event)">
-              </ag-grid-angular>
+              </ag-grid-angular> -->
+              <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)" (gridReady)="onGridReady($event)" [autoGroupColumnDef]="autoGroupColumnDef"
+                    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [gridOptions]="gridOptions"
+                    [rowData]="rowData" [suppressAggFuncInHeader]="true" class="ag-theme-alpine"
+                    style="width: 100%; height: 500px;">
+                  </ag-grid-angular>
               </div>
             </div>
           </div>
