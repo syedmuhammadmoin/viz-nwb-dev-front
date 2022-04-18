@@ -172,7 +172,7 @@ export class AppConst {
     'Permissions.ProfitLossClaims.View': 'Profit and Loss Statement',
 
     // Trial Balance
-    'Permissions.TrialBalanceClaims.View': 'Trial Balance',
+    'Permissions.TrailBalanceClaims.View': 'Trial Balance',
 
     // Bill
     'Permissions.BillClaims.View': 'Bill View',

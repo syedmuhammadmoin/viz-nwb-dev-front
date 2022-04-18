@@ -17,6 +17,11 @@ const routes: Routes = [
       ),
       canActivateChild: [AuthGuard]
   },
+  { path: 'error', 
+    loadChildren: () => 
+      import('./views/pages/error/error.module').then(
+        (m) => m.ErrorModule)
+  },
   {
     path: '',
     component: BaseComponent,

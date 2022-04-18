@@ -105,7 +105,7 @@ export class Permissions {
   static BALANCESHEET_VIEW = 'Permissions.BalanceSheetClaims.View';
   static GENERALLEDGER_VIEW = 'Permissions.GeneralLedgerClaims.View';
   static PROFITLOSS_VIEW = 'Permissions.ProfitLossClaims.View';
-  static TRIALBALANCE_VIEW = 'Permissions.TrialBalanceClaims.View';
+  static TRIALBALANCE_VIEW = 'Permissions.TrailBalanceClaims.View';
 
   // Invoice
   static INVOICE_VIEW = 'Permissions.InvoiceClaims.View';
