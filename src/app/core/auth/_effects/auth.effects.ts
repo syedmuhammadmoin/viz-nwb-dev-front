@@ -22,7 +22,7 @@ export class AuthEffects {
     ofType<Login>(AuthActionTypes.Login),
     tap(action => {
       localStorage.setItem(environment.authTokenKey, action.payload.authToken);
-      this.store.dispatch(new UserRequested());
+      //this.store.dispatch(new UserRequested());
     }),
   );
 
@@ -36,50 +36,50 @@ export class AuthEffects {
     })
   );
 
-  @Effect({ dispatch: false })
-  register$ = this.actions$.pipe(
-    ofType<Register>(AuthActionTypes.Register),
-    tap(action => {
-      localStorage.setItem(environment.authTokenKey, action.payload.authToken);
-    })
-  );
+  // @Effect({ dispatch: false })
+  // register$ = this.actions$.pipe(
+  //   ofType<Register>(AuthActionTypes.Register),
+  //   tap(action => {
+  //     localStorage.setItem(environment.authTokenKey, action.payload.authToken);
+  //   })
+  // );
 
-  @Effect({ dispatch: false })
-  loadUser$ = this.actions$
-    .pipe(
-      ofType<UserRequested>(AuthActionTypes.UserRequested),
-      withLatestFrom(this.store.pipe(select(isUserLoaded))),
-      filter(([action, _isUserLoaded]) => !_isUserLoaded),
-      mergeMap(([action, _isUserLoaded]) => this.auth.getUserByToken()),
-      tap(_user => {
-        if (_user) {
-          // console.log('effect Load User', _user);
-          this.store.dispatch(new UserLoaded({ user: _user }));
-        } else {
-          this.store.dispatch(new Logout());
-        }
-      })
-    );
+  // @Effect({ dispatch: false })
+  // loadUser$ = this.actions$
+  //   .pipe(
+  //     ofType<UserRequested>(AuthActionTypes.UserRequested),
+  //     withLatestFrom(this.store.pipe(select(isUserLoaded))),
+  //     filter(([action, _isUserLoaded]) => !_isUserLoaded),
+  //     mergeMap(([action, _isUserLoaded]) => this.auth.getUserByToken()),
+  //     tap(_user => {
+  //       if (_user) {
+  //         // console.log('effect Load User', _user);
+  //         this.store.dispatch(new UserLoaded({ user: _user }));
+  //       } else {
+  //         this.store.dispatch(new Logout());
+  //       }
+  //     })
+  //   );
 
-  @Effect()
-  init$: Observable<Action> = defer(() => {
-    const userToken = localStorage.getItem(environment.authTokenKey);
-    const decodedToken = this.decodeTokenService.decode(userToken);
-    let observableResult = of({ type: 'NO_ACTION' });
-    if (decodedToken) {
-      observableResult = of(new Login({ authToken: userToken }));
-    }
-    return observableResult;
-  });
+  // @Effect()
+  // init$: Observable<Action> = defer(() => {
+  //   const userToken = localStorage.getItem(environment.authTokenKey);
+  //   const decodedToken = this.decodeTokenService.decode(userToken);
+  //   let observableResult = of({ type: 'NO_ACTION' });
+  //   if (decodedToken) {
+  //     observableResult = of(new Login({ authToken: userToken }));
+  //   }
+  //   return observableResult;
+  // });
 
   private returnUrl: string;
 
   constructor(
     private actions$: Actions,
     private router: Router,
-    private auth: AuthService,
-    private store: Store<AppState>,
-    public decodeTokenService: DecodeTokenService
+    // private auth: AuthService,
+    // private store: Store<AppState>,
+    // public decodeTokenService: DecodeTokenService
   ) {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {

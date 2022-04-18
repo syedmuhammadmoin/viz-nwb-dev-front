@@ -213,6 +213,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   }
 
   reset() {
+    console.log('entered')
     this.bankAccountForm.get('accountNumber').reset()
     this.bankAccountForm.get('bankName').reset()
     this.bankAccountForm.get('branch').reset()
