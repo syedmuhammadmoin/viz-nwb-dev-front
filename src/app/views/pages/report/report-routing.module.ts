@@ -35,31 +35,31 @@ const routes: Routes = [
         },
         canActivate: [PermissionGuard]
       },
-      // {
-      //   path: REPORT.BALANCE_SHEET,
-      //   children:[
-      //     {
-      //       path: APP_ROUTES.REPORT,
-      //       component: BalanceSheetComponent,
-      //       data: {
-      //         array: [
-      //           { permission: Permissions.BALANCESHEET_VIEW },
-      //         ]
-      //       },
-      //       canActivate: [PermissionGuard]
-      //     },
-      //     {
-      //       path: REPORT.PRINT,
-      //       component: PrintBalanceSheetComponent,
-      //       data: {
-      //         array: [
-      //           { permission: Permissions.BALANCESHEET_VIEW },
-      //         ]
-      //       },
-      //       canActivate: [PermissionGuard]
-      //     },
-      //   ]
-      // },
+      {
+        path: REPORT.BALANCE_SHEET,
+        children:[
+          {
+            path: '',
+            component: BalanceSheetComponent,
+            data: {
+              array: [
+                { permission: Permissions.BALANCESHEET_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+          {
+            path: REPORT.PRINT,
+            component: PrintBalanceSheetComponent,
+            data: {
+              array: [
+                { permission: Permissions.BALANCESHEET_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+        ]
+      },
       // {
       //   path: REPORT.PROFIT_N_LOSS,
       //   // component: ProfitNLossComponent,
