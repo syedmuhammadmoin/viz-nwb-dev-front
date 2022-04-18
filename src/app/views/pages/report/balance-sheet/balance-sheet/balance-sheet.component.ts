@@ -44,7 +44,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   // Validation Messages
   validationMessages = {
     docDate: {
-      required: 'From Date is required'
+      required: 'Date is required'
     },   
   }
 
@@ -69,18 +69,18 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         rowGroup: true,
         hide: true
       },
-      {
-        // headerName: 'Head',
-        rowGroup: true,
-        field: 'head',
-        hide: true        
-      },
-      {
-        // headerName: 'Summary Head',
-        field: 'summeryHead',       
-        rowGroup: true,
-        hide: true
-      },
+      // {
+      //   // headerName: 'Head',
+      //   rowGroup: true,
+      //   field: 'head',
+      //   hide: true        
+      // },
+      // {
+      //   // headerName: 'Summary Head',
+      //   field: 'summeryHead',       
+      //   rowGroup: true,
+      //   hide: true
+      // },
       {
         // headerName: 'Transactional',
         field: 'transactional',
@@ -108,18 +108,21 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
     //creating balance sheet form
     this.balanceSheetForm = this.fb.group({
       docDate: ['', [Validators.required]],
-      businessPartner: [''],
-      department: [''],
-      warehouse: [''],
-      location: [''],
-      organization: [''],
-      transactional: [''],
+      // businessPartner: [''],
+      // department: [''],
+      // warehouse: [''],
+      // location: [''],
+      // organization: [''],
+      campusName: [''],
+      //accountName: [''],
     });
   
     // get Ware house location from state
     this.ngxsService.getWarehouseFromState();    
     // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
+    // get Campuses
+    this.ngxsService.getCampusFromState()
     // get location from state
     //this.ngxsService.getLocationFromState();
     // get department from state
@@ -128,12 +131,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
     this.gridOptions = ({} as GridOptions);
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
-    
-    this.gridOptions = ({} as GridOptions);
-    this.gridOptions.rowHeight = 40;
-    this.gridOptions.headerHeight = 35;
-  
-
   }
   // to auto size of column
   onFirstDataRendered(params: any) {
@@ -151,8 +148,9 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       return;
     }
     const balanceSheetModel = {...this.balanceSheetForm.value} as IBalanceSheet
-    balanceSheetModel.docDate = this.transformDate(this.balanceSheetForm.value.docDate, 'MMM d, y')
+    balanceSheetModel.docDate = this.formatDate(this.balanceSheetForm.value.docDate)
     this.isLoading = true;
+    console.log(balanceSheetModel)
     this.balanceSheetService.getBalanceSheetReport(balanceSheetModel)
       .pipe(
         map((x: any) => {
@@ -175,6 +173,20 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         this.cdRef.detectChanges();
         this.calculateNetProfit(res);
       });
+  }
+
+  formatDate(date) {
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
   calculateNetProfit(res: any[]) {

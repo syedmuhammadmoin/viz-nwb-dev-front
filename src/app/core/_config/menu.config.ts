@@ -651,7 +651,7 @@ export class MenuConfig {
           permission: [
             Permissions.GENERALLEDGER_VIEW,
             Permissions.TRIALBALANCE_VIEW,
-            // Permissions.BALANCESHEET_VIEW,
+            Permissions.BALANCESHEET_VIEW,
             // Permissions.PROFITLOSS_VIEW
           ],
           submenu: [
@@ -662,13 +662,13 @@ export class MenuConfig {
                 Permissions.GENERALLEDGER_VIEW,
               ]
             },
-            // {
-            //   title: 'Balance Sheet',
-            //   page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
-            //   permission: [
-            //     Permissions.BALANCESHEET_VIEW,
-            //   ]
-            // },
+            {
+              title: 'Balance Sheet',
+              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
+              permission: [
+                Permissions.BALANCESHEET_VIEW,
+              ]
+            },
             // {
             //   title: 'Profit & Loss',
             //   page: '/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS,
