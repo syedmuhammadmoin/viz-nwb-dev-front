@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
-      <kt-portlet-header  [sticky]="false" [title]="'Create purchase Order'" [class]="'card-head-lg'"></kt-portlet-header>
+      <kt-portlet-header  [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
       <mat-divider></mat-divider>
       <!--begin::Form-->
       <form [formGroup]="purchaseOrderForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">

@@ -63,6 +63,8 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   minDate: Date
   dateCondition : boolean
 
+  title: string = 'Create Purchase Order'
+
 
   // Validation Messages
   validationMessages = {
@@ -140,6 +142,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       const id = param.q;
       this.isPurchaseOrder = param.isPurchaseOrder;
       if (id && this.isPurchaseOrder) {
+        this.title = 'Edit Purchase Order'
         this.getPurchaseOrder(id);
         //this.getSalesOrder(id);
       }
