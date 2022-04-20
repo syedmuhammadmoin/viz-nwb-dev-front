@@ -27,7 +27,7 @@ export const APP_ROUTES = {
   STOCK: 'stock',
 
   //PROCUREMENT
-  PURCHASE_REQUISITION: 'purchase-requisition',
+  REQUISITION: 'requisition',
   QUOTATION: 'quotation',
 
   //PROFILING
@@ -179,12 +179,12 @@ export const CRUD_ROUTES = {
 
 
   //PROCUREMENT SECTION
-  export const PURCHASE_REQUISITION = {
-    // LIST: APP_ROUTES.PURCHASE_REQUISITION + '/' + CRUD_ROUTES.LIST,
-    // CREATE: APP_ROUTES.PURCHASE_REQUISITION + '/' + CRUD_ROUTES.CREATE,
-    // ID_BASED_ROUTE (route: string , id: number) {       
-    //   return APP_ROUTES.PURCHASE_REQUISITION + '/' + route + '/' + id
-    // }
+  export const REQUISITION = {
+    LIST: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.REQUISITION + '/' + route + '/' + id
+    }
   }
 
   export const QUOTATION = {

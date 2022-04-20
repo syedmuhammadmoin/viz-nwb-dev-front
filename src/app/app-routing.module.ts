@@ -202,6 +202,17 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
 
+      //Procurement Section
+       // Lazy Load REQUISITION Module
+       {
+        path: APP_ROUTES.BANK_ACCOUNT,
+        loadChildren: () =>
+          import('./views/pages/finance/bank-account/bank-account.module').then(
+            (m) => m.BankAccountModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+
       //sales Section
        // Lazy Load CREDIT NOTE Module
        {
