@@ -14,6 +14,9 @@ import { Observable } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { RequireMatch } from 'src/app/views/shared/requireMatch';
+import { IPurchaseOrderLines } from '../model/IPurchaseOrderLines';
+import { validators } from 'dist/assets/plugins/formvalidation/src/js';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Component({
   selector: 'kt-create-purchase-order',
@@ -37,7 +40,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   purchaseOrderForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'locationId', 'action'];
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -72,12 +75,16 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     dueDate: {
       required: 'Due Date is required'
     },
+    campusId: {
+      required: 'Campus is required'
+    },
   }
 
   formErrors = {
     vendorName: '',
     PODate: '',
     dueDate: '',
+    campusId: ''
   }
 
   // Injecting Dependencies
@@ -101,6 +108,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       PODate: ['', [Validators.required]],
       dueDate: ['', [Validators.required]],
       contact: [''],
+      campusId: ['', [Validators.required]],
       purchaseOrderLines: this.fb.array([
         this.addPurchaseOrderLines()
       ])
@@ -112,6 +120,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       poDate: null,
       dueDate: null,
       contact: null,
+      campusId: null,
       purchaseOrderLines: []
     }
 
@@ -124,11 +133,12 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
      // get item from state
      this.ngxsService.getProductFromState();
 
+     this.ngxsService.getCampusFromState();
+
      //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isPurchaseOrder = param.isPurchaseOrder;
-      console.log(id +" and "+ this.isPurchaseOrder)
       if (id && this.isPurchaseOrder) {
         this.getPurchaseOrder(id);
         //this.getSalesOrder(id);
@@ -150,6 +160,12 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     purchaseOrderLineArray.clear();
     this.table.renderRows();
   }
+
+  //for save or submit
+  isSubmit(val: number) {
+    this.purchaseOrderModel.isSubmit = (val === 0) ? false : true;
+  }
+
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
@@ -206,14 +222,14 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   addPurchaseOrderLines(): FormGroup {
     return this.fb.group({
-      itemId: ['', [ Validators.required ,RequireMatch]],
+      itemId: ['', [ Validators.required]],
       description: ['', Validators.required],
       cost: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required, Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
-      locationId: ['', [Validators.required]],
+      warehouseId: [''],
     });
   }
 
@@ -227,9 +243,10 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   }
 
   //Get purchase Order Data for Edit
-  private getPurchaseOrder(id: any) {
+  private getPurchaseOrder(id: number) {
     this.isLoading = true;
-   this.poService.getPurchaseMasterById(id).subscribe((res) => {
+   this.poService.getPurchaseOrderById(id)
+   .subscribe((res: IApiResponse<IPurchaseOrder>) => {
       if (!res) {
         return
       }
@@ -240,13 +257,14 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   }
 
   //Edit purchase Order
-  editPurchaseOrder(purchaseOrder : any) {
+  editPurchaseOrder(purchaseOrder : IPurchaseOrder) {
+    console.log(purchaseOrder.vendorId)
     this.purchaseOrderForm.patchValue({
       vendorName: purchaseOrder.vendorId,
       PODate: purchaseOrder.poDate,
       dueDate: purchaseOrder.dueDate,
-      contact: purchaseOrder.contact
-      //purchaseOrderLines: purchaseOrder.purchaseOrderLines
+      contact: purchaseOrder.contact,
+      campusId: purchaseOrder.campusId
     });
 
     this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines));
@@ -254,20 +272,19 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   }
 
   //Edit purchase Order Lines
-  editPurchaseOrderLines(purchaseOrderLines: any): FormArray {
-    console.log(purchaseOrderLines)
+  editPurchaseOrderLines(purchaseOrderLines: IPurchaseOrderLines[]): FormArray {
     const formArray = new FormArray([]);
-    purchaseOrderLines.forEach((line : any) => {
+    purchaseOrderLines.forEach((line : IPurchaseOrderLines | any) => {
       formArray.push(this.fb.group({
         id: line.id,
-        itemId: line.itemId,
-        description: line.description,
-        cost: line.cost,
-        quantity: line.quantity,
-        tax: line.tax,
-        subTotal: [{ value: line.subtotal, disabled: true }],
-        accountId: line.accountId,
-        locationId: line.locationId,
+        itemId: [line.itemId, [ Validators.required]],
+        description: [line.description, Validators.required],
+        cost: [line.cost, [Validators.required, Validators.min(1)]],
+        quantity: [line.quantity, [Validators.required, Validators.min(1)]],
+        tax: [line.tax, [Validators.max(100), Validators.min(0)]],
+        subTotal: [{value: line.subTotal, disabled: true}],
+        accountId: [line.accountId, [Validators.required]],
+        warehouseId: [line.warehouseId]
       }))
     })
     return formArray
@@ -287,11 +304,10 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
           return;
       }
 
+      this.isLoading = true;
       this.mapFormValuesToPurchaseOrderModel();
-    if (this.purchaseOrderModel.id) {
-      console.log("yes entered")
       console.log(this.purchaseOrderModel)
-        this.isLoading = true;
+    if (this.purchaseOrderModel.id) {
         this.poService.updatePurchaseOrder(this.purchaseOrderModel)
           .pipe(
             take(1),
@@ -304,15 +320,14 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
             this.cdRef.detectChanges();
             this.router.navigate(['/' +PURCHASE_ORDER.ID_BASED_ROUTE('details',this.purchaseOrderModel.id ) ]);
           },
-            (err) => {
-              this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-              this.isLoading = false;
-              this.cdRef.detectChanges()
-            })
+            // (err) => {
+            //   this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
+            //   this.isLoading = false;
+            //   this.cdRef.detectChanges()
+            // }
+            )
       } else {
         delete this.purchaseOrderModel.id;
-        this.isLoading = true;
-        console.log('purchase Order Model : ', this.purchaseOrderModel);
         this.poService.createPurchaseOrder(this.purchaseOrderModel)
           .pipe(
             take(1),
@@ -322,12 +337,11 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
               this.toastService.success('' + res.message, 'Created Successfully')
               this.router.navigate(['/'+ PURCHASE_ORDER.LIST])
             },
-            (err: any) => {
-              this.isLoading = false;
-              this.cdRef.detectChanges();
-              this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-              console.log(err)
-            }
+            // (err) => {
+            //   this.isLoading = false;
+            //   this.cdRef.detectChanges();
+            //   this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
+            // }
           );
       }
   }
@@ -338,6 +352,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.purchaseOrderModel.poDate = this.transformDate(this.purchaseOrderForm.value.PODate, 'yyyy-MM-dd');
     this.purchaseOrderModel.dueDate = this.transformDate(this.purchaseOrderForm.value.dueDate, 'yyyy-MM-dd');
     this.purchaseOrderModel.contact = this.purchaseOrderForm.value.contact;
+    this.purchaseOrderModel.campusId = this.purchaseOrderForm.value.campusId;
     this.purchaseOrderModel.purchaseOrderLines = this.purchaseOrderForm.value.purchaseOrderLines;
   };
 
@@ -364,8 +379,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   canDeactivate(): boolean | Observable<boolean> {
     return !this.purchaseOrderForm.dirty;
   }
-
-
 }
 
 

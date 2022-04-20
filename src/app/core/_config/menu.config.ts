@@ -298,7 +298,7 @@ export class MenuConfig {
             Permissions.DEBITNOTE_EDIT,
             Permissions.DEBITNOTE_DELETE,
             Permissions.DEBITNOTE_REVIEW,
-            Permissions.DEBITNOTE_APPROVE,
+            Permissions.DEBITNOTE_APPROVE
             // Permissions.CHARTOFACCOUNT_VIEW,
             // Permissions.BANK_RECON_VIEW,
             // Permissions.BANK_RECON_CREATE
@@ -406,7 +406,7 @@ export class MenuConfig {
                 Permissions.DEBITNOTE_REVIEW,
                 Permissions.DEBITNOTE_APPROVE,
               ]
-            },    
+            },  
             {
               title: 'Bank Statement',
               page: '/' + BANK_STATEMENT.LIST,
@@ -440,6 +440,35 @@ export class MenuConfig {
                 Permissions.CHARTOFACCOUNT_VIEW
               ]
             },
+          ]
+        },
+        //Procurement Section
+        {
+          title: 'Procurement',
+          bullet: 'dot',
+          icon: 'flaticon2-shopping-cart',
+          permission: [
+            Permissions.PURCHASEORDER_VIEW,
+            Permissions.PURCHASEORDER_CREATE,
+            Permissions.PURCHASEORDER_EDIT,
+            Permissions.PURCHASEORDER_DELETE,
+            Permissions.PURCHASEORDER_REVIEW,
+            Permissions.PURCHASEORDER_APPROVE
+          ],
+          submenu: [
+           
+            {
+              title: 'Purchase Order',
+              page: '/' + PURCHASE_ORDER.LIST,
+              permission: [
+                Permissions.PURCHASEORDER_VIEW,
+                Permissions.PURCHASEORDER_CREATE,
+                Permissions.PURCHASEORDER_EDIT,
+                Permissions.PURCHASEORDER_DELETE,
+                Permissions.PURCHASEORDER_REVIEW,
+                Permissions.PURCHASEORDER_APPROVE
+              ]
+            }
           ]
         },
         //Budget Portion

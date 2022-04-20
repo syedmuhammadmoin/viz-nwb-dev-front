@@ -13,7 +13,7 @@
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
              Edit
         </button>
-        <button
+        <!-- <button
           [disabled]="!(permission.isGranted(permissions.BILL_CREATE))"
           [ngClass]="!(permission.isGranted(permissions.BILL_CREATE)) ? 'disable' : '' "
           [routerLink]="'/'+BILL.CREATE"
@@ -26,8 +26,8 @@
           [routerLink]="'/'+GOODS_RECEIVED_NOTE.CREATE"
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
              Create GRN
-        </button>
-        <h4 class="overall_statuses {{purchaseOrderMaster?.status}}"> Status: {{purchaseOrderMaster?.status}} </h4>
+        </button> -->
+        <h4 class="overall_statuses {{docStatus[purchaseOrderMaster?.state]}}"> Status: {{purchaseOrderMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -56,10 +56,13 @@
                     <td style="background: #595e791c; width: 20%;">
                       {{purchaseOrderMaster?.dueDate}}</td>
                   </tr>
-                  <tr>
+                  <tr rowspan="1">
                     <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
                       {{purchaseOrderMaster?.contact ? purchaseOrderMaster?.contact : "-"}}</td>
+                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Campus:</th>
+                    <td class="" style="background: #595e791c; width: 20%;">
+                      {{purchaseOrderMaster?.campusName ? purchaseOrderMaster?.campusName : "-"}}</td>
                   </tr>
                 </tbody>
               </table>

@@ -6,5 +6,5 @@ export interface IPurchaseOrderLines {
     cost: number;
     tax: number;
     accountId: number;
-    locationId: number;
+    warehouseId: number;
 }

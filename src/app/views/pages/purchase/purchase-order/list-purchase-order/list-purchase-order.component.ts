@@ -1,10 +1,12 @@
 import { PURCHASE_ORDER } from '../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { GridOptions } from "ag-grid-community";
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from "ag-grid-community";
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
 import { PurchaseOrderService } from "../service/purchase-order.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { IPurchaseOrder } from '../model/IPurchaseOrder';
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 
 
 @Component({
@@ -16,11 +18,15 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 export class ListPurchaseOrderComponent extends AppComponentBase implements OnInit {
 
-  purchaseOrderList: any;
+  purchaseOrderList: IPurchaseOrder[];
+  defaultColDef: ColDef;
+  frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
-  frameworkComponents: any;
-  defaultColDef: any;
   tooltipData: string = "double click to view detail"
+  components: { loadingCellRenderer (params: any ) : unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
     private _purchaseOrderService: PurchaseOrderService,
@@ -38,7 +44,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   }
 
   columnDefs = [
-    { headerName: 'PO #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status' },
+    { headerName: 'PO #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer"  },
     { headerName: 'Vendor', field: 'vendor', sortable: true, filter: true, tooltipField: 'status' },
     {
       headerName: 'Order Date',
@@ -46,9 +52,8 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      cellRenderer: (params: any) => {
-        const date = params.data.poDate != null ? params.data.poDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
@@ -57,14 +62,13 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
       sortable: true,
       filter: true,
       tooltipField: 'status',
-      cellRenderer: (params: any) => {
-        const date = params.data.dueDate != null ? params.data.dueDate : null;
-        return date == null || this.transformDate(date, 'MMM d, y');
-      },
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
+      }
     },
     {
-      headerName: 'Total', field: 'total', sortable: true, filter: true, tooltipField: 'status',
-      valueFormatter: (params) => {
+      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'status',
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -72,18 +76,35 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   ];
 
   ngOnInit(): void {
-    this.gridOptions.rowHeight = 40;
-    this.gridOptions.headerHeight = 35;
+
+    this.gridOptions = {
+      cacheBlockSize: 20,
+      rowModelType: "infinite",
+      paginationPageSize: 10,
+      pagination: true,
+      rowHeight: 40,
+      headerHeight: 35,
+      context: "double click to edit",
+    };
+
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip'
     }
-    this.frameworkComponents = { customTooltip: CustomTooltipComponent };
 
-    this.loadPurchaseOrderList();
+    this.components = {
+      loadingCellRenderer: function (params: any) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
   }
 
-  onFirstDataRendered(params: any) {
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
@@ -91,17 +112,43 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     this.router.navigate(['/'+PURCHASE_ORDER.CREATE]);
   }
 
-  onRowDoubleClicked(event: any) {
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
     console.log('/'+PURCHASE_ORDER.ID_BASED_ROUTE('details', event.data.id));
     this.router.navigate(['/'+PURCHASE_ORDER.ID_BASED_ROUTE('details', event.data.id)], { relativeTo: this.activatedRoute })
   }
 
-  loadPurchaseOrderList() {
-    this._purchaseOrderService.getAllPurchaseOrders().subscribe((res) => {
-      this.purchaseOrderList = res.result;
-      this.cdRef.markForCheck();
-    })
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
   }
+
+  async getPurchaseOrders(params: any): Promise<IPaginationResponse<IPurchaseOrder[]>> {
+    const result = await this._purchaseOrderService.getPurchaseOrders().toPromise()
+    return result
+  }
+
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getPurchaseOrders(params);
+
+     if (!res.result) { 
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+     this.gridApi.hideOverlay();
+    }
+     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.cdRef.detectChanges();
+   },
+  };
+
+  // loadPurchaseOrderList() {
+  //   this._purchaseOrderService.getPurchaseOrders().subscribe((res) => {
+  //     this.purchaseOrderList = res.result;
+  //     this.cdRef.markForCheck();
+  //   })
+  // }
 }
 
 

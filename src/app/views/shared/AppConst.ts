@@ -328,7 +328,8 @@ export class AppConst {
     {value: 'Invoice', id: DocType.Invoice},
     {value: 'Bill', id: DocType.Bill},
     {value: 'Journal Voucher', id: DocType.JournalEntry},
-    {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'}
+    {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'},
+    {value: 'Purchase Order' , id: DocType.PurchaseOrder}
     //{value: 'purchase Order', id: DocType.PurchaseOrder},
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},

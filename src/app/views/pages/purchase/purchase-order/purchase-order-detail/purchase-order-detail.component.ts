@@ -5,7 +5,7 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { LayoutUtilsService } from '../../../../../core/_base/crud';
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { GridOptions} from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridOptions,  ValueFormatterParams} from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ChangeDetectorRef } from '@angular/core';
 
@@ -48,25 +48,25 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   columnDefs = [
     {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
-    valueFormatter: (params) => {
+    valueFormatter: (params: ValueFormatterParams) => {
       return this.valueFormatter(params.value)
     }},
     {
       headerName: 'Tax%', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
-      cellRenderer: (params: any) => {
-        return params.data.tax + '%';
+      valueFormatter: (params: ValueFormatterParams) => {
+        return (params.value) + '%'
       }
     },
     {
-      headerName: 'Sub total', field: 'subtotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params) => {
+      headerName: 'Sub Total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    {headerName: 'Account', field: 'account', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Location', field: 'location', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Warehouse', field: 'warehouse', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
   ];
 
 
@@ -102,20 +102,17 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   }
 
   // First time rendered ag grid
-  onFirstDataRendered(params) {
-    if (params) {
-      this.loader = false;
-    }
+  onFirstDataRendered(params: FirstDataRenderedEvent ) {
     params.api.sizeColumnsToFit();
   }
 
   private getPurchaseMasterData(id: number) {
-    this.purchaseOrderService.getPurchaseMasterById(id).subscribe((res) => {
+    this.purchaseOrderService.getPurchaseOrderById(id).subscribe((res) => {
       this.purchaseOrderMaster = res.result;
       this.purchaseOrderLines = res.result.purchaseOrderLines;
       this.totalBeforeTax = this.purchaseOrderMaster.totalBeforeTax;
       this.totalTax = this.purchaseOrderMaster.totalTax;
-      this.total = this.purchaseOrderMaster.total;
+      this.total = this.purchaseOrderMaster.totalAmount;
       this.cdRef.detectChanges()
     }, (error => {
       console.log(error);
