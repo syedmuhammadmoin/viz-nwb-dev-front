@@ -12,18 +12,18 @@
                   <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">Vendor Name:</label>
                       <kt-simple-dropdown
-                        formControlName="vendorName"
-                        propertyName="name"
-                        propertyValue="id"
-                        matFormFieldClass="full-width "
-                        [errorMessage]="formErrors.vendorName"
-                        (blurEvent)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
-                        [optionList]="ngxsService.businessPartners$"
+                      propertyName="name"
+                      propertyValue="id"
+                      searchPlaceholder="Search Vendor"
+                      placeholder="Select Vendor"
+                      matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
+                      formControlName="vendorName"
+                      [optionList]="ngxsService.businessPartners$"
                       clickEventButtonName="Add New Vendor"
-                      (clickEvent)="openBusinessPartnerDialog()"
-                        searchPlaceholder="Search Vendors..."
-                        placeholder="Select Vendor">
-                      </kt-simple-dropdown>
+                      (clickEvent)="openBusinessPartnerDialog()" 
+                      [errorMessage]="formErrors.vendorName">
+                    </kt-simple-dropdown>
                   </div>
                 </div>
 
@@ -33,6 +33,7 @@
                       <kt-input-field
                         formControlName="contact"
                         placeholder="Enter Contact"
+                        hintText="Optional"
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)">
                         </kt-input-field>
                   </div>
@@ -67,6 +68,25 @@
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                      <label class="col-form-label pt-0">Campus:</label>
+                      <kt-simple-dropdown
+                        formControlName="campusId"
+                        propertyName="name"
+                        propertyValue="id"
+                        matFormFieldClass="full-width "
+                        [errorMessage]="formErrors.campusId"
+                        (blurEvent)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
+                        [optionList]="ngxsService.campuses$"
+                        searchPlaceholder="Search Campuses..."
+                        placeholder="Select Campus">
+                      </kt-simple-dropdown>
+                  </div>
+                </div>
+              </div>
+
               <div class="row mt-5">
                 <div class="col-lg-12 col-md-12 col-sm-12">
                   <div class="example-container  mat-elevation-z8 ">
@@ -75,8 +95,8 @@
                         <mat-table #table [dataSource]="purchaseOrderForm.get('purchaseOrderLines')['controls']">
                             <!-- Account Column -->
                               <ng-container matColumnDef="itemId">
-                                <mat-header-cell *matHeaderCellDef  class="flex-2"> Item</mat-header-cell>
-                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                                <mat-header-cell *matHeaderCellDef  class="flex-1"> Item</mat-header-cell>
+                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-simple-dropdown
                                       placeholder="Select Item"
@@ -96,8 +116,8 @@
                               </ng-container>
                               <!--Partner Column-->
                               <ng-container matColumnDef="description">
-                                <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
-                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                                <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
+                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-input-field
                                       formControlName="description"
@@ -113,8 +133,8 @@
                               </ng-container>
                               <!-- Description Column -->
                               <ng-container matColumnDef="accountId">
-                                <mat-header-cell *matHeaderCellDef class="flex-2"> Account</mat-header-cell>
-                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                                <mat-header-cell *matHeaderCellDef class="flex-1"> Account</mat-header-cell>
+                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-simple-dropdown
                                       placeholder="Select Account"
@@ -136,7 +156,7 @@
                                     <kt-input-field
                                       formControlName="quantity"
                                       matFormFieldClass="mobile-label full-width input_d_1"
-                                      placeholder="0"
+                                      placeholder="Enter Quantity"
                                       type="number"
                                       #itemName
                                       (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
@@ -160,7 +180,7 @@
                                     <kt-input-field
                                       formControlName="cost"
                                       matFormFieldClass="mobile-label full-width input_d_1"
-                                      placeholder="0"
+                                      placeholder="Enter Cost"
                                       type="number"
                                       #itemName
                                       (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
@@ -209,24 +229,21 @@
                                   </div>
                                 </mat-cell>
                               </ng-container>
-                              <!-- Location Column -->
-                              <ng-container matColumnDef="locationId">
-                                <mat-header-cell *matHeaderCellDef class="flex-2"> Location</mat-header-cell>
-                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                              <!-- Warehouse Column -->
+                              <ng-container matColumnDef="warehouseId">
+                                <mat-header-cell *matHeaderCellDef class="flex-1"> Warehouse</mat-header-cell>
+                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
-                                    <kt-group-dropdown
-                                      formControlName="locationId"
-                                      placeholder="Select Location"
+                                    <kt-simple-dropdown 
+                                      placeholder="Select Warehouse" 
+                                      propertyValue="id" 
                                       propertyName="name"
-                                      propertyValue="id"
-                                      [optionList]="ngxsService.warehouses$"
-                                      clickEventButtonName="Add New Location"
-                                      (clickEvent)="openLocationDialog()"
-                                      [errorMessage]="'Location is Required'"
-                                      groupPropertyName="name"
-                                      matFormFieldClass="mobile-label full-width input_d_1"
-                                      groupChildrenName="locations" a >
-                                    </kt-group-dropdown>
+                                      [hintText]="'Optional'"
+                                      isDisabledNone="true"
+                                      formControlName="warehouseId" 
+                                      matFormFieldClass="full-width input_d_1" 
+                                      [optionList]="ngxsService.warehouses$">
+                                    </kt-simple-dropdown>
                                   </div>
                                 </mat-cell>
                               </ng-container>
@@ -297,9 +314,9 @@
               <div class="col-lg-12 text-right">
                 <button  type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()">Reset</button>
                 <button  class="sub___btn  mr-3" mat-raised-button type="submit"
-                (click)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages); purchaseOrderModel.isSubmit = 0">Save</button>
+                (click)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
                 <button class="sub___btn " mat-raised-button type="submit"
-                  (click)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages); purchaseOrderModel.isSubmit = 1">
+                  (click)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages); isSubmit(1)">
                     Submit
                 </button>
               </div>

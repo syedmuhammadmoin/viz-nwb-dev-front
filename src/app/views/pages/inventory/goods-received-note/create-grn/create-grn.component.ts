@@ -192,14 +192,14 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   //Get purchase Order Master Data
   private getPurchaseOrder(id: number) {
     this.isLoading = true;
-    this.purchaseOrderService.getPurchaseMasterById(id).subscribe((res) => {
-      if (!res) return
-      this.purchaseOrderMaster = res.result
-      this.patchGRN(this.purchaseOrderMaster);
-      this.isLoading = false;
-    }, (err) => {
-      console.log(err);
-    });
+    // this.purchaseOrderService.getPurchaseMasterById(id).subscribe((res) => {
+    //   if (!res) return
+    //   this.purchaseOrderMaster = res.result
+    //   this.patchGRN(this.purchaseOrderMaster);
+    //   this.isLoading = false;
+    // }, (err) => {
+    //   console.log(err);
+    // });
   }
 
   // Get GRN Data for Edit

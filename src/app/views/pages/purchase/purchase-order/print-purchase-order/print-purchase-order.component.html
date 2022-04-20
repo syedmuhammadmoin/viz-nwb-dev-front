@@ -63,7 +63,7 @@
                   <td>{{detail?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                   <td class="text-right" style="background-color: #eef0f8;">{{detail?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                   <td class="text-right" style="background-color: #eef0f8;">{{detail?.tax + '%'}}</td>
-                  <td class="text-right" style="background-color: #eef0f8;">{{detail?.subtotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                  <td class="text-right" style="background-color: #eef0f8;">{{detail?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                 </tr>
                 
                 
@@ -95,7 +95,7 @@
           <div class="print-box">
             <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;border-top: 2px solid #283655;
             padding-top: 10px;">Grand Total:
-              <span class="float-right" style="font-weight: 400;">{{masterData?.total?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+              <span class="float-right" style="font-weight: 400;">{{masterData?.totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
             </h4>
           </div>
         </div>

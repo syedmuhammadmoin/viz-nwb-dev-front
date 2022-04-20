@@ -266,7 +266,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   //Get purchase Order Master Data
   private getPurchaseOrder(id: number) {
     this.isLoading = true;
-    this.purchaseOrderService.getPurchaseMasterById(id).subscribe((res) => {
+    this.purchaseOrderService.getPurchaseOrderById(id).subscribe((res) => {
       this.purchaseOrderMaster = res.result;
       this.patchBill(this.purchaseOrderMaster);
       this.isLoading = false;

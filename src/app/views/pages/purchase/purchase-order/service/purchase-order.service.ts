@@ -4,6 +4,8 @@ import {Observable} from "rxjs";
 import {environment} from "../../../../../../environments/environment";
 import {IPurchaseOrder} from "../model/IPurchaseOrder";
 import { IWorkflow } from '../../vendorBill/model/IWorkflow';
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +15,13 @@ export class PurchaseOrderService {
 
   constructor( private httpClient: HttpClient) { }
 
-  getAllPurchaseOrders(): Observable<any> {
-    return this.httpClient.get(environment.baseUrl + 'purchaseOrder');
+  getPurchaseOrders(): Observable<IPaginationResponse<IPurchaseOrder[]>> {
+    return this.httpClient.get<IPaginationResponse<IPurchaseOrder[]>>(environment.baseUrl + 'purchaseOrder');
   }
 
-  getPurchaseMasterById(id: number): Observable<any> {
-    return this.httpClient.get(environment.baseUrl + 'purchaseOrder/' + id);
+  getPurchaseOrderById(id: number): Observable<IApiResponse<IPurchaseOrder>> {
+    return this.httpClient.get<IApiResponse<IPurchaseOrder>>(environment.baseUrl + 'purchaseOrder/' + id);
   }
-
-  // getPurchaseDetailById(id: number): Observable<any> {
-  //   return this.httpClient.get(environment.baseUrl + 'purchaseOrder/d/' + id);
-  // }
 
   createPurchaseOrder(purchaseOrderModel: IPurchaseOrder): Observable<any> {
     return this.httpClient.post<IPurchaseOrder>(environment.baseUrl + 'purchaseOrder', purchaseOrderModel, {
@@ -40,9 +38,5 @@ export class PurchaseOrderService {
   workflow(workflow: IWorkflow): Observable<any> {
     return this.httpClient.post(environment.baseUrl + 'purchaseOrder/workflow', workflow);
   }
-
-  // workflow(workflow: IWorkflow): Observable<any> {
-  //   return this.httpClient.post(environment.baseUrl + '/workflow', workflow);
-  // }
 }
 

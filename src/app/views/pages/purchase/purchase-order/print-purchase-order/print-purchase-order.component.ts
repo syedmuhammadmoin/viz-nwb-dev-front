@@ -3,6 +3,7 @@ import { ActivatedRoute} from "@angular/router";
 import { PurchaseOrderService } from "../service/purchase-order.service";
 import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
+import { IPurchaseOrder } from '../model/IPurchaseOrder';
 
 @Component({
   selector: 'kt-print-purchase-order',
@@ -14,7 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 export class PrintPurchaseOrderComponent implements OnInit {
 
     gridOptions: GridOptions;
-    masterData: any;
+    masterData: IPurchaseOrder;
     purchaseOrderLines: any;
   
     totalBeforeTax: number;
@@ -29,11 +30,8 @@ export class PrintPurchaseOrderComponent implements OnInit {
     ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {
         const id = +params.get('id');
-          console.log(id);
         if(id){
           this.getPurchaseOrderMasterData(id);
-        }else{
-          console.log('bong');
         }
       });
     }
@@ -47,7 +45,7 @@ export class PrintPurchaseOrderComponent implements OnInit {
     }
 
     getPurchaseOrderMasterData(id: number){
-      this.purchaseOrderService.getPurchaseMasterById(id).subscribe(res => {
+      this.purchaseOrderService.getPurchaseOrderById(id).subscribe(res => {
         this.masterData = res.result;
         console.log(res.result)
           this.purchaseOrderLines = res.result.purchaseOrderLines;
