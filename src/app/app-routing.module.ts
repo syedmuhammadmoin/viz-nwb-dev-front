@@ -205,10 +205,10 @@ const routes: Routes = [
       //Procurement Section
        // Lazy Load REQUISITION Module
        {
-        path: APP_ROUTES.BANK_ACCOUNT,
+        path: APP_ROUTES.REQUISITION,
         loadChildren: () =>
-          import('./views/pages/finance/bank-account/bank-account.module').then(
-            (m) => m.BankAccountModule
+          import('./views/pages/procurement/requisition/requisition.module').then(
+            (m) => m.RequisitionModule
           ),
           canActivateChild: [AuthGuard]
       },

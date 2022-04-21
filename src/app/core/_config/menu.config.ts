@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, DEPARTMENT, LOCATION, ORGANIZATION, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, SALES_ORDER, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, STOCK, INVENTORY_ADJUSTMENT, GOODS_RECEIVED_NOTE, DISPATCH_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -453,10 +453,15 @@ export class MenuConfig {
             Permissions.PURCHASEORDER_EDIT,
             Permissions.PURCHASEORDER_DELETE,
             Permissions.PURCHASEORDER_REVIEW,
-            Permissions.PURCHASEORDER_APPROVE
+            Permissions.PURCHASEORDER_APPROVE,
+            Permissions.REQUISITION_VIEW,
+            Permissions.REQUISITION_CREATE,
+            Permissions.REQUISITION_EDIT,
+            Permissions.REQUISITION_DELETE,
+            Permissions.REQUISITION_REVIEW,
+            Permissions.REQUISITION_APPROVE
           ],
           submenu: [
-           
             {
               title: 'Purchase Order',
               page: '/' + PURCHASE_ORDER.LIST,
@@ -467,6 +472,18 @@ export class MenuConfig {
                 Permissions.PURCHASEORDER_DELETE,
                 Permissions.PURCHASEORDER_REVIEW,
                 Permissions.PURCHASEORDER_APPROVE
+              ]
+            },
+            {
+              title: 'Requisition',
+              page: '/' + REQUISITION.LIST,
+              permission: [
+                Permissions.REQUISITION_VIEW,
+                Permissions.REQUISITION_CREATE,
+                Permissions.REQUISITION_EDIT,
+                Permissions.REQUISITION_DELETE,
+                Permissions.REQUISITION_REVIEW,
+                Permissions.REQUISITION_APPROVE
               ]
             }
           ]

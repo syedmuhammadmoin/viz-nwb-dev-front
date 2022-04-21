@@ -1,1 +1,229 @@
-<p>create-requisition works!</p>
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+      <!--begin::Form-->
+  
+      <form [formGroup]="requisitionForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+        <div class="kt-portlet__body">
+          <div class="kt-form__section kt-form__section--first">
+  
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Customer:</label>
+                      <kt-simple-dropdown 
+                        formControlName="businessPartnerId" 
+                        matFormFieldClass="full-width"
+                        (blurEvent)="logValidationErrors(requisitionForm, this.formErrors, this.validationMessages)"
+                        propertyName="name" 
+                        propertyValue="id" 
+                        [errorMessage]="formErrors.businessPartnerId"
+                        [optionList]="ngxsService.businessPartners$"
+                        clickEventButtonName="Add New Customer"
+                        (clickEvent)="openBusinessPartnerDialog()" 
+                        searchPlaceholder="Search Customers..."
+                        placeholder="Select Customer">
+                       </kt-simple-dropdown>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Requisition Date:</label>
+                      <kt-date-input
+                        formControlName="requisitionDate"
+                        placeholder="Enter Date"
+                        (blurEvent)="logValidationErrors(requisitionForm, formErrors, validationMessages)"
+                        [errorMessage]="formErrors.requisitionDate"
+                        [maxDate]="maxDate">
+                      </kt-date-input>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Campus:</label>
+                    <kt-simple-dropdown
+                      formControlName="campusId"
+                      propertyName="name"
+                      propertyValue="id"
+                      matFormFieldClass="full-width "
+                      [errorMessage]="formErrors.campusId"
+                      (blurEvent)="logValidationErrors(requisitionForm, this.formErrors, this.validationMessages)"
+                      [optionList]="ngxsService.campuses$"
+                      searchPlaceholder="Search Campuses..."
+                      placeholder="Select Campus">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row mt-5">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="example-container  mat-elevation-z8 ">
+                    <ng-container formArrayName="requisitionLines">
+                      <div class="table-responsive">
+                        <mat-table #table [dataSource]="requisitionForm.get('requisitionLines')['controls']">
+                          <!-- Account Column -->
+                          <ng-container matColumnDef="itemId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-simple-dropdown propertyName="productName" propertyValue="id"                               
+                                [optionList]="ngxsService.products$"
+                                clickEventButtonName="Add New Item"
+                                (clickEvent)="openProductDialog()" 
+                                [errorMessage]="'Item is Required'"
+                                formControlName="itemId"
+                                placeholder="Select Item" matFormFieldClass="mobile-label full-width input_d_1"
+                                (selectionChange)="onItemSelected($event.value, i)">
+                                </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!--Partner Column-->
+                          <ng-container matColumnDef="description">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field formControlName="description"
+                                  matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Description"
+                                  (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
+                                  [errorMessage]="[{ condition : requisitionForm.get('requisitionLines')['controls'][i].controls.description.errors?.required &&
+                                                                      requisitionForm.get('requisitionLines')['controls'][i].controls.description.touched , 
+                                                          error : 'Description is required' }]">
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Description Column -->
+                          <ng-container matColumnDef="accountId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Account</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-simple-dropdown placeholder="Select Account" propertyValue="id"
+                                   propertyName="name"
+                                  formControlName="accountId" matFormFieldClass="mobile-label full-width input_d_1"
+                                  [errorMessage]="'Account is Required'" [optionList]="ngxsService.accountsLevel4$">
+                                </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Quantity Column -->
+                          <ng-container matColumnDef="quantity">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field formControlName="quantity"
+                                  matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
+                                  #itemName type="number"
+                                  (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
+                                  [errorMessage]="[{ condition : requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.errors?.required &&
+                                                                      requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.touched , 
+                                                          error : 'Quantity is required' },
+                                                        { condition : requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.errors?.min &&
+                                                                      requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.touched , 
+                                                          error : 'Minimum value is one' }]">
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Warehouse Column -->
+                          <ng-container matColumnDef="warehouseId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Warehouse</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-simple-dropdown 
+                                  placeholder="Select Warehouse" 
+                                  propertyValue="id" 
+                                  propertyName="name"
+                                  isDisabledNone="true"
+                                  [hintText]="'Optional'"
+                                  formControlName="warehouseId" 
+                                  matFormFieldClass="full-width input_d_1" 
+                                  [optionList]="ngxsService.warehouses$">
+                                </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Action Column -->
+                          <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
+                                    </mat-icon> -->
+  
+                              <button class=" remove-icon" type="button"
+                                (click)="removeRequisitionLineClick(i)">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                              </button>
+                            </mat-cell>
+                          </ng-container>
+                          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                      </div>
+                    </ng-container>
+  
+                    <ng-container>
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                          <button class=" btn_create" type="button" (click)="addRequisitionLineClick()">
+                            <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
+                          </button>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- <div class="row mt-10">
+                <div class="col-lg-4 ml-auto">
+                  <table class="table table-bordered small_table_box">
+                    <tr>
+                      <th class="text-right" style="width: 70%;">Total Before Tax :</th>
+                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                        {{valueFormatter(totalBeforeTax || 0)}}
+                    </tr>
+                    <tr>
+                      <th class="text-right">Total Tax :</th>
+                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                        {{valueFormatter(totalTax || 0)}}</td>
+                    </tr>
+                    <tr>
+                      <th class="text-right"
+                        style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Grand Total :
+                      </th>
+                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                        {{valueFormatter(grandTotal || 0)}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div> -->
+            </div>
+            <!--End Requisition Lines-->
+          </div>
+        </div>
+  
+        <mat-divider class="mt-10"></mat-divider>
+        <div class="kt-portlet__foot ">
+          <div class="kt-form__actions kt-form__actions">
+            <div class="row">
+              <div class="col-lg-12 text-right">
+                <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()">Reset</button>
+                <button class="sub___btn  mr-3" mat-raised-button type="submit"
+                  (click)="logValidationErrors(this.requisitionForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
+                <button class="sub___btn " mat-raised-button type="submit"
+                  (click)="logValidationErrors(this.requisitionForm, this.formErrors, this.validationMessages); isSubmit(1)">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--end::Form-->
+    </kt-portlet>
+  </div>
