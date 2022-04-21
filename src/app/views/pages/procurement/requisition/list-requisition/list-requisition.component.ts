@@ -97,7 +97,7 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
     params.api.sizeColumnsToFit();
   }
 
-  addInvoice() {
+  addRequisition() {
     this.router.navigate(['/' + REQUISITION.CREATE]);
   }
 
