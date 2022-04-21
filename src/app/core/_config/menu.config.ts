@@ -715,13 +715,13 @@ export class MenuConfig {
                 Permissions.BALANCESHEET_VIEW,
               ]
             },
-            // {
-            //   title: 'Profit & Loss',
-            //   page: '/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS,
-            //   permission: [
-            //     Permissions.PROFITLOSS_VIEW,
-            //   ]
-            // },
+            {
+              title: 'Profit & Loss',
+              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS,
+              permission: [
+                Permissions.PROFITLOSS_VIEW,
+              ]
+            },
             {
               title: 'Trial Balance',
               page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
