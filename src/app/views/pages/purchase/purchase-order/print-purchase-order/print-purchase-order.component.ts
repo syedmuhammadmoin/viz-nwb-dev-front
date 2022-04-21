@@ -15,7 +15,7 @@ import { IPurchaseOrder } from '../model/IPurchaseOrder';
 export class PrintPurchaseOrderComponent implements OnInit {
 
     gridOptions: GridOptions;
-    masterData: IPurchaseOrder;
+    masterData: IPurchaseOrder | any;
     purchaseOrderLines: any;
   
     totalBeforeTax: number;

@@ -1,20 +1,15 @@
 import { NgxsCustomService } from './../../../../shared/services/ngxs-service/ngxs-custom.service';
-import {HttpClient} from '@angular/common/http';
-import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AppComponentBase} from 'src/app/views/shared/app-component-base';
-import {BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
-import {CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
-import {DepartmentService} from 'src/app/views/pages/profiling/department/service/department.service';
-import {LocationService} from 'src/app/views/pages/profiling/location/service/location.service';
-import {WarehouseService} from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
-import {ProfitLossService} from '../service/profit-loss.service';
-import {IProfitLoss} from '../model/IProfitLoss';
+import { HttpClient} from '@angular/common/http';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AppComponentBase} from 'src/app/views/shared/app-component-base';
+import { ProfitLossService} from '../service/profit-loss.service';
+import { IProfitLoss} from '../model/IProfitLoss';
 import { isEmpty } from 'lodash';
-import {  Permissions } from 'src/app/views/shared/AppEnum';
+import { Permissions } from 'src/app/views/shared/AppEnum';
+import  {map } from 'rxjs/operators';
+import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 
-import {map} from 'rxjs/operators';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 @Component({
   selector: 'app-profit-N-loss',
@@ -22,6 +17,7 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
   styleUrls: ['./profit-N-loss.component.scss'],
   providers:[NgxsCustomService]
 })
+
 export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   
  // for permissions 
@@ -34,6 +30,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   defaultColDef;
   autoGroupColumnDef: any;
   profitNLossForm: FormGroup;
+  profitNLossModel: IProfitLoss = {} as IProfitLoss
   netProfit = '0';
 
   //data for PDF
@@ -78,20 +75,20 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         rowGroup: true,
         hide: true,
       },
-      {
-        // headerName: 'Head',
-        rowGroup: true,
-        field: 'head',
-        hide: true
-        // filter: 'agTextColumnFilter',
-      },
-      {
-        // headerName: 'Summary Head',
-        field: 'summeryHead',
-        // filter: 'agNumberColumnFilter',
-        rowGroup: true,
-        hide: true
-      },
+      // {
+      //   // headerName: 'Head',
+      //   rowGroup: true,
+      //   field: 'head',
+      //   hide: true
+      //   // filter: 'agTextColumnFilter',
+      // },
+      // {
+      //   // headerName: 'Summary Head',
+      //   field: 'summeryHead',
+      //   // filter: 'agNumberColumnFilter',
+      //   rowGroup: true,
+      //   hide: true
+      // },
       {
         headerName: 'Transactional',
         field: 'transactional',
@@ -102,7 +99,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         headerName: 'Total',
         field: 'balance',
         aggFunc: 'sum',
-        valueFormatter: (param) => {
+        valueFormatter: (param: ValueFormatterParams) => {
           return this.valueFormatter(param.value)
           // Math.sign(param.value) === -1 ? `(${Math.abs(param.value).toLocaleString()})` : param.value.toString().toLocaleString()
         }
@@ -116,37 +113,39 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit(): void {
-    this.autoGroupColumnDef = {
-      headerName: 'Nature',
-      field: 'nature',
-      minWidth: 300,
-    };
+    // this.autoGroupColumnDef = {
+    //   headerName: 'Nature',
+    //   field: 'nature',
+    //   minWidth: 300,
+    // };
     this.profitNLossForm = this.fb.group({
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
-      transactional: [''],
+      accountName: [''],
       businessPartner: [''],
       warehouse: [''],
-      department: [''],
-      location: [''],
-      organization: ['']
+      campus: ['']
     });
     
     // get Ware house location from state
     this.ngxsService.getWarehouseFromState();    
     // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
+    // get Campuses of level 4 from state
+    this.ngxsService.getCampusFromState()
+    // get business Partners of level 4 from state
+    this.ngxsService.getBusinessPartnerFromState()
     // get location from state
     //this.ngxsService.getLocationFromState();
     // get department from state
     //this.ngxsService.getDepatmentFromState();
   }
 
-  onFirstDataRendered(params: any) {
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
-  onGridReady(params) {
+  onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
   }
@@ -156,12 +155,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       this.logValidationErrors(this.profitNLossForm, this.formErrors, this.validationMessages);
       return;
     }
-    const profitNLoss = {...this.profitNLossForm.value} as IProfitLoss
-    profitNLoss.docDate = this.transformDate(this.profitNLossForm.value.docDate, 'MMM d, y')
-    profitNLoss.docDate2 = this.transformDate(this.profitNLossForm.value.docDate2, 'MMM d, y')
-    console.log(profitNLoss)
+    this.mapProfitNLossValuesToModel();
+    console.log(this.profitNLossModel)
     this.isLoading = true;
-    this.profitLossService.getProfitNLoss(profitNLoss)
+    this.profitLossService.getProfitNLoss(this.profitNLossModel)
       .pipe(
         map((x: any) => {
           console.log(x.result)
@@ -186,6 +183,15 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       });
   }
 
+  mapProfitNLossValuesToModel () {
+    this.profitNLossModel.docDate = this.formatDate(this.profitNLossForm.value.docDate)
+    this.profitNLossModel.docDate2 = this.formatDate(this.profitNLossForm.value.docDate2)
+    this.profitNLossModel.businessPartner = this.profitNLossForm.value.businessPartner || '';
+    this.profitNLossModel.campus = this.profitNLossForm.value.campusName || '';
+    this.profitNLossModel.accountName = this.profitNLossForm.value.accountName || '';
+    this.profitNLossModel.warehouse = this.profitNLossForm.value.warehouse || '';
+  }
+
   calculateNetProfit(res: any[]) {
     console.table(res);
     const revenue = res.filter(x => x.nature.toLowerCase() === 'income').reduce((a, b) => {
@@ -196,6 +202,20 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     }, 0);
     this.netProfit = `(${Math.abs((revenue) - (expense)).toLocaleString()})`
     console.log((revenue) - (expense));
+  }
+
+  formatDate(date) {
+    let d = new Date(date),
+      month = '' + (d.getMonth() + 1),
+      day = '' + d.getDate(),
+      year = d.getFullYear();
+
+    if (month.length < 2)
+      month = '0' + month;
+    if (day.length < 2)
+      day = '0' + day;
+
+    return [year, month, day].join('-');
   }
 
   reset() {

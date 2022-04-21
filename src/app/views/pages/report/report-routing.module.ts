@@ -60,38 +60,31 @@ const routes: Routes = [
           },
         ]
       },
-      // {
-      //   path: REPORT.PROFIT_N_LOSS,
-      //   // component: ProfitNLossComponent,
-      //   // data: {
-      //   //   array: [
-      //   //     { permission: Permissions.PROFITLOSS_VIEW },
-      //   //   ]
-      //   // },
-      //   // canActivate: [PermissionGuard]
-      //   children:[
-      //     {
-      //       path: APP_ROUTES.REPORT,
-      //       component: ProfitNLossComponent,
-      //       data: {
-      //         array: [
-      //           { permission: Permissions.PROFITLOSS_VIEW },
-      //         ]
-      //       },
-      //       canActivate: [PermissionGuard]
-      //     },
-      //     {
-      //       path: REPORT.PRINT,
-      //       component: PrintProfitNLossComponent,
-      //       data: {
-      //         array: [
-      //           { permission: Permissions.PROFITLOSS_VIEW },
-      //         ]
-      //       },
-      //       canActivate: [PermissionGuard]
-      //     },
-      //   ]
-      // }
+      {
+        path: REPORT.PROFIT_N_LOSS,
+        children:[
+          {
+            path: '',
+            component: ProfitNLossComponent,
+            data: {
+              array: [
+                { permission: Permissions.PROFITLOSS_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+          {
+            path: REPORT.PRINT,
+            component: PrintProfitNLossComponent,
+            data: {
+              array: [
+                { permission: Permissions.PROFITLOSS_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+        ]
+      }
     ]
   }
 ];
