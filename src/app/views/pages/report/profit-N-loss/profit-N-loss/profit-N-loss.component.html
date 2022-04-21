@@ -27,37 +27,55 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Account:</label>
-                <kt-simple-dropdown formControlName="transactional" matFormFieldClass="full-width"
-                  placeholder="Select Account" [optionList]="ngxsService.accountsLevel4$"
-                  searchPlaceholder="Search accounts..." propertyName="name" propertyValue="name">
+                <kt-simple-dropdown formControlName="accountName" matFormFieldClass="full-width" isDisabledNone="true"
+                  placeholder="Select Account" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
+                  searchPlaceholder="Search Accounts..." propertyName="name" propertyValue="name">
                 </kt-simple-dropdown>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-4">
+            <!-- <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Department:</label>
-                <!-- <kt-simple-dropdown formControlName="department" matFormFieldClass="full-width"
+                <kt-simple-dropdown formControlName="department" matFormFieldClass="full-width"
                   placeholder="Select Department" [optionList]="ngxsService.departments$"
                   searchPlaceholder="Search departments..." propertyName="name" propertyValue="name">
-                </kt-simple-dropdown> -->
+                </kt-simple-dropdown>
+              </div>
+            </div> -->
+            <!-- <div class="col-lg-4">
+              <div class="form-group kt-form__group">
+                <label class="col-form-label">Location:</label>
+                 <kt-simple-dropdown formControlName="location" matFormFieldClass="full-width"
+                  placeholder="Select Location" [optionList]="ngxsService.locations$"
+                  searchPlaceholder="Search location..." propertyName="name" propertyValue="name">
+                </kt-simple-dropdown> 
+              </div>
+            </div> -->
+            <div class="col-lg-4">
+              <div class="form-group kt-form__group">
+                <label class="col-form-label">Business Partner:</label>
+                <kt-simple-dropdown formControlName="businessPartner" matFormFieldClass="full-width" hintText="Optional"
+                  placeholder="Select Business Partner" [optionList]="ngxsService.businessPartners$" isDisabledNone="true"
+                  searchPlaceholder="Search Business Partners..." propertyName="name" propertyValue="name">
+                </kt-simple-dropdown>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
-                <label class="col-form-label">Location:</label>
-                <!-- <kt-simple-dropdown formControlName="location" matFormFieldClass="full-width"
-                  placeholder="Select Location" [optionList]="ngxsService.locations$"
-                  searchPlaceholder="Search location..." propertyName="name" propertyValue="name">
-                </kt-simple-dropdown> -->
+                <label class="col-form-label">Campus:</label>
+                <kt-simple-dropdown formControlName="campus" matFormFieldClass="full-width" hintText="Optional"
+                  placeholder="Select Campus" [optionList]="ngxsService.campuses$" isDisabledNone="true"
+                  searchPlaceholder="Search Campuses..." propertyName="name" propertyValue="name">
+                </kt-simple-dropdown>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Warehouse:</label>
-                <kt-simple-dropdown formControlName="warehouse" matFormFieldClass="full-width"
-                  placeholder="Select Warehouse" [optionList]="ngxsService.warehouses$"
+                <kt-simple-dropdown formControlName="warehouse" matFormFieldClass="full-width" hintText="Optional"
+                  placeholder="Select Warehouse" [optionList]="ngxsService.warehouses$" isDisabledNone="true"
                   searchPlaceholder="Search warehouse..." propertyName="name" propertyValue="name">
                 </kt-simple-dropdown>
               </div>
@@ -66,12 +84,12 @@
           <!-- endregion -->
           <!-- region Second Row -->
           <div class="row">
-            <div class="col-lg-4 text-right justify-content-start align-items-center d-flex">
+            <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-3">
               <div class="form-group kt-form__group">
                 <button class="mr-3 btn_white" mat-raised-button type="reset">Reset</button>
                 <button class="sub___btn" mat-raised-button type="submit">Fetch Records</button>
                 <!--For PDF-->
-                <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf>
+                <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
               </div>
             </div>
           </div>

@@ -8,12 +8,9 @@ import {IProfitLoss} from "../model/IProfitLoss";
   providedIn: 'root'
 })
 export class ProfitLossService {
-  constructor(
-    private httpClient: HttpClient
-  ) {
-  }
-
+  constructor(private httpClient: HttpClient) { }
+  
   getProfitNLoss(body: IProfitLoss): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'ProfitLoss', body)
+    return this.httpClient.post(environment.baseUrl + 'pnl', body)
   }
 }
