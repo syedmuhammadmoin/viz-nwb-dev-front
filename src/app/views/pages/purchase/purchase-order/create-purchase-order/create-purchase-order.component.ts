@@ -13,9 +13,7 @@ import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confi
 import { Observable } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
-import { RequireMatch } from 'src/app/views/shared/requireMatch';
 import { IPurchaseOrderLines } from '../model/IPurchaseOrderLines';
-import { validators } from 'dist/assets/plugins/formvalidation/src/js';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Component({
