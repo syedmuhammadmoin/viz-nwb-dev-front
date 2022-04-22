@@ -19,7 +19,6 @@ import { PurchaseOrderService } from '../../purchase-order/service/purchase-orde
   selector: 'kt-create-vendor-bill',
   templateUrl: './create-vendor-bill.component.html',
   styleUrls: ['./create-vendor-bill.component.scss'],
-  providers:[NgxsCustomService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

@@ -19,8 +19,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-department',
   templateUrl: './create-department.component.html',
-  styleUrls: ['./create-department.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-department.component.scss']
 })
 
 export class CreateDepartmentComponent extends AppComponentBase implements OnInit {

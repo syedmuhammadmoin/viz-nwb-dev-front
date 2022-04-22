@@ -18,8 +18,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-bank-statement',
   templateUrl: './create-bank-statement.component.html',
-  styleUrls: ['./create-bank-statement.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-bank-statement.component.scss']
 })
 
 export class CreateBankStatementComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {

@@ -1,4 +1,4 @@
-import { Injectable, } from '@angular/core';
+import { Inject, Injectable, } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AccountLevel4State } from 'src/app/core/shared-state/account-state/store/account-level4.state';
@@ -31,6 +31,10 @@ import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/servic
 import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
 import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
 import { CscService } from 'src/app/views/shared/csc.service';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 export class NgxsCustomService {
 

@@ -21,7 +21,6 @@ import { IJournalEntryLines } from '../model/IJournalEntryLines';
   selector: 'kt-create-journal-entry',
   templateUrl: './create-journal-entry.component.html',
   styleUrls: ['./create-journal-entry.component.scss'],
-  providers:[NgxsCustomService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

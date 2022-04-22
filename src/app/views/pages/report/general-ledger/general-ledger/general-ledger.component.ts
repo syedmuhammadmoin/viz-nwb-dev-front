@@ -56,8 +56,7 @@ function creditSum(params) {
 @Component({
   selector: 'kt-general-ledger',
   templateUrl: './general-ledger.component.html',
-  styleUrls: ['./general-ledger.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./general-ledger.component.scss']
 })
 export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   // for permissions 

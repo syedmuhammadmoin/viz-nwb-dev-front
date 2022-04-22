@@ -20,7 +20,6 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
   selector: 'kt-create-purchase-order',
   templateUrl: './create-purchase-order.component.html',
   styleUrls: ['./create-purchase-order.component.scss'],
-  providers:[NgxsCustomService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
@@ -60,6 +59,8 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   maxDate: Date = new Date();
   minDate: Date
   dateCondition : boolean
+
+  title: string = 'Create Purchase Order'
 
 
   // Validation Messages
@@ -138,6 +139,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       const id = param.q;
       this.isPurchaseOrder = param.isPurchaseOrder;
       if (id && this.isPurchaseOrder) {
+        this.title = 'Edit Purchase Order'
         this.getPurchaseOrder(id);
         //this.getSalesOrder(id);
       }
@@ -227,7 +229,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
-      warehouseId: [''],
+      warehouseId: [null],
     });
   }
 

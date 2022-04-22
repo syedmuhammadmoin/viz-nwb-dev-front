@@ -17,8 +17,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-organization',
   templateUrl: './create-organization.component.html',
-  styleUrls: ['./create-organization.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-organization.component.scss']
 })
 
 export class CreateOrganizationComponent extends AppComponentBase implements OnInit {

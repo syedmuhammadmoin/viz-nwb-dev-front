@@ -19,8 +19,7 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 @Component({
   selector: 'kt-trial-balance',
   templateUrl: './trial-balance.component.html',
-  styleUrls: ['./trial-balance.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./trial-balance.component.scss']
 })
 export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   // for permissions 

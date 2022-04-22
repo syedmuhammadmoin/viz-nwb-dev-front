@@ -23,8 +23,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-invoice',
   templateUrl: './create-invoice.component.html',
-  styleUrls: ['./create-invoice.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-invoice.component.scss']
 })
 
 export class CreateInvoiceComponent extends AppComponentBase implements OnInit, OnDestroy, FormsCanDeactivate {

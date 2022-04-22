@@ -12,7 +12,6 @@ import { IOrganization } from '../model/IOrganization';
   selector: 'kt-list-organization',
   templateUrl: './list-organization.component.html',
   styleUrls: ['./list-organization.component.scss'],
-  providers:[NgxsCustomService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

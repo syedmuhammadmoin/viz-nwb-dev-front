@@ -12,8 +12,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 @Component({
   selector: 'kt-create-bank-account',
   templateUrl: './create-bank-account.component.html',
-  styleUrls: ['./create-bank-account.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-bank-account.component.scss']
 })
 
 export class CreateBankAccountComponent extends AppComponentBase implements OnInit {

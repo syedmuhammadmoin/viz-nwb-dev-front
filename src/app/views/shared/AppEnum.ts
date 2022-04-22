@@ -139,6 +139,14 @@ export class Permissions {
   static PURCHASEORDER_REVIEW = 'Permissions.PurchaseOrderClaims.Review';
   static PURCHASEORDER_APPROVE = 'Permissions.PurchaseOrderClaims.Approve';
 
+  // Requisition
+  static REQUISITION_VIEW = 'Permissions.RequisitionClaims.View';
+  static REQUISITION_CREATE = 'Permissions.RequisitionClaims.Create';
+  static REQUISITION_EDIT = 'Permissions.RequisitionClaims.Edit';
+  static REQUISITION_DELETE = 'Permissions.RequisitionClaims.Delete';
+  static REQUISITION_REVIEW = 'Permissions.RequisitionClaims.Review';
+  static REQUISITION_APPROVE = 'Permissions.RequisitionClaims.Approve';
+
   // Payment
   static PAYMENT_VIEW = 'Permissions.PaymentClaims.View';
   static PAYMENT_CREATE = 'Permissions.PaymentClaims.Create';

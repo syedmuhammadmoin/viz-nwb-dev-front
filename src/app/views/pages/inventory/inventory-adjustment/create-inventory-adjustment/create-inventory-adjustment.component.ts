@@ -22,8 +22,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 @Component({
   selector: 'kt-create-inventory-adjustment',
   templateUrl: './create-inventory-adjustment.component.html',
-  styleUrls: ['./create-inventory-adjustment.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-inventory-adjustment.component.scss']
 })
 
 export class CreateInventoryAdjustmentComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {

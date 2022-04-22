@@ -14,8 +14,7 @@ import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag
 @Component({
   selector: 'app-profit-N-loss',
   templateUrl: './profit-N-loss.component.html',
-  styleUrls: ['./profit-N-loss.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./profit-N-loss.component.scss']
 })
 
 export class ProfitNLossComponent extends AppComponentBase implements OnInit {

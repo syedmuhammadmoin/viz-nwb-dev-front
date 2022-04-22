@@ -266,16 +266,22 @@ export class AppConst {
     'Permissions.WarehouseClaims.Delete': 'Warehouse Delete',
 
     // sales Order
-    'Permissions.SalesOrderClaims.View': 'sales Order View',
-    'Permissions.SalesOrderClaims.Create': 'sales Order Create',
-    'Permissions.SalesOrderClaims.Edit': 'sales Order Update',
-    'Permissions.SalesOrderClaims.Delete': 'sales Order Delete',
+    'Permissions.SalesOrderClaims.View': 'Sales Order View',
+    'Permissions.SalesOrderClaims.Create': 'Sales Order Create',
+    'Permissions.SalesOrderClaims.Edit': 'Sales Order Update',
+    'Permissions.SalesOrderClaims.Delete': 'Sales Order Delete',
 
     //  purchase Order
-    'Permissions.PurchaseOrderClaims.View': 'purchase Order View',
-    'Permissions.PurchaseOrderClaims.Create': 'purchase Order Create',
-    'Permissions.PurchaseOrderClaims.Edit': 'purchase Order Update',
-    'Permissions.PurchaseOrderClaims.Delete': 'purchase Order Delete',
+    'Permissions.PurchaseOrderClaims.View': 'Purchase Order View',
+    'Permissions.PurchaseOrderClaims.Create': 'Purchase Order Create',
+    'Permissions.PurchaseOrderClaims.Edit': 'Purchase Order Update',
+    'Permissions.PurchaseOrderClaims.Delete': 'Purchase Order Delete',
+
+    // Requisition
+    'Permissions.RequisitionClaims.View': 'Requisition View',
+    'Permissions.RequisitionClaims.Create': 'Requisition Create',
+    'Permissions.RequisitionClaims.Edit': 'Requisition Update',
+    'Permissions.RequisitionClaims.Delete': 'Requisition Delete',
 
     // GRN
     'Permissions.GRNClaims.View': 'Good Receive Note View',
@@ -329,7 +335,8 @@ export class AppConst {
     {value: 'Bill', id: DocType.Bill},
     {value: 'Journal Voucher', id: DocType.JournalEntry},
     {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'},
-    {value: 'Purchase Order' , id: DocType.PurchaseOrder}
+    {value: 'Purchase Order' , id: DocType.PurchaseOrder},
+    {value: 'Requisition' , id: DocType.Requisition}
     //{value: 'purchase Order', id: DocType.PurchaseOrder},
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},

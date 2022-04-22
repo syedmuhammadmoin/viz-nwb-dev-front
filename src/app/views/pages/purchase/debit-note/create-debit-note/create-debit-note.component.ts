@@ -18,8 +18,7 @@ import { IProduct } from '../../../profiling/product/model/IProduct';
 @Component({
   selector: 'kt-create-debit-note',
   templateUrl: './create-debit-note.component.html',
-  styleUrls: ['./create-debit-note.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-debit-note.component.scss']
 })
 
 export class CreateDebitNoteComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {

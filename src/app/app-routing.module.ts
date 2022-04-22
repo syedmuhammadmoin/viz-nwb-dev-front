@@ -202,6 +202,17 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
 
+      //Procurement Section
+       // Lazy Load REQUISITION Module
+       {
+        path: APP_ROUTES.REQUISITION,
+        loadChildren: () =>
+          import('./views/pages/procurement/requisition/requisition.module').then(
+            (m) => m.RequisitionModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+
       //sales Section
        // Lazy Load CREDIT NOTE Module
        {

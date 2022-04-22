@@ -20,8 +20,7 @@ import { BusinessPartnerType } from 'src/app/views/shared/AppEnum';
 @Component({
   selector: 'kt-create-business-partner',
   templateUrl: './create-business-partner.component.html',
-  styleUrls: ['./create-business-partner.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-business-partner.component.scss']
 })
 
 export class CreateBusinessPartnerComponent extends AppComponentBase implements OnInit {

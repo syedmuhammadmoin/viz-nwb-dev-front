@@ -19,8 +19,7 @@ import { ISalesOrderLines } from '../model/ISalesOrderLines';
 @Component({
   selector: 'kt-create-sales-order',
   templateUrl: './create-sales-order.component.html',
-  styleUrls: ['./create-sales-order.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-sales-order.component.scss']
 })
 
 export class CreateSalesOrderComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
