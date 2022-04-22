@@ -19,14 +19,14 @@
           [routerLink]="'/'+BILL.CREATE"
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
              Create Bill
-        </button>
+        </button> -->
         <button
           [disabled]="!(permission.isGranted(permissions.GRN_CREATE))"
           [ngClass]="!(permission.isGranted(permissions.GRN_CREATE)) ? 'disable' : '' "
-          [routerLink]="'/'+GOODS_RECEIVED_NOTE.CREATE"
+          [routerLink]="'/'+ GOODS_RECEIVED_NOTE.CREATE"
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
              Create GRN
-        </button> -->
+        </button> 
         <h4 class="overall_statuses {{docStatus[purchaseOrderMaster?.state]}}"> Status: {{purchaseOrderMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>

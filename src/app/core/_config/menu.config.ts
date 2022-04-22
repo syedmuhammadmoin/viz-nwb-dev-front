@@ -459,7 +459,11 @@ export class MenuConfig {
             Permissions.REQUISITION_EDIT,
             Permissions.REQUISITION_DELETE,
             Permissions.REQUISITION_REVIEW,
-            Permissions.REQUISITION_APPROVE
+            Permissions.REQUISITION_APPROVE,
+            Permissions.GRN_VIEW,
+            Permissions.GRN_CREATE,
+            Permissions.GRN_EDIT,
+            Permissions.GRN_DELETE
           ],
           submenu: [
             {
@@ -485,7 +489,17 @@ export class MenuConfig {
                 Permissions.REQUISITION_REVIEW,
                 Permissions.REQUISITION_APPROVE
               ]
-            }
+            },
+            {
+              title: 'Goods Received Note',
+              page: '/' + GOODS_RECEIVED_NOTE.LIST,
+              permission: [
+                Permissions.GRN_VIEW,
+                Permissions.GRN_CREATE,
+                Permissions.GRN_EDIT,
+                Permissions.GRN_DELETE
+              ]
+            },
           ]
         },
         //Budget Portion

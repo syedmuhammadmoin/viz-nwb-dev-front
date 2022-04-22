@@ -14,6 +14,9 @@ import {WarehouseService} from '../../../profiling/warehouse/services/warehouse.
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { Observable } from 'rxjs';
 import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
+import { IGRNLines } from '../model/IGRNLines';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchaseOrder';
 
 @Component({
   selector: 'kt-create-grn',
@@ -27,20 +30,19 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // For Loading
   isLoading: boolean;
 
-  vendorBillModel: any;
-  isBill = false;
-
   // Declaring form variable
   grnForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'locationId', 'action']
+  displayedColumns = ['itemId', 'description', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action']
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
 
   // Goods Received NoteModel
   grnModel: IGRN;
+
+  title: string = 'Create Goods Received Note'
 
   // param to get purchase order master
   isPurchaseOrder: any;
@@ -49,6 +51,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // for Edit
   isGRN: any;
 
+  // For Calculation
+  grandTotal = 0 ;
+  totalBeforeTax = 0 ;
+  totalTax = 0;
 
   // For DropDown
   salesItem: IProduct[] = [];
@@ -78,6 +84,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     private fb: FormBuilder,
     private grnService: GrnService,
     private purchaseOrderService: PurchaseOrderService,
+    public ngxsService: NgxsCustomService,
     public businessPartnerService: BusinessPartnerService,
     public productService: ProductService,
     public categoryService: CategoryService,
@@ -96,6 +103,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       vendorName: [{value: '', disabled: true}, [Validators.required]],
       grnDate: ['', [Validators.required]],
       contact: [''],
+      campusId: ['', [Validators.required]],
       GRNLines: this.fb.array([
         this.addGRNLines()
       ])
@@ -106,6 +114,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       vendorId: null,
       grnDate: null,
       contact: null,
+      purchaseOrderId: null,
+      campusId: null,
       grnLines: []
     }
 
@@ -116,11 +126,23 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       if (id && this.isPurchaseOrder) {
         this.getPurchaseOrder(id);
       } else if (id && this.isGRN) {
+        this.title = 'Edit Goods Received Note'
         this.getGRN(id);
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProducts().subscribe(res => this.salesItem = res.result);
+
+    // get Vendor from state
+    this.ngxsService.getBusinessPartnerFromState();
+    // get Accounts of level 4 from state
+    this.ngxsService.getAccountLevel4FromState()
+    // get Ware house location from state
+    this.ngxsService.getWarehouseFromState();
+    // get item from state
+    this.ngxsService.getProductFromState();
+
+    this.ngxsService.getCampusFromState();
   }
 
   // Form Reset
@@ -132,32 +154,54 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    // var arrayControl = this.grnForm.get('GRNLines') as FormArray;
-    // if (itemId) {
-    //   var salesPrice = this.salesItem.find(i => i.id === itemId).salesPrice
-    //   var salesTax = this.salesItem.find(i => i.id === itemId).salesTax
-    //   //set values for price & tax
-    //   arrayControl.at(index).get('salesPrice').setValue(salesPrice);
-    //   arrayControl.at(index).get('salesTax').setValue(salesTax);
-    //   //Calculating subtotal
-    //   var quantity = arrayControl.at(index).get('quantity').value;
-    //   var subTotal = (salesPrice * quantity) + ((salesPrice * quantity) * (salesTax / 100))
-    //   //console.log('Subtotal', subTotal);
-    //   arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // }
+    const arrayControl = this.grnForm.get('grnLines') as FormArray;
+    if (itemId) {
+      const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
+      const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
+      // set values for price & tax
+      arrayControl.at(index).get('cost').setValue(cost);
+      arrayControl.at(index).get('tax').setValue(salesTax);
+      // Calculating subtotal
+      const quantity = arrayControl.at(index).get('quantity').value;
+      const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
+      arrayControl.at(index).get('subTotal').setValue(subTotal);
+    }
   }
 
-  // onChangeEvent for calculating subtotal
-  onChangeEvent(value: any, index: number, element?: HTMLElement) {
+  // For Calculating subtotal and Quantity to Ton and vice versa Conversion
+  onChangeEvent(value: any, index: number , element?: HTMLElement) {
+    const arrayControl = this.grnForm.get('grnLines') as FormArray;
+    const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
+    const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
+    const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
 
-    // const arrayControl = this.grnForm.get('GRNLines') as FormArray;
-    // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
-    // const ton = (arrayControl.at(index).get('ton').value) !== null ? arrayControl.at(index).get('ton').value : null;
+    // calculating subTotal
+    const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
+    arrayControl.at(index).get('subTotal').setValue(subTotal);
+    this.totalCalculation();
+  }
 
-    // For Quantity And Ton conversion
-    // const selectedElement = element.getAttribute('formControlName');
+  // Calculations
+  // Calculate Total Before Tax ,Total Tax , grandTotal
+  totalCalculation() {
+    this.totalTax = 0;
+    this.totalBeforeTax = 0;
+    this.grandTotal = 0;
+    const arrayControl = this.grnForm.get('GRNLines') as FormArray;
+    arrayControl.controls.forEach((element, index) => {
+      const cost = arrayControl.at(index).get('cost').value;
+      const tax = arrayControl.at(index).get('tax').value;
+      const quantity = arrayControl.at(index).get('quantity').value;
+      this.totalTax += ((cost * quantity) * tax) / 100
+      this.totalBeforeTax += cost * quantity;
+      this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
+    });
+    console.log(this.totalBeforeTax)
+  }
 
-    // (selectedElement === 'quantity') ? arrayControl.at(index).get('ton').setValue((quantity / 20).toFixed(1)) : arrayControl.at(index).get('quantity').setValue((ton * 20))
+  //for save or submit
+  isSubmit(val: number) {
+    this.grnModel.isSubmit = (val === 0) ? false : true;
   }
 
 
@@ -170,13 +214,13 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   addGRNLines(): FormGroup {
     return this.fb.group({
-      itemId: [''],
-      // acccountId: ['', Validators.required],
+      itemId: ['', [Validators.required]],
       description: ['', Validators.required],
       cost: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required, Validators.min(1)]],
       tax: ['', [Validators.max(100), Validators.min(0)]],
-      locationId: ['', Validators.required],
+      subTotal: [{value: '0', disabled: true}],
+      warehouseId: [null],
     });
   }
 
@@ -192,20 +236,18 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   //Get purchase Order Master Data
   private getPurchaseOrder(id: number) {
     this.isLoading = true;
-    // this.purchaseOrderService.getPurchaseMasterById(id).subscribe((res) => {
-    //   if (!res) return
-    //   this.purchaseOrderMaster = res.result
-    //   this.patchGRN(this.purchaseOrderMaster);
-    //   this.isLoading = false;
-    // }, (err) => {
-    //   console.log(err);
-    // });
+    this.purchaseOrderService.getPurchaseOrderById(id).subscribe((res) => {
+      if (!res) return
+      this.purchaseOrderMaster = res.result
+      this.patchGRN(this.purchaseOrderMaster);
+      this.isLoading = false;
+    });
   }
 
   // Get GRN Data for Edit
   private getGRN(id: any) {
     this.isLoading = true;
-    this.grnService.getGRNMasterById(id).subscribe((res) => {
+    this.grnService.getGRNById(id).subscribe((res) => {
       if (!res) return
       this.grnModel = res.result
       this.patchGRN(this.grnModel)
@@ -214,28 +256,30 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   }
 
   //Patch GRN Form through GRN Or purchase Order Master Data
-  patchGRN(data: any) {
+  patchGRN(data: IPurchaseOrder | IGRN | any) {
     this.grnForm.patchValue({
       vendorName: data.vendorId,
       grnDate: (data.grnDate) ? data.grnDate : data.poDate,
+      campusId : data.campusId,
       contact: data.contact
     });
 
-    this.grnForm.setControl('GRNLines', this.patchGRNLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.grnLines))
+    this.grnForm.setControl('GRNLines', this.patchGRNLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.grnLines));
+    this.totalCalculation();
   }
 
   //Patch GRN Lines From purchase Order Or GRN Master Data
-  patchGRNLines(Lines: any): FormArray {
+  patchGRNLines(Lines: IGRNLines[]): FormArray {
     const formArray = new FormArray([]);
-    Lines.forEach((line: any) => {
+    Lines.forEach((line: IGRNLines | any) => {
       formArray.push(this.fb.group({
-        id: line.id,
-        itemId: line.itemId,
-        description: line.description,
-        cost: line.cost,
-        quantity: [line.quantity, [Validators.min(1), Validators.max(line.quantity)]],
-        tax: line.tax,
-        locationId: line.locationId,
+        itemId: [line.itemId, [Validators.required]],
+        description: [line.description, Validators.required],
+        cost: [line.cost, [Validators.required, Validators.min(1)]],
+        quantity: [line.quantity, [Validators.required, Validators.min(1)]],
+        tax: [line.tax, [Validators.max(100), Validators.min(0)]],
+        subTotal: [{value: line.subTotal, disabled: true}],
+        warehouseId: [line.warehouseId]
       }))
     })
     return formArray
@@ -268,7 +312,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
         .subscribe((res) => {
             this.toastService.success('' + res.message, 'Updated Successfully')
             this.cdRef.detectChanges();
-            this.router.navigate(['/'+GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id) ]);
+            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
           },
           (err) => {
             this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
@@ -276,6 +320,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
             this.cdRef.detectChanges()
           })
     } else if (this.purchaseOrderMaster.id && this.isPurchaseOrder) {
+      console.log(this.grnModel)
       delete this.grnModel.id;
       this.isLoading = true;
       this.grnService.createGRN(this.grnModel)
@@ -285,7 +330,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
         .subscribe(
           (res) => {
             this.toastService.success('' + res.message, 'Created Successfully')
-            this.router.navigate(['/'+GOODS_RECEIVED_NOTE.LIST])
+            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.LIST])
           },
           (err: any) => {
             this.isLoading = false;
@@ -302,6 +347,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId;
     this.grnModel.grnDate = this.transformDate(this.grnForm.value.grnDate, 'yyyy-MM-dd');
     this.grnModel.contact = this.grnForm.value.contact;
+    this.grnModel.campusId = this.grnForm.value.campusId;
+    this.grnModel.purchaseOrderId = this.purchaseOrderMaster?.id || this.grnModel?.purchaseOrderId;
     this.grnModel.grnLines = this.grnForm.value.GRNLines;
   }
 

@@ -44,7 +44,7 @@ export class PrintGrnComponent implements OnInit {
     }
 
     getGrnMasterData(id: number){
-      this.grnService.getGRNMasterById(id).subscribe(res =>
+      this.grnService.getGRNById(id).subscribe(res =>
         {
         this.grnMaster = res.result;
         this.grnLines = res.result.grnLines;

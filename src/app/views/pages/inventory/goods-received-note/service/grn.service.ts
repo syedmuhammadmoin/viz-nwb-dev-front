@@ -1,11 +1,10 @@
-import { Injectable }                                 from '@angular/core';
-import { IGRN }                                       from "../model/IGRN";
-import { Observable, throwError }                     from 'rxjs';
-import { catchError }                                 from 'rxjs/operators';
-import { environment }                                from "../../../../../../environments/environment";
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Injectable }  from '@angular/core';
+import { IGRN } from "../model/IGRN";
+import { Observable }  from 'rxjs';
+import { environment } from "../../../../../../environments/environment";
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
-
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +12,16 @@ import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 
 export class GrnService {
 
+  baseUrl = environment.baseUrl + 'Grn'
+
     constructor( private httpClient: HttpClient ) { }
   
-    getAllGRNs(): Observable<any> {
-      return this.httpClient.get(environment.baseUrl + 'Grn')
-      .pipe(catchError(this.handleError));
+    getGRNs(): Observable<IPaginationResponse<IGRN[]>> {
+      return this.httpClient.get<IPaginationResponse<IGRN[]>>(this.baseUrl)
     }
   
-    getGRNMasterById(id: number): Observable<any> {
+    getGRNById(id: number): Observable<any> {
       return this.httpClient.get(environment.baseUrl + 'Grn/' + id)
-      .pipe(catchError(this.handleError));
     }
 
     createGRN(grnModel: IGRN): Observable<any> {
@@ -30,7 +29,7 @@ export class GrnService {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
-      }).pipe(catchError(this.handleError))
+      })
     }
   
      workflow(workflow: IWorkflow): Observable<any> {
@@ -41,20 +40,15 @@ export class GrnService {
         return this.httpClient.put(environment.baseUrl + `Grn/${grnModel.id}`,grnModel)
      }
   
-    // getGRNDetailById(id: number): Observable<any> {
-    //   return this.httpClient.get(environment.baseUrl + 'Grn/d/' + id)
-    //   .pipe(catchError(this.handleError));
-    // }
-  
 
-    private handleError(errorResponse: HttpErrorResponse) {
-      if (errorResponse.error instanceof ErrorEvent) {
-         console.error('Client Side Error :', errorResponse.error.message);
-      } else {
-         console.error('Server Side Error :', errorResponse);
-      }
-     return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
-    }
+    // private handleError(errorResponse: HttpErrorResponse) {
+    //   if (errorResponse.error instanceof ErrorEvent) {
+    //      console.error('Client Side Error :', errorResponse.error.message);
+    //   } else {
+    //      console.error('Server Side Error :', errorResponse);
+    //   }
+    //  return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
+    // }
 }
 
 

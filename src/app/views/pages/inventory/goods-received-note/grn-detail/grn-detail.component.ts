@@ -86,7 +86,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   }
 
   private getGRNMasterData(id: number) {
-    this.grnService.getGRNMasterById(id).subscribe((res) => {
+    this.grnService.getGRNById(id).subscribe((res) => {
       this.grnMaster = res.result;
       this.grnLines = res.result.grnLines;
       this.cdRef.markForCheck();
