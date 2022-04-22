@@ -45,6 +45,7 @@
                       <kt-date-input
                         formControlName="PODate"
                         placeholder="Purchase Date"
+                        matFormFieldClass="full-width"
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.PODate"
                         [maxDate]="maxDate">
@@ -61,6 +62,7 @@
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.dueDate"
                         [minDate]="minDate"
+                        matFormFieldClass="full-width"
                         dateCondition="dateCondition"
                         dateMessage="Purchase Order">
                       </kt-date-input>

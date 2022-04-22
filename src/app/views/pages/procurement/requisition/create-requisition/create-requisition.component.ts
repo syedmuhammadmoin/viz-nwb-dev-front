@@ -63,7 +63,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // Validation Messages
   validationMessages = {
     businessPartnerId: {
-      required: 'Customer is required.'
+      required: 'Employee is required.'
     },
     requisitionDate: {
       required: 'Order Date is required.'

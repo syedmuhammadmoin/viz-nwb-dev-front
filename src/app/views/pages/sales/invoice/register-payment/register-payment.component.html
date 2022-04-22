@@ -20,6 +20,7 @@
                             <kt-date-input
                               formControlName="paymentDate"
                               placeholder="Payment Date"
+                              matFormFieldClass="full-width"
                               (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                               [errorMessage]="formErrors.paymentDate"
                               [maxDate]="maxDate">

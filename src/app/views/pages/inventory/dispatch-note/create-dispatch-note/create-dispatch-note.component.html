@@ -40,6 +40,7 @@
                     <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">GDN Date:</label>
                       <kt-date-input
+                        matFormFieldClass="full-width"
                         (blurEvent)="logValidationErrors(this.dispatchNoteForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.gdnDate"
                         formControlName="gdnDate"

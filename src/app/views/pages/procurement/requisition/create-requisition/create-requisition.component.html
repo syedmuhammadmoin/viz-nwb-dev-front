@@ -11,7 +11,7 @@
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Customer:</label>
+                    <label class="col-form-label pt-0">Employee:</label>
                       <kt-simple-dropdown 
                         formControlName="businessPartnerId" 
                         matFormFieldClass="full-width"
@@ -22,8 +22,8 @@
                         [optionList]="ngxsService.businessPartners$"
                         clickEventButtonName="Add New Customer"
                         (clickEvent)="openBusinessPartnerDialog()" 
-                        searchPlaceholder="Search Customers..."
-                        placeholder="Select Customer">
+                        searchPlaceholder="Search Employees..."
+                        placeholder="Select Employee">
                        </kt-simple-dropdown>
                   </div>
                 </div>
@@ -34,6 +34,7 @@
                       <kt-date-input
                         formControlName="requisitionDate"
                         placeholder="Enter Date"
+                        matFormFieldClass="full-width"
                         (blurEvent)="logValidationErrors(requisitionForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.requisitionDate"
                         [maxDate]="maxDate">
@@ -165,30 +166,6 @@
                   </div>
                 </div>
               </div>
-  
-              <!-- <div class="row mt-10">
-                <div class="col-lg-4 ml-auto">
-                  <table class="table table-bordered small_table_box">
-                    <tr>
-                      <th class="text-right" style="width: 70%;">Total Before Tax :</th>
-                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
-                        {{valueFormatter(totalBeforeTax || 0)}}
-                    </tr>
-                    <tr>
-                      <th class="text-right">Total Tax :</th>
-                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
-                        {{valueFormatter(totalTax || 0)}}</td>
-                    </tr>
-                    <tr>
-                      <th class="text-right"
-                        style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Grand Total :
-                      </th>
-                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
-                        {{valueFormatter(grandTotal || 0)}}</td>
-                    </tr>
-                  </table>
-                </div>
-              </div> -->
             </div>
             <!--End Requisition Lines-->
           </div>

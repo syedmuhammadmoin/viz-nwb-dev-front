@@ -12,7 +12,7 @@
                   <label class="col-form-label pt-0">Date:</label>
                   <kt-date-input formControlName="date" placeholder="JV Date" [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)"
-                    [errorMessage]="formErrors.date">
+                    [errorMessage]="formErrors.date" matFormFieldClass="full-width">
                   </kt-date-input>
                 </div>
               </div>
