@@ -15,8 +15,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-product',
   templateUrl: './create-product.component.html',
-  styleUrls: ['./create-product.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-product.component.scss']
 })
 
 export class CreateProductComponent extends AppComponentBase implements OnInit {

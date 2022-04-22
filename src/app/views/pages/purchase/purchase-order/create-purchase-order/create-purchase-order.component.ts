@@ -20,7 +20,6 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
   selector: 'kt-create-purchase-order',
   templateUrl: './create-purchase-order.component.html',
   styleUrls: ['./create-purchase-order.component.scss'],
-  providers:[NgxsCustomService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

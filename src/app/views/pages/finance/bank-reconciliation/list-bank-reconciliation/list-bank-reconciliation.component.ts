@@ -15,8 +15,7 @@ import { IBankAccount } from '../../bank-account/model/IBankAccount';
 @Component({
   selector: 'kt-list-bank-reconciliation',
   templateUrl: './list-bank-reconciliation.component.html',
-  styleUrls: ['./list-bank-reconciliation.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./list-bank-reconciliation.component.scss']
 })
 
 export class ListBankReconciliationComponent extends AppComponentBase implements OnInit {

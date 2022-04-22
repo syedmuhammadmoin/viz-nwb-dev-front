@@ -13,8 +13,7 @@ import { CampusState } from '../store/campus.state';
 @Component({
   selector: 'kt-create-campus',
   templateUrl: './create-campus.component.html',
-  styleUrls: ['./create-campus.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-campus.component.scss']
 })
 
 export class CreateCampusComponent extends AppComponentBase implements OnInit {

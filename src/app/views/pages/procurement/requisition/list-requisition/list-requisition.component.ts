@@ -43,8 +43,8 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
   }
 
   columnDefs = [
-    { headerName: 'Invoice #', field: 'docNo', sortable: true, filter: true, tooltipField: 'docNo', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Customer', field: 'customerName', sortable: true, filter: true, tooltipField: 'docNo', },
+    { headerName: 'Requisition #', field: 'docNo', sortable: true, filter: true, tooltipField: 'docNo', cellRenderer: "loadingCellRenderer" },
+    { headerName: 'Employee', field: 'businessPartner', sortable: true, filter: true, tooltipField: 'docNo', },
     {
       headerName: 'Requisition Date',
       field: 'requisitionDate',

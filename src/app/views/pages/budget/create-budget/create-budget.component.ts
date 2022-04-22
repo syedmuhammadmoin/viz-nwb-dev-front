@@ -15,8 +15,7 @@ import { BudgetService } from '../service/budget.service';
 @Component({
   selector: 'kt-create-budget',
   templateUrl: './create-budget.component.html',
-  styleUrls: ['./create-budget.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-budget.component.scss']
 })
 
 export class CreateBudgetComponent extends AppComponentBase implements OnInit {

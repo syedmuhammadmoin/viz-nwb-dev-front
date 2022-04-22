@@ -14,7 +14,6 @@ import { LoadingCellRenderer } from 'ag-grid-community/dist/lib/rendering/cellRe
   selector: 'kt-list-business-partner',
   templateUrl: './list-business-partner.component.html',
   styleUrls: ['./list-business-partner.component.scss'],
-  providers: [NgxsCustomService],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 

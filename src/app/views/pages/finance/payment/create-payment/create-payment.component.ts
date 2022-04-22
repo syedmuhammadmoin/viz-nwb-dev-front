@@ -22,8 +22,7 @@ import { MatRadioChange } from '@angular/material/radio';
 @Component({
   selector: 'kt-create-payment',
   templateUrl: './create-payment.component.html',
-  styleUrls: ['./create-payment.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-payment.component.scss']
 })
 
 export class CreatePaymentComponent extends AppComponentBase implements OnInit {

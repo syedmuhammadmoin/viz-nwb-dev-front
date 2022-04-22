@@ -10,7 +10,7 @@
           <button *ngIf="(requisitionMaster?.state === docStatus.Draft || requisitionMaster?.state === docStatus.Rejected)"
             [disabled]="!(permission.isGranted(permissions.REQUISITION_EDIT))"
             [ngClass]="!(permission.isGranted(permissions.REQUISITION_EDIT)) ? 'disable' : '' "
-            [routerLink]="'/' +   REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'is  REQUISITION': true}"
+            [routerLink]="'/' +   REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
             type="button" mat-raised-button class="btn_white mr-3">
             Edit
           </button>
@@ -23,35 +23,19 @@
           <div class="row mt-5">
             <div class="col-md-12 col-lg-12">
               <div class="table-responsive">
-  
                 <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
                   <tbody>
                     <tr rowspan="1">
-                      <th class="" style="    border: 1px solid #8babdb; width: 15%;">REQUISITION:</th>
-                      <td class="" style="background: #595e791c; width: 20%;">
-                        {{requisitionMaster?.docNo}}</td>
-                      <th class="" style="    border: 1px solid #8babdb; width: 15%;">Customer Name:</th>
-                      <td class="" style="background: #595e791c; width: 20%;">
-                        {{requisitionMaster?.customerName}}</td>
+                      <th style="border: 1px solid #8babdb; width: 15%;">Requisition #:</th>
+                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.docNo}}</td>
+                      <th style="border: 1px solid #8babdb; width: 15%;">Employee:</th>
+                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.businessPartner}}</td>
                     </tr>
                     <tr rowspan="1">
-                      <th class="" style="    border: 1px solid #8babdb;width: 15%;"> REQUISITION Date:</th>
-                      <td class="" style="background: #595e791c; width: 20%;">
-                        {{requisitionMaster?. REQUISITIONDate | date: 'MMM d, y'}}</td>
-  
-                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Due Date:</th>
-                      <td style="background: #595e791c; width: 20%;">
-                        {{requisitionMaster?.dueDate | date: 'MMM d, y'}}</td>
-                    </tr>
-                    <!-- <tr>
-                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
-                      <td class="" style="background: #595e791c; width: 20%;">
-                        {{requisitionMaster?.contact ? requisitionMaster?.contact : "-"}}</td>
-                    </tr> -->
-                    <tr>
-                      <th class="" style="    border: 1px solid #8babdb;width: 15%;">Campus:</th>
-                      <td class="" style="background: #595e791c; width: 20%;">
-                        {{requisitionMaster?.campusName}}</td>
+                      <th style="border: 1px solid #8babdb;width: 15%;"> Requisition Date:</th>
+                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</td>
+                      <th style="border: 1px solid #8babdb;width: 15%;">Campus:</th>
+                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.campus}}</td>
                     </tr>
                   </tbody>
                 </table>

@@ -14,8 +14,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-location',
   templateUrl: './create-location.component.html',
-  styleUrls: ['./create-location.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-location.component.scss']
 })
 
 export class CreateLocationComponent extends AppComponentBase implements OnInit {

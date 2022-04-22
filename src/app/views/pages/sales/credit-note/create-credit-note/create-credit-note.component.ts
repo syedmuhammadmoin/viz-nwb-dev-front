@@ -25,8 +25,7 @@ import { IInvoiceLines } from '../../invoice/model/IInvoiceLines';
 @Component({
   selector: 'kt-create-credit-note',
   templateUrl: './create-credit-note.component.html',
-  styleUrls: ['./create-credit-note.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-credit-note.component.scss']
 })
 
 export class CreateCreditNoteComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {

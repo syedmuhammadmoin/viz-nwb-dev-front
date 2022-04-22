@@ -1,14 +1,10 @@
 import { Component, Inject, Injector, OnInit, Optional, Self} from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { IWarehouse} from '../model/IWarehouse';
-import { IState } from 'src/app/views/shared/models/state';
-import { ICity} from 'src/app/views/shared/models/city';
-import { ICountry } from 'src/app/views/shared/models/country';
 import { CscService} from 'src/app/views/shared/csc.service';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { finalize, take} from "rxjs/operators";
-import { Subject } from 'rxjs';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { WarehouseState } from '../store/warehouse.state';
@@ -19,8 +15,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-warehouse',
   templateUrl: './create-warehouse.component.html',
-  styleUrls: ['./create-warehouse.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-warehouse.component.scss']
 })
 
 export class CreateWarehouseComponent extends AppComponentBase implements OnInit {
@@ -92,7 +87,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     public dialogRef: MatDialogRef<CreateWarehouseComponent>,
     private fb: FormBuilder,    
-   @Self() public ngxsService:NgxsCustomService,
+    public ngxsService:NgxsCustomService,
     public addButtonService:AddModalButtonService,
     private cscService: CscService,
     injector: Injector) {

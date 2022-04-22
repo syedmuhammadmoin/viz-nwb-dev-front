@@ -26,15 +26,15 @@ export class RequisitionService {
   }
 
   createRequisition(requisitionModel: IRequisition): Observable<any> {
-    return this.httpClient.post<IRequisition>(this.baseUrl, requisitionModel, {
+    return this.httpClient.post<any>(this.baseUrl, requisitionModel, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
-      })}
-    );
+      })
+    });
   }
 
   updateRequisition(requisitionModel: IRequisition): Observable<any> {
-    return this.httpClient.put(this.baseUrl + requisitionModel.id ,  requisitionModel)
+    return this.httpClient.put<any>(this.baseUrl + '/' + requisitionModel.id ,  requisitionModel)
   }
 
   workflow(workflow: IWorkflow): Observable<any> {

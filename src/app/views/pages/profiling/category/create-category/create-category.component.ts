@@ -15,8 +15,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 @Component({
   selector: 'kt-create-category',
   templateUrl: './create-category.component.html',
-  styleUrls: ['./create-category.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./create-category.component.scss']
 })
 
 export class CreateCategoryComponent extends AppComponentBase implements OnInit {

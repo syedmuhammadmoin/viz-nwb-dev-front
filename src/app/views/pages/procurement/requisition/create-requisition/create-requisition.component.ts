@@ -34,7 +34,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   requisitionForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'warehouseId', 'action'];
+  displayedColumns = ['itemId', 'description', 'quantity', 'warehouseId', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -98,7 +98,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionForm = this.fb.group({
       businessPartnerId: ['', [Validators.required]],
       requisitionDate: ['', [Validators.required]],
-      contact: [''],
       campusId: ['', [Validators.required]],
       requisitionLines: this.fb.array([
         this.addRequisitionLines()
@@ -214,8 +213,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       itemId: ['', [ Validators.required]],
       description: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
-      accountId: ['', [Validators.required]],
-      warehouseId: [''],
+      warehouseId: [null],
     });
   }
 
@@ -263,7 +261,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
         quantity: [line.quantity, [Validators.required, Validators.min(1)]],
-        accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId]
       }))
     })

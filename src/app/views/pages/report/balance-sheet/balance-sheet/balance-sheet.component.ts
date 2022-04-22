@@ -17,8 +17,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 @Component({
   selector: 'app-balance-sheet',
   templateUrl: './balance-sheet.component.html',
-  styleUrls: ['./balance-sheet.component.scss'],
-  providers:[NgxsCustomService]
+  styleUrls: ['./balance-sheet.component.scss']
 })
 export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 

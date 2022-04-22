@@ -55,35 +55,10 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
 
   //Defining columns for ag grid
   columnDefs = [
-    { headerName: 'Item', field: 'itemName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    {
-      headerName: 'Price',
-      field: 'price',
-      filter: true,
-      cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
-    {
-      headerName: 'Tax%', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
-      cellRenderer: (params: ICellRendererParams) => {
-        return params.data.tax + '%';
-      }
-    },
-    {
-      headerName: 'Subtotal',
-      field: 'subTotal',
-      filter: true,
-      cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
-    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
+    { headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: { 'font-size': '12px' }},
+    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' }},
+    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' }},
+    { headerName: 'Warehouse', field: 'warehouse', sortable: true, filter: true, cellStyle: { 'font-size': '12px' }}
   ];
 
   ngOnInit() {
