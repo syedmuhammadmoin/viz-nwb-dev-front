@@ -229,7 +229,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
-      warehouseId: [''],
+      warehouseId: [null],
     });
   }
 
