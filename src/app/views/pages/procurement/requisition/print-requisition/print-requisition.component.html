@@ -24,18 +24,15 @@
           </div>
           <div class="print-col-5 ml-auto">
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;">Invoice No: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
+              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;">Requisition No: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;margin-top: 10px;">Invoice Date: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
-            </div>
-            <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;margin-top: 10px;">Due Date: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.dueDate| date: 'MMM d, y'}}</span></h4>
+              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;margin-top: 10px;">Requisition Date: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box" style="margin-top: 8%;">
-              <h4 style="font-size: 22px;font-weight: 600;color: #283655;">Customer Name: </h4>
-              <p style="font-size: 16px;font-weight: 600;color: #283655;margin-bottom: 2px;">{{requisitionMaster?.customerName}}</p>
+              <h4 style="font-size: 22px;font-weight: 600;color: #283655;">Employee Name: </h4>
+              <p style="font-size: 16px;font-weight: 600;color: #283655;margin-bottom: 2px;">{{requisitionMaster?.businessPartner}}</p>
               <p style="font-size: 15px;font-weight: 400;color: #283655;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
@@ -52,18 +49,12 @@
                     <th style="background-color: #293756; color: white;">Item</th>
                     <th style="background-color: #293756; color: white;">Description:</th>
                     <th style="background-color: #293756; color: white;">Quantity:</th>
-                    <th style="background-color: #293756; color: white;">Price:</th>
-                    <th style="background-color: #293756; color: white;">Tax:</th>
-                    <th style="background-color: #293756; color: white;">SubTotal:</th>
                   </tr>
                   <tr *ngFor="let line of requisitionLines; index as i">
                     <td>{{i + 1}}</td>
-                    <td>{{line?.itemName || '---'}}</td>
+                    <td>{{line?.item || '---'}}</td>
                     <td class="description text-left">{{line?.description}}</td>
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td class="text-right" style="background-color: #eef0f8;">{{line?.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td class="text-right" style="background-color: #eef0f8;">{{line?.tax + '%'}}</td>
-                    <td class="text-right" style="background-color: #eef0f8;"><span>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></td>
                   </tr>
                 </thead>
               </table>
@@ -76,26 +67,6 @@
               <p style="color: #fff;
               font-family: inherit;
               font-size: 18px;">Thankyou for your Business</p>
-            </div>
-          </div>
-  
-          <div class="print-col-5 ml-auto" style="margin-top: 5%;">
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;">Total Before Tax:
-                <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-              </h4>
-            </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;">Total Tax:
-                <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-              </h4>
-            </div>
-            
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;border-top: 2px solid #283655;
-              padding-top: 10px;">Grand Total:
-                <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-              </h4>
             </div>
           </div>
   
