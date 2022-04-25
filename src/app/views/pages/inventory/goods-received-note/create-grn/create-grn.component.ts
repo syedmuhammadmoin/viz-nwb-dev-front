@@ -63,11 +63,14 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // validation messages
   validationMessages = {
     vendorName: {
-      required: 'Vendor Name is required'
+      required: 'Vendor Name is required.'
     },
     grnDate: {
-      required: 'ate is required'
+      required: 'Date is required.'
     },
+    campusId: {
+      required: 'Campus is required.'
+    }
     // 'contact' : {
     //   'required': 'Due Date is required'
     // },
@@ -78,6 +81,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     vendorName: '',
     grnDate: '',
     contact: '',
+    campusId: ''
   }
 
   constructor(
@@ -98,7 +102,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   }
 
   ngOnInit() {
-
     this.grnForm = this.fb.group({
       vendorName: [{value: '', disabled: true}, [Validators.required]],
       grnDate: ['', [Validators.required]],
@@ -154,7 +157,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    const arrayControl = this.grnForm.get('grnLines') as FormArray;
+    const arrayControl = this.grnForm.get('GRNLines') as FormArray;
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
@@ -170,7 +173,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
   onChangeEvent(value: any, index: number , element?: HTMLElement) {
-    const arrayControl = this.grnForm.get('grnLines') as FormArray;
+    const arrayControl = this.grnForm.get('GRNLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
     const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;

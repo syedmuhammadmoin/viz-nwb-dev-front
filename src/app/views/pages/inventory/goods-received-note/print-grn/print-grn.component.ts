@@ -3,6 +3,8 @@ import { ActivatedRoute} from "@angular/router";
 import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
 import { GrnService } from '../service/grn.service';
+import { IGRN } from '../model/IGRN';
+import { IGRNLines } from '../model/IGRNLines';
 
 @Component({
   selector: 'kt-print-grn',
@@ -14,8 +16,8 @@ import { GrnService } from '../service/grn.service';
 export class PrintGrnComponent implements OnInit {
 
     gridOptions: GridOptions;
-    grnMaster: any;
-    grnLines: any;
+    grnMaster: IGRN | any;
+    grnLines: IGRNLines;
 
     constructor( private grnService : GrnService,
                  private activatedRoute: ActivatedRoute,
@@ -26,11 +28,8 @@ export class PrintGrnComponent implements OnInit {
     ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {
         const id = +params.get('id');
-          console.log(id);
         if(id){
           this.getGrnMasterData(id);
-        }else{
-          console.log('bong');
         }
       });
     }
