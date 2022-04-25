@@ -144,6 +144,7 @@
                         <kt-input-field
                           formControlName="discount"
                           type = "number"
+                          hintText="Optional"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.discount , error : formErrors.discount }]"
                           placeholder="Enter Discount">
@@ -157,6 +158,7 @@
                         <kt-input-field
                           formControlName="salesTax"
                           type = "number"
+                          hintText="Optional"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.salesTax , error : formErrors.salesTax }]"
                           placeholder="Enter Sales Tax">
@@ -170,6 +172,7 @@
                         <kt-input-field
                           formControlName="incomeTax"
                           type = "number"
+                          hintText="Optional"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.incomeTax , error : formErrors.incomeTax }]"
                           placeholder="Enter Income Tax">
@@ -186,6 +189,7 @@
                           formControlName="SRBTax"
                           placeholder="Enter SRB Tax"
                           type = "number"
+                          hintText="Optional"
                           (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
                           [errorMessage]="[{ condition : formErrors.SRBTax , error : formErrors.SRBTax }]">
                         </kt-input-field>

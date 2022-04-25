@@ -1,12 +1,13 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {ProductService} from '../service/product.service';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
 import {MatDialog} from '@angular/material/Dialog'
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {AppConst} from "src/app/views/shared/AppConst";
 import { CreateProductComponent } from '../create-product/create-product.component';
 import { IProduct } from '../model/IProduct';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-list-product',
@@ -15,7 +16,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ListProductComponent implements OnInit {
+export class ListProductComponent extends AppComponentBase implements OnInit {
 
   productList: IProduct[];
   frameworkComponents: {[p: string]: unknown};
@@ -30,8 +31,10 @@ export class ListProductComponent implements OnInit {
   constructor(
     private productService: ProductService,
     public dialog: MatDialog,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
   ) {
+    super(injector)
     this.gridOptions = ((
       {
         context: {componentParent: this}
@@ -46,9 +49,36 @@ export class ListProductComponent implements OnInit {
     {headerName: 'Type', field: 'productType', sortable: true, filter: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
     {headerName: 'Category', field: 'categoryName', sortable: true, filter: true, tooltipField: 'salesTax'},
-    {headerName: 'Sale Price', field: 'salesPrice', sortable: true, filter: true, tooltipField: 'salesTax'},
-    {headerName: 'Purchase Price', field: 'purchasePrice', sortable: true, filter: true, tooltipField: 'salesTax'},
-    {headerName: 'sales Tax', field: 'salesTax', sortable: true, filter: true, tooltipField: 'salesTax'}
+    {
+      headerName: 'Sale Price', 
+      field: 'salesPrice', 
+      sortable: true, 
+      filter: true, 
+      tooltipField: 'salesTax',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Purchase Price', 
+      field: 'purchasePrice', 
+      sortable: true, 
+      filter: true, 
+      tooltipField: 'salesTax',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'sales Tax', 
+      field: 'salesTax', 
+      sortable: true, 
+      filter: true, 
+      tooltipField: 'salesTax',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
+    }
   ];
 
   ngOnInit() {

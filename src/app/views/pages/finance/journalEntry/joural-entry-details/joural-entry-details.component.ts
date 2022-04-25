@@ -70,7 +70,16 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { 
+      headerName: 'Warehouse', 
+      field: 'warehouseName', 
+      sortable: true, 
+      filter: true, 
+      cellStyle: { 'font-size': '12px' },
+      valueFormatter: (params: ICellRendererParams) => {
+        return params.value || 'N/A'
+      }
+    },
   ];
 
   ngOnInit(): void {

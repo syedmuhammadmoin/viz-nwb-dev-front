@@ -66,7 +66,16 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
 
   // Defining columns for ag grid
   columnDefs = [
-    { headerName: 'Item', field: 'itemName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { 
+      headerName: 'Item', 
+      field: 'itemName', 
+      sortable: true, 
+      filter: true, 
+      cellStyle: { 'font-size': '12px' },
+      valueFormatter: (params: ICellRendererParams) => {
+        return params.value || 'N/A'
+      }
+     },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
@@ -88,7 +97,16 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
       }
     },
     { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
+    { 
+      headerName: 'Warehouse', 
+      field: 'warehouseName', 
+      sortable: true, 
+      filter: true, 
+      cellStyle: { 'font-size': '12px' },
+      valueFormatter: (params: ICellRendererParams) => {
+        return params.value || 'N/A'
+      }
+     }
   ];
 
   ngOnInit() {

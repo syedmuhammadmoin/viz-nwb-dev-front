@@ -66,7 +66,16 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
         return this.valueFormatter(params.value)
       }
     },
-    {headerName: 'Warehouse', field: 'warehouse', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {
+      headerName: 'Warehouse', 
+      field: 'warehouse', 
+      sortable: true, 
+      filter: true, 
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+    },
   ];
 
 

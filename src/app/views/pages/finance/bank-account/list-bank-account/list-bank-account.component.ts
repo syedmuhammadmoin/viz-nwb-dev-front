@@ -45,7 +45,16 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
     {headerName: 'Account Title', field: 'accountTitle', sortable: true, filter: true, tooltipField: 'accountNumber', cellRenderer: "loadingCellRenderer"},
     {headerName: 'Account Number', field: 'accountNumber', sortable: true, filter: true, tooltipField: 'accountNumber'},
     {headerName: 'Bank', field: 'bankName', sortable: true, filter: true ,tooltipField: 'accountNumber'},
-    {headerName: 'Branch', field: 'branch', sortable: true, filter: true ,tooltipField: 'accountNumber'},
+    {
+      headerName: 'Branch', 
+      field: 'branch', 
+      sortable: true, 
+      filter: true ,
+      tooltipField: 'accountNumber',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+    },
     {
       headerName: 'Opening Balance',
       field: 'openingBalance',
@@ -53,7 +62,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       filter: true ,
       tooltipField: 'accountNumber',
       valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value) || 'N/A'
+        return this.valueFormatter(params.value)
       }
     },
     {headerName: 'Campus', field: 'campusName', sortable: true, filter: true, tooltipField: 'accountNumber'},

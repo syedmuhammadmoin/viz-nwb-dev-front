@@ -4,7 +4,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
-import { GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { DebitNoteService } from '../service/debit-note.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -60,12 +60,21 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
   }
 
   columnDefs = [
-    { headerName: 'Item', field: 'itemName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { 
+      headerName: 'Item', 
+      field: 'itemName', 
+      sortable: true, 
+      filter: true, 
+      cellStyle: { 'font-size': '12px' },
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+     },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
       headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -77,12 +86,21 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     },
     {
       headerName: 'Sub total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Warehouse', field: 'warehouseName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } }
+    { 
+      headerName: 'Warehouse', 
+      field: 'warehouseName', 
+      sortable: true, 
+      filter: true, 
+      cellStyle: { 'font-size': '12px' },
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+     }
   ];
 
   ngOnInit() {
