@@ -7,7 +7,7 @@
           <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" type="button" mat-raised-button  class="btn_white mr-3">
             Print GRN
           </button>
-          <button *ngIf="grnMaster?.state === docStatus.Draft"
+          <button *ngIf="grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected"
             [disabled]="!(permission.isGranted(permissions.GRN_EDIT))"
             [ngClass]="!(permission.isGranted(permissions.GRN_EDIT)) ? 'disable' : '' "
             [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('edit',grnMaster?.id)"
@@ -38,9 +38,9 @@
                     <th class="" style="    border: 1px solid #8babdb;width: 15%;">GRN Date:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
                       {{grnMaster?.grnDate | date: 'MMM d, y'}}</td>
-                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
+                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Campus:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
-                      {{grnMaster?.contact}}</td>
+                      {{grnMaster?.campusName}}</td>
                     
                   </tr>
                 </tbody>

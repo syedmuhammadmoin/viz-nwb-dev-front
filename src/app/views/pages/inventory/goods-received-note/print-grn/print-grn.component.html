@@ -48,22 +48,20 @@
                     <th style="background-color: #293756; color: white;">S.No</th>
                     <th style="background-color: #293756; color: white;">Item:</th>
                     <th style="background-color: #293756; color: white;">Description:</th>
-                    <th style="background-color: #293756; color: white;">Location:</th>
                     <th style="background-color: #293756; color: white;">Quantity:</th>
+                    <th style="background-color: #293756; color: white;">Cost:</th>
                     <th style="background-color: #293756; color: white;">Tax:</th>
-                    <th style="background-color: #293756; color: white;">Price:</th>
+                    <th style="background-color: #293756; color: white;">subtotal:</th>
                   </tr>
                   <tr *ngFor="let line of grnLines ; index as i">
                     <td >{{i + 1}}</td>
                     <td>{{line?.item}}</td>
                     <td class="description text-left">{{line?.description}}</td>
-                    <td>{{line?.location.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td class="text-right" style="background-color: #eef0f8;">{{line?.tax + '%'}}</td>
                     <td class="text-right" style="background-color: #eef0f8;">{{line?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                    <td class="text-right" style="background-color: #eef0f8;">{{line?.tax + '%'}}</td>
+                    <td class="text-right" style="background-color: #eef0f8;">{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                   </tr>
-
-
                 </thead>
               </table>
             </div>
@@ -79,32 +77,23 @@
           </div>
 
           <div class="print-col-5 ml-auto" style="margin-top: 5%;">
-            <!-- <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;">Gross Payment:
-                <span class="float-right" style="font-weight: 400;">{{paymentMaster?.grossPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+            <div class="print-box">
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;">Total Before Tax:
+                <span class="float-right" style="font-weight: 400;">{{grnMaster?.totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;">Discount:
-                <span class="float-right" style="font-weight: 400;">{{paymentMaster?.discount.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;">Total Tax:
+                <span class="float-right" style="font-weight: 400;">{{grnMaster?.totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;">sales Tax:
-                <span class="float-right" style="font-weight: 400;">{{paymentMaster?.salesTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-              </h4>
-            </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;">Income Tax:
-                <span class="float-right" style="font-weight: 400;">{{paymentMaster?.incomeTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-              </h4>
-            </div>
+            
             <div class="print-box">
               <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;border-top: 2px solid #283655;
-              padding-top: 10px;">Net Payment:
-                <span class="float-right" style="font-weight: 400;">{{paymentMaster?.netPayment?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+              padding-top: 10px;">Grand Total:
+                <span class="float-right" style="font-weight: 400;">{{grnMaster?.totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
-            </div> -->
+            </div>
           </div>
 
           <div class="print-col-3" style="padding:0px; ">

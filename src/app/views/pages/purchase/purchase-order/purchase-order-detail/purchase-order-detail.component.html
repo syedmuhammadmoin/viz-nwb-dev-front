@@ -6,7 +6,7 @@
         <button [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('print',purchaseOrderMaster?.id) " type="button" mat-raised-button  class="btn_white mr-3">
           Print Purchase Order
         </button>
-        <button *ngIf="purchaseOrderMaster?.state === docStatus.Draft"
+        <button *ngIf="purchaseOrderMaster?.state === docStatus.Draft || purchaseOrderMaster?.state === docStatus.Rejected"
           [disabled]="!(permission.isGranted(permissions.PURCHASEORDER_EDIT))"
           [ngClass]="!(permission.isGranted(permissions.PURCHASEORDER_EDIT)) ? 'disable' : '' "
           [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('edit',purchaseOrderMaster?.id) "
@@ -19,14 +19,14 @@
           [routerLink]="'/'+BILL.CREATE"
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
              Create Bill
-        </button>
-        <button
+        </button> -->
+        <button *ngIf="purchaseOrderMaster?.state === docStatus.Submitted"
           [disabled]="!(permission.isGranted(permissions.GRN_CREATE))"
           [ngClass]="!(permission.isGranted(permissions.GRN_CREATE)) ? 'disable' : '' "
-          [routerLink]="'/'+GOODS_RECEIVED_NOTE.CREATE"
+          [routerLink]="'/'+ GOODS_RECEIVED_NOTE.CREATE"
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
              Create GRN
-        </button> -->
+        </button> 
         <h4 class="overall_statuses {{docStatus[purchaseOrderMaster?.state]}}"> Status: {{purchaseOrderMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
@@ -50,11 +50,11 @@
                   <tr rowspan="1">
                     <th class="" style="    border: 1px solid #8babdb;width: 15%;">P.O Date:</th>
                     <td class="" style="background: #595e791c; width: 20%;">
-                      {{purchaseOrderMaster?.poDate}}</td>
+                      {{purchaseOrderMaster?.poDate | date: 'MMM d, y'}}</td>
 
                     <th class="" style="    border: 1px solid #8babdb;width: 15%;">Due Date:</th>
                     <td style="background: #595e791c; width: 20%;">
-                      {{purchaseOrderMaster?.dueDate}}</td>
+                      {{purchaseOrderMaster?.dueDate | date: 'MMM d, y'}}</td>
                   </tr>
                   <tr rowspan="1">
                     <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>

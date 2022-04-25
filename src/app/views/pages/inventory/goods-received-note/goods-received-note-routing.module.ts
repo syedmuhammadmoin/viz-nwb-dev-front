@@ -27,7 +27,7 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateGrnComponent,
-        canDeactivate: [FormConfirmationGuard],
+        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.GRN_CREATE },

@@ -5,9 +5,13 @@ export interface IGRN {
     vendorId      : number;
     grnDate       : string;
     contact       : number;
-    grnLines: IGRNLines[];
-    isSubmit?: any;
+    campusId      : number;
+    purchaseOrderId: number;
+    grnLines      : IGRNLines[];
+    isSubmit?     : boolean;
 }
 
 
 
+
+     

@@ -25,7 +25,6 @@ import { CreateGrnComponent } from './create-grn/create-grn.component';
     SharedModule,
     GoodsReceivedNoteRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  providers:[GrnService]
+  ]
 })
 export class GoodsReceivedNoteModule { }

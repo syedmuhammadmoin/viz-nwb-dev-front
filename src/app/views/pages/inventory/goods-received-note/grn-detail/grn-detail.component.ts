@@ -59,7 +59,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     {headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Location', field: 'location', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Warehouse', field: 'warehouse', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
   ];
   
 
@@ -86,7 +86,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   }
 
   private getGRNMasterData(id: number) {
-    this.grnService.getGRNMasterById(id).subscribe((res) => {
+    this.grnService.getGRNById(id).subscribe((res) => {
       this.grnMaster = res.result;
       this.grnLines = res.result.grnLines;
       this.cdRef.markForCheck();

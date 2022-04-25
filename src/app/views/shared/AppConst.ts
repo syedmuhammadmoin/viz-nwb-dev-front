@@ -336,7 +336,8 @@ export class AppConst {
     {value: 'Journal Voucher', id: DocType.JournalEntry},
     {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'},
     {value: 'Purchase Order' , id: DocType.PurchaseOrder},
-    {value: 'Requisition' , id: DocType.Requisition}
+    {value: 'Requisition' , id: DocType.Requisition},
+    {value: 'Goods Received Note' , id: DocType.GRN}
     //{value: 'purchase Order', id: DocType.PurchaseOrder},
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
