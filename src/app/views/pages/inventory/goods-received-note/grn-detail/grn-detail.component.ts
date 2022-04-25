@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { GrnService }                                                    from '../service/grn.service';
 import { ActivatedRoute, Router }                                        from '@angular/router';
 import { LayoutUtilsService }                                            from '../../../../../core/_base/crud';
-import { GridOptions } from 'ag-grid-community';
+import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
@@ -59,7 +59,16 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     {headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Warehouse', field: 'warehouse', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {
+      headerName: 'Warehouse', 
+      field: 'warehouse', 
+      sortable: true, 
+      filter: true, 
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+    },
   ];
   
 

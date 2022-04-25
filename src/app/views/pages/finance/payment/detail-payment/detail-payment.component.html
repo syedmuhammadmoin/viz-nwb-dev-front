@@ -33,7 +33,7 @@
 
                                 <th class="" style="    border: 1px solid #8babdb;width: 15%;">Discount:</th>
                                 <td class="" style="background: #595e791c; width: 20%;">
-                                    {{paymentMaster?.discount}}</td>
+                                    {{paymentMaster?.discount || 0}}</td>
                             </tr>
                             <tr rowspan="1">
                                 <th class="" style="    border: 1px solid #8babdb;width: 15%;">Account:</th>
@@ -46,12 +46,12 @@
                                 
                                 <th class="" style="    border: 1px solid #8babdb;width: 15%;">Sales Tax:</th>
                                 <td class="" style="background: #595e791c; width: 20%;">
-                                    {{paymentMaster?.salesTax}}</td>
+                                    {{paymentMaster?.salesTax || 0}}</td>
                             </tr>
                             <tr rowspan="1">
                                 <th class="" style="    border: 1px solid #8babdb;width: 15%;">Income Tax:</th>
                                 <td style="background: #595e791c; width: 20%;">
-                                    {{paymentMaster?.incomeTax}}</td>
+                                    {{paymentMaster?.incomeTax || 0}}</td>
 
                                 <th class="" style="    border: 1px solid #8babdb;width: 15%;">Description:</th>
                                 <td class="" style="background: #595e791c; width: 20%;">
@@ -59,7 +59,7 @@
                                 
                                 <th class="" style="    border: 1px solid #8babdb;width: 15%;">SRB Tax:</th>
                                 <td class="" style="background: #595e791c; width: 20%;">
-                                    {{paymentMaster?.srbTax}}</td>
+                                    {{paymentMaster?.srbTax || 0}}</td>
                             </tr>
 
                             <tr rowspan="1">

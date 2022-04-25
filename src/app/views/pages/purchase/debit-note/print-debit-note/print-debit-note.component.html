@@ -57,7 +57,7 @@
                   </tr>
                   <tr *ngFor="let line of debitNoteLines; index as i">
                     <td>{{i + 1}}</td>
-                    <td>{{line?.itemName}}</td>
+                    <td>{{line?.itemName || 'N/A'}}</td>
                     <td class="description text-left">{{line?.description}}</td>
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td class="text-right" style="background-color: #eef0f8;">{{line?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
