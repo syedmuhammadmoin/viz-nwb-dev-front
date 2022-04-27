@@ -99,4 +99,14 @@ export abstract class AppComponentBase {
 
     return [year, month, day].join('-');
   }
+
+  //disable provided fields
+  public disableFields (form : FormGroup , ...args: string[] ) {
+    (args).forEach((key: string) => form.get(key).disable())
+  }
+
+  //Reset provided field
+  resetFields(form : FormGroup , ...args: string[]) {
+    args.forEach((key: string) => form.get(key).reset())
+  }
 }

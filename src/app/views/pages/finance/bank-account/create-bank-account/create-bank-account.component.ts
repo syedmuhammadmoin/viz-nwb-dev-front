@@ -88,12 +88,12 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       accountNumber: ['', [Validators.required, Validators.min(1)]],
       bankName: ['', [Validators.required]],
       branch: [''],
-      openingBalance: ['', [Validators.required, Validators.min(1)]],
-      OBDate: ['', [Validators.required]],
       purpose: [''],
       accountTitle: ['', [Validators.required]],
       bankAccountType: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      openingBalance: ['', [Validators.required, Validators.min(1)]],
+      OBDate: ['', [Validators.required]],
+      campusId: ['', [Validators.required]]
     });
 
 
@@ -143,18 +143,16 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       accountNumber: bankAccount.accountNumber,
       bankName: bankAccount.bankName,
       branch: bankAccount.branch,
-      openingBalance: bankAccount.openingBalance,
-      OBDate: bankAccount.openingBalanceDate,
+      accountTitle: bankAccount.accountTitle,
       purpose: bankAccount.purpose,
       bankAccountType: bankAccount.bankAccountType,
-      accountTitle: bankAccount.accountTitle,
+      openingBalance: bankAccount.openingBalance,
+      OBDate: bankAccount.openingBalanceDate,
       campusId: bankAccount.campusId,
       currency: 'PKR'
     });
-    this.bankAccountForm.get('openingBalance').disable()
-    this.bankAccountForm.get('bankAccountType').disable()
-    this.bankAccountForm.get('OBDate').disable()
-    this.bankAccountForm.get('campusId').disable()
+
+    this.disableFields(this.bankAccountForm , 'openingBalance', 'bankAccountType', 'OBDate', 'campusId')
   }
 
   //submit Bank Account Form
@@ -212,18 +210,11 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   }
 
   reset() {
-    console.log('entered')
-    this.bankAccountForm.get('accountNumber').reset()
-    this.bankAccountForm.get('bankName').reset()
-    this.bankAccountForm.get('branch').reset()
-    this.bankAccountForm.get('accountTitle').reset()
-    this.bankAccountForm.get('purpose').reset()
-    if(!this._id) {
-      this.bankAccountForm.get('bankAccountType').reset()
-      this.bankAccountForm.get('openingBalance').reset()
-      this.bankAccountForm.get('OBDate').reset()
-      this.bankAccountForm.get('campusId').reset()
-    }
+    
+    this.resetFields(this.bankAccountForm , 'accountNumber','bankName' ,'branch' ,'accountTitle' ,'purpose')
+
+    if(!this._id) this.resetFields(this.bankAccountForm , 'bankAccountType','openingBalance' ,'OBDate' ,'campusId')
+
     this.logValidationErrors(this.bankAccountForm , this.formErrors , this.validationMessages)
   }
 }
