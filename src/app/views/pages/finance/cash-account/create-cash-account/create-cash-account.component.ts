@@ -130,9 +130,11 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         campusId: cashAccount.campusId
         //currency: cashAccount.currency,
       });
-      this.cashAccountForm.get('openingBalance').disable()
-      this.cashAccountForm.get('OBDate').disable()
-      this.cashAccountForm.get('campusId').disable()
+      // this.cashAccountForm.get('openingBalance').disable()
+      // this.cashAccountForm.get('OBDate').disable()
+      // this.cashAccountForm.get('campusId').disable()
+
+      this.disableFields(this.cashAccountForm , 'openingBalance', 'OBDate', 'campusId')
     }
   
     // submit cash account form
@@ -179,13 +181,11 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
     }
 
     reset() {
-      this.cashAccountForm.get('cashAccountName').reset()
-      this.cashAccountForm.get('handler').reset()
-      if(!this._id) {
-        this.cashAccountForm.get('openingBalance').reset()
-        this.cashAccountForm.get('OBDate').reset()
-        this.cashAccountForm.get('campusId').reset()
-      } 
+
+      this.resetFields(this.cashAccountForm , 'cashAccountName','handler')
+
+      if(!this._id) this.resetFields(this.cashAccountForm , 'openingBalance','OBDate','campusId')
+
       this.logValidationErrors(this.cashAccountForm , this.formErrors , this.validationMessages)
     }
   }
