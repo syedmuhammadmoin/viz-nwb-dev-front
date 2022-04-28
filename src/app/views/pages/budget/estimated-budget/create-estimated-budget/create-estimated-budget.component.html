@@ -54,11 +54,9 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-simple-dropdown 
                                  [optionList]="ngxsService.accountsLevel4$" 
-                                 [errorMessage]="'Account is Required'"
                                  formControlName="accountId" 
                                  isDisabled="true"
                                  matFormFieldClass="mobile-label full-width"
-                                 placeholder="Select Account"
                                  propertyName="name"
                                  propertyValue="id">
                                 </kt-simple-dropdown>
@@ -73,12 +71,7 @@
                                 <kt-input-field 
                                  formControlName="amount"
                                  type="number"
-                                 matFormFieldClass="mobile-label full-width input_d_1" 
-                                 placeholder="Enter Amount"
-                                 (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"
-                                 [errorMessage]="[{ condition : estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.errors?.required &&
-                                                                estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.touched , 
-                                                    error : 'Amount is required.' }]">
+                                 matFormFieldClass="mobile-label full-width input_d_1" >
                                 </kt-input-field>
                               </div>
                             </mat-cell>
