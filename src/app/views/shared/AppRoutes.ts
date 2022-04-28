@@ -40,6 +40,7 @@ export const APP_ROUTES = {
   PRODUCT: 'product',
   WAREHOUSE: 'warehouse',
   BUDGET: 'budget',
+  ESTIMATED_BUDGET: 'estimated-budget',
 
   //PURCHASE
   DEBIT_NOTE: 'debit-note',
@@ -108,6 +109,14 @@ export const CRUD_ROUTES = {
     CREATE: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.CREATE,
     ID_BASED_ROUTE (route: string , id: number) {         
       return APP_ROUTES.BUDGET + '/' + route + '/' + id
+    }
+  } 
+
+  export const ESTIMATED_BUDGET = {
+    LIST: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {         
+      return APP_ROUTES.ESTIMATED_BUDGET + '/' + route + '/' + id
     }
   } 
 

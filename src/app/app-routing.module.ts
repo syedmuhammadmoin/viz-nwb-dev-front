@@ -127,11 +127,22 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      //Budget Section
+      // Lazy Load BUDGET Module
       {
         path: APP_ROUTES.BUDGET,
         loadChildren: () =>
-          import('./views/pages/budget/budget.module').then(
+          import('./views/pages/budget/current-budget/budget.module').then(
             (m) => m.BudgetModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+      // Lazy Load ESTIMATED BUDGET Module
+      {
+        path: APP_ROUTES.ESTIMATED_BUDGET,
+        loadChildren: () =>
+          import('./views/pages/budget/estimated-budget/estimated-budget.module').then(
+            (m) => m.EstimatedBudgetModule
           ),
           canActivateChild: [AuthGuard]
       },

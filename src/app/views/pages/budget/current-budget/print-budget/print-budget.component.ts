@@ -18,7 +18,7 @@ export class PrintBudgetComponent implements OnInit {
   gridOptions: GridOptions;
   budgetMaster: IBudgetResponse;
   budgetLines: IBudgetLines[];
-  totalAmount: number;
+  totalAmount: number = 0;
 
   constructor( private _budgetService: BudgetService,
                private activatedRoute: ActivatedRoute,
