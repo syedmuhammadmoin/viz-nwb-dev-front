@@ -16,8 +16,8 @@ import { CalculationType } from 'src/app/views/shared/AppEnum';
 export class PrintEstimatedBudgetComponent implements OnInit {
 
   gridOptions: GridOptions;
-  estimatedBudgetMaster: IEstimatedBudget;
-  estimatedBudgetLines: IEstimatedBudgetLines[];
+  estimatedBudgetMaster: IEstimatedBudget | any;
+  estimatedBudgetLines: IEstimatedBudgetLines[] | any;
   calculationType = CalculationType
 
   constructor( private _estimatedBudgetService: EstimatedBudgetService,

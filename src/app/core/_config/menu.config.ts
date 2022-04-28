@@ -512,6 +512,7 @@ export class MenuConfig {
             Permissions.BUDGET_CREATE,
             Permissions.BUDGET_EDIT,
             Permissions.BUDGET_DELETE,
+            Permissions.BUDGET_REPORT_VIEW,
             Permissions.ESTIMATED_BUDGET_VIEW,
             Permissions.ESTIMATED_BUDGET_CREATE,
             Permissions.ESTIMATED_BUDGET_EDIT,
@@ -536,6 +537,13 @@ export class MenuConfig {
                 Permissions.ESTIMATED_BUDGET_CREATE,
                 Permissions.ESTIMATED_BUDGET_EDIT,
                 Permissions.ESTIMATED_BUDGET_DELETE
+              ]
+            },
+            {
+              title: 'Budget Report',
+              page: '/' + ESTIMATED_BUDGET.LIST,
+              permission: [
+                Permissions.BUDGET_REPORT_VIEW,
               ]
             }
           ]
