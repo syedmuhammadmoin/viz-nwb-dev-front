@@ -92,8 +92,9 @@ import { BusinessPartnerState } from './views/pages/profiling/business-partner/s
 import { ProductState } from './views/pages/profiling/product/store/product.state.state';
 import { BankAccountState } from './views/pages/finance/bank-account/store/bank-account.state';
 import { CampusState } from './views/pages/profiling/campus/store/campus.state';
-import { BudgetState } from './views/pages/budget/store/budget.state';
+import { BudgetState } from './views/pages/budget/current-budget/store/budget.state';
 import { StatusState } from './views/pages/workflows/status/store/status.state';
+import { BudgetAccountState } from './core/shared-state/account-state/store/budget-account.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -150,6 +151,7 @@ export function getHighlightLanguages() {
       ProductState,
       WarehouseState,
       AccountLevel4State,
+      BudgetAccountState,
       CountryState,
       StateState,
       CityState,

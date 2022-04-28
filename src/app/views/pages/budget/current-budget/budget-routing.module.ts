@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateBudgetComponent } from './create-budget/create-budget.component';
-import { CRUD_ROUTES } from '../../shared/AppRoutes';
-import { Permissions } from '../../shared/AppEnum';
+import { CRUD_ROUTES } from '../../../shared/AppRoutes';
+import { Permissions } from '../../../shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { ListBudgetComponent } from './list-budget/list-budget.component';
 import { DetailBudgetComponent } from './detail-budget/detail-budget.component';

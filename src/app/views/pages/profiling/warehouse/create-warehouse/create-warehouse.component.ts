@@ -120,7 +120,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
         // country: '',
         // state: '',
         // city: '',
-        manager: '',
+        storeManager: '',
         campusId: ''
         // address: '',
         // departmentId: null,
@@ -186,7 +186,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
       // country: this.countryList.find(c => c.name == warehouse.country).id,
       // state: this.stateList.find(c => c.name == warehouse.state).id,
       // city: this.cityList.find(c => c.name == warehouse.city).id,
-      manager: warehouse.manager,
+      manager: warehouse.storeManager,
       campusId: warehouse.campusId,
       // address: warehouse.address,
       // department: warehouse.departmentId,
@@ -235,7 +235,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     // this.warehouse.country = this.countryList.find(c => c.id == this.warehouseForm.value.country).name;
     // this.warehouse.state = this.stateList.find(c => c.id == this.warehouseForm.value.state).name;
     // this.warehouse.city = this.cityList.find(c => c.id == this.warehouseForm.value.city).name;
-    this.warehouse.manager = this.warehouseForm.value.manager;
+    this.warehouse.storeManager = this.warehouseForm.value.manager;
     this.warehouse.campusId = this.warehouseForm.value.campusId;
     // this.warehouse.address = this.warehouseForm.value.address;
     // this.warehouse.departmentId = this.warehouseForm.value.department;

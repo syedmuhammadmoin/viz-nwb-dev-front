@@ -25,6 +25,7 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   @Input() errorMessage2: string | any;
   @Input() matFormFieldClass: any | [] | string;
   @Input() inputClass: any | [] | string;
+  @Input() isDisabled: boolean;
 
   @Input() type: any;
   @Input() min: number;
