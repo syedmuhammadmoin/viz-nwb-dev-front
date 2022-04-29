@@ -3,7 +3,7 @@
         <div class="kt-portlet__head-caption">
             <div class="kt-portlet__head-title">
                 <h3 class="kt-portlet__head-text modal-header"> {{title}} 
-                  <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+                  <span (click)="onCloseDialog()" id="business_partner_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
                 </h3>
             </div>
         </div>
@@ -21,6 +21,7 @@
                         <div class="form-group kt-form__group">
                             <label class="col-form-label pt-0">Name:</label>
                             <kt-input-field
+                              id="business_partner_name"
                               formControlName="name"
                               placeholder="Enter Name"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
@@ -33,6 +34,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Type:</label>
                             <kt-simple-dropdown
+                              id="business_partner_type"
                               propertyName="viewValue"
                               propertyValue="id"
                               matFormFieldClass="full-width"
@@ -122,6 +124,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Address:</label>
                             <kt-input-field
+                            id="business_partner_address"
                               formControlName="address"
                               placeholder="Enter Address"
                               [hintText]="'Optional'">
@@ -136,6 +139,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Phone:</label>
                             <kt-input-field
+                            id="business_partner_phone"
                               formControlName="phone"
                               type="number"
                               placeholder="Enter Phone Number"
@@ -148,6 +152,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Mobile:</label>
                             <kt-input-field
+                            id="business_partner_mobile"
                               formControlName="mobile"
                               type="number"
                               placeholder="Enter Mobile Number"
@@ -160,6 +165,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">CNIC:</label>
                             <kt-input-field
+                            id="business_partner_cnic"
                               formControlName="cnic"
                               type="number"
                               placeholder="Enter CNIC Number"
@@ -177,6 +183,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Sales Tax Id:</label>
                             <kt-input-field
+                            id="business_partner_sales_Tax"
                               formControlName="salesTaxId"
                               placeholder="Enter Sales Tax"
                               [hintText]="'Optional'">
@@ -188,6 +195,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Income Tax Id:</label>
                             <kt-input-field
+                            id="business_partner_income_tax"
                               formControlName="incomeTaxId"
                               placeholder="Enter Income Tax"
                               [hintText]="'Optional'">
@@ -203,6 +211,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Account Title:</label>
                             <kt-input-field
+                            id="business_partner_account_title"
                               formControlName="bankAccountTitle"
                               placeholder="Enter Account Title"
                               [hintText]="'Optional'">
@@ -213,6 +222,7 @@
                         <div class="form-group">
                             <label class="col-form-label pt-0">Account No:</label>
                             <kt-input-field
+                            id="business_partner_account_no"
                               formControlName="bankAccountNumber"
                               placeholder="Enter Account No"
                               [hintText]="'Optional'">
@@ -225,8 +235,9 @@
                     <div class="row">
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group">
-                            <label class="col-form-label pt-0">Acc: Payable:</label>
+                            <label class="col-form-label pt-0">Account Payable:</label>
                             <kt-simple-dropdown
+                            id="business_partner_payable"
                               propertyName="name"
                               propertyValue="id"
                               matFormFieldClass="full-width"
@@ -241,8 +252,9 @@
                       </div>
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group">
-                            <label class="col-form-label pt-0">Acc: Receivable</label>
+                            <label class="col-form-label pt-0">Account Receivable</label>
                             <kt-simple-dropdown
+                            id="business_partner_receivable"
                               propertyName="name"
                               matFormFieldClass="full-width"
                               propertyValue="id"
@@ -272,8 +284,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="float-right">
-                            <button class="mr-3 btn_white" mat-raised-button type="reset">Reset</button>
-                            <button mat-raised-button class="sub___btn" type="submit"
+                            <button class="mr-3 btn_white" mat-raised-button type="reset" id="business_partner_reset">Reset</button>
+                            <button mat-raised-button class="sub___btn" type="submit" id="business_partner_submit"
                                 (click)="logValidationErrors(this.businessPartnerForm, this.formErrors, this.validationMessages)">Submit
                             </button>&nbsp;
 

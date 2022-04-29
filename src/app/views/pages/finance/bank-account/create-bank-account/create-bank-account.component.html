@@ -4,7 +4,7 @@
               <div class="kt-portlet__head-title">
                   <span class="kt-portlet__head-icon kt-hide"><i class="la la-gear"></i></span>
                   <h3 class="kt-portlet__head-text modal-header"> {{title}} 
-                    <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+                    <span (click)="onCloseDialog()" id="bank_account_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
                   </h3>
               </div>
           </div>
@@ -19,6 +19,7 @@
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Bank Name:</label>
                                 <kt-input-field
+                                id="bank_account_name"
                                   formControlName="bankName"
                                   placeholder="Enter bank name"
                                   (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
@@ -30,6 +31,7 @@
                           <div class="form-group kt-form__group">
                               <label class="col-form-label pt-0">Branch Name:</label>
                               <kt-input-field
+                              id="bank_account_branch"
                                 formControlName="branch"
                                 placeholder="Enter branch name"
                                 [hintText]="'Optional'">
@@ -44,6 +46,7 @@
                           <div class="form-group kt-form__group">
                               <label class="col-form-label pt-0">Account Title:</label>
                               <kt-input-field
+                              id="bank_account_title"
                                 formControlName="accountTitle"
                                 placeholder="Enter Account Title"
                                 (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
@@ -55,6 +58,7 @@
                         <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">Account Number:</label>
                           <kt-input-field
+                          id="bank_account_number"
                             formControlName="accountNumber"
                             type="number"
                             placeholder="Enter account number"
@@ -70,6 +74,7 @@
                           <div class="form-group kt-form__group">
                               <label class="col-form-label pt-0">Account Type:</label>
                               <kt-simple-dropdown 
+                              id="bank_account_type"
                                placeholder="Select Account Type" 
                                propertyValue="id" 
                                propertyName="name"
@@ -85,6 +90,7 @@
                         <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">Purpose:</label>
                           <kt-input-field
+                          id="bank_account_purpose"
                             formControlName="purpose"
                             type="text"
                             placeholder="Enter Purpose"
@@ -98,6 +104,7 @@
                         <div class="form-group kt-form__group">
                             <label class="col-form-label pt-0">Opening Balance:</label>
                             <kt-input-field
+                            id="bank_account_balance"
                               formControlName="openingBalance"
                               type="number"
                               placeholder="Enter opening balance"
@@ -110,6 +117,7 @@
                       <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">Opening Balance Date:</label>
                           <kt-date-input
+                          id="bank_account_date"
                             formControlName="OBDate"
                             placeholder="Opening Balance Date"
                             [maxDate]="dateLimit"
@@ -125,6 +133,7 @@
                       <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">Campus:</label>
                           <kt-simple-dropdown 
+                          id="bank_account_campus"
                             placeholder="Select Campus" 
                             propertyValue="id" 
                             propertyName="name"
@@ -147,8 +156,8 @@
                 <div class="row">
                   <div class="col-lg-12">
                       <div class="float-right">
-                        <button class="mr-3 btn_white" mat-raised-button (click)="reset()" type="button">Reset</button>
-                        <button mat-raised-button  class="sub___btn" type="submit"
+                        <button class="mr-3 btn_white" mat-raised-button id="bank_account_reset" (click)="reset()" type="button">Reset</button>
+                        <button mat-raised-button  class="sub___btn" type="submit" id="bank_account_submit"
                                 (click)="logValidationErrors(this.bankAccountForm, this.formErrors, this.validationMessages)">Submit</button>&nbsp;
                      </div>
                  </div>

@@ -4,7 +4,7 @@
         <div class="kt-portlet__head-title">
   
           <h3 class="kt-portlet__head-text modal-header">
-            {{titleName}} <span (click)="onRoleDialogClose()" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
+            {{titleName}} <span (click)="onRoleDialogClose()" id="role_close" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
           </h3>
         </div>
       </div>
@@ -26,6 +26,7 @@
                     <label class="col-form-label">Name:</label>
                     <div class="form-group kt-form__group">
                       <kt-input-field 
+                        id="role_name"
                         formControlName="roleName" 
                         matFormFieldClass="full-width" 
                         placeholder="Enter Role name"
@@ -48,7 +49,7 @@
               <div class="col-md-12 search_sticky">
                 <div class="p-1 input_style rounded rounded-pill shadow-sm mb-4">
                   <div class="input-group">
-                    <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeholder="Search Permissions..." aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                    <input type="text" id="role_permissions_search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeholder="Search Permissions..." aria-describedby="button-addon1" class="form-control border-0 bg-light">
                     <div class="input-group-append">
                       <button id="button-addon1" type="submit" class="btn btn-link text-primary" disabled><i class="fa fa-search"></i></button>
                     </div>
@@ -60,7 +61,7 @@
   
               <div class="col-md-6">
                 <!-- <div class="checkbox-with-label"> -->
-                <mat-checkbox [disabled]="isEditButtonShow" [checked]="claims.selected" (change)="onPermissionChange(claims, $event)">
+                <mat-checkbox [id]="'role_' + claims.viewValue" [disabled]="isEditButtonShow" [checked]="claims.selected" (change)="onPermissionChange(claims, $event)">
                   {{claims.viewValue}}
   <!--                appConsts.PermissionsDisplayName[claims.value]-->
                 </mat-checkbox>
@@ -84,12 +85,12 @@
           <div class="row">
             <div class="col-lg-12 col-md-8 col-sm-8 col-9">
               <div class="float-right">
-                <button *ngIf="!isEditButtonShow" class="mr-5 btn_white" mat-raised-button type="reset">Reset</button>
-                <button *ngIf="!isEditButtonShow" mat-raised-button type="submit" class="sub___btn"
+                <button *ngIf="!isEditButtonShow" class="mr-5 btn_white" mat-raised-button id="role_reset" type="reset">Reset</button>
+                <button *ngIf="!isEditButtonShow" mat-raised-button type="submit" class="sub___btn" id="role_submit"
                   (click)="logValidationErrors(this.roleForm, this.formErrors, this.validationMessages)">Submit
                 </button>&nbsp;
   
-                <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" type="button"
+                <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" id="role_edit" type="button"
                   (click)="toggleEdit()"><i class="fas fa-edit"></i> Edit
                 </button>&nbsp;
               </div>

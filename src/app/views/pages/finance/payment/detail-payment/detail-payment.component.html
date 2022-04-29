@@ -5,11 +5,11 @@
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         <kt-portlet-header [sticky]="false" [title]="formName + ' Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
-            <button [routerLink]="'/payment/' + printRoute + '/print/' + paymentMaster?.id" type="button" mat-raised-button  class="btn_white mr-3">
+            <button [routerLink]="'/payment/' + printRoute + '/print/' + paymentMaster?.id" id="payment_print" type="button" mat-raised-button  class="btn_white mr-3">
                 Print {{formName}}
             </button>
             <button *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected)"
-                (click)="addPaymentDialog(paymentId)" class="btn_white mr-3" mat-raised-button type="button"> Edit
+                (click)="addPaymentDialog(paymentId)" class="btn_white mr-3" mat-raised-button id="payment_edit" type="button"> Edit
             </button>
             <h4 class="overall_statuses  {{docStatus[paymentMaster?.state]}}">Status:  {{paymentMaster?.status}}</h4>
         </ng-container>
@@ -87,8 +87,8 @@
             <div class="kt-form__actions kt-form__actions">
             <div class="row ">
                 <div class="col-lg-12 text-right" *ngIf="paymentMaster?.isAllowedRole">
-                    <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-                    <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+                    <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" id="payment_reject" mat-raised-button>Reject</button>
+                    <button (click)="workflow(action.Approve)" class="success__btn" id="payment_approve" mat-raised-button>Approve</button>
                 </div>
             </div>
             </div>

@@ -21,6 +21,7 @@
                 <div class="form-group kt-form__group">
                   <label class="col-form-label pt-0">Campus:</label>
                   <kt-simple-dropdown 
+                  id="journal_campus"
                    placeholder="Select Campus" 
                    propertyValue="id" 
                    propertyName="name"
@@ -36,7 +37,7 @@
               <div class="col-lg-5 col-sm-5 col-md-5">
                 <div class="form-group kt-form__group">
                   <label class="col-form-label pt-0">Description:</label>
-                  <kt-input-field formControlName="description" placeholder="Enter Description" 
+                  <kt-input-field formControlName="description" placeholder="Enter Description" id="journal_description"
                   (blurEvent)="logValidationErrors(journalEntryForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="[{ condition : formErrors.description , error : formErrors.description }]">
                   </kt-input-field>
@@ -55,7 +56,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
-                              formControlName="accountId" matFormFieldClass="full-width input_d_1"
+                              formControlName="accountId" matFormFieldClass="full-width input_d_1" [id]="'journal_coa_' + i"
                               [errorMessage]="'Account is Required'" [optionList]="ngxsService.accountsLevel4$">
                             </kt-simple-dropdown>
                           </div>
@@ -68,7 +69,7 @@
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown placeholder="Select Partner" propertyValue="id" propertyName="name"
                               formControlName="businessPartnerId" matFormFieldClass="full-width input_d_1"
-                              errorMessage="Partner is required"
+                              errorMessage="Partner is required" [id]="'journal_partner_' + i"
                               [optionList]="ngxsService.businessPartners$"
                               clickEventButtonName="Add New Business Partner"
                               (clickEvent)="openBusinessPartnerDialog()" 
@@ -83,7 +84,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-input-field formControlName="description" matFormFieldClass="full-width input_d_1"
-                              placeholder="Enter Description"
+                              placeholder="Enter Description" [id]="'journal_description_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.description.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.description.touched , 
@@ -98,7 +99,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-input-field formControlName="debit" matFormFieldClass="full-width input_d_1"
-                              placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" type = "number"
+                              placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_debit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.touched , 
@@ -113,7 +114,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-input-field formControlName="credit" matFormFieldClass="full-width input_d_1"
-                              placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" type = "number"
+                              placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_credit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.touched , 
@@ -153,6 +154,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown 
+                              [id]="'journal_warehouse_' + i"
                               placeholder="Select Warehouse" 
                               propertyValue="id" 
                               propertyName="name"
@@ -172,7 +174,7 @@
                           <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
                               </mat-icon> -->
 
-                          <button class=" remove-icon" type="button" (click)="removeJournalEntryLineClick(i);">
+                          <button class=" remove-icon" type="button" [id]="'journal_remove_' + i" (click)="removeJournalEntryLineClick(i);">
                             <i class="fas fa-trash" aria-hidden="true"></i>
                           </button>
                         </mat-cell>
@@ -184,7 +186,7 @@
                   <ng-container>
                     <div class="row">
                       <div class="col-md-8 col-sm-8">
-                        <button class=" btn_create" type="button" (click)="addJournalEntryLineClick()">
+                        <button class=" btn_create" type="button" id="add_line" (click)="addJournalEntryLineClick()">
                           <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                         </button>
                       </div>
@@ -222,12 +224,12 @@
         <div class="kt-form__actions kt-form__actions">
           <div class="row ">
             <div class="col-lg-12 text-right">
-              <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()">Reset</button>
-              <button mat-raised-button class=" mr-3 sub___btn" type="submit"
+              <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()" id="journal_reset">Reset</button>
+              <button mat-raised-button class=" mr-3 sub___btn" type="submit" id="journal_save"
                 (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(0)">
                 Save
               </button>
-              <button class="sub___btn" mat-raised-button type="submit"
+              <button class="sub___btn" mat-raised-button type="submit" id="journal_submit"
                 (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(1)">
                 Submit
               </button>

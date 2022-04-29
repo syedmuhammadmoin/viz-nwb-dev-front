@@ -3,7 +3,7 @@
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
           <h3 class="kt-portlet__head-text modal-header">
-            {{titleName}} <span (click)="onCloseUserDialog()" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
+            {{titleName}} <span (click)="onCloseUserDialog()" id="user_close" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
           </h3>
         </div>
       </div>
@@ -22,6 +22,7 @@
                     <label class="col-form-label">Username:</label>
                     <div class="form-group kt-form__group">
                       <kt-input-field 
+                        id="user_username"
                         inputClass="input_transform_none"
                         formControlName="userName" 
                         matFormFieldClass="full-width" 
@@ -36,6 +37,7 @@
                     <label class="col-form-label">Email:</label>
                     <div class="form-group kt-form__group">
                       <kt-input-field 
+                        id="user_email"
                         inputClass="input_transform_none"
                         formControlName="email" 
                         matFormFieldClass="full-width" 
@@ -50,6 +52,7 @@
                     <label class="col-form-label">Password:</label>
                     <div class="form-group kt-form__group">
                       <kt-input-field 
+                        id="user_password"
                         formControlName="password" 
                         inputClass="input_transform_none"
                         matFormFieldClass="full-width" 
@@ -85,6 +88,7 @@
                     <label class="col-form-label">Confirm Password:</label>
                     <div class="form-group kt-form__group">
                       <kt-input-field 
+                        id="user_confirm_password"
                         type="password"
                         inputClass="input_transform_none"
                         formControlName="confirmPassword" 
@@ -105,7 +109,7 @@
                   <div class="col-md-12 search_sticky">
                     <div class="p-1 input_style rounded rounded-pill shadow-sm mb-4">
                       <div class="input-group">
-                        <input type="text" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeholder="Search Roles..." aria-describedby="button-addon1" class="form-control border-0 bg-light">
+                        <input type="text" id="user_permissions_search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeholder="Search Roles..." aria-describedby="button-addon1" class="form-control border-0 bg-light">
                         <div class="input-group-append">
                           <button id="button-addon1" type="submit" class="btn btn-link text-primary" disabled><i class="fa fa-search"></i></button>
                         </div>
@@ -116,7 +120,7 @@
                 <ng-container *ngFor="let role of userRole | filter:searchText">
                   <div class="col-md-6">
                     <!-- <div class="checkbox-with-label"> -->
-                    <mat-checkbox [disabled]="isEditButtonShow" [checked]="role.selected"
+                    <mat-checkbox [id]="'user_' + role.roleName" [disabled]="isEditButtonShow" [checked]="role.selected"
                       (change)="onRoleChange(role, $event)">
                       {{role.roleName}}
                     </mat-checkbox>
@@ -136,16 +140,16 @@
           <div class="row">
             <div class="col-lg-12 col-md-8 col-sm-8 col-9">
               <div class="float-right">
-                <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button type="reset">Reset</button>
-                <button *ngIf="!isEditButtonShow" mat-raised-button class="sub___btn" type="submit"
+                <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button id="user_reset" type="reset">Reset</button>
+                <button *ngIf="!isEditButtonShow" mat-raised-button class="sub___btn" type="submit" id="user_submit"
                   (click)="logValidationErrors(this.userForm, this.formErrors, this.validationMessages)"> Submit
                 </button>
                 <!--Reset Password-->
-                <button (click)="resetPassword()" *ngIf="isEditButtonShow" class="mr-3 sub___btn" mat-raised-button
+                <button (click)="resetPassword()" id="user_reset_password" *ngIf="isEditButtonShow" class="mr-3 sub___btn" mat-raised-button
                    type="button"><i class="fa fa-lock"></i> Reset Password
                 </button>
                 <!--Edit Button-->
-                <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" type="button"
+                <button *ngIf="isEditButtonShow" id="user_edit" mat-raised-button class="btn_white" type="button"
                   (click)="toggleEdit()"><i class="fa fa-edit"></i> Edit</button>
               </div>
             </div>

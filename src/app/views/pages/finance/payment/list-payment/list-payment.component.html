@@ -3,7 +3,7 @@
 		<ng-container ktPortletTools>
       <button [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE)) &&
            !(permission.isGranted(permissions.RECEIPT_CREATE))"
-      (click)="addPaymentDialog()" class="btn_white" mat-raised-button  matTooltip="Add {{FormName}}">Add {{FormName}}</button>
+      (click)="addPaymentDialog()" class="btn_white" mat-raised-button id="add_payment"  matTooltip="Add {{FormName}}">Add {{FormName}}</button>
 		</ng-container>
 	</kt-portlet-header>
   <kt-portlet-body>

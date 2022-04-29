@@ -3,9 +3,9 @@
     <kt-portlet-header [sticky]="false" [title]="'Journal Entry Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        <button [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_white mr-3" mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button>
+        <button id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_white mr-3" mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button>
         <button *ngIf="(journalEntryMaster?.state === docStatus.Draft || journalEntryMaster?.state === docStatus.Rejected)"
-           [disabled]="!(permission.isGranted(permissions.JOURNALENTRY_EDIT))"
+           [disabled]="!(permission.isGranted(permissions.JOURNALENTRY_EDIT))" id="journal_edit"
            [ngClass]="!(permission.isGranted(permissions.JOURNALENTRY_EDIT)) ? 'disable' : '' "
            [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('edit' , journalEntryMaster?.id)"
            [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button" mat-raised-button class="btn_white mr-3">
@@ -66,8 +66,8 @@
         </div>
 
         <div *ngIf="journalEntryMaster?.isAllowedRole" class="text-right mt-10">
-          <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-          <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+          <button (click)="workflow(action.Reject)" id="journal_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+          <button (click)="workflow(action.Approve)" class="success__btn" id="journal_approve" mat-raised-button>Approve</button>
         </div>
       </div>
     </kt-portlet-body>
