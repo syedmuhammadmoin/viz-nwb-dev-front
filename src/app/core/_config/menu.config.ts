@@ -541,7 +541,7 @@ export class MenuConfig {
             },
             {
               title: 'Budget Report',
-              page: '/' + ESTIMATED_BUDGET.LIST,
+              page: '/' + BUDGET.REPORT,
               permission: [
                 Permissions.BUDGET_REPORT_VIEW,
               ]

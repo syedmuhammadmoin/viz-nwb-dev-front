@@ -2,19 +2,13 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { AppComponentBase} from '../../../../shared/app-component-base';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
-import { CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
-import { GridOptions, ValueFormatterParams} from 'ag-grid-community';
+import { ColDef, GridOptions, ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import { finalize} from 'rxjs/operators';
-import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
-import { DepartmentService} from 'src/app/views/pages/profiling/department/service/department.service';
-import { LocationService} from 'src/app/views/pages/profiling/location/service/location.service';
-import { WarehouseService} from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
-import { AppConst } from 'src/app/views/shared/AppConst';
 import { BudgetService } from '../service/budget.service';
 import { IBudgetReport } from '../model/IBudgetReport';
+import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 
 @Component({
   selector: 'kt-budget-report',
@@ -22,61 +16,20 @@ import { IBudgetReport } from '../model/IBudgetReport';
   styleUrls: ['./budget-report.component.scss']
 })
 
-export class BudgetReportComponent  extends AppComponentBase implements OnInit {
+export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
   // for permissions 
   public permissions = Permissions;
 
-  constructor(
-    // Injecting services in constructor
-    private fb: FormBuilder,   
-    private _budgetService: BudgetService,
-    private cdRef: ChangeDetectorRef,   
-    public ngxsService: NgxsCustomService,
-    private injector: Injector
-  ) {
-    super(injector);
-
-    this.defaultColDef = {
-      resizable: true,
-    };
-    this.columnDefs = [
-      {headerName: 'Account Name', field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
-      {headerName: 'Date', field: 'docDate', sortable: true, filter: true},
-      {headerName: 'Document No', field: 'docNo', sortable: true, filter: true},
-      {
-        headerName: 'Document Type', 
-        field: 'docType', 
-        sortable: true, 
-        filter: true,
-        valueFormatter: (params: ValueFormatterParams) => {
-          return DocType[params.value]
-        } 
-      },
-      {headerName: 'Description', field: 'description', filter: true},
-      {headerName: 'Debit', field: 'debit', sortable: true, filter: true},
-      {headerName: 'Credit', field: 'credit', sortable: true, filter: true},
-      {headerName: 'Balance', colId: 'balance'}
-    ];
-  }
-
   // gridOptions: GridOptions;
 
-  autoGroupColumnDef;
-  openingBalance = 0;
-  balance = 0;
-  columnDefs;
-  defaultColDef: any
-
+  defaultColDef: ColDef
   // data for PDF
   recordsData: any = []
   disability = true
 
   //Busy Loading
   isLoading: boolean;
-
-  //Limit Date
-  maxDate : Date = new Date()
   
   // Declaring FormGroup
   budgetReportForm: FormGroup;
@@ -90,69 +43,93 @@ export class BudgetReportComponent  extends AppComponentBase implements OnInit {
   budgetReportModel: IBudgetReport = {} as IBudgetReport
   // Validation Messages
   validationMessages = {
-    docDate: {
-      required: 'Start Date is required.'
+    budgetName: {
+      required: 'Budget is required.'
     },
-    docDate2: {
-      required: 'End Date is required.'
+    to: {
+      required: 'Date is required.'
     }
   }
 
   // Error keys for validation messages
   formErrors = {
-    docDate: '',
-    docDate2: ''
+    budgetName: '',
+    to: ''
   }
-  private formSubmitAttempt = true;
 
-  onRowDoubleClicked($event: any) {
+  constructor(
+    // Injecting services in constructor
+    private fb: FormBuilder,   
+    private _budgetService: BudgetService,
+    private cdRef: ChangeDetectorRef,   
+    public ngxsService: NgxsCustomService,
+    public dateHelperService: DateHelperService,
+    injector: Injector
+  ) {
+    super(injector);
   }
+
+  columnDefs = [
+    {headerName: 'Budget Name', field: 'budgetName', sortable: true, filter: true},
+    {
+      headerName: 'Date', 
+      field: 'to', 
+      sortable: true, 
+      filter: true,
+      cellRenderer: (params: ICellRendererParams) => {
+        return this.dateHelperService.transformDate(params.data.to, 'MMM d, y')
+      }
+    },
+    {headerName: 'Account', field: 'account', filter: true},
+    {
+      headerName: 'Budget Amount', 
+      field: 'budgetAmount', 
+      sortable: true, 
+      filter: true,
+      valueFormatter: (params: ValueFormatterParams ) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Incurred Amount', 
+      field: 'incurredAmount', 
+      sortable: true, 
+      filter: true,
+      valueFormatter: (params: ValueFormatterParams ) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Balance', 
+      field: 'balanceRemaining', 
+      sortable: true, 
+      filter: true,
+      valueFormatter: (params: ValueFormatterParams ) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+  ];
+
 
   ngOnInit() {
     // AG Grid Options
     this.gridOptions = ({} as GridOptions);
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
-    this.gridOptions.suppressAggFuncInHeader = true;
-   
 
-    this.autoGroupColumnDef = {
-      headerName: 'Account',
-      minWidth: 300,
-      cellRendererParams: {
-        suppressCount: true,
-        checkbox: false,
-      },
+    this.defaultColDef = {
+      resizable: true,
+      cellStyle: {textAlign : 'left'},
     }
 
     // initializing formGroup
     this.budgetReportForm = this.fb.group({
-      docDate: ['', [Validators.required]],
-      docDate2: ['', [Validators.required]],
-      accountName: [''],
-      businessPartnerName: [''],
-      // organization: [''],
-      // department: [''],
-      warehouseName: [''],
-      campusName : ['']
-      //location: ['']
+      budgetName: ['', [Validators.required]],
+      to: ['', [Validators.required]],
     });
 
-     // get customer from state
-     this.ngxsService.getBusinessPartnerFromState();   
-     // get Ware house location from state
-     this.ngxsService.getWarehouseFromState();    
-     // get Accounts of level 4 from state
-     this.ngxsService.getAccountLevel4FromState()
-      // get Campuses from state
-     this.ngxsService.getCampusFromState()
-     // get location from state
-     //this.ngxsService.getLocationFromState();
-     // get department from state
-     //this.ngxsService.getDepatmentFromState();
-
-   
-
+    //get Budgets from state
+    this.ngxsService.getBudgetsFromState()
   }
 
   onSubmit() {
@@ -161,47 +138,9 @@ export class BudgetReportComponent  extends AppComponentBase implements OnInit {
       return;
     }
     this.mapFormValueToModel();
-    // console.log(this.budgetReportModel);
+    console.log(this.budgetReportModel);
     this.isLoading = true;
-    this._budgetService.getBudgetReport(this.budgetReportModel).pipe(
-      finalize(() => {
-        this.columnDefs = [
-          {headerName: 'Account Name', field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
-          {
-            headerName: 'Date', field: 'docDate', sortable: true, filter: true, cellStyle: {textAlign : 'left'},
-            cellRenderer: (params: any) => {
-              // console.log(params);
-              const date = params?.data?.docDate != null ? params?.data?.docDate : null;
-              return date == null ? null : this.transformDate(date, 'MMM d, y');
-            }
-          },
-          {headerName: 'Document No', field: 'docNo', sortable: true, filter: true, cellStyle: {textAlign : 'left'}},
-          {
-            headerName: 'Document Type', 
-            field: 'docType', 
-            sortable: true, 
-            filter: true, 
-            cellStyle: {textAlign : 'left'},
-            valueFormatter: (params: ValueFormatterParams) => {
-              return DocType[params.value]
-              // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
-            } 
-
-          },
-          {headerName: 'Description', field: 'description', filter: true, cellStyle: {textAlign : 'left'}},
-          // {
-          //   headerName: 'Balance',
-          //   field: 'balance',
-          //   aggFunc: sumFunc.bind(this),
-          //   colId: 'balance',
-          //   valueFormatter: (params) => {
-          //     return this.valueFormatter(params.value)
-          //   }
-          // }
-        ];
-        this.cdRef.detectChanges();
-      })
-    ).subscribe((res) => {
+    this._budgetService.getBudgetReport(this.budgetReportModel).subscribe((res) => {
       this.rowData = res.result;
       this.recordsData = res.result;
       // for PDF
@@ -210,12 +149,11 @@ export class BudgetReportComponent  extends AppComponentBase implements OnInit {
         this.toastService.info('No Records Found !' , 'Budget Report')
       }
       this.isLoading = false;
-      
+      this.cdRef.detectChanges();
     });
   }
 
   reset() {
-    this.formSubmitAttempt = false;
     this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;
@@ -225,16 +163,8 @@ export class BudgetReportComponent  extends AppComponentBase implements OnInit {
 
   // Mapping value from form to model
   mapFormValueToModel() {
-    // this.budgetReportModel.docDate = this.formatDate(this.budgetReportForm.value.docDate) || '';
-    // this.budgetReportModel.docDate2 = this.formatDate(this.budgetReportForm.value.docDate2) || '';
-    // this.budgetReportModel.accountName = this.budgetReportForm.value.accountName || '';
-    // this.budgetReportModel.businessPartnerName = this.budgetReportForm.value.businessPartnerName || '';
-    // this.budgetReportModel.warehouseName = this.budgetReportForm.value.warehouseName || '';
-    // this.budgetReportModel.campusName = this.budgetReportForm.value.campusName || '';
-    // this.budgetReportModel.location = this.budgetReportForm.value.location || '';
-    // this.budgetReportModel.department = this.budgetReportForm.value.department || '';
-    // this.budgetReportModel.warehouse = this.budgetReportForm.value.warehouse || '';
-    // this.budgetReportModel.organization = this.budgetReportForm.value.organization || '';
+    this.budgetReportModel.to = this.formatDate(this.budgetReportForm.value.to) || '';
+    this.budgetReportModel.budgetName = this.budgetReportForm.value.budgetName || '';
   }
 
   formatDate(date) {
@@ -276,7 +206,7 @@ export class BudgetReportComponent  extends AppComponentBase implements OnInit {
     //     margin: [0, 5, 0, 10]
     //   },
     //   {
-    //     text: 'Report for : ' + this.transformDate(this.budgetReportForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.budgetReportForm.value.docDate2, 'MMM d, y'),
+    //     text: 'Report for : ' + this.transformDate(this.budgetReportForm.value.to, 'MMM d, y') + ' - ' + this.transformDate(this.budgetReportForm.value.to2, 'MMM d, y'),
     //     alignment: 'center',
     //     fontSize: 12,
     //     margin: [0, 0, 0, 10]

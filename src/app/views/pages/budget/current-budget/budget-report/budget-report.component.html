@@ -8,92 +8,37 @@
             <div class="row">
               <div class="col-lg-4">
                 <div class="form-group kt-form__group">
-                  <label class="col-form-label">Start Date:</label>
-                  <kt-date-input (blurEvent)="logValidationErrors(this.budgetReportForm, formErrors, validationMessages)"
-                    [errorMessage]="formErrors.docDate" formControlName="docDate" matFormFieldClass="full-width"
-                    placeholder="Enter From Date" [maxDate]="maxDate">
-                  </kt-date-input>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group kt-form__group">
-                  <label class="col-form-label">End Date:</label>
-                  <kt-date-input (blurEvent)="logValidationErrors(this.budgetReportForm, formErrors, validationMessages)"
-                    [errorMessage]="formErrors.docDate2" formControlName="docDate2" matFormFieldClass="full-width"
-                    placeholder="Enter To Date" [maxDate]="maxDate">
-                  </kt-date-input>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group kt-form__group">
-                  <label class="col-form-label">Account:</label>
-                  <kt-simple-dropdown [optionList]="ngxsService.accountsLevel4$" formControlName="accountName" isDisabledNone="true"
-                    matFormFieldClass="full-width" placeholder="Select Account" propertyName="name" propertyValue="name"
-                    hintText="Optional"
-                    searchPlaceholder="Search accounts..."></kt-simple-dropdown>
-                </div>
-              </div>
-            </div>
-            <!-- endregion -->
-            <!-- region Second Row -->
-            <div class="row">
-              <!-- <div class="col-lg-4">
-                <div class="form-group kt-form__group">
-                  <label class="col-form-label">Department:</label> -->
-                  <!-- <kt-simple-dropdown 
-                    [optionList]="ngxsService.departments$" formControlName="department"
-                    matFormFieldClass="full-width" placeholder="Select Department" propertyName="name"
-                    propertyValue="name" searchPlaceholder="Search departments..."></kt-simple-dropdown> -->
-                <!-- </div>
-              </div> -->
-              <!-- <div class="col-lg-4">
-                <div class="form-group kt-form__group">
-                  <label class="col-form-label">Location:</label> -->
-                  <!-- <kt-simple-dropdown [optionList]="ngxsService.locations$" formControlName="location" matFormFieldClass="full-width"
-                    placeholder="Select Location" propertyName="name" propertyValue="name"
-                    searchPlaceholder="Search location..."></kt-simple-dropdown> -->
-                <!-- </div>
-              </div> -->
-              <div class="col-lg-4 ">
-                <div class="form-group kt-form__group">
-                  <label class="col-form-label">Business Partner:</label>
-                  <kt-simple-dropdown [optionList]="ngxsService.businessPartners$"
-                    formControlName="businessPartnerName" matFormFieldClass="full-width" isDisabledNone="true"
-                    placeholder="Select Business Partner" propertyName="name" propertyValue="name" hintText="Optional"
-                    searchPlaceholder="Search Business Partner...">
+                  <label class="col-form-label">Budget:</label>
+                  <kt-simple-dropdown 
+                    formControlName="budgetName"
+                    matFormFieldClass="full-width"
+                    (blurEvent)="logValidationErrors(budgetReportForm, this.formErrors, this.validationMessages)"
+                    propertyName="budgetName" 
+                    propertyValue="budgetName" 
+                    [errorMessage]="formErrors.budgetName"
+                    [optionList]="ngxsService.budgets$"
+                    searchPlaceholder="Search Budget..."
+                    placeholder="Select Budget">
                   </kt-simple-dropdown>
                 </div>
               </div>
               <div class="col-lg-4">
                 <div class="form-group kt-form__group">
-                  <label class="col-form-label">Campus:</label>
-                  <kt-simple-dropdown [optionList]="ngxsService.campuses$" isDisabledNone="true"
-                    formControlName="campusName" matFormFieldClass="full-width" placeholder="Select Campus" hintText="Optional"
-                    propertyName="name" propertyValue="name" searchPlaceholder="Search campus..."></kt-simple-dropdown>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <div class="form-group kt-form__group">
-                  <label class="col-form-label">Warehouse:</label>
-                  <kt-simple-dropdown [optionList]="ngxsService.warehouses$" hintText="Optional" isDisabledNone="true"
-                    formControlName="warehouseName" matFormFieldClass="full-width" placeholder="Select Warehouse"
-                    propertyName="name" propertyValue="name" searchPlaceholder="Search warehouse..."></kt-simple-dropdown>
+                  <label class="col-form-label">Till:</label>
+                  <kt-date-input 
+                    (blurEvent)="logValidationErrors(budgetReportForm, formErrors, validationMessages)"
+                    [errorMessage]="formErrors.to" 
+                    formControlName="to" 
+                    matFormFieldClass="full-width"
+                    placeholder="Enter Date">
+                  </kt-date-input>
                 </div>
               </div>
             </div>
             <!-- endregion -->
+  
             <!-- region Action Row -->
             <div class="row">
-              <!-- <div class="col-lg-4 ">
-                <div class="form-group kt-form__group">
-                  <label class="col-form-label">Business Partner:</label>
-                  <kt-simple-dropdown [optionList]="ngxsService.businessPartners$"
-                    formControlName="businessPartnerName" matFormFieldClass="full-width"
-                    placeholder="Select Business Partner" propertyName="name" propertyValue="name"
-                    searchPlaceholder="Search Business Partner...">
-                  </kt-simple-dropdown>
-                </div>
-              </div> -->
               <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5 mb-3">
                 <div class="form-group kt-form__group">
                   <button class="mr-3 btn_white" (click)="reset()" mat-raised-button type="reset">Reset

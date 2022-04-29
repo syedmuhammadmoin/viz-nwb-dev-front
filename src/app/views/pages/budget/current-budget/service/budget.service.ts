@@ -47,7 +47,7 @@ export class BudgetService {
   }
 
   getBudgetReport(body: IBudgetReport): Observable<any> {
-    return this.httpClient.post(this.baseUrl + '/budgetReport', body)
+    return this.httpClient.post<any>(this.baseUrl + '/budgetReport', body)
   }
 
   // getBudgetComparisonReport(body: IBudgetComparisonReport): Observable<any> {
