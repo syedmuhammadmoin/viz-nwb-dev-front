@@ -4,7 +4,7 @@
   {
     background-color: whitesmoke;
     padding-left: 15px !important;
-    border-radius: 0px 20px 20px 0px;
+    // border-radius: 0px 20px 20px 0px;
   }
 
   .mat-form-field-ripple
@@ -21,12 +21,12 @@
     border-top: 1px solid #d2d2d2 ;
     border-bottom: 1px solid #d2d2d2 ;
     border-right: 1px solid #d2d2d2 ;
-    border-radius: 0px 20px 20px 0px;
-    border-left: 3px solid #2f365f;
+    // border-radius: 0px 20px 20px 0px;
+    border-left: 3px solid #4a8a9e;
   }
   .mat-form-field-infix
   {
-    padding-top: 5px !important;
+    padding-top: 0px !important;
   }
   .mat-input-element
   {
@@ -48,7 +48,7 @@
   }
   .mat-form-field-outline-end
   {
-    border-radius: 0px 20px 20px 0px !important;
+    // border-radius: 0px 20px 20px 0px !important;
   }
 
 
@@ -104,26 +104,26 @@
     
   ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
       opacity: 0.03 !important;
-      background-color: #283655 !important;
+      background-color: #1a6b85 !important;
   }
   
   ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
-      background-color: #283655;
+      background-color: #1a6b85;
     }
     
   ::ng-deep .mat-checkbox-label:not(.dontchange)
   {
-    color: #2b3259;
+    color: #1a6b85;
     font-size: 14px;
     font-weight: bold;
   }
   
   ::ng-deep .mat-checkbox:not(.dontchange)
   {
-    background-color: aliceblue;
+    background-color: #f3f6f9;
     display: flex;
     margin-bottom: 10px;
-    border: 1px solid #b9ddfd;
+    border: 1px solid #aad7e6;
     padding-bottom: 0px;
   }
   
@@ -135,16 +135,21 @@
   
   .input-group-append
   {
-    background-color: #262933;
-    border-radius: 0px 20px 20px 0px;
+    background-color: #1a6b85;
+    // border-radius: 0px 20px 20px 0px;
     
   }
   
   .input_style
   {
-    background-color: aliceblue;
-    border: 1px solid #b9ddfd;
+    background-color: #e9f5f9;
+    border: 1px solid #1a6b85;
   }
   
 
 
+#button-addon1 i
+{
+  margin-left: 4px;
+  color: #fff;
+}
