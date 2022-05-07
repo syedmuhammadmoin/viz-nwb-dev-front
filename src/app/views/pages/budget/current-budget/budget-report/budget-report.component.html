@@ -10,6 +10,7 @@
                 <div class="form-group kt-form__group">
                   <label class="col-form-label">Budget:</label>
                   <kt-simple-dropdown 
+                  id="budget_report_name"
                     formControlName="budgetName"
                     matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(budgetReportForm, this.formErrors, this.validationMessages)"
@@ -41,9 +42,9 @@
             <div class="row">
               <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5 mb-3">
                 <div class="form-group kt-form__group">
-                  <button class="mr-3 btn_white" (click)="reset()" mat-raised-button type="reset">Reset
+                  <button class="mr-3 btn_white" (click)="reset()" id="budget_report_reset" mat-raised-button type="reset">Reset
                   </button>
-                  <button class="sub___btn" mat-raised-button type="submit">Fetch Records
+                  <button class="sub___btn" mat-raised-button id="budget_report_fetch" type="submit">Fetch Records
                   </button>
                   <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
                 </div>
