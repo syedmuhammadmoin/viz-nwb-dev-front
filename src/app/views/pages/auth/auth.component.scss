@@ -59,7 +59,32 @@ kt-login, kt-register, kt-forgot-password {
 //custom login form css
 
 
+// body::before
+// {
+// 	content: "";
+//     position: absolute;
+//     width: 25%;
+//     height: 35%;
+//     right: 0px;
+//     top: 0px;
+//     background-color: #1e6d87;
+//     border-radius: 0px 0px 0px 350px;
+	
+// }
 
+// body::after
+// {
+// 	content: "";
+//     position: absolute;
+//     width: 25%;
+//     height: 35%;
+//     left: 0px;
+//     bottom: 0px;
+//     background-color: #1e6d87;
+//     border-radius: 0px 0px 0px 350px;
+// 	z-index: -1;
+	
+// }
 
 .auth-bg-image{
 	//@at-root: url("/assets/media/bg/bg-for-login-pic3.jpg");
@@ -257,22 +282,41 @@ button:focus {
 /*------------------Login form left div styles start------------*/
 .bg_full
 {
-	background-color: #283655 !important;
-	background-image: linear-gradient(to right, #2e303b, #2b335d) !important;
+	background-color: #1a6b85 !important;
+	background-image:  linear-gradient(to right, #1a6b85, #4a8a9e) !important;
 }
 .form-left-div-bg
 {
 	//background-color: indigo;
-	background-color: #283655 !important;
-	background-image: linear-gradient(to right, #2e303b, #2b335d) !important;
+	// background-color: #1a6b85 !important;
+	// background-image:  linear-gradient(to right, #1a6b85, #4a8a9e) !important;
 	text-align:center;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	color: white;
 	box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.22);
 	// border-radius: 10px;
-	min-height: 60vh;
+	min-height: 70vh;
+	background-image: url('../../../../assets/media/logos/bg_login.jpg');
+	background-size: cover;
+	background-position: center;
+	justify-content: right;
+	align-items: flex-end;
 	
+}
+
+.form-left-div-bg::before
+{
+	content: '';
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0px;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	opacity: 0.7;
+    background-color: #1c6c86;
 }
 
 // input {
@@ -302,11 +346,12 @@ button:focus {
 	border-radius: 0px;
 	padding-top: 20px;
 	padding-bottom: 20px;
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.22);
+	// box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.22);
 	// background: linear-gradient(-135deg, #2e303e 10%, #2b335b 10%, #2b335a 20%, #fff 20%, #fff 50%, #fff 50%, #fff 100%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	border-top-right-radius: 60px;
 	
 }
 
@@ -401,20 +446,20 @@ button:focus {
 .group__sty input
 {
 	background-color: #f2f2f2;
-	padding: 20px;
-	border-radius: 0px 20px 20px 0px;
+	padding: 15px;
+	// border-radius: 0px 20px 20px 0px;
 	border: 1px solid #d0d0d0;
 }
 
 .heading__text
 {
-	color: #2e303b;
+	
 	padding: 10px;
 	text-transform: uppercase;
 	letter-spacing: 5px;
 	text-shadow: 3px 3px #9195a9;
 	font-size: 45px;
-	color: #293159;
+	color: #1a6b85;
 	letter-spacing: .15em;
 	
 }
