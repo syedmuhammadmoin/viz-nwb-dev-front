@@ -11,6 +11,7 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
               <label class="col-form-label">Budget:</label>
                   <kt-input-field 
+                  id="budget_name"
                      formControlName="budgetName" 
                      matFormFieldClass="full-width" 
                      placeholder="Enter Name" 
@@ -59,6 +60,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12">
                               <kt-simple-dropdown 
+                              [id]="'budget_account_' + i"
                                [optionList]="ngxsService.budgetAccount$" 
                                [errorMessage]="'Account is Required'"
                                formControlName="accountId" 
@@ -78,6 +80,7 @@
                             <div class="col-lg-12 col-sm-12">
                               <kt-input-field 
                                formControlName="amount"
+                               [id]="'budget_amount_' + i"
                                type="number"
                                matFormFieldClass="mobile-label full-width input_d_1" 
                                placeholder="Enter Amount"
@@ -97,7 +100,7 @@
                             <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
                                   </mat-icon> -->
 
-                            <button class=" remove-icon" type="button"
+                            <button class=" remove-icon" type="button"  [id]="'budget_remove_' + i"
                               (click)="removeBudgetLineClick(i)">
                               <i class="fas fa-trash" aria-hidden="true"></i>
                             </button>
@@ -111,7 +114,7 @@
                   <ng-container>
                     <div class="row" style="align-items: center;">
                       <div class="col-lg-5 col-sm-5">
-                          <button (click)="addBudgetLineClick()" class=" btn_create" type="button">
+                          <button (click)="addBudgetLineClick()" id="budget_add_line" class=" btn_create" type="button">
                             <i aria-hidden="true" class="fas fa-plus"> </i> Add New Line
                           </button>
                       </div>
@@ -134,8 +137,8 @@
         <div class="kt-form__actions kt-form__actions">
           <div class="row">
             <div class="col-lg-12 text-right">
-              <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()">Reset</button>
-              <button class="sub___btn " mat-raised-button type="submit"
+              <button type="reset" class="mr-3 btn_white" mat-raised-button id="budget_reset" (click)="reset()">Reset</button>
+              <button class="sub___btn " mat-raised-button type="submit" id="budget_submit"
                 (click)="logValidationErrors(budgetForm, formErrors, validationMessages)">Submit</button>
             </div>
           </div>

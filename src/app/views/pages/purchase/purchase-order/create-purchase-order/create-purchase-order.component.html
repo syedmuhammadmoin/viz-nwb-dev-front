@@ -14,6 +14,7 @@
                     <label class="col-form-label pt-0">Vendor Name:</label>
                       <kt-simple-dropdown
                       propertyName="name"
+                      id="purchase_vendor_name"
                       propertyValue="id"
                       searchPlaceholder="Search Vendor"
                       placeholder="Select Vendor"
@@ -32,6 +33,7 @@
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Contact:</label>
                       <kt-input-field
+                      id="purchase_contact"
                         formControlName="contact"
                         placeholder="Enter Contact"
                         hintText="Optional"
@@ -78,6 +80,7 @@
                       <kt-simple-dropdown
                         formControlName="campusId"
                         propertyName="name"
+                        id="purchase_campus"
                         propertyValue="id"
                         matFormFieldClass="full-width "
                         [errorMessage]="formErrors.campusId"
@@ -104,6 +107,7 @@
                                 <kt-simple-dropdown
                                       placeholder="Select Item"
                                       formControlName="itemId"
+                                      [id]="'purchase_item_' + i"
                                       searchPlaceholder="Select Item"
                                       [optionList]="ngxsService.products$"
                                       clickEventButtonName="Add New Item"
@@ -123,6 +127,7 @@
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-input-field
+                                [id]="'purchase_description_' + i"
                                       formControlName="description"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Description"
@@ -141,6 +146,7 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-simple-dropdown
                                       placeholder="Select Account"
+                                      [id]="'purchase_account_' + i"
                                       propertyValue="id"
                                       propertyName="name"
                                       formControlName="accountId"
@@ -158,6 +164,7 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-input-field
                                       formControlName="quantity"
+                                      [id]="'purchase_quantity_' + i"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Quantity"
                                       type="number"
@@ -188,6 +195,7 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-input-field
                                       formControlName="cost"
+                                      [id]="'purchase_cost_' + i"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Cost"
                                       type="number"
@@ -212,6 +220,7 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-input-field
                                       formControlName="tax"
+                                      [id]="'purchase_tax_' + i"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="0%"
                                       #itemName
@@ -231,7 +240,7 @@
                             <mat-header-cell *matHeaderCellDef class="flex-1"> SubTotal </mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
-                                <kt-input-field formControlName="subTotal"
+                                <kt-input-field formControlName="subTotal" [id]="'purchase_subtotal_' + i"
                                   matFormFieldClass="mobile-label full-width input_d_1">
                                 </kt-input-field>
                               </div>
@@ -268,6 +277,7 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-simple-dropdown 
                                       placeholder="Select Warehouse" 
+                                      [id]="'purchase_warehouse_' + i"
                                       propertyValue="id" 
                                       propertyName="name"
                                       [hintText]="'Optional'"
@@ -286,7 +296,7 @@
                               <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
                                     </mat-icon> -->
   
-                              <button class=" remove-icon" type="button"
+                              <button class=" remove-icon" type="button" [id]="'purchase_remove_' + i"
                                 (click)="removePurchaseOrderLineClick(i); totalCalculation()">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
                               </button>
@@ -301,7 +311,7 @@
                     <ng-container>
                       <div class="row">
                         <div class="col-md-12 col-sm-12">
-                          <button class=" btn_create" type="button" (click)="addPurchaseOrderLineClick()">
+                          <button class=" btn_create" type="button" id="purchase_add_line" (click)="addPurchaseOrderLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -348,10 +358,10 @@
           <div class="kt-form__actions kt-form__actions">
             <div class="row">
               <div class="col-lg-12 text-right">
-                <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()">Reset</button>
-                <button class="sub___btn  mr-3" mat-raised-button type="submit"
+                <button type="reset" class="mr-3 btn_white" mat-raised-button id="purchase_reset" (click)="reset()">Reset</button>
+                <button class="sub___btn  mr-3" mat-raised-button type="submit" id="purchase_save"
                   (click)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
-                <button class="sub___btn " mat-raised-button type="submit"
+                <button class="sub___btn " mat-raised-button type="submit" id="purchase_submit"
                   (click)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages); isSubmit(1)">
                   Submit
                 </button>

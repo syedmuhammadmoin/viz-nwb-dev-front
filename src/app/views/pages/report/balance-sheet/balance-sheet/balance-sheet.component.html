@@ -30,7 +30,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
                 <label class="col-form-label">Campus:</label>
-                <kt-simple-dropdown [optionList]="ngxsService.campuses$" formControlName="campusName" isDisabledNone="true"
+                <kt-simple-dropdown id="sheet_campus" [optionList]="ngxsService.campuses$" formControlName="campusName" isDisabledNone="true"
                   placeholder="Select Campus" propertyName="name" propertyValue="name" matFormFieldClass="full-width"
                   searchPlaceholder="Search campuses..." hintText="Optional">
                 </kt-simple-dropdown>
@@ -76,8 +76,8 @@
 
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5">
               <div class="form-group kt-form__group">
-                <button class="mr-3 btn_white" mat-raised-button type="reset" (click)="reset()">Reset</button>
-                <button class="sub___btn" mat-raised-button type="submit">Fetch Records</button>
+                <button class="mr-3 btn_white" mat-raised-button type="reset" id="sheet_reset" (click)="reset()">Reset</button>
+                <button class="sub___btn" id="sheet_fetch" mat-raised-button type="submit">Fetch Records</button>
                 <!--For PDF-->
                 <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
               </div>
