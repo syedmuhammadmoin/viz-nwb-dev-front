@@ -13,6 +13,7 @@
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Budget:</label>
                     <kt-simple-dropdown 
+                    id="budget_name"
                     formControlName="budgetId" 
                     matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(estimatedBudgetForm, this.formErrors, this.validationMessages)"
@@ -31,6 +32,7 @@
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Estimated Budget:</label>
                     <kt-input-field 
+                    id="estimated_budget"
                     formControlName="estimatedBudgetName" 
                     matFormFieldClass="full-width" 
                     placeholder="Enter Budget Name" 
@@ -53,6 +55,7 @@
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-simple-dropdown 
+                                [id]="'estimated_account_' + i"
                                  [optionList]="ngxsService.accountsLevel4$" 
                                  formControlName="accountId" 
                                  isDisabled="true"
@@ -69,6 +72,7 @@
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-input-field 
+                                [id]="'estimated_amount_' + i"
                                  formControlName="amount"
                                  type="number"
                                  matFormFieldClass="mobile-label full-width input_d_1" >
@@ -82,6 +86,7 @@
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-simple-dropdown 
+                                [id]="'estimated_calculation_' + i"
                                  [optionList]="calculationType" 
                                  [errorMessage]="'Type is Required'"
                                  formControlName="calculationType" 
@@ -102,6 +107,7 @@
                                 <kt-input-field 
                                  formControlName="value"
                                  type="number"
+                                 [id]="'estimated_value_' + i"
                                  matFormFieldClass="mobile-label full-width input_d_1" 
                                  placeholder="Enter Value"
                                  (change)="onChangeEvent(i)"
@@ -121,6 +127,7 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-input-field 
                                  formControlName="estimatedValue"
+                                 [id]="'budget_estimated_value_' + i"
                                  type="number"
                                  matFormFieldClass="mobile-label full-width input_d_1" 
                                  placeholder="Estimated Value"
@@ -153,7 +160,7 @@
           <div class="kt-form__actions kt-form__actions">
             <div class="row">
               <div class="col-lg-12 text-right">
-                <button class="sub___btn  mr-3" mat-raised-button type="submit"
+                <button class="sub___btn  mr-3" mat-raised-button type="submit" id="estimated_save"
                   (click)="logValidationErrors(this.estimatedBudgetForm, this.formErrors, this.validationMessages)">Save</button>
               </div>
             </div>

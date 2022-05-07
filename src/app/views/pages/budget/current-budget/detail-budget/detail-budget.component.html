@@ -3,12 +3,12 @@
       <kt-portlet-header [sticky]="false" [title]="'Budget Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" type="button" mat-raised-button
+          <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" id="budget_print" type="button" mat-raised-button
             class="btn_white mr-3">
             Print Budget
           </button>
           <button *ngIf="(permission.isGranted(permissions.BUDGET_EDIT))"
-            [disabled]="!(permission.isGranted(permissions.BUDGET_EDIT))"
+            [disabled]="!(permission.isGranted(permissions.BUDGET_EDIT))" id="budget_edit"
             [ngClass]="!(permission.isGranted(permissions.BUDGET_EDIT)) ? 'disable' : '' "
             [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('edit', budgetMaster?.id)" [queryParams]="{q: budgetMaster?.id, 'isBudget': true}"
             type="button" mat-raised-button class="btn_white mr-3">

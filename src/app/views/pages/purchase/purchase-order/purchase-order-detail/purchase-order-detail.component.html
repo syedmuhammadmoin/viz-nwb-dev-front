@@ -3,11 +3,11 @@
     <kt-portlet-header [sticky]="false" [title]="'purchase Order Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        <button [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('print',purchaseOrderMaster?.id) " type="button" mat-raised-button  class="btn_white mr-3">
+        <button [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('print',purchaseOrderMaster?.id) " id="purchase_print" type="button" mat-raised-button  class="btn_white mr-3">
           Print Purchase Order
         </button>
         <button *ngIf="purchaseOrderMaster?.state === docStatus.Draft || purchaseOrderMaster?.state === docStatus.Rejected"
-          [disabled]="!(permission.isGranted(permissions.PURCHASEORDER_EDIT))"
+          [disabled]="!(permission.isGranted(permissions.PURCHASEORDER_EDIT))" id="purchase_edit"
           [ngClass]="!(permission.isGranted(permissions.PURCHASEORDER_EDIT)) ? 'disable' : '' "
           [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('edit',purchaseOrderMaster?.id) "
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
@@ -21,7 +21,7 @@
              Create Bill
         </button> -->
         <button *ngIf="purchaseOrderMaster?.state === docStatus.Submitted"
-          [disabled]="!(permission.isGranted(permissions.GRN_CREATE))"
+          [disabled]="!(permission.isGranted(permissions.GRN_CREATE))" id="purchase_grn"
           [ngClass]="!(permission.isGranted(permissions.GRN_CREATE)) ? 'disable' : '' "
           [routerLink]="'/'+ GOODS_RECEIVED_NOTE.CREATE"
           [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" mat-raised-button class="btn_white mr-3">
@@ -105,8 +105,8 @@
         <div class="kt-form__actions kt-form__actions">
           <div class="row ">
               <div class="col-lg-12 text-right" *ngIf="purchaseOrderMaster?.isAllowedRole">
-                <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-                <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+                <button (click)="workflow(action.Reject)" id="purchase_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+                <button (click)="workflow(action.Approve)" id="purchase_approve" class="success__btn" mat-raised-button>Approve</button>
              </div>
           </div>
         </div>

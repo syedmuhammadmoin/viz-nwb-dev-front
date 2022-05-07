@@ -3,7 +3,7 @@
         <div class="kt-portlet__head-caption">
             <div class="kt-portlet__head-title">
                 <h3 class="kt-portlet__head-text modal-header"> {{title}} 
-                    <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+                    <span (click)="onCloseDialog()" id="category_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
                 </h3>
             </div>
         </div>
@@ -21,6 +21,7 @@
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Name:</label>
                                 <kt-input-field
+                                id="category_name"
                                     formControlName="name"
                                     placeholder="Enter Name"
                                     (blurEvent)="logValidationErrors(this.categoryForm, formErrors, validationMessages)"
@@ -33,6 +34,7 @@
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Assets Account:</label>
                                 <kt-simple-dropdown 
+                                id="category_assets"
                                     propertyValue="id"
                                     propertyName="name" 
                                     placeholder="Select Assets Account"
@@ -53,6 +55,7 @@
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Revenue Account:</label>
                                 <kt-simple-dropdown 
+                                id="category_revenue"
                                     propertyValue="id"
                                     propertyName="name"
                                     matFormFieldClass="full-width"
@@ -70,6 +73,7 @@
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Cost Account:</label>
                                 <kt-simple-dropdown
+                                id="category_cost"
                                     propertyValue="id"
                                     propertyName="name"
                                     matFormFieldClass="full-width"
@@ -97,8 +101,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="float-right">
-                            <button class="mr-3 btn_white" mat-raised-button type="reset">Reset</button>
-                            <button mat-raised-button class="sub___btn" type="submit"
+                            <button class="mr-3 btn_white" mat-raised-button type="reset" id="category_reset">Reset</button>
+                            <button mat-raised-button class="sub___btn" type="submit" id="category_submit"
                             (click)="logValidationErrors(this.categoryForm, this.formErrors, this.validationMessages)">Submit
                             </button>&nbsp;
 

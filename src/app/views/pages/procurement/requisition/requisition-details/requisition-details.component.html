@@ -3,12 +3,12 @@
       <kt-portlet-header [sticky]="false" [title]="'Requisition Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" type="button" mat-raised-button
+          <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" mat-raised-button
             class="btn_white mr-3">
             Print Requisition
           </button>
           <button *ngIf="(requisitionMaster?.state === docStatus.Draft || requisitionMaster?.state === docStatus.Rejected)"
-            [disabled]="!(permission.isGranted(permissions.REQUISITION_EDIT))"
+            [disabled]="!(permission.isGranted(permissions.REQUISITION_EDIT))" id="requisition_edit"
             [ngClass]="!(permission.isGranted(permissions.REQUISITION_EDIT)) ? 'disable' : '' "
             [routerLink]="'/' +   REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
             type="button" mat-raised-button class="btn_white mr-3">
@@ -60,8 +60,8 @@
         <div class="kt-form__actions kt-form__actions">
           <div class="row ">
             <div class="col-lg-12 text-right" *ngIf="requisitionMaster?.isAllowedRole">
-              <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-              <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+              <button (click)="workflow(action.Reject)" id="requisition_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+              <button (click)="workflow(action.Approve)" id="requisition_approve" class="success__btn" mat-raised-button>Approve</button>
             </div>
           </div>
         </div>

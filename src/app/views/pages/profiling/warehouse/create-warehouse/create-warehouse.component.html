@@ -2,7 +2,7 @@
   <div class="kt-portlet__head">
     <div class="kt-portlet__head-caption">
       <div class="kt-portlet__head-title">
-        <h3 class="kt-portlet__head-text modal-header"> {{title}} <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
+        <h3 class="kt-portlet__head-text modal-header"> {{title}} <span id="store_close" (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
       </div>
     </div>
   </div>
@@ -21,6 +21,7 @@
                   <div class="form-group kt-form__group pt-2 pb-0">
                       <label class="col-form-label pt-0">Name:</label>
                       <kt-input-field
+                        id="store_name"
                         formControlName="name"
                         placeholder="Enter Name"
                         (blurEvent)="logValidationErrors(this.warehouseForm, formErrors, validationMessages)"
@@ -33,6 +34,7 @@
                   <div class="form-group kt-form__group pt-2 pb-0">
                       <label class="col-form-label pt-0">Store Officer/Incharge:</label>
                       <kt-input-field
+                        id="store_officer"
                         formControlName="manager"
                         placeholder="Enter Officer/Incharge"
                         (blurEvent)="logValidationErrors(warehouseForm, formErrors, validationMessages)"
@@ -45,6 +47,7 @@
                   <div class="form-group kt-form__group pt-2 pb-0">
                       <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown 
+                       id="store_campus"
                        placeholder="Select Campus" 
                        propertyValue="id" 
                        propertyName="name"
@@ -163,8 +166,8 @@
       <div class="kt-form__actions row">
         <div class="col-lg-12">
           <div class="float-right">
-            <button class="mr-3 btn_white" mat-raised-button type="reset">Reset</button>
-            <button mat-raised-button class="sub___btn" type="submit"
+            <button class="mr-3 btn_white" mat-raised-button type="reset" id="store_reset">Reset</button>
+            <button mat-raised-button class="sub___btn" type="submit" id="store_submit"
                     (click)="logValidationErrors(this.warehouseForm, this.formErrors, this.validationMessages)">Submit</button>&nbsp;
           </div>
         </div>
