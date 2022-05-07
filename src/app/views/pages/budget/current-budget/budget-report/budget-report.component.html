@@ -1,0 +1,71 @@
+<kt-portlet>
+    <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" [title]="'Budget Report'"></kt-portlet-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="budgetReportForm" class="kt-form kt-form--label-align-right">
+      <div class="kt-portlet__body">
+        <div class="kt-form__section kt-form__section--first">
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <!-- region First Row -->
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">Budget:</label>
+                  <kt-simple-dropdown 
+                    formControlName="budgetName"
+                    matFormFieldClass="full-width"
+                    (blurEvent)="logValidationErrors(budgetReportForm, this.formErrors, this.validationMessages)"
+                    propertyName="budgetName" 
+                    propertyValue="budgetName" 
+                    [errorMessage]="formErrors.budgetName"
+                    [optionList]="ngxsService.budgets$"
+                    searchPlaceholder="Search Budget..."
+                    placeholder="Select Budget">
+                  </kt-simple-dropdown>
+                </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">Till:</label>
+                  <kt-date-input 
+                    (blurEvent)="logValidationErrors(budgetReportForm, formErrors, validationMessages)"
+                    [errorMessage]="formErrors.to" 
+                    formControlName="to" 
+                    matFormFieldClass="full-width"
+                    placeholder="Enter Date">
+                  </kt-date-input>
+                </div>
+              </div>
+            </div>
+            <!-- endregion -->
+  
+            <!-- region Action Row -->
+            <div class="row">
+              <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5 mb-3">
+                <div class="form-group kt-form__group">
+                  <button class="mr-3 btn_white" (click)="reset()" mat-raised-button type="reset">Reset
+                  </button>
+                  <button class="sub___btn" mat-raised-button type="submit">Fetch Records
+                  </button>
+                  <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
+                </div>
+              </div>
+            </div>
+            <!-- endregion -->
+            <div class="row" style="padding-top: 10px;">
+              <div class="col-lg-12 text-right">
+                <div [ktBusy]="isLoading">
+                  <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)" [columnDefs]="columnDefs" 
+                  [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" [rowData]="rowData" class="ag-theme-alpine"
+                  style="width: 100%; height: 500px;">
+                </ag-grid-angular>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="kt-portlet__foot">
+        <div class="kt-form__actions kt-form__actions">
+        </div>
+      </div>
+    </form>
+  </kt-portlet>

@@ -8,6 +8,7 @@ import { CustomTooltipComponent } from '../../../shared/components/custom-toolti
 import { ListBudgetComponent } from './list-budget/list-budget.component';
 import { DetailBudgetComponent } from './detail-budget/detail-budget.component';
 import { PrintBudgetComponent } from './print-budget/print-budget.component';
+import { BudgetReportComponent } from './budget-report/budget-report.component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import { PrintBudgetComponent } from './print-budget/print-budget.component';
     CreateBudgetComponent,
     ListBudgetComponent,
     DetailBudgetComponent,
-    PrintBudgetComponent
+    PrintBudgetComponent,
+    BudgetReportComponent
   ],
   imports: [
     SharedModule,
