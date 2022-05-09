@@ -1158,7 +1158,7 @@
 						background-color: get($layout, minimize, item, link, self, bg-color, hover);
 
 						> .menu-icon {
-							@include attr(color, get($layout, minimize, item, link, icon, font-color, hover), !important);
+							@include attr(color, get($layout, minimize, item, link, icon, font-color, hover));
 						}
 					}
 				}

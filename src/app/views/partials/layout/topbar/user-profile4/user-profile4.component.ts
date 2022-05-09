@@ -10,6 +10,7 @@ import { currentUser, Logout, User } from '../../../../../core/auth';
 import {environment} from "../../../../../../environments/environment";
 import {DecodeTokenService} from "../../../../shared/decode-token.service";
 
+
 @Component({
   selector: 'kt-user-profile4',
   templateUrl: './user-profile4.component.html',
