@@ -3,7 +3,7 @@
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
             <h3 class="kt-portlet__head-text modal-header"> Add Payment
-              <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+              <span (click)="onCloseDialog()" class="dialog-cross" id="add_payment" ><i class="fa fa-times float-right"></i></span>
             </h3>
         </div>
       </div>
@@ -31,6 +31,7 @@
                         <div class="form-group kt-form__group">
                             <label class="col-form-label pt-0">Payment Register:</label>
                             <kt-simple-dropdown
+                            id="payment_register"
                               placeholder="Select Payment Register"
                               searchPlaceholder="Search Accounts..."
                               [propertyValue]="propertyValue"
@@ -59,6 +60,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Gross Payment:</label>
                         <kt-input-field
+                          id="gross_payment"
                           formControlName="grossPayment"
                           type = "number"
                           [min]="0"
@@ -73,6 +75,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Discount:</label>
                         <kt-input-field
+                        id="discount"
                           formControlName="discount"
                           type = "number"
                           placeholder="Enter Discount">
@@ -84,6 +87,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Sales Tax W/H:</label>
                         <kt-input-field
+                        id="sales_tax"
                           formControlName="salesTax"
                           type = "number"
                           placeholder="Enter Sales Tax">
@@ -95,6 +99,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Income Tax W/H:</label>
                         <kt-input-field
+                        id="income_tax"
                           formControlName="incomeTax"
                           type = "number"
                           placeholder="Enter Income Tax">
@@ -108,6 +113,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Description:</label>
                         <kt-input-field
+                        id="description"
                           formControlName="description"
                           placeholder="Enter Description"
                           (blurEvent)="logValidationErrors(this.registerPaymentForm, formErrors, validationMessages)"
@@ -128,11 +134,11 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="float-right">
-                    <button class="mr-3 btn_white" mat-raised-button type="reset">Cancel</button>
-                    <button mat-raised-button  class="mr-3 sub___btn" type="submit"
+                    <button class="mr-3 btn_white" mat-raised-button type="reset" id="register_reset" >Reset</button>
+                    <button mat-raised-button  class="mr-3 sub___btn" type="submit" id="register_save"
                           (click)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages); paymentModel.isSubmit = 0">Save
                   </button>
-                    <button mat-raised-button class="sub___btn" type="submit"
+                    <button mat-raised-button class="sub___btn" type="submit" i="register_submit"
                             (click)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages); paymentModel.isSubmit = 1">
                         Submit</button>
                   </div>

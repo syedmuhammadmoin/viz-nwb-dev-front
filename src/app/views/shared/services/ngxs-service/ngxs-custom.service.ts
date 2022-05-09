@@ -2,12 +2,13 @@ import { Inject, Injectable, } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AccountLevel4State } from 'src/app/core/shared-state/account-state/store/account-level4.state';
+import { BudgetAccountState } from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
 import { CityState } from 'src/app/core/shared-state/account-state/store/city.state';
 import { CountryState } from 'src/app/core/shared-state/account-state/store/country.state';
 import { StateState } from 'src/app/core/shared-state/account-state/store/state.state';
-import { BudgetService } from 'src/app/views/pages/budget/service/budget.service';
-import { BudgetState } from 'src/app/views/pages/budget/store/budget.state';
+import { BudgetService } from 'src/app/views/pages/budget/current-budget/service/budget.service';
+import { BudgetState } from 'src/app/views/pages/budget/current-budget/store/budget.state';
 import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
 import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
 import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
@@ -89,6 +90,11 @@ export class NgxsCustomService {
   @Select(AccountLevel4State.isFetchCompleted) accountLevel4FetchCompleted$: Observable<any>;
   @Select(AccountLevel4State.isLoading) accountLevel4IsLoading$: Observable<any>;
 
+  // Budget Accounts
+  @Select(BudgetAccountState.entities) budgetAccount$: Observable<any>;
+  @Select(BudgetAccountState.isFetchCompleted) budgetAccountFetchCompleted$: Observable<any>;
+  @Select(BudgetAccountState.isLoading) budgetAccountIsLoading$: Observable<any>;
+
 
   // Category
   @Select(CategoryState.entities) categories$: Observable<any>;
@@ -116,6 +122,11 @@ export class NgxsCustomService {
   @Select(ProductState.entities) products$: Observable<any>;
   @Select(ProductState.isFetchCompleted) productFetchCompleted$: Observable<any>;
   @Select(ProductState.isLoading) productIsLoading$: Observable<any>;
+
+  // Budget
+  @Select(BudgetState.entities) budgets$: Observable<any>;
+  @Select(BudgetState.isFetchCompleted) budgetFetchCompleted$: Observable<any>;
+  @Select(BudgetState.isLoading) budgetIsLoading$: Observable<any>;
 
   // Product
   @Select(WarehouseState.entities) warehouses$: Observable<any>;
@@ -162,11 +173,11 @@ export class NgxsCustomService {
 
   // Get Budgets From Store if available else fetch from the server and cache.
   getBudgetsFromState() {
-    this.campusFetchCompleted$.subscribe((res) => {
+    this.budgetFetchCompleted$.subscribe((res) => {
       //console.log('Budget State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BudgetState, {
-          serviceClass: this.campusService,
+          serviceClass: this.budgetService,
           methodName: 'getBudgetDropdown',
           context: this
         }))
@@ -238,6 +249,20 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(AccountLevel4State, {
           serviceClass: this.chartOfAccountService,
           methodName: 'getLevel4AccountsDropdown',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get All Budget Accounts State From Store if available else fetch from the server and cache.
+  getBudgetAccountsFromState() {
+    this.budgetAccountFetchCompleted$.subscribe((res) => {
+      //console.log('Budget Accounts FetchCompleted: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(BudgetAccountState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getBudgetAccounts',
           context: this
         }))
       }

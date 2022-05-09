@@ -25,6 +25,7 @@ export class DateInputComponent implements OnInit, Validators {
   @Input() minDate: Date;
   @Input() dateMessage: string;
   @Input() dateCondition: boolean;
+  @Input() id: string;
 
 
   @Input() matFormFieldClass: any | [] | string;

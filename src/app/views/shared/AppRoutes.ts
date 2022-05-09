@@ -40,6 +40,7 @@ export const APP_ROUTES = {
   PRODUCT: 'product',
   WAREHOUSE: 'warehouse',
   BUDGET: 'budget',
+  ESTIMATED_BUDGET: 'estimated-budget',
 
   //PURCHASE
   DEBIT_NOTE: 'debit-note',
@@ -77,6 +78,16 @@ export const CRUD_ROUTES = {
     FORGOT_PASSWORD: 'forgot-password',
   }
 
+  //REPORT SECTION
+  export const REPORT = {
+    GENERAL_LEDGER: 'ledger',
+    TRIAL_BALANCE: 'trial-balance' ,
+    BALANCE_SHEET: 'balance-sheet',
+    PROFIT_N_LOSS: 'profit-n-loss',
+    BUDGET_REPORT: 'report',
+    PRINT: 'print'
+  }
+
   //ACCESS_MANAGEMENT SECTION
   export const ACCESS_MANAGEMENT = {
       USER_LIST: 'users',
@@ -106,8 +117,17 @@ export const CRUD_ROUTES = {
   export const BUDGET = {
     LIST: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.LIST,
     CREATE: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.CREATE,
+    REPORT: APP_ROUTES.BUDGET + '/' + REPORT.BUDGET_REPORT,
     ID_BASED_ROUTE (route: string , id: number) {         
       return APP_ROUTES.BUDGET + '/' + route + '/' + id
+    }
+  } 
+
+  export const ESTIMATED_BUDGET = {
+    LIST: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {         
+      return APP_ROUTES.ESTIMATED_BUDGET + '/' + route + '/' + id
     }
   } 
 
@@ -253,15 +273,6 @@ export const CRUD_ROUTES = {
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.BILL + '/' + route + '/' + id
     }
-  }
-
-  //REPORT SECTION
-  export const REPORT = {
-    GENERAL_LEDGER: 'ledger',
-    TRIAL_BALANCE: 'trial-balance' ,
-    BALANCE_SHEET: 'balance-sheet',
-    PROFIT_N_LOSS: 'profit-n-loss',
-    PRINT: 'print'
   }
 
   //SALES SECTION

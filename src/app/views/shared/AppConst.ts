@@ -253,6 +253,12 @@ export class AppConst {
     'Permissions.BudgetClaims.Delete': 'Budget Delete',
     'Permissions.BudgetReportClaims.View': 'Budget Report View',
 
+    'Permissions.EstimatedBudgetClaims.View': 'Estimated Budget View',
+    'Permissions.EstimatedBudgetClaims.Create': 'Estimated Budget Create',
+    'Permissions.EstimatedBudgetClaims.Edit': 'Estimated Budget Update',
+    'Permissions.EstimatedBudgetClaims.Delete': 'Estimated Budget Delete',
+    'Permissions.EstimatedBudgetReportClaims.View': 'Estimated Budget Report View',
+
     // Location
     'Permissions.LocationClaims.View': 'Location View',
     'Permissions.LocationClaims.Create': 'Location Create',

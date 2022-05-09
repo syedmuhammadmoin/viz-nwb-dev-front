@@ -3,7 +3,7 @@
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
             <h3 class="kt-portlet__head-text modal-header"> {{title + formName}}
-              <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+              <span (click)="onCloseDialog()" id="payment_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
             </h3>
         </div>
       </div>
@@ -35,6 +35,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Date:</label>
                         <kt-date-input
+                        id="payment_date"
                           formControlName="date"
                           placeholder="Payment Date"
                           matFormFieldClass="full-width"
@@ -49,6 +50,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Description:</label>
                         <kt-input-field
+                        id="payment_description"
                           formControlName="description"
                           placeholder="Enter Description"
                           (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
@@ -73,6 +75,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Payment Register:</label>
                         <kt-simple-dropdown
+                        id="payment_register"
                           placeholder="Select Payment Register"
                           searchPlaceholder="Search Accounts..."
                           [propertyValue]="propertyValue"
@@ -90,6 +93,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Business Partner:</label>
                         <kt-simple-dropdown 
+                        id="payment_partner"
                           formControlName="businessPartner"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           propertyName="name" 
@@ -109,6 +113,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">COA:</label>
                         <kt-simple-dropdown
+                        id="payment_coa"
                           placeholder="Select Account"
                           searchPlaceholder="Search Accounts..."
                           propertyValue="id"
@@ -128,6 +133,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Gross Payment:</label>
                         <kt-input-field
+                        id="payment_gross"
                           formControlName="grossPayment"
                           type = "number"
                           [min]="0"
@@ -142,6 +148,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Discount:</label>
                         <kt-input-field
+                        id="payment_discount"
                           formControlName="discount"
                           type = "number"
                           hintText="Optional"
@@ -156,6 +163,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Sales Tax W/H:</label>
                         <kt-input-field
+                        id="payment_sales"
                           formControlName="salesTax"
                           type = "number"
                           hintText="Optional"
@@ -170,6 +178,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Income Tax W/H:</label>
                         <kt-input-field
+                        id="payment_income"
                           formControlName="incomeTax"
                           type = "number"
                           hintText="Optional"
@@ -186,6 +195,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">SRB Tax:</label>
                         <kt-input-field
+                        id="payment_srb"
                           formControlName="SRBTax"
                           placeholder="Enter SRB Tax"
                           type = "number"
@@ -199,6 +209,7 @@
                     <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown 
+                      id="payment_campus"
                        placeholder="Select Campus" 
                        propertyValue="id" 
                        propertyName="name"
@@ -223,11 +234,11 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="float-right">
-                    <button class="mr-3 btn_white" mat-raised-button type="reset">Reset</button>
-                    <button mat-raised-button  class="mr-3 sub___btn" type="submit"
+                    <button class="mr-3 btn_white" mat-raised-button type="reset" id="payment_reset">Reset</button>
+                    <button mat-raised-button  class="mr-3 sub___btn" type="submit" id="payment_save"
                           (click)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages); isSubmit(0)">Save
                   </button>
-                    <button mat-raised-button class="sub___btn" type="submit"
+                    <button mat-raised-button class="sub___btn" type="submit" id="payment_submit"
                             (click)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages); isSubmit(1)">
                         Submit</button>
                   </div>

@@ -3,6 +3,7 @@
     <button [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE)) &&
            !(permission.isGranted(permissions.RECEIPT_CREATE))"
       (click)="addPaymentDialog()" class="sub___btn" mat-raised-button  matTooltip="Add {{FormName}}">Add {{FormName}}</button>
+
   </div>
 </div>
 

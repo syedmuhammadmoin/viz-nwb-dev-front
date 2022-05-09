@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CreateBudgetComponent } from './create-budget/create-budget.component';
-import { CRUD_ROUTES } from '../../shared/AppRoutes';
-import { Permissions } from '../../shared/AppEnum';
+import { CRUD_ROUTES, REPORT } from '../../../shared/AppRoutes';
+import { Permissions } from '../../../shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { ListBudgetComponent } from './list-budget/list-budget.component';
 import { DetailBudgetComponent } from './detail-budget/detail-budget.component';
 import { PrintBudgetComponent } from './print-budget/print-budget.component';
+import { BudgetReportComponent } from './budget-report/budget-report.component';
 
 const routes : Routes = [
   {
@@ -65,6 +66,17 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.BUDGET_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard] 
+      },
+      //Budget Report
+      {
+        path: REPORT.BUDGET_REPORT,
+        component: BudgetReportComponent,
+        data: {
+          array: [
+            { permission: Permissions.BUDGET_REPORT_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 

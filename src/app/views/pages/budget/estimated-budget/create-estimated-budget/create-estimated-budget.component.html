@@ -1,0 +1,181 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+      <!--begin::Form-->
+  
+      <form [formGroup]="estimatedBudgetForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+        <div class="kt-portlet__body">
+          <div class="kt-form__section kt-form__section--first">
+  
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Budget:</label>
+                    <kt-simple-dropdown 
+                    id="budget_name"
+                    formControlName="budgetId" 
+                    matFormFieldClass="full-width"
+                    (blurEvent)="logValidationErrors(estimatedBudgetForm, this.formErrors, this.validationMessages)"
+                    propertyName="budgetName" 
+                    (selectionChange)="onItemSelected($event.value)"
+                    propertyValue="id" 
+                    [errorMessage]="formErrors.budgetId"
+                    [optionList]="ngxsService.budgets$"
+                    searchPlaceholder="Search Budget..."
+                    placeholder="Select Budget">
+                  </kt-simple-dropdown>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Estimated Budget:</label>
+                    <kt-input-field 
+                    id="estimated_budget"
+                    formControlName="estimatedBudgetName" 
+                    matFormFieldClass="full-width" 
+                    placeholder="Enter Budget Name" 
+                    (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"
+                    [errorMessage]="[{ condition : formErrors.estimatedBudgetName , error : formErrors.estimatedBudgetName }]">
+                  </kt-input-field>
+                  </div>
+                </div>
+              </div>
+  
+              <div *ngIf="showLines" class="row mt-5">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="example-container  mat-elevation-z8 ">
+                    <ng-container formArrayName="estimatedBudgetLines">
+                      <div class="table-responsive">
+                        <mat-table #table [dataSource]="estimatedBudgetForm.get('estimatedBudgetLines')['controls']">
+                          <!-- Account Column -->
+                          <ng-container matColumnDef="accountId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Account</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-simple-dropdown 
+                                [id]="'estimated_account_' + i"
+                                 [optionList]="ngxsService.accountsLevel4$" 
+                                 formControlName="accountId" 
+                                 isDisabled="true"
+                                 matFormFieldClass="mobile-label full-width"
+                                 propertyName="name"
+                                 propertyValue="id">
+                                </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!--Partner Column-->
+                          <ng-container matColumnDef="amount">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Amount</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field 
+                                [id]="'estimated_amount_' + i"
+                                 formControlName="amount"
+                                 type="number"
+                                 matFormFieldClass="mobile-label full-width input_d_1" >
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Description Column -->
+                          <ng-container matColumnDef="calculationType">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Calculation Type</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-simple-dropdown 
+                                [id]="'estimated_calculation_' + i"
+                                 [optionList]="calculationType" 
+                                 [errorMessage]="'Type is Required'"
+                                 formControlName="calculationType" 
+                                 matFormFieldClass="mobile-label full-width"
+                                 placeholder="Select Type"
+                                 (selectionChange)="onChangeEvent(i)"
+                                 propertyName="value"
+                                 propertyValue="id">
+                                </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Debit Column -->
+                          <ng-container matColumnDef="value">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Value</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field 
+                                 formControlName="value"
+                                 type="number"
+                                 [id]="'estimated_value_' + i"
+                                 matFormFieldClass="mobile-label full-width input_d_1" 
+                                 placeholder="Enter Value"
+                                 (change)="onChangeEvent(i)"
+                                 (keyup)="onChangeEvent(i)"
+                                 (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"
+                                 [errorMessage]="[{ condition : estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.errors?.required &&
+                                                                estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.touched , 
+                                                    error : 'Amount is required.' }]">
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Credit Column -->
+                          <ng-container matColumnDef="estimatedValue">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Estimated Value</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field 
+                                 formControlName="estimatedValue"
+                                 [id]="'budget_estimated_value_' + i"
+                                 type="number"
+                                 matFormFieldClass="mobile-label full-width input_d_1" 
+                                 placeholder="Estimated Value"
+                                 readonly="true"
+                                 (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"
+                                 [errorMessage]="[{ condition : estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.errors?.required &&
+                                                                estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.touched , 
+                                                    error : 'Amount is required.' }]">
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                        
+                          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End Estimated Budget Lines-->
+          </div>
+        </div>
+  
+        <mat-divider class="mt-10"></mat-divider>
+  
+        <div class="kt-portlet__foot ">
+          <div class="kt-form__actions kt-form__actions">
+            <div class="row">
+              <div class="col-lg-12 text-right">
+                <button class="sub___btn  mr-3" mat-raised-button type="submit" id="estimated_save"
+                  (click)="logValidationErrors(this.estimatedBudgetForm, this.formErrors, this.validationMessages)">Save</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--end::Form-->
+    </kt-portlet>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  

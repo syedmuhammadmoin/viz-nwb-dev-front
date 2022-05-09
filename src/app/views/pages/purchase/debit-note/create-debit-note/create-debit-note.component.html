@@ -13,6 +13,7 @@
                   <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">Vendor Name:</label>
                       <kt-simple-dropdown 
+                      id="debit_note_vendor_name"
                         formControlName="vendorName"
                         (blurEvent)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages)"
                         propertyName="name" 
@@ -46,6 +47,7 @@
                   <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown 
+                      id="debit_note_campus"
                        placeholder="Select Campus" 
                        propertyValue="id" 
                        propertyName="name"
@@ -72,6 +74,7 @@
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-simple-dropdown 
                                       placeholder="Select Item" 
+                                      [id]="'debit_note_item_' + i"
                                       formControlName="itemId"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       searchPlaceholder="Select Item" 
@@ -93,7 +96,7 @@
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-input-field
-                                      formControlName="description"
+                                      formControlName="description" [id]="'debit_note_description_' + i"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Description"
                                       (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
@@ -110,6 +113,7 @@
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-simple-dropdown 
+                                    [id]="'debit_note_account_' + i"
                                       placeholder="Select Account" 
                                       propertyValue="id" 
                                       propertyName="name"
@@ -127,6 +131,7 @@
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-input-field
+                                    [id]="'debit_note_quantity_' + i"
                                       formControlName="quantity"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Quantity"
@@ -151,6 +156,7 @@
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-input-field
+                                    [id]="'debit_note_cost_' + i"
                                       formControlName="cost"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Cost"
@@ -175,6 +181,7 @@
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-input-field
+                                    [id]="'debit_note_tax_' + i"
                                       formControlName="tax"
                                       matFormFieldClass="mobile-label full-width input_d_1"
                                       placeholder="Enter Tax %"
@@ -198,6 +205,7 @@
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-input-field
+                                    [id]="'debit_note_subtotal_' + i"
                                       formControlName="subTotal"
                                       matFormFieldClass="mobile-label full-width input_d_1">
                                     </kt-input-field>
@@ -239,6 +247,7 @@
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                                   <div class="col-lg-12 col-sm-12 mt-2">
                                     <kt-simple-dropdown 
+                                    [id]="'debit_note_warehouse_' + i"
                                       placeholder="Select Warehouse" 
                                       propertyValue="id" 
                                       propertyName="name"
@@ -255,7 +264,7 @@
                               <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                    <button class=" remove-icon" type="button"  (click)="removeDebitNoteLineClick(i); totalCalculation()" >
+                                    <button class=" remove-icon" type="button" [id]="'debit_note_remove_' + i"  (click)="removeDebitNoteLineClick(i); totalCalculation()" >
                                     <i  class="fas fa-trash" aria-hidden="true"></i>
                                   </button>
                                 </mat-cell>
@@ -269,7 +278,7 @@
                     <ng-container >
                       <div class="row">
                         <div class="col-md-12 col-sm-12">
-                          <button class=" btn_create" type="button"  (click)="addDebitNoteLineClick()">
+                          <button class=" btn_create" type="button" id="debit_note_add_line"  (click)="addDebitNoteLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -313,10 +322,10 @@
           <div class="kt-form__actions kt-form__actions">
             <div class="row">
               <div class="col-lg-12 text-right">
-                <button  type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()">Reset</button>
-                <button  class="sub___btn  mr-3" mat-raised-button type="submit"
+                <button  type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()" id="debit_note_reset">Reset</button>
+                <button  class="sub___btn  mr-3" mat-raised-button type="submit" id="debit_note_save"
                 (click)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
-                <button class="sub___btn " mat-raised-button type="submit"
+                <button class="sub___btn " mat-raised-button type="submit" id="debit_note_submit"
                 (click)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages); isSubmit(1)">
                     Submit
                 </button>

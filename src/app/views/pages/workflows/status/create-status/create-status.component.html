@@ -3,7 +3,7 @@
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
           <h3 class="kt-portlet__head-text modal-header">
-            {{title}} <span (click)="onCloseStatusDialog()" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
+            {{title}} <span (click)="onCloseStatusDialog()" id="status_close" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
           </h3>
         </div>
       </div>
@@ -18,6 +18,7 @@
                 <label class="col-form-label">Status:</label>
                 <div class="form-group kt-form__group">
                   <kt-input-field
+                  id="status_name"
                    formControlName="status"
                    placeholder="Enter Status"
                    (blurEvent)="logValidationErrors(this.statusForm, this.formErrors, this.validationMessages)"
@@ -30,6 +31,7 @@
                 <label class="col-form-label">Select State:</label>
                 <div class="form-group kt-form__group">
                   <kt-simple-dropdown 
+                  id="status_state"
                     formControlName="state"
                     (blurEvent)="logValidationErrors(this.statusForm, this.formErrors, this.validationMessages)"
                     propertyName="viewValue" 
@@ -54,10 +56,10 @@
         <div class="kt-form__actions row">
           <div class="col-lg-12 col-md-8 col-sm-8 col-9">
             <div class="float-right">
-              <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button type="reset">Reset</button>
-              <button *ngIf="!isEditButtonShow" mat-raised-button class="sub___btn" type="submit"
+              <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button id="status_reset" type="reset">Reset</button>
+              <button *ngIf="!isEditButtonShow" mat-raised-button class="sub___btn" type="submit" id="status_submit"
                 (click)="logValidationErrors(this.statusForm, this.formErrors, this.validationMessages)">Submit</button>
-              <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" type="button" (click)="toggleEdit()"><i
+              <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" id="status_edit" type="button" (click)="toggleEdit()"><i
                   class="fas fa-edit"></i> Edit
               </button>
   

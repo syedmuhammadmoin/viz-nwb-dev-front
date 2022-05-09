@@ -89,6 +89,11 @@ export class Permissions {
   static BUDGET_REPORT_VIEW = 'Permissions.BudgetReportClaims.View';
   static BUDGET_COMPARISON_REPORT_VIEW = 'Permissions.BudgetComparisonReportClaims.View';
 
+  static ESTIMATED_BUDGET_VIEW = 'Permissions.EstimatedBudgetClaims.View';
+  static ESTIMATED_BUDGET_CREATE = 'Permissions.EstimatedBudgetClaims.Create';
+  static ESTIMATED_BUDGET_EDIT = 'Permissions.EstimatedBudgetClaims.Edit';
+  static ESTIMATED_BUDGET_DELETE = 'Permissions.EstimatedBudgetClaims.Delete';
+
   // Level 3
   static LEVEL3_VIEW = 'Permissions.Level3Claims.View';
   static LEVEL3_CREATE = 'Permissions.Level3Claims.Create';
@@ -312,6 +317,12 @@ export enum BusinessPartnerType {
     Current,
     Saving
  }
+
+ export enum CalculationType
+  {
+    Percentage,
+    FixedAmount
+  }
 
 
 // Draft - Yellow,  Cancelled - Gray, Upaid - Red, Partial - Yellow,  Paid - Green, Submitted - Yellow, Reviewed - Green

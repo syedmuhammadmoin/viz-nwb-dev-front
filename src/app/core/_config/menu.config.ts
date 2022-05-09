@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, DEPARTMENT, LOCATION, ORGANIZATION, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, SALES_ORDER, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, STOCK, INVENTORY_ADJUSTMENT, GOODS_RECEIVED_NOTE, DISPATCH_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -511,7 +511,12 @@ export class MenuConfig {
             Permissions.BUDGET_VIEW,
             Permissions.BUDGET_CREATE,
             Permissions.BUDGET_EDIT,
-            Permissions.BUDGET_DELETE
+            Permissions.BUDGET_DELETE,
+            Permissions.BUDGET_REPORT_VIEW,
+            Permissions.ESTIMATED_BUDGET_VIEW,
+            Permissions.ESTIMATED_BUDGET_CREATE,
+            Permissions.ESTIMATED_BUDGET_EDIT,
+            Permissions.ESTIMATED_BUDGET_DELETE
           ],
           submenu: [
             {
@@ -522,6 +527,23 @@ export class MenuConfig {
                 Permissions.BUDGET_CREATE,
                 Permissions.BUDGET_EDIT,
                 Permissions.BUDGET_DELETE
+              ]
+            },
+            {
+              title: 'Estimated Budget',
+              page: '/' + ESTIMATED_BUDGET.LIST,
+              permission: [
+                Permissions.ESTIMATED_BUDGET_VIEW,
+                Permissions.ESTIMATED_BUDGET_CREATE,
+                Permissions.ESTIMATED_BUDGET_EDIT,
+                Permissions.ESTIMATED_BUDGET_DELETE
+              ]
+            },
+            {
+              title: 'Budget Report',
+              page: '/' + BUDGET.REPORT,
+              permission: [
+                Permissions.BUDGET_REPORT_VIEW,
               ]
             }
           ]

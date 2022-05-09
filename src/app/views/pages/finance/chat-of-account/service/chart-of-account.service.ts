@@ -66,5 +66,9 @@ export class ChartOfAccountService {
     const url = environment.baseUrl + 'level4/' + id;
     return this.httpClient.get<ILevel4>(url);
   }
+
+  getBudgetAccounts(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + 'level4/budgetAccounts');
+  }
 }
 

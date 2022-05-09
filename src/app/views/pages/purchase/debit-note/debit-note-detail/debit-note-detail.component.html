@@ -4,11 +4,11 @@
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         <button [routerLink]="'/' + DEBIT_NOTE.ID_BASED_ROUTE ('print',debitNoteMaster?.id) " type="button" mat-raised-button
-          class="btn_white mr-3">
+          class="btn_white mr-3" id="debit_note_print">
           Print Debit Note
         </button>
         <button *ngIf="(debitNoteMaster?.state === docStatus.Draft || debitNoteMaster?.state === docStatus.Rejected)"
-          [disabled]="!(permission.isGranted(permissions.DEBITNOTE_EDIT))"
+          [disabled]="!(permission.isGranted(permissions.DEBITNOTE_EDIT))" id="debit_note_edit"
           [ngClass]="!(permission.isGranted(permissions.DEBITNOTE_EDIT)) ? 'disable' : '' "
           [routerLink]= "'/' + DEBIT_NOTE.ID_BASED_ROUTE ('edit',debitNoteMaster?.id)"
           [queryParams]="{q: debitNoteMaster?.id, 'isDebitNote': true}" type="button" mat-raised-button
@@ -158,8 +158,8 @@
       <div class="kt-form__actions kt-form__actions">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="debitNoteMaster?.isAllowedRole">
-            <button (click)="workflow(action.Reject)" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-            <button (click)="workflow(action.Approve)" class="success__btn" mat-raised-button>Approve</button>
+            <button (click)="workflow(action.Reject)" id="debit_note_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+            <button (click)="workflow(action.Approve)" id="debit_note_approve" class="success__btn" mat-raised-button>Approve</button>
           </div>
         </div>
       </div>

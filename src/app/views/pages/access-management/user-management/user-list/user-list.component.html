@@ -33,7 +33,7 @@
 <kt-portlet>
 	<kt-portlet-header [sticky]="false" [title]="'Users'" [class]="'card-head-lg'">
 		<ng-container ktPortletTools>
-			
+			<button (click)="createUserDialog()" mat-raised-button id="new_user"  class="btn_white" matTooltip="New User">New User</button>
 		</ng-container>
 	</kt-portlet-header>
   <kt-portlet-body>

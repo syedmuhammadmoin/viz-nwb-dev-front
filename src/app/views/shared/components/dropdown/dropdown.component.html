@@ -7,7 +7,8 @@
     (selectionChange)="selectionChangeEvent($event)"
     (blur)="blur()"
     [ngClass]="matSelectClass"
-    [attr.disabled]="isDisabled"
+    [disabled]="isDisabled"
+    [id]="id"
   >
     <mat-option>
       <ngx-mat-select-search

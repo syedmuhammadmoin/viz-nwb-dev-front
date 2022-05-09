@@ -12,6 +12,7 @@
                   <label class="col-form-label">Workflow Name:</label>
                   <div class="form-group kt-form__group">
                     <kt-input-field
+                    id="workflow_name"
                     formControlName="name"
                     placeholder="Enter Name"
                     matFormFieldClass="full-width "
@@ -25,6 +26,7 @@
                   <div class="form-group kt-form__group">
                     <kt-simple-dropdown 
                       formControlName="docType"
+                      id="workflow_document"
                       (blurEvent)="logValidationErrors(this.workflowForm, this.formErrors, this.validationMessages)"
                       propertyName="value" 
                       propertyValue="id"  
@@ -40,6 +42,7 @@
                   <label class="col-form-label">Active:</label>
                   <div class="form-group kt-form__group">
                     <kt-simple-dropdown 
+                    id="workflow_active"
                       formControlName="isActive" 
                       propertyName="value" 
                       propertyValue="id"
@@ -64,7 +67,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
-                                [id]="'currentStatusId'+i" 
+                                [id]="'workflow_current_' + i" 
                                 placeholder="Select Current State" 
                                 propertyValue="id"
                                 propertyName="status" 
@@ -81,7 +84,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-2"> Action</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <kt-simple-dropdown [id]="'action'+i" placeholder="Select Action" propertyValue="id"
+                              <kt-simple-dropdown [id]="'workflow_action_' + i" placeholder="Select Action" propertyValue="id"
                                 propertyName="value" formControlName="action" matFormFieldClass="full-width input_d_1"
                                 errorMessage="Action is Required"
                                 [optionList]="[{value: 'Approve', id: actionButton.Approve}, {value: 'Reject', id: actionButton.Reject}]">
@@ -95,7 +98,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
-                                [id]="'nextStatusId'+i" 
+                                [id]="'workflow_next_' + i" 
                                 placeholder="Select Next State" 
                                 propertyValue="id"
                                 propertyName="status" 
@@ -113,7 +116,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
-                                [id]="'allowedRoleId'+i" 
+                                [id]="'workflow_allowed_' + i" 
                                 placeholder="Select Role" 
                                 propertyValue="id"
                                 propertyName="name" 
@@ -130,7 +133,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <!-- <mat-icon class="delete-button" (click)="removeInvoiceLineClick(i)">delete_forever</mat-icon> -->
-                            <button class=" remove-icon" type="button" (click)="removeInvoiceLineClick(i)"
+                            <button class=" remove-icon" [id]="'workflow_remove_' + i" type="button" (click)="removeInvoiceLineClick(i)"
                             [disabled]="">
                               <i  class="fas fa-trash" aria-hidden="true"></i>
                             </button>
@@ -143,7 +146,7 @@
                     <ng-container>
                       <div class="row" style="align-items: center;">
                         <div class="col-lg-5 col-sm-5">
-                          <button class=" btn_create" type="button" (click)="addWorkflowLineClick()">
+                          <button class=" btn_create" type="button" id="workflow_add_line" (click)="addWorkflowLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -161,9 +164,9 @@
           <div class="kt-form__actions kt-form__actions">
             <div class="row text-right">
               <div class="col-lg-12">
-                <button class="mr-3 btn_white" mat-raised-button (click)="reset()" type="reset">Reset
+                <button class="mr-3 btn_white" mat-raised-button (click)="reset()" id="workflow_reset" type="reset">Reset
                 </button>
-                <button mat-raised-button class="sub___btn" type="submit"
+                <button mat-raised-button class="sub___btn" type="submit" id="workflow_submit"
                   (click)="logValidationErrors(this.workflowForm, this.formErrors, this.validationMessages)">
                   Submit
                 </button>

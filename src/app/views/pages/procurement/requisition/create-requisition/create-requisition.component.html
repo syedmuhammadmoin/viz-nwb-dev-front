@@ -13,6 +13,7 @@
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Employee:</label>
                       <kt-simple-dropdown 
+                      id="requisition_employee"
                         formControlName="businessPartnerId" 
                         matFormFieldClass="full-width"
                         (blurEvent)="logValidationErrors(requisitionForm, this.formErrors, this.validationMessages)"
@@ -46,6 +47,7 @@
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Campus:</label>
                     <kt-simple-dropdown
+                    id="requisition_campus"
                       formControlName="campusId"
                       propertyName="name"
                       propertyValue="id"
@@ -71,7 +73,8 @@
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
-                                <kt-simple-dropdown propertyName="productName" propertyValue="id"                               
+                                <kt-simple-dropdown propertyName="productName" propertyValue="id"
+                                [id]="'requisition_item' + i"                               
                                 [optionList]="ngxsService.products$"
                                 clickEventButtonName="Add New Item"
                                 (clickEvent)="openProductDialog()" 
@@ -88,7 +91,7 @@
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
-                                <kt-input-field formControlName="description"
+                                <kt-input-field formControlName="description" [id]="'requisition_description' + i"
                                   matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Description"
                                   (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
                                   [errorMessage]="[{ condition : requisitionForm.get('requisitionLines')['controls'][i].controls.description.errors?.required &&
@@ -103,7 +106,7 @@
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
-                                <kt-input-field formControlName="quantity"
+                                <kt-input-field formControlName="quantity" [id]="'requisition_quantity' + i"
                                   matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
                                   #itemName type="number"
                                   (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
@@ -123,6 +126,7 @@
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-simple-dropdown 
+                                [id]="'requisition_warehouse' + i"
                                   placeholder="Select Warehouse" 
                                   propertyValue="id" 
                                   propertyName="name"
@@ -142,7 +146,7 @@
                               <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
                                     </mat-icon> -->
   
-                              <button class=" remove-icon" type="button"
+                              <button class=" remove-icon" type="button" [id]="'requisition_remove' + i"
                                 (click)="removeRequisitionLineClick(i)">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
                               </button>
@@ -157,7 +161,7 @@
                     <ng-container>
                       <div class="row">
                         <div class="col-md-12 col-sm-12">
-                          <button class=" btn_create" type="button" (click)="addRequisitionLineClick()">
+                          <button class=" btn_create" type="button" id="requisition_add_line" (click)="addRequisitionLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -176,10 +180,10 @@
           <div class="kt-form__actions kt-form__actions">
             <div class="row">
               <div class="col-lg-12 text-right">
-                <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()">Reset</button>
-                <button class="sub___btn  mr-3" mat-raised-button type="submit"
+                <button type="reset" class="mr-3 btn_white" mat-raised-button id="requisition_reset" (click)="reset()">Reset</button>
+                <button class="sub___btn  mr-3" mat-raised-button type="submit" id="requisition_save"
                   (click)="logValidationErrors(this.requisitionForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
-                <button class="sub___btn " mat-raised-button type="submit"
+                <button class="sub___btn " mat-raised-button type="submit" id="requisition_submit"
                   (click)="logValidationErrors(this.requisitionForm, this.formErrors, this.validationMessages); isSubmit(1)">
                   Submit
                 </button>

@@ -4,7 +4,7 @@
         <div class="kt-portlet__head-title">
           <span class="kt-portlet__head-icon kt-hide"><i class="la la-gear"></i></span>
           <h3 class="kt-portlet__head-text modal-header"> {{title}} 
-            <span (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+            <span (click)="onCloseDialog()" id="cash_account_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
           </h3>
         </div>
       </div>
@@ -19,6 +19,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Cash Account:</label>
                         <kt-input-field
+                        id="cash_account_name"
                           formControlName="cashAccountName"
                           placeholder="Enter Cash Account Name"
                           (blurEvent)="logValidationErrors(this.cashAccountForm, formErrors, validationMessages)"
@@ -31,6 +32,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Manager/Handler:</label>
                         <kt-input-field
+                        id="cash_account_manager"
                           formControlName="handler"
                           placeholder="Enter Manager Name / Handler"
                           [hintText]="'Optional'">
@@ -45,6 +47,7 @@
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Opening Balance:</label>
                         <kt-input-field
+                        id="cash_account_balance"
                           formControlName="openingBalance"
                           type="number"
                           placeholder="Enter Opening Balance"
@@ -58,6 +61,7 @@
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Opening Balance Date:</label>
                     <kt-date-input
+                    id="cash_account_date"
                     formControlName="OBDate"
                     placeholder="Opening Balance Date"
                     matFormFieldClass="full-width"
@@ -85,6 +89,7 @@
                   <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown 
+                      id="cash_account_campus"
                         placeholder="Select Campus" 
                         propertyValue="id" 
                         propertyName="name"
@@ -112,8 +117,8 @@
           
             <div class="col-lg-12">
               <div class="float-right">
-                <button class="mr-3 btn_white" mat-raised-button (click)="reset()" type="button">Reset</button>
-                <button mat-raised-button  type="submit" class="sub___btn"
+                <button class="mr-3 btn_white" mat-raised-button (click)="reset()" id="cash_account_reset" type="button">Reset</button>
+                <button mat-raised-button  type="submit" class="sub___btn" id="cash_account_submit"
                         (click)="logValidationErrors(this.cashAccountForm, this.formErrors, this.validationMessages)">Submit</button>&nbsp;
               </div>
             </div>

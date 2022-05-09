@@ -1,16 +1,16 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Budget Detail'" [class]="'card-head-lg'">
+      <kt-portlet-header [sticky]="false" [title]="'Estimated Budget Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" type="button" mat-raised-button
+          <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" mat-raised-button
             class="btn_white mr-3">
-            Print Budget
+            Print Estimated Budget
           </button>
-          <button *ngIf="(permission.isGranted(permissions.BUDGET_EDIT))"
-            [disabled]="!(permission.isGranted(permissions.BUDGET_EDIT))"
-            [ngClass]="!(permission.isGranted(permissions.BUDGET_EDIT)) ? 'disable' : '' "
-            [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('edit', budgetMaster?.id)" [queryParams]="{q: budgetMaster?.id, 'isBudget': true}"
+          <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
+            [disabled]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))" id="estimated_edit"
+            [ngClass]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT)) ? 'disable' : '' "
+            [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
             type="button" mat-raised-button class="btn_white mr-3">
             Edit
           </button>
@@ -28,16 +28,16 @@
                     <tr rowspan="1">
                       <th class="" style="border: 1px solid #8babdb;width: 15%;">From:</th>
                       <td class="" style="background: #595e791c; width: 20%;">
-                        {{budgetMaster?.from | date: 'MMM d, y'}}</td>
+                        {{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</td>
   
                       <th class="" style="border: 1px solid #8babdb;width: 15%;">To:</th>
                       <td style="background: #595e791c; width: 20%;">
-                        {{budgetMaster?.to | date: 'MMM d, y'}}</td>
+                        {{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</td>
                     </tr>
                     <tr rowspan="1">
-                      <th class="" style="border: 1px solid #8babdb; width: 15%;">Budget Name:</th>
+                      <th class="" style="border: 1px solid #8babdb; width: 15%;">Estimated Budget Name:</th>
                       <td class="" style="background: #595e791c; width: 20%;">
-                        {{budgetMaster?.budgetName}}</td>
+                        {{estimatedBudgetMaster?.estimatedBudgetName}}</td>
                     </tr>
                     
                   </tbody>
@@ -49,13 +49,13 @@
           <div class="row">
             <div class="col-md-12 col-12">
               <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;"
-                class="ag-theme-alpine" [rowData]="budgetLines" [columnDefs]="columnDefs"
+                class="ag-theme-alpine" [rowData]="estimatedBudgetLines" [columnDefs]="columnDefs"
                 (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
               </ag-grid-angular>
             </div>
           </div>
   
-          <div class="row mt-5">
+          <!-- <div class="row mt-5">
             <div class="col-lg-4 ml-auto">
               <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
                 <tr>
@@ -67,8 +67,7 @@
                 </tr>
               </table>
             </div>
-          </div>
-  
+          </div> -->
         </div>
       </kt-portlet-body>
     </kt-portlet>
