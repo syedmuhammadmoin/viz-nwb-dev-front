@@ -47,6 +47,9 @@ export const APP_ROUTES = {
   BILL: 'vendor-bill',
   PURCHASE_ORDER: 'purchase-order',
 
+  //PAYROLL
+  PAYROLL_ITEM: 'payroll-item',
+
   //REPORT
   REPORT: 'report',
 

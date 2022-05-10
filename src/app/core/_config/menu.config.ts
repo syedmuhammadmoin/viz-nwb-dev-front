@@ -548,6 +548,35 @@ export class MenuConfig {
             }
           ]
         },
+        //Payroll Portion
+        {
+          title: 'Payroll',
+          bullet: 'dot',
+          icon: 'flaticon2-analytics',
+          // permission: [
+          //   Permissions.BUDGET_VIEW,
+          //   Permissions.BUDGET_CREATE,
+          //   Permissions.BUDGET_EDIT,
+          //   Permissions.BUDGET_DELETE,
+          //   Permissions.BUDGET_REPORT_VIEW,
+          //   Permissions.ESTIMATED_BUDGET_VIEW,
+          //   Permissions.ESTIMATED_BUDGET_CREATE,
+          //   Permissions.ESTIMATED_BUDGET_EDIT,
+          //   Permissions.ESTIMATED_BUDGET_DELETE
+          // ],
+          submenu: [
+            {
+              title: 'Payroll Item',
+              page: '/payroll-item/create',
+              // permission: [
+              //   Permissions.BUDGET_VIEW,
+              //   Permissions.BUDGET_CREATE,
+              //   Permissions.BUDGET_EDIT,
+              //   Permissions.BUDGET_DELETE
+              // ]
+            }
+          ]
+        },
         // { section: 'sales' },
         // {
         //   title: 'sales',

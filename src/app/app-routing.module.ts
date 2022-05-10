@@ -292,6 +292,17 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
 
+      //Payroll Item
+       // Lazy Load Payroll Item Module
+       {
+        path: APP_ROUTES.PAYROLL_ITEM,
+        loadChildren: () =>
+          import('./views/pages/payroll/payroll-item/payroll-item.module').then(
+            (m) => m.PayrollItemModule
+          ),
+         // canActivateChild: [AuthGuard]
+      },
+
       //Inventory Section
        // Lazy Load INVENTORY ADJUSTMENT Module
        {
