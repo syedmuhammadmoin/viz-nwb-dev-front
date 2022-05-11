@@ -55,11 +55,12 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.gridOptions = {
+      // getRowNodeId: (data) => data.id,
       cacheBlockSize: 20,
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      context: "click to select Employee",
+      context: "click on checkbox to select employee",
     };
 
     this.components = {
@@ -180,15 +181,13 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
       headerName: 'Faculty', 
       field: 'faculty', 
       sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
+      filter: true
      },
      { 
       headerName: 'Shift', 
       field: 'dutyShift', 
       sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
+      filter: true
      }
   ];
 
@@ -224,3 +223,12 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
    },
   };
 }
+
+// set in Grip options
+// getRowNodeId: (data) => data.id,
+
+// this.griApi.getRowNodeId(id)
+
+// this.gridApi.forEachNode((node , index) => {
+//     node.setSelected(true)
+// })

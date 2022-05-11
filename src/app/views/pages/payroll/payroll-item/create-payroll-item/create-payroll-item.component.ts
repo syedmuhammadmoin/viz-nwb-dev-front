@@ -113,7 +113,12 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     };
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      sortable: true, 
+      filter: true, 
+      filterParams: {
+        suppressAndOrCondition: true
+      }
     }
 
     this.components = {
@@ -129,7 +134,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
      if (!this.selectedEmployees) { 
         this.gridApi.showNoRowsOverlay() 
      } else {
-        this.gridApi.hideOverlay();
+        this.gridApi?.hideOverlay();
      }
 
     
@@ -156,56 +161,37 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     { 
       headerName: 'Name', 
       field: 'name', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
      },
      { 
       headerName: 'Father Name', 
       field: 'fatherName', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
      },
      { 
       headerName: 'Cnic', 
       field: 'cnic', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
      },
      { 
       headerName: 'Designation', 
       field: 'designationName', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
      },
      { 
       headerName: 'Department', 
-      field: 'departmentName', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
+      field: 'departmentName',  
      },
      { 
       headerName: 'Faculty', 
       field: 'faculty', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
      },
      { 
       headerName: 'Shift', 
       field: 'dutyShift', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'name',
      },
      {
        headerName: 'Action', 
        cellRenderer: 'buttonRenderer',
+       suppressMenu: true,
+       sortable: false,
        cellRendererParams: {
         onClick: this.onDelete.bind(this),
         label: 'Delete'
@@ -371,13 +357,15 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
         this.selectedEmployees = res
       }
       else if(!isEmpty(res)) {
-        res.forEach((employee) => {
-       const findDuplicateRecord = this.selectedEmployees.find(x => x.id === employee.id)
-
-       if(!findDuplicateRecord) {
-        this.selectedEmployees.push(employee)
-       }
-    })
+      //   res.forEach((employee) => {
+      //  const findDuplicateRecord = this.selectedEmployees.find(x => x.id === employee.id)
+      //  if(!findDuplicateRecord) {
+      //   this.selectedEmployees.push(employee)
+      //  }
+      res.map((employee) => {
+       if(!(this.selectedEmployees.find(x => x.id === employee.id))) this.selectedEmployees.push(employee)
+      })
+    
       }
       this.gridOptions.api.setRowData(this.selectedEmployees)
       this.cdRef.detectChanges();
@@ -386,11 +374,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   onDelete(params: Params) {
     this.selectedEmployees.splice(params.rowData.index, 1);
-    console.log(this.selectedEmployees);
     this.gridOptions.api.applyTransaction({ remove: [params.rowData] });
-    this.gridOptions.api.forEachNode(node => {
-      console.log(node.data);
-    });
     return this.selectedEmployees;
   }
 }

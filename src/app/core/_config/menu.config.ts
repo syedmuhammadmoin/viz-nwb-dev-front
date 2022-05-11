@@ -552,7 +552,7 @@ export class MenuConfig {
         {
           title: 'Payroll',
           bullet: 'dot',
-          icon: 'flaticon2-analytics',
+          icon: 'flaticon2-percentage',
           // permission: [
           //   Permissions.BUDGET_VIEW,
           //   Permissions.BUDGET_CREATE,
