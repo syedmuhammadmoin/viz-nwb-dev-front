@@ -136,7 +136,9 @@ export enum EntityActionType {
   reload = 'reloadAll',
   addEntity = 'addEntity',
   setLoadingIndicator = 'setLoadingIndicator',
-  isReloadRequired = 'isReloadRequired'
+  isReloadRequired = 'isReloadRequired',
+  getPageNumber = 'getPageNumber',
+  setPageNumber = 'setPageNumber'
 }
 
 export function setLoading<T>(payload: any): StateOperator<ProfilingStateModel<T>> {
@@ -174,7 +176,7 @@ export declare type StateSelector<T> = (state: ProfilingStateModel<any>) => T;
 
 export function generateActionObject<T>(
   fn: string,
-  store: Type<ProfilingState<T>>,
+  store: Type<T>,
   payload?: any
 ) {
   const name = store['NGXS_META'].path;

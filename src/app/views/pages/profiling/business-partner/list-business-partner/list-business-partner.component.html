@@ -29,6 +29,7 @@
         [frameworkComponents]="frameworkComponents"
         [defaultColDef]="defaultColDef"
         [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+        (paginationChanged)="paginationHelper.onPaginationChanged('businessPartnerPageName', gridApi, $event)"
         [tooltipShowDelay]="5"
         (gridReady)="onGridReady($event)">
       </ag-grid-angular>

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { CategoryService } from '../service/category.service';
 import { MatDialog } from '@angular/material/Dialog'
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IServerSideDatasource, IServerSideGetRowsParams, IServerSideGetRowsRequest, RowDoubleClickedEvent } from 'ag-grid-community';
@@ -7,6 +7,7 @@ import { CreateCategoryComponent } from '../create-category/create-category.comp
 import { ICategory } from '../model/ICategory';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { DataSource } from '@angular/cdk/collections';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-list-category',
@@ -15,7 +16,7 @@ import { DataSource } from '@angular/cdk/collections';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ListCategoryComponent implements OnInit {
+export class ListCategoryComponent extends AppComponentBase implements OnInit {
 
   categoryList : ICategory[]
   frameworkComponents : {[p: string]: unknown};
@@ -31,8 +32,10 @@ export class ListCategoryComponent implements OnInit {
   constructor( 
                private categoryService: CategoryService,
                public dialog: MatDialog,
-               private cdRef: ChangeDetectorRef
+               private cdRef: ChangeDetectorRef,
+               injector: Injector
              ) {
+               super(injector)
                 this.gridOptions = <GridOptions>({ context : { componentParent : this } } );
                }
 // defaults columns
@@ -123,6 +126,7 @@ export class ListCategoryComponent implements OnInit {
     }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'categoryPageName')
      this.cdRef.detectChanges();
    },
   };

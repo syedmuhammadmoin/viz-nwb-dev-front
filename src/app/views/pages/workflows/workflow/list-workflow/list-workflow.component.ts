@@ -133,6 +133,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'workflowPageName')
      this.cdRef.detectChanges();
    },
   };

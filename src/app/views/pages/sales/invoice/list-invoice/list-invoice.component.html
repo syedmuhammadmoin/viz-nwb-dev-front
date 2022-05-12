@@ -24,6 +24,7 @@
         [columnDefs]="columnDefs"
         (rowDoubleClicked)="onRowDoubleClicked($event)"
         (firstDataRendered)="onFirstDataRendered($event)"
+        (paginationChanged)="paginationHelper.onPaginationChanged('invoicePageName', gridApi, $event)"
         [gridOptions]="gridOptions"
         [frameworkComponents]="frameworkComponents"
         [defaultColDef]="defaultColDef"

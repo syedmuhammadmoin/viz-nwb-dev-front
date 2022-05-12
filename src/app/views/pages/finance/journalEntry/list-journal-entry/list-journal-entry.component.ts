@@ -150,6 +150,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'journalEntryPageName')
      this.cdRef.detectChanges();
    },
   };
