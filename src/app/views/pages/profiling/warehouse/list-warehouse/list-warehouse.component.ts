@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { WarehouseService} from '../services/warehouse.service';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import { MatDialog} from "@angular/material/dialog";
@@ -6,6 +6,7 @@ import { CreateWarehouseComponent} from "../create-warehouse/create-warehouse.co
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IWarehouse } from '../model/IWarehouse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-list-warehouse',
@@ -14,7 +15,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
   changeDetection : ChangeDetectionStrategy.OnPush
 })
 
-export class ListWarehouseComponent implements OnInit {
+export class ListWarehouseComponent extends AppComponentBase implements OnInit {
 
   warehouseList : IWarehouse[];
   frameworkComponents : {[p: string]: unknown};
@@ -28,8 +29,10 @@ export class ListWarehouseComponent implements OnInit {
 
   constructor( private warehouseService: WarehouseService,
                public dialog: MatDialog,
-               private cdRef: ChangeDetectorRef
+               private cdRef: ChangeDetectorRef,
+               injector: Injector
              ) {
+               super(injector)
                 this.gridOptions = <GridOptions>(
                   { 
                     context : { componentParent : this } 
@@ -123,6 +126,7 @@ export class ListWarehouseComponent implements OnInit {
     }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'warehousePageName')
      this.cdRef.detectChanges();
    },
   };

@@ -13,6 +13,7 @@
         [columnDefs]="columnDefs"
         (rowDoubleClicked)="onRowDoubleClicked($event)"
         (firstDataRendered)="onFirstDataRendered($event)"
+        (paginationChanged)="paginationHelper.onPaginationChanged('estimatedBudgetPageName', gridApi, $event)"
         [gridOptions]="gridOptions"
         [frameworkComponents]="frameworkComponents"
         [defaultColDef]="defaultColDef"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -8,6 +8,7 @@ import { BUDGET } from 'src/app/views/shared/AppRoutes';
 import { IBudgetResponse } from '../model/IBudgetResponse';
 import { BudgetService } from '../service/budget.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-list-budget',
@@ -16,7 +17,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ListBudgetComponent implements OnInit {
+export class ListBudgetComponent extends AppComponentBase implements OnInit {
 
   budgetList: IBudgetResponse[];
   gridOptions : GridOptions;
@@ -32,8 +33,9 @@ export class ListBudgetComponent implements OnInit {
                public  dialog: MatDialog,
                private router: Router,
                private cdRef: ChangeDetectorRef,
-               private dateHelperService: DateHelperService,
+               injector: Injector
              ) {
+               super(injector)
                 this.gridOptions = <GridOptions>(
                  { 
                   context : { componentParent : this } 
@@ -135,6 +137,7 @@ export class ListBudgetComponent implements OnInit {
     }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'budgetPageName')
      this.cdRef.detectChanges();
    },
   };

@@ -166,6 +166,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'businessPartnerPageName')
      this.cdRef.detectChanges();
    },
   };

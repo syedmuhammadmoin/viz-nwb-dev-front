@@ -23,6 +23,7 @@
         [columnDefs]="columnDefs"
         (rowDoubleClicked)="onRowDoubleClicked($event)"
         (firstDataRendered)="onFirstDataRendered($event)"
+        (paginationChanged)="paginationHelper.onPaginationChanged('purchaseOrderPageName', gridApi, $event)"
         [gridOptions]="gridOptions"
         [frameworkComponents]="frameworkComponents"
         [defaultColDef]="defaultColDef"
