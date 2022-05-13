@@ -17,7 +17,7 @@
     {
       background-color: whitesmoke;
       padding-left: 15px !important;
-      border-radius: 0px 20px 20px 0px;
+      // border-radius: 0px 20px 20px 0px;
     }
     .mat-form-field-ripple
     {
@@ -39,6 +39,7 @@
     .mat-form-field-infix
     {
       padding-top: 0px !important;
+      top: 2px;
     }
     .mat-input-element
     {
@@ -50,7 +51,7 @@
     }
     .mat-form-field-outline-end
     {
-      // border-radius: 0px 20px 20px 0px !important;
+      border-radius: 0px 0px !important;
     }
     .mat-form-field-label
     {

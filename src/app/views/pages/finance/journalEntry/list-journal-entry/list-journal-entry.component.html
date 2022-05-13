@@ -1,37 +1,34 @@
-<kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Journal Entries'" [class]="'card-head-lg'">
-        <ng-container ktPortletTools>
-            <button (click)="addJournalEntry()" id="add_journal" class="btn_white" mat-raised-button matTooltip="Add Journal Entry">Add Journal Entry</button>
-        </ng-container>
-    </kt-portlet-header>
-    <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 col-sm-12 my-5">
-            <!-- <ag-grid-angular style="width: 100%; height: 500px; " class="ag-theme-alpine"
-            [rowData]="journalEntryList"
-            [columnDefs]="columnDefs"
-            (firstDataRendered)="onFirstDataRendered($event)"
-            (rowDoubleClicked)="onRowDoubleClicked($event)"
-            [gridOptions]="gridOptions"
-            [frameworkComponents]="frameworkComponents"
-            [defaultColDef]="defaultColDef"
-            [tooltipShowDelay]="5">
-        </ag-grid-angular> -->
-        <ag-grid-angular 
-        style="width: 100%; height: 440px; margin-top: 10px;"
-        class="ag-theme-alpine"
-        [components]="components"
-        [columnDefs]="columnDefs"
-        (rowDoubleClicked)="onRowDoubleClicked($event)"
-        (firstDataRendered)="onFirstDataRendered($event)"
-        (paginationChanged)="paginationHelper.onPaginationChanged('journalEntryPageName', gridApi, $event)"
-        [gridOptions]="gridOptions"
-        [frameworkComponents]="frameworkComponents"
-        [overlayNoRowsTemplate]="overlayNoRowsTemplate"
-        [defaultColDef]="defaultColDef"
-        [tooltipShowDelay]="5"
-        (gridReady)="onGridReady($event)">
-      </ag-grid-angular>
-        </div>
-    </kt-portlet-body>
-</kt-portlet>
-
+<div class="row mb-4">
+    <div class="col-md-12 text-right">
+      <button (click)="addJournalEntry()" class="sub___btn" mat-raised-button matTooltip="Add Journal Entry">Add Journal Entry</button>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 ">
+      <kt-portlet >
+        <kt-portlet-header [sticky]="false" [title]="'Journal Entries'" [class]="'card-head-lg'">
+        </kt-portlet-header>
+        <kt-portlet-body>
+            <div class="col-lg-12 col-md-12 my-5">
+                <ag-grid-angular 
+                    style="width: 100%; height: 440px; margin-top: 10px;"
+                    class="ag-theme-alpine"
+                    [components]="components"
+                    [columnDefs]="columnDefs"
+                    (rowDoubleClicked)="onRowDoubleClicked($event)"
+                    (firstDataRendered)="onFirstDataRendered($event)"
+                    (paginationChanged)="paginationHelper.onPaginationChanged('journalEntryPageName', gridApi, $event)"
+                    [gridOptions]="gridOptions"
+                    [frameworkComponents]="frameworkComponents"
+                    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                    [defaultColDef]="defaultColDef"
+                    [tooltipShowDelay]="5"
+                    (gridReady)="onGridReady($event)">
+                </ag-grid-angular>
+            </div>
+        </kt-portlet-body>
+      </kt-portlet>
+    </div>
+  </div>
+  

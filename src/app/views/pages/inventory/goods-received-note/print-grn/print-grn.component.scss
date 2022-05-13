@@ -1,7 +1,7 @@
 .bg-white
 {
   width: 100%;
-  background: linear-gradient(to right, #283655, #283655 36%, #888b98 10%, #b7b7b7 40%, #ffffff 40%, white);
+  background: linear-gradient(to right, #48889d, #1a6b85 36%, #cba058 10%, #dfb877 40%, #ffffff 40%, white);
   display: flex;
   flex-wrap: wrap;
   padding: 15% 5%;
@@ -27,7 +27,7 @@
   letter-spacing: 6px;
   text-transform: uppercase;
   text-align: left;
-  color: #283655;
+  color: #1a6b85;
   padding: 6% 10px;
   background-color: #fff;
   // background-image: linear-gradient(to right, rgb(0 128 199), rgb(1 174 191));
@@ -78,18 +78,18 @@
 //   text-align: center;
 //   background: #f2f2f2;
 //   padding: 20px;
-//   border: 1px solid #28365536;
+//   border: 1px solid #1a6b8536;
 // }
 
 // .print-box h4
 // {
-//   color: #283655;
+//   color: #1a6b85;
 //   font-weight: 500;
 // }
 
 // .print-box p
 // {
-//   color: #283655;
+//   color: #1a6b85;
 //   font-size: 18px;
 //   font-weight: bold;
 // }
@@ -200,7 +200,7 @@
 
 .thead-dark_color th
 {
-  background-color: #283655  !important;
+  background-color: #1a6b85  !important;
   color: #fff !important;
 }
 
@@ -259,7 +259,7 @@
 
 // .print-foot-area
 // {
-//   background: #283655 !important;
+//   background: #1a6b85 !important;
 //   padding: 20px;
 //   color: #fff;
 //   width: 100%;

@@ -4,60 +4,64 @@
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         <!-- <button [routerLink]="'/journal-entry/print/' + journalEntryMasterData?.id"  mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button> -->
-          <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button" mat-raised-button  class="btn_white mr-3">
-            Print GRN
-          </button>
-          <button *ngIf="grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected"
-            [disabled]="!(permission.isGranted(permissions.GRN_EDIT))" id="grn_edit"
-            [ngClass]="!(permission.isGranted(permissions.GRN_EDIT)) ? 'disable' : '' "
-            [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('edit',grnMaster?.id)"
-            [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" mat-raised-button class="btn_white mr-3">
-              Edit
-          </button>
+          
           <h4 class="overall_statuses {{grnMaster?.status}}">Status:  {{grnMaster?.status}}</h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-10 col-lg-10 mx-auto  mb-5">
-        
-        <div class="row mt-5">
-          <div class="col-md-12 col-lg-12">
-            <div class="table-responsive">
-  
-              <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
-                <tbody>
-                  <tr rowspan="1">
-                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">Document #:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{grnMaster?.docNo}}</td>
-                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">Vendor Name:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{grnMaster?.vendor}}</td>
-                  </tr>
-                  <tr rowspan="1">
-                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">GRN Date:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{grnMaster?.grnDate | date: 'MMM d, y'}}</td>
-                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Campus:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{grnMaster?.campusName}}</td>
-                    
-                  </tr>
-                </tbody>
-              </table>
+      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="row">
+          <div class="col-md-12 col-12 pb-3">
+            <ng-container ktPortletTools >
+                <button *ngIf="grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected"
+                  [disabled]="!(permission.isGranted(permissions.GRN_EDIT))" id="grn_edit"
+                  [ngClass]="!(permission.isGranted(permissions.GRN_EDIT)) ? 'disable' : '' "
+                  [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('edit',grnMaster?.id)"
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  <i class="fa fa-edit"></i>  Edit
+                </button>
+
+                <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button"  class="btn_public">
+                  <i class="fa fa-print"></i> Print GRN
+                </button>
+                <mat-divider class="mt-5"></mat-divider>
+            </ng-container>
+          </div>
+
+          <div class="col-md-4 col-lg-4  mt-3">
+
+            <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Document No: 
+                    <span class="float-right" style="font-weight: 400;">{{grnMaster?.docNo}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
+                    <span class="float-right" style="font-weight: 400;">{{grnMaster?.vendor}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">GRN Date:
+              <span class="float-right" style="font-weight: 400;">{{grnMaster?.grnDate | date: 'MMM d, y'}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+              <span class="float-right" style="font-weight: 400;">{{grnMaster?.campusName}}</span></h4>
             </div>
           </div>
+
+          
         </div>
   
-        <div class="row">
+        <div class="row mt-10">
           <div class="col-md-12 col-12">
-              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;" class="ag-theme-alpine"
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;" class="ag-theme-alpine"
                 [rowData]="grnLines"
                 [columnDefs]="columnDefs" 
                 [gridOptions]="gridOptions"
                 (firstDataRendered)="onFirstDataRendered($event)">
               </ag-grid-angular>
           </div>
+          
         </div>
      
         

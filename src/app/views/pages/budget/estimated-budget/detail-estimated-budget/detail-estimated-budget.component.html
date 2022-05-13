@@ -3,52 +3,58 @@
       <kt-portlet-header [sticky]="false" [title]="'Estimated Budget Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" mat-raised-button
-            class="btn_white mr-3">
-            Print Estimated Budget
-          </button>
-          <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
-            [disabled]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))" id="estimated_edit"
-            [ngClass]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT)) ? 'disable' : '' "
-            [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
-            type="button" mat-raised-button class="btn_white mr-3">
-            Edit
-          </button>
+          
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
         <div class="col-md-12 col-lg-12 mx-auto  mb-5">
   
-          <div class="row mt-5">
-            <div class="col-md-12 col-lg-12">
-              <div class="table-responsive">
-  
-                <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
-                  <tbody>
-                    <tr rowspan="1">
-                      <th class="" style="border: 1px solid #8babdb;width: 15%;">From:</th>
-                      <td class="" style="background: #595e791c; width: 20%;">
-                        {{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</td>
-  
-                      <th class="" style="border: 1px solid #8babdb;width: 15%;">To:</th>
-                      <td style="background: #595e791c; width: 20%;">
-                        {{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</td>
-                    </tr>
-                    <tr rowspan="1">
-                      <th class="" style="border: 1px solid #8babdb; width: 15%;">Estimated Budget Name:</th>
-                      <td class="" style="background: #595e791c; width: 20%;">
-                        {{estimatedBudgetMaster?.estimatedBudgetName}}</td>
-                    </tr>
-                    
-                  </tbody>
-                </table>
-              </div>
+          <div class="row">
+
+            <div class="col-md-12 col-12 pb-3">
+              <ng-container ktPortletTools >
+
+                  <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
+                    [disabled]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))" id="estimated_edit"
+                    [ngClass]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT)) ? 'disable' : '' "
+                    [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
+                    type="button" class="btn_public">
+                    <i class="fa fa-edit"></i> Edit
+                  </button>
+
+                  <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" 
+                    class="btn_public mr-3">
+                    <i class="fa fa-print"></i> Print Estimated Budget
+                  </button>
+
+                  <mat-divider class="mt-5"></mat-divider>
+              </ng-container>
             </div>
+
+            <div class="col-md-4 col-lg-4  mt-3">
+
+              <div class="print-box">
+                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">From Date:
+                      <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box">
+                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">To Date:
+                      <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Estimated Budget Name:
+                <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
+              </div>
+              
+            </div>
+
+            
           </div>
   
-          <div class="row">
+          <div class="row mt-10">
             <div class="col-md-12 col-12">
-              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;"
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
                 class="ag-theme-alpine" [rowData]="estimatedBudgetLines" [columnDefs]="columnDefs"
                 (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
               </ag-grid-angular>

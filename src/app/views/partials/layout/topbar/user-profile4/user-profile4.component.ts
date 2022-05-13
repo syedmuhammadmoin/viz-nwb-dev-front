@@ -9,6 +9,9 @@ import { AppState } from '../../../../../core/reducers';
 import { currentUser, Logout, User } from '../../../../../core/auth';
 import {environment} from "../../../../../../environments/environment";
 import {DecodeTokenService} from "../../../../shared/decode-token.service";
+import { Router} from '@angular/router';
+import { APP_ROUTES , ACCESS_MANAGEMENT } from 'src/app/views/shared/AppRoutes'
+
 
 @Component({
   selector: 'kt-user-profile4',
@@ -32,6 +35,7 @@ export class UserProfile4Component implements OnInit {
    */
   constructor(
     private store: Store<AppState>,
+    private router: Router,
     private decodeService: DecodeTokenService
     ) {
   }
@@ -53,5 +57,9 @@ export class UserProfile4Component implements OnInit {
    */
   logout() {
     this.store.dispatch(new Logout());
+  }
+
+  changePassword() {
+    this.router.navigate(['/' + APP_ROUTES.ACCESS_MANAGEMENT + '/' + ACCESS_MANAGEMENT.CHANGE_PASSWORD])
   }
 }
