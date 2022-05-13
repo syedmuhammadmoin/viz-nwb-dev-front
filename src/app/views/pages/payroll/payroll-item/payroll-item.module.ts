@@ -7,10 +7,11 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { PayrollItemRoutingModule } from './payroll-item-routing.module';
 import { AssignEmployeeComponent } from './assign-employee/assign-employee.component';
 import { ActionButtonComponent } from 'src/app/views/shared/components/action-button/action-button.component';
+import { ListPayrollItemComponent } from './list-payroll-item/list-payroll-item.component';
 
 
 @NgModule({
-  declarations: [CreatePayrollItemComponent, AssignEmployeeComponent],
+  declarations: [CreatePayrollItemComponent, AssignEmployeeComponent, ListPayrollItemComponent],
   imports: [
     SharedModule,
     PartialsModule,

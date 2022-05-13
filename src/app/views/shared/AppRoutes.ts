@@ -252,6 +252,15 @@ export const CRUD_ROUTES = {
     LIST: APP_ROUTES.WAREHOUSE + '/' + CRUD_ROUTES.LIST
   }
 
+  //PAYROLL SECTION
+  export const PAYROLL_ITEM = {
+    LIST: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.PAYROLL_ITEM + '/' + route + '/' + id
+    }
+  }
+
   //PURCHASE SECTION
   export const DEBIT_NOTE = {
     LIST: APP_ROUTES.DEBIT_NOTE + '/' + CRUD_ROUTES.LIST,

@@ -240,6 +240,12 @@ export class Permissions {
   static INVENTORYADJUSTMENT_EDIT = 'Permissions.InventoryAdjustmentClaims.Edit';
   static INVENTORYADJUSTMENT_DELETE = 'Permissions.InventoryAdjustmentClaims.Delete';
 
+  //Payroll Item
+  static PAYROLL_ITEM_VIEW = 'Permissions.PayrollItemClaims.View';
+  static PAYROLL_ITEM_CREATE = 'Permissions.PayrollItemClaims.Create';
+  static PAYROLL_ITEM_EDIT = 'Permissions.PayrollItemClaims.Edit';
+  static PAYROLL_ITEM_DELETE = 'Permissions.PayrollItemClaims.Delete';
+
   // Stock
   static STOCK_VIEW = 'Permissions.StockClaims.View';
 
@@ -296,12 +302,14 @@ export enum PayrollType {
   BasicPay,
   Increment,
   Deduction,
-  Others
+  Allowances,
+  AssignmentAllowance,
+  TaxDeduction
 }
 
 export enum PayrollItemType {
+  Percentage,
   FixedAmount,
-  Percentage
 }
 
 export enum BusinessPartnerType {

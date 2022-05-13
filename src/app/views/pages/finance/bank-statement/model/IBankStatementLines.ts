@@ -1,7 +1,7 @@
 export class IBankStatementLines {
   id: number;
   reference: number;
-  stmtDate: string;
+  stmtDate: Date;
   label: string;
   debit: number;
   credit: number;

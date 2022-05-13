@@ -35,6 +35,7 @@ export abstract class AppComponentBase {
     this.datePipe = injector.get(DatePipe);
     this.toastService = injector.get(ToastrService);
     this.permission = injector.get(PermissionService);
+    this.dateHelperService = injector.get(DateHelperService)
   }
 
   // //selector region start
@@ -42,7 +43,7 @@ export abstract class AppComponentBase {
   // toastService: ToastrService
   // permission: PermissionService
  
-  transformDate(date: Date, format: string) {
+  transformDate(date: Date | string, format: string) {
     return this.datePipe.transform(date, format);
   }
 

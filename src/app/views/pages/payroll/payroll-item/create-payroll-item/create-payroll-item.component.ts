@@ -7,7 +7,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Observable, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { Permissions } from 'src/app/views/shared/AppEnum';
+import { PayrollItemType, Permissions } from 'src/app/views/shared/AppEnum';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { PayrollItemService } from '../service/payroll-item.service'
 import { IPayrollItem } from '../model/IPayrollItem'
@@ -19,6 +19,9 @@ import { AssignEmployeeComponent } from '../assign-employee/assign-employee.comp
 import { isEmpty } from 'lodash';
 import { ActionButtonComponent } from 'src/app/views/shared/components/action-button/action-button.component';
 import { Button } from 'protractor';
+import { PAYROLL_ITEM } from 'src/app/views/shared/AppRoutes';
+import { RowDragComp } from 'ag-grid-community/dist/lib/rendering/row/rowDragComp';
+import { RowDragFeature } from 'ag-grid-community/dist/lib/gridPanel/rowDragFeature';
 
 @Component({
   selector: 'kt-create-payroll-item',
@@ -36,8 +39,16 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   // Declaring form variable
   payrollItemForm: FormGroup;
 
+  // for item type
+  payrollItemTypes = PayrollItemType;
+
+  //disable percentage
+  disablePercentage: boolean
+
   //selected Employees to assign
   selectedEmployees: any[] = []
+
+  payrollTypes: any
 
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -47,16 +58,44 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   title: string = 'Create Payroll Item'
 
+  isActiveChecked = true;
+  // switch
+  userStatus = 'Active'
+
   // Validation messages..
   validationMessages = {
-    customerName: {
-      required: 'Customer Name is required.',
+    itemCode: {
+      required: 'Item Code is required.',
     },
+    name: {
+      required: 'Item Name is required.',
+    },
+    payrollType: {
+      required: 'Payroll Type is required.',
+    },
+    payrollItemType: {
+      required: 'Item Type is required.',
+    },
+    value: {
+      required: 'Value is required.',
+    },
+    accountId: {
+      required: 'Account is required.',
+    },
+    remarks: {
+      required: 'Remarks is required.',
+    }
   };
 
   // error keys..
   formErrors = {
-    customerName: '',
+    itemCode: '',
+    name: '',
+    payrollType: '',
+    payrollItemType: '',
+    value: '',
+    accountId: '',
+    remarks: '',
   };
 
   //payrollItemList: IPayrollItem[];
@@ -93,13 +132,52 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
     // Creating Forms
     this.payrollItemForm = this.fb.group({
-      customerName: ['', [Validators.required]],
+      itemCode: ['', [Validators.required]],
+      name: ['', [Validators.required]],
+      payrollType: ['', [Validators.required]],
+      payrollItemType: [1, [Validators.required]],
+      value: [0, [Validators.required]],
+      accountId: ['', [Validators.required]],
+      isActive: [true],
+      remarks: ['', [Validators.required]],
+      employeeIds: [[]]
     });
 
     this.payrollItemModel = {
       id: null,
-      customerId: null,
+      itemCode: '',
+      name: '',
+      payrollType: null,
+      payrollItemType: null,
+      value: null,
+      accountId: null,
+      isActive: false,
+      remarks: null,
+      employeeIds: []
+      
     }
+
+    //get Accounts from Accounts State
+    this.ngxsService.getAccountLevel4FromState();
+    
+    this.activatedRoute.params.subscribe((param) => {
+      console.log(param)
+      const id = param.id;
+
+      if (id) {
+        this.title = 'Edit Payroll Item'
+        this.getPayrollItem(id);
+      }
+    });
+
+    this.payrollTypes = [
+      {id: 0 , value: 'Basic Pay'},
+      {id: 1 , value: 'Increment'},
+      {id: 2 , value: 'Deduction'},
+      {id: 3 , value: 'Allowances'},
+      {id: 4 , value: 'Assignment Allowance'},
+      {id: 5 , value: 'Tax Deduction'}
+    ]
 
     this.gridOptions = {
       rowHeight: 40,
@@ -136,25 +214,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
      } else {
         this.gridApi?.hideOverlay();
      }
-
-    
-    
-    // this.ngxsService.getCampusFromState()
-    // // get location from location
-    //this.ngxsService.getLocationFromState();
-    
-    // this.activatedRoute.queryParams.subscribe((param) => {
-    //   const id = param.q;
-    //   const isInvoice = param.isInvoice;
-    //   const isSalesOrder = param.isSalesOrder;
-    //   if (id && isInvoice) {
-    //     this.title = 'Edit Invoice'
-    //     this.getInvoice(id);
-    //   }
-    //   else if (id && isSalesOrder) {
-    //     this.getSalesOrder(id);
-    //   }
-    // });
   }
 
   columnDefs = [
@@ -237,6 +296,40 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   //   this.totalCalculation();
   // }
 
+
+
+
+  // get payroll item data from Api
+  private getPayrollItem(id: number) {
+    this.isLoading = true;
+    this.payrollItemService.getPayrollItemById(id).subscribe((res) => {
+      console.log(res.result)
+      this.payrollItemModel = res.result;
+      this.patchPayrollItem(res.result);
+      this.isLoading = false;
+    });
+  }
+
+  // edit payroll item method
+  public patchPayrollItem(payrollItem: IPayrollItem | any) {
+    this.payrollItemForm.patchValue({
+      itemCode: payrollItem.itemCode,
+      name: payrollItem.name,
+      itemType: payrollItem.payrollItemType,
+      payrollType: payrollItem.payrollType,
+      accountId: payrollItem.accountId,
+      value: payrollItem.value,
+      remarks: payrollItem.remarks,
+      isActive: payrollItem.isActive,
+    });
+    this.selectedEmployees = payrollItem.employees
+    this.onToggle({checked: payrollItem.isActive})
+    this.onPayrollTypeChange()
+    // //Clearing Amount Validator Initially
+    // this.payrollItemForm.get('amount').setErrors(null)
+    // this.payrollItemForm.updateValueAndValidity();
+  }
+
  
   
 
@@ -255,48 +348,76 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
     this.isLoading = true;
     this.mapFormValuesToPayrollItemModel();
-    //console.log(this.payrollItemModel)
+    console.log(this.payrollItemModel)
     if (this.payrollItemModel.id) {
-      // this.payrollItemService.updateInvoice(this.payrollItemModel)
-      //   .pipe(
-      //     take(1),
-      //     finalize(() => {
-      //       this.isLoading = false;
-      //     })
-      //   )
-      //   .subscribe((res: IApiResponse<IInvoice>) => {
-      //     this.toastService.success('' + res.message, 'Updated Successfully')
-      //     this.cdRef.detectChanges();
-      //     this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', this.payrollItemModel.id)]);
-      //   },
-      //     (err) => {
-      //       this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-      //       this.isLoading = false;
-      //       this.cdRef.detectChanges()
-      //     })
+      this.payrollItemService.updatePayrollItem(this.payrollItemModel)
+        .pipe(
+          take(1),
+          finalize(() =>this.isLoading = false))
+        .subscribe((res: IApiResponse<IPayrollItem>) => {
+          this.toastService.success('Updated Successfully', 'Payroll Item')
+          this.cdRef.detectChanges();
+          this.router.navigate(['/' + PAYROLL_ITEM.LIST])
+        },
+          (err) => {
+            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
+            this.isLoading = false;
+            this.cdRef.detectChanges()
+          })
+
     } else {
-    //   delete this.payrollItemModel.id;
-    //   this.payrollItemService.createInvoice(this.payrollItemModel)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe((res: IApiResponse<IInvoice>) => {
-    //         this.toastService.success('' + res.message, 'Created Successfully')
-    //         this.router.navigate(['/' + INVOICE.LIST])
-    //       },
-    //       (err) => {
-    //         this.isLoading = false;
-    //         this.cdRef.detectChanges();
-    //         this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-    //       }
-    //     );
-    // }
+      delete this.payrollItemModel.id;
+      this.payrollItemService.createPayrollItem(this.payrollItemModel)
+        .pipe(
+          take(1),
+          finalize(() => this.isLoading = false))
+        .subscribe((res: IApiResponse<IPayrollItem>) => {
+            this.toastService.success('Created Successfully', 'Payroll Item')
+            this.router.navigate(['/' + PAYROLL_ITEM.LIST])
+          },
+          (err) => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
+          }
+        );
+    }
   }
-}
+
+  onPayrollTypeChange() {
+    if (this.payrollItemForm.value.payrollType === 0 || this.payrollItemForm.value.payrollType === 1) {
+      this.payrollItemForm.get('payrollItemType').setValue(1);
+      this.disablePercentage = true;
+    } else {
+      this.disablePercentage = false;
+    }
+  }
 
   //Mapping value to model
   mapFormValuesToPayrollItemModel() {
-    this.payrollItemModel.customerId = this.payrollItemForm.value.customerName;
+    this.payrollItemModel.itemCode = this.payrollItemForm.value.itemCode;
+    this.payrollItemModel.name = this.payrollItemForm.value.name;
+    this.payrollItemModel.payrollItemType = this.payrollItemForm.value.payrollItemType;
+    this.payrollItemModel.value = +(this.payrollItemForm.value.value); //using '+' to convert string  to Number
+    this.payrollItemModel.isActive = this.payrollItemForm.value.isActive;
+    this.payrollItemModel.accountId = this.payrollItemForm.value.accountId;
+    this.payrollItemModel.payrollType = this.payrollItemForm.value.payrollType;
+    this.payrollItemModel.remarks = this.payrollItemForm.value.remarks;
+
+    //empty employeeIds array for new record to avoid duplication
+    
+    this.payrollItemModel.employeeIds = []
+    this.selectedEmployees?.map((employee) => {
+      this.payrollItemModel.employeeIds.push(employee.id)
+    })
+  }
+
+  onToggle(event) {
+    if (event.checked) {
+      this.userStatus = 'Active'
+    } else {
+      this.userStatus = 'Inactive'
+    }
   }
 
   //for save or submit
@@ -314,32 +435,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
     //this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
   }
-
-  onGridReady(params: GridReadyEvent) {
-    // this.gridApi = params.api;
-    // this.gridColumnApi = params.columnApi;
-    // params.api.setDatasource(this.dataSource);
-  }
-
-  // async getPayrollItems(params: any): Promise<IPaginationResponse<IPayrollItem[]>> {
-  //   // const result = await this.payrollItemService.getInvoices().toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getInvoices(params);
-
-  //    if (!res.result) { 
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 
   assignEmployee() {
     this.openDialog()
@@ -373,7 +468,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   }
 
   onDelete(params: Params) {
-    this.selectedEmployees.splice(params.rowData.index, 1);
+    this.selectedEmployees.splice(this.selectedEmployees.indexOf(params.rowData), 1);
     this.gridOptions.api.applyTransaction({ remove: [params.rowData] });
     return this.selectedEmployees;
   }

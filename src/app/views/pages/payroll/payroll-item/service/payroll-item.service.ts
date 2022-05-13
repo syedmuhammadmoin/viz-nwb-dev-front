@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
-import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
-import { ITransactionRecon } from '../../../purchase/vendorBill/model/ITransactionRecon';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { IPayrollItem } from '../model/IPayrollItem';
 
 
 @Injectable({
@@ -19,45 +17,33 @@ export class PayrollItemService {
 
     constructor(private httpClient: HttpClient) { }
 
-    // getInvoices(): Observable<IPaginationResponse<IInvoice[]>> {
-    //     return this.httpClient.get<IPaginationResponse<IInvoice[]>>(this.baseUrl)
-    //         .pipe(catchError(this.handleError));
-    // }
+    getPayrollItems(): Observable<IPaginationResponse<IPayrollItem[]>> {
+        return this.httpClient.get<IPaginationResponse<IPayrollItem[]>>(this.baseUrl)
+    }
 
     getEmployees(): Observable<IPaginationResponse<any[]>> {
         return this.httpClient.get<IPaginationResponse<any[]>>(environment.baseUrl + 'employee', { headers: new HttpHeaders().set("key", "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~")})
     }
 
-    // getInvoiceById(id: number): Observable<IApiResponse<IInvoice>> {
-    //     return this.httpClient.get<IApiResponse<IInvoice>>(`${this.baseUrl}/${id}`)
-    //         .pipe(catchError(this.handleError));
-    // }
+    getPayrollItemById(id: number): Observable<IApiResponse<IPayrollItem>> {
+        return this.httpClient.get<IApiResponse<IPayrollItem>>(`${this.baseUrl}/${id}`)
+    }
 
-    // createInvoice(Invoice: IInvoice): Observable<any> {
-    //     return this.httpClient.post<any>(this.baseUrl, Invoice, {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json'
-    //         })
-    //     });
-    // }
+    createPayrollItem(payrollItem: IPayrollItem): Observable<any> {
+        return this.httpClient.post<any>(this.baseUrl, payrollItem, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
+    }
 
-    // updateInvoice(invoiceModel: IInvoice): Observable<any> {
-    //     return this.httpClient.put<any>(this.baseUrl + `/${invoiceModel.id}`, invoiceModel)
-    // }
+    updatePayrollItem(payrollItemModel: IPayrollItem): Observable<any> {
+        return this.httpClient.put<any>(this.baseUrl + `/${payrollItemModel.id}`, payrollItemModel)
+    }
 
     // workflow(workflow: IWorkflow): Observable<any> {
     //     return this.httpClient.post(this.baseUrl + '/workflow', workflow);
     // }
-
-    // reconcilePayment(transactionRecon: ITransactionRecon): Observable<any> {
-    //     return this.httpClient.post<ITransactionRecon>((environment.baseUrl + 'TransactionRecon'), transactionRecon, {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json'
-    //         })
-    //     })
-    //         .pipe(catchError(this.handleError));
-    // }
-
 }
 
 

@@ -2,56 +2,122 @@
     <kt-portlet>
       <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
       <!--begin::Form-->
-  
       <form [formGroup]="payrollItemForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
         <div class="kt-portlet__body">
           <div class="kt-form__section kt-form__section--first">
-  
             <div class="col-md-12 col-sm-12 col-lg-12">
               <div class="row">
-                <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Customer Name:</label>
-                    <kt-simple-dropdown id="invoice_customer" formControlName="customerName" matFormFieldClass="full-width"
-                      (blurEvent)="logValidationErrors(this.payrollItemForm, this.formErrors, this.validationMessages)"
-                      propertyName="name" propertyValue="id" [errorMessage]="formErrors.customerName"
-                      [optionList]="ngxsService.businessPartners$"
-                    
-                     
-                      searchPlaceholder="Search Customers..."
-                      placeholder="Select Customer">
+                    <label class="col-form-label pt-0">Item Name:</label>
+                    <kt-input-field
+                      id="payroll_item_name"
+                      formControlName="name"
+                      placeholder="Enter Item Name"
+                      (blurEvent)="logValidationErrors(payrollItemForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
+                    </kt-input-field>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Item Code:</label>
+                    <kt-input-field
+                      id="payroll_item_code"
+                      formControlName="itemCode"
+                      placeholder="Enter Item Code"
+                      (blurEvent)="logValidationErrors(payrollItemForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.itemCode , error : formErrors.itemCode }]">
+                    </kt-input-field>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Payroll Type:</label>
+                    <kt-simple-dropdown 
+                      id="payroll_type" 
+                      formControlName="payrollType" 
+                      matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(payrollItemForm, this.formErrors, this.validationMessages)"
+                      propertyName="value" 
+                      (selectionChange)="onPayrollTypeChange()"
+                      propertyValue="id" 
+                      [errorMessage]="formErrors.payrollType"
+                      [optionList]="payrollTypes"
+                      searchPlaceholder="Search Payroll Types..."
+                      placeholder="Select Payroll Type">
                     </kt-simple-dropdown>
                   </div>
                 </div>
-  
-                <!-- <div class="col-lg-3 col-sm-3 col-md-3">
+              </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Invoice Date:</label>
-                    <kt-date-input 
-                      formControlName="invoiceDate" 
-                      placeholder="Invoice Date" matFormFieldClass="full-width"
-                      (blurEvent)="logValidationErrors(this.payrollItemForm, formErrors, validationMessages)"
-                      [errorMessage]="formErrors.invoiceDate">
-                    </kt-date-input>
-                  </div>
-                </div> -->
-  
-                <!-- <div class="col-lg-3 col-sm-3 col-md-3">
+                    <label class="col-form-label pt-0">Item Type:</label>
+                    <mat-radio-group aria-label="Select an option" formControlName="payrollItemType">
+                      <mat-radio-button id="payroll_percentage" [value]="payrollItemTypes.Percentage" [disableRipple]="true" [disabled]="disablePercentage" class="ml-5">Percentage Based</mat-radio-button>
+                      <mat-radio-button id="payroll_fixed_amount" [value]="payrollItemTypes.FixedAmount">Fixed Amount</mat-radio-button>
+                     </mat-radio-group>
+                   </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Campus:</label>
-                    <kt-simple-dropdown 
-                      id="invoice_campus"
-                      placeholder="Select Campus" 
-                      propertyValue="id" 
+                    <label class="col-form-label pt-0">Account:</label>
+                      <kt-simple-dropdown
+                      id="payroll_item_account"
+                      placeholder="Select Account"
+                      searchPlaceholder="Search Accounts..."
+                      propertyValue="id"
                       propertyName="name"
-                      formControlName="campusId" 
-                      (blurEvent)="logValidationErrors(payrollItemForm, formErrors, validationMessages)"
-                      matFormFieldClass="full-width input_d_1"
-                      [errorMessage]="'Campus is Required'" 
-                      [optionList]="ngxsService.campuses$">
+                      formControlName="accountId"
+                      matFormFieldClass="full-width"
+                      [errorMessage]="formErrors.accountId"
+                      (blurEvent)="logValidationErrors(payrollItemForm, this.formErrors, this.validationMessages)"
+                      [optionList]="ngxsService.accountsLevel4$">
                     </kt-simple-dropdown>
+                   </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Value:</label>
+                    <kt-input-field
+                      id="payroll_item_value"
+                      type="number"
+                      formControlName="value"
+                      placeholder="Enter Value"
+                      (blurEvent)="logValidationErrors(payrollItemForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.value , error : formErrors.value }]">
+                    </kt-input-field>
+                   </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <div apperence="outline" class="full-width">
+                      <mat-slide-toggle (change)="onToggle($event)" id="payroll_item_isActive" [checked]="isActiveChecked" formControlName="isActive">{{this.userStatus}}</mat-slide-toggle>
+                    </div>
                   </div>
-                </div> -->
+                </div>
+
+                <div class="col-lg-8 col-sm-8 col-md-8">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Remarks:</label>
+                    <kt-input-field
+                      id="payroll_item_remarks"
+                      formControlName="remarks"
+                      placeholder="Enter Remarks"
+                      (blurEvent)="logValidationErrors(payrollItemForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.remarks , error : formErrors.remarks }]">
+                    </kt-input-field>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -98,10 +164,10 @@
                   Submit
                 </button> -->
                 <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()" id="payroll_item_reset">Reset</button>
-                <button class="sub___btn  mr-3" mat-raised-button type="submit" id="payroll_item_save"
-                  (click)="logValidationErrors(this.payrollItemForm, this.formErrors, this.validationMessages)">Save</button>
+                <!-- <button class="sub___btn  mr-3" mat-raised-button type="submit" id="payroll_item_save"
+                  (click)="logValidationErrors(payrollItemForm, this.formErrors, this.validationMessages)">Save</button> -->
                 <button class="sub___btn " mat-raised-button type="submit" id="payroll_item_submit"
-                  (click)="logValidationErrors(this.payrollItemForm, this.formErrors, this.validationMessages)">
+                  (click)="logValidationErrors(payrollItemForm, this.formErrors, this.validationMessages)">
                   Submit
                 </button>
               </div>
@@ -112,3 +178,34 @@
       <!--end::Form-->
     </kt-portlet>
   </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              
+  
+                 
+              
+               
+                  
+               
+  
