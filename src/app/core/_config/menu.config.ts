@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, DEPARTMENT, LOCATION, ORGANIZATION, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, SALES_ORDER, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, STOCK, INVENTORY_ADJUSTMENT, GOODS_RECEIVED_NOTE, DISPATCH_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -298,10 +298,10 @@ export class MenuConfig {
             Permissions.DEBITNOTE_EDIT,
             Permissions.DEBITNOTE_DELETE,
             Permissions.DEBITNOTE_REVIEW,
-            Permissions.DEBITNOTE_APPROVE
-            // Permissions.CHARTOFACCOUNT_VIEW,
-            // Permissions.BANK_RECON_VIEW,
-            // Permissions.BANK_RECON_CREATE
+            Permissions.DEBITNOTE_APPROVE,
+            Permissions.CHARTOFACCOUNT_VIEW,
+            Permissions.BANK_RECON_VIEW,
+            Permissions.BANK_RECON_CREATE
           ],
           submenu: [
             {
@@ -417,14 +417,14 @@ export class MenuConfig {
                 Permissions.BANKSTATEMENT_DELETE,
               ]
             },
-            // {
-            //   title: 'Bank Reconciliation',
-            //   page: '/' + BANK_RECONCILIATION.LIST,
-            //   permission: [
-            //     Permissions.BANK_RECON_VIEW,
-            //     Permissions.BANK_RECON_CREATE
-            //   ]
-            // },
+            {
+              title: 'Bank Reconciliation',
+              page: '/' + BANK_RECONCILIATION.LIST,
+              permission: [
+                Permissions.BANK_RECON_VIEW,
+                Permissions.BANK_RECON_CREATE
+              ]
+            },
             {
               title: 'Chart Of Account',
               page: '/' + CHART_OF_ACCOUNT.LIST,
@@ -544,6 +544,30 @@ export class MenuConfig {
               page: '/' + BUDGET.REPORT,
               permission: [
                 Permissions.BUDGET_REPORT_VIEW,
+              ]
+            }
+          ]
+        },
+        //Payroll Portion
+        {
+          title: 'Payroll',
+          bullet: 'dot',
+          icon: 'flaticon2-percentage',
+          permission: [
+            Permissions.PAYROLL_ITEM_VIEW,
+            Permissions.PAYROLL_ITEM_CREATE,
+            Permissions.PAYROLL_ITEM_EDIT,
+            Permissions.PAYROLL_ITEM_DELETE 
+          ],
+          submenu: [
+            {
+              title: 'Payroll Item',
+              page: '/' + PAYROLL_ITEM.LIST,
+              permission: [
+                Permissions.PAYROLL_ITEM_VIEW,
+                Permissions.PAYROLL_ITEM_CREATE,
+                Permissions.PAYROLL_ITEM_EDIT,
+                Permissions.PAYROLL_ITEM_DELETE 
               ]
             }
           ]

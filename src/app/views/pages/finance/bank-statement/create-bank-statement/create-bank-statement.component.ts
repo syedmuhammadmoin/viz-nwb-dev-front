@@ -141,7 +141,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
       formArray.push(this.fb.group({
         id: [line.id],
         reference: [line.reference, [Validators.required]],
-        stmtDate: [line.stmtDate, [Validators.required]],
+        stmtDate: [this.dateHelperService.transformDate(line.stmtDate, 'yyyy-MM-dd'), [Validators.required]],
         label: [line.label, [Validators.required]],
         debit: [line.debit, [Validators.required]],
         credit: [line.credit, [Validators.required]],
@@ -153,6 +153,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     })
     return formArray
   }
+
+  
 
   // submitting Form
   onSubmit() {
@@ -166,7 +168,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
     this.isLoading = true;
     this.mapFormValueToBankStatementModel();
-    //console.log(this.bankStatementModel)
+    console.log(this.bankStatementModel)
     if (this.bankStatementModel.id) {
       this.bankStatementService.updateBankStatement(this.bankStatementModel)
         .pipe(
@@ -208,7 +210,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
       data.reference = Number(data.reference)
       data.credit = data.credit != null ? Number(data.credit) : 0;
       data.debit = data.debit != null ? Number(data.debit) : 0;
-      return this.transformDate(new Date(data.stmtDate), 'yyyy-MM-dd')
+      data.stmtDate = this.dateHelperService.transformDate(data.stmtDate, 'yyyy-MM-dd')
     });
     this.body.data = this.bankStatementModel as IBankStatement;
     if (this.body.files !== null) {

@@ -47,6 +47,9 @@ export const APP_ROUTES = {
   BILL: 'vendor-bill',
   PURCHASE_ORDER: 'purchase-order',
 
+  //PAYROLL
+  PAYROLL_ITEM: 'payroll-item',
+
   //REPORT
   REPORT: 'report',
 
@@ -247,6 +250,15 @@ export const CRUD_ROUTES = {
 
   export const WAREHOUSE = {
     LIST: APP_ROUTES.WAREHOUSE + '/' + CRUD_ROUTES.LIST
+  }
+
+  //PAYROLL SECTION
+  export const PAYROLL_ITEM = {
+    LIST: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.PAYROLL_ITEM + '/' + route + '/' + id
+    }
   }
 
   //PURCHASE SECTION

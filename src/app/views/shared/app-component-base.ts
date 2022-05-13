@@ -26,7 +26,7 @@ export abstract class AppComponentBase {
   // toastService: ToastrService
   // permission: PermissionService
  
-  transformDate(date: Date, format: string) {
+  transformDate(date: Date | string, format: string) {
     return this.datePipe.transform(date, format);
   }
 

@@ -16,6 +16,7 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatListModule} from '@angular/material/list';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle'
 import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatGridListModule} from '@angular/material/grid-list';
@@ -86,6 +87,7 @@ import { PdfComponent } from '../pdf/pdf.component';
     MatIconModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
     MatMenuModule,
     MatTabsModule,
     MatTooltipModule,
@@ -140,6 +142,7 @@ import { PdfComponent } from '../pdf/pdf.component';
     MatIconModule,
     MatNativeDateModule,
     MatCheckboxModule,
+    MatSlideToggleModule,
     MatMenuModule,
     MatTabsModule,
     MatTooltipModule,

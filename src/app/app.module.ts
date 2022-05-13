@@ -95,6 +95,7 @@ import { CampusState } from './views/pages/profiling/campus/store/campus.state';
 import { BudgetState } from './views/pages/budget/current-budget/store/budget.state';
 import { StatusState } from './views/pages/workflows/status/store/status.state';
 import { BudgetAccountState } from './core/shared-state/account-state/store/budget-account.state';
+import { ActionButtonComponent } from './views/shared/components/action-button/action-button.component';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -127,7 +128,7 @@ export function getHighlightLanguages() {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ActionButtonComponent],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
