@@ -25,6 +25,7 @@
   .mat-form-field-infix
   {
     padding-top: 0px !important;
+    top: 2px;
   }
   .mat-input-element
   {
@@ -36,7 +37,7 @@
   }
   .mat-form-field-outline-end
   {
-    // border-radius: 0px 20px 20px 0px !important;
+    border-radius: 0px 0px !important;
   }
   .mat-form-field-label
   {
@@ -54,6 +55,10 @@
   .mat-form-field-wrapper
   {
     margin-top: 0px !important;
+  }
+  .mat-form-field-label-wrapper
+  {
+    top: -16px !important;
   }
 }
   

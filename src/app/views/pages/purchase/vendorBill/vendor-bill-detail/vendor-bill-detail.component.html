@@ -4,80 +4,63 @@
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         <!-- <button [routerLink]="'/journal-entry/print/' + journalEntryMasterData?.id"  mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button> -->
-        <button [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('print', billMaster?.id)" type="button" mat-raised-button
-          class="btn_white mr-3" id="bill_print">
-          Print Vendor Bill
-        </button>
-        <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)"
-          [disabled]="!(permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
-          [ngClass]="!(permission.isGranted(permissions.BILL_EDIT)) ? 'disable' : '' "
-          [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
-          type="button" class="btn_white mr-3" mat-raised-button>
-          Edit
-        </button>
-        <!-- <button (click)="openDialog()"
-          *ngIf="(billMaster?.transactionId)"
-          [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE))"
-          [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' " class="btn_white mr-3"
-          mat-raised-button type="button"> Register Payment
-        </button>
-        <button
-          *ngIf="(billMaster?.transactionId)"
-          [disabled]="!(permission.isGranted(permissions.DEBITNOTE_CREATE))"
-          [ngClass]="!(permission.isGranted(permissions.DEBITNOTE_CREATE)) ? 'disable' : '' "
-          [routerLink]="'/'+DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, 'isBill': true}" type="button"
-          class="btn_white mr-3" mat-raised-button>
-          Create Debit Note
-        </button> -->
+        
+        
         <h4 class="overall_statuses {{docStatus[billMaster?.state]}}"> Status:  {{billMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
 
-        <div class="row mt-5">
-          <div class="col-md-12 col-lg-12">
-            <div class="table-responsive">
+        <div class="row ">
 
-              <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
-                <tbody>
-                  <tr rowspan="1">
-                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">#Bill:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{billMaster?.docNo}}</td>
-                    <th class="" style="    border: 1px solid #8babdb; width: 15%;">Vendor Name:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{billMaster?.vendorName}}</td>
-                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Campus:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{billMaster?.campusName}}</td>
+          <div class="col-md-12 col-12 pb-3">
+            <ng-container ktPortletTools >
+                <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)"
+                  [disabled]="!(permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
+                  [ngClass]="!(permission.isGranted(permissions.BILL_EDIT)) ? 'disable' : '' "
+                  [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
+                  type="button" class="mr-3 btn_public" >
+                  <i class="fa fa-edit"></i> Edit
+                </button>
 
-                    <!-- <th class="" style="    border: 1px solid #8babdb; width: 15%;">Vendor Bill Ref:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{billMaster?.vendorBillRef}}</td> -->
-                  </tr>
-                  <tr rowspan="1">
-                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Bill Date:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{billMaster?.billDate | date: 'MMM d, y'}}</td>
+                <button [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('print', billMaster?.id)" type="button" 
+                class="btn_public" id="bill_print">
+                  <i class="fa fa-print"></i> Print Vendor Bill
+                </button>
 
-                    <th class="" style="    border: 1px solid #8babdb;width: 15%;">Due Date:</th>
-                    <td style="background: #595e791c; width: 20%;">
-                      {{billMaster?.dueDate | date: 'MMM d, y'}}</td>
+                <mat-divider class="mt-5"></mat-divider>
+            </ng-container>
+          </div>
 
-                    <!-- <th class="" style="    border: 1px solid #8babdb;width: 15%;">Contact:</th>
-                    <td class="" style="background: #595e791c; width: 20%;">
-                      {{billMaster?.contact ? billMaster?.contact : "-"}}</td> -->
-                  </tr>
-                </tbody>
-              </table>
+          <div class="col-md-4 col-lg-4  mt-3">
+            <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Bill No: 
+                    <span class="float-right" style="font-weight: 400;">{{billMaster?.docNo}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
+                    <span class="float-right" style="font-weight: 400;">{{billMaster?.vendorName}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+              <span class="float-right" style="font-weight: 400;">{{billMaster?.campusName}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Bill Date:
+              <span class="float-right" style="font-weight: 400;">{{billMaster?.billDate | date: 'MMM d, y'}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Due Date:
+              <span class="float-right" style="font-weight: 400;">{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row mt-10">
           <div class="col-md-12 col-12">
-            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;"
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
               class="ag-theme-alpine" [rowData]="billLines" (firstDataRendered)="onFirstDataRendered($event)"
               [columnDefs]="columnDefs" [gridOptions]="gridOptions">
             </ag-grid-angular>
@@ -114,34 +97,34 @@
 
 
           <div class="col-lg-4 ml-auto">
-            <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
+            <table class="table  small_table_box" style="margin: 0px -6px;">
               <tr>
-                <th class="text-right" style="width: 70%;">Total Before Tax :</th>
-                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                <td class="text-left" style="width: 70%;">Total Before Tax :</td>
+                <td class="text-right" >
                   {{valueFormatter(totalBeforeTax || 0)}}</td>
               </tr>
               <tr>
-                <th class="text-right">Total Tax :</th>
-                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                <td class="text-left">Total Tax :</td>
+                <td class="text-right" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr>
-                <th class="text-right"
-                  style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Total Amount :
+              <tr style="border-top: 2px solid #1a6b85;">
+                <th class="text-left"
+                  >Total Amount :
                 </th>
-                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
-                  {{valueFormatter(totalBillAmount || 0)}}</td>
+                <th class="text-right" >
+                  {{valueFormatter(totalBillAmount || 0)}}</th>
               </tr>
               <tr *ngIf="paidAmountList.length > 0">
                 <td colspan="2">
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #3f4254;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold;">
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description style="color: #3f4254;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold; flex-grow: 0;">
                           {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description>

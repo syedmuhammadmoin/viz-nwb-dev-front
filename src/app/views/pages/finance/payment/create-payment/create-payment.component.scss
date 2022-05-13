@@ -1,10 +1,3 @@
-::ng-deep .mat-radio-group {
-    display: flex;
-    padding-top: 10px;
-}
-  
-  
-  
 :host ::ng-deep .mat-radio-outer-circle{
     border-radius:2px;
     border-color:#1a6b85 !important ;
@@ -21,7 +14,7 @@
 }
 :host ::ng-deep .mat-radio-checked .mat-radio-outer-circle{
     background-color: #1a6b85;
-    background-image: linear-gradient(to right, #2e303b, #2b335d);
+    background-image: linear-gradient(to right, #1a6b85, #4a8a9e);
 }
 :host ::ng-deep .mat-radio-checked .mat-radio-inner-circle{
     transform: rotate(45deg) scale(0.5);

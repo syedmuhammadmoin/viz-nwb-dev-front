@@ -3,49 +3,62 @@
       <kt-portlet-header [sticky]="false" [title]="'Requisition Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" mat-raised-button
-            class="btn_white mr-3">
-            Print Requisition
-          </button>
-          <button *ngIf="(requisitionMaster?.state === docStatus.Draft || requisitionMaster?.state === docStatus.Rejected)"
-            [disabled]="!(permission.isGranted(permissions.REQUISITION_EDIT))" id="requisition_edit"
-            [ngClass]="!(permission.isGranted(permissions.REQUISITION_EDIT)) ? 'disable' : '' "
-            [routerLink]="'/' +   REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-            type="button" mat-raised-button class="btn_white mr-3">
-            Edit
-          </button>
+          
           <h4 class="overall_statuses {{docStatus[requisitionMaster?.state]}}"> Status: {{requisitionMaster?.status}} </h4>
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
         <div class="col-md-12 col-lg-12 mx-auto  mb-5">
   
-          <div class="row mt-5">
-            <div class="col-md-12 col-lg-12">
-              <div class="table-responsive">
-                <table class="table" style="border-collapse: separate; border-spacing:6px 6px;">
-                  <tbody>
-                    <tr rowspan="1">
-                      <th style="border: 1px solid #8babdb; width: 15%;">Requisition #:</th>
-                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.docNo}}</td>
-                      <th style="border: 1px solid #8babdb; width: 15%;">Employee:</th>
-                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.businessPartner}}</td>
-                    </tr>
-                    <tr rowspan="1">
-                      <th style="border: 1px solid #8babdb;width: 15%;"> Requisition Date:</th>
-                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</td>
-                      <th style="border: 1px solid #8babdb;width: 15%;">Campus:</th>
-                      <td style="background: #595e791c; width: 20%;">{{requisitionMaster?.campus}}</td>
-                    </tr>
-                  </tbody>
-                </table>
+          <div class="row">
+
+            <div class="col-md-12 col-12 pb-3">
+              <ng-container ktPortletTools >
+                  <button *ngIf="(requisitionMaster?.state === docStatus.Draft || requisitionMaster?.state === docStatus.Rejected)"
+                    [disabled]="!(permission.isGranted(permissions.REQUISITION_EDIT))" id="requisition_edit"
+                    [ngClass]="!(permission.isGranted(permissions.REQUISITION_EDIT)) ? 'disable' : '' "
+                    [routerLink]="'/' +   REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
+                    type="button" class="mr-3 btn_public">
+                    <i class="fa fa-edit"></i> Edit
+                  </button>
+
+                  <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" 
+                    class="btn_public">
+                    <i class="fa fa-print"></i> Print Requisition
+                  </button>
+
+
+                  <mat-divider class="mt-5"></mat-divider>
+              </ng-container>
+            </div>
+
+            
+
+            <div class="col-md-4 col-lg-4  mt-3">
+
+              <div class="print-box">
+                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Requisition No: 
+                      <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box">
+                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Employee:
+                      <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.businessPartner}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Requisition Date:
+                <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+                <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.campus}}</span></h4>
               </div>
             </div>
           </div>
   
-          <div class="row">
+          <div class="row mt-10">
             <div class="col-md-12 col-12">
-              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;padding: 0px 6px;"
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
                 class="ag-theme-alpine" [rowData]="requisitionLines" [columnDefs]="columnDefs"
                 (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
               </ag-grid-angular>

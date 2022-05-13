@@ -19,22 +19,22 @@
     <div class="bg-white">
       <div class="print_header_area">
         <div class="print-col-6 bg__white__logo" style="padding: 0px;">
-          <img src="../../../../../assets/media/logos/final-white-logo-xs.png" style="height: 70px;" alt="">
+          <img src="../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
           <!-- <p class="slogen-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
           <h1 class="top-heading">CREDIT NOTE</h1>
         </div>
         <div class="print-col-5 ml-auto">
           <div class="print-box">
-            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;">Credit Note #: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.docNo}}</span></h4>
+            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Credit Note #: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.docNo}}</span></h4>
             <p style="margin-bottom: 0px;"></p>
           </div>
           <div class="print-box">
-            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #283655;margin-top: 10px;">Credit Note Date: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
+            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Credit Note Date: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
           </div>
           <div class="print-box" style="margin-top: 15%;">
-            <h4 style="font-size: 22px;font-weight: 600;color: #283655;">Customer Name: </h4>
-            <p style="font-size: 16px;font-weight: 600;color: #283655;margin-bottom: 2px;"> {{creditNoteMaster?.customerName}}</p>
-            <p style="font-size: 15px;font-weight: 400;color: #283655;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+            <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">Customer Name: </h4>
+            <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"> {{creditNoteMaster?.customerName}}</p>
+            <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
           </div>
         </div>
       </div>
@@ -45,14 +45,14 @@
           <div class="table-responsive">
             <table class="table text-center" style="background-color: #fff;">
               <thead class="thead-dark_color">
-                <tr style="background-color: #293756;">
-                  <th style="background-color: #293756; color: white;">S.No</th>
-                  <th style="background-color: #293756; color: white;">Item:</th>
-                  <th style="background-color: #293756; color: white;">Description:</th>
-                  <th style="background-color: #293756; color: white;">Quantity:</th>
-                  <th style="background-color: #293756; color: white;">Price</th>
-                  <th style="background-color: #293756; color: white;">Tax</th>
-                  <th style="background-color: #293756; color: white;">SubTotal</th>
+                <tr style="background-color: #1a6b85;">
+                  <th style="background-color: #1a6b85; color: white;">S.No</th>
+                  <th style="background-color: #1a6b85; color: white;">Item:</th>
+                  <th style="background-color: #1a6b85; color: white;">Description:</th>
+                  <th style="background-color: #1a6b85; color: white;">Quantity:</th>
+                  <th style="background-color: #1a6b85; color: white;">Price</th>
+                  <th style="background-color: #1a6b85; color: white;">Tax</th>
+                  <th style="background-color: #1a6b85; color: white;">SubTotal</th>
                   
                   
                 </tr>
@@ -83,18 +83,18 @@
 
         <div class="print-col-5 ml-auto" style="margin-top: 5%;">
           <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;">Total Before Tax: 
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;">Total Before Tax: 
               <span class="float-right" style="font-weight: 400;">{{totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
             </h4>
           </div>
           <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;">Total Tax 
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Tax 
               <span class="float-right" style="font-weight: 400;">{{totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
             </h4>
           </div>
           
           <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #283655;margin-top: 10px;border-top: 2px solid #283655;
+            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
             padding-top: 10px;">Grand Total: 
               <span class="float-right" style="font-weight: 400;">{{totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
             </h4>
@@ -122,7 +122,7 @@
           </div>
           <br>
           <br> -->
-          <p style="color: rgb(169 170 174);
+          <p style="color: #fff;
           font-size: 18px;
           font-weight: bold;">Terms and conditions:</p>
           <div class="print-box">
@@ -131,7 +131,7 @@
           </div>
         </div>
 
-        <div class="print-col-4 ml-auto text-center" style="padding:0px; margin-top: 8%;color: #283655;">
+        <div class="print-col-4 ml-auto text-center" style="padding:0px; margin-top: 8%;color: #1a6b85;">
           ______________________________
           <p>Authorised Sign</p>
         </div>
