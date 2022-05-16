@@ -42,7 +42,7 @@
                      propertyName="name"
                      formControlName="campusId" 
                      (blurEvent)="logValidationErrors(creditNoteForm, formErrors, validationMessages)"
-                     matFormFieldClass="full-width input_d_1"
+                     matFormFieldClass="full-width"
                      [errorMessage]="'Campus is Required'" 
                      [optionList]="ngxsService.campuses$">
                   </kt-simple-dropdown>
@@ -62,7 +62,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown propertyName="productName" propertyValue="id"
-                                matFormFieldClass="mobile-label full-width input_d_1"
+                                matFormFieldClass="mobile-label full-width"
                                 [id]="'credit_note_item_' + i"
                                 [optionList]="ngxsService.products$"
                                 clickEventButtonName="Add New Item"
@@ -81,7 +81,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="description" [id]="'credit_note_description_' + i"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Description"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Description"
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.description.errors?.required &&
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.description.touched , 
@@ -96,7 +96,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown [id]="'credit_note_account_' + i" placeholder="Select Account" propertyValue="id" propertyName="name"
-                                formControlName="accountId" matFormFieldClass="mobile-label full-width input_d_1"
+                                formControlName="accountId" matFormFieldClass="mobile-label full-width"
                                 errorMessage="Account is Required" [optionList]="ngxsService.accountsLevel4$">
                               </kt-simple-dropdown>
                             </div>
@@ -108,7 +108,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="quantity" [id]="'credit_note_quantity_' + i"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                                 #itemName type="number"
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.quantity.errors?.required &&
@@ -129,7 +129,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="price" [id]="'credit_note_price_' + i"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Price"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Price"
                                 #itemName type="number"
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.price.errors?.required &&
@@ -150,7 +150,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="tax"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Tax %"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Tax %"
                                 #itemName type="number"
                                 [hintText]="'Optional'" [id]="'credit_note_tax_' + i"
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
@@ -170,7 +170,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="subTotal" [id]="'credit_note_subtotal_' + i"
-                                matFormFieldClass="mobile-label full-width input_d_1">
+                                matFormFieldClass="mobile-label full-width">
                               </kt-input-field>
                             </div>
                           </mat-cell>
@@ -185,7 +185,7 @@
                               clickEventButtonName="Add New Location"
                               (clickEvent)="openLocationDialog()"  
                               [errorMessage]="'Location is Required'"
-                                groupPropertyName="name" matFormFieldClass="mobile-label full-width input_d_1"
+                                groupPropertyName="name" matFormFieldClass="mobile-label full-width"
                                 groupChildrenName="locations" propertyName="name" propertyValue="id">
                               </kt-group-dropdown> -->
                               <!-- <kt-simple-dropdown 
@@ -193,7 +193,7 @@
                               propertyValue="id" 
                               propertyName="name"
                               formControlName="locationId" 
-                              matFormFieldClass="full-width input_d_1"
+                              matFormFieldClass="full-width"
                               [errorMessage]="'Location is Required.'" 
                               [optionList]="ngxsService.locations$">
                             </kt-simple-dropdown>
@@ -212,7 +212,7 @@
                                 isDisabledNone="true"
                                 [hintText]="'Optional'"
                                 formControlName="warehouseId" 
-                                matFormFieldClass="full-width input_d_1" 
+                                matFormFieldClass="full-width" 
                                 [optionList]="ngxsService.warehouses$">
                               </kt-simple-dropdown>
                             </div>

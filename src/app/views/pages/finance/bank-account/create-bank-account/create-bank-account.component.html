@@ -80,7 +80,7 @@
                                propertyName="name"
                                formControlName="bankAccountType" 
                                (blurEvent)="logValidationErrors(bankAccountForm, formErrors, validationMessages)"
-                               matFormFieldClass="full-width input_d_1"
+                               matFormFieldClass="full-width"
                                [errorMessage]="'Account Type is Required'" 
                                [optionList]="accountTypeList">
                               </kt-simple-dropdown>
@@ -139,7 +139,7 @@
                             propertyName="name"
                             formControlName="campusId" 
                             (blurEvent)="logValidationErrors(bankAccountForm, formErrors, validationMessages)"
-                            matFormFieldClass="full-width input_d_1"
+                            matFormFieldClass="full-width"
                             [errorMessage]="'Campus is Required'" 
                             [optionList]="ngxsService.campuses$">
                             </kt-simple-dropdown>

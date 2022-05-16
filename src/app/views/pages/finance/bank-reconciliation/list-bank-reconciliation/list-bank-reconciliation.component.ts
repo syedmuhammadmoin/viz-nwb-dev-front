@@ -121,7 +121,6 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     this.accountService.getBankAccount(this.bankAccountId)
       .subscribe(
         (bankAccount: any) => {
-          console.log(bankAccount.result)
           this.clearingAccountId = bankAccount.result.clearingAccountId;
           this.loadReconciliationGridData();
           this.cdRef.detectChanges();
@@ -149,12 +148,10 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   }
 
   onPaymentGridReady(params) {
-    console.log(params)
     this.paymentGridApi = params.api;
   }
 
   onStatementGridReady(params) {
-    console.log(params)
     this.statementGridApi = params.api;
   }
 
@@ -166,7 +163,6 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     const isPaymentPositive = this.paymentGridApi.getSelectedRows().every((x) => Math.sign(x.unreconciledAmount) !== -1)
 
     if ((isStatementNegative && isPaymentNegative) || (isPaymentPositive && isStatementPositive)) {
-      console.log(`payment: ${isPaymentNegative}, statement: ${isStatementNegative}`)
       // this.toastService.success('Success!')
       this.prepareToReconcile();
     } else {

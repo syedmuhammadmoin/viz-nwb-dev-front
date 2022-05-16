@@ -70,7 +70,7 @@
                     propertyName="name"
                     formControlName="campusId" 
                     (blurEvent)="logValidationErrors(invoiceForm, formErrors, validationMessages)"
-                    matFormFieldClass="full-width input_d_1"
+                    matFormFieldClass="full-width"
                     [errorMessage]="'Campus is Required'" 
                     [optionList]="ngxsService.campuses$">
                   </kt-simple-dropdown>
@@ -97,7 +97,7 @@
                               formControlName="itemId"
                               isDisabledNone="true"
                               hintText="Optional"
-                              placeholder="Select Item" matFormFieldClass="mobile-label full-width input_d_1"
+                              placeholder="Select Item" matFormFieldClass="mobile-label full-width"
                               (selectionChange)="onItemSelected($event.value, i)">
                               </kt-simple-dropdown>
                             </div>
@@ -109,7 +109,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="description" [id]="'invoice_description_' + i"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Description"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Description"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : invoiceForm.get('invoiceLines')['controls'][i].controls.description.errors?.required &&
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.description.touched , 
@@ -125,7 +125,7 @@
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown placeholder="Select Account" propertyValue="id"
                                  propertyName="name" [id]="'invoice_coa_' + i"
-                                formControlName="accountId" matFormFieldClass="mobile-label full-width input_d_1"
+                                formControlName="accountId" matFormFieldClass="mobile-label full-width"
                                 [errorMessage]="'Account is Required'" [optionList]="ngxsService.accountsLevel4$">
                               </kt-simple-dropdown>
                             </div>
@@ -137,7 +137,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="quantity"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                                 #itemName type="number" [id]="'invoice_quantity_' + i"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.errors?.required &&
@@ -150,7 +150,7 @@
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
                               <!-- <kt-input-field formControlName="quantity"
-                              matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Quantity"
+                              matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                               #itemName type="number" [hintText]="'Optional'"
                               (change)="onChangeEvent($event , i , itemName)"
                               (keyup)="onChangeEvent($event , i , itemName)">
@@ -164,7 +164,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="price"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Price"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Price"
                                 #itemName type="number" [id]="'invoice_price_' + i"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : invoiceForm.get('invoiceLines')['controls'][i].controls.price.errors?.required &&
@@ -185,7 +185,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="tax"
-                                matFormFieldClass="mobile-label full-width input_d_1" placeholder="Enter Tax %"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Tax %"
                                 #itemName type="number" [id]="'invoice_tax_' + i"
                                 [hintText]="'Optional'"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
@@ -205,7 +205,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field formControlName="subTotal" [id]="'invoice_subtotal_' + i"
-                                matFormFieldClass="mobile-label full-width input_d_1">
+                                matFormFieldClass="mobile-label full-width">
                               </kt-input-field>
                             </div>
                           </mat-cell>
@@ -216,7 +216,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2"> -->
                               <!-- <kt-group-dropdown formControlName="locationId" placeholder="Select Location"
-                                matFormFieldClass="mobile-label full-width input_d_1"
+                                matFormFieldClass="mobile-label full-width"
                                 [optionList]="ngxsService.warehouses$"
                                 clickEventButtonName="Add New Location"
                                 (clickEvent)="openLocationDialog()" 
@@ -228,7 +228,7 @@
                               propertyValue="id" 
                               propertyName="name"
                               formControlName="locationId" 
-                              matFormFieldClass="full-width input_d_1"
+                              matFormFieldClass="full-width"
                               [errorMessage]="'Location is Required.'" 
                               [optionList]="ngxsService.locations$">
                             </kt-simple-dropdown>
@@ -247,7 +247,7 @@
                                 isDisabledNone="true"
                                 [hintText]="'Optional'"
                                 formControlName="warehouseId" 
-                                matFormFieldClass="full-width input_d_1" 
+                                matFormFieldClass="full-width" 
                                 [optionList]="ngxsService.warehouses$">
                               </kt-simple-dropdown>
                             </div>

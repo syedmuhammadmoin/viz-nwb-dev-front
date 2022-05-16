@@ -27,7 +27,7 @@
                    propertyName="name"
                    formControlName="campusId" 
                    (blurEvent)="logValidationErrors(journalEntryForm, formErrors, validationMessages)"
-                   matFormFieldClass="full-width input_d_1"
+                   matFormFieldClass="full-width"
                    [errorMessage]="'Campus is Required'" 
                    [optionList]="ngxsService.campuses$">
                    </kt-simple-dropdown>
@@ -56,7 +56,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
-                              formControlName="accountId" matFormFieldClass="full-width input_d_1" [id]="'journal_coa_' + i"
+                              formControlName="accountId" matFormFieldClass="full-width" [id]="'journal_coa_' + i"
                               [errorMessage]="'Account is Required'" [optionList]="ngxsService.accountsLevel4$">
                             </kt-simple-dropdown>
                           </div>
@@ -68,7 +68,7 @@
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown placeholder="Select Partner" propertyValue="id" propertyName="name"
-                              formControlName="businessPartnerId" matFormFieldClass="full-width input_d_1"
+                              formControlName="businessPartnerId" matFormFieldClass="full-width"
                               errorMessage="Partner is required" [id]="'journal_partner_' + i"
                               [optionList]="ngxsService.businessPartners$"
                               clickEventButtonName="Add New Business Partner"
@@ -83,7 +83,7 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-input-field formControlName="description" matFormFieldClass="full-width input_d_1"
+                            <kt-input-field formControlName="description" matFormFieldClass="full-width"
                               placeholder="Enter Description" [id]="'journal_description_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.description.errors?.required &&
@@ -98,7 +98,7 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Debit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-input-field formControlName="debit" matFormFieldClass="full-width input_d_1"
+                            <kt-input-field formControlName="debit" matFormFieldClass="full-width"
                               placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_debit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
@@ -113,7 +113,7 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Credit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-input-field formControlName="credit" matFormFieldClass="full-width input_d_1"
+                            <kt-input-field formControlName="credit" matFormFieldClass="full-width"
                               placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_credit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
@@ -134,14 +134,14 @@
                               (clickEvent)="openLocationDialog()" 
                               [errorMessage]="'Location is Required'"
                               groupPropertyName="name" groupChildrenName="locations" propertyName="name"
-                              matFormFieldClass="full-width input_d_1" propertyValue="id">
+                              matFormFieldClass="full-width" propertyValue="id">
                             </kt-group-dropdown> -->
                             <!-- <kt-simple-dropdown 
                               placeholder="Select Location" 
                               propertyValue="id" 
                               propertyName="name"
                               formControlName="locationId" 
-                              matFormFieldClass="full-width input_d_1"
+                              matFormFieldClass="full-width"
                               [errorMessage]="'Location is Required.'" 
                               [optionList]="ngxsService.locations$">
                             </kt-simple-dropdown>
@@ -161,7 +161,7 @@
                               isDisabledNone="true"
                               [hintText]="'Optional'"
                               formControlName="warehouseId" 
-                              matFormFieldClass="full-width input_d_1"
+                              matFormFieldClass="full-width"
                               [optionList]="ngxsService.warehouses$">
                             </kt-simple-dropdown>
                           </div>
