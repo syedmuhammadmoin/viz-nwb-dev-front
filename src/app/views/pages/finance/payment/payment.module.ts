@@ -11,15 +11,6 @@ import { DetailPaymentComponent } from './detail-payment/detail-payment.componen
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CommonModule } from '@angular/common';
 import { PaymentRoutingModule } from './payment-routing.module';
-import { CashAccountService } from '../cash-account/service/cashAccount.service';
-import { BankAccountService } from '../bank-account/service/bankAccount.service';
-import { BusinessPartnerService } from '../../profiling/business-partner/service/businessPartner.service';
-import { CategoryService } from '../../profiling/category/service/category.service';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { DepartmentService } from '../../profiling/department/service/department.service';
-import { LocationService } from '../../profiling/location/service/location.service';
-import { WarehouseService } from '../../profiling/warehouse/services/warehouse.service';
-import { ProductService } from '../../profiling/product/service/product.service';
 
 
 @NgModule({
@@ -37,15 +28,5 @@ import { ProductService } from '../../profiling/product/service/product.service'
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
   entryComponents: [CreatePaymentComponent, CreateBusinessPartnerComponent],
-  providers: [  
-    AddModalButtonService,
-    CashAccountService, 
-    BankAccountService,
-    DepartmentService,
-    LocationService,
-    WarehouseService,
-    ProductService,   
-    CategoryService
-  ],
 })
 export class PaymentModule { }

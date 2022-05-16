@@ -1,7 +1,7 @@
-import { BUSINESS_PARTNER, CATEGORY, DEPARTMENT, LOCATION, ORGANIZATION, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
-         PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, SALES_ORDER, INVOICE, CREDIT_NOTE,
-         PURCHASE_ORDER, BILL, DEBIT_NOTE, STOCK, INVENTORY_ADJUSTMENT, GOODS_RECEIVED_NOTE, DISPATCH_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM } from 'src/app/views/shared/AppRoutes';
+import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
+         PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
+         PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -557,9 +557,33 @@ export class MenuConfig {
             Permissions.PAYROLL_ITEM_VIEW,
             Permissions.PAYROLL_ITEM_CREATE,
             Permissions.PAYROLL_ITEM_EDIT,
-            Permissions.PAYROLL_ITEM_DELETE 
+            Permissions.PAYROLL_ITEM_DELETE,
+            Permissions.DESIGNATIONS_VIEW,
+            Permissions.DEPARTMENTS_VIEW,
+            Permissions.EMPLOYEE_VIEW 
           ],
           submenu: [
+            {
+              title: 'Designation',
+              page: '/' + DESIGNATION.LIST,
+              permission: [
+                Permissions.DESIGNATIONS_VIEW
+              ]
+            },
+            {
+              title: 'Department',
+              page: '/' + DEPARTMENT.LIST,
+              permission: [
+                Permissions.DEPARTMENTS_VIEW
+              ]
+            },
+            {
+              title: 'Employee',
+              page: '/' + EMPLOYEE.LIST,
+              permission: [
+                Permissions.EMPLOYEE_VIEW 
+              ]
+            },
             {
               title: 'Payroll Item',
               page: '/' + PAYROLL_ITEM.LIST,
@@ -569,7 +593,7 @@ export class MenuConfig {
                 Permissions.PAYROLL_ITEM_EDIT,
                 Permissions.PAYROLL_ITEM_DELETE 
               ]
-            }
+            },
           ]
         },
         // { section: 'sales' },

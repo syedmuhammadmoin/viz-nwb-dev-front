@@ -241,11 +241,11 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     // this.warehouse.departmentId = this.warehouseForm.value.department;
   }
   // add new department 
-  openDepartmentDialog() {
-    if (this.permission.isGranted(this.permissions.DEPARTMENTS_CREATE)) {
-      this.addButtonService.openDepartmentDialog();
-    }
-  }
+  // openDepartmentDialog() {
+  //   if (this.permission.isGranted(this.permissions.DEPARTMENTS_CREATE)) {
+  //     this.addButtonService.openDepartmentDialog();
+  //   }
+  // }
   // Dialogue close function
   onCloseDialog() {
     this.dialogRef.close();

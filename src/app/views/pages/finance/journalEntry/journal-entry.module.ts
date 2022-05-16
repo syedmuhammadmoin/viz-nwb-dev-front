@@ -16,7 +16,6 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { JournalEntryRoutingModule } from './journal-entry-routing.module';
 import { BusinessPartnerService } from '../../profiling/business-partner/service/businessPartner.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { DepartmentService } from '../../profiling/department/service/department.service';
 import { WarehouseService } from '../../profiling/warehouse/services/warehouse.service';
 import { ProductService } from '../../profiling/product/service/product.service';
 
@@ -40,7 +39,6 @@ import { ProductService } from '../../profiling/product/service/product.service'
     LocationService,
     JournalEntryService,
     AddModalButtonService,
-    DepartmentService,
     WarehouseService,
     ProductService,
     BusinessPartnerService

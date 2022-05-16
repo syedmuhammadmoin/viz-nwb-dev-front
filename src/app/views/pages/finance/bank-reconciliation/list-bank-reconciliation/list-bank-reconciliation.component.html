@@ -57,14 +57,14 @@
                   <div class="form-group kt-form__group">
                     <!-- <label class="col-form-label pt-0">Bank:</label> -->
                     <kt-simple-dropdown searchPlaceholder="Search Bank..." placeholder="Select Bank"
-                      formControlName="bankName"
+                      formControlName="bankName" id="reconciliation_bankName"
                       (blurEvent)="logValidationErrors(this.reconForm, this.formErrors, this.validationMessages)"
                       propertyValue="id" propertyName="bankName" matFormFieldClass="full-width" [errorMessage]="formErrors.bankName"
                       [optionList]="ngxsService.bankAccounts$"></kt-simple-dropdown>
                   </div>
                 </div>
                 <div class="col-lg-4">
-                  <button [disabled]="!(permission.isGranted(permissions.BANK_RECON_CREATE))" mat-raised-button class="sub___btn"
+                  <button [disabled]="!(permission.isGranted(permissions.BANK_RECON_CREATE))" id="reconciliation_fetch" mat-raised-button class="sub___btn"
                     type="submit">Fetch data
                   </button>
                 </div>

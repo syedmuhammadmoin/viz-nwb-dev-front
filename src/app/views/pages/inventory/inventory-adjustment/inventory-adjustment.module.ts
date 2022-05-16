@@ -10,7 +10,7 @@ import { InventoryAdjustmentRoutingModule } from './inventory-adjustment-routing
 import { InventoryAdjustmentService } from './service/inventory-adjustment.service';
 import { BusinessPartnerService } from '../../profiling/business-partner/service/businessPartner.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { DepartmentService } from '../../profiling/department/service/department.service';
+// import { DepartmentService } from '../../profiling/department/service/department.service';
 import { LocationService } from '../../profiling/location/service/location.service';
 import { CategoryService } from '../../profiling/category/service/category.service';
 import { ProductService } from '../../profiling/product/service/product.service';
@@ -33,7 +33,6 @@ import { ProductService } from '../../profiling/product/service/product.service'
     AddModalButtonService,
     ProductService,
     BusinessPartnerService,
-    DepartmentService,
     LocationService,
     CategoryService
   ]

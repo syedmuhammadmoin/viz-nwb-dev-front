@@ -34,7 +34,6 @@ export const APP_ROUTES = {
   CAMPUS : 'campus',
   BUSINESS_PARTNER : 'business-partner',
   CATEGORY: 'category',
-  DEPARTMENT: 'department',
   LOCATION: 'location',
   ORGANIZATION: 'organization',
   PRODUCT: 'product',
@@ -49,6 +48,9 @@ export const APP_ROUTES = {
 
   //PAYROLL
   PAYROLL_ITEM: 'payroll-item',
+  EMPLOYEE: 'employee',
+  DEPARTMENT: 'department',
+  DESIGNATION: 'designation',
 
   //REPORT
   REPORT: 'report',
@@ -232,10 +234,6 @@ export const CRUD_ROUTES = {
     LIST: APP_ROUTES.CATEGORY + '/' + CRUD_ROUTES.LIST,
   }
 
-  export const DEPARTMENT = {
-    LIST: APP_ROUTES.DEPARTMENT + '/' + CRUD_ROUTES.LIST
-  }
-
   export const LOCATION = {
     LIST: APP_ROUTES.LOCATION + '/' + CRUD_ROUTES.LIST
   }
@@ -259,6 +257,18 @@ export const CRUD_ROUTES = {
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.PAYROLL_ITEM + '/' + route + '/' + id
     }
+  }
+
+  export const EMPLOYEE = {
+    LIST: APP_ROUTES.EMPLOYEE + '/' + CRUD_ROUTES.LIST,
+  }
+
+  export const DEPARTMENT = {
+    LIST: APP_ROUTES.DEPARTMENT + '/' + CRUD_ROUTES.LIST,
+  }
+
+  export const DESIGNATION = {
+    LIST: APP_ROUTES.DESIGNATION + '/' + CRUD_ROUTES.LIST,
   }
 
   //PURCHASE SECTION

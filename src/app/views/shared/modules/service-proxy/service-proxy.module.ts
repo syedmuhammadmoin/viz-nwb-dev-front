@@ -12,8 +12,6 @@ import {ProductResolverService} from '../../resolver/product/product-resolver.se
 import {ProductService} from '../../../pages/profiling/product/service/product.service';
 import {BankAccountService} from '../../../pages/finance/bank-account/service/bankAccount.service';
 import {BankAccountResolverService} from '../../resolver/bankAccount/bank-account-resolver.service';
-import {DepartmentService} from '../../../pages/profiling/department/service/department.service';
-import {DepartmentResolverService} from '../../resolver/department/department-resolver.service';
 import {SweetAlertService} from '../../services/sweet-alert/sweet-alert.service';
 import {DecodeTokenService} from '../../decode-token.service';
 import {CashAccountService} from '../../../pages/finance/cash-account/service/cashAccount.service';
@@ -34,8 +32,6 @@ import {BusinessPartnerService} from '../../../pages/profiling/business-partner/
     ProductService,
     BankAccountService,
     BankAccountResolverService,
-    DepartmentService,
-    DepartmentResolverService,
     SweetAlertService,
     DecodeTokenService,
     CashAccountService,

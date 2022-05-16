@@ -3,7 +3,6 @@ import { CityState } from './core/shared-state/account-state/store/city.state';
 import { StateState } from './core/shared-state/account-state/store/state.state';
 import { CountryState } from './core/shared-state/account-state/store/country.state';
 import { WarehouseState } from './views/pages/profiling/warehouse/store/warehouse.state';
-import { DepartmentState } from './views/pages/profiling/department/store/department.state';
 import { LocationState } from './views/pages/profiling/location/store/location.state';
 import { OrganizationState } from './views/pages/profiling/organization/store/organization.state';
 import { CategoryState } from './views/pages/profiling/category/store/category.state';
@@ -87,7 +86,6 @@ import { LocationResolverService } from './views/shared/resolver/location/locati
 import { ProductResolverService } from './views/shared/resolver/product/product-resolver.service';
 import { SharedModule } from './views/shared/modules/shared.module';
 import { BankAccountResolverService } from './views/shared/resolver/bankAccount/bank-account-resolver.service';
-import { DepartmentResolverService } from './views/shared/resolver/department/department-resolver.service';
 import { BusinessPartnerState } from './views/pages/profiling/business-partner/store/business-partner.state';
 import { ProductState } from './views/pages/profiling/product/store/product.state.state';
 import { BankAccountState } from './views/pages/finance/bank-account/store/bank-account.state';
@@ -96,6 +94,9 @@ import { BudgetState } from './views/pages/budget/current-budget/store/budget.st
 import { StatusState } from './views/pages/workflows/status/store/status.state';
 import { BudgetAccountState } from './core/shared-state/account-state/store/budget-account.state';
 import { ActionButtonComponent } from './views/shared/components/action-button/action-button.component';
+import { DesignationState } from './views/pages/payroll/designation/store/designation.store';
+import { EmployeeState } from './views/pages/payroll/employee/store/employee.state';
+import { DepartmentState } from './views/pages/payroll/department/store/department.store';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -148,6 +149,8 @@ export function getHighlightLanguages() {
       CategoryState,
       OrganizationState,
       DepartmentState,
+      DesignationState,
+      EmployeeState,
       LocationState,
       ProductState,
       WarehouseState,
@@ -187,12 +190,12 @@ export function getHighlightLanguages() {
     KtDialogService,
     DataTableService,
     SplashScreenService,
-    BusinessPartnerResolverService,
-    LocationResolverService,
-    AccountResolverService,
-    ProductResolverService,
-    BankAccountResolverService,
-    DepartmentResolverService,
+    // BusinessPartnerResolverService,
+    // LocationResolverService,
+    // AccountResolverService,
+    // ProductResolverService,
+    // BankAccountResolverService,
+    // DepartmentResolverService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

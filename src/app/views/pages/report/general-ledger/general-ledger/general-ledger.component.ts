@@ -9,10 +9,6 @@ import { GridOptions, ValueFormatterParams} from 'ag-grid-community';
 import { IGeneralLedger} from '../model/IGeneralLedger';
 import { finalize} from 'rxjs/operators';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
-import { DepartmentService} from 'src/app/views/pages/profiling/department/service/department.service';
-import { LocationService} from 'src/app/views/pages/profiling/location/service/location.service';
-import { WarehouseService} from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { isEmpty} from 'lodash';
 import { AppConst } from 'src/app/views/shared/AppConst';
 

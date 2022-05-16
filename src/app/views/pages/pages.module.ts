@@ -1,4 +1,3 @@
-import { CreateDepartmentComponent } from 'src/app/views/pages/profiling/department/create-department/create-department.component';
 import { CreateWarehouseComponent } from 'src/app/views/pages/profiling/warehouse/create-warehouse/create-warehouse.component';
 import { CreateOrganizationComponent } from 'src/app/views/pages/profiling/organization/create-organization/create-organization.component';
 import { CreateCategoryComponent } from 'src/app/views/pages/profiling/category/create-category/create-category.component';
@@ -37,7 +36,6 @@ import { CreateProductComponent } from './profiling/product/create-product/creat
       CreateCategoryComponent,
       CreateOrganizationComponent,
       CreateWarehouseComponent,
-      CreateDepartmentComponent,
       CreateBusinessPartnerComponent,
        CreateLocationComponent, 
        CreateProductComponent

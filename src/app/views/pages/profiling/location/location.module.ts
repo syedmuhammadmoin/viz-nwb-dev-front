@@ -9,11 +9,6 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { LocationRoutingModule } from './location-routing.module';
-import { ProductService } from '../product/service/product.service';
-import { CategoryService } from '../category/service/category.service';
-import { BusinessPartnerService } from '../business-partner/service/businessPartner.service';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { DepartmentService } from '../department/service/department.service';
 
 @NgModule({
   declarations: [

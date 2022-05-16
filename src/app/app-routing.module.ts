@@ -82,15 +82,6 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
-      // Lazy Load DEPARTMENT Module
-      {
-        path: APP_ROUTES.DEPARTMENT,
-        loadChildren: () =>
-          import('./views/pages/profiling/department/department.module').then(
-            (m) => m.DepartmentModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
        // Lazy Load LOCATION Module
        {
         path: APP_ROUTES.LOCATION,
@@ -292,15 +283,43 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
 
+      //Payroll Section
       //Payroll Item
-       // Lazy Load Payroll Item Module
-       {
+      // Lazy Load Payroll Item Module
+      {
         path: APP_ROUTES.PAYROLL_ITEM,
         loadChildren: () =>
           import('./views/pages/payroll/payroll-item/payroll-item.module').then(
             (m) => m.PayrollItemModule
           ),
-         // canActivateChild: [AuthGuard]
+         canActivateChild: [AuthGuard]
+      },
+      // Lazy Load Department Module
+      {
+        path: APP_ROUTES.DEPARTMENT,
+        loadChildren: () =>
+          import('./views/pages/payroll/department/department.module').then(
+            (m) => m.DepartmentModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load Designation Module
+      {
+        path: APP_ROUTES.DESIGNATION,
+        loadChildren: () =>
+          import('./views/pages/payroll/designation/designation.module').then(
+            (m) => m.DesignationModule
+          ),
+         canActivateChild: [AuthGuard]
+      },
+      // Lazy Load Employee Module
+      {
+        path: APP_ROUTES.EMPLOYEE,
+        loadChildren: () =>
+          import('./views/pages/payroll/employee/employee.module').then(
+            (m) => m.EmployeeModule
+          ),
+         canActivateChild: [AuthGuard]
       },
 
       //Inventory Section

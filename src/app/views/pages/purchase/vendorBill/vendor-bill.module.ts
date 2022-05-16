@@ -10,13 +10,6 @@ import { ServiceProxyModule } from "../../../shared/modules/service-proxy/servic
 import { AgingReportComponent } from './aging-report/aging-report.component';
 import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/register-payment.component';
 import { VendorBillRoutingModule } from './vendor-bill-routing.module';
-import { ProductService } from '../../profiling/product/service/product.service';
-import { LocationService } from '../../profiling/location/service/location.service';
-import { BusinessPartnerService } from '../../profiling/business-partner/service/businessPartner.service';
-import { CategoryService } from '../../profiling/category/service/category.service';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { DepartmentService } from '../../profiling/department/service/department.service';
-import { WarehouseService } from '../../profiling/warehouse/services/warehouse.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
