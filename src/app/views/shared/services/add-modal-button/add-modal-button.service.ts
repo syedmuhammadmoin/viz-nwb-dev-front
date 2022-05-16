@@ -5,8 +5,6 @@ import { CreateBusinessPartnerComponent } from 'src/app/views/pages/profiling/bu
 import { BusinessPartnerService } from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 import { CreateCategoryComponent } from 'src/app/views/pages/profiling/category/create-category/create-category.component';
 import { CategoryService } from 'src/app/views/pages/profiling/category/service/category.service';
-import { CreateDepartmentComponent } from 'src/app/views/pages/profiling/department/create-department/create-department.component';
-import { DepartmentService } from 'src/app/views/pages/profiling/department/service/department.service';
 import { CreateLocationComponent } from 'src/app/views/pages/profiling/location/create-location/create-location.component';
 import { LocationService } from 'src/app/views/pages/profiling/location/service/location.service';
 import { CreateOrganizationComponent } from 'src/app/views/pages/profiling/organization/create-organization/create-organization.component';
@@ -39,7 +37,6 @@ export class AddModalButtonService {
   constructor(
    private orgnizationService :OrganizationService,
    private partnerService  :BusinessPartnerService,
-   private departmentService : DepartmentService,
    private warehouseService :WarehouseService,
    private locationService :LocationService,
    private categoryService :CategoryService,
@@ -47,22 +44,6 @@ export class AddModalButtonService {
    private injector: Injector
     )
     {  this.dialog = injector.get(MatDialog);}
-
-   // create department
-   openDepartmentDialog() {
-    const dialogRef = this.dialog.open(CreateDepartmentComponent, {
-      width: '740px',
-    });   
-    dialogRef.afterClosed().subscribe(() => {
-      this.getDepartmentTypes();
-    })
-  }
-  getDepartmentTypes() {
-    this.departmentService.getDepartments().subscribe((res) => {
-      //console.log(res);
-      this.departmentList.next(res.result);
-    })
-  }
 
    // create Orgnization Form
    openOrgnizationDialog() {

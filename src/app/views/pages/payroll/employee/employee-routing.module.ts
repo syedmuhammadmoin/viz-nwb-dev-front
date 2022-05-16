@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
-import { RouterModule, Routes } from '@angular/router';
-import { ListDepartmentComponent } from './list-department/list-department.component';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
+import { ListEmployeeComponent } from './list-employee/list-employee.component';
 
 const route : Routes = [
   {
@@ -11,17 +11,14 @@ const route : Routes = [
     children: [
       {
         path: CRUD_ROUTES.LIST,
-        component: ListDepartmentComponent,
+        component: ListEmployeeComponent,
         data: {
           array: [
-            { permission: Permissions.DEPARTMENTS_VIEW },
-            { permission: Permissions.DEPARTMENTS_CREATE },
-            { permission: Permissions.DEPARTMENTS_DELETE },
-            { permission: Permissions.DEPARTMENTS_EDIT },
+            { permission: Permissions.EMPLOYEE_VIEW }
           ]
         },
         canActivate: [PermissionGuard]
-      },
+      }
     ]
   }
 ]
@@ -31,4 +28,4 @@ const route : Routes = [
   exports: [RouterModule]
 })
 
-export class DepartmentRoutingModule { }
+export class EmployeeRoutingModule { }

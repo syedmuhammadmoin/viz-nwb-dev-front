@@ -1,17 +1,20 @@
-import { Inject, Injectable, } from '@angular/core';
+import { Injectable, } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { AccountLevel4State } from 'src/app/core/shared-state/account-state/store/account-level4.state';
 import { BudgetAccountState } from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
-import { CityState } from 'src/app/core/shared-state/account-state/store/city.state';
-import { CountryState } from 'src/app/core/shared-state/account-state/store/country.state';
-import { StateState } from 'src/app/core/shared-state/account-state/store/state.state';
 import { BudgetService } from 'src/app/views/pages/budget/current-budget/service/budget.service';
 import { BudgetState } from 'src/app/views/pages/budget/current-budget/store/budget.state';
 import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
 import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
 import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
+import { DepartmentService } from 'src/app/views/pages/payroll/department/service/department.service';
+import { DepartmentState } from 'src/app/views/pages/payroll/department/store/department.store';
+import { DesignationService } from 'src/app/views/pages/payroll/designation/service/designation.service';
+import { DesignationState } from 'src/app/views/pages/payroll/designation/store/designation.store';
+import { EmployeeService } from 'src/app/views/pages/payroll/employee/service/employee.service';
+import { EmployeeState } from 'src/app/views/pages/payroll/employee/store/employee.state';
 import { BusinessPartnerService } from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 
 import { BusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/business-partner.state';
@@ -19,12 +22,8 @@ import { CampusService } from 'src/app/views/pages/profiling/campus/service/camp
 import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
 import { CategoryService } from 'src/app/views/pages/profiling/category/service/category.service';
 import { CategoryState } from 'src/app/views/pages/profiling/category/store/category.state';
-import { DepartmentService } from 'src/app/views/pages/profiling/department/service/department.service';
-import { DepartmentState } from 'src/app/views/pages/profiling/department/store/department.state';
 import { LocationService } from 'src/app/views/pages/profiling/location/service/location.service';
-import { LocationState } from 'src/app/views/pages/profiling/location/store/location.state';
 import { OrganizationService } from 'src/app/views/pages/profiling/organization/services/organization.service';
-import { OrganizationState } from 'src/app/views/pages/profiling/organization/store/organization.state';
 import { ProductService } from 'src/app/views/pages/profiling/product/service/product.service';
 import { ProductState } from 'src/app/views/pages/profiling/product/store/product.state.state';
 import { GetList } from 'src/app/views/pages/profiling/store/profiling.action';
@@ -47,6 +46,8 @@ export class NgxsCustomService {
     public categoryService: CategoryService,
     public chartOfAccountService: ChartOfAccountService,
     public departmentService: DepartmentService,
+    public designationService: DesignationService,
+    public employeeService: EmployeeService,
     public locationService: LocationService,
     public organizationService: OrganizationService,
     public productService: ProductService,
@@ -139,6 +140,24 @@ export class NgxsCustomService {
    @Select(BankAccountState.entities) bankAccounts$: Observable<any>;
    @Select(BankAccountState.isFetchCompleted) bankAccountFetchCompleted$: Observable<any>;
    @Select(BankAccountState.isLoading) bankAccountIsLoading$: Observable<any>;
+
+
+   //Department
+   @Select(DepartmentState.entities) departments$: Observable<any>;
+   @Select(DepartmentState.isFetchCompleted) departmentFetchCompleted$: Observable<any>;
+   @Select(DepartmentState.isLoading) departmentIsLoading$: Observable<any>;
+
+
+  //Designation
+   @Select(DesignationState.entities) designations$: Observable<any>;
+   @Select(DesignationState.isFetchCompleted) designationFetchCompleted$: Observable<any>;
+   @Select(DesignationState.isLoading) designationIsLoading$: Observable<any>;
+
+
+  //Employee
+   @Select(EmployeeState.entities) employees$: Observable<any>;
+   @Select(EmployeeState.isFetchCompleted) employeeFetchCompleted$: Observable<any>;
+   @Select(EmployeeState.isLoading) employeeIsLoading$: Observable<any>;
 
 
   //region State Management
@@ -282,19 +301,6 @@ export class NgxsCustomService {
       }
     })
   }
-  // // Get Department From Store if available else fetch from the server and cache.
-  // getDepatmentFromState() {
-  //   this.departmentFetchCompleted$.subscribe((res) => {
-  //     console.log('Department State fetch completed: ', res);
-  //     if (!res) {
-  //       this.store.dispatch(new GetList(DepartmentState, {
-  //         serviceClass: this.departmentService,
-  //         methodName: 'getDepartmentsDropdown',
-  //         context: this
-  //       }))
-  //     }
-  //   })
-  // }
 
   
   // // Get Location From Store if available else fetch from the server and cache.
@@ -323,6 +329,67 @@ export class NgxsCustomService {
   //     }
   //   })
   // }
+
+  //Get Department From Store if available else fetch from the server and cache.
+  getDepatmentFromState() {
+    this.departmentFetchCompleted$.subscribe((res) => {
+      console.log('Department State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DepartmentState, {
+          serviceClass: this.departmentService,
+          methodName: 'getDepartmentsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get Designation From Store if available else fetch from the server and cache.
+  getDesignationFromState() {
+    this.designationFetchCompleted$.subscribe((res) => {
+      console.log('Designation State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DepartmentState, {
+          serviceClass: this.designationService,
+          methodName: 'getDesignationsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  //Get Employee From Store if available else fetch from the server and cache.
+  getEmployeeFromState() {
+    this.employeeFetchCompleted$.subscribe((res) => {
+      console.log('Employee State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(EmployeeState, {
+          serviceClass: this.employeeService,
+          methodName: 'getEmployeesDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   // Get Product From Store if available else fetch from the server and cache.
   getProductFromState() {
     this.productFetchCompleted$.subscribe((res) => {
