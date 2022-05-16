@@ -39,9 +39,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     }
   
     columnDefs = [
-      { headerName: 'Invoice #', field: 'docNo', sortable: true, filter: true, tooltipField: 'docNo', cellRenderer: "loadingCellRenderer" },
-      { headerName: 'Customer', field: 'customerName', sortable: true, filter: true, tooltipField: 'docNo', },
-     
+      { headerName: 'Name', field: 'name', sortable: true, filter: true , cellRenderer: "loadingCellRenderer" },
     ];
   
     ngOnInit() {

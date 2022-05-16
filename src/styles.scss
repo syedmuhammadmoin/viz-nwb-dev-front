@@ -187,7 +187,9 @@ kt-portlet-header
 .ag-header-cell-text
 {
   color: $text-color !important;
-  font-family: sans-serif !important;
+  // font-family: sans-serif !important;
+
+  font-family: 'Trebuchet MS', sans-serif !important;
 }
 .ag-theme-alpine .ag-header-cell-resize::after
 {

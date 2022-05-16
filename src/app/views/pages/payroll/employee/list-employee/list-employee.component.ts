@@ -38,41 +38,21 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { headerName: 'Invoice #', field: 'docNo', sortable: true, filter: true, tooltipField: 'docNo', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Customer', field: 'customerName', sortable: true, filter: true, tooltipField: 'docNo', },
+    { headerName: 'Name', field: 'name', sortable: true, filter: true, cellRenderer: "loadingCellRenderer" },
+    { headerName: 'Cnic', field: 'cnic', sortable: true, filter: true },
+    { headerName: 'Designation', field: 'designationName', sortable: true, filter: true },
+    { headerName: 'Department', field: 'departmentName', sortable: true, filter: true },
+    { headerName: 'Faculty', field: 'faculty', sortable: true, filter: true },
+    { headerName: 'Shift', field: 'dutyShift', sortable: true, filter: true },
     {
-      headerName: 'Invoice Date',
-      field: 'invoiceDate',
+      headerName: 'Active',
+      field: 'status',
       sortable: true,
       filter: true,
-      tooltipField: 'docNo',
       valueFormatter: (params: ValueFormatterParams) => { 
-        return this.transformDate(params.value, 'MMM d, y') || null;
+        return (params.value === 'active') ? "Yes" : "No"
       }
-    },
-    {
-      headerName: 'Due Data',
-      field: 'dueDate',
-      sortable: true,
-      filter: true,
-      tooltipField: 'docNo',
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.transformDate(params.value, 'MMM d, y') || null;
-      }
-    },
-    {
-      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'docNo',
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value) || null;
-      }
-    },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'docNo',
-    },
+    }
   ];
 
   ngOnInit() {

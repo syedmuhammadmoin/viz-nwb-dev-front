@@ -15,12 +15,10 @@ export class PaginationHelperService {
 
   setPageNumber(pageName: string, pageNumber: number) {
     this.pageNumber.set(pageName, pageNumber);
-    console.log(this.pageNumber);
     localStorage.setItem(this.storeName, JSON.stringify(Array.from(this.pageNumber.entries())));
   }
 
   goToPage(gridApi: GridApi, pageName: string) {
-    console.log('goToPage', this.getPageNumber(pageName));
     const pageToNavigate = this.getPageNumber(pageName);
     if (gridApi) {
       gridApi.paginationGoToPage(pageToNavigate - 1);
@@ -29,9 +27,7 @@ export class PaginationHelperService {
 
   onPaginationChanged(pageName: string, gridApi: GridApi,  params) {
     if (params.newPage) {
-      console.log("entered")
       this.setPageNumber(pageName, params.api.paginationGetCurrentPage() + 1);
-      console.log(params.api.paginationGetCurrentPage() + 1)
       if (params.api.paginationGetCurrentPage() + 1 !== 1) {
         this.goToPage(gridApi, pageName)
       }
@@ -41,9 +37,7 @@ export class PaginationHelperService {
   private getPageNumber(pageName: string) {
     let pageNumber;
     const store = new Map(JSON.parse(localStorage.getItem(this.storeName)));
-    console.log(store);
     if (!this.isEmptyObject(store)) {
-      console.log('store not null')
       pageNumber = store.get(pageName)
     }
     return pageNumber;

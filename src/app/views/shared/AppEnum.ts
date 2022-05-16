@@ -58,13 +58,13 @@ export class Permissions {
   static CHARTOFACCOUNT_VIEW = 'Permissions.ChartOfAccountClaims.View';
 
   // Department
-  static DEPARTMENTS_VIEW = 'Permissions.DepartmentsClaims.View';
+  static DEPARTMENTS_VIEW = 'Permissions.DepartmentClaims.View';
   // static DEPARTMENTS_CREATE = 'Permissions.DepartmentsClaims.Create';
   // static DEPARTMENTS_EDIT = 'Permissions.DepartmentsClaims.Edit';
   // static DEPARTMENTS_DELETE = 'Permissions.DepartmentsClaims.Delete';
 
   //Designation
-  static DESIGNATIONS_VIEW = 'Permissions.DesignationsClaims.View';
+  static DESIGNATIONS_VIEW = 'Permissions.DesignationClaims.View';
   // static DESIGNATIONS_CREATE = 'Permissions.DesignationsClaims.Create';
   // static DESIGNATIONS_EDIT = 'Permissions.DesignationsClaims.Edit';
   // static DESIGNATIONS_DELETE = 'Permissions.DesignationsClaims.Delete';
