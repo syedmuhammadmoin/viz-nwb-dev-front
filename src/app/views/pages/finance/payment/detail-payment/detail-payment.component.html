@@ -55,7 +55,7 @@
                             <td class="">{{paymentMaster?.accountName}}</td>
                             <td class="text-left">{{paymentMaster?.description}}</td>
                             <td class="">{{paymentMaster?.campusName}}</td>
-                            <td class="text-right" >{{paymentMaster?.grossPayment}}</td>
+                            <td class="text-right" >{{valueFormatter(paymentMaster?.grossPayment || 0)}}</td>
                         </tr>
                     </table>
                 </div>
@@ -64,28 +64,28 @@
           
                     <div class="print-box">
                       <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Discount: 
-                        <span class="float-right" style="font-weight: 400;">{{paymentMaster?.discount || 0}}</span>
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.discount || 0)}}</span>
                       </h4>
                     </div>
                     <div class="print-box">
                       <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Sales Tax:
-                        <span class="float-right" style="font-weight: 400;">{{paymentMaster?.salesTax || 0}}</span>
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.salesTax || 0)}}</span>
                       </h4>
                     </div>
                     <div class="print-box">
                       <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Income Tax:
-                        <span class="float-right" style="font-weight: 400;">{{paymentMaster?.incomeTax || 0}}</span>
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.incomeTax || 0)}}</span>
                       </h4>
                     </div>
                     <div class="print-box">
                       <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">SRB Tax:
-                        <span class="float-right" style="font-weight: 400;">{{paymentMaster?.srbTax || 0}}</span>
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.srbTax || 0)}}</span>
                       </h4>
                     </div>
                     <div class="print-box">
                       <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
                       padding-top: 10px;">Net Payment: 
-                        <span class="float-right" style="font-weight: 400;">{{paymentMaster?.netPayment}}</span>
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.netPayment || 0)}}</span>
                       </h4>
                     </div>
                 </div>
