@@ -72,7 +72,7 @@
                                 propertyValue="id"
                                 propertyName="status" 
                                 formControlName="currentStatusId" 
-                                matFormFieldClass="full-width input_d_1"
+                                matFormFieldClass="full-width"
                                 errorMessage="Current State is Required"
                                 [optionList]="statusService.getStatuses()">
                               </kt-simple-dropdown>
@@ -85,7 +85,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown [id]="'workflow_action_' + i" placeholder="Select Action" propertyValue="id"
-                                propertyName="value" formControlName="action" matFormFieldClass="full-width input_d_1"
+                                propertyName="value" formControlName="action" matFormFieldClass="full-width"
                                 errorMessage="Action is Required"
                                 [optionList]="[{value: 'Approve', id: actionButton.Approve}, {value: 'Reject', id: actionButton.Reject}]">
                               </kt-simple-dropdown>
@@ -103,7 +103,7 @@
                                 propertyValue="id"
                                 propertyName="status" 
                                 formControlName="nextStatusId" 
-                                matFormFieldClass="full-width input_d_1"
+                                matFormFieldClass="full-width"
                                 errorMessage="Next State is Required"
                                 [optionList]="statusService.getStatuses()">
                               </kt-simple-dropdown>
@@ -121,7 +121,7 @@
                                 propertyValue="id"
                                 propertyName="name" 
                                 formControlName="allowedRoleId" 
-                                matFormFieldClass="full-width input_d_1"
+                                matFormFieldClass="full-width"
                                 errorMessage="Role is Required"
                                 [optionList]="accessManagementService.getRoles()">
                               </kt-simple-dropdown>

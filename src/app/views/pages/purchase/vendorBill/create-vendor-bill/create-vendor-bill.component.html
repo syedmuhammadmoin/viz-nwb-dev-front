@@ -90,7 +90,7 @@
                       propertyName="name"
                       formControlName="campusId" 
                       (blurEvent)="logValidationErrors(vendorBillForm, formErrors, validationMessages)"
-                      matFormFieldClass="full-width input_d_1"
+                      matFormFieldClass="full-width"
                       [errorMessage]="'Campus is Required'" 
                       [optionList]="ngxsService.campuses$">
                     </kt-simple-dropdown>
@@ -136,7 +136,7 @@
                                     isDisabledNone="true"
                                     formControlName="itemId"
                                     placeholder="Select Item"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     [hintText]="'Optional'"
                                     (selectionChange)="onItemSelected($event.value, i)">
                                   </kt-simple-dropdown>
@@ -150,7 +150,7 @@
                                 <div class="col-lg-12 col-sm-12 mt-2">
                                   <kt-input-field
                                     formControlName="description" [id]="'bill_description_' + i"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     placeholder="Enter Description"
                                     (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : vendorBillForm.get('vendorBillLines')['controls'][i].controls.description.errors?.required &&
@@ -171,7 +171,7 @@
                                     propertyValue="id"
                                     propertyName="name"
                                     formControlName="accountId"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     errorMessage="Account is Required"
                                     [optionList]="ngxsService.accountsLevel4$">
                                   </kt-simple-dropdown>
@@ -185,7 +185,7 @@
                                 <div class="col-lg-12 col-sm-12 mt-2">
                                   <kt-input-field
                                     formControlName="quantity" [id]="'bill_quantity_' + i"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     placeholder="Enter Quantity"
                                     #itemName
                                     type="number"
@@ -210,7 +210,7 @@
                                   <kt-input-field
                                   [id]="'bill_cost_' + i"
                                     formControlName="cost"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     placeholder="Enter Cost"
                                     #itemName
                                     type="number"
@@ -235,7 +235,7 @@
                                   <kt-input-field
                                     formControlName="tax"
                                     [id]="'bill_tax_' + i"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     placeholder="Enter Tax %"
                                     #itemName
                                     type="number"
@@ -257,7 +257,7 @@
                                 <div class="col-lg-12 col-sm-12 mt-2">
                                   <kt-input-field
                                     formControlName="anyOtherTax"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     placeholder="Enter Tax %"
                                     [id]="'bill_other_' + i"
                                     #itemName
@@ -282,7 +282,7 @@
                                   <kt-input-field
                                   [id]="'bill_subtotal_' + i"
                                     formControlName="subTotal"
-                                    matFormFieldClass="mobile-label full-width input_d_1">
+                                    matFormFieldClass="mobile-label full-width">
                                   </kt-input-field>
                                 </div>
                               </mat-cell>
@@ -294,7 +294,7 @@
                                 <div class="col-lg-12 col-sm-12 mt-2"> -->
                                   <!-- <kt-group-dropdown
                                     formControlName="locationId"
-                                    matFormFieldClass="mobile-label full-width input_d_1"
+                                    matFormFieldClass="mobile-label full-width"
                                     placeholder="Select Location"
                                     [optionList]="ngxsService.warehouses$"
                                     clickEventButtonName="Add New Location"
@@ -310,7 +310,7 @@
                               propertyValue="id" 
                               propertyName="name"
                               formControlName="locationId" 
-                              matFormFieldClass="full-width input_d_1"
+                              matFormFieldClass="full-width"
                               [errorMessage]="'Location is Required.'" 
                               [optionList]="ngxsService.locations$">
                             </kt-simple-dropdown>
@@ -329,7 +329,7 @@
                                     isDisabledNone="true"
                                     [hintText]="'Optional'"
                                     formControlName="warehouseId" 
-                                    matFormFieldClass="full-width input_d_1" 
+                                    matFormFieldClass="full-width" 
                                     [optionList]="ngxsService.warehouses$">
                                   </kt-simple-dropdown>
                                 </div>

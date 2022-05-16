@@ -75,7 +75,7 @@
                                 [id]="'estimated_amount_' + i"
                                  formControlName="amount"
                                  type="number"
-                                 matFormFieldClass="mobile-label full-width input_d_1" >
+                                 matFormFieldClass="mobile-label full-width" >
                                 </kt-input-field>
                               </div>
                             </mat-cell>
@@ -108,7 +108,7 @@
                                  formControlName="value"
                                  type="number"
                                  [id]="'estimated_value_' + i"
-                                 matFormFieldClass="mobile-label full-width input_d_1" 
+                                 matFormFieldClass="mobile-label full-width" 
                                  placeholder="Enter Value"
                                  (change)="onChangeEvent(i)"
                                  (keyup)="onChangeEvent(i)"
@@ -129,7 +129,7 @@
                                  formControlName="estimatedValue"
                                  [id]="'budget_estimated_value_' + i"
                                  type="number"
-                                 matFormFieldClass="mobile-label full-width input_d_1" 
+                                 matFormFieldClass="mobile-label full-width" 
                                  placeholder="Estimated Value"
                                  readonly="true"
                                  (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"

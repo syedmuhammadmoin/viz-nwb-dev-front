@@ -259,13 +259,19 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     const creditControl = arrayControl.at(index).get('credit');
     const debit = (debitControl.value) !== null ? debitControl.value : null;
     const credit = (creditControl.value) !== null ? creditControl.value : null;
+    console.log("debit")
+    console.log(debit)
+    console.log("credit")
+    console.log(credit)
+
     if (debit > 0) {
       creditControl.setValue(0);
       creditControl.disable();
     } else if (credit > 0) {
       debitControl.setValue(0);
       debitControl.disable();
-    } else if (debit === null || credit === null) {
+    // } else if ((debit === "") || (credit === "")) {
+    } else if (!debit || !credit) {
       creditControl.enable();
       debitControl.enable();
     }

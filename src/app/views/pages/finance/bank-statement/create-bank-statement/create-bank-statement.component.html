@@ -97,12 +97,12 @@
                                     [type]="'number'"
                                     [id]="'statement_ref_' + i"
                                     formControlName="reference"
-                                    matFormFieldClass="full-width input_d_1"
+                                    matFormFieldClass="full-width"
                                     placeholder="Enter Ref #"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.reference.errors?.required &&
                                                                     bankStatementForm.get('bankStmtLines')['controls'][i].controls.reference.touched , 
-                                                        error : 'Ref # is required' }]">
+                                                        error : 'Ref # is required.' }]">
                                   </kt-input-field>
                                 </div>
                               </mat-cell>
@@ -114,11 +114,11 @@
                                 <div class="col-lg-12 col-sm-12 mt-2">
                                   <kt-date-input
                                     formControlName="stmtDate"
-                                    matFormFieldClass="full-width input_d_1"
+                                    matFormFieldClass="full-width"
                                     placeholder="Statement Date"
                                     (blur)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="bankStatementForm.get('bankStmtLines')['controls'][i].controls.stmtDate.errors?.required &&
-                                                    bankStatementForm.get('bankStmtLines')['controls'][i].controls.stmtDate.touched ? 'Date is required' : false ">
+                                                    bankStatementForm.get('bankStmtLines')['controls'][i].controls.stmtDate.touched ? 'Date is required.' : false ">
                                   </kt-date-input>
                                 </div>
                               </mat-cell>
@@ -131,12 +131,12 @@
                                   <kt-input-field
                                   [id]="'statement_label_' + i"
                                     formControlName="label"
-                                    matFormFieldClass="full-width input_d_1"
+                                    matFormFieldClass="full-width"
                                     placeholder="Enter Label"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.label.errors?.required &&
                                                                     bankStatementForm.get('bankStmtLines')['controls'][i].controls.label.touched , 
-                                                        error : 'Label is required' }]">
+                                                        error : 'Label is required.' }]">
                                   </kt-input-field>
                                 </div>
                               </mat-cell>
@@ -149,13 +149,14 @@
                                   <kt-input-field
                                   [id]="'statement_debit_' + i"
                                     formControlName="debit"
-                                    [type]="'number'"
-                                    matFormFieldClass="full-width input_d_1"
+                                    type="number"
+                                    matFormFieldClass="full-width"
                                     placeholder="Enter Debit"
+                                    (keyup)="onChangeEvent($event , i); calculateRunningTotal()"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.debit.errors?.required &&
                                                                     bankStatementForm.get('bankStmtLines')['controls'][i].controls.debit.touched , 
-                                                        error : 'Debit is required' }]">
+                                                        error : 'Debit is required.' }]">
                                   </kt-input-field>
                                 </div>
                               </mat-cell>
@@ -168,14 +169,14 @@
                                   <kt-input-field
                                   [id]="'statement_credit_' + i"
                                     formControlName="credit"
-                                    [type]="'number'"
-                                    matFormFieldClass="full-width input_d_1"
+                                    type="number"
+                                    matFormFieldClass="full-width"
                                     placeholder="Enter Credit"
                                     (keyup)="onChangeEvent($event , i); calculateRunningTotal()"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.credit.errors?.required &&
                                                                     bankStatementForm.get('bankStmtLines')['controls'][i].controls.credit.touched , 
-                                                        error : 'Debit is required' }]">
+                                                        error : 'Credit is required.' }]">
                                     </kt-input-field>
                                 </div>
                               </mat-cell>
@@ -188,7 +189,7 @@
                                   <kt-input-field
                                   [id]="'statement_cumulative_' + i"
                                     formControlName="cumulativeBalance"
-                                    matFormFieldClass="full-width input_d_1"
+                                    matFormFieldClass="full-width"
                                     placeholder="Cumulative Balance"
                                     readonly="true">
                                   </kt-input-field>
