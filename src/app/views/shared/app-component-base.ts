@@ -70,6 +70,17 @@ export abstract class AppComponentBase {
     return formattedValue
   }
 
+  generateArrayOfYears(): any[] {
+    const min = new Date().getFullYear() - 10
+    const max = min + 100
+    const years = []
+
+    for (let i = min; i <= max; i++) {
+      years.push({value: i})
+    }
+    return years
+  }
+
   formatDate(date: string) {
     let d = new Date(date),
       month = '' + (d.getMonth() + 1),

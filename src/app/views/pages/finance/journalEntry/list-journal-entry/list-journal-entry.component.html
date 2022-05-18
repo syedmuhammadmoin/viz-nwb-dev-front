@@ -1,6 +1,6 @@
 <div class="row mb-4">
     <div class="col-md-12 text-right">
-      <button (click)="addJournalEntry()" class="sub___btn" mat-raised-button matTooltip="Add Journal Entry">Add Journal Entry</button>
+      <button (click)="addJournalEntry()" [disabled]="!(permission.isGranted(permissions.JOURNALENTRY_CREATE))" class="sub___btn" mat-raised-button matTooltip="Add Journal Entry">Add Journal Entry</button>
     </div>
   </div>
   

@@ -138,6 +138,14 @@ export class AppConst {
     'Permissions.PayrollItemClaims.Edit': 'Payroll Item View',
     'Permissions.PayrollItemClaims.Delete': 'Payroll Item View',
 
+    // Payroll Transaction
+    'Permissions.PayrollTransactionClaims.View': 'Payroll Transaction View',
+    'Permissions.PayrollTransactionClaims.Create': 'Payroll Transaction Create',
+    'Permissions.PayrollTransactionClaims.Edit': 'Payroll Transaction Edit',
+    'Permissions.PayrollTransactionClaims.Delete': 'Payroll Transaction Delete',
+    'Permissions.PayrollTransactionClaims.Review': 'Payroll Transaction Review',
+    'Permissions.PayrollTransactionClaims.Approve': 'Payroll Transaction Approve',
+
     // Product
     'Permissions.ProductsClaims.View': 'Product View',
     'Permissions.ProductsClaims.Create': 'Product Create',
@@ -350,5 +358,20 @@ export class AppConst {
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },
     //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
   ]
+
+  static Months = [
+    { name: 'Jan', value: 1 },
+    { name: 'Feb', value: 2 },
+    { name: 'Mar', value: 3 },
+    { name: 'Apr', value: 4 },
+    { name: 'May', value: 5 },
+    { name: 'June', value: 6 },
+    { name: 'July', value: 7 },
+    { name: 'Aug', value: 8 },
+    { name: 'Sep', value: 9 },
+    { name: 'Oct', value: 10 },
+    { name: 'Nov', value: 11 },
+    { name: 'Dec', value: 12 },
+  ];
 
 }

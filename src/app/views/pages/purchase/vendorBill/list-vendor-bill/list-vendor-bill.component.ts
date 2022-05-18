@@ -7,6 +7,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { AppComponentBase } from "../../../../shared/app-component-base";
 import { IVendorBill } from '../model/IVendorBill';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   defaultColDef: any;
   tooltipData: string = "double click to view detail"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';

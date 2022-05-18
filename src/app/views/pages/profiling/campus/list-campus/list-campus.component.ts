@@ -7,6 +7,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CampusService } from '../service/campus.service';
 import { CreateCampusComponent } from '../create-campus/create-campus.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-list-campus',
@@ -24,6 +25,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   components: any;
   gridApi: GridApi;
   gridColumnApi: any;
+  public permissions = Permissions
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
    //tooltipData : string = "double click to edit"
    

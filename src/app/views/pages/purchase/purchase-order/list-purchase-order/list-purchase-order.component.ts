@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPurchaseOrder } from '../model/IPurchaseOrder';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 
 @Component({
@@ -24,6 +25,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   gridOptions: GridOptions;
   tooltipData: string = "double click to view detail"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';

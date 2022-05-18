@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -24,6 +25,7 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
   gridOptions: GridOptions;
   tooltipData: string = "double click to view detail"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';

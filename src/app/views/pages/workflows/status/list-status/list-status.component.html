@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button (click)="addStatusDialog()" id="add_status" mat-raised-button  matTooltip="Add Status" class="sub___btn">Add Status</button>
+    <button (click)="addStatusDialog()" [disabled]="!(permission.isGranted(permissions.STATUS_CREATE))" id="add_status" mat-raised-button  matTooltip="Add Status" class="sub___btn">Add Status</button>
   </div>
 </div>
 

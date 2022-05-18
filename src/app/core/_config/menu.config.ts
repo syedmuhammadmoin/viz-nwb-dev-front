@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -558,6 +558,12 @@ export class MenuConfig {
             Permissions.PAYROLL_ITEM_CREATE,
             Permissions.PAYROLL_ITEM_EDIT,
             Permissions.PAYROLL_ITEM_DELETE,
+            // Permissions.PAYROLL_TRANSACTION_VIEW,
+            // Permissions.PAYROLL_TRANSACTION_CREATE,
+            // Permissions.PAYROLL_TRANSACTION_EDIT,
+            // Permissions.PAYROLL_TRANSACTION_DELETE,
+            // Permissions.PAYROLL_TRANSACTION_APPROVE,
+            // Permissions.PAYROLL_TRANSACTION_REVIEW,
             Permissions.DESIGNATIONS_VIEW,
             Permissions.DEPARTMENTS_VIEW,
             Permissions.EMPLOYEE_VIEW 
@@ -593,6 +599,18 @@ export class MenuConfig {
                 Permissions.PAYROLL_ITEM_EDIT,
                 Permissions.PAYROLL_ITEM_DELETE 
               ]
+            },
+            {
+              title: 'Payroll Transaction',
+              page: '/' + PAYROLL_TRANSACTION.LIST,
+              // permission: [
+              //   Permissions.PAYROLL_TRANSACTION_VIEW,
+              //   Permissions.PAYROLL_TRANSACTION_CREATE,
+              //   Permissions.PAYROLL_TRANSACTION_EDIT,
+              //   Permissions.PAYROLL_TRANSACTION_DELETE,
+              //   Permissions.PAYROLL_TRANSACTION_APPROVE,
+              //   Permissions.PAYROLL_TRANSACTION_REVIEW, 
+              // ]
             },
           ]
         },

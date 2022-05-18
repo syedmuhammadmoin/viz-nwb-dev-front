@@ -8,6 +8,7 @@ import { CreateProductComponent } from '../create-product/create-product.compone
 import { IProduct } from '../model/IProduct';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-list-product',
@@ -24,6 +25,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   tooltipData: string = "double click to edit"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';

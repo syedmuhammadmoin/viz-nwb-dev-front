@@ -24,12 +24,14 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   @Input() errorMessage: string | any;
   @Input() errorMessage2: string | any;
   @Input() matFormFieldClass: any | [] | string;
+  @Input() value: number | string | any = null;
   @Input() inputClass: any | [] | string;
   @Input() isDisabled: boolean;
   @Input() id: string;
 
   @Input() type: any;
   @Input() min: number;
+  @Input() max: number | any;
 
 
   @Output() blurEvent = new EventEmitter<any>();

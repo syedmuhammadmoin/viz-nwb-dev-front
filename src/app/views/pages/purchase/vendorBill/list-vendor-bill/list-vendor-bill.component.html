@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button  mat-raised-button  class="sub___btn" id="add_bill"  matTooltip="Add Vendor Bill" (click)='addVendorBill()' >Add Bill</button>
+    <button  mat-raised-button  class="sub___btn" [disabled]="!(permission.isGranted(permissions.BILL_CREATE))" id="add_bill"  matTooltip="Add Vendor Bill" (click)='addVendorBill()' >Add Bill</button>
   </div>
 </div>
 

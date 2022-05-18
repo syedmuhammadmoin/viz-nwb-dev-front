@@ -7,6 +7,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IDebitNote } from '../model/IDebitNote';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-list-debit-note',
@@ -23,6 +24,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   gridOptions: GridOptions;
   tooltipData: string = "double click to view detail"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';

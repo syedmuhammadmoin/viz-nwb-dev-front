@@ -8,6 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { JOURNAL_ENTRY } from 'src/app/views/shared/AppRoutes';
 import { IJournalEntry } from '../model/IJournalEntry';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-list-journal-entry',
@@ -23,6 +24,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   journalEntryList: IJournalEntry[];
   frameworkComponents: {[p: string]: unknown};
   tooltipData: string = "double click to view detail"
+  public permissions = Permissions
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;

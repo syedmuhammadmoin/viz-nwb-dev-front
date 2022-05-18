@@ -7,6 +7,7 @@ import { BankAccountService }          from '../service/bankAccount.service';
 import { CreateBankAccountComponent } from '../create-bank-account/create-bank-account.component';
 import { IBankAccount } from '../model/IBankAccount';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 
 @Component({
@@ -23,6 +24,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   tooltipData : string = "double click to edit"
+  public permissions = Permissions
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi!: GridApi;
   gridColumnApi: ColumnApi;

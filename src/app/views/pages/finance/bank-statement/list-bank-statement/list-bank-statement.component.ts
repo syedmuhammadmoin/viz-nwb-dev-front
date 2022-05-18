@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { Router } from '@angular/router'
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { BANK_STATEMENT } from 'src/app/views/shared/AppRoutes';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
@@ -22,6 +23,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     frameworkComponents : {[p: string]: unknown};
     defaultColDef : ColDef;
     tooltipData : string = 'double click to edit'
+    public permissions = Permissions
     components: { loadingCellRenderer (params: any ) : unknown };
     gridApi: GridApi;
     gridColumnApi: ColumnApi;

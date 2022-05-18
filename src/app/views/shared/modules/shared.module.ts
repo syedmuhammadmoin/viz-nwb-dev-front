@@ -51,6 +51,8 @@ import {CdkTreeModule} from "@angular/cdk/tree";
 import { InputFieldComponent } from '../components/input-field/input-field.component';
 import { DateInputComponent } from '../components/date-input/date-input.component';
 import { PdfComponent } from '../pdf/pdf.component';
+import { ActionButtonComponent } from '../components/action-button/action-button.component';
+import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
 
 
 // @ts-ignore
@@ -64,7 +66,9 @@ import { PdfComponent } from '../pdf/pdf.component';
     ConfirmationDialogComponent,
     BusyDirective,
     ShortNumberPipe,
-    PdfComponent
+    PdfComponent,
+    ActionButtonComponent,
+    NonNegativePipe
   ],
   imports: [
     NgxPrintModule,
@@ -134,6 +138,7 @@ import { PdfComponent } from '../pdf/pdf.component';
     MatFormFieldModule,
     MatDatepickerModule,
     MatAutocompleteModule,
+    NonNegativePipe,
     MatListModule,
     MatSliderModule,
     MatCardModule,

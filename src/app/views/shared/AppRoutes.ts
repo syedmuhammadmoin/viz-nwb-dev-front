@@ -48,6 +48,7 @@ export const APP_ROUTES = {
 
   //PAYROLL
   PAYROLL_ITEM: 'payroll-item',
+  PAYROLL_TRANSACTION: 'payroll-transaction',
   EMPLOYEE: 'employee',
   DEPARTMENT: 'department',
   DESIGNATION: 'designation',
@@ -256,6 +257,14 @@ export const CRUD_ROUTES = {
     CREATE: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.CREATE,
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.PAYROLL_ITEM + '/' + route + '/' + id
+    }
+  }
+
+  export const PAYROLL_TRANSACTION = {
+    LIST: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.PAYROLL_TRANSACTION + '/' + route + '/' + id
     }
   }
 

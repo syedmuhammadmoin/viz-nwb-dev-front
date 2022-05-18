@@ -252,6 +252,14 @@ export class Permissions {
   static PAYROLL_ITEM_EDIT = 'Permissions.PayrollItemClaims.Edit';
   static PAYROLL_ITEM_DELETE = 'Permissions.PayrollItemClaims.Delete';
 
+  // Payroll Transaction
+  static PAYROLL_TRANSACTION_VIEW = 'Permissions.PayrollTransactionClaims.View';
+  static PAYROLL_TRANSACTION_CREATE = 'Permissions.PayrollTransactionClaims.Create';
+  static PAYROLL_TRANSACTION_EDIT = 'Permissions.PayrollTransactionClaims.Edit';
+  static PAYROLL_TRANSACTION_DELETE = 'Permissions.PayrollTransactionClaims.Delete';
+  static PAYROLL_TRANSACTION_REVIEW = 'Permissions.PayrollTransactionClaims.Review';
+  static PAYROLL_TRANSACTION_APPROVE = 'Permissions.PayrollTransactionClaims.Approve';
+
   // Stock
   static STOCK_VIEW = 'Permissions.StockClaims.View';
 
@@ -278,7 +286,9 @@ export enum DocType {
   InventoryAdjustment,
   Quotation,
   Requisition,
-  Receipt
+  Receipt,
+  PayrollPayment,
+  PayrollTransaction
 }
 
 // export enum DocStatus {
