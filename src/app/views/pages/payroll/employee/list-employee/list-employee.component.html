@@ -17,6 +17,7 @@
                 [components]="components"
                 [columnDefs]="columnDefs"
                 (firstDataRendered)="onFirstDataRendered($event)"
+                (rowDoubleClicked)="onRowDoubleClicked($event)"
                 (paginationChanged)="paginationHelper.onPaginationChanged('employeePageName', gridApi, $event)"
                 [gridOptions]="gridOptions"
                 [frameworkComponents]="frameworkComponents"

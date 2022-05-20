@@ -1,7 +1,9 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { EMPLOYEE } from 'src/app/views/shared/AppRoutes';
+import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { EmployeeService } from '../service/employee.service';
 
@@ -17,7 +19,7 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
-  //tooltipData: string = "double click to view detail"
+  tooltipData: string = "double click to view detail"
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -38,17 +40,18 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { headerName: 'Name', field: 'name', sortable: true, filter: true, cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Cnic', field: 'cnic', sortable: true, filter: true },
-    { headerName: 'Designation', field: 'designationName', sortable: true, filter: true },
-    { headerName: 'Department', field: 'departmentName', sortable: true, filter: true },
-    { headerName: 'Faculty', field: 'faculty', sortable: true, filter: true },
-    { headerName: 'Shift', field: 'dutyShift', sortable: true, filter: true },
+    { headerName: 'Name', field: 'name', sortable: true, filter: true,  cellRenderer: "loadingCellRenderer" , tooltipField: 'name' },
+    { headerName: 'Cnic', field: 'cnic', sortable: true, filter: true, tooltipField: 'name' },
+    { headerName: 'Designation', field: 'designationName', sortable: true, filter: true, tooltipField: 'name' },
+    { headerName: 'Department', field: 'departmentName', sortable: true, filter: true, tooltipField: 'name' },
+    { headerName: 'Faculty', field: 'faculty', sortable: true, filter: true, tooltipField: 'name' },
+    { headerName: 'Shift', field: 'dutyShift', sortable: true, filter: true, tooltipField: 'name' },
     {
       headerName: 'Active',
       field: 'status',
       sortable: true,
       filter: true,
+      tooltipField: 'name',
       valueFormatter: (params: ValueFormatterParams) => { 
         return (params.value === 'active') ? "Yes" : "No"
       }
@@ -64,14 +67,14 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      //context: "double click to edit",
+      context: "double click to view detail",
     };
 
-    //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    // this.defaultColDef = {
-    //   tooltipComponent: 'customTooltip'
-    // }
+    this.defaultColDef = {
+      tooltipComponent: 'customTooltip'
+    }
 
     this.components = {
       loadingCellRenderer: function (params: any) {
@@ -86,6 +89,10 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
+  }
+
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
+    this.router.navigate(['/' + EMPLOYEE.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
   onGridReady(params: GridReadyEvent) {

@@ -270,6 +270,9 @@ export const CRUD_ROUTES = {
 
   export const EMPLOYEE = {
     LIST: APP_ROUTES.EMPLOYEE + '/' + CRUD_ROUTES.LIST,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.EMPLOYEE + '/' + route + '/' + id
+    }
   }
 
   export const DEPARTMENT = {
