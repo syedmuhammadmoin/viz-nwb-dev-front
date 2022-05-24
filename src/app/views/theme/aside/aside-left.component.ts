@@ -99,7 +99,7 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
         this.currentRouteUrl = this.router.url.split(/[?#]/)[0];
-        this.mobileMenuClose();
+      //  this.mobileMenuClose();
         this.cdr.markForCheck();
       });
 
@@ -142,7 +142,9 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
       return false;
     }
 
-    return this.currentRouteUrl.indexOf(item.page) !== -1;
+    // return this.currentRouteUrl.indexOf(item.page) !== -1;
+    return false
+  
   }
 
   /**

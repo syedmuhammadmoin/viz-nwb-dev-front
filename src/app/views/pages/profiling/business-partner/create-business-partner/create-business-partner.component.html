@@ -167,7 +167,6 @@
                             <kt-input-field
                             id="business_partner_cnic"
                               formControlName="cnic"
-                              type="number"
                               placeholder="Enter CNIC Number"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : formErrors.cnic , error : formErrors.cnic }]">
