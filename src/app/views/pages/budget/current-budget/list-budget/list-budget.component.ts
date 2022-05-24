@@ -124,7 +124,7 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
   }
 
   async getBudgets(params: any): Promise<IPaginationResponse<IBudgetResponse[]>> {
-    const result = await this._budgetService.getBudgets().toPromise()
+    const result = await this._budgetService.getBudgets(params).toPromise()
     return result
   }
 

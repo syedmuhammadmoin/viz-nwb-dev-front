@@ -125,7 +125,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
 
   //Debit Note Master Data
   getDebitNoteMasterData(id: number) {
-    this.debitNoteService.getDebitNoteMaster(id).subscribe(res => {
+    this.debitNoteService.getDebitNoteById(id).subscribe(res => {
       this.debitNoteMaster = res.result;
       this.debitNoteLines = res.result.debitNoteLines;
       this.totalBeforeTax = this.debitNoteMaster.totalBeforeTax;

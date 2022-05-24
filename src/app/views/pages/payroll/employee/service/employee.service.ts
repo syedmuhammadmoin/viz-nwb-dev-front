@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -17,12 +17,18 @@ export class EmployeeService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getEmployees(): Observable<IPaginationResponse<[]>> {
-        return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , { headers: this.header })
+    getEmployees(params: any): Observable<IPaginationResponse<[]>> {
+      let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+       
+        return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , { params: httpParams, headers: this.header })
     }
 
     getEmployeesDropdown(): Observable<IApiResponse<[]>> {
-      return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/dropdown' , { headers: this.header })
+      return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/dropdown' , {headers: this.header })
     }
 
     getEmployeeById(id: number): Observable<IApiResponse<[]>> {

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -19,8 +19,13 @@ export class JournalEntryService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getJournalEntries(): Observable<IPaginationResponse<IJournalEntry[]>> {
-    return this.httpClient.get<IPaginationResponse<IJournalEntry[]>>(this.baseUrl)
+  getJournalEntries(params: any): Observable<IPaginationResponse<IJournalEntry[]>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+    return this.httpClient.get<IPaginationResponse<IJournalEntry[]>>(this.baseUrl, { params: httpParams})
       .pipe(catchError(this.handleError))
   }
 

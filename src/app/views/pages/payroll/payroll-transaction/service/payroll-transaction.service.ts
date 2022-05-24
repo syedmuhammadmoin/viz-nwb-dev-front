@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -17,8 +17,13 @@ export class PayrollTransactionService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getPayrollTransactions(): Observable<IPaginationResponse<IPayrollTransaction[]>> {
-        return this.httpClient.get<IPaginationResponse<IPayrollTransaction[]>>(this.baseUrl)
+    getPayrollTransactions(params): Observable<IPaginationResponse<IPayrollTransaction[]>> {
+        let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+   
+        return this.httpClient.get<IPaginationResponse<IPayrollTransaction[]>>(this.baseUrl , {params: httpParams})
     }
 
     getPayrollTransactionById(id: number): Observable<IApiResponse<IPayrollTransaction>> {

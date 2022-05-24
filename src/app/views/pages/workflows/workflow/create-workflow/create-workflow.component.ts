@@ -240,7 +240,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
   }
 
   getStatuses() {
-    this.statusService.getStatuses().subscribe((res) => {
+    this.statusService.getStatusesDropdown().subscribe((res) => {
       this.statuses = res.result
     });
     

@@ -152,7 +152,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   }
 
   async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
-    const result = await this.ngxsService.businessPartnerService.getBusinessPartners().toPromise()
+    const result = await this.ngxsService.businessPartnerService.getBusinessPartners(params).toPromise()
     return result
   }
 

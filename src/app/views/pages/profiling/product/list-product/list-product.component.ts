@@ -139,7 +139,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
   }
 
   async getProducts(params: any): Promise<IPaginationResponse<IProduct[]>> {
-    const result = await this.productService.getProducts().toPromise()
+    const result = await this.productService.getProducts(params).toPromise()
     return result
   }
 

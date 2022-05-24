@@ -81,7 +81,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
   }
 
   async getDepartments(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.departmentService.getDepartments().toPromise()
+    const result = await this.departmentService.getDepartments(params).toPromise()
     return result
   }
 

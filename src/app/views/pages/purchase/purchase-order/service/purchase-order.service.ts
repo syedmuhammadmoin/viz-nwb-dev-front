@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../../../environments/environment";
 import {IPurchaseOrder} from "../model/IPurchaseOrder";
@@ -15,8 +15,13 @@ export class PurchaseOrderService {
 
   constructor( private httpClient: HttpClient) { }
 
-  getPurchaseOrders(): Observable<IPaginationResponse<IPurchaseOrder[]>> {
-    return this.httpClient.get<IPaginationResponse<IPurchaseOrder[]>>(environment.baseUrl + 'purchaseOrder');
+  getPurchaseOrders(params: any): Observable<IPaginationResponse<IPurchaseOrder[]>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+    return this.httpClient.get<IPaginationResponse<IPurchaseOrder[]>>(environment.baseUrl + 'purchaseOrder' , { params: httpParams});
   }
 
   getPurchaseOrderById(id: number): Observable<IApiResponse<IPurchaseOrder>> {

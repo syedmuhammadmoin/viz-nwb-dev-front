@@ -141,7 +141,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
   }
 
   async getInvoices(params: any): Promise<IPaginationResponse<IInvoice[]>> {
-    const result = await this.invoiceService.getInvoices().toPromise()
+    const result = await this.invoiceService.getInvoices(params).toPromise()
     return result
   }
 

@@ -117,7 +117,7 @@ export class CreateInventoryAdjustmentComponent extends AppComponentBase impleme
     // get item from state
     this.ngxsService.getProductFromState();
 
-    this.productService.getProducts().subscribe(res => this.productMaster = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.productMaster = res.result)
   }
 
   //Form Reset

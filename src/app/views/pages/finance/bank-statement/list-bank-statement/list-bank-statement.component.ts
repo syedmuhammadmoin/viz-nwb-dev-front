@@ -106,7 +106,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     }
   
     async getBankStatements(params: any): Promise<IPaginationResponse<IBankStatement[]>> {
-      const result = await  this.bankStatementService.getBankStatements().toPromise()
+      const result = await  this.bankStatementService.getBankStatements(params).toPromise()
       return result
     }
   

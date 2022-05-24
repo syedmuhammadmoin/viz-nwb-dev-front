@@ -119,7 +119,7 @@ export class CreateSalesOrderComponent extends AppComponentBase implements OnIni
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     //handling dueDate logic
     this.salesOrderForm.get('salesOrderDate').valueChanges.subscribe((value) => {

@@ -124,7 +124,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   }
 
   async getEstimatedBudgets(params: any): Promise<IPaginationResponse<IEstimatedBudget[]>> {
-    const result = await this._estimatedBudgetService.getEstimatedBudgets().toPromise()
+    const result = await this._estimatedBudgetService.getEstimatedBudgets(params).toPromise()
     return result
   }
 

@@ -144,7 +144,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
   }
 
 
@@ -236,7 +236,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   //Get Bill Master Data
   private getBill(id: number) {
     this.isLoading = true;
-    this.billService.getVendorBillMaster(id).subscribe((res) => {
+    this.billService.getVendorBillById(id).subscribe((res) => {
       if (!res) return
       this.billMaster = res.result
       this.patchDebitNote(this.billMaster);
@@ -250,7 +250,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   //Get Debit Note Data for Edit
   private getDebitNote(id: any) {
     this.isLoading = true;
-    this.debitNoteService.getDebitNoteMaster(id).subscribe((res) => {
+    this.debitNoteService.getDebitNoteById(id).subscribe((res) => {
       if (!res) return
       this.debitNoteModel = res.result
       this.patchDebitNote(this.debitNoteModel)

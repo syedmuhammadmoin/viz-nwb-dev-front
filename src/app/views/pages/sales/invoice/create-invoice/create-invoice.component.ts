@@ -158,7 +158,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       }
     });
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     //handling dueDate logic
     this.invoiceForm.get('invoiceDate').valueChanges.subscribe((value) => {

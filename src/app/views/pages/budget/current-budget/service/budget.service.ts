@@ -1,4 +1,4 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -18,8 +18,13 @@ export class BudgetService {
 
   constructor(private httpClient: HttpClient) { }
 
-  getBudgets(): Observable<IPaginationResponse<IBudgetResponse[]>> {
-    return this.httpClient.get<IPaginationResponse<IBudgetResponse[]>>(this.baseUrl)
+  getBudgets(params: any): Observable<IPaginationResponse<IBudgetResponse[]>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+    return this.httpClient.get<IPaginationResponse<IBudgetResponse[]>>(this.baseUrl, { params: httpParams})
   }
 
   getBudgetDropdown(): Observable<IApiResponse<IBudgetResponse[]>> {

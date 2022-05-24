@@ -126,7 +126,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   }
 
   async getPurchaseOrders(params: any): Promise<IPaginationResponse<IPurchaseOrder[]>> {
-    const result = await this._purchaseOrderService.getPurchaseOrders().toPromise()
+    const result = await this._purchaseOrderService.getPurchaseOrders(params).toPromise()
     return result
   }
 

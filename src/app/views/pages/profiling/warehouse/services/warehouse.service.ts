@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { IWarehouse } from '../model/IWarehouse'
 import { catchError } from 'rxjs/operators';
@@ -17,8 +17,13 @@ export class WarehouseService {
     
     constructor(private httpClient: HttpClient) { }
 
-    getWarehouses(): Observable<IPaginationResponse<IWarehouse[]>> {
-        return this.httpClient.get<IPaginationResponse<IWarehouse[]>>(this.baseUrl)
+    getWarehouses(params: any): Observable<IPaginationResponse<IWarehouse[]>> {
+        let httpParams = new HttpParams();
+
+        httpParams = httpParams.append('PageStart', params?.startRow);
+        httpParams = httpParams.append('PageEnd', params?.endRow);
+           
+        return this.httpClient.get<IPaginationResponse<IWarehouse[]>>(this.baseUrl,{ params: httpParams})
             .pipe(catchError(this.handleError));
     }
 

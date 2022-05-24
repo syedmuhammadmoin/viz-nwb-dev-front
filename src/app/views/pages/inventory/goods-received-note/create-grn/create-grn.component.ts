@@ -134,7 +134,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result);
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result);
 
     // get Vendor from state
     this.ngxsService.getBusinessPartnerFromState();

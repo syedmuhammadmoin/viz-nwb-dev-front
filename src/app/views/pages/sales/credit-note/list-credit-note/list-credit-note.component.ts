@@ -121,7 +121,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   }
 
   async getCreditNotes(params: any): Promise<IPaginationResponse<ICreditNote[]>> {
-    const result = await this.creditNoteService.getCreditNotes().toPromise()
+    const result = await this.creditNoteService.getCreditNotes(params).toPromise()
     return result
   }
 

@@ -128,7 +128,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   }
 
   async getBills(params: any): Promise<IPaginationResponse<IVendorBill[]>> {
-    const result = await this.vendorBillService.getVendorBills().toPromise()
+    const result = await this.vendorBillService.getVendorBills(params).toPromise()
     return result
   }
 

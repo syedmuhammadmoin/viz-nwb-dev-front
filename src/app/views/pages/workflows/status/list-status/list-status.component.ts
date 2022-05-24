@@ -89,7 +89,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   }
 
   getAllStatus() {
-    this.statusService.getStatuses().subscribe((res) => {
+    this.statusService.getStatusesDropdown().subscribe((res) => {
       this.statusList = res.result;
       this.cdRef.detectChanges()
     });
@@ -122,7 +122,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   }
 
   async getStatuses(params: any): Promise<IPaginationResponse<IStatus[]>> {
-    const result = await this.statusService.getStatuses().toPromise()
+    const result = await this.statusService.getStatuses(params).toPromise()
     return result
   }
 

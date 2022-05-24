@@ -145,7 +145,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     //handling dueDate logic
     this.purchaseOrderForm.get('PODate').valueChanges.subscribe((value) => {

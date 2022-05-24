@@ -143,7 +143,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
   }
 
   async getPayrollItems(params: any): Promise<IPaginationResponse<IPayrollItem[]>> {
-    const result = await this.payrollItemService.getPayrollItems().toPromise()
+    const result = await this.payrollItemService.getPayrollItems(params).toPromise()
     return result
   }
 

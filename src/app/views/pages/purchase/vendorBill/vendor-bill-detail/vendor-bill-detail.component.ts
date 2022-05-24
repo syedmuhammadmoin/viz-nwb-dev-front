@@ -140,7 +140,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
 
   //Getting Bill master data
   getBillMasterData(id: number) {
-    this.vendorBillService.getVendorBillMaster(id).subscribe(res => {
+    this.vendorBillService.getVendorBillById(id).subscribe(res => {
       this.billMaster = res.result;
       this.billLines = res.result.billLines;
       this.totalBeforeTax = this.billMaster.totalBeforeTax;

@@ -128,7 +128,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
   }
 
   async getBankAccounts(params: any): Promise<IPaginationResponse<IBankAccount[]>> {
-    const result = await this._bankAccountService.getBankAccounts().toPromise()
+    const result = await this._bankAccountService.getBankAccounts(params).toPromise()
     return result
   }
 

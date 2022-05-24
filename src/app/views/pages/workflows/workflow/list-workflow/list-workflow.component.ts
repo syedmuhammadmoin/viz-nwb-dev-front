@@ -117,7 +117,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   }
 
   async getWorkflows(params: any): Promise<IPaginationResponse<IWorkflow[]>> {
-    const result = await  this.workflowService.getWorkflows().toPromise()
+    const result = await  this.workflowService.getWorkflows(params).toPromise()
     return result
   }
 

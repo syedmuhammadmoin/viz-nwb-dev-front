@@ -114,7 +114,7 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
   }
 
   async getRequisitions(params: any): Promise<IPaginationResponse<IRequisition[]>> {
-    const result = await this.requisitionService.getRequisitions().toPromise()
+    const result = await this.requisitionService.getRequisitions(params).toPromise()
     return result
   }
 

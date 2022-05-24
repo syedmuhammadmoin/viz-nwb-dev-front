@@ -114,7 +114,7 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
   }
 
   async getWarehouses(params: any): Promise<IPaginationResponse<IWarehouse[]>> {
-    const result = await this.warehouseService.getWarehouses().toPromise()
+    const result = await this.warehouseService.getWarehouses(params).toPromise()
     return result
   }
 

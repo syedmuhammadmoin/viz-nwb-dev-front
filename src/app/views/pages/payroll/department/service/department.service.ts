@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -15,8 +15,13 @@ export class DepartmentService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getDepartments(): Observable<IPaginationResponse<[]>> {
-        return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , { headers: new HttpHeaders().set("key", "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~")})
+    getDepartments(params: any): Observable<IPaginationResponse<[]>> {
+      let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+        return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , { params: httpParams, headers: new HttpHeaders().set("key", "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~")})
     }
 
     getDepartmentsDropdown(): Observable<IApiResponse<[]>> {

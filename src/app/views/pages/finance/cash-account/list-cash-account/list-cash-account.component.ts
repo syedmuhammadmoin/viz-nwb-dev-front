@@ -132,12 +132,13 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
   }
 
   async getCashAccounts(params: any): Promise<IPaginationResponse<ICashAccount[]>> {
-    const result = await this.cashAccountService.getCashAccounts().toPromise()
+    const result = await this.cashAccountService.getCashAccounts(params).toPromise()
     return result
   }
 
   dataSource = {
     getRows: async (params: any) => {
+      console.log(params)
      const res = await this.getCashAccounts(params);
 
      if (!res.result) { 

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -12,8 +12,13 @@ export class WorkflowService {
  
   constructor( private httpClient: HttpClient) { }
 
-  getWorkflows(): Observable<any> {
-    return this.httpClient.get(environment.baseUrl + 'workflow')
+  getWorkflows(params: any): Observable<any> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+    return this.httpClient.get(environment.baseUrl + 'workflow', { params: httpParams})
   }
 
   createWorkflow(body: IWorkflow): Observable<any> {

@@ -114,7 +114,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   }
 
   async getCampuses(params: any): Promise<IPaginationResponse<ICampus[]>> {
-    const result = await this.campusService.getCampuses().toPromise()
+    const result = await this.campusService.getCampuses(params).toPromise()
     return result
   }
 

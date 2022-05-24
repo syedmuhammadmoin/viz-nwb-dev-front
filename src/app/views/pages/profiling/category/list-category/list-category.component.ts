@@ -113,7 +113,7 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
   }
 
   async getCategories(params: any): Promise<IPaginationResponse<ICategory[]>> {
-    const result = await this.categoryService.getCategories().toPromise()
+    const result = await this.categoryService.getCategories(params).toPromise()
     return result
   }
 

@@ -45,7 +45,7 @@ export class PrintBillComponent implements OnInit {
   }
 
   getVendorBillMasterData(id: number){
-    this.vendorBillService.getVendorBillMaster(id).subscribe(res =>
+    this.vendorBillService.getVendorBillById(id).subscribe(res =>
       {
         this.masterData = res.result;
         this.billLines = res.result.billLines;

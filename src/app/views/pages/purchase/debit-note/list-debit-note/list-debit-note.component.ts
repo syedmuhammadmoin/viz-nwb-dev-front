@@ -119,7 +119,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   }
 
   async getDebitNotes(params: any): Promise<IPaginationResponse<IDebitNote[]>> {
-    const result = await this.debitNoteService.getDebitNotes().toPromise()
+    const result = await this.debitNoteService.getDebitNotes(params).toPromise()
     return result
   }
 

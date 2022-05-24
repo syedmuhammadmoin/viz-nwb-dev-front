@@ -102,7 +102,7 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   }
 
   async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.employeeService.getEmployees().toPromise()
+    const result = await this.employeeService.getEmployees(params).toPromise()
     return result
   }
 

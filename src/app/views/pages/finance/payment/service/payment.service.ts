@@ -1,4 +1,4 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -18,9 +18,14 @@ export class PaymentService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getPayments(paymentType: string): Observable<IPaginationResponse<IPayment[]>> {
+  getPayments(paymentType: string, params: any): Observable<IPaginationResponse<IPayment[]>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+  
     const url = environment.baseUrl + paymentType.replace(/ /g, '');
-    return this.httpClient.get<IPaginationResponse<IPayment[]>>(url)
+    return this.httpClient.get<IPaginationResponse<IPayment[]>>(url, { params: httpParams})
       .pipe(catchError(this.handleError))
   }
 

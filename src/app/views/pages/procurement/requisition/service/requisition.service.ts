@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from "@angular/common/http";
+import { HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import { Observable} from "rxjs";
 import { environment} from "../../../../../../environments/environment";
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -17,8 +17,13 @@ export class RequisitionService {
 
   constructor( private httpClient: HttpClient) { }
 
-  getRequisitions(): Observable<IPaginationResponse<IRequisition[]>> {
-    return this.httpClient.get<IPaginationResponse<IRequisition[]>>(this.baseUrl);
+  getRequisitions(params: any): Observable<IPaginationResponse<IRequisition[]>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+    return this.httpClient.get<IPaginationResponse<IRequisition[]>>(this.baseUrl, { params: httpParams});
   }
 
   getRequisitionById(id: number): Observable<IApiResponse<IRequisition>> {

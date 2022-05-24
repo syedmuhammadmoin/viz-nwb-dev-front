@@ -137,7 +137,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   }
 
   async getJournalEntries(params: any): Promise<IPaginationResponse<IJournalEntry[]>> {
-    const result = await this.journalEntryService.getJournalEntries().toPromise()
+    const result = await this.journalEntryService.getJournalEntries(params).toPromise()
     return result
   }
 

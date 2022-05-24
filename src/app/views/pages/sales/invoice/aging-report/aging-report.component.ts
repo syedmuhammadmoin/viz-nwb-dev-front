@@ -130,7 +130,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   }
 
   onGridReady() {
-    this.invoiceService.getInvoices().subscribe((data: IApiResponse<IInvoice[]>) => {
+    this.invoiceService.getInvoices('').subscribe((data: IApiResponse<IInvoice[]>) => {
       // this.agingReportList = data.result.filter((x: any) => x.state == DocumentStatus.Unpaid || x.state == DocumentStatus.Partial);
       console.log(data.result)
       this.agingReportList = data.result;
