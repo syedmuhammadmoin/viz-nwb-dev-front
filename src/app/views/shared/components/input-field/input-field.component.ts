@@ -45,8 +45,19 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
     return this.formControl || this.controlContainer.control.get(this.formControlName) 
   }
 
-  registerOnChange(fn: any): void {
-    this.formControlDirective.valueAccessor.registerOnChange(fn);
+  // registerOnChange(fn: any): void {
+  //   this.formControlDirective.valueAccessor.registerOnChange(fn);
+  // }
+
+  registerOnChange(fn: (_: number|null) => void): void {
+    if(this.type === 'number') {
+      this.onChange = () => {
+        fn((this.control.value) ? Number(this.control.value) : null);
+      };
+    }
+    else {
+      this.formControlDirective.valueAccessor.registerOnChange(fn);
+    }
   }
 
   registerOnTouched(fn: any): void {
@@ -64,4 +75,5 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   blur() {
     this.blurEvent.emit()
   }
+
 }

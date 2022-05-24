@@ -8,6 +8,8 @@ import { BudgetService } from 'src/app/views/pages/budget/current-budget/service
 import { BudgetState } from 'src/app/views/pages/budget/current-budget/store/budget.state';
 import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
 import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
+import { CashAccountService } from 'src/app/views/pages/finance/cash-account/service/cashAccount.service';
+import { CashAccountState } from 'src/app/views/pages/finance/cash-account/store/cash-account.state';
 import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
 import { DepartmentService } from 'src/app/views/pages/payroll/department/service/department.service';
 import { DepartmentState } from 'src/app/views/pages/payroll/department/store/department.store';
@@ -53,6 +55,7 @@ export class NgxsCustomService {
     public productService: ProductService,
     public warehouseService: WarehouseService,
     public cscService: CscService,
+    public cashAccountService: CashAccountService,
     public bankAccountService: BankAccountService,
     public budgetService: BudgetService,
     public store: Store,
@@ -136,10 +139,16 @@ export class NgxsCustomService {
   //selector region end
 
   //finance module selectors
-   // Business Partner Country
+   // Bank Account
    @Select(BankAccountState.entities) bankAccounts$: Observable<any>;
    @Select(BankAccountState.isFetchCompleted) bankAccountFetchCompleted$: Observable<any>;
    @Select(BankAccountState.isLoading) bankAccountIsLoading$: Observable<any>;
+
+   //Cash Account
+   @Select(CashAccountState.entities) cashAccounts$: Observable<any>;
+   @Select(CashAccountState.isFetchCompleted) cashAccountFetchCompleted$: Observable<any>;
+   @Select(CashAccountState.isLoading) cashAccountIsLoading$: Observable<any>;
+
 
 
    //Department
@@ -426,6 +435,20 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(BankAccountState, {
           serviceClass: this.bankAccountService,
           methodName: 'getBankAccountsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get Cash Account State From Store if available else fetch from the server and cache.
+  getCashAccountFromState() {
+    this.cashAccountFetchCompleted$.subscribe((res) => {
+      //console.log('Cash Account State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(CashAccountState, {
+          serviceClass: this.bankAccountService,
+          methodName: 'getCashAccountsDropdown',
           context: this
         }))
       }

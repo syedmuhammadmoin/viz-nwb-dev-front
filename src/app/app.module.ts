@@ -91,6 +91,7 @@ import { BudgetAccountState } from './core/shared-state/account-state/store/budg
 import { DesignationState } from './views/pages/payroll/designation/store/designation.store';
 import { EmployeeState } from './views/pages/payroll/employee/store/employee.state';
 import { DepartmentState } from './views/pages/payroll/department/store/department.store';
+import { CashAccountState } from './views/pages/finance/cash-account/store/cash-account.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -154,6 +155,7 @@ export function getHighlightLanguages() {
       StateState,
       CityState,
       BankAccountState,
+      CashAccountState,
       BudgetState,
       StatusState
     ]),

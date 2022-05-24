@@ -1,0 +1,7 @@
+::ng-deep mat-tab-body[id^="mat-tab-content"][id$="-1"] > .mat-tab-body-content {
+    height: 100% !important;
+  }
+  
+  .custom-loading-container {
+    z-index: 2;
+  }

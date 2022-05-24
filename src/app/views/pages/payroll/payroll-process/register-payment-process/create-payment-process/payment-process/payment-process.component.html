@@ -1,0 +1,16 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [title]="'Payroll Payment Process'" [sticky]="false"></kt-portlet-header>
+      <kt-portlet-body>
+        <mat-tab-group>
+          <mat-tab label="Create Payment">
+            <kt-create-payment (isLoading)="loading($event)"></kt-create-payment>
+          </mat-tab>
+          <mat-tab label="Submit Payment">
+            <kt-submit-payment (isLoading)="loading($event)"></kt-submit-payment>
+          </mat-tab>
+        </mat-tab-group>
+      </kt-portlet-body>
+    </kt-portlet>
+  </div>
+  

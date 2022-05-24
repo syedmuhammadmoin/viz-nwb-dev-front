@@ -244,7 +244,7 @@
                                     [errorMessage]="[{ condition : (vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.min ||
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.max) &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.touched , 
-                                                      error : 'Tax % should be between 0 and 100'}]"
+                                                      error : 'Tax % range (0 - 100)'}]"
                                     (change)="onChangeEvent($event , i , itemName)"
                                     (keyup)="onChangeEvent($event , i , itemName)">
                                   </kt-input-field>
@@ -267,7 +267,7 @@
                                     [errorMessage]="[{ condition : (vendorBillForm.get('vendorBillLines')['controls'][i].controls.anyOtherTax.errors?.min ||
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.anyOtherTax.errors?.max) &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.anyOtherTax.touched , 
-                                                      error : 'Tax % should be between 0 and 100'}]"
+                                                      error : 'Tax % range (0 - 100)'}]"
                                     (change)="onChangeEvent($event , i , itemName)"
                                     (keyup)="onChangeEvent($event , i , itemName)">
                                   </kt-input-field>
