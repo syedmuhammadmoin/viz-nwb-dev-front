@@ -287,7 +287,6 @@ export enum DocType {
   Quotation,
   Requisition,
   Receipt,
-  PayrollPayment,
   PayrollTransaction
 }
 

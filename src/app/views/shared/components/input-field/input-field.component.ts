@@ -25,6 +25,7 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   @Input() errorMessage2: string | any;
   @Input() matFormFieldClass: any | [] | string;
   @Input() value: number | string | any = null;
+  @Input() defaultValue: number | string | null;
   @Input() inputClass: any | [] | string;
   @Input() isDisabled: boolean;
   @Input() id: string;
@@ -49,12 +50,22 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   //   this.formControlDirective.valueAccessor.registerOnChange(fn);
   // }
 
-  registerOnChange(fn: (_: number|null) => void): void {
+  registerOnChange(fn: (_: number|null|string) => void): void {
     if(this.type === 'number') {
       this.onChange = () => {
         //this condition is not working on '0' value
         //fn((this.control.value) ? Number(this.control.value) : null);
-        fn((this.control.value === '' || this.control.value === null ) ? null : Number(this.control.value));
+        let val: any = 0;
+        const value = this.defaultValue || null;
+        if(this.control.value === '' || this.control.value === null) {
+          console.log("entered in Value")
+          val = value;
+        }
+        else{
+          console.log("entered in Number")
+          val = Number(this.control.value)
+        }
+        fn((this.control.value === '' || this.control.value === null ) ? value : Number(this.control.value));
       };
     }
     else {

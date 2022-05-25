@@ -443,65 +443,65 @@ export class MenuConfig {
           ]
         },
         //Procurement Section
-        {
-          title: 'Procurement',
-          bullet: 'dot',
-          icon: 'flaticon2-shopping-cart',
-          permission: [
-            Permissions.PURCHASEORDER_VIEW,
-            Permissions.PURCHASEORDER_CREATE,
-            Permissions.PURCHASEORDER_EDIT,
-            Permissions.PURCHASEORDER_DELETE,
-            Permissions.PURCHASEORDER_REVIEW,
-            Permissions.PURCHASEORDER_APPROVE,
-            Permissions.REQUISITION_VIEW,
-            Permissions.REQUISITION_CREATE,
-            Permissions.REQUISITION_EDIT,
-            Permissions.REQUISITION_DELETE,
-            Permissions.REQUISITION_REVIEW,
-            Permissions.REQUISITION_APPROVE,
-            Permissions.GRN_VIEW,
-            Permissions.GRN_CREATE,
-            Permissions.GRN_EDIT,
-            Permissions.GRN_DELETE
-          ],
-          submenu: [
-            {
-              title: 'Purchase Order',
-              page: '/' + PURCHASE_ORDER.LIST,
-              permission: [
-                Permissions.PURCHASEORDER_VIEW,
-                Permissions.PURCHASEORDER_CREATE,
-                Permissions.PURCHASEORDER_EDIT,
-                Permissions.PURCHASEORDER_DELETE,
-                Permissions.PURCHASEORDER_REVIEW,
-                Permissions.PURCHASEORDER_APPROVE
-              ]
-            },
-            {
-              title: 'Requisition',
-              page: '/' + REQUISITION.LIST,
-              permission: [
-                Permissions.REQUISITION_VIEW,
-                Permissions.REQUISITION_CREATE,
-                Permissions.REQUISITION_EDIT,
-                Permissions.REQUISITION_DELETE,
-                Permissions.REQUISITION_REVIEW,
-                Permissions.REQUISITION_APPROVE
-              ]
-            },
-            {
-              title: 'Goods Received Note',
-              page: '/' + GOODS_RECEIVED_NOTE.LIST,
-              permission: [
-                Permissions.GRN_VIEW,
-                Permissions.GRN_CREATE,
-                Permissions.GRN_EDIT,
-                Permissions.GRN_DELETE
-              ]
-            },
-          ]
-        },
+        // {
+        //   title: 'Procurement',
+        //   bullet: 'dot',
+        //   icon: 'flaticon2-shopping-cart',
+        //   permission: [
+        //     Permissions.PURCHASEORDER_VIEW,
+        //     Permissions.PURCHASEORDER_CREATE,
+        //     Permissions.PURCHASEORDER_EDIT,
+        //     Permissions.PURCHASEORDER_DELETE,
+        //     Permissions.PURCHASEORDER_REVIEW,
+        //     Permissions.PURCHASEORDER_APPROVE,
+        //     Permissions.REQUISITION_VIEW,
+        //     Permissions.REQUISITION_CREATE,
+        //     Permissions.REQUISITION_EDIT,
+        //     Permissions.REQUISITION_DELETE,
+        //     Permissions.REQUISITION_REVIEW,
+        //     Permissions.REQUISITION_APPROVE,
+        //     Permissions.GRN_VIEW,
+        //     Permissions.GRN_CREATE,
+        //     Permissions.GRN_EDIT,
+        //     Permissions.GRN_DELETE
+        //   ],
+        //   submenu: [
+        //     {
+        //       title: 'Purchase Order',
+        //       page: '/' + PURCHASE_ORDER.LIST,
+        //       permission: [
+        //         Permissions.PURCHASEORDER_VIEW,
+        //         Permissions.PURCHASEORDER_CREATE,
+        //         Permissions.PURCHASEORDER_EDIT,
+        //         Permissions.PURCHASEORDER_DELETE,
+        //         Permissions.PURCHASEORDER_REVIEW,
+        //         Permissions.PURCHASEORDER_APPROVE
+        //       ]
+        //     },
+        //     {
+        //       title: 'Requisition',
+        //       page: '/' + REQUISITION.LIST,
+        //       permission: [
+        //         Permissions.REQUISITION_VIEW,
+        //         Permissions.REQUISITION_CREATE,
+        //         Permissions.REQUISITION_EDIT,
+        //         Permissions.REQUISITION_DELETE,
+        //         Permissions.REQUISITION_REVIEW,
+        //         Permissions.REQUISITION_APPROVE
+        //       ]
+        //     },
+        //     {
+        //       title: 'Goods Received Note',
+        //       page: '/' + GOODS_RECEIVED_NOTE.LIST,
+        //       permission: [
+        //         Permissions.GRN_VIEW,
+        //         Permissions.GRN_CREATE,
+        //         Permissions.GRN_EDIT,
+        //         Permissions.GRN_DELETE
+        //       ]
+        //     },
+        //   ]
+        // },
         //Budget Portion
         {
           title: 'Budget',

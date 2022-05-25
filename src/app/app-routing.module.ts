@@ -302,7 +302,7 @@ const routes: Routes = [
           import('./views/pages/payroll/payroll-transaction/payroll-transaction.module').then(
             (m) => m.PayrollTransactionModule
           ),
-         //canActivateChild: [AuthGuard]
+         canActivateChild: [AuthGuard]
       },
       {
         path: APP_ROUTES.PAYROLL_PROCESS,

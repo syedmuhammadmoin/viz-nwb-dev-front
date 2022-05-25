@@ -350,15 +350,10 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
           })
         )
         .subscribe((res: IApiResponse<IInvoice>) => {
-          this.toastService.success('' + res.message, 'Updated Successfully')
+          this.toastService.success('Updated Successfully', 'Invoice')
           this.cdRef.detectChanges();
           this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', this.invoiceModel.id)]);
-        },
-          (err) => {
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            this.isLoading = false;
-            this.cdRef.detectChanges()
-          })
+        })
     } else {
       delete this.invoiceModel.id;
       this.invoiceService.createInvoice(this.invoiceModel)
@@ -366,15 +361,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
           take(1),
           finalize(() => this.isLoading = false))
         .subscribe((res: IApiResponse<IInvoice>) => {
-            this.toastService.success('' + res.message, 'Created Successfully')
+            this.toastService.success('Created Successfully', 'Invoice')
             this.router.navigate(['/' + INVOICE.LIST])
-          },
-          (err) => {
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-          }
-        );
+          });
     }
   }
 

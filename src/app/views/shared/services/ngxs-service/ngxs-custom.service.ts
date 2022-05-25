@@ -34,6 +34,7 @@ import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/wa
 import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
 import { CscService } from 'src/app/views/shared/csc.service';
 import { AccountPayableState } from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
+import { StatusService } from 'src/app/views/pages/workflows/status/service/status.service';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,7 @@ export class NgxsCustomService {
     public productService: ProductService,
     public warehouseService: WarehouseService,
     public cscService: CscService,
+    public statusService: StatusService,
     public cashAccountService: CashAccountService,
     public bankAccountService: BankAccountService,
     public budgetService: BudgetService,
@@ -174,6 +176,11 @@ export class NgxsCustomService {
    @Select(EmployeeState.isFetchCompleted) employeeFetchCompleted$: Observable<any>;
    @Select(EmployeeState.isLoading) employeeIsLoading$: Observable<any>;
 
+   //Status
+   @Select(StatusState.entities) statuses$: Observable<any>;
+   @Select(StatusState.isFetchCompleted) statusFetchCompleted$: Observable<any>;
+   @Select(StatusState.isLoading) statusIsLoading$: Observable<any>;
+
 
   //region State Management
 
@@ -220,13 +227,13 @@ export class NgxsCustomService {
   }
 
   // Get Status From Store if available else fetch from the server and cache.
-  getStatusFromState() {
-    this.campusFetchCompleted$.subscribe((res) => {
+  getStatusesFromState() {
+    this.statusFetchCompleted$.subscribe((res) => {
       //console.log('Status State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(StatusState, {
-          serviceClass: this.campusService,
-          methodName: 'getStatusDropdown',
+          serviceClass: this.statusService,
+          methodName: 'getStatusesDropdown',
           context: this
         }))
       }

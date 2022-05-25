@@ -58,6 +58,8 @@
                     <th style="background-color: #1a6b85; color: white;">Quantity:</th>
                     <th style="background-color: #1a6b85; color: white;">Cost:</th>
                     <th style="background-color: #1a6b85; color: white;">Tax:</th>
+                    <th style="background-color: #1a6b85; color: white;">Other Tax:</th>
+                    <th style="background-color: #1a6b85; color: white;">Store:</th>
                     <th style="background-color: #1a6b85; color: white;">SubTotal:</th>
                     
                     
@@ -69,6 +71,8 @@
                     <td>{{detail?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td class="text-right" style="background-color: #eef0f8;">{{detail?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td class="text-right" style="background-color: #eef0f8;">{{detail?.tax + '%'}}</td>
+                    <td class="text-right" style="background-color: #eef0f8;">{{detail?.anyOtherTax}}</td>
+                    <td>{{detail?.warehouseName}}</td>
                     <td class="text-right" style="background-color: #eef0f8;"><span>{{detail?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></td>
                   </tr>
                   

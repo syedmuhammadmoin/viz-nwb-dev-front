@@ -200,7 +200,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.payrollProcessService.createPaymentProcess(body)
       .subscribe((res) => {
         this.isLoading.emit(false);
-        this.toastService.success(`${res.message || 'Payment registered successfully.'}`, 'Successful');
+        this.toastService.success('Registered successfully', 'Payment');
         this.resetForm();
         this.cdRef.detectChanges();
       });

@@ -293,16 +293,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
             })
           )
           .subscribe((res) => {
-            this.toastService.success('' + res.message, 'Updated Successfully')
+            this.toastService.success('Updated Successfully', 'Requisition')
             this.cdRef.detectChanges();
             this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details',this.requisitionModel.id ) ]);
-          },
-            // (err) => {
-            //   this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            //   this.isLoading = false;
-            //   this.cdRef.detectChanges()
-            // }
-            )
+          })
       } else {
         delete this.requisitionModel.id;
         this.requisitionService.createRequisition(this.requisitionModel)
@@ -311,15 +305,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
             finalize(() => this.isLoading = false))
           .subscribe(
             (res) => {
-              this.toastService.success('' + res.message, 'Created Successfully')
+              this.toastService.success('Created Successfully', 'Requisition')
               this.router.navigate(['/'+ REQUISITION.LIST])
-            },
-            // (err) => {
-            //   this.isLoading = false;
-            //   this.cdRef.detectChanges();
-            //   this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-            // }
-          );
+            });
       }
   }
 

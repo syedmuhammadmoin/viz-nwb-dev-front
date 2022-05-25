@@ -92,7 +92,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     },
     { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { 
-      headerName: 'Warehouse', 
+      headerName: 'Store', 
       field: 'warehouseName', 
       sortable: true, 
       filter: true, 

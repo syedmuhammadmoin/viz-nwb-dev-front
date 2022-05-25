@@ -74,7 +74,7 @@
                                 formControlName="currentStatusId" 
                                 matFormFieldClass="full-width"
                                 errorMessage="Current State is Required"
-                                [optionList]="statusService.getStatuses()">
+                                [optionList]="ngxsService.statuses$">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>
@@ -105,7 +105,7 @@
                                 formControlName="nextStatusId" 
                                 matFormFieldClass="full-width"
                                 errorMessage="Next State is Required"
-                                [optionList]="statusService.getStatuses()">
+                                [optionList]="ngxsService.statuses$">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>

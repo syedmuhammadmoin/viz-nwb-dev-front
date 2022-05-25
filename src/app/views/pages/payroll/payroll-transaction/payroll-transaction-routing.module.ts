@@ -16,55 +16,55 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListPayrollTransactionComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
-        //     { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
+            { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.CREATE,
         component: CreatePayrollTransactionComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard],
+        data: {
+          array: [
+            { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard],
       },
       {
         path: CRUD_ROUTES.EDIT,
         component: CreatePayrollTransactionComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.PAYROLL_TRANSACTION_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard],
+        data: {
+          array: [
+            { permission: Permissions.PAYROLL_TRANSACTION_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard],
       },
       {
         path: CRUD_ROUTES.DETAILS,
         component: PayrollTransactionDetailComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
-        //     { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
+            { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.PRINT,
         component: PrintPayrollTransactionComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
-        //     { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
+            { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard]
       }
     ]
   }

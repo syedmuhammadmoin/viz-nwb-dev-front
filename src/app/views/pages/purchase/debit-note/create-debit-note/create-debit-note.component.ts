@@ -321,15 +321,10 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
           })
         )
         .subscribe((res) => {
-          this.toastService.success('' + res.message, 'Updated Successfully')
+          this.toastService.success('Updated Successfully', 'Debit Note')
           this.cdRef.detectChanges();
           this.router.navigate(['/' + DEBIT_NOTE.ID_BASED_ROUTE('details',this.debitNoteModel.id ) ]);
-        },
-          (err) => {
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            this.isLoading = false;
-            this.cdRef.detectChanges()
-          })
+        })
     } else {
       delete this.debitNoteModel.id;
       this.debitNoteService.createDebitNote(this.debitNoteModel)
@@ -338,16 +333,9 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
           finalize(() => this.isLoading = false))
         .subscribe(
           (res) => {
-            this.toastService.success('' + res.message, 'Created Successfully')
+            this.toastService.success('Created Successfully', 'Debit Note')
             this.router.navigate(['/'+ DEBIT_NOTE.LIST])
-          },
-          (err: any) => {
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-            console.log(err)
-          }
-        );
+          });
     }
   }
 

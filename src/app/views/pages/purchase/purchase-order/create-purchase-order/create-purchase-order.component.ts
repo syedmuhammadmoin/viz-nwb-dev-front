@@ -316,16 +316,10 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
             })
           )
           .subscribe((res) => {
-            this.toastService.success('' + res.message, 'Updated Successfully')
+            this.toastService.success('Updated Successfully', 'Purchase Order')
             this.cdRef.detectChanges();
             this.router.navigate(['/' +PURCHASE_ORDER.ID_BASED_ROUTE('details',this.purchaseOrderModel.id ) ]);
-          },
-            // (err) => {
-            //   this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            //   this.isLoading = false;
-            //   this.cdRef.detectChanges()
-            // }
-            )
+          })
       } else {
         delete this.purchaseOrderModel.id;
         this.poService.createPurchaseOrder(this.purchaseOrderModel)
@@ -334,15 +328,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
             finalize(() => this.isLoading = false))
           .subscribe(
             (res) => {
-              this.toastService.success('' + res.message, 'Created Successfully')
+              this.toastService.success('Created Successfully', 'Purchase Order')
               this.router.navigate(['/'+ PURCHASE_ORDER.LIST])
-            },
-            // (err) => {
-            //   this.isLoading = false;
-            //   this.cdRef.detectChanges();
-            //   this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-            // }
-          );
+            });
       }
   }
 

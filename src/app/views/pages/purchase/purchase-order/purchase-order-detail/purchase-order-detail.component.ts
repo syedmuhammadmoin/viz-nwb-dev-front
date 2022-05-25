@@ -67,8 +67,8 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       }
     },
     {
-      headerName: 'Warehouse', 
-      field: 'warehouse', 
+      headerName: 'Store', 
+      field: 'warehouseName', 
       sortable: true, 
       filter: true, 
       cellStyle: {'font-size': '12px'},

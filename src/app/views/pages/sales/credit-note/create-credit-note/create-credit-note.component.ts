@@ -320,15 +320,10 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
           })
         )
         .subscribe((res: IApiResponse<ICreditNote>) => {
-          this.toastService.success('' + res.message, 'Updated Successfully')
+          this.toastService.success('Updated Successfully', 'Credit Note')
           this.cdRef.detectChanges();
           this.router.navigate(['/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , this.creditNoteModel.id)]);
-        },
-          (err) => {
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            this.isLoading = false;
-            this.cdRef.detectChanges()
-          })
+        })
     } else {
       delete this.creditNoteModel.id;
       this.creditNoteService.createCreditNote(this.creditNoteModel)
@@ -336,14 +331,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
           take(1),
           finalize(() => this.isLoading = false))
         .subscribe((res: IApiResponse<ICreditNote>) => {
-            this.toastService.success('' + res.message, 'Created Successfully')
+            this.toastService.success('Created Successfully' , 'Credit Note')
             this.router.navigate(['/' + CREDIT_NOTE.LIST])
-          },
-          (err) => {
-            this.cdRef.detectChanges();
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-          }
-        );
+          });
     }
 
   }

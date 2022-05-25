@@ -11,6 +11,7 @@
          [max]="max"
          [id]="id"
          [type]="type"
+         [defaultValue]="defaultValue"
          [ngClass]="inputClass">
   <mat-error *ngFor="let error of errorMessage">
     <strong *ngIf="error.condition">{{error.error}}</strong>

@@ -177,8 +177,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
         .subscribe(() => {
             this.toastService.success('Updated Successfully', 'Bank Statement')
             this.router.navigate(['/' + BANK_STATEMENT.LIST])
-          },
-          (err) => this.toastService.error('Something went wrong', 'Bank Statement')
+          }
         );
     } else {
       delete this.bankStatementModel.id;
@@ -190,8 +189,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
         .subscribe(() => {
           this.toastService.success('Generated Successfully', 'Bank Statement')
           this.router.navigate(['/' + BANK_STATEMENT.LIST])
-        },
-          (err) => this.toastService.error('Something went wrong', 'Bank Statement')
+        }
         );
     }
   }
