@@ -7,8 +7,6 @@ export class IPayrollTransaction {
     presentDays: number;
     leaveDays: number;
     transDate: string;
+    accountPayableId: string;
     isSubmit: boolean;
-    tax: number;
-    accountPayableId: any
   }
-  

@@ -1,7 +1,7 @@
 import { Injectable, } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AccountLevel4State } from 'src/app/core/shared-state/account-state/store/account-level4.state';
+import { AccountLevel4State } from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
 import { BudgetAccountState } from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
 import { BudgetService } from 'src/app/views/pages/budget/current-budget/service/budget.service';
@@ -33,6 +33,7 @@ import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/servic
 import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
 import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
 import { CscService } from 'src/app/views/shared/csc.service';
+import { AccountPayableState } from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
 
 @Injectable({
   providedIn: 'root'
@@ -89,10 +90,15 @@ export class NgxsCustomService {
   //  @Select(CityState.isFetchCompleted) cityFetchCompleted$: Observable<any>;
   //  @Select(CityState.isLoading) cityIsLoading$: Observable<any>;
 
-  // Account Payable
+  // Level 4 Accounts
   @Select(AccountLevel4State.entities) accountsLevel4$: Observable<any>;
   @Select(AccountLevel4State.isFetchCompleted) accountLevel4FetchCompleted$: Observable<any>;
   @Select(AccountLevel4State.isLoading) accountLevel4IsLoading$: Observable<any>;
+
+  // Account Payable
+  @Select(AccountPayableState.entities) accountsPayable$: Observable<any>;
+  @Select(AccountPayableState.isFetchCompleted) accountPayableFetchCompleted$: Observable<any>;
+  @Select(AccountPayableState.isLoading) accountPayableIsLoading$: Observable<any>;
 
   // Budget Accounts
   @Select(BudgetAccountState.entities) budgetAccount$: Observable<any>;
@@ -283,6 +289,20 @@ export class NgxsCustomService {
     })
   }  
 
+  // Get All Payable Accounts State From Store if available else fetch from the server and cache.
+  getAccountPayableFromState() {
+    this.accountPayableFetchCompleted$.subscribe((res) => {
+      //console.log('Account Payable FetchCompleted: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(AccountPayableState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getPayableAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
   // Get All Budget Accounts State From Store if available else fetch from the server and cache.
   getBudgetAccountsFromState() {
     this.budgetAccountFetchCompleted$.subscribe((res) => {
@@ -380,23 +400,6 @@ export class NgxsCustomService {
       }
     })
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   // Get Product From Store if available else fetch from the server and cache.

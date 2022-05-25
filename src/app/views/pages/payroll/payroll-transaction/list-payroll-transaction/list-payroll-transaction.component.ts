@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -22,6 +23,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
   gridOptions: GridOptions;
   tooltipData: string = "double click to view detail"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -44,7 +46,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'DocNo ',
       field: 'docNo',
-      tooltipField: 'employee',
+      tooltipField: 'docNo',
       cellRenderer: 'loadingCellRenderer',
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
@@ -56,7 +58,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Employee Name ',
       field: 'employee',
-      tooltipField: 'employee',
+      tooltipField: 'docNo',
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       // filterParams: {
@@ -64,21 +66,21 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       //   suppressAndOrCondition: true,
       // },
     },
-    {
-      headerName: 'CNIC',
-      field: 'cnic',
-      tooltipField: 'employee',
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['contains'],
-      //   suppressAndOrCondition: true,
-      // },
-    },
+    // {
+    //   headerName: 'CNIC',
+    //   field: 'cnic',
+    //   tooltipField: 'employee',
+    //   // filter: 'agTextColumnFilter',
+    //   // menuTabs: ['filterMenuTab'],
+    //   // filterParams: {
+    //   //   filterOptions: ['contains'],
+    //   //   suppressAndOrCondition: true,
+    //   // },
+    // },
     {
       headerName: 'Designation',
       field: 'designation',
-      tooltipField: 'handler',
+      tooltipField: 'docNo',
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       // filterParams: {
@@ -89,7 +91,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Department',
       field: 'department',
-      tooltipField: 'handler',
+      tooltipField: 'docNo',
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       // filterParams: {
@@ -97,22 +99,22 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       //   suppressAndOrCondition: true,
       // },
     },
+    // {
+    //   headerName: 'Transaction Date',
+    //   field: 'transDate',
+    //   tooltipField: 'docNo',
+    //   // filter: 'agDateColumnFilter',
+    //   // menuTabs: ['filterMenuTab'],
+    //   // filterParams: {
+    //   //   filterOptions: ['equals'],
+    //   //   suppressAndOrCondition: true,
+    //   // },
+    //   valueFormatter: (params: any) => {
+    //     return this.dateHelperService.transformDate(params.value, 'MMM d, y');
+    //   },
+    // },
     {
-      headerName: 'Transaction Date',
-      field: 'transDate',
-      tooltipField: 'docNo',
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['equals'],
-      //   suppressAndOrCondition: true,
-      // },
-      valueFormatter: (params: any) => {
-        return this.dateHelperService.transformDate(params.value, 'MMM d, y');
-      },
-    },
-    {
-      headerName: 'Basic Pay ',
+      headerName: 'Basic Salary',
       field: 'basicSalary',
       suppressMenu: true,
       tooltipField: 'employee',
@@ -124,16 +126,16 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Allowance',
       field: 'totalAllowances',
       suppressMenu: true,
-      tooltipField: 'employee',
+      tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
       },
     },
     {
       headerName: 'Gross Pay',
-      field: 'grossSalary',
+      field: 'grossPay',
       suppressMenu: true,
-      tooltipField: 'employee',
+      tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
       },
@@ -142,25 +144,25 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Deductions',
       field: 'totalDeductions',
       suppressMenu: true,
-      tooltipField: 'employee',
+      tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
       },
     },
-    {
-      headerName: 'Tax',
-      field: 'taxDeduction',
-      suppressMenu: true,
-      tooltipField: 'employee',
-      valueFormatter: (params: any) => {
-        return params.value ? this.valueFormatter(params.value) : null;
-      },
-    },
+    // {
+    //   headerName: 'Tax',
+    //   field: 'taxDeduction',
+    //   suppressMenu: true,
+    //   tooltipField: 'employee',
+    //   valueFormatter: (params: any) => {
+    //     return params.value ? this.valueFormatter(params.value) : null;
+    //   },
+    // },
     {
       headerName: 'Net Pay',
       field: 'netSalary',
       suppressMenu: true,
-      tooltipField: 'employee',
+      tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
       },
@@ -198,7 +200,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "double click to view Detail",
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
@@ -226,29 +228,18 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     this.router.navigate(["/" + PAYROLL_TRANSACTION.CREATE])
   }
 
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
+    this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', event.data.id)]);
+  }
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     params.api.setDatasource(this.dataSource);
   }
 
-  // async getPayrollTransactions(params: any): Promise<IPaginationResponse<IPayrollTransaction[]>> {
-  //   const result = await this.payrollTransactionService.getPayrollTransactions().toPromise()
-  //   return result
-  // }
-
-  async getPayrollTransactions(params: any): Promise<IPaginationResponse<any[]>> {
-    const result = await {
-      "result": [],
-      "isSuccess": true,
-      "errors": [
-        "string"
-      ],
-      "message": "string",
-      "pageStart": 0,
-      "pageEnd": 0,
-      "totalRecords": 0
-    }
+  async getPayrollTransactions(params: any): Promise<IPaginationResponse<IPayrollTransaction[]>> {
+    const result = await this.payrollTransactionService.getPayrollTransactions(params).toPromise()
     return result
   }
 

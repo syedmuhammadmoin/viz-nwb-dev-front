@@ -39,7 +39,7 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
 
   constructor ( private controlContainer: ControlContainer ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void { this.value = this.control.value }
 
   get control() {
     return this.formControl || this.controlContainer.control.get(this.formControlName) 
@@ -52,7 +52,9 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   registerOnChange(fn: (_: number|null) => void): void {
     if(this.type === 'number') {
       this.onChange = () => {
-        fn((this.control.value) ? Number(this.control.value) : null);
+        //this condition is not working on '0' value
+        //fn((this.control.value) ? Number(this.control.value) : null);
+        fn((this.control.value === '' || this.control.value === null ) ? null : Number(this.control.value));
       };
     }
     else {

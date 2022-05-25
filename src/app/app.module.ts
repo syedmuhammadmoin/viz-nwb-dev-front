@@ -1,4 +1,3 @@
-import { AccountLevel4State } from './core/shared-state/account-state/store/account-level4.state';
 import { CityState } from './core/shared-state/account-state/store/city.state';
 import { StateState } from './core/shared-state/account-state/store/state.state';
 import { CountryState } from './core/shared-state/account-state/store/country.state';
@@ -92,6 +91,8 @@ import { DesignationState } from './views/pages/payroll/designation/store/design
 import { EmployeeState } from './views/pages/payroll/employee/store/employee.state';
 import { DepartmentState } from './views/pages/payroll/department/store/department.store';
 import { CashAccountState } from './views/pages/finance/cash-account/store/cash-account.state';
+import { AccountPayableState } from './views/pages/finance/chat-of-account/store/account-payable.state';
+import { AccountLevel4State } from './views/pages/finance/chat-of-account/store/account-level4.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -150,6 +151,7 @@ export function getHighlightLanguages() {
       ProductState,
       WarehouseState,
       AccountLevel4State,
+      AccountPayableState,
       BudgetAccountState,
       CountryState,
       StateState,

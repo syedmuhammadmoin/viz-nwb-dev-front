@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { CREDIT_NOTE, INVOICE, PAYMENT, PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
+import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { PayrollTransactionService } from '../service/payroll-transaction.service';
 import { RegisterPaymentComponent } from '../../../sales/invoice/register-payment/register-payment.component';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -29,8 +29,6 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   defaultColDef: ColDef;
 
   public PAYROLL_TRANSACTION = PAYROLL_TRANSACTION;
-  public CREDIT_NOTE = CREDIT_NOTE;
-  public PAYMENT = PAYMENT;
 
   //handling register payment button
   isDisabled: boolean;
@@ -39,10 +37,6 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   isLoading: boolean;
 
   //Variables for Payroll Transaction data
-  // bpUnReconPaymentList: any = [];
-  // pendingAmount: any;
-  // status: string;
-  // paidAmount: number;
   paidAmountList: any = [];
 
   months = AppConst.Months
@@ -99,18 +93,16 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   }
 
   getPayroll(id: number) {
-    // this.payrollTransactionService.getPayrollTransactionById(id)
-    //   .subscribe((res: IPayrollTransaction | any) => {
-    //     this.payrollMaster = res.result;
-    //     console.log('master data payroll', this.payrollMaster)
-    //     //this.employeeType = AppConst.EmployeeType[this.payrollMaster.employeeType];
-    //     this.paidAmountList = this.payrollMaster.paidAmountList == null ? [] : this.payrollMaster.paidAmountList;
-    //     this.remarksList = this.payrollMaster.remarksList == null ? [] : this.payrollMaster.remarksList;
-    //     this.totalPaidAmount = this.payrollMaster?.totalPaid;
-    //     this.employeeItems = res.result.payrollTransactionLines
-    //     this.isLoading = false;
-    //     this.cdRef.detectChanges();
-    //   })
+    this.payrollTransactionService.getPayrollTransactionById(id)
+      .subscribe((res: IPayrollTransaction | any) => {
+        this.payrollMaster = res.result;
+        console.log('master data payroll', this.payrollMaster)
+        //this.employeeType = AppConst.EmployeeType[this.payrollMaster.employeeType];
+       
+        this.employeeItems = res.result.payrollTransactionLines
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+      })
   }
 
   getSalaryMonth() {

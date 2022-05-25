@@ -48,12 +48,12 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
     { headerName: 'Shift', field: 'dutyShift', sortable: true, filter: true, tooltipField: 'name' },
     {
       headerName: 'Active',
-      field: 'status',
+      field: 'isActive',
       sortable: true,
       filter: true,
       tooltipField: 'name',
       valueFormatter: (params: ValueFormatterParams) => { 
-        return (params.value === 'active') ? "Yes" : "No"
+        return (params.value) ? "Yes" : "No"
       }
     }
   ];

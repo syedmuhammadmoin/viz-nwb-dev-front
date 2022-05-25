@@ -15,7 +15,7 @@
                     <kt-simple-dropdown
                       id="payroll_trans_employee"
                       (blurEvent)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)"
-                      (selectionChange)="this.getEmployee($event.value)"
+                      (selectionChange)="getEmployee($event.value)"
                       [errorMessage]="formErrors.employeeId" [optionList]="ngxsService.employees$"
                       formControlName="employeeId" matFormFieldClass="full-width"
                       placeholder="Select Employee"
@@ -155,7 +155,7 @@
                       formControlName="presentDays"
                       placeholder="Enter Present Days"
                       (change)="calculateSalary(employee)"
-                      type="number" min="0" [max]="8"
+                      type="number" min="0" [max]="payrollTransactionForm.controls['workingDays'].value"
                       [value]="payrollTransactionForm.get('presentDays').value | nonNegative"
                       (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
                       [errorMessage]="[{ condition : formErrors.presentDays , error : formErrors.presentDays}]">
@@ -182,16 +182,16 @@
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Account Payable:</label>
-                    <!-- <kt-simple-dropdown
+                    <kt-simple-dropdown
                       id="payroll_trans_payable"
                       (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.accountPayableId"
-                      [optionList]="ngxsService.payableAccounts$ || []"
+                      [optionList]="ngxsService.accountsPayable$"
                       formControlName="accountPayableId"
                       matFormFieldClass="full-width"
                       placeholder="Select Account" propertyName="name"
                       propertyValue="id" searchPlaceholder="Search account...">
-                    </kt-simple-dropdown>  -->
+                    </kt-simple-dropdown> 
                   </div>
                 </div>
               </div>

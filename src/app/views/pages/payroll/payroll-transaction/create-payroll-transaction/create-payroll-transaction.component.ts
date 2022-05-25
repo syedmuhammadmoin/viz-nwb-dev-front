@@ -12,6 +12,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { EmployeeService } from '../../employee/service/employee.service';
 import { FirstDataRenderedEvent } from 'ag-grid-community';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-create-payroll-transaction',
@@ -113,32 +114,19 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   columnDef = [
-    {headerName: 'Payroll Item', field: 'payrollItem'},
-    {headerName: 'Account', field: 'account'},
+    {headerName: 'Payroll Item', field: 'name'},
+    {headerName: 'Account', field: 'accountName'},
     {
-      headerName: 'Amount', field: 'amount', valueFormatter: (params) => {
+      headerName: 'Amount', field: 'value', valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
     }
   ]
 
   ngOnInit() {
-    // From Route Params
-    this.activatedRoute.params.subscribe((params) => {
-      if (params.id) {
-        this.title = 'Edit Payroll';
-        this.getPayroll(params.id);
-      }
-    });
-    // edit form
-    if (this._id) {
-      this.title = 'Edit Payroll';
-      this.getPayroll(this._id);
-    }
     // create form
     this.payrollTransactionForm = this.fb.group({
         transDate: ['', Validators.required],
-        tax: [0, Validators.required],
         designation: [''],
         department: [''],
         basicPay: [''],
@@ -153,6 +141,19 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       },
     );
 
+    // From Route Params
+    this.activatedRoute.params.subscribe((params) => {
+      if (params.id) {
+        this.title = 'Edit Payroll';
+        this.getPayroll(params.id);
+      }
+    });
+    // edit form
+    // if (this._id) {
+    //   this.title = 'Edit Payroll';
+    //   this.getPayroll(this._id);
+    // }
+
     // this.payrollTransactionForm.get('workingDays').valueChanges.subscribe((value) => {
     //     this.workingDays = value
     //      this.payrollTransactionForm.get('presentDays').updateValueAndValidity()
@@ -160,7 +161,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     // })
     // console.log(this.workingDays)
     this.ngxsService.getEmployeeFromState();
-    //this.ngxsService.getPayableAccountsFromState();
+    this.ngxsService.getAccountPayableFromState();
+    //this.ngxsService.getAccountLevel4FromState();
   }
 
   //check present and leave days lesser than working days or not
@@ -172,13 +174,12 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
 // submit method called on submit button
   onSubmit() {
-    // if (this.payrollTransactionForm.invalid) {
-    //   console.log("return")
-    //   return;
-    // }
+    if (this.payrollTransactionForm.invalid) {
+      return;
+    }
     if (this.payrollTransactionForm.value.workingDays <
       (Number(this.payrollTransactionForm.value.presentDays) + Number(this.payrollTransactionForm.value.leaveDays))) {
-      this.toastService.error('Present day and leave days sum must be less than working days', 'Error');
+      this.toastService.error('Present days and Leave days sum must be less than Working days', 'Error');
       return;
     }
     // this.isLoading = true;
@@ -189,50 +190,29 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     //   isSubmit: this.payrollTransaction.isSubmit
     // } as IPayrollTransaction
 
+    this.isLoading = true;
     this.mapPayrollTransactionValuesToPayrollModel()
-
     console.log(this.payrollTransaction)
-    // if (this.payrollTransaction.id) {
-    //   console.log('update: ', this.payrollTransaction);
-    //   this.payrollTransactionService.updatePayrollTransaction(this.payrollTransaction)
-    //     .pipe(
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(
-    //       (res) => {
-    //         this.toastService.success(res?.message, 'Updated Successfully')
-
-    //         if (!this._id) {
-    //           this.router.navigate([`/payroll/transaction/detail/${res?.result}`])
-    //         } else {
-    //           this.dialogRef.close();
-    //         }
-    //       },
-    //       (err) => {
-    //         // this.toastService.error(err?.error?.message)
-    //         this.isLoading = false;
-    //         this.cdRef.detectChanges();
-    //       })
-    // } else {
-    //   console.log('create', this.payrollTransaction);
-    //   this.payrollTransactionService.createPayrollTransaction(this.payrollTransaction)
-    //     .pipe(
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(
-    //       (res) => {
-    //         this.toastService.success(res?.message, 'Created Successfully');
-    //         if (!this._id) {
-    //           this.router.navigate([`/payroll/transaction/detail/${res?.result}`])
-    //         } else {
-    //           this.dialogRef.close();
-    //         }
-    //       },
-    //       (err) => {
-    //         this.isLoading = false;
-    //         // this.toastService.error(err?.error?.message, 'Error!')
-    //         this.cdRef.detectChanges();
-    //       }
-    //     )
-    // }
+    if (this.payrollTransaction.id) {
+      this.payrollTransactionService.updatePayrollTransaction(this.payrollTransaction)
+        .pipe(
+          finalize(() => this.isLoading = false))
+        .subscribe(
+          (res) => {
+            this.toastService.success(res?.message, 'Updated Successfully')
+            this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details' , this.payrollTransaction.id)])
+          })
+    } else {
+      this.payrollTransactionService.createPayrollTransaction(this.payrollTransaction)
+        .pipe(
+          finalize(() => this.isLoading = false))
+        .subscribe(
+          (res) => {
+            this.toastService.success(res?.message, 'Created Successfully');
+            this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
+          }
+        )
+    }
   }
 
   mapPayrollTransactionValuesToPayrollModel() {
@@ -242,9 +222,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.payrollTransaction.workingDays = this.payrollTransactionForm.value.workingDays
     this.payrollTransaction.presentDays = this.payrollTransactionForm.value.presentDays
     this.payrollTransaction.leaveDays = this.payrollTransactionForm.value.leaveDays
-    this.payrollTransaction.transDate = this.dateHelperService.transformDate(this.payrollTransactionForm.value.transDate, 'MM/d/y')
+    this.payrollTransaction.transDate = this.dateHelperService.transformDate(this.payrollTransactionForm.value.transDate, 'yyyy-MM-dd')
     this.payrollTransaction.isSubmit = this.payrollTransaction.isSubmit
-    this.payrollTransaction.tax = 0
     this.payrollTransaction.accountPayableId = this.payrollTransactionForm.value.accountPayableId
   }
 
@@ -272,6 +251,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       accountPayableId: payrollTransaction.accountPayableId
     })
     this.getEmployee(payrollTransaction.employeeId)
+    this.onChange(payrollTransaction.workingDays)
   }
 
   checkSelected(employee) {
@@ -281,7 +261,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       basicPay: employee.basicPay,
       increment: employee.increment,
     })
-    this.payrollItems = employee.employeeLines;
+    this.payrollItems = employee.payrollItems;
     this.calculateSalary(employee);
     this.cdRef.detectChanges();
   }
@@ -289,7 +269,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 // for salary calculation
   calculateSalary(employee: any) {
     // const employee = this.employees.find(x => x.id === employeeId);
-    console.log('calculating...: ', employee)
     const workingDays = this.payrollTransactionForm.value.workingDays || 1
     const presentDays = this.payrollTransactionForm.value.presentDays || 1
     const tax = this.payrollTransactionForm.value.tax || 0
@@ -297,11 +276,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.grossSalary = Number(employee.grossPay);
     this.netSalaryBeforeTax = ((+employee.netPay / +workingDays) * +presentDays);
     this.netSalary = Number(this.netSalaryBeforeTax) - Number(tax)
-    // console.log(
-    //   `basic: ${this.basicSalary},
-    //    gross: ${this.grossSalary},
-    //     netBT: ${this.netSalaryBeforeTax},
-    //      net: ${this.netSalary}`)
     this.cdRef.detectChanges();
   }
 
@@ -311,7 +285,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // getting employee data by id
   getEmployee(id: number) {
-    console.log("called")
     this.employeeService.getEmployeeById(id).subscribe((res) => {
       this.employee = res.result
       this.checkSelected(this.employee)
@@ -322,7 +295,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   private getPayroll(id: any) {
     this.isLoading = true;
     this.payrollTransactionService.getPayrollTransactionById(id).subscribe((res) => {
-      console.log('payroll model: ', res);
       this.payrollTransaction = res.result;
       this.patchPayroll(this.payrollTransaction);
       this.isLoading = false;
