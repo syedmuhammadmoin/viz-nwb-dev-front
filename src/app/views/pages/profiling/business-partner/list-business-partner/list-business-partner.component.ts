@@ -7,7 +7,7 @@ import { CreateBusinessPartnerComponent } from '../create-business-partner/creat
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IBusinessPartner } from '../model/IBusinessPartner';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { BusinessPartnerType } from 'src/app/views/shared/AppEnum';
+import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
 import { LoadingCellRenderer } from 'ag-grid-community/dist/lib/rendering/cellRenderers/loadingCellRenderer';
 
 @Component({
@@ -23,6 +23,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   frameworkComponents : {[p: string]: unknown};
   gridOptions : GridOptions;
   defaultColDef : ColDef;
+  public permissions = Permissions
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -151,7 +152,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   }
 
   async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
-    const result = await this.ngxsService.businessPartnerService.getBusinessPartners().toPromise()
+    const result = await this.ngxsService.businessPartnerService.getBusinessPartners(params).toPromise()
     return result
   }
 

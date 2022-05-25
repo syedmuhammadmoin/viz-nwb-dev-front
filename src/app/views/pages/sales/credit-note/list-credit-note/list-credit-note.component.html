@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button (click)="addCreditNote()" id="add_credit_note" mat-raised-button class="sub___btn"  matTooltip="Add Credit Note">Add Credit Note</button>
+    <button (click)="addCreditNote()" [disabled]="!(permission.isGranted(permissions.CREDITNOTE_CREATE))" id="add_credit_note" mat-raised-button class="sub___btn"  matTooltip="Add Credit Note">Add Credit Note</button>
   </div>
 </div>
 

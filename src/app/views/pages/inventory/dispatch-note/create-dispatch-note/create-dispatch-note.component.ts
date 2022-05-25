@@ -114,7 +114,7 @@ export class CreateDispatchNoteComponent extends AppComponentBase implements OnI
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
   }
 
 

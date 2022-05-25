@@ -48,6 +48,8 @@ export const APP_ROUTES = {
 
   //PAYROLL
   PAYROLL_ITEM: 'payroll-item',
+  PAYROLL_TRANSACTION: 'payroll-transaction',
+  PAYROLL_PROCESS: 'payroll-process',
   EMPLOYEE: 'employee',
   DEPARTMENT: 'department',
   DESIGNATION: 'designation',
@@ -73,7 +75,12 @@ export const CRUD_ROUTES = {
   EDIT : 'edit/:id',
   DETAILS : 'details/:id',
   PRINT: 'print/:id',
-  AGING_REPORT:'aging-report'
+  AGING_REPORT:'aging-report',
+  APPROVE_PROCESS: 'approve-process',
+  CREATE_PROCESS: 'create-process',
+  APPROVE_PAYMENT: 'approve-payment',
+  CREATE_PAYMENT: 'create-payment',
+  REGISTER_PAYMENT: 'register-payment' 
 } 
 
   //AUTH SECTION
@@ -259,8 +266,26 @@ export const CRUD_ROUTES = {
     }
   }
 
+  export const PAYROLL_TRANSACTION = {
+    LIST: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.PAYROLL_TRANSACTION + '/' + route + '/' + id
+    }
+  }
+  
+  export const PAYROLL_PROCESS = {
+    APPROVE_PROCESS: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.APPROVE_PROCESS,
+    CREATE_PROCESS: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.CREATE_PROCESS,
+    APPROVE_PAYMENT: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.REGISTER_PAYMENT + '/' + CRUD_ROUTES.APPROVE_PAYMENT,
+    CREATE_PAYMENT: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.REGISTER_PAYMENT + '/' + CRUD_ROUTES.CREATE_PAYMENT
+  }
+
   export const EMPLOYEE = {
     LIST: APP_ROUTES.EMPLOYEE + '/' + CRUD_ROUTES.LIST,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.EMPLOYEE + '/' + route + '/' + id
+    }
   }
 
   export const DEPARTMENT = {

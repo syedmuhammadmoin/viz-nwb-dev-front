@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ICreditNote } from '../model/ICreditNote';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http'; 
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http'; 
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -18,8 +18,13 @@ export class CreditNoteService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getCreditNotes(): Observable<IPaginationResponse<ICreditNote[]>> {
-      return this.httpClient.get<IPaginationResponse<ICreditNote[]>>(this.baseUrl)
+    getCreditNotes(params: any): Observable<IPaginationResponse<ICreditNote[]>> {
+        let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+      return this.httpClient.get<IPaginationResponse<ICreditNote[]>>(this.baseUrl,{ params: httpParams})
         .pipe(catchError(this.handleError));
     }
   

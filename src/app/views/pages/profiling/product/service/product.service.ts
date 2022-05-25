@@ -1,5 +1,5 @@
 import { IProduct } from '../model/IProduct';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -17,8 +17,13 @@ export class ProductService {
     
     constructor(private httpClient: HttpClient) { }
 
-    getProducts(): Observable<IPaginationResponse<IProduct[]>> {
-        return this.httpClient.get<IPaginationResponse<IProduct[]>>(this.baseUrl)
+    getProducts(params: any): Observable<IPaginationResponse<IProduct[]>> {
+        let httpParams = new HttpParams();
+
+        httpParams = httpParams.append('PageStart', params?.startRow);
+        httpParams = httpParams.append('PageEnd', params?.endRow);
+        
+        return this.httpClient.get<IPaginationResponse<IProduct[]>>(this.baseUrl,{ params: httpParams})
             .pipe(catchError(this.handleError));
     }
 

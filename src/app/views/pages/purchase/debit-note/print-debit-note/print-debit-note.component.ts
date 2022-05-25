@@ -46,7 +46,7 @@ export class PrintDebitNoteComponent implements OnInit {
     }
   
     getDebitNoteMasterData(id: number){
-      this.debitNoteService.getDebitNoteMaster(id).subscribe(res => {
+      this.debitNoteService.getDebitNoteById(id).subscribe(res => {
         this.debitNoteMaster = res.result;
         this.debitNoteLines = res.result.debitNoteLines;
         this.totalAmount = this.debitNoteMaster.totalAmount;

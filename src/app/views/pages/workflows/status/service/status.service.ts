@@ -1,4 +1,4 @@
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
@@ -12,8 +12,17 @@ export class StatusService {
 
   constructor( private httpClient: HttpClient) { }
 
-getStatuses(): Observable<any> {
-    return this.httpClient.get(environment.baseUrl + 'status');
+getStatuses(params): Observable<any> {
+  let httpParams = new HttpParams();
+
+  httpParams = httpParams.append('PageStart', params?.startRow);
+  httpParams = httpParams.append('PageEnd', params?.endRow);
+  
+    return this.httpClient.get(environment.baseUrl + 'status' , { params: httpParams} );
+}
+
+getStatusesDropdown(): Observable<any> {
+    return this.httpClient.get(environment.baseUrl + 'status/dropdown');
 }
 
 createStatus(body: IStatus): Observable<any> {

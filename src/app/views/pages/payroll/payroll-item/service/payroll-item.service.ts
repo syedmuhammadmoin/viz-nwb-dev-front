@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -17,8 +17,13 @@ export class PayrollItemService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getPayrollItems(): Observable<IPaginationResponse<IPayrollItem[]>> {
-        return this.httpClient.get<IPaginationResponse<IPayrollItem[]>>(this.baseUrl)
+    getPayrollItems(params: any): Observable<IPaginationResponse<IPayrollItem[]>> {
+        let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+        return this.httpClient.get<IPaginationResponse<IPayrollItem[]>>(this.baseUrl, { params: httpParams})
     }
 
     getEmployees(): Observable<IPaginationResponse<any[]>> {

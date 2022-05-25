@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { IDebitNote } from '../model/IDebitNote';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IWorkflow } from '../../vendorBill/model/IWorkflow';
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Injectable({
     providedIn: 'root'
@@ -16,20 +17,19 @@ export class DebitNoteService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getDebitNotes(): Observable<any> {
-        return this.httpClient.get<any[]>(this.baseUrl)
-            .pipe(catchError(this.handleError));
+    getDebitNotes(params: any): Observable<IPaginationResponse<IDebitNote[]>> {
+        let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+        return this.httpClient.get<IPaginationResponse<IDebitNote[]>>(this.baseUrl, { params: httpParams})
     }
 
-    getDebitNoteMaster(id: number): Observable<any> {
-        return this.httpClient.get(`${this.baseUrl}/${id}`)
-            .pipe(catchError(this.handleError));
+    getDebitNoteById(id: number): Observable<IApiResponse<IDebitNote>> {
+        return this.httpClient.get<IApiResponse<IDebitNote>>(`${this.baseUrl}/${id}`)
     }
 
-    // getDebitNoteDetail(id: number): Observable<any> {
-    //     return this.httpClient.get(`${this.baseUrl}/` + 'details/' + `${id}`)
-    //         .pipe(catchError(this.handleError));
-    // }
 
     updateDebitNote(debitNoteModel: IDebitNote): Observable<any> {
         return this.httpClient.put(this.baseUrl + `/${debitNoteModel.id}`, debitNoteModel)
@@ -46,16 +46,6 @@ export class DebitNoteService {
             })
         });
     }
-
-    private handleError(errorResponse: HttpErrorResponse) {
-        if (errorResponse.error instanceof ErrorEvent) {
-            console.error('Client Side Error :', errorResponse.error.message);
-        } else {
-            console.error('Server Side Error :', errorResponse);
-        }
-        return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
-    }
-
 }
 
 

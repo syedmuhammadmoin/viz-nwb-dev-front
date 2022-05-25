@@ -20,13 +20,13 @@ import { IWorkflow } from '../model/IWorkflow';
   
 export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
-  public permissions = Permissions;
   workflowList: any;
   frameworkComponents: any;
   gridOptions: any;
   defaultColDef: any;
   tooltipData: string = "double click to view details"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -117,7 +117,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   }
 
   async getWorkflows(params: any): Promise<IPaginationResponse<IWorkflow[]>> {
-    const result = await  this.workflowService.getWorkflows().toPromise()
+    const result = await  this.workflowService.getWorkflows(params).toPromise()
     return result
   }
 

@@ -55,7 +55,7 @@ export class AddModalButtonService {
     })
   }
   getOrgnizationTypes() {
-    this.orgnizationService.getOrganizations().subscribe((res) => {
+    this.orgnizationService.getOrganizationsDropdown().subscribe((res) => {
      //console.log(res);
       this.orgnizationList.next(res.result);
     })
@@ -71,7 +71,7 @@ export class AddModalButtonService {
     })
   }
   getWarehouseTypes() {
-    this.warehouseService.getWarehouses().subscribe((res) => {
+    this.warehouseService.getWarehousesDropdown().subscribe((res) => {
       //console.log(res);
       this.warehouseList.next(res.result);
     })
@@ -88,7 +88,7 @@ export class AddModalButtonService {
     })
   }
   getCategoryTypes() {
-    this.categoryService.getCategories().subscribe((res) => {
+    this.categoryService.getCategoriesDropdown().subscribe((res) => {
       //console.log(res);
       this.categoryList.next(res.result);
     })
@@ -105,7 +105,7 @@ export class AddModalButtonService {
     })
   }
   getBusinessPartnerTypes() {
-    this.partnerService.getBusinessPartners().subscribe((res) => {
+    this.partnerService.getBusinessPartnersDropdown().subscribe((res) => {
       //console.log(res);
       this.partnerList.next(res.result);
     })
@@ -121,13 +121,13 @@ export class AddModalButtonService {
     })
   }
   getLocationTypes() {
-    this.warehouseService.getWarehouses().subscribe((res) => {
+    this.warehouseService.getWarehousesDropdown().subscribe((res) => {
      // console.log(res);
       this.warehouseLocationList.next(res.result);
     })
   }
   getLocationList() {
-    this.locationService.getLocations().subscribe((res) => {
+    this.locationService.getLocationsDropdown().subscribe((res) => {
       //console.log(res);
       this.locationList.next(res.result);
     })
@@ -142,7 +142,7 @@ export class AddModalButtonService {
     })
   }
   getProductTypes() {
-    this.productService.getProducts().subscribe((res) => {
+    this.productService.getProductsDropdown().subscribe((res) => {
       //console.log(res);
       this.productList.next(res.result);
     })

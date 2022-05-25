@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CreateStatusComponent } from '../create-status/create-status.component';
@@ -24,6 +25,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   statusList: IStatus[] = [];
   frameworkComponents: any;
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -87,7 +89,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   }
 
   getAllStatus() {
-    this.statusService.getStatuses().subscribe((res) => {
+    this.statusService.getStatusesDropdown().subscribe((res) => {
       this.statusList = res.result;
       this.cdRef.detectChanges()
     });
@@ -120,7 +122,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   }
 
   async getStatuses(params: any): Promise<IPaginationResponse<IStatus[]>> {
-    const result = await this.statusService.getStatuses().toPromise()
+    const result = await this.statusService.getStatuses(params).toPromise()
     return result
   }
 

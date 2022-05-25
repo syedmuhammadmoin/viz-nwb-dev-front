@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CREDIT_NOTE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -24,6 +25,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   gridOptions: GridOptions;
   tooltipData: string = "double click to view detail"
   components: { loadingCellRenderer (params: any ) : unknown };
+  public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -119,7 +121,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   }
 
   async getCreditNotes(params: any): Promise<IPaginationResponse<ICreditNote[]>> {
-    const result = await this.creditNoteService.getCreditNotes().toPromise()
+    const result = await this.creditNoteService.getCreditNotes(params).toPromise()
     return result
   }
 

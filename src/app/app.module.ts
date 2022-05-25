@@ -1,4 +1,3 @@
-import { AccountLevel4State } from './core/shared-state/account-state/store/account-level4.state';
 import { CityState } from './core/shared-state/account-state/store/city.state';
 import { StateState } from './core/shared-state/account-state/store/state.state';
 import { CountryState } from './core/shared-state/account-state/store/country.state';
@@ -80,12 +79,7 @@ import xml from 'highlight.js/lib/languages/xml';
 import json from 'highlight.js/lib/languages/json';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
-import { AccountResolverService } from './views/shared/resolver/account/account-resolver.service';
-import { BusinessPartnerResolverService } from './views/shared/resolver/businessPartner/business-partner-resolver.service';
-import { LocationResolverService } from './views/shared/resolver/location/location-resolver.service';
-import { ProductResolverService } from './views/shared/resolver/product/product-resolver.service';
 import { SharedModule } from './views/shared/modules/shared.module';
-import { BankAccountResolverService } from './views/shared/resolver/bankAccount/bank-account-resolver.service';
 import { BusinessPartnerState } from './views/pages/profiling/business-partner/store/business-partner.state';
 import { ProductState } from './views/pages/profiling/product/store/product.state.state';
 import { BankAccountState } from './views/pages/finance/bank-account/store/bank-account.state';
@@ -93,10 +87,12 @@ import { CampusState } from './views/pages/profiling/campus/store/campus.state';
 import { BudgetState } from './views/pages/budget/current-budget/store/budget.state';
 import { StatusState } from './views/pages/workflows/status/store/status.state';
 import { BudgetAccountState } from './core/shared-state/account-state/store/budget-account.state';
-import { ActionButtonComponent } from './views/shared/components/action-button/action-button.component';
 import { DesignationState } from './views/pages/payroll/designation/store/designation.store';
 import { EmployeeState } from './views/pages/payroll/employee/store/employee.state';
 import { DepartmentState } from './views/pages/payroll/department/store/department.store';
+import { CashAccountState } from './views/pages/finance/cash-account/store/cash-account.state';
+import { AccountPayableState } from './views/pages/finance/chat-of-account/store/account-payable.state';
+import { AccountLevel4State } from './views/pages/finance/chat-of-account/store/account-level4.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -129,7 +125,7 @@ export function getHighlightLanguages() {
 }
 
 @NgModule({
-  declarations: [AppComponent, ActionButtonComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
@@ -155,11 +151,13 @@ export function getHighlightLanguages() {
       ProductState,
       WarehouseState,
       AccountLevel4State,
+      AccountPayableState,
       BudgetAccountState,
       CountryState,
       StateState,
       CityState,
       BankAccountState,
+      CashAccountState,
       BudgetState,
       StatusState
     ]),

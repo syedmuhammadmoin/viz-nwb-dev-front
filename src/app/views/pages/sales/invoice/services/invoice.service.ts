@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { IInvoice } from '../model/IInvoice';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
@@ -20,8 +20,13 @@ export class InvoiceService {
 
     constructor(private httpClient: HttpClient) { }
 
-    getInvoices(): Observable<IPaginationResponse<IInvoice[]>> {
-        return this.httpClient.get<IPaginationResponse<IInvoice[]>>(this.baseUrl)
+    getInvoices(params: any): Observable<IPaginationResponse<IInvoice[]>> {
+        let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+
+        return this.httpClient.get<IPaginationResponse<IInvoice[]>>(this.baseUrl ,{ params: httpParams})
             .pipe(catchError(this.handleError));
     }
 

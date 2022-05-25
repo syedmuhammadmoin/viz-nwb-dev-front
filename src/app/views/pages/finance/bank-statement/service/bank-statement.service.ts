@@ -18,8 +18,13 @@ export class BankStatementService {
   constructor(private httpClient: HttpClient) {
   }
 
-  getBankStatements(): Observable<IPaginationResponse<IBankStatement[]>> {
-    return this.httpClient.get<IPaginationResponse<IBankStatement[]>>(this.baseUrl)
+  getBankStatements(params: any): Observable<IPaginationResponse<IBankStatement[]>> {
+    let httpParams = new HttpParams();
+
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
+    
+    return this.httpClient.get<IPaginationResponse<IBankStatement[]>>(this.baseUrl, { params: httpParams})
       .pipe(catchError(this.handleError));
   }
 

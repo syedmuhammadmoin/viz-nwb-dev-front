@@ -177,7 +177,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   }
 
   async getPayments(params: any): Promise<IPaginationResponse<IPayment[]>> {
-    const result = await this.paymentService.getPayments(this.documents.find(x => x.id === this.selectedDocumentType).value).toPromise()
+    const result = await this.paymentService.getPayments((this.documents.find(x => x.id === this.selectedDocumentType).value) , params).toPromise()
     console.log(result)
     return result
   }

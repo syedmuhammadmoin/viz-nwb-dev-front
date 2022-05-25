@@ -185,8 +185,9 @@
                                 [id]="'grn_tax_' + i"
                                       formControlName="tax"
                                       matFormFieldClass="mobile-label full-width"
-                                      placeholder="0%"
+                                      placeholder="Enter Tax"
                                       #itemName
+                                      type="number"
                                       (blurEvent)="logValidationErrors(this.grnForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : (grnForm.get('GRNLines')['controls'][i].controls.tax.errors?.min ||
                                                                     grnForm.get('GRNLines')['controls'][i].controls.tax.errors?.max) &&

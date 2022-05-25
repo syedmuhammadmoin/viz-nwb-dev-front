@@ -1,13 +1,15 @@
 import { Injectable, } from '@angular/core';
 import { Select, Store } from '@ngxs/store';
 import { Observable } from 'rxjs';
-import { AccountLevel4State } from 'src/app/core/shared-state/account-state/store/account-level4.state';
+import { AccountLevel4State } from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
 import { BudgetAccountState } from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
 import { BudgetService } from 'src/app/views/pages/budget/current-budget/service/budget.service';
 import { BudgetState } from 'src/app/views/pages/budget/current-budget/store/budget.state';
 import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
 import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
+import { CashAccountService } from 'src/app/views/pages/finance/cash-account/service/cashAccount.service';
+import { CashAccountState } from 'src/app/views/pages/finance/cash-account/store/cash-account.state';
 import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
 import { DepartmentService } from 'src/app/views/pages/payroll/department/service/department.service';
 import { DepartmentState } from 'src/app/views/pages/payroll/department/store/department.store';
@@ -31,6 +33,7 @@ import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/servic
 import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
 import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
 import { CscService } from 'src/app/views/shared/csc.service';
+import { AccountPayableState } from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +56,7 @@ export class NgxsCustomService {
     public productService: ProductService,
     public warehouseService: WarehouseService,
     public cscService: CscService,
+    public cashAccountService: CashAccountService,
     public bankAccountService: BankAccountService,
     public budgetService: BudgetService,
     public store: Store,
@@ -86,10 +90,15 @@ export class NgxsCustomService {
   //  @Select(CityState.isFetchCompleted) cityFetchCompleted$: Observable<any>;
   //  @Select(CityState.isLoading) cityIsLoading$: Observable<any>;
 
-  // Account Payable
+  // Level 4 Accounts
   @Select(AccountLevel4State.entities) accountsLevel4$: Observable<any>;
   @Select(AccountLevel4State.isFetchCompleted) accountLevel4FetchCompleted$: Observable<any>;
   @Select(AccountLevel4State.isLoading) accountLevel4IsLoading$: Observable<any>;
+
+  // Account Payable
+  @Select(AccountPayableState.entities) accountsPayable$: Observable<any>;
+  @Select(AccountPayableState.isFetchCompleted) accountPayableFetchCompleted$: Observable<any>;
+  @Select(AccountPayableState.isLoading) accountPayableIsLoading$: Observable<any>;
 
   // Budget Accounts
   @Select(BudgetAccountState.entities) budgetAccount$: Observable<any>;
@@ -136,10 +145,16 @@ export class NgxsCustomService {
   //selector region end
 
   //finance module selectors
-   // Business Partner Country
+   // Bank Account
    @Select(BankAccountState.entities) bankAccounts$: Observable<any>;
    @Select(BankAccountState.isFetchCompleted) bankAccountFetchCompleted$: Observable<any>;
    @Select(BankAccountState.isLoading) bankAccountIsLoading$: Observable<any>;
+
+   //Cash Account
+   @Select(CashAccountState.entities) cashAccounts$: Observable<any>;
+   @Select(CashAccountState.isFetchCompleted) cashAccountFetchCompleted$: Observable<any>;
+   @Select(CashAccountState.isLoading) cashAccountIsLoading$: Observable<any>;
+
 
 
    //Department
@@ -274,6 +289,20 @@ export class NgxsCustomService {
     })
   }  
 
+  // Get All Payable Accounts State From Store if available else fetch from the server and cache.
+  getAccountPayableFromState() {
+    this.accountPayableFetchCompleted$.subscribe((res) => {
+      //console.log('Account Payable FetchCompleted: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(AccountPayableState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getPayableAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
   // Get All Budget Accounts State From Store if available else fetch from the server and cache.
   getBudgetAccountsFromState() {
     this.budgetAccountFetchCompleted$.subscribe((res) => {
@@ -373,23 +402,6 @@ export class NgxsCustomService {
   }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   // Get Product From Store if available else fetch from the server and cache.
   getProductFromState() {
     this.productFetchCompleted$.subscribe((res) => {
@@ -426,6 +438,20 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(BankAccountState, {
           serviceClass: this.bankAccountService,
           methodName: 'getBankAccountsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get Cash Account State From Store if available else fetch from the server and cache.
+  getCashAccountFromState() {
+    this.cashAccountFetchCompleted$.subscribe((res) => {
+      //console.log('Cash Account State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(CashAccountState, {
+          serviceClass: this.bankAccountService,
+          methodName: 'getCashAccountsDropdown',
           context: this
         }))
       }

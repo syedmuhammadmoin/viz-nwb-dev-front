@@ -133,7 +133,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     //handling dueDate logic
     // this.requisitionForm.get('PODate').valueChanges.subscribe((value) => {

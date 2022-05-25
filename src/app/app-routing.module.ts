@@ -294,6 +294,24 @@ const routes: Routes = [
           ),
          canActivateChild: [AuthGuard]
       },
+      //Payroll Transaction
+      // Lazy Load Payroll Transaction Module
+      {
+        path: APP_ROUTES.PAYROLL_TRANSACTION,
+        loadChildren: () =>
+          import('./views/pages/payroll/payroll-transaction/payroll-transaction.module').then(
+            (m) => m.PayrollTransactionModule
+          ),
+         //canActivateChild: [AuthGuard]
+      },
+      {
+        path: APP_ROUTES.PAYROLL_PROCESS,
+        loadChildren: () =>
+          import('./views/pages/payroll/payroll-process/payroll-process.module').then(
+            (m) => m.PayrollProcessModule
+          ),
+        // canActivateChild: [AuthGuard]
+      },
       // Lazy Load Department Module
       {
         path: APP_ROUTES.DEPARTMENT,

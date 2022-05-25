@@ -9,6 +9,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { IEstimatedBudget } from '../model/IEstimatedBudget';
 import { EstimatedBudgetService } from '../service/estimated-budget.service';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-list-estimated-budget',
@@ -24,6 +25,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   tooltipData : string = "double click to edit"
+  public permissions = Permissions
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -122,7 +124,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   }
 
   async getEstimatedBudgets(params: any): Promise<IPaginationResponse<IEstimatedBudget[]>> {
-    const result = await this._estimatedBudgetService.getEstimatedBudgets().toPromise()
+    const result = await this._estimatedBudgetService.getEstimatedBudgets(params).toPromise()
     return result
   }
 

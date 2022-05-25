@@ -147,7 +147,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       }
     })
 
-    this.productService.getProducts().subscribe((res: IPaginationResponse<IProduct[]>) => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe((res: IPaginationResponse<IProduct[]>) => this.salesItem = res.result)
   }
 
   //Form Reset

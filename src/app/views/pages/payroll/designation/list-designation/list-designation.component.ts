@@ -82,7 +82,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     }
   
     async getDesignations(params: any): Promise<IPaginationResponse<[]>> {
-      const result = await this.designationService.getDesignations().toPromise()
+      const result = await this.designationService.getDesignations(params).toPromise()
       return result
     }
   

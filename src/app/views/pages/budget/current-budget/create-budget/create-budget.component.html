@@ -7,21 +7,25 @@
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
 
-          <div class="row ">
-            <div class="col-lg-4 col-md-4 col-sm-4">
-              <label class="col-form-label">Budget:</label>
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="row">
+              <div class="col-lg-4 col-sm-4 col-md-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">Budget:</label>
                   <kt-input-field 
-                  id="budget_name"
+                     id="budget_name"
                      formControlName="budgetName" 
                      matFormFieldClass="full-width" 
                      placeholder="Enter Name" 
                      (blurEvent)="logValidationErrors(budgetForm, formErrors, validationMessages)"
                      [errorMessage]="[{ condition : formErrors.budgetName , error : formErrors.budgetName }]">
                   </kt-input-field>
+                </div>
               </div>
 
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <label class="col-form-label">From:</label>
+              <div class="col-lg-4 col-sm-4 col-md-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">From:</label>
                   <kt-date-input
                    formControlName="from"
                    placeholder="Enter From Date"
@@ -29,10 +33,12 @@
                    (blurEvent)="logValidationErrors(budgetForm, formErrors, validationMessages)"
                    [errorMessage]="formErrors.from">
                   </kt-date-input>
+                </div>
               </div>
 
-              <div class="col-lg-4 col-md-3 col-sm-4">
-                <label class="col-form-label">To:</label>
+              <div class="col-lg-4 col-sm-4 col-md-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">To:</label>
                   <kt-date-input
                      formControlName="to"
                      placeholder="Enter To Date"
@@ -41,24 +47,21 @@
                      (blurEvent)="logValidationErrors(budgetForm, formErrors, validationMessages)"
                      [errorMessage]="formErrors.to">
                   </kt-date-input>
+                </div>
+              </div>
             </div>
-          </div>
 
-            <!-- <div class="row mt-5">
+            <div class="row mt-5">
               <div class="col-lg-12 col-md-12 col-sm-12">
                 <div class="example-container  mat-elevation-z8 ">
                   <ng-container formArrayName="budgetLines">
                     <div class="table-responsive">
-                      <mat-table #table [dataSource]="budgetForm.get('budgetLines')['controls']"> -->
-              <div class="form-group kt-form__group row">
-                <div class="col-lg-12">
-                   <ng-container formArrayName="budgetLines">
-                      <mat-table #table [dataSource]="budgetForm.get('budgetLines')['controls']">            
+                      <mat-table #table [dataSource]="budgetForm.get('budgetLines')['controls']">
                         <!-- Account Column -->
                         <ng-container matColumnDef="accountId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Account</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12">
+                            <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
                               [id]="'budget_account_' + i"
                                [optionList]="ngxsService.budgetAccount$" 
@@ -72,12 +75,11 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-    
-                        <!-- Amount Column -->
+                        <!--Partner Column-->
                         <ng-container matColumnDef="amount">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Amount</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12">
+                            <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field 
                                formControlName="amount"
                                [id]="'budget_amount_' + i"
@@ -97,37 +99,34 @@
                         <ng-container matColumnDef="action">
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
-                                  </mat-icon> -->
-
-                            <button class=" remove-icon" type="button"  [id]="'budget_remove_' + i"
+                      
+                            <button class=" remove-icon" type="button" [id]="'budget_remove_' + i"
                               (click)="removeBudgetLineClick(i)">
                               <i class="fas fa-trash" aria-hidden="true"></i>
                             </button>
                           </mat-cell>
                         </ng-container>
+                    
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                       </mat-table>
+                    </div>
                   </ng-container>
 
                   <ng-container>
-                    <div class="row" style="align-items: center;">
-                      <div class="col-lg-5 col-sm-5">
-                          <button (click)="addBudgetLineClick()" id="budget_add_line" class=" btn_create" type="button">
-                            <i aria-hidden="true" class="fas fa-plus"> </i> Add New Line
-                          </button>
-                      </div>
-                      <div class="col-lg-7 col-md-7 text-right">
-                          <div class="amount"> Total Amount: {{valueFormatter(totalAmount || 0)}} </div>
+                    <div class="row">
+                      <div class="col-md-12 col-sm-12">
+                        <button class=" btn_create" type="button" id="budget_add_line" (click)="addBudgetLineClick()">
+                          <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
+                        </button>
                       </div>
                     </div>
                   </ng-container>
                 </div>
-              <!-- </div>
-            </div> -->
+              </div>
             </div>
-          <!--Invoice Lines-->
+          </div>
+          <!--End Budget Lines-->
         </div>
       </div>
 
@@ -141,14 +140,17 @@
               <button class="sub___btn " mat-raised-button type="submit" id="budget_submit"
                 (click)="logValidationErrors(budgetForm, formErrors, validationMessages)">Submit</button>
             </div>
+            </div>
           </div>
         </div>
-      </div>
     </form>
     <!--end::Form-->
   </kt-portlet>
 </div>
-  
+
+
+
+
 
 
 

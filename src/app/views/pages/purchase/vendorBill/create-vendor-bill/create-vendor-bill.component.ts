@@ -164,7 +164,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       }
     })
 
-    this.productService.getProducts().subscribe(res => this.salesItem = res.result)
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     // handling dueDate logic
     this.vendorBillForm.get('billDate').valueChanges.subscribe((value) => {
@@ -277,7 +277,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   // Get Bill Data for Edit
   private getBill(id: any) {
     this.isLoading = true;
-   this.billService.getVendorBillMaster(id).subscribe((res) => {
+   this.billService.getVendorBillById(id).subscribe((res) => {
       if (!res) {
         return
       }
