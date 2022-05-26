@@ -313,14 +313,9 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
           })
         )
         .subscribe((res) => {
-            this.toastService.success('' + res.message, 'Updated Successfully')
+            this.toastService.success('Updated Successfully', 'Goods Received Note')
             this.cdRef.detectChanges();
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
-          },
-          (err) => {
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            this.isLoading = false;
-            this.cdRef.detectChanges()
           })
     } else if (this.purchaseOrderMaster.id && this.isPurchaseOrder) {
       console.log(this.grnModel)
@@ -332,16 +327,9 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
           finalize(() => this.isLoading = false))
         .subscribe(
           (res) => {
-            this.toastService.success('' + res.message, 'Created Successfully')
+            this.toastService.success('Created Successfully', 'Goods Received Note')
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.LIST])
-          },
-          (err: any) => {
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-            console.log(err)
-          }
-        );
+          });
     }
   }
 

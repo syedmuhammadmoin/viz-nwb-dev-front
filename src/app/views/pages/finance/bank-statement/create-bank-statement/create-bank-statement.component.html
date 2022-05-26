@@ -115,6 +115,7 @@
                                   <kt-date-input
                                     formControlName="stmtDate"
                                     matFormFieldClass="full-width"
+                                    [maxDate]="maxDate"
                                     placeholder="Statement Date"
                                     (blur)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="bankStatementForm.get('bankStmtLines')['controls'][i].controls.stmtDate.errors?.required &&

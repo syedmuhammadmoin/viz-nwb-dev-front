@@ -118,7 +118,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     },
     { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { 
-      headerName: 'Warehouse', 
+      headerName: 'Store', 
       field: 'warehouseName', 
       sortable: true, 
       filter: true, 

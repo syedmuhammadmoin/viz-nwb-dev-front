@@ -245,7 +245,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       cost: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
-      anyOtherTax: [0, [Validators.max(100), Validators.min(0)]],
+      anyOtherTax: [0, [Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
       warehouseId: [null],
@@ -314,7 +314,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
         cost: [line.cost, [Validators.required, Validators.min(1)]],
         quantity: [line.quantity, [Validators.required,Validators.min(1)]],
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
-        anyOtherTax: [line.anyOtherTax, [Validators.max(100), Validators.min(0)]],
+        anyOtherTax: [line.anyOtherTax, [Validators.min(0)]],
         subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId],
@@ -351,15 +351,10 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
             })
           )
           .subscribe((res) => {
-            this.toastService.success('' + res.message, 'Updated Successfully')
+            this.toastService.success('Updated Successfully', 'Vendor Bill')
             this.cdRef.detectChanges();
             this.router.navigate(['/' + BILL.ID_BASED_ROUTE('details',this.vendorBillModel.id )]);
-          },
-            (err) => {
-              this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-              this.isLoading = false;
-              this.cdRef.detectChanges()
-            })
+          })
       } else {
         delete this.vendorBillModel.id;
         this.billService.createVendorBill(this.vendorBillModel)
@@ -368,24 +363,17 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
             finalize(() => this.isLoading = false))
           .subscribe(
             (res) => {
-              this.toastService.success('' + res.message, 'Created Successfully')
+              this.toastService.success('Created Successfully', 'Vendor Bill')
               this.router.navigate(['/'+BILL.LIST])
-            },
-            (err: any) => {
-              this.isLoading = false;
-              this.cdRef.detectChanges();
-              this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-              console.log(err)
-            }
-          );
+            });
       }
   }
 
   mapFormValuesToVendorBillModel() {
     this.vendorBillModel.vendorId = this.vendorBillForm.value.vendorName;
     //this.vendorBillModel.vendorBillRef = this.vendorBillForm.value.vendorBillRef;
-    this.vendorBillModel.billDate = this.vendorBillForm.value.billDate;
-    this.vendorBillModel.dueDate = this.vendorBillForm.value.dueDate;
+    this.vendorBillModel.billDate = this.transformDate(this.vendorBillForm.value.billDate, 'yyyy-MM-dd');
+    this.vendorBillModel.dueDate = this.transformDate(this.vendorBillForm.value.dueDate, 'yyyy-MM-dd');
     this.vendorBillModel.campusId = this.vendorBillForm.value.campusId;
     //this.vendorBillModel.contact = this.vendorBillForm.value.contact;
     this.vendorBillModel.billLines = this.vendorBillForm.value.vendorBillLines;

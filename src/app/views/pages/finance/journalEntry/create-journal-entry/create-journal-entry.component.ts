@@ -288,15 +288,10 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         )
         .subscribe(
           (res: IApiResponse<IJournalEntry>) => {
-          this.toastService.success('' + res.message, 'Updated Successfully')
+          this.toastService.success('Updated Successfully', 'Journal Entry')
           this.cdRef.detectChanges();
           this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , this.journalEntryModel.id)]); 
-        },
-          (err) => {
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            this.isLoading = false;
-            this.cdRef.detectChanges()
-          })
+        })
     } else {
       delete this.journalEntryModel.id;
       this.journalEntryService.addJournalEntry(this.journalEntryModel)
@@ -305,15 +300,9 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
           finalize(() => this.isLoading = false))
         .subscribe(
           (res: IApiResponse<IJournalEntry>) => {
-            this.toastService.success('' + res.message, 'Created Successfully')
+            this.toastService.success('Created Successfully', 'Journal Entry')
             this.router.navigate(['/' + JOURNAL_ENTRY.LIST])
-          },
-          (err) => {
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-          }
-        );
+          });
     }
   }
 

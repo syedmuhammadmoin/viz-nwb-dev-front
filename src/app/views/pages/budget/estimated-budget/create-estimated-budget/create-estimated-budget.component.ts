@@ -143,9 +143,9 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     this.estimatedBudgetForm.setControl('estimatedBudgetLines', this.patchEstimatedBudgetLines(estimatedBudgetMaster.estimatedBudgetLines));
   }
 
-  private patchEstimatedBudgetLines(estimatedestimatedBudgetLines: IEstimatedBudgetLines[] | any): FormArray {
+  private patchEstimatedBudgetLines(estimatedBudgetLines: IEstimatedBudgetLines[] | any): FormArray {
     const formArray = new FormArray([]);
-    estimatedestimatedBudgetLines.forEach((line: IEstimatedBudgetLines | any) => {
+    estimatedBudgetLines.forEach((line: IEstimatedBudgetLines | any) => {
       formArray.push(this.fb.group({
         accountId: [line.accountId , [Validators.required]],
         amount: [{value: line.amount , disabled: true}, [Validators.required]],

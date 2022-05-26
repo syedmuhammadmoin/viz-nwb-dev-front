@@ -20,6 +20,12 @@ export class AppConst {
     1: 'Partial',
     2: 'Reconciled'
   }
+  static EmployeeType = [
+    {viewValue: 'Permanent'},
+    {viewValue: 'Contractual'},
+    {viewValue: 'Daily wages'},
+    {viewValue: 'Adhoc'}
+  ];
   static status = {
     0: 'Pending',
     1: 'Partial',
@@ -351,8 +357,8 @@ export class AppConst {
     {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'},
     {value: 'Purchase Order' , id: DocType.PurchaseOrder},
     {value: 'Requisition' , id: DocType.Requisition},
-    {value: 'Goods Received Note' , id: DocType.GRN}
-    //{value: 'purchase Order', id: DocType.PurchaseOrder},
+    {value: 'Goods Received Note' , id: DocType.GRN},
+    {value: 'Payroll Transaction', id: DocType.PayrollTransaction},
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

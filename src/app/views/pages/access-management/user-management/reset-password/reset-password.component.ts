@@ -63,11 +63,11 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
     body.userId = this._id
     console.log('Body: ', body)
     this.accessManagementService.resetPassword(body).subscribe((res) => {
-      this.toastService.success('' + res.message, 'Reset Successfully!')
+      this.toastService.success('Successfully!', 'Password Reset')
       this.isLoading = false;
       this.onCloseResetPassDialog();
     }, (err) => {
-      this.toastService.error('' + err?.error?.message, 'Reset Error!')
+      this.toastService.error('Failed!', 'Password Reset')
       this.isLoading = false;
       this.cdRef.detectChanges();
     })

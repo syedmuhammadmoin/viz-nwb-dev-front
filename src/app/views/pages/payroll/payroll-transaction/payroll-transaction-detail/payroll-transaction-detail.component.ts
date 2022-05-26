@@ -110,22 +110,22 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   }
 
   registerPayrollPayment() {
-    const dialogRef = this.dialog.open(RegisterPaymentComponent, {
-      width: '900px',
-      data: {
-        isPayroll: true,
-        accountId: this.payrollMaster.accountPayableId,
-        paymentType: 2,
-        transactionId: this.payrollMaster.transactionId,
-        businessPartnerId: this.payrollMaster.businessPartnerId,
-        pendingAmount: this.payrollMaster.netSalary,
-        docType: DocType.PayrollPayment
-      },
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.getPayroll(this.payrollId);
-      this.cdRef.detectChanges();
-    });
+    // const dialogRef = this.dialog.open(RegisterPaymentComponent, {
+    //   width: '900px',
+    //   data: {
+    //     isPayroll: true,
+    //     accountId: this.payrollMaster.accountPayableId,
+    //     paymentType: 2,
+    //     transactionId: this.payrollMaster.transactionId,
+    //     businessPartnerId: this.payrollMaster.businessPartnerId,
+    //     pendingAmount: this.payrollMaster.netSalary,
+    //     docType: DocType.PayrollPayment
+    //   },
+    // });
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.getPayroll(this.payrollId);
+    //   this.cdRef.detectChanges();
+    // });
   }
 
   workflow(action: number) {

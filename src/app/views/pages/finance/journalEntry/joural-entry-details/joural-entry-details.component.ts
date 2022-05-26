@@ -71,7 +71,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
       }
     },
     { 
-      headerName: 'Warehouse', 
+      headerName: 'Store', 
       field: 'warehouseName', 
       sortable: true, 
       filter: true, 

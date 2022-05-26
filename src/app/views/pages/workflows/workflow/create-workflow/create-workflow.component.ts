@@ -16,6 +16,7 @@ import { Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { IStatus } from '../../status/model/IStatus';
 import { StatusService } from '../../status/service/status.service';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service'
 
 @Component({
   selector: 'kt-create-workflow',
@@ -71,6 +72,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
     private route: Router,
     public activatedRoute: ActivatedRoute,
     private workflowService: WorkflowService,
+    public ngxsService: NgxsCustomService,
     public statusService: StatusService,
     public accessManagementService: AccessManagementService,
     injector: Injector
@@ -92,7 +94,17 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
         this.getWorkflow(id);
       }
     })
-    this.getStatuses();
+    //get statuses from state
+    this.ngxsService.getStatusesFromState()
+
+    //for check status on add new line button
+    // this.ngxsService.statuses$.subscribe((res) => {
+    //   this.statuses = res.result
+    // });
+
+    this.statusService.getStatusesDropdown().subscribe((res) => {
+      this.statuses = res.result
+    });
   }
 
   getWorkflow(id: any) {
@@ -237,13 +249,6 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
   }
 
   openStatusDialog() {
-  }
-
-  getStatuses() {
-    this.statusService.getStatusesDropdown().subscribe((res) => {
-      this.statuses = res.result
-    });
-    
   }
 
   canDeactivate(): boolean | Observable<boolean> {

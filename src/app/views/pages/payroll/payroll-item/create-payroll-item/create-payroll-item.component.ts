@@ -449,7 +449,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     // Recalling getEmployees function on dialog close
     dialogRef.afterClosed().subscribe((res) => {
       if(isEmpty(this.selectedEmployees)) {
-        this.selectedEmployees = res
+        this.selectedEmployees = res;
       }
       else if(!isEmpty(res)) {
       //   res.forEach((employee) => {
@@ -460,7 +460,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       res.map((employee) => {
        if(!(this.selectedEmployees.find(x => x.id === employee.id))) this.selectedEmployees.push(employee)
       })
-    
       }
       this.gridOptions.api.setRowData(this.selectedEmployees)
       this.cdRef.detectChanges();

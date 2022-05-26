@@ -153,6 +153,7 @@
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Tax %"
                                 #itemName type="number"
                                 [hintText]="'Optional'" [id]="'credit_note_tax_' + i"
+                                defaultValue="0"
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : (creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.errors?.min ||
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.errors?.max) &&
@@ -201,16 +202,17 @@
                           </mat-cell>
                         </ng-container> -->
                         <ng-container matColumnDef="warehouseId">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> Warehouse</mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef class="flex-1"> Store</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
-                                placeholder="Select Warehouse" 
+                                placeholder="Select Store" 
                                 propertyValue="id" 
-                                [id]="'credit_note_warehouse_' + i"
+                                [id]="'credit_note_store_' + i"
                                 propertyName="name"
                                 isDisabledNone="true"
                                 [hintText]="'Optional'"
+                                searchPlaceholder="Search Store..."
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width" 
                                 [optionList]="ngxsService.warehouses$">

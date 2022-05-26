@@ -52,9 +52,9 @@
                       <th style="background-color: #1a6b85; color: white;">Description:</th>
                       <th style="background-color: #1a6b85; color: white;">Account:</th>
                       <th style="background-color: #1a6b85; color: white;">Business Partner</th>
-                      <th style="background-color: #1a6b85; color: white;">Warehouse</th>
                       <th style="background-color: #1a6b85; color: white;">Debit</th>
                       <th style="background-color: #1a6b85; color: white;">Credit</th>
+                      <th style="background-color: #1a6b85; color: white;">Store</th>
 
 
                     </tr>
@@ -63,9 +63,9 @@
                       <td class="description" style="text-align: left !important;">{{line?.description}}</td>
                       <td>{{line?.accountName}}</td>
                       <td>{{line?.businessPartnerName}}</td>
+                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{valueFormatter(line?.debit)}}</td>
+                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{valueFormatter(line?.credit)}}</td>
                       <td>{{line?.warehouseName || 'N/A'}}</td>
-                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{line?.debit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{line?.credit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     </tr>
 
 
@@ -86,12 +86,12 @@
             <div class="print-col-5 ml-auto" style="margin-top: 5%;">
               <div class="print-box">
                 <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;"> Total Debit:
-                  <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.totalDebit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                  <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalDebit)}}</span>
                 </h4>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Credit:
-                  <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.totalCredit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                  <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalCredit)}}</span>
                 </h4>
               </div>
               <!-- <div class="print-box">

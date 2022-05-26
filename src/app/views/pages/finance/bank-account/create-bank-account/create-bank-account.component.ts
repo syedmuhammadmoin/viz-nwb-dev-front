@@ -172,8 +172,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         .subscribe(() => {
           this.toastService.success('Updated Successfully', 'Bank Account')
           this.onCloseDialog()
-        },
-        (err) => this.toastService.error('Something went wrong', 'Bank Account')
+        }
       )
     } else {
       delete this.bankAccount['id'];
@@ -185,8 +184,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         () => {
           this.toastService.success('Created Successfully', 'Bank Account')
           this.onCloseDialog()
-        },
-        (err) => this.toastService.error('Something went wrong', 'Bank Account')
+        }
       );
     }
   }
