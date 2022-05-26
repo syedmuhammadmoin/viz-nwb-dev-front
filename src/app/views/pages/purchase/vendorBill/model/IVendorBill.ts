@@ -4,8 +4,8 @@ export interface IVendorBill {
     id: number;
     vendorId: number;
     //vendorBillRef: string;
-    billDate: Date;
-    dueDate: Date;
+    billDate: string;
+    dueDate: string;
     //contact: string;
     campusId: number;
     billLines: IVendorBillLines[];

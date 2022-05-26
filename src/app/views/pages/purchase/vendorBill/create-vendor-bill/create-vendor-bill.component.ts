@@ -372,8 +372,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   mapFormValuesToVendorBillModel() {
     this.vendorBillModel.vendorId = this.vendorBillForm.value.vendorName;
     //this.vendorBillModel.vendorBillRef = this.vendorBillForm.value.vendorBillRef;
-    this.vendorBillModel.billDate = this.vendorBillForm.value.billDate;
-    this.vendorBillModel.dueDate = this.vendorBillForm.value.dueDate;
+    this.vendorBillModel.billDate = this.transformDate(this.vendorBillForm.value.billDate, 'yyyy-MM-dd');
+    this.vendorBillModel.dueDate = this.transformDate(this.vendorBillForm.value.dueDate, 'yyyy-MM-dd');
     this.vendorBillModel.campusId = this.vendorBillForm.value.campusId;
     //this.vendorBillModel.contact = this.vendorBillForm.value.contact;
     this.vendorBillModel.billLines = this.vendorBillForm.value.vendorBillLines;
