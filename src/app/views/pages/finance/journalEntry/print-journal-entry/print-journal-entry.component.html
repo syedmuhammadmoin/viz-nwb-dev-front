@@ -63,8 +63,8 @@
                       <td class="description" style="text-align: left !important;">{{line?.description}}</td>
                       <td>{{line?.accountName}}</td>
                       <td>{{line?.businessPartnerName}}</td>
-                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{line?.debit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{line?.credit.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{valueFormatter(line?.debit)}}</td>
+                      <td class="text-right" style="width: 15%;    background-color: #eef0f8;">{{valueFormatter(line?.credit)}}</td>
                       <td>{{line?.warehouseName || 'N/A'}}</td>
                     </tr>
 

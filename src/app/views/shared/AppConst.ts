@@ -20,6 +20,12 @@ export class AppConst {
     1: 'Partial',
     2: 'Reconciled'
   }
+  static EmployeeType = [
+    {viewValue: 'Permanent'},
+    {viewValue: 'Contractual'},
+    {viewValue: 'Daily wages'},
+    {viewValue: 'Adhoc'}
+  ];
   static status = {
     0: 'Pending',
     1: 'Partial',

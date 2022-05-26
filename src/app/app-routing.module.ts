@@ -312,6 +312,14 @@ const routes: Routes = [
           ),
         // canActivateChild: [AuthGuard]
       },
+      {
+        path: APP_ROUTES.PAYROLL_REPORTS,
+        loadChildren: () =>
+          import('./views/pages/payroll/payroll-reports/payroll-reports.module').then(
+            (m) => m.PayrollReportsModule
+          ),
+        // canActivateChild: [AuthGuard]
+      },
       // Lazy Load Department Module
       {
         path: APP_ROUTES.DEPARTMENT,
