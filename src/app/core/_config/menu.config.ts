@@ -612,74 +612,74 @@ export class MenuConfig {
                 Permissions.PAYROLL_TRANSACTION_REVIEW,
               ],
             },
-            // {
-            //   title: 'Payroll Process',
-            //   bullet: 'dot',
-            //   // permission: [
-            //   //   Permissions.PAYROLL_TRANSACTION_VIEW,
-            //   //   Permissions.PAYROLL_TRANSACTION_CREATE,
-            //   //   Permissions.PAYROLL_TRANSACTION_EDIT,
-            //   //   Permissions.PAYROLL_TRANSACTION_DELETE,
-            //   //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-            //   //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-            //   // ],
-            //   submenu: [
-            //     {
-            //       title: 'Create Process',
-            //       page: '/' + PAYROLL_PROCESS.CREATE_PROCESS,
-            //       // permission: [
-            //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
-            //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
-            //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
-            //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
-            //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-            //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-            //       // ],
-            //     },
-            //     {
-            //       title: 'Approve Process',
-            //       page: '/' + PAYROLL_PROCESS.APPROVE_PROCESS,
-            //       // permission: [
-            //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
-            //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
-            //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
-            //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
-            //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-            //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-            //       // ],
-            //     },
-            //     // {
-            //     //   title: 'Register Payment',
-            //     //   bullet: 'dot',
-            //     //   submenu: [
-            //     //     {
-            //     //       title: 'Create Process',
-            //     //       page: '/' + PAYROLL_PROCESS.CREATE_PAYMENT,
-            //     //       // permission: [
-            //     //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-            //     //       // ],
-            //     //     },
-            //     //     {
-            //     //       title: 'Approve Process',
-            //     //       page: '/' + PAYROLL_PROCESS.APPROVE_PAYMENT,
-            //     //       // permission: [
-            //     //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-            //     //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-            //     //       // ],
-            //     //     },
-            //     //   ]
-            //     // },
-            //   ]
-            // },
+            {
+              title: 'Payroll Process',
+              bullet: 'dot',
+              // permission: [
+              //   Permissions.PAYROLL_TRANSACTION_VIEW,
+              //   Permissions.PAYROLL_TRANSACTION_CREATE,
+              //   Permissions.PAYROLL_TRANSACTION_EDIT,
+              //   Permissions.PAYROLL_TRANSACTION_DELETE,
+              //   Permissions.PAYROLL_TRANSACTION_APPROVE,
+              //   Permissions.PAYROLL_TRANSACTION_REVIEW,
+              // ],
+              submenu: [
+                {
+                  title: 'Create Process',
+                  page: '/' + PAYROLL_PROCESS.CREATE_PROCESS,
+                  // permission: [
+                  //   Permissions.PAYROLL_TRANSACTION_VIEW,
+                  //   Permissions.PAYROLL_TRANSACTION_CREATE,
+                  //   Permissions.PAYROLL_TRANSACTION_EDIT,
+                  //   Permissions.PAYROLL_TRANSACTION_DELETE,
+                  //   Permissions.PAYROLL_TRANSACTION_APPROVE,
+                  //   Permissions.PAYROLL_TRANSACTION_REVIEW,
+                  // ],
+                },
+                {
+                  title: 'Approve Process',
+                  page: '/' + PAYROLL_PROCESS.APPROVE_PROCESS,
+                  // permission: [
+                  //   Permissions.PAYROLL_TRANSACTION_VIEW,
+                  //   Permissions.PAYROLL_TRANSACTION_CREATE,
+                  //   Permissions.PAYROLL_TRANSACTION_EDIT,
+                  //   Permissions.PAYROLL_TRANSACTION_DELETE,
+                  //   Permissions.PAYROLL_TRANSACTION_APPROVE,
+                  //   Permissions.PAYROLL_TRANSACTION_REVIEW,
+                  // ],
+                },
+                // {
+                //   title: 'Register Payment',
+                //   bullet: 'dot',
+                //   submenu: [
+                //     {
+                //       title: 'Create Process',
+                //       page: '/' + PAYROLL_PROCESS.CREATE_PAYMENT,
+                //       // permission: [
+                //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
+                //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
+                //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
+                //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
+                //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
+                //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
+                //       // ],
+                //     },
+                //     {
+                //       title: 'Approve Process',
+                //       page: '/' + PAYROLL_PROCESS.APPROVE_PAYMENT,
+                //       // permission: [
+                //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
+                //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
+                //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
+                //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
+                //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
+                //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
+                //       // ],
+                //     },
+                //   ]
+                // },
+              ]
+            },
             // {
             //   title: 'Payroll Reports',
             //   bullet: 'dot',

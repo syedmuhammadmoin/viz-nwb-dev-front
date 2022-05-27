@@ -1,17 +1,14 @@
 import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-
-
-
 import { PayrollProcessService} from '../service/payroll-process.service';
-
 import { FirstDataRenderedEvent, GridOptions} from 'ag-grid-community';
-
 import { MatDialog} from "@angular/material/dialog";
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { CreatePayrollTransactionComponent } from '../../payroll-transaction/create-payroll-transaction/create-payroll-transaction.component';
 
 @Component({
   selector: 'kt-create-payroll-process',
@@ -22,7 +19,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 export class CreatePayrollProcessComponent extends AppComponentBase implements OnInit {
 
   isLoading = false;
-  months = ''//AppConst.Months
+  months = AppConst.Months
   overlayLoadingTemplate;
   permissions = Permissions
   createPayrollProcessForm: FormGroup;
@@ -119,15 +116,16 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   defaultColDef: any;
 
   religionList = [
-    { viewValue: 'Islam' },
-    { viewValue: 'Christian' },
-    { viewValue: 'Hinduism' },
+    { id: 0, value: 'Islam' },
+    { id: 1, value: 'Christian' },
+    { id: 2, value: 'Hinduism' },
   ]
 
   constructor(
     injector: Injector,
     private fb: FormBuilder,
     private cdRef: ChangeDetectorRef,
+    public ngxsService: NgxsCustomService,
     private payrollProcessService: PayrollProcessService,
     public dialog: MatDialog,
   ) {
@@ -157,8 +155,8 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    // this.getPayableAccountsFromState();
-    // this.getDepartmentFromState();
+    this.ngxsService.getAccountPayableFromState();
+    this.ngxsService.getDepartmentFromState();
   }
 
   createProcess() {
@@ -167,8 +165,16 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       return;
     }
     this.isLoading = true;
-    console.log(this.createPayrollProcessForm.value)
-    this.payrollProcessService.createPayrollProcess(this.createPayrollProcessForm.value)
+    const body = {
+      departmentId: this.createPayrollProcessForm.value.departmentId ,
+      accountPayableId: this.createPayrollProcessForm.value.accountPayableId,
+      month: this.createPayrollProcessForm.value.month,
+      year: this.createPayrollProcessForm.value.year,
+    }
+
+    console.log(body)
+
+    this.payrollProcessService.createPayrollProcess(body)
       .subscribe((res) => {
         this.employeeList = res.result;
         console.log(res.result)
@@ -195,7 +201,11 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   submitProcess() {
-
+    if (this.createPayrollProcessForm.invalid) {
+      this.logValidationErrors(this.createPayrollProcessForm, this.formErrors, this.validationMessages)
+      return;
+    }
+    
     if (this.employeeGridApi.getSelectedRows().length < 1) {
       this.toastService.error('Atleast 1 employee is required', 'Employee is Required')
       return
@@ -240,19 +250,17 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   editPayrollTransaction(event: any) {
-    // const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
-    //   width: '860px',
-    //   height: '700px',
-    //   data: event?.data?.id,
-    //   panelClass: 'custom-modalbox'
-    // });
-    // // Recalling getBankAccounts function on dialog close
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.createProcess();
-    // });
+    const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
+      width: '860px',
+      height: '700px',
+      data: event?.data?.id,
+      //panelClass: 'custom-modalbox'
+    });
+    // Recalling getBankAccounts function on dialog close
+    dialogRef.afterClosed().subscribe(() => {
+      this.createProcess();
+    });
   }
-
-
 }
 
 

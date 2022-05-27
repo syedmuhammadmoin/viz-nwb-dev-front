@@ -43,8 +43,8 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
   }
 
   columnDefs = [
-    { headerName: 'Item Name', field: 'name', sortable: true, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Item Code', field: 'itemCode', sortable: true, filter: true, tooltipField: 'name' },
+    { headerName: 'Item Code', field: 'itemCode', sortable: true, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
+    { headerName: 'Item Name', field: 'name', sortable: true, filter: true, tooltipField: 'name'},
     { 
       headerName: 'Payroll Type', 
       field: 'payrollType', 
@@ -82,9 +82,9 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
         return this.valueFormatter(params.value);
       }
     },
-    {
-      headerName: 'Remarks', field: 'remarks', sortable: true, filter: true
-    },
+    // {
+    //   headerName: 'Remarks', field: 'remarks', sortable: true, filter: true
+    // },
     { 
       headerName: 'Active', 
       field: 'isActive', 
