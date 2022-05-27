@@ -12,6 +12,7 @@ import { EmployeeRoutingModule } from '../employee/employee-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { PayrollProcessRoutingModule } from './payroll-process-routing.module';
+import { CreatePayrollTransactionComponent } from '../payroll-transaction/create-payroll-transaction/create-payroll-transaction.component';
 
 
 
@@ -29,6 +30,7 @@ import { PayrollProcessRoutingModule } from './payroll-process-routing.module';
     PartialsModule,
     PayrollProcessRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ]
+  ],
+  entryComponents: [CreatePayrollTransactionComponent]
 })
 export class PayrollProcessModule { }

@@ -8,6 +8,7 @@
     (blur)="blur()"
     [ngClass]="matSelectClass"
     [disabled]="isDisabled"
+    [multiple]="isMultiple"
     [id]="id"
   >
     <mat-option>
@@ -21,7 +22,7 @@
     <mat-option style="padding: 0" *ngIf="isLoading" [ktBusy]="isLoading" type="SINGLE_CONTENT"></mat-option>
     <mat-option *ngIf="isDisabledNone" [value]="" id="None">-- None --</mat-option>
     <ng-container *ngFor="let option of filteredOptionList | async">
-      <mat-option [value]="propertyValue !== undefined || null ? option[propertyValue] : option">
+      <mat-option [disabled]="isOptionDisabled(propertyValue !== undefined ? option[propertyValue] : option)" [value]="propertyValue !== undefined || null ? option[propertyValue] : option">
         <span style="font-size: 14px;">{{option[propertyName]}}</span>
         <span *ngIf="secondaryPropertyName !== undefined"
               style="font-size: 12px !important;">-{{option[secondaryPropertyName]}}</span>
@@ -38,3 +39,4 @@
   </mat-error>
   <mat-hint align="end">{{hintText}}</mat-hint>
 </mat-form-field>
+

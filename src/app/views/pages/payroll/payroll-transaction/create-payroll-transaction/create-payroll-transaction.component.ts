@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional} from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { IPayrollTransaction} from '../model/IPayrollTransaction';
 import { PayrollTransactionService} from '../service/payroll-transaction.service';
@@ -17,7 +17,8 @@ import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 @Component({
   selector: 'kt-create-payroll-transaction',
   templateUrl: './create-payroll-transaction.component.html',
-  styleUrls: ['./create-payroll-transaction.component.scss']
+  styleUrls: ['./create-payroll-transaction.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CreatePayrollTransactionComponent extends AppComponentBase implements OnInit {
@@ -144,15 +145,17 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     // From Route Params
     this.activatedRoute.params.subscribe((params) => {
       if (params.id) {
+        this.isLoading = true;
         this.title = 'Edit Payroll';
         this.getPayroll(params.id);
       }
     });
-    // edit form
-    // if (this._id) {
-    //   this.title = 'Edit Payroll';
-    //   this.getPayroll(this._id);
-    // }
+    //edit payroll form by create payroll process form
+    if (this._id) {
+      this.isLoading = true;
+      this.title = 'Edit Payroll';
+      this.getPayroll(this._id);
+    }
 
     // this.payrollTransactionForm.get('workingDays').valueChanges.subscribe((value) => {
     //     this.workingDays = value
@@ -200,7 +203,12 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         .subscribe(
           (res) => {
             this.toastService.success(res?.message, 'Updated Successfully')
-            this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details' , this.payrollTransaction.id)])
+
+            if (!this._id) {
+              this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details' , this.payrollTransaction.id)])
+            } else {
+              this.dialogRef.close();
+            }
           })
     } else {
       this.payrollTransactionService.createPayrollTransaction(this.payrollTransaction)
@@ -209,7 +217,12 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         .subscribe(
           (res) => {
             this.toastService.success(res?.message, 'Created Successfully');
-            this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
+            
+            if (!this._id) {
+              this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
+            } else {
+              this.dialogRef.close();
+            }
           }
         )
     }

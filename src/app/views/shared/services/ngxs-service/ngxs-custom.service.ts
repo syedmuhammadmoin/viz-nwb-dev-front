@@ -114,12 +114,6 @@ export class NgxsCustomService {
   @Select(CategoryState.isLoading) categoryIsLoading$: Observable<any>;
 
 
-  // // Department
-  // @Select(DepartmentState.entities) departments$: Observable<any>;
-  // @Select(DepartmentState.isFetchCompleted) departmentFetchCompleted$: Observable<any>;
-  // @Select(DepartmentState.isLoading) departmentIsLoading$: Observable<any>;
-
-
   // // Location
   // @Select(LocationState.entities) locations$: Observable<any>;
   // @Select(LocationState.isFetchCompleted) locationFetchCompleted$: Observable<any>;
@@ -156,7 +150,6 @@ export class NgxsCustomService {
    @Select(CashAccountState.entities) cashAccounts$: Observable<any>;
    @Select(CashAccountState.isFetchCompleted) cashAccountFetchCompleted$: Observable<any>;
    @Select(CashAccountState.isLoading) cashAccountIsLoading$: Observable<any>;
-
 
 
    //Department
@@ -367,7 +360,7 @@ export class NgxsCustomService {
   // }
 
   //Get Department From Store if available else fetch from the server and cache.
-  getDepatmentFromState() {
+  getDepartmentFromState() {
     this.departmentFetchCompleted$.subscribe((res) => {
       console.log('Department State fetch completed: ', res);
       if (!res) {

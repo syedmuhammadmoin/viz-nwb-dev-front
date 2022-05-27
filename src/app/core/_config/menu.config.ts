@@ -680,68 +680,68 @@ export class MenuConfig {
                 // },
               ]
             },
-            {
-              title: 'Payroll Reports',
-              bullet: 'dot',
-              permission: [
-                // Permissions.ALLOWANCE_VIEW,
-                // Permissions.EMPLOYEE_LEDGER,
-                // Permissions.EMPLOYEE_REPORT,
-                Permissions.PAYROLL_TRANSACTION_VIEW,
-                Permissions.PAYROLL_TRANSACTION_CREATE,
-                Permissions.PAYROLL_TRANSACTION_EDIT,
-                Permissions.PAYROLL_TRANSACTION_DELETE,
-                Permissions.PAYROLL_TRANSACTION_APPROVE,
-                Permissions.PAYROLL_TRANSACTION_REVIEW,
-              ],
-              submenu: [
-                // {
-                //   title: 'Allowances Report', // <= Title of the page
-                //   page: '/payroll/allowances/report', // <= URL
-                //   permission: [
-                //     Permissions.ALLOWANCE_VIEW
-                //   ],
-                // },
-                // {
-                //   title: 'Batch Payslips', // <= Title of the page
-                //   page: '/payroll/batch-payslips', // <= URL
-                //   // permission: [
-                //   //   Permissions.ALLOWANCE_VIEW
-                //   // ],
-                // },
-                {
-                  title: 'Payroll Transaction Report',
-                  page: '/' + PAYROLL_REPORTS.TRANSACTION.LIST,
-                  permission: [
-                    Permissions.PAYROLL_TRANSACTION_VIEW,
-                    Permissions.PAYROLL_TRANSACTION_CREATE,
-                    Permissions.PAYROLL_TRANSACTION_EDIT,
-                    Permissions.PAYROLL_TRANSACTION_DELETE,
-                    Permissions.PAYROLL_TRANSACTION_APPROVE,
-                    Permissions.PAYROLL_TRANSACTION_REVIEW,
-                  ],
-                },
-                // {
-                //   title: 'Payroll Bank Advice Report',
-                //   page: '/payroll/bank/report',
-                //   /*permission: []*/
-                // },
-                // {
-                //   title: 'Employee Report',
-                //   page: '/payroll/employee/report',
-                //   permission: [
-                //     Permissions.EMPLOYEE_REPORT
-                //   ]
-                // },
-                // {
-                //   title: 'Employee Ledger',
-                //   page: '/payroll/ledger/employee',
-                //   permission: [
-                //     Permissions.EMPLOYEE_LEDGER
-                //   ]
-                // },
-              ]
-            },
+            // {
+            //   title: 'Payroll Reports',
+            //   bullet: 'dot',
+            //   permission: [
+            //     // Permissions.ALLOWANCE_VIEW,
+            //     // Permissions.EMPLOYEE_LEDGER,
+            //     // Permissions.EMPLOYEE_REPORT,
+            //     Permissions.PAYROLL_TRANSACTION_VIEW,
+            //     Permissions.PAYROLL_TRANSACTION_CREATE,
+            //     Permissions.PAYROLL_TRANSACTION_EDIT,
+            //     Permissions.PAYROLL_TRANSACTION_DELETE,
+            //     Permissions.PAYROLL_TRANSACTION_APPROVE,
+            //     Permissions.PAYROLL_TRANSACTION_REVIEW,
+            //   ],
+            //   submenu: [
+            //     // {
+            //     //   title: 'Allowances Report', // <= Title of the page
+            //     //   page: '/payroll/allowances/report', // <= URL
+            //     //   permission: [
+            //     //     Permissions.ALLOWANCE_VIEW
+            //     //   ],
+            //     // },
+            //     // {
+            //     //   title: 'Batch Payslips', // <= Title of the page
+            //     //   page: '/payroll/batch-payslips', // <= URL
+            //     //   // permission: [
+            //     //   //   Permissions.ALLOWANCE_VIEW
+            //     //   // ],
+            //     // },
+            //     {
+            //       title: 'Payroll Transaction Report',
+            //       page: '/' + PAYROLL_REPORTS.TRANSACTION.LIST,
+            //       permission: [
+            //         Permissions.PAYROLL_TRANSACTION_VIEW,
+            //         Permissions.PAYROLL_TRANSACTION_CREATE,
+            //         Permissions.PAYROLL_TRANSACTION_EDIT,
+            //         Permissions.PAYROLL_TRANSACTION_DELETE,
+            //         Permissions.PAYROLL_TRANSACTION_APPROVE,
+            //         Permissions.PAYROLL_TRANSACTION_REVIEW,
+            //       ],
+            //     },
+            //     // {
+            //     //   title: 'Payroll Bank Advice Report',
+            //     //   page: '/payroll/bank/report',
+            //     //   /*permission: []*/
+            //     // },
+            //     // {
+            //     //   title: 'Employee Report',
+            //     //   page: '/payroll/employee/report',
+            //     //   permission: [
+            //     //     Permissions.EMPLOYEE_REPORT
+            //     //   ]
+            //     // },
+            //     // {
+            //     //   title: 'Employee Ledger',
+            //     //   page: '/payroll/ledger/employee',
+            //     //   permission: [
+            //     //     Permissions.EMPLOYEE_LEDGER
+            //     //   ]
+            //     // },
+            //   ]
+            // },
           ]
         },
 

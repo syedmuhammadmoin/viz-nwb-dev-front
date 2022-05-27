@@ -49,10 +49,14 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   @Output() blurEvent = new EventEmitter<any>();
   @Output() dataLoaded = new EventEmitter<boolean>();
 
+  @Input() isMultiple = false;
+  @Input() maxSelectionCount: number
+
   isLoading: boolean;
   filterControl: FormControl = new FormControl();
   filteredOptionList: ReplaySubject<[]> = new ReplaySubject<[]>(1);
   private options: [] = [];
+  private selectedOptions = []
 
   get control() {
     return this.formControl || this.controlContainer.control.get(this.formControlName);
@@ -127,7 +131,14 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   selectionChangeEvent(event) {
+    if (this.maxSelectionCount && this.selectedOptions.length <= this.maxSelectionCount) {
+      this.selectedOptions = event.value
+    }
     this.selectionChange.emit(event);
+  }
+
+  isOptionDisabled(id): boolean {
+    return (this.selectedOptions.length >= this.maxSelectionCount && !this.selectedOptions.find(x => x === id));
   }
 
   blur() {

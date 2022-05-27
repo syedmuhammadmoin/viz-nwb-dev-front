@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -77,6 +78,32 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     //   //   suppressAndOrCondition: true,
     //   // },
     // },
+    {
+      headerName: 'Month',
+      field: 'month',
+      tooltipField: 'docNo',
+      // filter: 'agTextColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      // filterParams: {
+      //   filterOptions: ['contains'],
+      //   suppressAndOrCondition: true,
+      // },
+      valueFormatter: (params: any) => {
+        return (params.value) ? AppConst.Months.find(x => x.value === params.value).name : 'N/A';
+        //return AppConst.Months.find(x => x.value === params.value).name
+      },
+    },
+    {
+      headerName: 'Year',
+      field: 'year',
+      tooltipField: 'docNo',
+      // filter: 'agTextColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      // filterParams: {
+      //   filterOptions: ['contains'],
+      //   suppressAndOrCondition: true,
+      // },
+    },
     {
       headerName: 'Designation',
       field: 'designation',

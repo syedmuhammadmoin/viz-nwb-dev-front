@@ -55,16 +55,7 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
       this.onChange = () => {
         //this condition is not working on '0' value
         //fn((this.control.value) ? Number(this.control.value) : null);
-        let val: any = 0;
         const value = this.defaultValue || null;
-        if(this.control.value === '' || this.control.value === null) {
-          console.log("entered in Value")
-          val = value;
-        }
-        else{
-          console.log("entered in Number")
-          val = Number(this.control.value)
-        }
         fn((this.control.value === '' || this.control.value === null ) ? value : Number(this.control.value));
       };
     }
