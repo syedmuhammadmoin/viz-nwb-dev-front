@@ -343,7 +343,7 @@ export class AppConst {
     {viewValue: 'Approved', value: 'Unpaid', id: 2},
     // { value: 'Partial', id: 3 },
     // { value: 'Paid', id: 4 },
-    {viewValue: 'Submitted', value: 'Submitted', id: 5},
+    //{viewValue: 'Submitted', value: 'Submitted', id: 5},
     {viewValue: 'Reviewed', value: 'Reviewed', id: 6},
   ]
 

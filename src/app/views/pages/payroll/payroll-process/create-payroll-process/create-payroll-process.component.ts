@@ -224,9 +224,9 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     // API Call
     this.payrollProcessService.submitPayrollProcess(employeeListToPost).subscribe((res) => {
       this.isLoading = false;
-      this.cdRef.detectChanges();
       this.toastService.success(res.message, 'Created Successfully!');
-      this.resetForm();
+      this.createProcess();
+      this.cdRef.detectChanges();
     }, (error) => {
       this.isLoading = false;
       this.cdRef.detectChanges();
