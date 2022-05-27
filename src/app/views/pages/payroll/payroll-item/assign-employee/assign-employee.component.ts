@@ -148,6 +148,9 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
       filter: true, 
       tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
+      checkboxSelection: true,
      },
      { 
       headerName: 'Father Name', 
