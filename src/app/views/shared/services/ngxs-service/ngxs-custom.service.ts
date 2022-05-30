@@ -35,6 +35,10 @@ import { StatusState } from 'src/app/views/pages/workflows/status/store/status.s
 import { CscService } from 'src/app/views/shared/csc.service';
 import { AccountPayableState } from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
 import { StatusService } from 'src/app/views/pages/workflows/status/service/status.service';
+import { BasicPayState } from 'src/app/views/pages/payroll/payroll-item/store/basic-pay.state';
+import { IncrementState } from 'src/app/views/pages/payroll/payroll-item/store/increment.state';
+import { DeductionState } from 'src/app/views/pages/payroll/payroll-item/store/deduction.state';
+import { PayrollItemService } from 'src/app/views/pages/payroll/payroll-item/service/payroll-item.service';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +60,7 @@ export class NgxsCustomService {
     public organizationService: OrganizationService,
     public productService: ProductService,
     public warehouseService: WarehouseService,
+    public payrollItemService: PayrollItemService,
     public cscService: CscService,
     public statusService: StatusService,
     public cashAccountService: CashAccountService,
@@ -173,6 +178,21 @@ export class NgxsCustomService {
    @Select(StatusState.entities) statuses$: Observable<any>;
    @Select(StatusState.isFetchCompleted) statusFetchCompleted$: Observable<any>;
    @Select(StatusState.isLoading) statusIsLoading$: Observable<any>;
+
+   // Basic Payroll Items
+   @Select(BasicPayState.entities) basicPayrollItems$: Observable<any>;
+   @Select(BasicPayState.isFetchCompleted) basicPayrollItemsFetchCompleted$: Observable<any>;
+   @Select(BasicPayState.isLoading) basicPayrollItemsIsLoading$: Observable<any>;
+
+   // Increments Payroll Items
+   @Select(IncrementState.entities) incrementPayrollItems$: Observable<any>;
+   @Select(IncrementState.isFetchCompleted) incrementPayrollItemsFetchCompleted$: Observable<any>;
+   @Select(IncrementState.isLoading) incrementPayrollItemsIsLoading$: Observable<any>;
+
+    // Deduction Payroll Items
+   @Select(DeductionState.entities) deductionPayrollItems$: Observable<any>;
+   @Select(DeductionState.isFetchCompleted) deductionPayrollItemsFetchCompleted$: Observable<any>;
+   @Select(DeductionState.isLoading) deductionPayrollItemsIsLoading$: Observable<any>;
 
 
   //region State Management
@@ -378,7 +398,7 @@ export class NgxsCustomService {
     this.designationFetchCompleted$.subscribe((res) => {
       console.log('Designation State fetch completed: ', res);
       if (!res) {
-        this.store.dispatch(new GetList(DepartmentState, {
+        this.store.dispatch(new GetList(DesignationState, {
           serviceClass: this.designationService,
           methodName: 'getDesignationsDropdown',
           context: this
@@ -395,6 +415,45 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(EmployeeState, {
           serviceClass: this.employeeService,
           methodName: 'getEmployeesDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getBasicPayFromState() {
+    this.basicPayrollItemsFetchCompleted$.subscribe((res) => {
+     // console.log('basicPayrollItemsFetchCompleted$: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(BasicPayState, {
+          serviceClass: this.payrollItemService,
+          methodName: 'getBasicPay',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getIncrementsFromState() {
+    this.incrementPayrollItemsFetchCompleted$.subscribe((res) => {
+     // console.log('incrementPayrollItemsFetchCompleted$: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(IncrementState, {
+          serviceClass: this.payrollItemService,
+          methodName: 'getIncrements',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getDeductionFromState() {
+    this.deductionPayrollItemsFetchCompleted$.subscribe((res) => {
+    //  console.log('otherPayrollItemsFetchCompleted$: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DeductionState, {
+          serviceClass: this.payrollItemService,
+          methodName: 'getDeductions',
           context: this
         }))
       }
@@ -457,6 +516,18 @@ export class NgxsCustomService {
       }
     })
   }
+
+  
+
+
+
+
+
+
+
+
+
+
   //end state region 
 }
 

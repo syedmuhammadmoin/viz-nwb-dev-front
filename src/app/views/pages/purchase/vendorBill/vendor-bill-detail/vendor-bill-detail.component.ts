@@ -99,9 +99,9 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       }
     },
     {
-      headerName: 'Other Tax', field: 'anyOthertax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Other Taxes/FET', field: 'anyOthertax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
-        return params.data.tax;
+        return params.data.anyOtherTax;
       }
     },
     {

@@ -6,6 +6,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { PayrollItemService } from '../service/payroll-item.service';
+import { EmployeeService } from '../../employee/service/employee.service'
 
 @Component({
   selector: 'kt-assign-employee',
@@ -23,6 +24,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
 
   constructor(
     public payrollItemService: PayrollItemService,
+    private employeeService: EmployeeService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     @Optional() public dialogRef: MatDialogRef<AssignEmployeeComponent>,
@@ -38,9 +40,6 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   }
 
   ngOnInit() {
-
-    // this.getCampuses()
-   
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
 
@@ -60,7 +59,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      context: "click on checkbox to select employee",
+      context: "click to select employee",
     };
 
     this.components = {
@@ -82,43 +81,6 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   
   onSubmit() {
     this.dialogRef.close(this.gridApi.getSelectedRows());
-    // if (this.campusForm.invalid) {
-    //   return;
-    // }
-    // this.isLoading = true;
-    // this.mapFormValueToCampusModel();
-    // if (this.campusModel.id) {
-    //   this.ngxsService.campusService.updateCampus(this.campusModel)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {
-    //         this.ngxsService.store.dispatch(new IsReloadRequired(CampusState, true))
-    //         this.toastService.success('Updated Successfully', 'Campus')
-    //         this.onCloseDialog();
-    //       },       
-    //     (err) => this.toastService.error('Something went wrong', 'Campus')
-    //   );
-    // } else {
-    //   delete this.campusModel.id;
-    //   this.ngxsService.campusService.addCampus(this.campusModel)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {        
-    //         this.ngxsService.store.dispatch(new IsReloadRequired(CampusState, true))
-    //         this.toastService.success('Added Successfully', 'Campus')
-    //         this.onCloseDialog();
-    //       },
-       
-    //     (err) => this.toastService.error('Something went wrong', 'Campus')
-    //   );
-    // }
-  }
-
-  // Mapping values from campus form to campus model
-  mapFormValueToCampusModel() {
-    //this.campusModel.name = this.campusForm.value.name;
   }
 
   // Dialogue close function
@@ -126,9 +88,6 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     this.dialogRef.close();
   }
 
-  public rowSelection = 'multiple';
-
-  //employeeList : ICampus[]
   frameworkComponents : {[p: string]: unknown};
   gridOptions : GridOptions;
   defaultColDef : ColDef;
@@ -148,9 +107,9 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
       filter: true, 
       tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
-      headerCheckboxSelection: true,
-      headerCheckboxSelectionFilteredOnly: true,
-      checkboxSelection: true,
+      // headerCheckboxSelection: true,    //not supported in infinite row model 
+      // headerCheckboxSelectionFilteredOnly: true,
+      // checkboxSelection: true,
      },
      { 
       headerName: 'Father Name', 
@@ -207,7 +166,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   }
 
   async getEmployees(params: any): Promise<IPaginationResponse<any>> {
-    const result = await this.payrollItemService.getEmployees().toPromise()
+    const result = await this.employeeService.getEmployees(params).toPromise()
     return result
   }
 

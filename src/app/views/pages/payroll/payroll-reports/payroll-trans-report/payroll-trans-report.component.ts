@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { PayrollTransactionService } from '../../payroll-transaction/service/payroll-transaction.service';
-import { GridApi, GridOptions } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridApi, GridOptions } from 'ag-grid-community';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DesignationService } from '../../designation/service/designation.service';
@@ -13,6 +13,8 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 import { EmployeeService } from '../../employee/service/employee.service';
 import { DepartmentService } from '../../department/service/department.service';
 import { PayrollReportsService } from '../service/payroll-reports.service';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-payroll-trans-report',
@@ -23,7 +25,7 @@ import { PayrollReportsService } from '../service/payroll-reports.service';
 export class PayrollTransReportComponent extends AppComponentBase implements OnInit {
 
   public permissions: Permissions;
-  payrollTransitionReportForm: FormGroup;
+  transactionReportForm: FormGroup;
   payrollTransitionModel: any;
   employeeTypeList = AppConst.EmployeeType;
   // employee types
@@ -33,6 +35,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
   recordsData: any = []
   disability = true
   totals = {};
+  gridApi: GridApi
 
   // Limit Date
   maxDate = new Date();
@@ -41,10 +44,10 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
   months = AppConst.Months
  // Validation messages..
   validationMessages = {
-    dateFrom: {
+    fromDate: {
       required: 'Date is required.',
     },
-    dateTo: {
+    toDate: {
      required: 'Date is required.',
     },
     year: {
@@ -53,8 +56,8 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
 };
  // error keys..
   formErrors = {
-    dateFrom: '',
-    dateTo: '',
+    fromDate: '',
+    toDate: '',
     year: '',
 };
 
@@ -63,7 +66,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
 
   // ag grid
   columnDefs = [
-    { headerName: 'Employee Title ', field: 'employeeTitle', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
+    //{ headerName: 'Employee Title ', field: 'employeeTitle', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     { headerName: 'CNIC ', field: 'cnic', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     {
@@ -85,17 +88,17 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       }
     },
     {headerName: 'Year ', field: 'year', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee'},
-    {
-      headerName: 'Last Updated', field: 'modifiedDate', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee',
-      cellRenderer: (params: any) => {
-        const date = params?.data?.modifiedDate != null ? params?.data?.modifiedDate : null;
-        return date == null ? null : this.dateHelperService.transformDate(date, 'MMM d, y');
-      }
-    },
-    { headerName: 'BPS ', field: 'bps', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
+    // {
+    //   headerName: 'Last Updated', field: 'modifiedDate', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee',
+    //   cellRenderer: (params: any) => {
+    //     const date = params?.data?.modifiedDate != null ? params?.data?.modifiedDate : null;
+    //     return date == null ? null : this.dateHelperService.transformDate(date, 'MMM d, y');
+    //   }
+    // },
+    { headerName: 'BPS ', field: 'bpsName', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
-    { headerName: 'Campus ', field: 'campus', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
+    // { headerName: 'Campus ', field: 'campus', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     {
       headerName: 'Basic Pay ',
       field: 'basicSalary',
@@ -116,7 +119,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     },
     {
       headerName: 'Gross Pay',
-      field: 'grossSalary',
+      field: 'grossPay',
       filter: true,
       tooltipField: 'employee',
       valueFormatter: (params) => {
@@ -133,7 +136,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       }
     },
     {
-      headerName: 'Tax',
+      headerName: 'Tax Deduction',
       field: 'taxDeduction',
       filter: true,
       tooltipField: 'employee',
@@ -168,8 +171,6 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
   gridOptions: GridOptions;
   tooltipData = 'double click to view details'
   defaultColDef: any
-  private paginationPageSize = 10;
-  private gridApi: GridApi;
 
   constructor(
     injector: Injector,
@@ -179,6 +180,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     public employeeService: EmployeeService,
     public departmentService: DepartmentService,
     public designationService: DesignationService,
+    public ngxsService: NgxsCustomService,
     public bpsService: PayrollItemService,
     public campusService: CampusService,
     public payrollReportService: PayrollReportsService
@@ -189,22 +191,13 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     //this.employeeTypeList = Object.keys(this.employeeType).filter(f => !isNaN(Number(f)));
   }
 
-  get PaginationPageSize(): number {
-    return this.paginationPageSize;
-  }
-
-  get gridAPI(): GridApi {
-    return this.gridApi;
-  }
+ 
 
   onGridReady(params) {
     this.gridApi = params.api;
   }
   //ag grid ends
 
-  onRowDoubleClicked(event: any) {
-
-  }
 
   ngOnInit(): void {
     this.gridOptions = ({} as GridOptions);
@@ -215,13 +208,13 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       resizable: true,
     }
 
-    this.payrollTransitionReportForm = this.fb.group({
-      dateFrom: ['', [Validators.required]],
-      dateTo: ['', [Validators.required]],
-      employeeName: [''],
+    this.transactionReportForm = this.fb.group({
+      fromDate: ['', [Validators.required]],
+      toDate: ['', [Validators.required]],
+      employeeId: [''],
       department: [''],
       designation: [''],
-      employeeType: [''],
+     // employeeType: [''],
       campus: [''],
       bps: [''],
       month: [''],
@@ -235,26 +228,32 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       month: null,
       year: null,
       employeeId: '',
-      employeeType: '',
+      // employeeType: '',
       designation: '',
       department: '',
       campus: '',
       bps: '',
       IsBankAdvice: false
     }
-    this.payrollTransitionReportForm.get('dateFrom').valueChanges.subscribe((value) => {
-      this.dateCondition = this.payrollTransitionReportForm.get('dateTo').value < this.payrollTransitionReportForm.get('dateFrom').value
+    this.transactionReportForm.get('fromDate').valueChanges.subscribe((value) => {
+      this.dateCondition = this.transactionReportForm.get('toDate').value < this.transactionReportForm.get('fromDate').value
       // this.invoiceForm.get('dueDate').enable()
     })
+
+    this.ngxsService.getEmployeeFromState();
+    this.ngxsService.getCampusFromState();
+    this.ngxsService.getDepartmentFromState();
+    this.ngxsService.getDesignationFromState();
+    this.ngxsService.getBasicPayFromState();
 
   }
 
   // method to create or edit payroll
   addOrEditPayroll(id?: any) {
     if (id) {
-      this.router.navigate([`/payroll/transaction/detail/${id}`])
+      this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', id)])
     } else {
-      this.router.navigate(['/payroll/transaction/create'])
+      this.router.navigate(['/' + PAYROLL_TRANSACTION.CREATE])
     }
   }
   // handling dueDate logic
@@ -268,9 +267,9 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
 
   onSubmit() {
 
-    if (this.payrollTransitionReportForm.invalid) {
-      this.logValidationErrors(this.payrollTransitionReportForm, this.formErrors, this.validationMessages)
-      this.payrollTransitionReportForm.markAsTouched();
+    if (this.transactionReportForm.invalid) {
+      this.logValidationErrors(this.transactionReportForm, this.formErrors, this.validationMessages)
+      // this.transactionReportForm.markAsTouched();
       return;
     }
 
@@ -279,32 +278,34 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     this.isLoading = true
     this.payrollReportService.getPayrollsReport(this.payrollTransitionModel).pipe(
       finalize(() => {
-        this.cdRef.detectChanges();
+        this.isLoading = false;
+        this.cdRef.detectChanges()
       })
     ).subscribe((res) => {
+      console.log(res.result)
       this.recordsData = res.result || [];
-      this.rowData = res.result;
+      this.rowData = res.result || [];
       console.log(res.result, " result")
       this.totals = this.calculateTotal(this.recordsData, 'basicSalary', 'totalAllowances', 'grossSalary', 'totalDeductions', 'netSalary')
       this.isLoading = false;
       // for PDF
       (!isEmpty(res.result)) ? this.disability = false : this.disability = true;
+      this.cdRef.detectChanges()
     });
   }
 
   // Mapping value from form to model
   mapFormValueToModel() {
-    console.log()
-    this.payrollTransitionModel.fromDate = this.dateHelperService.transformDate(new Date(this.payrollTransitionReportForm.value.dateFrom), 'MMM d, y') || '';
-    this.payrollTransitionModel.toDate = this.dateHelperService.transformDate(new Date(this.payrollTransitionReportForm.value.dateTo), 'MMM d, y') || '';
-    this.payrollTransitionModel.employeeId = this.payrollTransitionReportForm.value.employeeName || '';
-    this.payrollTransitionModel.employeeType = this.payrollTransitionReportForm.value.employeeType || '';
-    this.payrollTransitionModel.department = this.payrollTransitionReportForm.value.department || '';
-    this.payrollTransitionModel.designation = this.payrollTransitionReportForm.value.designation || '';
-    this.payrollTransitionModel.campus = this.payrollTransitionReportForm.value.campus || '';
-    this.payrollTransitionModel.month = this.payrollTransitionReportForm.value.month || '';
-    this.payrollTransitionModel.year = this.payrollTransitionReportForm.value.year || '';
-    this.payrollTransitionModel.bps = this.payrollTransitionReportForm.value.bps || '';
+    this.payrollTransitionModel.fromDate = this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.fromDate), 'MMM d, y') || '';
+    this.payrollTransitionModel.toDate = this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.toDate), 'MMM d, y') || '';
+    this.payrollTransitionModel.employeeId = this.transactionReportForm.value.employeeId || '';
+    //this.payrollTransitionModel.employeeType = this.transactionReportForm.value.employeeType || '';
+    this.payrollTransitionModel.department = this.transactionReportForm.value.department || '';
+    this.payrollTransitionModel.designation = this.transactionReportForm.value.designation || '';
+    this.payrollTransitionModel.campus = this.transactionReportForm.value.campus || '';
+    this.payrollTransitionModel.month = this.transactionReportForm.value.month || '';
+    this.payrollTransitionModel.year = this.transactionReportForm.value.year || '';
+    this.payrollTransitionModel.bps = this.transactionReportForm.value.bps || '';
   }
 
   // PDF Content
@@ -328,21 +329,21 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     //     margin: [0, 5, 0, 10]
     //   },
     //   {
-    //     text: 'Report for Month : ' + ((this.payrollTransitionReportForm.value.month) ? AppConst.Months[this.payrollTransitionReportForm.value.month - 1].name : '-') + ' & Year : ' + this.payrollTransitionReportForm.value.year,
+    //     text: 'Report for Month : ' + ((this.transactionReportForm.value.month) ? AppConst.Months[this.transactionReportForm.value.month - 1].name : '-') + ' & Year : ' + this.transactionReportForm.value.year,
     //     alignment: 'center',
     //     fontSize: 12,
     //     margin: [0, 0, 0, 10]
     //   },
     //   {
-    //     text: 'Employee : ' + (this.payrollTransitionReportForm.value.employeeName || 'All'),
+    //     text: 'Employee : ' + (this.transactionReportForm.value.employeeId || 'All'),
     //     fontSize: 10,
     //   },
     //   {
-    //     text: 'Department : ' + (this.payrollTransitionReportForm.value.department || 'All'),
+    //     text: 'Department : ' + (this.transactionReportForm.value.department || 'All'),
     //     fontSize: 10,
     //   },
     //   {
-    //     text: 'Campus : ' + (this.payrollTransitionReportForm.value.campus || 'All'),
+    //     text: 'Campus : ' + (this.transactionReportForm.value.campus || 'All'),
     //     fontSize: 10,
     //     margin: [0, 0, 0, 30]
     //   },
@@ -559,16 +560,16 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     // this.payrollReportService.setData(rowData);
     // this.router.navigate(['/payroll/transaction-report/print'], {
     //   queryParams: {
-    //     fromDate: this.dateHelperService.transformDate(new Date(this.payrollTransitionReportForm.value.dateFrom), 'MMM d, y') || '',
-    //     toDate: this.dateHelperService.transformDate(new Date(this.payrollTransitionReportForm.value.dateTo), 'MMM d, y') || '',
-    //     employeeName: this.payrollTransitionReportForm.value.employeeName || 'All',
-    //     employeeType: this.payrollTransitionReportForm.value.employeeType || 'All',
-    //     department: this.payrollTransitionReportForm.value.department || 'All',
-    //     designation: this.payrollTransitionReportForm.value.designation || 'All',
-    //     campus: this.payrollTransitionReportForm.value.campus || 'All',
-    //     month: this.payrollTransitionReportForm.value.month || 'All',
-    //     year: this.payrollTransitionReportForm.value.year || 'All',
-    //     bps: this.payrollTransitionReportForm.value.bps || 'All',
+    //     fromDate: this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.fromDate), 'MMM d, y') || '',
+    //     toDate: this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.toDate), 'MMM d, y') || '',
+    //     employeeId: this.transactionReportForm.value.employeeId || 'All',
+    //     employeeType: this.transactionReportForm.value.employeeType || 'All',
+    //     department: this.transactionReportForm.value.department || 'All',
+    //     designation: this.transactionReportForm.value.designation || 'All',
+    //     campus: this.transactionReportForm.value.campus || 'All',
+    //     month: this.transactionReportForm.value.month || 'All',
+    //     year: this.transactionReportForm.value.year || 'All',
+    //     bps: this.transactionReportForm.value.bps || 'All',
     //   }})
  }
 }

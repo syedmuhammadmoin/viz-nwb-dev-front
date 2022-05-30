@@ -26,10 +26,6 @@ export class PayrollItemService {
         return this.httpClient.get<IPaginationResponse<IPayrollItem[]>>(this.baseUrl, { params: httpParams})
     }
 
-    getEmployees(): Observable<IPaginationResponse<any[]>> {
-        return this.httpClient.get<IPaginationResponse<any[]>>(environment.baseUrl + 'employee', { headers: new HttpHeaders().set("key", "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~")})
-    }
-
     getPayrollItemById(id: number): Observable<IApiResponse<IPayrollItem>> {
         return this.httpClient.get<IApiResponse<IPayrollItem>>(`${this.baseUrl}/${id}`)
     }
@@ -46,9 +42,17 @@ export class PayrollItemService {
         return this.httpClient.put<any>(this.baseUrl + `/${payrollItemModel.id}`, payrollItemModel)
     }
 
-    // workflow(workflow: IWorkflow): Observable<any> {
-    //     return this.httpClient.post(this.baseUrl + '/workflow', workflow);
-    // }
+    getBasicPay(): Observable<any> {
+        return this.httpClient.get<any>(this.baseUrl + '/basicpays')
+    }
+    
+    getIncrements(): Observable<any> {
+        return this.httpClient.get<any>(this.baseUrl + '/increments')
+    }
+    
+    getDeductions(): Observable<any> {
+        return this.httpClient.get(this.baseUrl + '/others')
+    }
 }
 
 
