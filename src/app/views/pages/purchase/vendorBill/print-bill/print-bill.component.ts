@@ -1,8 +1,9 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {VendorBillService} from "../services/vendor-bill.service";
 import {GridOptions} from "ag-grid-community";
 import {DomSanitizer} from "@angular/platform-browser";
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 
 @Component({
@@ -12,7 +13,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class PrintBillComponent implements OnInit {
+export class PrintBillComponent extends AppComponentBase implements OnInit {
 
   gridOptions: GridOptions;
   masterData: any;
@@ -21,8 +22,9 @@ export class PrintBillComponent implements OnInit {
   constructor( private vendorBillService: VendorBillService,
                private activatedRoute: ActivatedRoute,
                private cDRef: ChangeDetectorRef,
-               public sanitizer: DomSanitizer
-             ) { }
+               public sanitizer: DomSanitizer,
+               injector: Injector
+             ) { super(injector) }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {

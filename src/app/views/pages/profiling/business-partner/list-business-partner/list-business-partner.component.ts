@@ -9,6 +9,7 @@ import { IBusinessPartner } from '../model/IBusinessPartner';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
 import { LoadingCellRenderer } from 'ag-grid-community/dist/lib/rendering/cellRenderers/loadingCellRenderer';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-list-business-partner',
@@ -160,7 +161,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     getRows: async (params: any) => {
      const res = await this.getBusinessPartners(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) {  
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

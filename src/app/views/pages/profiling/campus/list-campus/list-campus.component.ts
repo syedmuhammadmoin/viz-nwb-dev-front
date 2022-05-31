@@ -8,6 +8,7 @@ import { CampusService } from '../service/campus.service';
 import { CreateCampusComponent } from '../create-campus/create-campus.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-list-campus',
@@ -122,7 +123,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     getRows: async (params: any) => {
     const res = await this.getCampuses(params);
 
-     if (!res.result) { 
+    if(isEmpty(res.result)) {  
        this.gridApi.showNoRowsOverlay() 
      } else {
       this.gridApi.hideOverlay();

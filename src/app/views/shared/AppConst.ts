@@ -21,10 +21,10 @@ export class AppConst {
     2: 'Reconciled'
   }
   static EmployeeType = [
-    {viewValue: 'Permanent'},
-    {viewValue: 'Contractual'},
-    {viewValue: 'Daily wages'},
-    {viewValue: 'Adhoc'}
+    { id: 1, name: 'Permanent'},
+    { id: 2, name: 'Contractual'},
+    { id: 3, name: 'Daily wages'},
+    { id: 4, name: 'Adhoc'}
   ];
   static status = {
     0: 'Pending',

@@ -2,6 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CREDIT_NOTE } from 'src/app/views/shared/AppRoutes';
@@ -129,7 +130,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     getRows: async (params: any) => {
      const res = await this.getCreditNotes(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) { 
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

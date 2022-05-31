@@ -8,6 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPurchaseOrder } from '../model/IPurchaseOrder';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -134,7 +135,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     getRows: async (params: any) => {
      const res = await this.getPurchaseOrders(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) { 
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

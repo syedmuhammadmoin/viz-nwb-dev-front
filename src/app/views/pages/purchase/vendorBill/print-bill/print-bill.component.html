@@ -68,12 +68,12 @@
                     <td >{{i + 1}}</td>
                     <td >{{detail?.itemName}}</td>
                     <td class="description text-left">{{detail?.description}}</td>
-                    <td>{{detail?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td class="text-right" style="background-color: #eef0f8;">{{detail?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                    <td>{{detail?.quantity}}</td>
+                    <td class="text-right" style="background-color: #eef0f8;">{{valueFormatter(detail?.cost)}}</td>
                     <td class="text-right" style="background-color: #eef0f8;">{{detail?.tax + '%'}}</td>
                     <td class="text-right" style="background-color: #eef0f8;">{{detail?.anyOtherTax}}</td>
                     <td>{{detail?.warehouseName}}</td>
-                    <td class="text-right" style="background-color: #eef0f8;"><span>{{detail?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></td>
+                    <td class="text-right" style="background-color: #eef0f8;"><span>{{valueFormatter(detail?.subTotal)}}</span></td>
                   </tr>
                   
                   
@@ -94,19 +94,29 @@
           <div class="print-col-5 ml-auto" style="margin-top: 5%;">
             <div class="print-box">
               <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;">Total Before Tax:
-                <span class="float-right" style="font-weight: 400;">{{masterData?.totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.totalBeforeTax)}}</span>
+              </h4>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Tax:
+                <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.tax)}}</span>
+              </h4>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Other Tax:
+                <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.otherTax)}}</span>
               </h4>
             </div>
             <div class="print-box">
               <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Tax:
-                <span class="float-right" style="font-weight: 400;">{{masterData?.totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.totalTax)}}</span>
               </h4>
             </div>
             
             <div class="print-box">
               <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
               padding-top: 10px;">Grand Total:
-                <span class="float-right" style="font-weight: 400;">{{masterData?.totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.totalAmount)}}</span>
               </h4>
             </div>
           </div>

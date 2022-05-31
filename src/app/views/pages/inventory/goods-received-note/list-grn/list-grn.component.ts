@@ -7,6 +7,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IGRN } from '../model/IGRN';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-list-grn',
@@ -116,7 +117,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     getRows: async (params: any) => {
      const res = await this.getGrns(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) {  
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

@@ -8,6 +8,7 @@ import { CreateCashAccountComponent } from '../create-cash-account/create-cash-a
 import { ICashAccount } from '../model/ICashAccount';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -141,10 +142,15 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       console.log(params)
      const res = await this.getCashAccounts(params);
 
-     if (!res.result) { 
+    // if(res.result) { 
+    //   this.gridApi.showNoRowsOverlay() 
+    // } else {
+    //  this.gridApi.hideOverlay();
+    // }
+    if(isEmpty(res.result)) { 
       this.gridApi.showNoRowsOverlay() 
     } else {
-     this.gridApi.hideOverlay();
+      this.gridApi.hideOverlay();
     }
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);

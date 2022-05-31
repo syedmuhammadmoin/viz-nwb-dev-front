@@ -12,6 +12,7 @@ import { PAYMENT } from 'src/app/views/shared/AppRoutes';
 import { IPayment } from '../model/IPayment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-list-payment',
@@ -186,7 +187,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     getRows: async (params: any) => {
      const res = await this.getPayments(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) {  
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

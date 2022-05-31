@@ -8,6 +8,7 @@ import { AppComponentBase } from "../../../../shared/app-component-base";
 import { IVendorBill } from '../model/IVendorBill';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -136,7 +137,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     getRows: async (params: any) => {
      const res = await this.getBills(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) {  
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

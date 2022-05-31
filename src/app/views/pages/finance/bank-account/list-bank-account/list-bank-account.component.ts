@@ -8,6 +8,7 @@ import { CreateBankAccountComponent } from '../create-bank-account/create-bank-a
 import { IBankAccount } from '../model/IBankAccount';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -136,7 +137,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
     getRows: async (params: any) => {
     const res = await this.getBankAccounts(params);
     
-    if (!res.result) { 
+    if(isEmpty(res.result)) { 
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

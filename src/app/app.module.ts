@@ -93,6 +93,9 @@ import { DepartmentState } from './views/pages/payroll/department/store/departme
 import { CashAccountState } from './views/pages/finance/cash-account/store/cash-account.state';
 import { AccountPayableState } from './views/pages/finance/chat-of-account/store/account-payable.state';
 import { AccountLevel4State } from './views/pages/finance/chat-of-account/store/account-level4.state';
+import { BasicPayState } from './views/pages/payroll/payroll-item/store/basic-pay.state';
+import { IncrementState } from './views/pages/payroll/payroll-item/store/increment.state';
+import { DeductionState } from './views/pages/payroll/payroll-item/store/deduction.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -156,6 +159,9 @@ export function getHighlightLanguages() {
       CountryState,
       StateState,
       CityState,
+      BasicPayState,
+      IncrementState,
+      DeductionState,
       BankAccountState,
       CashAccountState,
       BudgetState,

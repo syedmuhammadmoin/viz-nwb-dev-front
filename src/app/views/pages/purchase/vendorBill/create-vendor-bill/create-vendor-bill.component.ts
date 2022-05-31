@@ -56,6 +56,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   grandTotal = 0;
   totalBeforeTax = 0;
   totalTax = 0;
+  taxes = 0;
+  otherTaxes = 0;
 
   // Limit Date
   maxDate: Date = new Date();
@@ -218,6 +220,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   totalCalculation() {
     this.totalTax = 0;
     this.totalBeforeTax = 0;
+    this.otherTaxes = 0;
+    this.taxes = 0;
     this.grandTotal = 0;
     const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
     arrayControl.controls.forEach((element, index) => {
@@ -225,7 +229,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       const tax = arrayControl.at(index).get('tax').value;
       const otherTax = arrayControl.at(index).get('anyOtherTax').value  || 0;
       const quantity = arrayControl.at(index).get('quantity').value;
-      this.totalTax += (((cost * quantity) * tax) / 100) + otherTax
+      this.totalTax += (((cost * quantity) * tax) / 100) + otherTax;
+      this.otherTaxes += otherTax;
+      this.taxes += (((cost * quantity) * tax) / 100);
       this.totalBeforeTax += cost * quantity;
       this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
     });

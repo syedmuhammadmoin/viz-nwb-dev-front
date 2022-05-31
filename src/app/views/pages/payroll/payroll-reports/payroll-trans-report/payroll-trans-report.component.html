@@ -1,1 +1,282 @@
-<p>payroll-trans-report works!</p>
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" title="Payroll Transaction Report" [class]="'card-head-lg'"></kt-portlet-header>
+      <!--begin::Form-->
+  
+      <form [formGroup]="transactionReportForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+        <div class="kt-portlet__body">
+          <div class="kt-form__section kt-form__section--first">
+  
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Employee:</label>
+                    <kt-simple-dropdown
+                      id="trans_report_employee"
+                      [optionList]="ngxsService.employees$"
+                      formControlName="employeeId" matFormFieldClass="full-width"
+                      placeholder="Select Employee"
+                      isDisabledNone="true"
+                      hintText="Optional"
+                      propertyName="name"
+                      propertyValue="id"
+                      searchPlaceholder="Search Employee...">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <!-- <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                      <label class="col-form-label pt-0">Employee Type:</label>
+                      <kt-simple-dropdown
+                        id="trans_report_type"
+                        [optionList]="employeeTypeList"
+                        formControlName="employeeType" matFormFieldClass="full-width"
+                        placeholder="Select Employee Type"
+                        isDisabledNone="true"
+                        propertyName="name"
+                        hintText="Optional"
+                        propertyValue="id"
+                        searchPlaceholder="Search Employee Type...">
+                      </kt-simple-dropdown>
+                    </div>
+                </div> -->
+  
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Designation:</label>
+                      <kt-simple-dropdown
+                        id="trans_report_designation"
+                        [optionList]="ngxsService.designations$"
+                        formControlName="designation" matFormFieldClass="full-width"
+                        placeholder="Select Designation"
+                        propertyName="name"
+                        isDisabledNone="true"
+                        hintText="Optional"
+                        propertyValue="name"
+                        searchPlaceholder="Search Designation...">
+                      </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Department:</label>
+                      <kt-simple-dropdown
+                        id="trans_report_department"
+                        [optionList]="ngxsService.departments$"
+                        formControlName="department" matFormFieldClass="full-width"
+                        placeholder="Select Department"
+                        propertyName="name"
+                        isDisabledNone="true"
+                        hintText="Optional"
+                        propertyValue="name"
+                        searchPlaceholder="Search Department...">
+                      </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">BPS:</label>
+                    <kt-simple-dropdown 
+                     id="trans_report_bps"
+                     placeholder="Select Basic Pay" 
+                     propertyValue="id" 
+                     propertyName="name"
+                     isDisabledNone="true"
+                     hintText="Optional"
+                     searchPlaceholder="Search Basic Pay..."
+                     formControlName="bps" 
+                     matFormFieldClass="full-width"
+                     [optionList]="ngxsService.basicPayrollItems$">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <!-- <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Campus:</label>
+                    <kt-simple-dropdown 
+                     id="trans_report_campus"
+                     placeholder="Select Campus" 
+                     propertyValue="id" 
+                     propertyName="name"
+                     isDisabledNone="true"
+                     hintText="Optional"
+                     formControlName="campus" 
+                     searchPlaceholder="Search Campus..."
+                     matFormFieldClass="full-width"
+                     [optionList]="ngxsService.campuses$">
+                    </kt-simple-dropdown>
+                  </div>
+                </div> -->
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Month:</label>
+                    <kt-simple-dropdown
+                    id="trans_report_month"
+                    [optionList]="months"
+                    formControlName="month"
+                    isDisabledNone="true"
+                    hintText="Optional"
+                    matFormFieldClass="full-width"
+                    placeholder="Select Month" propertyName="name"
+                    propertyValue="value" searchPlaceholder="Search Month...">
+                  </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Year:</label>
+                    <kt-simple-dropdown
+                      id="trans_report_year"
+                      (blurEvent)="logValidationErrors(this.transactionReportForm, this.formErrors, this.validationMessages)"
+                      [errorMessage]="formErrors.year"
+                      [optionList]="generateArrayOfYears()"
+                      formControlName="year"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Year" propertyName="value"
+                      propertyValue="value" searchPlaceholder="Search Year...">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Start Date:</label>
+                    <kt-date-input 
+                      formControlName="fromDate" 
+                      placeholder="From" 
+                      matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(this.transactionReportForm, this.formErrors, this.validationMessages)"
+                      [errorMessage]="formErrors.fromDate">
+                    </kt-date-input>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                    <div class="form-group kt-form__group">
+                      <label class="col-form-label pt-0">End Date:</label>
+                      <kt-date-input 
+                        formControlName="toDate" 
+                        placeholder="To" 
+                        matFormFieldClass="full-width"
+                        (blurEvent)="logValidationErrors(this.transactionReportForm, this.formErrors, this.validationMessages)"
+                        [errorMessage]="formErrors.toDate">
+                      </kt-date-input>
+                    </div>
+                  </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5">
+                    <div class="form-group kt-form__group">
+                      <button class="mr-3 btn_white" mat-raised-button type="reset" id="trans_report_reset" (click)="reset()">Reset</button>
+                      <button class="sub___btn" id="trans_report_fetch" mat-raised-button type="submit">Fetch Records</button>
+                      <!--For PDF-->
+                      <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
+                    </div>
+                  </div>
+              </div>
+  
+              <div class="row mt-5">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <ag-grid-angular
+                   class="ag-theme-alpine" #rowClass
+                   style="width: 100%; height: 500px;"
+                   [columnDefs]="columnDefs"
+                   [rowData]="rowData"
+                   [frameworkComponents]="frameworkComponents"
+                   [gridOptions]="gridOptions"
+                   [defaultColDef]="defaultColDef"
+                   (gridReady)="onGridReady($event)"
+                   [tooltipShowDelay]="5"
+                   (rowDoubleClicked)="addOrEditPayroll($event.data.id)">
+                  </ag-grid-angular>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--end::Form-->
+    </kt-portlet>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+               
+  
+                
+  
+        
+  
+                
+  
+            
+  
+          

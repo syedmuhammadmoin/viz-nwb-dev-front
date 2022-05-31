@@ -62,6 +62,8 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   // switch
   userStatus = 'Active'
 
+  valueTitle: string = 'Value'
+
   // Validation messages..
   validationMessages = {
     itemCode: {
@@ -78,6 +80,8 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     },
     value: {
       required: 'Value is required.',
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
     },
     accountId: {
       required: 'Account is required.',
@@ -182,7 +186,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     this.gridOptions = {
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "click to select Employee",
     };
 
     this.frameworkComponents = {
@@ -214,33 +218,61 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
      } else {
         this.gridApi?.hideOverlay();
      }
+
+     //update FornControl 'Value' Validator on checkbox changed
+     this.payrollItemForm.get('payrollItemType').valueChanges.subscribe((value: number) => {
+         this.updateValueValidators(value);
+      })
+  }
+
+  updateValueValidators(value: number) {
+    if(value === 0) {
+      this.valueTitle = 'Value (%) '
+      this.payrollItemForm.get('value').setValidators([Validators.required, Validators.min(0) , Validators.max(100)])
+      this.payrollItemForm.get('value').updateValueAndValidity();
+    }
+    else if (value === 1) {
+      this.valueTitle = 'Value'
+      this.payrollItemForm.get('value').setValidators([Validators.required])
+      this.payrollItemForm.get('value').updateValueAndValidity();
+    }
+    this.logValidationErrors(this.payrollItemForm, this.formErrors , this.validationMessages)
   }
 
   columnDefs = [
     { 
       headerName: 'Name', 
       field: 'name', 
+      tooltipField: 'name',
+      headerCheckboxSelection: true,
+      headerCheckboxSelectionFilteredOnly: true,
+      checkboxSelection: true,
       cellRenderer: "loadingCellRenderer",
      },
      { 
       headerName: 'Father Name', 
-      field: 'fatherName', 
+      field: 'fatherName',
+      tooltipField: 'name', 
      },
      { 
       headerName: 'Cnic', 
-      field: 'cnic', 
+      field: 'cnic',
+      tooltipField: 'name', 
      },
      { 
       headerName: 'Designation', 
-      field: 'designationName', 
+      field: 'designationName',
+      tooltipField: 'name', 
      },
      { 
       headerName: 'Department', 
-      field: 'departmentName',  
+      field: 'departmentName',
+      tooltipField: 'name',  
      },
      { 
       headerName: 'Faculty', 
-      field: 'faculty', 
+      field: 'faculty',
+      tooltipField: 'name', 
      },
      { 
       headerName: 'Shift', 
