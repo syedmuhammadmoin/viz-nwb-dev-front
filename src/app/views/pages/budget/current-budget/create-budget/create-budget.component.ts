@@ -7,10 +7,12 @@ import { BUDGET } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { IBudget } from '../model/IBudget';
 import { IBudgetLines } from '../model/IBudgetLines';
 import { IBudgetResponse } from '../model/IBudgetResponse';
 import { BudgetService } from '../service/budget.service';
+import { BudgetState } from '../store/budget.state';
 
 @Component({
   selector: 'kt-create-budget',
@@ -199,6 +201,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
           take(1),
           finalize(() => this.isLoading = false))
           .subscribe(() => {
+          this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
           this.toastService.success('Updated Successfully', 'Budget')
           this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , this.budgetModel.id)])
         },
@@ -213,6 +216,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         take(1),
         finalize(() => this.isLoading = false))
         .subscribe(() => {
+          this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
           this.toastService.success('Created Successfully', 'Budget')
           //console.log('/' + BUDGET.LIST)
           this.router.navigate(['/' + BUDGET.LIST])

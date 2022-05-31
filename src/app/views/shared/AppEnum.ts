@@ -260,6 +260,9 @@ export class Permissions {
   static PAYROLL_TRANSACTION_REVIEW = 'Permissions.PayrollTransactionClaims.Review';
   static PAYROLL_TRANSACTION_APPROVE = 'Permissions.PayrollTransactionClaims.Approve';
 
+  // allowance
+  static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';
+
   // Stock
   static STOCK_VIEW = 'Permissions.StockClaims.View';
 
