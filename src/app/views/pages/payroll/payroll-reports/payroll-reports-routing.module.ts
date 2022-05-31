@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CRUD_ROUTES, PAYROLL_REPORT } from 'src/app/views/shared/AppRoutes';
+import { AllowanceReportComponent } from './allowance-report/allowance-report.component';
 import { PayrollTransReportComponent } from './payroll-trans-report/payroll-trans-report.component';
 
 const routes: Routes = [
@@ -44,31 +45,31 @@ const routes: Routes = [
           // },
         ]
       },
-      // {
-      //   path: 'allowances',
-      //   children: [
-      //     {
-      //       path: 'report',
-      //       component: PayrollAllowancesReportComponent,
-      //       data: {
-      //         array: [
-      //           {permission: Permissions.ALLOWANCE_VIEW}
-      //         ]
-      //       },
-      //       canActivate: [PermissionGuard]
-      //     },
-      //     {
-      //       path: 'print',
-      //       component: PrintAllowancesComponent,
-      //       data: {
-      //         array: [
-      //           {permission: Permissions.ALLOWANCE_VIEW}
-      //         ]
-      //       },
-      //       canActivate: [PermissionGuard]
-      //     },
-      //   ]
-      // },
+      {
+        path: PAYROLL_REPORT.ALLOWANCE,
+        children: [
+          {
+            path: 'report',
+            component: AllowanceReportComponent,
+            data: {
+              array: [
+                {permission: Permissions.ALLOWANCE_VIEW}
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+          // {
+          //   path: 'print',
+          //   component: PrintAllowancesComponent,
+          //   data: {
+          //     array: [
+          //       {permission: Permissions.ALLOWANCE_VIEW}
+          //     ]
+          //   },
+          //   canActivate: [PermissionGuard]
+          // },
+        ]
+      },
     ]
   }
 ]

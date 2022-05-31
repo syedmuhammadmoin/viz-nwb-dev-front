@@ -152,6 +152,9 @@ export class AppConst {
     'Permissions.PayrollTransactionClaims.Review': 'Payroll Transaction Review',
     'Permissions.PayrollTransactionClaims.Approve': 'Payroll Transaction Approve',
 
+    // Allowance
+    'Permissions.AllowanceReportClaims.View': 'Allowance Report View',
+
     // Product
     'Permissions.ProductsClaims.View': 'Product View',
     'Permissions.ProductsClaims.Create': 'Product Create',
