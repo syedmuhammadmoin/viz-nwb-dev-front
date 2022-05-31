@@ -234,7 +234,8 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      maxWidth: 150
     }
 
     this.components = {
