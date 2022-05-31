@@ -78,7 +78,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         headerName: 'Account',
         field: 'accountName',
         cellStyle: {textAlign : 'left'},
-        width: 300
+        // width: 300
       },
       {
         headerName: 'Opening Balance',
@@ -151,7 +151,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       },
     ];
     this.defaultColDef = {
-      width: 200,
+      width: 175,
       resizable: true,
     };
   }
@@ -187,7 +187,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   }
 
   onFirstDataRendered(params: any) {
-    // params.api.sizeColumnsToFit();
+    params.api.sizeColumnsToFit();
   }
 
   onGridReady(params: GridReadyEvent) {

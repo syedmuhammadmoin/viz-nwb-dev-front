@@ -72,22 +72,14 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       resizable: true,
     };
     this.columnDefs = [
-      {headerName: 'Account Name', field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
-      {headerName: 'Date', field: 'docDate', sortable: true, filter: true},
-      {headerName: 'Document No', field: 'docNo', sortable: true, filter: true},
-      {
-        headerName: 'Document Type', 
-        field: 'docType', 
-        sortable: true, 
-        filter: true,
-        valueFormatter: (params: ValueFormatterParams) => {
-          return DocType[params.value]
-        } 
-      },
-      {headerName: 'Description', field: 'description', filter: true},
-      {headerName: 'Debit', field: 'debit', sortable: true, filter: true},
-      {headerName: 'Credit', field: 'credit', sortable: true, filter: true},
-      {headerName: 'Balance', colId: 'balance'}
+      {headerName: 'Account Name',  width: 100,  field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
+      {headerName: 'Date', field: 'docDate', width: 110, sortable: true, filter: true},
+      {headerName: 'Doc No', field: 'docNo', width: 110, sortable: true, filter: true},
+      
+      {headerName: 'Description', width: 200, field: 'description', filter: true},
+      {headerName: 'Debit', field: 'debit',  width: 100,  sortable: true, filter: true},
+      {headerName: 'Credit', field: 'credit', width: 100, sortable: true, filter: true},
+      {headerName: 'Balance', width: 160, colId: 'balance'}
     ];
   }
 
@@ -149,7 +141,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
     this.autoGroupColumnDef = {
       headerName: 'Account',
-      minWidth: 300,
+      minWidth: 100,
       cellRendererParams: {
         suppressCount: true,
         checkbox: false,
@@ -207,18 +199,18 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             }
           },
           {headerName: 'Document No', field: 'docNo', sortable: true, filter: true, cellStyle: {textAlign : 'left'}},
-          {
-            headerName: 'Document Type', 
-            field: 'docType', 
-            sortable: true, 
-            filter: true, 
-            cellStyle: {textAlign : 'left'},
-            valueFormatter: (params: ValueFormatterParams) => {
-              return DocType[params.value]
-              // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
-            } 
+          // {
+          //   headerName: 'Document Type', 
+          //   field: 'docType', 
+          //   sortable: true, 
+          //   filter: true, 
+          //   cellStyle: {textAlign : 'left'},
+          //   valueFormatter: (params: ValueFormatterParams) => {
+          //     return DocType[params.value]
+          //     // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
+          //   } 
 
-          },
+          // },
           {headerName: 'Description', field: 'description', filter: true, cellStyle: {textAlign : 'left'}},
           {
             headerName: 'Debit',
@@ -301,7 +293,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   onFirstDataRendered(params: any) {
-    // params.api.sizeColumnsToFit();
+    params.api.sizeColumnsToFit();
   }
 
   // PDF Content

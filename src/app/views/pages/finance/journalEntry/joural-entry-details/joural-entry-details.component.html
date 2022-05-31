@@ -87,8 +87,8 @@
         
 
         <div *ngIf="journalEntryMaster?.isAllowedRole" class="text-right mt-10">
-          <button (click)="workflow(action.Reject)" id="journal_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-          <button (click)="workflow(action.Approve)" class="success__btn" id="journal_approve" mat-raised-button>Approve</button>
+          <button (click)="workflow(action.Reject)" id="journal_reject" class="mr-5 " mat-raised-button color="warn">Reject</button>
+          <button (click)="workflow(action.Approve)" class="" id="journal_approve" mat-raised-button color="success">Approve</button>
         </div>
       </div>
     </kt-portlet-body>
