@@ -9,6 +9,8 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { CreatePayrollTransactionComponent } from '../../payroll-transaction/create-payroll-transaction/create-payroll-transaction.component';
+import { DepartmentState } from '../../department/store/department.store';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 
 @Component({
   selector: 'kt-create-payroll-process',
@@ -155,6 +157,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
+    this.getLatestDepartments();
     this.ngxsService.getAccountPayableFromState();
     this.ngxsService.getDepartmentFromState();
   }
@@ -260,6 +263,10 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     dialogRef.afterClosed().subscribe(() => {
       this.createProcess();
     });
+  }
+
+  getLatestDepartments(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
   }
 }
 

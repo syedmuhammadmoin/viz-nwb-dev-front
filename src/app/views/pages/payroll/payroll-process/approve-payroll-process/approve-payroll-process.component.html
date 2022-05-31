@@ -15,6 +15,7 @@
                     [errorMessage]="formErrors.departmentId"
                     [isMultiple]="true"
                     [optionList]="ngxsService.departments$"
+                    (click)="getLatestDepartments()"
                     formControlName="departmentId"
                     matFormFieldClass="full-width" 
                     maxSelectionCount="3"

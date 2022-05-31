@@ -15,6 +15,8 @@ import { DepartmentService } from '../../department/service/department.service';
 import { PayrollReportsService } from '../service/payroll-reports.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { EmployeeState } from '../../employee/store/employee.state';
 
 @Component({
   selector: 'kt-payroll-trans-report',
@@ -240,6 +242,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       // this.invoiceForm.get('dueDate').enable()
     })
 
+    this.getLatestEmployeeData();
     this.ngxsService.getEmployeeFromState();
    // this.ngxsService.getCampusFromState();
     this.ngxsService.getDepartmentFromState();
@@ -308,7 +311,11 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     this.payrollTransitionModel.bps = this.transactionReportForm.value.bps || '';
   }
 
-  // PDF Content
+  getLatestEmployeeData() {
+    this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState , true))
+  }
+
+    // PDF Content
   contentData() {
     // const data = [
     //   {

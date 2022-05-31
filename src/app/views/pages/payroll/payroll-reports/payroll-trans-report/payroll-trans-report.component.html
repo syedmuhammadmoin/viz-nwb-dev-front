@@ -16,6 +16,7 @@
                       id="trans_report_employee"
                       [optionList]="ngxsService.employees$"
                       formControlName="employeeId" matFormFieldClass="full-width"
+                      (click)="getLatestEmployeeData()"
                       placeholder="Select Employee"
                       isDisabledNone="true"
                       hintText="Optional"

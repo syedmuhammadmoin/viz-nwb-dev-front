@@ -7,6 +7,8 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { ActionButton, DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { DepartmentState } from '../../department/store/department.store';
 import { PayrollProcessService } from '../service/payroll-process.service';
 
 @Component({
@@ -144,6 +146,8 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       religion: ['']
       // accountPayableId: [null]
     })
+
+    this.getLatestDepartments();
     this.ngxsService.getDepartmentFromState();
   }
 
@@ -256,6 +260,10 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     target.employee = 'Total'
     // console.log(target);
     return target;
+  }
+
+  getLatestDepartments(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
   }
 }
 

@@ -13,12 +13,13 @@ import { EmployeeService } from '../../employee/service/employee.service';
 import { FirstDataRenderedEvent } from 'ag-grid-community';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { EmployeeState } from '../../employee/store/employee.state';
 
 @Component({
   selector: 'kt-create-payroll-transaction',
   templateUrl: './create-payroll-transaction.component.html',
-  styleUrls: ['./create-payroll-transaction.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./create-payroll-transaction.component.scss']
 })
 
 export class CreatePayrollTransactionComponent extends AppComponentBase implements OnInit {
@@ -163,6 +164,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     //      this.payrollTransactionForm.get('leaveDays').updateValueAndValidity()
     // })
     // console.log(this.workingDays)
+    this.getLatestEmployeeData()
     this.ngxsService.getEmployeeFromState();
     this.ngxsService.getAccountPayableFromState();
     //this.ngxsService.getAccountLevel4FromState();
@@ -344,6 +346,10 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   getNumberOfDays(month, year): number {
     return new Date(year, month, 0).getDate();
   };
+
+  getLatestEmployeeData() {
+    this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState , true))
+  }
 }
 
 

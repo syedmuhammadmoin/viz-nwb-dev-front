@@ -17,6 +17,7 @@
                       [optionList]="ngxsService.departments$"
                       formControlName="departmentId"
                       matFormFieldClass="full-width" 
+                      (click)="getLatestDepartments()"
                       maxSelectionCount="3"
                       placeholder="Select Department"
                       propertyName="name"

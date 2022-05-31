@@ -16,6 +16,7 @@
                       id="payroll_trans_employee"
                       (blurEvent)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)"
                       (selectionChange)="getEmployee($event.value)"
+                      (click)="getLatestEmployeeData()"
                       [errorMessage]="formErrors.employeeId" [optionList]="ngxsService.employees$"
                       formControlName="employeeId" matFormFieldClass="full-width"
                       placeholder="Select Employee"
