@@ -68,7 +68,8 @@ export class DashboardComponent implements OnInit {
         enabled: false
       },
       stroke: {
-        curve: 'straight'
+        curve: 'straight',
+        colors: ['#1a6b85'],
       },
       title: {
         text: 'sales Trends by Month',
@@ -95,7 +96,7 @@ export class DashboardComponent implements OnInit {
       }
     };
     this.pieChartOptions = {
-      colors: ['#039be5', '#0288d1', '#03a9f4', '#4fc3f7'],
+      colors: ['#1a6b85', '#1a6b85', '#5390a3', '#5390a3'],
       series: [44, 55, 13, 43],
       fill: {
         type: 'gradient',

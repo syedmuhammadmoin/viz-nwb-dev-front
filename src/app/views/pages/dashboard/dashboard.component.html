@@ -2,7 +2,7 @@
   <div class="row">
     <!--region Widgets-->
     <div class="col-md-3 col-sm-6 mb-5">
-      <div class="card" style="height: 150px">
+      <div class="card" style="height: 150px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <div class="row mx-auto my-auto">
           <div class="col-3">
             <!--            <i class="fa fa-address-book text-primary" style="vertical-align: middle;"></i>-->
@@ -11,14 +11,14 @@
           <div class="col-9">
             <div class="row">
               <div class="col-12 h1">Rs {{300000 | shortNumber}}</div>
-              <div class="col-12 h7">Total Receivable</div>
+              <div class="col-12 h6">Total Receivable</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6 mb-5">
-      <div class="card" style="height: 150px">
+      <div class="card" style="height: 150px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <div class="row mx-auto my-auto">
           <div class="col-3">
             <!--            <i class="fa fa-address-book" style="vertical-align: middle;"></i>-->
@@ -27,14 +27,14 @@
           <div class="col-9">
             <div class="row">
               <div class="col-12 h1">Rs {{30000 | shortNumber}}</div>
-              <div class="col-12 h7">Total Payable</div>
+              <div class="col-12 h6">Total Payable</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6 mb-5">
-      <div class="card" style="height: 150px">
+      <div class="card" style="height: 150px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <div class="row mx-auto my-auto">
           <div class="col-3">
             <i class="fas fa-signal text-warning" style="font-size: 30px; vertical-align: middle;"></i>
@@ -42,14 +42,14 @@
           <div class="col-9">
             <div class="row">
               <div class="col-12 h1">Rs {{390000 | shortNumber}}</div>
-              <div class="col-12 h7">Net Profit</div>
+              <div class="col-12 h6">Net Profit</div>
             </div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-3 col-sm-6 mb-5">
-      <div class="card" style="height: 150px">
+      <div class="card" style="height: 150px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <div class="row mx-auto my-auto">
           <div class="col-3 text-center">
             <!--            <i class="fa fa-address-book text-danger" style="font-size: 30px; vertical-align: middle;"></i>-->
@@ -58,7 +58,7 @@
           <div class="col-9">
             <div class="row">
               <div class="col-12 h1">Rs {{90000 | shortNumber}}</div>
-              <div class="col-12 h7">Gross Profit</div>
+              <div class="col-12 h6">Gross Profit</div>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
     <!--endregion-->
     <!--region Graphs-->
     <div class="col-md-6 mb-5">
-      <div id="chart" class="card">
+      <div id="chart" class="card" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <apx-chart
           [series]="chartOptions.series"
           [chart]="chartOptions.chart"
@@ -80,7 +80,7 @@
       </div>
     </div>
     <div class="col-md-6 mb-5">
-      <div id="pie-chart" class="card">
+      <div id="pie-chart" class="card" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <apx-chart
           [series]="pieChartOptions.series"
           [chart]="pieChartOptions.chart"

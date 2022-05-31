@@ -35,101 +35,163 @@
             <div class="col-md-4 col-lg-4  mt-3">
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Employee Name: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.name}}</span></h4>
+                  <!-- <span class="float-right" style="font-weight: 400;"></span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.name || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Domicile: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.domicile}}</span></h4>
+                  <!-- <span class="float-right" style="font-weight: 400;"></span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.domicile || 'N/A' }}</h6>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Nationality: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.nationality}}</span></h4>
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.nationality}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.nationality || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Place Of Birth: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.placeOfBirth}}</span></h4>
+                  <!-- <span class="float-right" style="font-weight: 400;"></span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.placeOfBirth || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                   <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Date Of Joining: 
-                  <span class="float-right" style="font-weight: 400;">{{employeeMaster?.dateofJoining | date: 'MMM d, y'}}</span></h4>
+                    <!-- <span class="float-right" style="font-weight: 400;"></span> -->
+                  </h4>
+                  <h6 style="font-weight: 400;">{{employeeMaster?.dateofJoining | date: 'MMM d, y'}}</h6>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Role: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.role}}</span></h4>
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.role}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.role || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Basic Pay: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.basicPay}}</span></h4>
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.basicPay}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.basicPay || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Increment: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.increment}}</span></h4>
+                  <!-- <span class="float-right" style="font-weight: 400;"></span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.increment || 'N/A'}}</h6>
               </div>
             </div>
 
             <div class="col-md-4 col-lg-4  mt-3">
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Father Name: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.fatherName}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Father Name: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.fatherName}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.fatherName || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Contact: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.contact}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Contact: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.contact}}</span> -->
+                  
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.contact || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Martial Status: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.maritalstatus}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Martial Status: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.maritalstatus}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.maritalstatus || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Designation: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.designationName}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Designation: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.designationName}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.designationName || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Address: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.address}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Address: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.address}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.address || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Date Of Retirement: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.dateofRetirment | date: 'MMM d, y'}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Date Of Retirement: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.dateofRetirment | date: 'MMM d, y'}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.dateofRetirment | date: 'MMM d, y'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Faculty: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.faculty}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Faculty: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.faculty}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.faculty || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">No of Increment: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.noOfIncrements}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  No of Increment: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.noOfIncrements}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.noOfIncrements || 'N/A'}}</h6>
               </div>
             </div>
 
             <div class="col-md-4 col-lg-4  mt-3">
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Cnic: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.cnic}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Cnic: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.cnic}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.cnic || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Religion: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.religion}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Religion: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.religion}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.religion || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Gender: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.gender}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Gender: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.gender}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.gender || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Department: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.departmentName}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Department: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.departmentName}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.departmentName || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Date Of Birth: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.dateofBirth | date: 'MMM d, y'}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Date Of Birth: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.dateofBirth | date: 'MMM d, y'}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.dateofBirth || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Shift: 
-                <span class="float-right" style="font-weight: 400;">{{employeeMaster?.dutyShift}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Shift: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{employeeMaster?.dutyShift}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{employeeMaster?.dutyShift || 'N/A'}}</h6>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Is Active: 
-                <span class="float-right" style="font-weight: 400;">{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</span></h4>
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">
+                  Is Active: 
+                  <!-- <span class="float-right" style="font-weight: 400;">{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</span> -->
+                </h4>
+                <h6 style="font-weight: 400;">{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</h6>
               </div>
             </div>
           </div>
