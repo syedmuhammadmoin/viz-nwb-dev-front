@@ -9,6 +9,7 @@ import { IProduct } from '../model/IProduct';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-list-product',
@@ -147,7 +148,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     getRows: async (params: any) => {
      const res = await this.getProducts(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) {  
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -274,7 +275,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     getRows: async (params: any) => {
      const res = await this.getPayrollTransactions(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) { 
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

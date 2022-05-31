@@ -46,9 +46,6 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   billId: number;
 
   //need for Register Payment
-  totalBeforeTax: number;
-  totalTax: number;
-  totalBillAmount: number;
   transactionId: number
   businessPartnerId: number;
   // Variables for bill data
@@ -149,9 +146,6 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     this.vendorBillService.getVendorBillById(id).subscribe(res => {
       this.billMaster = res.result;
       this.billLines = res.result.billLines;
-      this.totalBeforeTax = this.billMaster.totalBeforeTax;
-      this.totalTax = this.billMaster.totalTax;
-      this.totalBillAmount = this.billMaster.totalAmount;
       this.businessPartnerId = this.billMaster.vendorId;
       this.transactionId = this.billMaster.transactionId;
       this.status = this.billMaster.status;

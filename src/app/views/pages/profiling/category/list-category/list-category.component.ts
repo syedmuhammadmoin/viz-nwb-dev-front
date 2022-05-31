@@ -9,6 +9,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { DataSource } from '@angular/cdk/collections';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-list-category',
@@ -121,7 +122,7 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     getRows: async (params: any) => {
      const res = await this.getCategories(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) { 
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

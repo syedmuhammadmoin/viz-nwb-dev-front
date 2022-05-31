@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -89,7 +90,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
     getRows: async (params: any) => {
      const res = await this.getDepartments(params);
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) {  
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

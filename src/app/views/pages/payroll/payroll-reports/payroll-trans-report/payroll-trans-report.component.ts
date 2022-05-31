@@ -182,7 +182,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     public designationService: DesignationService,
     public ngxsService: NgxsCustomService,
     public bpsService: PayrollItemService,
-    public campusService: CampusService,
+    //public campusService: CampusService,
     public payrollReportService: PayrollReportsService
    // public PrintPayrollTransactionService: PrintPayrollTransactionReportService
   ) {
@@ -215,7 +215,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       department: [''],
       designation: [''],
      // employeeType: [''],
-      campus: [''],
+      //campus: [''],
       bps: [''],
       month: [''],
       year: ['', Validators.required],
@@ -231,7 +231,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       // employeeType: '',
       designation: '',
       department: '',
-      campus: '',
+     // campus: '',
       bps: '',
       IsBankAdvice: false
     }
@@ -241,7 +241,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     })
 
     this.ngxsService.getEmployeeFromState();
-    this.ngxsService.getCampusFromState();
+   // this.ngxsService.getCampusFromState();
     this.ngxsService.getDepartmentFromState();
     this.ngxsService.getDesignationFromState();
     this.ngxsService.getBasicPayFromState();
@@ -302,7 +302,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     //this.payrollTransitionModel.employeeType = this.transactionReportForm.value.employeeType || '';
     this.payrollTransitionModel.department = this.transactionReportForm.value.department || '';
     this.payrollTransitionModel.designation = this.transactionReportForm.value.designation || '';
-    this.payrollTransitionModel.campus = this.transactionReportForm.value.campus || '';
+   // this.payrollTransitionModel.campus = this.transactionReportForm.value.campus || '';
     this.payrollTransitionModel.month = this.transactionReportForm.value.month || '';
     this.payrollTransitionModel.year = this.transactionReportForm.value.year || '';
     this.payrollTransitionModel.bps = this.transactionReportForm.value.bps || '';

@@ -9,6 +9,7 @@ import { JOURNAL_ENTRY } from 'src/app/views/shared/AppRoutes';
 import { IJournalEntry } from '../model/IJournalEntry';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-list-journal-entry',
@@ -145,7 +146,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     getRows: async (params: any) => {
      const res = await this.getJournalEntries(params)
 
-     if (!res.result) { 
+     if(isEmpty(res.result)) { 
       this.gridApi.showNoRowsOverlay() 
     } else {
      this.gridApi.hideOverlay();

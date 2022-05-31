@@ -7,6 +7,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { PayrollItemService } from '../service/payroll-item.service';
 import { EmployeeService } from '../../employee/service/employee.service'
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-assign-employee',
@@ -174,7 +175,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     getRows: async (params: any) => {
     const res = await this.getEmployees(params);
 
-     if (!res.result) { 
+    if(isEmpty(res.result)) {  
        this.gridApi.showNoRowsOverlay() 
      } else {
       this.gridApi.hideOverlay();
