@@ -86,7 +86,7 @@
             <div class="row">
               <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5">
                 <div class="form-group kt-form__group">
-                  <button class="mr-3 btn_white" mat-raised-button type="reset" id="approve_process_reset" (click)="reset()">Reset</button>
+                  <button class="mr-3 btn_white" mat-raised-button id="approve_process_reset" (click)="resetForm()">Reset</button>
                   <button class="sub___btn" id="approve_process_fetch" mat-raised-button type="submit">Fetch Records</button>
                   <!--For PDF-->
                   <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
@@ -126,10 +126,10 @@
             <div class="col-lg-12 text-right">
              
               <ng-container *ngIf="payrollTransactions && payrollTransactions.length > 0">
-                <button (click)="submitOrApproveProcess(actions.Reject)" id="approve_process_reject" class="mr-5 danger__btn" mat-raised-button>
+                <button (click)="submitOrApproveProcess(actions.Reject)" type="button" id="approve_process_reject" class="mr-5 danger__btn" mat-raised-button>
                   Reject
                 </button>
-                <button (click)="submitOrApproveProcess(actions.Approve)" id="process_approve" class="success__btn" mat-raised-button>Approve
+                <button (click)="submitOrApproveProcess(actions.Approve)" type="button" id="process_approve" class="success__btn" mat-raised-button>Approve
                 </button>
               </ng-container>
             </div>

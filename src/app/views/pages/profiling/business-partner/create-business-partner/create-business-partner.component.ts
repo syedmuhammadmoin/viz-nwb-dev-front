@@ -1,6 +1,6 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { Component, Inject, Injector, OnInit, Optional} from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IBusinessPartner} from '../model/IBusinessPartner';
 import { Subscription } from 'rxjs';
 import { IState } from 'src/app/views/shared/models/state';
@@ -35,6 +35,9 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   businessPartner: IBusinessPartner;
 
   title: string = 'Create Business Partner'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   //country , state and city list
   // countryList: ICountry[] = [];
@@ -219,6 +222,10 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       accountReceivable: businessPartner.accountReceivableId,
       cnic: businessPartner.cnic
     });
+  }
+
+  reset(){
+    this.formDirective.resetForm();
   }
 
   // getCountryList() {

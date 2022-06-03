@@ -1,6 +1,6 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { FormBuilder, FormGroup, Validators} from "@angular/forms";
+import { FormBuilder, FormGroup, NgForm, Validators} from "@angular/forms";
 import { PasswordGenerator } from 'src/app/views/shared/helpers/password-generator';
 import { MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import { AccessManagementService } from '../../service/access-management.service';
@@ -16,6 +16,9 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
 
   isLoading: any;
   resetPassForm: FormGroup;
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   validationMessages = {
     adminPassword: {
@@ -74,6 +77,7 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
+    this.formDirective.resetForm();
     this.formErrors = {
       adminPassword: ''
     };

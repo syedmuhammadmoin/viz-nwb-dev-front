@@ -1,7 +1,7 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AppComponentBase } from '../../../../shared/app-component-base';
 import { ITrialBalance } from '../model/ITrialBalance';
 import { GridReadyEvent, RowNode, ValueFormatterParams } from 'ag-grid-community';
@@ -41,6 +41,9 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   debitOB: number = 0;
   creditCB: number = 0;
   debitCB: number = 0;
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   //Busy Loading
   isLoading: boolean;
@@ -316,6 +319,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
+    this.formDirective.resetForm();
     this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;

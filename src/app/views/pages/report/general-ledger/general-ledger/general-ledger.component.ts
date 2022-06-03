@@ -1,7 +1,7 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { AppComponentBase} from '../../../../shared/app-component-base';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 import { CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
 import { GeneralLedgerService} from '../service/general-ledger.service';
@@ -57,6 +57,9 @@ function creditSum(params) {
 export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   // for permissions 
   public permissions = Permissions;
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   constructor(
     // Injecting services in constructor
@@ -256,6 +259,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
+    this.formDirective.resetForm();
     this.formSubmitAttempt = false;
     this.recordsData = [];
     this.rowData = [];

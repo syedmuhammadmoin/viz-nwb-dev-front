@@ -152,7 +152,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   }
 
   onSubmit() {
-    console.log(this.approvePayrollProcessForm)
     if (this.approvePayrollProcessForm.invalid) {
       this.logValidationErrors(this.approvePayrollProcessForm, this.formErrors, this.validationMessages)
       return
@@ -171,7 +170,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
         });
       }))
       .subscribe((res) => {
-        console.log(res);
         this.payrollTransactions = res
         this.isLoading = false
         this.cdRef.detectChanges();
@@ -189,12 +187,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 // first time rendering
   onFirstDataRendered($event: FirstDataRenderedEvent) {
     $event.api.sizeColumnsToFit();
-  }
-
-// for resting form
-  reset() {
-    this.approvePayrollProcessForm.reset();
-    this.payrollTransactions = []
   }
 
 // methd called on grid ready
@@ -222,8 +214,13 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
     this.payrollProcessService.submitApprovalPayrollProcess(body)
       .subscribe((res) => {
-        this.toastService.success(`${res.message || 'Proceeded Successfully!'}`, 'Successful')
-        this.onSubmit();
+        if(actionButton === 0) {
+          this.toastService.success(`${'Payroll approve process completed successfully'}`, 'Successful')
+        }
+        else if(actionButton === 1) {
+          this.toastService.success(`${'Payroll rejected process completed successfully'}`, 'Successful')
+        }
+        this.resetForm();
         this.isLoading = false;
         this.cdRef.detectChanges();
 
@@ -232,7 +229,14 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
         this.isLoading = false;
         this.cdRef.detectChanges();
       })
+  }
 
+  resetForm() {
+    // this.createcreatePayrollProcessForm.reset();
+    this.approvePayrollProcessForm.reset();
+    this.payrollTransactions = []
+    this.gridApi.setPinnedBottomRowData([])
+    this.logValidationErrors(this.approvePayrollProcessForm, this.formErrors , this.validationMessages)
   }
 
   generatePinnedBottomData() {

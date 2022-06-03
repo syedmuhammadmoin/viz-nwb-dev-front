@@ -7,6 +7,8 @@ import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {finalize, take} from "rxjs/operators";
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { BankAccountState } from '../store/bank-account.state';
 
 
 @Component({
@@ -170,6 +172,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
           take(1),
           finalize(() => this.isLoading = false))
         .subscribe(() => {
+          this.ngxsService.store.dispatch(new IsReloadRequired (BankAccountState , true))
           this.toastService.success('Updated Successfully', 'Bank Account')
           this.onCloseDialog()
         }
@@ -182,6 +185,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
           finalize(() => this.isLoading = false))
         .subscribe(
         () => {
+          this.ngxsService.store.dispatch(new IsReloadRequired (BankAccountState , true))
           this.toastService.success('Created Successfully', 'Bank Account')
           this.onCloseDialog()
         }

@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit, Optional} from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IProduct} from '../model/IProduct';
 import { RequireMatch as RequireMatch} from 'src/app/views/shared/requireMatch';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -33,6 +33,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   product: IProduct;
 
   title: string = 'Create Product'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // validation messages
   validationMessages = {
@@ -184,14 +187,15 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
-    this.formErrors = {
-      name: '',
-      productType: '',
-      category: '',
-      // salesPrice: '',
-      // purchasePrice: '',
-      // salesTax: '',
-    }
+      this.formDirective.resetForm();
+    // this.formErrors = {
+    //   name: '',
+    //   productType: '',
+    //   category: '',
+    //   // salesPrice: '',
+    //   // purchasePrice: '',
+    //   // salesTax: '',
+    // }
   }
 
   //create new category

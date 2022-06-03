@@ -3,7 +3,7 @@
     <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
     <!--begin::Form-->
 
-      <form [formGroup]="workflowForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+      <form [formGroup]="workflowForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <div class="kt-portlet__body">
           <div class="kt-form__section kt-form__section--first">
             <div class="col-md-12 col-lg-12 col-sm-12">
@@ -63,7 +63,7 @@
                       <mat-table #table [dataSource]="workflowForm.get('workflowLines')['controls']">
                         <!-- Description Column -->
                         <ng-container matColumnDef="currentStatusId">
-                          <mat-header-cell *matHeaderCellDef class="flex-2"> Current State</mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> Current Status</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
@@ -94,7 +94,7 @@
                         </ng-container>
                         <!-- Amount Column -->
                         <ng-container matColumnDef="nextStatusId">
-                          <mat-header-cell *matHeaderCellDef class="flex-2"> Next State</mat-header-cell>
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> Next Status</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
@@ -164,7 +164,7 @@
           <div class="kt-form__actions kt-form__actions">
             <div class="row text-right">
               <div class="col-lg-12">
-                <button class="mr-3 btn_white" mat-raised-button (click)="reset()" id="workflow_reset" type="reset">Reset
+                <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="workflow_reset">Reset
                 </button>
                 <button mat-raised-button class="sub___btn" type="submit" id="workflow_submit"
                   (click)="logValidationErrors(this.workflowForm, this.formErrors, this.validationMessages)">

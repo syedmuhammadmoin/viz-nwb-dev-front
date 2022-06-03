@@ -215,6 +215,12 @@ export class AppConst {
     'Permissions.ReceiptClaims.Review': 'Receipt Review',
     'Permissions.ReceiptClaims.Approve': 'Receipt Approve',
 
+    // Payroll Payment
+    'Permissions.PayrollPaymentClaims.View': 'Payroll Payment View',
+    'Permissions.PayrollPaymentClaims.Create': 'Payroll Payment Create',
+    'Permissions.PayrollPaymentClaims.Edit': 'Payroll Payment Update',
+    'Permissions.PayrollPaymentClaims.Delete': 'Payroll Payment Delete',
+
     // Credit Note
     'Permissions.CreditNoteClaims.View': 'Credit Note View',
     'Permissions.CreditNoteClaims.Create': 'Credit Note Create',
@@ -362,6 +368,7 @@ export class AppConst {
     {value: 'Requisition' , id: DocType.Requisition},
     {value: 'Goods Received Note' , id: DocType.GRN},
     {value: 'Payroll Transaction', id: DocType.PayrollTransaction},
+    {value: 'Payroll Payment' , id: DocType.PayrollPayment, route: 'payroll-payment'},
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

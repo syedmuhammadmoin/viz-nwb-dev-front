@@ -128,6 +128,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       paymentRegisterType: null,
       paymentType: null,
       businessPartnerId: null,
+      paymentFormType: null,
       accountId: null,
       campusId: null,
       srbTax: null,

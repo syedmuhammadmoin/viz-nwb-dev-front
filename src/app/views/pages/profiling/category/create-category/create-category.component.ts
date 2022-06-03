@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CategoryService } from '../service/category.service';
 import { ActivatedRoute } from '@angular/router';
 import { ICategory } from '../model/ICategory';
@@ -30,6 +30,9 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   category: ICategory;
 
   title: string = 'Create Category'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // validation messages
   validationMessages = {
@@ -159,6 +162,10 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     this.category.inventoryAccountId = this.categoryForm.value.inventoryAccount
     this.category.revenueAccountId = this.categoryForm.value.revenueAccount;
     this.category.costAccountId = this.categoryForm.value.costAccount;
+  }
+
+  reset() {
+    this.formDirective.resetForm();
   }
 
   // Dialogue close function

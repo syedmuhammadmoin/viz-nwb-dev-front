@@ -1,7 +1,7 @@
 import { BILL } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { Observable} from 'rxjs';
 import { IVendorBill} from '../model/IVendorBill';
 import { VendorBillService} from '../services/vendor-bill.service';
@@ -65,6 +65,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   dateCondition : boolean
 
   title: string = 'Create Bill'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // Validation messages..
   validationMessages = {
@@ -178,8 +181,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   // Form Reset
   reset() {
     const vendorBillLineArray = this.vendorBillForm.get('vendorBillLines') as FormArray;
+    this.formDirective.resetForm();
     vendorBillLineArray.clear();
-    this.vendorBillForm.reset(this.vendorBillForm.value);
     this.totalBeforeTax = this.grandTotal = this.totalTax = 0;
     this.table.renderRows();
   }

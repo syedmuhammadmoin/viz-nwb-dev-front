@@ -7,7 +7,7 @@
     </div>
   </div>
   <!-- form start -->
-  <form [formGroup]="warehouseForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+  <form [formGroup]="warehouseForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
     <!-- portlet body starts -->
     <div class="kt-portlet__body" >
       <!-- form first section starts -->
@@ -166,7 +166,7 @@
       <div class="kt-form__actions row">
         <div class="col-lg-12">
           <div class="float-right">
-            <button class="mr-3 btn_white" mat-raised-button type="reset" id="store_reset">Reset</button>
+            <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="store_reset">Reset</button>
             <button mat-raised-button class="sub___btn" type="submit" id="store_submit"
                     (click)="logValidationErrors(this.warehouseForm, this.formErrors, this.validationMessages)">Submit</button>&nbsp;
           </div>

@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -338,8 +338,9 @@ export class MenuConfig {
             },
             {
               title: 'Receipt',
-              page: '/payment/receipt/list',
+              page: '/' + RECEIPT.LIST,
               permission: [
+                Permissions.RECEIPT_VIEW,
                 Permissions.RECEIPT_CREATE,
                 Permissions.RECEIPT_EDIT,
                 Permissions.RECEIPT_DELETE,
@@ -613,71 +614,81 @@ export class MenuConfig {
               ],
             },
             {
+              title: 'Payroll Payment',
+              page: '/' + PAYROLL_PAYMENT.LIST,
+              permission: [
+                Permissions.PAYROLL_PAYMENT_VIEW,
+                Permissions.PAYROLL_PAYMENT_CREATE,
+                Permissions.PAYROLL_PAYMENT_EDIT,
+                Permissions.PAYROLL_PAYMENT_DELETE,
+              ]
+            },
+            {
               title: 'Payroll Process',
               bullet: 'dot',
-              // permission: [
-              //   Permissions.PAYROLL_TRANSACTION_VIEW,
-              //   Permissions.PAYROLL_TRANSACTION_CREATE,
-              //   Permissions.PAYROLL_TRANSACTION_EDIT,
-              //   Permissions.PAYROLL_TRANSACTION_DELETE,
-              //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-              //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-              // ],
+              permission: [
+                Permissions.PAYROLL_TRANSACTION_VIEW,
+                Permissions.PAYROLL_TRANSACTION_CREATE,
+                Permissions.PAYROLL_TRANSACTION_EDIT,
+                Permissions.PAYROLL_TRANSACTION_DELETE,
+                Permissions.PAYROLL_TRANSACTION_APPROVE,
+                Permissions.PAYROLL_TRANSACTION_REVIEW,
+              ],
               submenu: [
                 {
                   title: 'Create Process',
                   page: '/' + PAYROLL_PROCESS.CREATE_PROCESS,
-                  // permission: [
-                  //   Permissions.PAYROLL_TRANSACTION_VIEW,
-                  //   Permissions.PAYROLL_TRANSACTION_CREATE,
-                  //   Permissions.PAYROLL_TRANSACTION_EDIT,
-                  //   Permissions.PAYROLL_TRANSACTION_DELETE,
-                  //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-                  //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-                  // ],
+                  permission: [
+                    Permissions.PAYROLL_TRANSACTION_VIEW,
+                    Permissions.PAYROLL_TRANSACTION_CREATE,
+                    Permissions.PAYROLL_TRANSACTION_EDIT,
+                    Permissions.PAYROLL_TRANSACTION_DELETE,
+                    Permissions.PAYROLL_TRANSACTION_APPROVE,
+                    Permissions.PAYROLL_TRANSACTION_REVIEW,
+                  ],
                 },
                 {
                   title: 'Approve Process',
                   page: '/' + PAYROLL_PROCESS.APPROVE_PROCESS,
-                  // permission: [
-                  //   Permissions.PAYROLL_TRANSACTION_VIEW,
-                  //   Permissions.PAYROLL_TRANSACTION_CREATE,
-                  //   Permissions.PAYROLL_TRANSACTION_EDIT,
-                  //   Permissions.PAYROLL_TRANSACTION_DELETE,
-                  //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-                  //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-                  // ],
+                  permission: [
+                    Permissions.PAYROLL_TRANSACTION_VIEW,
+                    Permissions.PAYROLL_TRANSACTION_CREATE,
+                    Permissions.PAYROLL_TRANSACTION_EDIT,
+                    Permissions.PAYROLL_TRANSACTION_DELETE,
+                    Permissions.PAYROLL_TRANSACTION_APPROVE,
+                    Permissions.PAYROLL_TRANSACTION_REVIEW,
+                  ],
                 },
-                // {
-                //   title: 'Register Payment',
-                //   bullet: 'dot',
-                //   submenu: [
-                //     {
-                //       title: 'Create Process',
-                //       page: '/' + PAYROLL_PROCESS.CREATE_PAYMENT,
-                //       // permission: [
-                //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
-                //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
-                //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
-                //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
-                //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-                //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-                //       // ],
-                //     },
-                //     {
-                //       title: 'Approve Process',
-                //       page: '/' + PAYROLL_PROCESS.APPROVE_PAYMENT,
-                //       // permission: [
-                //       //   Permissions.PAYROLL_TRANSACTION_VIEW,
-                //       //   Permissions.PAYROLL_TRANSACTION_CREATE,
-                //       //   Permissions.PAYROLL_TRANSACTION_EDIT,
-                //       //   Permissions.PAYROLL_TRANSACTION_DELETE,
-                //       //   Permissions.PAYROLL_TRANSACTION_APPROVE,
-                //       //   Permissions.PAYROLL_TRANSACTION_REVIEW,
-                //       // ],
-                //     },
-                //   ]
-                // },
+                {
+                  title: 'Register Payment',
+                  bullet: 'dot',
+                  submenu: [
+                    {
+                      title: 'Create Process',
+                      page: '/' + PAYROLL_PROCESS.CREATE_PAYMENT,
+                      permission: [
+                        Permissions.PAYROLL_TRANSACTION_VIEW,
+                        Permissions.PAYROLL_TRANSACTION_CREATE,
+                        Permissions.PAYROLL_TRANSACTION_EDIT,
+                        Permissions.PAYROLL_TRANSACTION_DELETE,
+                        Permissions.PAYROLL_TRANSACTION_APPROVE,
+                        Permissions.PAYROLL_TRANSACTION_REVIEW,
+                      ],
+                    },
+                    {
+                      title: 'Approve Process',
+                      page: '/' + PAYROLL_PROCESS.APPROVE_PAYMENT,
+                      permission: [
+                        Permissions.PAYROLL_TRANSACTION_VIEW,
+                        Permissions.PAYROLL_TRANSACTION_CREATE,
+                        Permissions.PAYROLL_TRANSACTION_EDIT,
+                        Permissions.PAYROLL_TRANSACTION_DELETE,
+                        Permissions.PAYROLL_TRANSACTION_APPROVE,
+                        Permissions.PAYROLL_TRANSACTION_REVIEW,
+                      ],
+                    },
+                  ]
+                },
               ]
             },
             {

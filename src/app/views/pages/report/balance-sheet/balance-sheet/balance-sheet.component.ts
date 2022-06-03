@@ -1,8 +1,8 @@
 import { NgxsCustomService } from './../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef} from '@angular/core';
+import { ChangeDetectorRef, ViewChild} from '@angular/core';
 import { Injector} from '@angular/core';
 import { Component, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { map} from 'rxjs/operators';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { BusinessPartnerService} from '../../../profiling/business-partner/service/businessPartner.service';
@@ -40,6 +40,10 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   // data for PDF
   recordsData: any = [];
   disability: boolean = true;
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
+
   // Validation Messages
   validationMessages = {
     docDate: {
@@ -209,6 +213,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
+    this.formDirective.resetForm();
     this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;

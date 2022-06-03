@@ -4,6 +4,7 @@ export interface IPayment {
   businessPartnerId: number;
   paymentType: number;
   paymentRegisterType: number;
+  paymentFormType: number;
   paymentDate: string;
   paymentRegisterId: number;
   description: string;

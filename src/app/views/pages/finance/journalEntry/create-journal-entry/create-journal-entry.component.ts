@@ -1,6 +1,6 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, NgForm } from '@angular/forms';
 import { CategoryService } from '../../../profiling/category/service/category.service';
 import { IJournalEntry } from '../model/IJournalEntry';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -51,6 +51,9 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   creditTotal: number = 0;
 
   title: string = 'Create Journal Entry'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // Validation messages
   validationMessages = {
@@ -178,6 +181,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   // Form Reset
   reset() {
     const journalEntryArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
+    this.formDirective.resetForm();
     journalEntryArray.clear();
     this.table.renderRows();
   }

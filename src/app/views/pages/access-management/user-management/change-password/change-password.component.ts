@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ConfirmPasswordValidator, CustomValidator} from '../../../auth/register/confirm-password.validator';
 import { AccessManagementService } from '../../service/access-management.service';
@@ -21,6 +21,9 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
 
   isLoading: any;
   changePassForm: FormGroup;
+  
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   validationMessages = {
     password: {
@@ -112,6 +115,10 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
       this.isLoading = false;
       this.cdRef.detectChanges();
     })
+  }
+
+  reset() {
+    this.formDirective.resetForm();
   }
 }
 

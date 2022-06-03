@@ -98,6 +98,50 @@ const routes : Routes = [
       }
     ]
   },
+  {
+    path: 'payroll-payment',
+    children: [
+      {
+        path: CRUD_ROUTES.LIST,
+        component: ListPaymentComponent,
+        data: {
+          docType: documents.PayrollPayment,
+          array: [
+            { permission: Permissions.PAYROLL_PAYMENT_VIEW },
+            { permission: Permissions.PAYROLL_PAYMENT_CREATE },
+            { permission: Permissions.PAYROLL_PAYMENT_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard],
+      },
+      {
+        path: CRUD_ROUTES.DETAILS,
+        component: DetailPaymentComponent,
+        data: {
+          docType: documents.PayrollPayment,
+          array: [
+            { permission: Permissions.PAYROLL_PAYMENT_VIEW },
+            { permission: Permissions.PAYROLL_PAYMENT_CREATE },
+            { permission: Permissions.PAYROLL_PAYMENT_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard],
+      },
+      {
+        path: CRUD_ROUTES.PRINT,
+        component: PaymentInvoiceComponent,
+        data: {
+          docType: documents.PayrollPayment,
+          array: [
+            { permission: Permissions.PAYROLL_PAYMENT_VIEW },
+            { permission: Permissions.PAYROLL_PAYMENT_CREATE },
+            { permission: Permissions.PAYROLL_PAYMENT_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard],
+      }
+    ]
+  },
 ]
 
 @NgModule({

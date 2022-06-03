@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { IPayrollTransaction} from '../model/IPayrollTransaction';
 import { PayrollTransactionService} from '../service/payroll-transaction.service';
-import { AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPayrollItem} from '../../payroll-item/model/IPayrollItem';
 import { finalize} from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -50,6 +50,9 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   isLoading: boolean;
   //store working days
   workingDays : number = 0
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
 
   // Validation messages..
@@ -204,7 +207,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
           finalize(() => this.isLoading = false))
         .subscribe(
           (res) => {
-            this.toastService.success(res?.message, 'Updated Successfully')
+            this.toastService.success('Updated Successfully', "Payroll")
 
             if (!this._id) {
               this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details' , this.payrollTransaction.id)])
@@ -218,7 +221,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
           finalize(() => this.isLoading = false))
         .subscribe(
           (res) => {
-            this.toastService.success(res?.message, 'Created Successfully');
+            this.toastService.success('Created Successfully', "Payroll");
             
             if (!this._id) {
               this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
@@ -249,8 +252,11 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // reset payroll transition form
   reset() {
-    this.payrollTransactionForm.reset();
+    this.formDirective.resetForm();
+    this.payrollItems = []
   }
+
+ 
 
 // patch paroll transition
   patchPayroll(payrollTransaction) {

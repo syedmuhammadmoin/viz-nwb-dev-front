@@ -174,6 +174,11 @@ export class Permissions {
   static RECEIPT_REVIEW = 'Permissions.ReceiptClaims.Review';
   static RECEIPT_APPROVE = 'Permissions.ReceiptClaims.Approve';
 
+  static PAYROLL_PAYMENT_VIEW = 'Permissions.PayrollPaymentClaims.View';
+  static PAYROLL_PAYMENT_CREATE = 'Permissions.PayrollPaymentClaims.Create';
+  static PAYROLL_PAYMENT_EDIT = 'Permissions.PayrollPaymentClaims.Edit';
+  static PAYROLL_PAYMENT_DELETE = 'Permissions.PayrollPaymentClaims.Delete';
+
   // Credit Note
   static CREDITNOTE_VIEW = 'Permissions.CreditNoteClaims.View';
   static CREDITNOTE_CREATE = 'Permissions.CreditNoteClaims.Create';
@@ -274,23 +279,24 @@ export enum ActionButton {
 }
 
 export enum DocType {
-  Payment,
-  CreditNote,
-  DebitNote,
-  Invoice,
-  Bill,
-  JournalEntry,
-  BankAccount,
-  CashAccount,
-  PurchaseOrder,
-  SalesOrder,
-  GRN,
-  GDN,
-  InventoryAdjustment,
-  Quotation,
-  Requisition,
-  Receipt,
-  PayrollTransaction
+    Payment,
+    CreditNote,
+    DebitNote,
+    Invoice,
+    Bill,
+    JournalEntry,
+    BankAccount,
+    CashAccount,
+    PurchaseOrder,
+    SalesOrder,
+    GRN,
+    GDN,
+    InventoryAdjustment,
+    Quotation,
+    Requisition,
+    Receipt,
+    PayrollTransaction,
+    PayrollPayment
 }
 
 // export enum DocStatus {

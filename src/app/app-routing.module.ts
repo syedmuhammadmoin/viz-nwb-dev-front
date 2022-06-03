@@ -310,7 +310,7 @@ const routes: Routes = [
           import('./views/pages/payroll/payroll-process/payroll-process.module').then(
             (m) => m.PayrollProcessModule
           ),
-        // canActivateChild: [AuthGuard]
+         canActivateChild: [AuthGuard]
       },
       {
         path: APP_ROUTES.PAYROLL_REPORTS,
@@ -318,7 +318,7 @@ const routes: Routes = [
           import('./views/pages/payroll/payroll-reports/payroll-reports.module').then(
             (m) => m.PayrollReportsModule
           ),
-        // canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load Department Module
       {

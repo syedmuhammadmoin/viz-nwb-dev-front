@@ -9,7 +9,7 @@
       </div>
     </div>
   
-     <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+     <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
           <div class="kt-portlet__body">
             <div class="kt-form__section kt-form__section--first">
               <div class="col-md-12 col-lg-12 col-sm-12">
@@ -234,7 +234,7 @@
                 </div>
                 <div class="col-lg-6">
                   <div class="float-right">
-                    <button class="mr-3 btn_white" mat-raised-button type="reset" id="payment_reset">Reset</button>
+                    <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="payment_reset">Reset</button>
                     <button mat-raised-button  class="mr-3 sub___btn" type="submit" id="payment_save"
                           (click)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages); isSubmit(0)">Save
                   </button>

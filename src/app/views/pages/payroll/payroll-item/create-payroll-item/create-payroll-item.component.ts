@@ -1,6 +1,6 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -63,6 +63,9 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   userStatus = 'Active'
 
   valueTitle: string = 'Value'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // Validation messages..
   validationMessages = {
@@ -167,7 +170,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     this.activatedRoute.params.subscribe((param) => {
       console.log(param)
       const id = param.id;
-
+     
       if (id) {
         this.title = 'Edit Payroll Item'
         this.getPayrollItem(id);
@@ -221,7 +224,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
      //update FornControl 'Value' Validator on checkbox changed
      this.payrollItemForm.get('payrollItemType').valueChanges.subscribe((value: number) => {
-         this.updateValueValidators(value);
+        this.updateValueValidators(value);
       })
   }
 
@@ -293,6 +296,11 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   // Form Reset
   reset() {
+    this.formDirective.resetForm();
+    this.selectedEmployees = [];
+    this.payrollItemForm.get('payrollItemType').setValue(1)
+    this.payrollItemForm.get('isActive').setValue(true);
+    this.onToggle({checked: true})
     // const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
     // invoiceLineArray.clear();
     // this.table.renderRows();
@@ -347,7 +355,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     this.payrollItemForm.patchValue({
       itemCode: payrollItem.itemCode,
       name: payrollItem.name,
-      itemType: payrollItem.payrollItemType,
+      payrollItemType: payrollItem.payrollItemType,
       payrollType: payrollItem.payrollType,
       accountId: payrollItem.accountId,
       value: payrollItem.value,

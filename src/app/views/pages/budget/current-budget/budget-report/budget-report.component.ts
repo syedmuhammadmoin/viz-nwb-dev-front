@@ -1,7 +1,7 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { AppComponentBase} from '../../../../shared/app-component-base';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { ColDef, GridOptions, ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import { finalize} from 'rxjs/operators';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -37,6 +37,9 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
   // For AG Grid..
   gridOptions: GridOptions;
   rowData: IBudgetReport[] = [];
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // Declaring Model
   // Initializing budgetReport model...
@@ -154,6 +157,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
+    this.formDirective.resetForm();
     this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;

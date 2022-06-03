@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -29,6 +29,9 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
 
   //Hide Submit And Cancel button
   isEditButtonShow: boolean = false;
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   isLoading: boolean
   // validation messages
@@ -201,6 +204,10 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     // Recalling getInvoiceMasterData function on dialog close
     dialogRef.afterClosed().subscribe(() => {
     });
+  }
+
+  reset() {
+    this.formDirective.resetForm();
   }
 }
 

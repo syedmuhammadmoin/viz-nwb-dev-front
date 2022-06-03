@@ -228,8 +228,8 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.payrollProcessService.submitPayrollProcess(employeeListToPost).subscribe((res) => {
       this.isLoading = false;
       this.toastService.success(res.message, 'Created Successfully!');
-      this.createProcess();
       this.cdRef.detectChanges();
+      this.resetForm();
     }, (error) => {
       this.isLoading = false;
       this.cdRef.detectChanges();
@@ -250,6 +250,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     // this.createcreatePayrollProcessForm.reset();
     this.createPayrollProcessForm.reset();
     this.employeeList = []
+    this.logValidationErrors(this.createPayrollProcessForm, this.formErrors , this.validationMessages)
   }
 
   editPayrollTransaction(event: any) {

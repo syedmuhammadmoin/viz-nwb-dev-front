@@ -9,7 +9,7 @@
         </div>
     </div>
     <!-- form start -->
-    <form [formGroup]="businessPartnerForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+    <form [formGroup]="businessPartnerForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <!-- portlet body starts -->
         <div class="kt-portlet__body" >
             <!-- form first section starts -->
@@ -24,6 +24,7 @@
                               id="business_partner_name"
                               formControlName="name"
                               placeholder="Enter Name"
+                              [value]="businessPartnerForm.get('name').value"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
                             </kt-input-field>
@@ -126,6 +127,7 @@
                             <kt-input-field
                             id="business_partner_address"
                               formControlName="address"
+                              [value]="businessPartnerForm.get('address').value"
                               placeholder="Enter Address"
                               [hintText]="'Optional'">
                             </kt-input-field>
@@ -283,7 +285,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="float-right">
-                            <button class="mr-3 btn_white" mat-raised-button type="reset" id="business_partner_reset">Reset</button>
+                            <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="business_partner_reset">Reset</button>
                             <button mat-raised-button class="sub___btn" type="submit" id="business_partner_submit"
                                 (click)="logValidationErrors(this.businessPartnerForm, this.formErrors, this.validationMessages)">Submit
                             </button>&nbsp;

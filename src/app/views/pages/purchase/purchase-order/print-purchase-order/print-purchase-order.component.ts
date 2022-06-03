@@ -1,9 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import { PurchaseOrderService } from "../service/purchase-order.service";
 import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
 import { IPurchaseOrder } from '../model/IPurchaseOrder';
+import { AppComponent } from 'src/app/app.component';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-print-purchase-order',
@@ -12,7 +14,7 @@ import { IPurchaseOrder } from '../model/IPurchaseOrder';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class PrintPurchaseOrderComponent implements OnInit {
+export class PrintPurchaseOrderComponent extends AppComponentBase implements OnInit {
 
     gridOptions: GridOptions;
     masterData: IPurchaseOrder | any;
@@ -24,8 +26,9 @@ export class PrintPurchaseOrderComponent implements OnInit {
       constructor( private purchaseOrderService: PurchaseOrderService,
                    private activatedRoute: ActivatedRoute,
                    private cDRef: ChangeDetectorRef,
-                   public sanitizer: DomSanitizer
-                 ) { }
+                   public sanitizer: DomSanitizer,
+                   injector: Injector
+                 ) { super(injector) }
 
     ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {

@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { ActivatedRoute, Params, Router} from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -32,6 +32,9 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
 
   //Title Name
   title: string = 'Create Budget'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   budgetModel: IBudget;
   totalAmount: number;
@@ -140,6 +143,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   // Form Reset
   reset() {
     const budgetLineArray = this.budgetForm.get('budgetLines') as FormArray;
+    this.formDirective.resetForm();
     budgetLineArray.clear();
     this.table.renderRows();
   }

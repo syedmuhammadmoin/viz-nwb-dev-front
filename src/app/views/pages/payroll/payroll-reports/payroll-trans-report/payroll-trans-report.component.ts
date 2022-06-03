@@ -285,7 +285,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
         this.cdRef.detectChanges()
       })
     ).subscribe((res) => {
-      console.log(res.result)
+      console.log("yes")
       this.recordsData = res.result || [];
       this.rowData = res.result || [];
       console.log(res.result, " result")
