@@ -40,6 +40,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   @Input() clickEventButtonName: string;
   @Input() matFormFieldClass: any | [] | string;
   @Input() matSelectClass: any | [] | string;
+  @Input() callBackFunction: (param: any) => any
   @Input() isDisabled: boolean
   @Input() isDisabledNone: boolean = false;
   @Input() id: string;
@@ -55,7 +56,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   isLoading: boolean;
   filterControl: FormControl = new FormControl();
   filteredOptionList: ReplaySubject<[]> = new ReplaySubject<[]>(1);
-  private options: [] = [];
+  private options: any[] = [];
   private selectedOptions = []
 
   get control() {
@@ -71,12 +72,15 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
       this.isLoading = true;
       this.optionList.subscribe((res) => {
         this.options = (res.result) ? res.result : res;
-        this.isLoading = false;
-        // @ts-ignore
-        this.filteredOptionList.next(this.options?.slice());
+        if (this.options) {
+          this.options = this.callBackFunction ? this.options.flatMap(this.callBackFunction) : this.options
+          if (this.options.length > 0 || res?.isSuccess) this.isLoading = false;
+          // @ts-ignore
+          this.filteredOptionList.next(this.options.slice());
+        }
       });
     } else {
-      this.options = this.optionList;
+      this.options = this.callBackFunction ? this.optionList.flatMap(this.callBackFunction) : this.optionList;
       // @ts-ignore
       this.filteredOptionList.next(this.options?.slice());
     }
@@ -104,7 +108,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
     // filter the banks
     this.filteredOptionList.next(
       // @ts-ignore
-      this.options.filter(option => option[this.propertyName].toLowerCase().indexOf(search) > -1)
+      this.options.filter(option => option[this.propertyName].toString().toLowerCase().indexOf(search) > -1)
     );
   }
 

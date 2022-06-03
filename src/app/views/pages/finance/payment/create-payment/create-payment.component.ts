@@ -184,7 +184,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         paymentRegisterType: null,
         id: null,
         paymentType: null,
-        paymentFormType: null,
         businessPartnerId: null,
         accountId: null,
         paymentDate: null,
@@ -255,36 +254,35 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.mapFormValueToPaymentModel();
     console.log(this.paymentModel)
-    // if (this.paymentModel.id) {
-    //   this.paymentService.updatePayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {
-    //         this.toastService.success('Updated Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
-    //         this.route.navigate(['/payment/'+ this.documents.find(x => x.id === this.data.docType).route +'/details/' + this.paymentModel.id])
-    //         this.onCloseDialog()
-    //       },
-    //       (err) => this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating')
-    //     );
-    // } else {
-    //   delete this.paymentModel.id;
-    //   this.subscription$ = this.paymentService.addPayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => this.isLoading = false))
-    //     .subscribe(() => {
-    //         this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
-    //         this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : (this.formName === 'Payroll Payment') ? PAYROLL_PAYMENT.LIST : RECEIPT.LIST)])
-    //         this.onCloseDialog();
-    //       },
-    //       (err) => this.toastService.error(`${err.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-    //     );
-    // }
+    if (this.paymentModel.id) {
+      this.paymentService.updatePayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
+        .pipe(
+          take(1),
+          finalize(() => this.isLoading = false))
+        .subscribe(() => {
+            this.toastService.success('Updated Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
+            this.route.navigate(['/payment/'+ this.documents.find(x => x.id === this.data.docType).route +'/details/' + this.paymentModel.id])
+            this.onCloseDialog()
+          },
+          (err) => this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating')
+        );
+    } else {
+      delete this.paymentModel.id;
+      this.subscription$ = this.paymentService.addPayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
+        .pipe(
+          take(1),
+          finalize(() => this.isLoading = false))
+        .subscribe(() => {
+            this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
+            this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : (this.formName === 'Payroll Payment') ? PAYROLL_PAYMENT.LIST : RECEIPT.LIST)])
+            this.onCloseDialog();
+          },
+          (err) => this.toastService.error(`${err.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
+        );
+    }
   }
  
   mapFormValueToPaymentModel() {
-    console.log(this.formName)
     this.paymentModel.paymentType = (this.formName === "Payment" || this.formName === "Payroll Payment") ? 1 : 0
     console.log(this.paymentModel.paymentType)
     this.paymentModel.businessPartnerId = this.paymentForm.value.businessPartner;

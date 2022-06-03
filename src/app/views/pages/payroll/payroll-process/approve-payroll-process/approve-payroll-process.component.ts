@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { FirstDataRenderedEvent, RowNode} from 'ag-grid-community';
 import { map } from 'rxjs/operators';
@@ -30,6 +30,9 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   overlayLoadingTemplate: any;
   isDisabled: any;
   rowSelection = 'multiple';
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
   private gridApi: any;
 
   columnDefs = [
@@ -232,11 +235,9 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   }
 
   resetForm() {
-    // this.createcreatePayrollProcessForm.reset();
-    this.approvePayrollProcessForm.reset();
+    this.formDirective.resetForm();
     this.payrollTransactions = []
     this.gridApi.setPinnedBottomRowData([])
-    this.logValidationErrors(this.approvePayrollProcessForm, this.formErrors , this.validationMessages)
   }
 
   generatePinnedBottomData() {

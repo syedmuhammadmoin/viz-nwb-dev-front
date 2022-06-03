@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { PayrollProcessService} from '../service/payroll-process.service';
 import { FirstDataRenderedEvent, GridOptions} from 'ag-grid-community';
 import { MatDialog} from "@angular/material/dialog";
@@ -122,6 +122,9 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     { id: 1, value: 'Christian' },
     { id: 2, value: 'Hinduism' },
   ]
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   constructor(
     injector: Injector,
@@ -247,10 +250,8 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   resetForm() {
-    // this.createcreatePayrollProcessForm.reset();
-    this.createPayrollProcessForm.reset();
+    this.formDirective.resetForm();
     this.employeeList = []
-    this.logValidationErrors(this.createPayrollProcessForm, this.formErrors , this.validationMessages)
   }
 
   editPayrollTransaction(event: any) {

@@ -1,92 +1,167 @@
-<kt-portlet>
-    <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" title="Approve Process"></kt-portlet-header>
-      <form (ngSubmit)="onSubmitFilters()" [formGroup]="approvePayrollPaymentForm" class="kt-form kt-form--label-align-right">
-        <div class="kt-portlet__body">
-          <div class="kt-form__section kt-form__section--first">
-            <div class="col-md-12 col-sm-12 col-lg-12">
-              <!-- region First Row -->
-              <div class="row">
-                <div class="col-lg-4">
-                  <div class="form-group kt-form__group">
-                    <label class="col-form-label">Start Date:</label>
-                    <!-- <kt-simple-dropdown 
-                      id="ledger_account" 
-                      [optionList]="ngxsService.accountsLevel4$" 
-                      formControlName="accountName" 
-                      isDisabledNone="true"
-                      matFormFieldClass="full-width" 
-                      placeholder="Select Account" 
-                      propertyName="name" 
-                      propertyValue="name"
-                      hintText="Optional"
-                      searchPlaceholder="Search accounts...">
-                    </kt-simple-dropdown> -->
-                  </div>
+<kt-portlet [ktBusy]="isLoading">
+  <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" title="Approve Process"></kt-portlet-header>
+    <form (ngSubmit)="onSubmitFilters()" [formGroup]="approvePayrollPaymentForm" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+      <div class="kt-portlet__body">
+        <div class="kt-form__section kt-form__section--first">
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <!-- region First Row -->
+            <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">Departments:</label>
+                  <kt-simple-dropdown
+                    id="approve_payment_month"
+                    (blurEvent)="logValidationErrors(approvePayrollPaymentForm, this.formErrors, this.validationMessages)"
+                    [errorMessage]="formErrors.departmentId"
+                    [isMultiple]="true"
+                    [optionList]="ngxsService.departments$"
+                    (click)="getLatestDepartments()"
+                    formControlName="departmentId"
+                    matFormFieldClass="full-width" 
+                    maxSelectionCount="3"
+                    placeholder="Select Department"
+                    propertyName="name"
+                    propertyValue="id"
+                    searchPlaceholder="Search Department...">
+                  </kt-simple-dropdown>
                 </div>
-                <div class="col-lg-4">
-                  <div class="form-group kt-form__group">
-                    <label class="col-form-label">End Date:</label>
-                    <!-- <kt-simple-dropdown (blurEvent)="logValidationErrors(this.transactionProcessForm, this.formErrors, this.validationMessages)"
-                                        [errorMessage]="formErrors.year"
-                                        [optionList]="this.generateArrayOfYears()"
-                                        formControlName="year"
-                                        matFormFieldClass="full-width"
-                                        placeholder="Select Year"
-                                        propertyName="value"
-                                        propertyValue="value"
-                                        searchPlaceholder="Search Year...">
-                    </kt-simple-dropdown> -->
-                  </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">Month:</label>
+                  <kt-simple-dropdown
+                   id="approve_payment_month"
+                   (blurEvent)="logValidationErrors(approvePayrollPaymentForm, this.formErrors, this.validationMessages)"
+                   [errorMessage]="formErrors.month" 
+                   [optionList]="months"
+                   formControlName="month"
+                   matFormFieldClass="full-width"
+                   placeholder="Select Month" 
+                   propertyName="name"
+                   propertyValue="value" 
+                   searchPlaceholder="Search Month...">
+                  </kt-simple-dropdown>
                 </div>
-                <div class="col-lg-4">
-                  <div class="form-group kt-form__group">
-                    <label class="col-form-label">Account:</label>
-                    <!-- <kt-simple-dropdown 
-                      (blurEvent)="logValidationErrors(this.transactionProcessForm, this.formErrors, this.validationMessages)"
-                      [errorMessage]="formErrors.year"
-                      [optionList]="this.generateArrayOfYears()"
-                      formControlName="year"
-                      matFormFieldClass="full-width"
-                      placeholder="Select Year"
-                      propertyName="value"
-                      propertyValue="value"
-                      earchPlaceholder="Search Year...">
-                    </kt-simple-dropdown> -->
-                  </div>
+              </div>
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">Year:</label>
+                  <kt-simple-dropdown
+                    id="approve_payment_year"
+                    (blurEvent)="logValidationErrors(approvePayrollPaymentForm, this.formErrors, this.validationMessages)"
+                    [errorMessage]="formErrors.year" 
+                    [optionList]="generateArrayOfYears()"
+                    formControlName="year"
+                    matFormFieldClass="full-width"
+                    placeholder="Select Year" 
+                    propertyName="value"
+                    propertyValue="value" 
+                    searchPlaceholder="Search Year...">
+                  </kt-simple-dropdown>
                 </div>
-              </div>  
-              <!-- endregion -->
-              <div class="row" style="padding-top: 10px;">
-                <div class="col-lg-12 text-right">
-                  <div [ktBusy]="isLoading">
-                    <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)"
-                    [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
-                    [gridOptions]="gridOptions" [rowData]="[]" class="ag-theme-alpine"
-                    style="width: 100%; height: 500px;">
-                  </ag-grid-angular>
-                  </div>
+              </div>
+            </div>
+
+            <!-- <div class="row">
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group">
+                  <label class="col-form-label">Religion:</label>
+                  <kt-simple-dropdown
+                    id="approve_payment_year"
+                    (blurEvent)="logValidationErrors(approvePayrollPaymentForm, this.formErrors, this.validationMessages)"
+                    [optionList]="religionList"
+                    formControlName="religion"
+                    matFormFieldClass="full-width"
+                    placeholder="Select Religion" 
+                    propertyName="value"
+                    hintText="Optional"
+                    propertyValue="id" 
+                    searchPlaceholder="Search Religion...">
+                  </kt-simple-dropdown>
+                </div>
+              </div>
+            </div> -->
+
+            <div class="row">
+              <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5">
+                <div class="form-group kt-form__group">
+                  <button class="mr-3 btn_white" mat-raised-button id="approve_payment_reset" type="button" (click)="resetForm()">Reset</button>
+                  <button class="sub___btn" id="approve_payment_fetch" mat-raised-button type="submit">Fetch Records</button>
+                  <!--For PDF-->
+                  <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
+                </div>
+              </div>
+            </div>
+
+            <!-- <mat-divider style="margin-top: 30px"></mat-divider> -->
+
+            <!-- endregion -->
+            <div class="row" style="padding-top: 10px;">
+              <div class="col-lg-12 text-right">
+                <div>
+                  <ag-grid-angular 
+                  class="ag-theme-alpine"
+                  style="width: 100%; height: 500px;"
+                  (firstDataRendered)="onFirstDataRendered($event)"
+                  [columnDefs]="columnDefs" 
+                  [defaultColDef]="defaultColDef"
+                  [gridOptions]="gridOptions" 
+                  (gridReady)="onGridReady($event)"
+                  [overlayLoadingTemplate]="overlayLoadingTemplate"
+                  [pagination]="true"
+                  [rowData]="paymentList"
+                  [rowMultiSelectWithClick]="true"
+                  [rowSelection]="'multiple'"
+                  [tooltipShowDelay]="5">
+                </ag-grid-angular>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <!-- <kt-portlet-footer> -->
-          <div class="kt-portlet__foot ">
-            <div class="kt-form__actions kt-form__actions">
-              <div class="row">
-                <div class="col-lg-12 text-right" *ngIf="paymentList.length > 0">
-                  <ng-container *ngIf="payrollTransactions && payrollTransactions.length > 0">
-                    <button (click)="approvePayment(actions.Reject)" class="mr-5 danger__btn" mat-raised-button>
-                      Reject
-                    </button>
-                    <button (click)="approvePayment(actions.Approve)" class="success__btn" mat-raised-button>Approve
-                    </button>
-                  </ng-container>
-                </div>
-              </div>
+      </div>
+
+      <div class="kt-portlet__foot ">
+        <div class="kt-form__actions kt-form__actions">
+          <div class="row">
+            <div class="col-lg-12 text-right">
+             
+              <ng-container *ngIf="paymentList.length > 0">
+                <button (click)="approvePayment(actions.Reject)" type="button" id="approve_payment_reject" class="mr-5 danger__btn" mat-raised-button>
+                  Reject
+                </button>
+                <button (click)="approvePayment(actions.Approve)" type="button" id="process_approve" class="success__btn" mat-raised-button>Approve
+                </button>
+              </ng-container>
             </div>
           </div>
-        <!-- </kt-portlet-footer> -->
-      </form>
-    </kt-portlet>
-          
+        </div>
+      </div>
+    </form>
+  </kt-portlet>
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+        <!--region Create Process-->
+        <!-- <div style="margin-top: 40px">
+          <div class=" col-12">
+            <div class=""> -->
+  
+            

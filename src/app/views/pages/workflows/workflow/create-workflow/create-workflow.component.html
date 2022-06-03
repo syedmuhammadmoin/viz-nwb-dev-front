@@ -72,6 +72,7 @@
                                 propertyValue="id"
                                 propertyName="status" 
                                 formControlName="currentStatusId" 
+                                [callBackFunction]="filterFunction"
                                 matFormFieldClass="full-width"
                                 errorMessage="Current State is Required"
                                 [optionList]="ngxsService.statuses$">

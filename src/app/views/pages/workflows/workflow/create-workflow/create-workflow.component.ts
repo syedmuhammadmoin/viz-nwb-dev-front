@@ -259,4 +259,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
     return !this.workflowForm.dirty;
   }
 
+  filterFunction = (param): any => {
+    return param.state !== this.docStatus.Unpaid ? param : []
+  }
 }

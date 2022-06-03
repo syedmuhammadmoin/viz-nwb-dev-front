@@ -189,7 +189,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     this.profitNLossModel.docDate = this.formatDate(this.profitNLossForm.value.docDate)
     this.profitNLossModel.docDate2 = this.formatDate(this.profitNLossForm.value.docDate2)
     this.profitNLossModel.businessPartner = this.profitNLossForm.value.businessPartner || '';
-    this.profitNLossModel.campus = this.profitNLossForm.value.campusName || '';
+    this.profitNLossModel.campus = this.profitNLossForm.value.campus || '';
     this.profitNLossModel.accountName = this.profitNLossForm.value.accountName || '';
     this.profitNLossModel.warehouse = this.profitNLossForm.value.warehouse || '';
   }

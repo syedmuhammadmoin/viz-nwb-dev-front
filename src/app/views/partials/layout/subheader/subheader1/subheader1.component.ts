@@ -57,6 +57,7 @@ export class Subheader1Component implements OnInit, OnDestroy, AfterViewInit {
       if (bt) {
           this.title = bt.title;
           this.desc = bt.desc;
+          this.breadcrumbs = [];
       }
     }));
 
