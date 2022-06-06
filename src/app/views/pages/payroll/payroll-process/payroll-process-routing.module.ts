@@ -15,22 +15,24 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.APPROVE_PROCESS,
         component: ApprovePayrollProcessComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.EMPLOYEE_VIEW }
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+            { permission: Permissions.PAYROLL_TRANSACTION_APPROVE },
+            { permission: Permissions.PAYROLL_TRANSACTION_REVIEW }
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.CREATE_PROCESS,
         component: CreatePayrollProcessComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.EMPLOYEE_VIEW }
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.PAYROLL_TRANSACTION_CREATE }
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.REGISTER_PAYMENT,
@@ -42,22 +44,22 @@ const route : Routes = [
           {
             path: CRUD_ROUTES.CREATE_PAYMENT,
             component: PaymentProcessComponent,
-            // data: {
-            //   array: [
-            //     {permission: Permissions.PAYROLL_TRANSACTION_CREATE}
-            //   ]
-            // },
-            // canActivate: [PermissionGuard]
+            data: {
+              array: [
+                {permission: Permissions.PAYROLL_TRANSACTION_CREATE}
+              ]
+            },
+            canActivate: [PermissionGuard]
           },
           {
             path: CRUD_ROUTES.APPROVE_PAYMENT,
             component: ApprovePaymentProcessComponent,
-            // data: {
-            //   array: [
-            //     {permission: Permissions.PAYROLL_TRANSACTION_CREATE}
-            //   ]
-            // },
-            // canActivate: [PermissionGuard]
+            data: {
+              array: [
+                {permission: Permissions.PAYROLL_TRANSACTION_CREATE}
+              ]
+            },
+            canActivate: [PermissionGuard]
           }
         ]
       }

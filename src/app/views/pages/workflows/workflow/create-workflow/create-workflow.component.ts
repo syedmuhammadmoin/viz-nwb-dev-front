@@ -1,6 +1,6 @@
 import { WORKFLOW } from './../../../../shared/AppRoutes';
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { ActivatedRoute, Router} from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
@@ -43,6 +43,9 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
 
   // Invoice Model
   workflowModel = ({} as IWorkflow);
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   title: string = 'Create Workflow'
 
@@ -140,6 +143,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
   // Form Reset
   reset() {
     const workflowLineArray = this.workflowForm.get('workflowLines') as FormArray;
+    this.formDirective.resetForm();
     workflowLineArray.clear();
     this.table.renderRows();
   }
@@ -255,4 +259,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
     return !this.workflowForm.dirty;
   }
 
+  filterFunction = (param): any => {
+    return param.state !== this.docStatus.Unpaid ? param : []
+  }
 }

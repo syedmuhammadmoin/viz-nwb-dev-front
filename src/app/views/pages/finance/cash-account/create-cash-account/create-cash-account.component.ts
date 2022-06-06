@@ -7,11 +7,15 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {finalize, take} from "rxjs/operators";
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { CashAccountState } from '../store/cash-account.state'; 
+
 @Component({
   selector: 'kt-create-cash-account',
   templateUrl: './create-cash-account.component.html',
   styleUrls: ['./create-cash-account.component.scss']
 })
+
 export class CreateCashAccountComponent extends AppComponentBase implements OnInit {
   
  
@@ -150,6 +154,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
             take(1),
             finalize(() => this.isLoading = false))
           .subscribe(() => {
+            this.ngxsService.store.dispatch(new IsReloadRequired (CashAccountState , true))
             this.toastService.success('Updated Successfully' , 'Cash Account')
             this.onCloseDialog()
           },
@@ -162,6 +167,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
             take(1),
             finalize(() => this.isLoading = false))
           .subscribe(() => {
+            this.ngxsService.store.dispatch(new IsReloadRequired (CashAccountState , true))
             this.toastService.success('Created Successfully' , 'Cash Account')
             this.onCloseDialog()
           },

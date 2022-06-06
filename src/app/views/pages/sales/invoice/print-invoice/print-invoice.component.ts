@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { InvoiceService} from "../services/invoice.service";
 import { GridOptions} from "ag-grid-community";
 import { DomSanitizer} from "@angular/platform-browser";
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IInvoice } from '../model/IInvoice';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-print-invoice',
@@ -13,7 +14,7 @@ import { IInvoice } from '../model/IInvoice';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class PrintInvoiceComponent implements OnInit {
+export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
 
   gridOptions: GridOptions;
   invoiceMaster: any;
@@ -22,8 +23,9 @@ export class PrintInvoiceComponent implements OnInit {
   constructor( private invoiceService: InvoiceService,
                private activatedRoute: ActivatedRoute,
                private cdr: ChangeDetectorRef,
-               public sanitizer: DomSanitizer
-             ) { }
+               public sanitizer: DomSanitizer,
+               injector: Injector
+             ) { super(injector) }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params: Params) => {

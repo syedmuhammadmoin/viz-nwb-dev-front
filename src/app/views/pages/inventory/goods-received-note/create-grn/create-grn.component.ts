@@ -1,5 +1,5 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import {IProduct} from '../../../profiling/product/model/IProduct';
 import {IGRN} from '../model/IGRN';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -43,6 +43,9 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   grnModel: IGRN;
 
   title: string = 'Create Goods Received Note'
+
+   //for resetting form
+   @ViewChild('formDirective') private formDirective: NgForm;
 
   // param to get purchase order master
   isPurchaseOrder: any;
@@ -151,6 +154,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // Form Reset
   reset() {
     const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    this.formDirective.resetForm();
     grnLineArray.clear();
     this.table.renderRows();
   }

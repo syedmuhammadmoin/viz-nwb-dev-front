@@ -1,6 +1,6 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectorRef, Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { IInvoice } from '../model/IInvoice';
 import { InvoiceService } from '../services/invoice.service';
@@ -66,6 +66,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   subscription2$: Subscription
 
   title: string = 'Create Invoice'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // Validation messages..
   validationMessages = {
@@ -181,6 +184,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   // Form Reset
   reset() {
     const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
+    this.formDirective.resetForm();
     invoiceLineArray.clear();
     this.table.renderRows();
   }

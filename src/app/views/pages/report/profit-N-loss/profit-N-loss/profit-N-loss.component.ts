@@ -1,7 +1,7 @@
 import { NgxsCustomService } from './../../../../shared/services/ngxs-service/ngxs-custom.service';
 import { HttpClient} from '@angular/common/http';
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { ProfitLossService} from '../service/profit-loss.service';
 import { IProfitLoss} from '../model/IProfitLoss';
@@ -31,6 +31,9 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   profitNLossForm: FormGroup;
   profitNLossModel: IProfitLoss = {} as IProfitLoss
   netProfit = '0';
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   //data for PDF
   recordsData: any = []
@@ -186,7 +189,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     this.profitNLossModel.docDate = this.formatDate(this.profitNLossForm.value.docDate)
     this.profitNLossModel.docDate2 = this.formatDate(this.profitNLossForm.value.docDate2)
     this.profitNLossModel.businessPartner = this.profitNLossForm.value.businessPartner || '';
-    this.profitNLossModel.campus = this.profitNLossForm.value.campusName || '';
+    this.profitNLossModel.campus = this.profitNLossForm.value.campus || '';
     this.profitNLossModel.accountName = this.profitNLossForm.value.accountName || '';
     this.profitNLossModel.warehouse = this.profitNLossForm.value.warehouse || '';
   }
@@ -218,6 +221,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
+    this.formDirective.resetForm();
     this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;

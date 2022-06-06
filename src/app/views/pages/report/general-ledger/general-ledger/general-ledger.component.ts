@@ -1,7 +1,7 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { AppComponentBase} from '../../../../shared/app-component-base';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 import { CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
 import { GeneralLedgerService} from '../service/general-ledger.service';
@@ -58,6 +58,9 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   // for permissions 
   public permissions = Permissions;
 
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
+
   constructor(
     // Injecting services in constructor
     private fb: FormBuilder,   
@@ -73,21 +76,56 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     };
     this.columnDefs = [
       {headerName: 'Account Name', field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
-      {headerName: 'Date', field: 'docDate', sortable: true, filter: true},
-      {headerName: 'Document No', field: 'docNo', sortable: true, filter: true},
-      {
-        headerName: 'Document Type', 
-        field: 'docType', 
-        sortable: true, 
-        filter: true,
-        valueFormatter: (params: ValueFormatterParams) => {
-          return DocType[params.value]
-        } 
-      },
-      {headerName: 'Description', field: 'description', filter: true},
-      {headerName: 'Debit', field: 'debit', sortable: true, filter: true},
-      {headerName: 'Credit', field: 'credit', sortable: true, filter: true},
-      {headerName: 'Balance', colId: 'balance'}
+          {
+            headerName: 'Date', field: 'docDate', sortable: true, filter: true, cellStyle: {textAlign : 'left'},
+            cellRenderer: (params: any) => {
+              // console.log(params);
+              const date = params?.data?.docDate != null ? params?.data?.docDate : null;
+              return date == null ? null : this.transformDate(date, 'MMM d, y');
+            }
+          },
+          {headerName: 'Document No', field: 'docNo', sortable: true, filter: true, cellStyle: {textAlign : 'left'}},
+          {
+            headerName: 'Document Type', 
+            field: 'docType', 
+            sortable: true, 
+            filter: true, 
+            cellStyle: {textAlign : 'left'},
+            valueFormatter: (params: ValueFormatterParams) => {
+              return DocType[params.value]
+              // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
+            } 
+          },
+
+          // },
+          {headerName: 'Description', field: 'description', filter: true, cellStyle: {textAlign : 'left'}},
+          {
+            headerName: 'Debit',
+            field: 'debit',
+            filter: true,
+            aggFunc: debitSum.bind(this),
+            valueFormatter: (params) => {
+              return this.valueFormatter(params.value, '+ve')
+            }
+          },
+          {
+            headerName: 'Credit',
+            field: 'credit',
+            filter: true,
+            aggFunc: creditSum.bind(this),
+            valueFormatter: (params) => {
+              return this.valueFormatter(params.value, '-ve')
+            }
+          },
+          {
+            headerName: 'Balance',
+            field: 'balance',
+            aggFunc: sumFunc.bind(this),
+            colId: 'balance',
+            valueFormatter: (params) => {
+              return this.valueFormatter(params.value)
+            }
+          }
     ];
   }
 
@@ -149,7 +187,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
     this.autoGroupColumnDef = {
       headerName: 'Account',
-      minWidth: 300,
+      minWidth: 100,
       cellRendererParams: {
         suppressCount: true,
         checkbox: false,
@@ -217,8 +255,9 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
               return DocType[params.value]
               // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
             } 
-
           },
+
+          // },
           {headerName: 'Description', field: 'description', filter: true, cellStyle: {textAlign : 'left'}},
           {
             headerName: 'Debit',
@@ -264,6 +303,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
+    this.formDirective.resetForm();
     this.formSubmitAttempt = false;
     this.recordsData = [];
     this.rowData = [];
@@ -301,7 +341,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   onFirstDataRendered(params: any) {
-    // params.api.sizeColumnsToFit();
+    params.api.sizeColumnsToFit();
   }
 
   // PDF Content

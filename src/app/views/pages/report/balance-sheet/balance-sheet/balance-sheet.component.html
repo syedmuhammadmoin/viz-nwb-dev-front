@@ -1,7 +1,7 @@
 <kt-portlet>
   <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" [title]="'Balance Sheet'">
   </kt-portlet-header>
-  <form (ngSubmit)="onSubmit()" [formGroup]="balanceSheetForm" class="kt-form kt-form--label-align-right">
+  <form (ngSubmit)="onSubmit()" [formGroup]="balanceSheetForm" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
     <div class="kt-portlet__body">
       <div class="kt-form__section kt-form__section--first">
         <div class="col-md-12 col-sm-12 col-lg-12">
@@ -76,7 +76,7 @@
 
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5">
               <div class="form-group kt-form__group">
-                <button class="mr-3 btn_white" mat-raised-button type="reset" id="sheet_reset" (click)="reset()">Reset</button>
+                <button class="mr-3 btn_white" mat-raised-button type="button" id="sheet_reset" (click)="reset()">Reset</button>
                 <button class="sub___btn" id="sheet_fetch" mat-raised-button type="submit">Fetch Records</button>
                 <!--For PDF-->
                 <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->

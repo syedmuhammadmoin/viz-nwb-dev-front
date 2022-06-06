@@ -9,7 +9,7 @@
         </div>
     </div>
     <!-- form start -->
-    <form [formGroup]="campusForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+    <form [formGroup]="campusForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <!-- portlet body starts -->
         <div class="kt-portlet__body" >
             <!-- form first section starts -->
@@ -44,7 +44,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="float-right">
-                            <button class="mr-3 btn_white" mat-raised-button type="reset" id="campus_reset">Reset</button>
+                            <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="campus_reset">Reset</button>
                             <button mat-raised-button class="sub___btn" type="submit" id="campus_submit"
                             (click)="logValidationErrors(this.campusForm, this.formErrors, this.validationMessages)">Submit
                             </button>&nbsp;

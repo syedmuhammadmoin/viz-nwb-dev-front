@@ -6,6 +6,8 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { EMPLOYEE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { EmployeeService } from '../service/employee.service';
 
 @Component({
@@ -29,6 +31,7 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private router: Router,
+    private ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -119,6 +122,8 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, 'employeePageName')
+
+     //to get new employee record on dropdown
      this.cdRef.detectChanges();
    },
   };

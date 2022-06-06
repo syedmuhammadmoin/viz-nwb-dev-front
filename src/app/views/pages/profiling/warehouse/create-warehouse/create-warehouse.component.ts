@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit, Optional, Self} from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Component, Inject, Injector, OnInit, Optional, Self, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IWarehouse} from '../model/IWarehouse';
 import { CscService} from 'src/app/views/shared/csc.service';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
@@ -32,6 +32,9 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   warehouse: IWarehouse;
 
   title: string = 'Create Store'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   //CSV list
   // countryList: ICountry[];
@@ -239,6 +242,10 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     this.warehouse.campusId = this.warehouseForm.value.campusId;
     // this.warehouse.address = this.warehouseForm.value.address;
     // this.warehouse.departmentId = this.warehouseForm.value.department;
+  }
+
+  reset() {
+    this.formDirective.resetForm();
   }
   // add new department 
   // openDepartmentDialog() {

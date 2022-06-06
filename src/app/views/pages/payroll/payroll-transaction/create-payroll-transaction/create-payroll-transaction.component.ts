@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
 import { ActivatedRoute, Router} from '@angular/router';
 import { IPayrollTransaction} from '../model/IPayrollTransaction';
 import { PayrollTransactionService} from '../service/payroll-transaction.service';
-import { AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPayrollItem} from '../../payroll-item/model/IPayrollItem';
 import { finalize} from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -13,12 +13,13 @@ import { EmployeeService } from '../../employee/service/employee.service';
 import { FirstDataRenderedEvent } from 'ag-grid-community';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { EmployeeState } from '../../employee/store/employee.state';
 
 @Component({
   selector: 'kt-create-payroll-transaction',
   templateUrl: './create-payroll-transaction.component.html',
-  styleUrls: ['./create-payroll-transaction.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./create-payroll-transaction.component.scss']
 })
 
 export class CreatePayrollTransactionComponent extends AppComponentBase implements OnInit {
@@ -49,6 +50,9 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   isLoading: boolean;
   //store working days
   workingDays : number = 0
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
 
   // Validation messages..
@@ -163,6 +167,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     //      this.payrollTransactionForm.get('leaveDays').updateValueAndValidity()
     // })
     // console.log(this.workingDays)
+    this.getLatestEmployeeData()
     this.ngxsService.getEmployeeFromState();
     this.ngxsService.getAccountPayableFromState();
     //this.ngxsService.getAccountLevel4FromState();
@@ -202,7 +207,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
           finalize(() => this.isLoading = false))
         .subscribe(
           (res) => {
-            this.toastService.success(res?.message, 'Updated Successfully')
+            this.toastService.success('Updated Successfully', "Payroll")
 
             if (!this._id) {
               this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details' , this.payrollTransaction.id)])
@@ -216,7 +221,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
           finalize(() => this.isLoading = false))
         .subscribe(
           (res) => {
-            this.toastService.success(res?.message, 'Created Successfully');
+            this.toastService.success('Created Successfully', "Payroll");
             
             if (!this._id) {
               this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
@@ -247,8 +252,11 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // reset payroll transition form
   reset() {
-    this.payrollTransactionForm.reset();
+    this.formDirective.resetForm();
+    this.payrollItems = []
   }
+
+ 
 
 // patch paroll transition
   patchPayroll(payrollTransaction) {
@@ -344,6 +352,10 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   getNumberOfDays(month, year): number {
     return new Date(year, month, 0).getDate();
   };
+
+  getLatestEmployeeData() {
+    this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState , true))
+  }
 }
 
 

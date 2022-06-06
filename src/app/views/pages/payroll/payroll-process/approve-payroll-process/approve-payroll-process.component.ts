@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { FirstDataRenderedEvent, RowNode} from 'ag-grid-community';
 import { map } from 'rxjs/operators';
@@ -7,6 +7,8 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { ActionButton, DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { DepartmentState } from '../../department/store/department.store';
 import { PayrollProcessService } from '../service/payroll-process.service';
 
 @Component({
@@ -28,6 +30,9 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   overlayLoadingTemplate: any;
   isDisabled: any;
   rowSelection = 'multiple';
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
   private gridApi: any;
 
   columnDefs = [
@@ -144,11 +149,12 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       religion: ['']
       // accountPayableId: [null]
     })
+
+    this.getLatestDepartments();
     this.ngxsService.getDepartmentFromState();
   }
 
   onSubmit() {
-    console.log(this.approvePayrollProcessForm)
     if (this.approvePayrollProcessForm.invalid) {
       this.logValidationErrors(this.approvePayrollProcessForm, this.formErrors, this.validationMessages)
       return
@@ -167,7 +173,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
         });
       }))
       .subscribe((res) => {
-        console.log(res);
         this.payrollTransactions = res
         this.isLoading = false
         this.cdRef.detectChanges();
@@ -185,12 +190,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 // first time rendering
   onFirstDataRendered($event: FirstDataRenderedEvent) {
     $event.api.sizeColumnsToFit();
-  }
-
-// for resting form
-  reset() {
-    this.approvePayrollProcessForm.reset();
-    this.payrollTransactions = []
   }
 
 // methd called on grid ready
@@ -218,8 +217,13 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
     this.payrollProcessService.submitApprovalPayrollProcess(body)
       .subscribe((res) => {
-        this.toastService.success(`${res.message || 'Proceeded Successfully!'}`, 'Successful')
-        this.onSubmit();
+        if(actionButton === 0) {
+          this.toastService.success(`${'Payroll approve process completed successfully'}`, 'Successful')
+        }
+        else if(actionButton === 1) {
+          this.toastService.success(`${'Payroll rejected process completed successfully'}`, 'Successful')
+        }
+        this.resetForm();
         this.isLoading = false;
         this.cdRef.detectChanges();
 
@@ -228,7 +232,12 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
         this.isLoading = false;
         this.cdRef.detectChanges();
       })
+  }
 
+  resetForm() {
+    this.formDirective.resetForm();
+    this.payrollTransactions = []
+    this.gridApi.setPinnedBottomRowData([])
   }
 
   generatePinnedBottomData() {
@@ -256,6 +265,10 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     target.employee = 'Total'
     // console.log(target);
     return target;
+  }
+
+  getLatestDepartments(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
   }
 }
 

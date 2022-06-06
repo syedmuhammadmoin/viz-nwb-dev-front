@@ -8,7 +8,7 @@
         </div>
       </div>
     </div>
-    <form [formGroup]="statusForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+    <form [formGroup]="statusForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
           <!-- first row start -->
@@ -56,7 +56,7 @@
         <div class="kt-form__actions row">
           <div class="col-lg-12 col-md-8 col-sm-8 col-9">
             <div class="float-right">
-              <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button id="status_reset" type="reset">Reset</button>
+              <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button id="status_reset" type="button" (click)="reset()">Reset</button>
               <button *ngIf="!isEditButtonShow" mat-raised-button class="sub___btn" type="submit" id="status_submit"
                 (click)="logValidationErrors(this.statusForm, this.formErrors, this.validationMessages)">Submit</button>
               <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" id="status_edit" type="button" (click)="toggleEdit()"><i

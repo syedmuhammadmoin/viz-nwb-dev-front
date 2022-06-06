@@ -1,6 +1,6 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit, Inject, Optional} from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, Injector, OnInit, Inject, Optional, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IPayment} from '../model/IPayment';
 import { PaymentService} from '../service/payment.service';
 import { ActivatedRoute, Router} from '@angular/router';
@@ -13,7 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { PAYMENT, RECEIPT } from 'src/app/views/shared/AppRoutes';
+import { PAYMENT, PAYROLL_PAYMENT, RECEIPT } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICashAccount } from '../../cash-account/model/ICashAccount';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
@@ -60,6 +60,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   title: string = 'Create '
 
   dateLimit: Date = new Date()
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
 
   // validation messages
@@ -140,6 +143,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   ) {
     super(injector)
     this.formName = this.documents.find(x => x.id === this.data.docType).value
+
+    console.log("form Name : ", this.formName)
   }
 
   groups = [
@@ -269,16 +274,17 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
           finalize(() => this.isLoading = false))
         .subscribe(() => {
             this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
-            this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : RECEIPT.LIST)])
+            this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : (this.formName === 'Payroll Payment') ? PAYROLL_PAYMENT.LIST : RECEIPT.LIST)])
             this.onCloseDialog();
           },
           (err) => this.toastService.error(`${err.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
         );
     }
   }
-
+ 
   mapFormValueToPaymentModel() {
-    this.paymentModel.paymentType = (this.formName === "Payment") ? 1 : 0
+    this.paymentModel.paymentType = (this.formName === "Payment" || this.formName === "Payroll Payment") ? 1 : 0
+    console.log(this.paymentModel.paymentType)
     this.paymentModel.businessPartnerId = this.paymentForm.value.businessPartner;
     this.paymentModel.accountId = this.paymentForm.value.account;
     this.paymentModel.paymentDate = this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd');
@@ -337,6 +343,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   // close dialog
   onCloseDialog() {
     this.dialogRef.close();
+  }
+
+  reset() {
+    this.formDirective.resetForm();
   }
 }
 

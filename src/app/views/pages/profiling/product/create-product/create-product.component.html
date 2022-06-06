@@ -9,7 +9,7 @@
         </div>
     </div>
     <!-- form start -->
-    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <!-- portlet body starts -->
         <div class="kt-portlet__body" >
             <!-- form first section starts -->
@@ -59,10 +59,7 @@
                                 <!-- <label class="col-form-label pt-0">Product Type:</label> -->
                                 <div class="kt-radio-list">
                                     
-                                    <mat-radio-group 
-                                    id="product_type"
-                                    formControlName="productType"
-                                    (change)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
+                                    <mat-radio-group id="product_type" formControlName="productType">
                                     <label class="col-form-label pt-0">Product Type:</label>
                                         <mat-radio-button [value]="0">Consumable</mat-radio-button>
                                         <mat-radio-button [value]="1">Service</mat-radio-button>
@@ -74,9 +71,9 @@
                                             <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
                                         </mat-error> -->
                                     </mat-radio-group>
-                                    <mat-error *ngIf="formErrors.productType">
+                                    <!-- <mat-error *ngIf="formErrors.productType">
                                         <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
-                                    </mat-error>
+                                    </mat-error> -->
                                 </div>
                             </div>
                         </div>
@@ -169,7 +166,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="float-right">
-                            <button class="mr-3 btn_white" mat-raised-button type="reset" id="product_reset" (click)="reset()">Reset</button>
+                            <button class="mr-3 btn_white" mat-raised-button type="button" id="product_reset" (click)="reset()">Reset</button>
                             <button mat-raised-button class="sub___btn" type="submit" id="product_submit"
                             (click)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">Submit
                             </button>&nbsp;

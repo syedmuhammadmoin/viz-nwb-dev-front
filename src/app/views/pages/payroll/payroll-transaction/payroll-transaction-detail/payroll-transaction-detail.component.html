@@ -50,7 +50,7 @@
               </div>
             </div>
 
-            <div class="col-md-4 col-lg-4  mt-3">
+            <div class="col-md-4 col-lg-4 ml-auto mt-3">
               <div class="print-box">
                   <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Account: 
                       <span class="float-right" style="font-weight: 400;">{{payrollMaster?.accountPayable}}</span></h4>
@@ -67,10 +67,6 @@
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Leave Days: 
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.leaveDays}}</span></h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Department: 
-                <span class="float-right" style="font-weight: 400;">{{payrollMaster?.department}}</span></h4>
               </div>
             </div>
            </div>
@@ -114,7 +110,7 @@
                 </tr>
                 <tr style="border-top: 2px solid #1a6b85;">
                   <th class="text-left"
-                    >Ney Salary :</th>
+                    >Net Salary :</th>
                   <th class="text-right" >
                     {{valueFormatter(payrollMaster?.netSalary || 0)}}</th>
                 </tr>

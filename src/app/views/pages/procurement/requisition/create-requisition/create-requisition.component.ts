@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { REQUISITION } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { finalize, take } from 'rxjs/operators';
@@ -58,6 +58,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   dateCondition : boolean
 
   title: string = 'Create Requisition'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
 
   // Validation Messages
@@ -145,6 +148,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // Form Reset
   reset() {
     const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
+    this.formDirective.resetForm();
     requisitionLineArray.clear();
     this.table.renderRows();
   }

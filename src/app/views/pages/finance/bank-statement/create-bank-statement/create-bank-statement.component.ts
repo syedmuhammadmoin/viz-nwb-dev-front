@@ -1,6 +1,6 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
 import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IBankStatement } from '../model/IBankStatement';
@@ -31,12 +31,12 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   isEdit : boolean = false;
   isLoading: boolean;
   enviroment = environment
-  cumulativeBalance: number;
+  cumulativeBalance: number = 0;
 
   // Limit Date
   maxDate: Date = new Date();
 
-  openingBalance: number;
+  openingBalance: number = 0;
   cumulativeBalances: number[] = [0];
   // For Table Columns
   displayedColumns = ['reference', 'stmtDate', 'label', 'debit', 'credit', 'cumulativeBalance', 'action']
@@ -51,6 +51,9 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   bankStatementModel: IBankStatement; 
 
   title: string = 'Create Bank Statement'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
 
   // validation messages
@@ -277,8 +280,9 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   // Form Reset
   reset() {
-    const journalEntryArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
-    journalEntryArray.clear();
+    const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
+    this.formDirective.resetForm();
+    bankStatementArray.clear();
     this.addBankStatementLineClick()
     this.body.files = null;
     this.fileName = '';

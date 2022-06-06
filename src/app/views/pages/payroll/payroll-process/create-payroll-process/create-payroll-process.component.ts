@@ -1,5 +1,5 @@
-import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { PayrollProcessService} from '../service/payroll-process.service';
 import { FirstDataRenderedEvent, GridOptions} from 'ag-grid-community';
 import { MatDialog} from "@angular/material/dialog";
@@ -9,6 +9,8 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { CreatePayrollTransactionComponent } from '../../payroll-transaction/create-payroll-transaction/create-payroll-transaction.component';
+import { DepartmentState } from '../../department/store/department.store';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 
 @Component({
   selector: 'kt-create-payroll-process',
@@ -121,6 +123,9 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     { id: 2, value: 'Hinduism' },
   ]
 
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
+
   constructor(
     injector: Injector,
     private fb: FormBuilder,
@@ -155,6 +160,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
+    this.getLatestDepartments();
     this.ngxsService.getAccountPayableFromState();
     this.ngxsService.getDepartmentFromState();
   }
@@ -225,8 +231,8 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.payrollProcessService.submitPayrollProcess(employeeListToPost).subscribe((res) => {
       this.isLoading = false;
       this.toastService.success(res.message, 'Created Successfully!');
-      this.createProcess();
       this.cdRef.detectChanges();
+      this.resetForm();
     }, (error) => {
       this.isLoading = false;
       this.cdRef.detectChanges();
@@ -244,8 +250,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   resetForm() {
-    // this.createcreatePayrollProcessForm.reset();
-    this.createPayrollProcessForm.reset();
+    this.formDirective.resetForm();
     this.employeeList = []
   }
 
@@ -260,6 +265,10 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     dialogRef.afterClosed().subscribe(() => {
       this.createProcess();
     });
+  }
+
+  getLatestDepartments(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
   }
 }
 

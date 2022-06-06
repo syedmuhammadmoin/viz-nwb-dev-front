@@ -186,6 +186,13 @@ export const CRUD_ROUTES = {
     }
   }
 
+  export const PAYROLL_PAYMENT = {
+    LIST: APP_ROUTES.PAYMENT + '/payroll-payment/' + CRUD_ROUTES.LIST,
+    ID_BASED_ROUTE (route: string , id: number) { 
+      return APP_ROUTES.PAYMENT + '/payroll-payment/' + route + '/' + id
+    }
+  }
+
 
   //INVENTORY SECTION
   export const DISPATCH_NOTE = {

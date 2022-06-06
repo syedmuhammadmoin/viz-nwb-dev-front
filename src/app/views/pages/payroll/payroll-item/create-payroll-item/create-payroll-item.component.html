@@ -2,7 +2,7 @@
     <kt-portlet>
       <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
       <!--begin::Form-->
-      <form [formGroup]="payrollItemForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+      <form [formGroup]="payrollItemForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <div class="kt-portlet__body">
           <div class="kt-form__section kt-form__section--first">
             <div class="col-md-12 col-sm-12 col-lg-12">
@@ -165,7 +165,7 @@
                   (click)="logValidationErrors(this.payrollItemForm, this.formErrors, this.validationMessages); isSubmit(1)">
                   Submit
                 </button> -->
-                <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()" id="payroll_item_reset">Reset</button>
+                <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="payroll_item_reset">Reset</button>
                 <!-- <button class="sub___btn  mr-3" mat-raised-button type="submit" id="payroll_item_save"
                   (click)="logValidationErrors(payrollItemForm, this.formErrors, this.validationMessages)">Save</button> -->
                 <button class="sub___btn " mat-raised-button type="submit" id="payroll_item_submit"

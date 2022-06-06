@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit, Optional } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -28,6 +28,9 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   campusModel: ICampus;
 
   title: string = 'Create Campus'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // validation messages
   validationMessages = {
@@ -129,6 +132,10 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   // Mapping values from campus form to campus model
   mapFormValueToCampusModel() {
     this.campusModel.name = this.campusForm.value.name;
+  }
+
+  reset() {
+    this.formDirective.resetForm();
   }
 
   // Dialogue close function

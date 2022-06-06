@@ -1,6 +1,6 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ICreditNote } from '../model/ICreditNote';
@@ -66,6 +66,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   title: string = 'Create Credit Note'
 
   dateLimit: Date = new Date()
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   // Validation messages..
   validationMessages = {
@@ -153,6 +156,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   //Form Reset
   reset() {
     const creditNoteLineArray = <FormArray>this.creditNoteForm.get('creditNoteLines');
+    this.formDirective.resetForm();
     creditNoteLineArray.clear();
     this.table.renderRows();
   }

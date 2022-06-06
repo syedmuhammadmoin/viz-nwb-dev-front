@@ -16,7 +16,6 @@
                 class="ag-theme-alpine"
                 [components]="components"
                 [columnDefs]="columnDefs"
-                (firstDataRendered)="onFirstDataRendered($event)"
                 (rowDoubleClicked)="onRowDoubleClicked($event)"
                 (paginationChanged)="paginationHelper.onPaginationChanged('payrollTransactionPageName', gridApi, $event)"
                 [gridOptions]="gridOptions"

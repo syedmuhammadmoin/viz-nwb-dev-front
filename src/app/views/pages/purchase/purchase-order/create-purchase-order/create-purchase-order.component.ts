@@ -1,7 +1,7 @@
 import { PURCHASE_ORDER } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPurchaseOrder} from '../model/IPurchaseOrder';
 import { PurchaseOrderService} from '../service/purchase-order.service';
 import { finalize, take } from 'rxjs/operators';
@@ -61,6 +61,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   dateCondition : boolean
 
   title: string = 'Create Purchase Order'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
 
   // Validation Messages
@@ -157,6 +160,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   // Form Reset
   reset() {
     const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
+    this.formDirective.resetForm();
     purchaseOrderLineArray.clear();
     this.table.renderRows();
   }

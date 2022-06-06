@@ -1,7 +1,7 @@
 import { DEBIT_NOTE } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IDebitNote } from '../model/IDebitNote';
 import { DebitNoteService } from '../service/debit-note.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -57,6 +57,9 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   billMaster: any;
 
   title: string = 'Create Debit Note'
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   dateLimit: Date = new Date()
 
@@ -151,6 +154,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   //Form Reset
   reset() {
     const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
+    this.formDirective.resetForm();
     debitNoteLineArray.clear();
     this.table.renderRows();
   }

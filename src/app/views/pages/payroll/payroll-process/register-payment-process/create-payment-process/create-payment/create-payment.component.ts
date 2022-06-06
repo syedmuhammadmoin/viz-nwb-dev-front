@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild} from '@angular/core';
 import { AppComponentBase} from '../../../../../../shared/app-component-base';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { AppConst} from '../../../../../../shared/AppConst';
 import { GridOptions} from 'ag-grid-community';
 import { BehaviorSubject} from "rxjs";
@@ -8,6 +8,12 @@ import { Output, EventEmitter } from '@angular/core';
 import { PayrollProcessService } from '../../../service/payroll-process.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { ICashAccount } from 'src/app/views/pages/finance/cash-account/model/ICashAccount';
+import { IBankAccount } from 'src/app/views/pages/finance/bank-account/model/IBankAccount';
+import { MatRadioChange } from '@angular/material/radio';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
+import { DepartmentState } from '../../../../department/store/department.store';
 
 @Component({
   selector: 'kt-create-payment',
@@ -17,7 +23,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 
 export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
-  months = '' //AppConst.Months
+  months = AppConst.Months
   filterForm: FormGroup;
   createPayrollPaymentForm: FormGroup;
   tooltipData = 'double click to edit'
@@ -26,9 +32,15 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   gridOptions: any;
   defaultColDef: any;
   transactionList: any[] = [];
+  overlayLoadingTemplate: any;
   propertyValue: any;
   propertyName: any;
-  paymentRegisterList: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
+  @ViewChild('formDirective2') private formDirective2: NgForm;
+
+  paymentRegisterList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
+  
   @Output() isLoading = new EventEmitter<boolean>();
 
   columnDefs = [
@@ -122,9 +134,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     private fb: FormBuilder,
     private cdRef: ChangeDetectorRef,
     private payrollProcessService: PayrollProcessService,
-    private ngxsService: NgxsCustomService
+    public ngxsService: NgxsCustomService
   ) {
     super(injector);
+    this.overlayLoadingTemplate = '<span class="ag-overlay-loading-center">Please wait while your data is loading</span>';
     this.gridOptions = ((
       {
         context: {componentParent: this}
@@ -147,7 +160,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
     this.createPayrollPaymentForm = this.fb.group({
       campusId: ['', Validators.required],
-      paymentRegisterType: ['', Validators.required],
+      // paymentRegisterType: ['', Validators.required],
       paymentRegisterId: ['', Validators.required],
       description: ['', Validators.required],
     });
@@ -156,6 +169,12 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       tooltipComponent: 'customTooltip'
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+
+    this.loadAccountList({value: 2})
+
+    this.getLatestDepartments();
+    this.ngxsService.getDepartmentFromState();
+    this.ngxsService.getCampusFromState();
   }
 
   onSubmitFilters() {
@@ -186,6 +205,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     const selectedTransactions = this.employeeGridApi.getSelectedRows()
     const body = {...this.createPayrollPaymentForm.value} //as IPaymentProcess
     const bodyList = [] //as ICreatePayrollTransLines[]
+    console.log("selcted employees")
+    console.log(selectedTransactions)
     selectedTransactions.forEach((x: any) => {
       bodyList.push({
         accountPayableId: x.accountPayableId,
@@ -195,7 +216,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       })
     });
     body.createPayrollTransLines = bodyList;
-    body.paymentDate = this.dateHelperService.transformDate(new Date(), 'dd MMM, yyyy')
+    body.paymentDate = this.dateHelperService.transformDate(new Date(), 'yyyy-MM-dd')
     console.log('body: ', body)
     this.payrollProcessService.createPaymentProcess(body)
       .subscribe((res) => {
@@ -203,6 +224,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         this.toastService.success('Registered successfully', 'Payment');
         this.resetForm();
         this.cdRef.detectChanges();
+      },
+      (err) => {
+        this.isLoading.emit(false)
       });
   }
 
@@ -214,20 +238,21 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.employeeGridApi = params.api;
   }
 
-  loadAccountList($event: any, id = null) {
-    console.log(id);
+  loadAccountList($event: MatRadioChange | any, id: number = null) {
     this.createPayrollPaymentForm.patchValue({
       paymentRegister: id
     })
     if ($event.value === 1) {
-      this.ngxsService.cashAccountService.getCashAccountsDropdown().subscribe(res => {
+      this.ngxsService.cashAccountService.getCashAccountsDropdown().subscribe((res: IApiResponse<ICashAccount[]>) => {
         this.paymentRegisterList.next(res.result)
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'chAccountId';
       this.propertyName = 'cashAccountName';
     } else {
-      this.ngxsService.bankAccountService.getBankAccountsDropdown().subscribe(res => {
+      this.ngxsService.bankAccountService.getBankAccountsDropdown().subscribe((res: IApiResponse<IBankAccount[]>) => {
+        console.log("entered")
+        console.log(res.result)
         this.paymentRegisterList.next(res.result)
         this.cdRef.markForCheck();
       })
@@ -237,11 +262,13 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   }
 
   resetForm() {
-    this.filterForm.reset();
-    this.createPayrollPaymentForm.reset();
-    this.logValidationErrors(this.filterForm, this.formErrors, this.validationMessages)
-    this.logValidationErrors(this.createPayrollPaymentForm, this.formErrors, this.validationMessages)
+    this.formDirective.resetForm();
+    this.formDirective2.resetForm();
     this.transactionList = [];
+  }
+
+  getLatestDepartments(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
   }
 
 }

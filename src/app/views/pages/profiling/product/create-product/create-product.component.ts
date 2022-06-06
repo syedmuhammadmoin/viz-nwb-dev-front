@@ -1,5 +1,5 @@
-import { Component, Inject, Injector, OnInit, Optional} from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IProduct} from '../model/IProduct';
 import { RequireMatch as RequireMatch} from 'src/app/views/shared/requireMatch';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
@@ -34,14 +34,17 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
 
   title: string = 'Create Product'
 
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
+
   // validation messages
   validationMessages = {
     name: {
       required: 'Name is required'
     },
-    productType: {
-      required: 'Product Type is required'
-    },
+    // productType: {
+    //   required: 'Product Type is required'
+    // },
     category: {
       required: 'Category is required',
       incorrect: 'Please select valid category'
@@ -60,7 +63,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //error keys
   formErrors = {
     name: '',
-    productType: '',
+    //productType: '',
     category: '',
     // salesPrice: '',
     // purchasePrice: '',
@@ -80,7 +83,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.productForm = this.fb.group({
       name: ['', [Validators.required]],
-      productType: ['', [Validators.required]],
+      productType: [0, [Validators.required]],
       category: ['', [RequireMatch, Validators.required]],
       salesPrice: [0],
       purchasePrice: [0],
@@ -184,14 +187,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   }
 
   reset() {
-    this.formErrors = {
-      name: '',
-      productType: '',
-      category: '',
-      // salesPrice: '',
-      // purchasePrice: '',
-      // salesTax: '',
-    }
+      this.formDirective.resetForm();
+      this.productForm.get('productType').setValue(0);
   }
 
   //create new category
