@@ -59,10 +59,7 @@
                                 <!-- <label class="col-form-label pt-0">Product Type:</label> -->
                                 <div class="kt-radio-list">
                                     
-                                    <mat-radio-group 
-                                    id="product_type"
-                                    formControlName="productType"
-                                    (change)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
+                                    <mat-radio-group id="product_type" formControlName="productType">
                                     <label class="col-form-label pt-0">Product Type:</label>
                                         <mat-radio-button [value]="0">Consumable</mat-radio-button>
                                         <mat-radio-button [value]="1">Service</mat-radio-button>
@@ -74,9 +71,9 @@
                                             <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
                                         </mat-error> -->
                                     </mat-radio-group>
-                                    <mat-error *ngIf="formErrors.productType">
+                                    <!-- <mat-error *ngIf="formErrors.productType">
                                         <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
-                                    </mat-error>
+                                    </mat-error> -->
                                 </div>
                             </div>
                         </div>

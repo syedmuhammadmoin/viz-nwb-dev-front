@@ -42,9 +42,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     name: {
       required: 'Name is required'
     },
-    productType: {
-      required: 'Product Type is required'
-    },
+    // productType: {
+    //   required: 'Product Type is required'
+    // },
     category: {
       required: 'Category is required',
       incorrect: 'Please select valid category'
@@ -63,7 +63,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //error keys
   formErrors = {
     name: '',
-    productType: '',
+    //productType: '',
     category: '',
     // salesPrice: '',
     // purchasePrice: '',
@@ -83,7 +83,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.productForm = this.fb.group({
       name: ['', [Validators.required]],
-      productType: ['', [Validators.required]],
+      productType: [0, [Validators.required]],
       category: ['', [RequireMatch, Validators.required]],
       salesPrice: [0],
       purchasePrice: [0],
@@ -188,14 +188,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
 
   reset() {
       this.formDirective.resetForm();
-    // this.formErrors = {
-    //   name: '',
-    //   productType: '',
-    //   category: '',
-    //   // salesPrice: '',
-    //   // purchasePrice: '',
-    //   // salesTax: '',
-    // }
+      this.productForm.get('productType').setValue(0);
   }
 
   //create new category
