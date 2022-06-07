@@ -44,17 +44,56 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { headerName: 'Name', field: 'name', sortable: true, filter: true,  cellRenderer: "loadingCellRenderer" , tooltipField: 'name' },
-    { headerName: 'Cnic', field: 'cnic', sortable: true, filter: true, tooltipField: 'name' },
-    { headerName: 'Designation', field: 'designationName', sortable: true, filter: true, tooltipField: 'name' },
-    { headerName: 'Department', field: 'departmentName', sortable: true, filter: true, tooltipField: 'name' },
+    { 
+      headerName: 'Name', 
+      field: 'name', 
+      cellRenderer: "loadingCellRenderer", 
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Cnic', 
+      field: 'cnic', 
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
+    { 
+      headerName: 'Designation', 
+      field: 'designationName', 
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Department', 
+      field: 'departmentName',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     { headerName: 'Faculty', field: 'faculty', sortable: true, filter: true, tooltipField: 'name' },
     { headerName: 'Shift', field: 'dutyShift', sortable: true, filter: true, tooltipField: 'name' },
     {
       headerName: 'Active',
       field: 'isActive',
-      sortable: true,
-      filter: true,
       tooltipField: 'name',
       valueFormatter: (params: ValueFormatterParams) => { 
         return (params.value) ? "Yes" : "No"
@@ -77,7 +116,11 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -99,6 +142,21 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
     this.router.navigate(['/' + EMPLOYEE.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getEmployees(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'employeePageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -106,27 +164,38 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   }
 
   async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.employeeService.getEmployees(params).toPromise()
+    const result = await this.employeeService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getEmployees(params);
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'employeePageName')
+  // async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
+  //   const result = await this.employeeService.getEmployees(params).toPromise()
+  //   return result
+  // }
 
-     //to get new employee record on dropdown
-     this.cdRef.detectChanges();
-   },
-  };
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getEmployees(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'employeePageName')
+
+  //    //to get new employee record on dropdown
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 }
 
 

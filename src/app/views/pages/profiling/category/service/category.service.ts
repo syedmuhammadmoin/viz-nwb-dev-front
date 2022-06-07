@@ -3,19 +3,20 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 @Injectable({
     providedIn: 'root',
 })
 
-export class CategoryService {
+export class CategoryService extends AppServiceBase {
 
     baseUrl = environment.baseUrl + 'Category';
     
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getCategories(params: any): Observable<IPaginationResponse<ICategory[]>> {
         let httpParams = new HttpParams();
@@ -53,6 +54,10 @@ export class CategoryService {
             })
         })
             .pipe(catchError(this.handleError));
+    }
+
+    getRecords(params: any): Observable<any> {
+        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter)});
     }
 
     private handleError(errorResponse: HttpErrorResponse) {

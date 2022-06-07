@@ -160,6 +160,11 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     var dataSource = {
       getRows: (params: any) => {
         this.creditNoteService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
           params.successCallback(data.result || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'creditNotePageName')
           this.cdRef.detectChanges();

@@ -2,20 +2,21 @@ import { HttpClient, HttpErrorResponse, HttpHeaders,HttpParams } from '@angular/
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICampus } from '../model/ICampus';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CampusService {
+export class CampusService extends AppServiceBase {
 
     baseUrl = environment.baseUrl + 'Campus';
     
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getCampuses(params: any): Observable<IPaginationResponse<ICampus[]>> {
         let httpParams = new HttpParams();
@@ -23,17 +24,14 @@ export class CampusService {
     httpParams = httpParams.append('PageStart', params?.startRow);
     httpParams = httpParams.append('PageEnd', params?.endRow);
         return this.httpClient.get<IPaginationResponse<ICampus[]>>(this.baseUrl ,{ params: httpParams})
-            .pipe(catchError(this.handleError));
     }
 
     getCampusDropdown(): Observable<IApiResponse<ICampus[]>> {
         return this.httpClient.get<IApiResponse<ICampus[]>>(this.baseUrl + '/dropdown')
-            .pipe(catchError(this.handleError));
     }
 
     getCampusById(id: number): Observable<IApiResponse<ICampus>> {
         return this.httpClient.get<IApiResponse<ICampus>>(`${this.baseUrl}/${id}`)
-            .pipe(catchError(this.handleError));
     }
 
     addCampus(campus: ICampus): Observable<ICampus> {
@@ -42,7 +40,6 @@ export class CampusService {
                 'Content-Type': 'application/json'
             })
         })
-        .pipe(catchError(this.handleError));
     }
 
     updateCampus(campus: ICampus): Observable<void> {
@@ -51,16 +48,11 @@ export class CampusService {
                 'Content-Type': 'application/json'
             })
         })
-            .pipe(catchError(this.handleError));
     }
 
-    private handleError(errorResponse: HttpErrorResponse) {
-        if (errorResponse.error instanceof ErrorEvent) {
-            console.error('Client Side Error :', errorResponse.error.message);
-        } else {
-            console.error('Server Side Error :', errorResponse);
-        }
-        return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
-    }
+    getRecords(params: any): Observable<any> {
+        console.log(params.filterModel )
+        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter)});
+      }
 }
 

@@ -140,9 +140,9 @@ export class AppConst {
 
     // Payroll Item
     'Permissions.PayrollItemClaims.View': 'Payroll Item View',
-    'Permissions.PayrollItemClaims.Create': 'Payroll Item View',
-    'Permissions.PayrollItemClaims.Edit': 'Payroll Item View',
-    'Permissions.PayrollItemClaims.Delete': 'Payroll Item View',
+    'Permissions.PayrollItemClaims.Create': 'Payroll Item Create',
+    'Permissions.PayrollItemClaims.Edit': 'Payroll Item Edit',
+    'Permissions.PayrollItemClaims.Delete': 'Payroll Item Delete',
 
     // Payroll Transaction
     'Permissions.PayrollTransactionClaims.View': 'Payroll Transaction View',

@@ -46,36 +46,48 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
 
 // defaults columns
   columnDefs = [
+    {
+      headerName: "Sr.No",
+      field: 'index',
+      cellRenderer: "loadingCellRenderer",
+      suppressMenu: true,
+      tooltipField: 'name'
+    },
     { 
       headerName: 'Name', 
       field: 'name', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
      },
   ];
 // implimentation of ng OnInit
   ngOnInit() { 
-
-    // this.getCampuses()
-   
-    this.gridOptions.rowHeight = 40;
-    this.gridOptions.headerHeight = 35;
-
-    this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
-    }
-
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
+      rowHeight: 40,
+      headerHeight: 35,
       context: "double click to edit",
     };
+
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+
+    this.defaultColDef = {
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
+    }
+
 
     this.components = {
       loadingCellRenderer: function (params) {
@@ -108,6 +120,21 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     });
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getCampuses(params);
+      if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'campusPageName')
+      this.cdRef.detectChanges();
+    },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -115,25 +142,36 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   }
 
   async getCampuses(params: any): Promise<IPaginationResponse<ICampus[]>> {
-    const result = await this.campusService.getCampuses(params).toPromise()
+    const result = await this.campusService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-    const res = await this.getCampuses(params);
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-    if(isEmpty(res.result)) {  
-       this.gridApi.showNoRowsOverlay() 
-     } else {
-      this.gridApi.hideOverlay();
-     }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'campusPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // async getCampuses(params: any): Promise<IPaginationResponse<ICampus[]>> {
+  //   const result = await this.campusService.getCampuses(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //   const res = await this.getCampuses(params);
+
+  //   if(isEmpty(res.result)) {  
+  //      this.gridApi.showNoRowsOverlay() 
+  //    } else {
+  //     this.gridApi.hideOverlay();
+  //    }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'campusPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // getCampuses () : void {
   //   this.campusService.getCampuses().subscribe((res: IPaginationResponse<ICampus[]>) => {
