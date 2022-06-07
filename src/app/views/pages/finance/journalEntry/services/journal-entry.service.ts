@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
@@ -7,17 +7,18 @@ import { IJournalEntry } from '../model/IJournalEntry';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class JournalEntryService {
+export class JournalEntryService extends AppServiceBase {
 
   baseUrl = environment.baseUrl + 'journalEntry';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
   getJournalEntries(params: any): Observable<IPaginationResponse<IJournalEntry[]>> {
     let httpParams = new HttpParams();
@@ -26,12 +27,10 @@ export class JournalEntryService {
     httpParams = httpParams.append('PageEnd', params?.endRow);
     
     return this.httpClient.get<IPaginationResponse<IJournalEntry[]>>(this.baseUrl, { params: httpParams})
-      .pipe(catchError(this.handleError))
   }
 
   getJournalEntryById(id: number): Observable<IApiResponse<IJournalEntry>> {
     return this.httpClient.get<IApiResponse<IJournalEntry>>(this.baseUrl + '/' + id)
-      .pipe(catchError(this.handleError));
   }
 
   addJournalEntry(journalEntry: IJournalEntry): Observable<IApiResponse<IJournalEntry>> {
@@ -47,7 +46,7 @@ export class JournalEntryService {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
         })
-    }).pipe(catchError(this.handleError));
+    })
   }
 
 
@@ -55,12 +54,7 @@ export class JournalEntryService {
     return this.httpClient.post<any>(this.baseUrl + '/workflow', workflow);
   }
 
-  private handleError(errorResponse: HttpErrorResponse) {
-    if (errorResponse.error instanceof ErrorEvent) {
-      console.error('Client Side Error :', errorResponse.error.message);
-    } else {
-      console.error('Server Side Error :', errorResponse);
-    }
-    return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
+  getRecords(params: any): Observable<any> {
+    return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.date?.dateFrom, 'MM/d/y'))})
   }
 }

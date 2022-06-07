@@ -61,15 +61,39 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
 
   //ag-Grid Columns
   columnDefs = [
-    { headerName: 'Doc #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
-    // { headerName: 'Payment No.', field: 'docNo', sortable: true, filter: true ,tooltipField: 'status' },
-    { headerName: 'Business Partner', field: 'businessPartnerName', sortable: true, filter: true, tooltipField: 'status' },
+    { 
+      headerName: 'Doc #', 
+      field: 'docNo',
+      tooltipField: 'status', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Business Partner', 
+      field: 'businessPartnerName',
+      tooltipField: 'status',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Payment Date',
       field: 'paymentDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
@@ -77,9 +101,8 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     {
       headerName: 'Discount',
       field: 'discount',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -87,9 +110,8 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     {
       headerName: 'sales Tax',
       field: 'salesTax',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -97,15 +119,17 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     {
       headerName: 'Income Tax',
       field: 'incomeTax',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Net Payment', field: 'netPayment', sortable: true, filter: true, tooltipField: 'status',
+      headerName: 'Net Payment', 
+      field: 'netPayment',
+      tooltipField: 'status',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -113,9 +137,15 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     {
       headerName: 'Status',
       field: 'status',
-      sortable: true,
-      filter: true,
-      tooltipField: 'status'
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
     },
   ];
 
@@ -134,7 +164,11 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -172,6 +206,16 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     });
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getPayments(params);
+    //  if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, this.docType[this.selectedDocumentType]);
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -179,31 +223,36 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   }
 
   async getPayments(params: any): Promise<IPaginationResponse<IPayment[]>> {
-    const result = await this.paymentService.getPayments((this.documents.find(x => x.id === this.selectedDocumentType).value) , params).toPromise()
-    console.log(result)
+    const result = await this.paymentService.getRecords(params, this.documents.find(x => x.id === this.selectedDocumentType).value).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getPayments(params);
-
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, this.docType[this.selectedDocumentType])
-     this.cdRef.detectChanges();
-   },
-  };
-
-  // getPayments() {
-  //   this.subscription$ = this.paymentService.getPayments().subscribe((res: IPaginationResponse<IPayment[]>) => {
-  //       this.paymentList = res.result;
-  //       this.cdRef.detectChanges()
-  //     })
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
   // }
+
+  // async getPayments(params: any): Promise<IPaginationResponse<IPayment[]>> {
+  //   const result = await this.paymentService.getPayments((this.documents.find(x => x.id === this.selectedDocumentType).value) , params).toPromise()
+  //   console.log(result)
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getPayments(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, this.docType[this.selectedDocumentType])
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
+
 }

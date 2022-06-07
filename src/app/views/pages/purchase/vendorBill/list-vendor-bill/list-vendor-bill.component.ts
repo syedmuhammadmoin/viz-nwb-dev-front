@@ -45,14 +45,38 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   }
 
   columnDefs = [
-    { headerName: 'Bill #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Vendor Name', field: 'vendorName', sortable: true, filter: true, tooltipField: 'status' },
+    { 
+      headerName: 'Bill #', 
+      field: 'docNo', 
+      tooltipField: 'status', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { headerName: 'Vendor Name', 
+      field: 'vendorName', 
+      tooltipField: 'status',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Bill Date',
       field: 'billDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       },
@@ -60,15 +84,22 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     {
       headerName: 'Due Date',
       field: 'dueDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       },
     },
     {
-      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'status',
+      headerName: 'Total', 
+      field: 'totalAmount', 
+      tooltipField: 'status',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -76,9 +107,15 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     { 
       headerName: 'Status', 
       field: 'status', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'status', 
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
     },
   ];
 
@@ -94,9 +131,13 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
-
+ 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -123,43 +164,48 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   }
 
   onGridReady(params: GridReadyEvent) {
+
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+
+        var dataSource = {
+          getRows: (params: any) => {
+            this.vendorBillService.getRecords(params).subscribe((data) => {
+              params.successCallback(data.result || 0, data.totalRecords);
+              this.paginationHelper.goToPage(this.gridApi, 'billPageName')
+              this.cdRef.detectChanges()
+          });
+          },
+       };
+    params.api.setDatasource(dataSource)
   }
 
-  async getBills(params: any): Promise<IPaginationResponse<IVendorBill[]>> {
-    const result = await this.vendorBillService.getVendorBills(params).toPromise()
-    return result
-  }
-
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getBills(params);
-
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'billPageName')
-     this.cdRef.detectChanges();
-   },
-  };
-
-  // loadVendorBillList() {
-  //   this.vendorBillService.getVendorBills().subscribe(
-  //     (res) => {
-  //       this.vendorBillList = res.result;
-  //       this.cdRef.markForCheck();
-  //     },
-  //     (err) => {
-  //       console.log(err)
-  //     }
-  //   )
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
   // }
+
+  // async getBills(params: any): Promise<IPaginationResponse<IVendorBill[]>> {
+  //   const result = await this.vendorBillService.getVendorBills(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getBills(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'billPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // agingReport() {
   //   this.router.navigate(['/'+BILL.AGING_REPORT]);

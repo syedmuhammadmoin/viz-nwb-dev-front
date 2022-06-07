@@ -390,4 +390,14 @@ export class AppConst {
     { name: 'Dec', value: 12 },
   ];
 
+  static filterStatus = [
+    { value: 'Draft', id: 0 },
+    { value: 'Rejected', id: 1 },
+    { value: 'Unpaid', id: 2 },
+    { value: 'Partial', id: 3 },
+    { value: 'Paid', id: 4 },
+    { value: 'Submitted', id: 5 },
+    { value: 'Reviewed', id: 6 },
+  ];
+
 }
