@@ -138,8 +138,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     }
     // get customer from state
     this.ngxsService.getBusinessPartnerFromState();
-    // get Accounts of level 4 from state
-    this.ngxsService.getAccountLevel4FromState()
+    // get Other Accounts from state
+    this.ngxsService.getOtherAccountsFromState()
     // get Ware house location from state
     this.ngxsService.getWarehouseFromState();
     // get item from state

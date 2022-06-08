@@ -150,7 +150,9 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       accountReceivable: ['', [Validators.required]],
       cnic: ['',[Validators.required]]
     });
-    this.ngxsService.getAccountLevel4FromState();
+
+    this.ngxsService.getAccountPayableFromState();
+    this.ngxsService.getAccountReceivableFromState();
   
     //this.getCountryList();
 

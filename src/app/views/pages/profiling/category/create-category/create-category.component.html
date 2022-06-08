@@ -41,7 +41,7 @@
                                     searchPlaceholder="Search Account..."
                                     formControlName="inventoryAccount"
                                     matFormFieldClass="full-width"
-                                    [optionList]="ngxsService.accountsLevel4$"                                      
+                                    [optionList]="ngxsService.otherAccounts$"                                      
                                     [errorMessage]="formErrors.inventoryAccount"
                                     (blurEvent)="logValidationErrors(this.categoryForm, this.formErrors, this.validationMessages)">
                                 </kt-simple-dropdown>
@@ -62,7 +62,7 @@
                                     placeholder="Select Revenue Account"
                                     searchPlaceholder="Search Revanue..." 
                                     formControlName="revenueAccount"
-                                    [optionList]="ngxsService.accountsLevel4$"                                   
+                                    [optionList]="ngxsService.otherAccounts$"                                   
                                     [errorMessage]="formErrors.revenueAccount"
                                     (blurEvent)="logValidationErrors(this.categoryForm, this.formErrors, this.validationMessages)">
                                 </kt-simple-dropdown>
@@ -80,7 +80,7 @@
                                     placeholder="Select Cost Account"
                                     searchPlaceholder="Search Cost..." 
                                     formControlName="costAccount"
-                                    [optionList]="ngxsService.accountsLevel4$"                                     
+                                    [optionList]="ngxsService.otherAccounts$"                                     
                                     [errorMessage]="formErrors.costAccount"
                                     (blurEvent)="logValidationErrors(this.categoryForm, this.formErrors, this.validationMessages)">
                                 </kt-simple-dropdown>

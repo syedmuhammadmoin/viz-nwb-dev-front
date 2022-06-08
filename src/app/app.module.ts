@@ -96,6 +96,8 @@ import { AccountLevel4State } from './views/pages/finance/chat-of-account/store/
 import { BasicPayState } from './views/pages/payroll/payroll-item/store/basic-pay.state';
 import { IncrementState } from './views/pages/payroll/payroll-item/store/increment.state';
 import { DeductionState } from './views/pages/payroll/payroll-item/store/deduction.state';
+import { AccountReceivableState } from './views/pages/finance/chat-of-account/store/account-receivable.state';
+import { OtherAccountState } from './views/pages/finance/chat-of-account/store/other-account.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -155,6 +157,8 @@ export function getHighlightLanguages() {
       WarehouseState,
       AccountLevel4State,
       AccountPayableState,
+      AccountReceivableState,
+      OtherAccountState,
       BudgetAccountState,
       CountryState,
       StateState,

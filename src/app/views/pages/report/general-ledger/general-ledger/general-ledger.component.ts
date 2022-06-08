@@ -70,62 +70,71 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     private injector: Injector
   ) {
     super(injector);
-
-    this.defaultColDef = {
-      resizable: true,
-    };
     this.columnDefs = [
-      {headerName: 'Account Name', field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
-          {
-            headerName: 'Date', field: 'docDate', sortable: true, filter: true, cellStyle: {textAlign : 'left'},
-            cellRenderer: (params: any) => {
-              // console.log(params);
-              const date = params?.data?.docDate != null ? params?.data?.docDate : null;
-              return date == null ? null : this.transformDate(date, 'MMM d, y');
-            }
-          },
-          {headerName: 'Document No', field: 'docNo', sortable: true, filter: true, cellStyle: {textAlign : 'left'}},
-          {
-            headerName: 'Document Type', 
-            field: 'docType', 
-            sortable: true, 
-            filter: true, 
-            cellStyle: {textAlign : 'left'},
-            valueFormatter: (params: ValueFormatterParams) => {
-              return DocType[params.value]
-              // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
-            } 
-          },
-
-          // },
-          {headerName: 'Description', field: 'description', filter: true, cellStyle: {textAlign : 'left'}},
-          {
-            headerName: 'Debit',
-            field: 'debit',
-            filter: true,
-            aggFunc: debitSum.bind(this),
-            valueFormatter: (params) => {
-              return this.valueFormatter(params.value, '+ve')
-            }
-          },
-          {
-            headerName: 'Credit',
-            field: 'credit',
-            filter: true,
-            aggFunc: creditSum.bind(this),
-            valueFormatter: (params) => {
-              return this.valueFormatter(params.value, '-ve')
-            }
-          },
-          {
-            headerName: 'Balance',
-            field: 'balance',
-            aggFunc: sumFunc.bind(this),
-            colId: 'balance',
-            valueFormatter: (params) => {
-              return this.valueFormatter(params.value)
-            }
-          }
+      { 
+        headerName: 'Account Name', 
+        field: 'accountName', 
+        rowGroup: true, 
+        hide: true,
+      },
+      {
+        headerName: 'Date', 
+        field: 'docDate', 
+        cellStyle: {textAlign : 'left'},
+        cellRenderer: (params: any) => {
+          const date = params?.data?.docDate != null ? params?.data?.docDate : null;
+          return date == null ? null : this.transformDate(date, 'MMM d, y');
+        }
+      },
+      {
+        headerName: 'Document No', 
+        field: 'docNo', 
+        cellStyle: {textAlign : 'left'}
+      },
+      {
+        headerName: 'Document Type', 
+        field: 'docType', 
+        suppressMenu: true,
+        cellStyle: {textAlign : 'left'},
+        valueFormatter: (params: ValueFormatterParams) => {
+          return DocType[params.value]
+          // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
+        } 
+      },
+      {
+        headerName: 'Description', 
+        field: 'description', 
+        cellStyle: {textAlign : 'left'},
+        suppressMenu: true,
+      },
+      {
+        headerName: 'Debit',
+        field: 'debit',
+        suppressMenu: true,
+        aggFunc: debitSum.bind(this),
+        valueFormatter: (params) => {
+          return this.valueFormatter(params.value, '+ve')
+        }
+      },
+      {
+        headerName: 'Credit',
+        field: 'credit',
+        suppressMenu: true,
+        aggFunc: creditSum.bind(this),
+        valueFormatter: (params) => {
+          return this.valueFormatter(params.value, '-ve')
+        }
+      },
+      {
+        headerName: 'Balance',
+        field: 'balance',
+        aggFunc: sumFunc.bind(this),
+        colId: 'balance',
+        suppressMenu: true,
+        valueFormatter: (params) => {
+          return this.valueFormatter(params.value)
+        }
+      }   
     ];
   }
 
@@ -183,11 +192,18 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
     this.gridOptions.suppressAggFuncInHeader = true;
-   
 
+    this.defaultColDef = {
+      filter: true,
+      resizable: true,
+      menuTabs: ["filterMenuTab"],
+    };
+   
     this.autoGroupColumnDef = {
       headerName: 'Account',
-      minWidth: 100,
+      menuTabs: ["filterMenuTab"],
+      minWidth: 300,
+      filterValueGetter: (params) => params.data.accountName,
       cellRendererParams: {
         suppressCount: true,
         checkbox: false,
@@ -235,21 +251,29 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.generalLedgerService.getLedger(this.generalLedgerModel).pipe(
       finalize(() => {
         this.columnDefs = [
-          {headerName: 'Account Name', field: 'accountName', sortable: true, filter: true, rowGroup: true, hide: true},
           {
-            headerName: 'Date', field: 'docDate', sortable: true, filter: true, cellStyle: {textAlign : 'left'},
+            headerName: 'Account Name', 
+            field: 'accountName', 
+            rowGroup: true, 
+            hide: true
+          },
+          {
+            headerName: 'Date', field: 'docDate',cellStyle: {textAlign : 'left'},
             cellRenderer: (params: any) => {
               // console.log(params);
               const date = params?.data?.docDate != null ? params?.data?.docDate : null;
               return date == null ? null : this.transformDate(date, 'MMM d, y');
             }
           },
-          {headerName: 'Document No', field: 'docNo', sortable: true, filter: true, cellStyle: {textAlign : 'left'}},
+          {
+            headerName: 'Document No', 
+            field: 'docNo', 
+            cellStyle: {textAlign : 'left'}
+          },
           {
             headerName: 'Document Type', 
-            field: 'docType', 
-            sortable: true, 
-            filter: true, 
+            field: 'docType',  
+            suppressMenu: true,
             cellStyle: {textAlign : 'left'},
             valueFormatter: (params: ValueFormatterParams) => {
               return DocType[params.value]
@@ -258,11 +282,11 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           },
 
           // },
-          {headerName: 'Description', field: 'description', filter: true, cellStyle: {textAlign : 'left'}},
+          {headerName: 'Description', field: 'description', suppressMenu: true, cellStyle: {textAlign : 'left'}},
           {
             headerName: 'Debit',
             field: 'debit',
-            filter: true,
+            suppressMenu: true,
             aggFunc: debitSum.bind(this),
             valueFormatter: (params) => {
               return this.valueFormatter(params.value, '+ve')
@@ -271,7 +295,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'credit',
-            filter: true,
+            suppressMenu: true,
             aggFunc: creditSum.bind(this),
             valueFormatter: (params) => {
               return this.valueFormatter(params.value, '-ve')
@@ -282,6 +306,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             field: 'balance',
             aggFunc: sumFunc.bind(this),
             colId: 'balance',
+            suppressMenu: true,
             valueFormatter: (params) => {
               return this.valueFormatter(params.value)
             }
@@ -341,7 +366,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   onFirstDataRendered(params: any) {
-    params.api.sizeColumnsToFit();
+    //params.api.sizeColumnsToFit();
   }
 
   // PDF Content

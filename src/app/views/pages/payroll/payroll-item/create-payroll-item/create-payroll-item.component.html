@@ -77,7 +77,7 @@
                       matFormFieldClass="full-width"
                       [errorMessage]="formErrors.accountId"
                       (blurEvent)="logValidationErrors(payrollItemForm, this.formErrors, this.validationMessages)"
-                      [optionList]="ngxsService.accountsLevel4$">
+                      [optionList]="ngxsService.otherAccounts$">
                     </kt-simple-dropdown>
                    </div>
                 </div>

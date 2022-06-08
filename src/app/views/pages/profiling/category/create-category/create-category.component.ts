@@ -93,7 +93,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       }
     }
 
-    this.ngxsService.getAccountLevel4FromState()
+    //this.ngxsService.getAccountLevel4FromState();
+    this.ngxsService.getOtherAccountsFromState();
   }
 
   // Getting category values for update

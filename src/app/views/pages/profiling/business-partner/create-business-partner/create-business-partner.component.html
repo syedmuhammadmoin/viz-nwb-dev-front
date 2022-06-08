@@ -247,7 +247,7 @@
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="formErrors.accountPayable"
                               formControlName="accountPayable"
-                              [optionList]="ngxsService.accountsLevel4$">
+                              [optionList]="ngxsService.accountsPayable$">
                             </kt-simple-dropdown>
                         </div>
                       </div>
@@ -263,9 +263,9 @@
                               placeholder="Account Receivable"
                               formControlName="accountReceivable"
                               formClassName="full-width"
-                              [optionList]="ngxsService.accountsLevel4$"
+                              [optionList]="ngxsService.accountsReceivable$"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
-                              [errorMessage]="formErrors.accountReceivable">
+                              [errorMessage]="formErrors.accountReceivable$">
                             </kt-simple-dropdown>
                         </div>
                       </div>

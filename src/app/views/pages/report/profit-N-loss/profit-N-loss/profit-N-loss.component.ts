@@ -101,6 +101,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         headerName: 'Total',
         field: 'balance',
         aggFunc: 'sum',
+        suppressMenu: true,
         valueFormatter: (param: ValueFormatterParams) => {
           return this.valueFormatter(param.value)
           // Math.sign(param.value) === -1 ? `(${Math.abs(param.value).toLocaleString()})` : param.value.toString().toLocaleString()
@@ -108,10 +109,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         
       },
     ];
-    this.defaultColDef = {
-      width: 100,
-      resizable: false,
-    };
   }
 
   ngOnInit(): void {
@@ -141,6 +138,17 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     //this.ngxsService.getLocationFromState();
     // get department from state
     //this.ngxsService.getDepatmentFromState();
+    this.defaultColDef = {
+      filter: true,
+      resizable: true,
+      menuTabs: ["filterMenuTab"],
+    };
+   
+    this.autoGroupColumnDef = {
+      headerName: 'Nature',
+      menuTabs: ["filterMenuTab"],
+      filterValueGetter: (params) => params.data.nature
+    }
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {

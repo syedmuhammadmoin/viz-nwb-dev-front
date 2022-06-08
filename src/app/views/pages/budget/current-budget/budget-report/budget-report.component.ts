@@ -73,40 +73,36 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    {headerName: 'Budget Name', field: 'budgetName', sortable: true, filter: true},
+    {headerName: 'Budget Name', field: 'budgetName', suppressMenu: true},
     {
       headerName: 'Date', 
-      field: 'to', 
-      sortable: true, 
-      filter: true,
+      field: 'to',
+      suppressMenu: true,
       cellRenderer: (params: ICellRendererParams) => {
         return this.dateHelperService.transformDate(params.data.to, 'MMM d, y')
       }
     },
-    {headerName: 'Account', field: 'account', filter: true},
+    {headerName: 'Account', field: 'account', suppressMenu: true},
     {
       headerName: 'Budget Amount', 
-      field: 'budgetAmount', 
-      sortable: true, 
-      filter: true,
+      field: 'budgetAmount',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams ) => {
         return this.valueFormatter(params.value)
       }
     },
     {
       headerName: 'Incurred Amount', 
-      field: 'incurredAmount', 
-      sortable: true, 
-      filter: true,
+      field: 'incurredAmount',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams ) => {
         return this.valueFormatter(params.value)
       }
     },
     {
       headerName: 'Balance', 
-      field: 'balanceRemaining', 
-      sortable: true, 
-      filter: true,
+      field: 'balanceRemaining',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams ) => {
         return this.valueFormatter(params.value)
       }

@@ -94,6 +94,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         headerName: 'Total',
         field: 'balance',
         aggFunc: 'sum',
+        suppressMenu: true,
         valueFormatter: (param) => {
           return this.valueFormatter(param.value)
           // Math.sign(param.value) === -1 ? `(${Math.abs(param.value).toLocaleString()})` : (param.value).toLocaleString()
@@ -101,10 +102,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       
       },
     ];
-    this.defaultColDef = {
-      width: 100,
-      resizable: false,
-    };
   }
 // ng oninit 
   ngOnInit() {
@@ -134,6 +131,17 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
     this.gridOptions = ({} as GridOptions);
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
+
+    this.defaultColDef = {
+      filter: true,
+      resizable: true,
+      menuTabs: ["filterMenuTab"],
+    };
+   
+    this.autoGroupColumnDef = {
+      menuTabs: ["filterMenuTab"],
+      filterValueGetter: (params) => params.data.nature
+    }
   }
   // to auto size of column
   onFirstDataRendered(params: any) {
