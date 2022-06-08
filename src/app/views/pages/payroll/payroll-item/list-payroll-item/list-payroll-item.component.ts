@@ -44,24 +44,43 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
   }
 
   columnDefs = [
-    { headerName: 'Item Code', field: 'itemCode', sortable: true, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Item Name', field: 'name', sortable: true, filter: true, tooltipField: 'name'},
+    { 
+      headerName: 'Item Code', 
+      field: 'itemCode', 
+      tooltipField: 'name', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Item Name', 
+      field: 'name', 
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     { 
       headerName: 'Payroll Type', 
       field: 'payrollType', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => { 
         return PayrollType[params.value];
       }
      },
     { 
       headerName: 'Item Type', 
-      field: 'payrollItemType', 
-      sortable: true, 
-      filter: true, 
+      field: 'payrollItemType',  
       tooltipField: 'name',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => { 
         return PayrollItemType[params.value];
       }
@@ -69,28 +88,28 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
     {
       headerName: 'Account',
       field: 'accountName',
-      sortable: true,
-      filter: true,
-      tooltipField: 'name'
+      tooltipField: 'name',
+      suppressMenu: true,
     },
     {
       headerName: 'Value',
       field: 'value',
-      sortable: true,
-      filter: true,
       tooltipField: 'name',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => { 
         return this.valueFormatter(params.value);
       }
     },
-    // {
-    //   headerName: 'Remarks', field: 'remarks', sortable: true, filter: true
-    // },
     { 
       headerName: 'Active', 
       field: 'isActive', 
-      sortable: true, 
-      filter: true, 
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Yes', 'No'],
+          defaultToNothingSelected: true,
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
          return (params.value === true) ? 'Yes' : "No"
       }
@@ -112,7 +131,11 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -138,6 +161,21 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
     this.router.navigate(['/' + PAYROLL_ITEM.ID_BASED_ROUTE('edit', event.data.id)]);
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getPayrollItems(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'payrollItemPageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -145,25 +183,36 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
   }
 
   async getPayrollItems(params: any): Promise<IPaginationResponse<IPayrollItem[]>> {
-    const result = await this.payrollItemService.getPayrollItems(params).toPromise()
+    const result = await this.payrollItemService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getPayrollItems(params);
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'payrollItemPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // async getPayrollItems(params: any): Promise<IPaginationResponse<IPayrollItem[]>> {
+  //   const result = await this.payrollItemService.getPayrollItems(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getPayrollItems(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'payrollItemPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 }
 
 

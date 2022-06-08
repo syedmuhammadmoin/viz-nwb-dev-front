@@ -13,7 +13,14 @@ export abstract class AppServiceBase {
 
   getfilterParams(params: any, date?: any, name?: any) {
     console.log('params', params);
+
+    let isActive: boolean | any = '';
     let status = '';
+
+    if (params?.filterModel?.isActive?.values.length === 1) {
+      isActive = (params?.filterModel?.isActive?.values[0] === 'Yes') ? true : false
+    }
+
     if (params?.filterModel?.status?.values.length === 1) {
       AppConst.filterStatus.forEach((val) => val.value === params.filterModel.status.values[0] ? status = (val.id).toString() : '')
     }
@@ -25,9 +32,11 @@ export abstract class AppServiceBase {
     httpParams = httpParams.append('Account', params?.filterModel?.accountTitle?.filter || '');
     
     httpParams = httpParams.append('docNo', (params?.filterModel?.docNo?.filter || params?.filterModel?.cnic?.filter) ||'');
-    httpParams = httpParams.append('businessPartner', (params?.filterModel?.businessPartnerName?.filter || params?.filterModel?.customerName?.filter || params?.filterModel?.vendorName?.filter) || '');
-    httpParams = httpParams.append('department', (params?.filterModel?.department?.filter) || '');
-    httpParams = httpParams.append('designation', (params?.filterModel?.designation?.filter) || '');
+    httpParams = httpParams.append('businessPartner', (params?.filterModel?.businessPartnerName?.filter || params?.filterModel?.customerName?.filter || params?.filterModel?.vendorName?.filter ||  params?.filterModel?.employee?.filter) || '');
+    httpParams = httpParams.append('department', (params?.filterModel?.departmentName?.filter || params?.filterModel?.department?.filter) || '');
+    httpParams = httpParams.append('designation', (params?.filterModel?.designationName?.filter || params?.filterModel?.designation?.filter) || '');
+    httpParams = httpParams.append('isActive', isActive);
+    httpParams = httpParams.append('itemCode', (params?.filterModel?.itemCode?.filter) || '' );
     httpParams = httpParams.append('docDate', date || '');
     httpParams = httpParams.append('dueDate', this.dateHelperService.transformDate(params?.filterModel?.dueDate?.dateFrom, 'MM/d/y') || '');
     httpParams = httpParams.append('state', status);

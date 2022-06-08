@@ -71,6 +71,14 @@ export class ChartOfAccountService {
     return this.httpClient.get<any>(environment.baseUrl + 'level4/payables');
   }
 
+  getReceivableAccounts(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + 'level4/receivables');
+  }
+
+  getOtherAccounts(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + 'level4/OtherAccounts');
+  }
+
   getBudgetAccounts(): Observable<any> {
     return this.httpClient.get<any>(environment.baseUrl + 'level4/budgetAccounts');
   }

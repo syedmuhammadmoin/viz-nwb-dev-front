@@ -1,21 +1,22 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPayrollItem } from '../model/IPayrollItem';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class PayrollItemService {
+export class PayrollItemService extends AppServiceBase{
 
   baseUrl = environment.baseUrl + 'payrollItem';
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getPayrollItems(params: any): Observable<IPaginationResponse<IPayrollItem[]>> {
         let httpParams = new HttpParams();
@@ -36,6 +37,10 @@ export class PayrollItemService {
                 'Content-Type': 'application/json'
             })
         });
+    }
+
+    getRecords(params: any): Observable<any> {
+       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null)});
     }
 
     updatePayrollItem(payrollItemModel: IPayrollItem): Observable<any> {

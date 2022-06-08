@@ -89,12 +89,19 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    { headerName: 'Faculty', field: 'faculty', sortable: true, filter: true, tooltipField: 'name' },
-    { headerName: 'Shift', field: 'dutyShift', sortable: true, filter: true, tooltipField: 'name' },
+    { headerName: 'Faculty', field: 'faculty', suppressMenu: true, tooltipField: 'name' },
+    { headerName: 'Shift', field: 'dutyShift', suppressMenu: true, tooltipField: 'name' },
     {
       headerName: 'Active',
       field: 'isActive',
       tooltipField: 'name',
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Yes', 'No'],
+          defaultToNothingSelected: true,
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => { 
         return (params.value) ? "Yes" : "No"
       }
