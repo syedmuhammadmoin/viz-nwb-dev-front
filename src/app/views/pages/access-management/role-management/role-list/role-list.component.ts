@@ -61,7 +61,7 @@ export class RoleListComponent implements OnInit {
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       resizable: true,
-      filter: 'agSetColumnFilter'
+      filter: 'agSetColumnFilter' 
     }
 
     this.frameworkComponents = { customTooltip: CustomTooltipComponent };

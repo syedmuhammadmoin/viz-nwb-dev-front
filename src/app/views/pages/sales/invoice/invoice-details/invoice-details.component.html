@@ -136,11 +136,10 @@
                           <th>Amount</th>
                         </tr>
                         <tr *ngFor="let pay of paidAmountList">
-                          <td><a
-                              [routerLink]="(pay?.docType === 0) ? ('/' + PAYMENT.ID_BASED_ROUTE('details', pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
+                          <td><a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
                               class="links">{{pay?.docNo}}</a></td>
                           <td>
-                            <a [routerLink]="(pay?.docType === 0) ? ('/' + PAYMENT.ID_BASED_ROUTE('details', pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
+                            <a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
                               class="links">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
@@ -150,7 +149,8 @@
                 </td>
               </tr>
 
-              <tr *ngIf="(invoiceMaster?.transactionId)">
+              <!-- <tr *ngIf="(invoiceMaster?.transactionId)"> -->
+                <tr *ngIf="(pendingAmount)">
                 <th class="text-right"
                   style="background-image: linear-gradient(to right, #1a6b85, #4a8a9e); color: #fff;">Pending Amount :
                 </th>
