@@ -144,8 +144,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
     // get vendor from state
     this.ngxsService.getBusinessPartnerFromState();
-    // get Accounts of level 4 from state
-    this.ngxsService.getAccountLevel4FromState()
+    // get Other Accounts From State
+    this.ngxsService.getOtherAccountsFromState()
     // get Ware house location from state
     this.ngxsService.getWarehouseFromState();
     // get item from state

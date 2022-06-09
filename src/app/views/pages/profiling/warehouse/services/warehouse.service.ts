@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { IWarehouse } from '../model/IWarehouse'
@@ -6,16 +6,17 @@ import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class WarehouseService {
+export class WarehouseService extends AppServiceBase {
 
     baseUrl = environment.baseUrl + 'Warehouse';
     
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getWarehouses(params: any): Observable<IPaginationResponse<IWarehouse[]>> {
         let httpParams = new HttpParams();
@@ -24,17 +25,14 @@ export class WarehouseService {
         httpParams = httpParams.append('PageEnd', params?.endRow);
            
         return this.httpClient.get<IPaginationResponse<IWarehouse[]>>(this.baseUrl,{ params: httpParams})
-            .pipe(catchError(this.handleError));
     }
 
     getWarehousesDropdown(): Observable<IApiResponse<IWarehouse[]>> {
         return this.httpClient.get<IApiResponse<IWarehouse[]>>(this.baseUrl + '/dropdown')
-            .pipe(catchError(this.handleError));
     }
 
     getWarehouse(id: number): Observable<IApiResponse<IWarehouse>> {
         return this.httpClient.get<IApiResponse<IWarehouse>>(`${this.baseUrl}/${id}`)
-            .pipe(catchError(this.handleError));
     }
 
     addWarehouse(warehouse: IWarehouse): Observable<IWarehouse>{
@@ -42,7 +40,7 @@ export class WarehouseService {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
-        }).pipe(catchError(this.handleError));
+        })
     }
 
     updateWarehouse(warehouse: IWarehouse): Observable<void> {
@@ -51,21 +49,9 @@ export class WarehouseService {
                 'Content-Type': 'application/json'
             })
         })
-            .pipe(catchError(this.handleError));
     }
 
-    deleteWarehouse(id: number) : Observable<void>{
-        return this.httpClient.delete<void>(`${this.baseUrl}/${id}`)
-        .pipe(catchError(this.handleError));
-    }
-
-    // for error handling.....
-    private handleError(errorResponse: HttpErrorResponse) {
-        if (errorResponse.error instanceof ErrorEvent) {
-            console.error('Client Side Error :', errorResponse.error.message);
-        } else {
-            console.error('Server Side Error :', errorResponse);
-        }
-        return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
+    getRecords(params: any): Observable<any> {
+       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter)});
     }
 }

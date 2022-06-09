@@ -39,7 +39,17 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
   }
 
   columnDefs = [
-    { headerName: 'Name', field: 'name', sortable: true, filter: true , cellRenderer: "loadingCellRenderer" },
+    { 
+      headerName: 'Name', 
+      field: 'name',
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
   ];
 
   ngOnInit() {
@@ -56,9 +66,13 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
 
     //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    // this.defaultColDef = {
-    //   tooltipComponent: 'customTooltip'
-    // }
+    this.defaultColDef = {
+     // tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
+    }
 
     this.components = {
       loadingCellRenderer: function (params: any) {
@@ -75,6 +89,21 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
     params.api.sizeColumnsToFit();
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getDepartments(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'departmentPageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -82,25 +111,37 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
   }
 
   async getDepartments(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.departmentService.getDepartments(params).toPromise()
+    const result = await this.departmentService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getDepartments(params);
+//   onGridReady(params: GridReadyEvent) {
+//     this.gridApi = params.api;
+//     this.gridColumnApi = params.columnApi;
+//     params.api.setDatasource(this.dataSource);
+//   }
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'departmentPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+//   async getDepartments(params: any): Promise<IPaginationResponse<[]>> {
+//     const result = await this.departmentService.getDepartments(params).toPromise()
+//     return result
+//   }
+
+//   dataSource = {
+//     getRows: async (params: any) => {
+//      const res = await this.getDepartments(params);
+
+//      if(isEmpty(res.result)) {  
+//       this.gridApi.showNoRowsOverlay() 
+//     } else {
+//      this.gridApi.hideOverlay();
+//     }
+//      //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+//      params.successCallback(res.result || 0, res.totalRecords);
+//      this.paginationHelper.goToPage(this.gridApi, 'departmentPageName')
+//      this.cdRef.detectChanges();
+//    },
+//   };
+// }
 }
 
 

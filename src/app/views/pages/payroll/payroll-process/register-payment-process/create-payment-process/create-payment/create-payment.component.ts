@@ -50,32 +50,34 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      filter:true,
+      suppressMenu: true,
     },
     {
       headerName: 'CNIC', field: 'cnic',
-      filter:true,
+      suppressMenu: true,
     },
     {
       headerName: 'Designation', field: 'designation',
-      filter:true,
+      suppressMenu: true,
     },
     {
       headerName: 'Department',
       field: 'department',
-      filter:true,
+      suppressMenu: true,
     },
     {
       headerName: 'Working Days',
       // editable: true,
       field: 'workingDays',
       tooltipField: 'workingDays',
+      suppressMenu: true,
     },
     {
       headerName: 'Present Days',
       // editable: true,
       field: 'presentDays',
-      tooltipField: 'presentDays'
+      tooltipField: 'presentDays',
+      suppressMenu: true,
     },
 /*    {
       headerName: 'Tax',
@@ -85,6 +87,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Net Salary',
       field: 'netSalary',
+      suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -92,7 +95,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Status',
       field: 'status',
-      filter:true,
+      suppressMenu: true,
     },
   ];
 

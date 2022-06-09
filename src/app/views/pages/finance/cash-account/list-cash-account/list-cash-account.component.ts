@@ -49,17 +49,20 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       
       headerName: 'Cash Account Name', 
       field: 'cashAccountName', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'handler',
-      cellRenderer: "loadingCellRenderer"
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
     },
     {
       headerName: 'Manager / Handler', 
       field: 'handler', 
-      sortable: true, 
-      filter: true ,
       tooltipField: 'handler',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) || 'N/A'
       }
@@ -67,14 +70,18 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
     {
       headerName: 'Opening Balance', 
       field: 'openingBalance' , 
-      sortable: true, 
-      filter: true ,
       tooltipField: 'handler',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'
       }
     },
-    {headerName: 'Campus', field: 'campusName', sortable: true, filter: true, tooltipField: 'handler'},
+    {
+      headerName: 'Campus',
+      field: 'campusName',
+      tooltipField: 'handler',
+      suppressMenu: true,
+    },
   ];
 
   ngOnInit() {
@@ -92,7 +99,11 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -126,28 +137,10 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
     });
   }
 
-  onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
-  }
-
-  async getCashAccounts(params: any): Promise<IPaginationResponse<ICashAccount[]>> {
-    const result = await this.cashAccountService.getCashAccounts(params).toPromise()
-    return result
-  }
-
   dataSource = {
     getRows: async (params: any) => {
-      console.log(params)
      const res = await this.getCashAccounts(params);
-
-    // if(res.result) { 
-    //   this.gridApi.showNoRowsOverlay() 
-    // } else {
-    //  this.gridApi.hideOverlay();
-    // }
-    if(isEmpty(res.result)) { 
+     if(isEmpty(res.result)) {  
       this.gridApi.showNoRowsOverlay() 
     } else {
       this.gridApi.hideOverlay();
@@ -158,6 +151,50 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
      this.cdRef.detectChanges();
    },
   };
+
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
+  }
+
+  async getCashAccounts(params: any): Promise<IPaginationResponse<ICashAccount[]>> {
+    const result = await this.cashAccountService.getRecords(params).toPromise()
+    return result
+  }
+
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
+
+  // async getCashAccounts(params: any): Promise<IPaginationResponse<ICashAccount[]>> {
+  //   const result = await this.cashAccountService.getCashAccounts(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //     console.log(params)
+  //    const res = await this.getCashAccounts(params);
+
+  //   // if(res.result) { 
+  //   //   this.gridApi.showNoRowsOverlay() 
+  //   // } else {
+  //   //  this.gridApi.hideOverlay();
+  //   // }
+  //   if(isEmpty(res.result)) { 
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //     this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'cashAccountPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // getCashAccounts() {
   //   this.cashAccountService.getCashAccounts().subscribe((res: IPaginationResponse<ICashAccount[]>) => {

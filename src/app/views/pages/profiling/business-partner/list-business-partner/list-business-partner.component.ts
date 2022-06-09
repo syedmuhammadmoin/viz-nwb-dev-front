@@ -10,6 +10,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
 import { LoadingCellRenderer } from 'ag-grid-community/dist/lib/rendering/cellRenderers/loadingCellRenderer';
 import { isEmpty } from 'lodash';
+import { truncate } from 'fs';
 
 @Component({
   selector: 'kt-list-business-partner',
@@ -49,17 +50,20 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     {
       headerName: 'Name', 
       field: 'name', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer"
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
     },
     {
       headerName: 'Type',
       field: 'businessPartnerType',
-      sortable: true,
-      filter: true ,
       tooltipField: 'name',
+      suppressMenu: true,
       cellRenderer: (params: ICellRendererParams) => {
         return BusinessPartnerType[params.value]
       }
@@ -67,9 +71,8 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     {
       headerName: 'Phone No', 
       field: 'phone', 
-      sortable: true, 
-      filter: true ,
       tooltipField: 'name',
+      suppressMenu: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value  : "N/A"
       }
@@ -78,9 +81,8 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     {
       headerName: 'Bank Account Title', 
       field: 'bankAccountTitle', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
+      suppressMenu: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value  : "N/A"
       } 
@@ -88,9 +90,8 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     {
       headerName: 'Bank Account Number', 
       field: 'bankAccountNumber', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
+      suppressMenu: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value  : "N/A"
       }
@@ -112,7 +113,11 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -146,6 +151,21 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     });
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getBusinessPartners(params);
+      if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'businessPartnerPageName');
+      this.cdRef.detectChanges();
+    },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -153,25 +173,36 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   }
 
   async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
-    const result = await this.ngxsService.businessPartnerService.getBusinessPartners(params).toPromise()
+    const result = await this.ngxsService.businessPartnerService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getBusinessPartners(params);
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'businessPartnerPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
+  //   const result = await this.ngxsService.businessPartnerService.getBusinessPartners(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getBusinessPartners(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'businessPartnerPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // getBusinessPartners() : void {
   //   this.ngxsService.businessPartnerService.getBusinessPartners().subscribe((res: IPaginationResponse<IBusinessPartner[]>) => {

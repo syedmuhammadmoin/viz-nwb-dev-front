@@ -50,23 +50,23 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       field: 'docNo',
       tooltipField: 'docNo',
       cellRenderer: 'loadingCellRenderer',
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['contains'],
-      //   suppressAndOrCondition: true,
-      // },
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
     },
     {
       headerName: 'Employee Name ',
       field: 'employee',
       tooltipField: 'docNo',
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['contains'],
-      //   suppressAndOrCondition: true,
-      // },
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
     },
     // {
     //   headerName: 'CNIC',
@@ -83,6 +83,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Month',
       field: 'month',
       tooltipField: 'docNo',
+      suppressMenu: true,
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       // filterParams: {
@@ -98,6 +99,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Year',
       field: 'year',
       tooltipField: 'docNo',
+      suppressMenu: true,
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       // filterParams: {
@@ -109,23 +111,23 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Designation',
       field: 'designation',
       tooltipField: 'docNo',
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['contains'],
-      //   suppressAndOrCondition: true,
-      // },
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
     },
     {
       headerName: 'Department',
       field: 'department',
       tooltipField: 'docNo',
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['contains'],
-      //   suppressAndOrCondition: true,
-      // },
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
     },
     // {
     //   headerName: 'Transaction Date',
@@ -199,23 +201,15 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Status',
       field: 'status',
-      // filter: 'agSetColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   values: [
-      //     'Draft',
-      //     'Rejected',
-      //     'Unpaid',
-      //     'Partial',
-      //     'Paid',
-      //     'Submitted',
-      //     'Reviewed',
-      //   ],
-      //   defaultToNothingSelected: true,
-      //   suppressSorting: true,
-      //   suppressSelectAll: true,
-      //   suppressAndOrCondition: true,
-      //},
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        values: ['Draft', 'Rejected', 'Unpaid', 'Partial','Paid','Submitted','Reviewed'],
+        defaultToNothingSelected: true,
+        suppressSorting: true,
+        suppressSelectAll: true,
+        suppressAndOrCondition: true,
+      },
     }
   ];
 
@@ -235,7 +229,10 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
-      maxWidth: 150
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -261,6 +258,21 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getPayrollTransactions(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'payrollTransactionPageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -268,25 +280,36 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
   }
 
   async getPayrollTransactions(params: any): Promise<IPaginationResponse<IPayrollTransaction[]>> {
-    const result = await this.payrollTransactionService.getPayrollTransactions(params).toPromise()
+    const result = await this.payrollTransactionService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getPayrollTransactions(params);
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-     if(isEmpty(res.result)) { 
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'payrollTransactionPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // async getPayrollTransactions(params: any): Promise<IPaginationResponse<IPayrollTransaction[]>> {
+  //   const result = await this.payrollTransactionService.getPayrollTransactions(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getPayrollTransactions(params);
+
+  //    if(isEmpty(res.result)) { 
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'payrollTransactionPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 }
 
 

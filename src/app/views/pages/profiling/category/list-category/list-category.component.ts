@@ -46,14 +46,18 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     { 
       headerName: 'Name', 
       field: 'name', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer"
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
      },
-    { headerName: 'Assets Account', field: 'inventoryAccount', sortable: true, filter: true, tooltipField: 'name' },
-    { headerName: 'Revenue Account', field: 'revenueAccount', sortable: true, filter: true, tooltipField: 'name' },
-    { headerName: 'Cost Account', field: 'costAccount', sortable: true, filter: true, tooltipField: 'name' }
+    { headerName: 'Assets Account', field: 'inventoryAccount', suppressMenu: true, tooltipField: 'name' },
+    { headerName: 'Revenue Account', field: 'revenueAccount', suppressMenu: true, tooltipField: 'name' },
+    { headerName: 'Cost Account', field: 'costAccount', suppressMenu: true }
   ];
 // implimentation of ng OnInit
   ngOnInit() { 
@@ -71,7 +75,11 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -107,6 +115,21 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     });
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getCategories(params);
+      if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'categoryPageName');
+      this.cdRef.detectChanges();
+    },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -114,25 +137,36 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
   }
 
   async getCategories(params: any): Promise<IPaginationResponse<ICategory[]>> {
-    const result = await this.categoryService.getCategories(params).toPromise()
+    const result = await this.categoryService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getCategories(params);
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-     if(isEmpty(res.result)) { 
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'categoryPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // async getCategories(params: any): Promise<IPaginationResponse<ICategory[]>> {
+  //   const result = await this.categoryService.getCategories(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getCategories(params);
+
+  //    if(isEmpty(res.result)) { 
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'categoryPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // getCategories () : void {
   //   this.categoryService.getCategories().subscribe((res: IPaginationResponse<ICategory[]>) => {

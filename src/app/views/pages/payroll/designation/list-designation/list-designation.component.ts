@@ -40,7 +40,17 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     }
   
     columnDefs = [
-      { headerName: 'Name', field: 'name', sortable: true, filter: true , cellRenderer: "loadingCellRenderer" },
+      { 
+        headerName: 'Name', 
+        field: 'name', 
+        cellRenderer: "loadingCellRenderer",
+        filter: 'agTextColumnFilter',
+          menuTabs: ['filterMenuTab'],
+          filterParams: {
+            filterOptions: ['contains'],
+            suppressAndOrCondition: true,
+        },
+      },
     ];
   
     ngOnInit() {
@@ -57,9 +67,13 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
   
       //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
   
-      // this.defaultColDef = {
-      //   tooltipComponent: 'customTooltip'
-      // }
+      this.defaultColDef = {
+        tooltipComponent: 'customTooltip',
+        flex: 1,
+        minWidth: 150,
+        filter: 'agSetColumnFilter',
+        resizable: true,
+      }
   
       this.components = {
         loadingCellRenderer: function (params: any) {
@@ -75,6 +89,21 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     onFirstDataRendered(params: FirstDataRenderedEvent) {
       params.api.sizeColumnsToFit();
     }
+
+    dataSource = {
+      getRows: async (params: any) => {
+       const res = await this.getDesignations(params);
+       if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+       params.successCallback(res.result || 0, res.totalRecords);
+       this.paginationHelper.goToPage(this.gridApi, 'designationPageName');
+       this.cdRef.detectChanges();
+     },
+    };
   
     onGridReady(params: GridReadyEvent) {
       this.gridApi = params.api;
@@ -83,25 +112,36 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     }
   
     async getDesignations(params: any): Promise<IPaginationResponse<[]>> {
-      const result = await this.designationService.getDesignations(params).toPromise()
+      const result = await this.designationService.getRecords(params).toPromise()
       return result
     }
   
-    dataSource = {
-      getRows: async (params: any) => {
-       const res = await this.getDesignations(params);
+    // onGridReady(params: GridReadyEvent) {
+    //   this.gridApi = params.api;
+    //   this.gridColumnApi = params.columnApi;
+    //   params.api.setDatasource(this.dataSource);
+    // }
   
-       if(isEmpty(res.result)) { 
-        this.gridApi.showNoRowsOverlay() 
-      } else {
-       this.gridApi.hideOverlay();
-      }
-       //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-       params.successCallback(res.result || 0, res.totalRecords);
-       this.paginationHelper.goToPage(this.gridApi, 'designationPageName')
-       this.cdRef.detectChanges();
-     },
-    };
+    // async getDesignations(params: any): Promise<IPaginationResponse<[]>> {
+    //   const result = await this.designationService.getDesignations(params).toPromise()
+    //   return result
+    // }
+  
+    // dataSource = {
+    //   getRows: async (params: any) => {
+    //    const res = await this.getDesignations(params);
+  
+    //    if(isEmpty(res.result)) { 
+    //     this.gridApi.showNoRowsOverlay() 
+    //   } else {
+    //    this.gridApi.hideOverlay();
+    //   }
+    //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+    //    params.successCallback(res.result || 0, res.totalRecords);
+    //    this.paginationHelper.goToPage(this.gridApi, 'designationPageName')
+    //    this.cdRef.detectChanges();
+    //  },
+    // };
   }
   
   

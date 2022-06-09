@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { WarehouseService} from '../services/warehouse.service';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
 import { MatDialog} from "@angular/material/dialog";
 import { CreateWarehouseComponent} from "../create-warehouse/create-warehouse.component";
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -47,16 +47,28 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Name', 
       field: 'name', 
-      sortable: true, 
-      filter: true , 
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer"
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
     },
     // {headerName: 'Country', field: 'country', sortable: true, filter: true, tooltipField: 'name'},
     // {headerName: 'State', field: 'state', sortable: true, filter: true, tooltipField: 'name'},
     // {headerName: 'City', field: 'city', sortable: true, filter: true, tooltipField: 'name'},
-    {headerName: 'Store Officer/Incharge', field: 'storeManager', sortable: true, filter: true, tooltipField: 'name'},
-    {headerName: 'Campus', field: 'campusName', sortable: true, filter: true, tooltipField: 'name'},
+    {
+      headerName: 'Store Officer/Incharge', 
+      field: 'storeManager',
+      tooltipField: 'name',
+      suppressMenu: true,
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+    },
+    {headerName: 'Campus', field: 'campusName', suppressMenu: true, tooltipField: 'name'},
   ];
 
   ngOnInit() {
@@ -74,7 +86,11 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -108,6 +124,20 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
     });
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getWarehouses(params);
+      if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'warehousePageName')
+      this.cdRef.detectChanges();
+    },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -115,24 +145,35 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
   }
 
   async getWarehouses(params: any): Promise<IPaginationResponse<IWarehouse[]>> {
-    const result = await this.warehouseService.getWarehouses(params).toPromise()
+    const result = await this.warehouseService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getWarehouses(params);
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'warehousePageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
+
+  // async getWarehouses(params: any): Promise<IPaginationResponse<IWarehouse[]>> {
+  //   const result = await this.warehouseService.getWarehouses(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getWarehouses(params);
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'warehousePageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // getWarehouses() : void {
   //   this.warehouseService.getWarehouses().subscribe((res: IPaginationResponse<IWarehouse[]>) => {

@@ -45,24 +45,29 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
       field: 'businessPartner',
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
-      checkboxSelection: true,
+      checkboxSelection: true, 
+      suppressMenu: true,
     },
     {
-      headerName: 'Doc #', field: 'docNo',
+      headerName: 'Doc #', field: 'docNo', 
+      suppressMenu: true,
     },
 
 
     {
       headerName: 'Account Payable',
-      field: 'account',
+      field: 'account', 
+      suppressMenu: true,
     },
     {
       headerName: 'Register',
-      field: 'paymentRegister',
+      field: 'paymentRegister', 
+      suppressMenu: true,
     },
     {
       headerName: 'Date',
-      field: 'paymentDate',
+      field: 'paymentDate', 
+      suppressMenu: true,
       valueFormatter: (params) => {
         console.log(params.value);
         console.log(new Date(params.value))
@@ -71,14 +76,16 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     },
     {
       headerName: 'Net Payment',
-      field: 'netPayment',
+      field: 'netPayment', 
+      suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
     },
     {
       headerName: 'Status',
-      field: 'status',
+      field: 'status', 
+      suppressMenu: true,
     },
   ];
 

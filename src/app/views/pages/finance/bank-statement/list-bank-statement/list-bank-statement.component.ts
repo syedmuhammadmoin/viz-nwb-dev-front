@@ -45,13 +45,22 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
 
 
     columnDefs = [
-      {headerName: 'Bank Account', field: 'bankAccountName', sortable: true, filter: true, tooltipField: 'description'},
-      {headerName: 'Description', field: 'description', sortable: true, filter: true ,tooltipField: 'description'},
+      {
+        headerName: 'Bank Account', 
+        field: 'bankAccountName', 
+        tooltipField: 'description',
+        filter: 'agTextColumnFilter',
+        menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+      },
+      {headerName: 'Description', field: 'description', suppressMenu: true ,tooltipField: 'description'},
       {
         headerName: 'Opening Balance', 
         field: 'openingBalance', 
-        sortable: true, 
-        filter: true ,
+        suppressMenu: true,
         tooltipField: 'description',
         valueFormatter: (params : ValueFormatterParams) => {
           return this.valueFormatter(params.value) || null
@@ -74,7 +83,11 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       this.frameworkComponents = {customTooltip: CustomTooltipComponent};
   
       this.defaultColDef = {
-        tooltipComponent: 'customTooltip'
+        tooltipComponent: 'customTooltip',
+        flex: 1,
+        minWidth: 150,
+        filter: 'agSetColumnFilter',
+        resizable: true,
       }
   
       this.components = {
@@ -100,32 +113,58 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       this.router.navigate(['/' + BANK_STATEMENT.ID_BASED_ROUTE('edit' ,  event.data.id )]);
     }
 
+    dataSource = {
+      getRows: async (params: any) => {
+       const res = await this.getBankStatements(params);
+       if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+       params.successCallback(res.result || 0, res.totalRecords);
+       this.paginationHelper.goToPage(this.gridApi, 'bankStatementPageName');
+       this.cdRef.detectChanges();
+     },
+    };
+  
     onGridReady(params: GridReadyEvent) {
       this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
       params.api.setDatasource(this.dataSource);
     }
   
-    async getBankStatements(params: any): Promise<IPaginationResponse<IBankStatement[]>> {
-      const result = await  this.bankStatementService.getBankStatements(params).toPromise()
+    async getBankStatements(params: any): Promise<IPaginationResponse<[]>> {
+      const result = await this.bankStatementService.getRecords(params).toPromise()
       return result
     }
-  
-    dataSource = {
-      getRows: async (params: any) => {
-       const res = await this.getBankStatements(params)
 
-       if(isEmpty(res.result)) {  
-        this.gridApi.showNoRowsOverlay() 
-      } else {
-       this.gridApi.hideOverlay();
-      }
-       //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-       params.successCallback(res.result || 0, res.totalRecords);
-       this.paginationHelper.goToPage(this.gridApi, 'bankStatementPageName')
-       this.cdRef.detectChanges();
-     },
-    };
+    // onGridReady(params: GridReadyEvent) {
+    //   this.gridApi = params.api;
+    //   this.gridColumnApi = params.columnApi;
+    //   params.api.setDatasource(this.dataSource);
+    // }
+  
+    // async getBankStatements(params: any): Promise<IPaginationResponse<IBankStatement[]>> {
+    //   const result = await  this.bankStatementService.getBankStatements(params).toPromise()
+    //   return result
+    // }
+  
+    // dataSource = {
+    //   getRows: async (params: any) => {
+    //    const res = await this.getBankStatements(params)
+
+    //    if(isEmpty(res.result)) {  
+    //     this.gridApi.showNoRowsOverlay() 
+    //   } else {
+    //    this.gridApi.hideOverlay();
+    //   }
+    //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+    //    params.successCallback(res.result || 0, res.totalRecords);
+    //    this.paginationHelper.goToPage(this.gridApi, 'bankStatementPageName')
+    //    this.cdRef.detectChanges();
+    //  },
+    // };
 
   //   getBankStatements() {
   //     this.bankStatementService.getBankStatements().subscribe((res: IPaginationResponse<IBankStatement[]>) => {

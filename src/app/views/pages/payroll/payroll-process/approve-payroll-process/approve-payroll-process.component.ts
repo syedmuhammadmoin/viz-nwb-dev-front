@@ -42,12 +42,12 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      filter: true,
+      suppressMenu: true,
     },
     {
       headerName: 'Transaction Date',
       field: 'transDate',
-      filter: true,
+      suppressMenu: true,
       cellRenderer: (params) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y');
       }
@@ -55,29 +55,32 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     {
       headerName: 'CNIC',
       field: 'cnic',
-      filter: true,
+      suppressMenu: true,
     },
     {
       headerName: 'Designation',
       field: 'designation',
-      filter: true,
+      suppressMenu: true,
     },
     {
       headerName: 'Department',
       field: 'department',
-      filter: true,
+      suppressMenu: true,
     },
     {
       headerName: 'Working Days',
-      field: 'workingDays'
+      field: 'workingDays',
+      suppressMenu: true,
     },
     {
       headerName: 'Present Days',
-      field: 'presentDays'
+      field: 'presentDays',
+      suppressMenu: true,
     },
     {
       headerName: 'Net Salary',
       field: 'netSalary',
+      suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -85,7 +88,7 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Status',
       field: 'status',
-      filter: true,
+      suppressMenu: true,
     },
   ];
 

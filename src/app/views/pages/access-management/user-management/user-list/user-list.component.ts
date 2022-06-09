@@ -22,9 +22,24 @@ export class UserListComponent implements OnInit {
 
 
   columnDefs = [
-    { headerName: 'S.No', valueGetter: 'node.rowIndex + 1', tooltipField: 'userName' },
-    { headerName: 'User Name', field: 'userName', sortable: true, filter: true, tooltipField: 'name' },
-    { headerName: 'Email', field: 'email', sortable: true, filter: true, tooltipField: 'name' },
+    { 
+      headerName: 'S.No', 
+      field: 'index', 
+      tooltipField: 'userName', 
+      suppressMenu: true
+    },
+    { 
+      headerName: 'User Name', 
+      field: 'userName', 
+      tooltipField: 'name',
+      menuTabs: ['filterMenuTab'],
+      filter: 'agTextColumnFilter',
+      filterParams : {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true
+      }
+     },
+    { headerName: 'Email', field: 'email', tooltipField: 'name', suppressMenu: true, },
   ];
 
 
@@ -47,7 +62,8 @@ export class UserListComponent implements OnInit {
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
-      resizable: false
+      resizable: true,
+      filter: 'agSetColumnFilter'
     }
 
     this.frameworkComponents = { customTooltip: CustomTooltipComponent };
@@ -75,7 +91,8 @@ export class UserListComponent implements OnInit {
 
   getUsers() {
     this.accessManagementService.getUsers().subscribe((res: any) => {
-      this.userList = res.result
+      this.userList = res.result;
+      if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       this.cdRef.detectChanges();
     });
   }

@@ -9,7 +9,7 @@ import { InvoiceService } from '../services/invoice.service';
 import { RegisterPaymentComponent } from '../register-payment/register-payment.component'
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ITransactionRecon } from '../../../purchase/vendorBill/model/ITransactionRecon';
-import { CREDIT_NOTE, INVOICE, PAYMENT } from 'src/app/views/shared/AppRoutes';
+import { CREDIT_NOTE, INVOICE, JOURNAL_ENTRY, RECEIPT } from 'src/app/views/shared/AppRoutes';
 import { IInvoiceLines } from '../model/IInvoiceLines';
 import { IInvoice } from '../model/IInvoice';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -34,8 +34,9 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   defaultColDef: ColDef;
 
   public INVOICE = INVOICE;
+  public JOURNAL_ENTRY = JOURNAL_ENTRY;
   public CREDIT_NOTE = CREDIT_NOTE;
-  public PAYMENT = PAYMENT;
+  public RECEIPT = RECEIPT;
 
   transactionReconModel: ITransactionRecon;
 

@@ -22,9 +22,24 @@ export class RoleListComponent implements OnInit {
 
 
   columnDefs = [
-    { headerName: 'S.No', valueGetter: 'node.rowIndex + 1', tooltipField: 'name' },
-    { headerName: 'Role Name', field: 'name', sortable: true, filter: true, tooltipField: 'name' },
-    // { headerName: 'Claims', field: 'claims', sortable: true, filter: true },
+    { 
+      headerName: 'S.No', 
+      //valueGetter: 'node.rowIndex + 1', 
+      field: 'index',
+      tooltipField: 'name',
+      suppressMenu: true,
+    },
+    { 
+      headerName: 'Role Name', 
+      field: 'name', 
+      tooltipField: 'name',
+      menuTabs: ['filterMenuTab'],
+      filter: 'agTextColumnFilter',
+      filterParams : {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true
+      }
+    },
   ];
   constructor(
     private accessManagementService: AccessManagementService,
@@ -45,10 +60,12 @@ export class RoleListComponent implements OnInit {
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
-      resizable: false
+      resizable: true,
+      filter: 'agSetColumnFilter' 
     }
 
     this.frameworkComponents = { customTooltip: CustomTooltipComponent };
+
   }
 
   onFirstDataRendered(params) {
@@ -73,6 +90,7 @@ export class RoleListComponent implements OnInit {
   getRoles() {
     this.accessManagementService.getRoles().subscribe((res: any) => {
       this.roleList = res.result
+      if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       this.cdRef.detectChanges();
     });
   }

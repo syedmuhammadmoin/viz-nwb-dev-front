@@ -49,20 +49,43 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
 
   // Declaring AgGrid data
   columnDefs = [
-    { headerName: 'JV #', field: 'docNo', sortable: true, filter: true, tooltipField: 'docNo', cellRenderer: "loadingCellRenderer", },
+    { 
+      headerName: 'JV #', 
+      field: 'docNo', 
+      tooltipField: 'docNo', 
+      cellRenderer: "loadingCellRenderer", 
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Date',
       field: 'date',
-      sortable: true,
-      filter: true,
       tooltipField: 'docNo',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, tooltipField: 'docNo' },
+    { 
+      headerName: 'Description', 
+      field: 'description', 
+      tooltipField: 'docNo',
+      suppressMenu: true,
+    },
     {
-      headerName: 'Debit', field: 'totalDebit', sortable: true, filter: true, tooltipField: 'docNo',
+      headerName: 'Debit', 
+      field: 'totalDebit',
+      tooltipField: 'docNo',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -75,7 +98,10 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       // }
     },
     {
-      headerName: 'Credit', field: 'totalCredit', sortable: true, filter: true, tooltipField: 'docNo',
+      headerName: 'Credit', 
+      field: 'totalCredit', 
+      tooltipField: 'docNo',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -83,9 +109,15 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     { 
       headerName: 'Status', 
       field: 'status', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'docNo'
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
     },
   ];
 
@@ -105,7 +137,11 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -134,37 +170,50 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+
+    var dataSource = {
+      getRows: (params: any) => {
+        this.journalEntryService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'journalEntryPageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
 
-  async getJournalEntries(params: any): Promise<IPaginationResponse<IJournalEntry[]>> {
-    const result = await this.journalEntryService.getJournalEntries(params).toPromise()
-    return result
-  }
-
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getJournalEntries(params)
-
-     if(isEmpty(res.result)) { 
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'journalEntryPageName')
-     this.cdRef.detectChanges();
-   },
-  };
-
-  // getJournalEntries() {
-  //   this.journalEntryService.getJournalEntries().subscribe(
-  //     (res: IPaginationResponse<IJournalEntry[]>) => {
-  //       this.journalEntryList = res.result;
-  //       this.cdRef.markForCheck();
-  //     })
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
   // }
+
+  // async getJournalEntries(params: any): Promise<IPaginationResponse<IJournalEntry[]>> {
+  //   const result = await this.journalEntryService.getJournalEntries(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getJournalEntries(params)
+
+  //    if(isEmpty(res.result)) { 
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'journalEntryPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 }
 
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { IVendorBill } from '../model/IVendorBill';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
@@ -9,17 +9,17 @@ import { IWorkflow } from '../model/IWorkflow';
 import { ITransactionRecon } from '../model/ITransactionRecon';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class VendorBillService {
+export class VendorBillService extends AppServiceBase {
 
     baseUrl = environment.baseUrl + 'bill';
-    constructor(private httpClient: HttpClient) {
-    }
+    constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getVendorBills(params: any): Observable<IPaginationResponse<IVendorBill[]>> {
         let httpParams = new HttpParams();
@@ -56,6 +56,10 @@ export class VendorBillService {
             'Content-Type': 'application/json'
           })
         })
+    }
+
+    getRecords(params: any): Observable<any> {
+      return this.httpClient.get(this.baseUrl, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.billDate?.dateFrom, 'MM/d/y'))});
     }
 }
 

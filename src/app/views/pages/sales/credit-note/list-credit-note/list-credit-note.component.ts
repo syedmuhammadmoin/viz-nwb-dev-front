@@ -47,20 +47,48 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
 
 
   columnDefs = [
-    { headerName: 'Credit Note #', field: 'docNo', sortable: true, filter: true, tooltipField: 'noteDate', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Customer', field: 'customerName', sortable: true, filter: true, tooltipField: 'noteDate', },
+    { 
+      headerName: 'Credit Note #', 
+      field: 'docNo',
+      tooltipField: 'noteDate', 
+      cellRenderer: "loadingCellRenderer" ,
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Customer', 
+      field: 'customerName',
+      tooltipField: 'noteDate', 
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Note Date',
       field: 'noteDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'noteDate',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
-      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'noteDate',
+      headerName: 'Total', 
+      field: 'totalAmount',
+      tooltipField: 'noteDate',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || null;
       }
@@ -68,9 +96,15 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     { 
       headerName: 'Status', 
       field: 'status', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'noteDate', 
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
     },,
   ];
 
@@ -89,7 +123,11 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -118,29 +156,50 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+
+    var dataSource = {
+      getRows: (params: any) => {
+        this.creditNoteService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'creditNotePageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
 
-  async getCreditNotes(params: any): Promise<IPaginationResponse<ICreditNote[]>> {
-    const result = await this.creditNoteService.getCreditNotes(params).toPromise()
-    return result
-  }
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getCreditNotes(params);
+  // async getCreditNotes(params: any): Promise<IPaginationResponse<ICreditNote[]>> {
+  //   const result = await this.creditNoteService.getCreditNotes(params).toPromise()
+  //   return result
+  // }
 
-     if(isEmpty(res.result)) { 
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'creditNotePageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getCreditNotes(params);
+
+  //    if(isEmpty(res.result)) { 
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'creditNotePageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // getCreditNoteList() {
   //   this.creditNoteService.getCreditNotes().subscribe((res: IPaginationResponse<ICreditNote[]>) => {

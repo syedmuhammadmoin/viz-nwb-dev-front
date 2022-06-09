@@ -46,14 +46,39 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { headerName: 'Invoice #', field: 'docNo', sortable: true, filter: true, tooltipField: 'docNo', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Customer', field: 'customerName', sortable: true, filter: true, tooltipField: 'docNo', },
+    { 
+      headerName: 'Invoice #', 
+      field: 'docNo', 
+      tooltipField: 'docNo', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Customer', 
+      field: 'customerName', 
+      tooltipField: 'docNo',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Invoice Date',
       field: 'invoiceDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'docNo',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => { 
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
@@ -61,15 +86,22 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Due Data',
       field: 'dueDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'docNo',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
-      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'docNo',
+      headerName: 'Total', 
+      field: 'totalAmount',
+      tooltipField: 'docNo',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || null;
       }
@@ -77,9 +109,15 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     { 
       headerName: 'Status', 
       field: 'status', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'docNo',
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
     },
   ];
 
@@ -98,7 +136,11 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -124,13 +166,6 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
-  // getInvoiceList() {
-  //   this.invoiceService.getInvoices().subscribe((res: IPaginationResponse<IInvoice[]>) => {
-  //       this.invoiceList = res.result;
-  //       this.cdRef.markForCheck();
-  //     })
-  // }
-
   agingReport() {
     this.router.navigate(['/' + INVOICE.AGING_REPORT]);
   }
@@ -138,29 +173,50 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+
+    var dataSource = {
+      getRows: (params: any) => {
+        this.invoiceService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'invoicePageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
 
-  async getInvoices(params: any): Promise<IPaginationResponse<IInvoice[]>> {
-    const result = await this.invoiceService.getInvoices(params).toPromise()
-    return result
-  }
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getInvoices(params);
+  // async getInvoices(params: any): Promise<IPaginationResponse<IInvoice[]>> {
+  //   const result = await this.invoiceService.getInvoices(params).toPromise()
+  //   return result
+  // }
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'invoicePageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getInvoices(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'invoicePageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 }
 
 

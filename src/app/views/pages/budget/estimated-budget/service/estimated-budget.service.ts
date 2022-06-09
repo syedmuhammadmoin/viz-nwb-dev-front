@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { environment } from 'src/environments/environment';
@@ -9,11 +10,11 @@ import { IEstimatedBudget } from '../model/IEstimatedBudget';
 @Injectable({
   providedIn: 'root'
 })
-export class EstimatedBudgetService {
+export class EstimatedBudgetService extends AppServiceBase{
 
   baseUrl = environment.baseUrl + 'EstimatedBudget';
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient, injector: Injector) { super(injector)}
 
   getEstimatedBudgets(params: any): Observable<IPaginationResponse<IEstimatedBudget[]>> {
     let httpParams = new HttpParams();
@@ -46,5 +47,9 @@ export class EstimatedBudgetService {
         'Content-Type': 'application/json'
       })
     })
+  }
+
+  getRecords(params: any): Observable<any> {
+    return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.estimatedBudgetName?.filter )});
   }
 }

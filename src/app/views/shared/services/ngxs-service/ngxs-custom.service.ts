@@ -39,6 +39,8 @@ import { BasicPayState } from 'src/app/views/pages/payroll/payroll-item/store/ba
 import { IncrementState } from 'src/app/views/pages/payroll/payroll-item/store/increment.state';
 import { DeductionState } from 'src/app/views/pages/payroll/payroll-item/store/deduction.state';
 import { PayrollItemService } from 'src/app/views/pages/payroll/payroll-item/service/payroll-item.service';
+import { OtherAccountState } from 'src/app/views/pages/finance/chat-of-account/store/other-account.state';
+import { AccountReceivableState } from 'src/app/views/pages/finance/chat-of-account/store/account-receivable.state';
 
 @Injectable({
   providedIn: 'root'
@@ -106,6 +108,16 @@ export class NgxsCustomService {
   @Select(AccountPayableState.entities) accountsPayable$: Observable<any>;
   @Select(AccountPayableState.isFetchCompleted) accountPayableFetchCompleted$: Observable<any>;
   @Select(AccountPayableState.isLoading) accountPayableIsLoading$: Observable<any>;
+
+  // Account Receivable
+  @Select(AccountReceivableState.entities) accountsReceivable$: Observable<any>;
+  @Select(AccountReceivableState.isFetchCompleted) accountReceivableFetchCompleted$: Observable<any>;
+  @Select(AccountReceivableState.isLoading) accountReceivableIsLoading$: Observable<any>;
+
+  // Other Accounts
+  @Select(OtherAccountState.entities) otherAccounts$: Observable<any>;
+  @Select(OtherAccountState.isFetchCompleted) otherAccountsFetchCompleted$: Observable<any>;
+  @Select(OtherAccountState.isLoading) otherAccountsIsLoading$: Observable<any>;
 
   // Budget Accounts
   @Select(BudgetAccountState.entities) budgetAccount$: Observable<any>;
@@ -317,6 +329,34 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(AccountPayableState, {
           serviceClass: this.chartOfAccountService,
           methodName: 'getPayableAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get All Receivable Accounts State From Store if available else fetch from the server and cache.
+  getAccountReceivableFromState() {
+    this.accountReceivableFetchCompleted$.subscribe((res) => {
+      //console.log('Account Receivable FetchCompleted: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(AccountReceivableState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getReceivableAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get All Other Accounts State From Store if available else fetch from the server and cache.
+  getOtherAccountsFromState() {
+    this.otherAccountsFetchCompleted$.subscribe((res) => {
+      //console.log('Other Account FetchCompleted: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(OtherAccountState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getOtherAccounts',
           context: this
         }))
       }

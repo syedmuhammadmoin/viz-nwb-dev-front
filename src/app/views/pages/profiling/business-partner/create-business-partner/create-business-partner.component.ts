@@ -81,9 +81,6 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     'accountReceivable': {
       'required': 'Account Receivable is required.',
     },
-    'cnic': {
-      'required': 'CNIC number is required.'
-    }
   };
 
   //error keys
@@ -97,8 +94,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     //'address': '',
     // 'phone': '',
     'accountPayable': '',
-    'accountReceivable': '',
-    'cnic' : ''
+    'accountReceivable': ''
   };
 
   //variable for un-subscription
@@ -148,9 +144,11 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       bankAccountNumber: [''],
       accountPayable: ['', [Validators.required]],
       accountReceivable: ['', [Validators.required]],
-      cnic: ['',[Validators.required]]
+      cnic: ['']
     });
-    this.ngxsService.getAccountLevel4FromState();
+
+    this.ngxsService.getAccountPayableFromState();
+    this.ngxsService.getAccountReceivableFromState();
   
     //this.getCountryList();
 
@@ -169,9 +167,9 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
         name: '',
         address: '',
         phone: null,
-        email: '',
+        //email: '',
         mobile: null,
-        website: '',
+        //website: '',
         incomeTaxId: '',
         salesTaxId: '',
         bankAccountTitle: '',
@@ -303,8 +301,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     // this.businessPartner.city = this.cityList.find(c => c.id == this.businessPartnerForm.value.city).name;
     this.businessPartner.address = this.businessPartnerForm.value.address;
     this.businessPartner.phone = this.businessPartnerForm.value.phone;
-    this.businessPartner.email = this.businessPartnerForm.value.email;
-    this.businessPartner.website = this.businessPartnerForm.value.website;
+    // this.businessPartner.email = this.businessPartnerForm.value.email;
+    // this.businessPartner.website = this.businessPartnerForm.value.website;
     this.businessPartner.mobile = this.businessPartnerForm.value.mobile;
     this.businessPartner.incomeTaxId = this.businessPartnerForm.value.incomeTaxId;
     this.businessPartner.salesTaxId = this.businessPartnerForm.value.salesTaxId;

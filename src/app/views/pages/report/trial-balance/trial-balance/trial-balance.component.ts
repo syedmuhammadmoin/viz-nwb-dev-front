@@ -81,6 +81,12 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         headerName: 'Account',
         field: 'accountName',
         cellStyle: {textAlign : 'left'},
+        filter: 'agTextColumnFilter',
+        menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
         // width: 300
       },
       {
@@ -89,7 +95,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debitOB',
-            filter: 'agNumberColumnFilter',
+            //filter: 'agNumberColumnFilter',
+            suppressMenu: true,
             //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
@@ -99,7 +106,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'creditOB',
-            filter: 'agNumberColumnFilter',
+            //filter: 'agNumberColumnFilter',
+            suppressMenu: true,
             //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
@@ -114,6 +122,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debit',
+            suppressMenu: true,
             //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
@@ -122,7 +131,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'credit',
-            filter: 'agNumberColumnFilter',
+            //filter: 'agNumberColumnFilter',
+            suppressMenu: true,
             //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
@@ -136,6 +146,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debitCB',
+            suppressMenu: true,
             //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
@@ -145,7 +156,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
             headerName: 'Credit',
             field: 'creditCB',
             //aggFunc: 'sum',
-            filter: 'agNumberColumnFilter',
+            //filter: 'agNumberColumnFilter',
+            suppressMenu: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
@@ -153,10 +165,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         ],
       },
     ];
-    this.defaultColDef = {
-      width: 175,
-      resizable: true,
-    };
   }
 
   ngOnInit(): void {
@@ -187,6 +195,23 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     //this.ngxsService.getLocationFromState();
     // get department from state
     //this.ngxsService.getDepatmentFromState();
+
+    this.defaultColDef = {
+      filter: true,
+      resizable: true,
+      menuTabs: ["filterMenuTab"],
+    };
+   
+    // this.autoGroupColumnDef = {
+    //   headerName: 'Account',
+    //   menuTabs: ["filterMenuTab"],
+    //   minWidth: 300,
+    //   filterValueGetter: (params) => params.data.accountName,
+    //   cellRendererParams: {
+    //     suppressCount: true,
+    //     checkbox: false,
+    //   },
+    // }
   }
 
   onFirstDataRendered(params: any) {

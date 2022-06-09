@@ -44,30 +44,33 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
+      suppressMenu: true,
     },
     {
-      headerName: 'Doc #', field: 'docNo',
+      headerName: 'Doc #', field: 'docNo', suppressMenu: true,
     },
     {
       headerName: 'Account Payable',
       field: 'account',
+      suppressMenu: true,
     },
     {
       headerName: 'Register',
       field: 'paymentRegister',
+      suppressMenu: true,
     },
     {
       headerName: 'Date',
       field: 'paymentDate',
+      suppressMenu: true,
       valueFormatter: (params) => {
-        console.log(params.value);
-        console.log(new Date(params.value))
         return this.dateHelperService.transformDate(new Date(params.value), 'dd MMM, yyyy')
       }
     },
     {
       headerName: 'Net Payment',
       field: 'netPayment',
+      suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -75,6 +78,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Status',
       field: 'status',
+      suppressMenu: true,
     },
   ];
 

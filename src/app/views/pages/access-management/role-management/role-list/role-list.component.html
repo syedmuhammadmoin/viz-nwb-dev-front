@@ -16,6 +16,7 @@
               class="ag-theme-alpine"
               [rowData]="roleList"
               [columnDefs]="columnDefs"
+              [animateRows]="true"
               (firstDataRendered)="onFirstDataRendered($event)"
               (rowDoubleClicked)= "onRowDoubleClicked($event)"
               [overlayNoRowsTemplate]="overlayNoRowsTemplate"

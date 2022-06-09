@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, Injector} from '@angular/core';
 import {IBankStatement} from '../model/IBankStatement';
 import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
@@ -6,16 +6,17 @@ import {catchError} from 'rxjs/operators';
 import {environment} from '../../../../../../environments/environment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class BankStatementService {
+export class BankStatementService extends AppServiceBase {
 
   baseUrl = environment.baseUrl + 'bankStmt';
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient, injector: Injector) { super(injector)
   }
 
   getBankStatements(params: any): Observable<IPaginationResponse<IBankStatement[]>> {
@@ -54,6 +55,10 @@ export class BankStatementService {
       })
     })
       .pipe(catchError(this.handleError));
+  }
+
+  getRecords(params: any): Observable<any> {
+    return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.bankAccountName?.filter )});
   }
 
   // for error handling.....

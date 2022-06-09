@@ -34,28 +34,28 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      filter: true,
+      suppressMenu: true,
     },
     {
       headerName: 'Transaction Date',
       field: 'transDate',
-      filter: true,
+      suppressMenu: true,
       cellRenderer: (params) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y');
       }
     },
     {
       headerName: 'CNIC', field: 'cnic',
-      filter: true,
+      suppressMenu: true,
     },
     {
       headerName: 'Designation', field: 'designation',
-      filter: true,
+      suppressMenu: true,
     },
     {
       headerName: 'Department',
       field: 'department',
-      filter: true,
+      suppressMenu: true,
 
     },
 
@@ -63,13 +63,15 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       headerName: 'Working Days',
       // editable: true,
       field: 'workingDays',
-      tooltipField: 'workingDays'
+      tooltipField: 'workingDays',
+      suppressMenu: true,
     },
     {
       headerName: 'Present Days',
       // editable: true,
       field: 'presentDays',
-      tooltipField: 'presentDays'
+      tooltipField: 'presentDays',
+      suppressMenu: true,
     },
     /*    {
           headerName: 'Tax',
@@ -80,6 +82,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Net Salary',
       field: 'netSalary',
+      suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -87,7 +90,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Status',
       field: 'status',
-      filter: true,
+      suppressMenu: true,
     },
   ];
 
@@ -199,7 +202,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
-    params.api.sizeColumnsToFit();
+    //params.api.sizeColumnsToFit();
   }
 
   onGridReady(params) {

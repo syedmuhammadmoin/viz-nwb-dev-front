@@ -45,20 +45,48 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { headerName: 'Debit Note #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Vendor Name', field: 'vendorName', sortable: true, filter: true, tooltipField: 'vendor' },
+    { 
+      headerName: 'Debit Note #', 
+      field: 'docNo',
+      tooltipField: 'status', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
+    { 
+      headerName: 'Vendor Name', 
+      field: 'vendorName',
+      tooltipField: 'vendor',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Note Date',
       field: 'noteDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'vendor',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       },
     },
     {
-      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'vendor',
+      headerName: 'Total', 
+      field: 'totalAmount',
+      tooltipField: 'vendor',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'
       }
@@ -66,9 +94,15 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     { 
       headerName: 'Status', 
       field: 'status', 
-      sortable: true, 
-      filter: true, 
-      tooltipField: 'status',
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
     },
   ];
 
@@ -87,7 +121,11 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -114,41 +152,52 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   }
 
   onGridReady(params: GridReadyEvent) {
+
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+
+    var dataSource = {
+      getRows: (params: any) => {
+        this.debitNoteService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'debitNotePageName')
+          this.cdRef.detectChanges()
+        });
+      },
+    };
+    params.api.setDatasource(dataSource)
   }
 
-  async getDebitNotes(params: any): Promise<IPaginationResponse<IDebitNote[]>> {
-    const result = await this.debitNoteService.getDebitNotes(params).toPromise()
-    return result
-  }
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getDebitNotes(params);
+  // async getDebitNotes(params: any): Promise<IPaginationResponse<IDebitNote[]>> {
+  //   const result = await this.debitNoteService.getDebitNotes(params).toPromise()
+  //   return result
+  // }
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'debitNotePageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getDebitNotes(params);
 
-  // loadDebitNoteList() {
-  //   this.debitNoteService.getDebitNotes().subscribe(
-  //     (res) => {
-  //       this.debitNoteList = res.result;
-  //       this.cdRef.markForCheck();
-  //     },
-  //     (err: any) => {
-  //       console.log(err)
-  //     })
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'debitNotePageName')
+  //    this.cdRef.detectChanges();
+  //  },
   // }
 }
 

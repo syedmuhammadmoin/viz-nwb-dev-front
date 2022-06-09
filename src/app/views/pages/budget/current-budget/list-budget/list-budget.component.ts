@@ -51,13 +51,17 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
       {
         headerName: 'Budget', 
         field: 'budgetName', 
-        menuTabs: ["filterMenuTab"], 
-        filter: true, 
         tooltipField: 'to', 
         cellRenderer: "loadingCellRenderer",
+        filter: 'agTextColumnFilter',
+        menuTabs: ['filterMenuTab'],
+            filterParams: {
+              filterOptions: ['contains'],
+              suppressAndOrCondition: true,
+        },
       },
       {
-        headerName: 'From', field: 'from',  menuTabs: ["filterMenuTab"],  filter: true, tooltipField: 'to',
+        headerName: 'From', field: 'from',  menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'to',
   
         // valueFormatter: (params: ICellRendererParams) => {
         //   return this.dateHelperService.transformDate(params.value, "MMM d, y");
@@ -68,8 +72,7 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
         }
       },
       {
-        headerName: 'To', field: 'to',  menuTabs: ["filterMenuTab"],  filter: true, tooltipField: 'to',
-  
+        headerName: 'To', field: 'to',  menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'to',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
@@ -92,7 +95,11 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -118,6 +125,21 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
     this.router.navigate(['/' + BUDGET.CREATE])
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getBudgets(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'budgetPageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -125,25 +147,37 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
   }
 
   async getBudgets(params: any): Promise<IPaginationResponse<IBudgetResponse[]>> {
-    const result = await this._budgetService.getBudgets(params).toPromise()
+    const result = await this._budgetService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getBudgets(params);
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'budgetPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
+
+  // async getBudgets(params: any): Promise<IPaginationResponse<IBudgetResponse[]>> {
+  //   const result = await this._budgetService.getBudgets(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getBudgets(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'budgetPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
   // getBudgets() : void {
   //   this._budgetService.getBudgets().subscribe((res: IPaginationResponse<IBudgetResponse[]>) => {

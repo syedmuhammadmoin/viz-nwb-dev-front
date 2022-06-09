@@ -3,19 +3,20 @@ import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from '../../../../../../environments/environment';
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 @Injectable({
     providedIn: 'root',
 })
 
-export class ProductService {
+export class ProductService extends AppServiceBase {
 
     baseUrl = environment.baseUrl + 'Product';
     
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getProducts(params: any): Observable<IPaginationResponse<IProduct[]>> {
         let httpParams = new HttpParams();
@@ -24,17 +25,14 @@ export class ProductService {
         httpParams = httpParams.append('PageEnd', params?.endRow);
         
         return this.httpClient.get<IPaginationResponse<IProduct[]>>(this.baseUrl,{ params: httpParams})
-            .pipe(catchError(this.handleError));
     }
 
     getProductsDropdown(): Observable<IApiResponse<IProduct[]>> {
         return this.httpClient.get<IApiResponse<IProduct[]>>(this.baseUrl + '/dropdown')
-            .pipe(catchError(this.handleError));
     }
 
     getProduct(id: number): Observable<IApiResponse<IProduct>> {
         return this.httpClient.get<IApiResponse<IProduct>>(`${this.baseUrl}/${id}`)
-            .pipe(catchError(this.handleError));
     }
 
     addProduct(product: IProduct): Observable<IProduct>{
@@ -42,7 +40,7 @@ export class ProductService {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
-        }).pipe(catchError(this.handleError));
+        })
     }
     
     updateProduct(product: IProduct): Observable<void> {
@@ -51,16 +49,9 @@ export class ProductService {
                 'Content-Type': 'application/json'
             })
         })
-            .pipe(catchError(this.handleError));
     }
 
-    // for error handling.....
-    private handleError(errorResponse: HttpErrorResponse) {
-        if (errorResponse.error instanceof ErrorEvent) {
-            console.error('Client Side Error :', errorResponse.error.message);
-        } else {
-            console.error('Server Side Error :', errorResponse);
-        }
-        return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
-    }
+    getRecords(params: any): Observable<any> {
+        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.productName?.filter)});
+     }
 }

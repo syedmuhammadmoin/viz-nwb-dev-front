@@ -165,7 +165,8 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     }
 
     //get Accounts from Accounts State
-    this.ngxsService.getAccountLevel4FromState();
+    //this.ngxsService.getAccountLevel4FromState();
+    this.ngxsService.getOtherAccountsFromState();
     
     this.activatedRoute.params.subscribe((param) => {
       console.log(param)

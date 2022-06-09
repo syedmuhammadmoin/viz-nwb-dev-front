@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { ICreditNote } from '../model/ICreditNote';
 import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http'; 
 import { Observable, throwError } from 'rxjs';
@@ -7,16 +7,17 @@ import { environment } from '../../../../../../environments/environment';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base'
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class CreditNoteService {
+export class CreditNoteService extends AppServiceBase {
 
     baseUrl = environment.baseUrl + 'CreditNote';
 
-    constructor(private httpClient: HttpClient) { }
+    constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getCreditNotes(params: any): Observable<IPaginationResponse<ICreditNote[]>> {
         let httpParams = new HttpParams();
@@ -25,12 +26,10 @@ export class CreditNoteService {
     httpParams = httpParams.append('PageEnd', params?.endRow);
     
       return this.httpClient.get<IPaginationResponse<ICreditNote[]>>(this.baseUrl,{ params: httpParams})
-        .pipe(catchError(this.handleError));
     }
   
     getCreditNoteById(id: number): Observable<IApiResponse<ICreditNote>> {
       return this.httpClient.get<IApiResponse<ICreditNote>>(`${this.baseUrl}/${id}`)
-        .pipe(catchError(this.handleError));
     }
     
     createCreditNote(creditNote: ICreditNote): Observable<IApiResponse<ICreditNote>> {
@@ -49,15 +48,9 @@ export class CreditNoteService {
         return this.httpClient.post(this.baseUrl + '/workflow', workflow);
     }
 
-      private handleError(errorResponse: HttpErrorResponse) {
-          if (errorResponse.error instanceof ErrorEvent) {
-              console.error('Client Side Error :', errorResponse.error.message);
-          } else {
-              console.error('Server Side Error :', errorResponse);
-          }
-          return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
-      }
-  
+    getRecords(params: any): Observable<any> {
+        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.noteDate?.dateFrom, 'MM/d/y'))});
+    }
   }
   
   

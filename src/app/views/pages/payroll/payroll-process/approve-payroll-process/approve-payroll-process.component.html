@@ -103,6 +103,7 @@
                   style="width: 100%; height: 500px;"
                   (firstDataRendered)="onFirstDataRendered($event)"
                   [columnDefs]="columnDefs" 
+                  [animateRows]="true"
                   [defaultColDef]="defaultColDef"
                   [gridOptions]="gridOptions" 
                   (gridReady)="onGridReady($event)"
