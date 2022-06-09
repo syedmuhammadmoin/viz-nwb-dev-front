@@ -26,8 +26,8 @@ export abstract class AppServiceBase {
     }
 
     let httpParams = new HttpParams();
-    httpParams = httpParams.append('PageNumber', params.startRow);
-    httpParams = httpParams.append('PageSize', params.endRow);
+    httpParams = httpParams.append('PageNumber', params?.startRow);
+    httpParams = httpParams.append('PageSize', params?.endRow);
     httpParams = httpParams.append('Name', (params?.filterModel?.name?.filter || name) || '');
     httpParams = httpParams.append('Account', params?.filterModel?.accountTitle?.filter || '');
     

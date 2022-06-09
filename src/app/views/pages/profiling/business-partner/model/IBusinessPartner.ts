@@ -7,11 +7,11 @@ export interface IBusinessPartner {
   // state: string;
   // city: string;
   name: string;
-  phone: number;
-  mobile: number;
-  email: string;
+  phone: string;
+  mobile: string;
+  //email: string;
   cnic:number;
-  website: string;
+  //website: string;
   incomeTaxId: string;
   salesTaxId: string;
   bankAccountTitle: string;

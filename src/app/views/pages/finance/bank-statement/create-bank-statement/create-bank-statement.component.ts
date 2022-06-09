@@ -190,7 +190,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
           take(1),
           finalize(() => this.isLoading = false))
         .subscribe(() => {
-          this.toastService.success('Generated Successfully', 'Bank Statement')
+          this.toastService.success('Created Successfully', 'Bank Statement')
           this.router.navigate(['/' + BANK_STATEMENT.LIST])
         }
         );

@@ -33,12 +33,22 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
 
   columnDefs = [
     //{ headerName: "S.No", valueGetter: 'node.rowIndex + 1', tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Status', field: 'status', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer" },
+    { 
+      headerName: 'Status', 
+      field: 'status', 
+      tooltipField: 'status', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
     {
       headerName: 'State',
       field: 'state',
-      sortable: true,
-      filter: true,
+      suppressMenu: true,
       tooltipField: 'status',
       valueFormatter: (params: ValueFormatterParams) => { 
         return (params.value) ? AppConst.DocStatus[params.value].viewValue : null
@@ -75,7 +85,11 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -116,6 +130,21 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
     })
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getStatuses(params);
+      if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'statusPageName');
+      this.cdRef.detectChanges();
+    },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -123,24 +152,35 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   }
 
   async getStatuses(params: any): Promise<IPaginationResponse<IStatus[]>> {
-    const result = await this.statusService.getStatuses(params).toPromise()
+    const result = await this.statusService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getStatuses(params);
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
 
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'statusPageName')
-     this.cdRef.detectChanges();
-   },
-  };
+  // async getStatuses(params: any): Promise<IPaginationResponse<IStatus[]>> {
+  //   const result = await this.statusService.getStatuses(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getStatuses(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'statusPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 
 }

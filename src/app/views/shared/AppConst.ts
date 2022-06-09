@@ -115,10 +115,10 @@ export class AppConst {
     'Permissions.CityClaims.Delete': 'City Delete',
 
     // Department
-    'Permissions.DepartmentClaims.View': 'Department View',
-    'Permissions.DepartmentClaims.Create': 'Department Create',
-    'Permissions.DepartmentClaims.Edit': 'Department Update',
-    'Permissions.DepartmentClaims.Delete': 'Department Delete',
+    'Permissions.DepartmentsClaims.View': 'Department View',
+    'Permissions.DepartmentsClaims.Create': 'Department Create',
+    'Permissions.DepartmentsClaims.Edit': 'Department Update',
+    'Permissions.DepartmentsClaims.Delete': 'Department Delete',
 
     // Designation
     'Permissions.DesignationClaims.View': 'Designation View',
@@ -127,10 +127,10 @@ export class AppConst {
     'Permissions.DesignationClaims.Delete': 'Designation Delete',
 
     // Employee
-    'Permissions.EmployeesClaims.View': 'Employee View',
-    'Permissions.EmployeesClaims.Create': 'Employee Create',
-    'Permissions.EmployeesClaims.Edit': 'Employee Update',
-    'Permissions.EmployeesClaims.Delete': 'Employee Delete',
+    'Permissions.EmployeeClaims.View': 'Employee View',
+    'Permissions.EmployeeClaims.Create': 'Employee Create',
+    'Permissions.EmployeeClaims.Edit': 'Employee Update',
+    'Permissions.EmployeeClaims.Delete': 'Employee Delete',
 
     // Organization
     'Permissions.OrganizationClaims.View': 'Organization View',

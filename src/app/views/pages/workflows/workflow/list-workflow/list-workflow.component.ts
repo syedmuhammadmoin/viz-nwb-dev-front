@@ -34,13 +34,23 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
   columnDefs = [
     //{ headerName: 'S.NO', valueGetter: 'node.rowIndex + 1', tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
-    { headerName: 'Name', field: 'name', sortable: true, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
+    { 
+      headerName: 'Name', 
+      field: 'name',
+      tooltipField: 'name', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Doc Type',
       field: 'docType',
-      sortable: true,
-      filter: true,
       tooltipField: 'name',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
       return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
       }
@@ -48,9 +58,8 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Active',
       field: 'isActive',
-      sortable: true,
-      filter: true,
       tooltipField: 'name',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => { return params.value ? 'Yes' : 'No' }
     },
   ];
@@ -88,7 +97,11 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -111,6 +124,21 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
     this.router.navigate(['/'+WORKFLOW.ID_BASED_ROUTE('edit',event.data.id)]);
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getWorkflows(params);
+      if(isEmpty(res.result)) {  
+        this.gridApi.showNoRowsOverlay() 
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'workflowPageName');
+      this.cdRef.detectChanges();
+    },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -118,36 +146,35 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   }
 
   async getWorkflows(params: any): Promise<IPaginationResponse<IWorkflow[]>> {
-    const result = await  this.workflowService.getWorkflows(params).toPromise()
+    const result = await this.workflowService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getWorkflows(params);
-
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'workflowPageName')
-     this.cdRef.detectChanges();
-   },
-  };
-
-  // loadWorkflowList() {
-  //   this.workflowService.getWorkflows().subscribe(
-  //     (res) => {
-  //       this.workflowList = res.result;
-  //       console.log(res.result)
-  //       this.cdRef.detectChanges();
-  //     },
-  //     (err: any) => {
-  //       console.log(err)
-  //     })
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
   // }
+
+  // async getWorkflows(params: any): Promise<IPaginationResponse<IWorkflow[]>> {
+  //   const result = await  this.workflowService.getWorkflows(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //    const res = await this.getWorkflows(params);
+
+  //    if(isEmpty(res.result)) {  
+  //     this.gridApi.showNoRowsOverlay() 
+  //   } else {
+  //    this.gridApi.hideOverlay();
+  //   }
+
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.paginationHelper.goToPage(this.gridApi, 'workflowPageName')
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 }

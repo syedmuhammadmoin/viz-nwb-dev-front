@@ -143,7 +143,6 @@
                             <kt-input-field
                             id="business_partner_phone"
                               formControlName="phone"
-                              type="number"
                               placeholder="Enter Phone Number"
                               [hintText]="'Optional'">
                             </kt-input-field>
@@ -156,7 +155,6 @@
                             <kt-input-field
                             id="business_partner_mobile"
                               formControlName="mobile"
-                              type="number"
                               placeholder="Enter Mobile Number"
                               [hintText]="'Optional'">
                             </kt-input-field>
@@ -170,8 +168,7 @@
                             id="business_partner_cnic"
                               formControlName="cnic"
                               placeholder="Enter CNIC Number"
-                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
-                              [errorMessage]="[{ condition : formErrors.cnic , error : formErrors.cnic }]">
+                              [hintText]="'Optional'">
                             </kt-input-field>
                         </div>
                       </div>

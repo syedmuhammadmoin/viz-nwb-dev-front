@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Injectable, Injector } from "@angular/core";
 import { Observable } from "rxjs";
+import { AppServiceBase } from "src/app/views/shared/app-service-base";
 import { environment } from "src/environments/environment";
 import { IStatus } from "../model/IStatus";
 
@@ -8,9 +9,9 @@ import { IStatus } from "../model/IStatus";
   providedIn: 'root'
 })
   
-export class StatusService {
+export class StatusService extends AppServiceBase {
 
-  constructor( private httpClient: HttpClient) { }
+  constructor( private httpClient: HttpClient, injector: Injector) { super(injector) }
 
 getStatuses(params): Observable<any> {
   let httpParams = new HttpParams();
@@ -35,5 +36,9 @@ updateStatus(body: IStatus): Observable<any> {
 
 getStatus(id: any): Observable<any> {
     return this.httpClient.get(environment.baseUrl + 'status/' + id);
+}
+
+getRecords(params: any): Observable<any> {
+  return this.httpClient.get(environment.baseUrl + 'status', { params: this.getfilterParams(null , null, params?.filterModel?.status?.filter)});
 }
 }
