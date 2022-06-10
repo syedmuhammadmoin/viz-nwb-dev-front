@@ -336,7 +336,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
           finalize(() => this.isLoading = false))
         .subscribe((res: IApiResponse<ICreditNote>) => {
             this.toastService.success('Created Successfully' , 'Credit Note')
-            this.router.navigate(['/' + CREDIT_NOTE.LIST])
+            // this.router.navigate(['/' + CREDIT_NOTE.LIST])
+            this.router.navigate(['/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , res.result.id)]);
           });
     }
 

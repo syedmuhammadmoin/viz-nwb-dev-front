@@ -1,7 +1,7 @@
 export interface ITransactionRecon {
     id: number;
-    paymentTransactionId: number;   
-    documentTransactionId: number;   
+    paymentLedgerId: number;   
+    documentLedgerId: number;   
     amount: number
    
 }

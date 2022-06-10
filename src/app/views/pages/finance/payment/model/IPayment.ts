@@ -13,6 +13,6 @@ export interface IPayment {
   incomeTax: number;
   srbTax : number;
   campusId: number;
-  //documentTransactionId: number;
+  documentLedgerId: number;
   isSubmit?: any;
 }

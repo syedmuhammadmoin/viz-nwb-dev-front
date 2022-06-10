@@ -338,7 +338,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         .subscribe(
           (res) => {
             this.toastService.success('Created Successfully', 'Debit Note')
-            this.router.navigate(['/'+ DEBIT_NOTE.LIST])
+            // this.router.navigate(['/'+ DEBIT_NOTE.LIST])
+            this.router.navigate(['/' + DEBIT_NOTE.ID_BASED_ROUTE('details', res.result.id ) ]);
           });
     }
   }

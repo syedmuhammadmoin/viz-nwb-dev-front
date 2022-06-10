@@ -16,8 +16,8 @@
                         <button  *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected)"
                             (click)="addPaymentDialog(paymentId)"   id="payment_edit" class="mr-3 btn_public" type="button" ><i class="fa fa-edit"></i> Edit
                         </button>
-
-                        <button  class="btn_public" [routerLink]="'/payment/' + printRoute + '/print/' + paymentMaster?.id" id="payment_print" type="button" >
+                        
+                        <button  class="btn_public" [routerLink]="'/payment/'+ printRoute + '/print/' + paymentMaster?.id" id="payment_print" type="button" >
                            <i class="fa fa-print"></i> Print {{formName}}
                         </button>
 
@@ -43,7 +43,7 @@
                 </div>
                 
                 <div class="col-md-12 mt-10">
-                    <table class="table" style="">
+                    <table class="table">
                         <tr style="    background-color: #eaf2f4;">
                             <th class="">Account</th>
                             <th class="text-left">Description</th>
@@ -88,6 +88,105 @@
                         <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.netPayment || 0)}}</span>
                       </h4>
                     </div>
+
+                    <div>
+                        <table *ngIf="paidAmountList?.length > 0" class="table  small_table_box" style="margin: 0px -6px;">
+                                <tr>
+                                <td colspan="2">
+                                  <mat-accordion>
+                                    <mat-expansion-panel>
+                                      <mat-expansion-panel-header>
+                                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                                      font-weight: bold;">
+                                          References 
+                                        </mat-panel-title>
+                                        <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                                      font-weight: bold; flex-grow: 0;">
+                                          {{valueFormatter(paidAmount || 0)}}
+                                        </mat-panel-description> -->
+                                      </mat-expansion-panel-header>
+                                      <table class="table text-center table-bordered">
+                                        <tr>
+                                          <th>Doc #</th>
+                                          <th>Amount</th>
+                                        </tr>
+                                        <tr *ngFor="let pay of paidAmountList">
+                                          <td><a [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', pay?.id))"
+                                              class="links">{{pay?.docNo}}</a></td>
+                                          <td>
+                                            <a [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', pay?.id))"
+                                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </mat-expansion-panel>
+                                  </mat-accordion>
+                                </td>
+                              </tr>
+                        </table>
+                    </div>
+
+                    <div>
+                      <table *ngIf="paymentMaster?.documentReconcile" class="table  small_table_box" style="margin: 0px -6px;">
+                              <tr>
+                              <td colspan="2">
+                                <mat-accordion>
+                                  <mat-expansion-panel>
+                                    <mat-expansion-panel-header>
+                                      <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                                    font-weight: bold;">
+                                        References 
+                                      </mat-panel-title>
+                                    </mat-expansion-panel-header>
+                                    <!-- <table class="table text-center table-bordered">
+                                      <tr>
+                                        <th>Doc #</th>
+                                        <th>Amount</th>
+                                      </tr>
+                                      <tr *ngFor="let pay of paidAmountList">
+                                        <td><a [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', pay?.id))"
+                                            class="links">{{pay?.docNo}}</a></td>
+                                        <td>
+                                          <a [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', pay?.id))"
+                                            class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                                        </td>
+                                      </tr>
+                                    </table> -->
+                                    <div class="tool col-12">
+                                      <span class="tooltext">
+                                        <ul class="list">
+                                          <li class="links-header">Doc#</li>
+                                          <hr>
+                                          <li>
+                                            <ng-container
+                                              *ngIf="(paymentMaster?.documentReconcile.docType === docType.Invoice); else payrollTransaction">
+                                              <a [routerLink]="('/' + INVOICE.ID_BASED_ROUTE('details', paymentMaster?.documentReconcile.id))"
+                                                 class="links"
+                                                 style="margin-left: 3px;">{{paymentMaster?.documentReconcile.docNo}}</a>
+                                            </ng-container>
+                                            <ng-template #payrollTransaction>
+                                              <a
+                                                *ngIf="(paymentMaster?.documentReconcile.docType === docType.PayrollTransaction); else bill"
+                                                [routerLink]="('/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', paymentMaster?.documentReconcile.id))"
+                                                class="links"
+                                                style="margin-left: 3px;">{{paymentMaster?.documentReconcile.docNo}}</a>
+                                            </ng-template>
+                                            <ng-template #bill>
+                                              <a *ngIf="(paymentMaster?.documentReconcile.docType === docType.Bill); else bill"
+                                                 [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', paymentMaster?.documentReconcile.id))"
+                                                 class="links"
+                                                 style="margin-left: 3px;">{{paymentMaster?.documentReconcile.docNo}}</a>
+                                            </ng-template>
+                                          </li>
+                                        </ul>
+                                      </span>
+                                      </div>
+                                  </mat-expansion-panel>
+                                </mat-accordion>
+                              </td>
+                            </tr>
+                      </table>
+                  </div>
                 </div>
             </div>
         </div>

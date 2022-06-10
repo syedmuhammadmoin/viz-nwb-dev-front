@@ -374,6 +374,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
             (res) => {
               this.toastService.success('Created Successfully', 'Vendor Bill')
               this.router.navigate(['/'+BILL.LIST])
+              this.router.navigate(['/' + BILL.ID_BASED_ROUTE('details', res.result.id )]);
             });
       }
   }

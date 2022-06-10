@@ -15,7 +15,7 @@ import { CscService } from 'src/app/views/shared/csc.service';
 import { IsReloadRequired } from '../../store/profiling.action';
 import { BusinessPartnerState } from '../store/business-partner.state';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { BusinessPartnerType } from 'src/app/views/shared/AppEnum';
+import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-create-business-partner',
@@ -36,8 +36,13 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
 
   title: string = 'Create Business Partner'
 
+  permissions = Permissions
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  //show Buttons
+  showButtons: boolean = true; 
 
   //country , state and city list
   // countryList: ICountry[] = [];
@@ -128,6 +133,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   // ];
 
   ngOnInit() {
+    console.log("what : ", (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) )
     this.businessPartnerForm = this.fb.group({
       name: ['', [Validators.required]],
       businessPartnerType: ['' , [Validators.required]],
@@ -153,6 +159,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     //this.getCountryList();
 
     if (this._id) {
+      this.showButtons = (this.permission.isGranted(this.permissions.BUSINESSPARTNER_EDIT)) ? true : false;
       this.title = 'Edit Business Partner'
       this.isLoading = true;
       this.getBusinessPartner(this._id);

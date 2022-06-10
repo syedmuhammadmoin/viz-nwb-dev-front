@@ -16,6 +16,21 @@
 
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
+                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) && (billMaster?.ledgerId)"
+                  [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE))"
+                  [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
+                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                  <i class="fa fa-edit"></i> Register Payment
+                </button>
+
+                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) && (billMaster?.ledgerId)"
+                  [disabled]="!(permission.isGranted(permissions.DEBITNOTE_CREATE))"
+                  [ngClass]="!(permission.isGranted(permissions.DEBITNOTE_CREATE)) ? 'disable' : '' "
+                  [routerLink]="'/' + DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, isBill: true}"
+                  type="button" class="mr-3 btn_public">
+                  <i class="fa fa-edit"></i> Debit Note
+                </button>
+
                 <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)"
                   [disabled]="!(permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
                   [ngClass]="!(permission.isGranted(permissions.BILL_EDIT)) ? 'disable' : '' "
@@ -146,10 +161,10 @@
                         </tr>
                         <tr *ngFor="let pay of paidAmountList">
                           <td><a
-                              [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
+                              [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
                               class="links">{{pay?.docNo}}</a></td>
                           <td>
-                            <a [routerLink]="(pay?.docType === 0) ?  '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) :'/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
+                            <a [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
                               class="links">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
@@ -159,9 +174,9 @@
                 </td>
               </tr>
 
-              <tr *ngIf="(billMaster?.transactionId)">
+              <tr *ngIf="(pendingAmount)">
                 <th class="text-right"
-                  style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Pending Amount :
+                style="background-image: linear-gradient(to right, #1a6b85, #4a8a9e); color: #fff;">Pending Amount :
                 </th>
                 <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
                   {{valueFormatter(pendingAmount || 0)}}</td>

@@ -65,7 +65,8 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   totalTax: number;
   totalInvoiceAmount: number;
   businessPartnerId: number;
-  transactionId: number
+  transactionId: number;
+  ledgerId: number
 
   constructor(
     private invoiceService: InvoiceService,
@@ -162,7 +163,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
       this.totalInvoiceAmount = this.invoiceMaster.totalAmount;
       this.status = this.invoiceMaster.status;
       this.businessPartnerId = this.invoiceMaster.customerId;
-      this.transactionId = this.invoiceMaster.transactionId;
+      this.ledgerId = this.invoiceMaster.ledgerId;
       this.paidAmount = this.invoiceMaster.totalPaid;
       this.pendingAmount = this.invoiceMaster.pendingAmount;
       this.paidAmountList = this.invoiceMaster.paidAmountList == null ? [] : this.invoiceMaster.paidAmountList;
@@ -180,12 +181,14 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     const dialogRef = this.dialog.open(RegisterPaymentComponent, {
       width: '900px',
       data: {
-        accountId: this.invoiceMaster.accountReceivableId,
+        accountId: this.invoiceMaster.receivableAccountId,
         paymentType: 1,
-        transactionId: this.transactionId,
+        documentLedgerId: this.ledgerId,
+        campusId: this.invoiceMaster.campusId,
         businessPartnerId: this.businessPartnerId,
         pendingAmount: this.pendingAmount,
-        formName: 'Invoice'
+        formName: 'Invoice',
+        docType: DocType.Receipt
       }
     });
     //Recalling getInvoiceData function on dialog close
@@ -212,8 +215,9 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   }
 
   mapTransactionReconModel(index: number) {
-    this.transactionReconModel.paymentTransactionId = this.bpUnReconPaymentList[index].paymentTransactionId;
-    this.transactionReconModel.documentTransactionId = this.transactionId;
+    console.log('this.bpUnReconPaymentList[index].paymentledgerId', this.bpUnReconPaymentList[index].paymentledgerId)
+    this.transactionReconModel.paymentLedgerId = this.bpUnReconPaymentList[index].paymentLedgerId;
+    this.transactionReconModel.documentLedgerId = this.ledgerId;
     this.transactionReconModel.amount = this.bpUnReconPaymentList[index].amount > this.pendingAmount
       ? this.pendingAmount
       : this.bpUnReconPaymentList[index].amount;

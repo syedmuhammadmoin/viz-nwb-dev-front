@@ -1,4 +1,4 @@
-import { BILL, DEBIT_NOTE, PAYMENT } from '../../../../shared/AppRoutes';
+import { BILL, DEBIT_NOTE, JOURNAL_ENTRY, PAYMENT } from '../../../../shared/AppRoutes';
 import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -26,6 +26,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   public BILL=BILL;
   public DEBIT_NOTE=DEBIT_NOTE;
   public PAYMENT=PAYMENT;
+  public JOURNAL_ENTRY = JOURNAL_ENTRY;
   docType = DocType
   public permissions = Permissions;
   action = ActionButton
@@ -47,6 +48,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
 
   //need for Register Payment
   transactionId: number
+  ledgerId: number
   businessPartnerId: number;
   // Variables for bill data
   billLines: any;
@@ -148,6 +150,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       this.billLines = res.result.billLines;
       this.businessPartnerId = this.billMaster.vendorId;
       this.transactionId = this.billMaster.transactionId;
+      this.ledgerId = this.billMaster.ledgerId;
       this.status = this.billMaster.status;
       this.paidAmount = this.billMaster.totalPaid;
       this.pendingAmount = this.billMaster.pendingAmount;
@@ -164,12 +167,14 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     const dialogRef = this.dialog.open(RegisterPaymentComponent, {
       width: '900px',
       data: {
-        accountId: this.billMaster.accountPayableId,
+        accountId: this.billMaster.payableAccountId,
         paymentType: 2,
-        transactionId: this.transactionId,
+        documentLedgerId: this.ledgerId,
+        campusId: this.billMaster.campusId,
         businessPartnerId: this.businessPartnerId,
         pendingAmount: this.pendingAmount,
-        formName: 'Bill'
+        formName: 'Bill',
+        docType: DocType.Payment
       }
     });
     //Recalling getBillMasterData function on dialog close
@@ -202,8 +207,8 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   }
 
   mapTransactionReconModel(index: number) {
-    this.transactionReconModel.paymentTransactionId = this.bpUnReconPaymentList[index].paymentTransactionId;
-    this.transactionReconModel.documentTransactionId = this.transactionId;
+    this.transactionReconModel.paymentLedgerId = this.bpUnReconPaymentList[index].paymentLedgerId;
+    this.transactionReconModel.documentLedgerId = this.ledgerId;
     this.transactionReconModel.amount = this.bpUnReconPaymentList[index].amount > this.pendingAmount
       ? this.pendingAmount
       : this.bpUnReconPaymentList[index].amount;

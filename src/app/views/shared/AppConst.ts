@@ -115,10 +115,10 @@ export class AppConst {
     'Permissions.CityClaims.Delete': 'City Delete',
 
     // Department
-    'Permissions.DepartmentsClaims.View': 'Department View',
-    'Permissions.DepartmentsClaims.Create': 'Department Create',
-    'Permissions.DepartmentsClaims.Edit': 'Department Update',
-    'Permissions.DepartmentsClaims.Delete': 'Department Delete',
+    'Permissions.DepartmentClaims.View': 'Department View',
+    'Permissions.DepartmentClaims.Create': 'Department Create',
+    'Permissions.DepartmentClaims.Edit': 'Department Update',
+    'Permissions.DepartmentClaims.Delete': 'Department Delete',
 
     // Designation
     'Permissions.DesignationClaims.View': 'Designation View',

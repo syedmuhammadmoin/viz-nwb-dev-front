@@ -305,7 +305,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         .subscribe(
           (res: IApiResponse<IJournalEntry>) => {
             this.toastService.success('Created Successfully', 'Journal Entry')
-            this.router.navigate(['/' + JOURNAL_ENTRY.LIST])
+            // this.router.navigate(['/' + JOURNAL_ENTRY.LIST])
+            this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , res.result.id)]); 
           });
     }
   }

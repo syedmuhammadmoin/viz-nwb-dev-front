@@ -224,7 +224,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
             this.toastService.success('Created Successfully', "Payroll");
             
             if (!this._id) {
-              this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
+              // this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
+              this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details' , res.result.id)])
             } else {
               this.dialogRef.close();
             }
