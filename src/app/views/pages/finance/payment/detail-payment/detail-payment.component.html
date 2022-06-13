@@ -1,5 +1,3 @@
-
-
 <div [ktBusy]="isLoading">
     <kt-portlet>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
@@ -13,7 +11,8 @@
             <div class="row">
                 <div class="col-md-12 col-12 pb-3">
                     <ng-container ktPortletTools >
-                        <button  *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected)"
+                        <button  *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected) && (showButtons)"
+                               
                             (click)="addPaymentDialog(paymentId)"   id="payment_edit" class="mr-3 btn_public" type="button" ><i class="fa fa-edit"></i> Edit
                         </button>
                         

@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { BANK_STATEMENT } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-create-bank-statement',
@@ -52,8 +53,13 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   title: string = 'Create Bank Statement'
 
+  permissions = Permissions
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  //show Buttons
+  showButtons: boolean = true; 
 
 
   // validation messages
@@ -103,6 +109,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     this.activatedRoute.paramMap.subscribe(params => {
       const bankStatementId = +params.get('id');
       if (bankStatementId) {
+        this.showButtons = (this.permission.isGranted(this.permissions.BANKSTATEMENT_EDIT)) ? true : false;
         this.title = 'Edit Bank Statement'
         this.isEdit = true;
         this.isLoading = true;
@@ -136,6 +143,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     this.bankStatementForm.patchValue({ ...bankStatement });
     this.bankStatementForm.setControl('bankStmtLines', this.patchStatementLines(bankStatement.bankStmtLines))
     this.calculateRunningTotal(bankStatement.openingBalance);
+
+    if(!this.showButtons) this.bankStatementForm.disable();
   }
 
   patchStatementLines(statementLines: IBankStatementLines[]): FormArray {

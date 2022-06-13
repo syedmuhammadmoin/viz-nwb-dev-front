@@ -36,6 +36,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.PAYMENT_VIEW },
             { permission: Permissions.PAYMENT_CREATE },
+            { permission: Permissions.PAYMENT_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -48,6 +49,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.PAYMENT_VIEW },
             { permission: Permissions.PAYMENT_CREATE },
+            { permission: Permissions.PAYMENT_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 

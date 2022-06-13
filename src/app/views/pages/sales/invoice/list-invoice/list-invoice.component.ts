@@ -130,7 +130,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "double click to view detail",
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};

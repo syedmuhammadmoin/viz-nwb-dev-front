@@ -3,7 +3,7 @@
     <kt-portlet-header  [sticky]="false" [title]="title" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <!-- <button mat-raised-button class="btn_white" id="statement_download"> -->
-          <a [href]="enviroment.baseUrl + 'BankStmt/getStmtFile'" id="statement_download" target="_blank" class=" sub___btn" mat-raised-button >
+          <a [href]="enviroment.baseUrl + 'BankStmt/getStmtFile'" *ngIf="showButtons" id="statement_download" target="_blank" class=" sub___btn" mat-raised-button >
             Download
           </a>
         <!-- </button> -->
@@ -204,7 +204,7 @@
                                 <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
                                 </mat-icon> -->
 
-                                <button class=" remove-icon" type="button" [id]="'statement_remove_' + i"  (click)="removeBankStatementLine(i); calculateRunningTotal()" >
+                                <button class=" remove-icon" type="button" [disabled]="!showButtons" [id]="'statement_remove_' + i"  (click)="removeBankStatementLine(i); calculateRunningTotal()" >
                                   <i  class="fas fa-trash" aria-hidden="true"></i>
                                 </button>
                               </mat-cell>
@@ -217,7 +217,7 @@
                     <ng-container>
                       <div *ngIf="showLines" class="row" style="align-items: center;">
                         <div class="col-lg-5 col-sm-5">
-                          <button class=" btn_create" type="button" id="statement_add_line" (click)="addBankStatementLineClick()">
+                          <button class=" btn_create" type="button" *ngIf="showButtons" id="statement_add_line" (click)="addBankStatementLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -250,7 +250,7 @@
         <div class="kt-portlet__foot mt-lg-n5">
           <div class="kt-form__actions kt-form__actions">
             <div class="row text-right">
-              <div class="col-lg-12">
+              <div *ngIf="showButtons" class="col-lg-12">
                 <button  mat-raised-button class="btn_white mr-3" type="button"
                   (click)="reset()" id="statement_reset">Reset</button>
                 <button class="sub___btn"  mat-raised-button  type="submit" id="statement_submit"

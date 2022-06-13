@@ -232,7 +232,7 @@
                 <div class="col-lg-6 float-left">
                   <h6 style="margin-bottom: 0; color: #1a6b85; font-weight: 600;">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
                 </div>
-                <div class="col-lg-6">
+                <div *ngIf="showButtons" class="col-lg-6">
                   <div class="float-right">
                     <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="payment_reset">Reset</button>
                     <button mat-raised-button  class="mr-3 sub___btn" type="submit" id="payment_save"

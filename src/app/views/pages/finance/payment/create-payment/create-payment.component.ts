@@ -142,9 +142,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     injector: Injector
   ) {
     super(injector)
-    this.formName = this.documents.find(x => x.id === this.data.docType).value
 
-    console.log("form Name : ", this.formName)
+    this.formName = this.documents.find(x => x.id === this.data.docType).value
   }
 
   groups = [

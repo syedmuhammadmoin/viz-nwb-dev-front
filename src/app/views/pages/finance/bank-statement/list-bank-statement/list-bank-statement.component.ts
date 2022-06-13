@@ -99,6 +99,10 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
           }
         },
       };
+
+      if(!this.permission.isGranted(this.permissions.BANKSTATEMENT_EDIT)) {
+        this.gridOptions.context = 'double click to view detail'
+      }
     }
 
     addBankStatement(){
