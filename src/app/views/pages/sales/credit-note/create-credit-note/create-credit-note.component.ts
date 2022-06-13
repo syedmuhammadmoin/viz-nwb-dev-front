@@ -278,7 +278,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     const formArray = new FormArray([]);
     Lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isCreditNote) ? line.id : 0,
         itemId: [line.itemId],
         description: [line.description, Validators.required],
         price: [line.price, [Validators.required, Validators.min(1)]],
