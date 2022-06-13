@@ -133,7 +133,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   // ];
 
   ngOnInit() {
-    console.log("what : ", (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) )
+
     this.businessPartnerForm = this.fb.group({
       name: ['', [Validators.required]],
       businessPartnerType: ['' , [Validators.required]],
@@ -152,6 +152,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       accountReceivable: ['', [Validators.required]],
       cnic: ['']
     });
+
+
 
     this.ngxsService.getAccountPayableFromState();
     this.ngxsService.getAccountReceivableFromState();
@@ -227,6 +229,12 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       accountReceivable: businessPartner.accountReceivableId,
       cnic: businessPartner.cnic
     });
+
+    //if user have no permission to edit, so disable all fields
+    if(!this.showButtons) {
+      this.businessPartnerForm.disable();
+     // this.disableFields(this.businessPartnerForm , 'businessPartnerType', 'accountPayable' , 'accountReceivable')
+    }
   }
 
   reset(){

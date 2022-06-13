@@ -9,6 +9,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICampus } from '../model/ICampus';
 import { CampusState } from '../store/campus.state';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-create-campus',
@@ -27,7 +28,12 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   // campus model declaration
   campusModel: ICampus;
 
+  permissions = Permissions
+
   title: string = 'Create Campus'
+
+  //show Buttons
+  showButtons: boolean = true; 
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -60,6 +66,7 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
     });
 
     if (this._id) {
+      this.showButtons = (this.permission.isGranted(this.permissions.CAMPUS_EDIT)) ? true : false;
       this.title = 'Edit Campus'
       this.isLoading = true
       this.getCampus(this._id);
@@ -92,6 +99,11 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
       id: campus.id,
       name: campus.name
     });
+
+    //if user have no permission to edit, so disable all fields
+    if(!this.showButtons) {
+      this.campusForm.disable();
+    }
   }
 
   onSubmit() {

@@ -34,6 +34,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
 
   title: string = 'Create Product'
 
+  //show Buttons
+  showButtons: boolean = true; 
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -93,6 +96,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
 
     // checking router params for edit product
     if (this._id) {
+      this.showButtons = (this.permission.isGranted(this.permissions.PRODUCT_EDIT)) ? true : false;
       this.title = 'Edit Product'
       this.isLoading = true;
       this.getProduct(this._id);
@@ -138,6 +142,10 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       barcode: product.barcode
     });
 
+    //if user have no permission to edit, so disable all fields
+    if(!this.showButtons) {
+      this.productForm.disable();
+    }
   }
 
   onSubmit() {

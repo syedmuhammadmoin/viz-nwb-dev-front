@@ -304,16 +304,16 @@ export class MenuConfig {
             Permissions.BANK_RECON_CREATE
           ],
           submenu: [
-            {
-              title: 'Cash Account',
-              page: '/' + CASH_ACCOUNT.LIST,
-              permission: [
-                Permissions.CASHACCOUNT_VIEW,
-                Permissions.CASHACCOUNT_CREATE,
-                Permissions.CASHACCOUNT_EDIT,
-                Permissions.CASHACCOUNT_DELETE
-              ]
-            },
+            // {
+            //   title: 'Cash Account',
+            //   page: '/' + CASH_ACCOUNT.LIST,
+            //   permission: [
+            //     Permissions.CASHACCOUNT_VIEW,
+            //     Permissions.CASHACCOUNT_CREATE,
+            //     Permissions.CASHACCOUNT_EDIT,
+            //     Permissions.CASHACCOUNT_DELETE
+            //   ]
+            // },
             {
               title: 'Bank Account',
               page: '/' + BANK_ACCOUNT.LIST,

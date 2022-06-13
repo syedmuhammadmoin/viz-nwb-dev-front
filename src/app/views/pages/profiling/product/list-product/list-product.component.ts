@@ -123,6 +123,10 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.PRODUCT_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {

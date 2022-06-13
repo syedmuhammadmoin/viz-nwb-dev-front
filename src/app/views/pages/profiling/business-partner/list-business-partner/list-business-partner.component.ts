@@ -129,6 +129,10 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.BUSINESSPARTNER_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 
   onFirstDataRendered(params : FirstDataRenderedEvent) {

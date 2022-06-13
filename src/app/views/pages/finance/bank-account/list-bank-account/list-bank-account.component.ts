@@ -128,6 +128,10 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.BANKACCOUNT_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 
   onFirstDataRendered(params : FirstDataRenderedEvent) {

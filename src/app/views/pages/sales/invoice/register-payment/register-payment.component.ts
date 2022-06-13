@@ -90,9 +90,10 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     description: '',
     paymentRegister: '',
     grossPayment: '',
-    // discount: '',
-    // salesTax: '',
-    // incomeTax: ''
+    discount: '',
+    salesTax: '',
+    incomeTax: '',
+    SRBTax: ''
   }
 
   // For Register Type Accounts
