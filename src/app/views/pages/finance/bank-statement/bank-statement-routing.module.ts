@@ -31,6 +31,7 @@ const route : Routes = [
         data: {
           array: [
             { permission: Permissions.BANKSTATEMENT_CREATE },
+            { permission: Permissions.BANKSTATEMENT_VIEW }
           ]
         },
         canActivate: [PermissionGuard] 
@@ -42,6 +43,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.BANKSTATEMENT_VIEW },
             { permission: Permissions.BANKSTATEMENT_EDIT },
+            { permission: Permissions.BANKSTATEMENT_CREATE },
           ]
         },
         canActivate: [PermissionGuard] 

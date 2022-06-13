@@ -280,7 +280,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     const formArray = new FormArray([]);
     Lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isDebitNote) ? line.id : 0,
         itemId: [line.itemId],
         description: [line.description, Validators.required],
         cost: [line.cost, [Validators.required, Validators.min(1)]],

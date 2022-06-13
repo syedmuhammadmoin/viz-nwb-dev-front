@@ -24,6 +24,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.DEBITNOTE_VIEW },
             { permission: Permissions.DEBITNOTE_CREATE },
+            { permission: Permissions.DEBITNOTE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -35,6 +36,7 @@ const route : Routes = [
         data: {
           array: [
             { permission: Permissions.DEBITNOTE_CREATE },
+            { permission: Permissions.DEBITNOTE_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -45,6 +47,7 @@ const route : Routes = [
         data: {
           array: [
             { permission: Permissions.DEBITNOTE_EDIT },
+            { permission: Permissions.DEBITNOTE_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -56,6 +59,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.DEBITNOTE_VIEW },
             { permission: Permissions.DEBITNOTE_CREATE },
+            { permission: Permissions.DEBITNOTE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -67,6 +71,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.DEBITNOTE_VIEW },
             { permission: Permissions.DEBITNOTE_CREATE },
+            { permission: Permissions.DEBITNOTE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]

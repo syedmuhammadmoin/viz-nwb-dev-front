@@ -23,9 +23,9 @@ import { RegisterPaymentComponent } from '../../../sales/invoice/register-paymen
 export class VendorBillDetailComponent extends AppComponentBase implements OnInit {
 
   //routing variables
-  public BILL=BILL;
-  public DEBIT_NOTE=DEBIT_NOTE;
-  public PAYMENT=PAYMENT;
+  public BILL = BILL;
+  public DEBIT_NOTE = DEBIT_NOTE;
+  public PAYMENT = PAYMENT;
   public JOURNAL_ENTRY = JOURNAL_ENTRY;
   docType = DocType
   public permissions = Permissions;

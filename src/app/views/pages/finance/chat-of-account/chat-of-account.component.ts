@@ -1,10 +1,12 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { CreateLevel3Component } from './level3/create-level3/create-level3.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLevel4Component } from './level4/create-level4/create-level4.component';
 import { ChartOfAccountService } from './service/chart-of-account.service';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 /**
  * Each node has a name and an optional list of children.
@@ -31,14 +33,16 @@ interface FlatNode {
   styleUrls: ['./chat-of-account.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ChatOfAccountComponent implements OnInit {
+export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
+
+  public permissions = Permissions
  
   constructor(
     private chartOfAccService: ChartOfAccountService,
     public dialog: MatDialog,
-    private cdRef: ChangeDetectorRef) {
-
-  }
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
+    ) { super(injector) }
   _transformer = (node: AccountsNode, level: number) => {
     return {
       expandable: !!node.children && node.children.length > 0,
@@ -91,6 +95,7 @@ export class ChatOfAccountComponent implements OnInit {
       dialogRef.afterClosed().subscribe(() => {
         this.chartOfAccService.getChartOfAccount().subscribe((res) => {
           this.dataSource.data = res.result;
+          this.expandParents(node)
           this.cdRef.detectChanges();
         })
       });
@@ -123,9 +128,40 @@ export class ChatOfAccountComponent implements OnInit {
       dialogRef.afterClosed().subscribe(() => {
         this.chartOfAccService.getChartOfAccount().subscribe((res) => {
           this.dataSource.data = res.result;
+          this.expandParents(node)
           this.cdRef.detectChanges();
         })
       });
+    }
+  }
+
+  expandParents(node: FlatNode) {
+    const parent = this.getParent(node);
+    this.treeControl.expand(parent);
+
+    if (parent && parent.level > 0) {
+      this.expandParents(parent);
+    }
+  }
+
+
+  getParent(node: FlatNode) {
+    
+    const currentLevel = this.treeControl.getLevel(node);
+
+    if (currentLevel < 1) {
+      return null;
+    }
+
+    // const startIndex = this.treeControl.dataNodes.indexOf(node) - 1;
+    const startIndex = this.treeControl.dataNodes.indexOf(this.treeControl.dataNodes.find(x => x.id === node.id)) - 1;
+
+    for (let i = startIndex; i >= 0; i--) {
+      const currentNode = this.treeControl.dataNodes[i];
+     
+      if (this.treeControl.getLevel(currentNode) < currentLevel) {
+        return currentNode;
+      }
     }
   }
 }

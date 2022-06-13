@@ -16,24 +16,22 @@
 
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
-                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) && (billMaster?.ledgerId)"
-                  [disabled]="!(permission.isGranted(permissions.PAYMENT_CREATE))"
+                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
+                   && (billMaster?.ledgerId) && (permission.isGranted(permissions.PAYMENT_CREATE))"
                   [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
                   type="button" class="mr-3 btn_public" (click)="openDialog()" >
                   <i class="fa fa-edit"></i> Register Payment
                 </button>
 
-                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) && (billMaster?.ledgerId)"
-                  [disabled]="!(permission.isGranted(permissions.DEBITNOTE_CREATE))"
-                  [ngClass]="!(permission.isGranted(permissions.DEBITNOTE_CREATE)) ? 'disable' : '' "
+                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
+                   && (billMaster?.ledgerId) && (permission.isGranted(permissions.DEBITNOTE_CREATE))"
                   [routerLink]="'/' + DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, isBill: true}"
                   type="button" class="mr-3 btn_public">
                   <i class="fa fa-edit"></i> Debit Note
                 </button>
 
-                <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)"
-                  [disabled]="!(permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
-                  [ngClass]="!(permission.isGranted(permissions.BILL_EDIT)) ? 'disable' : '' "
+                <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)
+                    && (permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
                   type="button" class="mr-3 btn_public" >
                   <i class="fa fa-edit"></i> Edit
@@ -97,8 +95,10 @@
               <tbody>
                 <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
                   <td>
-                    <a
-                      [routerLink]="(unReconPay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a>
+                    <!-- <a [routerLink]="(unReconPay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a> -->
+                    <a [routerLink]="(unReconPay?.docType === 0) ? '/' + PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : 
+                      (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) : 
+                      '/' + DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a>
                   </td>
                   <td>{{valueFormatter(unReconPay.amount)}}</td>
                   <td>

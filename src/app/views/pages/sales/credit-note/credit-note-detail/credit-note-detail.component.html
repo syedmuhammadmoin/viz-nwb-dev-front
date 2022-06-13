@@ -14,9 +14,8 @@
 
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
-                <button *ngIf="(creditNoteMaster?.state === docStatus.Draft || creditNoteMaster?.state === docStatus.Rejected)"
-                  [disabled]="!(permission.isGranted(permissions.CREDITNOTE_EDIT))"
-                  [ngClass]="!(permission.isGranted(permissions.CREDITNOTE_EDIT)) ? 'disable' : '' "
+                <button *ngIf="(creditNoteMaster?.state === docStatus.Draft || creditNoteMaster?.state === docStatus.Rejected)
+                   && (permission.isGranted(permissions.CREDITNOTE_EDIT))"
                   [routerLink]="'/' + CREDIT_NOTE.ID_BASED_ROUTE('edit' , creditNoteMaster?.id)" id="credit_note_edit"
                   [queryParams]="{q: creditNoteMaster?.id, 'isCreditNote': true}" type="button"
                   class="mr-3 btn_public"><i class="fa fa-edit"></i> Edit

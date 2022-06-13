@@ -14,7 +14,10 @@ const routes : Routes = [
         component: ChatOfAccountComponent,
         data: {
           array: [
-            { permission: Permissions.CHARTOFACCOUNT_VIEW }
+            { permission: Permissions.CHARTOFACCOUNT_VIEW },
+            { permission: Permissions.LEVEL4_CREATE },
+            { permission: Permissions.LEVEL4_VIEW },
+            { permission: Permissions.LEVEL4_EDIT },
           ]
         },
         canActivate: [PermissionGuard],
