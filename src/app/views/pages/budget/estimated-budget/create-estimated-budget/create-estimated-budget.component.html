@@ -113,9 +113,9 @@
                                  (change)="onChangeEvent(i)"
                                  (keyup)="onChangeEvent(i)"
                                  (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"
-                                 [errorMessage]="[{ condition : estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.errors?.required &&
-                                                                estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.touched , 
-                                                    error : 'Amount is required.' }]">
+                                 [errorMessage]="[{ condition : estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.value.errors?.required &&
+                                                                estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.value.touched , 
+                                                    error : 'Value is required.' }]">
                                 </kt-input-field>
                               </div>
                             </mat-cell>
@@ -131,11 +131,7 @@
                                  type="number"
                                  matFormFieldClass="mobile-label full-width" 
                                  placeholder="Estimated Value"
-                                 readonly="true"
-                                 (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"
-                                 [errorMessage]="[{ condition : estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.errors?.required &&
-                                                                estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.amount.touched , 
-                                                    error : 'Amount is required.' }]">
+                                 readonly="true">
                                 </kt-input-field>
                               </div>
                             </mat-cell>

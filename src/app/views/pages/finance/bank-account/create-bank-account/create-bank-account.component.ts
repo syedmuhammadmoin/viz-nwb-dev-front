@@ -9,6 +9,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { BankAccountState } from '../store/bank-account.state';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 
 @Component({
@@ -24,12 +25,17 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   //Bank account Form variable
   bankAccountForm: FormGroup;
 
+  permissions = Permissions
+
   //Bank account model
   bankAccount: IBankAccount;
 
   title: string = 'Create Bank Account'
 
-  dateLimit : Date = new Date()
+  dateLimit : Date = new Date();
+
+  //show Buttons
+  showButtons: boolean = true; 
 
   //validation messages
   validationMessages = {
@@ -100,6 +106,19 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
 
     if (this._id) {
+      this.showButtons = (this.permission.isGranted(this.permissions.BANKACCOUNT_EDIT)) ? true : false;
+      // if(!this.showButtons) this.disableFields(
+      //   this.bankAccountForm , 
+      //   'accountNumber',
+      //   'bankName',
+      //   'branch', 
+      //   'purpose',
+      //   'accountTitle',
+      //   'bankAccountType',
+      //   'openingBalance',
+      //   'OBDate',
+      //   'campusId')
+      //if user have no permission to edit, so disable all fields
       this.title = 'Edit Bank Account'
       this.isLoading = true
       this.getBankAccount(this._id);
@@ -154,6 +173,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       currency: 'PKR'
     });
 
+    if(!this.showButtons) this.bankAccountForm.disable()
     this.disableFields(this.bankAccountForm , 'openingBalance', 'bankAccountType', 'OBDate', 'campusId')
   }
 

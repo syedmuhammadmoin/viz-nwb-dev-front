@@ -10,6 +10,7 @@ import { IsReloadRequired } from '../../store/profiling.action';
 import { CategoryState } from '../store/category.state';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 
 
 @Component({
@@ -30,6 +31,11 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   category: ICategory;
 
   title: string = 'Create Category'
+
+  permissions = Permissions
+
+  //show Buttons
+  showButtons: boolean = true;
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -80,6 +86,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     });
 
     if (this._id) {
+      this.showButtons = (this.permission.isGranted(this.permissions.CATEGORIES_EDIT)) ? true : false;
       this.title = 'Edit Category'
       this.isLoading = true
       this.getCategory(this._id);
@@ -120,6 +127,11 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       revenueAccount: category.revenueAccountId,
       costAccount: category.costAccountId,
     });
+
+    //if user have no permission to edit, so disable all fields
+    if(!this.showButtons) {
+      this.categoryForm.disable();
+    }
   }
 
   onSubmit() {

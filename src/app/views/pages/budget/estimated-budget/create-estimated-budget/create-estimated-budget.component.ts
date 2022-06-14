@@ -188,9 +188,10 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
       this.estimatedBudgetService.createEstimatedBudget(this.estimatedBudgetModel).pipe(
         take(1),
         finalize(() => this.isLoading = false))
-        .subscribe(() => {
+        .subscribe((res) => {
           this.toastService.success('Created Successfully', 'Estimated Budget')
-          this.router.navigate(['/' + ESTIMATED_BUDGET.LIST])
+          // this.router.navigate(['/' + ESTIMATED_BUDGET.LIST])
+          this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
         }
       );
     }

@@ -14,9 +14,8 @@
 
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
-                <button *ngIf="(creditNoteMaster?.state === docStatus.Draft || creditNoteMaster?.state === docStatus.Rejected)"
-                  [disabled]="!(permission.isGranted(permissions.CREDITNOTE_EDIT))"
-                  [ngClass]="!(permission.isGranted(permissions.CREDITNOTE_EDIT)) ? 'disable' : '' "
+                <button *ngIf="(creditNoteMaster?.state === docStatus.Draft || creditNoteMaster?.state === docStatus.Rejected)
+                   && (permission.isGranted(permissions.CREDITNOTE_EDIT))"
                   [routerLink]="'/' + CREDIT_NOTE.ID_BASED_ROUTE('edit' , creditNoteMaster?.id)" id="credit_note_edit"
                   [queryParams]="{q: creditNoteMaster?.id, 'isCreditNote': true}" type="button"
                   class="mr-3 btn_public"><i class="fa fa-edit"></i> Edit
@@ -59,8 +58,8 @@
           </div>
         </div>
 
+        <div class="row mt-5">
 
-        <div class="row mt-5 totalBox">
           <div class="col-lg-4 ml-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
               <tr>
@@ -75,75 +74,72 @@
               </tr>
               <tr style="border-top: 2px solid #1a6b85;">
                 <th class="text-left"
-                  style=" ">Grand Total :</th>
+                  >Grand Total :</th>
                 <th class="text-right" >
                   {{valueFormatter(creditNoteMaster?.totalAmount || 0)}}</th>
               </tr>
 
-              <tr *ngIf="reconciledDocumentList.length > 0">
-                <td class="text-right" colspan="2" style="border:0px; padding: 0.75rem 0px;">
+              <tr *ngIf="paidAmountList?.length > 0">
+                <td colspan="2">
                   <mat-accordion>
                     <mat-expansion-panel>
-                      <mat-expansion-panel-header style="padding: 0 10px;">
+                      <mat-expansion-panel-header>
                         <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                          font-weight: bold;">
-                          Reconciled Amount :
+                                      font-weight: bold;">
+                           Reconciled Amount : 
                         </mat-panel-title>
                         <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                          font-weight: bold; flex-grow: 0;">
+                                      font-weight: bold; flex-grow: 0;">
                           {{valueFormatter(creditNoteMaster?.reconciledAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
-                      <div class="tool col-12">
-                        <!-- <ng-container *ngIf="paidAmountList.length > 0; else noEntryFound"> -->
-                        <span class="tooltext">
-                          <ul class="list">
-                            <li class="links-header">Doc# <span style="margin-left: 28px;">Amount</span>
-                            </li>
-                            <hr>
-                            <li *ngFor="let pay of reconciledDocumentList">
-                              <div class="row">
-                                <div class="col-lg-6">
-                                  <a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , pay?.id)" class="links"
-                                    style="margin-left: 3px;">{{pay?.docNo}}</a>
-                                </div>
-                                <div class="col-lg-6">
-                                  <a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , pay?.id)" class="links"
-                                    style="margin-left: -20px;">{{valueFormatter(pay.amount || 0)}}</a>
-                                </div>
-                              </div>
-                            </li>
-                          </ul>
-                        </span>
-                      </div>
+                      <table class="table text-center table-bordered">
+                        <tr>
+                          <th>Doc #</th>
+                          <th>Amount</th>
+                        </tr>
+                        <tr *ngFor="let pay of paidAmountList">
+                          <td><a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , pay?.id)"
+                              class="links">{{pay?.docNo}}</a></td>
+                          <td>
+                            <a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , pay?.id)"
+                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                          </td>
+                        </tr>
+                      </table>
                     </mat-expansion-panel>
                   </mat-accordion>
                 </td>
               </tr>
 
               <tr *ngIf="creditNoteMaster?.documentReconcile">
-                <td class="text-right" colspan="2" style="border:0px; padding: 0.75rem 0px;">
+                <td colspan="2">
                   <mat-accordion>
                     <mat-expansion-panel>
-                      <mat-expansion-panel-header style="padding: 0 10px;">
+                      <mat-expansion-panel-header>
                         <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                          font-weight: bold;">
-                          References :
+                                      font-weight: bold;">
+                           References
                         </mat-panel-title>
+                        <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold; flex-grow: 0;">
+                          {{valueFormatter(creditNoteMaster?.reconciledAmount || 0)}}
+                        </mat-panel-description> -->
                       </mat-expansion-panel-header>
-                      <div class="tool col-12">
-                        <span class="tooltext">
-                          <ul class="list">
-                            <li class="links-header">Doc#</li>
-                            <hr>
-                            <li>
-                              <a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , (creditNoteMaster?.documentReconcile?.id))"
-                                class="links"
-                                style="margin-left: 3px;">{{creditNoteMaster?.documentReconcile?.docNo}}</a>
-                            </li>
-                          </ul>
-                        </span>
-                      </div>
+                      <table class="table text-center table-bordered">
+                        <tr>
+                          <th>Doc #</th>
+                          <th>Amount</th>
+                        </tr>
+                        <tr>
+                          <td><a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , (creditNoteMaster?.documentReconcile?.id))"
+                              class="links">{{creditNoteMaster?.documentReconcile?.docNo}}</a></td>
+                          <td>
+                            <a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , (creditNoteMaster?.documentReconcile?.id))"
+                              class="links">{{creditNoteMaster?.documentReconcile?.amount}}</a>
+                          </td>
+                        </tr>
+                      </table>
                     </mat-expansion-panel>
                   </mat-accordion>
                 </td>
@@ -151,8 +147,6 @@
             </table>
           </div>
         </div>
-
-
       </div>
     </kt-portlet-body>
 

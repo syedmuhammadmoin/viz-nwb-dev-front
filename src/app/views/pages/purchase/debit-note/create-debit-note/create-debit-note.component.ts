@@ -280,7 +280,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     const formArray = new FormArray([]);
     Lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isDebitNote) ? line.id : 0,
         itemId: [line.itemId],
         description: [line.description, Validators.required],
         cost: [line.cost, [Validators.required, Validators.min(1)]],
@@ -306,7 +306,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       return;
     }
     if (this.isBill && (this.grandTotal > this.billMaster.pendingAmount)) {
-      this.toastService.error("Total Amount can't be Greater than Bill Amount", 'Error')
+      this.toastService.error("Amount can't be greater than Bill Pending Amount", "Debit Note Lines")
       return;
     }
     if (this.debitNoteForm.invalid) {
@@ -338,7 +338,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         .subscribe(
           (res) => {
             this.toastService.success('Created Successfully', 'Debit Note')
-            this.router.navigate(['/'+ DEBIT_NOTE.LIST])
+            // this.router.navigate(['/'+ DEBIT_NOTE.LIST])
+            this.router.navigate(['/' + DEBIT_NOTE.ID_BASED_ROUTE('details', res.result.id ) ]);
           });
     }
   }
@@ -350,9 +351,9 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     //this.debitNoteModel.billTransactionId = null;
     this.debitNoteModel.debitNoteLines = this.debitNoteForm.value.debitNoteLines;
     this.debitNoteModel.campusId = this.debitNoteForm.value.campusId;
-    // if (this.isBill) {
-    //   this.debitNoteModel.billTransactionId = this.billMaster.transactionId;
-    // }
+    if (this.isBill) {
+      this.debitNoteModel.documentLedgerId = this.billMaster.ledgerId;
+    }
   }
 
   //for save or submit

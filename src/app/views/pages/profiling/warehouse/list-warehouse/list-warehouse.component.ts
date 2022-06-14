@@ -102,6 +102,10 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.WAREHOUSE_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {

@@ -37,6 +37,8 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+
+  showCreateButton: boolean = false;
   
   //subscription
   subscription$: Subscription
@@ -158,7 +160,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "double click to view detail",
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
@@ -180,7 +182,21 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
         }
       },
     };
+
+
+    //checking create permissions
+    // if(this.selectedDocumentType === 0) this.showButton(this.permission.isGranted(this.permissions.PAYMENT_CREATE))
+
+    // if(this.selectedDocumentType === 15) this.showButton(this.permission.isGranted(this.permissions.RECEIPT_CREATE))
+
+    // if(this.selectedDocumentType === 17) this.showButton(this.permission.isGranted(this.permissions.PAYROLL_PAYMENT_CREATE))
+
+    (this.selectedDocumentType === 0) ? this.showButton(this.permission.isGranted(this.permissions.PAYMENT_CREATE)) :
+      (this.selectedDocumentType === 15) ? this.showButton(this.permission.isGranted(this.permissions.RECEIPT_CREATE)) :
+        (this.selectedDocumentType === 17) ? this.showButton(this.permission.isGranted(this.permissions.PAYROLL_PAYMENT_CREATE)) : null
   }
+
+  showButton (permission: boolean) { this.showCreateButton = (permission) ? true : false; }
 
   ngOnDestroy() {
     if (this.subscription$) this.subscription$.unsubscribe()

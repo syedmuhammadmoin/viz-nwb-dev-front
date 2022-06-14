@@ -366,7 +366,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
           finalize(() => this.isLoading = false))
         .subscribe((res: IApiResponse<IInvoice>) => {
             this.toastService.success('Created Successfully', 'Invoice')
-            this.router.navigate(['/' + INVOICE.LIST])
+            // this.router.navigate(['/' + INVOICE.LIST])
+            this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
   }

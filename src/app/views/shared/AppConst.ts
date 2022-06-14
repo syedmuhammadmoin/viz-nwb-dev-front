@@ -40,13 +40,13 @@ export class AppConst {
     // Business Partner
     'Permissions.BusinessPartnerClaims.Create': 'Business Partner Create',
     'Permissions.BusinessPartnerClaims.View': 'Business Partner View',
-    'Permissions.BusinessPartnerClaims.Edit': 'Business Partner Edit',
+    'Permissions.BusinessPartnerClaims.Edit': 'Business Partner Update',
     'Permissions.BusinessPartnerClaims.Delete': 'Business Partner Delete',
 
     // Invoice
     'Permissions.InvoiceClaims.Create': 'Invoice Create',
     'Permissions.InvoiceClaims.View': 'Invoice View',
-    'Permissions.InvoiceClaims.Edit': 'Invoice Edit',
+    'Permissions.InvoiceClaims.Edit': 'Invoice Update',
     'Permissions.InvoiceClaims.Delete': 'Invoice Delete',
     'Permissions.InvoiceClaims.Review': 'Invoice Review',
     'Permissions.InvoiceClaims.Approve': 'Invoice Approve',
@@ -115,10 +115,10 @@ export class AppConst {
     'Permissions.CityClaims.Delete': 'City Delete',
 
     // Department
-    'Permissions.DepartmentsClaims.View': 'Department View',
-    'Permissions.DepartmentsClaims.Create': 'Department Create',
-    'Permissions.DepartmentsClaims.Edit': 'Department Update',
-    'Permissions.DepartmentsClaims.Delete': 'Department Delete',
+    'Permissions.DepartmentClaims.View': 'Department View',
+    'Permissions.DepartmentClaims.Create': 'Department Create',
+    'Permissions.DepartmentClaims.Edit': 'Department Update',
+    'Permissions.DepartmentClaims.Delete': 'Department Delete',
 
     // Designation
     'Permissions.DesignationClaims.View': 'Designation View',
@@ -141,13 +141,13 @@ export class AppConst {
     // Payroll Item
     'Permissions.PayrollItemClaims.View': 'Payroll Item View',
     'Permissions.PayrollItemClaims.Create': 'Payroll Item Create',
-    'Permissions.PayrollItemClaims.Edit': 'Payroll Item Edit',
+    'Permissions.PayrollItemClaims.Edit': 'Payroll Item Update',
     'Permissions.PayrollItemClaims.Delete': 'Payroll Item Delete',
 
     // Payroll Transaction
     'Permissions.PayrollTransactionClaims.View': 'Payroll Transaction View',
     'Permissions.PayrollTransactionClaims.Create': 'Payroll Transaction Create',
-    'Permissions.PayrollTransactionClaims.Edit': 'Payroll Transaction Edit',
+    'Permissions.PayrollTransactionClaims.Edit': 'Payroll Transaction Update',
     'Permissions.PayrollTransactionClaims.Delete': 'Payroll Transaction Delete',
     'Permissions.PayrollTransactionClaims.Review': 'Payroll Transaction Review',
     'Permissions.PayrollTransactionClaims.Approve': 'Payroll Transaction Approve',
@@ -248,25 +248,25 @@ export class AppConst {
     // Access Management
     'Permissions.AuthClaims.Create': 'Access Management Create',
     'Permissions.AuthClaims.View': 'Access Management View',
-    'Permissions.AuthClaims.Edit': 'Access Management Edit',
+    'Permissions.AuthClaims.Edit': 'Access Management Update',
     'Permissions.AuthClaims.Delete': 'Access Management Delete',
 
     // Workflow
     'Permissions.WorkflowClaims.Create': 'Workflow Create',
     'Permissions.WorkflowClaims.View': 'Workflow View',
-    'Permissions.WorkflowClaims.Edit': 'Workflow Edit',
+    'Permissions.WorkflowClaims.Edit': 'Workflow Update',
     'Permissions.WorkflowClaims.Delete': 'Workflow Delete',
 
     // Status
     'Permissions.WorkflowStatusClaims.Create': 'Status Create',
     'Permissions.WorkflowStatusClaims.View': 'Status View',
-    'Permissions.WorkflowStatusClaims.Edit': 'Status Edit',
+    'Permissions.WorkflowStatusClaims.Edit': 'Status Update',
     'Permissions.WorkflowStatusClaims.Delete': 'Status Delete',
 
     // Bank Reconciliation
     'Permissions.BankReconClaims.Create': 'Bank Reconciliation Create',
     'Permissions.BankReconClaims.View': 'Bank Reconciliation View',
-    'Permissions.BankReconClaims.Edit': 'Bank Reconciliation Edit',
+    'Permissions.BankReconClaims.Edit': 'Bank Reconciliation Update',
     'Permissions.BankReconClaims.Delete': 'Bank Reconciliation Delete',
 
     //Budget
@@ -285,14 +285,14 @@ export class AppConst {
     // Location
     'Permissions.LocationClaims.View': 'Location View',
     'Permissions.LocationClaims.Create': 'Location Create',
-    'Permissions.LocationClaims.Edit': 'Location Edit',
+    'Permissions.LocationClaims.Edit': 'Location Update',
     'Permissions.LocationClaims.Delete': 'Location Delete',
 
     //  Warehouse
-    'Permissions.WarehouseClaims.View': 'Warehouse View',
-    'Permissions.WarehouseClaims.Create': 'Warehouse Create',
-    'Permissions.WarehouseClaims.Edit': 'Warehouse Update',
-    'Permissions.WarehouseClaims.Delete': 'Warehouse Delete',
+    'Permissions.WarehouseClaims.View': 'Store View',
+    'Permissions.WarehouseClaims.Create': 'Store Create',
+    'Permissions.WarehouseClaims.Edit': 'Store Update',
+    'Permissions.WarehouseClaims.Delete': 'Store Delete',
 
     // sales Order
     'Permissions.SalesOrderClaims.View': 'Sales Order View',

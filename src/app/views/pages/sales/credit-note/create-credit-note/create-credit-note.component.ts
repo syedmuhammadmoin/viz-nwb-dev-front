@@ -278,7 +278,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     const formArray = new FormArray([]);
     Lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isCreditNote) ? line.id : 0,
         itemId: [line.itemId],
         description: [line.description, Validators.required],
         price: [line.price, [Validators.required, Validators.min(1)]],
@@ -304,17 +304,19 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       this.toastService.error('Please add credit note lines', 'Error')
       return;
     }
+
     if (this.isInvoice && (this.grandTotal > this.invoiceMaster.pendingAmount)) {
-      this.toastService.error("Total Amount can't be Greater than Invoice Amount", 'Error')
+      this.toastService.error("Amount can't be greater than Invoice Pending Amount", "Credit Note Lines")
       return;
     }
+    
     if (this.creditNoteForm.invalid) {
       return;
     }
 
     this.isLoading = true;
     this.mapFormValuesToCreditNoteModel();
-    //console.log(this.creditNoteModel)
+    console.log(this.creditNoteModel)
     if (this.creditNoteModel.id) {
       this.creditNoteService.updateCreditNote(this.creditNoteModel)
         .pipe(
@@ -336,7 +338,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
           finalize(() => this.isLoading = false))
         .subscribe((res: IApiResponse<ICreditNote>) => {
             this.toastService.success('Created Successfully' , 'Credit Note')
-            this.router.navigate(['/' + CREDIT_NOTE.LIST])
+            // this.router.navigate(['/' + CREDIT_NOTE.LIST])
+            this.router.navigate(['/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , res.result.id)]);
           });
     }
 
@@ -348,7 +351,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.creditNoteModel.noteDate = this.transformDate(this.creditNoteForm.value.noteDate, 'yyyy-MM-dd');
     this.creditNoteModel.creditNoteLines = this.creditNoteForm.value.creditNoteLines;
     this.creditNoteModel.campusId = this.creditNoteForm.value.campusId;
-    //if (this.isInvoice) { this.creditNoteModel.invoiceTransactionId = this.invoiceMaster.transactionId; }
+    if (this.isInvoice) { this.creditNoteModel.documentLedgerId = this.invoiceMaster.ledgerId; }
   }
 
   //for save or submit

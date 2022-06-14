@@ -14,6 +14,7 @@ import { MatRadioChange } from '@angular/material/radio';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { DepartmentState } from '../../../../department/store/department.store';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-create-payment',
@@ -26,7 +27,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   months = AppConst.Months
   filterForm: FormGroup;
   createPayrollPaymentForm: FormGroup;
-  tooltipData = 'double click to edit'
+  tooltipData = 'click to select employee'
   employeeGridApi: any;
   frameworkComponents: any;
   gridOptions: any;
@@ -47,6 +48,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Employee Name',
       field: 'employee',
+      tooltipField: 'cnic',
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
@@ -54,29 +56,32 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
     {
       headerName: 'CNIC', field: 'cnic',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Designation', field: 'designation',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Department',
       field: 'department',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Working Days',
       // editable: true,
       field: 'workingDays',
-      tooltipField: 'workingDays',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Present Days',
       // editable: true,
       field: 'presentDays',
-      tooltipField: 'presentDays',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
 /*    {
@@ -87,6 +92,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Net Salary',
       field: 'netSalary',
+      tooltipField: 'cnic',
       suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
@@ -169,7 +175,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
@@ -191,6 +197,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.isLoading.emit(false);
         this.transactionList = res.result;
+        if (isEmpty(res.result)) {
+          this.toastService.info('No Records Found !' , 'Payroll Payment')
+        }
         this.cdRef.detectChanges();
       });
   }
@@ -215,7 +224,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         accountPayableId: x.accountPayableId,
         businessPartnerId: x.businessPartnerId,
         netSalary: x.netSalary,
-        transactionId: x.transactionId
+        ledgerId: x.ledgerId
       })
     });
     body.createPayrollTransLines = bodyList;

@@ -91,6 +91,10 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.CATEGORIES_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 // data rendering on first
   onFirstDataRendered(params: FirstDataRenderedEvent) {

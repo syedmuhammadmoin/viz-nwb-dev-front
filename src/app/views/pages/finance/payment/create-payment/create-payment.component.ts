@@ -142,9 +142,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     injector: Injector
   ) {
     super(injector)
-    this.formName = this.documents.find(x => x.id === this.data.docType).value
 
-    console.log("form Name : ", this.formName)
+    this.formName = this.documents.find(x => x.id === this.data.docType).value
   }
 
   groups = [
@@ -194,8 +193,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         discount: null,
         salesTax: null,
         incomeTax: null,
-        srbTax : null
-        //documentTransactionId: null,
+        srbTax : null,
+        documentLedgerId: null,
       }
     };    
     this.calculatingNetPayment();
@@ -272,9 +271,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         .pipe(
           take(1),
           finalize(() => this.isLoading = false))
-        .subscribe(() => {
+        .subscribe((res) => {
             this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
-            this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : (this.formName === 'Payroll Payment') ? PAYROLL_PAYMENT.LIST : RECEIPT.LIST)])
+            // this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : (this.formName === 'Payroll Payment') ? PAYROLL_PAYMENT.LIST : RECEIPT.LIST)])
+            this.route.navigate(['/payment/'+ this.documents.find(x => x.id === this.data.docType).route +'/details/' + res.result.id])
             this.onCloseDialog();
           },
           (err) => this.toastService.error(`${err.message || 'Something went wrong, please try again later.'}`, 'Error Creating')

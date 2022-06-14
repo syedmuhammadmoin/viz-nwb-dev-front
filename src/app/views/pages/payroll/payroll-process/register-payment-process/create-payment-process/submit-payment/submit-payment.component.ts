@@ -12,6 +12,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { DepartmentState } from '../../../../department/store/department.store';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-submit-payment',
@@ -42,26 +43,25 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     {
       headerName: 'Employee Name',
-      field: 'businessPartner',
+      field: 'businessPartnerName',
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true, 
       suppressMenu: true,
     },
     {
-      headerName: 'Doc #', field: 'docNo', 
+      headerName: 'Doc #', 
+      field: 'docNo', 
       suppressMenu: true,
     },
-
-
     {
       headerName: 'Account Payable',
-      field: 'account', 
+      field: 'accountName', 
       suppressMenu: true,
     },
     {
       headerName: 'Register',
-      field: 'paymentRegister', 
+      field: 'paymentRegisterName', 
       suppressMenu: true,
     },
     {
@@ -151,6 +151,9 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     this.payrollProcessService.getPayrollPayment(this.submitPayrollPaymentForm.value)
       .subscribe((res) => {
         this.paymentList = res.result;
+        if (isEmpty(res.result)) {
+          this.toastService.info('No Records Found !' , 'Payroll Payment')
+        }
         this.cdRef.detectChanges();
         this.isLoading.emit(false);
       })

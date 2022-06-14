@@ -219,11 +219,12 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       this.budgetService.createBudget(this.budgetModel).pipe(
         take(1),
         finalize(() => this.isLoading = false))
-        .subscribe(() => {
+        .subscribe((res) => {
           this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
           this.toastService.success('Created Successfully', 'Budget')
           //console.log('/' + BUDGET.LIST)
-          this.router.navigate(['/' + BUDGET.LIST])
+          // this.router.navigate(['/' + BUDGET.LIST])
+          this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
         },
         (err) => {
           //this.toastService.error('Something went wrong, please try again later.', 'Error Creating')

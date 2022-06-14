@@ -288,6 +288,9 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       console.log("yes")
       this.recordsData = res.result || [];
       this.rowData = res.result || [];
+      if (isEmpty(res.result)) {
+        this.toastService.info('No Records Found !' , 'Payroll Transaction')
+      }
       console.log(res.result, " result")
       this.totals = this.calculateTotal(this.recordsData, 'basicSalary', 'totalAllowances', 'grossSalary', 'totalDeductions', 'netSalary')
       this.isLoading = false;

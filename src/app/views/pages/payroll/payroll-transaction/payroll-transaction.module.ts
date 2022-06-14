@@ -9,6 +9,7 @@ import { PayrollTransactionRoutingModule } from './payroll-transaction-routing.m
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { MatDialogRef } from '@angular/material/dialog';
+import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/register-payment.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { MatDialogRef } from '@angular/material/dialog';
     PayrollTransactionRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
-  providers: []
+  providers: [],
+  entryComponents: [RegisterPaymentComponent]
 })
 export class PayrollTransactionModule { }
 

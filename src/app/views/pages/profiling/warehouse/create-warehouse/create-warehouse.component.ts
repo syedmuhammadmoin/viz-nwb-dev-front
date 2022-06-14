@@ -33,6 +33,9 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
 
   title: string = 'Create Store'
 
+  //show Buttons
+  showButtons: boolean = true; 
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -113,6 +116,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     //this.getCountryList();
 
     if (this._id) {
+      this.showButtons = (this.permission.isGranted(this.permissions.WAREHOUSE_EDIT)) ? true : false;
       this.title = 'Edit Store'
       this.isLoading = true
       this.getWarehouse(this._id);
@@ -194,6 +198,11 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
       // address: warehouse.address,
       // department: warehouse.departmentId,
     });
+
+    //if user have no permission to edit, so disable all fields
+    if(!this.showButtons) {
+      this.warehouseForm.disable();
+    }
   }
 
   onSubmit() {

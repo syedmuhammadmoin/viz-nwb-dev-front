@@ -21,6 +21,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.INVOICE_VIEW },
             { permission: Permissions.INVOICE_CREATE },
+            { permission: Permissions.INVOICE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -32,6 +33,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.INVOICE_CREATE },
+            { permission: Permissions.INVOICE_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -42,6 +44,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.INVOICE_EDIT },
+            { permission: Permissions.INVOICE_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -53,6 +56,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.INVOICE_VIEW },
             { permission: Permissions.INVOICE_CREATE },
+            { permission: Permissions.INVOICE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -64,6 +68,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.INVOICE_VIEW },
             { permission: Permissions.INVOICE_CREATE },
+            { permission: Permissions.INVOICE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]

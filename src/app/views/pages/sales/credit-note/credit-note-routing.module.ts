@@ -20,6 +20,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.CREDITNOTE_VIEW },
             { permission: Permissions.CREDITNOTE_CREATE },
+            { permission: Permissions.CREDITNOTE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -31,6 +32,7 @@ const route : Routes = [
           data: {
           array: [
             { permission: Permissions.CREDITNOTE_CREATE },
+            { permission: Permissions.CREDITNOTE_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -41,6 +43,7 @@ const route : Routes = [
           data: {
           array: [
             { permission: Permissions.CREDITNOTE_EDIT },
+            { permission: Permissions.CREDITNOTE_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -52,6 +55,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.CREDITNOTE_VIEW },
             { permission: Permissions.CREDITNOTE_CREATE },
+            { permission: Permissions.CREDITNOTE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -63,6 +67,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.CREDITNOTE_VIEW },
             { permission: Permissions.CREDITNOTE_CREATE },
+            { permission: Permissions.CREDITNOTE_EDIT },
           ]
         },
         canActivate: [PermissionGuard]

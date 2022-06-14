@@ -4,12 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params} from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PaymentService } from '../service/payment.service';
-import { ActionButton, DocumentStatus , DocType } from 'src/app/views/shared/AppEnum';
+import { ActionButton, DocumentStatus , DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CreatePaymentComponent } from '../create-payment/create-payment.component';
-import { PAYMENT } from 'src/app/views/shared/AppRoutes';
+import { BILL, INVOICE, PAYMENT, PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { IPayment } from '../model/IPayment';
 
 
@@ -28,7 +28,13 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   //subscription
   subscription$: Subscription
 
-  public paymentRoute = PAYMENT
+  permissions = Permissions
+
+  //for Routing
+  public PAYMENT = PAYMENT
+  public BILL = BILL
+  public INVOICE = INVOICE
+  public PAYROLL_TRANSACTION = PAYROLL_TRANSACTION
   
   docStatus = DocumentStatus
 
@@ -42,6 +48,11 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   selectedFormType: any;
   formName: string;
   documents = AppConst.Documents
+
+  //show Buttons
+  showButtons: boolean = true;
+
+  paidAmountList: any = []
 
   // need for routing
   paymentId: number;
@@ -67,13 +78,20 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
           this.cdr.markForCheck();
         }
       });
+
+      (this.selectedFormType === 0) ? this.showButton(this.permission.isGranted(this.permissions.PAYMENT_EDIT)) :
+      (this.selectedFormType === 15) ? this.showButton(this.permission.isGranted(this.permissions.RECEIPT_EDIT)) :
+        (this.selectedFormType === 17) ? this.showButton(this.permission.isGranted(this.permissions.PAYROLL_PAYMENT_EDIT)) : null
     }
+
+    showButton (permission: boolean) { this.showButtons = (permission) ? true : false; }
   
     //Getting Payment Master data
     getPaymentData(id: number) {
       this.subscription$ = this.paymentService.getPaymentById(id, this.documents.find(x=>x.id === this.selectedFormType).value).subscribe(
         (res) => {
           this.paymentMaster = res.result;
+          this.paidAmountList = this.paymentMaster.paidAmountList;
           // this.status = AppConst.ConsileOrReconcile[this.paymentMaster.bankReconStatus]
           // this.paymentType = AppConst.paymentType[this.paymentMasterList.paymentType]
           // this.registerType = AppConst.paymentRegisterType[this.paymentMasterList.paymentRegisterType]

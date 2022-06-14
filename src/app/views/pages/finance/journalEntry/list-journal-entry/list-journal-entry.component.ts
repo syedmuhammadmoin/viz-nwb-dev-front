@@ -131,7 +131,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "double click to view detail",
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};

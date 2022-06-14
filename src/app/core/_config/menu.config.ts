@@ -304,16 +304,16 @@ export class MenuConfig {
             Permissions.BANK_RECON_CREATE
           ],
           submenu: [
-            {
-              title: 'Cash Account',
-              page: '/' + CASH_ACCOUNT.LIST,
-              permission: [
-                Permissions.CASHACCOUNT_VIEW,
-                Permissions.CASHACCOUNT_CREATE,
-                Permissions.CASHACCOUNT_EDIT,
-                Permissions.CASHACCOUNT_DELETE
-              ]
-            },
+            // {
+            //   title: 'Cash Account',
+            //   page: '/' + CASH_ACCOUNT.LIST,
+            //   permission: [
+            //     Permissions.CASHACCOUNT_VIEW,
+            //     Permissions.CASHACCOUNT_CREATE,
+            //     Permissions.CASHACCOUNT_EDIT,
+            //     Permissions.CASHACCOUNT_DELETE
+            //   ]
+            // },
             {
               title: 'Bank Account',
               page: '/' + BANK_ACCOUNT.LIST,
@@ -565,6 +565,10 @@ export class MenuConfig {
             Permissions.PAYROLL_TRANSACTION_DELETE,
             Permissions.PAYROLL_TRANSACTION_APPROVE,
             Permissions.PAYROLL_TRANSACTION_REVIEW,
+            Permissions.PAYROLL_PAYMENT_VIEW,
+            Permissions.PAYROLL_PAYMENT_CREATE,
+            Permissions.PAYROLL_PAYMENT_EDIT,
+            Permissions.PAYROLL_PAYMENT_DELETE,
             Permissions.DESIGNATIONS_VIEW,
             Permissions.DEPARTMENTS_VIEW,
             Permissions.EMPLOYEE_VIEW 

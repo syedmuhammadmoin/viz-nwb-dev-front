@@ -62,7 +62,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
   // For Credit Note data
   creditNoteLines: ICreditNoteLines | any;
   creditNoteMaster: ICreditNote | any;
-  reconciledDocumentList: any = [];
+  paidAmountList: any = [];
 
   // Defining columns for ag grid
   columnDefs = [
@@ -131,7 +131,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
     this.creditNoteService.getCreditNoteById(id).subscribe((res: IApiResponse<ICreditNote>) => {
       this.creditNoteMaster = res.result;
       this.creditNoteLines = res.result.creditNoteLines;
-      this.reconciledDocumentList = this.creditNoteMaster.reconciledDocuments == null ? [] : this.creditNoteMaster.reconciledDocuments;
+      this.paidAmountList = this.creditNoteMaster.paidAmountList == null ? [] : this.creditNoteMaster.paidAmountList;
       this.cdr.detectChanges();
     })
   }

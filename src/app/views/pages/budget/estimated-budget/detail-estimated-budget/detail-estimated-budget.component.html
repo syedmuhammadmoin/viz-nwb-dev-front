@@ -15,8 +15,6 @@
               <ng-container ktPortletTools >
 
                   <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
-                    [disabled]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))" id="estimated_edit"
-                    [ngClass]="!(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT)) ? 'disable' : '' "
                     [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
                     type="button" class="btn_public">
                     <i class="fa fa-edit"></i> Edit

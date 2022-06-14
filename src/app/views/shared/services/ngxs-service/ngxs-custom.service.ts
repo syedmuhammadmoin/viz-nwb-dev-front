@@ -41,6 +41,8 @@ import { DeductionState } from 'src/app/views/pages/payroll/payroll-item/store/d
 import { PayrollItemService } from 'src/app/views/pages/payroll/payroll-item/service/payroll-item.service';
 import { OtherAccountState } from 'src/app/views/pages/finance/chat-of-account/store/other-account.state';
 import { AccountReceivableState } from 'src/app/views/pages/finance/chat-of-account/store/account-receivable.state';
+import { RoleState } from 'src/app/views/pages/access-management/store/role.state';
+import { AccessManagementService } from 'src/app/views/pages/access-management/service/access-management.service';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +67,7 @@ export class NgxsCustomService {
     public payrollItemService: PayrollItemService,
     public cscService: CscService,
     public statusService: StatusService,
+    public accessManagementService: AccessManagementService,
     public cashAccountService: CashAccountService,
     public bankAccountService: BankAccountService,
     public budgetService: BudgetService,
@@ -205,6 +208,11 @@ export class NgxsCustomService {
    @Select(DeductionState.entities) deductionPayrollItems$: Observable<any>;
    @Select(DeductionState.isFetchCompleted) deductionPayrollItemsFetchCompleted$: Observable<any>;
    @Select(DeductionState.isLoading) deductionPayrollItemsIsLoading$: Observable<any>;
+
+   // Roles
+   @Select(RoleState.entities) roles$: Observable<any>;
+   @Select(RoleState.isFetchCompleted) rolesFetchCompleted$: Observable<any>;
+   @Select(RoleState.isLoading) rolesIsLoading$: Observable<any>;
 
 
   //region State Management
@@ -522,6 +530,20 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(WarehouseState, {
           serviceClass: this.warehouseService,
           methodName: 'getWarehousesDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get roles From Store if available else fetch from the server and cache.
+  getRolesFromState() {
+    this.rolesFetchCompleted$.subscribe((res) => {
+      //console.log('Role State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(RoleState, {
+          serviceClass: this.accessManagementService,
+          methodName: 'getRolesDropdown',
           context: this
         }))
       }

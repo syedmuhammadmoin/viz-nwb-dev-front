@@ -98,6 +98,10 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.CAMPUS_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 // data rendering on first
   onFirstDataRendered(params: FirstDataRenderedEvent) {

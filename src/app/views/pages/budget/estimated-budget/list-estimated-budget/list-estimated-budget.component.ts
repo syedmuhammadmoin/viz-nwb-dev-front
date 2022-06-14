@@ -25,7 +25,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   gridOptions : GridOptions;
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
-  tooltipData : string = "double click to edit"
+  tooltipData : string = "double click to view detail"
   public permissions = Permissions
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
@@ -90,7 +90,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "double click to view detail",
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};

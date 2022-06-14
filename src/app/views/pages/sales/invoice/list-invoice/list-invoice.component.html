@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button (click)="addInvoice()" [disabled]="!(permission.isGranted(permissions.INVOICE_CREATE))" id="add_invoice" class="sub___btn" mat-raised-button  matTooltip="Add Invoice">Add Invoice</button>
+    <button (click)="addInvoice()" *ngIf="(permission.isGranted(permissions.INVOICE_CREATE))" id="add_invoice" class="sub___btn" mat-raised-button  matTooltip="Add Invoice">Add Invoice</button>
   </div>
 </div>
 

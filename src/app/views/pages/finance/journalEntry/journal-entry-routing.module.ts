@@ -20,6 +20,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.JOURNALENTRY_VIEW },
             { permission: Permissions.JOURNALENTRY_CREATE },
+            { permission: Permissions.JOURNALENTRY_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -31,6 +32,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.JOURNALENTRY_CREATE },
+            { permission: Permissions.JOURNALENTRY_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -41,6 +43,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.JOURNALENTRY_EDIT },
+            { permission: Permissions.JOURNALENTRY_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -52,6 +55,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.JOURNALENTRY_VIEW },
             { permission: Permissions.JOURNALENTRY_CREATE },
+            { permission: Permissions.JOURNALENTRY_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -63,6 +67,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.JOURNALENTRY_VIEW },
             { permission: Permissions.JOURNALENTRY_CREATE },
+            { permission: Permissions.JOURNALENTRY_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 

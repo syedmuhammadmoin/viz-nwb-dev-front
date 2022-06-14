@@ -60,7 +60,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     { 
       headerName: 'Vendor Name', 
       field: 'vendorName',
-      tooltipField: 'vendor',
+      tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -71,7 +71,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Note Date',
       field: 'noteDate',
-      tooltipField: 'vendor',
+      tooltipField: 'status',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -85,7 +85,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Total', 
       field: 'totalAmount',
-      tooltipField: 'vendor',
+      tooltipField: 'status',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'
@@ -115,7 +115,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "double click to view detail",
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};

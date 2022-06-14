@@ -20,6 +20,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.BILL_VIEW },
             { permission: Permissions.BILL_CREATE },
+            { permission: Permissions.BILL_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -31,6 +32,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.BILL_CREATE },
+            { permission: Permissions.BILL_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -41,6 +43,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.BILL_EDIT },
+            { permission: Permissions.BILL_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -52,6 +55,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.BILL_VIEW },
             { permission: Permissions.BILL_CREATE },
+            { permission: Permissions.BILL_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -63,6 +67,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.BILL_VIEW },
             { permission: Permissions.BILL_CREATE },
+            { permission: Permissions.BILL_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
