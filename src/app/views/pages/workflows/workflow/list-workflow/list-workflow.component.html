@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button routerLink="/workflow/create" [disabled]="!(permission.isGranted(permissions.WORKFLOW_CREATE))" mat-raised-button class="sub___btn" id="add_workflow"  matTooltip="Add Workflow">Add Workflow</button>
+    <button routerLink="/workflow/create" *ngIf="(permission.isGranted(permissions.WORKFLOW_CREATE))" mat-raised-button class="sub___btn" id="add_workflow"  matTooltip="Add Workflow">Add Workflow</button>
   </div>
 </div>
 

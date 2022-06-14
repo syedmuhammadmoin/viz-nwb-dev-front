@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angul
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { FirstDataRenderedEvent, RowNode} from 'ag-grid-community';
+import { isEmpty } from 'lodash';
 import { map } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -171,6 +172,9 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
     this.payrollProcessService.GetApprovePayrollProcess(body)
       .pipe(map((res: any) => {
+        if (isEmpty(res.result)) {
+          this.toastService.info('No Records Found !' , 'Payroll Process')
+        }
         return res.result.map((response: any) => {
           return response
         });

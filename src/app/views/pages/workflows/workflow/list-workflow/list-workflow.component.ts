@@ -113,6 +113,10 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.WORKFLOW_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 
   onFirstDataRendered(params: any) {

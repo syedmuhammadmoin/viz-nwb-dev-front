@@ -4,7 +4,7 @@ export interface ICreditNote {
     id: number;
     customerId: number;
     noteDate: string;
-    //invoiceTransactionId?: any,
+    documentLedgerId?: number,
     campusId: number;
     creditNoteLines: ICreditNoteLines[];
     isSubmit?: any

@@ -101,6 +101,10 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
         }
       },
     };
+
+    if(!this.permission.isGranted(this.permissions.STATUS_EDIT)) {
+      this.gridOptions.context = 'Status'
+    }
   }
 
   getAllStatus() {
@@ -115,7 +119,9 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.addStatusDialog(event.data.id)
+    if(this.permission.isGranted(this.permissions.STATUS_EDIT)) {
+      this.addStatusDialog(event.data.id)
+    }
   }
 
   addStatusDialog(id?: number) {

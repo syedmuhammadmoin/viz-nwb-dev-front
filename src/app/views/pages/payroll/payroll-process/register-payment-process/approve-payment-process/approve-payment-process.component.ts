@@ -10,6 +10,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { DepartmentState } from '../../../department/store/department.store';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -145,6 +146,9 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
       .subscribe((res) => {
         this.isLoading = false;
         this.paymentList = res.result;
+        if (isEmpty(res.result)) {
+          this.toastService.info('No Records Found !' , 'Payroll Payment')
+        }
         console.log('list: ', this.paymentList);
         this.cdRef.detectChanges();
       }, (err) => {

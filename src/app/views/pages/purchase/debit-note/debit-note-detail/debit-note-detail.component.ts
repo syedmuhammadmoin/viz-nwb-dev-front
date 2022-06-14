@@ -41,6 +41,8 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
   //need for routing
   debitNoteId: number;
 
+  paidAmountList: any = []
+
   totalBeforeTax: number;
   totalTax: number;
   totalAmount: number;
@@ -131,7 +133,8 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       this.totalBeforeTax = this.debitNoteMaster.totalBeforeTax;
       this.totalTax = this.debitNoteMaster.totalTax;
       this.totalAmount = this.debitNoteMaster.totalAmount;
-      this.reconciledDocumentList = this.debitNoteMaster.reconciledDocuments == null ? [] : this.debitNoteMaster.reconciledDocuments;
+      this.paidAmountList = this.debitNoteMaster.paidAmountList;
+      //this.reconciledDocumentList = this.debitNoteMaster.reconciledDocuments == null ? [] : this.debitNoteMaster.reconciledDocuments;
       this.cdRef.detectChanges();
     }, (err: any) => console.log(err));
   }

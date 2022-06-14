@@ -11,6 +11,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { CreatePayrollTransactionComponent } from '../../payroll-transaction/create-payroll-transaction/create-payroll-transaction.component';
 import { DepartmentState } from '../../department/store/department.store';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-create-payroll-process',
@@ -186,6 +187,9 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.payrollProcessService.createPayrollProcess(body)
       .subscribe((res) => {
         this.employeeList = res.result;
+        if (isEmpty(res.result)) {
+          this.toastService.info('No Records Found !' , 'Payroll Process')
+        }
         console.log(res.result)
         this.isLoading = false;
         this.cdRef.detectChanges();

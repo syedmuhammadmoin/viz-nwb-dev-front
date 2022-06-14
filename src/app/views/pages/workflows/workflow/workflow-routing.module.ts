@@ -17,7 +17,8 @@ const routes: Routes = [
         data: {
           array: [
             {permission: Permissions.WORKFLOW_VIEW},
-            {permission: Permissions.WORKFLOW_CREATE}
+            {permission: Permissions.WORKFLOW_CREATE},
+            {permission: Permissions.WORKFLOW_EDIT},
           ]
         },
         canActivate: [PermissionGuard]
@@ -29,6 +30,7 @@ const routes: Routes = [
         data: {
           array: [
             {permission: Permissions.WORKFLOW_CREATE},
+            {permission: Permissions.WORKFLOW_VIEW},
           ]
         },
         canActivate: [PermissionGuard]
@@ -39,6 +41,8 @@ const routes: Routes = [
         data: {
           array: [
             {permission: Permissions.WORKFLOW_EDIT},
+            {permission: Permissions.WORKFLOW_CREATE},
+            {permission: Permissions.WORKFLOW_VIEW},
           ]
         },
         canActivate: [PermissionGuard]

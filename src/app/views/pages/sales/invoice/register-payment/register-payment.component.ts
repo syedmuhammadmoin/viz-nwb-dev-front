@@ -8,7 +8,7 @@ import { finalize, take} from 'rxjs/operators';
 
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { Permissions} from 'src/app/views/shared/AppEnum';
+import { DocType, Permissions} from 'src/app/views/shared/AppEnum';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IBankAccount } from '../../../finance/bank-account/model/IBankAccount';
@@ -40,6 +40,9 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
 
   // Limit Date
   maxDate = new Date();
+
+  //set readonly gross payment field
+  isPayrollPayment: boolean = false;
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -135,6 +138,8 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
 
     // Calling calculatingNetPayment function
     this.calculatingNetPayment();
+
+    this.isPayrollPayment = (this.data.docType === DocType.PayrollPayment) ? true : false;
 
     // initializing payment model
     this.paymentModel = {

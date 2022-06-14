@@ -5,7 +5,7 @@ import { MatDialog} from '@angular/material/dialog';
 import { ActivatedRoute, Router} from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { ActionButton, DocumentStatus} from 'src/app/views/shared/AppEnum';
+import { ActionButton, DocumentStatus, Permissions} from 'src/app/views/shared/AppEnum';
 //import {AddModalButtonService} from 'src/app/shared/service/add-modal-button.service';
 import { AccessManagementService } from '../../../access-management/service/access-management.service';
 
@@ -24,15 +24,20 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
   styleUrls: ['./create-workflow.component.scss']
 })
   
-export class CreateWorkflowComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
+export class CreateWorkflowComponent extends AppComponentBase implements OnInit {
 
   documents = AppConst.Documents
   docStatus = DocumentStatus
   actionButton = ActionButton
   workflowForm: FormGroup;
 
+  permissions = Permissions
+
   // busy loading
   isLoading: boolean;
+
+  //show Buttons
+  showButtons: boolean = true; 
 
   // For Table Columns
   // displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'salesPrice', 'salesTax', 'subTotal', 'action']
@@ -93,12 +98,14 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
     this.activatedRoute.paramMap.subscribe((param) => {
       const id = param.get('id');
       if (id) {
+        this.showButtons = (this.permission.isGranted(this.permissions.WORKFLOW_EDIT)) ? true : false;
         this.title = 'Edit Workflow'
         this.getWorkflow(id);
       }
     })
-    //get statuses from state
+    //get data from state
     this.ngxsService.getStatusesFromState()
+    this.ngxsService.getRolesFromState();
 
     //for check status on add new line button
     // this.ngxsService.statuses$.subscribe((res) => {
@@ -125,6 +132,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
       isActive: result.isActive,
     })
     this.workflowForm.setControl('workflowLines', this.patchWorkflowLines(result.workflowTransitions))
+    setTimeout(() => { if(!this.showButtons) this.workflowForm.disable() }, 1)
   }
 
   patchWorkflowLines(workflowTransitions: any): FormArray {
@@ -255,9 +263,9 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit,
   openStatusDialog() {
   }
 
-  canDeactivate(): boolean | Observable<boolean> {
-    return !this.workflowForm.dirty;
-  }
+  // canDeactivate(): boolean | Observable<boolean> {
+  //   return !this.workflowForm.dirty;
+  // }
 
   filterFunction = (param): any => {
     return param.state !== this.docStatus.Unpaid ? param : []

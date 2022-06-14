@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
+import { PAYROLL_PAYMENT, PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { PayrollTransactionService } from '../service/payroll-transaction.service';
 import { RegisterPaymentComponent } from '../../../sales/invoice/register-payment/register-payment.component';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -29,6 +29,7 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   defaultColDef: ColDef;
 
   public PAYROLL_TRANSACTION = PAYROLL_TRANSACTION;
+  public PAYROLL_PAYMENT = PAYROLL_PAYMENT;
 
   //handling register payment button
   isDisabled: boolean;
@@ -38,8 +39,12 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
 
   //Variables for Payroll Transaction data
   paidAmountList: any = [];
+  bpUnReconPaymentList: any = [];
+  paidAmount: number;
 
   months = AppConst.Months
+
+  pendingAmount: number;
  
   employeeType;
   remarksList: any = [];
@@ -48,6 +53,10 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
 
   payrollMaster: IPayrollTransaction | any;
   employeeItems: any;
+
+  //need for Register Payment
+  businessPartnerId: number;
+  ledgerId: number
 
   constructor(
     private payrollTransactionService: PayrollTransactionService,
@@ -97,6 +106,13 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
       .subscribe((res: IPayrollTransaction | any) => {
         this.payrollMaster = res.result;
         console.log('master data payroll', this.payrollMaster)
+        this.pendingAmount = this.payrollMaster.pendingAmount;
+        this.businessPartnerId = this.payrollMaster.businessPartnerId;
+        this.ledgerId = this.payrollMaster.ledgerId;
+        this.paidAmount = this.payrollMaster.totalPaid;
+        this.pendingAmount = this.payrollMaster.pendingAmount;
+        this.paidAmountList = this.payrollMaster.paidAmountList == null ? [] : this.payrollMaster.paidAmountList;
+       // this.bpUnReconPaymentList = this.payrollMaster.bpUnreconPaymentList == null ? [] : this.payrollMaster.bpUnreconPaymentList;
         //this.employeeType = AppConst.EmployeeType[this.payrollMaster.employeeType];
        
         this.employeeItems = res.result.payrollTransactionLines
@@ -107,6 +123,28 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
 
   getSalaryMonth() {
     return `${this.months.find(x => x.value === this.payrollMaster?.month)?.name}, ${this.payrollMaster?.year}`
+  }
+
+  //on dialogue open funtions
+  openDialog(): void {
+    const dialogRef = this.dialog.open(RegisterPaymentComponent, {
+      width: '900px',
+      data: {
+        accountId: this.payrollMaster.accountPayableId,
+        paymentType: 2,
+        documentLedgerId: this.payrollMaster.ledgerId,
+        campusId: this.payrollMaster?.campusId || null,
+        businessPartnerId: this.payrollMaster.businessPartnerId,
+        pendingAmount: this.payrollMaster.pendingAmount,
+        formName: 'Payroll Transaction',
+        docType: DocType.PayrollPayment
+      }
+    });
+    //Recalling getInvoiceData function on dialog close
+    dialogRef.afterClosed().subscribe(() => {
+      this.getPayroll(this.payrollId);
+      this.cdRef.detectChanges();
+    });
   }
 
   registerPayrollPayment() {

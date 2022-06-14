@@ -306,7 +306,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       return;
     }
     if (this.isBill && (this.grandTotal > this.billMaster.pendingAmount)) {
-      this.toastService.error("Total Amount can't be Greater than Bill Amount", 'Error')
+      this.toastService.error("Amount can't be greater than Bill Pending Amount", "Debit Note Lines")
       return;
     }
     if (this.debitNoteForm.invalid) {
@@ -351,9 +351,9 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     //this.debitNoteModel.billTransactionId = null;
     this.debitNoteModel.debitNoteLines = this.debitNoteForm.value.debitNoteLines;
     this.debitNoteModel.campusId = this.debitNoteForm.value.campusId;
-    // if (this.isBill) {
-    //   this.debitNoteModel.billTransactionId = this.billMaster.transactionId;
-    // }
+    if (this.isBill) {
+      this.debitNoteModel.documentLedgerId = this.billMaster.ledgerId;
+    }
   }
 
   //for save or submit

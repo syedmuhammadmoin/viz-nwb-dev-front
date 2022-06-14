@@ -4,7 +4,7 @@ export interface IDebitNote {
     id: number;
     vendorId: number;
     noteDate: string;
-    //billTransactionId?: number;
+    documentLedgerId?: number;
     campusId: number;
     debitNoteLines: IDebitNoteLines[];
     isSubmit?: any;

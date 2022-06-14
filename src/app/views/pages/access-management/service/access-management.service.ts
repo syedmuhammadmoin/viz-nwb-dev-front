@@ -69,5 +69,9 @@ export class AccessManagementService {
     getUserScopeById(): Observable<any> {
         return 
     }
+
+    getRolesDropdown(): Observable<any> {
+        return this.httpClient.get<IApiResponse<IOrganizationAccessLevel[]>>(environment.baseUrl + 'auth/roles/dropdown')
+    }
 }
 

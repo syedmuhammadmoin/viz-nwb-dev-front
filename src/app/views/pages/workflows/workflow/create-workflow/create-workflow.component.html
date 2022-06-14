@@ -124,7 +124,7 @@
                                 formControlName="allowedRoleId" 
                                 matFormFieldClass="full-width"
                                 errorMessage="Role is Required"
-                                [optionList]="accessManagementService.getRoles()">
+                                [optionList]="ngxsService.roles$">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>
@@ -135,7 +135,7 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <!-- <mat-icon class="delete-button" (click)="removeInvoiceLineClick(i)">delete_forever</mat-icon> -->
                             <button class=" remove-icon" [id]="'workflow_remove_' + i" type="button" (click)="removeInvoiceLineClick(i)"
-                            [disabled]="">
+                            [disabled]="!showButtons">
                               <i  class="fas fa-trash" aria-hidden="true"></i>
                             </button>
                           </mat-cell>
@@ -147,7 +147,7 @@
                     <ng-container>
                       <div class="row" style="align-items: center;">
                         <div class="col-lg-5 col-sm-5">
-                          <button class=" btn_create" type="button" id="workflow_add_line" (click)="addWorkflowLineClick()">
+                          <button *ngIf="showButtons" class=" btn_create" type="button" id="workflow_add_line" (click)="addWorkflowLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -164,7 +164,7 @@
         <div class="kt-portlet__foot mt-lg-n5">
           <div class="kt-form__actions kt-form__actions">
             <div class="row text-right">
-              <div class="col-lg-12">
+              <div *ngIf="showButtons" class="col-lg-12">
                 <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="workflow_reset">Reset
                 </button>
                 <button mat-raised-button class="sub___btn" type="submit" id="workflow_submit"

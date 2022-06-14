@@ -52,6 +52,7 @@
                             id="gross_payment"
                             formControlName="grossPayment"
                             type = "number"
+                            [readonly]="isPayrollPayment"
                             [min]="0"
                             placeholder="Enter Gross Payment"
                             (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
