@@ -3,17 +3,7 @@
       <kt-portlet-header [sticky]="false" [title]="'Budget Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <!-- <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" id="budget_print" type="button" mat-raised-button
-            class="btn_white mr-3">
-            Print Budget
-          </button>
-          <button *ngIf="(permission.isGranted(permissions.BUDGET_EDIT))"
-            [disabled]="!(permission.isGranted(permissions.BUDGET_EDIT))" id="budget_edit"
-            [ngClass]="!(permission.isGranted(permissions.BUDGET_EDIT)) ? 'disable' : '' "
-            [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('edit', budgetMaster?.id)" [queryParams]="{q: budgetMaster?.id, 'isBudget': true}"
-            type="button" mat-raised-button class="btn_white mr-3">
-            Edit
-          </button> -->
+  
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
@@ -25,8 +15,6 @@
               <ng-container ktPortletTools >
 
                   <button *ngIf="(permission.isGranted(permissions.BUDGET_EDIT))"
-                    [disabled]="!(permission.isGranted(permissions.BUDGET_EDIT))" id="budget_edit"
-                    [ngClass]="!(permission.isGranted(permissions.BUDGET_EDIT)) ? 'disable' : '' "
                     [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('edit', budgetMaster?.id)" [queryParams]="{q: budgetMaster?.id, 'isBudget': true}"
                     type="button" class="btn_public mr-3">
                     <i class="fa fa-edit"></i> Edit
@@ -75,8 +63,7 @@
               <table class="table  small_table_box" style="margin: 0px -6px;">
                 
                 <tr style="border-top: 2px solid #1a6b85;">
-                  <th class="text-left"
-                    style=" ">Total Amount :</th>
+                  <th class="text-left">Total Amount :</th>
                   <th class="text-right" >
                     {{valueFormatter(totalAmount || 0)}}</th>
                 </tr>

@@ -21,6 +21,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.BUDGET_VIEW },
             { permission: Permissions.BUDGET_CREATE },
+            { permission: Permissions.BUDGET_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -32,6 +33,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.BUDGET_CREATE },
+            { permission: Permissions.BUDGET_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -43,6 +45,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.BUDGET_EDIT },
+            { permission: Permissions.BUDGET_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -55,6 +58,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.BUDGET_VIEW },
             { permission: Permissions.BUDGET_CREATE },
+            { permission: Permissions.BUDGET_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -66,6 +70,8 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.BUDGET_VIEW },
+            { permission: Permissions.BUDGET_CREATE },
+            { permission: Permissions.BUDGET_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 

@@ -26,7 +26,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   months = AppConst.Months
   filterForm: FormGroup;
   createPayrollPaymentForm: FormGroup;
-  tooltipData = 'double click to edit'
+  tooltipData = 'click to select employee'
   employeeGridApi: any;
   frameworkComponents: any;
   gridOptions: any;
@@ -47,6 +47,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Employee Name',
       field: 'employee',
+      tooltipField: 'cnic',
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
@@ -54,29 +55,32 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
     {
       headerName: 'CNIC', field: 'cnic',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Designation', field: 'designation',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Department',
       field: 'department',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Working Days',
       // editable: true,
       field: 'workingDays',
-      tooltipField: 'workingDays',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
     {
       headerName: 'Present Days',
       // editable: true,
       field: 'presentDays',
-      tooltipField: 'presentDays',
+      tooltipField: 'cnic',
       suppressMenu: true,
     },
 /*    {
@@ -87,6 +91,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Net Salary',
       field: 'netSalary',
+      tooltipField: 'cnic',
       suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
@@ -169,7 +174,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 

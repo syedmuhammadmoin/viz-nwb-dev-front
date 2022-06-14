@@ -20,6 +20,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_VIEW },
             { permission: Permissions.ESTIMATED_BUDGET_CREATE },
+            { permission: Permissions.ESTIMATED_BUDGET_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -31,6 +32,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_CREATE },
+            { permission: Permissions.ESTIMATED_BUDGET_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -42,6 +44,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_EDIT },
+            { permission: Permissions.ESTIMATED_BUDGET_VIEW },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -53,6 +56,7 @@ const routes : Routes = [
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_VIEW },
             { permission: Permissions.ESTIMATED_BUDGET_CREATE },
+            { permission: Permissions.ESTIMATED_BUDGET_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 
@@ -63,6 +67,8 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_VIEW },
+            { permission: Permissions.ESTIMATED_BUDGET_CREATE },
+            { permission: Permissions.ESTIMATED_BUDGET_EDIT },
           ]
         },
         canActivate: [PermissionGuard] 
