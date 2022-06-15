@@ -11,6 +11,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { DepartmentState } from '../../../department/store/department.store';
 import { isEmpty } from 'lodash';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { isEmpty } from 'lodash';
 
 export class ApprovePaymentProcessComponent extends AppComponentBase implements OnInit {
 
-  months = '' //AppConst.Months
+  months = AppConst.Months
   isLoading: any;
   approvePayrollPaymentForm: FormGroup;
   tooltipData = 'double click to edit'
