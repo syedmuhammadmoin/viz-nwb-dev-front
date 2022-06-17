@@ -236,7 +236,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         console.log("response Message : ")
         console.log(res)
         this.isLoading.emit(false);
-        this.toastService.success(res.message || 'Registered successfully', 'Payment');
+        this.toastService.success('Registered successfully', 'Payroll Payment');
         if(res.result) {
           this.transactionList = res.result;
         }
