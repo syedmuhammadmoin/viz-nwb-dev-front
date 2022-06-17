@@ -17,6 +17,8 @@ const route : Routes = [
           array: [
             { permission: Permissions.BANK_RECON_VIEW },
             { permission: Permissions.BANK_RECON_CREATE },
+            { permission: Permissions.BANK_RECON_EDIT },
+            { permission: Permissions.BANK_RECON_DELETE },
           ]
         },
         canActivate: [PermissionGuard],

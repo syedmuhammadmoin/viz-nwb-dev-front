@@ -136,7 +136,7 @@
                               class="links">{{creditNoteMaster?.documentReconcile?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , (creditNoteMaster?.documentReconcile?.id))"
-                              class="links">{{creditNoteMaster?.documentReconcile?.amount}}</a>
+                              class="links">{{valueFormatter(creditNoteMaster?.documentReconcile?.amount)}}</a>
                           </td>
                         </tr>
                       </table>

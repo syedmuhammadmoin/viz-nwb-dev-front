@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GridOptions } from 'ag-grid-community';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AccessManagementService } from '../../service/access-management.service';
 import { CreateRoleComponent } from '../create-role/create-role.component';
@@ -11,11 +13,12 @@ import { CreateRoleComponent } from '../create-role/create-role.component';
   styleUrls: ['./role-list.component.scss']
 })
   
-export class RoleListComponent implements OnInit {
+export class RoleListComponent extends AppComponentBase implements OnInit {
 
   gridOptions: any;
   frameworkComponents: any;
   defaultColDef: any;
+  permissions = Permissions
   roleList: any;
   tooltipData: string = "double click to edit"
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -45,7 +48,9 @@ export class RoleListComponent implements OnInit {
     private accessManagementService: AccessManagementService,
     private cdRef: ChangeDetectorRef,
     public dialog: MatDialog,
+    injector: Injector
   ) {
+    super(injector)
     this.gridOptions = <GridOptions>(
       {
         context: { componentParent: this }
@@ -65,6 +70,10 @@ export class RoleListComponent implements OnInit {
     }
 
     this.frameworkComponents = { customTooltip: CustomTooltipComponent };
+
+    if(!this.permission.isGranted(this.permissions.AUTH_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
 
   }
 

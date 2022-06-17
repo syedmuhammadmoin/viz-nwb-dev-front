@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { GridOptions } from 'ag-grid-community';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AccessManagementService } from '../../service/access-management.service';
 import { CreateUserComponent } from '../create-user/create-user.component';
@@ -11,12 +13,13 @@ import { CreateUserComponent } from '../create-user/create-user.component';
   styleUrls: ['./user-list.component.scss']
 })
   
-export class UserListComponent implements OnInit {
+export class UserListComponent extends AppComponentBase implements OnInit {
 
   gridOptions: any;
   frameworkComponents: any;
   defaultColDef: any;
   userList: any;
+  permissions = Permissions
   tooltipData: string = "double click to edit"
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
@@ -25,13 +28,13 @@ export class UserListComponent implements OnInit {
     { 
       headerName: 'S.No', 
       field: 'index', 
-      tooltipField: 'userName', 
+      tooltipField: 'email', 
       suppressMenu: true
     },
     { 
       headerName: 'User Name', 
       field: 'userName', 
-      tooltipField: 'name',
+      tooltipField: 'email',
       menuTabs: ['filterMenuTab'],
       filter: 'agTextColumnFilter',
       filterParams : {
@@ -39,15 +42,17 @@ export class UserListComponent implements OnInit {
         suppressAndOrCondition: true
       }
      },
-    { headerName: 'Email', field: 'email', tooltipField: 'name', suppressMenu: true, },
+    { headerName: 'Email', field: 'email', suppressMenu: true, },
   ];
 
 
   constructor (
     private accessManagementService: AccessManagementService,
     public dialog: MatDialog,
-    private cdRef: ChangeDetectorRef
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
   ) {
+    super(injector)
     this.gridOptions = <GridOptions>(
       {
         context: { componentParent: this }
@@ -67,6 +72,10 @@ export class UserListComponent implements OnInit {
     }
 
     this.frameworkComponents = { customTooltip: CustomTooltipComponent };
+
+    if(!this.permission.isGranted(this.permissions.AUTH_EDIT)) {
+      this.gridOptions.context = 'double click to view detail'
+    }
   }
 
   onFirstDataRendered(params) {

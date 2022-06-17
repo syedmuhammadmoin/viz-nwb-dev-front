@@ -48,10 +48,12 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   // subscription
   subscription$: Subscription;
 
+  isPayrollPayment : boolean;
+
   propertyValue: string;
   propertyName: string;
   paymentRegisterList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
-  netPayment: number;
+  netPayment: number = 0;
   
   //for Busy Loading
   isLoading: boolean;
@@ -90,7 +92,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
     grossPayment: {
       required: 'Gross Payment is required',
-      min: 'Please insert correct Payment !'
+      min: 'Value must greater than zero!'
     },
     campusId: {
       required: 'Campus is required'
@@ -143,7 +145,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   ) {
     super(injector)
 
-    this.formName = this.documents.find(x => x.id === this.data.docType).value
+    this.formName = this.documents.find(x => x.id === this.data.docType).value;
+    this.isPayrollPayment = (this.data.docType === this.docType.PayrollPayment) ? true : false;
   }
 
   groups = [
@@ -161,7 +164,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       account: ['', [Validators.required]],
       campusId: ['', [Validators.required]],
       paymentRegister: ['', [Validators.required]],
-      grossPayment: ['',[Validators.required , Validators.min(0)]],
+      grossPayment: ['',[Validators.required , Validators.min(1)]],
       discount: [0 ,[Validators.min(0)]],
       salesTax: [0,[Validators.min(0)]],
       incomeTax: [0,[Validators.min(0)]],
@@ -197,7 +200,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         documentLedgerId: null,
       }
     };    
-    this.calculatingNetPayment();
+
+    if(this.data.docType !== this.docType.PayrollPayment) {
+      this.calculatingNetPayment();
+    }
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getCampusFromState()
@@ -213,7 +219,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
           this.editPayment(payment.result);
           this.paymentModel = payment.result;
           this.isLoading = false;
-          this.calculatingNetPayment();
+          //this.calculatingNetPayment();
+          this.netPayment = this.paymentMaster.netPayment;
         },
         (err) => console.log(err)
       );
@@ -223,7 +230,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     //console.log(payment.srbTax)
     this.paymentForm.patchValue({
       registerType: 2,
-      paymentType: payment.paymentType,
+      //paymentType: payment.paymentType,
       date: payment.paymentDate,
       description: payment.description,
       businessPartner: payment.businessPartnerId,
@@ -237,6 +244,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       incomeTax: payment.incomeTax,
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
+    if(this.data.docType === this.docType.PayrollPayment) {
+      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'discount', 'salesTax', 'incomeTax', 'SRBTax')
+    }
   }
 
   // unsubscribe Observable
@@ -284,21 +294,19 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
  
   mapFormValueToPaymentModel() {
     this.paymentModel.paymentType = (this.formName === "Payment" || this.formName === "Payroll Payment") ? 1 : 0
-    console.log(this.paymentModel.paymentType)
-    this.paymentModel.businessPartnerId = this.paymentForm.value.businessPartner;
-    this.paymentModel.accountId = this.paymentForm.value.account;
-    this.paymentModel.paymentDate = this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd');
     this.paymentModel.paymentRegisterId = this.paymentForm.value.paymentRegister;
-    this.paymentModel.description = this.paymentForm.value.description;
-    this.paymentModel.grossPayment = this.paymentForm.value.grossPayment;
-    this.paymentModel.discount = this.paymentForm.value.discount || 0;
     this.paymentModel.campusId = this.paymentForm.value.campusId;
-    this.paymentModel.salesTax = this.paymentForm.value.salesTax || 0;
-    this.paymentModel.incomeTax = this.paymentForm.value.incomeTax || 0;
-    this.paymentModel.srbTax = this.paymentForm.value.SRBTax || 0;
-    // this.paymentModel.paymentRegisterType = this.paymentForm.value.registerType
+    this.paymentModel.description = this.paymentForm.value.description;
+    this.paymentModel.businessPartnerId = (!this.isPayrollPayment) ? this.paymentForm.value.businessPartner : this.paymentMaster.businessPartnerId ;
+    this.paymentModel.accountId = (!this.isPayrollPayment) ? this.paymentForm.value.account : this.paymentMaster.accountId ;
+    this.paymentModel.paymentDate = (!this.isPayrollPayment) ? this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd') : this.transformDate(this.paymentMaster.paymentDate, 'yyyy-MM-dd');
+    this.paymentModel.grossPayment = (!this.isPayrollPayment) ? this.paymentForm.value.grossPayment : this.paymentMaster.grossPayment;
+    this.paymentModel.discount = (!this.isPayrollPayment) ? (this.paymentForm.value.discount || 0) : this.paymentMaster.discount;
+    this.paymentModel.salesTax = (!this.isPayrollPayment) ? (this.paymentForm.value.salesTax || 0) : this.paymentMaster.salesTax;
+    this.paymentModel.incomeTax = (!this.isPayrollPayment) ? (this.paymentForm.value.incomeTax || 0) : this.paymentMaster.incomeTax;
+    this.paymentModel.srbTax = (!this.isPayrollPayment) ? (this.paymentForm.value.SRBTax || 0) : this.paymentMaster.srbTax;
     this.paymentModel.paymentRegisterType = 2
-    //this.paymentModel.documentTransactionId = 0;
+    
   }
 
   //for save or submit

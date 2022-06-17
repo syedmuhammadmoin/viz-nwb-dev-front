@@ -64,6 +64,9 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   valueTitle: string = 'Value'
 
+   //show Buttons
+   showButtons: boolean = true; 
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -173,6 +176,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       const id = param.id;
      
       if (id) {
+        this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
         this.title = 'Edit Payroll Item'
         this.getPayrollItem(id);
       }
@@ -227,6 +231,8 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
      this.payrollItemForm.get('payrollItemType').valueChanges.subscribe((value: number) => {
         this.updateValueValidators(value);
       })
+
+      console.log("showbuttons : ",this.showButtons)
   }
 
   updateValueValidators(value: number) {
@@ -366,6 +372,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     this.selectedEmployees = payrollItem.employees
     this.onToggle({checked: payrollItem.isActive})
     this.onPayrollTypeChange()
+    if(!this.showButtons) this.payrollItemForm.disable();
     // //Clearing Amount Validator Initially
     // this.payrollItemForm.get('amount').setErrors(null)
     // this.payrollItemForm.updateValueAndValidity();

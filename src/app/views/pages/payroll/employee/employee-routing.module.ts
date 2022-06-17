@@ -15,7 +15,10 @@ const route : Routes = [
         component: ListEmployeeComponent,
         data: {
           array: [
-            { permission: Permissions.EMPLOYEE_VIEW }
+            { permission: Permissions.EMPLOYEE_VIEW },
+            { permission: Permissions.EMPLOYEE_EDIT },
+            { permission: Permissions.EMPLOYEE_CREATE },
+            { permission: Permissions.EMPLOYEE_DELETE },
           ]
         },
         canActivate: [PermissionGuard]
@@ -25,7 +28,10 @@ const route : Routes = [
         component: EmployeeDetailComponent,
         data: {
           array: [
-            { permission: Permissions.EMPLOYEE_VIEW }
+            { permission: Permissions.EMPLOYEE_VIEW },
+            { permission: Permissions.EMPLOYEE_EDIT },
+            { permission: Permissions.EMPLOYEE_CREATE },
+            { permission: Permissions.EMPLOYEE_DELETE },
           ]
         },
         canActivate: [PermissionGuard]

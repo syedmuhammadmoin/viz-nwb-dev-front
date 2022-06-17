@@ -125,12 +125,12 @@
           <div class="row">
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5">
               <div class="form-group kt-form__group">
-                <button (click)="assignEmployee()" type="button" class="ml-3 btn_white" id="assign_employee" mat-raised-button  matTooltip="Assign Employee">Assign Employee</button>
+                <button (click)="assignEmployee()" *ngIf="showButtons" type="button" class="ml-3 btn_white" id="assign_employee" mat-raised-button  matTooltip="Assign Employee">Assign Employee</button>
               </div>
             </div>
           </div>
 
-          <div class="row">
+          <div class="row" [style.pointerEvents]="(!showButtons) ? 'none' : 'auto'">
             <div class="col-md-12 col-sm-12 col-lg-12 my-5">
                 <ag-grid-angular 
                   style="width: 100%; height: 440px; margin-top: 10px;"
@@ -158,7 +158,7 @@
         <div class="kt-portlet__foot ">
           <div class="kt-form__actions kt-form__actions">
             <div class="row">
-              <div class="col-lg-12 text-right">
+              <div *ngIf="showButtons" class="col-lg-12 text-right">
                 <!-- <button type="reset" class="mr-3 btn_white" mat-raised-button (click)="reset()" id="payroll_item_reset">Reset</button>
                 <button class="sub___btn  mr-3" mat-raised-button type="submit" id="payroll_item_save"
                   (click)="logValidationErrors(this.payrollItemForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>

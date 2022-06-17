@@ -4,6 +4,7 @@ import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { ConfirmPasswordValidator, CustomValidator } from '../../../auth/register/confirm-password.validator';
 import { IUserModel } from '../../model/IUserModel';
 import { IUserRole } from '../../model/IUserRole';
@@ -24,6 +25,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   userForm: FormGroup
   userModel: IUserModel
   userRole: IUserRole[] = []
+  permissions = Permissions
   //title name
   titleName: string = "Create User ";
 
@@ -32,6 +34,9 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  //show Buttons
+  showButtons: boolean = true;
 
   isLoading: boolean
   // validation messages
@@ -104,12 +109,13 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     }
 
     if (this._id) {
-      this.isEditButtonShow = true;
+      this.showButtons = (this.permission.isGranted(this.permissions.AUTH_EDIT)) ? true : false;
+      this.isEditButtonShow = (this.permission.isGranted(this.permissions.AUTH_EDIT)) ? true : false;
       this.titleName = 'User Details';
       this.isLoading = true;
-      //disable all fields
-      this.userForm.disable();
       this.getUserById(this._id);
+      //disable fields
+      this.userForm.disable()
     } else {
       this.userModel = {
         id: null,
@@ -132,6 +138,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   patchUser(userModel: IUserModel) {
     this.userForm.patchValue({ ...userModel })
     this.userRole = userModel.userRoles;
+    if(!this.showButtons) this.userForm.disable()
   }
 
   getRoles() {
@@ -208,6 +215,8 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
 
   reset() {
     this.formDirective.resetForm();
+    this.userRole = [];
+    this.getRoles();
   }
 }
 

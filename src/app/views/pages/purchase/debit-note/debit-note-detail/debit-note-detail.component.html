@@ -138,7 +138,7 @@
                               class="links">{{debitNoteMaster?.documentReconcile?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="'/' + BILL.ID_BASED_ROUTE('details' , (debitNoteMaster?.documentReconcile?.id))"
-                              class="links">{{debitNoteMaster?.documentReconcile?.amount}}</a>
+                              class="links">{{valueFormatter(debitNoteMaster?.documentReconcile?.amount)}}</a>
                           </td>
                         </tr>
                       </table>

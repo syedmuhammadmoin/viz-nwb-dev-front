@@ -56,7 +56,9 @@ const route : Routes = [
             component: ApprovePaymentProcessComponent,
             data: {
               array: [
-                {permission: Permissions.PAYROLL_TRANSACTION_CREATE}
+                { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+                { permission: Permissions.PAYROLL_TRANSACTION_APPROVE },
+                { permission: Permissions.PAYROLL_TRANSACTION_REVIEW }
               ]
             },
             canActivate: [PermissionGuard]

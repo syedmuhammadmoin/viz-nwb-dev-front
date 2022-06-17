@@ -31,8 +31,6 @@ const route : Routes = [
           array: [
             { permission: Permissions.PAYROLL_ITEM_VIEW },
             { permission: Permissions.PAYROLL_ITEM_CREATE },
-            { permission: Permissions.PAYROLL_ITEM_EDIT},
-            { permission: Permissions.PAYROLL_ITEM_DELETE },
           ]
         },
         canActivate: [PermissionGuard]
@@ -44,8 +42,7 @@ const route : Routes = [
           array: [
             { permission: Permissions.PAYROLL_ITEM_VIEW },
             { permission: Permissions.PAYROLL_ITEM_CREATE },
-            { permission: Permissions.PAYROLL_ITEM_EDIT},
-            { permission: Permissions.PAYROLL_ITEM_DELETE },
+            { permission: Permissions.PAYROLL_ITEM_EDIT}
           ]
         },
         canActivate: [PermissionGuard]
