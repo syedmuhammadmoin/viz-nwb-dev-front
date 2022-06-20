@@ -1,5 +1,5 @@
-import {Component, Inject, Injector, OnInit, Optional} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import {FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import {BankAccountService} from '../service/bankAccount.service';
 import {IBankAccount} from '../model/IBankAccount';
 import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
@@ -36,6 +36,9 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
   //show Buttons
   showButtons: boolean = true; 
+
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
   //validation messages
   validationMessages = {
@@ -232,12 +235,14 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   }
 
   reset() {
+
+    this.formDirective.resetForm();
     
-    this.resetFields(this.bankAccountForm , 'accountNumber','bankName' ,'branch' ,'accountTitle' ,'purpose')
+    // this.resetFields(this.bankAccountForm , 'accountNumber','bankName' ,'branch' ,'accountTitle' ,'purpose')
 
-    if(!this._id) this.resetFields(this.bankAccountForm , 'bankAccountType','openingBalance' ,'OBDate' ,'campusId')
+    // if(!this._id) this.resetFields(this.bankAccountForm , 'bankAccountType','openingBalance' ,'OBDate' ,'campusId')
 
-    this.logValidationErrors(this.bankAccountForm , this.formErrors , this.validationMessages)
+    // this.logValidationErrors(this.bankAccountForm , this.formErrors , this.validationMessages)
   }
 }
 

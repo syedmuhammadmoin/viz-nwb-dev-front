@@ -120,7 +120,7 @@
                 <ng-container *ngFor="let role of userRole | filter:searchText">
                   <div class="col-md-6">
                     <!-- <div class="checkbox-with-label"> -->
-                    <mat-checkbox [id]="'user_' + role.roleName" [disabled]="isEditButtonShow" [checked]="role.selected"
+                    <mat-checkbox [id]="'user_' + role.roleName" [disabled]="isEditButtonShow || !showButtons" [checked]="role.selected"
                       (change)="onRoleChange(role, $event)">
                       {{role.roleName}}
                     </mat-checkbox>
@@ -139,7 +139,7 @@
         <div class="kt-form__actions ">
           <div class="row">
             <div class="col-lg-12 col-md-8 col-sm-8 col-9">
-              <div class="float-right">
+              <div *ngIf="showButtons" class="float-right">
                 <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button id="user_reset" type="button" (click)="reset()">Reset</button>
                 <button *ngIf="!isEditButtonShow" mat-raised-button class="sub___btn" type="submit" id="user_submit"
                   (click)="logValidationErrors(this.userForm, this.formErrors, this.validationMessages)"> Submit

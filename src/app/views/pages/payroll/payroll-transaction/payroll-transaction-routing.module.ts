@@ -20,6 +20,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
             { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+            { permission: Permissions.PAYROLL_TRANSACTION_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -30,6 +31,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+            { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -40,6 +42,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.PAYROLL_TRANSACTION_EDIT },
+            { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -51,6 +54,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
             { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+            { permission: Permissions.PAYROLL_TRANSACTION_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -62,6 +66,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.PAYROLL_TRANSACTION_VIEW },
             { permission: Permissions.PAYROLL_TRANSACTION_CREATE },
+            { permission: Permissions.PAYROLL_TRANSACTION_EDIT },
           ]
         },
         canActivate: [PermissionGuard]

@@ -174,20 +174,20 @@
                                       *ngIf="(paymentMaster?.documentReconcile.docType === docType.Invoice); else payrollTransactionAmount">
                                       <a [routerLink]="('/' + INVOICE.ID_BASED_ROUTE('details', paymentMaster?.documentReconcile.id))"
                                          class="links"
-                                         style="margin-left: 3px;">{{paymentMaster?.documentReconcile.amount}}</a>
+                                         style="margin-left: 3px;">{{valueFormatter(paymentMaster?.documentReconcile.amount)}}</a>
                                     </ng-container>
                                     <ng-template #payrollTransactionAmount>
                                      <a
                                         *ngIf="(paymentMaster?.documentReconcile.docType === docType.PayrollTransaction); else billAmount"
                                        [routerLink]="('/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', paymentMaster?.documentReconcile.id))"
                                        class="links"
-                                        style="margin-left: 3px;">{{paymentMaster?.documentReconcile.amount}}</a>
+                                        style="margin-left: 3px;">{{valueFormatter(paymentMaster?.documentReconcile.amount)}}</a>
                                    </ng-template>
                                    <ng-template #billAmount>
                                       <a *ngIf="(paymentMaster?.documentReconcile.docType === docType.Bill); else billAmount"
                                          [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', paymentMaster?.documentReconcile.id))"
                                          class="links"
-                                        style="margin-left: 3px;">{{paymentMaster?.documentReconcile.amount}}</a>
+                                        style="margin-left: 3px;">{{valueFormatter(paymentMaster?.documentReconcile.amount)}}</a>
                                     </ng-template>
                                    </td>
                                 </tr>

@@ -196,6 +196,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.payrollProcessService.getPayrollTransactions(this.filterForm.value)
       .subscribe((res) => {
         this.isLoading.emit(false);
+        console.log("previous : ", res.result)
         this.transactionList = res.result;
         if (isEmpty(res.result)) {
           this.toastService.info('No Records Found !' , 'Payroll Payment')
@@ -232,14 +233,23 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     console.log('body: ', body)
     this.payrollProcessService.createPaymentProcess(body)
       .subscribe((res) => {
+        console.log("response Message : ")
+        console.log(res)
         this.isLoading.emit(false);
-        this.toastService.success('Registered successfully', 'Payment');
-        this.resetForm();
+        this.toastService.success('Registered successfully', 'Payroll Payment');
+        if(res.result) {
+          this.transactionList = res.result;
+        }
+        else {
+          this.resetForm();
+        }
         this.cdRef.detectChanges();
       },
       (err) => {
         this.isLoading.emit(false)
       });
+
+      console.log(this.transactionList)
   }
 
   onFirstDataRendered(params: any) {

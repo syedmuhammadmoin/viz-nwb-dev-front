@@ -301,7 +301,9 @@ export class MenuConfig {
             Permissions.DEBITNOTE_APPROVE,
             Permissions.CHARTOFACCOUNT_VIEW,
             Permissions.BANK_RECON_VIEW,
-            Permissions.BANK_RECON_CREATE
+            Permissions.BANK_RECON_CREATE,
+            Permissions.BANK_RECON_EDIT,
+            Permissions.BANK_RECON_DELETE,
           ],
           submenu: [
             // {
@@ -423,7 +425,9 @@ export class MenuConfig {
               page: '/' + BANK_RECONCILIATION.LIST,
               permission: [
                 Permissions.BANK_RECON_VIEW,
-                Permissions.BANK_RECON_CREATE
+                Permissions.BANK_RECON_CREATE,
+                Permissions.BANK_RECON_EDIT,
+                Permissions.BANK_RECON_DELETE
               ]
             },
             {
@@ -570,29 +574,47 @@ export class MenuConfig {
             Permissions.PAYROLL_PAYMENT_EDIT,
             Permissions.PAYROLL_PAYMENT_DELETE,
             Permissions.DESIGNATIONS_VIEW,
+            Permissions.DESIGNATIONS_CREATE,
+            Permissions.DESIGNATIONS_EDIT,
+            Permissions.DESIGNATIONS_DELETE,
             Permissions.DEPARTMENTS_VIEW,
-            Permissions.EMPLOYEE_VIEW 
+            Permissions.DEPARTMENTS_CREATE,
+            Permissions.DEPARTMENTS_EDIT,
+            Permissions.DEPARTMENTS_DELETE,
+            Permissions.EMPLOYEE_VIEW,
+            Permissions.EMPLOYEE_CREATE ,
+            Permissions.EMPLOYEE_EDIT ,
+            Permissions.EMPLOYEE_DELETE  
           ],
           submenu: [
             {
               title: 'Designation',
               page: '/' + DESIGNATION.LIST,
               permission: [
-                Permissions.DESIGNATIONS_VIEW
+                Permissions.DESIGNATIONS_VIEW,
+                Permissions.DESIGNATIONS_CREATE,
+                Permissions.DESIGNATIONS_EDIT,
+                Permissions.DESIGNATIONS_DELETE,
               ]
             },
             {
               title: 'Department',
               page: '/' + DEPARTMENT.LIST,
               permission: [
-                Permissions.DEPARTMENTS_VIEW
+                Permissions.DEPARTMENTS_VIEW,
+                Permissions.DEPARTMENTS_CREATE,
+                Permissions.DEPARTMENTS_EDIT,
+                Permissions.DEPARTMENTS_DELETE,
               ]
             },
             {
               title: 'Employee',
               page: '/' + EMPLOYEE.LIST,
               permission: [
-                Permissions.EMPLOYEE_VIEW 
+                Permissions.EMPLOYEE_VIEW,
+                Permissions.EMPLOYEE_CREATE ,
+                Permissions.EMPLOYEE_EDIT ,
+                Permissions.EMPLOYEE_DELETE
               ]
             },
             {
@@ -631,10 +653,7 @@ export class MenuConfig {
               title: 'Payroll Process',
               bullet: 'dot',
               permission: [
-                Permissions.PAYROLL_TRANSACTION_VIEW,
                 Permissions.PAYROLL_TRANSACTION_CREATE,
-                Permissions.PAYROLL_TRANSACTION_EDIT,
-                Permissions.PAYROLL_TRANSACTION_DELETE,
                 Permissions.PAYROLL_TRANSACTION_APPROVE,
                 Permissions.PAYROLL_TRANSACTION_REVIEW,
               ],
@@ -643,22 +662,14 @@ export class MenuConfig {
                   title: 'Create Process',
                   page: '/' + PAYROLL_PROCESS.CREATE_PROCESS,
                   permission: [
-                    Permissions.PAYROLL_TRANSACTION_VIEW,
                     Permissions.PAYROLL_TRANSACTION_CREATE,
-                    Permissions.PAYROLL_TRANSACTION_EDIT,
-                    Permissions.PAYROLL_TRANSACTION_DELETE,
-                    Permissions.PAYROLL_TRANSACTION_APPROVE,
-                    Permissions.PAYROLL_TRANSACTION_REVIEW,
                   ],
                 },
                 {
                   title: 'Approve Process',
                   page: '/' + PAYROLL_PROCESS.APPROVE_PROCESS,
                   permission: [
-                    Permissions.PAYROLL_TRANSACTION_VIEW,
                     Permissions.PAYROLL_TRANSACTION_CREATE,
-                    Permissions.PAYROLL_TRANSACTION_EDIT,
-                    Permissions.PAYROLL_TRANSACTION_DELETE,
                     Permissions.PAYROLL_TRANSACTION_APPROVE,
                     Permissions.PAYROLL_TRANSACTION_REVIEW,
                   ],
@@ -671,22 +682,14 @@ export class MenuConfig {
                       title: 'Create Process',
                       page: '/' + PAYROLL_PROCESS.CREATE_PAYMENT,
                       permission: [
-                        Permissions.PAYROLL_TRANSACTION_VIEW,
                         Permissions.PAYROLL_TRANSACTION_CREATE,
-                        Permissions.PAYROLL_TRANSACTION_EDIT,
-                        Permissions.PAYROLL_TRANSACTION_DELETE,
-                        Permissions.PAYROLL_TRANSACTION_APPROVE,
-                        Permissions.PAYROLL_TRANSACTION_REVIEW,
                       ],
                     },
                     {
                       title: 'Approve Process',
                       page: '/' + PAYROLL_PROCESS.APPROVE_PAYMENT,
                       permission: [
-                        Permissions.PAYROLL_TRANSACTION_VIEW,
                         Permissions.PAYROLL_TRANSACTION_CREATE,
-                        Permissions.PAYROLL_TRANSACTION_EDIT,
-                        Permissions.PAYROLL_TRANSACTION_DELETE,
                         Permissions.PAYROLL_TRANSACTION_APPROVE,
                         Permissions.PAYROLL_TRANSACTION_REVIEW,
                       ],

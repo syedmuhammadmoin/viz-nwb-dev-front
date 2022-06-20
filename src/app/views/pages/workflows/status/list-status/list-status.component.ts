@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -90,6 +90,9 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
       minWidth: 150,
       filter: 'agSetColumnFilter',
       resizable: true,
+      cellStyle: (params: ICellRendererParams) => {
+        return (params?.data?.state === 1 || params?.data?.state === 5) ? {'pointer-events': 'none', 'color': '#87837e'} : null;
+      }
     }
 
     this.components = {
@@ -120,7 +123,9 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
     if(this.permission.isGranted(this.permissions.STATUS_EDIT)) {
-      this.addStatusDialog(event.data.id)
+      if(event.data.state !== 1 && event.data.state !== 5){
+        this.addStatusDialog(event.data.id)
+      }
     }
   }
 

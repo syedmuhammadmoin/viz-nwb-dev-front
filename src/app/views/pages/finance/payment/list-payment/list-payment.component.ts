@@ -183,7 +183,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       },
     };
 
-
+    if(this.selectedDocumentType === 17) this.showCreateButton = false;
     //checking create permissions
     // if(this.selectedDocumentType === 0) this.showButton(this.permission.isGranted(this.permissions.PAYMENT_CREATE))
 
@@ -192,8 +192,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     // if(this.selectedDocumentType === 17) this.showButton(this.permission.isGranted(this.permissions.PAYROLL_PAYMENT_CREATE))
 
     (this.selectedDocumentType === 0) ? this.showButton(this.permission.isGranted(this.permissions.PAYMENT_CREATE)) :
-      (this.selectedDocumentType === 15) ? this.showButton(this.permission.isGranted(this.permissions.RECEIPT_CREATE)) :
-        (this.selectedDocumentType === 17) ? this.showButton(this.permission.isGranted(this.permissions.PAYROLL_PAYMENT_CREATE)) : null
+      (this.selectedDocumentType === 15) ? this.showButton(this.permission.isGranted(this.permissions.RECEIPT_CREATE)) : null
   }
 
   showButton (permission: boolean) { this.showCreateButton = (permission) ? true : false; }

@@ -42,7 +42,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
   columnDefs = [
     {
       headerName: 'Employee Name',
-      field: 'businessPartner',
+      field: 'businessPartnerName',
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
@@ -53,12 +53,12 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     },
     {
       headerName: 'Account Payable',
-      field: 'account',
+      field: 'accountName',
       suppressMenu: true,
     },
     {
       headerName: 'Register',
-      field: 'paymentRegister',
+      field: 'paymentRegisterName',
       suppressMenu: true,
     },
     {
@@ -174,6 +174,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
         this.isLoading = false;
         this.toastService.success(`${res.message || 'Approval Processed successfully.'}`, 'Successful');
        // this.onSubmitFilters()
+        this.resetForm();
         this.cdRef.detectChanges();
       }, (err) => {
         this.isLoading = false;

@@ -6,6 +6,8 @@ import { RoleListComponent } from './role-management/role-list/role-list.compone
 import { CreateRoleComponent } from './role-management/create-role/create-role.component';
 import { ChangePasswordComponent } from './user-management/change-password/change-password.component';
 import { ACCESS_MANAGEMENT } from '../../shared/AppRoutes';
+import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
+import { Permissions } from '../../shared/AppEnum';
 
 
 
@@ -15,7 +17,16 @@ const routes: Routes = [
       children: [
           {
               path: ACCESS_MANAGEMENT.USER_LIST,
-              component: UserListComponent
+              component: UserListComponent,
+              data: {
+                array: [
+                  { permission: Permissions.AUTH_VIEW },
+                  { permission: Permissions.AUTH_CREATE },
+                  { permission: Permissions.AUTH_EDIT },
+                  { permission: Permissions.AUTH_DELETE }
+                ]
+              },
+              canActivate: [PermissionGuard]
           },
           {
               path: ACCESS_MANAGEMENT.CREATE_USER,
@@ -27,7 +38,16 @@ const routes: Routes = [
           },
           {
               path: ACCESS_MANAGEMENT.ROLE_LIST,
-              component: RoleListComponent
+              component: RoleListComponent,
+              data: {
+                array: [
+                  { permission: Permissions.AUTH_VIEW },
+                  { permission: Permissions.AUTH_CREATE },
+                  { permission: Permissions.AUTH_EDIT },
+                  { permission: Permissions.AUTH_DELETE }
+                ]
+              },
+              canActivate: [PermissionGuard]
           },
           {
               path: ACCESS_MANAGEMENT.CREATE_ROLE,

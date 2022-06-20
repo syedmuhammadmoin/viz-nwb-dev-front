@@ -14,7 +14,10 @@ const route : Routes = [
         component: ListDepartmentComponent,
         data: {
           array: [
-            { permission: Permissions.DEPARTMENTS_VIEW }
+            { permission: Permissions.DEPARTMENTS_VIEW },
+            { permission: Permissions.DEPARTMENTS_CREATE },
+            { permission: Permissions.DEPARTMENTS_EDIT },
+            { permission: Permissions.DEPARTMENTS_DELETE }
           ]
         },
         canActivate: [PermissionGuard]

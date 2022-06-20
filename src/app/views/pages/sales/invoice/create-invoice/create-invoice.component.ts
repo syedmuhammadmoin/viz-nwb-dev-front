@@ -191,6 +191,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
+    console.log("yes")
     let arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
     if (itemId) {
       let price = this.salesItem.find(i => i.id === itemId).salesPrice
@@ -199,9 +200,10 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       arrayControl.at(index).get('price').setValue(price);
       arrayControl.at(index).get('tax').setValue(tax);
       // Calculating subtotal
-      let quantity = arrayControl.at(index).get('quantity').value;
-      let subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
-      arrayControl.at(index).get('subTotal').setValue(subTotal);
+      // let quantity = arrayControl.at(index).get('quantity').value;
+      // let subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
+      // arrayControl.at(index).get('subTotal').setValue(subTotal);
+      this.onChangeEvent(null, index)
     }
   }
 

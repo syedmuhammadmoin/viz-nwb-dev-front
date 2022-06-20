@@ -14,7 +14,10 @@ const route : Routes = [
         component: ListDesignationComponent,
         data: {
           array: [
-            { permission: Permissions.DESIGNATIONS_VIEW }
+            { permission: Permissions.DESIGNATIONS_VIEW },
+            { permission: Permissions.DESIGNATIONS_CREATE },
+            { permission: Permissions.DESIGNATIONS_EDIT },
+            { permission: Permissions.DESIGNATIONS_DELETE }
           ]
         },
         canActivate: [PermissionGuard]
