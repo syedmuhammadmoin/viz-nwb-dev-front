@@ -198,9 +198,10 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       arrayControl.at(index).get('tax').setValue(tax);
     
       // Calculating subtotal
-      const quantity = arrayControl.at(index).get('quantity').value;
-      const subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
-      arrayControl.at(index).get('subTotal').setValue(subTotal);
+      // const quantity = arrayControl.at(index).get('quantity').value;
+      // const subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
+      // arrayControl.at(index).get('subTotal').setValue(subTotal);
+      this.onChangeEvent(null , index)
     }
   }
 
