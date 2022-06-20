@@ -176,6 +176,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       const id = param.id;
      
       if (id) {
+        this.isLoading = true;
         this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
         this.title = 'Edit Payroll Item'
         this.getPayrollItem(id);
@@ -348,12 +349,17 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   // get payroll item data from Api
   private getPayrollItem(id: number) {
-    this.isLoading = true;
-    this.payrollItemService.getPayrollItemById(id).subscribe((res) => {
-      console.log(res.result)
+    this.payrollItemService.getPayrollItemById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.payrollItemModel = res.result;
       this.patchPayrollItem(res.result);
-      this.isLoading = false;
     });
   }
 
@@ -399,34 +405,32 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     console.log(this.payrollItemModel)
     if (this.payrollItemModel.id) {
       this.payrollItemService.updatePayrollItem(this.payrollItemModel)
-        .pipe(
-          take(1),
-          finalize(() =>this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res: IApiResponse<IPayrollItem>) => {
           this.toastService.success('Updated Successfully', 'Payroll Item')
           this.cdRef.detectChanges();
           this.router.navigate(['/' + PAYROLL_ITEM.LIST])
-        },
-          (err) => {
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating');
-            this.isLoading = false;
-            this.cdRef.detectChanges()
-          })
+        })
 
     } else {
       delete this.payrollItemModel.id;
       this.payrollItemService.createPayrollItem(this.payrollItemModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res: IApiResponse<IPayrollItem>) => {
             this.toastService.success('Created Successfully', 'Payroll Item')
             this.router.navigate(['/' + PAYROLL_ITEM.LIST])
-          },
-          (err) => {
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-            this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
           }
         );
     }

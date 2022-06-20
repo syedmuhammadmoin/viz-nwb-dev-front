@@ -1,7 +1,8 @@
-import { Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -74,6 +75,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) public _id: any,
     public dialogRef: MatDialogRef<CreateUserComponent>,
     private fb: FormBuilder,
+    private cdRef: ChangeDetectorRef,
     public dialog: MatDialog,
     injector: Injector
   ) {
@@ -129,8 +131,15 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   }
 
   getUserById(id: any) {
-    this.accessManagementService.getUser(id).subscribe((res) => {
-      this.isLoading = false
+    this.accessManagementService.getUser(id)
+    .pipe(
+      take(1),
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+      })
+    )
+    .subscribe((res) => {
       this.userModel = res.result
       this.patchUser(this.userModel);
     })
@@ -164,22 +173,30 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.userModel.userRoles = this.userRole;
     //console.log("model: ", this.userModel)
     if (this.userModel.id) {
-      this.accessManagementService.updateUser(this.userModel).subscribe((res) => {
-        this.isLoading = false;
+      this.accessManagementService.updateUser(this.userModel)
+      .pipe(
+       take(1),
+        finalize(() => {
+         this.isLoading = false;
+         this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
         this.toastService.success('Updated Successfully', this.userModel.userName + '');
         this.onCloseUserDialog();
-      }, (err) => {
-        this.isLoading = false;
-        this.toastService.error('' + err?.error?.message, 'Error');
       })
     } else {
-      this.accessManagementService.createUser(this.userModel).subscribe((res) => {
-        this.isLoading = false
+      this.accessManagementService.createUser(this.userModel)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+      .subscribe((res) => {
         this.toastService.success('Created Successfully', 'New User');
         this.onCloseUserDialog();
-      }, (err) => {
-        this.isLoading = false;
-        this.toastService.error('' + err?.error?.message, 'Error');
       })
     }
   }

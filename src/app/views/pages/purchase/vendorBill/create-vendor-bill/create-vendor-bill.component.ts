@@ -160,11 +160,13 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       this.isBill = param.isBill;
       this.isPurchaseOrder = param.isPurchaseOrder;
       if (id && this.isBill) {
+        this.isLoading = true;
         this.title = 'Edit Bill'
         this.getBill(id);
         // this.getPurchaseOrder(id);
       }
       else if (id && this.isPurchaseOrder) {
+        this.isLoading = true;
         this.getPurchaseOrder(id);
       }
     })
@@ -274,26 +276,36 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   //Get purchase Order Master Data
   private getPurchaseOrder(id: number) {
-    this.isLoading = true;
-    this.purchaseOrderService.getPurchaseOrderById(id).subscribe((res) => {
+    this.purchaseOrderService.getPurchaseOrderById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.purchaseOrderMaster = res.result;
       this.patchBill(this.purchaseOrderMaster);
-      this.isLoading = false;
-    }, (err) => {
-      console.log(err);
     });
   }
 
   // Get Bill Data for Edit
   private getBill(id: any) {
-    this.isLoading = true;
-   this.billService.getVendorBillById(id).subscribe((res) => {
+   this.billService.getVendorBillById(id)
+   .pipe(
+    take(1),
+     finalize(() => {
+      this.isLoading = false;
+      this.cdRef.detectChanges();
+     })
+   )
+   .subscribe((res) => {
       if (!res) {
         return
       }
       this.vendorBillModel = res.result
       this.patchBill(this.vendorBillModel)
-      this.isLoading = false;
     });
   }
 
@@ -354,12 +366,13 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
    // console.log(this.vendorBillModel)
     if (this.vendorBillModel.id) {
         this.billService.updateVendorBill(this.vendorBillModel)
-          .pipe(
-            take(1),
-            finalize(() => {
-              this.isLoading = false;
-            })
-          )
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
           .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Vendor Bill')
             this.cdRef.detectChanges();
@@ -368,9 +381,13 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       } else {
         delete this.vendorBillModel.id;
         this.billService.createVendorBill(this.vendorBillModel)
-          .pipe(
-            take(1),
-            finalize(() => this.isLoading = false))
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Vendor Bill')

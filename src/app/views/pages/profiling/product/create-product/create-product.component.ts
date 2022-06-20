@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IProduct} from '../model/IProduct';
 import { RequireMatch as RequireMatch} from 'src/app/views/shared/requireMatch';
@@ -78,6 +78,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     public ngxsService:NgxsCustomService,
     public addButtonService:AddModalButtonService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
+    private cdRef : ChangeDetectorRef,
     public dialogRef: MatDialogRef<CreateProductComponent>, injector: Injector
   ) {
     super(injector);
@@ -119,9 +120,15 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   // Getting product values for update
   getProduct(id: number) {
     this.ngxsService.productService.getProduct(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         (product: IApiResponse<IProduct>) => {
-          this.isLoading = false;
           this.editProduct(product.result);
           this.product = product.result;
         },
@@ -157,28 +164,34 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     //console.log(this.product)
     if (this.product.id) {
       this.ngxsService.productService.updateProduct(this.product)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
             this.toastService.success('Updated Successfully', 'Product')
             this.onCloseDialog();
-          },
-          (err) => this.toastService.error('Something went wrong', 'Product')
-        );
+          }
+        )
     } else {
       delete this.product.id;
       this.ngxsService.productService.addProduct(this.product)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
             this.toastService.success('Added Successfully', 'Product')
             this.onCloseDialog();
-          },
-          (err) => this.toastService.error('Something went wrong', 'Product')
+          }
         );
     }
   }

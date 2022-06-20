@@ -64,7 +64,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     private router: Router,
     private estimatedBudgetService: EstimatedBudgetService,
     private budgetService: BudgetService,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
     public activatedRoute: ActivatedRoute,
     injector: Injector
@@ -85,7 +85,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
         this.title = 'Edit Estimated Budget'
         this.getEstimatedBudgetMaster(res.id);
         this.showLines = true;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       } else {
         this.estimatedBudgetModel = ({} as IEstimatedBudget)
       }
@@ -103,12 +103,19 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
   ]
 
   public getEstimatedBudgetMaster(id: any) {
-     this.estimatedBudgetService.getEstimatedBudgetById(id).subscribe((res: IApiResponse<IEstimatedBudget>) => {
+     this.estimatedBudgetService.getEstimatedBudgetById(id)
+     .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+     .subscribe((res: IApiResponse<IEstimatedBudget>) => {
       // for mapping, getting values from estimatedBudgetMaster because of fields disablility
       this.estimatedBudgetMaster = res.result;
       this.patchBudget(this.estimatedBudgetMaster);
       this.estimatedBudgetModel = res.result;
-      this.isLoading = false;
     });
   }
 
@@ -118,8 +125,13 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     this.budgetService.getBudgetById(budgetId)
     .pipe(
       take(1),
-      finalize(() => { this.isLoading = false, this.showLines = true}))
-      .subscribe((res) => {
+      finalize(() => { 
+        this.isLoading = false;
+        this.showLines = true;
+        this.cdRef.detectChanges();
+      })
+    )
+    .subscribe((res) => {
       this.estimatedBudgetForm.setControl('estimatedBudgetLines', this.patchEstimatedBudgetLines(res.result.budgetLines));
     })
   }
@@ -175,20 +187,29 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     this.isLoading = true
     if (this.estimatedBudgetModel.id) {
       this.estimatedBudgetService.updateEstimatedBudget(this.estimatedBudgetModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-          .subscribe(() => {
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+       .subscribe(() => {
           this.toastService.success('Updated Successfully', 'Estimated Budget')
           this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , this.estimatedBudgetModel.id)])
         }
       );
     } else {
       delete this.estimatedBudgetModel.id;
-      this.estimatedBudgetService.createEstimatedBudget(this.estimatedBudgetModel).pipe(
+      this.estimatedBudgetService.createEstimatedBudget(this.estimatedBudgetModel)
+      .pipe(
         take(1),
-        finalize(() => this.isLoading = false))
-        .subscribe((res) => {
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+       .subscribe((res) => {
           this.toastService.success('Created Successfully', 'Estimated Budget')
           // this.router.navigate(['/' + ESTIMATED_BUDGET.LIST])
           this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , res.result.id)])

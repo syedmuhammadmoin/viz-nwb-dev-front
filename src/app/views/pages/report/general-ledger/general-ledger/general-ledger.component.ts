@@ -312,18 +312,17 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             }
           }
         ];
+        this.isLoading = false;
         this.cdRef.detectChanges();
       })
     ).subscribe((res) => {
       this.rowData = res.result;
       this.recordsData = res.result;
       // for PDF
-      (!isEmpty(res.result)) ? this.disability = false : this.disability = true;
+      this.disability = (!isEmpty(res.result)) ? false : true;
       if (isEmpty(res.result)) {
         this.toastService.info('No Records Found !' , 'General Ledger')
       }
-      this.isLoading = false;
-      
     });
   }
 

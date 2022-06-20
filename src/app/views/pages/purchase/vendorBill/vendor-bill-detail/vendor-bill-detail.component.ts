@@ -63,7 +63,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   constructor(private vendorBillService: VendorBillService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector)
@@ -128,9 +128,10 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     this.route.paramMap.subscribe(params => {
       const id = +params.get('id');
       if (id) {
+        this.isLoading = true;
         this.getBillMasterData(id);
         this.billId = id;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       }
     });
 
@@ -145,7 +146,15 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
 
   //Getting Bill master data
   getBillMasterData(id: number) {
-    this.vendorBillService.getVendorBillById(id).subscribe(res => {
+    this.vendorBillService.getVendorBillById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe(res => {
       this.billMaster = res.result;
       this.billLines = res.result.billLines;
       this.businessPartnerId = this.billMaster.vendorId;
@@ -157,9 +166,9 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       this.paidAmountList = this.billMaster.paidAmountList == null ? [] : this.billMaster.paidAmountList;
       this.bpUnReconPaymentList = this.billMaster.bpUnreconPaymentList == null ? [] : this.billMaster.bpUnreconPaymentList;
 
-      this.cdr.markForCheck();
-      this.cdr.detectChanges();
-    }, (err: any) => console.log(err));
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    })
   }
 
   //on dialogue open funtions
@@ -180,7 +189,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     //Recalling getBillMasterData function on dialog close
     dialogRef.afterClosed().subscribe(result => {
       this.getBillMasterData(this.billId);
-      this.cdr.markForCheck();
+      this.cdRef.markForCheck();
     });
   }
 
@@ -189,19 +198,20 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     this.transactionReconModel = {} as ITransactionRecon;
     this.mapTransactionReconModel(index);
     //console.log(this.transactionReconModel)
-    this.vendorBillService.createTransitionReconcile(this.transactionReconModel).pipe(
+    this.vendorBillService.createTransitionReconcile(this.transactionReconModel)
+    .pipe(
       take(1),
-      finalize(() => this.isLoading = false))
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         () => {
           this.toastService.success('Reconciled Successfully', 'Bill')
           this.getBillMasterData(this.billId);
-          this.cdr.detectChanges();
-          this.cdr.markForCheck();
-        },
-        (err: any) => {
-          this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Reconciling')
-          console.log(err)
+          this.cdRef.detectChanges();
+          this.cdRef.markForCheck();
         }
       );
   }
@@ -217,15 +227,17 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   workflow(action: any) {
     this.isLoading = true
     this.vendorBillService.workflow({ action, docId: this.billMaster.id })
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getBillMasterData(this.billId);
-        this.isLoading = false;
-        this.cdr.detectChanges();
+        this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Vendor Bill');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-        this.toastService.error('' + err.error.message, 'Vendor Bill')
       })
   }
 

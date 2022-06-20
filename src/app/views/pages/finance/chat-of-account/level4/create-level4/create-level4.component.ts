@@ -1,4 +1,4 @@
-import {Component, Inject, Injector, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, Inject, Injector, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ILevel4} from '../model/ILevel4';
 import {Optional} from 'ag-grid-community';
@@ -42,6 +42,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     private fb: FormBuilder,
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
     public dialogRef: MatDialogRef<CreateLevel4Component>,
+    private cdRef : ChangeDetectorRef,
     public chartOfAccountService: ChartOfAccountService,
     injector: Injector
   ) {
@@ -64,7 +65,15 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     // getting data
     if (this.data.modelId) {
       this.isLoading = true;
-      this.chartOfAccountService.getLevel4AccountById(this.data.modelId).subscribe((res: any) => {
+      this.chartOfAccountService.getLevel4AccountById(this.data.modelId)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+      .subscribe((res: any) => {
         this.level4Model = res.result;
         this.patchLevel4Form(this.level4Model);
       })
@@ -90,26 +99,34 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     this.mapFormValuesToInvoiceModel();
     if (this.level4Model.id) {
       //console.log("after : ",this.level4Model)
-      this.chartOfAccountService.updateLevel4Account(this.level4Model).pipe(
-        take(1),
-        finalize(() => this.isLoading = false))
+      this.chartOfAccountService.updateLevel4Account(this.level4Model)
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
         .subscribe(() => {
           this.toastService.success('Updated Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
-        }, 
-        (err) => console.log(err)
+        }
         );
     } else {
       delete this.level4Model['id'];
       // Sending data to Service
-      this.chartOfAccountService.createLevel4Account(this.level4Model).pipe(
-        take(1),
-        finalize(() => this.isLoading = false))
+      this.chartOfAccountService.createLevel4Account(this.level4Model)
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
         .subscribe(() => {
           this.toastService.success('Created Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
-        }, 
-        (err) => console.log(err)
+        }
       );
     }
   }

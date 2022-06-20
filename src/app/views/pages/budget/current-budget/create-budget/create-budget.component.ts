@@ -70,7 +70,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     public addNewButtonService: AddModalButtonService,
     private router: Router,
     private budgetService: BudgetService,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
     public activatedRoute: ActivatedRoute,
     injector: Injector
@@ -92,7 +92,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         this.isLoading = true;
         this.title = 'Edit Budget'
         this.getBudgetMaster(res.id);
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       } else {
         this.budgetModel = ({} as IBudget)
       }
@@ -110,13 +110,20 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   }
 
   public getBudgetMaster(id: any) {
-     this.budgetService.getBudgetById(id).subscribe((res: IApiResponse<IBudgetResponse>) => {
+     this.budgetService.getBudgetById(id)
+     .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+     .subscribe((res: IApiResponse<IBudgetResponse>) => {
       // for mapping, getting values from budgetMaster because of fields disablility
       this.budgetMaster = res.result;
       this.patchBudget(this.budgetMaster);
       this.budgetModel = res.result;
       this.totalAmountCalculation()
-      this.isLoading = false;
     });
   }
 
@@ -153,7 +160,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     const controls = this.budgetForm.controls.budgetLines as FormArray;
     controls.push(this.addBudgetLines());
     this.table.renderRows();
-    this.cdr.detectChanges()
+    this.cdRef.detectChanges()
   }
 
   addBudgetLines(): FormGroup {
@@ -171,7 +178,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     budgetArray.markAsTouched();
     this.table.renderRows();
     this.totalAmountCalculation()
-    this.cdr.detectChanges()
+    this.cdRef.detectChanges()
   }
 
   // total amount calculation
@@ -201,36 +208,35 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.isLoading = true
     if (this.budgetModel.id) {
       this.budgetService.updateBudget(this.budgetModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-          .subscribe(() => {
-          this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
-          this.toastService.success('Updated Successfully', 'Budget')
-          this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , this.budgetModel.id)])
-        },
-        (err) => {
-          //this.toastService.error('Something went wrong, please try again later.', 'Error Updating')
-          console.log(err)
-        }
-      );
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+       .subscribe(() => {
+        this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
+        this.toastService.success('Updated Successfully', 'Budget')
+        this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , this.budgetModel.id)])
+        });
     } else {
       delete this.budgetModel.id;
-      this.budgetService.createBudget(this.budgetModel).pipe(
+      this.budgetService.createBudget(this.budgetModel)
+      .pipe(
         take(1),
-        finalize(() => this.isLoading = false))
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res) => {
           this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
           this.toastService.success('Created Successfully', 'Budget')
           //console.log('/' + BUDGET.LIST)
           // this.router.navigate(['/' + BUDGET.LIST])
           this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
-        },
-        (err) => {
-          //this.toastService.error('Something went wrong, please try again later.', 'Error Creating')
-          console.log(err)
-        }
-      );
+        });
     }
   }
 

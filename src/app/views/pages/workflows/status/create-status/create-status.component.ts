@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize, take } from 'rxjs/operators';
@@ -53,6 +53,7 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
     private fb: FormBuilder,
     private statusService: StatusService,
     private ngxsService: NgxsCustomService,
+    private cdRef: ChangeDetectorRef,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     public dialogRef: MatDialogRef<CreateStatusComponent>,
     injector: Injector
@@ -93,13 +94,18 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
   //Get state by id
   getStatus(id: number) {
     this.statusService.getStatus(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         (res) => {
-          this.isLoading = false;
           this.editState(res.result),
             this.statusModel = res.result;
-        },
-        (err: any) => console.log(err)
+        }
       );
   }
 
@@ -122,36 +128,35 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
     if (this.statusModel.id) {
       this.isLoading = true;
       this.statusService.updateStatus(this.statusModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(
-          () => {
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+        .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(StatusState , true))
             this.toastService.success('Updated Successfully', 'Status')
             this.onCloseStatusDialog();
-          },
-          (err) => {
-            this.toastService.error('Something went wrong, please try again later.', 'Error Updating')
-            console.log(err)
           }
         );
     } else {
       delete this.statusModel['id'];
       this.isLoading = true;
       this.statusService.createStatus(this.statusModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           () => {
             this.ngxsService.store.dispatch(new IsReloadRequired(StatusState , true))
             this.toastService.success('Created Successfully', 'State')
             this.onCloseStatusDialog();
-          },
-          (err: any) => {
-            this.toastService.error('Something went wrong, please try again later.', 'Error Creating')
-            console.log(err)
           }
         );
     }

@@ -10,6 +10,7 @@ import { PayrollTransactionService } from '../service/payroll-transaction.servic
 import { RegisterPaymentComponent } from '../../../sales/invoice/register-payment/register-payment.component';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { IPayrollTransaction } from '../model/IPayrollTransaction';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-payroll-transaction-detail',
@@ -86,6 +87,7 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
+        this.isLoading = true;
         this.payrollId = id;
         this.getPayroll(this.payrollId)
         this.cdRef.markForCheck();
@@ -103,6 +105,13 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
 
   getPayroll(id: number) {
     this.payrollTransactionService.getPayrollTransactionById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res: IPayrollTransaction | any) => {
         this.payrollMaster = res.result;
         console.log('master data payroll', this.payrollMaster)
@@ -116,7 +125,6 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
         //this.employeeType = AppConst.EmployeeType[this.payrollMaster.employeeType];
        
         this.employeeItems = res.result.payrollTransactionLines
-        this.isLoading = false;
         this.cdRef.detectChanges();
       })
   }
@@ -168,14 +176,17 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
 
   workflow(action: number) {
     this.isLoading = true;
-    this.payrollTransactionService.workflow({action , docId: this.payrollMaster.id}).subscribe((res) => {
+    this.payrollTransactionService.workflow({action , docId: this.payrollMaster.id})
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.toastService.success('' + res.message, 'Payroll');
       this.getPayroll(this.payrollMaster.id);
-      this.cdRef.detectChanges();
-      this.isLoading = false;
-    }, (err) => {
-      this.toastService.error('' + err.error.message, 'Payroll');
-      this.isLoading = false
       this.cdRef.detectChanges();
     })
   }

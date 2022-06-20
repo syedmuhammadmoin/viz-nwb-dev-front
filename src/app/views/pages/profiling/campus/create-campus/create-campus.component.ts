@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -53,6 +53,7 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   constructor(private fb: FormBuilder,
     public ngxsService: NgxsCustomService,
     public route: ActivatedRoute,
+    private cdRef: ChangeDetectorRef,
     @Optional() public dialogRef: MatDialogRef<CreateCampusComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     injector: Injector
@@ -83,13 +84,18 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   // Getting Campus Model values for update
   getCampus(id: number) {
     this.ngxsService.campusService.getCampusById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         (campus: IApiResponse<ICampus>) => {
-          this.isLoading = false;
           this.editCampus(campus.result);
           this.campusModel = campus.result;
-        },
-        (err) => console.log(err)
+        }
       );
   }
 
@@ -114,29 +120,34 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
     this.mapFormValueToCampusModel();
     if (this.campusModel.id) {
       this.ngxsService.campusService.updateCampus(this.campusModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(CampusState, true))
             this.toastService.success('Updated Successfully', 'Campus')
             this.onCloseDialog();
-          },       
-        (err) => this.toastService.error('Something went wrong', 'Campus')
+          }
       );
     } else {
       delete this.campusModel.id;
       this.ngxsService.campusService.addCampus(this.campusModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {        
             this.ngxsService.store.dispatch(new IsReloadRequired(CampusState, true))
             this.toastService.success('Added Successfully', 'Campus')
             this.onCloseDialog();
-          },
-       
-        (err) => this.toastService.error('Something went wrong', 'Campus')
+          }
       );
     }
   }

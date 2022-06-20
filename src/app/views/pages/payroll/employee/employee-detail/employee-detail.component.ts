@@ -8,6 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPayrollItem } from '../../payroll-item/model/IPayrollItem';
 import { EmployeeService } from '../service/employee.service';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-employee-detail',
@@ -41,7 +42,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
     private employeeService: EmployeeService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector)
@@ -109,9 +110,10 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
+        this.isLoading = true;
         this.employeeId = id;
         this.getEmployeeData(id);
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       }
     });
 
@@ -126,12 +128,20 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
 
   //Getting Employee Master Data
   getEmployeeData(id: number) {
-    this.employeeService.getEmployeeById(id).subscribe((res: IApiResponse<any>) => {
+    this.employeeService.getEmployeeById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<any>) => {
       this.employeeMaster = res.result;
       this.payrollItems = res.result.payrollItems;
     
-      this.cdr.markForCheck();
-      this.cdr.detectChanges();
-    }, (err: any) => console.log(err));
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    })
   }
 }

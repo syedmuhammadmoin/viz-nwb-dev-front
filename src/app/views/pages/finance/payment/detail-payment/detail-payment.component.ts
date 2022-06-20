@@ -11,6 +11,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CreatePaymentComponent } from '../create-payment/create-payment.component';
 import { BILL, INVOICE, PAYMENT, PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { IPayment } from '../model/IPayment';
+import { finalize, take } from 'rxjs/operators';
 
 
 @Component({
@@ -60,7 +61,7 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
     constructor( private paymentService: PaymentService,
                  private route: ActivatedRoute,
                  public  dialog: MatDialog,
-                 private cdr: ChangeDetectorRef,
+                 private cdRef: ChangeDetectorRef,
                  injector: Injector
                ) {
                    super(injector)
@@ -73,9 +74,10 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
       this.route.paramMap.subscribe((params: Params) => {
         const id = +params.get('id');
         if (id) {
+          this.isLoading = true;
           this.getPaymentData(id);
           this.paymentId = id;
-          this.cdr.markForCheck();
+          this.cdRef.markForCheck();
         }
       });
 
@@ -88,7 +90,15 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   
     //Getting Payment Master data
     getPaymentData(id: number) {
-      this.subscription$ = this.paymentService.getPaymentById(id, this.documents.find(x=>x.id === this.selectedFormType).value).subscribe(
+      this.subscription$ = this.paymentService.getPaymentById(id, this.documents.find(x=>x.id === this.selectedFormType).value)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+      .subscribe(
         (res) => {
           this.paymentMaster = res.result;
           this.paidAmountList = this.paymentMaster.paidAmountList;
@@ -100,9 +110,8 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
           // this.grossAmount = this.paymentMasterList.grossPayment ?? 0;
           // const grossPayment = this.paymentMasterList.grossAmount;
           // const tax = res.result.salesTax + res.result.incomeTax
-          this.cdr.markForCheck();
-        }, 
-       (err) => console.log(err));
+          this.cdRef.markForCheck();
+        })
   }
 
   addPaymentDialog(id?: number): void {
@@ -119,15 +128,18 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   workflow(action: number) {
     this.isLoading = true;
     const body: IWorkflow = {docId: this.paymentMaster.id, action}
-    this.paymentService.paymentWorkflow(body, this.formName).subscribe((res) => {
+    this.paymentService.paymentWorkflow(body, this.formName)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.getPaymentData(this.paymentId);
-      this.cdr.detectChanges();
-      this.isLoading = false;
+      this.cdRef.detectChanges();
       this.toastService.success('' + res.message, '' + this.formName);
-    }, (err) => {
-      this.isLoading = false
-      this.cdr.detectChanges();
-      this.toastService.error('' + err.error.message, '' + this.formName);
     })
   }
 

@@ -10,6 +10,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IBudgetLines } from '../model/IBudgetLines';
 import { BudgetService } from '../service/budget.service';
 import { IBudgetResponse } from '../model/IBudgetResponse';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-detail-budget',
@@ -52,7 +53,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
     private _budgetService: BudgetService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector)
@@ -80,8 +81,9 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
       const id = +params.get('id');
       if (id) {
         this.budgetId = id;
+        this.isLoading = true;
         this.getBudgetData(id);
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       }
     });
 
@@ -96,7 +98,15 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
 
   //Getting Budget Master Data
   getBudgetData(id: number) {
-    this._budgetService.getBudgetById(id).subscribe((res: IApiResponse<IBudgetResponse>) => {
+    this._budgetService.getBudgetById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IBudgetResponse>) => {
       this.budgetMaster = res.result;
       this.budgetLines = res.result.budgetLines;
       // console.log('budget', this.budgetMaster);
@@ -104,8 +114,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
       this.budgetLines.forEach((line: any) => {
         this.totalAmount += line.amount;
       })
-      this.cdr.markForCheck();
-      this.isLoading = false;
+      this.cdRef.markForCheck();
     }, (err: any) => console.log(err));
   }
 }

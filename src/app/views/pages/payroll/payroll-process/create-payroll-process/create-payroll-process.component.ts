@@ -12,6 +12,7 @@ import { CreatePayrollTransactionComponent } from '../../payroll-transaction/cre
 import { DepartmentState } from '../../department/store/department.store';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { isEmpty } from 'lodash';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-create-payroll-process',
@@ -182,22 +183,20 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       year: this.createPayrollProcessForm.value.year,
     }
 
-    console.log(body)
-
     this.payrollProcessService.createPayrollProcess(body)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.employeeList = res.result;
         if (isEmpty(res.result)) {
           this.toastService.info('No Records Found !' , 'Payroll Process')
         }
-        console.log(res.result)
-        this.isLoading = false;
         this.cdRef.detectChanges();
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        console.log(err)
-        //this.toastService.error(`${err.error.message || 'Something went wrong!'}`, 'Error!')
       });
   }
 
@@ -224,7 +223,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       return
     }
 
-    console.log(this.employeeGridApi.getSelectedRows());
     this.isLoading = true;
 
     // Selected Employees
@@ -232,19 +230,20 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
 
     // Employee List to post
     const employeeListToPost = this.mapValuesToModel(selectedEmployeeList);
-    console.log('post: ', employeeListToPost);
 
     // API Call
-    this.payrollProcessService.submitPayrollProcess(employeeListToPost).subscribe((res) => {
-      this.isLoading = false;
+    this.payrollProcessService.submitPayrollProcess(employeeListToPost)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.toastService.success(res.message, 'Created Successfully!');
       this.cdRef.detectChanges();
       this.resetForm();
-    }, (error) => {
-      this.isLoading = false;
-      this.cdRef.detectChanges();
-      console.log(error)
-      this.toastService.error(`${error.error.message || 'Something went wrong!'}`, 'Error!')
     })
   }
 

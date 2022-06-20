@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit, Optional, Self, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, Self, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IWarehouse} from '../model/IWarehouse';
 import { CscService} from 'src/app/views/shared/csc.service';
@@ -95,6 +95,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     private fb: FormBuilder,    
     public ngxsService:NgxsCustomService,
     public addButtonService:AddModalButtonService,
+    private cdRef : ChangeDetectorRef,
     private cscService: CscService,
     injector: Injector) {
     super(injector);   
@@ -139,14 +140,18 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
 
   getWarehouse(id: number) {
     this.ngxsService.warehouseService.getWarehouse(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         (warehouse: IApiResponse<IWarehouse>) => {
-          this.isLoading = false;
-          //console.log(warehouse)
           this.editWarehouse(warehouse.result);
           this.warehouse = warehouse.result;
-        },
-        (err) => console.log(err)
+        }
       );
   }
 
@@ -214,30 +219,34 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     //console.log(this.warehouse)
     if (this.warehouse.id) {
       this.ngxsService.warehouseService.updateWarehouse(this.warehouse)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {            
             this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
             this.toastService.success('Updated Successfully', 'Store')
             this.onCloseDialog();
-          },
-         
-          (err) => this.toastService.error('Something went wrong', 'Store')
+          }
         );
     } else {
       delete this.warehouse.id;
       this.ngxsService.warehouseService.addWarehouse(this.warehouse)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {          
             this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
             this.toastService.success('Created Successfully', 'Store')
             this.onCloseDialog();
-          },
-        
-          (err) => this.toastService.error('Something went wrong', 'Store')
+          }
         );
     }
   }

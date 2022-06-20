@@ -72,7 +72,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     private invoiceService: InvoiceService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector)
@@ -139,8 +139,9 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
       const id = +params.get('id');
       if (id) {
         this.invoiceId = id;
+        this.isLoading = true;
         this.getInvoiceData(id);
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       }
     });
 
@@ -155,7 +156,15 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
 
   //Getting invoice master data
   getInvoiceData(id: number) {
-    this.invoiceService.getInvoiceById(id).subscribe((res: IApiResponse<IInvoice>) => {
+    this.invoiceService.getInvoiceById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IInvoice>) => {
       this.invoiceMaster = res.result;
       this.invoiceLines = res.result.invoiceLines;
       this.totalBeforeTax = this.invoiceMaster.totalBeforeTax;
@@ -171,9 +180,9 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
 
       // //handling disablity of register payment button
       // this.isDisabled = (this.invoiceMaster.status === "Paid" ? true : false)
-      this.cdr.markForCheck();
-      this.cdr.detectChanges();
-    }, (err: any) => console.log(err));
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    });
   }
 
   //on dialogue open funtions
@@ -194,24 +203,27 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     //Recalling getInvoiceData function on dialog close
     dialogRef.afterClosed().subscribe(() => {
       this.getInvoiceData(this.invoiceId);
-      this.cdr.markForCheck();
-      this.cdr.detectChanges();
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
     });
   }
 
   reconcile(index: number) {
     this.mapTransactionReconModel(index);
-    this.invoiceService.reconcilePayment(this.transactionReconModel).pipe(
+    this.invoiceService.reconcilePayment(this.transactionReconModel)
+    .pipe(
       take(1),
-      finalize(() => this.isLoading = false))
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(() => {
           this.toastService.success('Reconciled Successfully', 'Invoice')
           this.getInvoiceData(this.invoiceId);
-          this.cdr.detectChanges();
-          this.cdr.markForCheck();
-        },
-        (err) => this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Reconciling')
-      );
+          this.cdRef.detectChanges();
+          this.cdRef.markForCheck();
+        });
   }
 
   mapTransactionReconModel(index: number) {
@@ -226,15 +238,17 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   workflow(action: number) {
     this.isLoading = true
     this.invoiceService.workflow({ action, docId: this.invoiceMaster.id })
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getInvoiceData(this.invoiceId);
-        this.isLoading = false;
-        this.cdr.detectChanges();
+        this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Invoice');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-        this.toastService.error('' + err.error.message, 'Invoice')
       })
   }
 }

@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewC
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { MatCheckboxChange} from '@angular/material/checkbox';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -89,8 +90,15 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
   }
 
   getRoleById(id: any) {
-    this.accessManagementService.getRole(id).subscribe((arg) => {
-      this.isLoading = false
+    this.accessManagementService.getRole(id)
+    .pipe(
+      take(1),
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+      })
+    )
+    .subscribe((arg) => {
       this.roleModel = arg.result;
       this.patchRole(this.roleModel);
     });
@@ -140,25 +148,31 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
 
     //console.log("Rolle Model: ", this.roleModel)
     if (this.roleModel.id) {
-      this.accessManagementService.updateRole(this.roleModel).subscribe((res) => {
-        this.isLoading = false;
+      this.accessManagementService.updateRole(this.roleModel)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
         this.toastService.success('Updated Successfully', this.roleModel.roleName + '');
         this.onRoleDialogClose();
-      }, (err) => {
-        this.isLoading = false;
-        // console.log(err);
-        this.toastService.error('' + err?.error?.message, 'Error');
       })
     } else {
      // console.log('created');
-      this.accessManagementService.createRole(this.roleModel).subscribe((res) => {
-        this.isLoading = false
+      this.accessManagementService.createRole(this.roleModel)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
         this.toastService.success('Created Successfully', 'New Role');
         this.onRoleDialogClose();
-      }, (err) => {
-        this.isLoading = false
-        // console.log(err);
-        this.toastService.error('' + err?.error?.message, 'Error');
       })
     }
   }
@@ -175,8 +189,6 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
 
   getClaims() {
     this.accessManagementService.getClaims().subscribe((res) => {
-      console.log(res.result)
-     // console.log(res);
       res.result.forEach(element => {
         this.roleClaims.push(
           {

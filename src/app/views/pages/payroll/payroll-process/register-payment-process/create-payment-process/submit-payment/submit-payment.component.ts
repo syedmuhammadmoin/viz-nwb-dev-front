@@ -13,6 +13,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { DepartmentState } from '../../../../department/store/department.store';
 import { isEmpty } from 'lodash';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-submit-payment',
@@ -149,13 +150,19 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading.emit(true);
     this.payrollProcessService.getPayrollPayment(this.submitPayrollPaymentForm.value)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading.emit(false);
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.paymentList = res.result;
         if (isEmpty(res.result)) {
           this.toastService.info('No Records Found !' , 'Payroll Payment')
         }
         this.cdRef.detectChanges();
-        this.isLoading.emit(false);
       })
     }
 
@@ -170,8 +177,14 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     })
     console.log(selectedTransactions);
     this.payrollProcessService.submitPaymentProcess(selectedTransactions)
-      .subscribe((res) => {
+    .pipe(
+      take(1),
+       finalize(() => {
         this.isLoading.emit(false);
+        this.cdRef.detectChanges();
+       })
+     )
+      .subscribe((res) => {
         this.toastService.success(`${res.message || 'Payment submitted successfully.'}`, 'Successful');
         this.resetForm();
         this.cdRef.detectChanges();

@@ -218,13 +218,20 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   //Get Journal Entry Data for Edit
   private getJournalEntry(id: number) {
     this.isLoading = true;
-    this.journalEntryService.getJournalEntryById(id).subscribe((res: IApiResponse<IJournalEntry>) => {
+    this.journalEntryService.getJournalEntryById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IJournalEntry>) => {
       if (!res) {
         return
       }
       this.journalEntryModel = res.result
       this.editJournalEntry(this.journalEntryModel)
-      this.isLoading = false;
     });
   }
 
@@ -284,12 +291,13 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     //console.log(this.journalEntryModel)
     if (this.journalEntryModel.id) {
       this.journalEntryService.updateJournalEntry(this.journalEntryModel)
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           (res: IApiResponse<IJournalEntry>) => {
           this.toastService.success('Updated Successfully', 'Journal Entry')
@@ -299,9 +307,13 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     } else {
       delete this.journalEntryModel.id;
       this.journalEntryService.addJournalEntry(this.journalEntryModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           (res: IApiResponse<IJournalEntry>) => {
             this.toastService.success('Created Successfully', 'Journal Entry')

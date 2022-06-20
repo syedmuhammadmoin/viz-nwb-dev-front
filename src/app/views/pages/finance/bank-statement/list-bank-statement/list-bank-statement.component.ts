@@ -50,6 +50,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
         field: 'bankAccountName', 
         tooltipField: 'description',
         filter: 'agTextColumnFilter',
+        cellRenderer: "loadingCellRenderer",
         menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
