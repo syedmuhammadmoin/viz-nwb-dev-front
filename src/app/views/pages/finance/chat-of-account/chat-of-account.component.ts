@@ -7,6 +7,7 @@ import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { finalize, take } from 'rxjs/operators';
 
 /**
  * Each node has a name and an optional list of children.
@@ -35,7 +36,9 @@ interface FlatNode {
 })
 export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
 
-  public permissions = Permissions
+  public permissions = Permissions;
+
+  isLoading : boolean = false;
  
   constructor(
     private chartOfAccService: ChartOfAccountService,
@@ -63,7 +66,16 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
 
 
   ngOnInit(): void {
-    this.chartOfAccService.getChartOfAccount().subscribe((data) => {
+    this.isLoading = true;
+    this.chartOfAccService.getChartOfAccount()
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((data) => {
       this.dataSource.data = data.result;
       //console.log('this.dataSource.data', this.dataSource.data);
       this.cdRef.detectChanges();
@@ -93,7 +105,15 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
         data: {parentId: node.id}
       });
       dialogRef.afterClosed().subscribe(() => {
-        this.chartOfAccService.getChartOfAccount().subscribe((res) => {
+        this.chartOfAccService.getChartOfAccount()
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
+        .subscribe((res) => {
           this.dataSource.data = res.result;
           this.expandParents(node)
           this.cdRef.detectChanges();
@@ -126,7 +146,15 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
         data: {modelId: node.id}
       });
       dialogRef.afterClosed().subscribe(() => {
-        this.chartOfAccService.getChartOfAccount().subscribe((res) => {
+        this.chartOfAccService.getChartOfAccount()
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
+        .subscribe((res) => {
           this.dataSource.data = res.result;
           this.expandParents(node)
           this.cdRef.detectChanges();

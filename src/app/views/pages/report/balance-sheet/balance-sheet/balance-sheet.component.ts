@@ -3,7 +3,7 @@ import { ChangeDetectorRef, ViewChild} from '@angular/core';
 import { Injector} from '@angular/core';
 import { Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { map} from 'rxjs/operators';
+import { finalize, map} from 'rxjs/operators';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { BusinessPartnerService} from '../../../profiling/business-partner/service/businessPartner.service';
 import { CategoryService} from '../../../profiling/category/service/category.service';
@@ -164,6 +164,10 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
     console.log(balanceSheetModel)
     this.balanceSheetService.getBalanceSheetReport(balanceSheetModel)
       .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         }),
         map((x: any) => {
           return x.result.map((item: any) => {
             // item.balance = item.nature === 'EXPENSES' ? item.debit - item.credit : item.credit - item.debit;
@@ -172,15 +176,13 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         })
       )
       .subscribe((res: IBalanceSheet[]) => {
-        console.log(res);
         this.rowData = res;
         this.recordsData = res;
         //for PDF
-        (!isEmpty(res)) ? this.disability = false : this.disability = true;
+        this.disability = (!isEmpty(res)) ? false : true;
         if (isEmpty(res)) {
           this.toastService.info('No Records Found !' , 'Balance Sheet')
         }
-        this.isLoading = false;
         this.cdRef.detectChanges();
         this.calculateNetProfit(res);
       });

@@ -8,7 +8,7 @@ import { GridReadyEvent, RowNode, ValueFormatterParams } from 'ag-grid-community
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { TrialBalanceService } from '../service/trial-balance.service';
 import { isEmpty } from 'lodash';
-import { map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 @Component({
@@ -236,7 +236,13 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     body.docDate2 = this.formatDate(body.docDate2)
     
     this.isLoading = true;
-    this.trialBalanceService.getTrialBalance(body).pipe(map((res: any) => {
+    this.trialBalanceService.getTrialBalance(body)
+    .pipe(
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       }),
+      map((res: any) => {
       return res.result.map((response: ITrialBalance) => {
         return response
       });
@@ -246,12 +252,10 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       //this.totals = this.calculateTotal(result, 'creditCB', 'debitCB', 'creditOB', 'debitOB', 'credit', 'debit')
     
       //for PDF
-      (!isEmpty(result)) ? this.disability = false : this.disability = true;
+      this.disability = (!isEmpty(result)) ? false : true;
       if (isEmpty(result)) {
         this.toastService.info('No Records Found !' , 'Trial Balance')
       }
-      this.isLoading = false;
-
       this.cdRef.detectChanges();
       setTimeout(() => {
         const pinnedBottomData = this.generatePinnedBottomData();

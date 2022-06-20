@@ -98,6 +98,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
     this.activatedRoute.paramMap.subscribe((param) => {
       const id = param.get('id');
       if (id) {
+        this.isLoading = true;
         this.showButtons = (this.permission.isGranted(this.permissions.WORKFLOW_EDIT)) ? true : false;
         this.title = 'Edit Workflow'
         this.getWorkflow(id);
@@ -118,7 +119,15 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
   }
 
   getWorkflow(id: any) {
-    this.workflowService.getWorkflow(id).subscribe((res) => {
+    this.workflowService.getWorkflow(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       //for mapping, getting values from invoiceMaster because of fields disablility
       this.workflowModel = res.result;
       this.patchWorkflow(res.result);
@@ -214,39 +223,32 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
    // console.log(this.workflowModel);
     if (this.workflowModel.id) {
       this.workflowService.updateWorkflow(this.workflowModel)
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           () => {
             this.toastService.success('Updated Successfully', 'Workflow')
             this.route.navigate(['/'+WORKFLOW.LIST])
-          },
-          (err: any) => {
-            this.toastService.error('' + err?.error.message, 'Error Updating')
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-            console.log(err)
           }
         )
     } else {
       delete this.workflowModel.id;
       this.workflowService.createWorkflow(this.workflowModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
-        .subscribe(
-          () => {
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+        .subscribe(() => {
             this.toastService.success('Created Successfully', 'Workflow')
             this.route.navigate(['/'+WORKFLOW.LIST])
-          },
-          (err: any) => {
-            this.toastService.error('' + err?.error.message, 'Error Creating')
-            this.isLoading = false;
-            this.cdRef.detectChanges();
           }
         );
     }

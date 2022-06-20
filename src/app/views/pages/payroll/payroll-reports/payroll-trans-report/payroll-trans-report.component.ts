@@ -6,7 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DesignationService } from '../../designation/service/designation.service';
 import { CampusService } from '../../../profiling/campus/service/campus.service';
 import { PayrollItemService } from '../../payroll-item/service/payroll-item.service';
-import { finalize } from 'rxjs/operators';
+import { finalize, take } from 'rxjs/operators';
 import { isEmpty} from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -279,23 +279,23 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     this.mapFormValueToModel();
     console.log('model', this.payrollTransitionModel);
     this.isLoading = true
-    this.payrollReportService.getPayrollsReport(this.payrollTransitionModel).pipe(
-      finalize(() => {
+    this.payrollReportService.getPayrollsReport(this.payrollTransitionModel)
+    .pipe(
+      take(1),
+       finalize(() => {
         this.isLoading = false;
-        this.cdRef.detectChanges()
-      })
-    ).subscribe((res) => {
-      console.log("yes")
+        this.cdRef.detectChanges();
+       })
+     ).subscribe((res) => {
       this.recordsData = res.result || [];
       this.rowData = res.result || [];
       if (isEmpty(res.result)) {
         this.toastService.info('No Records Found !' , 'Payroll Transaction')
       }
-      console.log(res.result, " result")
-      this.totals = this.calculateTotal(this.recordsData, 'basicSalary', 'totalAllowances', 'grossSalary', 'totalDeductions', 'netSalary')
-      this.isLoading = false;
+
+      this.totals = this.calculateTotal(this.recordsData, 'basicSalary', 'totalAllowances', 'grossSalary', 'totalDeductions', 'netSalary');
       // for PDF
-      (!isEmpty(res.result)) ? this.disability = false : this.disability = true;
+      this.disability = (!isEmpty(res.result)) ? false : true;
       this.cdRef.detectChanges()
     });
   }

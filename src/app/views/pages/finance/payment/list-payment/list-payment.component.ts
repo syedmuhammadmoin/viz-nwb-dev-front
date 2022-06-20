@@ -52,7 +52,6 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   ) {
     super(injector)
     this.selectedDocumentType = this.activatedRoute.snapshot.data.docType;
-    console.log(this.selectedDocumentType)
     this.FormName = this.documents.find(x => x.id === this.selectedDocumentType).value
     this.gridOptions = <GridOptions>(
       {

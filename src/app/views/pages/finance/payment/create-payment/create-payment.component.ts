@@ -213,13 +213,18 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   getPayment(id: number) {
     this.paymentService.getPaymentById(id, this.documents.find(x => x.id === this.data.docType).value)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         (payment: IApiResponse<IPayment>) => {
           this.paymentMaster = payment.result;
           this.editPayment(payment.result);
           this.paymentModel = payment.result;
-          this.isLoading = false;
-          //this.calculatingNetPayment();
           this.netPayment = this.paymentMaster.netPayment;
         },
         (err) => console.log(err)
@@ -265,30 +270,34 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     console.log(this.paymentModel)
     if (this.paymentModel.id) {
       this.paymentService.updatePayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
             this.toastService.success('Updated Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
             this.route.navigate(['/payment/'+ this.documents.find(x => x.id === this.data.docType).route +'/details/' + this.paymentModel.id])
             this.onCloseDialog()
-          },
-          (err) => this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`, 'Error Updating')
-        );
+          });
     } else {
       delete this.paymentModel.id;
       this.subscription$ = this.paymentService.addPayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res) => {
             this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
             // this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : (this.formName === 'Payroll Payment') ? PAYROLL_PAYMENT.LIST : RECEIPT.LIST)])
             this.route.navigate(['/payment/'+ this.documents.find(x => x.id === this.data.docType).route +'/details/' + res.result.id])
             this.onCloseDialog();
-          },
-          (err) => this.toastService.error(`${err.message || 'Something went wrong, please try again later.'}`, 'Error Creating')
-        );
+          });
     }
   }
  

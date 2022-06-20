@@ -143,9 +143,11 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       this.isInvoice = param.isInvoice;
       if (id && this.isCreditNote) {
         this.title = 'Edit Credit Note'
+        this.isLoading = true;
         this.getCreditNote(id);
       }
       else if (id && this.isInvoice) {
+        this.isLoading = true;
         this.getInvoice(id);
       }
     })
@@ -242,22 +244,34 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
   //Get Invoice Master Data
   private getInvoice(id: number) {
-    this.isLoading = true;
-    this.invoiceService.getInvoiceById(id).subscribe((res: IApiResponse<IInvoice>) => {
+    this.invoiceService.getInvoiceById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IInvoice>) => {
       this.invoiceMaster = res.result
       this.patchCreditNote(this.invoiceMaster);
-      this.isLoading = false;
     })
   }
 
   // Get Credit Note Master Data
   private getCreditNote(id: number) {
-    this.isLoading = true;
-    this.creditNoteService.getCreditNoteById(id).subscribe((res) => {
+    this.creditNoteService.getCreditNoteById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       if (!res) return
       this.creditNoteModel = res.result
       this.patchCreditNote(this.creditNoteModel)
-      this.isLoading = false;
     });
   }
 
@@ -319,12 +333,13 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     console.log(this.creditNoteModel)
     if (this.creditNoteModel.id) {
       this.creditNoteService.updateCreditNote(this.creditNoteModel)
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res: IApiResponse<ICreditNote>) => {
           this.toastService.success('Updated Successfully', 'Credit Note')
           this.cdRef.detectChanges();
@@ -333,9 +348,13 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     } else {
       delete this.creditNoteModel.id;
       this.creditNoteService.createCreditNote(this.creditNoteModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res: IApiResponse<ICreditNote>) => {
             this.toastService.success('Created Successfully' , 'Credit Note')
             // this.router.navigate(['/' + CREDIT_NOTE.LIST])

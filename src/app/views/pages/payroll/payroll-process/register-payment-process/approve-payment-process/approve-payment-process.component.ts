@@ -12,6 +12,7 @@ import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.
 import { DepartmentState } from '../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { finalize, take } from 'rxjs/operators';
 
 
 @Component({
@@ -144,17 +145,18 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     }
     this.isLoading = true;
     this.payrollProcessService.getPayrollPaymentForApproval(this.approvePayrollPaymentForm.value)
-      .subscribe((res) => {
+    .pipe(
+      take(1),
+       finalize(() => {
         this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+      .subscribe((res) => {
         this.paymentList = res.result;
         if (isEmpty(res.result)) {
           this.toastService.info('No Records Found !' , 'Payroll Payment')
         }
-        console.log('list: ', this.paymentList);
-        this.cdRef.detectChanges();
-      }, (err) => {
-        this.isLoading = false;
-        // this.toastService.error(`${err.error.message || 'Something went wrong.'}`, 'Fetching Error!')
         this.cdRef.detectChanges();
       });
   }
@@ -170,15 +172,17 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     })
     console.log(selectedTransactions);
     this.payrollProcessService.approvePayrollPaymentProcess({docId: selectedTransactions, action: actionButton})
-      .subscribe((res) => {
+    .pipe(
+      take(1),
+       finalize(() => {
         this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+      .subscribe((res) => {
         this.toastService.success(`${res.message || 'Approval Processed successfully.'}`, 'Successful');
        // this.onSubmitFilters()
         this.resetForm();
-        this.cdRef.detectChanges();
-      }, (err) => {
-        this.isLoading = false;
-        //this.toastService.error(`${err.error.message || 'Something went wrong, please try again later.'}`)
         this.cdRef.detectChanges();
       });
   }

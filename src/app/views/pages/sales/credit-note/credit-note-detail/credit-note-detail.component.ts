@@ -11,6 +11,7 @@ import { CREDIT_NOTE, INVOICE } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICreditNote } from '../model/ICreditNote';
 import { ICreditNoteLines } from '../model/ICreditNoteLines';
+import { finalize, take } from 'rxjs/operators';
 
 
 @Component({
@@ -26,7 +27,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
     private creditNoteService: CreditNoteService,
     private activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector)
@@ -115,8 +116,9 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
       const id = +params.get('id');
       if (id) {
         this.creditNoteId = id;
+        this.isLoading = true;
         this.getCreditNoteData(id);
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       }
     });
     this.gridOptions.rowHeight = 40;
@@ -128,26 +130,36 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
   }
 
   getCreditNoteData(id: number) {
-    this.creditNoteService.getCreditNoteById(id).subscribe((res: IApiResponse<ICreditNote>) => {
+    this.creditNoteService.getCreditNoteById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<ICreditNote>) => {
       this.creditNoteMaster = res.result;
       this.creditNoteLines = res.result.creditNoteLines;
       this.paidAmountList = this.creditNoteMaster.paidAmountList == null ? [] : this.creditNoteMaster.paidAmountList;
-      this.cdr.detectChanges();
+      this.cdRef.detectChanges();
     })
   }
 
   workflow(action: number) {
     this.isLoading = true
     this.creditNoteService.workflow({ action, docId: this.creditNoteMaster.id })
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getCreditNoteData(this.creditNoteId);
-        this.isLoading = false;
-        this.cdr.detectChanges();
+        this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Credit Note');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-        this.toastService.error('' + err.error.message, 'Credit Note')
       })
   }
 }

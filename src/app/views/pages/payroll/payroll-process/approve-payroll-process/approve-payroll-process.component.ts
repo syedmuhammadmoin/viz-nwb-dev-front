@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { FirstDataRenderedEvent, RowNode} from 'ag-grid-community';
 import { isEmpty } from 'lodash';
-import { map } from 'rxjs/operators';
+import { finalize, map, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { ActionButton, DocumentStatus } from 'src/app/views/shared/AppEnum';
@@ -171,26 +171,28 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     }
 
     this.payrollProcessService.GetApprovePayrollProcess(body)
-      .pipe(map((res: any) => {
-        if (isEmpty(res.result)) {
-          this.toastService.info('No Records Found !' , 'Payroll Process')
-        }
-        return res.result.map((response: any) => {
-          return response
-        });
-      }))
+      .pipe(
+        map((res: any) => {
+          if (isEmpty(res.result)) {
+            this.toastService.info('No Records Found !' , 'Payroll Process')
+          }
+          return res.result.map((response: any) => {
+            return response
+          });
+        },
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+        )
+      )
       .subscribe((res) => {
         this.payrollTransactions = res
-        this.isLoading = false
         this.cdRef.detectChanges();
         setTimeout(() => {
           const pinnedBottomData = this.generatePinnedBottomData();
           this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
         }, 500)
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        // this.toastService.error(`${err?.error?.message || 'Something went wrong please try again later'}`)
       })
   }
 
@@ -223,6 +225,13 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     const body = {docId: idsToSent, action: actionButton}
 
     this.payrollProcessService.submitApprovalPayrollProcess(body)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         if(actionButton === 0) {
           this.toastService.success(`${'Payroll approve process completed successfully'}`, 'Successful')
@@ -231,12 +240,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
           this.toastService.success(`${'Payroll rejected process completed successfully'}`, 'Successful')
         }
         this.resetForm();
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-
-      }, (err) => {
-        //this.toastService.error(`${err?.error?.message || 'Something went wrong please try again later'}`, 'Error')
-        this.isLoading = false;
         this.cdRef.detectChanges();
       })
   }

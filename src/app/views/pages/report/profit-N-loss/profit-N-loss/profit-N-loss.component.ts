@@ -7,7 +7,7 @@ import { ProfitLossService} from '../service/profit-loss.service';
 import { IProfitLoss} from '../model/IProfitLoss';
 import { isEmpty } from 'lodash';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import  {map } from 'rxjs/operators';
+import  {finalize, map } from 'rxjs/operators';
 import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 
 
@@ -170,6 +170,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.profitLossService.getProfitNLoss(this.profitNLossModel)
       .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         }),
         map((x: any) => {
           console.log(x.result)
           return x.result.map((item: any) => {
@@ -183,11 +187,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         this.rowData = res;
         this.recordsData = res;
         // for PDF
-        (!isEmpty(res)) ? this.disability = false : this.disability = true;
+        this.disability = (!isEmpty(res)) ? false : true;
         if (isEmpty(res)) {
           this.toastService.info('No Records Found !' , 'Profit & Loss')
         }
-        this.isLoading = false;
         this.cdRef.detectChanges();
         this.calculateNetProfit(res);
       });

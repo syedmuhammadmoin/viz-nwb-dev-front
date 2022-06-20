@@ -3,7 +3,7 @@ import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angul
 import { AppComponentBase} from '../../../../shared/app-component-base';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { ColDef, GridOptions, ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
-import { finalize} from 'rxjs/operators';
+import { finalize, take} from 'rxjs/operators';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
 import { BudgetService } from '../service/budget.service';
@@ -73,16 +73,17 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    {headerName: 'Budget Name', field: 'budgetName', suppressMenu: true},
+    {headerName: 'Budget Name', field: 'budgetName', suppressMenu: true,  cellStyle: {textAlign : 'left'},},
     {
       headerName: 'Date', 
       field: 'to',
       suppressMenu: true,
+      cellStyle: {textAlign : 'left'},
       cellRenderer: (params: ICellRendererParams) => {
         return this.dateHelperService.transformDate(params.data.to, 'MMM d, y')
       }
     },
-    {headerName: 'Account', field: 'account', suppressMenu: true},
+    {headerName: 'Account', field: 'account', suppressMenu: true,  cellStyle: {textAlign : 'left'},},
     {
       headerName: 'Budget Amount', 
       field: 'budgetAmount',
@@ -118,7 +119,6 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
     this.defaultColDef = {
       resizable: true,
-      cellStyle: {textAlign : 'left'},
     }
 
     // initializing formGroup
@@ -139,7 +139,15 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
     this.mapFormValueToModel();
     console.log(this.budgetReportModel);
     this.isLoading = true;
-    this._budgetService.getBudgetReport(this.budgetReportModel).subscribe((res) => {
+    this._budgetService.getBudgetReport(this.budgetReportModel)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.rowData = res.result;
       this.recordsData = res.result;
       // for PDF
@@ -147,7 +155,6 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
       if (isEmpty(res.result)) {
         this.toastService.info('No Records Found !' , 'Budget Report')
       }
-      this.isLoading = false;
       this.cdRef.detectChanges();
     });
   }
@@ -179,10 +186,6 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
       day = '0' + day;
 
     return [year, month, day].join('-');
-  }
-
-  onFirstDataRendered(params: any) {
-    params.api.sizeColumnsToFit();
   }
 
   // PDF Content

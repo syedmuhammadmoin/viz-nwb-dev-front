@@ -4,7 +4,7 @@ import { IPayrollTransaction} from '../model/IPayrollTransaction';
 import { PayrollTransactionService} from '../service/payroll-transaction.service';
 import { AbstractControl, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPayrollItem} from '../../payroll-item/model/IPayrollItem';
-import { finalize} from 'rxjs/operators';
+import { finalize, take} from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -203,8 +203,13 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     console.log(this.payrollTransaction)
     if (this.payrollTransaction.id) {
       this.payrollTransactionService.updatePayrollTransaction(this.payrollTransaction)
-        .pipe(
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           (res) => {
             this.toastService.success('Updated Successfully', "Payroll")
@@ -217,8 +222,13 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
           })
     } else {
       this.payrollTransactionService.createPayrollTransaction(this.payrollTransaction)
-        .pipe(
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           (res) => {
             this.toastService.success('Created Successfully', "Payroll");
@@ -307,22 +317,34 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // getting employee data by id
   getEmployee(id: number) {
-    this.isLoading = true;
-    this.employeeService.getEmployeeById(id).subscribe((res) => {
+    this.employeeService.getEmployeeById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.employee = res.result
       this.checkSelected(this.employee)
-      this.isLoading = false;
       this.cdRef.detectChanges()
     })
   }
 
 // getting payroll by id
   private getPayroll(id: any) {
-    this.isLoading = true;
-    this.payrollTransactionService.getPayrollTransactionById(id).subscribe((res) => {
+    this.payrollTransactionService.getPayrollTransactionById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.payrollTransaction = res.result;
       this.patchPayroll(this.payrollTransaction);
-      this.isLoading = false;
       this.cdRef.detectChanges()
     });
   }

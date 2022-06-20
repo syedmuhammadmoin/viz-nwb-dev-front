@@ -1,5 +1,5 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IBusinessPartner} from '../model/IBusinessPartner';
 import { Subscription } from 'rxjs';
@@ -113,6 +113,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     public dialogRef: MatDialogRef<CreateBusinessPartnerComponent>, injector: Injector,
     public categoryService:CategoryService,
+    private cdRef : ChangeDetectorRef,
     public ngxsService:NgxsCustomService,
     private cscService: CscService, // Country, State, City
   ) {
@@ -193,14 +194,18 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
 
   getBusinessPartner(id: number) {
     this.subscription1$ = this.ngxsService.businessPartnerService.getBusinessPartner(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         (businessPartner: IApiResponse<IBusinessPartner>) => {
-          this.isLoading = false;
           this.editBusinessPartner(businessPartner.result);
           this.businessPartner = businessPartner.result
-        },
-        (err) => console.log(err)
-      );
+        });
   }
 
   editBusinessPartner(businessPartner: IBusinessPartner) {
@@ -281,29 +286,33 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     //console.log(this.businessPartner)
     if (this.businessPartner.id) {
       this.subscription2$ = this.ngxsService.businessPartnerService.updateBusinessPartner(this.businessPartner)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
             this.toastService.success('Updated Successfully', 'Business Partner')
             this.onCloseDialog();
-          },
-          (err) => this.toastService.error('Something went wrong', 'Business Partner')
-        );
+        });
     } else {
       delete this.businessPartner['id'];
       this.subscription3$ = this.ngxsService.businessPartnerService.addBusinessPartner(this.businessPartner)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
-              this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
-              this.toastService.success('Added Successfully', 'Business Partner')
-              this.onCloseDialog();
-            },              
-            (err) => this.toastService.error('Something went wrong', 'Business Partner')
-        );
+            this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
+            this.toastService.success('Added Successfully', 'Business Partner')
+            this.onCloseDialog();
+        });
     }
   }
 

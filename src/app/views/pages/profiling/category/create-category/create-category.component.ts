@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { CategoryService } from '../service/category.service';
 import { ActivatedRoute } from '@angular/router';
@@ -70,6 +70,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     public categoryService:CategoryService,
     public ngxsService:NgxsCustomService,
     public route: ActivatedRoute,
+    private cdRef: ChangeDetectorRef,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     public dialogRef: MatDialogRef<CreateCategoryComponent>,
     injector: Injector
@@ -107,13 +108,18 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   // Getting category values for update
   getCategory(id: number) {
     this.ngxsService.categoryService.getCategory(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe(
         (category: IApiResponse<ICategory>) => {
-          this.isLoading = false;
           this.editCategory(category.result);
           this.category = category.result;
-        },
-        (err) => console.log(err)
+        }
       );
   }
 
@@ -142,29 +148,34 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     this.mapFormValueToCategoryModel();
     if (this.category.id) {
       this.ngxsService.categoryService.updateCategory(this.category)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(CategoryState, true))
             this.toastService.success('Updated Successfully', 'Category')
             this.onCloseDialog();
-          },       
-        (err) => this.toastService.error('Something went wrong', 'Category')
+          }
       );
     } else {
       delete this.category.id;
       this.ngxsService.categoryService.addCategory(this.category)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {        
             this.ngxsService.store.dispatch(new IsReloadRequired(CategoryState, true))
             this.toastService.success('Added Successfully', 'Category')
             this.onCloseDialog();
-          },
-       
-        (err) => this.toastService.error('Something went wrong', 'Category')
+          }
       );
     }
   }

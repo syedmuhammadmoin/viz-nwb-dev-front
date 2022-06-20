@@ -10,6 +10,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IEstimatedBudgetLines } from '../model/IEstimatedBudgetLines';
 import { EstimatedBudgetService } from '../service/estimated-budget.service';
 import { IEstimatedBudget } from '../model/IEstimatedBudget';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-detail-estimated-budget',
@@ -45,7 +46,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
     private _estimatedBudgetService: EstimatedBudgetService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector)
@@ -100,8 +101,9 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
       const id = +params.get('id');
       if (id) {
         this.estimatedBudgetId = id;
+        this.isLoading = true;
         this.getBudgetData(id);
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       }
     });
 
@@ -116,15 +118,22 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
 
   //Getting Estimated Budget Master Data
   getBudgetData(id: number) {
-    this._estimatedBudgetService.getEstimatedBudgetById(id).subscribe((res: IApiResponse<IEstimatedBudget>) => {
+    this._estimatedBudgetService.getEstimatedBudgetById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IEstimatedBudget>) => {
       this.estimatedBudgetMaster = res.result;
       this.estimatedBudgetLines = res.result.estimatedBudgetLines;
       
       // this.budgetLines.forEach((line: any) => {
       //   this.totalAmount += line.amount;
       // })
-      this.cdr.markForCheck();
-      this.isLoading = false;
+      this.cdRef.markForCheck();
     })
   }
 }

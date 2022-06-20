@@ -8,6 +8,7 @@ import { GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-
 import { DebitNoteService } from '../service/debit-note.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { finalize, take } from 'rxjs/operators';
 
 
 @Component({
@@ -110,8 +111,9 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     this.activatedRoute.paramMap.subscribe(params => {
       const id = +params.get('id');
       if (id) {
-        this.getDebitNoteMasterData(id);
+        this.isLoading = true;
         this.debitNoteId = id;
+        this.getDebitNoteMasterData(id);
         this.cdRef.markForCheck();
       }
     });
@@ -127,7 +129,15 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
 
   //Debit Note Master Data
   getDebitNoteMasterData(id: number) {
-    this.debitNoteService.getDebitNoteById(id).subscribe(res => {
+    this.debitNoteService.getDebitNoteById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe(res => {
       this.debitNoteMaster = res.result;
       this.debitNoteLines = res.result.debitNoteLines;
       this.totalBeforeTax = this.debitNoteMaster.totalBeforeTax;
@@ -136,22 +146,23 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       this.paidAmountList = this.debitNoteMaster.paidAmountList;
       //this.reconciledDocumentList = this.debitNoteMaster.reconciledDocuments == null ? [] : this.debitNoteMaster.reconciledDocuments;
       this.cdRef.detectChanges();
-    }, (err: any) => console.log(err));
+    })
   }
 
   workflow(action: any) {
     this.isLoading = true
-    console.log(action , this.debitNoteMaster.id)
     this.debitNoteService.workflow({ action, docId: this.debitNoteMaster.id })
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getDebitNoteMasterData(this.debitNoteId);
-        this.isLoading = false;
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Debit Note');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.error('' + err.error.message, 'Debit Note')
       })
   }
 }

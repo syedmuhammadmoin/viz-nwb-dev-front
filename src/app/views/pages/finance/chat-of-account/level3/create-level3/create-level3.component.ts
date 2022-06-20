@@ -1,4 +1,4 @@
-import { Component, Inject, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ILevel3} from '../model/ILevel3';
 import { Optional} from 'ag-grid-community';
@@ -40,6 +40,7 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
     public dialogRef: MatDialogRef<CreateLevel3Component>,
     public chartOfAccountService: ChartOfAccountService,
+    private cdRef: ChangeDetectorRef,
     injector: Injector) {
     super(injector)
   }
@@ -61,7 +62,15 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
     // get data by id
     if (this.data.modelId) {
       this.isLoading = true;
-      this.chartOfAccountService.getLevel3AccountById(this.data.modelId).subscribe((res) => {
+      this.chartOfAccountService.getLevel3AccountById(this.data.modelId)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+      .subscribe((res) => {
         this.level3Model = res;
         this.patchLevel3(this.level3Model);
       })
@@ -86,27 +95,34 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
     console.log(this.level3Model);
     if (this.level3Model.id) {
       this.isLoading = true;
-      this.chartOfAccountService.updateLevel3Account(this.level3Model).pipe(
-        take(1),
-        finalize(() => this.isLoading = false))
+      this.chartOfAccountService.updateLevel3Account(this.level3Model)
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
         .subscribe((res) => {
           this.toastService.success('Updated Successfully!', 'Summary Head');
           this.onCloseLevel3Dialog()
-        }, (err) => {
-          console.error(err);
         })
     } else {
       delete this.level3Model['id'];
       this.isLoading = true;
       // Sending data to Service
-      this.chartOfAccountService.createLevel3Account(this.level3Model).pipe(
+      this.chartOfAccountService.createLevel3Account(this.level3Model)
+      .pipe(
         take(1),
-        finalize(() => this.isLoading = false)).subscribe((res) => {
-          console.log(res);
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+       .subscribe((res) => {
+      
           this.toastService.success('Created Successfully!', 'Summary Head');
           this.onCloseLevel3Dialog()
-        }, (err) => {
-          console.error(err);
         });
     }
   }

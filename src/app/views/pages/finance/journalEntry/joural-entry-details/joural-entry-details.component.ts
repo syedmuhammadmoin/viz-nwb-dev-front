@@ -10,6 +10,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IJournalEntry } from '../model/IJournalEntry';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IJournalEntryLines } from '../model/IJournalEntryLines';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-joural-entry-details',
@@ -91,6 +92,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     this.activatedRoute.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
+        this.isLoading = true;
         this.getJournalEntryData(id);
         this.journalEntryId = id;
         this.cdRef.markForCheck();
@@ -106,7 +108,15 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   }
 
   private getJournalEntryData(id: number) {
-    this.journalEntryService.getJournalEntryById(id).subscribe((res: IApiResponse<IJournalEntry>) => {
+    this.journalEntryService.getJournalEntryById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IJournalEntry>) => {
       this.journalEntryMaster = res.result;
       this.journalEntryLines = res.result.journalEntryLines
       this.cdRef.markForCheck();
@@ -116,15 +126,17 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   workflow(action: number) {
     this.isLoading = true
     this.journalEntryService.workflow({ action, docId: this.journalEntryMaster.id })
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getJournalEntryData(this.journalEntryId);
-        this.isLoading = false;
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Journal Entry');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.error('' + err.error.message, 'Journal Entry')
       })
   }
 }

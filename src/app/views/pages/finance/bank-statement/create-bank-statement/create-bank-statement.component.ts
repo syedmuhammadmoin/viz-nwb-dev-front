@@ -1,5 +1,5 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -87,6 +87,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     private fb: FormBuilder,
     private bankStatementService: BankStatementService,
     private router: Router,
+    private cdRef: ChangeDetectorRef,
     public activatedRoute: ActivatedRoute,
     public ngxsService:NgxsCustomService,   
     injector: Injector) {
@@ -128,14 +129,19 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   // get Bank Statement
   getBankStatement(id: number) {
-    this.bankStatementService.getBankStatement(id).subscribe(
-      (bankStatement: IApiResponse<IBankStatement>) => {
+    this.bankStatementService.getBankStatement(id)
+    .pipe(
+      take(1),
+       finalize(() => {
         this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe(
+      (bankStatement: IApiResponse<IBankStatement>) => {
         this.editBankStatement(bankStatement.result)
         this.bankStatementModel = bankStatement.result
-      },
-      (err) => console.log(err)
-    );
+      });
   }
 
   // Edit Bank Statement
@@ -183,9 +189,13 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     console.log(this.bankStatementModel)
     if (this.bankStatementModel.id) {
       this.bankStatementService.updateBankStatement(this.bankStatementModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
             this.toastService.success('Updated Successfully', 'Bank Statement')
             this.router.navigate(['/' + BANK_STATEMENT.LIST])
@@ -195,9 +205,13 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
       delete this.bankStatementModel.id;
       //console.log(this.bankStatementModel)
       this.bankStatementService.addBankStatement(this.body)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(() => {
           this.toastService.success('Created Successfully', 'Bank Statement')
           this.router.navigate(['/' + BANK_STATEMENT.LIST])

@@ -5,6 +5,7 @@ import { PasswordGenerator } from 'src/app/views/shared/helpers/password-generat
 import { MAT_DIALOG_DATA, MatDialogRef} from "@angular/material/dialog";
 import { AccessManagementService } from '../../service/access-management.service';
 import { IResetPassword } from "../../model/IResetPassword";
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-reset-password',
@@ -64,15 +65,17 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
     const body = {...this.resetPassForm.value} as IResetPassword;
     body.confirmPassword = body.password
     body.userId = this._id
-    console.log('Body: ', body)
-    this.accessManagementService.resetPassword(body).subscribe((res) => {
+    this.accessManagementService.resetPassword(body)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.toastService.success('Successfully!', 'Password Reset')
-      this.isLoading = false;
       this.onCloseResetPassDialog();
-    }, (err) => {
-      this.toastService.error('Failed!', 'Password Reset')
-      this.isLoading = false;
-      this.cdRef.detectChanges();
     })
   }
 

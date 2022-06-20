@@ -153,10 +153,12 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       const isInvoice = param.isInvoice;
       const isSalesOrder = param.isSalesOrder;
       if (id && isInvoice) {
+        this.isLoading = true;
         this.title = 'Edit Invoice'
         this.getInvoice(id);
       }
       else if (id && isSalesOrder) {
+        this.isLoading = true;
         this.getSalesOrder(id);
       }
     });
@@ -271,26 +273,36 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   }
 
   private getSalesOrder(id: number) {
-    this.isLoading = true;
-    this.salesOrderService.getSalesOrderById(id).subscribe((res) => {
+    this.salesOrderService.getSalesOrderById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       if (!res) return
       this.salesOrderMaster = res.result
       this.patchInvoice(this.salesOrderMaster);
-      this.isLoading = false;
-    }, (err) => console.log(err)
-    );
+    });
   }
 
   //Get Invoice Data for Edit
   private getInvoice(id: number) {
-    this.isLoading = true;
-    this.invoiceService.getInvoiceById(id).subscribe((res) => {
+    this.invoiceService.getInvoiceById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       if (!res) return
       this.invoiceModel = res.result
       this.patchInvoice(this.invoiceModel)
-      this.isLoading = false;
-    }, (err) => console.log(err)
-    );
+    });
   }
 
   //Patch Invoice Form through Invoice Or sales Order Master Data
@@ -349,12 +361,13 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     //console.log(this.invoiceModel)
     if (this.invoiceModel.id) {
       this.invoiceService.updateInvoice(this.invoiceModel)
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res: IApiResponse<IInvoice>) => {
           this.toastService.success('Updated Successfully', 'Invoice')
           this.cdRef.detectChanges();
@@ -363,9 +376,13 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     } else {
       delete this.invoiceModel.id;
       this.invoiceService.createInvoice(this.invoiceModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res: IApiResponse<IInvoice>) => {
             this.toastService.success('Created Successfully', 'Invoice')
             // this.router.navigate(['/' + INVOICE.LIST])

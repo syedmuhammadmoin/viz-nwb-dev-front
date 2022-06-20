@@ -9,6 +9,7 @@ import { IResetPassword} from '../../model/IResetPassword';
 import { AuthenticationService} from '../../../auth/service/authentication.service';
 import { Router} from '@angular/router';
 import { APP_ROUTES, AUTH } from 'src/app/views/shared/AppRoutes';
+import { finalize, take } from 'rxjs/operators';
 
 
 @Component({
@@ -100,20 +101,23 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
     this.isLoading = true
     const body = { ...this.changePassForm.value } as IResetPassword
     body.loginUserId = this.authSingletonService.getCurrentUser().id.toString()
-    console.log('Change Password: ', body)
-    this.accessManagementService.changePassword(body).subscribe((res) => {
+ 
+    this.accessManagementService.changePassword(body)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.toastService.success('' + res.message, 'Changed Successfully!')
       this.authService.signOut().subscribe((result) => {
         if (result) {
           this.router.navigate(['/' + APP_ROUTES.AUTH + '/' + AUTH.LOGIN])
-          this.isLoading = false;
           this.onCloseResetPassDialog();
         }
       });
-    }, (err) => {
-      this.toastService.error(`${err?.error?.message || 'Something Went Wrong'}`, 'Password Change Error!')
-      this.isLoading = false;
-      this.cdRef.detectChanges();
     })
   }
 

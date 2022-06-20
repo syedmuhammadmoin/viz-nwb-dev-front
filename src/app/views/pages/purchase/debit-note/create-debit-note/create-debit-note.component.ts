@@ -139,10 +139,12 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       this.isDebitNote = param.isDebitNote;
       this.isBill = param.isBill;
       if (id && this.isDebitNote) {
+        this.isLoading = true;
         this.title = 'Edit Debit Note'
         this.getDebitNote(id);
       }
       else if (id && this.isBill) {
+        this.isLoading = true;
         this.getBill(id)
       }
     })
@@ -239,26 +241,36 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   //Get Bill Master Data
   private getBill(id: number) {
-    this.isLoading = true;
-    this.billService.getVendorBillById(id).subscribe((res) => {
+    this.billService.getVendorBillById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       if (!res) return
       this.billMaster = res.result
       this.patchDebitNote(this.billMaster);
-      this.isLoading = false;
-    }, (err) => {
-      console.log(err);
     });
   }
 
 
   //Get Debit Note Data for Edit
   private getDebitNote(id: any) {
-    this.isLoading = true;
-    this.debitNoteService.getDebitNoteById(id).subscribe((res) => {
+    this.debitNoteService.getDebitNoteById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       if (!res) return
       this.debitNoteModel = res.result
       this.patchDebitNote(this.debitNoteModel)
-      this.isLoading = false;
     });
   }
 
@@ -318,12 +330,13 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
    // console.log(this.debitNoteModel)
     if (this.debitNoteModel.id) {
       this.debitNoteService.updateDebitNote(this.debitNoteModel)
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res) => {
           this.toastService.success('Updated Successfully', 'Debit Note')
           this.cdRef.detectChanges();
@@ -332,9 +345,13 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     } else {
       delete this.debitNoteModel.id;
       this.debitNoteService.createDebitNote(this.debitNoteModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           (res) => {
             this.toastService.success('Created Successfully', 'Debit Note')

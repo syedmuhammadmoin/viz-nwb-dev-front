@@ -15,6 +15,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { DepartmentState } from '../../../../department/store/department.store';
 import { isEmpty } from 'lodash';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-create-payment',
@@ -194,9 +195,14 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
     this.isLoading.emit(true);
     this.payrollProcessService.getPayrollTransactions(this.filterForm.value)
-      .subscribe((res) => {
+    .pipe(
+      take(1),
+       finalize(() => {
         this.isLoading.emit(false);
-        console.log("previous : ", res.result)
+        this.cdRef.detectChanges();
+       })
+     )
+      .subscribe((res) => {
         this.transactionList = res.result;
         if (isEmpty(res.result)) {
           this.toastService.info('No Records Found !' , 'Payroll Payment')
@@ -230,12 +236,16 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
     body.createPayrollTransLines = bodyList;
     body.paymentDate = this.dateHelperService.transformDate(new Date(), 'yyyy-MM-dd')
-    console.log('body: ', body)
+
     this.payrollProcessService.createPaymentProcess(body)
-      .subscribe((res) => {
-        console.log("response Message : ")
-        console.log(res)
+    .pipe(
+      take(1),
+       finalize(() => {
         this.isLoading.emit(false);
+        this.cdRef.detectChanges();
+       })
+     )
+      .subscribe((res) => {
         this.toastService.success('Registered successfully', 'Payroll Payment');
         if(res.result) {
           this.transactionList = res.result;
@@ -244,12 +254,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
           this.resetForm();
         }
         this.cdRef.detectChanges();
-      },
-      (err) => {
-        this.isLoading.emit(false)
-      });
-
-      console.log(this.transactionList)
+      })
   }
 
   onFirstDataRendered(params: any) {
