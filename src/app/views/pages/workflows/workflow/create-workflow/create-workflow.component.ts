@@ -165,10 +165,11 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
     this.table.renderRows();
   }
 
-  // Add Invoice Line Click
+  // Add Workflow Line Click
   addWorkflowLineClick(): void {
     const controls = this.workflowForm.controls.workflowLines as FormArray;
-    if (!controls.value.some(x => this.statuses.find(y => y.id === x.nextStatusId).state === this.docStatus.Unpaid)) {
+
+    if (!controls.value.some(x => this.statuses.find(y => y.id === x.nextStatusId)?.state === this.docStatus.Unpaid)) {
       controls.push(this.addWorkflowLines());
       this.table.renderRows();
     } else {
@@ -181,7 +182,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
     return this.fb.group({
       currentStatusId: ['', Validators.required],
       action: ['', Validators.required],
-      nextStatusId: ['', [Validators.required]],
+      nextStatusId: [null, [Validators.required]],
       allowedRoleId: ['', [Validators.required]],
     });
   }
