@@ -1,0 +1,99 @@
+<div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-caption">
+            <div class="kt-portlet__head-title">
+                <h3 class="kt-portlet__head-text modal-header"> {{title}} 
+                    <span (click)="onCloseDialog()" id="tax_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <!-- form start -->
+    <form [formGroup]="taxForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+        <!-- portlet body starts -->
+        <div class="kt-portlet__body" >
+            <!-- form first section starts -->
+            <div class="kt-form__section kt-form__section--first">
+                <!-- first row starts -->
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group kt-form__group">
+                                <label class="col-form-label pt-0">Name:</label>
+                                <kt-input-field
+                                id="tax_name"
+                                    formControlName="name"
+                                    placeholder="Enter Name"
+                                    readonly="true"
+                                    (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
+                                    [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
+                                </kt-input-field>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group kt-form__group">
+                                <label class="col-form-label pt-0">Tax Type:</label>
+                                <kt-simple-dropdown 
+                                   id="tax_Type"
+                                    propertyValue="id"
+                                    propertyName="type" 
+                                    isDisabled="true"
+                                    placeholder="Select Tax Type"
+                                    searchPlaceholder="Search Tax..."
+                                    formControlName="taxType"
+                                    matFormFieldClass="full-width"
+                                    [optionList]="taxTypeList"                                      
+                                    [errorMessage]="formErrors.taxType"
+                                    (blurEvent)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">
+                                </kt-simple-dropdown>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="form-group kt-form__group">
+                                <label class="col-form-label pt-0">Account:</label>
+                                <kt-simple-dropdown 
+                                   id="tax_account"
+                                    propertyValue="id"
+                                    propertyName="name" 
+                                    placeholder="Select Assets Account"
+                                    searchPlaceholder="Search Account..."
+                                    formControlName="accountId"
+                                    matFormFieldClass="full-width"
+                                    [optionList]="ngxsService.otherAccounts$"                                      
+                                    [errorMessage]="formErrors.accountId"
+                                    (blurEvent)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">
+                                </kt-simple-dropdown>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- first row ends -->
+                </div>
+            </div>
+            <!-- form first section ends -->
+        </div>
+        <!-- portlet body ends -->
+        <mat-divider></mat-divider>
+        <!-- portlet footer start -->
+        <div class="kt-portlet__foot" >
+            <!-- form action starts -->
+            <div class="kt-form__actions kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div *ngIf="showButtons" class="float-right">
+                            <!-- <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="tax_reset">Reset</button> -->
+                            <button mat-raised-button class="sub___btn" type="submit" id="tax_submit"
+                            (click)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">Submit
+                            </button>&nbsp;
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- form action ends-->
+        </div>
+        <!-- portlet footer ends -->
+    </form>
+    <!-- form ends -->
+</div>

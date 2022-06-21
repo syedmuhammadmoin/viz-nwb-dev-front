@@ -63,6 +63,12 @@ export class Permissions {
   static DEPARTMENTS_EDIT = 'Permissions.DepartmentClaims.Edit';
   static DEPARTMENTS_DELETE = 'Permissions.DepartmentClaims.Delete';
 
+  // tax
+  static TAXES_VIEW = 'Permissions.TaxesClaims.View';
+  static TAXES_CREATE = 'Permissions.TaxesClaims.Create';
+  static TAXES_EDIT = 'Permissions.TaxesClaims.Edit';
+  static TAXES_DELETE = 'Permissions.TaxesClaims.Delete';
+
   //Designation
   static DESIGNATIONS_VIEW = 'Permissions.DesignationClaims.View';
   static DESIGNATIONS_CREATE = 'Permissions.DesignationClaims.Create';
@@ -343,6 +349,14 @@ export enum BusinessPartnerType {
   Supplier, 
   Consultant, 
   Contractor
+}
+
+export enum TaxType {
+  SalesTaxAsset,
+  SalesTaxLiability,
+  IncomeTaxAsset,
+  IncomeTaxLiability,
+  SRB
 }
 
  export enum bankAccountType {

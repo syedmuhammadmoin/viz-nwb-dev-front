@@ -118,6 +118,15 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load TAX Module
+      {
+        path: APP_ROUTES.TAX, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/profiling/tax/tax.module').then(
+            (m) => m.TaxModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
       //Budget Section
       // Lazy Load BUDGET Module
       {

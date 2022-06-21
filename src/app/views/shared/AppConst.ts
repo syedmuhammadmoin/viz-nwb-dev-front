@@ -161,6 +161,12 @@ export class AppConst {
     'Permissions.ProductsClaims.Edit': 'Product Update',
     'Permissions.ProductsClaims.Delete': 'Product Delete',
 
+    // Tax
+    'Permissions.TaxesClaims.View': 'Tax View',
+    'Permissions.TaxesClaims.Create': 'Tax Create',
+    'Permissions.TaxesClaims.Edit': 'Tax Update',
+    'Permissions.TaxesClaims.Delete': 'Tax Delete',
+
     // Vehicle
     'Permissions.VehicleClaims.View': 'Vehicle View',
     'Permissions.VehicleClaims.Create': 'Vehicle Create',
@@ -373,6 +379,14 @@ export class AppConst {
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },
     //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
+  ]
+
+  static taxType = [
+    {id: 0 , type: 'Sales Tax Asset'},
+    {id: 1 , type: 'Sales Tax Liability'},
+    {id: 2 , type: 'Income Tax Asset'},
+    {id: 3 , type: 'Income Tax Liability'},
+    {id: 4 , type: 'SRB'}
   ]
 
   static Months = [
