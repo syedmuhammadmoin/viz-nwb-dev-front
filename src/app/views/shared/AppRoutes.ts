@@ -38,6 +38,9 @@ export const APP_ROUTES = {
   ORGANIZATION: 'organization',
   PRODUCT: 'product',
   WAREHOUSE: 'warehouse',
+  TAX: 'tax',
+
+  //BUDGET
   BUDGET: 'budget',
   ESTIMATED_BUDGET: 'estimated-budget',
 
@@ -269,6 +272,10 @@ export const CRUD_ROUTES = {
 
   export const WAREHOUSE = {
     LIST: APP_ROUTES.WAREHOUSE + '/' + CRUD_ROUTES.LIST
+  }
+
+  export const TAX = {
+    LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST
   }
 
   //PAYROLL SECTION

@@ -100,15 +100,6 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       }
     },
     {
-      headerName: 'Discount',
-      field: 'discount',
-      tooltipField: 'status',
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
-    {
       headerName: 'sales Tax',
       field: 'salesTax',
       tooltipField: 'status',

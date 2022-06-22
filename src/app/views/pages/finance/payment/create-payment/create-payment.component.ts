@@ -97,9 +97,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     campusId: {
       required: 'Campus is required'
     },
-    discount: {
-      min: 'Please insert correct value.'
-    },
     salesTax: {
       min: 'Please insert correct value.'
     },
@@ -122,7 +119,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     paymentRegister: '',
     grossPayment: '',
     campusId: '',
-    discount: '',
     salesTax: '',
     incomeTax: '',
     SRBTax: ''
@@ -165,7 +161,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       campusId: ['', [Validators.required]],
       paymentRegister: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(1)]],
-      discount: [0 ,[Validators.min(0)]],
       salesTax: [0,[Validators.min(0)]],
       incomeTax: [0,[Validators.min(0)]],
       SRBTax: [0,[Validators.min(0)]],
@@ -193,7 +188,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         campusId: null,
         description: '',
         grossPayment: null,
-        discount: null,
         salesTax: null,
         incomeTax: null,
         srbTax : null,
@@ -243,14 +237,13 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       paymentRegister: payment.paymentRegisterId,
       grossPayment: payment.grossPayment,
       campusId: payment.campusId,
-      discount: payment.discount,
       salesTax: payment.salesTax,
       SRBTax : payment.srbTax || 0,
       incomeTax: payment.incomeTax,
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
     if(this.data.docType === this.docType.PayrollPayment) {
-      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'discount', 'salesTax', 'incomeTax', 'SRBTax')
+      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax')
     }
   }
 
@@ -310,7 +303,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.accountId = (!this.isPayrollPayment) ? this.paymentForm.value.account : this.paymentMaster.accountId ;
     this.paymentModel.paymentDate = (!this.isPayrollPayment) ? this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd') : this.transformDate(this.paymentMaster.paymentDate, 'yyyy-MM-dd');
     this.paymentModel.grossPayment = (!this.isPayrollPayment) ? this.paymentForm.value.grossPayment : this.paymentMaster.grossPayment;
-    this.paymentModel.discount = (!this.isPayrollPayment) ? (this.paymentForm.value.discount || 0) : this.paymentMaster.discount;
     this.paymentModel.salesTax = (!this.isPayrollPayment) ? (this.paymentForm.value.salesTax || 0) : this.paymentMaster.salesTax;
     this.paymentModel.incomeTax = (!this.isPayrollPayment) ? (this.paymentForm.value.incomeTax || 0) : this.paymentMaster.incomeTax;
     this.paymentModel.srbTax = (!this.isPayrollPayment) ? (this.paymentForm.value.SRBTax || 0) : this.paymentMaster.srbTax;
@@ -348,7 +340,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   calculatingNetPayment(): void {
     this.paymentForm.valueChanges.subscribe((val) => {
       // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
-      this.netPayment = +(Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
+      this.netPayment = +(Number(val.grossPayment) - (Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
     });
   }
   // open business partner dialog

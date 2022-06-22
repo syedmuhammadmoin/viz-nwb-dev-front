@@ -73,9 +73,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       min: 'Please insert correct Payment !',
       max: 'Value must be less than total ' + this.data.formName + ' amount!'
     },
-    discount: {
-      min: 'Please insert correct value.'
-    },
     salesTax: {
       min: 'Please insert correct value.'
     },
@@ -93,7 +90,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     description: '',
     paymentRegister: '',
     grossPayment: '',
-    discount: '',
     salesTax: '',
     incomeTax: '',
     SRBTax: ''
@@ -125,7 +121,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       description: ['', [Validators.required]],
       paymentRegister: ['', [Validators.required]],
       grossPayment: [this.data.pendingAmount, [Validators.required, Validators.min(0), Validators.max(this.data.pendingAmount)]],
-      discount: [0, [Validators.min(0)]],
       salesTax: [0,[Validators.min(0)]],
       incomeTax: [0, [Validators.min(0)]],
       SRBTax: [0,[Validators.min(0)]],
@@ -154,7 +149,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       paymentRegisterId: null,
       description: '',
       grossPayment: null,
-      discount: null,
       salesTax: null,
       incomeTax: null,
       documentLedgerId: null,
@@ -165,7 +159,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   calculatingNetPayment(): void {
     this.registerPaymentForm.valueChanges.subscribe((val) => {
       // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
-      this.netPayment = +(Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
+      this.netPayment = +(Number(val.grossPayment) - (Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
     });
   }
 
@@ -206,7 +200,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     this.paymentModel.grossPayment = this.registerPaymentForm.value.grossPayment || 0;
     this.paymentModel.salesTax = this.registerPaymentForm.value.salesTax || 0;
     this.paymentModel.srbTax = this.registerPaymentForm.value.SRBTax || 0;
-    this.paymentModel.discount = this.registerPaymentForm.value.discount || 0;
     this.paymentModel.incomeTax = this.registerPaymentForm.value.incomeTax || 0;
     this.paymentModel.documentLedgerId = this.data.documentLedgerId;
   }

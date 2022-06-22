@@ -22,6 +22,12 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
 
   title: string = 'Select Employee'
 
+  //for toggle checkbox selection on all employees
+  isAllEmployeesSelected: boolean = false;
+
+  //all employee button content
+  employeeSelection: string = 'Select All'
+
 
   constructor(
     public payrollItemService: PayrollItemService,
@@ -46,6 +52,10 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
       checkboxSelection: function(params) {
         const displayedColumns = params.columnApi.getAllDisplayedColumns();
         return displayedColumns[0] === params.column;
@@ -55,7 +65,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.gridOptions = {
-      // getRowNodeId: (data) => data.id,
+      getRowNodeId: (data) => data.id,
       cacheBlockSize: 20,
       rowModelType: "infinite",
       paginationPageSize: 10,
@@ -104,10 +114,14 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     { 
       headerName: 'Name', 
       field: 'name', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
       // headerCheckboxSelection: true,    //not supported in infinite row model 
       // headerCheckboxSelectionFilteredOnly: true,
       // checkboxSelection: true,
@@ -115,42 +129,51 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
      { 
       headerName: 'Father Name', 
       field: 'fatherName', 
-      sortable: true, 
-      filter: true, 
+      suppressMenu: true,
       tooltipField: 'name',
      },
      { 
       headerName: 'Cnic', 
       field: 'cnic', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
      },
      { 
       headerName: 'Designation', 
       field: 'designationName', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }
      },
      { 
       headerName: 'Department', 
       field: 'departmentName', 
-      sortable: true, 
-      filter: true, 
       tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }
      },
      { 
       headerName: 'Faculty', 
-      field: 'faculty', 
-      sortable: true, 
-      filter: true
+      field: 'faculty',
+      suppressMenu: true,
      },
      { 
       headerName: 'Shift', 
       field: 'dutyShift', 
-      sortable: true, 
-      filter: true
+      suppressMenu: true
      }
   ];
 
@@ -158,7 +181,27 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
-  
+
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getEmployees(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+
+    // this.griApi.getRowNodeId(id)
+
+    //  this.gridApi.forEachNode((node , index) => {
+    //     node.setSelected(true)
+    //  })
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     //this.paginationHelper.goToPage(this.gridApi, 'employeePageName');
+     this.cdRef.detectChanges();
+   },
+  };
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
@@ -166,25 +209,47 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     params.api.setDatasource(this.dataSource);
   }
 
-  async getEmployees(params: any): Promise<IPaginationResponse<any>> {
-    const result = await this.employeeService.getEmployees(params).toPromise()
+  async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
+    const result = await this.employeeService.getRecords(params).toPromise()
     return result
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-    const res = await this.getEmployees(params);
+  employeesSelectionToggle(isChecked : boolean) {
+    console.log(isChecked)
+    if(isChecked) {
+      this.gridApi.forEachNode(node => (node.setSelected(true) , this.employeeSelection = 'Un-Select All'))
+    }
+    else {
+      this.gridApi.forEachNode(node => (node.setSelected(false) , this.employeeSelection = 'Select All'))
+    }
+  }
+  
 
-    if(isEmpty(res.result)) {  
-       this.gridApi.showNoRowsOverlay() 
-     } else {
-      this.gridApi.hideOverlay();
-     }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.cdRef.detectChanges();
-   },
-  };
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+  //   params.api.setDatasource(this.dataSource);
+  // }
+
+  // async getEmployees(params: any): Promise<IPaginationResponse<any>> {
+  //   const result = await this.employeeService.getEmployees(params).toPromise()
+  //   return result
+  // }
+
+  // dataSource = {
+  //   getRows: async (params: any) => {
+  //   const res = await this.getEmployees(params);
+
+  //   if(isEmpty(res.result)) {  
+  //      this.gridApi.showNoRowsOverlay() 
+  //    } else {
+  //     this.gridApi.hideOverlay();
+  //    }
+  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+  //    params.successCallback(res.result || 0, res.totalRecords);
+  //    this.cdRef.detectChanges();
+  //  },
+  // };
 }
 
 // set in Grip options

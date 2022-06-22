@@ -129,7 +129,7 @@
                 </div>
     
                 <div class="row">
-                  <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Gross Payment:</label>
                         <kt-input-field
@@ -144,22 +144,7 @@
                     </div>
                   </div>
     
-                  <div class="col-lg-3 col-md-3 col-sm-3">
-                    <div class="form-group kt-form__group">
-                        <label class="col-form-label pt-0">Discount:</label>
-                        <kt-input-field
-                        id="payment_discount"
-                          formControlName="discount"
-                          type = "number"
-                          hintText="Optional"
-                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.discount , error : formErrors.discount }]"
-                          placeholder="Enter Discount">
-                        </kt-input-field>
-                    </div>
-                  </div>
-    
-                  <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Sales Tax W/H:</label>
                         <kt-input-field
@@ -174,7 +159,7 @@
                     </div>
                   </div>
     
-                  <div class="col-lg-3 col-md-3 col-sm-3">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Income Tax W/H:</label>
                         <kt-input-field
