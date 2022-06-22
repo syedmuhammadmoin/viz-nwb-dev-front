@@ -74,25 +74,12 @@
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
-                        <label class="col-form-label pt-0">Discount:</label>
-                        <kt-input-field
-                        id="discount"
-                          formControlName="discount"
-                          type = "number"
-                          placeholder="Enter Discount"
-                          (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.discount , error : formErrors.discount }]">
-                        </kt-input-field>
-                    </div>
-                  </div>
-    
-                  <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Sales Tax W/H:</label>
                         <kt-input-field
                         id="sales_tax"
                           formControlName="salesTax"
                           type = "number"
+                          hintText="Optional"
                           placeholder="Enter Sales Tax"
                           (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.salesTax , error : formErrors.salesTax }]">
@@ -107,15 +94,14 @@
                           id="income_tax"
                           formControlName="incomeTax"
                           type = "number"
+                          hintText="Optional"
                           placeholder="Enter Income Tax"
                           (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.incomeTax , error : formErrors.incomeTax }]">
                         </kt-input-field>
                     </div>
                   </div>
-                </div>
-    
-                <div class="row">
+
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">SRB Tax :</label>
@@ -123,12 +109,16 @@
                           id="srb_tax"
                           formControlName="SRBTax"
                           type = "number"
+                          hintText="Optional"
                           placeholder="Enter SRB Tax"
                           (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.SRBTax , error : formErrors.SRBTax }]">
                         </kt-input-field>
                     </div>
                   </div>
+                </div>
+    
+                <div class="row">
                   <div class="col-lg-8 col-md-8 col-sm-8">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Description:</label>

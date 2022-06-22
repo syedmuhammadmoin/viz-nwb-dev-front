@@ -8,7 +8,6 @@ export interface IPayment {
   paymentRegisterId: number;
   description: string;
   grossPayment: number;
-  discount: number;
   salesTax: number;
   incomeTax: number;
   srbTax : number;

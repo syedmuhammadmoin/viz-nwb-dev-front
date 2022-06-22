@@ -9,6 +9,8 @@
         </div>
     </div>
     <div class="col-md-12 col-lg-12 col-sm-12 my-5">
+      <!-- <button class="sub___btn " mat-raised-button (click)="employeesSelectionToggle()">{{employeeSelection}}</button> -->
+      <mat-checkbox id="assign_employee_select" (change)="employeesSelectionToggle($event.checked)">{{employeeSelection}}</mat-checkbox>
         <ag-grid-angular 
           style="width: 100%; height: 440px; margin-top: 10px;"
           class="ag-theme-alpine"

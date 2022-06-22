@@ -356,7 +356,8 @@ export enum TaxType {
   SalesTaxLiability,
   IncomeTaxAsset,
   IncomeTaxLiability,
-  SRB
+  SRBTaxAsset,
+  SRBTaxLiability
 }
 
  export enum bankAccountType {

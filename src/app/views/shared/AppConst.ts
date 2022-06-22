@@ -386,7 +386,8 @@ export class AppConst {
     {id: 1 , type: 'Sales Tax Liability'},
     {id: 2 , type: 'Income Tax Asset'},
     {id: 3 , type: 'Income Tax Liability'},
-    {id: 4 , type: 'SRB'}
+    {id: 4 , type: 'SRBTaxAsset'},
+    {id: 5 , type: 'SRBTaxLiability'}
   ]
 
   static Months = [
