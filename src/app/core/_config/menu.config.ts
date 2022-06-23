@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -132,6 +132,10 @@ export class MenuConfig {
             Permissions.TAXES_CREATE,
             Permissions.TAXES_EDIT,
             Permissions.TAXES_DELETE,
+            Permissions.UNIT_OF_MEASUREMENT_VIEW,
+            Permissions.UNIT_OF_MEASUREMENT_CREATE,
+            Permissions.UNIT_OF_MEASUREMENT_EDIT,
+            Permissions.UNIT_OF_MEASUREMENT_DELETE,
             // Permissions.LOCATION_VIEW,
             // Permissions.LOCATION_CREATE,
             // Permissions.LOCATION_EDIT,
@@ -232,6 +236,16 @@ export class MenuConfig {
                 Permissions.TAXES_CREATE,
                 Permissions.TAXES_EDIT,
                 Permissions.TAXES_DELETE,
+              ]
+            },
+            {
+              title: 'Unit Of Measurement',
+              page: '/' + UNIT_OF_MEASUREMENT.LIST,
+              permission: [
+                Permissions.UNIT_OF_MEASUREMENT_VIEW,
+                Permissions.UNIT_OF_MEASUREMENT_CREATE,
+                Permissions.UNIT_OF_MEASUREMENT_EDIT,
+                Permissions.UNIT_OF_MEASUREMENT_DELETE,
               ]
             },
             {

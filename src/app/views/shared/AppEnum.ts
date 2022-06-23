@@ -69,6 +69,12 @@ export class Permissions {
   static TAXES_EDIT = 'Permissions.TaxesClaims.Edit';
   static TAXES_DELETE = 'Permissions.TaxesClaims.Delete';
 
+  // unit of measurement
+  static UNIT_OF_MEASUREMENT_VIEW = 'Permissions.UnitOfMeasurementClaims.View';
+  static UNIT_OF_MEASUREMENT_CREATE = 'Permissions.UnitOfMeasurementClaims.Create';
+  static UNIT_OF_MEASUREMENT_EDIT = 'Permissions.UnitOfMeasurementClaims.Edit';
+  static UNIT_OF_MEASUREMENT_DELETE = 'Permissions.UnitOfMeasurementClaims.Delete';
+
   //Designation
   static DESIGNATIONS_VIEW = 'Permissions.DesignationClaims.View';
   static DESIGNATIONS_CREATE = 'Permissions.DesignationClaims.Create';
