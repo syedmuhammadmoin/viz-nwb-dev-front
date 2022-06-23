@@ -167,6 +167,12 @@ export class AppConst {
     'Permissions.TaxesClaims.Edit': 'Tax Update',
     'Permissions.TaxesClaims.Delete': 'Tax Delete',
 
+    // Unit Of Measurement
+    'Permissions.UnitOfMeasurementClaims.View': 'Unit Of Measurement View',
+    'Permissions.UnitOfMeasurementClaims.Create': 'Unit Of Measurement Create',
+    'Permissions.UnitOfMeasurementClaims.Edit': 'Unit Of Measurement Update',
+    'Permissions.UnitOfMeasurementClaims.Delete': 'Unit Of Measurement Delete',
+
     // Vehicle
     'Permissions.VehicleClaims.View': 'Vehicle View',
     'Permissions.VehicleClaims.Create': 'Vehicle Create',

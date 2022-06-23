@@ -39,6 +39,7 @@ export const APP_ROUTES = {
   PRODUCT: 'product',
   WAREHOUSE: 'warehouse',
   TAX: 'tax',
+  UNIT_OF_MEASUREMENT: 'unit-of-measurement',
 
   //BUDGET
   BUDGET: 'budget',
@@ -276,6 +277,10 @@ export const CRUD_ROUTES = {
 
   export const TAX = {
     LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST
+  }
+
+  export const UNIT_OF_MEASUREMENT = {
+    LIST: APP_ROUTES.UNIT_OF_MEASUREMENT + '/' + CRUD_ROUTES.LIST
   }
 
   //PAYROLL SECTION

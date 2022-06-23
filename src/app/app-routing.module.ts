@@ -127,6 +127,15 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load Unit Of Measurement Module
+      {
+        path: APP_ROUTES.UNIT_OF_MEASUREMENT, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/profiling/unit-of-measurement/unit-of-measurement.module').then(
+            (m) => m.UnitOfMeasurementModule
+          ),
+         canActivateChild: [AuthGuard]
+      },
       //Budget Section
       // Lazy Load BUDGET Module
       {
