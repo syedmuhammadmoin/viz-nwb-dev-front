@@ -45,9 +45,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     name: {
       required: 'Name is required'
     },
-    // productType: {
-    //   required: 'Product Type is required'
-    // },
+    unit: {
+      required: 'Unit is required',
+    },
     category: {
       required: 'Category is required',
       incorrect: 'Please select valid category'
@@ -66,7 +66,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //error keys
   formErrors = {
     name: '',
-    //productType: '',
+    unit: '',    //productType: '',
     category: '',
     // salesPrice: '',
     // purchasePrice: '',
@@ -88,7 +88,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     this.productForm = this.fb.group({
       name: ['', [Validators.required]],
       productType: [0, [Validators.required]],
-      category: ['', [RequireMatch, Validators.required]],
+      category: ['', [Validators.required]],
+      unit: ['', [Validators.required]],
       salesPrice: [0],
       purchasePrice: [0],
       salesTax: [0],
@@ -106,6 +107,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
         id: null,
         productName: '',
         productType: null,
+        unitOfMeasurementId: null,
         categoryId: null,
         salesPrice: null,
         purchasePrice: null,
@@ -115,6 +117,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     }
     //get categoryList from state
       this.ngxsService.getCategoryFromState()
+      this.ngxsService.getUnitsFromState()
   }
 
   // Getting product values for update
@@ -144,6 +147,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       productType: product.productType,
       category: product.categoryId,
       salesPrice: product.salesPrice,
+      unit: product.unitOfMeasurementId,
       purchasePrice: product.purchasePrice,
       salesTax: product.salesTax,
       barcode: product.barcode
@@ -201,6 +205,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     this.product.productName = this.productForm.value.name;
     this.product.productType = this.productForm.value.productType;
     this.product.categoryId = this.productForm.value.category;
+    this.product.unitOfMeasurementId = this.productForm.value.unit;
     this.product.salesPrice = (this.productForm.value.salesPrice) ? this.productForm.value.salesPrice : 0;
     this.product.purchasePrice = (this.productForm.value.purchasePrice) ? this.productForm.value.purchasePrice : 0 ;
     this.product.salesTax = (this.productForm.value.salesTax) ?  this.productForm.value.salesTax : 0;

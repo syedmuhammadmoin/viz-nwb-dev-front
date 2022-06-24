@@ -1,0 +1,77 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" [title]="'issuance Detail'" [class]="'card-head-lg'">
+        <ng-container ktPortletTools>
+          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+          
+          <h4 class="overall_statuses {{docStatus[issuanceMaster?.state]}}"> Status: {{issuanceMaster?.status}} </h4>
+        </ng-container>
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+          <div class="row ">
+            <div class="col-md-12 col-12 pb-3">
+              <ng-container ktPortletTools >
+                  <button *ngIf="(issuanceMaster?.state === docStatus.Draft || issuanceMaster?.state === docStatus.Rejected) 
+                      && (permission.isGranted(permissions.ISSUANCE_EDIT))"
+                    [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
+                    type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit"></i>
+                    Edit
+                  </button>
+  
+                  <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button" 
+                    class="btn_public" id="issuance_print">
+                    <i class="fa fa-print"></i> Print issuance
+                  </button>
+                  
+                  <mat-divider class="mt-5"></mat-divider>
+              </ng-container>
+              
+            </div>
+  
+            <div class="col-md-4 col-lg-4  mt-3">
+              <div class="print-box">
+                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Issuance No: 
+                      <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Employee Name: 
+                <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.employeeName}}</span></h4>
+              </div>
+              <div class="print-box">
+                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Issuance Date: 
+                  <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.issuanceDate | date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus: 
+                <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.campusName}}</span></h4>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mt-10">
+            <div class="col-md-12 col-12">
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
+                class="ag-theme-alpine" [rowData]="issuanceLines" [columnDefs]="columnDefs"
+                (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+              </ag-grid-angular>
+            </div>
+          </div>
+        </div>
+      </kt-portlet-body>
+  
+      <mat-divider class="mt-10"></mat-divider>
+  
+      <div class="kt-portlet__foot">
+        <div class="kt-form__actions kt-form__actions">
+          <div class="row ">
+            <div class="col-lg-12 text-right" *ngIf="issuanceMaster?.isAllowedRole">
+              <button (click)="workflow(action.Reject)" id="issuance_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+              <button (click)="workflow(action.Approve)" id="issuance_approve" class="success__btn" mat-raised-button>Approve</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </kt-portlet>
+  </div>

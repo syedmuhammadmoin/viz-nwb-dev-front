@@ -99,6 +99,7 @@ import { DeductionState } from './views/pages/payroll/payroll-item/store/deducti
 import { AccountReceivableState } from './views/pages/finance/chat-of-account/store/account-receivable.state';
 import { OtherAccountState } from './views/pages/finance/chat-of-account/store/other-account.state';
 import { RoleState } from './views/pages/access-management/store/role.state';
+import { UnitOfMeasurementState } from './views/pages/profiling/unit-of-measurement/store/unit.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -165,6 +166,7 @@ export function getHighlightLanguages() {
       RoleState,
       StateState,
       CityState,
+      UnitOfMeasurementState,
       BasicPayState,
       IncrementState,
       DeductionState,

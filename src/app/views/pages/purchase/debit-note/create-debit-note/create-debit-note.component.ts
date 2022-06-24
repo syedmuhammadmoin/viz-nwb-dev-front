@@ -11,7 +11,7 @@ import { ProductService } from '../../../profiling/product/service/product.servi
 import { VendorBillService } from '../../vendorBill/services/vendor-bill.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 
@@ -60,6 +60,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  warehouseList: any = new BehaviorSubject<any>([])
 
   dateLimit: Date = new Date()
 
@@ -283,6 +285,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       campusId: data.campusId
     });
 
+    this.onCampusSelected(data.campusId)
+
     this.debitNoteForm.setControl('debitNoteLines', this.patchDebitNoteLines((this.billMaster) ? data.billLines : data.debitNoteLines))
     this.totalCalculation();
   }
@@ -399,6 +403,18 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.debitNoteForm.dirty;
+  }
+
+  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.debitNoteForm.get('debitNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(buttonClicked) {
+      this.toastService.info("Please Reselect Store!" , "Debit Note")
+     }
+     this.cdRef.detectChanges()
   }
 }
 

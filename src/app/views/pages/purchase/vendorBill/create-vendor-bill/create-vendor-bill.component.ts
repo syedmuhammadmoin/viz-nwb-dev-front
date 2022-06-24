@@ -2,7 +2,7 @@ import { BILL } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { Observable} from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { IVendorBill} from '../model/IVendorBill';
 import { VendorBillService} from '../services/vendor-bill.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -46,6 +46,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   // purchase order data
   purchaseOrderMaster: any;
+
+  warehouseList: any = new BehaviorSubject<any>([])
 
   isBill: any;
 
@@ -320,6 +322,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       //contact: data.contact,
     });
 
+    this.onCampusSelected(data.campusId)
+
     this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.billLines))
     this.totalCalculation();
   }
@@ -470,6 +474,18 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     if (this.permission.isGranted(this.permissions. LOCATION_CREATE)) {
       this.addButtonService.openLocationDialog();
     }
+  }
+
+  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.vendorBillForm.get('vendorBillLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(buttonClicked) {
+      this.toastService.info("Please Reselect Store!" , "Vendor Bill")
+     }
+     this.cdRef.detectChanges()
   }
 
 }

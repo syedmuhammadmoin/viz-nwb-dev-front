@@ -12,7 +12,7 @@ import { ProductService } from '../../../profiling/product/service/product.servi
 import { InvoiceService } from '../../invoice/services/invoice.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { RequireMatch } from 'src/app/views/shared/requireMatch';
 import { CREDIT_NOTE } from 'src/app/views/shared/AppRoutes';
@@ -53,6 +53,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
   //sales Order Data
   salesOrderMaster: any;
+
+  warehouseList: any = new BehaviorSubject<any>([])
 
   //param to get invoice
   isInvoice: boolean;
@@ -283,6 +285,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       campusId: data.campusId
     });
 
+    this.onCampusSelected(data.campusId)
+
     this.creditNoteForm.setControl('creditNoteLines', this.patchCreditNoteLines((this.invoiceMaster) ? data.invoiceLines : data.creditNoteLines))
     this.totalCalculation();
   }
@@ -399,6 +403,18 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.creditNoteForm.dirty;
+  }
+
+  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.creditNoteForm.get('creditNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(buttonClicked) {
+      this.toastService.info("Please Reselect Store!" , "Credit Note")
+     }
+     this.cdRef.detectChanges()
   }
 }
 

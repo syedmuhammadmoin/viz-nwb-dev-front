@@ -7,7 +7,7 @@ import { InvoiceService } from '../services/invoice.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -18,6 +18,8 @@ import { ISalesOrder } from '../../sales-order/model/ISalesOrder';
 import { IInvoiceLines } from '../model/IInvoiceLines';
 import { ISalesOrderLines } from '../../sales-order/model/ISalesOrderLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { IWarehouse } from '../../../profiling/warehouse/model/IWarehouse';
+import { unlink } from 'fs';
 
 
 @Component({
@@ -59,6 +61,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   maxDate: Date = new Date();
   minDate: Date
   dateCondition: boolean
+ 
+  warehouseList: any = new BehaviorSubject<any>([])
 
   //payment
   subscription1$: Subscription
@@ -316,6 +320,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       //contact: data.contact
     });
 
+    this.onCampusSelected(data.campusId)
+
     // this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines((this.salesOrderMaster) ? data.salesOrderLines : data.invoiceLines))
     this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines(data.invoiceLines))
     this.totalCalculation();
@@ -426,5 +432,17 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   }
   canDeactivate(): boolean | Observable<boolean> {
     return !this.invoiceForm.dirty;
+  }
+
+  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.invoiceForm.get('invoiceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(buttonClicked) {
+      this.toastService.info("Please Reselect Store!" , "Invoice")
+     }
+     this.cdRef.detectChanges()
   }
 }

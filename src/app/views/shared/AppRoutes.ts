@@ -25,6 +25,7 @@ export const APP_ROUTES = {
   GOODS_RECEIVED_NOTE: 'goods-received-note',
   INVENTORY_ADJUSTMENT: 'inventory-adjustment',
   STOCK: 'stock',
+  ISSUANCE: 'issuance',
 
   //PROCUREMENT
   REQUISITION: 'requisition',
@@ -220,6 +221,14 @@ export const CRUD_ROUTES = {
     CREATE: APP_ROUTES.INVENTORY_ADJUSTMENT + '/' + CRUD_ROUTES.CREATE,
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.INVENTORY_ADJUSTMENT + '/' + route + '/' + id
+    }
+  }
+
+  export const ISSUANCE = {
+    LIST: APP_ROUTES.ISSUANCE + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.ISSUANCE + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.ISSUANCE + '/' + route + '/' + id
     }
   }
 
