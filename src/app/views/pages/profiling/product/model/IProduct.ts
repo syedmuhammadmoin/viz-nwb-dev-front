@@ -5,6 +5,7 @@ export interface IProduct {
     categoryId: number;
     salesPrice: number;
     purchasePrice: number;
+    unitOfMeasurementId: number;
     salesTax: number;
     barcode: string;
 }

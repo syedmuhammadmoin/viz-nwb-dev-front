@@ -27,9 +27,9 @@ export class UnitOfMeasurementService extends AppServiceBase {
         return this.httpClient.get<IPaginationResponse<IUnitOfMeasurement[]>>(this.baseUrl,{ params: httpParams})
     }
 
-    // getProductsDropdown(): Observable<IApiResponse<IUnitOfMeasurement[]>> {
-    //     return this.httpClient.get<IApiResponse<IUnitOfMeasurement[]>>(this.baseUrl + '/dropdown')
-    // }
+    getUnitsOfMeasurementDropdown(): Observable<IApiResponse<IUnitOfMeasurement[]>> {
+        return this.httpClient.get<IApiResponse<IUnitOfMeasurement[]>>(this.baseUrl + '/dropdown')
+    }
 
     getUnitOfMeasurement(id: number): Observable<IApiResponse<IUnitOfMeasurement>> {
         return this.httpClient.get<IApiResponse<IUnitOfMeasurement>>(`${this.baseUrl}/${id}`)

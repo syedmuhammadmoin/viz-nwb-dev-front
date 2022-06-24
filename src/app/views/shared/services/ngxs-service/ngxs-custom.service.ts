@@ -43,6 +43,8 @@ import { OtherAccountState } from 'src/app/views/pages/finance/chat-of-account/s
 import { AccountReceivableState } from 'src/app/views/pages/finance/chat-of-account/store/account-receivable.state';
 import { RoleState } from 'src/app/views/pages/access-management/store/role.state';
 import { AccessManagementService } from 'src/app/views/pages/access-management/service/access-management.service';
+import { UnitOfMeasurementState } from 'src/app/views/pages/profiling/unit-of-measurement/store/unit.state';
+import { UnitOfMeasurementService } from 'src/app/views/pages/profiling/unit-of-measurement/service/unit-of-measurement.service';
 
 @Injectable({
   providedIn: 'root'
@@ -65,6 +67,7 @@ export class NgxsCustomService {
     public productService: ProductService,
     public warehouseService: WarehouseService,
     public payrollItemService: PayrollItemService,
+    public unitOfMeasurementService: UnitOfMeasurementService,
     public cscService: CscService,
     public statusService: StatusService,
     public accessManagementService: AccessManagementService,
@@ -213,6 +216,11 @@ export class NgxsCustomService {
    @Select(RoleState.entities) roles$: Observable<any>;
    @Select(RoleState.isFetchCompleted) rolesFetchCompleted$: Observable<any>;
    @Select(RoleState.isLoading) rolesIsLoading$: Observable<any>;
+
+   // Roles
+   @Select(UnitOfMeasurementState.entities) units$: Observable<any>;
+   @Select(UnitOfMeasurementState.isFetchCompleted) unitsFetchCompleted$: Observable<any>;
+   @Select(UnitOfMeasurementState.isLoading) unitsIsLoading$: Observable<any>;
 
 
   //region State Management
@@ -537,12 +545,26 @@ export class NgxsCustomService {
   }
 
   // Get roles From Store if available else fetch from the server and cache.
-  getRolesFromState() {
-    this.rolesFetchCompleted$.subscribe((res) => {
+  getUnitsFromState() {
+    this.unitsFetchCompleted$.subscribe((res) => {
       //console.log('Role State fetch completed: ', res);
       if (!res) {
+        this.store.dispatch(new GetList(UnitOfMeasurementState, {
+          serviceClass: this.unitOfMeasurementService,
+          methodName: 'getUnitsOfMeasurementDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get Units From Store if available else fetch from the server and cache.
+  getRolesFromState() {
+    this.unitsFetchCompleted$.subscribe((res) => {
+      //console.log('Unit State fetch completed: ', res);
+      if (!res) {
         this.store.dispatch(new GetList(RoleState, {
-          serviceClass: this.accessManagementService,
+          serviceClass: this.unitOfMeasurementService,
           methodName: 'getRolesDropdown',
           context: this
         }))

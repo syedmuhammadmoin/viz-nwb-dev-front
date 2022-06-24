@@ -51,6 +51,10 @@ export class WarehouseService extends AppServiceBase {
         })
     }
 
+    getWarehouseByCampusId(id: number): Observable<IApiResponse<IWarehouse>> {
+        return this.httpClient.get<IApiResponse<IWarehouse>>(`${this.baseUrl}/getWarehouseByCampus/${id}`)
+    }
+
     getRecords(params: any): Observable<any> {
        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter)});
     }

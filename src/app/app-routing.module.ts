@@ -403,6 +403,15 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load ISSUANCE Module
+      {
+        path: APP_ROUTES.ISSUANCE, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/inventory/issuance/issuance.module').then(
+            (m) => m.IssuanceModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
 
       //Workflow Section
       // Lazy Load WORKFLOW Module

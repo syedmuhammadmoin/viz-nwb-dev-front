@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -921,51 +921,61 @@ export class MenuConfig {
         //   ]
         // },
         // // { section: 'Inventory' },
-        // {
-        //   title: 'Inventory',
-        //   bullet: 'dot',
-        //   icon: 'flaticon-open-box',
-        //   permission: [
-        //     Permissions.GRN_VIEW,
-        //     Permissions.GRN_CREATE,
-        //     Permissions.GRN_EDIT,
-        //     Permissions.GRN_DELETE,
-        //     Permissions.GDN_VIEW,
-        //     Permissions.GDN_CREATE,
-        //     Permissions.GDN_EDIT,
-        //     Permissions.GDN_DELETE,
-        //   ],
-        //   submenu: [
-        //     {
-        //       title: 'Stock',
-        //       page: '/' + STOCK.LIST,
-        //     },
-        //     {
-        //       title: 'inventory-adjustment',
-        //       page: '/' + INVENTORY_ADJUSTMENT.LIST,
-        //     },
-        //     {
-        //       title: 'Goods Received Note',
-        //       page: '/' + GOODS_RECEIVED_NOTE.LIST,
-        //       permission: [
-        //         Permissions.GRN_VIEW,
-        //         Permissions.GRN_CREATE,
-        //         Permissions.GRN_EDIT,
-        //         Permissions.GRN_DELETE
-        //       ],
-        //     },
-        //     {
-        //       title: 'Goods Dispatch Note',
-        //       page: '/' + DISPATCH_NOTE.LIST,
-        //       permission: [
-        //         Permissions.GDN_VIEW,
-        //         Permissions.GDN_CREATE,
-        //         Permissions.GDN_EDIT,
-        //         Permissions.GDN_DELETE
-        //       ],
-        //     },
-        //   ]
-        // },
+        {
+          title: 'Inventory',
+          bullet: 'dot',
+          icon: 'flaticon-open-box',
+          permission: [
+            // Permissions.GRN_VIEW,
+            // Permissions.GRN_CREATE,
+            // Permissions.GRN_EDIT,
+            // Permissions.GRN_DELETE,
+            // Permissions.GDN_VIEW,
+            // Permissions.GDN_CREATE,
+            // Permissions.GDN_EDIT,
+            // Permissions.GDN_DELETE,
+            Permissions.ISSUANCE_VIEW,
+            Permissions.ISSUANCE_CREATE,
+            Permissions.ISSUANCE_EDIT,
+            Permissions.ISSUANCE_DELETE
+          ],
+          submenu: [
+            {
+              title: 'Issuance',
+              page: '/' + ISSUANCE.LIST,
+              permission: [
+                Permissions.ISSUANCE_VIEW,
+                Permissions.ISSUANCE_CREATE,
+                Permissions.ISSUANCE_EDIT,
+                Permissions.ISSUANCE_DELETE
+              ],
+            },
+            // {
+            //   title: 'inventory-adjustment',
+            //   page: '/' + INVENTORY_ADJUSTMENT.LIST,
+            // },
+            // {
+            //   title: 'Goods Received Note',
+            //   page: '/' + GOODS_RECEIVED_NOTE.LIST,
+            //   permission: [
+            //     Permissions.GRN_VIEW,
+            //     Permissions.GRN_CREATE,
+            //     Permissions.GRN_EDIT,
+            //     Permissions.GRN_DELETE
+            //   ],
+            // },
+            // {
+            //   title: 'Goods Dispatch Note',
+            //   page: '/' + DISPATCH_NOTE.LIST,
+            //   permission: [
+            //     Permissions.GDN_VIEW,
+            //     Permissions.GDN_CREATE,
+            //     Permissions.GDN_EDIT,
+            //     Permissions.GDN_DELETE
+            //   ],
+            // },
+          ]
+        },
         // //endregion
 
         //region Report

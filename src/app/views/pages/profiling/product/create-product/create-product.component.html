@@ -97,7 +97,7 @@
                     <!-- second row ends -->
                     <!-- third row starts -->
                     <div class="row ">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Sales Price:</label>
                                 <kt-input-field
@@ -109,7 +109,7 @@
                             </div>
                         </div>
 
-                        <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Purchase Price:</label>
                                 <kt-input-field
@@ -120,11 +120,8 @@
                                 </kt-input-field>
                             </div>
                         </div>
-                    </div>
-                    <!-- third row ends -->
-                    <!-- fourth row starts -->
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
+
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Sales Tax:</label>
                                 <kt-input-field
@@ -133,6 +130,27 @@
                                     placeholder="Enter Sales Tax"
                                     [hintText]="'Optional'">
                                 </kt-input-field>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- third row ends -->
+                    <!-- fourth row starts -->
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group kt-form__group">
+                                <label class="col-form-label pt-0">Unit Of Measurement:</label>
+                                <kt-simple-dropdown
+                                    id="product_unit"
+                                    placeholder="Select Unit"
+                                    matFormFieldClass="full-width"
+                                    formControlName="unit"
+                                    (blurEvent)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)"
+                                    [optionList]="ngxsService.units$"
+                                    propertyValue="id"
+                                    propertyName="name"
+                                    [errorMessage]="formErrors.unit"
+                                    searchPlaceholder="Search Unit...">
+                                </kt-simple-dropdown>
                             </div>
                         </div>
 

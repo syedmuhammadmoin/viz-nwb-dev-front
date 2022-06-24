@@ -11,7 +11,7 @@ import { BusinessPartnerService } from '../../../profiling/business-partner/serv
 import { WarehouseService } from '../../../profiling/warehouse/services/warehouse.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { JOURNAL_ENTRY } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -54,6 +54,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  warehouseList: any = new BehaviorSubject<any>([])
 
   // Validation messages
   validationMessages = {
@@ -243,6 +245,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       campusId: journalEntry.campusId
     });
 
+    this.onCampusSelected(journalEntry.campusId)
+
     this.journalEntryForm.setControl('journalEntryLines', this.editJournalEntryLines(journalEntry.journalEntryLines));
     this.totalCalculation();
   }
@@ -350,5 +354,17 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.journalEntryForm.dirty;
+  }
+
+  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.journalEntryForm.get('journalEntryLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(buttonClicked) {
+      this.toastService.info("Please Reselect Store!" , "Journal Entry")
+     }
+     this.cdRef.detectChanges()
   }
 }

@@ -336,6 +336,12 @@ export class AppConst {
     'Permissions.GDNClaims.Edit': 'Good Dispatch Note Update',
     'Permissions.GDNClaims.Delete': 'Good Dispatch Note Delete',
 
+    //ISSUANCE
+    'Permissions.IssuanceClaims.View': 'Issuance View',
+    'Permissions.IssuanceClaims.Create': 'Issuance Create',
+    'Permissions.IssuanceClaims.Edit': 'Issuance Update',
+    'Permissions.IssuanceClaims.Delete': 'Issuance Delete',
+
     // Transaction Recon
     'Permissions.TransactionReconClaims.View': 'Transaction Reconcile View',
     'Permissions.TransactionReconClaims.Create': 'Transaction Reconcile Create',
@@ -381,6 +387,7 @@ export class AppConst {
     {value: 'Goods Received Note' , id: DocType.GRN},
     {value: 'Payroll Transaction', id: DocType.PayrollTransaction},
     {value: 'Payroll Payment' , id: DocType.PayrollPayment, route: 'payroll-payment'},
+    {value: 'Issuance' , id: DocType.Issuance},
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

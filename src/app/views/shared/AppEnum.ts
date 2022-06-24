@@ -257,6 +257,12 @@ export class Permissions {
   static GDN_EDIT = 'Permissions.GDNClaims.Edit';
   static GDN_DELETE = 'Permissions.GDNClaims.Delete';
 
+  // Issuance
+  static ISSUANCE_VIEW = 'Permissions.IssuanceClaims.View';
+  static ISSUANCE_CREATE = 'Permissions.IssuanceClaims.Create';
+  static ISSUANCE_EDIT = 'Permissions.IssuanceClaims.Edit';
+  static ISSUANCE_DELETE = 'Permissions.IssuanceClaims.Delete'
+
   // Inventory Adjustment
   static INVENTORYADJUSTMENT_VIEW = 'Permissions.InventoryAdjustmentClaims.View';
   static INVENTORYADJUSTMENT_CREATE = 'Permissions.InventoryAdjustmentClaims.Create';
@@ -308,7 +314,8 @@ export enum DocType {
     Requisition,
     Receipt,
     PayrollTransaction,
-    PayrollPayment
+    PayrollPayment,
+    Issuance
 }
 
 // export enum DocStatus {
