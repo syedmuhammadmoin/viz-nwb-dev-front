@@ -156,11 +156,15 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   }
 
   addVendorBill() {
-    this.router.navigate(['/'+BILL.CREATE]);
+    this.router.navigate(['/'+ BILL.CREATE]);
   }
 
   onRowDoubleClicked(event: any) {
-    this.router.navigate(['/'+BILL.ID_BASED_ROUTE('details',event.data.id) ]);
+    this.router.navigate(['/'+ BILL.ID_BASED_ROUTE('details',event.data.id) ]);
+  }
+
+  agingReport() {
+    this.router.navigate(['/'+ BILL.AGING_REPORT]);
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -211,10 +215,6 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   //    this.cdRef.detectChanges();
   //  },
   // };
-
-  // agingReport() {
-  //   this.router.navigate(['/'+BILL.AGING_REPORT]);
-  // }
 }
 
 
