@@ -21,6 +21,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.PURCHASEORDER_VIEW },
+            { permission: Permissions.PURCHASEORDER_EDIT },
             { permission: Permissions.PURCHASEORDER_CREATE },
           ]
         },
@@ -33,6 +34,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.PURCHASEORDER_CREATE },
+            { permission: Permissions.PURCHASEORDER_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -43,6 +45,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.PURCHASEORDER_EDIT },
+            { permission: Permissions.PURCHASEORDER_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -53,6 +56,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.PURCHASEORDER_VIEW },
+            { permission: Permissions.PURCHASEORDER_EDIT },
             { permission: Permissions.PURCHASEORDER_CREATE },
           ]
         },
@@ -64,6 +68,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.PURCHASEORDER_VIEW },
+            { permission: Permissions.PURCHASEORDER_EDIT },
             { permission: Permissions.PURCHASEORDER_CREATE },
           ]
         },

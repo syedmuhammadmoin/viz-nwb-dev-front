@@ -515,28 +515,6 @@ export class MenuConfig {
                 Permissions.REQUISITION_APPROVE
               ]
             },
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
             {
               title: 'Issuance',
               page: '/' + ISSUANCE.LIST,
