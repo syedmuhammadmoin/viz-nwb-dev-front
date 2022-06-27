@@ -10,7 +10,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IPurchaseOrderLines } from '../model/IPurchaseOrderLines';
@@ -64,6 +64,11 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  warehouseList: any = new BehaviorSubject<any>([])
+
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
 
 
   // Validation Messages
@@ -162,6 +167,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
     this.formDirective.resetForm();
     purchaseOrderLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -271,6 +277,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       campusId: purchaseOrder.campusId
     });
 
+    this.onCampusSelected(purchaseOrder.campusId)
+    this.showMessage = true;
+
     this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines));
     this.totalCalculation();
   }
@@ -370,6 +379,18 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.purchaseOrderForm.dirty;
+  }
+
+  onCampusSelected(campusId : number) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.purchaseOrderForm.get('purchaseOrderLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(this.showMessage) {
+      this.toastService.info("Please Reselect Store!" , "Purchase Order")
+     }
+     this.cdRef.detectChanges()
   }
 }
 

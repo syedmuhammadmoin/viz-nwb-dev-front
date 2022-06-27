@@ -49,6 +49,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   warehouseList: any = new BehaviorSubject<any>([])
 
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
+
   isBill: any;
 
   // params to get purchase order
@@ -188,6 +191,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.formDirective.resetForm();
     vendorBillLineArray.clear();
     this.totalBeforeTax = this.grandTotal = this.totalTax = 0;
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -323,6 +327,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     });
 
     this.onCampusSelected(data.campusId)
+    this.showMessage = true;
 
     this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.billLines))
     this.totalCalculation();
@@ -476,13 +481,13 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     }
   }
 
-  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+  onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
      this.vendorBillForm.get('vendorBillLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(buttonClicked) {
+     if(this.showMessage) {
       this.toastService.info("Please Reselect Store!" , "Vendor Bill")
      }
      this.cdRef.detectChanges()

@@ -8,7 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -61,6 +61,11 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  warehouseList: any = new BehaviorSubject<any>([])
+
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
 
 
   // Validation Messages
@@ -150,6 +155,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
     this.formDirective.resetForm();
     requisitionLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -252,6 +258,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       campusId: requisition.campusId
     });
 
+    this.onCampusSelected(requisition.campusId)
+    this.showMessage = true;
+
     this.requisitionForm.setControl('requisitionLines', this.editrequisitionLines(requisition.requisitionLines));
     this.totalCalculation();
   }
@@ -343,5 +352,17 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // }
   canDeactivate(): boolean | Observable<boolean> {
     return !this.requisitionForm.dirty;
+  }
+
+  onCampusSelected(campusId : number) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(this.showMessage) {
+      this.toastService.info("Please Reselect Store!" , "Requisition")
+     }
+     this.cdRef.detectChanges()
   }
 }

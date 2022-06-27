@@ -48,7 +48,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
 
   columnDefs = [
     { headerName: 'PO #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer"  },
-    { headerName: 'Vendor', field: 'vendor', sortable: true, filter: true, tooltipField: 'status' },
+    { headerName: 'Vendor', field: 'vendorName', sortable: true, filter: true, tooltipField: 'status' },
     {
       headerName: 'Order Date',
       field: 'poDate',

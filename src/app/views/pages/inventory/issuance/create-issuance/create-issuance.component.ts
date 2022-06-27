@@ -42,6 +42,9 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
   warehouseList: any = new BehaviorSubject<any>([])
 
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
+
   // For DropDown
   salesItem: IProduct[];
 
@@ -142,6 +145,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     const issuanceLineArray = this.issuanceForm.get('issuanceLines') as FormArray;
     this.formDirective.resetForm();
     issuanceLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -199,6 +203,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     });
 
     this.onCampusSelected(data.campusId)
+    this.showMessage = true;
 
     this.issuanceForm.setControl('issuanceLines', this.patchIssuanceLines(data.issuanceLines))
   }
@@ -281,13 +286,13 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.issuanceModel.isSubmit = (val === 0) ? false : true;
   }
 
-  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+  onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
      this.issuanceForm.get('issuanceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(buttonClicked) {
+     if(this.showMessage) {
       this.toastService.info("Please Reselect Store!" , "Issuance")
      }
      this.cdRef.detectChanges()

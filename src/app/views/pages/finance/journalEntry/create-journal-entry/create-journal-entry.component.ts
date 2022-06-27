@@ -57,6 +57,9 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
   warehouseList: any = new BehaviorSubject<any>([])
 
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
+
   // Validation messages
   validationMessages = {
     date: {
@@ -185,6 +188,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     const journalEntryArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
     this.formDirective.resetForm();
     journalEntryArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -246,6 +250,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     });
 
     this.onCampusSelected(journalEntry.campusId)
+    this.showMessage = true;
 
     this.journalEntryForm.setControl('journalEntryLines', this.editJournalEntryLines(journalEntry.journalEntryLines));
     this.totalCalculation();
@@ -356,13 +361,13 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     return !this.journalEntryForm.dirty;
   }
 
-  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+  onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
      this.journalEntryForm.get('journalEntryLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(buttonClicked) {
+     if(this.showMessage) {
       this.toastService.info("Please Reselect Store!" , "Journal Entry")
      }
      this.cdRef.detectChanges()

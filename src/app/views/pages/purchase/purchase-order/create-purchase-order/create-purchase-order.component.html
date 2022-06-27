@@ -82,6 +82,7 @@
                         propertyName="name"
                         id="purchase_campus"
                         propertyValue="id"
+                        (selectionChange)="onCampusSelected($event.value)"
                         matFormFieldClass="full-width "
                         [errorMessage]="formErrors.campusId"
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
@@ -282,10 +283,11 @@
                                       propertyName="name"
                                       [hintText]="'Optional'"
                                       searchPlaceholder="Search Store..."
+                                      (selectionChange)="showMessage = true"
                                       isDisabledNone="true"
                                       formControlName="warehouseId" 
                                       matFormFieldClass="full-width" 
-                                      [optionList]="ngxsService.warehouses$">
+                                      [optionList]="warehouseList">
                                     </kt-simple-dropdown>
                               </div>
                             </mat-cell>

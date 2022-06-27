@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import { Observable} from "rxjs";
 import { environment} from "../../../../../../environments/environment";
@@ -6,16 +6,17 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IRequisition } from '../model/IRequisition';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class RequisitionService {
+export class RequisitionService extends AppServiceBase {
 
   baseUrl = environment.baseUrl + 'requisition';
 
-  constructor( private httpClient: HttpClient) { }
+  constructor( private httpClient: HttpClient, injector: Injector) { super(injector) }
 
   getRequisitions(params: any): Observable<IPaginationResponse<IRequisition[]>> {
     let httpParams = new HttpParams();
@@ -45,6 +46,10 @@ export class RequisitionService {
   workflow(workflow: IWorkflow): Observable<any> {
     return this.httpClient.post(this.baseUrl + '/workflow', workflow);
   }
+
+  getRecords(params: any): Observable<any> {
+    return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.requisitionDate?.dateFrom, 'MM/d/y'))});
+}
 }
 
 

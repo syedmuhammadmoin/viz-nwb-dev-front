@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button (click)="addRequisition()" [disabled]="!(permission.isGranted(permissions.REQUISITION_CREATE))" id="add_requisition" class="sub___btn" mat-raised-button  matTooltip="Add Requisition">Add Requisition</button>
+    <button (click)="addRequisition()" *ngIf="(permission.isGranted(permissions.REQUISITION_CREATE))" id="add_requisition" class="sub___btn" mat-raised-button  matTooltip="Add Requisition">Add Requisition</button>
   </div>
 </div>
 

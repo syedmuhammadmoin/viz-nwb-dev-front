@@ -12,7 +12,7 @@ import {BusinessPartnerService} from '../../../profiling/business-partner/servic
 import {CategoryService} from '../../../profiling/category/service/category.service';
 import {WarehouseService} from '../../../profiling/warehouse/services/warehouse.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
 import { IGRNLines } from '../model/IGRNLines';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
@@ -46,6 +46,12 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
    //for resetting form
    @ViewChild('formDirective') private formDirective: NgForm;
+
+   warehouseList: any = new BehaviorSubject<any>([])
+
+
+   //show toast mesasge of on campus select
+  showMessage: boolean = false;
 
   // param to get purchase order master
   isPurchaseOrder: any;
@@ -156,6 +162,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
     this.formDirective.resetForm();
     grnLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -271,6 +278,9 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       contact: data.contact
     });
 
+    this.onCampusSelected(data.campusId)
+    this.showMessage = true;
+
     this.grnForm.setControl('GRNLines', this.patchGRNLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.grnLines));
     this.totalCalculation();
   }
@@ -349,6 +359,18 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.grnForm.dirty;
+  }
+
+  onCampusSelected(campusId : number) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.grnForm.get('GRNLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(this.showMessage) {
+      this.toastService.info("Please Reselect Store!" , "Goods Received Note")
+     }
+     this.cdRef.detectChanges()
   }
 }
 

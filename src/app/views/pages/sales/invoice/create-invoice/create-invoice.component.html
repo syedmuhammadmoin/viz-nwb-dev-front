@@ -68,7 +68,7 @@
                     placeholder="Select Campus" 
                     propertyValue="id" 
                     propertyName="name"
-                    (selectionChange)="onCampusSelected($event.value, true)"
+                    (selectionChange)="onCampusSelected($event.value)"
                     formControlName="campusId" 
                     (blurEvent)="logValidationErrors(invoiceForm, formErrors, validationMessages)"
                     matFormFieldClass="full-width"
@@ -261,12 +261,13 @@
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown 
-                              [id]="'invoice_store_' + i"
+                                [id]="'invoice_store_' + i"
                                 placeholder="Select Store" 
                                 propertyValue="id" 
                                 propertyName="name"
                                 isDisabledNone="true"
                                 [hintText]="'Optional'"
+                                (selectionChange)="showMessage = true"
                                 searchPlaceholder="Search Store..."
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width" 

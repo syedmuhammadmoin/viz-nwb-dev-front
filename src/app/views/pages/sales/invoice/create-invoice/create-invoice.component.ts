@@ -64,6 +64,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
  
   warehouseList: any = new BehaviorSubject<any>([])
 
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
+
   //payment
   subscription1$: Subscription
   //sales Order
@@ -192,6 +195,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
     this.formDirective.resetForm();
     invoiceLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -321,6 +325,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     });
 
     this.onCampusSelected(data.campusId)
+    this.showMessage = true;
 
     // this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines((this.salesOrderMaster) ? data.salesOrderLines : data.invoiceLines))
     this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines(data.invoiceLines))
@@ -434,13 +439,13 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     return !this.invoiceForm.dirty;
   }
 
-  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+  onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
      this.invoiceForm.get('invoiceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(buttonClicked) {
+      if(this.showMessage) {
       this.toastService.info("Please Reselect Store!" , "Invoice")
      }
      this.cdRef.detectChanges()

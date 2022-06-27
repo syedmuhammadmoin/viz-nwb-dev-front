@@ -476,65 +476,101 @@ export class MenuConfig {
           ]
         },
         //Procurement Section
-        // {
-        //   title: 'Procurement',
-        //   bullet: 'dot',
-        //   icon: 'flaticon2-shopping-cart',
-        //   permission: [
-        //     Permissions.PURCHASEORDER_VIEW,
-        //     Permissions.PURCHASEORDER_CREATE,
-        //     Permissions.PURCHASEORDER_EDIT,
-        //     Permissions.PURCHASEORDER_DELETE,
-        //     Permissions.PURCHASEORDER_REVIEW,
-        //     Permissions.PURCHASEORDER_APPROVE,
-        //     Permissions.REQUISITION_VIEW,
-        //     Permissions.REQUISITION_CREATE,
-        //     Permissions.REQUISITION_EDIT,
-        //     Permissions.REQUISITION_DELETE,
-        //     Permissions.REQUISITION_REVIEW,
-        //     Permissions.REQUISITION_APPROVE,
-        //     Permissions.GRN_VIEW,
-        //     Permissions.GRN_CREATE,
-        //     Permissions.GRN_EDIT,
-        //     Permissions.GRN_DELETE
-        //   ],
-        //   submenu: [
-        //     {
-        //       title: 'Purchase Order',
-        //       page: '/' + PURCHASE_ORDER.LIST,
-        //       permission: [
-        //         Permissions.PURCHASEORDER_VIEW,
-        //         Permissions.PURCHASEORDER_CREATE,
-        //         Permissions.PURCHASEORDER_EDIT,
-        //         Permissions.PURCHASEORDER_DELETE,
-        //         Permissions.PURCHASEORDER_REVIEW,
-        //         Permissions.PURCHASEORDER_APPROVE
-        //       ]
-        //     },
-        //     {
-        //       title: 'Requisition',
-        //       page: '/' + REQUISITION.LIST,
-        //       permission: [
-        //         Permissions.REQUISITION_VIEW,
-        //         Permissions.REQUISITION_CREATE,
-        //         Permissions.REQUISITION_EDIT,
-        //         Permissions.REQUISITION_DELETE,
-        //         Permissions.REQUISITION_REVIEW,
-        //         Permissions.REQUISITION_APPROVE
-        //       ]
-        //     },
-        //     {
-        //       title: 'Goods Received Note',
-        //       page: '/' + GOODS_RECEIVED_NOTE.LIST,
-        //       permission: [
-        //         Permissions.GRN_VIEW,
-        //         Permissions.GRN_CREATE,
-        //         Permissions.GRN_EDIT,
-        //         Permissions.GRN_DELETE
-        //       ]
-        //     },
-        //   ]
-        // },
+        {
+          title: 'Procurement',
+          bullet: 'dot',
+          icon: 'flaticon2-shopping-cart',
+          permission: [
+            Permissions.PURCHASEORDER_VIEW,
+            Permissions.PURCHASEORDER_CREATE,
+            Permissions.PURCHASEORDER_EDIT,
+            Permissions.PURCHASEORDER_DELETE,
+            Permissions.PURCHASEORDER_REVIEW,
+            Permissions.PURCHASEORDER_APPROVE,
+            Permissions.REQUISITION_VIEW,
+            Permissions.REQUISITION_CREATE,
+            Permissions.REQUISITION_EDIT,
+            Permissions.REQUISITION_DELETE,
+            Permissions.REQUISITION_REVIEW,
+            Permissions.REQUISITION_APPROVE,
+            Permissions.ISSUANCE_VIEW,
+            Permissions.ISSUANCE_CREATE,
+            Permissions.ISSUANCE_EDIT,
+            Permissions.ISSUANCE_DELETE,
+            Permissions.GRN_VIEW,
+            Permissions.GRN_CREATE,
+            Permissions.GRN_EDIT,
+            Permissions.GRN_DELETE
+          ],
+          submenu: [
+            {
+              title: 'Requisition',
+              page: '/' + REQUISITION.LIST,
+              permission: [
+                Permissions.REQUISITION_VIEW,
+                Permissions.REQUISITION_CREATE,
+                Permissions.REQUISITION_EDIT,
+                Permissions.REQUISITION_DELETE,
+                Permissions.REQUISITION_REVIEW,
+                Permissions.REQUISITION_APPROVE
+              ]
+            },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
+            {
+              title: 'Issuance',
+              page: '/' + ISSUANCE.LIST,
+              permission: [
+                Permissions.ISSUANCE_VIEW,
+                Permissions.ISSUANCE_CREATE,
+                Permissions.ISSUANCE_EDIT,
+                Permissions.ISSUANCE_DELETE
+              ],
+            },
+            {
+              title: 'Purchase Order',
+              page: '/' + PURCHASE_ORDER.LIST,
+              permission: [
+                Permissions.PURCHASEORDER_VIEW,
+                Permissions.PURCHASEORDER_CREATE,
+                Permissions.PURCHASEORDER_EDIT,
+                Permissions.PURCHASEORDER_DELETE,
+                Permissions.PURCHASEORDER_REVIEW,
+                Permissions.PURCHASEORDER_APPROVE
+              ]
+            },
+            {
+              title: 'Goods Received Note',
+              page: '/' + GOODS_RECEIVED_NOTE.LIST,
+              permission: [
+                Permissions.GRN_VIEW,
+                Permissions.GRN_CREATE,
+                Permissions.GRN_EDIT,
+                Permissions.GRN_DELETE
+              ]
+            },
+          ]
+        },
         //Budget Portion
         {
           title: 'Budget',
@@ -921,61 +957,61 @@ export class MenuConfig {
         //   ]
         // },
         // // { section: 'Inventory' },
-        {
-          title: 'Inventory',
-          bullet: 'dot',
-          icon: 'flaticon-open-box',
-          permission: [
-            // Permissions.GRN_VIEW,
-            // Permissions.GRN_CREATE,
-            // Permissions.GRN_EDIT,
-            // Permissions.GRN_DELETE,
-            // Permissions.GDN_VIEW,
-            // Permissions.GDN_CREATE,
-            // Permissions.GDN_EDIT,
-            // Permissions.GDN_DELETE,
-            Permissions.ISSUANCE_VIEW,
-            Permissions.ISSUANCE_CREATE,
-            Permissions.ISSUANCE_EDIT,
-            Permissions.ISSUANCE_DELETE
-          ],
-          submenu: [
-            {
-              title: 'Issuance',
-              page: '/' + ISSUANCE.LIST,
-              permission: [
-                Permissions.ISSUANCE_VIEW,
-                Permissions.ISSUANCE_CREATE,
-                Permissions.ISSUANCE_EDIT,
-                Permissions.ISSUANCE_DELETE
-              ],
-            },
-            // {
-            //   title: 'inventory-adjustment',
-            //   page: '/' + INVENTORY_ADJUSTMENT.LIST,
-            // },
-            // {
-            //   title: 'Goods Received Note',
-            //   page: '/' + GOODS_RECEIVED_NOTE.LIST,
-            //   permission: [
-            //     Permissions.GRN_VIEW,
-            //     Permissions.GRN_CREATE,
-            //     Permissions.GRN_EDIT,
-            //     Permissions.GRN_DELETE
-            //   ],
-            // },
-            // {
-            //   title: 'Goods Dispatch Note',
-            //   page: '/' + DISPATCH_NOTE.LIST,
-            //   permission: [
-            //     Permissions.GDN_VIEW,
-            //     Permissions.GDN_CREATE,
-            //     Permissions.GDN_EDIT,
-            //     Permissions.GDN_DELETE
-            //   ],
-            // },
-          ]
-        },
+        // {
+        //   title: 'Inventory',
+        //   bullet: 'dot',
+        //   icon: 'flaticon-open-box',
+        //   permission: [
+        //     // Permissions.GRN_VIEW,
+        //     // Permissions.GRN_CREATE,
+        //     // Permissions.GRN_EDIT,
+        //     // Permissions.GRN_DELETE,
+        //     // Permissions.GDN_VIEW,
+        //     // Permissions.GDN_CREATE,
+        //     // Permissions.GDN_EDIT,
+        //     // Permissions.GDN_DELETE,
+        //     // Permissions.ISSUANCE_VIEW,
+        //     // Permissions.ISSUANCE_CREATE,
+        //     // Permissions.ISSUANCE_EDIT,
+        //     // Permissions.ISSUANCE_DELETE
+        //   ],
+        //   submenu: [
+        //     // {
+        //     //   title: 'Issuance',
+        //     //   page: '/' + ISSUANCE.LIST,
+        //     //   permission: [
+        //     //     Permissions.ISSUANCE_VIEW,
+        //     //     Permissions.ISSUANCE_CREATE,
+        //     //     Permissions.ISSUANCE_EDIT,
+        //     //     Permissions.ISSUANCE_DELETE
+        //     //   ],
+        //     // },
+        //     // {
+        //     //   title: 'inventory-adjustment',
+        //     //   page: '/' + INVENTORY_ADJUSTMENT.LIST,
+        //     // },
+        //     // {
+        //     //   title: 'Goods Received Note',
+        //     //   page: '/' + GOODS_RECEIVED_NOTE.LIST,
+        //     //   permission: [
+        //     //     Permissions.GRN_VIEW,
+        //     //     Permissions.GRN_CREATE,
+        //     //     Permissions.GRN_EDIT,
+        //     //     Permissions.GRN_DELETE
+        //     //   ],
+        //     // },
+        //     // {
+        //     //   title: 'Goods Dispatch Note',
+        //     //   page: '/' + DISPATCH_NOTE.LIST,
+        //     //   permission: [
+        //     //     Permissions.GDN_VIEW,
+        //     //     Permissions.GDN_CREATE,
+        //     //     Permissions.GDN_EDIT,
+        //     //     Permissions.GDN_DELETE
+        //     //   ],
+        //     // },
+        //   ]
+        // },
         // //endregion
 
         //region Report

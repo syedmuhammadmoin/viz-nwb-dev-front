@@ -63,6 +63,9 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   warehouseList: any = new BehaviorSubject<any>([])
 
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
+
   dateLimit: Date = new Date()
 
   // Validation messages..
@@ -160,6 +163,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
     this.formDirective.resetForm();
     debitNoteLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -286,6 +290,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     });
 
     this.onCampusSelected(data.campusId)
+    this.showMessage = true;
 
     this.debitNoteForm.setControl('debitNoteLines', this.patchDebitNoteLines((this.billMaster) ? data.billLines : data.debitNoteLines))
     this.totalCalculation();
@@ -405,13 +410,13 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     return !this.debitNoteForm.dirty;
   }
 
-  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+  onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
      this.debitNoteForm.get('debitNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(buttonClicked) {
+     if(this.showMessage) {
       this.toastService.info("Please Reselect Store!" , "Debit Note")
      }
      this.cdRef.detectChanges()

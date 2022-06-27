@@ -90,7 +90,7 @@
                       propertyValue="id" 
                       propertyName="name"
                       formControlName="campusId" 
-                      (selectionChange)="onCampusSelected($event.value, true)"
+                      (selectionChange)="onCampusSelected($event.value)"
                       (blurEvent)="logValidationErrors(vendorBillForm, formErrors, validationMessages)"
                       matFormFieldClass="full-width"
                       [errorMessage]="'Campus is Required'" 
@@ -332,6 +332,7 @@
                                     isDisabledNone="true"
                                     searchPlaceholder="Search Store..."
                                     [hintText]="'Optional'"
+                                    (selectionChange)="showMessage = true"
                                     formControlName="warehouseId" 
                                     matFormFieldClass="full-width" 
                                     [optionList]="warehouseList">
