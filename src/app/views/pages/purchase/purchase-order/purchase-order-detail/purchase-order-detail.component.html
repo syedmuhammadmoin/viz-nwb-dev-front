@@ -26,7 +26,7 @@
                   <i class="fa fa-print"></i> Print Purchase Order
                 </button>
                 
-                <button *ngIf="purchaseOrderMaster?.state === docStatus.Submitted"
+                <button *ngIf="purchaseOrderMaster?.state === docStatus.Unpaid"
                   [disabled]="!(permission.isGranted(permissions.GRN_CREATE))" id="purchase_grn"
                   [ngClass]="!(permission.isGranted(permissions.GRN_CREATE)) ? 'disable' : '' "
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.CREATE"
