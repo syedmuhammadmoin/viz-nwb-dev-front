@@ -564,7 +564,7 @@ export class NgxsCustomService {
       //console.log('Unit State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(RoleState, {
-          serviceClass: this.unitOfMeasurementService,
+          serviceClass: this.accessManagementService,
           methodName: 'getRolesDropdown',
           context: this
         }))
