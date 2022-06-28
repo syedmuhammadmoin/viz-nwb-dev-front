@@ -281,11 +281,11 @@
                                       [id]="'purchase_store_' + i"
                                       propertyValue="id" 
                                       propertyName="name"
-                                      [hintText]="'Optional'"
                                       searchPlaceholder="Search Store..."
                                       (selectionChange)="showMessage = true"
                                       isDisabledNone="true"
                                       formControlName="warehouseId" 
+                                      [errorMessage]="'Store is Required'"
                                       matFormFieldClass="full-width" 
                                       [optionList]="warehouseList">
                                     </kt-simple-dropdown>

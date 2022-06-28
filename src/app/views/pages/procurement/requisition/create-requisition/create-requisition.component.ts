@@ -240,13 +240,19 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   private getRequisition(id: number) {
     this.isLoading = true;
    this.requisitionService.getRequisitionById(id)
+   .pipe(
+    take(1),
+     finalize(() => {
+      this.isLoading = false;
+      this.cdRef.detectChanges();
+     })
+   )
    .subscribe((res: IApiResponse<IRequisition>) => {
       if (!res) {
         return
       }
       this.requisitionModel = res.result
       this.editRequisition(this.requisitionModel)
-      this.isLoading = false;
     });
   }
 
@@ -299,12 +305,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       console.log(this.requisitionModel)
     if (this.requisitionModel.id) {
         this.requisitionService.updateRequisition(this.requisitionModel)
-          .pipe(
-            take(1),
-            finalize(() => {
-              this.isLoading = false;
-            })
-          )
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
           .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Requisition')
             this.cdRef.detectChanges();
@@ -313,9 +320,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       } else {
         delete this.requisitionModel.id;
         this.requisitionService.createRequisition(this.requisitionModel)
-          .pipe(
-            take(1),
-            finalize(() => this.isLoading = false))
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Requisition')

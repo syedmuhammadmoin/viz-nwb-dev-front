@@ -239,7 +239,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
-      warehouseId: [null],
+      warehouseId: ['',[Validators.required]],
     });
   }
 
@@ -256,19 +256,24 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   private getPurchaseOrder(id: number) {
     this.isLoading = true;
    this.poService.getPurchaseOrderById(id)
+   .pipe(
+    take(1),
+    finalize(() => {
+      this.isLoading = false;
+      this.cdRef.detectChanges()
+    })
+   )
    .subscribe((res: IApiResponse<IPurchaseOrder>) => {
       if (!res) {
         return
       }
       this.purchaseOrderModel = res.result
       this.editPurchaseOrder(this.purchaseOrderModel)
-      this.isLoading = false;
     });
   }
 
   //Edit purchase Order
   editPurchaseOrder(purchaseOrder : IPurchaseOrder) {
-    console.log(purchaseOrder.vendorId)
     this.purchaseOrderForm.patchValue({
       vendorName: purchaseOrder.vendorId,
       PODate: purchaseOrder.poDate,
@@ -297,7 +302,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
         subTotal: [{value: line.subTotal, disabled: true}],
         accountId: [line.accountId, [Validators.required]],
-        warehouseId: [line.warehouseId]
+        warehouseId: [line.warehouseId, [Validators.required]]
       }))
     })
     return formArray
@@ -322,12 +327,13 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       console.log(this.purchaseOrderModel)
     if (this.purchaseOrderModel.id) {
         this.poService.updatePurchaseOrder(this.purchaseOrderModel)
-          .pipe(
-            take(1),
-            finalize(() => {
-              this.isLoading = false;
-            })
-          )
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges()
+          })
+         )
           .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Purchase Order')
             this.cdRef.detectChanges();
@@ -336,9 +342,13 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       } else {
         delete this.purchaseOrderModel.id;
         this.poService.createPurchaseOrder(this.purchaseOrderModel)
-          .pipe(
-            take(1),
-            finalize(() => this.isLoading = false))
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges()
+          })
+         )
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Purchase Order')

@@ -6,7 +6,6 @@ import { PurchaseOrderService } from "../service/purchase-order.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPurchaseOrder } from '../model/IPurchaseOrder';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
 
@@ -47,14 +46,39 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   }
 
   columnDefs = [
-    { headerName: 'PO #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer"  },
-    { headerName: 'Vendor', field: 'vendorName', sortable: true, filter: true, tooltipField: 'status' },
+    { 
+      headerName: 'PO #', 
+      field: 'docNo', 
+      tooltipField: 'status', 
+      cellRenderer: "loadingCellRenderer", 
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Vendor', 
+      field: 'vendorName', 
+      tooltipField: 'status',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Order Date',
       field: 'poDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
@@ -62,20 +86,39 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     {
       headerName: 'Due Date',
       field: 'dueDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
-      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'status',
+      headerName: 'Total', 
+      field: 'totalAmount', 
+      tooltipField: 'status',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'Status', field: 'status', sortable: true, filter: true, tooltipField: 'status' },
+    { 
+      headerName: 'Status', 
+      field: 'status', 
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        }, 
+    },
   ];
 
   ngOnInit(): void {
@@ -93,7 +136,11 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -116,43 +163,29 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    console.log('/'+PURCHASE_ORDER.ID_BASED_ROUTE('details', event.data.id));
-    this.router.navigate(['/'+PURCHASE_ORDER.ID_BASED_ROUTE('details', event.data.id)], { relativeTo: this.activatedRoute })
+    this.router.navigate(['/'+ PURCHASE_ORDER.ID_BASED_ROUTE('details', event.data.id)], { relativeTo: this.activatedRoute })
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+
+    var dataSource = {
+      getRows: (params: any) => {
+        this._purchaseOrderService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
-
-  async getPurchaseOrders(params: any): Promise<IPaginationResponse<IPurchaseOrder[]>> {
-    const result = await this._purchaseOrderService.getPurchaseOrders(params).toPromise()
-    return result
-  }
-
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getPurchaseOrders(params);
-
-     if(isEmpty(res.result)) { 
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName')
-     this.cdRef.detectChanges();
-   },
-  };
-
-  // loadPurchaseOrderList() {
-  //   this._purchaseOrderService.getPurchaseOrders().subscribe((res) => {
-  //     this.purchaseOrderList = res.result;
-  //     this.cdRef.markForCheck();
-  //   })
-  // }
 }
 
 

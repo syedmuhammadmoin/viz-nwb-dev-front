@@ -234,7 +234,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       quantity: ['', [Validators.required, Validators.min(1)]],
       tax: ['', [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
-      warehouseId: [null],
+      warehouseId: ['', [Validators.required]],
     });
   }
 
@@ -250,22 +250,36 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   //Get purchase Order Master Data
   private getPurchaseOrder(id: number) {
     this.isLoading = true;
-    this.purchaseOrderService.getPurchaseOrderById(id).subscribe((res) => {
+    this.purchaseOrderService.getPurchaseOrderById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       if (!res) return
       this.purchaseOrderMaster = res.result
       this.patchGRN(this.purchaseOrderMaster);
-      this.isLoading = false;
     });
   }
 
   // Get GRN Data for Edit
   private getGRN(id: any) {
     this.isLoading = true;
-    this.grnService.getGRNById(id).subscribe((res) => {
+    this.grnService.getGRNById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       if (!res) return
       this.grnModel = res.result
       this.patchGRN(this.grnModel)
-      this.isLoading = false;
     });
   }
 
@@ -296,7 +310,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
         quantity: [line.quantity, [Validators.required, Validators.min(1)]],
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
         subTotal: [{value: line.subTotal, disabled: true}],
-        warehouseId: [line.warehouseId]
+        warehouseId: [line.warehouseId, [Validators.required]]
       }))
     })
     return formArray
@@ -316,29 +330,32 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       return
     }
 
+    this.isLoading = true;
     this.mapFormValuesToGRNModel();
     if (this.grnModel.id && this.isGRN) {
-      this.isLoading = true;
       this.grnService.updateGRN(this.grnModel)
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-          })
-        )
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Goods Received Note')
             this.cdRef.detectChanges();
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
           })
     } else if (this.purchaseOrderMaster.id && this.isPurchaseOrder) {
-      console.log(this.grnModel)
       delete this.grnModel.id;
-      this.isLoading = true;
       this.grnService.createGRN(this.grnModel)
-        .pipe(
-          take(1),
-          finalize(() => this.isLoading = false))
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
         .subscribe(
           (res) => {
             this.toastService.success('Created Successfully', 'Goods Received Note')

@@ -6,7 +6,6 @@ import { GrnService }   from "../service/grn.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IGRN } from '../model/IGRN';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { isEmpty } from 'lodash';
 
 @Component({
@@ -44,25 +43,66 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { headerName: 'Grn #', field: 'docNo', sortable: true, filter: true, tooltipField: 'status', cellRenderer: "loadingCellRenderer"  },
-    { headerName: 'Vendor', field: 'vendor', sortable: true, filter: true, tooltipField: 'status' },
+    { 
+      headerName: 'Grn #', 
+      field: 'docNo', 
+      tooltipField: 'status', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, 
+    },
+    { 
+      headerName: 'Vendor', 
+      field: 'vendor', 
+      tooltipField: 'status',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
     {
       headerName: 'Grn Date',
       field: 'grnDate',
-      sortable: true,
-      filter: true,
       tooltipField: 'status',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
     {
-      headerName: 'Total', field: 'totalAmount', sortable: true, filter: true, tooltipField: 'status',
+      headerName: 'Total', 
+      field: 'totalAmount', 
+      tooltipField: 'status',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'Status', field: 'status', sortable: true, filter: true, tooltipField: 'status' },
+    { 
+      headerName: 'Status', 
+      field: 'status', 
+      tooltipField: 'status',
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
+    },
   ];
 
   ngOnInit(): void {
@@ -80,7 +120,11 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
     }
 
     this.components = {
@@ -105,27 +149,21 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+
+    var dataSource = {
+      getRows: (params: any) => {
+        this._grnService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'grnPageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
-
-  async getGrns(params: any): Promise<IPaginationResponse<IGRN[]>> {
-    const result = await this._grnService.getGRNs().toPromise()
-    return result
-  }
-
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getGrns(params);
-
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-     this.gridApi.hideOverlay();
-    }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'grnPageName')
-     this.cdRef.detectChanges();
-   },
-  };
 }

@@ -8,6 +8,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { FirstDataRenderedEvent, GridOptions,  ValueFormatterParams} from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ChangeDetectorRef } from '@angular/core';
+import { finalize, take } from 'rxjs/operators';
 
 
 @Component({
@@ -46,31 +47,54 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   isLoading: boolean;
 
   columnDefs = [
-    {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
-    valueFormatter: (params: ValueFormatterParams) => {
-      return this.valueFormatter(params.value)
-    }},
     {
-      headerName: 'Tax%', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Item', 
+      field: 'item',
+      cellStyle: {'font-size': '12px'}
+    },
+    {
+      headerName: 'Description', 
+      field: 'description', 
+      cellStyle: {'font-size': '12px'}
+    },
+    {
+      headerName: 'Account', 
+      field: 'accountName', 
+      cellStyle: {'font-size': '12px'}
+    },
+    {
+      headerName: 'Quantity', 
+      field: 'quantity', 
+      cellStyle: {'font-size': '12px'}
+    },
+    {
+      headerName: 'Cost', 
+      field: 'cost', 
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Tax%', 
+      field: 'tax', 
+      cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) + '%'
       }
     },
     {
-      headerName: 'Sub Total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Sub Total', 
+      field: 'subTotal', 
+      cellStyle: { 'font-size': '12px' },
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
       headerName: 'Store', 
-      field: 'warehouseName', 
-      sortable: true, 
-      filter: true, 
+      field: 'warehouseName',  
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
@@ -100,12 +124,10 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
     this.activatedRoute.paramMap.subscribe(params => {
       const id = +params.get('id');
       if (id) {
+        this.isLoading = true;
         this.getPurchaseMasterData(id);
         this.purchaseOrderId = id;
         this.cdRef.markForCheck();
-      } else {
-        this.layoutUtilService.showActionNotification('Cannot find record with out id parameter', null, 5000, true, false)
-        this.router.navigate(['/'+PURCHASE_ORDER.LIST])
       }
     });
   }
@@ -116,30 +138,38 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   }
 
   private getPurchaseMasterData(id: number) {
-    this.purchaseOrderService.getPurchaseOrderById(id).subscribe((res) => {
+    this.purchaseOrderService.getPurchaseOrderById(id)
+    .pipe(
+      take(1),
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges()
+      })
+     )
+    .subscribe((res) => {
       this.purchaseOrderMaster = res.result;
       this.purchaseOrderLines = res.result.purchaseOrderLines;
       this.totalBeforeTax = this.purchaseOrderMaster.totalBeforeTax;
       this.totalTax = this.purchaseOrderMaster.totalTax;
       this.total = this.purchaseOrderMaster.totalAmount;
       this.cdRef.detectChanges()
-    }, (error => {
-      console.log(error);
-    }))
+    })
   }
 
   workflow(action: any) {
     this.isLoading = true
     this.purchaseOrderService.workflow({action, docId: this.purchaseOrderMaster.id})
+    .pipe(
+      take(1),
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges()
+      })
+     )
       .subscribe((res) => {
         this.getPurchaseMasterData(this.purchaseOrderId);
-        this.isLoading = false;
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'purchase Order');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.error('' + err.error.message, 'purchase Order')
       })
   }
 }

@@ -6,6 +6,7 @@ import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-grn-detail',
@@ -83,9 +84,6 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
         this.getGRNMasterData(id);
         this.grnId = id;
         this.cdRef.markForCheck();
-      } else {
-        this.layoutUtilService.showActionNotification('Cannot find record with out id parameter', null, 5000, true, false)
-        this.router.navigate(['/'+GOODS_RECEIVED_NOTE.LIST])
       }
     });
   }
@@ -95,27 +93,36 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   }
 
   private getGRNMasterData(id: number) {
-    this.grnService.getGRNById(id).subscribe((res) => {
+    this.isLoading = true;
+    this.grnService.getGRNById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.grnMaster = res.result;
       this.grnLines = res.result.grnLines;
       this.cdRef.markForCheck();
-    }, (error => {
-      console.log(error);
-    }))
+    })
   }
 
   workflow(action: any) {
     this.isLoading = true
     this.grnService.workflow({action, docId: this.grnMaster.id})
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getGRNMasterData(this.grnId);
-        this.isLoading = false;
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'GRN');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.error('' + err.error.message, 'GRN')
       })
   }
 }

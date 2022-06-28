@@ -10,6 +10,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IRequisitionLines } from '../model/IRequisitionLines';
 import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-requisition-details',
@@ -45,7 +46,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
     private requisitionService: RequisitionService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
     super(injector)
@@ -55,14 +56,24 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
 
   //Defining columns for ag grid
   columnDefs = [
-    { headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: { 'font-size': '12px' }},
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' }},
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' }},
     { 
-      headerName: 'Warehouse', 
+      headerName: 'Item', 
+      field: 'item', 
+      cellStyle: { 'font-size': '12px' }
+    },
+    { 
+      headerName: 'Description', 
+      field: 'description', 
+      cellStyle: { 'font-size': '12px' }
+    },
+    { 
+      headerName: 'Quantity', 
+      field: 'quantity', 
+      cellStyle: { 'font-size': '12px' }
+    },
+    { 
+      headerName: 'Store', 
       field: 'warehouse', 
-      sortable: true, 
-      filter: true, 
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
@@ -75,9 +86,10 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
+        this.isLoading = true;
         this.requisitionId = id;
         this.getRequisitionData(id);
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       }
     });
 
@@ -92,27 +104,36 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
 
   //Getting invoice master data
   getRequisitionData(id: number) {
-    this.requisitionService.getRequisitionById(id).subscribe((res: IApiResponse<IRequisition>) => {
+    this.requisitionService.getRequisitionById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IRequisition>) => {
       this.requisitionMaster = res.result;
       this.requisitionLines = res.result.requisitionLines;
       this.status = this.requisitionMaster.status;
-
-      this.cdr.detectChanges();
-    }, (err: any) => console.log(err));
+      this.cdRef.detectChanges();
+    })
   }
 
   workflow(action: number) {
     this.isLoading = true
     this.requisitionService.workflow({ action, docId: this.requisitionMaster.id })
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getRequisitionData(this.requisitionId);
-        this.isLoading = false;
-        this.cdr.detectChanges();
+        this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Requisition');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdr.detectChanges();
-        this.toastService.error('' + err.error.message, 'Requisition')
       })
   }
 }

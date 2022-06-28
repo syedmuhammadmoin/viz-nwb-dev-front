@@ -6,7 +6,6 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
 
@@ -56,8 +55,7 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
         filterParams: {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
-        },
-
+        }
     },
     { 
       headerName: 'Employee', 
