@@ -4,13 +4,13 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPurchaseOrder} from '../model/IPurchaseOrder';
 import { PurchaseOrderService} from '../service/purchase-order.service';
-import { finalize, take } from 'rxjs/operators';
+import { finalize, groupBy, mergeMap, take, toArray } from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, zip } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IPurchaseOrderLines } from '../model/IPurchaseOrderLines';
@@ -310,6 +310,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   // Submit Form Function
   onSubmit(): void {
+
       if (this.purchaseOrderForm.get('purchaseOrderLines').invalid) {
           this.purchaseOrderForm.get('purchaseOrderLines').markAllAsTouched();
       }
@@ -319,11 +320,20 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         return;
       }
       if (this.purchaseOrderForm.invalid) {
+        this.toastService.error("Please fill all required fields!", "Purchase Order")
           return;
       }
 
-      this.isLoading = true;
       this.mapFormValuesToPurchaseOrderModel();
+
+      const isDuplicateLines = this.purchaseOrderModel.purchaseOrderLines.some((a, index) => this.purchaseOrderModel.purchaseOrderLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
+
+      if(isDuplicateLines) {
+        this.toastService.error("Please Remove Duplicate Line!", "Purchase Order")
+        return;
+      }
+
+      this.isLoading = true;
       console.log(this.purchaseOrderModel)
     if (this.purchaseOrderModel.id) {
         this.poService.updatePurchaseOrder(this.purchaseOrderModel)

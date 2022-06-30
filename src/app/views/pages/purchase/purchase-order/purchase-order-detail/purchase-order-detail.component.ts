@@ -94,10 +94,18 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
     },
     {
       headerName: 'Store', 
-      field: 'warehouseName',  
+      field: 'warehouse',  
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
+      }
+    },
+    {
+      headerName: 'Received', 
+      field: 'receivedQuantity',  
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 0
       }
     },
   ];
@@ -113,6 +121,11 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
+
+    //hide received column initially
+    // this.gridOptions.onGridReady = () => {
+    //   this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
+    // }//onGridReady
   }
 
   ngOnInit(): void {
@@ -152,6 +165,13 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       this.totalBeforeTax = this.purchaseOrderMaster.totalBeforeTax;
       this.totalTax = this.purchaseOrderMaster.totalTax;
       this.total = this.purchaseOrderMaster.totalAmount;
+
+      if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.purchaseOrderMaster.state)) {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
+      }
+      else {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
+      }
       this.cdRef.detectChanges()
     })
   }

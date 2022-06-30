@@ -57,7 +57,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     },
     { 
       headerName: 'Vendor', 
-      field: 'vendor', 
+      field: 'vendorName', 
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -114,7 +114,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 40,
       headerHeight: 35,
-      context: "double click to edit",
+      context: "double click to view detail",
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};

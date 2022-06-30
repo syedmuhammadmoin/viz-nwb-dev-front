@@ -6,6 +6,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { IPurchaseOrder } from '../model/IPurchaseOrder';
 import { AppComponent } from 'src/app/app.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { DocumentStatus } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-print-purchase-order',
@@ -17,11 +18,12 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 export class PrintPurchaseOrderComponent extends AppComponentBase implements OnInit {
 
     gridOptions: GridOptions;
-    masterData: IPurchaseOrder | any;
+    purchaseOrderMaster: IPurchaseOrder | any;
     purchaseOrderLines: any;
+    showReceived: boolean = false;
   
-    totalBeforeTax: number;
-    totalTax: number;
+    // totalBeforeTax: number;
+    // totalTax: number;
 
       constructor( private purchaseOrderService: PurchaseOrderService,
                    private activatedRoute: ActivatedRoute,
@@ -34,7 +36,7 @@ export class PrintPurchaseOrderComponent extends AppComponentBase implements OnI
       this.activatedRoute.paramMap.subscribe(params => {
         const id = +params.get('id');
         if(id){
-          this.getPurchaseOrderMasterData(id);
+          this.getPurchaseOrderMaster(id);
         }
       });
     }
@@ -47,17 +49,20 @@ export class PrintPurchaseOrderComponent extends AppComponentBase implements OnI
       window.document.close();
     }
 
-    getPurchaseOrderMasterData(id: number){
+    getPurchaseOrderMaster(id: number){
       this.purchaseOrderService.getPurchaseOrderById(id).subscribe(res => {
-        this.masterData = res.result;
-        console.log(res.result)
+        this.purchaseOrderMaster = res.result;
           this.purchaseOrderLines = res.result.purchaseOrderLines;
-          this.totalBeforeTax = this.purchaseOrderLines.reduce((total, obj) => (obj.quantity * obj.cost) + total, 0);
-          this.totalTax = this.purchaseOrderLines.reduce((total, obj) => (obj.quantity * obj.cost * obj.tax) / 100 + total, 0);
+          // this.totalBeforeTax = this.purchaseOrderLines.reduce((total, obj) => (obj.quantity * obj.cost) + total, 0);
+          // this.totalTax = this.purchaseOrderLines.reduce((total, obj) => (obj.quantity * obj.cost * obj.tax) / 100 + total, 0);
+
+          if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.purchaseOrderMaster.state)) {
+            this.showReceived = false;
+          }
+          else {
+            this.showReceived = true;
+          }
           this.cDRef.markForCheck();
-        },
-        (err: any) => {
-          console.log(err);
         })
     }
   }

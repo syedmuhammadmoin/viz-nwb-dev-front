@@ -57,6 +57,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   isPurchaseOrder: any;
   purchaseOrderMaster: any;
 
+  hideDeleteButton: boolean = false;
+
   // for Edit
   isGRN: any;
 
@@ -210,7 +212,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       this.totalBeforeTax += cost * quantity;
       this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
     });
-    console.log(this.totalBeforeTax)
   }
 
   //for save or submit
@@ -241,10 +242,17 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // Remove Grn Line
   removeGRNLineClick(grnLineIndex: number): void {
     const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
-    grnLineArray.removeAt(grnLineIndex);
-    grnLineArray.markAsDirty();
-    grnLineArray.markAsTouched();
-    this.table.renderRows();
+
+    if(grnLineArray.length < 2 || grnLineArray.length == 2) {
+      this.hideDeleteButton = true;
+    }
+
+    if(grnLineArray.length !== 1) {
+      grnLineArray.removeAt(grnLineIndex);
+      grnLineArray.markAsDirty();
+      grnLineArray.markAsTouched();
+      this.table.renderRows();
+    }
   }
 
   //Get purchase Order Master Data
@@ -303,15 +311,17 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   patchGRNLines(Lines: IGRNLines[]): FormArray {
     const formArray = new FormArray([]);
     Lines.forEach((line: IGRNLines | any) => {
+    if(line.pendingQuantity !== 0) {
       formArray.push(this.fb.group({
-        itemId: [line.itemId, [Validators.required]],
-        description: [line.description, Validators.required],
-        cost: [line.cost, [Validators.required, Validators.min(1)]],
-        quantity: [line.quantity, [Validators.required, Validators.min(1)]],
-        tax: [line.tax, [Validators.max(100), Validators.min(0)]],
-        subTotal: [{value: line.subTotal, disabled: true}],
-        warehouseId: [line.warehouseId, [Validators.required]]
-      }))
+      itemId: [line.itemId, [Validators.required]],
+      description: [line.description, Validators.required],
+      cost: [line.cost, [Validators.required, Validators.min(1)]],
+      quantity: [(line.pendingQuantity) ? line.pendingQuantity : line.quantity, [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]],
+      tax: [line.tax, [Validators.max(100), Validators.min(0)]],
+      subTotal: [{value: line.subTotal, disabled: true}],
+      warehouseId: [line.warehouseId, [Validators.required]]
+    }))
+    }
     })
     return formArray
   }
@@ -332,6 +342,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
     this.isLoading = true;
     this.mapFormValuesToGRNModel();
+    console.log(this.grnModel)
     if (this.grnModel.id && this.isGRN) {
       this.grnService.updateGRN(this.grnModel)
       .pipe(
