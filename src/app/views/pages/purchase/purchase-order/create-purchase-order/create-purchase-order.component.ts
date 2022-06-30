@@ -362,7 +362,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Purchase Order')
-              this.router.navigate(['/'+ PURCHASE_ORDER.LIST])
+              this.router.navigate(['/' +PURCHASE_ORDER.ID_BASED_ROUTE('details', res.result.id ) ])
             });
       }
   }

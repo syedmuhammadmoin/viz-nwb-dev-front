@@ -370,7 +370,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
         .subscribe(
           (res) => {
             this.toastService.success('Created Successfully', 'Goods Received Note')
-            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.LIST])
+            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
   }
