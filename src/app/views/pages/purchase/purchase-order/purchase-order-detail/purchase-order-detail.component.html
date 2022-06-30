@@ -98,38 +98,33 @@
                   {{valueFormatter(total || 0)}}</th>
               </tr>
 
-              <!-- <tr *ngIf="paidAmountList.length > 0">
+              <tr *ngIf="purchaseOrderMaster?.references?.length > 0">
                 <td colspan="2">
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
                         <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold;">
-                          Paid Amount :
+                          References 
                         </mat-panel-title>
-                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                        <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold; flex-grow: 0;">
                           {{valueFormatter(paidAmount || 0)}}
-                        </mat-panel-description>
+                        </mat-panel-description> -->
                       </mat-expansion-panel-header>
                       <table class="table text-center table-bordered">
                         <tr>
                           <th>Doc #</th>
-                          <th>Amount</th>
                         </tr>
-                        <tr *ngFor="let pay of references">
-                          <td><a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
-                              class="links">{{pay?.docNo}}</a></td>
-                          <td>
-                            <a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
-                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
-                          </td>
+                        <tr *ngFor="let grn of grns">
+                          <td><a [routerLink]="('/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', grn?.docId))"
+                              class="links">{{grn?.docNo}}</a></td>
                         </tr>
                       </table>
                     </mat-expansion-panel>
                   </mat-accordion>
                 </td>
-              </tr> -->
+              </tr>
             </table>
           </div>
         </div>

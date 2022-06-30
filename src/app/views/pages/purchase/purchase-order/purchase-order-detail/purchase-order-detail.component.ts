@@ -23,7 +23,26 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   //routing
   public PURCHASE_ORDER= PURCHASE_ORDER;
   public BILL= BILL;
-  public GOODS_RECEIVED_NOTE=GOODS_RECEIVED_NOTE
+  public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE
+
+  grns = [
+    {
+      docId: 4,
+      docNo: "GRN-4"
+    },
+    {
+      docId: 5,
+      docNo: "GRN-5"
+    },
+    {
+      docId: 6,
+      docNo: "GRN-6"
+    },
+    {
+      docId: 7,
+      docNo: "GRN-7"
+    }
+  ]
 
   docType = DocType
   public permissions = Permissions;
@@ -42,6 +61,8 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
 
   //need for routing
   purchaseOrderId: number;
+
+  gridApi: any
 
   //busy loading
   isLoading: boolean;
@@ -66,6 +87,14 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       headerName: 'Quantity', 
       field: 'quantity', 
       cellStyle: {'font-size': '12px'}
+    },
+    {
+      headerName: 'Received', 
+      field: 'receivedQuantity',  
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 0
+      }
     },
     {
       headerName: 'Cost', 
@@ -99,15 +128,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
-    },
-    {
-      headerName: 'Received', 
-      field: 'receivedQuantity',  
-      cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ValueFormatterParams) => {
-        return params.value || 0
-      }
-    },
+    }
   ];
 
 
@@ -147,6 +168,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
 
   // First time rendered ag grid
   onFirstDataRendered(params: FirstDataRenderedEvent ) {
+    this.gridApi = params.api
     params.api.sizeColumnsToFit();
   }
 
@@ -171,6 +193,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       }
       else {
         this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
+        this.gridApi?.sizeColumnsToFit();
       }
       this.cdRef.detectChanges()
     })
