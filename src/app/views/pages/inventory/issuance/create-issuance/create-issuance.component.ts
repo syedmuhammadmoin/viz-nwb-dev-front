@@ -244,7 +244,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        id: (this.isRequisition) ? null : line.id,
+        id: (this.isRequisition) ? 0 : line.id,
         itemId: [line.itemId , Validators.required],
         description: [line.description , Validators.required],
         quantity: [line.quantity , [Validators.required,Validators.min(1)]],
