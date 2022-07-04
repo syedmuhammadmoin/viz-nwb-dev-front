@@ -342,6 +342,9 @@ export class AppConst {
     'Permissions.IssuanceClaims.Edit': 'Issuance Update',
     'Permissions.IssuanceClaims.Delete': 'Issuance Delete',
 
+    // Stock
+    'Permissions.StockClaims.View': 'Inventory View',
+
     // Transaction Recon
     'Permissions.TransactionReconClaims.View': 'Transaction Reconcile View',
     'Permissions.TransactionReconClaims.Create': 'Transaction Reconcile Create',

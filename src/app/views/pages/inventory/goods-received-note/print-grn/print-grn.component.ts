@@ -1,10 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
 import { GrnService } from '../service/grn.service';
 import { IGRN } from '../model/IGRN';
 import { IGRNLines } from '../model/IGRNLines';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-print-grn',
@@ -13,7 +14,7 @@ import { IGRNLines } from '../model/IGRNLines';
   changeDetection : ChangeDetectionStrategy.OnPush
 })
 
-export class PrintGrnComponent implements OnInit {
+export class PrintGrnComponent extends AppComponentBase implements OnInit {
 
     gridOptions: GridOptions;
     grnMaster: IGRN | any;
@@ -22,8 +23,9 @@ export class PrintGrnComponent implements OnInit {
     constructor( private grnService : GrnService,
                  private activatedRoute: ActivatedRoute,
                  private cDRef: ChangeDetectorRef,
-                 public  sanitizer: DomSanitizer
-               ) { }
+                 public  sanitizer: DomSanitizer,
+                 injector: Injector
+               ) { super(injector) }
 
     ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {
@@ -48,9 +50,6 @@ export class PrintGrnComponent implements OnInit {
         this.grnMaster = res.result;
         this.grnLines = res.result.grnLines;
           this.cDRef.markForCheck();
-        },
-        (err: any) => {
-          console.log(err);
         })
     }
   }

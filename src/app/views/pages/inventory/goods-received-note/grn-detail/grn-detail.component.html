@@ -47,9 +47,7 @@
               <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
               <span class="float-right" style="font-weight: 400;">{{grnMaster?.campusName}}</span></h4>
             </div>
-          </div>
-
-          
+          </div>          
         </div>
   
         <div class="row mt-10">
@@ -61,10 +59,57 @@
                 (firstDataRendered)="onFirstDataRendered($event)">
               </ag-grid-angular>
           </div>
-          
         </div>
-     
-        
+
+        <div class="row mt-5">
+          <div class="col-lg-4 ml-auto">
+            <table class="table  small_table_box" style="margin: 0px -6px;">
+              <!-- <tr>
+                <td class="text-left" style="width: 70%;">Total Before Tax:</td>
+                <td class="text-right" >
+                  {{valueFormatter(totalBeforeTax || 0)}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Total Tax:</td>
+                <td class="text-right" >
+                  {{valueFormatter(totalTax || 0)}}</td>
+              </tr>
+              <tr style="border-top: 2px solid #1a6b85;">
+                <th class="text-left">Grand Total:</th>
+                <th class="text-right" >
+                  {{valueFormatter(total || 0)}}</th>
+              </tr> -->
+
+              <tr *ngIf="showReference">
+                <td colspan="2">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold;">
+                          Reference
+                        </mat-panel-title>
+                        <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold; flex-grow: 0;">
+                          {{valueFormatter(paidAmount || 0)}}
+                        </mat-panel-description> -->
+                      </mat-expansion-panel-header>
+                      <table class="table text-center table-bordered">
+                        <tr>
+                          <th>Doc #</th>
+                        </tr>
+                        <tr>
+                          <td><a [routerLink]="('/' + PURCHASE_ORDER.ID_BASED_ROUTE('details', grnMaster?.purchaseOrderId))"
+                              class="links">{{grnMaster?.poDocNo}}</a></td>
+                        </tr>
+                      </table>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
       </div>
     </kt-portlet-body>
   

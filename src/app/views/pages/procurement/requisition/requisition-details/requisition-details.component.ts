@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { ISSUANCE, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IRequisitionLines } from '../model/IRequisitionLines';
 import { IRequisition } from '../model/IRequisition';
@@ -31,6 +31,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   defaultColDef: ColDef;
 
   public REQUISITION = REQUISITION;
+  public ISSUANCE = ISSUANCE
 
   requisitionId: number;
 

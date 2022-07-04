@@ -336,12 +336,22 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       this.toastService.error('Please add goods received note lines', 'Error')
       return;
     }
+
     if (this.grnForm.invalid) {
-      return
+      this.toastService.error("Please fill all required fields!", "Goods Received Note")
+        return;
+    }
+
+    this.mapFormValuesToGRNModel();
+
+    const isDuplicateLines = this.grnModel.grnLines.some((a, index) => this.grnModel.grnLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
+
+    if(isDuplicateLines) {
+      this.toastService.error("Please Remove Duplicate Line!", "Goods Received Note")
+      return;
     }
 
     this.isLoading = true;
-    this.mapFormValuesToGRNModel();
     console.log(this.grnModel)
     if (this.grnModel.id && this.isGRN) {
       this.grnService.updateGRN(this.grnModel)

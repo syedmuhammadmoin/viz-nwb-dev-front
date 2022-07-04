@@ -296,12 +296,22 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         this.toastService.error('Please add Requisition lines', 'Error')
         return;
       }
+    
       if (this.requisitionForm.invalid) {
+        this.toastService.error("Please fill all required fields!", "Requisition")
           return;
+      }
+  
+      this.mapFormValuesTorequisitionModel();
+  
+      const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
+  
+      if(isDuplicateLines) {
+        this.toastService.error("Please Remove Duplicate Line!", "Requisition")
+        return;
       }
 
       this.isLoading = true;
-      this.mapFormValuesTorequisitionModel();
       console.log(this.requisitionModel)
     if (this.requisitionModel.id) {
         this.requisitionService.updateRequisition(this.requisitionModel)
@@ -330,7 +340,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Requisition')
-              this.router.navigate(['/'+ REQUISITION.LIST])
+              this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details',res.result.id ) ]);
             });
       }
   }

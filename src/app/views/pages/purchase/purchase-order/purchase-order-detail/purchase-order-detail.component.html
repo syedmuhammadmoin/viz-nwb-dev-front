@@ -116,7 +116,7 @@
                         <tr>
                           <th>Doc #</th>
                         </tr>
-                        <tr *ngFor="let grn of grns">
+                        <tr *ngFor="let grn of purchaseOrderMaster?.references">
                           <td><a [routerLink]="('/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', grn?.docId))"
                               class="links">{{grn?.docNo}}</a></td>
                         </tr>

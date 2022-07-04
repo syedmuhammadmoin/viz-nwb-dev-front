@@ -1,9 +1,7 @@
 export interface IStock {
     id           : number;
-    productId    : number;
+    itemId       : number;
     reservedQty  : number;
     availableQty : number;
-    cost         : number;
-    price        : number;
-    locationId   : number;
+    warehouseId  : number;
 }

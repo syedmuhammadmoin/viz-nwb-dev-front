@@ -1,8 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { GridOptions }            from "ag-grid-community";
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from "ag-grid-community";
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
-import { StockService }           from "../service/stock.service";
-import { ActivatedRoute, Router } from "@angular/router";
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { isEmpty } from 'lodash';
+import { IStock } from '../model/IStock';
+import { StockService } from '../service/stock.service';
 
 @Component({
   selector: 'kt-list-stock',
@@ -11,55 +13,162 @@ import { ActivatedRoute, Router } from "@angular/router";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class ListStockComponent implements OnInit {
+export class ListStockComponent extends AppComponentBase  implements OnInit {
 
-  stockDetailData: any;
-  gridOptions = ({} as GridOptions);
-  frameworkComponents: any;
-  defaultColDef: any;
+  stockList: IStock[];
+  defaultColDef: ColDef;
+  frameworkComponents: {[p: string]: unknown};
+  gridOptions: GridOptions;
+  tooltipData: string = "double click to view detail"
+  components: { loadingCellRenderer (params: any ) : unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+
+  constructor(
+    private stockService: StockService,
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector)
+    this.gridOptions = <GridOptions>(
+      {
+        context: { componentParent: this }
+      }
+    );
+  }
 
   columnDefs = [
-    {headerName: 'Product', field: 'item.productName', sortable: true, filter: true, tooltipField: 'status'},
-    {headerName: 'Available Quantity', field: 'availableQty', sortable: true, filter: true, tooltipField: 'status'},
-    {headerName: 'Cost Price', field: 'costPrice', sortable: true, filter: true, tooltipField: 'status'},
-    // {headerName: 'Price', field: 'price', sortable: true, filter: true, tooltipField: 'status'},
-    {headerName: 'Location', field: 'location.name', sortable: true, filter: true, tooltipField: 'status'},
+    { 
+      headerName: 'Item', 
+      field: 'itemName', 
+      tooltipField: 'itemName', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, 
+    },
+    { 
+      headerName: 'Category', 
+      field: 'category', 
+      tooltipField: 'itemName',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Unit Of Measurement', 
+      field: 'unitOfMeasurement', 
+      tooltipField: 'itemName',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Available Quantity', 
+      field: 'availableQuantity', 
+      tooltipField: 'itemName',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Reserved Quantity', 
+      field: 'reservedQuantity', 
+      tooltipField: 'itemName',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Store', 
+      field: 'warehouseName', 
+      tooltipField: 'itemName',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    }
   ];
 
-  constructor( private stockService : StockService,
-               private router: Router,
-               private cdRef: ChangeDetectorRef,
-               private activatedRoute: ActivatedRoute,
-             ) { }
-
   ngOnInit(): void {
-    this.gridOptions.rowHeight = 40;
-    this.gridOptions.headerHeight = 35;
 
-    this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
-    }
+    this.gridOptions = {
+      cacheBlockSize: 20,
+      rowModelType: "infinite",
+      paginationPageSize: 10,
+      pagination: true,
+      rowHeight: 40,
+      headerHeight: 35,
+      context: "Inventory Record",
+    };
+
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    this.loadStockList()
+    this.defaultColDef = {
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
+    }
+
+    this.components = {
+      loadingCellRenderer: function (params: any) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
   }
 
-  onFirstDataRendered(params : any) {
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
-  
-  onRowDoubleClicked(event : any) {
-    // this.router.navigate(['/stock-detail', event.data.id], {relativeTo: this.activatedRoute})
-  }
 
-  private loadStockList() {
-    this.stockService.getAllStocks().subscribe((res) => {
-      this.stockDetailData = res.result
-      console.log(res.result)
-      this.cdRef.detectChanges();
-    })
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+
+    var dataSource = {
+      getRows: (params: any) => {
+        this.stockService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'stockPageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
 }
+
+
+
 
 
 

@@ -5,7 +5,7 @@ import { LayoutUtilsService }                                            from '.
 import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
+import { GOODS_RECEIVED_NOTE, PURCHASE_ORDER } from 'src/app/views/shared/AppRoutes';
 import { finalize, take } from 'rxjs/operators';
 
 @Component({
@@ -18,10 +18,13 @@ import { finalize, take } from 'rxjs/operators';
 export class GrnDetailComponent extends AppComponentBase implements OnInit {
 // routing variables
   public GOODS_RECEIVED_NOTE=GOODS_RECEIVED_NOTE;
+  public PURCHASE_ORDER = PURCHASE_ORDER;
   docType = DocType
   public permissions = Permissions;
   action = ActionButton
   docStatus = DocumentStatus
+
+  showReference: boolean = false;
 
   // handling register payment button
   isDisabled: boolean;
@@ -105,6 +108,9 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     .subscribe((res) => {
       this.grnMaster = res.result;
       this.grnLines = res.result.grnLines;
+
+      //Checking grn status to show purchase order reference
+      this.showReference = (["Draft" , "Rejected"].includes(this.grnMaster.status)) ? false : true;
       this.cdRef.markForCheck();
     })
   }
