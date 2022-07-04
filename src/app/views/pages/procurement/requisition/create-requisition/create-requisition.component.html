@@ -20,9 +20,7 @@
                         propertyName="name" 
                         propertyValue="id" 
                         [errorMessage]="formErrors.businessPartnerId"
-                        [optionList]="ngxsService.businessPartners$"
-                        clickEventButtonName="Add New Customer"
-                        (clickEvent)="openBusinessPartnerDialog()" 
+                        [optionList]="ngxsService.employees$"
                         searchPlaceholder="Search Employees..."
                         placeholder="Select Employee">
                        </kt-simple-dropdown>

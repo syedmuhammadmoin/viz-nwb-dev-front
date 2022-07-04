@@ -121,7 +121,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     }
 
      // get Vendor from state
-     this.ngxsService.getBusinessPartnerFromState();
+     //this.ngxsService.getBusinessPartnerFromState();
+     this.ngxsService.getEmployeeFromState();
      // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
      // get Ware house location from state
