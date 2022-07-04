@@ -1,32 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
+import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { GOODS_RETURN_NOTE } from 'src/app/views/shared/AppRoutes';
+import { finalize, take } from 'rxjs/operators';
+import { GoodsReturnNoteService } from '../service/goods-return-note.service';
 
 @Component({
   selector: 'kt-goods-return-note-detail',
   templateUrl: './goods-return-note-detail.component.html',
   styleUrls: ['./goods-return-note-detail.component.scss']
 })
-export class GoodsReturnNoteDetailComponent implements OnInit {
 
-  import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { GrnService }                                                    from '../service/grn.service';
-import { ActivatedRoute, Router }                                        from '@angular/router';
-import { LayoutUtilsService }                                            from '../../../../../core/_base/crud';
-import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
-import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
-import { finalize, take } from 'rxjs/operators';
+export class GoodsReturnNoteDetailComponent extends AppComponentBase implements OnInit {
 
-@Component({
-  selector: 'kt-grn-detail',
-  templateUrl: './grn-detail.component.html',
-  styleUrls: ['./grn-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-
-export class GrnDetailComponent extends AppComponentBase implements OnInit {
 // routing variables
-  public GOODS_RECEIVED_NOTE=GOODS_RECEIVED_NOTE;
+  public GOODS_RETURN_NOTE = GOODS_RETURN_NOTE;
   docType = DocType
   public permissions = Permissions;
   action = ActionButton
@@ -39,7 +29,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
 
   //need for routing
-  grnId: number;
+  goodsReturnNoteId: number;
 
 
    //For ag grid
@@ -48,14 +38,12 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
    frameworkComponents : any;
 
    // Variables for Goods Received Note data
-   grnLines: any;
-   grnMaster: any;
+   goodsReturnNoteLines: any;
+   goodsReturnNoteMaster: any;
 
  constructor( private activatedRoute: ActivatedRoute,
-              private grnService: GrnService,
+              private goodsReturnNoteService: GoodsReturnNoteService,
               private cdRef: ChangeDetectorRef,
-              private router: Router,
-              private layoutUtilService: LayoutUtilsService,
               injector: Injector
               ) {
                 super(injector)
@@ -90,8 +78,8 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     this.activatedRoute.paramMap.subscribe(params => {
       const id = +params.get('id');
       if (id) {
-        this.getGRNMasterData(id);
-        this.grnId = id;
+        this.getGoodsReturnNoteMasterData(id);
+        this.goodsReturnNoteId = id;
         this.cdRef.markForCheck();
       }
     });
@@ -101,9 +89,9 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     params.api.sizeColumnsToFit();
   }
 
-  private getGRNMasterData(id: number) {
+  private getGoodsReturnNoteMasterData(id: number) {
     this.isLoading = true;
-    this.grnService.getGRNById(id)
+    this.goodsReturnNoteService.getGoodsReturnNoteById(id)
     .pipe(
       take(1),
        finalize(() => {
@@ -112,15 +100,15 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
        })
      )
     .subscribe((res) => {
-      this.grnMaster = res.result;
-      this.grnLines = res.result.grnLines;
+      this.goodsReturnNoteMaster = res.result;
+      this.goodsReturnNoteLines = res.result.goodsReturnNoteLines;
       this.cdRef.markForCheck();
     })
   }
 
   workflow(action: any) {
     this.isLoading = true
-    this.grnService.workflow({action, docId: this.grnMaster.id})
+    this.goodsReturnNoteService.workflow({action, docId: this.goodsReturnNoteMaster.id})
     .pipe(
       take(1),
        finalize(() => {
@@ -129,9 +117,9 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
        })
      )
       .subscribe((res) => {
-        this.getGRNMasterData(this.grnId);
+        this.getGoodsReturnNoteMasterData(this.goodsReturnNoteId);
         this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'GRN');
+        this.toastService.success('' + res.message, 'Goods Return Note');
       })
   }
 }
@@ -142,4 +130,4 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
 
 
 
-}
+

@@ -1,6 +1,6 @@
 import { IGoodsReturnNoteLines } from "./IGoodsReturnNoteLines"
 
-export interface IGRN {
+export interface IGoodsReturnNote {
     id            : number;
     vendorId      : number;
     returnDate    : string;

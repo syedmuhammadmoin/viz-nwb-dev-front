@@ -1,11 +1,11 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Goods Received Note Detail'" [class]="'card-head-lg'">
+      <kt-portlet-header [sticky]="false" [title]="'Goods Return Note Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
           <!-- <button [routerLink]="'/journal-entry/print/' + journalEntryMasterData?.id"  mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button> -->
             
-            <h4 class="overall_statuses {{grnMaster?.status}}">Status:  {{grnMaster?.status}}</h4>
+            <h4 class="overall_statuses {{goodsReturnNoteMaster?.status}}">Status:  {{goodsReturnNoteMaster?.status}}</h4>
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
@@ -13,16 +13,14 @@
           <div class="row">
             <div class="col-md-12 col-12 pb-3">
               <ng-container ktPortletTools >
-                  <button *ngIf="grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected"
-                    [disabled]="!(permission.isGranted(permissions.GRN_EDIT))" id="grn_edit"
-                    [ngClass]="!(permission.isGranted(permissions.GRN_EDIT)) ? 'disable' : '' "
-                    [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('edit',grnMaster?.id)"
-                    [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  <button *ngIf="(goodsReturnNoteMaster?.state === docStatus.Draft || goodsReturnNoteMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GRN_EDIT))" 
+                   id="grn_edit" [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE ('edit', goodsReturnNoteMaster?.id)"
+                    [queryParams]="{q: goodsReturnNoteMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
                     <i class="fa fa-edit"></i>  Edit
                   </button>
   
-                  <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button"  class="btn_public">
-                    <i class="fa fa-print"></i> Print GRN
+                  <button [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE ('print', goodsReturnNoteMaster?.id)" id="grn_print" type="button"  class="btn_public">
+                    <i class="fa fa-print"></i> Print Goods Return Note
                   </button>
                   <mat-divider class="mt-5"></mat-divider>
               </ng-container>
@@ -32,20 +30,20 @@
   
               <div class="print-box">
                   <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Document No: 
-                      <span class="float-right" style="font-weight: 400;">{{grnMaster?.docNo}}</span></h4>
+                      <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
                   <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
-                      <span class="float-right" style="font-weight: 400;">{{grnMaster?.vendorName}}</span></h4>
+                      <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.vendorName}}</span></h4>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">GRN Date:
-                <span class="float-right" style="font-weight: 400;">{{grnMaster?.grnDate | date: 'MMM d, y'}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.grnDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
-                <span class="float-right" style="font-weight: 400;">{{grnMaster?.campusName}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.campusName}}</span></h4>
               </div>
             </div>
   
@@ -55,7 +53,7 @@
           <div class="row mt-10">
             <div class="col-md-12 col-12">
                 <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;" class="ag-theme-alpine"
-                  [rowData]="grnLines"
+                  [rowData]="goodsReturnNoteLines"
                   [columnDefs]="columnDefs" 
                   [gridOptions]="gridOptions"
                   (firstDataRendered)="onFirstDataRendered($event)">
@@ -73,7 +71,7 @@
         <div class="kt-portlet__foot">
           <div class="kt-form__actions kt-form__actions">
             <div class="row ">
-                <div class="col-lg-12 text-right" *ngIf="grnMaster?.isAllowedRole">
+                <div class="col-lg-12 text-right" *ngIf="goodsReturnNoteMaster?.isAllowedRole">
                   <button (click)="workflow(action.Reject)" id="grn_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
                   <button (click)="workflow(action.Approve)" id="grn_approve" class="success__btn" mat-raised-button>Approve</button>
                </div>

@@ -7,7 +7,7 @@
   <div class="row">
     <div class="col-md-12 ">
       <kt-portlet >
-        <kt-portlet-header [sticky]="false" [title]="'Goods Received Notes'"  [class]="'card-head-lg'">
+        <kt-portlet-header [sticky]="false" [title]="'Goods Return Notes'"  [class]="'card-head-lg'">
         </kt-portlet-header>
         <kt-portlet-body>
             <div class="col-lg-12 col-md-12 my-5">
@@ -18,7 +18,7 @@
                 [columnDefs]="columnDefs"
                 (rowDoubleClicked)="onRowDoubleClicked($event)"
                 (firstDataRendered)="onFirstDataRendered($event)"
-                (paginationChanged)="paginationHelper.onPaginationChanged('grnPageName', gridApi, $event)"
+                (paginationChanged)="paginationHelper.onPaginationChanged('goodsReturnNotePageName', gridApi, $event)"
                 [gridOptions]="gridOptions"
                 [frameworkComponents]="frameworkComponents"
                 [defaultColDef]="defaultColDef"

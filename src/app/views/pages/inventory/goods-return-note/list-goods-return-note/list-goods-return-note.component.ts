@@ -1,32 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { GOODS_RETURN_NOTE } from './../../../../shared/AppRoutes';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams }            from "ag-grid-community";
+import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
+import { ActivatedRoute, Router } from "@angular/router";
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { isEmpty } from 'lodash';
+import { IGoodsReturnNote } from '../model/IGoodsReturnNote';
+import { GoodsReturnNoteService } from '../service/goods-return-note.service';
 
 @Component({
   selector: 'kt-list-goods-return-note',
   templateUrl: './list-goods-return-note.component.html',
   styleUrls: ['./list-goods-return-note.component.scss']
 })
-export class ListGoodsReturnNoteComponent implements OnInit {
 
-  import { GOODS_RECEIVED_NOTE } from './../../../../shared/AppRoutes';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams }            from "ag-grid-community";
-import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
-import { GrnService }   from "../service/grn.service";
-import { ActivatedRoute, Router } from "@angular/router";
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { IGRN } from '../model/IGRN';
-import { isEmpty } from 'lodash';
+export class ListGoodsReturnNoteComponent extends AppComponentBase implements OnInit {
 
-@Component({
-  selector: 'kt-list-grn',
-  templateUrl: './list-grn.component.html',
-  styleUrls: ['./list-grn.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
-})
-
-export class ListGrnComponent extends AppComponentBase implements OnInit {
-
-  grnList: IGRN[];
+  goodsReturnNoteList: IGoodsReturnNote[];
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
@@ -37,7 +27,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
-    private _grnService: GrnService,
+    private goodsReturnNoteService: GoodsReturnNoteService,
     private router: Router,
     private cdRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
@@ -152,7 +142,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details',event.data.id) ], {relativeTo: this.activatedRoute})
+    this.router.navigate(['/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('details',event.data.id) ], {relativeTo: this.activatedRoute})
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -161,14 +151,14 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
 
     var dataSource = {
       getRows: (params: any) => {
-        this._grnService.getRecords(params).subscribe((data) => {
+        this.goodsReturnNoteService.getRecords(params).subscribe((data) => {
           if(isEmpty(data.result)) {  
             this.gridApi.showNoRowsOverlay() 
           } else {
             this.gridApi.hideOverlay();
           }
           params.successCallback(data.result || 0, data.totalRecords);
-          this.paginationHelper.goToPage(this.gridApi, 'grnPageName')
+          this.paginationHelper.goToPage(this.gridApi, 'goodsReturnNotePageName')
           this.cdRef.detectChanges();
         });
       },
@@ -178,4 +168,4 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
 }
 
 
-}
+
