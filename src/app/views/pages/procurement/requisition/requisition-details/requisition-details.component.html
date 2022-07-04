@@ -21,7 +21,7 @@
                     <i class="fa fa-edit"></i> Edit
                   </button>
 
-                  <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid) && (permission.isGranted(permissions.ISSUANCE_CREATE))" id="requisition_edit"
+                  <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_CREATE))" id="requisition_edit"
                     [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                     type="button" class="mr-3 btn_public">
                     <i class="fa fa-edit"></i> Issuance
