@@ -319,7 +319,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.issuanceModel.employeeId = this.issuanceForm.value.employeeId;
     this.issuanceModel.issuanceDate = this.transformDate(this.issuanceForm.value.issuanceDate, 'yyyy-MM-dd');
     this.issuanceModel.campusId = this.issuanceForm.value.campusId;
-    this.issuanceModel.requisitionId = (this.requisitionMaster.id ?? this.issuanceModel.requisitionId ?? null)
+    this.issuanceModel.requisitionId = (this.requisitionMaster?.id ?? this.issuanceModel?.requisitionId ?? null)
     this.issuanceModel.issuanceLines = this.issuanceForm.value.issuanceLines;
   }
 
