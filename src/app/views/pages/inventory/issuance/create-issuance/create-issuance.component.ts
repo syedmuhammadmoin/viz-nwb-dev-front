@@ -247,7 +247,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
         id: (this.isRequisition) ? 0 : line.id,
         itemId: [line.itemId , Validators.required],
         description: [line.description , Validators.required],
-        quantity: [line.quantity , [Validators.required,Validators.min(1)]],
+        quantity: (this.isRequisition) ? [line.pendingQuantity , [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
+        [line.quantity , [Validators.required,Validators.min(1)]],
         warehouseId: [line.warehouseId , Validators.required],
       }))
     })

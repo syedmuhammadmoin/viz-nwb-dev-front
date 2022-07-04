@@ -109,7 +109,10 @@
                                                           error : 'Quantity is required' },
                                                         { condition : issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.errors?.min &&
                                                                       issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.touched , 
-                                                          error : 'Minimum value is one' }]">
+                                                          error : 'Minimum value is one' },
+                                                          { condition : issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.errors?.max &&
+                                                                      issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.touched , 
+                                                          error : 'Can not exceed pending quantity.' }]">
                                 </kt-input-field>
                               </div>
                             </mat-cell>

@@ -25,25 +25,6 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   public BILL= BILL;
   public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE
 
-  grns = [
-    {
-      docId: 4,
-      docNo: "GRN-4"
-    },
-    {
-      docId: 5,
-      docNo: "GRN-5"
-    },
-    {
-      docId: 6,
-      docNo: "GRN-6"
-    },
-    {
-      docId: 7,
-      docNo: "GRN-7"
-    }
-  ]
-
   docType = DocType
   public permissions = Permissions;
   action = ActionButton

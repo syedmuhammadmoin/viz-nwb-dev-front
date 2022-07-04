@@ -38,6 +38,8 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   //kt busy loading
   isLoading: boolean;
 
+  gridApi: any
+
   //Variables for Requisition data
   requisitionLines: IRequisitionLines | any
   requisitionMaster: IRequisition | any;
@@ -72,6 +74,14 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       field: 'quantity', 
       cellStyle: { 'font-size': '12px' }
     },
+    {
+      headerName: 'Issued', 
+      field: 'issuedQuantity',  
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 0
+      }
+    },
     { 
       headerName: 'Store', 
       field: 'warehouse', 
@@ -100,6 +110,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
 
   // First time rendered ag grid
   onFirstDataRendered(params: FirstDataRenderedEvent) {
+    this.gridApi = params.api
     params.api.sizeColumnsToFit();
   }
 
@@ -117,7 +128,16 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       this.requisitionMaster = res.result;
       this.requisitionLines = res.result.requisitionLines;
       this.status = this.requisitionMaster.status;
-      this.cdRef.detectChanges();
+
+      if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.requisitionMaster.state)) {
+        this.gridOptions.columnApi.setColumnVisible('issuedQuantity', false);
+      }
+      else {
+        this.gridOptions.columnApi.setColumnVisible('issuedQuantity', true);
+        console.log("entered")
+        this.gridApi?.sizeColumnsToFit();
+      }
+      this.cdRef.detectChanges()
     })
   }
 

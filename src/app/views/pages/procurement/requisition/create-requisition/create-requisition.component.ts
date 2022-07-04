@@ -224,7 +224,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       itemId: ['', [ Validators.required]],
       description: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
-      warehouseId: [null],
+      warehouseId: ['', [ Validators.required]],
     });
   }
 
@@ -281,7 +281,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
         quantity: [line.quantity, [Validators.required, Validators.min(1)]],
-        warehouseId: [line.warehouseId]
+        warehouseId: [line.warehouseId, [ Validators.required]]
       }))
     })
     return formArray

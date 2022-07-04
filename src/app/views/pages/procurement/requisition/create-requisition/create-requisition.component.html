@@ -131,9 +131,9 @@
                                   propertyValue="id" 
                                   propertyName="name"
                                   isDisabledNone="true"
-                                  [hintText]="'Optional'"
                                   (selectionChange)="showMessage = true"
                                   formControlName="warehouseId" 
+                                  [errorMessage]="'Store is Required'"
                                   matFormFieldClass="full-width" 
                                   [optionList]="warehouseList">
                                 </kt-simple-dropdown>

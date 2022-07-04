@@ -100,6 +100,8 @@ import { AccountReceivableState } from './views/pages/finance/chat-of-account/st
 import { OtherAccountState } from './views/pages/finance/chat-of-account/store/other-account.state';
 import { RoleState } from './views/pages/access-management/store/role.state';
 import { UnitOfMeasurementState } from './views/pages/profiling/unit-of-measurement/store/unit.state';
+import { CustomRemarksComponent } from './views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from './views/shared/components/custom-upload-file/custom-upload-file.component';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -132,7 +134,7 @@ export function getHighlightLanguages() {
 }
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CustomRemarksComponent, CustomUploadFileComponent],
   imports: [
     BrowserAnimationsModule,
     CommonModule,

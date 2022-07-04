@@ -6,7 +6,7 @@ import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { ISSUANCE } from 'src/app/views/shared/AppRoutes';
+import { ISSUANCE, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IIssuanceLines } from '../model/IssuanceLines';
 import { IIssuance } from '../model/IIssuance';
@@ -31,6 +31,9 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   defaultColDef: ColDef;
 
   public ISSUANCE = ISSUANCE;
+  public REQUISITION = REQUISITION;
+
+  showReference: boolean = false;
 
   //kt busy loading
   isLoading: boolean;
@@ -116,6 +119,9 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       this.issuanceMaster = res.result;
       this.issuanceLines = res.result.issuanceLines;
       this.status = this.issuanceMaster.status;
+
+      //Checking grn status to show Requisition reference
+      this.showReference = (["Draft" , "Rejected"].includes(this.issuanceMaster.status)) ? false : true;
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     });
