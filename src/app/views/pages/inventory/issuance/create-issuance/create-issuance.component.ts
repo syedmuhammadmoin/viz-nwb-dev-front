@@ -244,7 +244,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isRequisition) ? line.id : 0,
         itemId: [line.itemId , Validators.required],
         description: [line.description , Validators.required],
         quantity: [line.quantity , [Validators.required,Validators.min(1)]],
@@ -319,7 +319,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.issuanceModel.employeeId = this.issuanceForm.value.employeeId;
     this.issuanceModel.issuanceDate = this.transformDate(this.issuanceForm.value.issuanceDate, 'yyyy-MM-dd');
     this.issuanceModel.campusId = this.issuanceForm.value.campusId;
-    if (this.requisitionMaster) { this.issuanceModel.requisitionId = this.requisitionMaster.id; }
+    if (this.isRequisition) { this.issuanceModel.requisitionId = this.requisitionMaster.id; }
     this.issuanceModel.issuanceLines = this.issuanceForm.value.issuanceLines;
   }
 
