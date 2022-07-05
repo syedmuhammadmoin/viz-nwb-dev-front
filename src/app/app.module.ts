@@ -102,6 +102,7 @@ import { RoleState } from './views/pages/access-management/store/role.state';
 import { UnitOfMeasurementState } from './views/pages/profiling/unit-of-measurement/store/unit.state';
 import { CustomRemarksComponent } from './views/shared/components/custom-remarks/custom-remarks.component';
 import { CustomUploadFileComponent } from './views/shared/components/custom-upload-file/custom-upload-file.component';
+import { ShowRemarksComponent } from './views/shared/components/show-remarks/show-remarks.component';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -134,7 +135,7 @@ export function getHighlightLanguages() {
 }
 
 @NgModule({
-  declarations: [AppComponent, CustomRemarksComponent, CustomUploadFileComponent],
+  declarations: [AppComponent, CustomRemarksComponent, CustomUploadFileComponent, ShowRemarksComponent],
   imports: [
     BrowserAnimationsModule,
     CommonModule,

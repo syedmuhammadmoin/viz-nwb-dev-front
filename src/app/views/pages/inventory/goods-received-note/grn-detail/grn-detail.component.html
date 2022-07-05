@@ -13,12 +13,16 @@
         <div class="row">
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
-                <button *ngIf="grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected"
-                  [disabled]="!(permission.isGranted(permissions.GRN_EDIT))" id="grn_edit"
-                  [ngClass]="!(permission.isGranted(permissions.GRN_EDIT)) ? 'disable' : '' "
+                <button *ngIf="(grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GRN_EDIT))" id="grn_edit"
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('edit',grnMaster?.id)"
                   [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
                   <i class="fa fa-edit"></i>  Edit
+                </button>
+
+                <button *ngIf="(grnMaster?.state === docStatus.Unpaid) && (permission.isGranted(permissions.BILL_CREATE))" id="grn_edit"
+                  [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit',grnMaster?.id)"
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  <i class="fa fa-edit"></i> Bill
                 </button>
 
                 <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button"  class="btn_public">
