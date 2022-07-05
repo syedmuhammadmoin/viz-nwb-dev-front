@@ -15,61 +15,61 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListGoodsReturnNoteComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
+            { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
+            { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateGoodsReturnNoteComponent,
         //canDeactivate: [FormConfirmationGuard],
-        // data: {
-        //   array: [
-        //     { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
+            { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.EDIT,
         component: CreateGoodsReturnNoteComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
+            { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.DETAILS,
         component: GoodsReturnNoteDetailComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
+            { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
+            { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.PRINT,
         component: PrintGoodsReturnNoteComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
-        //     { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.GOODS_RETURN_NOTE_VIEW },
+            { permission: Permissions.GOODS_RETURN_NOTE_EDIT },
+            { permission: Permissions.GOODS_RETURN_NOTE_CREATE },
+          ]
+        },
+        canActivate: [PermissionGuard]
       }
     ]
   }

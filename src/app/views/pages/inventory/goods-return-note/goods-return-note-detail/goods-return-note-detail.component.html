@@ -13,9 +13,9 @@
           <div class="row">
             <div class="col-md-12 col-12 pb-3">
               <ng-container ktPortletTools >
-                  <button *ngIf="(goodsReturnNoteMaster?.state === docStatus.Draft || goodsReturnNoteMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GRN_EDIT))" 
+                  <button *ngIf="(goodsReturnNoteMaster?.state === docStatus.Draft || goodsReturnNoteMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GOODS_RETURN_NOTE_EDIT))" 
                    id="grn_edit" [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE ('edit', goodsReturnNoteMaster?.id)"
-                    [queryParams]="{q: goodsReturnNoteMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                    [queryParams]="{q: goodsReturnNoteMaster?.id, 'isGoodsReturnNote': true}" type="button" class="btn_public mr-3">
                     <i class="fa fa-edit"></i>  Edit
                   </button>
   

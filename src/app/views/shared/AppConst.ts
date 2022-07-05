@@ -397,6 +397,7 @@ export class AppConst {
     {value: 'Payroll Transaction', id: DocType.PayrollTransaction},
     {value: 'Payroll Payment' , id: DocType.PayrollPayment, route: 'payroll-payment'},
     {value: 'Issuance' , id: DocType.Issuance},
+    {value: 'Goods Return Note' , id: DocType.GoodsReturnNote}
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

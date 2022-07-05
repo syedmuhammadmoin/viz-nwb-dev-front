@@ -419,7 +419,7 @@ const routes: Routes = [
           import('./views/pages/inventory/goods-return-note/goods-return-note.module').then(
             (m) => m.GoodsReturnNoteModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
 
       //Workflow Section

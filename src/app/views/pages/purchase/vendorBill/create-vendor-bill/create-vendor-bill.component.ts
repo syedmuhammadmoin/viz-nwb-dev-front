@@ -45,7 +45,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   vendorBillModel: IVendorBill;
 
   // For DropDown
-  salesItem: IProduct[];
+  salesItem: IProduct[] | any[];
 
   // purchase order data
   purchaseOrderMaster: any;
@@ -215,9 +215,11 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const tax = this.salesItem.find(i => i.id === itemId).salesTax
+      const account = this.salesItem.find(i => i.id === itemId).costAccountId
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
+      arrayControl.at(index).get('accountId').setValue(account);
     
       // Calculating subtotal
       // const quantity = arrayControl.at(index).get('quantity').value;
@@ -366,19 +368,12 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.totalCalculation();
 
         
-    // this.vendorBillForm.get('vendorBillLines')['controls']
-    //   .forEach((control, index) => {
-    //     //this.disableDropdownField(index)
-    //     // if(control.value.id === 2034){
-    //     //   console.log(control.controls.itemId)
-    //     //   //control.controls.item.disable()
-    //     // }
-
-        
-    //     control.controls.description.disable()
-    //     control.controls.cost.disable()
-    //     control.controls.tax.disable()
-    //   })
+    this.vendorBillForm.get('vendorBillLines')['controls']
+      .forEach((control) => { 
+        control.controls.description.disable()
+        control.controls.cost.disable()
+        control.controls.tax.disable()
+      })
   }
 
   // disableDropdownField(index?: number): boolean {

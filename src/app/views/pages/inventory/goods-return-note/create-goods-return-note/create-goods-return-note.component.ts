@@ -10,12 +10,14 @@ import { BusinessPartnerService} from '../../../profiling/business-partner/servi
 import { CategoryService} from '../../../profiling/category/service/category.service';
 import { WarehouseService} from '../../../profiling/warehouse/services/warehouse.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
+import { GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE } from 'src/app/views/shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchaseOrder';
 import { IGoodsReturnNote } from '../model/IGoodsReturnNote';
 import { GoodsReturnNoteService } from '../service/goods-return-note.service';
 import { IGoodsReturnNoteLines } from '../model/IGoodsReturnNoteLines';
+import { GrnService } from '../../goods-received-note/service/grn.service';
+import { IGRNLines } from '../../goods-received-note/model/IGRNLines';
 
 @Component({
   selector: 'kt-create-goods-return-note',
@@ -51,14 +53,14 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
    //show toast mesasge of on campus select
   showMessage: boolean = false;
 
-  // param to get purchase order master
-  isPurchaseOrder: any;
-  purchaseOrderMaster: any;
+  // param to get Grn master
+  isGRN: any;
+  grnMaster: any;
 
   hideDeleteButton: boolean = false;
 
   // for Edit
-  isgoodsReturnNote: any;
+  isGoodsReturnNote: any;
 
   // For Calculation
   grandTotal = 0 ;
@@ -97,6 +99,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     private fb: FormBuilder,
     private goodsReturnNoteService: GoodsReturnNoteService,
     private purchaseOrderService: PurchaseOrderService,
+    private grnService: GrnService,
     public ngxsService: NgxsCustomService,
     public businessPartnerService: BusinessPartnerService,
     public productService: ProductService,
@@ -126,20 +129,20 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
       vendorId: null,
       returnDate: null,
       contact: null,
-      purchaseOrderId: null,
+      grnId: null,
       campusId: null,
       goodsReturnNoteLines: []
     }
 
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
-      this.isgoodsReturnNote = param.isgoodsReturnNote;
-      this.isPurchaseOrder = param.isPurchaseOrder;
-      if (id && this.isPurchaseOrder) {
-        this.getPurchaseOrder(id);
-      } else if (id && this.isgoodsReturnNote) {
+      this.isGoodsReturnNote = param.isGoodsReturnNote;
+      this.isGRN = param.isGRN;
+      if (id && this.isGRN) {
+        this.getGRN(id);
+      } else if (id && this.isGoodsReturnNote) {
         this.title = 'Edit Goods Return Note'
-        this.getgoodsReturnNote(id);
+        this.getGoodsReturnNote(id);
       }
     })
 
@@ -254,9 +257,9 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
   }
 
   //Get purchase Order Master Data
-  private getPurchaseOrder(id: number) {
+  private getGRN(id: number) {
     this.isLoading = true;
-    this.purchaseOrderService.getPurchaseOrderById(id)
+    this.grnService.getGRNById(id)
     .pipe(
       take(1),
        finalize(() => {
@@ -266,13 +269,13 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
      )
     .subscribe((res) => {
       if (!res) return
-      this.purchaseOrderMaster = res.result
-      this.patchgoodsReturnNote(this.purchaseOrderMaster);
+      this.grnMaster = res.result
+      this.patchGoodsReturnNote(this.grnMaster);
     });
   }
 
   // Get goodsReturnNote Data for Edit
-  private getgoodsReturnNote(id: any) {
+  private getGoodsReturnNote(id: any) {
     this.isLoading = true;
     this.goodsReturnNoteService.getGoodsReturnNoteById(id)
     .pipe(
@@ -285,15 +288,15 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     .subscribe((res) => {
       if (!res) return
       this.goodsReturnNoteModel = res.result
-      this.patchgoodsReturnNote(this.goodsReturnNoteModel)
+      this.patchGoodsReturnNote(this.goodsReturnNoteModel)
     });
   }
 
   //Patch goodsReturnNote Form through goodsReturnNote Or purchase Order Master Data
-  patchgoodsReturnNote(data: IPurchaseOrder | IGoodsReturnNote | any) {
+  patchGoodsReturnNote(data: IPurchaseOrder | IGoodsReturnNote | any) {
     this.goodsReturnNoteForm.patchValue({
       vendorName: data.vendorId,
-      goodsReturnNoteDate: (data.goodsReturnNoteDate) ? data.goodsReturnNoteDate : data.poDate,
+      goodsReturnNoteDate: data.goodsReturnNoteDate ?? data.grnDate,
       campusId : data.campusId,
       contact: data.contact
     });
@@ -301,14 +304,14 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
 
-    this.goodsReturnNoteForm.setControl('goodsReturnNoteLines', this.patchGoodsReturnNoteLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.goodsReturnNoteLines));
+    this.goodsReturnNoteForm.setControl('goodsReturnNoteLines', this.patchGoodsReturnNoteLines(data.grnLines ?? data.goodsReturnNoteLines));
     this.totalCalculation();
   }
 
-  //Patch goodsReturnNote Lines From purchase Order Or goodsReturnNote Master Data
-  patchGoodsReturnNoteLines(Lines: IGoodsReturnNoteLines[]): FormArray {
+  //Patch goodsReturnNote Lines From GRN Or goodsReturnNote Master Data
+  patchGoodsReturnNoteLines(Lines: IGoodsReturnNoteLines[] | IGRNLines[]): FormArray {
     const formArray = new FormArray([]);
-    Lines.forEach((line: IGoodsReturnNoteLines | any) => {
+    Lines.forEach((line: IGoodsReturnNoteLines | IGRNLines[] | any) => {
     if(line.pendingQuantity !== 0) {
       formArray.push(this.fb.group({
       itemId: [line.itemId, [Validators.required]],
@@ -341,7 +344,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     this.isLoading = true;
     this.mapFormValuesTogoodsReturnNoteModel();
     console.log(this.goodsReturnNoteModel)
-    if (this.goodsReturnNoteModel.id && this.isgoodsReturnNote) {
+    if (this.goodsReturnNoteModel.id && this.isGoodsReturnNote) {
       this.goodsReturnNoteService.updateGoodsReturnNote(this.goodsReturnNoteModel)
       .pipe(
         take(1),
@@ -351,11 +354,11 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
          })
        )
         .subscribe((res) => {
-            this.toastService.success('Updated Successfully', 'Goods Received Note')
+            this.toastService.success('Updated Successfully', 'Goods Return Note')
             this.cdRef.detectChanges();
-            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.goodsReturnNoteModel.id)]);
+            this.router.navigate(['/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('details', this.goodsReturnNoteModel.id)]);
           })
-    } else if (this.purchaseOrderMaster.id && this.isPurchaseOrder) {
+    } else if (this.grnMaster.id && this.isGRN) {
       delete this.goodsReturnNoteModel.id;
       this.goodsReturnNoteService.createGoodsReturnNote(this.goodsReturnNoteModel)
       .pipe(
@@ -367,19 +370,19 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
        )
         .subscribe(
           (res) => {
-            this.toastService.success('Created Successfully', 'Goods Received Note')
-            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', res.result.id)]);
+            this.toastService.success('Created Successfully', 'Goods Return Note')
+            this.router.navigate(['/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
   }
 
   // Mapping value to model
   mapFormValuesTogoodsReturnNoteModel() {
-    this.goodsReturnNoteModel.vendorId = this.purchaseOrderMaster?.vendorId || this.goodsReturnNoteModel?.vendorId;
+    this.goodsReturnNoteModel.vendorId = this.grnMaster?.vendorId || this.goodsReturnNoteModel?.vendorId;
     this.goodsReturnNoteModel.returnDate = this.transformDate(this.goodsReturnNoteForm.value.goodsReturnNoteDate, 'yyyy-MM-dd');
     this.goodsReturnNoteModel.contact = this.goodsReturnNoteForm.value.contact;
     this.goodsReturnNoteModel.campusId = this.goodsReturnNoteForm.value.campusId;
-    this.goodsReturnNoteModel.purchaseOrderId = this.purchaseOrderMaster?.id || this.goodsReturnNoteModel?.purchaseOrderId;
+    this.goodsReturnNoteModel.grnId = this.grnMaster?.id || this.goodsReturnNoteModel?.grnId;
     this.goodsReturnNoteModel.goodsReturnNoteLines = this.goodsReturnNoteForm.value.goodsReturnNoteLines;
   }
 

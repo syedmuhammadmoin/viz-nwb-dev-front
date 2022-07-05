@@ -321,7 +321,8 @@ export enum DocType {
     Receipt,
     PayrollTransaction,
     PayrollPayment,
-    Issuance
+    Issuance,
+    GoodsReturnNote
 }
 
 // export enum DocStatus {

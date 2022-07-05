@@ -17,6 +17,8 @@ import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
 import { IGRNLines } from '../model/IGRNLines';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchaseOrder';
+import { IssuanceService } from '../../issuance/service/issuance.service';
+import { IIssuance } from '../../issuance/model/IIssuance';
 
 @Component({
   selector: 'kt-create-grn',
@@ -56,6 +58,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // param to get purchase order master
   isPurchaseOrder: any;
   purchaseOrderMaster: any;
+
+  // param to get Issuance master
+  isIssuance: any;
+  issuanceMaster: any;
 
   hideDeleteButton: boolean = false;
 
@@ -99,6 +105,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     private fb: FormBuilder,
     private grnService: GrnService,
     private purchaseOrderService: PurchaseOrderService,
+    private issuanceService: IssuanceService,
     public ngxsService: NgxsCustomService,
     public businessPartnerService: BusinessPartnerService,
     public productService: ProductService,
@@ -128,22 +135,11 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       vendorId: null,
       grnDate: null,
       contact: null,
+      issuanceId: null,
       purchaseOrderId: null,
       campusId: null,
       grnLines: []
     }
-
-    this.activatedRoute.queryParams.subscribe((param) => {
-      const id = param.q;
-      this.isGRN = param.isGRN;
-      this.isPurchaseOrder = param.isPurchaseOrder;
-      if (id && this.isPurchaseOrder) {
-        this.getPurchaseOrder(id);
-      } else if (id && this.isGRN) {
-        this.title = 'Edit Goods Received Note'
-        this.getGRN(id);
-      }
-    })
 
     this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result);
 
@@ -157,6 +153,23 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.ngxsService.getProductFromState();
 
     this.ngxsService.getCampusFromState();
+
+    this.activatedRoute.queryParams.subscribe((param) => {
+      const id = param.q;
+      this.isGRN = param.isGRN;
+      this.isPurchaseOrder = param.isPurchaseOrder;
+      this.isIssuance = param.isIssuance;
+      if (id && this.isPurchaseOrder) {
+        this.getPurchaseOrder(id);
+      } else if (id && this.isGRN) {
+        this.title = 'Edit Goods Received Note'
+        this.getGRN(id);
+      }
+      else if (id && this.isIssuance) {
+        this.title = 'Create Issuance Return'
+        this.getIssuance(id);
+      }
+    })
   }
 
   // Form Reset
@@ -171,8 +184,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
     const arrayControl = this.grnForm.get('GRNLines') as FormArray;
+    console.log(arrayControl)
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
+      console.log(cost)
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
@@ -273,6 +288,24 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     });
   }
 
+  //Get Issuance Master Data
+  private getIssuance(id: number) {
+    this.isLoading = true;
+    this.issuanceService.getIssuanceById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
+      if (!res) return
+      this.issuanceMaster = res.result
+      this.patchGRN(this.issuanceMaster);
+    });
+  }
+
   // Get GRN Data for Edit
   private getGRN(id: any) {
     this.isLoading = true;
@@ -292,10 +325,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   }
 
   //Patch GRN Form through GRN Or purchase Order Master Data
-  patchGRN(data: IPurchaseOrder | IGRN | any) {
+  patchGRN(data: IPurchaseOrder | IGRN | IIssuance | any) {
     this.grnForm.patchValue({
-      vendorName: data.vendorId,
-      grnDate: (data.grnDate) ? data.grnDate : data.poDate,
+      vendorName: data.vendorId ?? data.employeeId,
+      grnDate: data.grnDate ?? data.poDate ?? data.issuanceDate,
       campusId : data.campusId,
       contact: data.contact
     });
@@ -303,14 +336,15 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
 
-    this.grnForm.setControl('GRNLines', this.patchGRNLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.grnLines));
+    this.grnForm.setControl('GRNLines', this.patchGRNLines(data.grnLines ?? data.purchaseOrderLines ?? data.issuanceLines));
+    
     this.totalCalculation();
   }
 
-  //Patch GRN Lines From purchase Order Or GRN Master Data
+  //Patch GRN Lines From purchase Order Or GRN Master Or Issuance Data
   patchGRNLines(Lines: IGRNLines[]): FormArray {
     const formArray = new FormArray([]);
-    Lines.forEach((line: IGRNLines | any) => {
+    Lines.forEach((line: IGRNLines | any , index: number) => {
     if(line.pendingQuantity !== 0) {
       formArray.push(this.fb.group({
       itemId: [line.itemId, [Validators.required]],
@@ -321,6 +355,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       subTotal: [{value: line.subTotal, disabled: true}],
       warehouseId: [line.warehouseId, [Validators.required]]
     }))
+    }
+     
+    if(this.isIssuance) {
+      this.onItemSelected(line.itemId , index)
     }
     })
     return formArray
@@ -367,7 +405,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
             this.cdRef.detectChanges();
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
           })
-    } else if (this.purchaseOrderMaster.id && this.isPurchaseOrder) {
+    } else if (this.isPurchaseOrder ?? this.isIssuance) {
       delete this.grnModel.id;
       this.grnService.createGRN(this.grnModel)
       .pipe(
@@ -379,7 +417,12 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
        )
         .subscribe(
           (res) => {
-            this.toastService.success('Created Successfully', 'Goods Received Note')
+            if(this.isPurchaseOrder) {
+              this.toastService.success('Created Successfully', 'Goods Received Note')
+            }
+            else {
+              this.toastService.success('Created Successfully', 'Issuance Return')
+            }
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
@@ -392,6 +435,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.grnModel.contact = this.grnForm.value.contact;
     this.grnModel.campusId = this.grnForm.value.campusId;
     this.grnModel.purchaseOrderId = this.purchaseOrderMaster?.id || this.grnModel?.purchaseOrderId;
+    this.grnModel.issuanceId = this.issuanceMaster?.id || this.grnModel?.issuanceId;
     this.grnModel.grnLines = this.grnForm.value.GRNLines;
   }
 

@@ -6,7 +6,7 @@ export interface IGoodsReturnNote {
     returnDate    : string;
     contact       : number;
     campusId      : number;
-    purchaseOrderId: number;
+    grnId         : number;
     goodsReturnNoteLines : IGoodsReturnNoteLines[];
     isSubmit?     : boolean;
 }

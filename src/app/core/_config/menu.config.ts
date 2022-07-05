@@ -501,11 +501,11 @@ export class MenuConfig {
             Permissions.GRN_CREATE,
             Permissions.GRN_EDIT,
             Permissions.GRN_DELETE,
-            Permissions.STOCK_VIEW
-            // Permissions.GOODS_RETURN_NOTE_VIEW,
-            // Permissions.GOODS_RETURN_NOTE_CREATE,
-            // Permissions.GOODS_RETURN_NOTE_EDIT,
-            // Permissions.GOODS_RETURN_NOTE_DELETE
+            Permissions.STOCK_VIEW,
+            Permissions.GOODS_RETURN_NOTE_VIEW,
+            Permissions.GOODS_RETURN_NOTE_CREATE,
+            Permissions.GOODS_RETURN_NOTE_EDIT,
+            Permissions.GOODS_RETURN_NOTE_DELETE
           ],
           submenu: [
             {
@@ -555,12 +555,12 @@ export class MenuConfig {
             {
               title: 'Goods Return Note',
               page: '/' + GOODS_RETURN_NOTE.LIST,
-              // permission: [
-              //   Permissions.GOODS_RETURN_NOTE_VIEW,
-              //   Permissions.GOODS_RETURN_NOTE_CREATE,
-              //   Permissions.GOODS_RETURN_NOTE_EDIT,
-              //   Permissions.GOODS_RETURN_NOTE_DELETE
-              // ]
+              permission: [
+                Permissions.GOODS_RETURN_NOTE_VIEW,
+                Permissions.GOODS_RETURN_NOTE_CREATE,
+                Permissions.GOODS_RETURN_NOTE_EDIT,
+                Permissions.GOODS_RETURN_NOTE_DELETE
+              ]
             },
             {
               title: 'Inventory',

@@ -5,7 +5,7 @@ import { LayoutUtilsService }                                            from '.
 import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BILL, GOODS_RECEIVED_NOTE, PURCHASE_ORDER } from 'src/app/views/shared/AppRoutes';
+import { BILL, GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE, PURCHASE_ORDER } from 'src/app/views/shared/AppRoutes';
 import { finalize, take } from 'rxjs/operators';
 
 @Component({
@@ -20,6 +20,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   public GOODS_RECEIVED_NOTE=GOODS_RECEIVED_NOTE;
   public PURCHASE_ORDER = PURCHASE_ORDER;
   public BILL = BILL;
+  public GOODS_RETURN_NOTE = GOODS_RETURN_NOTE;
 
   docType = DocType
   public permissions = Permissions;

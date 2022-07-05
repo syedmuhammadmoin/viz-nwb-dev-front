@@ -4,7 +4,7 @@
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
           
-          <h4 class="overall_statuses {{docStatus[issuanceMaster?.state]}}"> Status: {{issuanceMaster?.status}} </h4>
+          <h4 class="overall_statuses {{issuanceMaster?.status}}"> Status: {{issuanceMaster?.status}} </h4>
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
@@ -17,6 +17,12 @@
                     [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
                     type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit"></i>
                     Edit
+                  </button>
+
+                  <button *ngIf="(issuanceMaster?.state === docStatus.Unpaid) && (permission.isGranted(permissions.GRN_CREATE))"
+                    [routerLink]="'/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
+                    type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit"></i>
+                    Return Issuance
                   </button>
   
                   <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button" 

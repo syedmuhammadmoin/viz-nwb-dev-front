@@ -7,6 +7,7 @@ export interface IGRN {
     contact       : number;
     campusId      : number;
     purchaseOrderId: number;
+    issuanceId    : number;
     grnLines      : IGRNLines[];
     isSubmit?     : boolean;
 }
