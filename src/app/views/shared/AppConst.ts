@@ -336,6 +336,12 @@ export class AppConst {
     'Permissions.GDNClaims.Edit': 'Good Dispatch Note Update',
     'Permissions.GDNClaims.Delete': 'Good Dispatch Note Delete',
 
+    // Goods Return Note
+    'Permissions.GoodsReturnNoteClaims.View': 'Good Return Note View',
+    'Permissions.GoodsReturnNoteClaims.Create': 'Good Return Note Create',
+    'Permissions.GoodsReturnNoteClaims.Edit': 'Good Return Note Update',
+    'Permissions.GoodsReturnNoteClaims.Delete': 'Good Return Note Delete',
+
     //ISSUANCE
     'Permissions.IssuanceClaims.View': 'Issuance View',
     'Permissions.IssuanceClaims.Create': 'Issuance Create',

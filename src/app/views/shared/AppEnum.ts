@@ -251,6 +251,12 @@ export class Permissions {
   static GRN_EDIT = 'Permissions.GRNClaims.Edit';
   static GRN_DELETE = 'Permissions.GRNClaims.Delete';
 
+  // GRN
+  static GOODS_RETURN_NOTE_VIEW = 'Permissions.GoodsReturnNoteClaims.View';
+  static GOODS_RETURN_NOTE_CREATE = 'Permissions.GoodsReturnNoteClaims.Create';
+  static GOODS_RETURN_NOTE_EDIT = 'Permissions.GoodsReturnNoteClaims.Edit';
+  static GOODS_RETURN_NOTE_DELETE = 'Permissions.GoodsReturnNoteClaims.Delete';
+
   // GDN
   static GDN_VIEW = 'Permissions.GDNClaims.View';
   static GDN_CREATE = 'Permissions.GDNClaims.Create';
