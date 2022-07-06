@@ -35,6 +35,8 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   //kt busy loading
   isLoading: boolean;
 
+  gridApi: any
+
   //need for routing
   grnId: number;
 
@@ -63,8 +65,24 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {
+      headerName: 'Quantity', 
+      field: 'quantity', 
+      cellStyle: {'font-size': '12px'}
+    },
+    {
+      headerName: 'Returned', 
+      field: 'receivedQuantity',  
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 0
+      }
+    },
+    {
+      headerName: 'Cost', 
+      field: 'cost', 
+      cellStyle: {'font-size': '12px'}
+    },
     {headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {
       headerName: 'Store', 
@@ -95,6 +113,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   }
 
   onFirstDataRendered(params : any) {
+    this.gridApi = params.api
     params.api.sizeColumnsToFit();
   }
 
@@ -114,6 +133,14 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
 
       //Checking grn status to show purchase order reference
       this.showReference = (["Draft" , "Rejected"].includes(this.grnMaster.status)) ? false : true;
+
+      if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.grnMaster.state)) {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
+      }
+      else {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
+        this.gridApi?.sizeColumnsToFit();
+      }
       this.cdRef.markForCheck();
     })
   }

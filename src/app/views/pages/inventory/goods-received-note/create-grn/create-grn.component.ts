@@ -42,7 +42,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   @ViewChild('table', {static: true}) table: any;
 
   // Goods Received NoteModel
-  grnModel: IGRN;
+  grnModel: IGRN | any;
 
   title: string = 'Create Goods Received Note'
 
@@ -184,10 +184,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
     const arrayControl = this.grnForm.get('GRNLines') as FormArray;
-    console.log(arrayControl)
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
-      console.log(cost)
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
@@ -197,6 +195,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
       arrayControl.at(index).get('subTotal').setValue(subTotal);
     }
+
+    console.log(arrayControl)
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
@@ -326,6 +326,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   //Patch GRN Form through GRN Or purchase Order Master Data
   patchGRN(data: IPurchaseOrder | IGRN | IIssuance | any) {
+    console.log(data.employeeId)
     this.grnForm.patchValue({
       vendorName: data.vendorId ?? data.employeeId,
       grnDate: data.grnDate ?? data.poDate ?? data.issuanceDate,
@@ -337,6 +338,13 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.showMessage = true;
 
     this.grnForm.setControl('GRNLines', this.patchGRNLines(data.grnLines ?? data.purchaseOrderLines ?? data.issuanceLines));
+
+    console.log(data.issuanceLines)
+    if(this.isIssuance) {
+      data.issuanceLines.map((line, index) => {
+        this.onItemSelected(line.itemId , index)
+      })
+    }
     
     this.totalCalculation();
   }
@@ -355,10 +363,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       subTotal: [{value: line.subTotal, disabled: true}],
       warehouseId: [line.warehouseId, [Validators.required]]
     }))
-    }
-     
-    if(this.isIssuance) {
-      this.onItemSelected(line.itemId , index)
     }
     })
     return formArray
@@ -430,7 +434,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // Mapping value to model
   mapFormValuesToGRNModel() {
-    this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId;
+    this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId || this.issuanceMaster?.employeeId;
     this.grnModel.grnDate = this.transformDate(this.grnForm.value.grnDate, 'yyyy-MM-dd');
     this.grnModel.contact = this.grnForm.value.contact;
     this.grnModel.campusId = this.grnForm.value.campusId;

@@ -25,7 +25,7 @@
                   <i class="fa fa-edit"></i> Bill
                 </button>
 
-                <button *ngIf="(grnMaster?.state === docStatus.Unpaid) && (permission.isGranted(permissions.GOODS_RETURN_NOTE_CREATE))" id="grn_edit"
+                <button *ngIf="(grnMaster?.state === docStatus.Unpaid || grnMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.GOODS_RETURN_NOTE_CREATE))" id="grn_edit"
                   [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
                   [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
                   <i class="fa fa-edit"></i> Goods Return Note
@@ -108,10 +108,16 @@
                         <tr>
                           <th>Doc #</th>
                         </tr>
-                        <tr>
+                        <tr *ngIf="grnMaster?.purchaseOrderId">
                           <td><a [routerLink]="('/' + PURCHASE_ORDER.ID_BASED_ROUTE('details', grnMaster?.purchaseOrderId))"
                               class="links">{{grnMaster?.poDocNo}}</a></td>
                         </tr>
+                        <ng-container *ngIf="grnMaster?.references" >
+                          <tr *ngFor="let grtn of grnMaster?.references">
+                            <td><a [routerLink]="('/' + GOODS_RETURN_NOTE.ID_BASED_ROUTE('details', grtn?.docId))"
+                                class="links">{{grtn?.docNo}}</a></td>
+                          </tr>
+                        </ng-container>
                       </table>
                     </mat-expansion-panel>
                   </mat-accordion>

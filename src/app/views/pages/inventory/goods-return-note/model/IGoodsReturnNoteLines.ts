@@ -5,6 +5,7 @@ export interface IGoodsReturnNoteLines {
     quantity   : number;
     cost : number;
     tax   : number;
+    accountId: number;
     warehouseId : number;
 }
   

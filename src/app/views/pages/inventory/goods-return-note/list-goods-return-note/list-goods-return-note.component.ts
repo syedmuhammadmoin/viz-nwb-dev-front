@@ -67,7 +67,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
     },
     {
       headerName: 'Grn Date',
-      field: 'grnDate',
+      field: 'returnDate',
       tooltipField: 'status',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],

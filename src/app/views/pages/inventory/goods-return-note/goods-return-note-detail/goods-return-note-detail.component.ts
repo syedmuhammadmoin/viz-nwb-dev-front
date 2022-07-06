@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { GOODS_RETURN_NOTE } from 'src/app/views/shared/AppRoutes';
+import { GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE } from 'src/app/views/shared/AppRoutes';
 import { finalize, take } from 'rxjs/operators';
 import { GoodsReturnNoteService } from '../service/goods-return-note.service';
 
@@ -17,10 +17,13 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
 
 // routing variables
   public GOODS_RETURN_NOTE = GOODS_RETURN_NOTE;
+  public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE;
   docType = DocType
   public permissions = Permissions;
   action = ActionButton
   docStatus = DocumentStatus
+
+  showReference: boolean = false;
 
   // handling register payment button
   isDisabled: boolean;
@@ -102,6 +105,9 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
     .subscribe((res) => {
       this.goodsReturnNoteMaster = res.result;
       this.goodsReturnNoteLines = res.result.goodsReturnNoteLines;
+
+      //Checking grn status to show GRN reference
+      this.showReference = (["Draft" , "Rejected"].includes(this.goodsReturnNoteMaster.status)) ? false : true;
       this.cdRef.markForCheck();
     })
   }

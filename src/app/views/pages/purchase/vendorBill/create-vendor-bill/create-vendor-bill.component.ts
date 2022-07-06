@@ -168,6 +168,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     //this.ngxsService.getLocationFromState();
     this.ngxsService.getCampusFromState()
 
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
+
      // get id through route
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
@@ -189,8 +191,6 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
         this.getGrn(id);
       }
     })
-
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     // handling dueDate logic
     this.vendorBillForm.get('billDate').valueChanges.subscribe((value) => {
@@ -365,9 +365,18 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.showMessage = true;
 
     this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.grnMaster) ? data.grnLines : data.billLines))
+
+    if(this.isGRN) {
+      console.log(this.salesItem)
+      const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
+      data.grnLines.map((line, index: number) => {
+      // set values for Account
+      arrayControl.at(index).get('accountId').setValue(this.salesItem.find(i => i.id === line.itemId).costAccountId);
+      })
+    }
+
     this.totalCalculation();
 
-        
     this.vendorBillForm.get('vendorBillLines')['controls']
       .forEach((control) => { 
         control.controls.description.disable()

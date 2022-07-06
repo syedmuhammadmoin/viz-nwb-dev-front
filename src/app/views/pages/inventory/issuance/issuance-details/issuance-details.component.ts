@@ -36,6 +36,8 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
 
   showReference: boolean = false;
 
+  gridApi: any
+
   //kt busy loading
   isLoading: boolean;
 
@@ -72,7 +74,16 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       }
      },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { 
+      headerName: 'Quantity', 
+      field: 'quantity', 
+      cellStyle: { 'font-size': '12px' }
+     },
+     {
+      headerName: 'Returned', 
+      field: 'receivedQuantity',  
+      cellStyle: {'font-size': '12px'}
+    },
     { 
       headerName: 'Store', 
       field: 'warehouseName', 
@@ -123,7 +134,14 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
 
       //Checking grn status to show Requisition reference
       this.showReference = (["Draft" , "Rejected"].includes(this.issuanceMaster.status)) ? false : true;
-      this.cdRef.markForCheck();
+
+      if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.issuanceMaster.state)) {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
+      }
+      else {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
+        this.gridApi?.sizeColumnsToFit();
+      }
       this.cdRef.detectChanges();
     });
   }
