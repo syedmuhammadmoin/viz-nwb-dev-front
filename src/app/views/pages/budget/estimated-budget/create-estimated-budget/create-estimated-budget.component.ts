@@ -159,7 +159,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     const formArray = new FormArray([]);
     estimatedBudgetLines.forEach((line: IEstimatedBudgetLines | any) => {
       formArray.push(this.fb.group({
-        accountId: [line.accountId , [Validators.required]],
+        accountId: [{value: line.accountId , disabled: true} , [Validators.required]],
         amount: [{value: line.amount , disabled: true}, [Validators.required]],
         calculationType: [line.calculationType, [Validators.required]],
         value: [line.value, [Validators.required]],

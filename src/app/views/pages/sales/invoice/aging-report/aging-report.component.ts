@@ -1,9 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
+import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IInvoice } from '../model/IInvoice';
 import { InvoiceService } from '../services/invoice.service';
@@ -20,6 +21,9 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   public defaultColDef: ColDef;
   public autoGroupColumnDef: ColDef;
   public agingReportList: IInvoice[];
+  frameworkComponents: {[p: string]: unknown};
+  gridOptions: GridOptions;
+  tooltipData: string = "double click to view detail"
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -37,9 +41,11 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Invoice #',
       field: 'docNo',
+      tooltipField: 'docNo',
     },
     {
       field: 'invoiceDate',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const date = params.data.invoiceDate != null ? params.data.invoiceDate : null;
@@ -51,6 +57,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       headerName: '1 - 30 Days',
       field: 'invoiceDate',
       aggFunc: 'sum',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
@@ -63,6 +70,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       headerName: '31 - 60 Days',
       field: 'invoiceDate',
       aggFunc: 'sum',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
@@ -74,6 +82,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       headerName: '61 - 90 Days',
       field: 'invoiceDate',
       aggFunc: 'sum',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
@@ -101,12 +110,21 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   ];
 
   ngOnInit() {
+
     this.defaultColDef = {
+      tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       sortable: true,
       resizable: true,
     };
+
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+
+    this.gridOptions = {
+      context: "double click to view detail",
+    }
+
     this.autoGroupColumnDef = {
       headerName: 'Customer',
       minWidth: 200,
@@ -130,8 +148,8 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   }
 
   onGridReady() {
-    this.invoiceService.getInvoices('').subscribe((data: IApiResponse<IInvoice[]>) => {
-      // this.agingReportList = data.result.filter((x: any) => x.state == DocumentStatus.Unpaid || x.state == DocumentStatus.Partial);
+    this.invoiceService.getAgingReport().subscribe((data: IApiResponse<any[]>) => {
+      //this.agingReportList = data.result.filter((x: any) => x.state == DocumentStatus.Unpaid || x.state == DocumentStatus.Partial);
       console.log(data.result)
       this.agingReportList = data.result;
       this.cdRef.detectChanges();

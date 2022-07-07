@@ -8,6 +8,9 @@
          [autoGroupColumnDef]="autoGroupColumnDef"
          (rowDoubleClicked)="onRowDoubleClicked($event)"
          [suppressAggFuncInHeader]="true" 
+         [gridOptions]="gridOptions"
+         [frameworkComponents]="frameworkComponents"
+         [tooltipShowDelay]="5"
          [animateRows]="true" 
          [rowData]="agingReportList" 
          (gridReady)="onGridReady()">

@@ -336,11 +336,20 @@ export class AppConst {
     'Permissions.GDNClaims.Edit': 'Good Dispatch Note Update',
     'Permissions.GDNClaims.Delete': 'Good Dispatch Note Delete',
 
+    // Goods Return Note
+    'Permissions.GoodsReturnNoteClaims.View': 'Good Return Note View',
+    'Permissions.GoodsReturnNoteClaims.Create': 'Good Return Note Create',
+    'Permissions.GoodsReturnNoteClaims.Edit': 'Good Return Note Update',
+    'Permissions.GoodsReturnNoteClaims.Delete': 'Good Return Note Delete',
+
     //ISSUANCE
     'Permissions.IssuanceClaims.View': 'Issuance View',
     'Permissions.IssuanceClaims.Create': 'Issuance Create',
     'Permissions.IssuanceClaims.Edit': 'Issuance Update',
     'Permissions.IssuanceClaims.Delete': 'Issuance Delete',
+
+    // Stock
+    'Permissions.StockClaims.View': 'Inventory View',
 
     // Transaction Recon
     'Permissions.TransactionReconClaims.View': 'Transaction Reconcile View',
@@ -388,6 +397,7 @@ export class AppConst {
     {value: 'Payroll Transaction', id: DocType.PayrollTransaction},
     {value: 'Payroll Payment' , id: DocType.PayrollPayment, route: 'payroll-payment'},
     {value: 'Issuance' , id: DocType.Issuance},
+    {value: 'Goods Return Note' , id: DocType.GoodsReturnNote}
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },
@@ -422,10 +432,12 @@ export class AppConst {
     { value: 'Draft', id: 0 },
     { value: 'Rejected', id: 1 },
     { value: 'Unpaid', id: 2 },
+    { value: 'Approved', id: 2 },
     { value: 'Partial', id: 3 },
     { value: 'Paid', id: 4 },
+    { value: 'Open', id: 2 },
+    { value: 'Closed', id: 4 },
     { value: 'Submitted', id: 5 },
     { value: 'Reviewed', id: 6 },
   ];
-
 }

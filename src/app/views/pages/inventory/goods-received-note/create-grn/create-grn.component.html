@@ -65,6 +65,7 @@
                     propertyValue="id"
                     matFormFieldClass="full-width "
                     [errorMessage]="formErrors.campusId"
+                    (selectionChange)="onCampusSelected($event.value)"
                     (blurEvent)="logValidationErrors(this.grnForm, this.formErrors, this.validationMessages)"
                     [optionList]="ngxsService.campuses$"
                     searchPlaceholder="Search Campuses..."
@@ -90,6 +91,7 @@
                                       [id]="'grn_item_' + i"
                                       formControlName="itemId"
                                       searchPlaceholder="Select Item"
+                                      isDisabled="true"
                                       [optionList]="ngxsService.products$"
                                       clickEventButtonName="Add New Item"
                                       (clickEvent)="openProductDialog()"
@@ -138,7 +140,11 @@
                                                         error : 'Quantity is required' },
                                                       { condition : grnForm.get('GRNLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     grnForm.get('GRNLines')['controls'][i].controls.quantity.touched ,
-                                                        error : 'Minimum value is one' }]"
+                                                        error : 'Minimum value is one' },
+                                                      { condition : grnForm.get('GRNLines')['controls'][i].controls.quantity.errors?.max &&
+                                                                    grnForm.get('GRNLines')['controls'][i].controls.quantity.touched ,
+                                                        error : 'Can not exceed pending quantity.' }
+                                                      ]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>
@@ -161,6 +167,7 @@
                                       [id]="'grn_cost_' + i"
                                       matFormFieldClass="mobile-label full-width"
                                       placeholder="Enter Cost"
+                                      readonly="true"
                                       type="number"
                                       #itemName
                                       (blurEvent)="logValidationErrors(this.grnForm, formErrors, validationMessages)"
@@ -186,6 +193,7 @@
                                       formControlName="tax"
                                       matFormFieldClass="mobile-label full-width"
                                       placeholder="Enter Tax"
+                                      readonly="true"
                                       #itemName
                                       type="number"
                                       (blurEvent)="logValidationErrors(this.grnForm, formErrors, validationMessages)"
@@ -244,10 +252,11 @@
                                       placeholder="Select Store" 
                                       propertyValue="id" 
                                       propertyName="name"
-                                      [hintText]="'Optional'"
+                                      isDisabled="true"
                                       searchPlaceholder="Search Store..."
-                                      isDisabledNone="true"
+                                      (selectionChange)="showMessage = true"
                                       formControlName="warehouseId" 
+                                      [errorMessage]="'Store is Required'"
                                       matFormFieldClass="full-width" 
                                       [optionList]="ngxsService.warehouses$">
                                     </kt-simple-dropdown>
@@ -256,8 +265,8 @@
                           </ng-container>
                           <!-- Action Column -->
                           <ng-container matColumnDef="action">
-                            <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
-                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                            <mat-header-cell *matHeaderCellDef [hidden]="hideDeleteButton" class="flex-1">Action</mat-header-cell>
+                            <mat-cell [hidden]="hideDeleteButton" *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
                                     </mat-icon> -->
   
@@ -273,7 +282,7 @@
                       </div>
                     </ng-container>
   
-                    <ng-container>
+                    <!-- <ng-container>
                       <div class="row">
                         <div class="col-md-12 col-sm-12">
                           <button class=" btn_create" type="button" id="grn_add_line" (click)="addGRNLineClick()">
@@ -281,13 +290,13 @@
                           </button>
                         </div>
                       </div>
-                    </ng-container>
+                    </ng-container> -->
   
                   </div>
                 </div>
               </div>
   
-              <div class="row mt-10">
+              <!-- <div class="row mt-10">
                 <div class="col-lg-4 ml-auto">
                   <table class="table table-bordered small_table_box">
                     <tr>
@@ -309,7 +318,7 @@
                     </tr>
                   </table>
                 </div>
-              </div>
+              </div> -->
   
             </div>
   

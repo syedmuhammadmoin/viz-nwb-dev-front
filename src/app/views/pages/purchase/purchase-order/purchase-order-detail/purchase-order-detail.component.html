@@ -26,7 +26,7 @@
                   <i class="fa fa-print"></i> Print Purchase Order
                 </button>
                 
-                <button *ngIf="purchaseOrderMaster?.state === docStatus.Submitted"
+                <button *ngIf="purchaseOrderMaster?.state === docStatus.Unpaid || purchaseOrderMaster?.state === docStatus.Partial"
                   [disabled]="!(permission.isGranted(permissions.GRN_CREATE))" id="purchase_grn"
                   [ngClass]="!(permission.isGranted(permissions.GRN_CREATE)) ? 'disable' : '' "
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.CREATE"
@@ -47,7 +47,7 @@
             </div>
             <div class="print-box">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
-                    <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.vendor}}</span></h4>
+                    <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
               <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">P.O Date:
@@ -93,10 +93,37 @@
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
               <tr style="border-top: 2px solid #1a6b85;">
-                <th class="text-left"
-                  style=" ">Grand Total:</th>
+                <th class="text-left">Grand Total:</th>
                 <th class="text-right" >
                   {{valueFormatter(total || 0)}}</th>
+              </tr>
+
+              <tr *ngIf="purchaseOrderMaster?.references?.length > 0">
+                <td colspan="2">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold;">
+                          References 
+                        </mat-panel-title>
+                        <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold; flex-grow: 0;">
+                          {{valueFormatter(paidAmount || 0)}}
+                        </mat-panel-description> -->
+                      </mat-expansion-panel-header>
+                      <table class="table text-center table-bordered">
+                        <tr>
+                          <th>Doc #</th>
+                        </tr>
+                        <tr *ngFor="let grn of purchaseOrderMaster?.references">
+                          <td><a [routerLink]="('/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', grn?.docId))"
+                              class="links">{{grn?.docNo}}</a></td>
+                        </tr>
+                      </table>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </td>
               </tr>
             </table>
           </div>

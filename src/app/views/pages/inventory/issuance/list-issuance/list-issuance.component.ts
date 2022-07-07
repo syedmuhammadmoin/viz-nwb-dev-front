@@ -86,9 +86,10 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
       headerName: 'Status', 
       field: 'status', 
       filter: 'agSetColumnFilter',
+      
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          values: ['Rejected', 'Approved', 'Submitted', 'Reviewed'],
           defaultToNothingSelected: true,
           suppressSorting:true,
           suppressSelectAll: true,

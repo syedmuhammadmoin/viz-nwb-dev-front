@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { DocumentStatus } from 'src/app/views/shared/AppEnum';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { InventoryAdjustmentService } from '../../../inventory/inventory-adjustment/service/inventory-adjustment.service';
-import { InvoiceRoutingModule } from '../../../sales/invoice/invoice-routing.module';
+import { BILL } from 'src/app/views/shared/AppRoutes';
+import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IVendorBill } from '../model/IVendorBill';
 import { VendorBillService } from '../services/vendor-bill.service';
 
@@ -22,6 +21,9 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   public defaultColDef: ColDef;
   public autoGroupColumnDef: ColDef;
   public agingReportList: IVendorBill[];
+  frameworkComponents: {[p: string]: unknown};
+  gridOptions: GridOptions;
+  tooltipData: string = "double click to view detail"
 
   constructor(
     private cdRef: ChangeDetectorRef,
@@ -32,16 +34,18 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
 
   columnDefs = [
     {
-      field: 'vendor',
+      field: 'vendorName',
       rowGroup: true,
       hide: true,
     },
     {
       headerName: 'Bill #',
       field: 'docNo',
+      tooltipField: 'docNo',
     },
     {
       field: 'billDate',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const date = params.data.billDate != null ? params.data.billDate : null;
@@ -53,6 +57,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       headerName: '1 - 30 Days',
       field: 'billDate',
       aggFunc: 'sum',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.billDate);
@@ -65,6 +70,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       headerName: '31 - 60 Days',
       field: 'billDate',
       aggFunc: 'sum',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.billDate);
@@ -76,6 +82,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       headerName: '61 - 90 Days',
       field: 'billDate',
       aggFunc: 'sum',
+      tooltipField: 'docNo',
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.billDate);
@@ -103,12 +110,21 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   ];
 
   ngOnInit() {
+
     this.defaultColDef = {
+      tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       sortable: true,
       resizable: true,
     };
+
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+
+    this.gridOptions = {
+      context: "double click to view detail",
+    }
+
     this.autoGroupColumnDef = {
       headerName: 'Vendor',
       minWidth: 200,
@@ -120,7 +136,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    if (event.data) this.route.navigate(['/vendor-bill/detail/', event.data.id]);
+    if (event.data) this.route.navigate(['/' + BILL.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
   getDays(date: Date) {
@@ -132,7 +148,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   }
 
   onGridReady() {
-    this.billService.getVendorBills('').subscribe((data: IPaginationResponse<IVendorBill[]>) => {
+    this.billService.getAgingReport().subscribe((data: IApiResponse<any[]>) => {
       // this.agingReportList = data.result.filter((x: any) => x.state == DocumentStatus.Unpaid || x.state == DocumentStatus.Partial);
       this.agingReportList = data.result
       this.cdRef.detectChanges();

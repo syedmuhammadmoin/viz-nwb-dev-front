@@ -6,6 +6,7 @@ import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ConfirmPasswordValidator, CustomValidator } from '../../../auth/register/confirm-password.validator';
 import { IUserModel } from '../../model/IUserModel';
 import { IUserRole } from '../../model/IUserRole';
@@ -42,8 +43,8 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   isLoading: boolean
   // validation messages
   validationMessages = {
-    userName: {
-      required: 'username is required.',
+    employeeId: {
+      required: 'User Name is required.',
     },
     email: {
       required: 'email is required.',
@@ -64,7 +65,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   };
   // keys for validation
   formErrors = {
-    userName: '',
+    employeeId: '',
     email: '',
     password: '',
     confirmPassword: '',
@@ -74,6 +75,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     private accessManagementService: AccessManagementService,
     @Optional() @Inject(MAT_DIALOG_DATA) public _id: any,
     public dialogRef: MatDialogRef<CreateUserComponent>,
+    public ngxsService: NgxsCustomService,
     private fb: FormBuilder,
     private cdRef: ChangeDetectorRef,
     public dialog: MatDialog,
@@ -85,7 +87,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.getRoles();
     this.userForm = this.fb.group({
-      userName: ['', Validators.required],
+      employeeId: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.compose([
         // 1. Password Field is Required
@@ -110,6 +112,9 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       window.scrollTo(0,document.body.scrollHeight);
     }
 
+    //get employees from state
+    this.ngxsService.getEmployeeFromState();
+
     if (this._id) {
       this.showButtons = (this.permission.isGranted(this.permissions.AUTH_EDIT)) ? true : false;
       this.isEditButtonShow = (this.permission.isGranted(this.permissions.AUTH_EDIT)) ? true : false;
@@ -121,7 +126,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     } else {
       this.userModel = {
         id: null,
-        userName: '',
+        employeeId: null,
         userRoles: [],
         email: '',
         password: '',
@@ -145,7 +150,12 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     })
   }
   patchUser(userModel: IUserModel) {
-    this.userForm.patchValue({ ...userModel })
+    console.log(userModel)
+    this.userForm.patchValue({
+        employeeId: userModel.employeeId,
+        email: userModel.email,
+      })
+    
     this.userRole = userModel.userRoles;
     if(!this.showButtons) this.userForm.disable()
   }
@@ -169,9 +179,19 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       return
     }
     this.isLoading = true;
-    this.userModel = { ...this.userForm.value, id: this._id };
+    if(this._id) {
+      this.userModel.userId = this.userModel?.userId;
+      this.userModel.userName = this.userModel?.userName;
+      this.userModel.email = this.userModel?.email;
+    }
+    else {
+      this.userModel = { ...this.userForm.value };
+      this.userModel.employeeId = this.userForm.getRawValue().employeeId;
+      this.userModel.email = this.userForm.getRawValue().email;
+    }
     this.userModel.userRoles = this.userRole;
-    //console.log("model: ", this.userModel)
+
+    console.log("model: ", this.userModel)
     if (this.userModel.id) {
       this.accessManagementService.updateUser(this.userModel)
       .pipe(
@@ -182,7 +202,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
         })
       )
       .subscribe((res) => {
-        this.toastService.success('Updated Successfully', this.userModel.userName + '');
+        this.toastService.success('Updated Successfully', "User");
         this.onCloseUserDialog();
       })
     } else {
@@ -208,6 +228,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.isEditButtonShow = false;
     this.titleName = 'Edit User'
     this.userForm.enable()
+    this.disableFields(this.userForm , "employeeId", "email")
     this.userForm.get('password').clearValidators();
     this.userForm.get('confirmPassword').clearValidators();
     this.userForm.get('password').updateValueAndValidity();

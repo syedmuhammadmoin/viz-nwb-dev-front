@@ -5,7 +5,8 @@ import { LayoutUtilsService }                                            from '.
 import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
+import { BILL, GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE, ISSUANCE, PURCHASE_ORDER } from 'src/app/views/shared/AppRoutes';
+import { finalize, take } from 'rxjs/operators';
 
 @Component({
   selector: 'kt-grn-detail',
@@ -17,16 +18,25 @@ import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
 export class GrnDetailComponent extends AppComponentBase implements OnInit {
 // routing variables
   public GOODS_RECEIVED_NOTE=GOODS_RECEIVED_NOTE;
+  public PURCHASE_ORDER = PURCHASE_ORDER;
+  public ISSUANCE = ISSUANCE;
+  public BILL = BILL;
+  public GOODS_RETURN_NOTE = GOODS_RETURN_NOTE;
+
   docType = DocType
   public permissions = Permissions;
   action = ActionButton
   docStatus = DocumentStatus
+
+  showReference: boolean = false;
 
   // handling register payment button
   isDisabled: boolean;
 
   //kt busy loading
   isLoading: boolean;
+
+  gridApi: any
 
   //need for routing
   grnId: number;
@@ -56,11 +66,27 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {
+      headerName: 'Quantity', 
+      field: 'quantity', 
+      cellStyle: {'font-size': '12px'}
+    },
+    {
+      headerName: 'Returned', 
+      field: 'receivedQuantity',  
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return params.value || 0
+      }
+    },
+    {
+      headerName: 'Cost', 
+      field: 'cost', 
+      cellStyle: {'font-size': '12px'}
+    },
     {headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {
-      headerName: 'Warehouse', 
+      headerName: 'Store', 
       field: 'warehouse', 
       sortable: true, 
       filter: true, 
@@ -83,39 +109,57 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
         this.getGRNMasterData(id);
         this.grnId = id;
         this.cdRef.markForCheck();
-      } else {
-        this.layoutUtilService.showActionNotification('Cannot find record with out id parameter', null, 5000, true, false)
-        this.router.navigate(['/'+GOODS_RECEIVED_NOTE.LIST])
       }
     });
   }
 
   onFirstDataRendered(params : any) {
+    this.gridApi = params.api
     params.api.sizeColumnsToFit();
   }
 
   private getGRNMasterData(id: number) {
-    this.grnService.getGRNById(id).subscribe((res) => {
+    this.isLoading = true;
+    this.grnService.getGRNById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
       this.grnMaster = res.result;
       this.grnLines = res.result.grnLines;
+
+      //Checking grn status to show purchase order reference
+      this.showReference = (["Draft" , "Rejected"].includes(this.grnMaster.status)) ? false : true;
+
+      if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.grnMaster.state)) {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
+      }
+      else {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
+        this.gridApi?.sizeColumnsToFit();
+      }
       this.cdRef.markForCheck();
-    }, (error => {
-      console.log(error);
-    }))
+    })
   }
 
   workflow(action: any) {
     this.isLoading = true
     this.grnService.workflow({action, docId: this.grnMaster.id})
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
       .subscribe((res) => {
         this.getGRNMasterData(this.grnId);
-        this.isLoading = false;
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'GRN');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.error('' + err.error.message, 'GRN')
       })
   }
 }

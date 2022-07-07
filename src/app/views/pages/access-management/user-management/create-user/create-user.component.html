@@ -19,9 +19,9 @@
               <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6">
-                    <label class="col-form-label">Username:</label>
+                    <label class="col-form-label">Employee:</label>
                     <div class="form-group kt-form__group">
-                      <kt-input-field 
+                      <!-- <kt-input-field 
                         id="user_username"
                         inputClass="input_transform_none"
                         formControlName="userName" 
@@ -29,7 +29,19 @@
                         placeholder="Username"
                         [errorMessage]="[{condition: formErrors.userName , error: formErrors.userName}]"
                         (blurEvent)="logValidationErrors(this.userForm, formErrors, validationMessages)">
-                     </kt-input-field>
+                     </kt-input-field> -->
+                     <kt-simple-dropdown 
+                       id="user_username"
+                       placeholder="Select User" 
+                       propertyValue="id" 
+                       propertyName="name"
+                       formControlName="employeeId" 
+                       isDisabledNone="false"
+                       (blurEvent)="logValidationErrors(this.userForm, formErrors, validationMessages)"
+                       matFormFieldClass="full-width"
+                       [errorMessage]="formErrors.employeeId" 
+                       [optionList]="ngxsService.employees$">
+                     </kt-simple-dropdown>
                     </div>
                   </div>
   

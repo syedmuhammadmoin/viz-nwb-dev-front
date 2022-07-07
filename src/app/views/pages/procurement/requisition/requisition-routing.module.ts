@@ -19,6 +19,7 @@ const routes: Routes = [
           array: [
             { permission: Permissions.REQUISITION_VIEW },
             { permission: Permissions.REQUISITION_CREATE },
+            { permission: Permissions.REQUISITION_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -30,6 +31,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.REQUISITION_CREATE },
+            { permission: Permissions.REQUISITION_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -40,6 +42,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.REQUISITION_EDIT },
+            { permission: Permissions.REQUISITION_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -50,6 +53,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.REQUISITION_VIEW },
+            { permission: Permissions.REQUISITION_EDIT },
             { permission: Permissions.REQUISITION_CREATE },
           ]
         },
@@ -61,6 +65,7 @@ const routes: Routes = [
         data: {
           array: [
             { permission: Permissions.REQUISITION_VIEW },
+            { permission: Permissions.REQUISITION_EDIT },
             { permission: Permissions.REQUISITION_CREATE },
           ]
         },

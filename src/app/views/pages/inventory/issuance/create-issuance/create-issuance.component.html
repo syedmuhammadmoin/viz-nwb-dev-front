@@ -43,7 +43,7 @@
                       propertyValue="id" 
                       propertyName="name"
                       formControlName="campusId" 
-                      (selectionChange)="onCampusSelected($event.value, true)"
+                      (selectionChange)="onCampusSelected($event.value)"
                       (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
                       matFormFieldClass="full-width"
                       [errorMessage]="'Campus is Required'" 
@@ -109,7 +109,10 @@
                                                           error : 'Quantity is required' },
                                                         { condition : issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.errors?.min &&
                                                                       issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.touched , 
-                                                          error : 'Minimum value is one' }]">
+                                                          error : 'Minimum value is one' },
+                                                          { condition : issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.errors?.max &&
+                                                                      issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.touched , 
+                                                          error : 'Can not exceed pending quantity.' }]">
                                 </kt-input-field>
                               </div>
                             </mat-cell>
@@ -128,6 +131,7 @@
                                   isDisabledNone="true"
                                   (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
                                   [errorMessage]="'Store is Required'"
+                                  (selectionChange)="showMessage = true"
                                   searchPlaceholder="Search Store..."
                                   formControlName="warehouseId" 
                                   matFormFieldClass="full-width" 
@@ -179,8 +183,8 @@
             <div class="row">
               <div class="col-lg-12 text-right">
                 <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="issuance_reset">Reset</button>
-                <button class="sub___btn  mr-3" mat-raised-button type="submit" id="issuance_save"
-                  (click)="logValidationErrors(this.issuanceForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
+                <!-- <button class="sub___btn  mr-3" mat-raised-button type="submit" id="issuance_save"
+                  (click)="logValidationErrors(this.issuanceForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button> -->
                 <button class="sub___btn " mat-raised-button type="submit" id="issuance_submit"
                   (click)="logValidationErrors(this.issuanceForm, this.formErrors, this.validationMessages); isSubmit(1)">
                   Submit

@@ -78,7 +78,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     this.taxForm = this.fb.group({
       name: ['' , [Validators.required]],
-      taxType: [0, [Validators.required]],
+      taxType: [{value: 0 , disabled: true}, [Validators.required]],
       accountId: ['', [Validators.required]]
     });
 

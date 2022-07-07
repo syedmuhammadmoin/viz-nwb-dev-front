@@ -6,7 +6,7 @@ import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { ISSUANCE } from 'src/app/views/shared/AppRoutes';
+import { GOODS_RECEIVED_NOTE, ISSUANCE, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IIssuanceLines } from '../model/IssuanceLines';
 import { IIssuance } from '../model/IIssuance';
@@ -31,6 +31,12 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   defaultColDef: ColDef;
 
   public ISSUANCE = ISSUANCE;
+  public REQUISITION = REQUISITION;
+  public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE;
+
+  showReference: boolean = false;
+
+  gridApi: any
 
   //kt busy loading
   isLoading: boolean;
@@ -68,7 +74,16 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       }
      },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { 
+      headerName: 'Quantity', 
+      field: 'quantity', 
+      cellStyle: { 'font-size': '12px' }
+     },
+     {
+      headerName: 'Returned', 
+      field: 'receivedQuantity',  
+      cellStyle: {'font-size': '12px'}
+    },
     { 
       headerName: 'Store', 
       field: 'warehouseName', 
@@ -116,7 +131,17 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       this.issuanceMaster = res.result;
       this.issuanceLines = res.result.issuanceLines;
       this.status = this.issuanceMaster.status;
-      this.cdRef.markForCheck();
+
+      //Checking grn status to show Requisition reference
+      this.showReference = (["Draft" , "Rejected"].includes(this.issuanceMaster.status)) ? false : true;
+
+      if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.issuanceMaster.state)) {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
+      }
+      else {
+        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
+        this.gridApi?.sizeColumnsToFit();
+      }
       this.cdRef.detectChanges();
     });
   }

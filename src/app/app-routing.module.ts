@@ -412,6 +412,15 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load GOODS RETURN NOTE Module
+      {
+        path: APP_ROUTES.GOODS_RETURN_NOTE, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/inventory/goods-return-note/goods-return-note.module').then(
+            (m) => m.GoodsReturnNoteModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
 
       //Workflow Section
       // Lazy Load WORKFLOW Module

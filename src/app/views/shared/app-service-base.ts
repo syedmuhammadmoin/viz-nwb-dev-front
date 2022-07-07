@@ -12,7 +12,7 @@ export abstract class AppServiceBase {
 
 
   getfilterParams(params: any, date?: any, name?: any) {
-
+    
     let isActive: boolean | any = '';
     let status = '';
 
@@ -31,9 +31,10 @@ export abstract class AppServiceBase {
     httpParams = httpParams.append('Account', params?.filterModel?.accountTitle?.filter || '');
     
     httpParams = httpParams.append('docNo', (params?.filterModel?.docNo?.filter || params?.filterModel?.cnic?.filter) ||'');
-    httpParams = httpParams.append('businessPartner', (params?.filterModel?.businessPartnerName?.filter || params?.filterModel?.customerName?.filter || params?.filterModel?.vendorName?.filter ||  params?.filterModel?.employee?.filter ||  params?.filterModel?.employeeName?.filter) || '');
+    httpParams = httpParams.append('businessPartner', (params?.filterModel?.businessPartnerName?.filter || params?.filterModel?.businessPartner?.filter || params?.filterModel?.customerName?.filter || params?.filterModel?.vendorName?.filter ||  params?.filterModel?.employee?.filter ||  params?.filterModel?.employeeName?.filter) || '');
     httpParams = httpParams.append('department', (params?.filterModel?.departmentName?.filter || params?.filterModel?.department?.filter) || '');
     httpParams = httpParams.append('designation', (params?.filterModel?.designationName?.filter || params?.filterModel?.designation?.filter) || '');
+    httpParams = httpParams.append('warehouse', (params?.filterModel?.warehouseName?.filter || ''));
     httpParams = httpParams.append('isActive', isActive);
     httpParams = httpParams.append('itemCode', (params?.filterModel?.itemCode?.filter) || '' );
     httpParams = httpParams.append('docDate', date || '');

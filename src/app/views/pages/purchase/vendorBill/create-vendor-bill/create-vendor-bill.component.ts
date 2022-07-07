@@ -14,6 +14,8 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { PurchaseOrderService } from '../../purchase-order/service/purchase-order.service';
+import { GrnService } from '../../../inventory/goods-received-note/service/grn.service';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-create-vendor-bill',
@@ -23,6 +25,7 @@ import { PurchaseOrderService } from '../../purchase-order/service/purchase-orde
 })
 
 export class CreateVendorBillComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
+
  // for permissions
  public permissions = Permissions;
   // For Loading
@@ -30,6 +33,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   // Declaring form variable
   vendorBillForm: FormGroup;
+
 
   // For Table Columns
   // displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'ton', 'price', 'tax', 'subTotal', 'locationId', 'action']
@@ -42,14 +46,21 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   vendorBillModel: IVendorBill;
 
   // For DropDown
-  salesItem: IProduct[];
+  salesItem: IProduct[] | any[];
 
   // purchase order data
   purchaseOrderMaster: any;
 
+  //grn data
+  grnMaster: any;
+
   warehouseList: any = new BehaviorSubject<any>([])
 
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
+
   isBill: any;
+  isGRN: boolean = false;
 
   // params to get purchase order
   isPurchaseOrder: any;
@@ -109,6 +120,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     private router: Router,
     private cdRef: ChangeDetectorRef,
     public productService: ProductService,
+    public grnService: GrnService,
     public addButtonService: AddModalButtonService,
     public  activatedRoute: ActivatedRoute,
     private purchaseOrderService: PurchaseOrderService,
@@ -138,6 +150,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       vendorId: null,
       //vendorBillRef: '',
       billDate: null,
+      grnId: null,
       dueDate: null,
       campusId: null,
       //contact: '',
@@ -156,11 +169,16 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     //this.ngxsService.getLocationFromState();
     this.ngxsService.getCampusFromState()
 
+    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
+
+    this.ngxsService.products$.subscribe(res => this.salesItem = res.result)
+
      // get id through route
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isBill = param.isBill;
       this.isPurchaseOrder = param.isPurchaseOrder;
+      this.isGRN = param.isGRN;
       if (id && this.isBill) {
         this.isLoading = true;
         this.title = 'Edit Bill'
@@ -171,9 +189,11 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
         this.isLoading = true;
         this.getPurchaseOrder(id);
       }
+      else if (id && this.isGRN) {
+        this.isLoading = true;
+        this.getGrn(id);
+      }
     })
-
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     // handling dueDate logic
     this.vendorBillForm.get('billDate').valueChanges.subscribe((value) => {
@@ -188,6 +208,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.formDirective.resetForm();
     vendorBillLineArray.clear();
     this.totalBeforeTax = this.grandTotal = this.totalTax = 0;
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -197,9 +218,11 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const tax = this.salesItem.find(i => i.id === itemId).salesTax
+      const account = this.salesItem.find(i => i.id === itemId).costAccountId
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
+      arrayControl.at(index).get('accountId').setValue(account);
     
       // Calculating subtotal
       // const quantity = arrayControl.at(index).get('quantity').value;
@@ -292,6 +315,25 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     });
   }
 
+  // Get Goods Received note Data for Edit
+  private getGrn(id: any) {
+    this.grnService.getGRNById(id)
+    .pipe(
+     take(1),
+      finalize(() => {
+       this.isLoading = false;
+       this.cdRef.detectChanges();
+      })
+    )
+    .subscribe((res) => {
+       if (!res) {
+         return
+       }
+       this.grnMaster = res.result
+       this.patchBill(this.grnMaster)
+     });
+   }
+
   // Get Bill Data for Edit
   private getBill(id: any) {
    this.billService.getVendorBillById(id)
@@ -316,31 +358,52 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.vendorBillForm.patchValue({
       vendorName: data.vendorId,
       //vendorBillRef: data.vendorBillRef,
-      billDate: (data.billDate) ? data.billDate : data.poDate,
+      billDate: (data.billDate) ? data.billDate : data.grnDate,
       dueDate: data.dueDate,
       campusId: data.campusId
       //contact: data.contact,
     });
 
     this.onCampusSelected(data.campusId)
+    this.showMessage = true;
 
-    this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.purchaseOrderMaster) ? data.purchaseOrderLines : data.billLines))
+    this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.grnMaster) ? data.grnLines : data.billLines))
+
+    if(this.isGRN) {
+      const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
+
+      // if(this.salesItem) {
+        data.grnLines.map((line, index: number) => {
+          // set values for Account
+          arrayControl.at(index).get('accountId').setValue(this.salesItem?.find(i => i.id === line.itemId).costAccountId);
+        })
+
+        //disable form fields
+      this.disableFields(this.vendorBillForm , "vendorName", "campusId")
+
+      //disable form Lines
+      this.disableLinesFields(this.vendorBillForm.get('vendorBillLines')['controls'], "itemId", "description", "accountId", "cost", "tax" , "anyOtherTax", "warehouseId")
+
+      this.cdRef.detectChanges();
+      //}
+    }
+
     this.totalCalculation();
   }
 
-  //Patch Bill Lines From purchase Order Or Bill Master Data
+  //Patch Bill Lines From GRN Or Bill Master Data
   patchBillLines(Lines: any): FormArray {
     const formArray = new FormArray([]);
     Lines.forEach((line: any) => {
       //console.log(line.subtotal);
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isGRN) ? 0 : line.id,
         itemId: [line.itemId],
         description: [line.description, Validators.required],
         cost: [line.cost, [Validators.required, Validators.min(1)]],
         quantity: [line.quantity, [Validators.required,Validators.min(1)]],
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
-        anyOtherTax: [line.anyOtherTax, [Validators.min(0)]],
+        anyOtherTax: [(this.isGRN) ? 0 : line.anyOtherTax, [Validators.min(0)]],
         subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId],
@@ -349,7 +412,6 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     })
     return formArray
   }
-
 
   // Submit Form Function
   onSubmit(): void {
@@ -367,7 +429,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
     this.isLoading = true;
     this.mapFormValuesToVendorBillModel();
-   // console.log(this.vendorBillModel)
+   console.log(this.vendorBillModel)
     if (this.vendorBillModel.id) {
         this.billService.updateVendorBill(this.vendorBillModel)
         .pipe(
@@ -402,13 +464,15 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   }
 
   mapFormValuesToVendorBillModel() {
-    this.vendorBillModel.vendorId = this.vendorBillForm.value.vendorName;
+    //getRowvalue to get disabled fields
+    this.vendorBillModel.vendorId = this.vendorBillForm.getRawValue().vendorName;
     //this.vendorBillModel.vendorBillRef = this.vendorBillForm.value.vendorBillRef;
     this.vendorBillModel.billDate = this.transformDate(this.vendorBillForm.value.billDate, 'yyyy-MM-dd');
     this.vendorBillModel.dueDate = this.transformDate(this.vendorBillForm.value.dueDate, 'yyyy-MM-dd');
-    this.vendorBillModel.campusId = this.vendorBillForm.value.campusId;
+    this.vendorBillModel.campusId = this.vendorBillForm.getRawValue().campusId;
     //this.vendorBillModel.contact = this.vendorBillForm.value.contact;
-    this.vendorBillModel.billLines = this.vendorBillForm.value.vendorBillLines;
+    this.vendorBillModel.grnId = (this.grnMaster?.id ?? this.vendorBillModel?.grnId ?? null)
+    this.vendorBillModel.billLines = this.vendorBillForm.getRawValue().vendorBillLines;
   }
 
   //for save or submit
@@ -476,13 +540,13 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     }
   }
 
-  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+  onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
      this.vendorBillForm.get('vendorBillLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(buttonClicked) {
+     if(this.showMessage) {
       this.toastService.info("Please Reselect Store!" , "Vendor Bill")
      }
      this.cdRef.detectChanges()

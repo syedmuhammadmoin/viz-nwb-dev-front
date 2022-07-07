@@ -1,0 +1,346 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+      <!--begin::Form-->
+      <form [formGroup]="goodsReturnNoteForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+        <div class="kt-portlet__body">
+          <div class="kt-form__section kt-form__section--first">
+  
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Vendor Name:</label>
+                    <kt-simple-dropdown
+                    id="goodsReturnNote_vendor_name"
+                      (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages)"
+                      [errorMessage]="formErrors.vendorName"
+                      [optionList]="ngxsService.businessPartners$"
+                      formControlName="vendorName"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Vendor"
+                      propertyName="name"
+                      propertyValue="id"
+                      searchPlaceholder="Search Vendor...">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+  
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">GRN Date:</label>
+                    <kt-date-input
+                      (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
+                      [errorMessage]="formErrors.goodsReturnNoteDate"
+                      formControlName="goodsReturnNoteDate"
+                      matFormFieldClass="full-width"
+                      placeholder="GRN Date">
+                    </kt-date-input>
+                  </div>
+                </div>
+  
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Contact:</label>
+                    <kt-input-field
+                    id="goodsReturnNote_contact"
+                      formControlName="contact"
+                      hintText="Optional"
+                      matFormFieldClass="full-width"
+                      placeholder="Enter Contact">
+                    </kt-input-field>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Campus:</label>
+                    <kt-simple-dropdown
+                    id="goodsReturnNote_campus"
+                    formControlName="campusId"
+                    propertyName="name"
+                    propertyValue="id"
+                    matFormFieldClass="full-width "
+                    [errorMessage]="formErrors.campusId"
+                    (selectionChange)="onCampusSelected($event.value)"
+                    (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages)"
+                    [optionList]="ngxsService.campuses$"
+                    searchPlaceholder="Search Campuses..."
+                    placeholder="Select Campus">
+                  </kt-simple-dropdown>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row mt-5">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="example-container  mat-elevation-z8 ">
+                    <ng-container formArrayName="goodsReturnNoteLines">
+                      <div class="table-responsive">
+                        <mat-table #table [dataSource]="goodsReturnNoteForm.get('goodsReturnNoteLines')['controls']">
+                          <!-- Account Column -->
+                          <ng-container matColumnDef="itemId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-simple-dropdown
+                                      placeholder="Select Item"
+                                      [id]="'goodsReturnNote_item_' + i"
+                                      formControlName="itemId"
+                                      searchPlaceholder="Select Item"
+                                      [optionList]="ngxsService.products$"
+                                      clickEventButtonName="Add New Item"
+                                      (clickEvent)="openProductDialog()"
+                                      propertyName="productName"
+                                      propertyValue="id"
+                                      matFormFieldClass="mobile-label full-width"
+                                      [errorMessage]="'Item is Required'"
+                                      (selectionChange)="onItemSelected($event.value,i)">
+                                    </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!--Partner Column-->
+                          <ng-container matColumnDef="description">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field
+                                [id]="'goodsReturnNote_description_' + i"
+                                      formControlName="description"
+                                      matFormFieldClass="mobile-label full-width"
+                                      placeholder="Enter Description"
+                                      (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
+                                      [errorMessage]="[{ condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.description.errors?.required &&
+                                                                    goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.description.touched ,
+                                                        error : 'Description is required' }]">
+                                    </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Debit Column -->
+                          <ng-container matColumnDef="quantity">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field
+                                [id]="'goodsReturnNote_quantity_' + i"
+                                      formControlName="quantity"
+                                      matFormFieldClass="mobile-label full-width"
+                                      placeholder="Enter Quantity"
+                                      type="number"
+                                      #itemName
+                                      (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
+                                      [errorMessage]="[{ condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.errors?.required &&
+                                                                    goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.touched ,
+                                                        error : 'Quantity is required' },
+                                                      { condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.errors?.min &&
+                                                                    goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.touched ,
+                                                        error : 'Minimum value is one' },
+                                                      { condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.errors?.max &&
+                                                                    goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.touched ,
+                                                        error : 'Can not exceed pending quantity.' }
+                                                      ]"
+                                      (change)="onChangeEvent($event , i , itemName)"
+                                      (keyup)="onChangeEvent($event , i , itemName)">
+                                    </kt-input-field>
+                                <!-- <kt-input-field formControlName="quantity"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
+                                #itemName type="number" [hintText]="'Optional'"
+                                (change)="onChangeEvent($event , i , itemName)"
+                                (keyup)="onChangeEvent($event , i , itemName)">
+                              </kt-input-field> -->
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Credit Column -->
+                          <ng-container matColumnDef="cost">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Cost</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field
+                                      formControlName="cost"
+                                      [id]="'goodsReturnNote_cost_' + i"
+                                      matFormFieldClass="mobile-label full-width"
+                                      placeholder="Enter Cost"
+                                      readonly="true"
+                                      type="number"
+                                      #itemName
+                                      (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
+                                      [errorMessage]="[{ condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.errors?.required &&
+                                                                    goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.touched ,
+                                                        error : 'Cost is required'},
+                                                        { condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.errors?.min &&
+                                                                      goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.touched ,
+                                                          error : 'Cost cannot be zero' }]"
+                                      (change)="onChangeEvent($event , i , itemName)"
+                                      (keyup)="onChangeEvent($event , i , itemName)">
+                                    </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Location Column -->
+                          <ng-container matColumnDef="tax">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Tax%</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field
+                                [id]="'goodsReturnNote_tax_' + i"
+                                      formControlName="tax"
+                                      matFormFieldClass="mobile-label full-width"
+                                      placeholder="Enter Tax"
+                                      readonly="true"
+                                      #itemName
+                                      type="number"
+                                      (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
+                                      [errorMessage]="[{ condition : (goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.errors?.min ||
+                                                                    goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.errors?.max) &&
+                                                                    goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.touched ,
+                                                        error : 'Tax % should be between 0 and 100'}]"
+                                      (change)="onChangeEvent($event , i , itemName)"
+                                      (keyup)="onChangeEvent($event , i , itemName)">
+                                    </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+  
+                          <ng-container matColumnDef="subTotal">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> SubTotal </mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field formControlName="subTotal" [id]="'goodsReturnNote_subtotal_' + i"
+                                  matFormFieldClass="mobile-label full-width">
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Location Column -->
+                          <!-- <ng-container matColumnDef="locationId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Location</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2"> -->
+                                <!-- <kt-group-dropdown formControlName="locationId" placeholder="Select Location"
+                                  matFormFieldClass="mobile-label full-width"
+                                  [optionList]="ngxsService.warehouses$"
+                                  clickEventButtonName="Add New Location"
+                                  (clickEvent)="openLocationDialog()" 
+                                  groupPropertyName="name" groupChildrenName="locations" propertyName="name"
+                                  propertyValue="id">
+                                </kt-group-dropdown> -->
+                                <!-- <kt-simple-dropdown 
+                                placeholder="Select Location" 
+                                propertyValue="id" 
+                                propertyName="name"
+                                formControlName="locationId" 
+                                matFormFieldClass="full-width"
+                                [errorMessage]="'Location is Required.'" 
+                                [optionList]="ngxsService.locations$">
+                              </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container> -->
+                          <ng-container matColumnDef="warehouseId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Store</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-simple-dropdown 
+                                [id]="'goodsReturnNote_store_' + i"
+                                      placeholder="Select Store" 
+                                      propertyValue="id" 
+                                      propertyName="name"
+                                      searchPlaceholder="Search Store..."
+                                      (selectionChange)="showMessage = true"
+                                      formControlName="warehouseId" 
+                                      [errorMessage]="'Store is Required'"
+                                      matFormFieldClass="full-width" 
+                                      [optionList]="ngxsService.warehouses$">
+                                    </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Action Column -->
+                          <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef [hidden]="hideDeleteButton" class="flex-1">Action</mat-header-cell>
+                            <mat-cell [hidden]="hideDeleteButton" *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
+                                    </mat-icon> -->
+  
+                              <button class=" remove-icon" type="button" [id]="'goodsReturnNote_remove_' + i"
+                                (click)="removeGoodsReturnNoteLineClick(i); totalCalculation()">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                              </button>
+                            </mat-cell>
+                          </ng-container>
+                          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                      </div>
+                    </ng-container>
+  
+                    <!-- <ng-container>
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                          <button class=" btn_create" type="button" id="goodsReturnNote_add_line" (click)="addgoodsReturnNoteLineClick()">
+                            <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
+                          </button>
+                        </div>
+                      </div>
+                    </ng-container> -->
+  
+                  </div>
+                </div>
+              </div>
+  
+              <!-- <div class="row mt-10">
+                <div class="col-lg-4 ml-auto">
+                  <table class="table table-bordered small_table_box">
+                    <tr>
+                      <th class="text-right" style="width: 70%;">Total Before Tax :</th>
+                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                        {{valueFormatter(totalBeforeTax || 0)}}
+                    </tr>
+                    <tr>
+                      <th class="text-right">Total Tax :</th>
+                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                        {{valueFormatter(totalTax || 0)}}</td>
+                    </tr>
+                    <tr>
+                      <th class="text-right"
+                        style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Grand Total :
+                      </th>
+                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                        {{valueFormatter(grandTotal || 0)}}</td>
+                    </tr>
+                  </table>
+                </div>
+              </div> -->
+  
+            </div>
+  
+            <!--Invoice Lines-->
+          </div>
+        </div>
+  
+        <mat-divider class="mt-10"></mat-divider>
+  
+        <div class="kt-portlet__foot ">
+          <div class="kt-form__actions kt-form__actions">
+            <div class="row">
+              <div class="col-lg-12 text-right">
+                <button class="mr-3 btn_white" mat-raised-button id="goodsReturnNote_reset" type="button" (click)="reset()">Reset</button>
+                <button class="sub___btn  mr-3" mat-raised-button type="submit" id="goodsReturnNote_save"
+                  (click)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
+                <button class="sub___btn " mat-raised-button type="submit" id="goodsReturnNote_submit"
+                  (click)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages); isSubmit(1)">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--end::Form-->
+    </kt-portlet>
+  </div>

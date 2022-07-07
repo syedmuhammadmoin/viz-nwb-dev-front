@@ -4,13 +4,13 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPurchaseOrder} from '../model/IPurchaseOrder';
 import { PurchaseOrderService} from '../service/purchase-order.service';
-import { finalize, take } from 'rxjs/operators';
+import { finalize, groupBy, mergeMap, take, toArray } from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable, of, zip } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IPurchaseOrderLines } from '../model/IPurchaseOrderLines';
@@ -64,6 +64,11 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  warehouseList: any = new BehaviorSubject<any>([])
+
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
 
 
   // Validation Messages
@@ -162,6 +167,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
     this.formDirective.resetForm();
     purchaseOrderLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -233,7 +239,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
       accountId: ['', [Validators.required]],
-      warehouseId: [null],
+      warehouseId: ['',[Validators.required]],
     });
   }
 
@@ -250,19 +256,24 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   private getPurchaseOrder(id: number) {
     this.isLoading = true;
    this.poService.getPurchaseOrderById(id)
+   .pipe(
+    take(1),
+    finalize(() => {
+      this.isLoading = false;
+      this.cdRef.detectChanges()
+    })
+   )
    .subscribe((res: IApiResponse<IPurchaseOrder>) => {
       if (!res) {
         return
       }
       this.purchaseOrderModel = res.result
       this.editPurchaseOrder(this.purchaseOrderModel)
-      this.isLoading = false;
     });
   }
 
   //Edit purchase Order
   editPurchaseOrder(purchaseOrder : IPurchaseOrder) {
-    console.log(purchaseOrder.vendorId)
     this.purchaseOrderForm.patchValue({
       vendorName: purchaseOrder.vendorId,
       PODate: purchaseOrder.poDate,
@@ -270,6 +281,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       contact: purchaseOrder.contact,
       campusId: purchaseOrder.campusId
     });
+
+    this.onCampusSelected(purchaseOrder.campusId)
+    this.showMessage = true;
 
     this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines));
     this.totalCalculation();
@@ -288,7 +302,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
         subTotal: [{value: line.subTotal, disabled: true}],
         accountId: [line.accountId, [Validators.required]],
-        warehouseId: [line.warehouseId]
+        warehouseId: [line.warehouseId, [Validators.required]]
       }))
     })
     return formArray
@@ -296,6 +310,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   // Submit Form Function
   onSubmit(): void {
+
       if (this.purchaseOrderForm.get('purchaseOrderLines').invalid) {
           this.purchaseOrderForm.get('purchaseOrderLines').markAllAsTouched();
       }
@@ -305,20 +320,30 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         return;
       }
       if (this.purchaseOrderForm.invalid) {
+        this.toastService.error("Please fill all required fields!", "Purchase Order")
           return;
       }
 
-      this.isLoading = true;
       this.mapFormValuesToPurchaseOrderModel();
+
+      const isDuplicateLines = this.purchaseOrderModel.purchaseOrderLines.some((a, index) => this.purchaseOrderModel.purchaseOrderLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
+
+      if(isDuplicateLines) {
+        this.toastService.error("Please Remove Duplicate Line!", "Purchase Order")
+        return;
+      }
+
+      this.isLoading = true;
       console.log(this.purchaseOrderModel)
     if (this.purchaseOrderModel.id) {
         this.poService.updatePurchaseOrder(this.purchaseOrderModel)
-          .pipe(
-            take(1),
-            finalize(() => {
-              this.isLoading = false;
-            })
-          )
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges()
+          })
+         )
           .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Purchase Order')
             this.cdRef.detectChanges();
@@ -327,13 +352,17 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       } else {
         delete this.purchaseOrderModel.id;
         this.poService.createPurchaseOrder(this.purchaseOrderModel)
-          .pipe(
-            take(1),
-            finalize(() => this.isLoading = false))
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges()
+          })
+         )
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Purchase Order')
-              this.router.navigate(['/'+ PURCHASE_ORDER.LIST])
+              this.router.navigate(['/' +PURCHASE_ORDER.ID_BASED_ROUTE('details', res.result.id ) ])
             });
       }
   }
@@ -370,6 +399,18 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.purchaseOrderForm.dirty;
+  }
+
+  onCampusSelected(campusId : number) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.purchaseOrderForm.get('purchaseOrderLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(this.showMessage) {
+      this.toastService.info("Please Reselect Store!" , "Purchase Order")
+     }
+     this.cdRef.detectChanges()
   }
 }
 

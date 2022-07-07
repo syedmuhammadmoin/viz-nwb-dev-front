@@ -7,8 +7,8 @@ import { CreateVendorBillComponent } from './create-vendor-bill/create-vendor-bi
 import { FormConfirmationGuard } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { VendorBillDetailComponent } from './vendor-bill-detail/vendor-bill-detail.component';
 import { PrintBillComponent } from './print-bill/print-bill.component';
-import { AgingReportComponent } from '../../sales/invoice/aging-report/aging-report.component';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
+import { AgingReportComponent } from './aging-report/aging-report.component';
 const routes : Routes = [
   {
     path: '',
@@ -78,6 +78,8 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.BILL_VIEW },
+            { permission: Permissions.BILL_CREATE },
+            { permission: Permissions.BILL_EDIT }
           ]
         },
         canActivate: [PermissionGuard]

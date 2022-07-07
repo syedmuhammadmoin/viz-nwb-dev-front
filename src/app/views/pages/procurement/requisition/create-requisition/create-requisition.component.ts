@@ -8,7 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -61,6 +61,11 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  warehouseList: any = new BehaviorSubject<any>([])
+
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
 
 
   // Validation Messages
@@ -116,7 +121,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     }
 
      // get Vendor from state
-     this.ngxsService.getBusinessPartnerFromState();
+     //this.ngxsService.getBusinessPartnerFromState();
+     this.ngxsService.getEmployeeFromState();
      // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
      // get Ware house location from state
@@ -150,6 +156,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
     this.formDirective.resetForm();
     requisitionLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -217,7 +224,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       itemId: ['', [ Validators.required]],
       description: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
-      warehouseId: [null],
+      warehouseId: ['', [ Validators.required]],
     });
   }
 
@@ -234,13 +241,19 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   private getRequisition(id: number) {
     this.isLoading = true;
    this.requisitionService.getRequisitionById(id)
+   .pipe(
+    take(1),
+     finalize(() => {
+      this.isLoading = false;
+      this.cdRef.detectChanges();
+     })
+   )
    .subscribe((res: IApiResponse<IRequisition>) => {
       if (!res) {
         return
       }
       this.requisitionModel = res.result
       this.editRequisition(this.requisitionModel)
-      this.isLoading = false;
     });
   }
 
@@ -251,6 +264,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       requisitionDate: requisition.requisitionDate,
       campusId: requisition.campusId
     });
+
+    this.onCampusSelected(requisition.campusId)
+    this.showMessage = true;
 
     this.requisitionForm.setControl('requisitionLines', this.editrequisitionLines(requisition.requisitionLines));
     this.totalCalculation();
@@ -265,7 +281,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
         quantity: [line.quantity, [Validators.required, Validators.min(1)]],
-        warehouseId: [line.warehouseId]
+        warehouseId: [line.warehouseId, [ Validators.required]]
       }))
     })
     return formArray
@@ -281,21 +297,32 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         this.toastService.error('Please add Requisition lines', 'Error')
         return;
       }
+    
       if (this.requisitionForm.invalid) {
+        this.toastService.error("Please fill all required fields!", "Requisition")
           return;
+      }
+  
+      this.mapFormValuesTorequisitionModel();
+  
+      const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
+  
+      if(isDuplicateLines) {
+        this.toastService.error("Please Remove Duplicate Line!", "Requisition")
+        return;
       }
 
       this.isLoading = true;
-      this.mapFormValuesTorequisitionModel();
       console.log(this.requisitionModel)
     if (this.requisitionModel.id) {
         this.requisitionService.updateRequisition(this.requisitionModel)
-          .pipe(
-            take(1),
-            finalize(() => {
-              this.isLoading = false;
-            })
-          )
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
           .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Requisition')
             this.cdRef.detectChanges();
@@ -304,13 +331,17 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       } else {
         delete this.requisitionModel.id;
         this.requisitionService.createRequisition(this.requisitionModel)
-          .pipe(
-            take(1),
-            finalize(() => this.isLoading = false))
+        .pipe(
+          take(1),
+           finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+           })
+         )
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Requisition')
-              this.router.navigate(['/'+ REQUISITION.LIST])
+              this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details',res.result.id ) ]);
             });
       }
   }
@@ -343,5 +374,17 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // }
   canDeactivate(): boolean | Observable<boolean> {
     return !this.requisitionForm.dirty;
+  }
+
+  onCampusSelected(campusId : number) {
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+     this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     if(this.showMessage) {
+      this.toastService.info("Please Reselect Store!" , "Requisition")
+     }
+     this.cdRef.detectChanges()
   }
 }

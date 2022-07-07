@@ -1,6 +1,7 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button  mat-raised-button  class="sub___btn" *ngIf="(permission.isGranted(permissions.BILL_CREATE))" id="add_bill"  matTooltip="Add Vendor Bill" (click)='addVendorBill()' >Add Bill</button>
+    <button (click)="agingReport()" id="aging_report" class="sub___btn" mat-raised-button  matTooltip="Aging Report">Aging Report</button>
+    <button  mat-raised-button  class="sub___btn ml-1" *ngIf="(permission.isGranted(permissions.BILL_CREATE))" id="add_bill"  matTooltip="Add Vendor Bill" (click)='addVendorBill()' >Add Bill</button>
   </div>
 </div>
 

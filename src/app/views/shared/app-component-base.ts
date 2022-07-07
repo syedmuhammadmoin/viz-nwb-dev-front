@@ -1,4 +1,4 @@
-import {FormGroup} from '@angular/forms';
+import {FormControl, FormGroup} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {Injector} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
@@ -98,6 +98,16 @@ export abstract class AppComponentBase {
   //disable provided fields
   public disableFields (form : FormGroup , ...args: string[] ) {
     (args).forEach((key: string) => form.get(key).disable())
+  }
+
+  //disable provided lines fields
+  public disableLinesFields(formLines : any , ...args: string[]) {
+    formLines
+    .forEach((control) => { 
+      (args).forEach((key: string) => {
+        control.controls[key].disable()
+      })
+    })
   }
 
   //Reset provided field

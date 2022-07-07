@@ -61,5 +61,9 @@ export class VendorBillService extends AppServiceBase {
     getRecords(params: any): Observable<any> {
       return this.httpClient.get(this.baseUrl, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.billDate?.dateFrom, 'MM/d/y'))});
     }
+
+    getAgingReport(): Observable<any> {
+      return this.httpClient.get(`${this.baseUrl}/getAgingReport`);
+    }
 }
 

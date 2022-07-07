@@ -20,9 +20,7 @@
                         propertyName="name" 
                         propertyValue="id" 
                         [errorMessage]="formErrors.businessPartnerId"
-                        [optionList]="ngxsService.businessPartners$"
-                        clickEventButtonName="Add New Customer"
-                        (clickEvent)="openBusinessPartnerDialog()" 
+                        [optionList]="ngxsService.employees$"
                         searchPlaceholder="Search Employees..."
                         placeholder="Select Employee">
                        </kt-simple-dropdown>
@@ -53,6 +51,7 @@
                       propertyValue="id"
                       matFormFieldClass="full-width "
                       [errorMessage]="formErrors.campusId"
+                      (selectionChange)="onCampusSelected($event.value)"
                       (blurEvent)="logValidationErrors(requisitionForm, this.formErrors, this.validationMessages)"
                       [optionList]="ngxsService.campuses$"
                       searchPlaceholder="Search Campuses..."
@@ -132,10 +131,11 @@
                                   propertyValue="id" 
                                   propertyName="name"
                                   isDisabledNone="true"
-                                  [hintText]="'Optional'"
+                                  (selectionChange)="showMessage = true"
                                   formControlName="warehouseId" 
+                                  [errorMessage]="'Store is Required'"
                                   matFormFieldClass="full-width" 
-                                  [optionList]="ngxsService.warehouses$">
+                                  [optionList]="warehouseList">
                                 </kt-simple-dropdown>
                               </div>
                             </mat-cell>

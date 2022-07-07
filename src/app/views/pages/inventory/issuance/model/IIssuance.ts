@@ -6,5 +6,6 @@ export interface IIssuance {
     issuanceDate : string;
     campusId: number;
     isSubmit?: any;
+    requisitionId?: number;
     issuanceLines: IIssuanceLines[];
 }

@@ -19,6 +19,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.GRN_VIEW },
+            { permission: Permissions.GRN_EDIT },
             { permission: Permissions.GRN_CREATE },
           ]
         },
@@ -31,6 +32,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.GRN_CREATE },
+            { permission: Permissions.GRN_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -41,6 +43,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.GRN_EDIT },
+            { permission: Permissions.GRN_VIEW },
           ]
         },
         canActivate: [PermissionGuard]
@@ -51,6 +54,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.GRN_VIEW },
+            { permission: Permissions.GRN_EDIT },
             { permission: Permissions.GRN_CREATE },
           ]
         },
@@ -62,6 +66,7 @@ const routes : Routes = [
         data: {
           array: [
             { permission: Permissions.GRN_VIEW },
+            { permission: Permissions.GRN_EDIT },
             { permission: Permissions.GRN_CREATE },
           ]
         },

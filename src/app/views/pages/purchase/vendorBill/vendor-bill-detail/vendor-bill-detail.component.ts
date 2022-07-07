@@ -1,4 +1,4 @@
-import { BILL, DEBIT_NOTE, JOURNAL_ENTRY, PAYMENT } from '../../../../shared/AppRoutes';
+import { BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, JOURNAL_ENTRY, PAYMENT } from '../../../../shared/AppRoutes';
 import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,6 +27,9 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   public DEBIT_NOTE = DEBIT_NOTE;
   public PAYMENT = PAYMENT;
   public JOURNAL_ENTRY = JOURNAL_ENTRY;
+  public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE
+
+
   docType = DocType
   public permissions = Permissions;
   action = ActionButton

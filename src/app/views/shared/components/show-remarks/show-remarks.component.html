@@ -1,0 +1,11 @@
+<div class="head-remarks">
+    <h3>Remarks</h3>
+  </div>
+  <div class="scroll-view">
+    <ng-container *ngFor="let remarks of remarksList">
+      <div class="card-view" *ngIf="remarks?.remarks !== ''" >
+        <p>{{remarks?.userName}} <span class="float-right"> {{remarks?.createdAt}}</span></p>
+        <h3>{{remarks?.remarks}}</h3>
+      </div>
+    </ng-container>
+  </div>

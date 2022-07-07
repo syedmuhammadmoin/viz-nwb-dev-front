@@ -56,6 +56,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
   warehouseList: any = new BehaviorSubject<any>([])
 
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
+
   //param to get invoice
   isInvoice: boolean;
   invoiceMaster: any;
@@ -162,6 +165,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     const creditNoteLineArray = <FormArray>this.creditNoteForm.get('creditNoteLines');
     this.formDirective.resetForm();
     creditNoteLineArray.clear();
+    this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -286,6 +290,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     });
 
     this.onCampusSelected(data.campusId)
+    this.showMessage = true;
 
     this.creditNoteForm.setControl('creditNoteLines', this.patchCreditNoteLines((this.invoiceMaster) ? data.invoiceLines : data.creditNoteLines))
     this.totalCalculation();
@@ -405,13 +410,13 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     return !this.creditNoteForm.dirty;
   }
 
-  onCampusSelected(campusId : number , buttonClicked?: boolean) {
+  onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
      this.creditNoteForm.get('creditNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(buttonClicked) {
+     if(this.showMessage) {
       this.toastService.info("Please Reselect Store!" , "Credit Note")
      }
      this.cdRef.detectChanges()

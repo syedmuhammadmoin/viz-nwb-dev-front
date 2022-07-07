@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import {HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../../../../environments/environment";
@@ -6,14 +6,15 @@ import {IPurchaseOrder} from "../model/IPurchaseOrder";
 import { IWorkflow } from '../../vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 @Injectable({
   providedIn: 'root'
 })
 
-export class PurchaseOrderService {
+export class PurchaseOrderService extends AppServiceBase {
 
-  constructor( private httpClient: HttpClient) { }
+  constructor( private httpClient: HttpClient, injector: Injector) { super(injector) }
 
   getPurchaseOrders(params: any): Observable<IPaginationResponse<IPurchaseOrder[]>> {
     let httpParams = new HttpParams();
@@ -42,6 +43,10 @@ export class PurchaseOrderService {
 
   workflow(workflow: IWorkflow): Observable<any> {
     return this.httpClient.post(environment.baseUrl + 'purchaseOrder/workflow', workflow);
+  }
+
+  getRecords(params: any): Observable<any> {
+    return this.httpClient.get(environment.baseUrl + "purchaseOrder/", { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.poDate?.dateFrom, 'MM/d/y'))});
   }
 }
 
