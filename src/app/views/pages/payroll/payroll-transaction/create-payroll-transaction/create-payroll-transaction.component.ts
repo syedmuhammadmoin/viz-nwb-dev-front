@@ -159,6 +159,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       this.isLoading = true;
       this.title = 'Edit Payroll';
       this.getPayroll(this._id);
+      this.disableFields(this.payrollTransactionForm , "month" , "year")
     }
 
     // this.payrollTransactionForm.get('workingDays').valueChanges.subscribe((value) => {
@@ -245,8 +246,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   mapPayrollTransactionValuesToPayrollModel() {
-    this.payrollTransaction.month = this.payrollTransactionForm.value.month
-    this.payrollTransaction.year = this.payrollTransactionForm.value.year
+    this.payrollTransaction.month = this.payrollTransactionForm.getRawValue().month
+    this.payrollTransaction.year = this.payrollTransactionForm.getRawValue().year
     this.payrollTransaction.employeeId = this.payrollTransactionForm.value.employeeId
     this.payrollTransaction.workingDays = this.payrollTransactionForm.value.workingDays
     this.payrollTransaction.presentDays = this.payrollTransactionForm.value.presentDays

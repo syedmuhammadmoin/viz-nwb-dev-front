@@ -10,7 +10,7 @@
     (blur)="blur()"
     [ngClass]="matSelectClass"
     (selectionChange)="selectionChange($event)"
-    [disabled]="isDisabled"
+    [attr.disabled]="isDisabled"
   >
     <mat-option>
       <ngx-mat-select-search

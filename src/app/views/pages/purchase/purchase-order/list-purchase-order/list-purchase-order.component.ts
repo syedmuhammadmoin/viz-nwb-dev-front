@@ -112,7 +112,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          values: ['Draft', 'Rejected', 'Open', 'Closed', 'Submitted', 'Reviewed'],
           defaultToNothingSelected: true,
           suppressSorting:true,
           suppressSelectAll: true,

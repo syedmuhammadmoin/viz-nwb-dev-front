@@ -15,6 +15,7 @@ import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { PurchaseOrderService } from '../../purchase-order/service/purchase-order.service';
 import { GrnService } from '../../../inventory/goods-received-note/service/grn.service';
+import { isEmpty } from 'lodash';
 
 @Component({
   selector: 'kt-create-vendor-bill',
@@ -59,7 +60,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   showMessage: boolean = false;
 
   isBill: any;
-  isGRN: boolean;
+  isGRN: boolean = false;
 
   // params to get purchase order
   isPurchaseOrder: any;
@@ -169,6 +170,8 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.ngxsService.getCampusFromState()
 
     this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
+
+    this.ngxsService.products$.subscribe(res => this.salesItem = res.result)
 
      // get id through route
     this.activatedRoute.queryParams.subscribe((param) => {
@@ -367,30 +370,26 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.grnMaster) ? data.grnLines : data.billLines))
 
     if(this.isGRN) {
-      console.log(this.salesItem)
       const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
-      data.grnLines.map((line, index: number) => {
-      // set values for Account
-      arrayControl.at(index).get('accountId').setValue(this.salesItem.find(i => i.id === line.itemId).costAccountId);
-      })
+
+      // if(this.salesItem) {
+        data.grnLines.map((line, index: number) => {
+          // set values for Account
+          arrayControl.at(index).get('accountId').setValue(this.salesItem?.find(i => i.id === line.itemId).costAccountId);
+        })
+
+        //disable form fields
+      this.disableFields(this.vendorBillForm , "vendorName", "campusId")
+
+      //disable form Lines
+      this.disableLinesFields(this.vendorBillForm.get('vendorBillLines')['controls'], "itemId", "description", "accountId", "cost", "tax" , "anyOtherTax", "warehouseId")
+
+      this.cdRef.detectChanges();
+      //}
     }
 
     this.totalCalculation();
-
-    this.vendorBillForm.get('vendorBillLines')['controls']
-      .forEach((control) => { 
-        control.controls.description.disable()
-        control.controls.cost.disable()
-        control.controls.tax.disable()
-      })
   }
-
-  // disableDropdownField(index?: number): boolean {
-  //   // //console.log({index});
-  //   // console.log(this.vendorBillForm.get('vendorBillLines')['controls'][0]);
-  //   // this.vendorBillForm.get('vendorBillLines')['controls'][0].controls.itemId.disable()
-  //   // return (index < this.grnMaster?.grnLines?.length) ? true : false;
-  // }
 
   //Patch Bill Lines From GRN Or Bill Master Data
   patchBillLines(Lines: any): FormArray {
@@ -430,7 +429,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
     this.isLoading = true;
     this.mapFormValuesToVendorBillModel();
-   // console.log(this.vendorBillModel)
+   console.log(this.vendorBillModel)
     if (this.vendorBillModel.id) {
         this.billService.updateVendorBill(this.vendorBillModel)
         .pipe(
@@ -465,14 +464,15 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   }
 
   mapFormValuesToVendorBillModel() {
-    this.vendorBillModel.vendorId = this.vendorBillForm.value.vendorName;
+    //getRowvalue to get disabled fields
+    this.vendorBillModel.vendorId = this.vendorBillForm.getRawValue().vendorName;
     //this.vendorBillModel.vendorBillRef = this.vendorBillForm.value.vendorBillRef;
     this.vendorBillModel.billDate = this.transformDate(this.vendorBillForm.value.billDate, 'yyyy-MM-dd');
     this.vendorBillModel.dueDate = this.transformDate(this.vendorBillForm.value.dueDate, 'yyyy-MM-dd');
-    this.vendorBillModel.campusId = this.vendorBillForm.value.campusId;
+    this.vendorBillModel.campusId = this.vendorBillForm.getRawValue().campusId;
     //this.vendorBillModel.contact = this.vendorBillForm.value.contact;
     this.vendorBillModel.grnId = (this.grnMaster?.id ?? this.vendorBillModel?.grnId ?? null)
-    this.vendorBillModel.billLines = this.vendorBillForm.value.vendorBillLines;
+    this.vendorBillModel.billLines = this.vendorBillForm.getRawValue().vendorBillLines;
   }
 
   //for save or submit

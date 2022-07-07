@@ -13,7 +13,6 @@
                     <label class="col-form-label pt-0">Vendor Name:</label>
                     <kt-simple-dropdown
                     id="goodsReturnNote_vendor_name"
-                      [isDisabled]="true"
                       (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages)"
                       [errorMessage]="formErrors.vendorName"
                       [optionList]="ngxsService.businessPartners$"
@@ -29,13 +28,13 @@
   
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">goodsReturnNote Date:</label>
+                    <label class="col-form-label pt-0">GRN Date:</label>
                     <kt-date-input
                       (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.goodsReturnNoteDate"
                       formControlName="goodsReturnNoteDate"
                       matFormFieldClass="full-width"
-                      placeholder="goodsReturnNote Date">
+                      placeholder="GRN Date">
                     </kt-date-input>
                   </div>
                 </div>
@@ -91,7 +90,6 @@
                                       [id]="'goodsReturnNote_item_' + i"
                                       formControlName="itemId"
                                       searchPlaceholder="Select Item"
-                                      isDisabled="true"
                                       [optionList]="ngxsService.products$"
                                       clickEventButtonName="Add New Item"
                                       (clickEvent)="openProductDialog()"
@@ -252,7 +250,6 @@
                                       placeholder="Select Store" 
                                       propertyValue="id" 
                                       propertyName="name"
-                                      isDisabled="true"
                                       searchPlaceholder="Search Store..."
                                       (selectionChange)="showMessage = true"
                                       formControlName="warehouseId" 

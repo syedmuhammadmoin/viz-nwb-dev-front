@@ -115,10 +115,10 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
 
   ngOnInit() {
     this.goodsReturnNoteForm = this.fb.group({
-      vendorName: [{value: '', disabled: true}, [Validators.required]],
+      vendorName: [{value: '' , disabled: true}, [Validators.required]],
       goodsReturnNoteDate: ['', [Validators.required]],
       contact: [''],
-      campusId: ['', [Validators.required]],
+      campusId: [{value: '' , disabled: true},, [Validators.required]],
       goodsReturnNoteLines: this.fb.array([
         this.addGoodsReturnNoteLines()
       ])
@@ -296,7 +296,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
   patchGoodsReturnNote(data: IPurchaseOrder | IGoodsReturnNote | any) {
     this.goodsReturnNoteForm.patchValue({
       vendorName: data.vendorId,
-      goodsReturnNoteDate: data.goodsReturnNoteDate ?? data.grnDate,
+      goodsReturnNoteDate: data.returnDate ?? data.grnDate,
       campusId : data.campusId,
       contact: data.contact
     });
@@ -314,13 +314,13 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     Lines.forEach((line: IGoodsReturnNoteLines | IGRNLines[] | any) => {
     if(line.pendingQuantity !== 0) {
       formArray.push(this.fb.group({
-      itemId: [line.itemId, [Validators.required]],
-      description: [line.description, Validators.required],
+      itemId: [{value: line.itemId , disabled: true}, [Validators.required]],
+      description: [{value: line.description , disabled: true}, Validators.required],
       cost: [line.cost, [Validators.required, Validators.min(1)]],
       quantity: [(line.pendingQuantity) ? line.pendingQuantity : line.quantity, [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]],
       tax: [line.tax, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: line.subTotal, disabled: true}],
-      warehouseId: [line.warehouseId, [Validators.required]]
+      warehouseId: [{value: line.warehouseId , disabled: true}, [Validators.required]]
     }))
     }
     })
@@ -345,6 +345,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     this.mapFormValuesTogoodsReturnNoteModel();
     console.log(this.goodsReturnNoteModel)
     if (this.goodsReturnNoteModel.id && this.isGoodsReturnNote) {
+      console.log("entered 1")
       this.goodsReturnNoteService.updateGoodsReturnNote(this.goodsReturnNoteModel)
       .pipe(
         take(1),
@@ -360,6 +361,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
           })
     } else if (this.grnMaster.id && this.isGRN) {
       delete this.goodsReturnNoteModel.id;
+      console.log("entered 2")
       this.goodsReturnNoteService.createGoodsReturnNote(this.goodsReturnNoteModel)
       .pipe(
         take(1),
@@ -381,9 +383,9 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     this.goodsReturnNoteModel.vendorId = this.grnMaster?.vendorId || this.goodsReturnNoteModel?.vendorId;
     this.goodsReturnNoteModel.returnDate = this.transformDate(this.goodsReturnNoteForm.value.goodsReturnNoteDate, 'yyyy-MM-dd');
     this.goodsReturnNoteModel.contact = this.goodsReturnNoteForm.value.contact;
-    this.goodsReturnNoteModel.campusId = this.goodsReturnNoteForm.value.campusId;
+    this.goodsReturnNoteModel.campusId = this.goodsReturnNoteForm.getRawValue().campusId;
     this.goodsReturnNoteModel.grnId = this.grnMaster?.id || this.goodsReturnNoteModel?.grnId;
-    this.goodsReturnNoteModel.goodsReturnNoteLines = this.goodsReturnNoteForm.value.goodsReturnNoteLines;
+    this.goodsReturnNoteModel.goodsReturnNoteLines = this.goodsReturnNoteForm.getRawValue().goodsReturnNoteLines;
   }
 
   canDeactivate(): boolean | Observable<boolean> {

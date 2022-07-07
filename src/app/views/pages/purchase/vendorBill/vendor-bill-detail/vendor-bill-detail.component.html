@@ -174,6 +174,30 @@
                 </td>
               </tr>
 
+              <tr *ngIf="billMaster?.grnId">
+                <td colspan="2">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold;">
+                          Reference
+                        </mat-panel-title>
+                      </mat-expansion-panel-header>
+                      <table class="table text-center table-bordered">
+                        <tr>
+                          <th>Doc #</th>
+                        </tr>
+                        <tr>
+                          <td><a [routerLink]="('/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', billMaster?.grnId))"
+                              class="links">{{billMaster?.grnDocNo}}</a></td>
+                        </tr>
+                      </table>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </td>
+              </tr>
+
               <tr *ngIf="(pendingAmount)">
                 <th class="text-right"
                 style="background-image: linear-gradient(to right, #1a6b85, #4a8a9e); color: #fff;">Pending Amount :

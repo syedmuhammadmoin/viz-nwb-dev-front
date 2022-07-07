@@ -95,7 +95,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          values: ['Draft', 'Rejected', 'Approved', 'Submitted', 'Reviewed'],
           defaultToNothingSelected: true,
           suppressSorting:true,
           suppressSelectAll: true,

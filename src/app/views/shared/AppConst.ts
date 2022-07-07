@@ -432,10 +432,12 @@ export class AppConst {
     { value: 'Draft', id: 0 },
     { value: 'Rejected', id: 1 },
     { value: 'Unpaid', id: 2 },
+    { value: 'Approved', id: 2 },
     { value: 'Partial', id: 3 },
     { value: 'Paid', id: 4 },
+    { value: 'Open', id: 2 },
+    { value: 'Closed', id: 4 },
     { value: 'Submitted', id: 5 },
     { value: 'Reviewed', id: 6 },
   ];
-
 }

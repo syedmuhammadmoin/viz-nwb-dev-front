@@ -19,7 +19,7 @@
                   <i class="fa fa-edit"></i>  Edit
                 </button>
 
-                <button *ngIf="(grnMaster?.state === docStatus.Unpaid) && (permission.isGranted(permissions.BILL_CREATE))" id="grn_edit"
+                <button *ngIf="(grnMaster?.state === docStatus.Unpaid) && !(grnMaster?.billReference) && (permission.isGranted(permissions.BILL_CREATE))" id="grn_edit"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE('edit',grnMaster?.id)"
                   [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
                   <i class="fa fa-edit"></i> Bill
@@ -90,7 +90,7 @@
                   {{valueFormatter(total || 0)}}</th>
               </tr> -->
 
-              <tr *ngIf="showReference">
+              <tr *ngIf="showReference || grnMaster?.billReference">
                 <td colspan="2">
                   <mat-accordion>
                     <mat-expansion-panel>
@@ -108,6 +108,10 @@
                         <tr>
                           <th>Doc #</th>
                         </tr>
+                        <tr *ngIf="grnMaster?.issuanceId">
+                          <td><a [routerLink]="('/' + ISSUANCE.ID_BASED_ROUTE('details', grnMaster?.issuanceId))"
+                              class="links">{{grnMaster?.issuanceDocNo}}</a></td>
+                        </tr>
                         <tr *ngIf="grnMaster?.purchaseOrderId">
                           <td><a [routerLink]="('/' + PURCHASE_ORDER.ID_BASED_ROUTE('details', grnMaster?.purchaseOrderId))"
                               class="links">{{grnMaster?.poDocNo}}</a></td>
@@ -118,6 +122,10 @@
                                 class="links">{{grtn?.docNo}}</a></td>
                           </tr>
                         </ng-container>
+                        <tr *ngIf="grnMaster?.billReference">
+                          <td><a [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', grnMaster?.billReference?.docId))"
+                              class="links">{{grnMaster?.billReference?.docNo}}</a></td>
+                        </tr>
                       </table>
                     </mat-expansion-panel>
                   </mat-accordion>
