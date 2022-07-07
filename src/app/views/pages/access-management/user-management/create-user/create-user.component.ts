@@ -179,11 +179,18 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       return
     }
     this.isLoading = true;
-    this.userModel = { ...this.userForm.value, id: this._id };
-    this.userModel.employeeId = this.userForm.getRawValue().employeeId;
-    this.userModel.email = this.userForm.getRawValue().email;
-    this.userModel.id = this.userModel?.id;
+    if(this._id) {
+      this.userModel.userId = this.userModel?.userId;
+      this.userModel.userName = this.userModel?.userName;
+      this.userModel.email = this.userModel?.email;
+    }
+    else {
+      this.userModel = { ...this.userForm.value };
+      this.userModel.employeeId = this.userForm.getRawValue().employeeId;
+      this.userModel.email = this.userForm.getRawValue().email;
+    }
     this.userModel.userRoles = this.userRole;
+
     console.log("model: ", this.userModel)
     if (this.userModel.id) {
       this.accessManagementService.updateUser(this.userModel)
