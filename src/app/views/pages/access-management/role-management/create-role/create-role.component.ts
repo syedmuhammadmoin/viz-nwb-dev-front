@@ -118,12 +118,14 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
   }
 
   onSubmit() {
+
     if (this.roleForm.invalid) {
+      this.currentIndex = 0;
       return
     }
-
+  
     if (this.roleClaims.filter(x => x.selected === true).length < 2) {
-      this.toastService.warning('Atleast 2 Permissions is required !', 'Form Error');
+      this.toastService.warning('Atleast 2 Permissions is required !', 'Role');
       this.currentIndex = 1;
       return
     }

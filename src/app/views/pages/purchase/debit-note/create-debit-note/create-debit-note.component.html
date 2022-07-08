@@ -55,7 +55,7 @@
                        (selectionChange)="onCampusSelected($event.value)"
                        (blurEvent)="logValidationErrors(debitNoteForm, formErrors, validationMessages)"
                        matFormFieldClass="full-width"
-                       [errorMessage]="'Campus is Required'" 
+                       [errorMessage]="'Campus is required.'" 
                        [optionList]="ngxsService.campuses$">
                       </kt-simple-dropdown>
                   </div>
@@ -120,7 +120,7 @@
                                       propertyName="name"
                                       formControlName="accountId" 
                                       matFormFieldClass="mobile-label full-width"
-                                      errorMessage="Account is Required"
+                                      errorMessage="Account is required."
                                       [optionList]="ngxsService.accountsLevel4$">
                                     </kt-simple-dropdown>
                                   </div>

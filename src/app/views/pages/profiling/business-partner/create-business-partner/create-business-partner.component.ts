@@ -278,9 +278,12 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   // }
 
   onSubmit() {
+  
     if (this.businessPartnerForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Business Partner")
       return;
     }
+
     this.isLoading = true;
     this.mapFormValueToClientModel();
     //console.log(this.businessPartner)

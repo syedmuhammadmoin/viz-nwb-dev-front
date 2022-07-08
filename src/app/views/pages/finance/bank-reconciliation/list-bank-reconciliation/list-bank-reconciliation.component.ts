@@ -96,7 +96,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   // Validation Messages
   validationMessages = {
     bankName: {
-      required: 'Bank Account is Required'
+      required: 'Bank Account is required.'
     }
   }
   // Error keys for validation messages

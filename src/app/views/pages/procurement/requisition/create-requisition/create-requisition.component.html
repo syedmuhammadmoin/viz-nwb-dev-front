@@ -77,7 +77,7 @@
                                 [optionList]="ngxsService.products$"
                                 clickEventButtonName="Add New Item"
                                 (clickEvent)="openProductDialog()" 
-                                [errorMessage]="'Item is Required'"
+                                [errorMessage]="'Item is required.'"
                                 formControlName="itemId"
                                 placeholder="Select Item" matFormFieldClass="mobile-label full-width"
                                 (selectionChange)="onItemSelected($event.value, i)">
@@ -132,7 +132,7 @@
                                   propertyName="name"
                                   (selectionChange)="showMessage = true"
                                   formControlName="warehouseId" 
-                                  [errorMessage]="'Store is Required'"
+                                  [errorMessage]="'Store is required.'"
                                   matFormFieldClass="full-width" 
                                   [optionList]="warehouseList">
                                 </kt-simple-dropdown>

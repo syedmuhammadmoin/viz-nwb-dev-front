@@ -176,6 +176,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     }
 
     if (this.userForm.invalid) {
+      this.currentIndex = 0;
       return
     }
     this.isLoading = true;

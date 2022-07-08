@@ -46,7 +46,7 @@
                       (selectionChange)="onCampusSelected($event.value)"
                       (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
                       matFormFieldClass="full-width"
-                      [errorMessage]="'Campus is Required'" 
+                      [errorMessage]="'Campus is required.'" 
                       [optionList]="ngxsService.campuses$">
                     </kt-simple-dropdown>
                   </div>
@@ -71,7 +71,7 @@
                                 [id]="'issuance_item_' + i"
                                 formControlName="itemId"
                                 (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
-                                [errorMessage]="'Item is Required'" 
+                                [errorMessage]="'Item is required.'" 
                                 placeholder="Select Item" matFormFieldClass="mobile-label full-width">
                                 </kt-simple-dropdown>
                               </div>
@@ -128,7 +128,7 @@
                                   propertyValue="id" 
                                   propertyName="name"
                                   (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
-                                  [errorMessage]="'Store is Required'"
+                                  [errorMessage]="'Store is required.'"
                                   (selectionChange)="showMessage = true"
                                   searchPlaceholder="Search Store..."
                                   formControlName="warehouseId" 

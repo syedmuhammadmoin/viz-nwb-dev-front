@@ -219,7 +219,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     }
     
     if (this.employeeGridApi.getSelectedRows().length < 1) {
-      this.toastService.error('Atleast 1 employee is required', 'Employee is Required')
+      this.toastService.error('Atleast 1 employee is required.', 'Employee is required.')
       return
     }
 

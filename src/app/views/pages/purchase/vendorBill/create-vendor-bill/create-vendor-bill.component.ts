@@ -423,7 +423,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       this.toastService.error('Please add bill lines', 'Error')
       return;
     }
+
     if (this.vendorBillForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Vendor Bill")
       return;
     }
 

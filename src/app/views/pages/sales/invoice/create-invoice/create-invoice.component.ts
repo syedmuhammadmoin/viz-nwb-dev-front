@@ -363,7 +363,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       this.toastService.error('Please add invoice lines', 'Error')
       return;
     }
+    
     if (this.invoiceForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Invoice")
       return;
     }
 

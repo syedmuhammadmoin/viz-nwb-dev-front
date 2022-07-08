@@ -182,8 +182,10 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
 
     if (this.bankStatementForm.invalid) {
-      return
+      this.toastService.error("Please fill all required fields!", "Bank Statement")
+      return;
     }
+
     this.isLoading = true;
     this.mapFormValueToBankStatementModel();
     console.log(this.bankStatementModel)

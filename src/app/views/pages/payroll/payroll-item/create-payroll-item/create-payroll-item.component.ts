@@ -397,6 +397,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   onSubmit(): void {
    
     if (this.payrollItemForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Payroll Item")
       return;
     }
 
