@@ -116,7 +116,7 @@
                                       propertyName="productName"
                                       propertyValue="id"
                                       matFormFieldClass="mobile-label full-width"
-                                      [errorMessage]="'Item is Required'"
+                                      [errorMessage]="'Item is required.'"
                                       (selectionChange)="onItemSelected($event.value,i)">
                                     </kt-simple-dropdown>
                               </div>
@@ -152,7 +152,7 @@
                                       propertyName="name"
                                       formControlName="accountId"
                                       matFormFieldClass="mobile-label full-width"
-                                      errorMessage="Account is Required"
+                                      errorMessage="Account is required."
                                       [optionList]="ngxsService.accountsLevel4$">
                                     </kt-simple-dropdown>
                               </div>
@@ -284,7 +284,7 @@
                                       searchPlaceholder="Search Store..."
                                       (selectionChange)="showMessage = true"
                                       formControlName="warehouseId" 
-                                      [errorMessage]="'Store is Required'"
+                                      [errorMessage]="'Store is required.'"
                                       matFormFieldClass="full-width" 
                                       [optionList]="warehouseList">
                                     </kt-simple-dropdown>

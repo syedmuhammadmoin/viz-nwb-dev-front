@@ -202,9 +202,12 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
       this.workflowForm.get('workflowLines').markAllAsTouched();
       return;
     }
+    
     if (this.workflowForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Workflow")
       return;
     }
+
     const controls = this.workflowForm.controls.workflowLines as FormArray;
     if (controls.length === 0) {
       this.toastService.error('Please add workflow transitions', 'Error')

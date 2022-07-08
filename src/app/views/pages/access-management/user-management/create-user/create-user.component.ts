@@ -176,6 +176,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     }
 
     if (this.userForm.invalid) {
+      this.currentIndex = 0;
       return
     }
     this.isLoading = true;
@@ -192,7 +193,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.userModel.userRoles = this.userRole;
 
     console.log("model: ", this.userModel)
-    if (this.userModel.id) {
+    if (this.userModel.userId) {
       this.accessManagementService.updateUser(this.userModel)
       .pipe(
        take(1),

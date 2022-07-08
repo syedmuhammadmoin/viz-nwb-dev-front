@@ -74,7 +74,7 @@
                                 formControlName="currentStatusId" 
                                 [callBackFunction]="filterFunction"
                                 matFormFieldClass="full-width"
-                                errorMessage="Current State is Required"
+                                errorMessage="Current State is required."
                                 [optionList]="ngxsService.statuses$">
                               </kt-simple-dropdown>
                             </div>
@@ -87,7 +87,7 @@
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown [id]="'workflow_action_' + i" placeholder="Select Action" propertyValue="id"
                                 propertyName="value" formControlName="action" matFormFieldClass="full-width"
-                                errorMessage="Action is Required"
+                                errorMessage="Action is required."
                                 [optionList]="[{value: 'Approve', id: actionButton.Approve}, {value: 'Reject', id: actionButton.Reject}]">
                               </kt-simple-dropdown>
                             </div>
@@ -105,7 +105,7 @@
                                 propertyName="status" 
                                 formControlName="nextStatusId" 
                                 matFormFieldClass="full-width"
-                                errorMessage="Next State is Required"
+                                errorMessage="Next State is required."
                                 [optionList]="ngxsService.statuses$">
                               </kt-simple-dropdown>
                             </div>
@@ -123,7 +123,7 @@
                                 propertyName="name" 
                                 formControlName="allowedRoleId" 
                                 matFormFieldClass="full-width"
-                                errorMessage="Role is Required"
+                                errorMessage="Role is required."
                                 [optionList]="ngxsService.roles$">
                               </kt-simple-dropdown>
                             </div>

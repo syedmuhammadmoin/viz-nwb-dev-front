@@ -179,9 +179,12 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
       this.toastService.error('Please Select Budget', 'Error')
       return;
     }
+
     if (this.estimatedBudgetForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Estimated Budget")
       return;
     }
+
     this.mapFormValuesToEstimatedBudgetModel();
     console.log(this.estimatedBudgetModel)
     this.isLoading = true

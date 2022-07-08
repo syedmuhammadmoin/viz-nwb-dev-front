@@ -332,8 +332,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       this.toastService.error("Amount can't be greater than Invoice Pending Amount", "Credit Note Lines")
       return;
     }
-    
+
     if (this.creditNoteForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Credit Note")
       return;
     }
 

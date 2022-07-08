@@ -183,9 +183,13 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
 // submit method called on submit button
   onSubmit() {
+  
     if (this.payrollTransactionForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Payroll")
       return;
     }
+
+
     if (this.payrollTransactionForm.value.workingDays <
       (Number(this.payrollTransactionForm.value.presentDays) + Number(this.payrollTransactionForm.value.leaveDays))) {
       this.toastService.error('Present days and Leave days sum must be less than Working days', 'Error');

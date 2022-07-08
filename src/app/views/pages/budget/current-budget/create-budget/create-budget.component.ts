@@ -200,9 +200,13 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       this.toastService.error('Please add Budget lines', 'Error')
       return;
     }
+    
     if (this.budgetForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Budget")
       return;
     }
+
+
     this.mapFormValuesToBudgetModel();
     //console.log(this.budgetModel)
     this.isLoading = true

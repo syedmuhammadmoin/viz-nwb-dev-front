@@ -23,7 +23,7 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
 
   validationMessages = {
     adminPassword: {
-      required: 'Administrator Password is Required'
+      required: 'Administrator Password is required.'
     },
   };
 

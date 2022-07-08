@@ -40,7 +40,7 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
       ConfirmPassword: 'Password & Confirm Password did\'nt\ match'
     },
     currentPassword: {
-      required: 'Current Password is Required'
+      required: 'Current Password is required.'
     }
   };
 

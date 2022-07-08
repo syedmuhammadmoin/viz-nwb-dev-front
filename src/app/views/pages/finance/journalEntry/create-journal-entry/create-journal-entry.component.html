@@ -29,7 +29,7 @@
                    (selectionChange)="onCampusSelected($event.value)"
                    (blurEvent)="logValidationErrors(journalEntryForm, formErrors, validationMessages)"
                    matFormFieldClass="full-width"
-                   [errorMessage]="'Campus is Required'" 
+                   [errorMessage]="'Campus is required.'" 
                    [optionList]="ngxsService.campuses$">
                    </kt-simple-dropdown>
                 </div>
@@ -58,7 +58,7 @@
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
                               formControlName="accountId" matFormFieldClass="full-width" [id]="'journal_coa_' + i"
-                              [errorMessage]="'Account is Required'" [optionList]="ngxsService.accountsLevel4$">
+                              [errorMessage]="'Account is required.'" [optionList]="ngxsService.accountsLevel4$">
                             </kt-simple-dropdown>
                           </div>
                         </mat-cell>

@@ -337,8 +337,10 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
       this.toastService.error('Please add goods received note lines', 'Error')
       return;
     }
+    
     if (this.goodsReturnNoteForm.invalid) {
-      return
+      this.toastService.error("Please fill all required fields!", "Goods Return Note")
+      return;
     }
 
     this.isLoading = true;

@@ -62,7 +62,7 @@
                                 <div class="col-lg-12 col-sm-12">
                                   <kt-simple-dropdown
                                     (selectionChange)="onItemSelected($event.value, i)"
-                                    [errorMessage]="'Item is Required'"
+                                    [errorMessage]="'Item is required.'"
                                     [isDisabled]="true"
                                     matFormFieldClass="full-width input_d_1"
                                     [optionList]="productService.getProducts()"
@@ -126,7 +126,7 @@
                                 <div class="col-lg-12 col-sm-12">
                                   <kt-group-dropdown
                                     [isDisabled]="true"
-                                    [errorMessage]="'Location is Required'"
+                                    [errorMessage]="'Location is required.'"
                                     [optionList]="warehouseService.getWarehouses()"
                                     formControlName="locationId"
                                     groupChildrenName="locations"

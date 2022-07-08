@@ -287,7 +287,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     }
 
     if (this.journalEntryForm.invalid) {
-      return
+      this.toastService.error("Please fill all required fields!", "Journal Entry")
+      return;
     }
 
     if (this.debitTotal !== this.creditTotal) {
