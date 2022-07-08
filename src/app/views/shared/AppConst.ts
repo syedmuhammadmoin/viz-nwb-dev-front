@@ -1,6 +1,11 @@
 import {DocType} from './AppEnum';
 
 export class AppConst {
+
+  static appBaseUrl: string;
+  static remoteServiceBaseUrl: string;
+  static appBaseHref: string;
+
   static ProductType = {
     0: 'Consumable',
     1: 'Service',

@@ -1,1 +1,126 @@
-<p>custom-upload-file works!</p>
+
+<div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
+    <div class="kt-portlet__head">
+      <div class="kt-portlet__head-caption">
+        <div class="kt-portlet__head-title">
+          <h3 class="kt-portlet__head-text modal-header">
+            File Upload  <span mat-dialog-close><i
+            class="fa fa-times float-right icon-cross"></i></span>
+          </h3>
+        </div>
+      </div>
+    </div>
+    <!-- form start -->
+    <div class="kt-portlet__body p-10">
+      <div class="kt-form__section kt-form__section--first">
+        <!-- first row starts -->
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <div  class="row" id="upload">
+            <div class="col-lg-12 col-12">
+              <label class="et_pb_contact_form_label" for="et_pb_contact_brand_file_request_0">Enter</label>
+              <input #uploadFileInput (change)="uploadFile($event)" accept=".txt, .doc, .docx, .pdf, .xls, .xlsx, .PNG, .JPEG, .JPG"
+                class="file-upload" id="et_pb_contact_brand_file_request_0" type="file">
+            </div>
+            <div  class="col-lg-12 col-12">
+              <div *ngIf="file" class="file-error"
+                style="">
+                <p class="mb-0">
+                  <span>Selected File : {{file.name || 'File Name'}}</span>
+                  <!-- {{file.name || 'File Name'}} -->
+                  <span ><i
+                    (click)="reset()" class="fa fa-times float-right" style="color: #721c24;margin-top: 3px;"></i></span>
+                </p>
+                <!-- <div class="text-right">
+                  <button style="font-size: 12px;" class="danger__btn" mat-raised-button type="reset" > Delete </button>
+                </div> -->
+              </div>
+            </div>
+  
+            <div class="col-md-12 col-12">
+              <div *ngFor="let file of fileList">
+  <!--                (click)="download(file)"-->
+              <a class="mat-card">
+                  <header>
+                      <p class="mb-0" style="width: 100%;float: left;"><span class="float-left">{{file.userName || ''}}</span> <span class="float-right mr-0">{{file.createdAt || ''}}</span></p>
+  
+                      <h3> <i class="fa fa-download download-btn"></i> {{file.fileName || ''}} <span class="float-right"><a (click)="download(file)" class="">Download</a></span></h3>
+                  </header>
+              </a>
+              </div>
+            </div>
+  
+            <!-- <div class="col-md-12">
+              <div class="row justify-content-center align-items-center">
+                <div class="col">
+                  <i class="fas fa-paperclip"></i>
+                </div>
+                <div class="col-md-8">
+                  <span>dfsafds</span>
+                  <h3> Title goes here</h3>
+                </div>
+                <div class="col">
+                  <i class="fa fa-download download-btn"></i>
+                </div>
+              </div>
+            </div> -->
+  
+            <!-- <div  class="col-lg-12 col-12">
+              <div *ngFor="let file of fileList"
+                style="border: 1px solid gray; padding: 18px 15px;color: black;font-weight: 500;background-color: white; margin-top: 13px;border-radius: 8px;">
+                <p class="">
+                  File Name : {{file.fileName || ''}}
+                </p>
+                <p class="">
+                  User Name :
+                </p>
+                <p class="">
+                  Created At:
+                </p>
+                <div class="text-right">
+                  <button style="font-size: 12px;" class="sub___btn" mat-raised-button (click)="download(file)">Download</button>
+                </div>
+              </div>
+            </div> -->
+  
+            <div  class="col-lg-12 col-12">
+              <div *ngIf="fileError"
+                style="padding: 8px 15px;
+                color: #c75656;
+                font-weight: 500;
+                background-color: #f9dddd;
+                margin-top: 13px;
+                border-radius: 8px;
+                border: 1px solid #c75656;">
+                <span>
+                  <b>Error: </b> {{fileError}}
+                </span>
+  
+  
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <mat-divider></mat-divider>
+    <div class="kt-portlet__foot p-6">
+      <div class="kt-form__actions ">
+        <div class="row">
+          <div class="col-lg-12 col-md-8 col-sm-8 col-9">
+            <div class="float-right">
+              <!-- <button class="mr-5 cancel__btn" mat-raised-button type="reset" (click)="dialogRef.close()"> Cancel </button> -->
+              <button  (click)="onSubmit()" class="sub___btn" mat-raised-button type="submit"> Upload </button>
+              <!--Edit Button-->
+  
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- form ends -->
+  </div>
+  
+  
+  
+  

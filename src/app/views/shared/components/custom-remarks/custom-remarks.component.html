@@ -1,1 +1,55 @@
-<p>custom-remarks works!</p>
+<div class="kt-portlet" style="overflow :hidden;">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-caption">
+            <div class="kt-portlet__head-title">
+                <h3 class="kt-portlet__head-text modal-header">
+                   Add Remarks <span (click)="onCloseRemarksDialog()"><i class="fa fa-times float-right icon-cross"></i></span>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <!-- form start -->
+    <form [formGroup]="remarksForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+        <div class="kt-portlet__body" >
+            <div class="kt-form__section kt-form__section--first">
+              <!-- first row start -->
+              <div class="col-md-12 col-lg-12 col-sm-12">
+                <div class="row">
+                 <div class="col-lg-2 col-md-2 col-sm-2"></div>
+                  <div class="col-lg-8 col-md-8 col-sm-8">
+                      <label class="col-form-label">Remarks:</label>
+                      <div class="form-group kt-form__group">
+                          <mat-form-field class="full-width" appearance="outline">
+                            <input matInput placeholder="Remarks" formControlName="remarks"
+                            (blur)="logValidationErrors(this.remarksForm, this.formErrors, this.validationMessages)">
+                            <mat-hint>(Maximum 200 characters)</mat-hint>
+                             <mat-error *ngIf="(formErrors.remarks)">
+                                <strong>{{formErrors.remarks}}</strong>
+                              </mat-error>
+                          </mat-form-field>
+                      </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+
+
+        <mat-divider></mat-divider>
+        <div class="kt-portlet__foot" >
+            <div class="kt-form__actions ">
+                <div class="row">
+                    <div class="col-lg-12 col-md-8 col-sm-8 col-9">
+                        <div class="float-right">
+                            <button class="mr-5 cancel__btn" mat-raised-button type="reset" (click)="onCloseRemarksDialog()">
+                              Cancel </button>
+                            <button mat-raised-button class="sub___btn" type="submit"> Submit </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <!-- form ends -->
+  </div>
+

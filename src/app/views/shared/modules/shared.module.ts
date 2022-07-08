@@ -53,6 +53,7 @@ import { DateInputComponent } from '../components/date-input/date-input.componen
 import { PdfComponent } from '../pdf/pdf.component';
 import { ActionButtonComponent } from '../components/action-button/action-button.component';
 import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
+import { FileSizePipe } from '../pipes/non-negative/file-size/file-size.pipe';
 
 
 // @ts-ignore
@@ -68,7 +69,8 @@ import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
     ShortNumberPipe,
     PdfComponent,
     ActionButtonComponent,
-    NonNegativePipe
+    NonNegativePipe,
+    FileSizePipe
   ],
   imports: [
     NgxPrintModule,
@@ -167,6 +169,7 @@ import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
     MatPaginatorModule,
     MatDialogModule,
     CommonModule,
+    FileSizePipe,
     MatRadioModule,
     MatTreeModule,
     MatButtonToggleModule,

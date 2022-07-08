@@ -13,6 +13,8 @@ import { CREDIT_NOTE, INVOICE, JOURNAL_ENTRY, RECEIPT } from 'src/app/views/shar
 import { IInvoiceLines } from '../model/IInvoiceLines';
 import { IInvoice } from '../model/IInvoice';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @Component({
@@ -235,9 +237,22 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
       : this.bpUnReconPaymentList[index].amount;
   };
 
-  workflow(action: number) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number , remarks: string) {
     this.isLoading = true
-    this.invoiceService.workflow({ action, docId: this.invoiceMaster.id })
+    this.invoiceService.workflow({ action, docId: this.invoiceMaster.id , remarks })
     .pipe(
       take(1),
        finalize(() => {
@@ -250,5 +265,21 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Invoice');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.invoiceMaster,
+        serviceClass: this.invoiceService,
+        functionName: 'uploadFile',
+        name: 'Invoice'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getInvoiceData(this.invoiceId)
+      this.cdRef.detectChanges()
+    })
   }
 }

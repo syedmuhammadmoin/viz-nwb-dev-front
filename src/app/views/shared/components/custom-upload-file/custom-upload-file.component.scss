@@ -1,0 +1,167 @@
+.et_pb_contact_form_label {
+	display: block;
+	color: black;
+	font-weight: bold;
+  letter-spacing: 1.2px;
+	font-size: 18px;
+	padding-bottom: 5px;
+}
+input[id="et_pb_contact_brand_file_request_0"] {
+	display: none;
+}
+label[for="et_pb_contact_brand_file_request_0"] {
+	background: #f3f6f9;
+	height: 160px;
+  background-image: url("https://image.flaticon.com/icons/svg/126/126477.svg");
+  background-repeat: no-repeat;
+  background-position: top 18px center;
+  background-size: 7%;
+  color: transparent;
+  margin: auto;
+  width: 100%;
+  border: 1px dashed #424e63;
+  box-sizing: border-box;
+}
+label[for="et_pb_contact_brand_file_request_0"]:before {
+	content: "Drag and Drop a file here";
+	display: block;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	font-size: 14px;
+	color: #202020;
+	font-weight: 400;
+	left:0;
+	right:0;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+label[for="et_pb_contact_brand_file_request_0"]:after {
+	display: block;
+	content: 'Browse';
+	background: #16a317;
+	width: 86px;
+	height: 27px;
+  line-height: 27px;
+	position: absolute;
+	bottom: 19px;
+	font-size: 14px;
+	color: white;
+	font-weight: 500;
+	left:0;
+	right:0;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+label[for="et_pb_contact_brand_request_0"]:after {
+	content: " (Provide link or Upload files if you already have guidelines)";
+	font-size: 12px;
+	letter-spacing: -0.31px;
+	color: #7a7a7a;
+	font-weight: normal;
+}
+label[for="et_pb_contact_design_request_0"]:after {
+	content: " (Provide link or Upload design files)";
+	font-size: 12px;
+	letter-spacing: -0.31px;
+	color: #7a7a7a;
+	font-weight: normal;
+}
+label[for="et_pb_contact_brand_file_request_0"].changed, label[for="et_pb_contact_brand_file_request_0"]:hover {
+  background-color: #e3f2fd;
+}
+label[for="et_pb_contact_brand_file_request_0"] {
+  cursor: pointer;
+  transition: 400ms ease;
+}
+.file_names {
+	display: block;
+	position: absolute;
+	color: black;
+	left: 0;
+	bottom: -30px;
+	font-size: 13px;
+	font-weight: 300;
+}
+.file_names {
+  text-align: center;
+}
+
+.kt-portlet__body
+{
+  max-height: 300px;
+  overflow-y: scroll;
+  
+}
+
+.kt-portlet__body::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.kt-portlet__body::-webkit-scrollbar
+{
+	width: 8px;
+	background-color: #F5F5F5;
+}
+
+.kt-portlet__body::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: rgb(40, 54, 85);
+  background-image: linear-gradient(to bottom, #9c9c9c, #afafaf);
+  
+}
+
+
+.mat-card {
+	padding: 8px 50px;
+	width: 100%;
+	background: #595e791c;
+	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+	margin-top: 20px;
+	border-radius: 10px;
+	display: block;
+	float: left;
+	
+	cursor: pointer;
+}
+.mat-card header span {
+	margin: 0px 8px;
+	
+}
+.mat-card header h3 {
+	margin:5px 8px;
+	color: #2b335a;
+	text-shadow: #00000020 0 0 2px;
+	font-size: 16px;
+	font-weight: 500;
+	float: left;
+	width: 100%;
+	position: relative;
+}
+
+.download-btn
+{
+	position: absolute;
+    left: -7%;
+    font-size: 25px;
+    top: -10px;
+    color: #2b335a;
+}
+
+.file-error
+{
+	padding: 18px 15px	;
+	color: #721c24;
+	font-weight: 500;
+	background-color: #f9d9dc;
+	margin-top: 13px;
+	border-radius: 8px;	;
+	border: 1px	 solid;
+}
