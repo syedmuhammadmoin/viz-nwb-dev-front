@@ -192,7 +192,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     this.userModel.userRoles = this.userRole;
 
     console.log("model: ", this.userModel)
-    if (this.userModel.id) {
+    if (this.userModel.userId) {
       this.accessManagementService.updateUser(this.userModel)
       .pipe(
        take(1),

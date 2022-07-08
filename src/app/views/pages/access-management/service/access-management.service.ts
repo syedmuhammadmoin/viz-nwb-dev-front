@@ -47,7 +47,7 @@ export class AccessManagementService {
     }
 
     updateUser(body: IUserModel): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + 'auth/users/' + body.id, body);
+        return this.httpClient.put(environment.baseUrl + 'auth/users/' + body.userId, body);
     }
 
     updateRole(body: IRoleModel): Observable<any> {
