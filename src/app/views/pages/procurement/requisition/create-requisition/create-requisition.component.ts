@@ -70,7 +70,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   // Validation Messages
   validationMessages = {
-    businessPartnerId: {
+    employeeId: {
       required: 'Employee is required.'
     },
     requisitionDate: {
@@ -82,7 +82,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   }
 
   formErrors = {
-    businessPartnerId: '',
+    employeeId: '',
     requisitionDate: '',
     campusId: ''
   }
@@ -104,7 +104,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   ngOnInit() {
 
     this.requisitionForm = this.fb.group({
-      businessPartnerId: ['', [Validators.required]],
+      employeeId: ['', [Validators.required]],
       requisitionDate: ['', [Validators.required]],
       campusId: ['', [Validators.required]],
       requisitionLines: this.fb.array([
@@ -114,7 +114,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
     this.requisitionModel = {
       id: null,
-      businessPartnerId: null,
+      employeeId: null,
       requisitionDate: '',
       campusId : null,
       requisitionLines: []
@@ -260,7 +260,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   //Edit Requisition
   editRequisition(requisition : IRequisition) {
     this.requisitionForm.patchValue({
-      businessPartnerId: requisition.businessPartnerId,
+      employeeId: requisition.employeeId,
       requisitionDate: requisition.requisitionDate,
       campusId: requisition.campusId
     });
@@ -348,7 +348,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   // Mapping value to model
   mapFormValuesTorequisitionModel() {
-    this.requisitionModel.businessPartnerId = this.requisitionForm.value.businessPartnerId;
+    this.requisitionModel.employeeId = this.requisitionForm.value.employeeId;
     this.requisitionModel.requisitionDate = this.transformDate(this.requisitionForm.value.requisitionDate, 'yyyy-MM-dd');
     this.requisitionModel.campusId = this.requisitionForm.value.campusId;
     this.requisitionModel.requisitionLines = this.requisitionForm.value.requisitionLines;

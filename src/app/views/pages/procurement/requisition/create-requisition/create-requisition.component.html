@@ -14,12 +14,12 @@
                     <label class="col-form-label pt-0">Employee:</label>
                       <kt-simple-dropdown 
                       id="requisition_employee"
-                        formControlName="businessPartnerId" 
+                        formControlName="employeeId" 
                         matFormFieldClass="full-width"
                         (blurEvent)="logValidationErrors(requisitionForm, this.formErrors, this.validationMessages)"
                         propertyName="name" 
                         propertyValue="id" 
-                        [errorMessage]="formErrors.businessPartnerId"
+                        [errorMessage]="formErrors.employeeId"
                         [optionList]="ngxsService.employees$"
                         searchPlaceholder="Search Employees..."
                         placeholder="Select Employee">
