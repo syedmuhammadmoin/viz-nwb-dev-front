@@ -102,7 +102,7 @@
                           <tr>
                             <th>Doc #</th>
                           </tr>
-                          <tr *ngIf="issuanceMaster?.resuisitionId">
+                          <tr *ngIf="issuanceMaster?.requisitionId">
                             <td><a [routerLink]="('/' + REQUISITION.ID_BASED_ROUTE('details', issuanceMaster?.requisitionId))"
                               class="links">{{issuanceMaster?.requisitionDocNo}}</a></td>
                           </tr>

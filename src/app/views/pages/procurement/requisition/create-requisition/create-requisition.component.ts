@@ -65,7 +65,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   warehouseList: any = new BehaviorSubject<any>([])
 
   //show toast mesasge of on campus select
-  showMessage: boolean = false;
+  //showMessage: boolean = false;
 
 
   // Validation Messages
@@ -154,7 +154,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
     this.formDirective.resetForm();
     requisitionLineArray.clear();
-    this.showMessage = false;
+    //this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -263,8 +263,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       campusId: requisition.campusId
     });
 
-    this.onCampusSelected(requisition.campusId)
-    this.showMessage = true;
+    //this.onCampusSelected(requisition.campusId)
+    //this.showMessage = true;
 
     this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(requisition.requisitionLines));
     this.totalCalculation();
@@ -303,10 +303,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   
       this.mapFormValuesTorequisitionModel();
   
-      const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
+      const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId))))
   
       if(isDuplicateLines) {
-        this.toastService.error("Please Remove Duplicate Line!", "Requisition")
+        this.toastService.error("Please Remove Duplicate Items!", "Requisition")
         return;
       }
 
@@ -374,15 +374,15 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     return !this.requisitionForm.dirty;
   }
 
-  onCampusSelected(campusId : number) {
-    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
-      this.warehouseList.next(res.result || [])
-    })
+  // onCampusSelected(campusId : number) {
+  //   this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+  //     this.warehouseList.next(res.result || [])
+  //   })
 
-     this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
-      this.toastService.info("Please Reselect Store!" , "Requisition")
-     }
-     this.cdRef.detectChanges()
-  }
+  //    this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+  //    if(this.showMessage) {
+  //     this.toastService.info("Please Reselect Store!" , "Requisition")
+  //    }
+  //    this.cdRef.detectChanges()
+  // }
 }

@@ -51,7 +51,6 @@
                       propertyValue="id"
                       matFormFieldClass="full-width "
                       [errorMessage]="formErrors.campusId"
-                      (selectionChange)="onCampusSelected($event.value)"
                       (blurEvent)="logValidationErrors(requisitionForm, this.formErrors, this.validationMessages)"
                       [optionList]="ngxsService.campuses$"
                       searchPlaceholder="Search Campuses..."

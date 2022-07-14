@@ -82,14 +82,14 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
         return params.value || 0
       }
     },
-    { 
-      headerName: 'Store', 
-      field: 'warehouse', 
-      cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ValueFormatterParams) => {
-        return params.value || 'N/A'
-      }
-    }
+    // { 
+    //   headerName: 'Store', 
+    //   field: 'warehouse', 
+    //   cellStyle: { 'font-size': '12px' },
+    //   valueFormatter: (params: ValueFormatterParams) => {
+    //     return params.value || 'N/A'
+    //   }
+    // }
   ];
 
   ngOnInit() {

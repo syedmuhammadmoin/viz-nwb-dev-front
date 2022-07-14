@@ -249,7 +249,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
         description: [line.description , Validators.required],
         quantity: (this.isRequisition) ? [line.pendingQuantity , [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
         [line.quantity , [Validators.required,Validators.min(1)]],
-        warehouseId: [line.warehouseId , Validators.required],
+        warehouseId: [line.warehouseId , [Validators.required]],
       }))
     })
     return formArray
