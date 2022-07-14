@@ -34,7 +34,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   requisitionForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'warehouseId', 'action'];
+  displayedColumns = ['itemId', 'description', 'quantity', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -125,8 +125,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
      this.ngxsService.getEmployeeFromState();
      // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
-     // get Ware house location from state
-     this.ngxsService.getWarehouseFromState();
      // get item from state
      this.ngxsService.getProductFromState();
      // get Campus from state
@@ -224,7 +222,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       itemId: ['', [ Validators.required]],
       description: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
-      warehouseId: ['', [ Validators.required]],
+      warehouseId: [null],
     });
   }
 
@@ -268,12 +266,12 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.onCampusSelected(requisition.campusId)
     this.showMessage = true;
 
-    this.requisitionForm.setControl('requisitionLines', this.editrequisitionLines(requisition.requisitionLines));
+    this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(requisition.requisitionLines));
     this.totalCalculation();
   }
 
   //Edit Requisition Lines
-  editrequisitionLines(requisitionLines: IRequisitionLines[]): FormArray {
+  editRequisitionLines(requisitionLines: IRequisitionLines[]): FormArray {
     const formArray = new FormArray([]);
     requisitionLines.forEach((line : IRequisitionLines | any) => {
       formArray.push(this.fb.group({
@@ -281,7 +279,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
         quantity: [line.quantity, [Validators.required, Validators.min(1)]],
-        warehouseId: [line.warehouseId, [ Validators.required]]
+        warehouseId: [null]
       }))
     })
     return formArray

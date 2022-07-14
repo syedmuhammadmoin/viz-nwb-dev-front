@@ -43,7 +43,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
 
   columnDefs = [
     { 
-      headerName: 'Grn #', 
+      headerName: 'GRTRN #', 
       field: 'docNo', 
       tooltipField: 'status', 
       cellRenderer: "loadingCellRenderer",
