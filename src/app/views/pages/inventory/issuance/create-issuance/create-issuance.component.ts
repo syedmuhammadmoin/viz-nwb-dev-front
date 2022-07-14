@@ -54,6 +54,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   isRequisition: boolean;
   requisitionMaster: any;
 
+  isIssuance: boolean
+
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
@@ -131,10 +133,10 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.activatedRoute.queryParams.subscribe((param) => {
 
       const id = param.q;
-      const isIssuance = param.isIssuance;
+      this.isIssuance = param.isIssuance;
       this.isRequisition = param.isRequisition;
 
-      if (id && isIssuance) {
+      if (id && this.isIssuance) {
         this.isLoading = true;
         this.title = 'Edit Issuance'
         this.getIssuance(id);
@@ -243,14 +245,17 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   patchIssuanceLines(lines: IIssuanceLines[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
-      formArray.push(this.fb.group({
-        id: (this.isRequisition) ? 0 : line.id,
-        itemId: [line.itemId , Validators.required],
-        description: [line.description , Validators.required],
-        quantity: (this.isRequisition) ? [line.pendingQuantity , [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
-        [line.quantity , [Validators.required,Validators.min(1)]],
-        warehouseId: [line.warehouseId , [Validators.required]],
-      }))
+      if(line.pendingQuantity != 0 ?? this.isIssuance) {
+        console.log("entered")
+        formArray.push(this.fb.group({
+          id: (this.isRequisition) ? 0 : line.id,
+          itemId: [line.itemId , Validators.required],
+          description: [line.description , Validators.required],
+          quantity: (this.isRequisition) ? [line.pendingQuantity , [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
+          [line.quantity , [Validators.required,Validators.min(1)]],
+          warehouseId: [line.warehouseId , [Validators.required]],
+        }))
+      }
     })
     return formArray
   }

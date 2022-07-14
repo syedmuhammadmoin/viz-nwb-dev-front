@@ -37,7 +37,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   purchaseOrderForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action'];
+  displayedColumns = ['itemId', 'description','accountId', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -142,6 +142,8 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
      this.ngxsService.getCampusFromState();
 
+     this.ngxsService.products$.subscribe(res => this.salesItem = res)
+
      //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
@@ -152,8 +154,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         //this.getSalesOrder(id);
       }
     })
-
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     //handling dueDate logic
     this.purchaseOrderForm.get('PODate').valueChanges.subscribe((value) => {
@@ -183,9 +183,11 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
+      const account = this.salesItem.find(i => i.id === itemId).costAccountId
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(salesTax);
+      arrayControl.at(index).get('accountId').setValue(account);
       // Calculating subtotal
       const quantity = arrayControl.at(index).get('quantity').value;
       const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
@@ -238,7 +240,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       quantity: ['', [Validators.required, Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
-      accountId: ['', [Validators.required]],
+      accountId: [''],
       warehouseId: ['',[Validators.required]],
     });
   }

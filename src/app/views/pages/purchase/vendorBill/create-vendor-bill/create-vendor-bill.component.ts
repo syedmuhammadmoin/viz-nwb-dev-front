@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable} from 'rxjs';
 import { IVendorBill} from '../model/IVendorBill';
 import { VendorBillService} from '../services/vendor-bill.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, take } from 'rxjs/operators';
+import { finalize, map, take } from 'rxjs/operators';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { FormsCanDeactivate } from '../../../../shared/route-guards/form-confirmation.guard';
 import { ProductService } from '../../../profiling/product/service/product.service';
@@ -169,9 +169,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     //this.ngxsService.getLocationFromState();
     this.ngxsService.getCampusFromState()
 
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
-
-    this.ngxsService.products$.subscribe(res => this.salesItem = res.result)
+    this.ngxsService.products$.subscribe(res => this.salesItem = res)
 
      // get id through route
     this.activatedRoute.queryParams.subscribe((param) => {
@@ -323,13 +321,23 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       finalize(() => {
        this.isLoading = false;
        this.cdRef.detectChanges();
-      })
+      }),
+      map((x: any) => {
+        // x.result.grnLines.map((line) => {
+        //   line.accountId = (this.salesItem?.find(i => i.id === line.itemId).costAccountId)
+        //   return line
+        // });
+        console.log(this.salesItem)
+        x.result.grnLines.map((line) => line.accountId = (this.salesItem?.find(i => i.id === line.itemId).costAccountId));
+       return x
+     }),
     )
     .subscribe((res) => {
        if (!res) {
          return
        }
-       this.grnMaster = res.result
+       console.log(res)
+       this.grnMaster = res.result;
        this.patchBill(this.grnMaster)
      });
    }
@@ -370,22 +378,13 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     this.vendorBillForm.setControl('vendorBillLines', this.patchBillLines((this.grnMaster) ? data.grnLines : data.billLines))
 
     if(this.isGRN) {
-      const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
-
-      // if(this.salesItem) {
-        data.grnLines.map((line, index: number) => {
-          // set values for Account
-          arrayControl.at(index).get('accountId').setValue(this.salesItem?.find(i => i.id === line.itemId).costAccountId);
-        })
-
         //disable form fields
       this.disableFields(this.vendorBillForm , "vendorName", "campusId")
 
       //disable form Lines
-      this.disableLinesFields(this.vendorBillForm.get('vendorBillLines')['controls'], "itemId", "description", "accountId", "cost", "tax" , "anyOtherTax", "warehouseId")
+      this.disableLinesFields(this.vendorBillForm.get('vendorBillLines')['controls'], "itemId", "description", "quantity", "accountId", "cost", "tax" , "anyOtherTax", "warehouseId")
 
       this.cdRef.detectChanges();
-      //}
     }
 
     this.totalCalculation();
