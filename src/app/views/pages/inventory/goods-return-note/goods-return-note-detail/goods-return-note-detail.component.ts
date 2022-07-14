@@ -6,6 +6,9 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE } from 'src/app/views/shared/AppRoutes';
 import { finalize, take } from 'rxjs/operators';
 import { GoodsReturnNoteService } from '../service/goods-return-note.service';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'kt-goods-return-note-detail',
@@ -47,6 +50,7 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
  constructor( private activatedRoute: ActivatedRoute,
               private goodsReturnNoteService: GoodsReturnNoteService,
               private cdRef: ChangeDetectorRef,
+              private dialog: MatDialog,
               injector: Injector
               ) {
                 super(injector)
@@ -112,9 +116,22 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
     })
   }
 
-  workflow(action: any) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number , remarks: string) {
     this.isLoading = true
-    this.goodsReturnNoteService.workflow({action, docId: this.goodsReturnNoteMaster.id})
+    this.goodsReturnNoteService.workflow({action, docId: this.goodsReturnNoteMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -127,6 +144,22 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Goods Return Note');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.goodsReturnNoteMaster,
+        serviceClass: this.goodsReturnNoteService,
+        functionName: 'uploadFile',
+        name: 'Goods Return Note'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getGoodsReturnNoteMasterData(this.goodsReturnNoteId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

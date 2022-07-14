@@ -12,6 +12,8 @@ import { CreatePaymentComponent } from '../create-payment/create-payment.compone
 import { BILL, INVOICE, PAYMENT, PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
 import { IPayment } from '../model/IPayment';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @Component({
@@ -124,10 +126,23 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
       this.getPaymentData(this.paymentId)
     });
   }
-  
-  workflow(action: number) {
+
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true;
-    const body: IWorkflow = {docId: this.paymentMaster.id, action}
+    const body: IWorkflow = {docId: this.paymentMaster.id, action, remarks}
     this.paymentService.paymentWorkflow(body, this.formName)
     .pipe(
       take(1),
@@ -140,6 +155,22 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
       this.getPaymentData(this.paymentId);
       this.cdRef.detectChanges();
       this.toastService.success('' + res.message, '' + this.formName);
+    })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.paymentMaster,
+        serviceClass: this.paymentService,
+        functionName: 'uploadFile',
+        name: 'Payment'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getPaymentData(this.paymentId)
+      this.cdRef.detectChanges()
     })
   }
 

@@ -21,6 +21,10 @@
                     <i class="fa fa-edit"></i> Edit
                   </button>
 
+                  <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="cancel__btn mr-3" 
+                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                  </button>
+
                   <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public"  
                   matTooltip="Add Bank Account"><i class="fa fa-print"></i> Print Journal Entry</button>
                   
@@ -69,6 +73,11 @@
         </div>
 
         <div class="row">
+
+          <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+            <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+          </div>
+
           <div class="col-md-4 col-lg-4  ml-auto mt-3" >
               <div class="print-box">
                 <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Debit: 
@@ -86,8 +95,8 @@
         
 
         <div *ngIf="journalEntryMaster?.isAllowedRole" class="text-right mt-10">
-          <button (click)="workflow(action.Reject)" id="journal_reject" class="mr-5 " mat-raised-button color="warn">Reject</button>
-          <button (click)="workflow(action.Approve)" class="" id="journal_approve" mat-raised-button color="success">Approve</button>
+          <button (click)="remarksDialog(action.Reject)" id="journal_reject" class="mr-5 " mat-raised-button color="warn">Reject</button>
+          <button (click)="remarksDialog(action.Approve)" class="" id="journal_approve" mat-raised-button color="success">Approve</button>
         </div>
       </div>
     </kt-portlet-body>

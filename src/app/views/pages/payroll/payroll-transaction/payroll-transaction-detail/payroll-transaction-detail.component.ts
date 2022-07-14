@@ -11,6 +11,8 @@ import { RegisterPaymentComponent } from '../../../sales/invoice/register-paymen
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { IPayrollTransaction } from '../model/IPayrollTransaction';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 @Component({
   selector: 'kt-payroll-transaction-detail',
@@ -174,9 +176,22 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
     // });
   }
 
-  workflow(action: number) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true;
-    this.payrollTransactionService.workflow({action , docId: this.payrollMaster.id})
+    this.payrollTransactionService.workflow({action , docId: this.payrollMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -188,6 +203,22 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
       this.toastService.success('' + res.message, 'Payroll');
       this.getPayroll(this.payrollMaster.id);
       this.cdRef.detectChanges();
+    })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.payrollMaster,
+        serviceClass: this.payrollTransactionService,
+        functionName: 'uploadFile',
+        name: 'Payroll'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getPayroll(this.payrollId)
+      this.cdRef.detectChanges()
     })
   }
 }

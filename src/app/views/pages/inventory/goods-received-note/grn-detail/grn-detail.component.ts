@@ -7,6 +7,9 @@ import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/view
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BILL, GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE, ISSUANCE, PURCHASE_ORDER } from 'src/app/views/shared/AppRoutes';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'kt-grn-detail',
@@ -54,6 +57,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
  constructor( private activatedRoute: ActivatedRoute,
               private grnService: GrnService,
               private cdRef: ChangeDetectorRef,
+              private dialog: MatDialog,
               private router: Router,
               private layoutUtilService: LayoutUtilsService,
               injector: Injector
@@ -146,9 +150,22 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     })
   }
 
-  workflow(action: any) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.grnService.workflow({action, docId: this.grnMaster.id})
+    this.grnService.workflow({action, docId: this.grnMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -161,6 +178,22 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'GRN');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.grnMaster,
+        serviceClass: this.grnService,
+        functionName: 'uploadFile',
+        name: 'GRN'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getGRNMasterData(this.grnId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

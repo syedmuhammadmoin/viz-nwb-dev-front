@@ -9,6 +9,8 @@ import { DebitNoteService } from '../service/debit-note.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @Component({
@@ -149,9 +151,22 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     })
   }
 
-  workflow(action: any) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.debitNoteService.workflow({ action, docId: this.debitNoteMaster.id })
+    this.debitNoteService.workflow({ action, docId: this.debitNoteMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -164,6 +179,22 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Debit Note');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.debitNoteMaster,
+        serviceClass: this.debitNoteService,
+        functionName: 'uploadFile',
+        name: 'Debit Note'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getDebitNoteMasterData(this.debitNoteId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

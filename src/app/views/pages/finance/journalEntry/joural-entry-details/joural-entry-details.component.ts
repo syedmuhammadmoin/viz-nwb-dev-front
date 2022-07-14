@@ -11,6 +11,9 @@ import { IJournalEntry } from '../model/IJournalEntry';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IJournalEntryLines } from '../model/IJournalEntryLines';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'kt-joural-entry-details',
@@ -47,6 +50,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     private journalEntryService: JournalEntryService,
     private cdRef: ChangeDetectorRef,
     private router: Router,
+    private dialog: MatDialog,
     private layoutUtilService: LayoutUtilsService,
     injector: Injector
   ) {
@@ -123,9 +127,22 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     })
   }
 
-  workflow(action: number) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.journalEntryService.workflow({ action, docId: this.journalEntryMaster.id })
+    this.journalEntryService.workflow({ action, docId: this.journalEntryMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -138,6 +155,22 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Journal Entry');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.journalEntryMaster,
+        serviceClass: this.journalEntryService,
+        functionName: 'uploadFile',
+        name: 'Journal Entry'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getJournalEntryData(this.journalEntryId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

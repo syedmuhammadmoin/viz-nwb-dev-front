@@ -32,8 +32,8 @@
                   Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))"  class="cancel__btn mr-3" 
-                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="mr-3 btn_public" id="invoice_attachment"
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button" 

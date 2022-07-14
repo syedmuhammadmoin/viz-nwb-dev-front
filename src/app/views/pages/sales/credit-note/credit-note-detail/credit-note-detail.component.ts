@@ -12,6 +12,8 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICreditNote } from '../model/ICreditNote';
 import { ICreditNoteLines } from '../model/ICreditNoteLines';
 import { finalize, take } from 'rxjs/operators';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 @Component({
@@ -146,9 +148,22 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
     })
   }
 
-  workflow(action: number) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.creditNoteService.workflow({ action, docId: this.creditNoteMaster.id })
+    this.creditNoteService.workflow({ action, docId: this.creditNoteMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -161,6 +176,22 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Credit Note');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.creditNoteMaster,
+        serviceClass: this.creditNoteService,
+        functionName: 'uploadFile',
+        name: 'Credit Note'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getCreditNoteData(this.creditNoteId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

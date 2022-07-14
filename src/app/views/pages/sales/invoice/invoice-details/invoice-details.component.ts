@@ -70,6 +70,9 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   transactionId: number;
   ledgerId: number
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   constructor(
     private invoiceService: InvoiceService,
     private route: ActivatedRoute,
@@ -179,6 +182,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
       this.pendingAmount = this.invoiceMaster.pendingAmount;
       this.paidAmountList = this.invoiceMaster.paidAmountList == null ? [] : this.invoiceMaster.paidAmountList;
       this.bpUnReconPaymentList = this.invoiceMaster.bpUnreconPaymentList == null ? [] : this.invoiceMaster.bpUnreconPaymentList;
+      this.remarksList = this.invoiceMaster.remarksList ?? [] 
 
       // //handling disablity of register payment button
       // this.isDisabled = (this.invoiceMaster.status === "Paid" ? true : false)

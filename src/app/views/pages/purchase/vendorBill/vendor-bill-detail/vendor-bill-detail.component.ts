@@ -12,6 +12,8 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ITransactionRecon } from '../model/ITransactionRecon';
 import { RegisterPaymentComponent } from '../../../sales/invoice/register-payment/register-payment.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 @Component({
   selector: 'kt-vendor-bill-detail',
@@ -227,9 +229,22 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       : this.bpUnReconPaymentList[index].amount;
   };
 
-  workflow(action: any) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number , remarks: string) {
     this.isLoading = true
-    this.vendorBillService.workflow({ action, docId: this.billMaster.id })
+    this.vendorBillService.workflow({ action, docId: this.billMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -244,6 +259,21 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       })
   }
 
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.billMaster,
+        serviceClass: this.vendorBillService,
+        functionName: 'uploadFile',
+        name: 'Bill'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getBillMasterData(this.billId)
+      this.cdRef.detectChanges()
+    })
+  }
 }
 
 
