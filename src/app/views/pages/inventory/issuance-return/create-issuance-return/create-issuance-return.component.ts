@@ -128,7 +128,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     this.ngxsService.products$.subscribe(res => this.salesItem = res);
 
     // get Vendor from state
-    this.ngxsService.getBusinessPartnerFromState();
+    this.ngxsService.getEmployeeFromState();
     // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
     // get Ware house location from state
