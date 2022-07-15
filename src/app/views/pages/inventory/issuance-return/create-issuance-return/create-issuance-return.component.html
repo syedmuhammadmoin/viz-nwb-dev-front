@@ -10,19 +10,19 @@
               <div class="row">
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Vendor Name:</label>
+                    <label class="col-form-label pt-0">Employee :</label>
                     <kt-simple-dropdown
-                    id="issuance_return_vendor_name"
+                    id="issuance_return_employee"
                       [isDisabled]="true"
                       (blurEvent)="logValidationErrors(this.issuanceReturnForm, this.formErrors, this.validationMessages)"
-                      [errorMessage]="formErrors.vendorName"
-                      [optionList]="ngxsService.businessPartners$"
-                      formControlName="vendorName"
+                      [errorMessage]="formErrors.employeeId"
+                      [optionList]="ngxsService.employees$"
+                      formControlName="employeeId"
                       matFormFieldClass="full-width"
-                      placeholder="Select Vendor"
+                      placeholder="Select Employee"
                       propertyName="name"
                       propertyValue="id"
-                      searchPlaceholder="Search Vendor...">
+                      searchPlaceholder="Search Employee...">
                     </kt-simple-dropdown>
                   </div>
                 </div>

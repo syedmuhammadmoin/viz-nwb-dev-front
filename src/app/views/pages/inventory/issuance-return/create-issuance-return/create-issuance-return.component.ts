@@ -68,8 +68,8 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   // validation messages
   validationMessages = {
-    vendorName: {
-      required: 'Vendor Name is required.'
+    employeeId: {
+      required: 'Employee is required.'
     },
     issuanceReturnDate: {
       required: 'Date is required.'
@@ -84,7 +84,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   // Error Keys
   formErrors = {
-    vendorName: '',
+    employeeId: '',
     issuanceReturnDate: '',
     contact: '',
     campusId: ''
@@ -105,7 +105,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   ngOnInit() {
     this.issuanceReturnForm = this.fb.group({
-      vendorName: [{value: '', disabled: true}, [Validators.required]],
+      employeeId: [{value: '', disabled: true}, [Validators.required]],
       issuanceReturnDate: ['', [Validators.required]],
       contact: [''],
       campusId: ['', [Validators.required]],
@@ -116,7 +116,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
     this.issuanceReturnModel = {
       id: null,
-      vendorId: null,
+      employeeId: null,
       issuanceReturnDate: null,
       contact: null,
       issuanceId: null,
@@ -292,7 +292,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   //Patch Issuance Return Form Issuance Return Or Issuance Master Data
   patchIssuanceReturn(data: IIssuanceReturn | IIssuance | any) {
     this.issuanceReturnForm.patchValue({
-      vendorName: data.vendorId ?? data.employeeId,
+      employeeId: data.vendorId ?? data.employeeId,
       issuanceReturnDate: data.issuanceReturnDate ?? data.issuanceDate,
       campusId : data.campusId,
       contact: data.contact
@@ -392,7 +392,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   // Mapping value to model
   mapFormValuesToIssuanceReturnModel() {
-    this.issuanceReturnModel.vendorId = this.issuanceReturnModel?.vendorId ?? this.issuanceMaster?.employeeId;
+    this.issuanceReturnModel.employeeId = this.issuanceReturnModel?.employeeId ?? this.issuanceMaster?.employeeId;
     this.issuanceReturnModel.issuanceReturnDate = this.transformDate(this.issuanceReturnForm.value.issuanceReturnDate, 'yyyy-MM-dd');
     this.issuanceReturnModel.contact = this.issuanceReturnForm.value.contact;
     this.issuanceReturnModel.campusId = this.issuanceReturnForm.value.campusId;
