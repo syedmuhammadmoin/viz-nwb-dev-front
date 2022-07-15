@@ -132,7 +132,16 @@
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Gross Payment:</label>
-                        <kt-input-field
+                        <mat-form-field formControlName="grossPayment" [ngClass]="matFormFieldClass" appearance="outline" class="full-width">
+                          <input  matInput [formControl]="control" [placeholder]="placeholder" id="gross_payment"
+                                 type="number">
+                          <mat-error *ngFor="let error of errorMessage">
+                            <strong *ngIf="error.condition">{{error.error}}</strong>
+                          </mat-error>
+                          <mat-hint *ngIf="hintText" align="end">{{hintText}}</mat-hint>
+                        </mat-form-field>
+                        
+                        <!-- <kt-input-field
                         id="payment_gross"
                           formControlName="grossPayment"
                           type = "number"
@@ -140,7 +149,7 @@
                           placeholder="Enter Gross Payment"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.grossPayment , error : formErrors.grossPayment }]">
-                        </kt-input-field>
+                        </kt-input-field> -->
                     </div>
                   </div>
     
