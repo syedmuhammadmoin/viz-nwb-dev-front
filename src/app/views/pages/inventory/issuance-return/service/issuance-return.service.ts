@@ -13,7 +13,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class IssuanceReturnService extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'issaunceReturn'
+  baseUrl = environment.baseUrl + 'issuanceReturn'
 
     constructor( private httpClient: HttpClient, injector: Injector ) { super(injector) }
   
