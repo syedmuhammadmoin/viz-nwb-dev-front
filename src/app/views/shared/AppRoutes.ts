@@ -27,6 +27,7 @@ export const APP_ROUTES = {
   GOODS_RETURN_NOTE: 'goods-return-note',
   STOCK: 'stock',
   ISSUANCE: 'issuance',
+  ISSUANCE_RETURN: 'issuance-return',
 
   //PROCUREMENT
   REQUISITION: 'requisition',
@@ -238,6 +239,14 @@ export const CRUD_ROUTES = {
     CREATE: APP_ROUTES.ISSUANCE + '/' + CRUD_ROUTES.CREATE,
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.ISSUANCE + '/' + route + '/' + id
+    }
+  }
+
+  export const ISSUANCE_RETURN = {
+    LIST: APP_ROUTES.ISSUANCE_RETURN + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.ISSUANCE_RETURN + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.ISSUANCE_RETURN + '/' + route + '/' + id
     }
   }
 

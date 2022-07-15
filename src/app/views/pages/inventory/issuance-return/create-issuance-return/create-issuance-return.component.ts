@@ -1,39 +1,32 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IProduct} from '../../../profiling/product/model/IProduct';
-import { IGRN} from '../model/IGRN';
 import { ActivatedRoute, Router} from '@angular/router';
-import { GrnService} from '../service/grn.service';
 import { finalize, take} from 'rxjs/operators';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
-import { ProductService} from '../../../profiling/product/service/product.service';
-import { PurchaseOrderService} from '../../../purchase/purchase-order/service/purchase-order.service';
-import { BusinessPartnerService} from '../../../profiling/business-partner/service/businessPartner.service';
-import { CategoryService} from '../../../profiling/category/service/category.service';
-import { WarehouseService} from '../../../profiling/warehouse/services/warehouse.service';
-import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
-import { IGRNLines } from '../model/IGRNLines';
+import { ISSUANCE_RETURN } from 'src/app/views/shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchaseOrder';
 import { IssuanceService } from '../../issuance/service/issuance.service';
 import { IIssuance } from '../../issuance/model/IIssuance';
+import { IIssuanceReturn } from '../model/IissuanceReturn';
+import { IssuanceReturnService } from '../service/issuance-return.service';
+import { IIssuanceReturnLines } from '../model/IIssuanceReturnLines';
 
 @Component({
-  selector: 'kt-create-grn',
-  templateUrl: './create-grn.component.html',
-  styleUrls: ['./create-grn.component.scss'],
+  selector: 'kt-create-issuance-return',
+  templateUrl: './create-issuance-return.component.html',
+  styleUrls: ['./create-issuance-return.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CreateGrnComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
+export class CreateIssuanceReturnComponent extends AppComponentBase implements OnInit {
 
   // For Loading
   isLoading: boolean;
 
   // Declaring form variable
-  grnForm: FormGroup;
+  issuanceReturnForm: FormGroup;
 
   // For Table Columns
   displayedColumns = ['itemId', 'description', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action']
@@ -41,27 +34,28 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
 
-  // Goods Received NoteModel
-  grnModel: IGRN | any;
+  // Issuance Return Model
+  issuanceReturnModel: IIssuanceReturn | any;
 
-  title: string = 'Create Goods Received Note'
+  title: string = 'Create Issuance Return'
 
-  //for resetting form
-  @ViewChild('formDirective') private formDirective: NgForm;
+   //for resetting form
+   @ViewChild('formDirective') private formDirective: NgForm;
 
-  warehouseList: any = new BehaviorSubject<any>([])
+   warehouseList: any = new BehaviorSubject<any>([])
+
 
    //show toast mesasge of on campus select
   showMessage: boolean = false;
 
-  // param to get purchase order master
-  isPurchaseOrder: any;
-  purchaseOrderMaster: any;
+  // param to get Issuance master
+  isIssuance: any;
+  issuanceMaster: any;
 
   hideDeleteButton: boolean = false;
 
   // for Edit
-  isGRN: any;
+  isIssuanceReturn: any;
 
   // For Calculation
   grandTotal = 0 ;
@@ -77,7 +71,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     vendorName: {
       required: 'Vendor Name is required.'
     },
-    grnDate: {
+    issuanceReturnDate: {
       required: 'Date is required.'
     },
     campusId: {
@@ -91,20 +85,16 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // Error Keys
   formErrors = {
     vendorName: '',
-    grnDate: '',
+    issuanceReturnDate: '',
     contact: '',
     campusId: ''
   }
 
   constructor(
     private fb: FormBuilder,
-    private grnService: GrnService,
-    private purchaseOrderService: PurchaseOrderService,
+    private issuanceReturnService: IssuanceReturnService,
+    private issuanceService: IssuanceService,
     public ngxsService: NgxsCustomService,
-    public businessPartnerService: BusinessPartnerService,
-    public productService: ProductService,
-    public categoryService: CategoryService,
-    public warehouseService: WarehouseService,
     private router: Router,
     public activatedRoute: ActivatedRoute,
     public cdRef: ChangeDetectorRef,
@@ -114,25 +104,25 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   }
 
   ngOnInit() {
-    this.grnForm = this.fb.group({
+    this.issuanceReturnForm = this.fb.group({
       vendorName: [{value: '', disabled: true}, [Validators.required]],
-      grnDate: ['', [Validators.required]],
+      issuanceReturnDate: ['', [Validators.required]],
       contact: [''],
       campusId: ['', [Validators.required]],
-      GRNLines: this.fb.array([
-        this.addGRNLines()
+      issuanceReturnLines: this.fb.array([
+        this.addIssuanceReturnLines()
       ])
     });
 
-    this.grnModel = {
+    this.issuanceReturnModel = {
       id: null,
       vendorId: null,
-      grnDate: null,
+      issuanceReturnDate: null,
       contact: null,
       issuanceId: null,
       purchaseOrderId: null,
       campusId: null,
-      grnLines: []
+      issuanceReturnLines: []
     }
 
     this.ngxsService.products$.subscribe(res => this.salesItem = res);
@@ -150,29 +140,31 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
-      this.isGRN = param.isGRN;
-      this.isPurchaseOrder = param.isPurchaseOrder;
-      if (id && this.isPurchaseOrder) {
-        this.getPurchaseOrder(id);
-      } else if (id && this.isGRN) {
-        this.title = 'Edit Goods Received Note'
-        this.getGRN(id);
+      this.isIssuanceReturn = param.isIssuanceReturn;
+      this.isIssuance = param.isIssuance;
+      if (id && this.isIssuanceReturn) {
+        this.title = 'Edit Issuance Return'
+        this.getIssuanceReturn(id);
+      }
+      else if (id && this.isIssuance) {
+        this.title = 'Create Issuance Return'
+        this.getIssuance(id);
       }
     })
   }
 
   // Form Reset
   reset() {
-    const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    const issuanceReturnLineArray = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
     this.formDirective.resetForm();
-    grnLineArray.clear();
+    issuanceReturnLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    const arrayControl = this.grnForm.get('GRNLines') as FormArray;
+    const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
@@ -186,11 +178,13 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
       arrayControl.at(index).get('subTotal').setValue(subTotal);
     }
+
+    console.log(arrayControl)
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
   onChangeEvent(value: any, index: number , element?: HTMLElement) {
-    const arrayControl = this.grnForm.get('GRNLines') as FormArray;
+    const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
     const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
@@ -207,7 +201,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.totalTax = 0;
     this.totalBeforeTax = 0;
     this.grandTotal = 0;
-    const arrayControl = this.grnForm.get('GRNLines') as FormArray;
+    const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
     arrayControl.controls.forEach((element, index) => {
       const cost = arrayControl.at(index).get('cost').value;
       const tax = arrayControl.at(index).get('tax').value;
@@ -220,18 +214,18 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   //for save or submit
   isSubmit(val: number) {
-    this.grnModel.isSubmit = (val === 0) ? false : true;
+    this.issuanceReturnModel.isSubmit = (val === 0) ? false : true;
   }
 
 
-  // Add Grn Line
-  addGRNLineClick(): void {
-    const controls = this.grnForm.controls.GRNLines as FormArray;
-    controls.push(this.addGRNLines());
+  // Add Issuance Return Line
+  addIssuanceReturnLineClick(): void {
+    const controls = this.issuanceReturnForm.controls.issuanceReturnLines as FormArray;
+    controls.push(this.addIssuanceReturnLines());
     this.table.renderRows();
   }
 
-  addGRNLines(): FormGroup {
+  addIssuanceReturnLines(): FormGroup {
     return this.fb.group({
       itemId: ['', [Validators.required]],
       description: ['', Validators.required],
@@ -243,26 +237,26 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     });
   }
 
-  // Remove Grn Line
-  removeGRNLineClick(grnLineIndex: number): void {
-    const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+  // Remove Issuance Return Line
+  removeIssuanceReturnLineClick(issuanceReturnLineIndex: number): void {
+    const issuanceReturnLineArray = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
 
-    if(grnLineArray.length < 2 || grnLineArray.length == 2) {
+    if(issuanceReturnLineArray.length < 2 || issuanceReturnLineArray.length == 2) {
       this.hideDeleteButton = true;
     }
 
-    if(grnLineArray.length !== 1) {
-      grnLineArray.removeAt(grnLineIndex);
-      grnLineArray.markAsDirty();
-      grnLineArray.markAsTouched();
+    if(issuanceReturnLineArray.length !== 1) {
+      issuanceReturnLineArray.removeAt(issuanceReturnLineIndex);
+      issuanceReturnLineArray.markAsDirty();
+      issuanceReturnLineArray.markAsTouched();
       this.table.renderRows();
     }
   }
 
-  //Get purchase Order Master Data
-  private getPurchaseOrder(id: number) {
+  //Get Issuance Master Data
+  private getIssuance(id: number) {
     this.isLoading = true;
-    this.purchaseOrderService.getPurchaseOrderById(id)
+    this.issuanceService.getIssuanceById(id)
     .pipe(
       take(1),
        finalize(() => {
@@ -272,15 +266,15 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
      )
     .subscribe((res) => {
       if (!res) return
-      this.purchaseOrderMaster = res.result
-      this.patchGRN(this.purchaseOrderMaster);
+      this.issuanceMaster = res.result
+      this.patchIssuanceReturn(this.issuanceMaster);
     });
   }
 
-  // Get GRN Data for Edit
-  private getGRN(id: any) {
+  // Get Issuance Return Data for Edit
+  private getIssuanceReturn(id: any) {
     this.isLoading = true;
-    this.grnService.getGRNById(id)
+    this.issuanceReturnService.getIssuanceReturnById(id)
     .pipe(
       take(1),
        finalize(() => {
@@ -290,17 +284,16 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
      )
     .subscribe((res) => {
       if (!res) return
-      this.grnModel = res.result
-      this.patchGRN(this.grnModel)
+      this.issuanceReturnModel = res.result
+      this.patchIssuanceReturn(this.issuanceReturnModel)
     });
   }
 
-  //Patch GRN Form GRN Or purchase Order Master Data
-  patchGRN(data: IPurchaseOrder | IGRN | any) {
-    console.log(data.employeeId)
-    this.grnForm.patchValue({
+  //Patch Issuance Return Form Issuance Return Or Issuance Master Data
+  patchIssuanceReturn(data: IIssuanceReturn | IIssuance | any) {
+    this.issuanceReturnForm.patchValue({
       vendorName: data.vendorId ?? data.employeeId,
-      grnDate: data.grnDate ?? data.poDate,
+      issuanceReturnDate: data.issuanceReturnDate ?? data.issuanceDate,
       campusId : data.campusId,
       contact: data.contact
     });
@@ -308,14 +301,21 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
 
-    this.grnForm.setControl('GRNLines', this.patchGRNLines(data.grnLines ?? data.purchaseOrderLines));
+    this.issuanceReturnForm.setControl('issuanceReturnLines', this.patchIssuanceReturnLines(data.issuanceReturnLines ?? data.issuanceLines));
+
+    if(this.isIssuance) {
+      data.issuanceLines.map((line, index) => {
+        this.onItemSelected(line.itemId , index)
+      })
+    }
+    
     this.totalCalculation();
   }
 
-  //Patch GRN Lines From purchase Order Or GRN Master
-  patchGRNLines(Lines: IGRNLines[]): FormArray {
+  //Patch Issuance Return Lines From Issuance Return Or Issuance Data
+  patchIssuanceReturnLines(Lines: IIssuanceReturnLines[]): FormArray {
     const formArray = new FormArray([]);
-    Lines.forEach((line: IGRNLines | any , index: number) => {
+    Lines.forEach((line: IIssuanceReturnLines | any , index: number) => {
     if(line.pendingQuantity !== 0) {
       formArray.push(this.fb.group({
       itemId: [line.itemId, [Validators.required]],
@@ -331,35 +331,35 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     return formArray
   }
 
-  // Submit GRN Form
+  // Submit Issuance Return Form
   onSubmit(): void {
-    if (this.grnForm.get('GRNLines').invalid) {
-      this.grnForm.get('GRNLines').markAllAsTouched();
+    if (this.issuanceReturnForm.get('issuanceReturnLines').invalid) {
+      this.issuanceReturnForm.get('issuanceReturnLines').markAllAsTouched();
     }
-    const controls = this.grnForm.controls.GRNLines as FormArray;
+    const controls = this.issuanceReturnForm.controls.issuanceReturnLines as FormArray;
     if (controls.length == 0) {
-      this.toastService.error('Please add goods received note lines', 'Error')
+      this.toastService.error('Please add Issuance Return lines', 'Error')
       return;
     }
 
-    if (this.grnForm.invalid) {
-      this.toastService.error("Please fill all required fields!", "Goods Received Note")
+    if (this.issuanceReturnForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Issuance Return")
         return;
     }
 
-    this.mapFormValuesToGRNModel();
+    this.mapFormValuesToIssuanceReturnModel();
 
-    const isDuplicateLines = this.grnModel.grnLines.some((a, index) => this.grnModel.grnLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
+    const isDuplicateLines = this.issuanceReturnModel.issuanceReturnLines.some((a, index) => this.issuanceReturnModel.issuanceReturnLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))))
 
     if(isDuplicateLines) {
-      this.toastService.error("Please Remove Duplicate Line!", "Goods Received Note")
+      this.toastService.error("Please Remove Duplicate Line!", "Issuance Return")
       return;
     }
 
     this.isLoading = true;
-    console.log(this.grnModel)
-    if (this.grnModel.id && this.isGRN) {
-      this.grnService.updateGRN(this.grnModel)
+    console.log(this.issuanceReturnModel)
+    if (this.issuanceReturnModel.id && this.isIssuanceReturn) {
+      this.issuanceReturnService.updateIssuanceReturn(this.issuanceReturnModel)
       .pipe(
         take(1),
          finalize(() => {
@@ -370,11 +370,11 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
         .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Goods Received Note')
             this.cdRef.detectChanges();
-            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
+            this.router.navigate(['/'+ ISSUANCE_RETURN.ID_BASED_ROUTE('details', this.issuanceReturnModel.id)]);
           })
-    } else if (this.isPurchaseOrder) {
-      delete this.grnModel.id;
-      this.grnService.createGRN(this.grnModel)
+    } else if (this.isIssuance) {
+      delete this.issuanceReturnModel.id;
+      this.issuanceReturnService.createIssuanceReturn(this.issuanceReturnModel)
       .pipe(
         take(1),
          finalize(() => {
@@ -384,24 +384,24 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
        )
         .subscribe(
           (res) => {
-              this.toastService.success('Created Successfully', 'Goods Received Note')
-              this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', res.result.id)]);
+             this.toastService.success('Created Successfully', 'Issuance Return')
+            this.router.navigate(['/'+ ISSUANCE_RETURN.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
   }
 
   // Mapping value to model
-  mapFormValuesToGRNModel() {
-    this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId;
-    this.grnModel.grnDate = this.transformDate(this.grnForm.value.grnDate, 'yyyy-MM-dd');
-    this.grnModel.contact = this.grnForm.value.contact;
-    this.grnModel.campusId = this.grnForm.value.campusId;
-    this.grnModel.purchaseOrderId = this.purchaseOrderMaster?.id || this.grnModel?.purchaseOrderId;
-    this.grnModel.grnLines = this.grnForm.value.GRNLines;
+  mapFormValuesToIssuanceReturnModel() {
+    this.issuanceReturnModel.vendorId = this.issuanceReturnModel?.vendorId ?? this.issuanceMaster?.employeeId;
+    this.issuanceReturnModel.issuanceReturnDate = this.transformDate(this.issuanceReturnForm.value.issuanceReturnDate, 'yyyy-MM-dd');
+    this.issuanceReturnModel.contact = this.issuanceReturnForm.value.contact;
+    this.issuanceReturnModel.campusId = this.issuanceReturnForm.value.campusId;
+    this.issuanceReturnModel.issuanceId = this.issuanceMaster?.id ?? this.issuanceReturnModel?.issuanceId;
+    this.issuanceReturnModel.issuanceReturnLines = this.issuanceReturnForm.value.issuanceReturnLines;
   }
 
   canDeactivate(): boolean | Observable<boolean> {
-    return !this.grnForm.dirty;
+    return !this.issuanceReturnForm.dirty;
   }
 
   onCampusSelected(campusId : number) {
@@ -409,13 +409,16 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       this.warehouseList.next(res.result || [])
     })
 
-     this.grnForm.get('GRNLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+     this.issuanceReturnForm.get('issuanceReturnLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
      if(this.showMessage) {
-      this.toastService.info("Please Reselect Store!" , "Goods Received Note")
+      this.toastService.info("Please Reselect Store!" , "Issuance Return")
      }
      this.cdRef.detectChanges()
   }
 }
+
+
+
 
 
 
