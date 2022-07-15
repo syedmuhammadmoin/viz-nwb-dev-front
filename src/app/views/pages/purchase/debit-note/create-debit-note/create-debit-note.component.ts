@@ -137,6 +137,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
      //this.ngxsService.getLocationFromState();
      this.ngxsService.getCampusFromState()
 
+     this.ngxsService.products$.subscribe(res => this.salesItem = res)
 
     //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
@@ -153,8 +154,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         this.getBill(id)
       }
     })
-
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
   }
 
 
@@ -173,9 +172,11 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     if (itemId) {
       var cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       var tax = this.salesItem.find(i => i.id === itemId).salesTax
+      var account = this.salesItem.find(i => i.id === itemId).costAccountId
       //set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
+      arrayControl.at(index).get('accountId').setValue(account);
       //Calculating subtotal
       var quantity = arrayControl.at(index).get('quantity').value;
       var subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))

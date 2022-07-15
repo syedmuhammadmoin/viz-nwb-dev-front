@@ -142,6 +142,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.ngxsService.getCampusFromState()
    // this.ngxsService.getLocationFromState();
 
+   this.ngxsService.products$.subscribe((res) => this.salesItem = res)
+
     this.activatedRoute.queryParams.subscribe((param: Params) => {
       const id = param.q;
       this.isCreditNote = param.isCreditNote;
@@ -156,8 +158,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
         this.getInvoice(id);
       }
     })
-
-    this.productService.getProductsDropdown().subscribe((res: IPaginationResponse<IProduct[]>) => this.salesItem = res.result)
   }
 
   //Form Reset
@@ -175,9 +175,11 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     if (itemId) {
       var price = this.salesItem.find(i => i.id === itemId).salesPrice
       var tax = this.salesItem.find(i => i.id === itemId).salesTax
+      var account = this.salesItem.find(i => i.id === itemId).costAccountId
       //set values for price & tax
       arrayControl.at(index).get('price').setValue(price);
       arrayControl.at(index).get('tax').setValue(tax);
+      arrayControl.at(index).get('accountId').setValue(account);
       //Calculating subtotal
       var quantity = arrayControl.at(index).get('quantity').value;
       var subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
