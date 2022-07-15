@@ -18,13 +18,8 @@ export class DebitNoteService extends AppServiceBase {
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getDebitNotes(params: any): Observable<IPaginationResponse<IDebitNote[]>> {
-        let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-        return this.httpClient.get<IPaginationResponse<IDebitNote[]>>(this.baseUrl, { params: httpParams})
+    getDebitNotes(): Observable<IPaginationResponse<IDebitNote[]>> {
+        return this.httpClient.get<IPaginationResponse<IDebitNote[]>>(this.baseUrl)
     }
 
     getDebitNoteById(id: number): Observable<IApiResponse<IDebitNote>> {

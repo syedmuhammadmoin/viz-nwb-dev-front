@@ -132,13 +132,13 @@
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Gross Payment:</label>
-                        <mat-form-field formControlName="grossPayment" [ngClass]="matFormFieldClass" appearance="outline" class="full-width">
-                          <input  matInput [formControl]="control" [placeholder]="placeholder" id="gross_payment"
-                                 type="number">
-                          <mat-error *ngFor="let error of errorMessage">
-                            <strong *ngIf="error.condition">{{error.error}}</strong>
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="grossPayment" placeholder="Enter Gross Payment" 
+                               id="payment_gross" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.grossPayment">
+                            <strong>{{formErrors.grossPayment}}</strong>
                           </mat-error>
-                          <mat-hint *ngIf="hintText" align="end">{{hintText}}</mat-hint>
+                          <!-- <mat-hint align="end">Optional</mat-hint> -->
                         </mat-form-field>
                         
                         <!-- <kt-input-field
@@ -156,7 +156,15 @@
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Sales Tax W/H:</label>
-                        <kt-input-field
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="salesTax" placeholder="Enter Sales Tax" 
+                               id="payment_sales" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.salesTax">
+                            <strong>{{formErrors.salesTax}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
+                        <!-- <kt-input-field
                         id="payment_sales"
                           formControlName="salesTax"
                           type = "number"
@@ -164,14 +172,22 @@
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.salesTax , error : formErrors.salesTax }]"
                           placeholder="Enter Sales Tax">
-                        </kt-input-field>
+                        </kt-input-field> -->
                     </div>
                   </div>
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Income Tax W/H:</label>
-                        <kt-input-field
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="incomeTax" placeholder="Enter Income Tax" 
+                               id="payment_income" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.incomeTax">
+                            <strong>{{formErrors.incomeTax}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
+                        <!-- <kt-input-field
                         id="payment_income"
                           formControlName="incomeTax"
                           type = "number"
@@ -179,7 +195,7 @@
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.incomeTax , error : formErrors.incomeTax }]"
                           placeholder="Enter Income Tax">
-                        </kt-input-field>
+                        </kt-input-field> -->
                     </div>
                   </div>
                 </div>
@@ -188,7 +204,15 @@
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">SRB Tax:</label>
-                        <kt-input-field
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="SRBTax" placeholder="Enter SRB Tax" 
+                               id="payment_srb" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.SRBTax">
+                            <strong>{{formErrors.SRBTax}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
+                        <!-- <kt-input-field
                         id="payment_srb"
                           formControlName="SRBTax"
                           placeholder="Enter SRB Tax"
@@ -196,7 +220,7 @@
                           hintText="Optional"
                           (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
                           [errorMessage]="[{ condition : formErrors.SRBTax , error : formErrors.SRBTax }]">
-                        </kt-input-field>
+                        </kt-input-field> -->
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6">

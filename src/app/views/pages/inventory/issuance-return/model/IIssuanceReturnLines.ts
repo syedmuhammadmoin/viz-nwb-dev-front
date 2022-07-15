@@ -3,8 +3,6 @@ export interface IIssuanceReturnLines {
     itemId: number;
     description: string;
     quantity   : number;
-    cost : number;
-    tax   : number;
     accountId?: number;
     warehouseId : number;
 }

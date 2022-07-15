@@ -21,13 +21,8 @@ export class VendorBillService extends AppServiceBase {
     baseUrl = environment.baseUrl + 'bill';
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getVendorBills(params: any): Observable<IPaginationResponse<IVendorBill[]>> {
-        let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-        return this.httpClient.get<IPaginationResponse<IVendorBill[]>>(this.baseUrl,{ params: httpParams})
+    getVendorBills(): Observable<IPaginationResponse<IVendorBill[]>> {
+        return this.httpClient.get<IPaginationResponse<IVendorBill[]>>(this.baseUrl)
     }
 
     getVendorBillById(id: number): Observable<IApiResponse<IVendorBill>> {

@@ -18,13 +18,8 @@ export class CashAccountService extends AppServiceBase {
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getCashAccounts(params: any): Observable<IPaginationResponse<ICashAccount[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-
-        return this.httpClient.get<IPaginationResponse<ICashAccount[]>>(this.baseUrl, { params: httpParams})
+    getCashAccounts(): Observable<IPaginationResponse<ICashAccount[]>> {
+        return this.httpClient.get<IPaginationResponse<ICashAccount[]>>(this.baseUrl)
             .pipe(catchError(this.handleError));
     }
 

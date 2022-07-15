@@ -12,7 +12,7 @@ export abstract class AppServiceBase {
 
 
   getfilterParams(params: any, date?: any, name?: any) {
-    
+    console.log(params)
     let isActive: boolean | any = '';
     let status = '';
 
@@ -25,8 +25,8 @@ export abstract class AppServiceBase {
     }
 
     let httpParams = new HttpParams();
-    httpParams = httpParams.append('PageNumber', params?.startRow);
-    httpParams = httpParams.append('PageSize', params?.endRow);
+    httpParams = httpParams.append('PageStart', params?.startRow);
+    httpParams = httpParams.append('PageEnd', params?.endRow);
     httpParams = httpParams.append('Name', (params?.filterModel?.name?.filter || name) || '');
     httpParams = httpParams.append('Account', params?.filterModel?.accountTitle?.filter || '');
     

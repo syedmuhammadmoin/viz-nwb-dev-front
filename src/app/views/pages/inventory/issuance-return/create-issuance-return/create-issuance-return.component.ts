@@ -29,7 +29,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   issuanceReturnForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action']
+  displayedColumns = ['itemId', 'description', 'quantity', 'warehouseId', 'action']
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -229,10 +229,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     return this.fb.group({
       itemId: ['', [Validators.required]],
       description: ['', Validators.required],
-      cost: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required, Validators.min(1)]],
-      tax: ['', [Validators.max(100), Validators.min(0)]],
-      subTotal: [{value: '0', disabled: true}],
       warehouseId: ['', [Validators.required]],
     });
   }
@@ -320,10 +317,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       formArray.push(this.fb.group({
       itemId: [line.itemId, [Validators.required]],
       description: [line.description, Validators.required],
-      cost: [line.cost, [Validators.required, Validators.min(1)]],
       quantity: [(line.pendingQuantity) ? line.pendingQuantity : line.quantity, [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]],
-      tax: [line.tax, [Validators.max(100), Validators.min(0)]],
-      subTotal: [{value: line.subTotal, disabled: true}],
       warehouseId: [line.warehouseId, [Validators.required]]
     }))
     }

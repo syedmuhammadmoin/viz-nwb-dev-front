@@ -64,12 +64,6 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
       cellStyle: {'font-size': '12px'}
     },
     {
-      headerName: 'Cost', 
-      field: 'cost', 
-      cellStyle: {'font-size': '12px'}
-    },
-    {headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {
       headerName: 'Store', 
       field: 'warehouse', 
       sortable: true, 

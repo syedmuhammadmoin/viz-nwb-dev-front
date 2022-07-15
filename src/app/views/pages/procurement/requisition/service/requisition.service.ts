@@ -18,13 +18,8 @@ export class RequisitionService extends AppServiceBase {
 
   constructor( private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-  getRequisitions(params: any): Observable<IPaginationResponse<IRequisition[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-    return this.httpClient.get<IPaginationResponse<IRequisition[]>>(this.baseUrl, { params: httpParams});
+  getRequisitions(): Observable<IPaginationResponse<IRequisition[]>> {
+    return this.httpClient.get<IPaginationResponse<IRequisition[]>>(this.baseUrl);
   }
 
   getRequisitionById(id: number): Observable<IApiResponse<IRequisition>> {

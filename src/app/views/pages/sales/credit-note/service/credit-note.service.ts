@@ -19,13 +19,8 @@ export class CreditNoteService extends AppServiceBase {
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getCreditNotes(params: any): Observable<IPaginationResponse<ICreditNote[]>> {
-        let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-      return this.httpClient.get<IPaginationResponse<ICreditNote[]>>(this.baseUrl,{ params: httpParams})
+    getCreditNotes(): Observable<IPaginationResponse<ICreditNote[]>> {
+      return this.httpClient.get<IPaginationResponse<ICreditNote[]>>(this.baseUrl)
     }
   
     getCreditNoteById(id: number): Observable<IApiResponse<ICreditNote>> {

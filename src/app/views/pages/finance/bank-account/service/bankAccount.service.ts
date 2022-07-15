@@ -18,13 +18,8 @@ export class BankAccountService extends AppServiceBase {
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getBankAccounts(params: any): Observable<IPaginationResponse<IBankAccount[]>> {
-        let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-        return this.httpClient.get<IPaginationResponse<IBankAccount[]>>(this.baseUrl,{ params: httpParams})
+    getBankAccounts(): Observable<IPaginationResponse<IBankAccount[]>> {
+        return this.httpClient.get<IPaginationResponse<IBankAccount[]>>(this.baseUrl)
             .pipe(catchError(this.handleError));
     }
 

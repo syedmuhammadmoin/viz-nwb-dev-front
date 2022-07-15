@@ -18,13 +18,8 @@ export class PayrollTransactionService extends AppServiceBase {
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getPayrollTransactions(params): Observable<IPaginationResponse<IPayrollTransaction[]>> {
-        let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-   
-        return this.httpClient.get<IPaginationResponse<IPayrollTransaction[]>>(this.baseUrl , {params: httpParams})
+    getPayrollTransactions(): Observable<IPaginationResponse<IPayrollTransaction[]>> {
+        return this.httpClient.get<IPaginationResponse<IPayrollTransaction[]>>(this.baseUrl)
     }
 
     getPayrollTransactionById(id: number): Observable<IApiResponse<IPayrollTransaction>> {

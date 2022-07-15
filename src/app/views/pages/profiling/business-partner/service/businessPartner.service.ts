@@ -19,12 +19,8 @@ export class BusinessPartnerService extends AppServiceBase {
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getBusinessPartners(params: any): Observable<IPaginationResponse<IBusinessPartner[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-        return this.httpClient.get<IPaginationResponse<IBusinessPartner[]>>(this.baseUrl, {params: httpParams})
+    getBusinessPartners(): Observable<IPaginationResponse<IBusinessPartner[]>> {
+        return this.httpClient.get<IPaginationResponse<IBusinessPartner[]>>(this.baseUrl)
     }
 
     getBusinessPartnersDropdown(): Observable<IApiResponse<IBusinessPartner[]>> {

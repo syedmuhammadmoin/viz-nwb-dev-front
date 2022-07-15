@@ -16,13 +16,8 @@ export class EstimatedBudgetService extends AppServiceBase{
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector)}
 
-  getEstimatedBudgets(params: any): Observable<IPaginationResponse<IEstimatedBudget[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-    return this.httpClient.get<IPaginationResponse<IEstimatedBudget[]>>(this.baseUrl , { params: httpParams})
+  getEstimatedBudgets(): Observable<IPaginationResponse<IEstimatedBudget[]>> {
+    return this.httpClient.get<IPaginationResponse<IEstimatedBudget[]>>(this.baseUrl)
   }
 
   getEstimatedBudgetDropdown(): Observable<IApiResponse<IEstimatedBudget[]>> {

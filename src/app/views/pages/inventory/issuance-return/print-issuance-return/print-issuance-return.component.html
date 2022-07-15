@@ -61,22 +61,14 @@
                       <th style="background-color: #eaf2f4; ">Item</th>
                       <th style="background-color: #eaf2f4; ">Description</th>
                       <th  style="background-color: #eaf2f4; ">Quantity</th>
-                      <th  style="background-color: #eaf2f4; ">Cost</th>
-                      <th  style="background-color: #eaf2f4; ">Tax</th>
-                      <th  style="background-color: #eaf2f4; ">Store</th>
-                      <th  class="text-center" style="background-color: #eaf2f4; ">SubTotal</th>
-                      
-                      
+                      <th  style="background-color: #eaf2f4; ">Store</th>       
                     </tr>
                     <tr *ngFor="let detail of issuanceReturnLines ; index as i">
                       <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{i + 1}}</td>
                       <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.itemId}}</td>
                       <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{detail?.description}}</td>
                       <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{detail?.quantity}}</td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{valueFormatter(detail?.cost)}}</td>
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{detail?.tax + '%'}}</td>
                       <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.warehouseId}}</td>
-                      <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #1a6b85; "><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                     </tr>
                     
                   </thead>
