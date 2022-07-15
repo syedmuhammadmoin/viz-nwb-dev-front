@@ -6,7 +6,7 @@ import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { GOODS_RECEIVED_NOTE, ISSUANCE, REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { GOODS_RECEIVED_NOTE, ISSUANCE, ISSUANCE_RETURN, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IIssuanceLines } from '../model/IssuanceLines';
 import { IIssuance } from '../model/IIssuance';
@@ -31,6 +31,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   defaultColDef: ColDef;
 
   public ISSUANCE = ISSUANCE;
+  public ISSUANCE_RETURN = ISSUANCE_RETURN;
   public REQUISITION = REQUISITION;
   public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE;
 
