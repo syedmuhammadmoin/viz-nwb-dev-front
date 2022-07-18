@@ -137,7 +137,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <kt-input-field formControlName="quantity"
+                              <!-- <kt-input-field formControlName="quantity"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                                 #itemName type="number" [id]="'invoice_quantity_' + i"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
@@ -149,13 +149,27 @@
                                                         error : 'Minimum value is one' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
-                              </kt-input-field>
+                              </kt-input-field> -->
                               <!-- <kt-input-field formControlName="quantity"
                               matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                               #itemName type="number" [hintText]="'Optional'"
                               (change)="onChangeEvent($event , i , itemName)"
                               (keyup)="onChangeEvent($event , i , itemName)">
                             </kt-input-field> -->
+                            <mat-form-field appearance="outline" class="full-width">
+                              <input matInput formControlName="quantity" #itemName placeholder="Enter Quantity" (change)="onChangeEvent($event , i , itemName)"
+                              (keyup)="onChangeEvent($event , i , itemName)" [id]="'invoice_quantity_' + i" type="number"
+                               (blur)="logValidationErrors(this.invoiceForm, this.formErrors, this.validationMessages)">
+                              <mat-error *ngIf="invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.errors?.required &&
+                                   invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.touched">
+                                <strong>Quantity is required</strong>
+                              </mat-error>
+
+                              <mat-error *ngIf="invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.errors?.min &&
+                                   invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.touched">
+                                <strong>Minimum value is one</strong>
+                              </mat-error>
+                            </mat-form-field>
                             </div>
                           </mat-cell>
                         </ng-container>
@@ -164,7 +178,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Price</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <kt-input-field formControlName="price"
+                              <!-- <kt-input-field formControlName="price"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Price"
                                 #itemName type="number" [id]="'invoice_price_' + i"
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
@@ -176,7 +190,21 @@
                                           error : 'Price cannot be zero' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
-                              </kt-input-field>
+                              </kt-input-field> -->
+                              <mat-form-field appearance="outline" class="full-width">
+                                <input matInput formControlName="price" #itemName placeholder="Enter Price" (change)="onChangeEvent($event , i , itemName)"
+                                (keyup)="onChangeEvent($event , i , itemName)" [id]="'invoice_price_' + i" type="number"
+                                 (blur)="logValidationErrors(this.invoiceForm, this.formErrors, this.validationMessages)">
+                                <mat-error *ngIf="invoiceForm.get('invoiceLines')['controls'][i].controls.price.errors?.required &&
+                                        invoiceForm.get('invoiceLines')['controls'][i].controls.price.touched">
+                                  <strong>Price is required</strong>
+                                </mat-error>
+  
+                                <mat-error *ngIf="invoiceForm.get('invoiceLines')['controls'][i].controls.price.errors?.min &&
+                                        invoiceForm.get('invoiceLines')['controls'][i].controls.price.touched">
+                                  <strong>Price cannot be zero</strong>
+                                </mat-error>
+                              </mat-form-field>
                             </div>
                           </mat-cell>
                         </ng-container>
@@ -185,7 +213,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Tax%</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <kt-input-field formControlName="tax"
+                              <!-- <kt-input-field formControlName="tax"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Tax %"
                                 #itemName type="number" [id]="'invoice_tax_' + i"
                                 [hintText]="'Optional'"
@@ -197,7 +225,18 @@
                                                         error : 'Tax % should be between 0 and 100'}]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
-                              </kt-input-field>
+                              </kt-input-field> -->
+                              <mat-form-field appearance="outline" class="full-width">
+                                <input matInput formControlName="tax" #itemName placeholder="Enter Tax %" (change)="onChangeEvent($event , i , itemName)"
+                                (keyup)="onChangeEvent($event , i , itemName)" [id]="'invoice_tax_' + i" type="number"
+                                 (blur)="logValidationErrors(this.invoiceForm, this.formErrors, this.validationMessages)">
+                                <mat-error *ngIf="(invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.min ||
+                                       invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.max) &&
+                                       invoiceForm.get('invoiceLines')['controls'][i].controls.tax.touched">
+                                  <strong>Tax % range (0 - 100)</strong>
+                                </mat-error>
+                                <mat-hint align="end">Optional</mat-hint>
+                              </mat-form-field>
                             </div>
                           </mat-cell>
                         </ng-container>

@@ -21,8 +21,8 @@
                     <i class="fa fa-edit"></i> Edit
                   </button>
 
-                  <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="cancel__btn mr-3" 
-                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                  <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-3" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
                   </button>
 
                   <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public"  
