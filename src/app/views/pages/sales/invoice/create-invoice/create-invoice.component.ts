@@ -192,9 +192,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
   // Form Reset
   reset() {
-    const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
+    // const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
+    // invoiceLineArray.clear();
     this.formDirective.resetForm();
-    invoiceLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }

@@ -13,7 +13,6 @@
                     <label class="col-form-label pt-0">Employee :</label>
                     <kt-simple-dropdown
                     id="issuance_return_employee"
-                      [isDisabled]="true"
                       (blurEvent)="logValidationErrors(this.issuanceReturnForm, this.formErrors, this.validationMessages)"
                       [errorMessage]="formErrors.employeeId"
                       [optionList]="ngxsService.employees$"

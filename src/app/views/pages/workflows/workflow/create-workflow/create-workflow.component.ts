@@ -159,9 +159,9 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
 
   // Form Reset
   reset() {
-    const workflowLineArray = this.workflowForm.get('workflowLines') as FormArray;
+    // const workflowLineArray = this.workflowForm.get('workflowLines') as FormArray;
+    // workflowLineArray.clear();
     this.formDirective.resetForm();
-    workflowLineArray.clear();
     this.table.renderRows();
   }
 

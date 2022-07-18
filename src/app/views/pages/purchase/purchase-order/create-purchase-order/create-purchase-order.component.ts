@@ -164,9 +164,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   // Form Reset
   reset() {
-    const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
+    // const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
+    // purchaseOrderLineArray.clear();
     this.formDirective.resetForm();
-    purchaseOrderLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }

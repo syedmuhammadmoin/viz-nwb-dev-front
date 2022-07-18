@@ -25,8 +25,8 @@
                     Return Issuance
                   </button>
 
-                  <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="cancel__btn mr-3" 
-                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                  <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-3 btn_public" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
                   </button>
   
                   <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button" 
@@ -116,9 +116,9 @@
                               class="links">{{issuanceMaster?.requisitionDocNo}}</a></td>
                           </tr>
                           <ng-container *ngIf="issuanceMaster?.references" >
-                            <tr *ngFor="let grn of issuanceMaster?.references">
-                              <td><a [routerLink]="('/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', grn?.docId))"
-                                  class="links">{{grn?.docNo}}</a></td>
+                            <tr *ngFor="let issuanceReturn of issuanceMaster?.references">
+                              <td><a [routerLink]="('/' + ISSUANCE_RETURN.ID_BASED_ROUTE('details', issuanceReturn?.docId))"
+                                  class="links">{{issuanceReturn?.docNo}}</a></td>
                             </tr>
                           </ng-container>
                         </table>

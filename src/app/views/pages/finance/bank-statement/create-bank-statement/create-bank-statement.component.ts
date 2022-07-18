@@ -301,10 +301,10 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   // Form Reset
   reset() {
-    const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
+    // const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
+    // bankStatementArray.clear();
     this.formDirective.resetForm();
-    bankStatementArray.clear();
-    this.addBankStatementLineClick()
+   // this.addBankStatementLineClick()
     this.body.files = null;
     this.fileName = '';
     this.showFileName = false;

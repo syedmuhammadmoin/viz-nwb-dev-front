@@ -31,8 +31,8 @@
                   <i class="fa fa-edit"></i> Goods Return Note
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.GRN_EDIT))"  class="cancel__btn mr-3" 
-                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                <button *ngIf="(permission.isGranted(permissions.GRN_EDIT))" class="btn_public mr-3" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button"  class="btn_public">

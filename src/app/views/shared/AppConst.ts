@@ -330,10 +330,10 @@ export class AppConst {
     'Permissions.RequisitionClaims.Delete': 'Requisition Delete',
 
     // GRN
-    'Permissions.GRNClaims.View': 'Good Receive Note View',
-    'Permissions.GRNClaims.Create': 'Good Receive Note Create',
-    'Permissions.GRNClaims.Edit': 'Good Receive Note Update',
-    'Permissions.GRNClaims.Delete': 'Good Receive Note Delete',
+    'Permissions.GRNClaims.View': 'Goods Receive Note View',
+    'Permissions.GRNClaims.Create': 'Goods Receive Note Create',
+    'Permissions.GRNClaims.Edit': 'Goods Receive Note Update',
+    'Permissions.GRNClaims.Delete': 'Goods Receive Note Delete',
 
     //  GDN
     'Permissions.GDNClaims.View': 'Good Dispatch Note View',
@@ -342,10 +342,10 @@ export class AppConst {
     'Permissions.GDNClaims.Delete': 'Good Dispatch Note Delete',
 
     // Goods Return Note
-    'Permissions.GoodsReturnNoteClaims.View': 'Good Return Note View',
-    'Permissions.GoodsReturnNoteClaims.Create': 'Good Return Note Create',
-    'Permissions.GoodsReturnNoteClaims.Edit': 'Good Return Note Update',
-    'Permissions.GoodsReturnNoteClaims.Delete': 'Good Return Note Delete',
+    'Permissions.GoodsReturnNoteClaims.View': 'Goods Return Note View',
+    'Permissions.GoodsReturnNoteClaims.Create': 'Goods Return Note Create',
+    'Permissions.GoodsReturnNoteClaims.Edit': 'Goods Return Note Update',
+    'Permissions.GoodsReturnNoteClaims.Delete': 'Goods Return Note Delete',
 
     //ISSUANCE
     'Permissions.IssuanceClaims.View': 'Issuance View',

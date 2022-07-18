@@ -10,6 +10,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { GoodsReceivedNoteRoutingModule } from './goods-received-note-routing.module';
 import { GrnService } from './service/grn.service';
 import { CreateGrnComponent } from './create-grn/create-grn.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 @NgModule({
@@ -25,6 +26,9 @@ import { CreateGrnComponent } from './create-grn/create-grn.component';
     SharedModule,
     GoodsReceivedNoteRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
+  ],
+  entryComponents: [
+    CustomRemarksComponent
   ]
 })
 export class GoodsReceivedNoteModule { }

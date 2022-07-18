@@ -7,6 +7,9 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ISSUANCE, ISSUANCE_RETURN } from 'src/app/views/shared/AppRoutes';
 import { finalize, take } from 'rxjs/operators';
 import { IssuanceReturnService } from '../service/issuance-return.service';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'kt-issuance-return-detail',
@@ -45,9 +48,13 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
    issuanceReturnLines: any;
    issuanceReturnMaster: any;
 
+   //Showing Remarks
+  remarksList: string[] = [];
+
  constructor( private activatedRoute: ActivatedRoute,
               private issuanceReturnService: IssuanceReturnService,
               private cdRef: ChangeDetectorRef,
+              private dialog: MatDialog,
               injector: Injector
               ) {
                 super(injector)
@@ -109,6 +116,8 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
     .subscribe((res) => {
       this.issuanceReturnMaster = res.result;
       this.issuanceReturnLines = res.result.issuanceReturnLines;
+      this.remarksList = this.issuanceReturnMaster.remarksList ?? [] 
+
 
       //Checking grn status to Issuance reference
       this.showReference = (["Draft" , "Rejected"].includes(this.issuanceReturnMaster.status)) ? false : true;
@@ -124,9 +133,22 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
     })
   }
 
-  workflow(action: any) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number , remarks: string) {
     this.isLoading = true
-    this.issuanceReturnService.workflow({action, docId: this.issuanceReturnMaster.id})
+    this.issuanceReturnService.workflow({action, docId: this.issuanceReturnMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -139,6 +161,22 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Issuance Return');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.issuanceReturnMaster,
+        serviceClass: this.issuanceReturnService,
+        functionName: 'uploadFile',
+        name: 'Issuance Return'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getIssuanceReturnMasterData(this.issuanceReturnId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

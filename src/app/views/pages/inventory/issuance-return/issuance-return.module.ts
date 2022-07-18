@@ -9,6 +9,7 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { IssuanceReturnRoutingModule } from './issuance-return-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 @NgModule({
@@ -24,6 +25,9 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SharedModule,
     IssuanceReturnRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
+  ],
+  entryComponents: [
+    CustomRemarksComponent
   ]
 })
 export class IssuanceReturnModule { }

@@ -162,9 +162,9 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
   //Form Reset
   reset() {
-    const creditNoteLineArray = <FormArray>this.creditNoteForm.get('creditNoteLines');
+    // const creditNoteLineArray = <FormArray>this.creditNoteForm.get('creditNoteLines');
+    // creditNoteLineArray.clear();
     this.formDirective.resetForm();
-    creditNoteLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }

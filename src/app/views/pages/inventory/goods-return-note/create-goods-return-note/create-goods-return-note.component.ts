@@ -162,9 +162,9 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
 
   // Form Reset
   reset() {
-    const goodsReturnNoteLineArray = this.goodsReturnNoteForm.get('goodsReturnNoteLines') as FormArray;
+    // const goodsReturnNoteLineArray = this.goodsReturnNoteForm.get('goodsReturnNoteLines') as FormArray;
+    // goodsReturnNoteLineArray.clear();
     this.formDirective.resetForm();
-    goodsReturnNoteLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }

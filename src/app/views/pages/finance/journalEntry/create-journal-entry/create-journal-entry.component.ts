@@ -185,9 +185,9 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
   // Form Reset
   reset() {
-    const journalEntryArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
+    // const journalEntryArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
+    // journalEntryArray.clear();
     this.formDirective.resetForm();
-    journalEntryArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }

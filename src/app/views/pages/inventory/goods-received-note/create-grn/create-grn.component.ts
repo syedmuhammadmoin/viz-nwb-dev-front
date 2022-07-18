@@ -163,9 +163,9 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // Form Reset
   reset() {
-    const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    // const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    // grnLineArray.clear();
     this.formDirective.resetForm();
-    grnLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }

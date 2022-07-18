@@ -44,7 +44,7 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
 
   columnDefs = [
     { 
-      headerName: 'issuanceReturn #', 
+      headerName: 'Issuance Return #', 
       field: 'docNo', 
       tooltipField: 'status', 
       cellRenderer: "loadingCellRenderer",
@@ -56,8 +56,8 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
         }, 
     },
     { 
-      headerName: 'Vendor', 
-      field: 'vendorName', 
+      headerName: 'Employee', 
+      field: 'employeeName', 
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -80,15 +80,15 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    {
-      headerName: 'Total', 
-      field: 'totalAmount', 
-      tooltipField: 'status',
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
+    // {
+    //   headerName: 'Total', 
+    //   field: 'totalAmount', 
+    //   tooltipField: 'status',
+    //   suppressMenu: true,
+    //   valueFormatter: (params: ValueFormatterParams) => {
+    //     return this.valueFormatter(params.value)
+    //   }
+    // },
     { 
       headerName: 'Status', 
       field: 'status', 

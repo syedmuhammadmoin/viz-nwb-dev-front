@@ -1,6 +1,7 @@
 import { NgModule } from "@angular/core";
 import { AgGridModule } from "ag-grid-angular";
 import { PartialsModule } from "src/app/views/partials/partials.module";
+import { CustomRemarksComponent } from "src/app/views/shared/components/custom-remarks/custom-remarks.component";
 import { CustomTooltipComponent } from "src/app/views/shared/components/custom-tooltip/custom-tooltip.component";
 import { SharedModule } from "src/app/views/shared/modules/shared.module";
 import { CreateDebitNoteComponent } from "./create-debit-note/create-debit-note.component";
@@ -21,9 +22,10 @@ import { PrintDebitNoteComponent } from "./print-debit-note/print-debit-note.com
     PartialsModule,
     SharedModule,
     DebitNoteRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-  
+    AgGridModule.withComponents([CustomTooltipComponent])
   ],
-
+  entryComponents: [
+    CustomRemarksComponent
+  ]
 })
 export class DebitNoteModule { }

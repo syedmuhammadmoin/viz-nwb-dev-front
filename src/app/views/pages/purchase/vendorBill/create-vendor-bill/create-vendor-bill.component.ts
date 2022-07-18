@@ -202,9 +202,9 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   // Form Reset
   reset() {
-    const vendorBillLineArray = this.vendorBillForm.get('vendorBillLines') as FormArray;
+    // const vendorBillLineArray = this.vendorBillForm.get('vendorBillLines') as FormArray;
+    // vendorBillLineArray.clear();
     this.formDirective.resetForm();
-    vendorBillLineArray.clear();
     this.totalBeforeTax = this.grandTotal = this.totalTax = 0;
     this.showMessage = false;
     this.table.renderRows();

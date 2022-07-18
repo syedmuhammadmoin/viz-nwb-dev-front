@@ -159,9 +159,9 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   //Form Reset
   reset() {
-    const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
+    // const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
+    // debitNoteLineArray.clear();
     this.formDirective.resetForm();
-    debitNoteLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }

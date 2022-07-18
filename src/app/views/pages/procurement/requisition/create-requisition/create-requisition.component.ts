@@ -151,9 +151,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   // Form Reset
   reset() {
-    const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
+    // const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
+    // requisitionLineArray.clear();
     this.formDirective.resetForm();
-    requisitionLineArray.clear();
     //this.showMessage = false;
     this.table.renderRows();
   }

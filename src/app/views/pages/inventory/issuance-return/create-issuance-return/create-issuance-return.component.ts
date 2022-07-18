@@ -108,7 +108,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       employeeId: [{value: '', disabled: true}, [Validators.required]],
       issuanceReturnDate: ['', [Validators.required]],
       contact: [''],
-      campusId: ['', [Validators.required]],
+      campusId: [{value: '', disabled: true}, [Validators.required]],
       issuanceReturnLines: this.fb.array([
         this.addIssuanceReturnLines()
       ])
@@ -155,61 +155,61 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   // Form Reset
   reset() {
-    const issuanceReturnLineArray = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
+    // const issuanceReturnLineArray = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
+    // issuanceReturnLineArray.clear();
     this.formDirective.resetForm();
-    issuanceReturnLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
-    if (itemId) {
-      const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
-      const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
-      const account = this.salesItem.find(i => i.id === itemId).costAccountId
-      // set values for price & tax
-      arrayControl.at(index).get('cost').setValue(cost);
-      arrayControl.at(index).get('tax').setValue(salesTax);
-      arrayControl.at(index).get('accountId').setValue(account);
-      // Calculating subtotal
-      const quantity = arrayControl.at(index).get('quantity').value;
-      const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-      arrayControl.at(index).get('subTotal').setValue(subTotal);
-    }
+    // const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
+    // if (itemId) {
+    //   const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
+    //   const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
+    //   const account = this.salesItem.find(i => i.id === itemId).costAccountId
+    //   // set values for price & tax
+    //   arrayControl.at(index).get('cost').setValue(cost);
+    //   arrayControl.at(index).get('tax').setValue(salesTax);
+    //   arrayControl.at(index).get('accountId').setValue(account);
+    //   // Calculating subtotal
+    //   const quantity = arrayControl.at(index).get('quantity').value;
+    //   const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
+    //   arrayControl.at(index).get('subTotal').setValue(subTotal);
+    // }
 
-    console.log(arrayControl)
+    // console.log(arrayControl)
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
   onChangeEvent(value: any, index: number , element?: HTMLElement) {
-    const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
-    const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
-    const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
-    const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
+    // const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
+    // const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
+    // const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
+    // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
 
-    // calculating subTotal
-    const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-    arrayControl.at(index).get('subTotal').setValue(subTotal);
-    this.totalCalculation();
+    // // calculating subTotal
+    // const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
+    // arrayControl.at(index).get('subTotal').setValue(subTotal);
+    // this.totalCalculation();
   }
 
   // Calculations
   // Calculate Total Before Tax ,Total Tax , grandTotal
   totalCalculation() {
-    this.totalTax = 0;
-    this.totalBeforeTax = 0;
-    this.grandTotal = 0;
-    const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
-    arrayControl.controls.forEach((element, index) => {
-      const cost = arrayControl.at(index).get('cost').value;
-      const tax = arrayControl.at(index).get('tax').value;
-      const quantity = arrayControl.at(index).get('quantity').value;
-      this.totalTax += ((cost * quantity) * tax) / 100
-      this.totalBeforeTax += cost * quantity;
-      this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
-    });
+    // this.totalTax = 0;
+    // this.totalBeforeTax = 0;
+    // this.grandTotal = 0;
+    // const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
+    // arrayControl.controls.forEach((element, index) => {
+    //   const cost = arrayControl.at(index).get('cost').value;
+    //   const tax = arrayControl.at(index).get('tax').value;
+    //   const quantity = arrayControl.at(index).get('quantity').value;
+    //   this.totalTax += ((cost * quantity) * tax) / 100
+    //   this.totalBeforeTax += cost * quantity;
+    //   this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
+    // });
   }
 
   //for save or submit
@@ -300,11 +300,11 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
     this.issuanceReturnForm.setControl('issuanceReturnLines', this.patchIssuanceReturnLines(data.issuanceReturnLines ?? data.issuanceLines));
 
-    if(this.isIssuance) {
-      data.issuanceLines.map((line, index) => {
-        this.onItemSelected(line.itemId , index)
-      })
-    }
+    // if(this.isIssuance) {
+    //   data.issuanceLines.map((line, index) => {
+    //     this.onItemSelected(line.itemId , index)
+    //   })
+    // }
     
     this.totalCalculation();
   }
@@ -389,7 +389,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     this.issuanceReturnModel.employeeId = this.issuanceReturnModel?.employeeId ?? this.issuanceMaster?.employeeId;
     this.issuanceReturnModel.issuanceReturnDate = this.transformDate(this.issuanceReturnForm.value.issuanceReturnDate, 'yyyy-MM-dd');
     this.issuanceReturnModel.contact = this.issuanceReturnForm.value.contact;
-    this.issuanceReturnModel.campusId = this.issuanceReturnForm.value.campusId;
+    this.issuanceReturnModel.campusId = this.issuanceReturnModel?.campusId ?? this.issuanceMaster?.campusId;
     this.issuanceReturnModel.issuanceId = this.issuanceMaster?.id ?? this.issuanceReturnModel?.issuanceId;
     this.issuanceReturnModel.issuanceReturnLines = this.issuanceReturnForm.value.issuanceReturnLines;
   }

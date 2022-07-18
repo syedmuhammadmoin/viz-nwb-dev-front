@@ -158,9 +158,9 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
   // Form Reset
   reset() {
-    const issuanceLineArray = this.issuanceForm.get('issuanceLines') as FormArray;
+    // const issuanceLineArray = this.issuanceForm.get('issuanceLines') as FormArray;
+    // issuanceLineArray.clear();
     this.formDirective.resetForm();
-    issuanceLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
