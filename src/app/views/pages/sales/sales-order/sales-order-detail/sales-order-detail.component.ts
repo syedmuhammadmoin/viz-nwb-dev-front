@@ -117,17 +117,17 @@ export class SalesOrderDetailComponent extends AppComponentBase implements OnIni
   }
 
   workflow(action: number) {
-    this.isLoading = true
-    this.salesOrderService.workflow({ action, docId: this.salesOrderMaster.id })
-      .subscribe((res) => {
-        this.getSalesOrderData(this.salesOrderId);
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'sales Order');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.error('' + err.error.message, 'sales Order')
-      })
+    // this.isLoading = true
+    // this.salesOrderService.workflow({ action, docId: this.salesOrderMaster.id })
+    //   .subscribe((res) => {
+    //     this.getSalesOrderData(this.salesOrderId);
+    //     this.isLoading = false;
+    //     this.cdRef.detectChanges();
+    //     this.toastService.success('' + res.message, 'sales Order');
+    //   }, (err) => {
+    //     this.isLoading = false;
+    //     this.cdRef.detectChanges();
+    //     this.toastService.error('' + err.error.message, 'sales Order')
+    //   })
   }
 }

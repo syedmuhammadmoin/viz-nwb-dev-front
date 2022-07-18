@@ -101,17 +101,17 @@ public DISPATCH_NOTE=DISPATCH_NOTE
   }
 
   workflow(action: any) {
-    this.isLoading = true
-    this.dispatchNoteService.workflow({action, docId: this.dispatchNoteMaster.id})
-      .subscribe((res) => {
-        this.getDispatchNoteMasterData(this.gdnId);
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'GDN');
-      }, (err) => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-        this.toastService.error('' + err.error.message, 'GDN')
-      })
+    // this.isLoading = true
+    // this.dispatchNoteService.workflow({action, docId: this.dispatchNoteMaster.id})
+    //   .subscribe((res) => {
+    //     this.getDispatchNoteMasterData(this.gdnId);
+    //     this.isLoading = false;
+    //     this.cdRef.detectChanges();
+    //     this.toastService.success('' + res.message, 'GDN');
+    //   }, (err) => {
+    //     this.isLoading = false;
+    //     this.cdRef.detectChanges();
+    //     this.toastService.error('' + err.error.message, 'GDN')
+    //   })
   }
 }

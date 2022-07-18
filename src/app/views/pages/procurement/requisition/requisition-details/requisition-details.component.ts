@@ -11,6 +11,8 @@ import { IRequisitionLines } from '../model/IRequisitionLines';
 import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 @Component({
   selector: 'kt-requisition-details',
@@ -44,6 +46,9 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   requisitionLines: IRequisitionLines | any
   requisitionMaster: IRequisition | any;
   status: string;
+
+  //Showing Remarks
+  remarksList: string[] = [];
 
   constructor(
     private requisitionService: RequisitionService,
@@ -128,6 +133,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       this.requisitionMaster = res.result;
       this.requisitionLines = res.result.requisitionLines;
       this.status = this.requisitionMaster.status;
+      this.remarksList = this.requisitionMaster.remarksList ?? [] 
 
       if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.requisitionMaster.state)) {
         this.gridOptions.columnApi.setColumnVisible('issuedQuantity', false);
@@ -141,9 +147,22 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
     })
   }
 
-  workflow(action: number) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.requisitionService.workflow({ action, docId: this.requisitionMaster.id })
+    this.requisitionService.workflow({ action, docId: this.requisitionMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -156,6 +175,22 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Requisition');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.requisitionMaster,
+        serviceClass: this.requisitionService,
+        functionName: 'uploadFile',
+        name: 'Requisition'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getRequisitionData(this.requisitionId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

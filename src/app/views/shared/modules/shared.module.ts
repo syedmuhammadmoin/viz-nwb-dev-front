@@ -53,6 +53,10 @@ import { DateInputComponent } from '../components/date-input/date-input.componen
 import { PdfComponent } from '../pdf/pdf.component';
 import { ActionButtonComponent } from '../components/action-button/action-button.component';
 import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
+import { FileSizePipe } from '../pipes/non-negative/file-size/file-size.pipe';
+import { ShowRemarksComponent } from '../components/show-remarks/show-remarks.component';
+import { CustomUploadFileComponent } from '../components/custom-upload-file/custom-upload-file.component';
+import { CustomRemarksComponent } from '../components/custom-remarks/custom-remarks.component';
 
 
 // @ts-ignore
@@ -68,7 +72,11 @@ import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
     ShortNumberPipe,
     PdfComponent,
     ActionButtonComponent,
-    NonNegativePipe
+    ShowRemarksComponent,
+    CustomUploadFileComponent,
+    CustomRemarksComponent,
+    NonNegativePipe,
+    FileSizePipe
   ],
   imports: [
     NgxPrintModule,
@@ -167,6 +175,7 @@ import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
     MatPaginatorModule,
     MatDialogModule,
     CommonModule,
+    FileSizePipe,
     MatRadioModule,
     MatTreeModule,
     MatButtonToggleModule,
@@ -174,7 +183,10 @@ import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
     GroupDropdownComponent,
     InputFieldComponent,
     DateInputComponent,
-    BusyDirective
+    BusyDirective,
+    ShowRemarksComponent,
+    CustomUploadFileComponent,
+    CustomRemarksComponent
   ],
   providers: [
     FormConfirmationGuard,

@@ -1,1 +1,60 @@
-<p>custom-remarks works!</p>
+<div class="kt-portlet" style="overflow :hidden;">
+    <div class="kt-portlet__head">
+        <div class="kt-portlet__head-caption">
+            <div class="kt-portlet__head-title">
+                <h3 class="kt-portlet__head-text modal-header"> Add Remarks
+                    <span (click)="onCloseRemarksDialog()" id="campus_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+                </h3>
+            </div>
+        </div>
+    </div>
+    <!-- form start -->
+    <form [formGroup]="remarksForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
+        <!-- portlet body starts -->
+        <div class="kt-portlet__body" >
+            <!-- form first section starts -->
+            <div class="kt-form__section kt-form__section--first">
+                <!-- first row starts -->
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group kt-form__group">
+                                <label class="col-form-label pt-0">Remarks:</label>
+                                <kt-input-field
+                                 id="remarks"
+                                 formControlName="remarks"
+                                 placeholder="Remarks"
+                                 (blurEvent)="logValidationErrors(this.remarksForm, this.formErrors, this.validationMessages)"
+                                 hintText="(Maximum 200 characters)"
+                                 [errorMessage]="[{ condition : formErrors.remarks , error : formErrors.remarks }]">
+                               </kt-input-field>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- first row ends -->
+                </div>
+            </div>
+            <!-- form first section ends -->
+        </div>
+        <!-- portlet body ends -->
+        <mat-divider></mat-divider>
+        <!-- portlet footer start -->
+        <div class="kt-portlet__foot" >
+            <!-- form action starts -->
+            <div class="kt-form__actions kt-form__actions">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="float-right">
+                            <button mat-raised-button class="sub___btn" type="submit" id="remarks_submit"
+                            (click)="logValidationErrors(this.remarksForm, this.formErrors, this.validationMessages)">Submit
+                            </button>&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- form action ends-->
+        </div>
+        <!-- portlet footer ends -->
+    </form>
+    <!-- form ends -->
+</div>

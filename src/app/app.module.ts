@@ -135,7 +135,7 @@ export function getHighlightLanguages() {
 }
 
 @NgModule({
-  declarations: [AppComponent, CustomRemarksComponent, CustomUploadFileComponent, ShowRemarksComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
