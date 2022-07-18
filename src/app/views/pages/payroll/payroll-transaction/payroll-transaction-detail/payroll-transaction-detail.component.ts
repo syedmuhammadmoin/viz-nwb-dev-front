@@ -123,6 +123,8 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
         this.paidAmount = this.payrollMaster.totalPaid;
         this.pendingAmount = this.payrollMaster.pendingAmount;
         this.paidAmountList = this.payrollMaster.paidAmountList == null ? [] : this.payrollMaster.paidAmountList;
+        this.remarksList = this.payrollMaster.remarksList ?? [] 
+
        // this.bpUnReconPaymentList = this.payrollMaster.bpUnreconPaymentList == null ? [] : this.payrollMaster.bpUnreconPaymentList;
         //this.employeeType = AppConst.EmployeeType[this.payrollMaster.employeeType];
        

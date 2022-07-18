@@ -51,6 +51,9 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   //busy loading
   isLoading: boolean;
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   columnDefs = [
     {
       headerName: 'Item', 
@@ -172,6 +175,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       this.totalBeforeTax = this.purchaseOrderMaster.totalBeforeTax;
       this.totalTax = this.purchaseOrderMaster.totalTax;
       this.total = this.purchaseOrderMaster.totalAmount;
+      this.remarksList = this.purchaseOrderMaster.remarksList ?? [] 
 
       if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.purchaseOrderMaster.state)) {
         this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);

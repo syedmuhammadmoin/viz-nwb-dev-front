@@ -65,6 +65,9 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   paidAmount: number;
   bpUnReconPaymentList: any = [];
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   constructor(private vendorBillService: VendorBillService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
@@ -170,6 +173,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       this.pendingAmount = this.billMaster.pendingAmount;
       this.paidAmountList = this.billMaster.paidAmountList == null ? [] : this.billMaster.paidAmountList;
       this.bpUnReconPaymentList = this.billMaster.bpUnreconPaymentList == null ? [] : this.billMaster.bpUnreconPaymentList;
+      this.remarksList = this.billMaster.remarksList ?? [] 
 
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();

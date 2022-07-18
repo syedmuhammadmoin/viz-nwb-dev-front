@@ -46,6 +46,9 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   journalEntryMaster: any;
   journalEntryLines: IJournalEntryLines[];
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   constructor(private activatedRoute: ActivatedRoute,
     private journalEntryService: JournalEntryService,
     private cdRef: ChangeDetectorRef,
@@ -122,7 +125,8 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
      )
     .subscribe((res: IApiResponse<IJournalEntry>) => {
       this.journalEntryMaster = res.result;
-      this.journalEntryLines = res.result.journalEntryLines
+      this.journalEntryLines = res.result.journalEntryLines;
+      this.remarksList = this.journalEntryMaster.remarksList ?? [] 
       this.cdRef.markForCheck();
     })
   }

@@ -54,6 +54,9 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
   debitNoteLines: any;
   reconciledDocumentList: any = [];
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   constructor(private debitNoteService: DebitNoteService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -146,6 +149,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       this.totalTax = this.debitNoteMaster.totalTax;
       this.totalAmount = this.debitNoteMaster.totalAmount;
       this.paidAmountList = this.debitNoteMaster.paidAmountList;
+      this.remarksList = this.debitNoteMaster.remarksList ?? [] 
       //this.reconciledDocumentList = this.debitNoteMaster.reconciledDocuments == null ? [] : this.debitNoteMaster.reconciledDocuments;
       this.cdRef.detectChanges();
     })

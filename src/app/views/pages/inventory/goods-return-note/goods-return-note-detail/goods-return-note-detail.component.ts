@@ -47,6 +47,9 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
    goodsReturnNoteLines: any;
    goodsReturnNoteMaster: any;
 
+   //Showing Remarks
+  remarksList: string[] = [];
+
  constructor( private activatedRoute: ActivatedRoute,
               private goodsReturnNoteService: GoodsReturnNoteService,
               private cdRef: ChangeDetectorRef,
@@ -109,6 +112,7 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
     .subscribe((res) => {
       this.goodsReturnNoteMaster = res.result;
       this.goodsReturnNoteLines = res.result.goodsReturnNoteLines;
+      this.remarksList = this.goodsReturnNoteMaster.remarksList ?? [] 
 
       //Checking grn status to show GRN reference
       this.showReference = (["Draft" , "Rejected"].includes(this.goodsReturnNoteMaster.status)) ? false : true;

@@ -47,6 +47,9 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   requisitionMaster: IRequisition | any;
   status: string;
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   constructor(
     private requisitionService: RequisitionService,
     private route: ActivatedRoute,
@@ -130,6 +133,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       this.requisitionMaster = res.result;
       this.requisitionLines = res.result.requisitionLines;
       this.status = this.requisitionMaster.status;
+      this.remarksList = this.requisitionMaster.remarksList ?? [] 
 
       if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.requisitionMaster.state)) {
         this.gridOptions.columnApi.setColumnVisible('issuedQuantity', false);

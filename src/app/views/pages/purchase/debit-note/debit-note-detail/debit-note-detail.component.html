@@ -21,6 +21,10 @@
                   <i class="fa fa-edit"></i> Edit
                 </button>
 
+                <button *ngIf="(permission.isGranted(permissions.DEBITNOTE_EDIT))"  class="cancel__btn mr-3" 
+                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                </button>
+
                 <button [routerLink]="'/' + DEBIT_NOTE.ID_BASED_ROUTE ('print',debitNoteMaster?.id) " type="button" 
                   class="btn_public" id="debit_note_print">
                   <i class="fa fa-print"></i> Print Debit Note
@@ -62,6 +66,10 @@
 
 
         <div class="row mt-5">
+
+          <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+            <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+          </div>
 
           <div class="col-lg-4 ml-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
@@ -158,8 +166,8 @@
       <div class="kt-form__actions kt-form__actions">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="debitNoteMaster?.isAllowedRole">
-            <button (click)="workflow(action.Reject)" id="debit_note_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-            <button (click)="workflow(action.Approve)" id="debit_note_approve" class="success__btn" mat-raised-button>Approve</button>
+            <button (click)="remarksDialog(action.Reject)" id="debit_note_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+            <button (click)="remarksDialog(action.Approve)" id="debit_note_approve" class="success__btn" mat-raised-button>Approve</button>
           </div>
         </div>
       </div>

@@ -67,6 +67,9 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
   creditNoteMaster: ICreditNote | any;
   paidAmountList: any = [];
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   // Defining columns for ag grid
   columnDefs = [
     { 
@@ -144,6 +147,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
       this.creditNoteMaster = res.result;
       this.creditNoteLines = res.result.creditNoteLines;
       this.paidAmountList = this.creditNoteMaster.paidAmountList == null ? [] : this.creditNoteMaster.paidAmountList;
+      this.remarksList = this.creditNoteMaster.remarksList ?? [] 
       this.cdRef.detectChanges();
     })
   }

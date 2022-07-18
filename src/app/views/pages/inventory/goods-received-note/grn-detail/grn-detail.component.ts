@@ -54,6 +54,9 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
    grnLines: any;
    grnMaster: any;
 
+   //Showing Remarks
+  remarksList: string[] = [];
+
  constructor( private activatedRoute: ActivatedRoute,
               private grnService: GrnService,
               private cdRef: ChangeDetectorRef,
@@ -135,6 +138,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     .subscribe((res) => {
       this.grnMaster = res.result;
       this.grnLines = res.result.grnLines;
+      this.remarksList = this.grnMaster.remarksList ?? [] 
 
       //Checking grn status to show purchase order reference
       this.showReference = (["Draft" , "Rejected"].includes(this.grnMaster.status)) ? false : true;

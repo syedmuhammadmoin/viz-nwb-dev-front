@@ -60,6 +60,9 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   // need for routing
   paymentId: number;
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
     constructor( private paymentService: PaymentService,
                  private route: ActivatedRoute,
                  public  dialog: MatDialog,
@@ -104,6 +107,8 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
         (res) => {
           this.paymentMaster = res.result;
           this.paidAmountList = this.paymentMaster.paidAmountList;
+          this.remarksList = this.paymentMaster.remarksList ?? [] 
+          
           // this.status = AppConst.ConsileOrReconcile[this.paymentMaster.bankReconStatus]
           // this.paymentType = AppConst.paymentType[this.paymentMasterList.paymentType]
           // this.registerType = AppConst.paymentRegisterType[this.paymentMasterList.paymentRegisterType]

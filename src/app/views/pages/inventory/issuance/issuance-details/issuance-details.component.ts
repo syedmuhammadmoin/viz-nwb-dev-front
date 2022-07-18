@@ -51,6 +51,9 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   issuanceMaster: IIssuance | any;
   status: string;
 
+  //Showing Remarks
+  remarksList: string[] = [];
+
   constructor(
     private issuanceService: IssuanceService,
     private route: ActivatedRoute,
@@ -133,6 +136,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       this.issuanceMaster = res.result;
       this.issuanceLines = res.result.issuanceLines;
       this.status = this.issuanceMaster.status;
+      this.remarksList = this.issuanceMaster.remarksList ?? [] 
 
       //Checking grn status to show Requisition reference
       this.showReference = (["Draft" , "Rejected"].includes(this.issuanceMaster.status)) ? false : true;
