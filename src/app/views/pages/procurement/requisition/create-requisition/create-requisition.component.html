@@ -16,6 +16,7 @@
                       id="requisition_employee"
                         formControlName="employeeId" 
                         matFormFieldClass="full-width"
+                        (selectionChange)="getEmployee($event.value)"
                         (blurEvent)="logValidationErrors(requisitionForm, this.formErrors, this.validationMessages)"
                         propertyName="name" 
                         propertyValue="id" 
@@ -24,6 +25,32 @@
                         searchPlaceholder="Search Employees..."
                         placeholder="Select Employee">
                        </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Designation:</label>
+                    <kt-input-field 
+                      id="requisition_designation"
+                      formControlName="designation" 
+                      matFormFieldClass="full-width" 
+                      placeholder="Designation"
+                      readonly="true">
+                    </kt-input-field>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Department:</label>
+                    <kt-input-field 
+                      id="requisition_department"
+                      formControlName="department" 
+                      matFormFieldClass="full-width" 
+                      placeholder="Department"
+                      readonly="true">
+                    </kt-input-field>
                   </div>
                 </div>
   
@@ -40,12 +67,14 @@
                       </kt-date-input>
                   </div>
                 </div>
-  
+              </div>
+
+              <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Campus:</label>
                     <kt-simple-dropdown
-                    id="requisition_campus"
+                      id="requisition_campus"
                       formControlName="campusId"
                       propertyName="name"
                       propertyValue="id"

@@ -413,15 +413,26 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     return !this.creditNoteForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.creditNoteForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Credit Note")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.creditNoteForm.get('creditNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.creditNoteForm.value.creditNoteLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Credit Note")
-     }
+    }
+
+     this.creditNoteForm.get('creditNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Credit Note")
+    //  }
      this.cdRef.detectChanges()
   }
 }

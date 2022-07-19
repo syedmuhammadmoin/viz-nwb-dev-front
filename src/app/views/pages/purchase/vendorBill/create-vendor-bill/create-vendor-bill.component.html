@@ -292,7 +292,7 @@
                                     isDisabledNone="true"
                                     searchPlaceholder="Search Store..."
                                     [hintText]="'Optional'"
-                                    (selectionChange)="showMessage = true"
+                                    (click)="checkCampus()"
                                     formControlName="warehouseId" 
                                     matFormFieldClass="full-width" 
                                     [optionList]="warehouseList">

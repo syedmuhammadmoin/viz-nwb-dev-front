@@ -12,6 +12,7 @@ import { IIssuance } from '../../issuance/model/IIssuance';
 import { IIssuanceReturn } from '../model/IissuanceReturn';
 import { IssuanceReturnService } from '../service/issuance-return.service';
 import { IIssuanceReturnLines } from '../model/IIssuanceReturnLines';
+import { EmployeeService } from '../../../payroll/employee/service/employee.service';
 
 @Component({
   selector: 'kt-create-issuance-return',
@@ -53,6 +54,9 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   issuanceMaster: any;
 
   hideDeleteButton: boolean = false;
+
+  //For getting employee
+  employee = {} as any;
 
   // for Edit
   isIssuanceReturn: any;
@@ -96,6 +100,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     private issuanceService: IssuanceService,
     public ngxsService: NgxsCustomService,
     private router: Router,
+    private employeeService: EmployeeService,
     public activatedRoute: ActivatedRoute,
     public cdRef: ChangeDetectorRef,
     injector: Injector
@@ -106,6 +111,8 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   ngOnInit() {
     this.issuanceReturnForm = this.fb.group({
       employeeId: [{value: '', disabled: true}, [Validators.required]],
+      designation: [''],
+      department: [''],
       issuanceReturnDate: ['', [Validators.required]],
       contact: [''],
       campusId: [{value: '', disabled: true}, [Validators.required]],
@@ -289,7 +296,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   //Patch Issuance Return Form Issuance Return Or Issuance Master Data
   patchIssuanceReturn(data: IIssuanceReturn | IIssuance | any) {
     this.issuanceReturnForm.patchValue({
-      employeeId: data.vendorId ?? data.employeeId,
+      employeeId: data.employeeId,
       issuanceReturnDate: data.issuanceReturnDate ?? data.issuanceDate,
       campusId : data.campusId,
       contact: data.contact
@@ -297,6 +304,8 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
+
+    this.getEmployee(data.employeeId)
 
     this.issuanceReturnForm.setControl('issuanceReturnLines', this.patchIssuanceReturnLines(data.issuanceReturnLines ?? data.issuanceLines));
 
@@ -398,15 +407,50 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     return !this.issuanceReturnForm.dirty;
   }
 
+  // getting employee data by id
+  getEmployee(id: number) {
+    this.employeeService.getEmployeeById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
+      this.employee = res.result
+      this.checkSelected(this.employee)
+      this.cdRef.detectChanges()
+    })
+  }
+
+  checkSelected(employee) {
+    this.issuanceReturnForm.patchValue({
+      designation: employee.designationName,
+      department: employee.departmentName
+    })
+  }
+
+  checkCampus() {
+    this.showMessage = true;
+    if(this.issuanceReturnForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Issuance Return")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.issuanceReturnForm.get('issuanceReturnLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.issuanceReturnForm.value.issuanceReturnLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Issuance Return")
-     }
+    }
+
+     this.issuanceReturnForm.get('issuanceReturnLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Issuance Return")
+    //  }
      this.cdRef.detectChanges()
   }
 }

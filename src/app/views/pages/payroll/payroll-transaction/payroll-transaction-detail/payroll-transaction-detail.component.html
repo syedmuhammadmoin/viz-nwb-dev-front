@@ -24,8 +24,8 @@
                     Edit
                   </button>
 
-                  <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="cancel__btn mr-3" 
-                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                  <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public mr-3" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
                   </button>
 
                   <button [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('print', payrollMaster?.id)" type="button" 

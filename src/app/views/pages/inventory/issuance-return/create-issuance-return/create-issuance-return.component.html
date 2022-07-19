@@ -8,7 +8,7 @@
   
             <div class="col-md-12 col-sm-12 col-lg-12">
               <div class="row">
-                <div class="col-lg-4 col-sm-4 col-md-4">
+                <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Employee :</label>
                     <kt-simple-dropdown
@@ -25,8 +25,34 @@
                     </kt-simple-dropdown>
                   </div>
                 </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Designation:</label>
+                    <kt-input-field 
+                      id="issuance_return_designation"
+                      formControlName="designation" 
+                      matFormFieldClass="full-width" 
+                      placeholder="Designation"
+                      readonly="true">
+                    </kt-input-field>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Department:</label>
+                    <kt-input-field 
+                      id="issuance_return_department"
+                      formControlName="department" 
+                      matFormFieldClass="full-width" 
+                      placeholder="Department"
+                      readonly="true">
+                    </kt-input-field>
+                  </div>
+                </div>
   
-                <div class="col-lg-4 col-sm-4 col-md-4">
+                <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Issuance Return Date:</label>
                     <kt-date-input
@@ -38,8 +64,10 @@
                     </kt-date-input>
                   </div>
                 </div>
-  
-                <div class="col-lg-4 col-sm-4 col-md-4">
+              </div>
+
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Contact:</label>
                     <kt-input-field
@@ -51,9 +79,7 @@
                     </kt-input-field>
                   </div>
                 </div>
-              </div>
 
-              <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Campus:</label>
@@ -167,7 +193,7 @@
                                       propertyName="name"
                                       isDisabled="true"
                                       searchPlaceholder="Search Store..."
-                                      (selectionChange)="showMessage = true"
+                                      (click)="checkCampus()"
                                       formControlName="warehouseId" 
                                       [errorMessage]="'Store is required.'"
                                       matFormFieldClass="full-width" 

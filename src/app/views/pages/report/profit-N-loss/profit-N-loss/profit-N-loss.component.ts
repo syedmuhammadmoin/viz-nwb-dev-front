@@ -189,7 +189,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         // for PDF
         this.disability = (!isEmpty(res)) ? false : true;
         if (isEmpty(res)) {
-          this.toastService.info('No Records Found !' , 'Profit & Loss')
+          this.toastService.info('No Records Found !' , 'Income & Expenditure')
         }
         this.cdRef.detectChanges();
         this.calculateNetProfit(res);

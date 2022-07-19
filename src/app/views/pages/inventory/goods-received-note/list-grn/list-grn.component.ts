@@ -44,7 +44,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
 
   columnDefs = [
     { 
-      headerName: 'Grn #', 
+      headerName: 'GRN #', 
       field: 'docNo', 
       tooltipField: 'status', 
       cellRenderer: "loadingCellRenderer",
@@ -67,7 +67,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
         },
     },
     {
-      headerName: 'Grn Date',
+      headerName: 'GRN Date',
       field: 'grnDate',
       tooltipField: 'status',
       filter: 'agDateColumnFilter',

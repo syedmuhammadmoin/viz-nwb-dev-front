@@ -166,6 +166,11 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
         }
      },
      { 
+      headerName: 'BPS', 
+      field: 'basicPay',
+      tooltipField: 'name',  
+     },
+     { 
       headerName: 'Faculty', 
       field: 'faculty',
       suppressMenu: true,

@@ -404,15 +404,26 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     return !this.grnForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.grnForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Goods Received Note")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.grnForm.get('GRNLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.grnForm.value.GRNLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Goods Received Note")
-     }
+    }
+
+     this.grnForm.get('GRNLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Goods Received Note")
+    //  }
      this.cdRef.detectChanges()
   }
 }

@@ -103,7 +103,7 @@ export const CRUD_ROUTES = {
     GENERAL_LEDGER: 'ledger',
     TRIAL_BALANCE: 'trial-balance' ,
     BALANCE_SHEET: 'balance-sheet',
-    PROFIT_N_LOSS: 'profit-n-loss',
+    PROFIT_N_LOSS: 'income-n-expenditure',
     BUDGET_REPORT: 'report',
     PRINT: 'print'
   }

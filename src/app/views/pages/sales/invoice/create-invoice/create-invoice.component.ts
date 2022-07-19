@@ -443,15 +443,28 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     return !this.invoiceForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.invoiceForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Invoice")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.invoiceForm.get('invoiceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-      if(this.showMessage) {
+    console.log(this.invoiceForm.value.invoiceLines)
+
+    if(this.invoiceForm.value.invoiceLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Invoice")
-     }
+    }
+
+     this.invoiceForm.get('invoiceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //   if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Invoice")
+    //  }
      this.cdRef.detectChanges()
   }
 }

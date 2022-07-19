@@ -541,15 +541,26 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     }
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.vendorBillForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Vendor Bill")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.vendorBillForm.get('vendorBillLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.vendorBillForm.value.vendorBillLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Vendor Bill")
-     }
+    }
+
+     this.vendorBillForm.get('vendorBillLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Vendor Bill")
+    //  }
      this.cdRef.detectChanges()
   }
 

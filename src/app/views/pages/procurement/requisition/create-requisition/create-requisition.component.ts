@@ -15,6 +15,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
 import { IRequisitionLines } from '../model/IRequisitionLines';
+import { EmployeeService } from '../../../payroll/employee/service/employee.service';
 
 @Component({
   selector: 'kt-create-requisition',
@@ -51,6 +52,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   grandTotal = 0 ;
   totalBeforeTax = 0 ;
   totalTax = 0;
+
+  // for getting employee
+  employee = {} as any;
 
   //Limit Date
   maxDate: Date = new Date();
@@ -93,6 +97,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
                private cdRef: ChangeDetectorRef,
                private requisitionService: RequisitionService,
                public activatedRoute: ActivatedRoute,
+               private employeeService: EmployeeService,
                public productService: ProductService,
                public addButtonService: AddModalButtonService,
                public ngxsService: NgxsCustomService,
@@ -105,6 +110,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
     this.requisitionForm = this.fb.group({
       employeeId: ['', [Validators.required]],
+      designation: [''],
+      department: [''],
       requisitionDate: ['', [Validators.required]],
       campusId: ['', [Validators.required]],
       requisitionLines: this.fb.array([
@@ -265,7 +272,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
     //this.onCampusSelected(requisition.campusId)
     //this.showMessage = true;
-
+    this.getEmployee(requisition.employeeId)
     this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(requisition.requisitionLines));
     this.totalCalculation();
   }
@@ -364,6 +371,31 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       this.addButtonService.openProductDialog();
     }
   }
+
+  // getting employee data by id
+  getEmployee(id: number) {
+    this.employeeService.getEmployeeById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
+      this.employee = res.result
+      this.checkSelected(this.employee)
+      this.cdRef.detectChanges()
+    })
+  }
+
+  checkSelected(employee) {
+    this.requisitionForm.patchValue({
+      designation: employee.designationName,
+      department: employee.departmentName
+    })
+  }
+
   // open warehouse Location dialog
   // openLocationDialog() {
   //   if (this.permission.isGranted(this.permissions. LOCATION_CREATE)) {

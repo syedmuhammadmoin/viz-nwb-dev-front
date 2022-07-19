@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { GridOptions} from "ag-grid-community";
 import { DomSanitizer} from "@angular/platform-browser";
@@ -6,6 +6,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IBudgetResponse } from '../model/IBudgetResponse';
 import { IBudgetLines } from '../model/IBudgetLines';
 import { BudgetService } from '../service/budget.service';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-print-budget',
@@ -13,7 +14,7 @@ import { BudgetService } from '../service/budget.service';
   styleUrls: ['./print-budget.component.scss']
 })
 
-export class PrintBudgetComponent implements OnInit {
+export class PrintBudgetComponent extends AppComponentBase implements OnInit {
 
   gridOptions: GridOptions;
   budgetMaster: IBudgetResponse;
@@ -23,8 +24,9 @@ export class PrintBudgetComponent implements OnInit {
   constructor( private _budgetService: BudgetService,
                private activatedRoute: ActivatedRoute,
                private cdr: ChangeDetectorRef,
-               public sanitizer: DomSanitizer
-             ) { }
+               public sanitizer: DomSanitizer,
+               injector: Injector
+             ) { super(injector) }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe((params: Params) => {

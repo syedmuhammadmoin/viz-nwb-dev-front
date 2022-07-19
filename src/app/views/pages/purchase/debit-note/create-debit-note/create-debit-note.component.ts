@@ -413,15 +413,26 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     return !this.debitNoteForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.debitNoteForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Debit Note")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.debitNoteForm.get('debitNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.debitNoteForm.value.debitNoteLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Debit Note")
-     }
+    }
+
+     this.debitNoteForm.get('debitNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Debit Note")
+    //  }
      this.cdRef.detectChanges()
   }
 }

@@ -1048,24 +1048,24 @@ export class MenuConfig {
               ]
             },
             {
-              title: 'Balance Sheet',
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
+              title: 'Trial Balance',
+              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
               permission: [
-                Permissions.BALANCESHEET_VIEW,
+                Permissions.TRIALBALANCE_VIEW,
               ]
             },
             {
-              title: 'Profit & Loss',
+              title: 'Income & Expenditure',
               page: '/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS,
               permission: [
                 Permissions.PROFITLOSS_VIEW,
               ]
             },
             {
-              title: 'Trial Balance',
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
+              title: 'Balance Sheet',
+              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
               permission: [
-                Permissions.TRIALBALANCE_VIEW,
+                Permissions.BALANCESHEET_VIEW,
               ]
             },
           ]

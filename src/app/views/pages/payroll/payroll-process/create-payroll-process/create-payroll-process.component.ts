@@ -261,16 +261,17 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   editPayrollTransaction(event: any) {
-    const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
+    this.dialog.open(CreatePayrollTransactionComponent, {
+    // const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
       width: '860px',
       height: '700px',
       data: event?.data?.id,
       //panelClass: 'custom-modalbox'
     });
     // Recalling getBankAccounts function on dialog close
-    dialogRef.afterClosed().subscribe(() => {
-      this.createProcess();
-    });
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.createProcess();
+    // });
   }
 
   getLatestDepartments(){

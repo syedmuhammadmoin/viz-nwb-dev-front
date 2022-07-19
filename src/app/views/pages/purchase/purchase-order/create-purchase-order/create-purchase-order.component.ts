@@ -403,15 +403,26 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     return !this.purchaseOrderForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.purchaseOrderForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Purchase Order")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.purchaseOrderForm.get('purchaseOrderLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.purchaseOrderForm.value.purchaseOrderLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Purchase Order")
-     }
+    }
+
+     this.purchaseOrderForm.get('purchaseOrderLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Purchase Order")
+    //  }
      this.cdRef.detectChanges()
   }
 }
