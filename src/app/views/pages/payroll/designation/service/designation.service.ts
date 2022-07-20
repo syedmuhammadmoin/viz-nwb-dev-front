@@ -18,13 +18,8 @@ export class DesignationService extends AppServiceBase {
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-  getDesignations(params): Observable<IPaginationResponse<[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-    return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , { params: httpParams, headers: this.header})
+  getDesignations(): Observable<IPaginationResponse<[]>> {
+    return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , {headers: this.header})
   }
 
   getDesignationsDropdown(): Observable<IApiResponse<[]>> {

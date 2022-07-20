@@ -16,6 +16,7 @@ import { IIssuanceLines } from '../model/IssuanceLines';
 import { BehaviorSubject } from 'rxjs';
 import { RequisitionService } from '../../../procurement/requisition/service/requisition.service';
 import { IRequisition } from '../../../procurement/requisition/model/IRequisition';
+import { EmployeeService } from '../../../payroll/employee/service/employee.service';
 
 @Component({
   selector: 'kt-create-issuance',
@@ -54,6 +55,11 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   isRequisition: boolean;
   requisitionMaster: any;
 
+  isIssuance: boolean
+
+  // for getting employee
+  employee = {} as any;
+
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
@@ -89,6 +95,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     private issuanceService: IssuanceService,
     public activatedRoute: ActivatedRoute,
     public productService: ProductService,
+    public employeeService: EmployeeService,
     private requisitionService: RequisitionService,
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
@@ -104,6 +111,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     // Creating Forms
     this.issuanceForm = this.fb.group({
       employeeId: ['', [Validators.required]],
+      designation: [''],
+      department: [''],
       issuanceDate: ['', [Validators.required]],
       campusId: ['', [Validators.required]],
       issuanceLines: this.fb.array([
@@ -131,10 +140,10 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.activatedRoute.queryParams.subscribe((param) => {
 
       const id = param.q;
-      const isIssuance = param.isIssuance;
+      this.isIssuance = param.isIssuance;
       this.isRequisition = param.isRequisition;
 
-      if (id && isIssuance) {
+      if (id && this.isIssuance) {
         this.isLoading = true;
         this.title = 'Edit Issuance'
         this.getIssuance(id);
@@ -156,9 +165,9 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
   // Form Reset
   reset() {
-    const issuanceLineArray = this.issuanceForm.get('issuanceLines') as FormArray;
+    // const issuanceLineArray = this.issuanceForm.get('issuanceLines') as FormArray;
+    // issuanceLineArray.clear();
     this.formDirective.resetForm();
-    issuanceLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -228,13 +237,15 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   //Patch Issuance Form through issuance Or sales Order Master Data
   patchIssuance(data: IIssuance | IRequisition | any) {
     this.issuanceForm.patchValue({
-      employeeId: (data.employeeId) ? data.employeeId : data.businessPartnerId,
-      issuanceDate: (data.issuanceDate) ? data.issuanceDate : data.requisitionDate,
+      employeeId: data.employeeId,
+      issuanceDate: data.issuanceDate ?? data.requisitionDate,
       campusId: data.campusId
     });
 
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
+
+    this.getEmployee(data.employeeId)
 
     this.issuanceForm.setControl('issuanceLines', this.patchIssuanceLines((this.requisitionMaster) ? data.requisitionLines : data.issuanceLines))
   }
@@ -243,14 +254,17 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   patchIssuanceLines(lines: IIssuanceLines[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
-      formArray.push(this.fb.group({
-        id: (this.isRequisition) ? 0 : line.id,
-        itemId: [line.itemId , Validators.required],
-        description: [line.description , Validators.required],
-        quantity: (this.isRequisition) ? [line.pendingQuantity , [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
-        [line.quantity , [Validators.required,Validators.min(1)]],
-        warehouseId: [line.warehouseId , Validators.required],
-      }))
+      if(line.pendingQuantity != 0 ?? this.isIssuance) {
+        console.log("entered")
+        formArray.push(this.fb.group({
+          id: (this.isRequisition) ? 0 : line.id,
+          itemId: [line.itemId , Validators.required],
+          description: [line.description , Validators.required],
+          quantity: (this.isRequisition) ? [line.pendingQuantity , [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
+          [line.quantity , [Validators.required,Validators.min(1)]],
+          warehouseId: [line.warehouseId , [Validators.required]],
+        }))
+      }
     })
     return formArray
   }
@@ -329,15 +343,50 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.issuanceModel.isSubmit = (val === 0) ? false : true;
   }
 
+  // getting employee data by id
+  getEmployee(id: number) {
+    this.employeeService.getEmployeeById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
+      this.employee = res.result
+      this.checkSelected(this.employee)
+      this.cdRef.detectChanges()
+    })
+  }
+
+  checkSelected(employee) {
+    this.issuanceForm.patchValue({
+      designation: employee.designationName,
+      department: employee.departmentName
+    })
+  }
+
+  checkCampus() {
+    this.showMessage = true;
+    if(this.issuanceForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Issuance")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.issuanceForm.get('issuanceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.issuanceForm.value.issuanceLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Issuance")
-     }
+    }
+
+     this.issuanceForm.get('issuanceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    // if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Issuance")
+    //  }
      this.cdRef.detectChanges()
   }
 }

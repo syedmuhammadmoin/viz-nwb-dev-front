@@ -18,13 +18,8 @@ export class WarehouseService extends AppServiceBase {
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getWarehouses(params: any): Observable<IPaginationResponse<IWarehouse[]>> {
-        let httpParams = new HttpParams();
-
-        httpParams = httpParams.append('PageStart', params?.startRow);
-        httpParams = httpParams.append('PageEnd', params?.endRow);
-           
-        return this.httpClient.get<IPaginationResponse<IWarehouse[]>>(this.baseUrl,{ params: httpParams})
+    getWarehouses(): Observable<IPaginationResponse<IWarehouse[]>> {
+        return this.httpClient.get<IPaginationResponse<IWarehouse[]>>(this.baseUrl)
     }
 
     getWarehousesDropdown(): Observable<IApiResponse<IWarehouse[]>> {

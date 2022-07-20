@@ -92,7 +92,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
     grossPayment: {
       required: 'Gross Payment is required',
-      min: 'Value must greater than zero!'
+      min: 'Value must be greater than zero!'
     },
     campusId: {
       required: 'Campus is required'

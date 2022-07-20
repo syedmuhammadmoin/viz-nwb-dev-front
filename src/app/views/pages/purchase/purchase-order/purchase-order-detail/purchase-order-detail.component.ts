@@ -9,6 +9,9 @@ import { FirstDataRenderedEvent, GridOptions,  ValueFormatterParams} from 'ag-gr
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ChangeDetectorRef } from '@angular/core';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 @Component({
@@ -47,6 +50,9 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
 
   //busy loading
   isLoading: boolean;
+
+  //Showing Remarks
+  remarksList: string[] = [];
 
   columnDefs = [
     {
@@ -117,6 +123,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
     private activatedRoute: ActivatedRoute,
     private purchaseOrderService: PurchaseOrderService,
     private cdRef:ChangeDetectorRef,
+    public dialog: MatDialog,
     private router: Router,
     private layoutUtilService: LayoutUtilsService,
     injector: Injector
@@ -168,6 +175,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       this.totalBeforeTax = this.purchaseOrderMaster.totalBeforeTax;
       this.totalTax = this.purchaseOrderMaster.totalTax;
       this.total = this.purchaseOrderMaster.totalAmount;
+      this.remarksList = this.purchaseOrderMaster.remarksList ?? [] 
 
       if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.purchaseOrderMaster.state)) {
         this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
@@ -180,9 +188,22 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
     })
   }
 
-  workflow(action: any) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.purchaseOrderService.workflow({action, docId: this.purchaseOrderMaster.id})
+    this.purchaseOrderService.workflow({action, docId: this.purchaseOrderMaster.id, remarks})
     .pipe(
       take(1),
       finalize(() => {
@@ -195,6 +216,22 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'purchase Order');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.purchaseOrderMaster,
+        serviceClass: this.purchaseOrderService,
+        functionName: 'uploadFile',
+        name: 'Purchase Order'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getPurchaseMasterData(this.purchaseOrderId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

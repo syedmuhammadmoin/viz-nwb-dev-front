@@ -185,9 +185,9 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
   // Form Reset
   reset() {
-    const journalEntryArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
+    // const journalEntryArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
+    // journalEntryArray.clear();
     this.formDirective.resetForm();
-    journalEntryArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -362,15 +362,26 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     return !this.journalEntryForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.journalEntryForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Journal Entry")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.journalEntryForm.get('journalEntryLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.journalEntryForm.value.journalEntryLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Journal Entry")
-     }
+    }
+
+     this.journalEntryForm.get('journalEntryLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Journal Entry")
+    //  }
      this.cdRef.detectChanges()
   }
 }

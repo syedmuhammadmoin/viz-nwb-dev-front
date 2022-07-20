@@ -2,7 +2,7 @@ import { IRequisitionLines } from "./IRequisitionLines";
 
 export interface IRequisition {
       id: number;
-      businessPartnerId: number;
+      employeeId: number;
       requisitionDate: string;
       campusId : number;
       requisitionLines: IRequisitionLines[];

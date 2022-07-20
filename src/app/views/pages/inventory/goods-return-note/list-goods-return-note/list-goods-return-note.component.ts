@@ -43,7 +43,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
 
   columnDefs = [
     { 
-      headerName: 'Grn #', 
+      headerName: 'GRTRN #', 
       field: 'docNo', 
       tooltipField: 'status', 
       cellRenderer: "loadingCellRenderer",
@@ -66,7 +66,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
         },
     },
     {
-      headerName: 'Grn Date',
+      headerName: 'Return Date',
       field: 'returnDate',
       tooltipField: 'status',
       filter: 'agDateColumnFilter',

@@ -149,9 +149,9 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
 
   // Form Reset
   reset() {
-    const budgetLineArray = this.budgetForm.get('budgetLines') as FormArray;
+    // const budgetLineArray = this.budgetForm.get('budgetLines') as FormArray;
+    // budgetLineArray.clear();
     this.formDirective.resetForm();
-    budgetLineArray.clear();
     this.table.renderRows();
   }
 

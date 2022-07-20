@@ -8,6 +8,7 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { GoodsReturnNoteRoutingModule } from './goods-return-note-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 
@@ -23,6 +24,9 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SharedModule,
     GoodsReturnNoteRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
+  ],
+  entryComponents: [
+    CustomRemarksComponent
   ]
 })
 export class GoodsReturnNoteModule { }

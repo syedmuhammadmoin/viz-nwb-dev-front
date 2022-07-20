@@ -6,11 +6,13 @@ import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { GOODS_RECEIVED_NOTE, ISSUANCE, REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { GOODS_RECEIVED_NOTE, ISSUANCE, ISSUANCE_RETURN, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IIssuanceLines } from '../model/IssuanceLines';
 import { IIssuance } from '../model/IIssuance';
 import { IssuanceService } from '../service/issuance.service';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 @Component({
   selector: 'kt-issuance-details',
@@ -31,6 +33,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   defaultColDef: ColDef;
 
   public ISSUANCE = ISSUANCE;
+  public ISSUANCE_RETURN = ISSUANCE_RETURN;
   public REQUISITION = REQUISITION;
   public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE;
 
@@ -48,6 +51,9 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   issuanceLines: IIssuanceLines | any
   issuanceMaster: IIssuance | any;
   status: string;
+
+  //Showing Remarks
+  remarksList: string[] = [];
 
   constructor(
     private issuanceService: IssuanceService,
@@ -131,6 +137,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       this.issuanceMaster = res.result;
       this.issuanceLines = res.result.issuanceLines;
       this.status = this.issuanceMaster.status;
+      this.remarksList = this.issuanceMaster.remarksList ?? [] 
 
       //Checking grn status to show Requisition reference
       this.showReference = (["Draft" , "Rejected"].includes(this.issuanceMaster.status)) ? false : true;
@@ -146,9 +153,22 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
     });
   }
 
-  workflow(action: number) {
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.issuanceService.workflow({ action, docId: this.issuanceMaster.id })
+    this.issuanceService.workflow({ action, docId: this.issuanceMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
@@ -161,6 +181,22 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'issuance');
       })
+  }
+
+  //upload File
+  openFileUploadDialog() {
+    this.dialog.open(CustomUploadFileComponent, {
+      width: '740px',
+      data: {
+        response: this.issuanceMaster,
+        serviceClass: this.issuanceService,
+        functionName: 'uploadFile',
+        name: 'Issuance'
+      },
+    }).afterClosed().subscribe(() => {
+      this.getIssuanceData(this.issuanceId)
+      this.cdRef.detectChanges()
+    })
   }
 }
 

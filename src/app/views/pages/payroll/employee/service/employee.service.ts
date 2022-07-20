@@ -18,14 +18,8 @@ export class EmployeeService extends AppServiceBase {
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector)}
 
-    getEmployees(params: any): Observable<IPaginationResponse<[]>> {
-      let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-       
-        return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , { params: httpParams, headers: this.header })
+    getEmployees(): Observable<IPaginationResponse<[]>> {
+        return this.httpClient.get<IPaginationResponse<[]>>(this.baseUrl , {headers: this.header })
     }
 
     getEmployeesDropdown(): Observable<IApiResponse<[]>> {

@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -497,6 +497,10 @@ export class MenuConfig {
             Permissions.ISSUANCE_CREATE,
             Permissions.ISSUANCE_EDIT,
             Permissions.ISSUANCE_DELETE,
+            Permissions.ISSUANCE_RETURN_VIEW,
+            Permissions.ISSUANCE_RETURN_CREATE,
+            Permissions.ISSUANCE_RETURN_EDIT,
+            Permissions.ISSUANCE_RETURN_DELETE,
             Permissions.GRN_VIEW,
             Permissions.GRN_CREATE,
             Permissions.GRN_EDIT,
@@ -528,6 +532,16 @@ export class MenuConfig {
                 Permissions.ISSUANCE_CREATE,
                 Permissions.ISSUANCE_EDIT,
                 Permissions.ISSUANCE_DELETE
+              ],
+            },
+            {
+              title: 'Issuance Return',
+              page: '/' + ISSUANCE_RETURN.LIST,
+              permission: [
+                Permissions.ISSUANCE_RETURN_VIEW,
+                Permissions.ISSUANCE_RETURN_CREATE,
+                Permissions.ISSUANCE_RETURN_EDIT,
+                Permissions.ISSUANCE_RETURN_DELETE,
               ],
             },
             {
@@ -1034,24 +1048,24 @@ export class MenuConfig {
               ]
             },
             {
-              title: 'Balance Sheet',
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
+              title: 'Trial Balance',
+              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
               permission: [
-                Permissions.BALANCESHEET_VIEW,
+                Permissions.TRIALBALANCE_VIEW,
               ]
             },
             {
-              title: 'Profit & Loss',
+              title: 'Income & Expenditure',
               page: '/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS,
               permission: [
                 Permissions.PROFITLOSS_VIEW,
               ]
             },
             {
-              title: 'Trial Balance',
-              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE,
+              title: 'Balance Sheet',
+              page: '/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET,
               permission: [
-                Permissions.TRIALBALANCE_VIEW,
+                Permissions.BALANCESHEET_VIEW,
               ]
             },
           ]

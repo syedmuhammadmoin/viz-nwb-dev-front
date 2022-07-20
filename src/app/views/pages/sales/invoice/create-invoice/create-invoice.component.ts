@@ -154,6 +154,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.ngxsService.getCampusFromState()
     // get location from location
     //this.ngxsService.getLocationFromState();
+
+    this.ngxsService.products$.subscribe(res => this.salesItem = res)
     
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
@@ -169,8 +171,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
         this.getSalesOrder(id);
       }
     });
-
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
 
     //handling dueDate logic
     this.invoiceForm.get('invoiceDate').valueChanges.subscribe((value) => {
@@ -192,9 +192,9 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
   // Form Reset
   reset() {
-    const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
+    // const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
+    // invoiceLineArray.clear();
     this.formDirective.resetForm();
-    invoiceLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -206,9 +206,11 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     if (itemId) {
       let price = this.salesItem.find(i => i.id === itemId).salesPrice
       let tax = this.salesItem.find(i => i.id === itemId).salesTax
+      let account = this.salesItem.find(i => i.id === itemId).costAccountId
       // set values for price & tax
       arrayControl.at(index).get('price').setValue(price);
       arrayControl.at(index).get('tax').setValue(tax);
+      arrayControl.at(index).get('accountId').setValue(account);
       // Calculating subtotal
       // let quantity = arrayControl.at(index).get('quantity').value;
       // let subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
@@ -441,15 +443,28 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     return !this.invoiceForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.invoiceForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Invoice")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.invoiceForm.get('invoiceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-      if(this.showMessage) {
+    console.log(this.invoiceForm.value.invoiceLines)
+
+    if(this.invoiceForm.value.invoiceLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Invoice")
-     }
+    }
+
+     this.invoiceForm.get('invoiceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //   if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Invoice")
+    //  }
      this.cdRef.detectChanges()
   }
 }

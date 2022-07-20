@@ -19,13 +19,8 @@ export class BudgetService extends AppServiceBase {
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-  getBudgets(params: any): Observable<IPaginationResponse<IBudgetResponse[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-    return this.httpClient.get<IPaginationResponse<IBudgetResponse[]>>(this.baseUrl, { params: httpParams})
+  getBudgets(): Observable<IPaginationResponse<IBudgetResponse[]>> {
+    return this.httpClient.get<IPaginationResponse<IBudgetResponse[]>>(this.baseUrl)
   }
 
   getBudgetDropdown(): Observable<IApiResponse<IBudgetResponse[]>> {

@@ -25,10 +25,14 @@
                   <i class="fa fa-edit"></i> Bill
                 </button>
 
-                <button *ngIf="(grnMaster?.state === docStatus.Unpaid || grnMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.GOODS_RETURN_NOTE_CREATE))" id="grn_edit"
+                <button *ngIf="(grnMaster?.state === docStatus.Unpaid || grnMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.GRN_CREATE))" id="grn_edit"
                   [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
                   [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
                   <i class="fa fa-edit"></i> Goods Return Note
+                </button>
+
+                <button *ngIf="(permission.isGranted(permissions.GRN_EDIT))" class="btn_public mr-3" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button"  class="btn_public">
@@ -72,6 +76,11 @@
         </div>
 
         <div class="row mt-5">
+
+          <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+            <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+          </div>
+
           <div class="col-lg-4 ml-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
               <!-- <tr>
@@ -143,8 +152,8 @@
         <div class="kt-form__actions kt-form__actions">
           <div class="row ">
               <div class="col-lg-12 text-right" *ngIf="grnMaster?.isAllowedRole">
-                <button (click)="workflow(action.Reject)" id="grn_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-                <button (click)="workflow(action.Approve)" id="grn_approve" class="success__btn" mat-raised-button>Approve</button>
+                <button (click)="remarksDialog(action.Reject)" id="grn_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="grn_approve" class="success__btn" mat-raised-button>Approve</button>
              </div>
           </div>
         </div>

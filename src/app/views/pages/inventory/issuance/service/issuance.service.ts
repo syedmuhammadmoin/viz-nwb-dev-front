@@ -18,13 +18,8 @@ export class IssuanceService extends AppServiceBase {
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getIssuances(params: any): Observable<IPaginationResponse<IIssuance[]>> {
-        let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-
-        return this.httpClient.get<IPaginationResponse<IIssuance[]>>(this.baseUrl ,{ params: httpParams})
+    getIssuances(): Observable<IPaginationResponse<IIssuance[]>> {
+        return this.httpClient.get<IPaginationResponse<IIssuance[]>>(this.baseUrl)
     }
 
     getIssuanceById(id: number): Observable<IApiResponse<IIssuance>> {

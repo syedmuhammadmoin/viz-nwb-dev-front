@@ -137,6 +137,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
      //this.ngxsService.getLocationFromState();
      this.ngxsService.getCampusFromState()
 
+     this.ngxsService.products$.subscribe(res => this.salesItem = res)
 
     //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
@@ -153,16 +154,14 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         this.getBill(id)
       }
     })
-
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
   }
 
 
   //Form Reset
   reset() {
-    const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
+    // const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
+    // debitNoteLineArray.clear();
     this.formDirective.resetForm();
-    debitNoteLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -173,9 +172,11 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     if (itemId) {
       var cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       var tax = this.salesItem.find(i => i.id === itemId).salesTax
+      var account = this.salesItem.find(i => i.id === itemId).costAccountId
       //set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
+      arrayControl.at(index).get('accountId').setValue(account);
       //Calculating subtotal
       var quantity = arrayControl.at(index).get('quantity').value;
       var subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
@@ -412,15 +413,26 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     return !this.debitNoteForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.debitNoteForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Debit Note")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.debitNoteForm.get('debitNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.debitNoteForm.value.debitNoteLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Debit Note")
-     }
+    }
+
+     this.debitNoteForm.get('debitNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Debit Note")
+    //  }
      this.cdRef.detectChanges()
   }
 }

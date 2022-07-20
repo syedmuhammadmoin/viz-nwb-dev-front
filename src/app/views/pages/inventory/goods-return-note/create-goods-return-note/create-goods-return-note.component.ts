@@ -162,9 +162,9 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
 
   // Form Reset
   reset() {
-    const goodsReturnNoteLineArray = this.goodsReturnNoteForm.get('goodsReturnNoteLines') as FormArray;
+    // const goodsReturnNoteLineArray = this.goodsReturnNoteForm.get('goodsReturnNoteLines') as FormArray;
+    // goodsReturnNoteLineArray.clear();
     this.formDirective.resetForm();
-    goodsReturnNoteLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -394,15 +394,26 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     return !this.goodsReturnNoteForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.goodsReturnNoteForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Goods Return Note")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
+    if(this.goodsReturnNoteForm.value.goodsReturnNoteLines.some(line => line.warehouseId)){
+      this.toastService.info("Please Reselect Store!" , "Goods Return Note")
+    }
+
      this.goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
-      this.toastService.info("Please Reselect Store!" , "Goods Received Note")
-     }
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Goods Received Note")
+    //  }
      this.cdRef.detectChanges()
   }
 }

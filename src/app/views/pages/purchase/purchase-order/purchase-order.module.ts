@@ -10,6 +10,7 @@ import { PrintPurchaseOrderComponent } from './print-purchase-order/print-purcha
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { PurchaseOrderRoutingModule } from './purchase-order-routing.module';
 import { CreatePurchaseOrderComponent } from './create-purchase-order/create-purchase-order.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,8 @@ import { CreatePurchaseOrderComponent } from './create-purchase-order/create-pur
     PurchaseOrderRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
- 
+  entryComponents: [
+    CustomRemarksComponent
+  ]
 })
 export class PurchaseOrderModule { }

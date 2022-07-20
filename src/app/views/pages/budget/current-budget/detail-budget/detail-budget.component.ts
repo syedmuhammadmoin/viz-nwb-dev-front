@@ -64,7 +64,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   //Defining columns for ag grid
   columnDefs = [
     // {headerName: 'Description', field: 'description', filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Account', field: 'accountName', filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'COA', field: 'accountName', filter: true, cellStyle: {'font-size': '12px'}},
     {
       headerName: 'Amount',
       field: 'amount',

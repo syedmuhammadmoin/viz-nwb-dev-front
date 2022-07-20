@@ -412,6 +412,15 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load ISSUANCE RETURN Module
+      {
+        path: APP_ROUTES.ISSUANCE_RETURN, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/inventory/issuance-return/issuance-return.module').then(
+            (m) => m.IssuanceReturnModule
+          ),
+        //canActivateChild: [AuthGuard]
+      },
       // Lazy Load GOODS RETURN NOTE Module
       {
         path: APP_ROUTES.GOODS_RETURN_NOTE, // <= Page URL

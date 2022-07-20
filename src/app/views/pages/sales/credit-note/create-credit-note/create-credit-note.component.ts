@@ -142,6 +142,8 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     this.ngxsService.getCampusFromState()
    // this.ngxsService.getLocationFromState();
 
+   this.ngxsService.products$.subscribe((res) => this.salesItem = res)
+
     this.activatedRoute.queryParams.subscribe((param: Params) => {
       const id = param.q;
       this.isCreditNote = param.isCreditNote;
@@ -156,15 +158,13 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
         this.getInvoice(id);
       }
     })
-
-    this.productService.getProductsDropdown().subscribe((res: IPaginationResponse<IProduct[]>) => this.salesItem = res.result)
   }
 
   //Form Reset
   reset() {
-    const creditNoteLineArray = <FormArray>this.creditNoteForm.get('creditNoteLines');
+    // const creditNoteLineArray = <FormArray>this.creditNoteForm.get('creditNoteLines');
+    // creditNoteLineArray.clear();
     this.formDirective.resetForm();
-    creditNoteLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -175,9 +175,11 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     if (itemId) {
       var price = this.salesItem.find(i => i.id === itemId).salesPrice
       var tax = this.salesItem.find(i => i.id === itemId).salesTax
+      var account = this.salesItem.find(i => i.id === itemId).costAccountId
       //set values for price & tax
       arrayControl.at(index).get('price').setValue(price);
       arrayControl.at(index).get('tax').setValue(tax);
+      arrayControl.at(index).get('accountId').setValue(account);
       //Calculating subtotal
       var quantity = arrayControl.at(index).get('quantity').value;
       var subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
@@ -411,15 +413,26 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     return !this.creditNoteForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.creditNoteForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Credit Note")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.creditNoteForm.get('creditNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.creditNoteForm.value.creditNoteLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Credit Note")
-     }
+    }
+
+     this.creditNoteForm.get('creditNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Credit Note")
+    //  }
      this.cdRef.detectChanges()
   }
 }

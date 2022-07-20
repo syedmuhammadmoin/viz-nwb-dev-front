@@ -100,36 +100,51 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Sales Price:</label>
-                                <kt-input-field
+                                <!-- <kt-input-field
                                 id="product_sales"
                                     formControlName="salesPrice"
                                     placeholder="Enter Sales Price"
                                     [hintText]="'Optional'">
-                                </kt-input-field>
+                                </kt-input-field> -->
+                                <mat-form-field appearance="outline" class="full-width">
+                                   <input matInput formControlName="salesPrice" placeholder="Enter Sales Price" 
+                                         id="product_sales" type="number">
+                                   <mat-hint align="end">Optional</mat-hint>
+                                </mat-form-field>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Purchase Price:</label>
-                                <kt-input-field
+                                <!-- <kt-input-field
                                 id="product_purchase"
                                     formControlName="purchasePrice"
                                     placeholder="Enter Price"
                                     [hintText]="'Optional'">
-                                </kt-input-field>
+                                </kt-input-field> -->
+                                <mat-form-field appearance="outline" class="full-width">
+                                    <input matInput formControlName="purchasePrice" placeholder="Enter Price" 
+                                          id="product_purchase" type="number">
+                                    <mat-hint align="end">Optional</mat-hint>
+                                </mat-form-field>
                             </div>
                         </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group">
                                 <label class="col-form-label pt-0">Sales Tax:</label>
-                                <kt-input-field
+                                <!-- <kt-input-field
                                 id="product_tax"
                                     formControlName="salesTax"
                                     placeholder="Enter Sales Tax"
                                     [hintText]="'Optional'">
-                                </kt-input-field>
+                                </kt-input-field> -->
+                                <mat-form-field appearance="outline" class="full-width">
+                                    <input matInput formControlName="salesTax" placeholder="Enter Sales Tax" 
+                                          id="product_tax" type="number">
+                                    <mat-hint align="end">Optional</mat-hint>
+                                </mat-form-field>
                             </div>
                         </div>
                     </div>

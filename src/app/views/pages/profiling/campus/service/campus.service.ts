@@ -1,6 +1,5 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders,HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -18,12 +17,8 @@ export class CampusService extends AppServiceBase {
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getCampuses(params: any): Observable<IPaginationResponse<ICampus[]>> {
-        let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-        return this.httpClient.get<IPaginationResponse<ICampus[]>>(this.baseUrl ,{ params: httpParams})
+    getCampuses(): Observable<IPaginationResponse<ICampus[]>> {
+        return this.httpClient.get<IPaginationResponse<ICampus[]>>(this.baseUrl)
     }
 
     getCampusDropdown(): Observable<IApiResponse<ICampus[]>> {
@@ -51,7 +46,6 @@ export class CampusService extends AppServiceBase {
     }
 
     getRecords(params: any): Observable<any> {
-        console.log(params.filterModel )
         return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter)});
       }
 }

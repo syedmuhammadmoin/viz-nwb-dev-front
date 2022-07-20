@@ -269,6 +269,12 @@ export class Permissions {
   static ISSUANCE_EDIT = 'Permissions.IssuanceClaims.Edit';
   static ISSUANCE_DELETE = 'Permissions.IssuanceClaims.Delete'
 
+  // Issuance Return
+  static ISSUANCE_RETURN_VIEW = 'Permissions.IssuanceReturnClaims.View';
+  static ISSUANCE_RETURN_CREATE = 'Permissions.IssuanceReturnClaims.Create';
+  static ISSUANCE_RETURN_EDIT = 'Permissions.IssuanceReturnClaims.Edit';
+  static ISSUANCE_RETURN_DELETE = 'Permissions.IssuanceReturnClaims.Delete'
+
   // Inventory Adjustment
   static INVENTORYADJUSTMENT_VIEW = 'Permissions.InventoryAdjustmentClaims.View';
   static INVENTORYADJUSTMENT_CREATE = 'Permissions.InventoryAdjustmentClaims.Create';
@@ -322,7 +328,8 @@ export enum DocType {
     PayrollTransaction,
     PayrollPayment,
     Issuance,
-    GoodsReturnNote
+    GoodsReturnNote,
+    IssuanceReturn
 }
 
 // export enum DocStatus {

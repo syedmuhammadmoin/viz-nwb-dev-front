@@ -11,6 +11,8 @@ import { InvoiceRoutingModule } from './invoice-routing.module';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
   entryComponents: [
-    RegisterPaymentComponent
+    RegisterPaymentComponent,
+    CustomUploadFileComponent,
+    CustomRemarksComponent
   ],
  
 })

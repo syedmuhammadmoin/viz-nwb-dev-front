@@ -18,13 +18,8 @@ export class CategoryService extends AppServiceBase {
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-    getCategories(params: any): Observable<IPaginationResponse<ICategory[]>> {
-        let httpParams = new HttpParams();
-
-        httpParams = httpParams.append('PageStart', params?.startRow);
-        httpParams = httpParams.append('PageEnd', params?.endRow);
-           
-        return this.httpClient.get<IPaginationResponse<ICategory[]>>(this.baseUrl,{ params: httpParams})
+    getCategories(): Observable<IPaginationResponse<ICategory[]>> {
+        return this.httpClient.get<IPaginationResponse<ICategory[]>>(this.baseUrl)
             .pipe(catchError(this.handleError));
     }
 

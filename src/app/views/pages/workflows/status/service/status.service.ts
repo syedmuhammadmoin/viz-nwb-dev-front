@@ -13,13 +13,8 @@ export class StatusService extends AppServiceBase {
 
   constructor( private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-getStatuses(params): Observable<any> {
-  let httpParams = new HttpParams();
-
-  httpParams = httpParams.append('PageStart', params?.startRow);
-  httpParams = httpParams.append('PageEnd', params?.endRow);
-  
-    return this.httpClient.get(environment.baseUrl + 'status' , { params: httpParams} );
+getStatuses(): Observable<any> {
+    return this.httpClient.get(environment.baseUrl + 'status');
 }
 
 getStatusesDropdown(): Observable<any> {

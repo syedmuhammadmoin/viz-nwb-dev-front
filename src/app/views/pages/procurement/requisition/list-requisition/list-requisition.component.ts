@@ -59,7 +59,7 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
     },
     { 
       headerName: 'Employee', 
-      field: 'businessPartner', 
+      field: 'employeeName', 
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],

@@ -19,13 +19,8 @@ export class BankStatementService extends AppServiceBase {
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector)
   }
 
-  getBankStatements(params: any): Observable<IPaginationResponse<IBankStatement[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-    return this.httpClient.get<IPaginationResponse<IBankStatement[]>>(this.baseUrl, { params: httpParams})
+  getBankStatements(): Observable<IPaginationResponse<IBankStatement[]>> {
+    return this.httpClient.get<IPaginationResponse<IBankStatement[]>>(this.baseUrl)
       .pipe(catchError(this.handleError));
   }
 

@@ -285,10 +285,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     const creditControl = arrayControl.at(index).get('credit');
     const debit = (debitControl.value) !== null ? debitControl.value : null;
     const credit = (creditControl.value) !== null ? creditControl.value : null;
-    console.log("debit")
-    console.log(debit)
-    console.log("credit")
-    console.log(credit)
 
     if (debit > 0) {
       creditControl.setValue(0);
@@ -305,10 +301,10 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   // Form Reset
   reset() {
-    const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
+    // const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
+    // bankStatementArray.clear();
     this.formDirective.resetForm();
-    bankStatementArray.clear();
-    this.addBankStatementLineClick()
+   // this.addBankStatementLineClick()
     this.body.files = null;
     this.fileName = '';
     this.showFileName = false;

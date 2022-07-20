@@ -1,16 +1,16 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import {IProduct} from '../../../profiling/product/model/IProduct';
-import {IGRN} from '../model/IGRN';
-import {ActivatedRoute, Router} from '@angular/router';
-import {GrnService} from '../service/grn.service';
-import {finalize, take} from 'rxjs/operators';
-import {AppComponentBase} from 'src/app/views/shared/app-component-base';
-import {ProductService} from '../../../profiling/product/service/product.service';
-import {PurchaseOrderService} from '../../../purchase/purchase-order/service/purchase-order.service';
-import {BusinessPartnerService} from '../../../profiling/business-partner/service/businessPartner.service';
-import {CategoryService} from '../../../profiling/category/service/category.service';
-import {WarehouseService} from '../../../profiling/warehouse/services/warehouse.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import { IProduct} from '../../../profiling/product/model/IProduct';
+import { IGRN} from '../model/IGRN';
+import { ActivatedRoute, Router} from '@angular/router';
+import { GrnService} from '../service/grn.service';
+import { finalize, take} from 'rxjs/operators';
+import { AppComponentBase} from 'src/app/views/shared/app-component-base';
+import { ProductService} from '../../../profiling/product/service/product.service';
+import { PurchaseOrderService} from '../../../purchase/purchase-order/service/purchase-order.service';
+import { BusinessPartnerService} from '../../../profiling/business-partner/service/businessPartner.service';
+import { CategoryService} from '../../../profiling/category/service/category.service';
+import { WarehouseService} from '../../../profiling/warehouse/services/warehouse.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
@@ -46,11 +46,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   title: string = 'Create Goods Received Note'
 
-   //for resetting form
-   @ViewChild('formDirective') private formDirective: NgForm;
+  //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
 
-   warehouseList: any = new BehaviorSubject<any>([])
-
+  warehouseList: any = new BehaviorSubject<any>([])
 
    //show toast mesasge of on campus select
   showMessage: boolean = false;
@@ -58,10 +57,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // param to get purchase order master
   isPurchaseOrder: any;
   purchaseOrderMaster: any;
-
-  // param to get Issuance master
-  isIssuance: any;
-  issuanceMaster: any;
 
   hideDeleteButton: boolean = false;
 
@@ -105,7 +100,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     private fb: FormBuilder,
     private grnService: GrnService,
     private purchaseOrderService: PurchaseOrderService,
-    private issuanceService: IssuanceService,
     public ngxsService: NgxsCustomService,
     public businessPartnerService: BusinessPartnerService,
     public productService: ProductService,
@@ -141,7 +135,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       grnLines: []
     }
 
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result);
+    this.ngxsService.products$.subscribe(res => this.salesItem = res);
 
     // get Vendor from state
     this.ngxsService.getBusinessPartnerFromState();
@@ -158,25 +152,20 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       const id = param.q;
       this.isGRN = param.isGRN;
       this.isPurchaseOrder = param.isPurchaseOrder;
-      this.isIssuance = param.isIssuance;
       if (id && this.isPurchaseOrder) {
         this.getPurchaseOrder(id);
       } else if (id && this.isGRN) {
         this.title = 'Edit Goods Received Note'
         this.getGRN(id);
       }
-      else if (id && this.isIssuance) {
-        this.title = 'Create Issuance Return'
-        this.getIssuance(id);
-      }
     })
   }
 
   // Form Reset
   reset() {
-    const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    // const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    // grnLineArray.clear();
     this.formDirective.resetForm();
-    grnLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -187,16 +176,16 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
+      const account = this.salesItem.find(i => i.id === itemId).costAccountId
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(salesTax);
+      arrayControl.at(index).get('accountId').setValue(account);
       // Calculating subtotal
       const quantity = arrayControl.at(index).get('quantity').value;
       const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
       arrayControl.at(index).get('subTotal').setValue(subTotal);
     }
-
-    console.log(arrayControl)
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
@@ -288,24 +277,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     });
   }
 
-  //Get Issuance Master Data
-  private getIssuance(id: number) {
-    this.isLoading = true;
-    this.issuanceService.getIssuanceById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      if (!res) return
-      this.issuanceMaster = res.result
-      this.patchGRN(this.issuanceMaster);
-    });
-  }
-
   // Get GRN Data for Edit
   private getGRN(id: any) {
     this.isLoading = true;
@@ -324,12 +295,12 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     });
   }
 
-  //Patch GRN Form through GRN Or purchase Order Master Data
-  patchGRN(data: IPurchaseOrder | IGRN | IIssuance | any) {
+  //Patch GRN Form GRN Or purchase Order Master Data
+  patchGRN(data: IPurchaseOrder | IGRN | any) {
     console.log(data.employeeId)
     this.grnForm.patchValue({
       vendorName: data.vendorId ?? data.employeeId,
-      grnDate: data.grnDate ?? data.poDate ?? data.issuanceDate,
+      grnDate: data.grnDate ?? data.poDate,
       campusId : data.campusId,
       contact: data.contact
     });
@@ -337,19 +308,11 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
 
-    this.grnForm.setControl('GRNLines', this.patchGRNLines(data.grnLines ?? data.purchaseOrderLines ?? data.issuanceLines));
-
-    console.log(data.issuanceLines)
-    if(this.isIssuance) {
-      data.issuanceLines.map((line, index) => {
-        this.onItemSelected(line.itemId , index)
-      })
-    }
-    
+    this.grnForm.setControl('GRNLines', this.patchGRNLines(data.grnLines ?? data.purchaseOrderLines));
     this.totalCalculation();
   }
 
-  //Patch GRN Lines From purchase Order Or GRN Master Or Issuance Data
+  //Patch GRN Lines From purchase Order Or GRN Master
   patchGRNLines(Lines: IGRNLines[]): FormArray {
     const formArray = new FormArray([]);
     Lines.forEach((line: IGRNLines | any , index: number) => {
@@ -409,7 +372,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
             this.cdRef.detectChanges();
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
           })
-    } else if (this.isPurchaseOrder ?? this.isIssuance) {
+    } else if (this.isPurchaseOrder) {
       delete this.grnModel.id;
       this.grnService.createGRN(this.grnModel)
       .pipe(
@@ -421,25 +384,19 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
        )
         .subscribe(
           (res) => {
-            if(this.isPurchaseOrder) {
               this.toastService.success('Created Successfully', 'Goods Received Note')
-            }
-            else {
-              this.toastService.success('Created Successfully', 'Issuance Return')
-            }
-            this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', res.result.id)]);
+              this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
   }
 
   // Mapping value to model
   mapFormValuesToGRNModel() {
-    this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId || this.issuanceMaster?.employeeId;
+    this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId;
     this.grnModel.grnDate = this.transformDate(this.grnForm.value.grnDate, 'yyyy-MM-dd');
     this.grnModel.contact = this.grnForm.value.contact;
     this.grnModel.campusId = this.grnForm.value.campusId;
     this.grnModel.purchaseOrderId = this.purchaseOrderMaster?.id || this.grnModel?.purchaseOrderId;
-    this.grnModel.issuanceId = this.issuanceMaster?.id || this.grnModel?.issuanceId;
     this.grnModel.grnLines = this.grnForm.value.GRNLines;
   }
 
@@ -447,15 +404,26 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     return !this.grnForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.grnForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Goods Received Note")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.grnForm.get('GRNLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.grnForm.value.GRNLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Goods Received Note")
-     }
+    }
+
+     this.grnForm.get('GRNLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Goods Received Note")
+    //  }
      this.cdRef.detectChanges()
   }
 }

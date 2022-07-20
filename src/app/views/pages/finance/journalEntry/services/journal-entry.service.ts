@@ -20,13 +20,8 @@ export class JournalEntryService extends AppServiceBase {
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-  getJournalEntries(params: any): Observable<IPaginationResponse<IJournalEntry[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-    
-    return this.httpClient.get<IPaginationResponse<IJournalEntry[]>>(this.baseUrl, { params: httpParams})
+  getJournalEntries(): Observable<IPaginationResponse<IJournalEntry[]>> {
+    return this.httpClient.get<IPaginationResponse<IJournalEntry[]>>(this.baseUrl)
   }
 
   getJournalEntryById(id: number): Observable<IApiResponse<IJournalEntry>> {

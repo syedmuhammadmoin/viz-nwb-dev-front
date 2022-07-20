@@ -37,7 +37,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   purchaseOrderForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action'];
+  displayedColumns = ['itemId', 'description','accountId', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -142,6 +142,8 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
      this.ngxsService.getCampusFromState();
 
+     this.ngxsService.products$.subscribe(res => this.salesItem = res)
+
      //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
@@ -153,8 +155,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       }
     })
 
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
-
     //handling dueDate logic
     this.purchaseOrderForm.get('PODate').valueChanges.subscribe((value) => {
       this.minDate = new Date(value);
@@ -164,9 +164,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   // Form Reset
   reset() {
-    const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
+    // const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
+    // purchaseOrderLineArray.clear();
     this.formDirective.resetForm();
-    purchaseOrderLineArray.clear();
     this.showMessage = false;
     this.table.renderRows();
   }
@@ -183,9 +183,11 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
+      const account = this.salesItem.find(i => i.id === itemId).costAccountId
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(salesTax);
+      arrayControl.at(index).get('accountId').setValue(account);
       // Calculating subtotal
       const quantity = arrayControl.at(index).get('quantity').value;
       const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
@@ -238,7 +240,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       quantity: ['', [Validators.required, Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{value: '0', disabled: true}],
-      accountId: ['', [Validators.required]],
+      accountId: [''],
       warehouseId: ['',[Validators.required]],
     });
   }
@@ -401,15 +403,26 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     return !this.purchaseOrderForm.dirty;
   }
 
+  checkCampus() {
+    this.showMessage = true;
+    if(this.purchaseOrderForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Purchase Order")
+    }
+  }
+
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-     this.purchaseOrderForm.get('purchaseOrderLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     if(this.showMessage) {
+    if(this.purchaseOrderForm.value.purchaseOrderLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Purchase Order")
-     }
+    }
+
+     this.purchaseOrderForm.get('purchaseOrderLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Purchase Order")
+    //  }
      this.cdRef.detectChanges()
   }
 }

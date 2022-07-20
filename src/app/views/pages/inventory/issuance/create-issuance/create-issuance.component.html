@@ -11,14 +11,41 @@
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Employee Name:</label>
+                    <label class="col-form-label pt-0">Employee:</label>
                     <kt-simple-dropdown id="issuance_customer" formControlName="employeeId" matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(this.issuanceForm, this.formErrors, this.validationMessages)"
                       propertyName="name" propertyValue="id" [errorMessage]="formErrors.employeeId"
+                      (selectionChange)="getEmployee($event.value)"
                       [optionList]="ngxsService.employees$"
                       searchPlaceholder="Search Customers..."
                       placeholder="Select Customer">
                     </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Designation:</label>
+                    <kt-input-field 
+                      id="issuance_designation"
+                      formControlName="designation" 
+                      matFormFieldClass="full-width" 
+                      placeholder="Designation"
+                      readonly="true">
+                    </kt-input-field>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Department:</label>
+                    <kt-input-field 
+                      id="issuance_department"
+                      formControlName="department" 
+                      matFormFieldClass="full-width" 
+                      placeholder="Department"
+                      readonly="true">
+                    </kt-input-field>
                   </div>
                 </div>
   
@@ -27,13 +54,15 @@
                     <label class="col-form-label pt-0">Issuance Date:</label>
                     <kt-date-input 
                       formControlName="issuanceDate" 
-                      placeholder="issuance Date" matFormFieldClass="full-width" [maxDate]="maxDate"
+                      placeholder="Issuance Date" matFormFieldClass="full-width" [maxDate]="maxDate"
                       (blurEvent)="logValidationErrors(this.issuanceForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.issuanceDate">
                     </kt-date-input>
                   </div>
                 </div>
-  
+              </div>
+
+              <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Campus:</label>
@@ -129,7 +158,7 @@
                                   propertyName="name"
                                   (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
                                   [errorMessage]="'Store is required.'"
-                                  (selectionChange)="showMessage = true"
+                                  (click)="checkCampus()"
                                   searchPlaceholder="Search Store..."
                                   formControlName="warehouseId" 
                                   matFormFieldClass="full-width" 

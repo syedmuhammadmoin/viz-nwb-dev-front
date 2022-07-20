@@ -22,11 +22,11 @@ export class GrnService extends AppServiceBase {
     }
   
     getGRNById(id: number): Observable<any> {
-      return this.httpClient.get(environment.baseUrl + 'Grn/' + id)
+      return this.httpClient.get(this.baseUrl + '/' + id)
     }
 
     createGRN(grnModel: IGRN): Observable<any> {
-      return this.httpClient.post<IGRN>(environment.baseUrl + 'Grn', grnModel, {
+      return this.httpClient.post<IGRN>(this.baseUrl, grnModel, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
@@ -34,11 +34,11 @@ export class GrnService extends AppServiceBase {
     }
   
      workflow(workflow: IWorkflow): Observable<any> {
-        return this.httpClient.post(environment.baseUrl + 'Grn' + '/workflow', workflow);
+        return this.httpClient.post(this.baseUrl + '/workflow', workflow);
      }
 
      updateGRN(grnModel: IGRN): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + `Grn/${grnModel.id}`,grnModel)
+        return this.httpClient.put(this.baseUrl + `/${grnModel.id}`,grnModel)
      }
 
      getRecords(params: any): Observable<any> {

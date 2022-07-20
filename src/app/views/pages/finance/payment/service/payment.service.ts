@@ -19,14 +19,9 @@ export class PaymentService extends AppServiceBase {
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector)}
 
-  getPayments(paymentType: string, params: any): Observable<IPaginationResponse<IPayment[]>> {
-    let httpParams = new HttpParams();
-
-    httpParams = httpParams.append('PageStart', params?.startRow);
-    httpParams = httpParams.append('PageEnd', params?.endRow);
-  
+  getPayments(paymentType: string): Observable<IPaginationResponse<IPayment[]>> {
     const url = environment.baseUrl + paymentType.replace(/ /g, '');
-    return this.httpClient.get<IPaginationResponse<IPayment[]>>(url, { params: httpParams})
+    return this.httpClient.get<IPaginationResponse<IPayment[]>>(url)
       .pipe(catchError(this.handleError))
   }
 
