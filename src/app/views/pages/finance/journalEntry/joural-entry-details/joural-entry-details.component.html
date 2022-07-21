@@ -22,7 +22,7 @@
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                   </button>
 
                   <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public"  

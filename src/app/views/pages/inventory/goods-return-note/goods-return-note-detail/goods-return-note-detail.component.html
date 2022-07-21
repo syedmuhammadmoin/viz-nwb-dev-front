@@ -20,7 +20,7 @@
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.GOODS_RETURN_NOTE_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                   </button>
   
                   <button [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE ('print', goodsReturnNoteMaster?.id)" id="grn_print" type="button"  class="btn_public">

@@ -48,7 +48,7 @@
                       <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">Gross Payment:</label>
-                          <kt-input-field
+                          <!-- <kt-input-field
                             id="gross_payment"
                             formControlName="grossPayment"
                             type = "number"
@@ -57,7 +57,15 @@
                             placeholder="Enter Gross Payment"
                             (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                             [errorMessage]="[{ condition : formErrors.grossPayment , error : formErrors.grossPayment }]">
-                          </kt-input-field>
+                          </kt-input-field> -->
+                          <mat-form-field appearance="outline" class="full-width">
+                            <input matInput formControlName="grossPayment" placeholder="Enter Gross Payment" 
+                                 id="gross_payment" type="number" (blur)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)">
+                            <mat-error *ngIf="formErrors.grossPayment">
+                              <strong>{{formErrors.grossPayment}}</strong>
+                            </mat-error>
+                            <!-- <mat-hint align="end">Optional</mat-hint> -->
+                          </mat-form-field>
                         </div>
                       </div>
                       <!-- <div class="col-lg-4 col-md-4 col-sm-4">
@@ -75,7 +83,7 @@
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Sales Tax W/H:</label>
-                        <kt-input-field
+                        <!-- <kt-input-field
                         id="sales_tax"
                           formControlName="salesTax"
                           type = "number"
@@ -83,14 +91,22 @@
                           placeholder="Enter Sales Tax"
                           (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.salesTax , error : formErrors.salesTax }]">
-                        </kt-input-field>
+                        </kt-input-field> -->
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="salesTax" placeholder="Enter Sales Tax" 
+                               id="sales_tax" type="number" (blur)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.salesTax">
+                            <strong>{{formErrors.salesTax}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
                     </div>
                   </div>
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Income Tax W/H:</label>
-                        <kt-input-field
+                        <!-- <kt-input-field
                           id="income_tax"
                           formControlName="incomeTax"
                           type = "number"
@@ -98,14 +114,22 @@
                           placeholder="Enter Income Tax"
                           (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.incomeTax , error : formErrors.incomeTax }]">
-                        </kt-input-field>
+                        </kt-input-field> -->
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="incomeTax" placeholder="Enter Income Tax" 
+                               id="income_tax" type="number" (blur)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.incomeTax">
+                            <strong>{{formErrors.incomeTax}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
                     </div>
                   </div>
 
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">SRB Tax :</label>
-                        <kt-input-field
+                        <!-- <kt-input-field
                           id="srb_tax"
                           formControlName="SRBTax"
                           type = "number"
@@ -113,7 +137,15 @@
                           placeholder="Enter SRB Tax"
                           (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="[{ condition : formErrors.SRBTax , error : formErrors.SRBTax }]">
-                        </kt-input-field>
+                        </kt-input-field> -->
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="SRBTax" placeholder="Enter SRB Tax" 
+                               id="srb_tax" type="number" (blur)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.SRBTax">
+                            <strong>{{formErrors.SRBTax}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
                     </div>
                   </div>
                 </div>
