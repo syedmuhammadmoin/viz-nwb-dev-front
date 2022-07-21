@@ -92,9 +92,9 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     accountId: {
       required: 'Account is required.',
     },
-    remarks: {
-      required: 'Remarks is required.',
-    }
+    // remarks: {
+    //   required: 'Remarks is required.',
+    // }
   };
 
   // error keys..
@@ -105,7 +105,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     payrollItemType: '',
     value: '',
     accountId: '',
-    remarks: '',
+  //  remarks: '',
   };
 
   //payrollItemList: IPayrollItem[];
@@ -149,7 +149,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       value: [0, [Validators.required]],
       accountId: ['', [Validators.required]],
       isActive: [true],
-      remarks: ['', [Validators.required]],
+      remarks: [''],
       employeeIds: [[]]
     });
 

@@ -11,6 +11,7 @@ import { AgingReportComponent } from './aging-report/aging-report.component';
 import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/register-payment.component';
 import { VendorBillRoutingModule } from './vendor-bill-routing.module';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 
@@ -33,6 +34,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 
   entryComponents: [
     RegisterPaymentComponent,
+    CustomRemarksComponent
   ]
 })
 export class VendorBillModule { }

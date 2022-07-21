@@ -34,6 +34,11 @@ getStatus(id: any): Observable<any> {
 }
 
 getRecords(params: any): Observable<any> {
-  return this.httpClient.get(environment.baseUrl + 'status', { params: this.getfilterParams(null , null, params?.filterModel?.status?.filter)});
+  let httpParams = new HttpParams();
+
+  httpParams = httpParams.append('PageStart', params?.startRow);
+  httpParams = httpParams.append('PageEnd', params?.endRow);
+  httpParams = httpParams.append('Name', (params?.filterModel?.status?.filter || ''));
+  return this.httpClient.get(environment.baseUrl + 'status', { params: httpParams});
 }
 }

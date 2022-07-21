@@ -113,8 +113,7 @@
                       id="payroll_item_remarks"
                       formControlName="remarks"
                       placeholder="Enter Remarks"
-                      (blurEvent)="logValidationErrors(payrollItemForm, formErrors, validationMessages)"
-                      [errorMessage]="[{ condition : formErrors.remarks , error : formErrors.remarks }]">
+                      hintText="Optional">
                     </kt-input-field>
                   </div>
                 </div>
