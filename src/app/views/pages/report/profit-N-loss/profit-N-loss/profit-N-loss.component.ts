@@ -9,6 +9,8 @@ import { isEmpty } from 'lodash';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import  {finalize, map } from 'rxjs/operators';
 import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
+import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -62,12 +64,12 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   constructor(
-    private http: HttpClient,
-    private fb: FormBuilder,
-    private injector: Injector,     
+    private fb: FormBuilder,  
     private cdRef: ChangeDetectorRef,
+    private router: Router,
     private profitLossService: ProfitLossService,
-    public ngxsService:NgxsCustomService
+    public ngxsService:NgxsCustomService,
+    injector: Injector,   
   ) {
     super(injector);
     this.columnDefs = [
@@ -238,6 +240,22 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     this.isLoading = false;
     //for PDF
     this.disability = true;
+  }
+
+  printProfitNLoss(data: any) {
+
+    this.profitLossService.setProfitNLossDataForPrintComponent(data);
+
+      this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS + '/' + REPORT.PRINT], {
+        queryParams: {
+          from: this.dateHelperService.transformDate(this.profitNLossForm.value.docDate, 'MMM d, y'),
+          to: this.dateHelperService.transformDate(this.profitNLossForm.value.docDate2, 'MMM d, y'),
+          account: (this.profitNLossForm.value.accountName || 'All'),
+          businessPartner: (this.profitNLossForm.value.businessPartner || 'All'),
+          campus: (this.profitNLossForm.value.campus || 'All'),
+          store: (this.profitNLossForm.value.warehouse || 'All'),
+        }
+      })
   }
 
   //PDF Content

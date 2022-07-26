@@ -12,6 +12,8 @@ import { isEmpty } from 'lodash';
 import { GridOptions } from 'ag-grid-community';
 import { IBalanceSheet} from "../model/IBalanceSheet";
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -58,10 +60,11 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 
   constructor(
     // injecting services
-    private injector: Injector,
+    injector: Injector,
     private fb: FormBuilder,    
     private balanceSheetService: BalanceSheetService,   
     private cdRef: ChangeDetectorRef,
+    private router: Router,
     public ngxsService:NgxsCustomService
   ) {
     super(injector);
@@ -229,6 +232,17 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
     this.isLoading = false;
     //for PDF
     this.disability = true;
+  }
+
+  printBalanceSheet(data: any) {
+
+    this.balanceSheetService.setBalanceSheetDataForPrintComponent(data);
+      this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET + '/' + REPORT.PRINT], {
+        queryParams: {
+          date: this.dateHelperService.transformDate(this. balanceSheetForm.value.docDate, 'MMM d, y'),
+          campus: (this. balanceSheetForm.value.campusName || 'All'),
+        }
+      })
   }
 
   // PDF Content

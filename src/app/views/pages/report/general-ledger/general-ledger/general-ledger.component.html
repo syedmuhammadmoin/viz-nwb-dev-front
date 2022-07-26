@@ -98,6 +98,9 @@
               <div class="form-group kt-form__group">
                 <button class="mr-3 btn_white" (click)="reset()" id="ledger_reset" mat-raised-button type="button">Reset
                 </button>
+                <button *ngIf="!disability" class="mr-3 sub___btn" (click)="printGeneralLedger(rowData)" 
+                     mat-raised-button id="ledger_print" type="button">Print
+                </button>
                 <button class="sub___btn" mat-raised-button id="ledger_fetch" type="submit">Fetch Records
                 </button>
                 <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->

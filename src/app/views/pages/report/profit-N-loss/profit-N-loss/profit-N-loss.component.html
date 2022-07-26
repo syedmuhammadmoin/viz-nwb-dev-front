@@ -87,6 +87,9 @@
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-3">
               <div class="form-group kt-form__group">
                 <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="profit_reset">Reset</button>
+                <button *ngIf="!disability" class="mr-3 sub___btn" (click)="printProfitNLoss(rowData)" 
+                     mat-raised-button id="profit_print" type="button">Print
+                </button>
                 <button class="sub___btn" mat-raised-button type="submit" id="profit_fetch">Fetch Records</button>
                 <!--For PDF-->
                 <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->

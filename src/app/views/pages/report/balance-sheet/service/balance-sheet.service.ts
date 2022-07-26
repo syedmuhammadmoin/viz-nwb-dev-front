@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 
@@ -7,15 +7,19 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class BalanceSheetService {
-  constructor(
-    private httpClient: HttpClient
-  ) { }
 
-  getBalanceSheetReport(body: any): Observable<any> {
-    const url = environment.baseUrl + 'BalanceSheet'
-    return this.httpClient.post(url, body);
+  balanceSheetPrintData = new BehaviorSubject<any>([]);
+  currentBalanceSheetPrintData = this.balanceSheetPrintData.asObservable();
+ 
+  constructor(private httpClient: HttpClient) { }
+
+  setBalanceSheetDataForPrintComponent(data: any[]) {
+    this.balanceSheetPrintData.next(data);
   }
 
+  getBalanceSheetReport(body: any): Observable<any> {
+    return this.httpClient.post(environment.baseUrl + 'BalanceSheet', body);
+  }
 }
 
 

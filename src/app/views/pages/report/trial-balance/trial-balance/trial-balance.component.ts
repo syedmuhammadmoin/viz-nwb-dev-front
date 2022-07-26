@@ -1,6 +1,5 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { AppComponentBase } from '../../../../shared/app-component-base';
 import { ITrialBalance } from '../model/ITrialBalance';
@@ -9,7 +8,8 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { TrialBalanceService } from '../service/trial-balance.service';
 import { isEmpty } from 'lodash';
 import { finalize, map } from 'rxjs/operators';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'kt-trial-balance',
@@ -68,11 +68,11 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   }
 
   constructor(
-    private http: HttpClient,
     private fb: FormBuilder,
-    private injector: Injector,   
+    injector: Injector,   
     private trialBalanceService: TrialBalanceService,
     private cdRef: ChangeDetectorRef,
+    private router: Router,
     public ngxsService:NgxsCustomService
   ) {
     super(injector);
@@ -354,6 +354,20 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     this.isLoading = false;
     //for PDF
     this.disability = true;
+  }
+
+  printTrialBalance(data: any) {
+
+    this.trialBalanceService.setTrialBalanceDataForPrintComponent(data);
+
+      this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE + '/' + REPORT.PRINT], {
+        queryParams: {
+          from: this.dateHelperService.transformDate(this.trialBalanceForm.value.docDate, 'MMM d, y'),
+          to: this.dateHelperService.transformDate(this.trialBalanceForm.value.docDate2, 'MMM d, y'),
+          account: (this.trialBalanceForm.value.accountName || 'All'),
+          campus: (this.trialBalanceForm.value.campusName || 'All'),
+        }
+      })
   }
 
   //PDF Content
