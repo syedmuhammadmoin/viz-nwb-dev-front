@@ -28,7 +28,7 @@
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                 </button>
 
                   <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" 

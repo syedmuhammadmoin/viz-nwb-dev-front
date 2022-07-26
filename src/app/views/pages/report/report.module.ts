@@ -10,8 +10,9 @@ import { ProfitNLossComponent } from './profit-N-loss/profit-N-loss/profit-N-los
 import { PartialsModule } from '../../partials/partials.module';
 import { PrintBalanceSheetComponent } from './balance-sheet/print-balance-sheet/print-balance-sheet.component';
 import { PrintProfitNLossComponent } from './profit-N-loss/print-profit-n-loss/print-profit-n-loss.component';
-import 'ag-grid-enterprise'
-
+import 'ag-grid-enterprise';
+import { PrintGeneralLedgerComponent } from './general-ledger/print-general-ledger/print-general-ledger.component';
+import { PrintTrialBalanceComponent } from './trial-balance/print-trial-balance/print-trial-balance.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import 'ag-grid-enterprise'
     BalanceSheetComponent,
     ProfitNLossComponent,
     PrintBalanceSheetComponent,
-    PrintProfitNLossComponent
+    PrintProfitNLossComponent,
+    PrintGeneralLedgerComponent,
+    PrintTrialBalanceComponent
   ],
   imports: [
     CommonModule,

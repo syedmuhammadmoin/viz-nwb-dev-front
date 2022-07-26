@@ -114,4 +114,32 @@ export abstract class AppComponentBase {
   resetFields(form : FormGroup , ...args: string[]) {
     args.forEach((key: string) => form.get(key).reset())
   }
+
+  groupBy(list, keyGetter) {
+    const map = new Map();
+    list.forEach((item) => {
+      const key = keyGetter(item);
+      const collection = map.get(key);
+      if (!collection) {
+        map.set(key, [item]);
+      } else {
+        collection.push(item);
+      }
+    });
+    return map;
+  }
+
+  calculateTotal(res: any, ...keys): any {
+    const objectToReturn = {}
+    keys.forEach((key) => {
+      res.map((item) => {
+        if (objectToReturn[key]) {
+          objectToReturn[key] += item[key]
+        } else {
+          objectToReturn[key] = item[key]
+        }
+      })
+    })
+    return objectToReturn
+  }
 }

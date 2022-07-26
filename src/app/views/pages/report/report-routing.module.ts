@@ -8,7 +8,9 @@ import { Permissions } from '../../shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { PrintBalanceSheetComponent } from './balance-sheet/print-balance-sheet/print-balance-sheet.component';
 import { PrintProfitNLossComponent } from './profit-N-loss/print-profit-n-loss/print-profit-n-loss.component';
-import { APP_ROUTES, REPORT } from '../../shared/AppRoutes';
+import { REPORT } from '../../shared/AppRoutes';
+import { PrintGeneralLedgerComponent } from './general-ledger/print-general-ledger/print-general-ledger.component';
+import { PrintTrialBalanceComponent } from './trial-balance/print-trial-balance/print-trial-balance.component';
 
 
 const routes: Routes = [
@@ -17,23 +19,53 @@ const routes: Routes = [
     children: [
       {
         path: REPORT.GENERAL_LEDGER,
-        component: GeneralLedgerComponent,
-        data: {
-          array: [
-            { permission: Permissions.GENERALLEDGER_VIEW },
-          ]
-        },
-        canActivate: [PermissionGuard]
+        children:[
+          {
+            path: '',
+            component: GeneralLedgerComponent,
+            data: {
+              array: [
+                { permission: Permissions.GENERALLEDGER_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+          {
+            path: REPORT.PRINT,
+            component: PrintGeneralLedgerComponent,
+            data: {
+              array: [
+                { permission: Permissions.GENERALLEDGER_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+        ]
       },
       {
         path: REPORT.TRIAL_BALANCE,
-        component: TrialBalanceComponent,
-        data: {
-          array: [
-            { permission: Permissions.TRIALBALANCE_VIEW },
-          ]
-        },
-        canActivate: [PermissionGuard]
+        children:[
+          {
+            path: '',
+            component: TrialBalanceComponent,
+            data: {
+              array: [
+                { permission: Permissions.TRIALBALANCE_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+          {
+            path: REPORT.PRINT,
+            component: PrintTrialBalanceComponent,
+            data: {
+              array: [
+                { permission: Permissions.TRIALBALANCE_VIEW },
+              ]
+            },
+            canActivate: [PermissionGuard]
+          },
+        ]
       },
       {
         path: REPORT.BALANCE_SHEET,

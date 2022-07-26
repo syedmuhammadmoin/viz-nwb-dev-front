@@ -29,7 +29,7 @@
                 </button> 
 
                 <button *ngIf="(permission.isGranted(permissions.PURCHASEORDER_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('print',purchaseOrderMaster?.id) " id="purchase_print" type="button" class="btn_public">

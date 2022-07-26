@@ -20,7 +20,7 @@
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.ISSUANCE_RETURN_EDIT))"  class="btn_public mr-3" 
-                    (click)="openFileUploadDialog()" type="button"> <i class="fa fa-print"></i> Attachment
+                    (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                   </button>
   
                   <button [routerLink]="'/'+ ISSUANCE_RETURN.ID_BASED_ROUTE ('print',issuanceReturnMaster?.id)" id="issuance_return_print" type="button"  class="btn_public">

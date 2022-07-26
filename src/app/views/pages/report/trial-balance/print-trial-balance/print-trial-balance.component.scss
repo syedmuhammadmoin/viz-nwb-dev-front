@@ -105,32 +105,5 @@
     padding-right: 12.5px;
     padding-left: 12.5px;
   }
-
-.print-content-area
-{
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: 3%;
-}
-
-.head-parent
-{
-  padding: 10px;
-  background-color: #e4edf3;
-  color: #1a6b85;
-  font-size: 16px;
-  margin-bottom: 0px;
-  border-bottom: 1px solid #abb8ef;
-}
-
-.print-col-10 {
-    flex: 0 0 83.3333333333%;
-    max-width: 83.3333333333%;
-    position: relative;
-    width: 100%;
-    padding-right: 12.5px;
-    padding-left: 12.5px
-}
-
   // Columns Area END
+  

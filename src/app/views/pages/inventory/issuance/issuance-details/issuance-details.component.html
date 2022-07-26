@@ -26,7 +26,7 @@
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-3 btn_public" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                   </button>
   
                   <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button" 

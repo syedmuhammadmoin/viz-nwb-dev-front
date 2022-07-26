@@ -33,7 +33,7 @@
                 </button>
 
                 <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-3" id="invoice_attachment"
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button" 

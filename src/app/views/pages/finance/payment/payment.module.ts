@@ -11,6 +11,7 @@ import { DetailPaymentComponent } from './detail-payment/detail-payment.componen
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CommonModule } from '@angular/common';
 import { PaymentRoutingModule } from './payment-routing.module';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 @NgModule({
@@ -27,6 +28,10 @@ import { PaymentRoutingModule } from './payment-routing.module';
     PaymentRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
-  entryComponents: [CreatePaymentComponent, CreateBusinessPartnerComponent],
+  entryComponents: [
+    CreatePaymentComponent, 
+    CreateBusinessPartnerComponent, 
+    CustomRemarksComponent
+  ],
 })
 export class PaymentModule { }

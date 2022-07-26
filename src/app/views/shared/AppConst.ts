@@ -416,6 +416,30 @@ export class AppConst {
     //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
   ]
 
+  static DocTypeValue = {
+    0: 'Payment',
+    1: 'CreditNote',
+    2: 'DebitNote',
+    3: 'Invoice',
+    4: 'Bill',
+    5: 'JournalEntry',
+    6: 'BankAccount',
+    7: 'CashAccount',
+    8: 'PurchaseOrder',
+    9: 'SalesOrder',
+    10: 'GRN',
+    11: 'GDN',
+    12: 'InventoryAdjustment',
+    13: 'Quotation',
+    14: 'Requisition',
+    15: 'Receipt',
+    16: 'PayrollTransaction',
+    17: 'PayrollPayment',
+    18: 'Issuance',
+    19: 'GoodsReturnNote',
+    20: 'IssuanceReturn'
+  }
+
   static taxType = [
     {id: 0 , type: 'Sales Tax Asset'},
     {id: 1 , type: 'Sales Tax Liability'},

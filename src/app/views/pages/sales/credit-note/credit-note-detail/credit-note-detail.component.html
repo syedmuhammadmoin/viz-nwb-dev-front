@@ -21,8 +21,8 @@
                   class="mr-3 btn_public"><i class="fa fa-edit"></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="cancel__btn mr-3" 
-                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="btn_public mr-3" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + CREDIT_NOTE.ID_BASED_ROUTE('print' , creditNoteMaster?.id)" type="button"

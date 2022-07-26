@@ -11,6 +11,8 @@ import { finalize} from 'rxjs/operators';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { Router } from '@angular/router';
+import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 
 
 function sumFunc(params) {
@@ -66,6 +68,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     private fb: FormBuilder,   
     private generalLedgerService: GeneralLedgerService,
     private cdRef: ChangeDetectorRef,   
+    private router: Router,
     public ngxsService: NgxsCustomService,
     private injector: Injector
   ) {
@@ -366,6 +369,22 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
   onFirstDataRendered(params: any) {
     //params.api.sizeColumnsToFit();
+  }
+
+  printGeneralLedger(data: any) {
+
+    this.generalLedgerService.setLedgerDataForPrintComponent(data);
+
+      this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.GENERAL_LEDGER + '/' + REPORT.PRINT], {
+        queryParams: {
+          from: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate, 'MMM d, y'),
+          to: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate2, 'MMM d, y'),
+          account: (this.generalLedgerForm.value.accountName || 'All'),
+          businessPartner: (this.generalLedgerForm.value.businessPartnerName || 'All'),
+          campus: (this.generalLedgerForm.value.campusName || 'All'),
+          store: (this.generalLedgerForm.value.warehouseName || 'All'),
+        }
+      })
   }
 
   // PDF Content

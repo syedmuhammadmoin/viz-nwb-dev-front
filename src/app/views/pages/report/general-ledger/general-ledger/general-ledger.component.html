@@ -26,9 +26,9 @@
             </div>
             <div class="col-lg-4">
               <div class="form-group kt-form__group">
-                <label class="col-form-label">Account:</label>
+                <label class="col-form-label">COA:</label>
                 <kt-simple-dropdown id="ledger_account" [optionList]="ngxsService.accountsLevel4$" formControlName="accountName" isDisabledNone="true"
-                  matFormFieldClass="full-width" placeholder="Select Account" propertyName="name" propertyValue="name"
+                  matFormFieldClass="full-width" placeholder="Select Detailed Head" propertyName="name" propertyValue="name"
                   hintText="Optional"
                   searchPlaceholder="Search accounts..."></kt-simple-dropdown>
               </div>
@@ -97,6 +97,9 @@
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5 mb-3">
               <div class="form-group kt-form__group">
                 <button class="mr-3 btn_white" (click)="reset()" id="ledger_reset" mat-raised-button type="button">Reset
+                </button>
+                <button *ngIf="!disability" class="mr-3 sub___btn" (click)="printGeneralLedger(rowData)" 
+                     mat-raised-button id="ledger_print" type="button">Print
                 </button>
                 <button class="sub___btn" mat-raised-button id="ledger_fetch" type="submit">Fetch Records
                 </button>

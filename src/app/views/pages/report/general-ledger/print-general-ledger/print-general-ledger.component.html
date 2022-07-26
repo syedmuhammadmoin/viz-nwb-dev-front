@@ -1,0 +1,134 @@
+<div class="container" >
+    <div class="col-lg-10 mx-auto text-right">
+      <div class="row">
+        <button
+          printSectionId="main"
+          id="ledger_print"
+          printTitle="General Ledger"
+          ngxPrint
+          type="button"
+          mat-raised-button
+          [useExistingCss]="true"
+          class="sub___btn"
+          style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-10 mx-auto" id="main">
+      <div [ktBusy]="isLoading" class="row">
+        <div class="bg-white">
+  
+          <div class="print_header_area">
+            <div class="print-col-6">
+              <div class="logo_and_title">
+                <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
+                <span class="top-heading">GENERAL LEDGER</span>
+              </div>
+            </div>
+          </div>
+  
+  
+          <div class="print_body_area">
+  
+            <div class="print-col-5" style="margin-top: 3%;">
+  
+              <div class="print-box" >
+                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                    Date:<span class="float-right" style="font-weight: 400;">{{from}} - {{to}}</span></h4>
+                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                    Business Partner:<span class="float-right" style="font-weight: 400;">{{businessPartner}}</span></h4>
+                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                    Account:<span class="float-right" style="font-weight: 400;">{{account}}</span></h4>  
+                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                    Campus:<span class="float-right" style="font-weight: 400;">{{campus}}</span></h4>  
+                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                    Store:<span class="float-right" style="font-weight: 400;">{{store}}</span></h4>  
+                <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              </div>
+            </div>
+  
+            <div class="print-col-12" style="margin-top: 3%;">
+              <div class="table-responsive">
+                <table class="table table-bordered" style="background-color: #fff;">
+                  <thead class="thead-dark_color">
+                    <tr style="background-color: #eaf2f4; ">
+                      <th style="background-color: #eaf2f4;">Doc #</th>
+                      <th style="background-color: #eaf2f4;">Partner</th>
+                      <th style="background-color: #eaf2f4;">Doc Type</th>
+                      <th style="background-color: #eaf2f4;">Date</th>
+                      <th style="background-color: #eaf2f4;">Description</th>
+                      <th style="background-color: #eaf2f4;">Debit (Rs)</th>
+                      <th style="background-color: #eaf2f4;">Credit (Rs)</th>
+                      <th style="background-color: #eaf2f4;">Balance (Rs)</th>
+                    </tr>
+                  </thead>
+  
+                  <tbody>
+                    <ng-container *ngFor="let key of rowData.keys()">
+                      <tr>
+                        <td [colSpan]="8"  style="font-weight: 500;border-bottom: 1px solid #1a6b85; color:#1a6b85; background-color: #e3ecf2;"> > {{key}}</td>
+                      </tr>
+                      <ng-container *ngFor="let ledger of rowData.get(key)">
+                        <tr>
+                          <td
+                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{ledger.docNo}} </td>
+                          <td
+                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{ledger.businessPartnerName}} </td>
+                          <td
+                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{docType[ledger.docType]}}</td>
+                          <td
+                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{dateHelperService.transformDate(ledger.docDate, ' MMM d, y')}}</td>
+                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                              class="text-left">{{ledger.description}}</td>
+                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                              class="text-right">{{valueFormatter(ledger.debit || 0, '+ve')}}</td>
+                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                              class="text-right">{{valueFormatter(ledger.credit || 0, '-ve')}}</td>
+                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                              class="text-right">{{valueFormatter(ledger.balance || 0)}}</td>
+                        </tr>
+                      </ng-container>
+                      <tr>
+                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right" colspan="5">Total:</td>
+                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right">{{valueFormatter(calculateTotal(rowData.get(key), 'debit').debit, '+ve')}}</td>
+                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right">{{valueFormatter(calculateTotal(rowData.get(key), 'credit').credit, '-ve')}}</td>
+                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right">
+                          {{valueFormatter(rowData.get(key)[rowData.get(key).length - 1].balance)}}
+                        </td>
+                      </tr>
+                    </ng-container>
+                    </tbody>
+                </table>
+              </div>
+            </div>
+  
+  
+  
+  
+            <div class="print-col-12" style=" margin-top: 2%;">
+                <div class="print-box">
+                  <p style="font-size: 18px;
+                font-weight: 500;">Terms and conditions:</p>
+                </div>
+                <div class="print-box">
+                  <h4 style="font-size: 14px;line-height:18px;font-weight: 100;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  </h4>
+                </div>
+    
+                <div class="print-box" style="margin-top: 25px;">
+                  <p style="
+                  font-family: inherit; font-weight: bold;
+                  font-size: 22px;">Thank You for your Business</p>
+                </div>     
+              </div>
+
+              <div class="print-col-4" style=" margin-top: 8%;color: #1a6b85;">
+                _________________________________
+                <p class="text-center">Authorised Sign</p>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
