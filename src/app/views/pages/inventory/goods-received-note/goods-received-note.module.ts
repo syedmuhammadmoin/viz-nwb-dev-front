@@ -11,6 +11,7 @@ import { GoodsReceivedNoteRoutingModule } from './goods-received-note-routing.mo
 import { GrnService } from './service/grn.service';
 import { CreateGrnComponent } from './create-grn/create-grn.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
   entryComponents: [
-    CustomRemarksComponent
+    CustomRemarksComponent,
+    CustomUploadFileComponent
   ]
 })
 export class GoodsReceivedNoteModule { }

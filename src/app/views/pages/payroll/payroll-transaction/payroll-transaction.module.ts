@@ -10,6 +10,8 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { MatDialogRef } from '@angular/material/dialog';
 import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/register-payment.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @NgModule({
@@ -26,7 +28,11 @@ import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/r
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
   providers: [],
-  entryComponents: [RegisterPaymentComponent]
+  entryComponents: [
+    RegisterPaymentComponent,
+    CustomRemarksComponent,
+    CustomUploadFileComponent
+  ]
 })
 export class PayrollTransactionModule { }
 

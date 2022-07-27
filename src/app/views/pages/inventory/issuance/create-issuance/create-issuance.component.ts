@@ -242,6 +242,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       campusId: data.campusId
     });
 
+    console.log(data)
+
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
 

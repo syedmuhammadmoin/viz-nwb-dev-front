@@ -12,6 +12,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { CommonModule } from '@angular/common';
 import { PaymentRoutingModule } from './payment-routing.module';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
   entryComponents: [
     CreatePaymentComponent, 
     CreateBusinessPartnerComponent, 
-    CustomRemarksComponent
+    CustomRemarksComponent,
+    CustomUploadFileComponent
   ],
 })
 export class PaymentModule { }

@@ -1,8 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { IInvoice } from '../model/IInvoice';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { ITransactionRecon } from '../../../purchase/vendorBill/model/ITransactionRecon';
@@ -51,6 +50,12 @@ export class InvoiceService extends AppServiceBase {
                 'Content-Type': 'application/json'
             })
         })
+    }
+
+    uploadFile(id: number , file: File ): Observable<any> {
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+        return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
     }
 
     getRecords(params: any): Observable<any> {

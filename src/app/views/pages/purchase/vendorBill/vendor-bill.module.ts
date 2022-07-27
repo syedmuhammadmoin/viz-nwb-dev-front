@@ -12,6 +12,7 @@ import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/r
 import { VendorBillRoutingModule } from './vendor-bill-routing.module';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 
@@ -34,7 +35,8 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
 
   entryComponents: [
     RegisterPaymentComponent,
-    CustomRemarksComponent
+    CustomRemarksComponent,
+    CustomUploadFileComponent
   ]
 })
 export class VendorBillModule { }

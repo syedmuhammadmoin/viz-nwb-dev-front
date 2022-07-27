@@ -61,8 +61,16 @@
                         </tr>
                     </table>
                 </div>
+              </div>
+            </div>
 
-                <div class="col-md-4 col-lg-4  ml-auto mt-3" >
+                <div class="row">
+
+                  <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+                    <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+                  </div>
+
+                  <div class="col-md-4 col-lg-4  ml-auto mt-3" >
 
                     <div class="print-box">
                       <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Sales Tax:
@@ -197,8 +205,7 @@
                 </table>
                   </div>
                 </div>
-            </div>
-        </div>
+              </div>
         </kt-portlet-body>
 
         <mat-divider ></mat-divider>

@@ -37,6 +37,12 @@ export class GrnService extends AppServiceBase {
         return this.httpClient.post(this.baseUrl + '/workflow', workflow);
      }
 
+     uploadFile(id: number , file: File ): Observable<any> {
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+     }
+
      updateGRN(grnModel: IGRN): Observable<any> {
         return this.httpClient.put(this.baseUrl + `/${grnModel.id}`,grnModel)
      }

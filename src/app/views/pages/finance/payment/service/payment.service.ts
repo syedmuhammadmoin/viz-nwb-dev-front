@@ -63,6 +63,12 @@ export class PaymentService extends AppServiceBase {
   //     .pipe(catchError(this.handleError))
   // }
 
+  uploadFile(id: number , file: File ): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+  }
+
   getRecords(params: any, paymentType: string): Observable<any> {
     const url = environment.baseUrl + paymentType.replace(/ /g, '');
     return this.httpClient.get(url, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.paymentDate?.dateFrom, 'MM/d/y'))})
