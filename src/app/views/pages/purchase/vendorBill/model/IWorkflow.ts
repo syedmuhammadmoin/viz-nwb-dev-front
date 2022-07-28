@@ -1,5 +1,5 @@
 export interface IWorkflow {
     docId: number;
     action: number;
-    remarks : string;
+    remarks? : string;
   }

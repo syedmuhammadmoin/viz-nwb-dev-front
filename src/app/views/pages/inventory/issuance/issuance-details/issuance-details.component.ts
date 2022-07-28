@@ -53,7 +53,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   status: string;
 
   //Showing Remarks
-  remarksList: string[] = [];
+  //remarksList: string[] = [];
 
   constructor(
     private issuanceService: IssuanceService,
@@ -137,7 +137,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       this.issuanceMaster = res.result;
       this.issuanceLines = res.result.issuanceLines;
       this.status = this.issuanceMaster.status;
-      this.remarksList = this.issuanceMaster.remarksList ?? [] 
+      //this.remarksList = this.issuanceMaster.remarksList ?? [] 
 
       //Checking grn status to show Requisition reference
       this.showReference = (["Draft" , "Rejected"].includes(this.issuanceMaster.status)) ? false : true;
@@ -154,21 +154,21 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   }
 
   //Get Remarks From User
-  remarksDialog(action: any): void {
-    const dialogRef = this.dialog.open(CustomRemarksComponent, {
-      width: '740px'
-    });
-    //sending remarks data after dialog closed
-    dialogRef.afterClosed().subscribe((res) => {
-      if (res) {
-        this.workflow(action, res.data)
-      }
-    })
-  }
+  // remarksDialog(action: any): void {
+  //   const dialogRef = this.dialog.open(CustomRemarksComponent, {
+  //     width: '740px'
+  //   });
+  //   //sending remarks data after dialog closed
+  //   dialogRef.afterClosed().subscribe((res) => {
+  //     if (res) {
+  //       this.workflow(action, res.data)
+  //     }
+  //   })
+  // }
 
-  workflow(action: number, remarks: string) {
+  workflow(action: number) {
     this.isLoading = true
-    this.issuanceService.workflow({ action, docId: this.issuanceMaster.id, remarks})
+    this.issuanceService.workflow({ action, docId: this.issuanceMaster.id})
     .pipe(
       take(1),
        finalize(() => {
@@ -184,20 +184,20 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   }
 
   //upload File
-  openFileUploadDialog() {
-    this.dialog.open(CustomUploadFileComponent, {
-      width: '740px',
-      data: {
-        response: this.issuanceMaster,
-        serviceClass: this.issuanceService,
-        functionName: 'uploadFile',
-        name: 'Issuance'
-      },
-    }).afterClosed().subscribe(() => {
-      this.getIssuanceData(this.issuanceId)
-      this.cdRef.detectChanges()
-    })
-  }
+  // openFileUploadDialog() {
+  //   this.dialog.open(CustomUploadFileComponent, {
+  //     width: '740px',
+  //     data: {
+  //       response: this.issuanceMaster,
+  //       serviceClass: this.issuanceService,
+  //       functionName: 'uploadFile',
+  //       name: 'Issuance'
+  //     },
+  //   }).afterClosed().subscribe(() => {
+  //     this.getIssuanceData(this.issuanceId)
+  //     this.cdRef.detectChanges()
+  //   })
+  // }
 }
 
 

@@ -27,9 +27,9 @@
                     <i class="fa fa-edit"></i> Issuance
                   </button>
 
-                  <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3" 
+                  <!-- <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3" 
                   (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
-                </button>
+                </button> -->
 
                   <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" 
                     class="btn_public">
@@ -74,9 +74,9 @@
 
           <div class="row mt-5">
 
-            <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+            <!-- <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
               <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
-            </div>
+            </div> -->
 
             <div class="col-lg-4 ml-auto">
               <table class="table  small_table_box" style="margin: 0px -6px;">
@@ -135,8 +135,8 @@
         <div class="kt-form__actions kt-form__actions">
           <div class="row ">
             <div class="col-lg-12 text-right" *ngIf="requisitionMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" id="requisition_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-              <button (click)="remarksDialog(action.Approve)" id="requisition_approve" class="success__btn" mat-raised-button>Approve</button>
+              <button (click)="workflow(action.Reject)" id="requisition_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+              <button (click)="workflow(action.Approve)" id="requisition_approve" class="success__btn" mat-raised-button>Approve</button>
             </div>
           </div>
         </div>
