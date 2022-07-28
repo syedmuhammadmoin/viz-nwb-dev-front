@@ -30,7 +30,7 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
 
   constructor(
     public dialog: MatDialog,
-    @Optional() @Inject(MAT_DIALOG_DATA) private data: { response: any, serviceClass: any, functionName: string, name: string },
+    @Optional() @Inject(MAT_DIALOG_DATA) private data: { response: any, serviceClass: any, functionName: string, name: string , docType: string },
     public dialogRef: MatDialogRef<CustomUploadFileComponent>,
     private fileSizePipe: FileSizePipe,
     private httpClient: HttpClient,
@@ -80,7 +80,7 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
       return
     }
     this.isLoading = true;
-    this.data.serviceClass[this.data.functionName](this.data.response.id, this.file).subscribe(() => {
+    this.data.serviceClass[this.data.functionName](this.data.response.id, this.file, this.data?.docType).subscribe(() => {
       this.toastService.success("File Uploaded Successfully", this.data.name)
       this.isLoading = false;
       this.dialogRef.close()
