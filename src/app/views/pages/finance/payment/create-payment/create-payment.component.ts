@@ -199,6 +199,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.calculatingNetPayment();
     }
     this.ngxsService.getBusinessPartnerFromState();
+    this.ngxsService.getEmployeeFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getCampusFromState()
     // //get business partner list from service

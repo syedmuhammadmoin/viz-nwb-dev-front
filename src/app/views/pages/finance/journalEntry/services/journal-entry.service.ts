@@ -44,6 +44,11 @@ export class JournalEntryService extends AppServiceBase {
     })
   }
 
+  uploadFile(id: number , file: File ): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+  }
 
   workflow(workflow: IWorkflow): Observable<any> {
     return this.httpClient.post<any>(this.baseUrl + '/workflow', workflow);

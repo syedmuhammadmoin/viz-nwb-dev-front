@@ -53,6 +53,12 @@ export class VendorBillService extends AppServiceBase {
         })
     }
 
+    uploadFile(id: number , file: File ): Observable<any> {
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+  }
+
     getRecords(params: any): Observable<any> {
       return this.httpClient.get(this.baseUrl, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.billDate?.dateFrom, 'MM/d/y'))});
     }

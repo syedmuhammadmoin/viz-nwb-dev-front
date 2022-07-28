@@ -36,6 +36,12 @@ export class PurchaseOrderService extends AppServiceBase {
     return this.httpClient.put(environment.baseUrl + `purchaseOrder/${poModel.id}`, poModel)
   }
 
+  uploadFile(id: number , file: File ): Observable<any> {
+    const formData = new FormData();
+    formData.append('file', file, file.name);
+    return this.httpClient.post<any>(`${environment.baseUrl}purchaseOrder/DocUpload/${id}`, formData)
+  }
+
   workflow(workflow: IWorkflow): Observable<any> {
     return this.httpClient.post(environment.baseUrl + 'purchaseOrder/workflow', workflow);
   }

@@ -5,6 +5,7 @@ import { HttpBackend, HttpClient } from '@angular/common/http';
 import { AppComponentBase } from '../../app-component-base';
 import { AppConst } from '../../AppConst';
 import { FileSizePipe } from '../../pipes/non-negative/file-size/file-size.pipe';
+import { InvoiceDetailsComponent } from 'src/app/views/pages/sales/invoice/invoice-details/invoice-details.component';
 
 
 @Component({
@@ -29,8 +30,8 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
 
   constructor(
     public dialog: MatDialog,
-    @Optional() @Inject(MAT_DIALOG_DATA) private data: { response: any, serviceClass: any, functionName: string, name: string },
-    //public dialogRef: MatDialogRef<InvoiceDetailComponent>,
+    @Optional() @Inject(MAT_DIALOG_DATA) private data: { response: any, serviceClass: any, functionName: string, name: string , docType: string },
+    public dialogRef: MatDialogRef<CustomUploadFileComponent>,
     private fileSizePipe: FileSizePipe,
     private httpClient: HttpClient,
     private httpBackend: HttpBackend,
@@ -40,7 +41,7 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
   }
 
   ngOnInit(): void {
-    this.fileList = this.data.response.fileList;
+    this.fileList = this.data.response.fileUploadList;
     console.log('fileList : ', this.fileList)
   }
 
@@ -79,10 +80,10 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
       return
     }
     this.isLoading = true;
-    this.data.serviceClass[this.data.functionName](this.data.response.id, this.file).subscribe(() => {
+    this.data.serviceClass[this.data.functionName](this.data.response.id, this.file, this.data?.docType).subscribe(() => {
       this.toastService.success("File Uploaded Successfully", this.data.name)
       this.isLoading = false;
-      //this.dialogRef.close()
+      this.dialogRef.close()
     }, (err: any) => {
       //this.toastService.error("Something went wrong", 'Error')
     })
@@ -109,9 +110,9 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
 
   download(file: any) {
     console.log('download called');
-    let fileUrl = AppConst.remoteServiceBaseUrl + 'UploadDocument/' + file.id + `?docType=${file.docType}`
+    let fileUrl = environment.baseUrl + 'DocumentDownload/' + file.id + `?docType=${file.docType}`
     if (this.data.name === 'Employee') {
-      fileUrl = AppConst.remoteServiceBaseUrl + 'employee/download/' + file.id
+      fileUrl = environment.baseUrl + 'employee/download/' + file.id
     }
     this.httpClient.get(fileUrl, { responseType: 'blob' })
       .subscribe((event: any) => {
@@ -136,7 +137,7 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
     const a = document.createElement('a');
     a.setAttribute('style', 'display:none;');
     document.body.appendChild(a);
-    a.download = file.fileName + file.fileExtension;
+    a.download = file.name + file.extension;
     a.href = URL.createObjectURL(downloadedFile);
     a.target = '_blank';
     a.click();

@@ -42,6 +42,12 @@ export class IssuanceService extends AppServiceBase {
         return this.httpClient.post(this.baseUrl + '/workflow', workflow);
     }
 
+    uploadFile(id: number , file: File ): Observable<any> {
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+        return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+    }
+
     getRecords(params: any): Observable<any> {
         return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.issuanceDate?.dateFrom, 'MM/d/y'))});
     }

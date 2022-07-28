@@ -9,6 +9,7 @@ import { GoodsReturnNoteRoutingModule } from './goods-return-note-routing.module
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 
@@ -26,7 +27,8 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
   entryComponents: [
-    CustomRemarksComponent
+    CustomRemarksComponent,
+    CustomUploadFileComponent
   ]
 })
 export class GoodsReturnNoteModule { }

@@ -89,7 +89,7 @@
                     </div>
                   </div>
     
-                  <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div *ngIf="!isPayrollPayment" class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group">
                         <label class="col-form-label pt-0">Business Partner:</label>
                         <kt-simple-dropdown 
@@ -105,6 +105,24 @@
                           (clickEvent)="openBusinessPartnerDialog()" 
                           searchPlaceholder="Search Business Partners..."
                           placeholder="Select Business Partner">
+                        </kt-simple-dropdown>
+                    </div>
+                  </div>
+
+                  <div *ngIf="isPayrollPayment" class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group">
+                        <label class="col-form-label pt-0">Employee:</label>
+                        <kt-simple-dropdown 
+                        id="payment_employee"
+                          formControlName="businessPartner"
+                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
+                          propertyName="name" 
+                          propertyValue="id" 
+                          matFormFieldClass="full-width"
+                          [errorMessage]="'Employee is Required.'"
+                          [optionList]="ngxsService.employees$"
+                          searchPlaceholder="Search Employees..."
+                          placeholder="Select Employee">
                         </kt-simple-dropdown>
                     </div>
                   </div>

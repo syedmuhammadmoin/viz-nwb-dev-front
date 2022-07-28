@@ -49,7 +49,7 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
    issuanceReturnMaster: any;
 
    //Showing Remarks
-  remarksList: string[] = [];
+  //remarksList: string[] = [];
 
  constructor( private activatedRoute: ActivatedRoute,
               private issuanceReturnService: IssuanceReturnService,
@@ -116,7 +116,7 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
     .subscribe((res) => {
       this.issuanceReturnMaster = res.result;
       this.issuanceReturnLines = res.result.issuanceReturnLines;
-      this.remarksList = this.issuanceReturnMaster.remarksList ?? [] 
+      //this.remarksList = this.issuanceReturnMaster.remarksList ?? [] 
 
 
       //Checking grn status to Issuance reference
@@ -134,21 +134,21 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
   }
 
   //Get Remarks From User
-  remarksDialog(action: any): void {
-    const dialogRef = this.dialog.open(CustomRemarksComponent, {
-      width: '740px'
-    });
-    //sending remarks data after dialog closed
-    dialogRef.afterClosed().subscribe((res) => {
-      if (res) {
-        this.workflow(action, res.data)
-      }
-    })
-  }
+  // remarksDialog(action: any): void {
+  //   const dialogRef = this.dialog.open(CustomRemarksComponent, {
+  //     width: '740px'
+  //   });
+  //   //sending remarks data after dialog closed
+  //   dialogRef.afterClosed().subscribe((res) => {
+  //     if (res) {
+  //       this.workflow(action, res.data)
+  //     }
+  //   })
+  // }
 
-  workflow(action: number , remarks: string) {
+  workflow(action: number) {
     this.isLoading = true
-    this.issuanceReturnService.workflow({action, docId: this.issuanceReturnMaster.id, remarks})
+    this.issuanceReturnService.workflow({action, docId: this.issuanceReturnMaster.id})
     .pipe(
       take(1),
        finalize(() => {
@@ -164,20 +164,20 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
   }
 
   //upload File
-  openFileUploadDialog() {
-    this.dialog.open(CustomUploadFileComponent, {
-      width: '740px',
-      data: {
-        response: this.issuanceReturnMaster,
-        serviceClass: this.issuanceReturnService,
-        functionName: 'uploadFile',
-        name: 'Issuance Return'
-      },
-    }).afterClosed().subscribe(() => {
-      this.getIssuanceReturnMasterData(this.issuanceReturnId)
-      this.cdRef.detectChanges()
-    })
-  }
+  // openFileUploadDialog() {
+  //   this.dialog.open(CustomUploadFileComponent, {
+  //     width: '740px',
+  //     data: {
+  //       response: this.issuanceReturnMaster,
+  //       serviceClass: this.issuanceReturnService,
+  //       functionName: 'uploadFile',
+  //       name: 'Issuance Return'
+  //     },
+  //   }).afterClosed().subscribe(() => {
+  //     this.getIssuanceReturnMasterData(this.issuanceReturnId)
+  //     this.cdRef.detectChanges()
+  //   })
+  // }
 }
 
 

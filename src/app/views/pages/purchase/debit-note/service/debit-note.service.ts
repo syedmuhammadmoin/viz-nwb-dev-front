@@ -39,6 +39,12 @@ export class DebitNoteService extends AppServiceBase {
         return this.httpClient.get(this.baseUrl,{ params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.noteDate?.dateFrom, 'MM/d/y'))})
     }
 
+    uploadFile(id: number , file: File ): Observable<any> {
+        const formData = new FormData();
+        formData.append('file', file, file.name);
+        return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+    }
+
     createDebitNote(debitNote: IDebitNote): Observable<any> {
         return this.httpClient.post<any>(this.baseUrl, debitNote, {
             headers: new HttpHeaders({

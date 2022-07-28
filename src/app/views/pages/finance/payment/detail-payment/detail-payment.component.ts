@@ -171,7 +171,8 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
         response: this.paymentMaster,
         serviceClass: this.paymentService,
         functionName: 'uploadFile',
-        name: 'Payment'
+        name: this.formName,
+        docType: this.documents.find(x=>x.id === this.selectedFormType).value
       },
     }).afterClosed().subscribe(() => {
       this.getPaymentData(this.paymentId)

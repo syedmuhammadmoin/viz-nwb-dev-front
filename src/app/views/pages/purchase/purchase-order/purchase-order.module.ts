@@ -11,6 +11,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { PurchaseOrderRoutingModule } from './purchase-order-routing.module';
 import { CreatePurchaseOrderComponent } from './create-purchase-order/create-purchase-order.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
   entryComponents: [
-    CustomRemarksComponent
+    CustomRemarksComponent,
+    CustomUploadFileComponent
   ]
 })
 export class PurchaseOrderModule { }

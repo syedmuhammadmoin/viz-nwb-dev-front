@@ -172,6 +172,10 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
     this.payrollProcessService.GetApprovePayrollProcess(body)
       .pipe(
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         }),
         map((res: any) => {
           if (isEmpty(res.result)) {
             this.toastService.info('No Records Found !' , 'Payroll Process')
@@ -179,16 +183,10 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
           return res.result.map((response: any) => {
             return response
           });
-        },
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-        )
+        })
       )
       .subscribe((res) => {
         this.payrollTransactions = res
-        this.cdRef.detectChanges();
         setTimeout(() => {
           const pinnedBottomData = this.generatePinnedBottomData();
           this.gridApi.setPinnedBottomRowData([pinnedBottomData]);

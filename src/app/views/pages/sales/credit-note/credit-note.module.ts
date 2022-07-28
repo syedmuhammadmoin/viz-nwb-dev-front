@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { CreditNoteRoutingModule } from './credit-note-routing.module';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @NgModule({
@@ -28,7 +30,10 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     CreditNoteRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
-  entryComponents: []
+  entryComponents: [
+    CustomRemarksComponent,
+    CustomUploadFileComponent
+  ]
 })
 export class CreditNoteModule { }
 

@@ -39,6 +39,12 @@ export class CreditNoteService extends AppServiceBase {
         return this.httpClient.put<IApiResponse<ICreditNote>>(this.baseUrl + `/${creditNoteModel.id}`, creditNoteModel)
     }
 
+    uploadFile(id: number , file: File ): Observable<any> {
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+  }
+
     workflow(workflow: IWorkflow): Observable<any> {
         return this.httpClient.post(this.baseUrl + '/workflow', workflow);
     }

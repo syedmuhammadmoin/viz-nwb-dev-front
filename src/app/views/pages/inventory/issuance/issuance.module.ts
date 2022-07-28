@@ -8,7 +8,6 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { IssuanceRoutingModule } from './issuance-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 @NgModule({
@@ -23,9 +22,6 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
     PartialsModule,
     IssuanceRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [
-    CustomRemarksComponent
   ]
 })
 export class IssuanceModule { }

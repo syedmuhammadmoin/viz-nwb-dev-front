@@ -38,6 +38,12 @@ export class GoodsReturnNoteService  extends AppServiceBase {
         return this.httpClient.post(environment.baseUrl + 'GoodsReturnNote' + '/workflow', workflow);
      }
 
+     uploadFile(id: number , file: File ): Observable<any> {
+      const formData = new FormData();
+      formData.append('file', file, file.name);
+      return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
+     }
+
      updateGoodsReturnNote(GoodsReturnNoteModel: IGoodsReturnNote): Observable<any> {
         return this.httpClient.put(environment.baseUrl + `GoodsReturnNote/${GoodsReturnNoteModel.id}`,GoodsReturnNoteModel)
      }

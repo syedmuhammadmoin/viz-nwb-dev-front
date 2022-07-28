@@ -18,6 +18,8 @@ import { BusinessPartnerService } from '../../profiling/business-partner/service
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { WarehouseService } from '../../profiling/warehouse/services/warehouse.service';
 import { ProductService } from '../../profiling/product/service/product.service';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @NgModule({
@@ -43,6 +45,11 @@ import { ProductService } from '../../profiling/product/service/product.service'
     ProductService,
     BusinessPartnerService
   ],
-  entryComponents:[CreateBusinessPartnerComponent, CreateLocationComponent]
+  entryComponents:[
+    CreateBusinessPartnerComponent, 
+    CreateLocationComponent,
+    CustomRemarksComponent,
+    CustomUploadFileComponent
+  ]
 })
 export class JournalEntryModule { }
