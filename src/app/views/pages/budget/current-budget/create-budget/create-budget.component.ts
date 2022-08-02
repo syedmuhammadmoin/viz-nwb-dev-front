@@ -31,7 +31,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   dateCondition: boolean;
 
   //Title Name
-  title: string = 'Create Budget'
+  title: string = 'Create Estimated Budget'
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -48,7 +48,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   // Validation messages..
   validationMessages = {
     budgetName: {
-      required: 'Budget is required.',
+      required: 'Name is required.',
     },
     from: {
       required: 'Date is required.',
@@ -56,12 +56,16 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     to: {
       required: 'Date is required.',
     },
+    campusId: {
+      required: 'Campus is required.',
+    },
   };
   // error keys..
   formErrors = {
     budgetName: '',
     from: '',
     to: '',
+    campusId: ''
   };
 
   // constructor
@@ -83,6 +87,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       budgetName: ['', [Validators.required]],
       from: ['', [Validators.required]],
       to: ['', [Validators.required]],
+      campusId: ['', [Validators.required]],
       budgetLines: this.fb.array([
         this.addBudgetLines()
       ])
@@ -90,7 +95,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.activatedRoute.params.subscribe((res: Params) => {
       if (res && res.id) {
         this.isLoading = true;
-        this.title = 'Edit Budget'
+        this.title = 'Edit Estimated Budget'
         this.getBudgetMaster(res.id);
         this.cdRef.markForCheck();
       } else {
@@ -102,6 +107,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.ngxsService.getAccountLevel4FromState()
      // get Budget Accounts from state
     this.ngxsService.getBudgetAccountsFromState()
+    this.ngxsService.getCampusFromState();
     // this.getBudgetAccountsFromState();
     // this.budgetForm.get('from').valueChanges.subscribe((value) => {
     //   this.dateCondition = this.budgetForm.get('to').value < this.budgetForm.get('from').value
@@ -132,6 +138,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       budgetName: budgetMaster.budgetName,
       from: budgetMaster.from,
       to: budgetMaster.to,
+      campusId: budgetMaster.campusId
     });
     this.budgetForm.setControl('budgetLines', this.patchBudgetLines(budgetMaster.budgetLines));
   }
@@ -197,12 +204,12 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     }
     const controls = this.budgetForm.controls.budgetLines as FormArray;
     if (controls.length === 0) {
-      this.toastService.error('Please add Budget lines', 'Error')
+      this.toastService.error('Please add Estimated Budget lines', 'Estimated Budget')
       return;
     }
     
     if (this.budgetForm.invalid) {
-      this.toastService.error("Please fill all required fields!", "Budget")
+      this.toastService.error("Please fill all required fields!", "Estimated Budget")
       return;
     }
 
@@ -221,7 +228,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
        )
        .subscribe(() => {
         this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
-        this.toastService.success('Updated Successfully', 'Budget')
+        this.toastService.success('Updated Successfully', 'Estimated Budget')
         this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , this.budgetModel.id)])
         });
     } else {
@@ -236,7 +243,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
        )
         .subscribe((res) => {
           this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
-          this.toastService.success('Created Successfully', 'Budget')
+          this.toastService.success('Created Successfully', 'Estimated Budget')
           //console.log('/' + BUDGET.LIST)
           // this.router.navigate(['/' + BUDGET.LIST])
           this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
@@ -249,7 +256,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.budgetModel.budgetName = this.budgetForm.value.budgetName;
     this.budgetModel.from = this.transformDate(this.budgetForm.value.from, 'yyyy-MM-dd');
     this.budgetModel.to = this.transformDate(this.budgetForm.value.to, 'yyyy-MM-dd');
-  //  console.log(this.budgetModel);
+    this.budgetModel.campusId = this.budgetForm.value.campusId;
     this.budgetModel.budgetLines = this.budgetForm.value.budgetLines;
   }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/Dialog'
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { ICampus } from '../model/ICampus';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -63,6 +63,39 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
+     },
+     { 
+      headerName: 'Address', 
+      field: 'address', 
+      tooltipField: 'name',
+      suppressMenu: true
+     },
+     { 
+      headerName: 'Website', 
+      field: 'website', 
+      tooltipField: 'name',
+      suppressMenu: true,
+      valueFormatter: (params : ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+     },
+     { 
+      headerName: 'Sales Tax ID', 
+      field: 'salesTaxId', 
+      tooltipField: 'name',
+      suppressMenu: true,
+      valueFormatter: (params : ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
+     },
+     { 
+      headerName: 'Phone No', 
+      field: 'phone', 
+      tooltipField: 'name',
+      suppressMenu: true,
+      valueFormatter: (params : ValueFormatterParams) => {
+        return params.value || 'N/A'
+      }
      },
   ];
 // implimentation of ng OnInit

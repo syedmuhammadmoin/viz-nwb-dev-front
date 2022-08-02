@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Budget Detail'" [class]="'card-head-lg'">
+      <kt-portlet-header [sticky]="false" [title]="'Estimated Budget Detail'" [class]="'card-head-lg'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
   
@@ -22,7 +22,7 @@
 
                   <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" id="budget_print" type="button"
                     class="btn_public">
-                    <i class="fa fa-print"></i> Print Budget
+                    <i class="fa fa-print"></i> Print Estimated Budget
                   </button>
                 
                   <mat-divider class="mt-5"></mat-divider>

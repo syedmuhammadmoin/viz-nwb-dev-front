@@ -12,13 +12,23 @@
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Employee:</label>
-                    <kt-simple-dropdown
+                    <!-- <kt-simple-dropdown
                       id="payroll_trans_employee"
                       (blurEvent)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)"
                       (selectionChange)="getEmployee($event.value)"
                       (click)="getLatestEmployeeData()"
                       [errorMessage]="formErrors.employeeId" [optionList]="ngxsService.employees$"
                       formControlName="employeeId" matFormFieldClass="full-width"
+                      placeholder="Select Employee"
+                      propertyName="name"
+                      propertyValue="id"
+                      searchPlaceholder="Search Employee...">
+                    </kt-simple-dropdown> -->
+                    <kt-simple-dropdown
+                      id="payroll_trans_employee"
+                      [optionList]="ngxsService.employees$"
+                      formControlName="employeeId" 
+                      matFormFieldClass="full-width"
                       placeholder="Select Employee"
                       propertyName="name"
                       propertyValue="id"
@@ -34,8 +44,7 @@
                       id="payroll_trans_designation"
                       formControlName="designation" 
                       matFormFieldClass="full-width" 
-                      placeholder="Designation"
-                      readonly="true">
+                      placeholder="Designation">
                     </kt-input-field>
                   </div>
                 </div>
@@ -47,8 +56,7 @@
                       id="payroll_trans_department"
                       formControlName="department" 
                       matFormFieldClass="full-width" 
-                      placeholder="Department"
-                      readonly="true">
+                      placeholder="Department">
                     </kt-input-field>
                   </div>
                 </div>
@@ -60,8 +68,7 @@
                       id="payroll_trans_basic"
                       formControlName="basicPay" 
                       matFormFieldClass="full-width" 
-                      placeholder="Basic Pay"
-                      readonly="true">
+                      placeholder="Basic Pay">
                     </kt-input-field>
                   </div>
                 </div>
@@ -75,8 +82,7 @@
                       id="payroll_trans_increment"
                       formControlName="increment" 
                       matFormFieldClass="full-width" 
-                      placeholder="Increment"
-                      readonly="true">
+                      placeholder="Increment">
                     </kt-input-field>
                   </div>
                 </div>
@@ -86,9 +92,8 @@
                     <label class="col-form-label pt-0">Month:</label>
                     <kt-simple-dropdown
                     id="payroll_trans_month"
-                    (blurEvent)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)"
-                    (selectionChange)="getMonth($event)"
-                    [errorMessage]="formErrors.month"
+                   
+                   
                     [optionList]="months"
                     formControlName="month"
                     matFormFieldClass="full-width"
@@ -103,9 +108,7 @@
                     <label class="col-form-label pt-0">Year:</label>
                     <kt-simple-dropdown
                       id="payroll_trans_year"
-                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)"
-                      (selectionChange)="getYear($event)"
-                      [errorMessage]="formErrors.year"
+                     
                       [optionList]="generateArrayOfYears()"
                       formControlName="year"
                       matFormFieldClass="full-width"
@@ -121,9 +124,7 @@
                     <kt-date-input 
                       formControlName="transDate" 
                       placeholder="Transaction Date" 
-                      matFormFieldClass="full-width"
-                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)"
-                      [errorMessage]="formErrors.transDate">
+                      matFormFieldClass="full-width">
                     </kt-date-input>
                   </div>
                 </div>
@@ -138,13 +139,8 @@
                         id="payroll_trans_working"
                         formControlName="workingDays"
                         placeholder="Enter Working Days"
-                        readonly="true"
                         (change)="calculateSalary(employee)"
-                        type="number" min="0"
-                        (change)="onChange($event.target.value)"
-                        [value]="payrollTransactionForm.get('workingDays').value | nonNegative"
-                        (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
-                        [errorMessage]="[{ condition : formErrors.workingDays , error : formErrors.workingDays}]">
+                        type="number" min="0">
                       </kt-input-field>
                   </div>
                 </div>
@@ -156,11 +152,7 @@
                       id="payroll_trans_present"
                       formControlName="presentDays"
                       placeholder="Enter Present Days"
-                      (change)="calculateSalary(employee)"
-                      type="number" min="0" [max]="payrollTransactionForm.controls['workingDays'].value"
-                      [value]="payrollTransactionForm.get('presentDays').value | nonNegative"
-                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
-                      [errorMessage]="[{ condition : formErrors.presentDays , error : formErrors.presentDays}]">
+                      type="number">
                     </kt-input-field>  
                   </div>
                 </div>
@@ -172,11 +164,7 @@
                       id="payroll_trans_leave"
                       formControlName="leaveDays"
                       placeholder="Enter Leave Days"
-                      (change)="calculateSalary(employee)"
-                      type="number" min="0" [max]="payrollTransactionForm.controls['workingDays'].value"
-                      [value]="payrollTransactionForm.get('leaveDays').value | nonNegative"
-                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
-                      [errorMessage]="[{ condition : formErrors.leaveDays , error : formErrors.leaveDays}]">
+                      type="number">
                     </kt-input-field>  
                   </div>
                 </div>
@@ -219,9 +207,9 @@
           <div class="kt-form__actions kt-form__actions">
             <div class="row">
               <div class="col-lg-12 text-right">
-                <button type="button" class="mr-3 btn_white" mat-raised-button (click)="reset()" id="payroll_trans_reset">Reset</button>
+                <!-- <button type="button" class="mr-3 btn_white" mat-raised-button (click)="reset()" id="payroll_trans_reset">Reset</button>
                 <button class="sub___btn  mr-3" mat-raised-button type="submit" id="payroll_trans_save"
-                  (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
+                  (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button> -->
                 <button class="sub___btn " mat-raised-button type="submit" id="payroll_trans_submit"
                   (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(1)">Submit
                 </button>

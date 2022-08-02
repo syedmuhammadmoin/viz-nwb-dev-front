@@ -30,7 +30,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
   dateCondition: boolean;
 
   //Title Name
-  title: string = 'Create Estimated Budget'
+  title: string = 'Create Anticipated Budget'
 
   estimatedBudgetModel: IEstimatedBudget;
   estimatedBudgetMaster: IEstimatedBudget;
@@ -82,7 +82,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
       if (res && res.id) {
         console.log(res.id)
         this.isLoading = true;
-        this.title = 'Edit Estimated Budget'
+        this.title = 'Edit Anticipated Budget'
         this.getEstimatedBudgetMaster(res.id);
         this.showLines = true;
         this.cdRef.markForCheck();
@@ -176,12 +176,12 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     }
     const controls = this.estimatedBudgetForm.controls.estimatedBudgetLines as FormArray;
     if (controls.length === 0) {
-      this.toastService.error('Please Select Budget', 'Error')
+      this.toastService.error('Please Select Anticipated Budget', 'Anticipated Budget')
       return;
     }
 
     if (this.estimatedBudgetForm.invalid) {
-      this.toastService.error("Please fill all required fields!", "Estimated Budget")
+      this.toastService.error("Please fill all required fields!", "Anticipated Budget")
       return;
     }
 
@@ -198,7 +198,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
          })
        )
        .subscribe(() => {
-          this.toastService.success('Updated Successfully', 'Estimated Budget')
+          this.toastService.success('Updated Successfully', 'Anticipated Budget')
           this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , this.estimatedBudgetModel.id)])
         }
       );
@@ -213,7 +213,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
          })
        )
        .subscribe((res) => {
-          this.toastService.success('Created Successfully', 'Estimated Budget')
+          this.toastService.success('Created Successfully', 'Anticipated Budget')
           // this.router.navigate(['/' + ESTIMATED_BUDGET.LIST])
           this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
         }

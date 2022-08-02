@@ -603,7 +603,7 @@ export class MenuConfig {
           ],
           submenu: [
             {
-              title: 'Budget',
+              title: 'Estimated Budget',
               page: '/' + BUDGET.LIST,
               permission: [
                 Permissions.BUDGET_VIEW,
@@ -613,7 +613,7 @@ export class MenuConfig {
               ]
             },
             {
-              title: 'Estimated Budget',
+              title: 'Anticipated Budget',
               page: '/' + ESTIMATED_BUDGET.LIST,
               permission: [
                 Permissions.ESTIMATED_BUDGET_VIEW,

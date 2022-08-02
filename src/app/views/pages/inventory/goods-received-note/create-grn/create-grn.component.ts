@@ -297,7 +297,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   //Patch GRN Form GRN Or purchase Order Master Data
   patchGRN(data: IPurchaseOrder | IGRN | any) {
-    console.log(data.employeeId)
     this.grnForm.patchValue({
       vendorName: data.vendorId ?? data.employeeId,
       grnDate: data.grnDate ?? data.poDate,

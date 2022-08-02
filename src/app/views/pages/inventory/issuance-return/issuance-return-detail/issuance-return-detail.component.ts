@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { LayoutUtilsService } from '../../../../../core/_base/crud';
+import { ActivatedRoute } from '@angular/router';
 import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -49,7 +48,7 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
    issuanceReturnMaster: any;
 
    //Showing Remarks
-  //remarksList: string[] = [];
+  remarksList: string[] = [];
 
  constructor( private activatedRoute: ActivatedRoute,
               private issuanceReturnService: IssuanceReturnService,
@@ -116,7 +115,7 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
     .subscribe((res) => {
       this.issuanceReturnMaster = res.result;
       this.issuanceReturnLines = res.result.issuanceReturnLines;
-      //this.remarksList = this.issuanceReturnMaster.remarksList ?? [] 
+      this.remarksList = this.issuanceReturnMaster.remarksList ?? [] 
 
 
       //Checking grn status to Issuance reference
@@ -134,21 +133,21 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
   }
 
   //Get Remarks From User
-  // remarksDialog(action: any): void {
-  //   const dialogRef = this.dialog.open(CustomRemarksComponent, {
-  //     width: '740px'
-  //   });
-  //   //sending remarks data after dialog closed
-  //   dialogRef.afterClosed().subscribe((res) => {
-  //     if (res) {
-  //       this.workflow(action, res.data)
-  //     }
-  //   })
-  // }
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
 
-  workflow(action: number) {
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.issuanceReturnService.workflow({action, docId: this.issuanceReturnMaster.id})
+    this.issuanceReturnService.workflow({action, docId: this.issuanceReturnMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {
