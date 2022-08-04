@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { ISSUANCE, REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { ISSUANCE, PURCHASE_ORDER, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IRequisitionLines } from '../model/IRequisitionLines';
 import { IRequisition } from '../model/IRequisition';
@@ -34,6 +34,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
 
   public REQUISITION = REQUISITION;
   public ISSUANCE = ISSUANCE
+  public PURCHASE_ORDER = PURCHASE_ORDER
 
   requisitionId: number;
 
@@ -48,7 +49,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   status: string;
 
   //Showing Remarks
-  //remarksList: string[] = [];
+  remarksList: string[] = [];
 
   constructor(
     private requisitionService: RequisitionService,
@@ -133,7 +134,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       this.requisitionMaster = res.result;
       this.requisitionLines = res.result.requisitionLines;
       this.status = this.requisitionMaster.status;
-      //this.remarksList = this.requisitionMaster.remarksList ?? [] 
+      this.remarksList = this.requisitionMaster.remarksList ?? [] 
 
       if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.requisitionMaster.state)) {
         this.gridOptions.columnApi.setColumnVisible('issuedQuantity', false);
@@ -148,21 +149,21 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   }
 
   //Get Remarks From User
-  // remarksDialog(action: any): void {
-  //   const dialogRef = this.dialog.open(CustomRemarksComponent, {
-  //     width: '740px'
-  //   });
-  //   //sending remarks data after dialog closed
-  //   dialogRef.afterClosed().subscribe((res) => {
-  //     if (res) {
-  //       this.workflow(action, res.data)
-  //     }
-  //   })
-  // }
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
 
-  workflow(action: number) {
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.requisitionService.workflow({ action, docId: this.requisitionMaster.id})
+    this.requisitionService.workflow({ action, docId: this.requisitionMaster.id, remarks})
     .pipe(
       take(1),
        finalize(() => {

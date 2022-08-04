@@ -122,7 +122,7 @@ label[for="et_pb_contact_brand_file_request_0"] {
 .mat-card {
 	padding: 8px 50px;
 	width: 100%;
-	background: #595e791c;
+	//background: #595e791c;
 	box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
 	margin-top: 20px;
 	border-radius: 10px;
@@ -153,23 +153,28 @@ label[for="et_pb_contact_brand_file_request_0"] {
     color: #2b335a;
 }
 
+// .download-btn
+// {
+// 	position: absolute;
+//     left: -7%;
+//     font-size: 25px;
+//     top: -10px;
+//     color: #2b335a;
+// }
+
 .download-btn
 {
-	position: absolute;
-    left: -7%;
-    font-size: 25px;
-    top: -10px;
-    color: #2b335a;
+    color: #1a6b85;
 }
 
 .file-error
 {
-	padding: 18px 15px	;
-	color: #721c24;
+	padding: 8px 8px;
+	color: red;
 	font-weight: 500;
-	background-color: #f9d9dc;
-	margin-top: 13px;
-	border-radius: 8px;	;
+	//background-color: #f9d9dc;
+	margin-top: 8px;
+	border-radius: 8px;	
 	border: 1px	 solid;
 }
 

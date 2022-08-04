@@ -257,7 +257,6 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       if(line.pendingQuantity != 0 ?? this.isIssuance) {
-        console.log("entered")
         formArray.push(this.fb.group({
           id: (this.isRequisition) ? 0 : line.id,
           itemId: [line.itemId , Validators.required],
@@ -297,8 +296,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       return;
     }
 
-    this.isLoading = true;
-    //console.log(this.issuanceModel)
+    //this.isLoading = true;
+    console.log(this.issuanceModel)
     if (this.issuanceModel.id) {
       this.issuanceService.updateIssuance(this.issuanceModel)
       .pipe(

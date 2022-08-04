@@ -9,6 +9,8 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { IUnitOfMeasurement } from '../model/IUnitOfMeasurement';
 import { UnitOfMeasurementService } from '../service/unit-of-measurement.service';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { IsReloadRequired } from '../../store/profiling.action';
+import { UnitOfMeasurementState } from '../store/unit.state';
 
 @Component({
   selector: 'kt-create-unit-of-measurement',
@@ -126,7 +128,7 @@ export class CreateUnitOfMeasurementComponent extends AppComponentBase implement
          })
        )
         .subscribe(() => {
-            //this.ngxsService.store.dispatch(new IsReloadRequired(unitOfMeasurementState, true))
+            this.ngxsService.store.dispatch(new IsReloadRequired(UnitOfMeasurementState, true))
             this.toastService.success('Updated Successfully', 'Unit Of Measurement')
             this.onCloseDialog();
           }

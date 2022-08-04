@@ -4,17 +4,20 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPurchaseOrder} from '../model/IPurchaseOrder';
 import { PurchaseOrderService} from '../service/purchase-order.service';
-import { finalize, groupBy, mergeMap, take, toArray } from 'rxjs/operators';
+import { finalize, map, take} from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import {  Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { BehaviorSubject, from, Observable, of, zip } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IPurchaseOrderLines } from '../model/IPurchaseOrderLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { RequisitionService } from '../../../procurement/requisition/service/requisition.service';
+import { IRequisition } from '../../../procurement/requisition/model/IRequisition';
+import { IRequisitionLines } from '../../../procurement/requisition/model/IRequisitionLines';
 
 @Component({
   selector: 'kt-create-purchase-order',
@@ -43,12 +46,13 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   @ViewChild('table', {static: true}) table: any;
 
   // purchaseOrderModel
-  purchaseOrderModel: IPurchaseOrder;
+  purchaseOrderModel: IPurchaseOrder | any;
 
   // For DropDown
   salesItem: IProduct[] = [];
 
-  isPurchaseOrder: any;
+  isPurchaseOrder: number;
+  isRequisition: number;
 
   // For Calculation
   grandTotal = 0 ;
@@ -99,6 +103,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
                private router: Router,
                private cdRef: ChangeDetectorRef,
                private poService: PurchaseOrderService,
+               private requisitionService: RequisitionService,
                public activatedRoute: ActivatedRoute,
                public productService: ProductService,
                public addButtonService: AddModalButtonService,
@@ -148,10 +153,15 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isPurchaseOrder = param.isPurchaseOrder;
+      this.isRequisition = param.isRequisition;
       if (id && this.isPurchaseOrder) {
         this.title = 'Edit Purchase Order'
         this.getPurchaseOrder(id);
         //this.getSalesOrder(id);
+      }
+      else if(id && this.isRequisition) {
+        this.title = 'Create Purchase Order'
+        this.getRequisition(id);
       }
     })
 
@@ -274,29 +284,57 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     });
   }
 
+  //Get Requisition Data for Purchase Order
+  private getRequisition(id: number) {
+    this.isLoading = true;
+   this.requisitionService.getRequisitionById(id)
+   .pipe(
+    take(1),
+    finalize(() => {
+      this.isLoading = false;
+      this.cdRef.detectChanges()
+    }),
+    map((x: any) => {
+      x.result.requisitionLines.map((line) => {
+        line.cost = this.salesItem?.find(i => i.id === line.itemId).purchasePrice;
+        line.tax = this.salesItem?.find(i => i.id === line.itemId).salesTax;
+        line.accountId = this.salesItem?.find(i => i.id === line.itemId).costAccountId;
+        line.subTotal = (line.cost * line.quantity) + ((line.cost * line.quantity) * (line.tax / 100))
+      })
+      return x
+   }),
+   )
+   .subscribe((res: IApiResponse<IRequisition | any>) => {
+      if (!res) {
+        return
+      }
+      this.editPurchaseOrder(res.result)
+    });
+  }
+
   //Edit purchase Order
-  editPurchaseOrder(purchaseOrder : IPurchaseOrder) {
+  editPurchaseOrder(purchaseOrder : IPurchaseOrder | IRequisition | any) {
     this.purchaseOrderForm.patchValue({
       vendorName: purchaseOrder.vendorId,
-      PODate: purchaseOrder.poDate,
+      PODate: purchaseOrder.poDate ?? purchaseOrder.requisitionDate,
       dueDate: purchaseOrder.dueDate,
-      contact: purchaseOrder.contact,
+      contact: purchaseOrder.contact ?? '',
       campusId: purchaseOrder.campusId
     });
 
     this.onCampusSelected(purchaseOrder.campusId)
     this.showMessage = true;
 
-    this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines));
+    this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines ?? purchaseOrder.requisitionLines));
     this.totalCalculation();
   }
 
   //Edit purchase Order Lines
-  editPurchaseOrderLines(purchaseOrderLines: IPurchaseOrderLines[]): FormArray {
+  editPurchaseOrderLines(purchaseOrderLines: IPurchaseOrderLines[] | IRequisitionLines[]): FormArray {
     const formArray = new FormArray([]);
-    purchaseOrderLines.forEach((line : IPurchaseOrderLines | any) => {
+    purchaseOrderLines.forEach((line : IPurchaseOrderLines | IRequisitionLines | any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isRequisition) ? 0 : line.id,
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
         cost: [line.cost, [Validators.required, Validators.min(1)]],
@@ -336,8 +374,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       }
 
       this.isLoading = true;
-      console.log(this.purchaseOrderModel)
-    if (this.purchaseOrderModel.id) {
+    if (this.purchaseOrderModel.id && !this.isRequisition) {
         this.poService.updatePurchaseOrder(this.purchaseOrderModel)
         .pipe(
           take(1),
@@ -353,6 +390,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
           })
       } else {
         delete this.purchaseOrderModel.id;
+        console.log(this.purchaseOrderModel)
         this.poService.createPurchaseOrder(this.purchaseOrderModel)
         .pipe(
           take(1),

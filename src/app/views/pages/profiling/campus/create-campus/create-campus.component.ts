@@ -42,12 +42,16 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   validationMessages = {
     name: {
       required: 'Name is required.',
+    },
+    address: {
+      required: 'Address is required.'
     }
   };
 
   //error keys
   formErrors = {
-    name: ''
+    name: '',
+    address: ''
   };
 
   constructor(private fb: FormBuilder,
@@ -63,7 +67,14 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     this.campusForm = this.fb.group({
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      address: ['', Validators.required],
+      phone: [''],
+      fax: [''],
+      website: [''],
+      salesTaxId: [''],
+      ntn: [''],
+      srb: ['']
     });
 
     if (this._id) {
@@ -75,6 +86,13 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
       this.campusModel = {
         id: null,
         name: '',
+        address: '',
+        phone: '',
+        fax: '',
+        website: '',
+        salesTaxId: '',
+        ntn: '',
+        srb: ''
       }
     }
 
@@ -103,7 +121,14 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   editCampus(campus: ICampus) {
     this.campusForm.patchValue({
       id: campus.id,
-      name: campus.name
+      name: campus.name,
+      address: campus.address,
+      phone: campus.phone,
+      fax: campus.fax,
+      website: campus.website,
+      salesTaxId: campus.salesTaxId,
+      ntn: campus.ntn,
+      srb: campus.srb,
     });
 
     //if user have no permission to edit, so disable all fields
@@ -155,6 +180,13 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
   // Mapping values from campus form to campus model
   mapFormValueToCampusModel() {
     this.campusModel.name = this.campusForm.value.name;
+    this.campusModel.address = this.campusForm.value.address;
+    this.campusModel.phone = this.campusForm.value.phone;
+    this.campusModel.fax = this.campusForm.value.fax;
+    this.campusModel.website = this.campusForm.value.website;
+    this.campusModel.salesTaxId = this.campusForm.value.salesTaxId;
+    this.campusModel.ntn = this.campusForm.value.ntn;
+    this.campusModel.srb = this.campusForm.value.srb;
   }
 
   reset() {

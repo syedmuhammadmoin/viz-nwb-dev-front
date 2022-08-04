@@ -17,8 +17,6 @@ import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
 import { IGRNLines } from '../model/IGRNLines';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchaseOrder';
-import { IssuanceService } from '../../issuance/service/issuance.service';
-import { IIssuance } from '../../issuance/model/IIssuance';
 
 @Component({
   selector: 'kt-create-grn',
@@ -62,6 +60,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // for Edit
   isGRN: any;
+
+  grnId: number;
 
   // For Calculation
   grandTotal = 0 ;
@@ -125,11 +125,9 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     });
 
     this.grnModel = {
-      id: null,
       vendorId: null,
       grnDate: null,
       contact: null,
-      issuanceId: null,
       purchaseOrderId: null,
       campusId: null,
       grnLines: []
@@ -156,18 +154,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
         this.getPurchaseOrder(id);
       } else if (id && this.isGRN) {
         this.title = 'Edit Goods Received Note'
+        this.grnId = +id;
         this.getGRN(id);
       }
     })
-  }
-
-  // Form Reset
-  reset() {
-    // const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
-    // grnLineArray.clear();
-    this.formDirective.resetForm();
-    this.showMessage = false;
-    this.table.renderRows();
   }
 
   // OnItemSelected
@@ -290,20 +280,22 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
      )
     .subscribe((res) => {
       if (!res) return
-      this.grnModel = res.result
-      this.patchGRN(this.grnModel)
+      this.patchGRN(res.result)
     });
   }
 
   //Patch GRN Form GRN Or purchase Order Master Data
   patchGRN(data: IPurchaseOrder | IGRN | any) {
-    console.log(data.employeeId)
     this.grnForm.patchValue({
       vendorName: data.vendorId ?? data.employeeId,
       grnDate: data.grnDate ?? data.poDate,
       campusId : data.campusId,
       contact: data.contact
     });
+
+    //setting id and purchaseOrderId
+    this.grnModel.id = this.grnId;
+    this.grnModel.purchaseOrderId = data.purchaseOrderId;
 
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
@@ -318,6 +310,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     Lines.forEach((line: IGRNLines | any , index: number) => {
     if(line.pendingQuantity !== 0) {
       formArray.push(this.fb.group({
+      id: (this.grnId) ? line.id : 0,
       itemId: [line.itemId, [Validators.required]],
       description: [line.description, Validators.required],
       cost: [line.cost, [Validators.required, Validators.min(1)]],
@@ -358,7 +351,9 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
     this.isLoading = true;
     console.log(this.grnModel)
-    if (this.grnModel.id && this.isGRN) {
+    // if (this.grnModel.id && this.isGRN) {
+      if (this.grnId) {
+      console.log("updated")
       this.grnService.updateGRN(this.grnModel)
       .pipe(
         take(1),
@@ -373,7 +368,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
           })
     } else if (this.isPurchaseOrder) {
-      delete this.grnModel.id;
+      console.log("created")
+
       this.grnService.createGRN(this.grnModel)
       .pipe(
         take(1),
@@ -392,12 +388,23 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // Mapping value to model
   mapFormValuesToGRNModel() {
-    this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId;
+    // this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId;
+    this.grnModel.vendorId = this.grnForm.getRawValue().vendorName;
     this.grnModel.grnDate = this.transformDate(this.grnForm.value.grnDate, 'yyyy-MM-dd');
     this.grnModel.contact = this.grnForm.value.contact;
     this.grnModel.campusId = this.grnForm.value.campusId;
     this.grnModel.purchaseOrderId = this.purchaseOrderMaster?.id || this.grnModel?.purchaseOrderId;
     this.grnModel.grnLines = this.grnForm.value.GRNLines;
+  }
+
+  // Form Reset
+  reset() {
+    const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    //grnLineArray.reset();
+    this.resetFields(this.grnForm , 'campusId', 'contact' , 'GRNLines');
+    //this.formDirective.resetForm();
+    this.showMessage = false;
+    this.table.renderRows();
   }
 
   canDeactivate(): boolean | Observable<boolean> {
