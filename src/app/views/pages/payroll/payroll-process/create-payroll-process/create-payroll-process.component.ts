@@ -27,7 +27,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   overlayLoadingTemplate;
   permissions = Permissions
   createPayrollProcessForm: FormGroup;
-  tooltipData = 'double click to edit'
+  //tooltipData = 'double click to edit'
 
   columnDefs = [
     {
@@ -57,22 +57,21 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Department',
       field: 'department',
-      suppressMenu: true,
-
+      suppressMenu: true
     },
 
     {
       headerName: 'Working Days',
       // editable: true,
       field: 'workingDays',
-      tooltipField: 'workingDays',
+      //tooltipField: 'workingDays',
       suppressMenu: true,
     },
     {
       headerName: 'Present Days',
       // editable: true,
       field: 'presentDays',
-      tooltipField: 'presentDays',
+      //tooltipField: 'presentDays',
       suppressMenu: true,
     },
     /*    {
@@ -160,10 +159,10 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       year: ['', Validators.required],
     })
 
-    this.defaultColDef = {
-      tooltipComponent: 'customTooltip'
-    }
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    // this.defaultColDef = {
+    //   tooltipComponent: 'customTooltip'
+    // }
+    //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.getLatestDepartments();
     this.ngxsService.getAccountPayableFromState();
@@ -260,19 +259,19 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.employeeList = []
   }
 
-  editPayrollTransaction(event: any) {
-    this.dialog.open(CreatePayrollTransactionComponent, {
-    // const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
-      width: '860px',
-      height: '700px',
-      data: event?.data?.id,
-      //panelClass: 'custom-modalbox'
-    });
-    // Recalling getBankAccounts function on dialog close
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.createProcess();
-    // });
-  }
+  // editPayrollTransaction(event: any) {
+  //   this.dialog.open(CreatePayrollTransactionComponent, {
+  //   // const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
+  //     width: '860px',
+  //     height: '700px',
+  //     data: event?.data?.id,
+  //     //panelClass: 'custom-modalbox'
+  //   });
+  //   // Recalling getBankAccounts function on dialog close
+  //   // dialogRef.afterClosed().subscribe(() => {
+  //   //   this.createProcess();
+  //   // });
+  // }
 
   getLatestDepartments(){
     this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))

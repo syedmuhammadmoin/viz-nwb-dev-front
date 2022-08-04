@@ -299,36 +299,34 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     //this.isLoading = true;
     console.log(this.issuanceModel)
     if (this.issuanceModel.id) {
-      console.log("updated")
-      // this.issuanceService.updateIssuance(this.issuanceModel)
-      // .pipe(
-      //   take(1),
-      //    finalize(() => {
-      //     this.isLoading = false;
-      //     this.cdRef.detectChanges();
-      //    })
-      //  )
-      //   .subscribe((res: IApiResponse<IIssuance>) => {
-      //     this.toastService.success('Updated Successfully', 'Issuance')
-      //     this.cdRef.detectChanges();
-      //     this.router.navigate(['/' + ISSUANCE.ID_BASED_ROUTE('details', this.issuanceModel.id)]);
-      //   })
+      this.issuanceService.updateIssuance(this.issuanceModel)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+        .subscribe((res: IApiResponse<IIssuance>) => {
+          this.toastService.success('Updated Successfully', 'Issuance')
+          this.cdRef.detectChanges();
+          this.router.navigate(['/' + ISSUANCE.ID_BASED_ROUTE('details', this.issuanceModel.id)]);
+        })
     } else {
-      console.log("created")
-      // delete this.issuanceModel.id;
-      // this.issuanceService.createIssuance(this.issuanceModel)
-      // .pipe(
-      //   take(1),
-      //    finalize(() => {
-      //     this.isLoading = false;
-      //     this.cdRef.detectChanges();
-      //    })
-      //  )
-      //   .subscribe((res: IApiResponse<IIssuance>) => {
-      //       this.toastService.success('Created Successfully', 'Issuance')
-      //       // this.router.navigate(['/' + issuance.LIST])
-      //       this.router.navigate(['/' + ISSUANCE.ID_BASED_ROUTE('details', res.result.id)]);
-      //     });
+      delete this.issuanceModel.id;
+      this.issuanceService.createIssuance(this.issuanceModel)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+        .subscribe((res: IApiResponse<IIssuance>) => {
+            this.toastService.success('Created Successfully', 'Issuance')
+            // this.router.navigate(['/' + issuance.LIST])
+            this.router.navigate(['/' + ISSUANCE.ID_BASED_ROUTE('details', res.result.id)]);
+          });
     }
   }
 
