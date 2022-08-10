@@ -70,12 +70,12 @@
                     </tr>
                     <tr *ngFor="let detail of goodsReturnNoteLines ; index as i">
                       <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{i + 1}}</td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.itemId}}</td>
+                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.item}}</td>
                       <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{detail?.description}}</td>
                       <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{detail?.quantity}}</td>
                       <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{valueFormatter(detail?.cost)}}</td>
                       <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{detail?.tax + '%'}}</td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.warehouseId}}</td>
+                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.warehouse}}</td>
                       <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #1a6b85; "><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                     </tr>
                     

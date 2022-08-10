@@ -205,7 +205,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     // const vendorBillLineArray = this.vendorBillForm.get('vendorBillLines') as FormArray;
     // vendorBillLineArray.clear();
     this.formDirective.resetForm();
-    this.totalBeforeTax = this.grandTotal = this.totalTax = 0;
+    this.totalBeforeTax = this.grandTotal = this.totalTax = this.taxes = this.otherTaxes = 0;
     this.showMessage = false;
     this.table.renderRows();
   }
