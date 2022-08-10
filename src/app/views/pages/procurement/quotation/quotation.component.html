@@ -224,7 +224,7 @@
                                 <mat-header-cell *matHeaderCellDef> SubTotal </mat-header-cell>
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element">
                                     <mat-form-field class="mobile-label">
-                                        <input matInput formControlName="subTotal" [id]="'subTotal'+i">
+                                        <input matInput formControlName="subTotal" placeholder="Subtotal" [id]="'subTotal'+i">
                                     </mat-form-field>
                                 </mat-cell>
                             </ng-container>
