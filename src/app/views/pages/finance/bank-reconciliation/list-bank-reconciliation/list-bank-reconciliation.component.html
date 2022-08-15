@@ -21,7 +21,7 @@
                       <kt-simple-dropdown searchPlaceholder="Search Bank..." placeholder="Select Bank"
                         formControlName="bankName" id="reconciliation_bankName"
                         (blurEvent)="logValidationErrors(this.reconForm, this.formErrors, this.validationMessages)"
-                        propertyValue="id" propertyName="bankName" matFormFieldClass="full-width" [errorMessage]="formErrors.bankName"
+                        propertyValue="id" propertyName="accountTitle" matFormFieldClass="full-width" [errorMessage]="formErrors.bankName"
                         [optionList]="ngxsService.bankAccounts$"></kt-simple-dropdown>
                     </div>
                   </div>
