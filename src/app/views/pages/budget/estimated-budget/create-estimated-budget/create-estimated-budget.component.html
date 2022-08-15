@@ -11,7 +11,7 @@
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Budget:</label>
+                    <label class="col-form-label pt-0">Estimated Budget:</label>
                     <kt-simple-dropdown 
                     id="budget_name"
                     formControlName="budgetId" 
@@ -22,8 +22,8 @@
                     propertyValue="id" 
                     [errorMessage]="formErrors.budgetId"
                     [optionList]="ngxsService.budgets$"
-                    searchPlaceholder="Search Budget..."
-                    placeholder="Select Budget">
+                    searchPlaceholder="Search Estimated Budget..."
+                    placeholder="Select Estimated Budget">
                   </kt-simple-dropdown>
                   </div>
                 </div>
