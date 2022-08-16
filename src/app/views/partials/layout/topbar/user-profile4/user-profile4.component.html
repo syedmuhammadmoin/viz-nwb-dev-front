@@ -1,8 +1,12 @@
 <ng-container *ngIf="user as _user">
 	<div class="topbar-item" data-placement="bottom" autoClose="outside" class="dropdown dropdown-fluid mt-3">
 		<div ngbDropdown placement="bottom-right" class="d-inline-block">
-			<button class="btn " id="dropdownBasic2" ngbDropdownToggle style="font-size: 16px;color: #48899d;"><i class="fa fa-user" style="background-color: #1a6b85; color: white;padding: 8px;font-size: 10px; border-radius: 20px;"></i> Hi, <b>{{ _user.fullname || 'User'}} </b> <i class="fa fa-angle-down ml-1"></i></button>
-			<div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up  show" aria-labelledby="dropdownBasic2" style="width: 250px; top: 5px;">
+			<button class="btn header-user-name " id="dropdownBasic2" ngbDropdownToggle>
+				<i class="fa fa-user header-user-icon"></i>
+				 Hi, <b>{{ _user.fullname || 'User'}} </b> 
+				 <i class="fa fa-angle-down ml-1 header-user-dropdown"></i>
+				</button>
+			<div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up  show header-user-dropdown" aria-labelledby="dropdownBasic2" style="width: 250px; top: 5px;">
 				<div class="offcanvas-content   " >
 					<div >
 						<div class="">
@@ -16,7 +20,7 @@
 										<span>AB</span></div>
 										<div class="user-info">
 											<span class="lead-text">User</span>
-											<span class="sub-text">info@sbbu.edu.pk</span>
+											<span class="sub-text">info@Edinfini.edu.pk</span>
 										</div>
 									</div>
 
@@ -35,12 +39,12 @@
 											</a>
 										</li> -->
 										<li class="list-group-item" style="padding: 14px;">
-											<a (click)="changePassword()" class="" style="color:#1a6b85; cursor: pointer;">
+											<a (click)="changePassword()" class="header-changePassword">
 												<i class="fa fa-key mr-1" aria-hidden="true"></i> Change Password
 											</a>
 										</li>
 										<li class="list-group-item" style="padding: 14px;">
-											<a (click)="logout()" class="" style="color:#1a6b85; cursor: pointer;">
+											<a (click)="logout()" class="header-changePassword">
 												<i class="fas fa-sign-out-alt  mr-1"></i> Sign Out
 											</a>
 										</li>

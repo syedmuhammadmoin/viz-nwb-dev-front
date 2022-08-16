@@ -1,136 +1,138 @@
 <div class="container " >
-    <div class="col-lg-10 mx-auto text-right">
-      <div class="row">
-        <button
-          printSectionId="main"
-          printTitle="Goods Return Note"
-          id="goodsReturnNote_print"
-          ngxPrint
-          type="button"
-          mat-raised-button
-          [useExistingCss]="true"
-          class="sub___btn"
-          style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
-        </button>
-      </div>
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button
+        printSectionId="main"
+        printTitle="Goods Return Note"
+        id="goodsReturnNote_print"
+        ngxPrint
+        type="button"
+        mat-raised-button
+        [useExistingCss]="true"
+        class="sub___btn"
+        style="margin-bottom: 20px;"><i class="fas fa-print" style="color:#fff;"></i> Print
+      </button>
     </div>
-    <div class="col-lg-10 mx-auto" id="main">
-      <div class="row">
-        <div class="bg-white">
-  
-          <div class="print_header_area">
-            <div class="print-col-6">
-              <div class="logo_and_title">
-                <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
-                <span class="top-heading">Goods Return Note</span>
-              </div>
-              
+  </div>
+  <div class="col-lg-10 mx-auto" id="main">
+    <div class="row">
+      <div class="bg-white" style="border-bottom: 5px solid #65c18c;">
+
+        <div class="print_header_area"
+      style="width: 100%; display: flex; flex-wrap: nowrap; background-color: rgba(101, 193, 140, 0.2);
+             padding: 15px; border-bottom: 5px solid #65c18c; border-top-left-radius: 10px; border-top-right-radius: 10px;"
+      >
+          <div class="print-col-6">
+            <div class="logo_and_title">
+              <img src="../../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png" style="height: 44px;" width="110px" alt="">
+              <span class="top-heading" style="color: #65c18c ;">Goods Return Note</span>
             </div>
-            <div class="print-col-5 ml-auto">
-              <div class="id_num">
-                <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #fff;">Document No: <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.docNo}}</span></h4>
-                  <p style="margin-bottom: 0px;"></p>
-                </div>
-                <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #fff;margin-top: 10px;">GRN Date: <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.returnDate | date: 'MMM d, y'}}</span></h4>
-                </div>
+            
+          </div>
+          <div class="print-col-5 ml-auto">
+            <div class="id_num">
+              <div class="print-box">
+                <h4 class="printout0-date" style="font-size: 12px; letter-spacing: 3px; font-weight: 600; color: #65c18c; margin-top: 10px;">Document No: <span style="font-weight: 400;" class="float-right">{{goodsReturnNoteMaster?.docNo}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
               </div>
-              
+              <div class="print-box">
+                <h4 class="printout0-date" style="font-size: 12px; letter-spacing: 3px; font-weight: 600; color: #65c18c; margin-top: 10px;">GRN Date: <span style="font-weight: 400;" class="float-right">{{goodsReturnNoteMaster?.returnDate | date: 'MMM d, y'}}</span></h4>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        
+        <div class="print_body_area">
+
+          <div class="print-col-5" style="margin-top: 3%;">
+            
+            <div class="print-box" >
+              <h4 style="font-size: 22px;font-weight: 600;color: #65c18c">{{goodsReturnNoteMaster?.vendorName}}</h4>
+              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
+              <p style="font-size: 15px;font-weight: 400;color: #65c18c">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
-  
-          
-          <div class="print_body_area">
-  
-            <div class="print-col-5" style="margin-top: 3%;">
-              
-              <div class="print-box" >
-                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">{{goodsReturnNoteMaster?.vendorName}}</h4>
-                <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-                <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
-              </div>
-            </div>
-  
-            <div class="print-col-12" style="margin-top: 3%;">
-              <div class="table-responsive">
-                <table class="table " style="background-color: #fff;">
-                  <thead class="thead-dark_color">
-                    <tr style="background-color: #eaf2f4;">
-                      <th style="background-color: #eaf2f4; ">S.No</th>
-                      <th style="background-color: #eaf2f4; ">Item</th>
-                      <th style="background-color: #eaf2f4; ">Description</th>
-                      <th  style="background-color: #eaf2f4; ">Quantity</th>
-                      <th  style="background-color: #eaf2f4; ">Cost</th>
-                      <th  style="background-color: #eaf2f4; ">Tax</th>
-                      <th  style="background-color: #eaf2f4; ">Store</th>
-                      <th  class="text-center" style="background-color: #eaf2f4; ">SubTotal</th>
-                      
-                      
-                    </tr>
-                    <tr *ngFor="let detail of goodsReturnNoteLines ; index as i">
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{i + 1}}</td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.item}}</td>
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{detail?.description}}</td>
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{detail?.quantity}}</td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{valueFormatter(detail?.cost)}}</td>
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{detail?.tax + '%'}}</td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{detail?.warehouse}}</td>
-                      <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #1a6b85; "><b>{{valueFormatter(detail?.subTotal)}}</b></td>
-                    </tr>
+
+          <div class="print-col-12" style="margin-top: 3%;">
+            <div class="table-responsive">
+              <table class="table " style="background-color: #fff; color: #65c18c;">
+                <thead class="thead-dark_color">
+                  <tr style="background-color: rgba(101, 193, 140, 0.2)">
+                    <th style="background-color: rgba(101, 193, 140, 0.2) ">S.No</th>
+                    <th style="background-color: rgba(101, 193, 140, 0.2) ">Item</th>
+                    <th style="background-color: rgba(101, 193, 140, 0.2) ">Description</th>
+                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Quantity</th>
+                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Cost</th>
+                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Tax</th>
+                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Store</th>
+                    <th  class="text-center" style="background-color: rgba(101, 193, 140, 0.2) ">SubTotal</th>
                     
-                  </thead>
-                </table>
-              </div>
+                    
+                  </tr>
+                  <tr *ngFor="let detail of goodsReturnNoteLines ; index as i">
+                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;">{{i + 1}}</td>
+                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{detail?.itemId}}</td>
+                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;"> {{detail?.description}}</td>
+                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;">{{detail?.quantity}}</td>
+                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{valueFormatter(detail?.cost)}}</td>
+                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;"> {{detail?.tax + '%'}}</td>
+                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{detail?.warehouseId}}</td>
+                    <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #65c18c; "><b>{{valueFormatter(detail?.subTotal)}}</b></td>
+                  </tr>
+                  
+                </thead>
+              </table>
             </div>
-  
-  
-            <!-- <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
-  
-              <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Before Tax:
-                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(goodsReturnNoteMaster?.totalBeforeTax)}}</span>
-                </h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Tax:
-                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(goodsReturnNoteMaster?.totalTax)}}</span>
-                </h4>
-              </div>
-      
-              <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
-                padding-top: 10px;">Grand Total:
-                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(goodsReturnNoteMaster?.totalAmount)}}</span>
-                </h4>
-              </div>
-            </div> -->
-  
-  
-            <div class="print-col-12" style=" margin-top: 2%;">
-              
-              <div class="print-box">
-                <p style="font-size: 18px;
-              font-weight: 500;">Terms and conditions:</p>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 14px;line-height:18px;font-weight: 100;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                </h4>
-              </div>
-  
-              <div class="print-box" style="margin-top: 25px;">
-                <p style="
-                font-family: inherit; font-weight: bold;
-                font-size: 22px;">Thankyou for your Business</p>
-              </div>
+          </div>
+
+
+          <!-- <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
+
+            <div class="print-box">
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Before Tax:
+                <span class="float-right" style="font-weight: 500;">{{valueFormatter(goodsReturnNoteMaster?.totalBeforeTax)}}</span>
+              </h4>
             </div>
-            <div class="print-col-4" style=" margin-top: 8%;color: #1a6b85;">
-              _________________________________
-              <p class="text-center">Authorised Sign</p>
+            <div class="print-box">
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Tax:
+                <span class="float-right" style="font-weight: 500;">{{valueFormatter(goodsReturnNoteMaster?.totalTax)}}</span>
+              </h4>
             </div>
+    
+            <div class="print-box">
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
+              padding-top: 10px;">Grand Total:
+                <span class="float-right" style="font-weight: 500;">{{valueFormatter(goodsReturnNoteMaster?.totalAmount)}}</span>
+              </h4>
+            </div>
+          </div> -->
+
+
+          <div class="print-col-12" style=" margin-top: 2%;">
+            
+            <div class="print-box">
+              <p style="font-size: 18px;
+            font-weight: 500; color: #65c18c;">Terms and conditions:</p>
+            </div>
+            <div class="print-box">
+              <h4 style="font-size: 14px;line-height:18px;font-weight: 100; color: #65c18c;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              </h4>
+            </div>
+
+            <div class="print-box" style="margin-top: 25px;">
+              <p style="
+              font-family: inherit; font-weight: bold;
+              font-size: 22px; color: #65c18c;">Thankyou for your Business</p>
+            </div>
+          </div>
+          <div class="print-col-4" style=" margin-top: 8%;color: #65c18c;">
+            _________________________________
+            <p class="text-center">Authorised Sign</p>
           </div>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

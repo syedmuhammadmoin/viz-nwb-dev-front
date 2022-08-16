@@ -1,4 +1,4 @@
- <div [ktBusy]="isLoading">
+<div [ktBusy]="isLoading">
   <kt-portlet>
     <kt-portlet-header [sticky]="false" [title]="'purchase Order Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
@@ -17,7 +17,7 @@
                 <button *ngIf="(purchaseOrderMaster?.state === docStatus.Draft || purchaseOrderMaster?.state === docStatus.Rejected) &&(permission.isGranted(permissions.PURCHASEORDER_EDIT))" 
                   id="purchase_edit" [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('edit',purchaseOrderMaster?.id) "
                   [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" class="btn_public mr-3">
-                  <i class="fa fa-edit"></i> Edit
+                  <i class="fa fa-edit" style="color:#65c18c;"></i> Edit
                 </button>
 
                 <button *ngIf="purchaseOrderMaster?.state === docStatus.Unpaid || purchaseOrderMaster?.state === docStatus.Partial"
@@ -25,49 +25,49 @@
                   [ngClass]="!(permission.isGranted(permissions.GRN_CREATE)) ? 'disable' : '' "
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.CREATE"
                   [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" class="btn_public ">
-                  <i class="fa fa-edit"></i> Create GRN
+                  <i class="fa fa-edit" style="color:#65c18c;"></i> Create GRN
                 </button> 
 
                 <button *ngIf="(permission.isGranted(permissions.PURCHASEORDER_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print" style="color:#65c18c;"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('print',purchaseOrderMaster?.id) " id="purchase_print" type="button" class="btn_public">
-                  <i class="fa fa-print"></i> Print Purchase Order
+                  <i class="fa fa-print" style="color:#65c18c;"></i> Print Purchase Order
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
           </div>
 
-          <div class="col-md-4 col-lg-4  mt-3">
+          <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Doc No: 
-                    <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.docNo}}</span></h4>
+                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">Doc No: 
+                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{purchaseOrderMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
-                    <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.vendorName}}</span></h4>
+                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Vendor Name:
+                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{purchaseOrderMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">P.O Date:
-              <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.poDate | date: 'MMM d, y'}}</span></h4>
-            </div>
-
-            <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Due Date:
-              <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
+              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">P.O Date:
+              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{purchaseOrderMaster?.poDate | date: 'MMM d, y'}}</span></h4>
             </div>
 
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Contact:
-              <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.contact ? purchaseOrderMaster?.contact : "-"}}</span></h4>
+              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Due Date:
+              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{purchaseOrderMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
+            </div>
+
+            <div class="print-box">
+              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Contact:
+              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{purchaseOrderMaster?.contact ? purchaseOrderMaster?.contact : "-"}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
-              <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.campusName ? purchaseOrderMaster?.campusName : "-"}}</span></h4>
+              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Campus:
+              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{purchaseOrderMaster?.campusName ? purchaseOrderMaster?.campusName : "-"}}</span></h4>
             </div>
           </div>
         </div>
@@ -88,20 +88,20 @@
           </div>
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" style="margin: 0px -6px;">
+            <table class="table  small_table_box" style="margin: 0px -6px; color: #65c18c;">
               <tr>
-                <td class="text-left" style="width: 70%;">Total Before Tax:</td>
-                <td class="text-right" >
+                <td class="text-left Total-Before-Tax-heading">Total Before Tax:</td>
+                <td class="text-right Total-Before-Tax" >
                   {{valueFormatter(totalBeforeTax || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left">Total Tax:</td>
-                <td class="text-right" >
+                <td class="text-left Total-Before-Tax-heading">Total Tax:</td>
+                <td class="text-right Total-Before-Tax" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #1a6b85;">
-                <th class="text-left">Grand Total:</th>
-                <th class="text-right" >
+              <tr style="border-top: 2px solid #65c18c;">
+                <th class="text-left Total-Before-Tax-heading-last">Grand Total:</th>
+                <th class="text-right Total-Before-Tax" >
                   {{valueFormatter(total || 0)}}</th>
               </tr>
 
@@ -110,11 +110,11 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                        <mat-panel-title style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold;">
                           References 
                         </mat-panel-title>
-                        <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                        <!-- <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold; flex-grow: 0;">
                           {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description> -->

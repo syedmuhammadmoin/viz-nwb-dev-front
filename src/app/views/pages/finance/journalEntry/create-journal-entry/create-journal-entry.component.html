@@ -56,7 +56,7 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> COA</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-simple-dropdown placeholder="Select Detailed Head" propertyValue="id" propertyName="name"
+                            <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
                               formControlName="accountId" matFormFieldClass="full-width" [id]="'journal_coa_' + i"
                               [errorMessage]="'Account is required.'" [optionList]="ngxsService.accountsLevel4$">
                             </kt-simple-dropdown>
@@ -99,21 +99,21 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Debit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-input-field formControlName="debit" matFormFieldClass="full-width"
+                            <!-- <kt-input-field formControlName="debit" matFormFieldClass="full-width"
                               placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_debit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.touched , 
                                                       error : 'Debit is required' }]">
-                            </kt-input-field>
-                            <!-- <mat-form-field appearance="outline" class="full-width">
+                            </kt-input-field> -->
+                            <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="debit" placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" 
                               [id]="'journal_debit_' + i" type="number" (blur)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)">
                               <mat-error *ngIf="journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
                                     journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.touched">
                                 <strong>Debit is required</strong>
                               </mat-error>
-                            </mat-form-field> -->
+                            </mat-form-field>
                           </div>
                         </mat-cell>
                       </ng-container>
@@ -122,21 +122,21 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Credit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-input-field formControlName="credit" matFormFieldClass="full-width"
+                            <!-- <kt-input-field formControlName="credit" matFormFieldClass="full-width"
                               placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_credit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.touched , 
                                                       error : 'Credit is required' }]">
-                            </kt-input-field>
-                            <!-- <mat-form-field appearance="outline" class="full-width">
+                            </kt-input-field> -->
+                            <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="credit" placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" 
                               [id]="'journal_credit_' + i" type="number" (blur)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)">
                               <mat-error *ngIf="journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
                                     journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.touched">
                                 <strong>Credit is required</strong>
                               </mat-error>
-                            </mat-form-field> -->
+                            </mat-form-field>
                           </div>
                         </mat-cell>
                       </ng-container>
@@ -225,7 +225,7 @@
 
             <div class="row">
               <div class="col-md-6 col-6 text-center ml-auto " >
-                <div class="" style="background-color: whitesmoke; color: #1a6b85; padding: 10px 0px; font-size: 15px;">
+                <div class="Total-Debit">
                   <span class="mr-3"><strong>Total Debit</strong> <span> {{debitTotal.toLocaleString(undefined,
                     { maximumFractionDigits: 2 })}}</span>
                   </span>

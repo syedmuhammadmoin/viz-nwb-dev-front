@@ -1,78 +1,78 @@
 <div [ktBusy]="isLoading">
-    <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Anticipated Budget Detail'" [class]="'card-head-lg'">
-        <ng-container ktPortletTools>
-          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          
-        </ng-container>
-      </kt-portlet-header>
-      <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-  
-          <div class="row">
+  <kt-portlet>
+    <kt-portlet-header [sticky]="false" [title]="'Estimated Budget Detail'" [class]="'card-head-lg'">
+      <ng-container ktPortletTools>
+        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+        
+      </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
 
-            <div class="col-md-12 col-12 pb-3">
-              <ng-container ktPortletTools >
+        <div class="row">
 
-                  <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
-                    [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
-                    type="button" class="btn_public">
-                    <i class="fa fa-edit"></i> Edit
-                  </button>
+          <div class="col-md-12 col-12 pb-3">
+            <ng-container ktPortletTools >
 
-                  <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" 
-                    class="btn_public mr-3">
-                    <i class="fa fa-print"></i> Print Anticipated Budget
-                  </button>
+                <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
+                  [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
+                  type="button" class="btn_public">
+                  <i class="fa fa-edit" style="color:#65c18c;"></i> Edit
+                </button>
 
-                  <mat-divider class="mt-5"></mat-divider>
-              </ng-container>
+                <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" 
+                  class="btn_public mr-3">
+                  <i class="fa fa-print" style="color:#65c18c;"></i> Print Estimated Budget
+                </button>
+
+                <mat-divider class="mt-5"></mat-divider>
+            </ng-container>
+          </div>
+
+          <div class="col-md-5 col-lg-5  mt-3">
+
+            <div class="print-box">
+                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">From Date:
+                    <span class="float-right" style="font-weight: 400; font-size: 12px; ">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
             </div>
-
-            <div class="col-md-4 col-lg-4  mt-3">
-
-              <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">From Date:
-                      <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
-                  <p style="margin-bottom: 0px;"></p>
-              </div>
-              <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">To Date:
-                      <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Estimated <br> Budget Name:
-                <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
-              </div>
-              
+            <div class="print-box">
+                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">To Date:
+                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
             </div>
-
+            <div class="print-box">
+              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Estimated <br> Budget Name:
+              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
+            </div>
             
           </div>
-  
-          <div class="row mt-10">
-            <div class="col-md-12 col-12">
-              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
-                class="ag-theme-alpine" [rowData]="estimatedBudgetLines" [columnDefs]="columnDefs"
-                (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
-              </ag-grid-angular>
-            </div>
-          </div>
-  
-          <!-- <div class="row mt-5">
-            <div class="col-lg-4 ml-auto">
-              <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
-                <tr>
-                  <th class="text-right"
-                    style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Total Amount :
-                  </th>
-                  <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
-                    {{valueFormatter(totalAmount || 0)}}</td>
-                </tr>
-              </table>
-            </div>
-          </div> -->
+
+          
         </div>
-      </kt-portlet-body>
-    </kt-portlet>
-  </div>
+
+        <div class="row mt-10">
+          <div class="col-md-12 col-12">
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
+              class="ag-theme-alpine" [rowData]="estimatedBudgetLines" [columnDefs]="columnDefs"
+              (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+            </ag-grid-angular>
+          </div>
+        </div>
+
+        <!-- <div class="row mt-5">
+          <div class="col-lg-4 ml-auto">
+            <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
+              <tr>
+                <th class="text-right"
+                  style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Total Amount :
+                </th>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(totalAmount || 0)}}</td>
+              </tr>
+            </table>
+          </div>
+        </div> -->
+      </div>
+    </kt-portlet-body>
+  </kt-portlet>
+</div>
