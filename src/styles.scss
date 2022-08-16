@@ -66,13 +66,12 @@
 //   @import "./assets/sass/themes/layout/aside/light.scss";
 // }
 
-$bg-gradient-color: linear-gradient(to right, #1a6b85, #4a8a9e);
+// $bg-gradient-color: linear-gradient(to right, #1a6b85, #4a8a9e);
 // $New-bg-gradient-color: linear-gradient(to right, rgba(101, 193, 140, .2), #65c18c );
-$New-bg-gradient-color: linear-gradient(to right, rgba(0, 0, 0, 0.6), #65c18c );
+$New-bg-gradient-color: linear-gradient(to right, #769157, #65c18c );
 $bg-white: #fff;
 $text-color:#1a6b85;
 $New-primary-color:#65c18c;
-// $New-primary-light-color:rgba(101, 193, 140, 0.1);
 $New-primary-light-color:#F3F6F9;
 $New-primary-light-color-1:rgba(101, 193, 140, 0.1);
 $New-primary-light-color-2:rgba(101, 193, 140, 0.2);
@@ -95,14 +94,19 @@ body
   color: $New-primary-color !important;
 }
 
-// sidebar css
-#kt_aside_menu_wrapper{
-  background-color: $New-primary-color !important; /* For browsers that do not support gradients */
-	background-image: $bg-gradient-color;
+.app-text-primary
+{
+  color: $New-primary-color !important;
 }
+
+// sidebar css
+// #kt_aside_menu_wrapper{
+//   background-color: $New-primary-color !important; 
+//   /* For browsers that do not support gradients */
+// }
 #kt_aside_menu{
   background-color: $New-primary-color !important; /* For browsers that do not support gradients */
-	background-image: $New-bg-gradient-color;
+	// background-image: $New-bg-gradient-color;
  height: 90vh !important;
 }
 .brand-dark .brand{
@@ -707,7 +711,7 @@ background-color: $New-primary-color !important;
 
 .aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow
 {
-  color: $New-Secondary-color;
+  color: #fff;
 }
 
 .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-bullet.menu-bullet-dot > span, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span
@@ -1375,3 +1379,14 @@ i {
 .small_table_box {
 		color: $New-primary-color !important;
 }
+
+
+
+
+
+
+
+// .aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow
+// {
+//   color: #fff;
+// }

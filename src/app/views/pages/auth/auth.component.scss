@@ -41,17 +41,17 @@ kt-auth, .login {
  	}
 }
 
-kt-login, kt-register, kt-forgot-password {
-	-webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-	flex: 1 0 auto;
-	height: 100%;
-	display: flex !important;
-}
+// kt-login, kt-register, kt-forgot-password {
+// 	-webkit-box-pack: center;
+//     -ms-flex-pack: center;
+//     justify-content: center;
+//     -webkit-box-align: center;
+//     -ms-flex-align: center;
+//     align-items: center;
+// 	flex: 1 0 auto;
+// 	height: 100%;
+// 	display: flex !important;
+// }
 
 .height-100 {
 	height: 100%;
@@ -287,23 +287,18 @@ button:focus {
 }
 .form-left-div-bg
 {
-	//background-color: indigo;
-	// background-color: #1a6b85 !important;
-	// background-image:  linear-gradient(to right, #1a6b85, #4a8a9e) !important;
+	
 	text-align:center;
 	padding-top: 20px;
 	padding-bottom: 20px;
 	color: white;
-	// box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.22);
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-	// border-radius: 10px;
-	min-height: 70vh;
-	// background-image: url('../../../../assets/media/logos/bg_login.jpg');
+	min-height: 100vh;
 	background-image: url('../../../../assets/media/Login/edinfini-login-image.jpg');
 	background-size: cover;
 	background-position: center;
-	justify-content: right;
-	align-items: flex-end;
+	// justify-content: right;
+	// align-items: flex-end;
 	border-radius: 5px;
 	
 }
@@ -450,7 +445,7 @@ button:focus {
 .group__sty input
 {
 	background-color: #f2f2f2;
-	padding: 15px;
+	padding: 20px;
 	// border-radius: 0px 20px 20px 0px;
 	border: 1px solid #d0d0d0;
 }
@@ -460,12 +455,10 @@ button:focus {
 	
 	padding: 10px;
 	text-transform: uppercase;
-	letter-spacing: 5px;
-	text-shadow: 3px 3px rgba(20, 30, 39, 0.3)
-	;
+	// letter-spacing: 5px;
 	font-size: 45px;
 	color: #65c18c;
-	letter-spacing: .15em;
+	// letter-spacing: .15em;
 	
 }
 
@@ -501,4 +494,9 @@ button:focus {
 .error_msg_pass i
 {
   font-size: 12px;
+}
+
+.form-control:focus
+{
+	border-color: #65c18c;
 }
