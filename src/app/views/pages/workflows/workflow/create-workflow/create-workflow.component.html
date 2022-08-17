@@ -10,7 +10,7 @@
               <div class="row " >
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <label class="col-form-label">Workflow Name:</label>
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <kt-input-field
                     id="workflow_name"
                     formControlName="name"
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <label class="col-form-label">Document Type:</label>
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <kt-simple-dropdown 
                       formControlName="docType"
                       id="workflow_document"
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <label class="col-form-label">Active:</label>
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <kt-simple-dropdown 
                     id="workflow_active"
                       formControlName="isActive" 
@@ -58,7 +58,7 @@
               <!--WORKFLOW LINES-->
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="example-container mat-elevation-z8">
+                  <div >
                     <ng-container formArrayName="workflowLines">
                       <mat-table #table [dataSource]="workflowForm.get('workflowLines')['controls']">
                         <!-- Description Column -->
@@ -161,8 +161,8 @@
         </div>
 
         <mat-divider class="mt-10"></mat-divider>
-        <div class="kt-portlet__foot mt-lg-n5">
-          <div class="kt-form__actions kt-form__actions">
+        <div class="kt-portlet__foot p-5">
+          <div class="kt-form__actions kt-form__actions mb-0">
             <div class="row text-right">
               <div *ngIf="showButtons" class="col-lg-12">
                 <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="workflow_reset">Reset

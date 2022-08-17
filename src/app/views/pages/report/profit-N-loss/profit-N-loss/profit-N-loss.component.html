@@ -7,7 +7,7 @@
           <!-- region First Row -->
           <div class="row">
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Start Date:</label>
                 <kt-date-input formControlName="docDate" placeholder="Enter From Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.profitNLossForm, formErrors, validationMessages)"
@@ -16,7 +16,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input formControlName="docDate2" placeholder="Enter To Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.profitNLossForm, formErrors, validationMessages)"
@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
                 <kt-simple-dropdown id="profit_account" formControlName="accountName" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
@@ -36,7 +36,7 @@
           </div>
           <div class="row">
             <!-- <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Department:</label>
                 <kt-simple-dropdown formControlName="department" matFormFieldClass="full-width"
                   placeholder="Select Department" [optionList]="ngxsService.departments$"
@@ -45,7 +45,7 @@
               </div>
             </div> -->
             <!-- <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Location:</label>
                  <kt-simple-dropdown formControlName="location" matFormFieldClass="full-width"
                   placeholder="Select Location" [optionList]="ngxsService.locations$"
@@ -54,7 +54,7 @@
               </div>
             </div> -->
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Business Partner:</label>
                 <kt-simple-dropdown id="profit_partner" formControlName="businessPartner" matFormFieldClass="full-width" hintText="Optional"
                   placeholder="Select Business Partner" [optionList]="ngxsService.businessPartners$" isDisabledNone="true"
@@ -63,7 +63,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="profit_campus" formControlName="campus" matFormFieldClass="full-width" hintText="Optional"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" isDisabledNone="true"
@@ -72,7 +72,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Store:</label>
                 <kt-simple-dropdown id="profit_store" formControlName="warehouse" matFormFieldClass="full-width" hintText="Optional"
                   placeholder="Select Store" [optionList]="ngxsService.warehouses$" isDisabledNone="true"
@@ -85,7 +85,7 @@
           <!-- region Second Row -->
           <div class="row">
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-3">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="profit_reset">Reset</button>
                 <button *ngIf="!disability" class="mr-3 sub___btn" (click)="printProfitNLoss(rowData)" 
                      mat-raised-button id="profit_print" type="button">Print

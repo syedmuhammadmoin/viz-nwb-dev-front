@@ -7,7 +7,7 @@
           <!-- region First Row -->
           <div class="row">
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Start Date:</label>
                 <kt-date-input formControlName="docDate" placeholder="Enter From Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.trialBalanceForm, formErrors, validationMessages)"
@@ -17,7 +17,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input formControlName="docDate2" placeholder="Enter To Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.trialBalanceForm, formErrors, validationMessages)"
@@ -27,7 +27,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
                 <kt-simple-dropdown id="trial_account" formControlName="accountName" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
@@ -37,7 +37,7 @@
           </div>
           <div class="row">
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="trial_campus" formControlName="campusName" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" hintText="Optional"
@@ -47,7 +47,7 @@
           </div>
           <!-- <div class="row">
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Department:</label>
                 <kt-simple-dropdown formControlName="department" matFormFieldClass="full-width"
                   placeholder="Select Department" 
@@ -58,7 +58,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Location:</label>
                  <kt-simple-dropdown formControlName="location" matFormFieldClass="full-width"
                   placeholder="Select Location" 
@@ -68,7 +68,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Warehouse:</label>
                 <kt-simple-dropdown formControlName="warehouse" matFormFieldClass="full-width"
                   placeholder="Select Warehouse" 
@@ -82,7 +82,7 @@
           <!-- region Second Row -->
           <div class="row">
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mb-3">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <button class="mr-3 btn_white" mat-raised-button type="button" id="trial_reset" (click)="reset()">Reset</button>
                 <button *ngIf="!disability" class="mr-3 sub___btn" (click)="printTrialBalance(rowData)" 
                      mat-raised-button id="trial_print" type="button">Print</button>

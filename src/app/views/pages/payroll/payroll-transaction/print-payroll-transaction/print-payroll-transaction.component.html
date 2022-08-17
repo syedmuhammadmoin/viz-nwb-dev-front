@@ -46,9 +46,9 @@
           <div class="print-col-5" style="margin-top: 3%;">
             
             <div class="print-box" >
-              <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">{{payrollTransactionMaster?.employee}}</h4>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-              <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">{{payrollTransactionMaster?.employee}}</h4>
+              <!-- <p style="font-size: 16px;font-weight: 600;color: #65c18c;margin-bottom: 2px;"></p> -->
+              <p style="font-size: 15px;font-weight: 400;color: #65c18c;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
 
@@ -65,10 +65,10 @@
                     
                   </tr>
                   <tr *ngFor="let line of payrollTransactionLines; index as i">
-                    <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{i + 1}}</td>
-                    <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" >{{line?.payrollItem || '---'}}</td>
-                    <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{line?.account}}</td>
-                    <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #1a6b85; "><b>{{valueFormatter(line?.amount || 0)}}</b></td>
+                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;">{{i + 1}}</td>
+                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{line?.payrollItem || '---'}}</td>
+                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;"> {{line?.account}}</td>
+                    <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #65c18c; "><b>{{valueFormatter(line?.amount || 0)}}</b></td>
                   </tr>
                   
                   
@@ -81,33 +81,33 @@
           <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
 
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Basic Salary:
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Basic Salary:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(payrollTransactionMaster?.basicSalary || 0)}}</span>
               </h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Allowances:
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Allowances:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(payrollTransactionMaster?.totalAllowances || 0)}}</span>
               </h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Gross Pay:
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Gross Pay:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(payrollTransactionMaster?.grossPay || 0)}}</span>
               </h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Deduction:
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Deduction:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(payrollTransactionMaster?.totalDeductions || 0)}}</span>
               </h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Tax Deduction:
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Tax Deduction:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(payrollTransactionMaster?.taxDeduction || 0)}}</span>
               </h4>
             </div>
     
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;border-top: 2px solid #65c18c;
               padding-top: 10px;">Net Salary:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(payrollTransactionMaster?.netSalary || 0)}}</span>
               </h4>
@@ -136,7 +136,7 @@
 
           
 
-          <div class="print-col-4" style=" margin-top: 8%;color: #1a6b85;">
+          <div class="print-col-4" style=" margin-top: 8%;color: #65c18c;">
             _________________________________
             <p class="text-center">Authorised Sign</p>
           </div>

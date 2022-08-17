@@ -10,7 +10,7 @@
           <div class="col-md-12 col-sm-12 col-lg-12">
             <div class="row">
               <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">Estimated Budget:</label>
                   <kt-input-field 
                      id="budget_name"
@@ -24,7 +24,7 @@
               </div>
 
               <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">From:</label>
                   <kt-date-input
                    formControlName="from"
@@ -37,7 +37,7 @@
               </div>
 
               <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">To:</label>
                   <kt-date-input
                      formControlName="to"
@@ -51,7 +51,7 @@
               </div>
 
               <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">Campus:</label>
                   <kt-simple-dropdown 
                     id="budget_campus"
@@ -70,7 +70,7 @@
 
             <div class="row mt-5">
               <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="example-container  mat-elevation-z8 ">
+                <div class="">
                   <ng-container formArrayName="budgetLines">
                     <div class="table-responsive">
                       <mat-table #table [dataSource]="budgetForm.get('budgetLines')['controls']">
@@ -149,8 +149,8 @@
 
       <mat-divider class="mt-10"></mat-divider>
 
-      <div class="kt-portlet__foot ">
-        <div class="kt-form__actions kt-form__actions">
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row">
             <div class="col-lg-12 text-right">
               <button class="mr-3 btn_white" mat-raised-button id="budget_reset" type="button" (click)="reset()">Reset</button>

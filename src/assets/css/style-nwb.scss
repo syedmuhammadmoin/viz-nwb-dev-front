@@ -1,0 +1,701 @@
+/* Header editor colors */
+$primary-color: #65c18c;
+$secondary-color: #769157;
+$white-color: #ffffff;
+$warning-color: #ED8C72;
+$success-color: #8BBBB7;
+$draft-color: #DDA25B;
+$heading-color: #2F496E;
+$sub-heading-color: #65c18c;
+$paragraph-color: #6a727e;
+$bg-light: #F9F9F9;
+$anchor-color: #0d6efd;
+$hover-color: #1b375e;
+$bg-light-theme-color: rgb(88 149 77 / 6%);
+$btn-gradient-color: linear-gradient(to right, #769157, #65c18c );
+
+$text-white:#ffffff;
+
+
+body 
+{
+    font-weight: normal;
+    font-style: normal;
+    font-size: 14px;
+    color: $paragraph-color;
+    background: white;
+    overflow-x: hidden !important;
+}
+
+
+/* sidebar component start */
+
+
+.brand-dark .brand
+{
+  background-color: $white-color !important;
+}
+
+.brand-logo img
+{
+  height: 40px;
+}
+
+
+.brand-dark .brand .btn .svg-icon svg g [fill]
+{
+  fill: $primary-color !important;
+}
+
+.sidebar-toggle-svg svg g  path
+{
+  fill: $bg-light-theme-color !important;
+}
+
+.svg-icon-primary svg g path
+{
+  fill: $primary-color;
+}
+
+.aside
+{
+  background-color: $primary-color !important;
+}
+
+.aside-menu
+{
+  background-color: $primary-color;
+  max-height: 80vh !important;
+}
+
+// static colormenu start
+// .aside-minimize .aside-menu .menu-nav > .menu-item > .menu-link
+// {
+//   padding: 9px 15px !important;
+// }
+.aside-minimize .btn-setting-collapse{
+  position: relative;
+  bottom: 40px;
+  left: -45px;
+}
+
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon
+{
+    color: $text-white;
+}
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item > .menu-link .menu-text
+{
+  color: $text-white;
+  font-weight: 500;
+}
+// static colormenu end
+
+// active color menu link css start
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link
+{
+  background-color: $bg-light-theme-color;
+  // border-left: 5px solid $primary-color;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-icon
+{
+  color: $sub-heading-color;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text
+{
+  color: $sub-heading-color;
+}
+// active color menu link css end
+
+// menu hover color css start
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link
+{
+  background-color: $white-color;
+}
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon
+{
+  color: $sub-heading-color;
+}
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text
+{
+  color: $sub-heading-color;
+  font-weight: 500;
+}
+.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-arrow
+{
+  color: $sub-heading-color;
+}
+// menu hover color css end
+
+
+// submenu close active start
+.aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link
+{
+  background-color: $primary-color;
+  font-weight: 500;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-icon
+{
+  color: $sub-heading-color;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-text
+{
+  color: $sub-heading-color;
+}
+// submenu close active end
+
+// submenu open active start
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link
+{
+  background-color: $white-color;
+  font-weight: 500;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-icon
+{
+  color: $primary-color;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-text
+{
+  color: $primary-color;
+}
+.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-arrow
+{
+    color: $primary-color;
+}
+// submenu open active end
+
+// submenu li a start
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link
+{
+  background-color: $bg-light-theme-color;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-text
+{
+  color: $sub-heading-color;
+}
+// submenu li a end
+
+// submenu li active start
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link
+{
+  background-color: $bg-light-theme-color;
+}
+
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-text
+{
+  color: $sub-heading-color;
+}
+// submenu li active start
+
+
+// .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text
+// {
+//   color:$sub-heading-color;
+// }
+
+.aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow
+{
+    color: $text-white;
+}
+
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-subnav
+{
+    background-color: $white-color;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text
+{
+    color: $primary-color;
+}
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-bullet.menu-bullet-dot > span, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span
+{
+    background-color: $primary-color;
+}
+/* sidebar component end */
+
+/* content area component start */
+.content
+{
+  height: 100%;
+}
+.card.card-custom > .card-body
+{
+  padding: 10px;
+}
+.card.card-custom > .card-header
+{
+  min-height: 40px;
+  border-bottom: 2px dashed $bg-light-theme-color;
+}
+.card.card-custom > .card-header .card-title .card-label
+{
+  color: $primary-color;
+}
+.ag-theme-alpine .ag-header
+{
+  background-color: $bg-light-theme-color;
+}
+
+// breadcrumbs start
+.breadcrumb .breadcrumb-item a
+{
+  color: $primary-color !important;
+}
+// breadcrumbs end
+
+
+// ag-grid start
+.ag-header
+{
+  background-color: $bg-light-theme-color;
+  height: 36px !important;
+  min-height: 36px !important;
+}
+.ag-header-row
+{
+  height: 100% !important;
+}
+.ag-theme-alpine .ag-row
+{
+  height: 35px;
+}
+.ag-theme-alpine .ag-cell
+{
+  line-height: 35px;
+}
+.ag-header-cell-text
+{
+  color: $primary-color;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.ag-theme-alpine .ag-root-wrapper
+{
+  border-color: $bg-light-theme-color;
+}
+// ag-grid end 
+
+// dashboad component design start
+.symbol-light-theme .symbol-label
+{
+  background-color: $bg-light-theme-color;
+}
+.svg-icon-theme svg g path
+{
+  fill: $primary-color !important;
+}
+.dashboard-card-header
+{
+  border-bottom: 2px dashed #e4edf3 !important;
+}
+// dashboad component design end
+
+// all details page css start
+.print-box h4
+{
+  font-size: 16px;
+  font-weight: 600;
+  color: $sub-heading-color;
+}
+
+.print-box h4 span
+{
+  font-weight: 400;
+}
+
+.partner__box
+{
+  margin-top: 5%;
+  margin-top: 6%;
+  background-color: #f6f8f9;
+  padding: 10px;
+}
+
+.partner__box h4
+{
+  font-size: 22px;
+  font-weight: 600;
+  color: $sub-heading-color;
+}
+
+.partner__box p
+{
+  font-size: 15px;
+  font-weight: 400;
+  color: $sub-heading-color;
+}
+
+.bottom-print-box h4
+{
+  font-size: 14px;
+  font-weight: 600;
+  color: $sub-heading-color;
+  margin-top: 10px;
+}
+
+.default-table-color tr th
+{
+  color: $sub-heading-color;
+  font-weight: 600;
+}
+
+.btn-detail-print
+{
+  font-size: 14px;
+  background: none;
+  border: 0;
+  color: $sub-heading-color;
+}
+.btn-detail-print i
+{
+  color: $white-color;
+  background-color: $primary-color;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+
+//reconcile table
+.styled-table {
+  // box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+.styled-table thead tr {
+  background: $primary-color;
+  color: $white-color;
+}
+.styled-table td {
+    padding: 9px 15px;
+    vertical-align: middle;
+}
+.styled-table th {
+    padding: 12px 15px;
+}
+.styled-table tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+
+.mat-expansion-panel-header-title
+{
+  color: $primary-color;
+  text-indent: initial;
+  font-weight: bold;
+  font-size: 13px !important;
+}
+
+.mat-expansion-panel-header-description
+{
+  color: $primary-color;
+  text-indent: initial;
+  font-size: 13px !important;
+  flex-grow: 0 !important;
+}
+
+.paid-amount-table tr th
+{
+  background-color: $primary-color;
+  color: $white-color;
+}
+
+.paid-amount-table tr td a
+{
+  color: $sub-heading-color;
+}
+
+
+// all details page css end
+
+// dialogue box
+.mat-dialog-container
+{
+  padding: 0px !important;
+}
+// dialogue box end
+
+
+// all input field
+.col-form-label
+{
+  color: $sub-heading-color !important;
+  padding-bottom: 0px !important;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+}
+// all input field end
+
+
+.modal-header
+{
+  color: $sub-heading-color;
+  padding: 15px;
+  font-size: 15px;
+}
+/* content area component end */
+
+
+// mat tab link bar
+.mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar
+{
+  background-color: $primary-color;
+}
+.mat-tab-label .mat-tab-label-content
+{
+  color: $sub-heading-color;
+  font-weight: bold;
+}
+// mat tab link bar end
+
+
+
+/*Mat form field start*/
+.mat-form-field-flex > .mat-form-field-infix { padding: 0.4em 0px 8px 0px !important;}
+ .mat-form-field-label-wrapper { top: -17px; }
+
+ .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+    transform: translateY(-41.1em) scale(.75);
+    width: 133.33333%;
+}
+
+ .mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $bg-light-theme-color;
+  border: 1px solid #bce5ce;
+  border-radius: 5px;
+}
+
+
+
+ .mat-form-field{
+  width: 100% !important;
+}
+
+
+.mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
+    opacity: 0.03 !important;
+    background-color: $primary-color !important;
+  }
+  
+  .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background {
+    background-color: $primary-color;
+  }
+  
+  .mat-checkbox-label:not(.dontchange)
+  {
+  color: $primary-color;
+  font-size: 14px;
+  font-weight: 500;
+  }
+  
+  .mat-checkbox:not(.dontchange)
+  {
+    background-color: $bg-light-theme-color;
+    display: flex;
+    margin-bottom: 10px;
+    border: 1px solid $bg-light-theme-color;
+    padding-bottom: 0px;
+  }
+  
+  .mat-checkbox:not(.dontchange) > label
+  {
+  padding: 6px !important;
+  }
+  
+  .mat-checkbox-frame
+  {
+    border-color: $primary-color;
+  }
+  
+  
+  
+  
+  
+  
+  
+  .input-group-append
+  {
+    background-color: $primary-color;
+    // border-radius: 0px 20px 20px 0px;
+    
+  }
+  
+  div.search_sticky
+  {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    padding: 10px;
+    z-index: 100;
+    background-color: white;
+  }
+  
+  
+  .input_style
+  {
+    background-color: $bg-light-theme-color;
+    border: 1px solid $primary-color;
+  }
+
+  .input-group i
+  {
+    color: $white-color !important;
+  }
+  
+  mat-tab-body[id^="mat-tab-content"][id$="-1"] > .mat-tab-body-content
+  {
+    height: 300px !important;
+  }
+  
+  
+  .dialog-cross
+  {
+    cursor: pointer !important;
+  }
+//   .mat-form-field-appearance-outline .mat-form-field-outline
+//   {
+//     color: rgb(255 255 255 / 12%) !important;
+//   }
+  .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick
+  {
+    color: $primary-color;
+  }
+  
+/*Mat form field end*/
+
+
+// mat radio button
+.mat-radio-outer-circle{
+  border-radius:2px !important;
+  border-color:$primary-color !important ;
+  }
+  .mat-radio-inner-circle{
+  border-radius:2px !important;
+  background-color: transparent!important;
+  border-bottom: 4px solid $white-color !important;
+  border-right:4px solid $white-color !important;
+  height:30px !important;  
+  width:15px !important;
+  margin-top: -8px !important;
+  margin-left: 3px !important;
+  }
+  .mat-radio-checked .mat-radio-outer-circle{
+  background-color: $primary-color !important;
+  
+  }
+  .mat-radio-checked .mat-radio-inner-circle{
+  transform: rotate(45deg) scale(0.5) !important;
+  }
+  
+  .mat-radio-button .mat-radio-ripple{
+  height: 20px !important; /*double of your required circle radius*/
+  width: 20px !important;  /*double of your required circle radius*/
+  left: calc(50% - 10px) !important; /*'10px'-same as your required circle radius*/
+  top: calc(50% - 10px) !important; /*'10px'-same as your required circle radius */
+  }
+    
+//mat radio button end 
+
+// mat table start
+.mat-table {
+    
+  mat-cell, mat-header-cell, mat-footer-cell
+  {
+      justify-content: center;
+  }
+  mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type
+  {
+      padding-left: 0px !important;
+  }
+  mat-row
+  {
+      padding-top: 20px;
+  }
+  .mat-header-cell {
+    color: $sub-heading-color;
+    font-size: 13px;
+    border-right: 2px solid #dae1e9;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+  mat-header-row
+  {
+    background-color: $bg-light-theme-color;
+    min-height: 36px;
+  }
+}
+.input_d_1{
+  margin-top: 2px;
+  // .mat-form-field-flex
+  // {
+  //     border-radius: 0px !important;
+  // }
+  // .mat-form-field-outline
+  // {
+  //     border-radius: 0px !important;
+  // }
+}
+// mat table end
+
+
+.ps--active-y
+{
+  max-height: 80vh !important;
+}
+
+
+
+.ag-theme-alpine .ag-ltr .ag-cell
+{
+  text-align: left;
+}
+
+.remove-icon {
+  padding: 8px 10px;
+  text-align: center;
+  border-radius: 20px;
+  margin-right: 5px;
+  background: #ffffff;
+  color: white;
+  height: 35px;
+  width: 35px;
+  border: 0px;
+  transition: 0.6s;
+  margin-top: -10px;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.remove-icon i {
+  margin-right: 0px;
+  color: red;
+  padding-right: 0px;
+}
+
+
+.btn_create {
+  margin: 10px 0px;
+  background: transparent;
+  border: 0px;
+  color: #819fcb;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.btn_create i {
+  color: #819fcb;
+  font-size: 10px;
+}
+
+
+.btn_public
+{
+  font-size: 14px;
+  background: none;
+  border: 0;
+  color: $primary-color;
+  // background-color: #f6fafb;
+}
+
+.btn_public i
+{
+  font-size: small;
+}

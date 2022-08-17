@@ -8,7 +8,7 @@
           <div class="col-lg-12 col-md-12 col-sm-12">
             <div class="row">
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Date:</label>
                   <kt-date-input formControlName="date" placeholder="JV Date" [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)"
@@ -18,7 +18,7 @@
               </div>
 
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Campus:</label>
                   <kt-simple-dropdown 
                   id="journal_campus"
@@ -36,7 +36,7 @@
               </div>
 
               <div class="col-lg-5 col-sm-5 col-md-5">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Description:</label>
                   <kt-input-field formControlName="description" placeholder="Enter Description" id="journal_description"
                   (blurEvent)="logValidationErrors(journalEntryForm, this.formErrors, this.validationMessages)"
@@ -48,7 +48,7 @@
 
             <div class="row mt-5">
               <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="example-container mat-elevation-z8 ">
+                <div >
                   <ng-container formArrayName="journalEntryLines">
                     <mat-table #table [dataSource]="journalEntryForm.get('journalEntryLines')['controls']">
                       <!-- Account Column -->
@@ -239,8 +239,8 @@
       </div>
 
       <mat-divider class="mt-10"></mat-divider>
-      <div class="kt-portlet__foot ">
-        <div class="kt-form__actions kt-form__actions">
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
             <div class="col-lg-12 text-right">
               <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="journal_reset">Reset</button>

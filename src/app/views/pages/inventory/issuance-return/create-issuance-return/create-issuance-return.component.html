@@ -9,7 +9,7 @@
             <div class="col-md-12 col-sm-12 col-lg-12">
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Employee :</label>
                     <kt-simple-dropdown
                     id="issuance_return_employee"
@@ -27,7 +27,7 @@
                 </div>
 
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Designation:</label>
                     <kt-input-field 
                       id="issuance_return_designation"
@@ -40,7 +40,7 @@
                 </div>
 
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Department:</label>
                     <kt-input-field 
                       id="issuance_return_department"
@@ -53,7 +53,7 @@
                 </div>
   
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Issuance Return Date:</label>
                     <kt-date-input
                       (blurEvent)="logValidationErrors(this.issuanceReturnForm, formErrors, validationMessages)"
@@ -68,7 +68,7 @@
 
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Contact:</label>
                     <kt-input-field
                     id="Issuance_return_contact"
@@ -81,7 +81,7 @@
                 </div>
 
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Campus:</label>
                     <kt-simple-dropdown
                     id="Issuance_return_campus"
@@ -102,7 +102,7 @@
   
               <div class="row mt-5">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="example-container  mat-elevation-z8 ">
+                  <div class="">
                     <ng-container formArrayName="issuanceReturnLines">
                       <div class="table-responsive">
                         <mat-table #table [dataSource]="issuanceReturnForm.get('issuanceReturnLines')['controls']">
@@ -267,8 +267,8 @@
   
         <mat-divider class="mt-10"></mat-divider>
   
-        <div class="kt-portlet__foot ">
-          <div class="kt-form__actions kt-form__actions">
+        <div class="kt-portlet__foot p-5">
+          <div class="kt-form__actions kt-form__actions mb-0">
             <div class="row">
               <div class="col-lg-12 text-right">
                 <button class="mr-3 btn_white" mat-raised-button id="issuance_return_reset" type="button" (click)="reset()">Reset</button>

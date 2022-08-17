@@ -15,7 +15,7 @@
               <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="row">
                   <!-- <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Payment Type:</label>
                         <kt-simple-dropdown
                           formControlName="paymentType"
@@ -32,7 +32,7 @@
                   </div> -->
     
                   <div class="col-lg-5 col-md-5 col-sm-5">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Date:</label>
                         <kt-date-input
                         id="payment_date"
@@ -47,7 +47,7 @@
                   </div>
 
                   <div class="col-lg-7 col-md-7 col-sm-7">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Description:</label>
                         <kt-input-field
                         id="payment_description"
@@ -60,7 +60,7 @@
                   </div>
     
                   <!-- <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Register Type:</label>
                         <mat-radio-group (change)="loadAccountList($event)" formControlName="registerType" aria-label="Select an option">
                           <mat-radio-button [value]="1">Cash Account</mat-radio-button>
@@ -72,7 +72,7 @@
     
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Payment Register:</label>
                         <kt-simple-dropdown
                         id="payment_register"
@@ -90,7 +90,7 @@
                   </div>
     
                   <div *ngIf="!isPayrollPayment" class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Business Partner:</label>
                         <kt-simple-dropdown 
                         id="payment_partner"
@@ -110,7 +110,7 @@
                   </div>
 
                   <div *ngIf="isPayrollPayment" class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Employee:</label>
                         <kt-simple-dropdown 
                         id="payment_employee"
@@ -128,7 +128,7 @@
                   </div>
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">COA:</label>
                         <kt-simple-dropdown
                         id="payment_coa"
@@ -148,7 +148,7 @@
     
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Gross Payment:</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="grossPayment" placeholder="Enter Gross Payment" 
@@ -172,7 +172,7 @@
                   </div>
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Sales Tax W/H:</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="salesTax" placeholder="Enter Sales Tax" 
@@ -195,7 +195,7 @@
                   </div>
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Income Tax W/H:</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="incomeTax" placeholder="Enter Income Tax" 
@@ -220,7 +220,7 @@
     
                 <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">SRB Tax:</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="SRBTax" placeholder="Enter SRB Tax" 
@@ -242,7 +242,7 @@
                     </div>
                   </div>
                   <div class="col-lg-6 col-md-6 col-sm-6">
-                    <div class="form-group kt-form__group">
+                    <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown 
                       id="payment_campus"
@@ -262,11 +262,11 @@
             </div>
           </div>
           <mat-divider></mat-divider>
-          <div class="kt-portlet__foot">
-            <div class="kt-form__actions kt-form__actions">
+          <div class="kt-portlet__foot p-5">
+            <div class="kt-form__actions kt-form__actions mb-0">
               <div class="row justify-content-center align-items-center">
                 <div class="col-lg-6 float-left">
-                  <h6 style="margin-bottom: 0; color: #1a6b85; font-weight: 600;">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
+                  <h6 style="margin-bottom: 0; color: #65c18c; font-weight: 600;">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
                 </div>
                 <div class="col-lg-6">
                   <div class="float-right">

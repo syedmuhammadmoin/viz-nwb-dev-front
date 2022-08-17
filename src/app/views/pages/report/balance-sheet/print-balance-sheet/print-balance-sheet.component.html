@@ -34,11 +34,11 @@
           <div class="print-col-5" style="margin-top: 3%;">
             
             <div class="print-box" >
-              <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+              <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">
                   Date:<span class="float-right" style="font-weight: 400;">{{date}}</span></h4>
-              <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+              <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">
                   Campus:<span class="float-right" style="font-weight: 400;">{{campus}}</span></h4>    
-              <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              <p style="font-size: 15px;font-weight: 400;color: #65c18c;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
 
@@ -53,9 +53,9 @@
             <div class="print-col-10 mx-auto">
               <table class="table">
                 <tr>
-                  <th style="background-color: #1a6b85;
+                  <th style="background-color: #65c18c;
                   color: white;">Account</th>
-                  <th style="background-color: #1a6b85;
+                  <th style="background-color: #65c18c;
                   color: white;" class="text-right">Total</th>
                 </tr>
                 <tr *ngFor="let summaryHead of rowData.get(key)">
@@ -63,8 +63,8 @@
                   <td class="text-right">{{valueFormatter(summaryHead.balance)}}</td>
                 </tr>
                 <tr>
-                  <th style="background-color: #e4edf3; border-bottom: 1px solid #1a6b85;" >Total</th>
-                  <th class="text-right" style="background-color: #e4edf3; border-bottom: 1px solid #1a6b85;">{{valueFormatter(calculateTotal(rowData.get(key), 'balance').balance)}}</th>
+                  <th style="background-color: #e4edf3; border-bottom: 1px solid #65c18c;" >Total</th>
+                  <th class="text-right" style="background-color: #e4edf3; border-bottom: 1px solid #65c18c;">{{valueFormatter(calculateTotal(rowData.get(key), 'balance').balance)}}</th>
                 </tr>
               </table>
             </div>
@@ -89,7 +89,7 @@
             </div>     
           </div>
 
-          <div class="print-col-4" style=" margin-top: 8%;color: #1a6b85;">
+          <div class="print-col-4" style=" margin-top: 8%;color: #65c18c;">
             _________________________________
             <p class="text-center">Authorised Sign</p>
           </div>

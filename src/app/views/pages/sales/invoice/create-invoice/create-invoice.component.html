@@ -10,7 +10,7 @@
           <div class="col-md-12 col-sm-12 col-lg-12">
             <div class="row">
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Customer Name:</label>
                   <kt-simple-dropdown id="invoice_customer" formControlName="customerName" matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(this.invoiceForm, this.formErrors, this.validationMessages)"
@@ -25,7 +25,7 @@
               </div>
 
               <!-- <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Contact:</label>
                   <kt-input-field formControlName="contact" matFormFieldClass="full-width" placeholder="Enter Contact" [hintText]="'Optional'">
                   </kt-input-field>
@@ -33,7 +33,7 @@
               </div> -->
 
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Invoice Date:</label>
                   <kt-date-input 
                     formControlName="invoiceDate" 
@@ -45,7 +45,7 @@
               </div>
 
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Due Date:</label>
                   <kt-date-input 
                     formControlName="dueDate" 
@@ -61,7 +61,7 @@
               </div>
 
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Campus:</label>
                   <kt-simple-dropdown 
                     id="invoice_campus"
@@ -81,7 +81,7 @@
 
             <div class="row mt-5">
               <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="example-container  mat-elevation-z8 ">
+                <div class="">
                   <ng-container formArrayName="invoiceLines">
                     <div class="table-responsive">
                       <mat-table #table [dataSource]="invoiceForm.get('invoiceLines')['controls']">
@@ -352,7 +352,7 @@
                   </tr>
                   <tr>
                     <th class="text-right"
-                      style="background:#1a6b85; color: #fff;">Grand Total :
+                      style="background:#65c18c; color: #fff;">Grand Total :
                     </th>
                     <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
                       {{valueFormatter(grandTotal || 0)}}</td>
@@ -369,8 +369,8 @@
 
       <mat-divider class="mt-10"></mat-divider>
 
-      <div class="kt-portlet__foot ">
-        <div class="kt-form__actions kt-form__actions">
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row">
             <div class="col-lg-12 text-right">
               <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="invoice_reset">Reset</button>

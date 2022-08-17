@@ -7,7 +7,7 @@
           <!-- region First Row -->
           <div class="row">
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Start Date:</label>
                 <kt-date-input (blurEvent)="logValidationErrors(this.generalLedgerForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate" formControlName="docDate" matFormFieldClass="full-width"
@@ -16,7 +16,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input (blurEvent)="logValidationErrors(this.generalLedgerForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate2" formControlName="docDate2" matFormFieldClass="full-width"
@@ -25,7 +25,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
                 <kt-simple-dropdown id="ledger_account" [optionList]="ngxsService.accountsLevel4$" formControlName="accountName" isDisabledNone="true"
                   matFormFieldClass="full-width" placeholder="Select Detailed Head" propertyName="name" propertyValue="name"
@@ -38,7 +38,7 @@
           <!-- region Second Row -->
           <div class="row">
             <!-- <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Department:</label> -->
                 <!-- <kt-simple-dropdown 
                   [optionList]="ngxsService.departments$" formControlName="department"
@@ -47,7 +47,7 @@
               <!-- </div>
             </div> -->
             <!-- <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Location:</label> -->
                 <!-- <kt-simple-dropdown [optionList]="ngxsService.locations$" formControlName="location" matFormFieldClass="full-width"
                   placeholder="Select Location" propertyName="name" propertyValue="name"
@@ -55,7 +55,7 @@
               <!-- </div>
             </div> -->
             <div class="col-lg-4 ">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Business Partner:</label>
                 <kt-simple-dropdown id="ledger_partner" [optionList]="ngxsService.businessPartners$"
                   formControlName="businessPartnerName" matFormFieldClass="full-width" isDisabledNone="true"
@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="ledger_campus" [optionList]="ngxsService.campuses$" isDisabledNone="true"
                   formControlName="campusName" matFormFieldClass="full-width" placeholder="Select Campus" hintText="Optional"
@@ -73,7 +73,7 @@
               </div>
             </div>
             <div class="col-lg-4">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Store:</label>
                 <kt-simple-dropdown id="ledger_store" [optionList]="ngxsService.warehouses$" hintText="Optional" isDisabledNone="true"
                   formControlName="warehouseName" matFormFieldClass="full-width" placeholder="Select Store"
@@ -85,7 +85,7 @@
           <!-- region Action Row -->
           <div class="row">
             <!-- <div class="col-lg-4 ">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Business Partner:</label>
                 <kt-simple-dropdown [optionList]="ngxsService.businessPartners$"
                   formControlName="businessPartnerName" matFormFieldClass="full-width"
@@ -95,7 +95,7 @@
               </div>
             </div> -->
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5 mb-3">
-              <div class="form-group kt-form__group">
+              <div class="form-group kt-form__group mb-0">
                 <button class="mr-3 btn_white" (click)="reset()" id="ledger_reset" mat-raised-button type="button">Reset
                 </button>
                 <button *ngIf="!disability" class="mr-3 sub___btn" (click)="printGeneralLedger(rowData)" 
@@ -122,8 +122,8 @@
         </div>
       </div>
     </div>
-    <div class="kt-portlet__foot">
-      <div class="kt-form__actions kt-form__actions">
+    <div class="kt-portlet__foot p-5">
+      <div class="kt-form__actions kt-form__actions mb-0">
 
       </div>
     </div>

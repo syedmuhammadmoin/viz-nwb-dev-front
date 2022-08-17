@@ -10,7 +10,7 @@
             <div class="col-md-12 col-sm-12 col-lg-12">
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Vendor Name:</label>
                       <kt-simple-dropdown
                       propertyName="name"
@@ -30,7 +30,7 @@
                 </div>
   
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Contact:</label>
                       <kt-input-field
                       id="purchase_contact"
@@ -43,7 +43,7 @@
                 </div>
   
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">P.O Date:</label>
                       <kt-date-input
                         formControlName="PODate"
@@ -57,7 +57,7 @@
                 </div>
   
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Due Date:</label>
                       <kt-date-input
                         formControlName="dueDate"
@@ -75,7 +75,7 @@
 
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown
                         formControlName="campusId"
@@ -96,7 +96,7 @@
   
               <div class="row mt-5">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="example-container  mat-elevation-z8 ">
+                  <div class="">
                     <ng-container formArrayName="purchaseOrderLines">
                       <div class="table-responsive">
                         <mat-table #table [dataSource]="purchaseOrderForm.get('purchaseOrderLines')['controls']">
@@ -356,8 +356,8 @@
   
         <mat-divider class="mt-10"></mat-divider>
   
-        <div class="kt-portlet__foot ">
-          <div class="kt-form__actions kt-form__actions">
+        <div class="kt-portlet__foot p-5">
+          <div class="kt-form__actions kt-form__actions mb-0">
             <div class="row">
               <div class="col-lg-12 text-right">
                 <button class="mr-3 btn_white" mat-raised-button id="purchase_reset" type="button" (click)="reset()">Reset</button>
