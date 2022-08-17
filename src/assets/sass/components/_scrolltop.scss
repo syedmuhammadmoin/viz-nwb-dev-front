@@ -13,7 +13,7 @@
     right: get($scrolltop-config, right, desktop);
     cursor: pointer;
     z-index: 100;
-    background-color: $primary;
+    // background-color: $primary;
     box-shadow: $box-shadow;
     opacity: 0;
     transition: $transition-link;

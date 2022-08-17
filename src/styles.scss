@@ -91,7 +91,7 @@ $text-color2:#cba058;
 body
 {
   background-color: #fff;
-  color: $New-primary-color !important;
+  color: $New-primary-color ;
 }
 
 .app-text-primary
@@ -1379,7 +1379,16 @@ i {
 .small_table_box {
 		color: $New-primary-color !important;
 }
+.text-hover-primary {
+		color: $New-primary-color !important;
+}
+.text-hover-primary:hover {
+		color: $New-primary-color !important;
+}
 
+.scrolltop{
+  background-color: $New-primary-color !important;
+}
 
 
 
