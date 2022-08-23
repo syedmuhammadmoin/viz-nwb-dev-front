@@ -74,7 +74,13 @@ export const APP_ROUTES = {
   WORKFLOW: 'workflow',
 
   //STATUS
-  STATUS: 'status'
+  STATUS: 'status',
+
+  //FIXED ASSET
+  FIXED_ASSET: 'fixed-asset',
+  DEPRECIATION_MODEL: 'depreciation-model',
+  ASSET_CATEGORY: 'asset-category',
+  ASSET: 'asset'
 }
 
 export const CRUD_ROUTES = {
@@ -308,6 +314,23 @@ export const CRUD_ROUTES = {
 
   export const UNIT_OF_MEASUREMENT = {
     LIST: APP_ROUTES.UNIT_OF_MEASUREMENT + '/' + CRUD_ROUTES.LIST
+  }
+
+  //FIXED ASSET SECTION
+  export const DEPRECIATION_MODEL = {
+    LIST: APP_ROUTES.DEPRECIATION_MODEL + '/' + CRUD_ROUTES.LIST
+  }
+
+  export const ASSET_CATEGORY = {
+    LIST: APP_ROUTES.ASSET_CATEGORY + '/' + CRUD_ROUTES.LIST,
+  }
+
+  export const ASSET = {
+    LIST: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.ASSET + '/' + route + '/' + id
+    }
   }
 
   //PAYROLL SECTION

@@ -1,0 +1,192 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+      <!--begin::Form-->
+      <form [formGroup]="assetForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+        <div class="kt-portlet__body">
+          <div class="kt-form__section kt-form__section--first">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Name:</label>
+                    <kt-input-field
+                      id="asset_name"
+                      formControlName="name"
+                      placeholder="Enter Name"
+                      (blurEvent)="logValidationErrors(assetForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
+                    </kt-input-field>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                    <div class="form-group kt-form__group">
+                      <label class="col-form-label pt-0">Acquisition Date:</label>
+                      <kt-date-input 
+                        formControlName="acquisitionDate" 
+                        placeholder="Acquisition Date" 
+                        matFormFieldClass="full-width"
+                        (blurEvent)="logValidationErrors(this.assetForm, formErrors, validationMessages)"
+                        [errorMessage]="formErrors.acquisitionDate">
+                      </kt-date-input>
+                    </div>
+                  </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Depreciation Model:</label>
+                    <kt-simple-dropdown 
+                      id="asset_model" 
+                      formControlName="depreciationId" 
+                      matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                      propertyName="value" 
+                      propertyValue="id" 
+                      [errorMessage]="formErrors.depreciationId"
+                      [optionList]=""
+                      searchPlaceholder="Search Model..."
+                      placeholder="Select Model">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group">
+                        <label class="col-form-label pt-0">Purchase Cost:</label>
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="purchaseCost" placeholder="Enter Purchase Cost" 
+                               id="asset_cost" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.purchaseCost">
+                            <strong>{{formErrors.purchaseCost}}</strong>
+                          </mat-error>
+                          <!-- <mat-hint align="end">Optional</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group">
+                        <label class="col-form-label pt-0">Salvage Value:</label>
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="salvageValue" placeholder="Enter Salvage Value" 
+                               id="asset_salvage" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.salvageValue">
+                            <strong>{{formErrors.salvageValue}}</strong>
+                          </mat-error>
+                          <!-- <mat-hint align="end">Optional</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group">
+                        <label class="col-form-label pt-0">Depreciable Value:</label>
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
+                               id="asset_depreciable" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.depreciableValue">
+                            <strong>{{formErrors.depreciableValue}}</strong>
+                          </mat-error>
+                          <!-- <mat-hint align="end">Optional</mat-hint> -->
+                        </mat-form-field>
+                    </div>
+                  </div> 
+              </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Depreciation Method:</label>
+                    <kt-input-field
+                      id="asset_method"
+                      formControlName="depreciationMethod"
+                      placeholder="Enter Method"
+                      (blurEvent)="logValidationErrors(assetForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.depreciationMethod , error : formErrors.depreciationMethod }]">
+                    </kt-input-field>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group kt-form__group">
+                      <label class="col-form-label pt-0">Useful Life:</label>
+                      <mat-form-field appearance="outline" class="full-width">
+                        <input matInput formControlName="usefulLife" placeholder="Enter Useful Life" 
+                             id="asset_usefulLife" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                        <mat-error *ngIf="formErrors.usefulLife">
+                          <strong>{{formErrors.usefulLife}}</strong>
+                        </mat-error>
+                        <!-- <mat-hint align="end">Optional</mat-hint> -->
+                      </mat-form-field>
+                  </div>
+                </div> 
+              </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                    <div class="form-group kt-form__group">
+                      <div apperence="outline" class="full-width">
+                        <mat-slide-toggle id="asset_prorata" [checked]="isActiveChecked" formControlName="prorataBasis">Prorata Basis</mat-slide-toggle>
+                      </div>
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <mat-divider class="mt-10"></mat-divider>
+  
+        <div class="kt-portlet__foot ">
+          <div class="kt-form__actions kt-form__actions">
+            <div class="row">
+              <div *ngIf="showButtons" class="col-lg-12 text-right">
+                <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="asset_reset">Reset</button>
+                <!-- <button class="sub___btn  mr-3" mat-raised-button type="submit" id="asset_item_save"
+                  (click)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)">Save</button> -->
+                <button class="sub___btn " mat-raised-button type="submit" id="asset_submit"
+                  (click)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)">
+                  Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--end::Form-->
+    </kt-portlet>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              
+  
+                 
+              
+               
+                  
+               
+  

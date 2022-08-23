@@ -1,0 +1,43 @@
+<div class="row mb-4">
+    <div class="col-md-12 text-right">
+      <!-- <button (click)="openDialog()" [disabled]="!(permission.isGranted(permissions.BANKACCOUNT_CREATE))" id="add_bank_account" class="sub___btn" mat-raised-button  matTooltip="Add Bank Account">Add Bank Account</button> -->
+      <button (click)="openDialog()" *ngIf="(permission.isGranted(permissions.BANKACCOUNT_CREATE))" id="add_depreciation" class="sub___btn" mat-raised-button  matTooltip="Add Depreciation Model">Add Depreciation Model</button>
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="col-md-12 ">
+      <kt-portlet >
+        <kt-portlet-header [sticky]="false" [title]="'Depreciation Models'" [class]="'card-head-lg'">
+        </kt-portlet-header>
+        <kt-portlet-body>
+            <div class="col-lg-12 col-md-12 my-5">
+              <ag-grid-angular 
+                style="width: 100%; height: 440px; margin-top: 10px;"
+                class="ag-theme-alpine"
+                [components]="components"
+                [columnDefs]="columnDefs"
+                (rowDoubleClicked)="onRowDoubleClicked($event)"
+                (firstDataRendered)="onFirstDataRendered($event)"
+                (paginationChanged)="paginationHelper.onPaginationChanged('depreciationPageName', gridApi, $event)"
+                [gridOptions]="gridOptions"
+                [frameworkComponents]="frameworkComponents"
+                [defaultColDef]="defaultColDef"
+                [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                [tooltipShowDelay]="5"
+                (gridReady)="onGridReady($event)">
+              </ag-grid-angular>
+            </div>
+        </kt-portlet-body>
+      </kt-portlet>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  

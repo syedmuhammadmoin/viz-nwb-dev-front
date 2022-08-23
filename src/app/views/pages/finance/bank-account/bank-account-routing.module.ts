@@ -12,15 +12,15 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListBankAccountComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.BANKACCOUNT_VIEW },
-        //     { permission: Permissions.BANKACCOUNT_CREATE },
-        //     { permission: Permissions.BANKACCOUNT_DELETE },
-        //     { permission: Permissions.BANKACCOUNT_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.BANKACCOUNT_VIEW },
+            { permission: Permissions.BANKACCOUNT_CREATE },
+            { permission: Permissions.BANKACCOUNT_DELETE },
+            { permission: Permissions.BANKACCOUNT_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard]
       }
     ]
   }

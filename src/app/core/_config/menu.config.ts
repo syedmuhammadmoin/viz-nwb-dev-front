@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET_CATEGORY, ASSET } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -475,6 +475,54 @@ export class MenuConfig {
             },
           ]
         },
+        //Fixed Asset Section
+        {
+          title: 'Fixed Asset',
+          bullet: 'dot',
+          icon: 'flaticon2-box-1',
+          permission: [
+            // Permissions.JOURNALENTRY_VIEW,
+            // Permissions.JOURNALENTRY_CREATE,
+            // Permissions.JOURNALENTRY_EDIT,
+            // Permissions.JOURNALENTRY_DELETE,
+            // Permissions.JOURNALENTRY_REVIEW,
+            // Permissions.JOURNALENTRY_APPROVE,
+          ],
+          submenu: [
+            {
+              title: 'Asset Category',
+              page: '/' + ASSET_CATEGORY.LIST,
+              permission: [
+                // Permissions.BANKACCOUNT_VIEW,
+                // Permissions.BANKACCOUNT_CREATE,
+                // Permissions.BANKACCOUNT_EDIT,
+                // Permissions.BANKACCOUNT_DELETE
+              ]
+            },
+            {
+              title: 'Depreciation Model',
+              page: '/' + DEPRECIATION_MODEL.LIST,
+              permission: [
+                // Permissions.BANKACCOUNT_VIEW,
+                // Permissions.BANKACCOUNT_CREATE,
+                // Permissions.BANKACCOUNT_EDIT,
+                // Permissions.BANKACCOUNT_DELETE
+              ]
+            },
+            {
+              title: 'Asset',
+              page: '/' + ASSET.LIST,
+              permission: [
+                // Permissions.BANKACCOUNT_VIEW,
+                // Permissions.BANKACCOUNT_CREATE,
+                // Permissions.BANKACCOUNT_EDIT,
+                // Permissions.BANKACCOUNT_DELETE
+              ]
+            }
+          ]
+        },
+
+
         //Procurement Section
         {
           title: 'Procurement',
