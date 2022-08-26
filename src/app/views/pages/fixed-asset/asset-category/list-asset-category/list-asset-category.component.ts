@@ -8,6 +8,8 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { IAssetCategory } from '../model/IAssetCategory';
 import { AssetCategoryService } from '../service/asset-category.service';
 import { CreateAssetCategoryComponent } from '../create-asset-category/create-asset-category.component';
+import { isEmpty } from 'lodash';
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 
 
 @Component({
@@ -116,30 +118,35 @@ export class ListAssetCategoryComponent extends AppComponentBase implements OnIn
     });
     // Recalling getBankAccounts function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      //this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
     });
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getAssetCategories(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'assetCategoryPageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
+  }
 
-    // var dataSource = {
-    //   getRows: (params: any) => {
-    //     this.assetCategoryService.getRecords(params).subscribe((data) => {
-    //       if(isEmpty(data.result)) {  
-    //         this.gridApi.showNoRowsOverlay() 
-    //       } else {
-    //         this.gridApi.hideOverlay();
-    //       }
-    //       params.successCallback(data.result || 0, data.totalRecords);
-    //       this.paginationHelper.goToPage(this.gridApi, 'assetCategoryPageName')
-    //       this.cdRef.detectChanges();
-    //     });
-    //   },
-    // };
-    // params.api.setDatasource(dataSource);
+  async getAssetCategories(params: any): Promise<IPaginationResponse<IAssetCategory[]>> {
+    const result = await this.assetCategoryService.getRecords(params).toPromise()
+    return result
   }
 
   // onGridReady(params: GridReadyEvent) {

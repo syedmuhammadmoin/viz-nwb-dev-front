@@ -8,6 +8,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { IAsset } from '../model/IAsset';
 import { AssetService } from '../service/asset.service';
 import { ASSET } from 'src/app/views/shared/AppRoutes';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -59,6 +60,63 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
+    {
+      headerName: 'Acquisition Date',
+      field: 'acquisitionDate',
+      tooltipField: 'name',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
+      valueFormatter: (params: ValueFormatterParams) => { 
+        return this.transformDate(params.value, 'MMM d, y') || null;
+      }
+    },
+    { 
+      headerName: 'Model', 
+      field: 'model', 
+      tooltipField: 'name', 
+      suppressMenu: true
+    },
+    { 
+      headerName: 'Name', 
+      field: 'name', 
+      tooltipField: 'name', 
+      cellRenderer: "loadingCellRenderer", 
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Name', 
+      field: 'name', 
+      tooltipField: 'name', 
+      cellRenderer: "loadingCellRenderer", 
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Name', 
+      field: 'name', 
+      tooltipField: 'name', 
+      cellRenderer: "loadingCellRenderer", 
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+
     { 
       headerName: 'Description', 
       field: 'description', 
@@ -118,21 +176,21 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
 
-    // var dataSource = {
-    //   getRows: (params: any) => {
-    //     this.assetCategoryService.getRecords(params).subscribe((data) => {
-    //       if(isEmpty(data.result)) {  
-    //         this.gridApi.showNoRowsOverlay() 
-    //       } else {
-    //         this.gridApi.hideOverlay();
-    //       }
-    //       params.successCallback(data.result || 0, data.totalRecords);
-    //       this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
-    //       this.cdRef.detectChanges();
-    //     });
-    //   },
-    // };
-    // params.api.setDatasource(dataSource);
+    var dataSource = {
+      getRows: (params: any) => {
+        this.assetService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {  
+            this.gridApi.showNoRowsOverlay() 
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
 
   // onGridReady(params: GridReadyEvent) {

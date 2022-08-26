@@ -4,10 +4,12 @@ import { MatDialog } from '@angular/material/Dialog'
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { Router } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions } from 'src/app/views/shared/AppEnum';
+import { DepreciationMethod, Permissions } from 'src/app/views/shared/AppEnum';
 import { IDepreciation } from '../model/IDepreciation';
 import { DepreciationMethodService } from '../service/depreciation-method.service';
 import { CreateDepreciationComponent } from '../create-depreciation/create-depreciation.component';
+import { isEmpty } from 'lodash';
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 
 @Component({
   selector: 'kt-list-depreciation',
@@ -47,9 +49,9 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   // Declaring AgGrid data
   columnDefs = [
     { 
-      headerName: 'JV #', 
-      field: 'docNo', 
-      tooltipField: 'docNo', 
+      headerName: 'Name', 
+      field: 'name', 
+      tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -58,64 +60,36 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
           suppressAndOrCondition: true,
         },
     },
-    {
-      headerName: 'Date',
-      field: 'date',
-      tooltipField: 'docNo',
-      filter: 'agDateColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['equals'],
-          suppressAndOrCondition: true,
-        },
+    { 
+      headerName: 'Method', 
+      field: 'method', 
+      tooltipField: 'name', 
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
-        return this.transformDate(params.value, 'MMM d, y') || null;
+        return DepreciationMethod[params.value]
       }
     },
     { 
-      headerName: 'Description', 
-      field: 'description', 
-      tooltipField: 'docNo',
-      suppressMenu: true,
+      headerName: 'Useful Life', 
+      field: 'usefulLife', 
+      tooltipField: 'name', 
+      suppressMenu: true
     },
-    {
-      headerName: 'Debit', 
-      field: 'totalDebit',
-      tooltipField: 'docNo',
+    { 
+      headerName: 'Declining Rate', 
+      field: 'decliningRate', 
+      tooltipField: 'name', 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-      // cellRenderer: (params: ICellRendererParams) => {
-      //   let debit: number = 0
-      //   params.data.journalEntryLines.forEach((line: any) => {
-      //     debit += line.debit
-      //   })
-      //   return debit.toLocaleString();
-      // }
-    },
-    {
-      headerName: 'Credit', 
-      field: 'totalCredit', 
-      tooltipField: 'docNo',
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
+        return params.value ?? 'N/A'
       }
     },
     { 
-      headerName: 'Status', 
-      field: 'status', 
-      filter: 'agSetColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
-          defaultToNothingSelected: true,
-          suppressSorting:true,
-          suppressSelectAll: true,
-          suppressAndOrCondition: true,
-        },
-    },
+      headerName: 'Asset Category', 
+      field: 'assetCategoryName', 
+      tooltipField: 'name', 
+      suppressMenu: true
+    }
   ];
 
 
@@ -171,31 +145,57 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
     });
     // Recalling getBankAccounts function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      //this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
     });
   }
 
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getAssetCategories(params);
+     if(isEmpty(res.result)) {  
+      this.gridApi.showNoRowsOverlay() 
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'depreciationPageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    // var dataSource = {
-    //   getRows: (params: any) => {
-    //     this.depreciationService.getRecords(params).subscribe((data) => {
-    //       if(isEmpty(data.result)) {  
-    //         this.gridApi.showNoRowsOverlay() 
-    //       } else {
-    //         this.gridApi.hideOverlay();
-    //       }
-    //       params.successCallback(data.result || 0, data.totalRecords);
-    //       this.paginationHelper.goToPage(this.gridApi, 'journalEntryPageName')
-    //       this.cdRef.detectChanges();
-    //     });
-    //   },
-    // };
-    // params.api.setDatasource(dataSource);
+    params.api.setDatasource(this.dataSource);
   }
+
+  async getAssetCategories(params: any): Promise<IPaginationResponse<IDepreciation[]>> {
+    const result = await this.depreciationService.getRecords(params).toPromise()
+    return result
+  }
+
+  // onGridReady(params: GridReadyEvent) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+
+  //   // var dataSource = {
+  //   //   getRows: (params: any) => {
+  //   //     this.depreciationService.getRecords(params).subscribe((data) => {
+  //   //       if(isEmpty(data.result)) {  
+  //   //         this.gridApi.showNoRowsOverlay() 
+  //   //       } else {
+  //   //         this.gridApi.hideOverlay();
+  //   //       }
+  //   //       params.successCallback(data.result || 0, data.totalRecords);
+  //   //       this.paginationHelper.goToPage(this.gridApi, 'journalEntryPageName')
+  //   //       this.cdRef.detectChanges();
+  //   //     });
+  //   //   },
+  //   // };
+  //   // params.api.setDatasource(dataSource);
+  // }
 
   // onGridReady(params: GridReadyEvent) {
   //   this.gridApi = params.api;

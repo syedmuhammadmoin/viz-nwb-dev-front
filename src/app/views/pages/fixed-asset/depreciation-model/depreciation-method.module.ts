@@ -19,6 +19,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     PartialsModule,
     DepreciationRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ]
+  ],
+  entryComponents: [CreateDepreciationComponent]
 })
 export class DepreciationMethodModule { }

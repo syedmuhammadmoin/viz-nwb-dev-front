@@ -8,6 +8,9 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IAssetCategory } from '../model/IAssetCategory';
 import { AssetCategoryService } from '../service/asset-category.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { AssetCategoryState } from '../store/asset-category.state';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 
 
 @Component({
@@ -79,6 +82,7 @@ export class CreateAssetCategoryComponent extends AppComponentBase  implements O
     private assetCategoryService: AssetCategoryService,
     public activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
+    public ngxsService: NgxsCustomService,
     @Optional() public dialogRef: MatDialogRef<CreateAssetCategoryComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     private cdRef: ChangeDetectorRef,
@@ -164,7 +168,9 @@ export class CreateAssetCategoryComponent extends AppComponentBase  implements O
          })
        )
         .subscribe((res: IApiResponse<IAssetCategory>) => {
+          this.ngxsService.store.dispatch(new IsReloadRequired (AssetCategoryState , true))
           this.toastService.success('Updated Successfully', 'Asset Category')
+          this.onCloseDialog()
           this.cdRef.detectChanges();
           //this.router.navigate(['/' + assetCategory_ITEM.LIST])
         })
@@ -180,7 +186,9 @@ export class CreateAssetCategoryComponent extends AppComponentBase  implements O
          })
        )
         .subscribe((res: IApiResponse<IAssetCategory>) => {
+          this.ngxsService.store.dispatch(new IsReloadRequired (AssetCategoryState , true))
             this.toastService.success('Created Successfully', 'Asset Category')
+            this.onCloseDialog()
             //this.router.navigate(['/' + assetCategory_ITEM.LIST])
           }
         );

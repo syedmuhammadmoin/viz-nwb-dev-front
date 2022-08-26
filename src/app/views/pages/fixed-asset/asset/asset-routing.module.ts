@@ -13,28 +13,25 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListAssetComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.BANKACCOUNT_VIEW },
-        //     { permission: Permissions.BANKACCOUNT_CREATE },
-        //     { permission: Permissions.BANKACCOUNT_DELETE },
-        //     { permission: Permissions.BANKACCOUNT_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.ASSET_VIEW },
+            { permission: Permissions.ASSET_CREATE },
+            { permission: Permissions.ASSET_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateAssetComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.BANKACCOUNT_VIEW },
-        //     { permission: Permissions.BANKACCOUNT_CREATE },
-        //     { permission: Permissions.BANKACCOUNT_DELETE },
-        //     { permission: Permissions.BANKACCOUNT_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.ASSET_VIEW },
+            { permission: Permissions.ASSET_CREATE }
+          ]
+        },
+        canActivate: [PermissionGuard]
       }
     ]
   }

@@ -103,6 +103,8 @@ import { UnitOfMeasurementState } from './views/pages/profiling/unit-of-measurem
 import { CustomRemarksComponent } from './views/shared/components/custom-remarks/custom-remarks.component';
 import { CustomUploadFileComponent } from './views/shared/components/custom-upload-file/custom-upload-file.component';
 import { ShowRemarksComponent } from './views/shared/components/show-remarks/show-remarks.component';
+import { AssetCategoryState } from './views/pages/fixed-asset/asset-category/store/asset-category.state';
+import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -175,6 +177,8 @@ export function getHighlightLanguages() {
       DeductionState,
       BankAccountState,
       CashAccountState,
+      AssetCategoryState,
+      DepreciationModelState,
       BudgetState,
       StatusState
     ]),

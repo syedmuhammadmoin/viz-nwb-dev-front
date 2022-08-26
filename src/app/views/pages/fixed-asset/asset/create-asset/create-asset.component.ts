@@ -10,6 +10,8 @@ import { FirstDataRenderedEvent, RowDoubleClickedEvent } from 'ag-grid-community
 import { MatDialog } from '@angular/material/dialog';
 import { IAsset } from '../model/IAsset';
 import { AssetService } from '../service/asset.service';
+import { AnyCnameRecord } from 'dns';
+import { ASSET } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-create-asset',
@@ -62,7 +64,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     acquisitionDate: {
       required: 'Date is required.',
     },
-    depreciationId: {
+    depreciationModelId: {
       required: 'Model is required.',
     },
     purchaseCost: {
@@ -86,7 +88,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   formErrors = {
     name: '',
     acquisitionDate: '',
-    depreciationId: '',
+    depreciationModelId: '',
     depreciableValue: '',
     salvageValue: '',
     depreciationMethod: '',
@@ -114,7 +116,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetForm = this.fb.group({
       name: ['', [Validators.required]],
       acquisitionDate: ['', [Validators.required]],
-      depreciationId: ['', [Validators.required]],
+      depreciationModelId: ['', [Validators.required]],
       purchaseCost: ['', [Validators.required]],
       depreciableValue: ['', [Validators.required]],
       salvageValue: ['', [Validators.required]],
@@ -127,17 +129,18 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       id: null,
       name: '',
       acquisitionDate: '',
-      depreciationId: null,
+      depreciationModelId: null,
       purchaseCost: null,
       salvageValue: null,
       depValue: null,
-      depMethod: '',
-      usefulLife: null,
+      //depMethod: '',
+      //usefulLife: null,
       prorataBasis: false,
     }
 
     //get Accounts from Accounts State
     //this.ngxsService.getAccountLevel4FromState();
+    this.ngxsService.getDepreciationModelFromState()
     this.ngxsService.getOtherAccountsFromState();
     
     this.activatedRoute.params.subscribe((param) => {
@@ -153,7 +156,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     });
 
      //update FornControl 'Value' Validator on checkbox changed
-    //  this.assetForm.get('depreciationId').valueChanges.subscribe((value: number) => {
+    //  this.assetForm.get('depreciationModelId').valueChanges.subscribe((value: number) => {
     //     this.updateValueValidators(value);
     //   })
   }
@@ -175,7 +178,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   // Form Reset
   reset() {
     this.formDirective.resetForm();
-    this.assetForm.get('depreciationId').setValue(1)
+    this.assetForm.get('depreciationModelId').setValue(1)
     this.assetForm.get('isActive').setValue(true);
     //this.onToggle({checked: true})
     // const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
@@ -233,11 +236,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   }
 
   //Edit Asset Method
-  public patchAsset(asset: IAsset) {
+  public patchAsset(asset: IAsset | any) {
     this.assetForm.patchValue({
       name: asset.name,
       acquisitionDate: asset.acquisitionDate,
-      depreciationId: asset.depreciationId,
+      depreciationModelId: asset.depreciationModelId,
       purchaseCost: asset.purchaseCost,
       depreciationValue: asset.depValue,
       salvageValue: asset.salvageValue,
@@ -267,41 +270,42 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.mapFormValuesToAssetModel();
     console.log(this.assetModel)
     if (this.assetModel.id) {
-      // this.assetService.updateAsset(this.assetModel)
-      // .pipe(
-      //   take(1),
-      //    finalize(() => {
-      //     this.isLoading = false;
-      //     this.cdRef.detectChanges();
-      //    })
-      //  )
-      //   .subscribe((res: IApiResponse<IAsset>) => {
-      //     this.toastService.success('Updated Successfully', 'Asset')
-      //     this.cdRef.detectChanges();
-      //     //this.router.navigate(['/' + PAYROLL_ITEM.LIST])
-      //   })
+      this.assetService.updateAsset(this.assetModel)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+        .subscribe((res: IApiResponse<IAsset>) => {
+          this.toastService.success('Updated Successfully', 'Asset')
+          this.cdRef.detectChanges();
+          this.router.navigate(['/' + ASSET.LIST])
+        })
 
     } else {
-      // delete this.assetModel.id;
-      // this.assetService.createAsset(this.assetModel)
-      // .pipe(
-      //   take(1),
-      //    finalize(() => {
-      //     this.isLoading = false;
-      //     this.cdRef.detectChanges();
-      //    })
-      //  )
-      //   .subscribe((res: IApiResponse<IAsset>) => {
-      //       this.toastService.success('Created Successfully', 'Asset')
-      //       //this.router.navigate(['/' + PAYROLL_ITEM.LIST])
-      //     }
-      //   );
+      delete this.assetModel.id;
+      this.assetService.createAsset(this.assetModel)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+        .subscribe((res: IApiResponse<IAsset>) => {
+            this.toastService.success('Created Successfully', 'Asset')
+            this.router.navigate(['/' + ASSET.LIST])
+            //this.router.navigate(['/' + PAYROLL_ITEM.LIST])
+          }
+        );
     }
   }
 
   // onacquisitionDateChange() {
   //   if (this.assetForm.value.acquisitionDate === 0 || this.assetForm.value.acquisitionDate === 1) {
-  //     this.assetForm.get('depreciationId').setValue(1);
+  //     this.assetForm.get('depreciationModelId').setValue(1);
   //     this.disablePercentage = true;
   //   } else {
   //     this.disablePercentage = false;
@@ -312,12 +316,12 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   mapFormValuesToAssetModel() {
     this.assetModel.name = this.assetForm.value.name;
     this.assetModel.acquisitionDate = this.dateHelperService.transformDate(this.assetForm.value.acquisitionDate , 'yyyy-MM-dd');
-    this.assetModel.depreciationId = this.assetForm.value.depreciationId;
+    this.assetModel.depreciationModelId = this.assetForm.value.depreciationModelId;
     this.assetModel.purchaseCost = this.assetForm.value.purchaseCost;
     this.assetModel.depValue = this.assetForm.value.depreciableValue;
     this.assetModel.salvageValue = this.assetForm.value.salvageValue;
-    this.assetModel.depMethod = this.assetForm.value.depreciationMethod;
-    this.assetModel.usefulLife = this.assetForm.value.usefulLife;
+    //this.assetModel.depMethod = this.assetForm.value.depreciationMethod;
+    //this.assetModel.usefulLife = this.assetForm.value.usefulLife;
     this.assetModel.prorataBasis = this.assetForm.value.prorataBasis;
   }
 

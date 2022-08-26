@@ -458,7 +458,7 @@ const routes: Routes = [
           import('./views/pages/fixed-asset/asset-category/asset-category.module').then(
             (m) => m.AssetCategoryModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
       // Lazy Load DEPRECIATION MODEL Module
       {
@@ -467,7 +467,7 @@ const routes: Routes = [
           import('./views/pages/fixed-asset/depreciation-model/depreciation-method.module').then(
             (m) => m.DepreciationMethodModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
       // Lazy Load ASSET Module
       {
@@ -476,7 +476,7 @@ const routes: Routes = [
           import('./views/pages/fixed-asset/asset/asset.module').then(
             (m) => m.AssetModule
           ),
-          //canActivateChild: [AuthGuard]
+          canActivateChild: [AuthGuard]
       },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},

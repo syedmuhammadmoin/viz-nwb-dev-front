@@ -12,7 +12,7 @@ import { IDepreciation } from '../model/IDepreciation';
 })
 export class DepreciationMethodService extends AppServiceBase {
 
-    baseUrl = environment.baseUrl + 'Depreciation';
+    baseUrl = environment.baseUrl + 'DepreciationModel';
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
@@ -20,7 +20,7 @@ export class DepreciationMethodService extends AppServiceBase {
         return this.httpClient.get<IPaginationResponse<IDepreciation[]>>(this.baseUrl)
     }
 
-    getDepreciationsDropdown(): Observable<IApiResponse<IDepreciation[]>> {
+    getDepreciationModelsDropdown(): Observable<IApiResponse<IDepreciation[]>> {
         return this.httpClient.get<IApiResponse<IDepreciation[]>>(this.baseUrl + '/dropdown')
     }
 

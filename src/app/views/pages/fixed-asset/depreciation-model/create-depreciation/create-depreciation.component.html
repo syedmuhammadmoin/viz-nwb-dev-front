@@ -33,13 +33,18 @@
                       <div class="col-lg-6 col-sm-6 col-md-6">
                         <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">Asset Account:</label>
-                          <kt-input-field
+                          <kt-simple-dropdown 
                             id="depreciation_asset"
-                            formControlName="assetAccount"
-                            placeholder="Enter Account"
-                            (blurEvent)="logValidationErrors(depreciationForm, formErrors, validationMessages)"
-                            [errorMessage]="[{ condition : formErrors.assetAccount , error : formErrors.assetAccount }]">
-                          </kt-input-field>
+                            propertyValue="id"
+                            propertyName="name" 
+                            placeholder="Select Assets Account"
+                            searchPlaceholder="Search Account..."
+                            formControlName="assetAccountId"
+                            matFormFieldClass="full-width"
+                            [optionList]="ngxsService.otherAccounts$"                                      
+                            [errorMessage]="formErrors.assetAccountId"
+                            (blurEvent)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">
+                          </kt-simple-dropdown>
                         </div>
                       </div>
                     </div>
@@ -48,66 +53,101 @@
                       <div class="col-lg-6 col-sm-6 col-md-6">
                         <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">depreciation Expense Account:</label>
-                          <kt-input-field
+                          <kt-simple-dropdown 
                             id="depreciation_expense"
-                            formControlName="depExpenseAccount"
-                            placeholder="Enter Account"
-                            (blurEvent)="logValidationErrors(depreciationForm, formErrors, validationMessages)"
-                            [errorMessage]="[{ condition : formErrors.depExpenseAccount , error : formErrors.depExpenseAccount }]">
-                          </kt-input-field>
+                            propertyValue="id"
+                            propertyName="name" 
+                            placeholder="Select Expense Account"
+                            searchPlaceholder="Search Account..."
+                            formControlName="depExpenseAccountId"
+                            matFormFieldClass="full-width"
+                            [optionList]="ngxsService.otherAccounts$"                                      
+                            [errorMessage]="formErrors.depExpenseAccountId"
+                            (blurEvent)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">
+                          </kt-simple-dropdown>
                         </div>
                       </div>
 
                       <div class="col-lg-6 col-sm-6 col-md-6">
                         <div class="form-group kt-form__group">
                           <label class="col-form-label pt-0">Accumulated depreciation Account:</label>
-                          <kt-input-field
+                          <kt-simple-dropdown 
                             id="depreciation_accumulated"
-                            formControlName="accumulatedDepAccount"
-                            placeholder="Enter Account"
-                            (blurEvent)="logValidationErrors(depreciationForm, formErrors, validationMessages)"
-                            [errorMessage]="[{ condition : formErrors.accumulatedDepAccount , error : formErrors.accumulatedDepAccount }]">
-                          </kt-input-field>
+                            propertyValue="id"
+                            propertyName="name" 
+                            placeholder="Select Depreciation Account"
+                            searchPlaceholder="Search Account..."
+                            formControlName="accumulatedDepAccountId"
+                            matFormFieldClass="full-width"
+                            [optionList]="ngxsService.otherAccounts$"                                      
+                            [errorMessage]="formErrors.accumulatedDepAccountId"
+                            (blurEvent)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">
+                          </kt-simple-dropdown>
                         </div>
                       </div>
                     </div>
 
-                    <div class="row">
-                        <!-- <div class="col-lg-4 col-sm-4 col-md-4">
-                  <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Method:</label>
-                    <mat-radio-group aria-label="Select an option" formControlName="method">
-                      <mat-radio-button id="depreciation_straight" [value]="method.Percentage" [disableRipple]="true" [disabled]="disablePercentage" class="ml-5">Straight Line</mat-radio-button>
-                      <mat-radio-button id="depreciation_declining" [value]="method.FixedAmount">Declining</mat-radio-button>
-                     </mat-radio-group>
-                   </div>
-                </div> -->
-
-                <div class="col-lg-6 col-sm-6 col-md-6">
-                  <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Declining Rate:</label>
-                    <kt-input-field
-                      id="depreciation_rate"
-                      type="number"
-                      formControlName="decliningRate"
-                      placeholder="Enter Rate"
-                      (blurEvent)="logValidationErrors(depreciationForm, formErrors, validationMessages)"
-                      [errorMessage]="[{ condition : formErrors.decliningRate , error : formErrors.decliningRate }]">
-                    </kt-input-field>
-                   </div>
-                </div>
+                <div class="row">
+                  <div class="col-lg-6 col-sm-6 col-md-6">
+                    <div class="form-group kt-form__group">
+                      <label class="col-form-label pt-0">Asset Category:</label>
+                      <kt-simple-dropdown 
+                        id="depreciation_category"
+                        propertyValue="id"
+                        propertyName="name" 
+                        placeholder="Select Asset Category"
+                        searchPlaceholder="Search Asset Category..."
+                        formControlName="assetCategoryId"
+                        matFormFieldClass="full-width"
+                        [optionList]="ngxsService.assetCategories$"                                      
+                        [errorMessage]="formErrors.assetCategoryId"
+                        (blurEvent)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">
+                      </kt-simple-dropdown>
+                     </div>
+                  </div>
 
                 <div class="col-lg-6 col-sm-6 col-md-6">
                   <div class="form-group kt-form__group">
                     <label class="col-form-label pt-0">Useful Life:</label>
-                    <kt-input-field
-                      id="depreciation_life"
+                    <mat-form-field appearance="outline" class="full-width">
+                      <input matInput formControlName="usefulLife" placeholder="Enter Useful Life" 
+                           id="depreciation_life" type="number" (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
+                      <mat-error *ngIf="formErrors.usefulLife">
+                        <strong>{{formErrors.usefulLife}}</strong>
+                      </mat-error>
+                      <!-- <mat-hint align="end">Optional</mat-hint> -->
+                    </mat-form-field>
+                   </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Method:</label>
+                    <mat-radio-group aria-label="Select an option" (change)="methodChange($event)" formControlName="method">
+                      <mat-radio-button id="depreciation_straight" [value]="method.StraightLine" class="ml-5">Straight Line</mat-radio-button>
+                      <mat-radio-button id="depreciation_declining" [value]="method.Declining">Declining</mat-radio-button>
+                     </mat-radio-group>
+                   </div>
+                </div>
+
+                <div *ngIf="isDeclining" class="col-lg-6 col-sm-6 col-md-6">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Declining Rate:</label>
+                    <!-- <kt-input-field
+                      id="depreciation_rate"
                       type="number"
-                      formControlName="usefulLife"
-                      placeholder="Enter Useful Life"
+                      formControlName="decliningRate"
+                      placeholder="Enter Declining Rate"
                       (blurEvent)="logValidationErrors(depreciationForm, formErrors, validationMessages)"
-                      [errorMessage]="[{ condition : formErrors.usefulLife , error : formErrors.usefulLife }]">
-                    </kt-input-field>
+                      [errorMessage]="[{ condition : formErrors.decliningRate , error : formErrors.decliningRate }]">
+                    </kt-input-field> -->
+                    <mat-form-field appearance="outline" class="full-width">
+                      <input matInput formControlName="decliningRate" placeholder="Enter Declining Rate" 
+                           id="depreciation_rate" type="number" (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
+                      <!-- <mat-hint align="end">Optional</mat-hint> -->
+                    </mat-form-field>
                    </div>
                 </div>
               </div>
@@ -127,9 +167,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div *ngIf="showButtons" class="float-right">
-                            <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="campus_reset">Reset</button>
-                            <button mat-raised-button class="sub___btn" type="submit" id="campus_submit"
-                            (click)="logValidationErrors(this.campusForm, this.formErrors, this.validationMessages)">Submit
+                            <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="depreciation_reset">Reset</button>
+                            <button mat-raised-button class="sub___btn" type="submit" id="depreciation_submit"
+                            (click)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">Submit
                             </button>&nbsp;
 
                         </div>

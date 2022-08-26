@@ -295,6 +295,25 @@ export class Permissions {
   static PAYROLL_TRANSACTION_REVIEW = 'Permissions.PayrollTransactionClaims.Review';
   static PAYROLL_TRANSACTION_APPROVE = 'Permissions.PayrollTransactionClaims.Approve';
 
+
+  //Asset Category
+  static ASSET_CATEGORY_VIEW = "Permissions.AssetCategoryClaims.View";
+  static ASSET_CATEGORY_CREATE = "Permissions.AssetCategoryClaims.Create";
+  static ASSET_CATEGORY_EDIT = "Permissions.AssetCategoryClaims.Edit";
+  static ASSET_CATEGORY_DELETE = "Permissions.AssetCategoryClaims.Delete";
+
+  //Depreciation Model
+  static DEPRECIATION_MODEL_VIEW = "Permissions.DepreciationModelClaims.View";
+  static DEPRECIATION_MODEL_CREATE = "Permissions.DepreciationModelClaims.Create";
+  static DEPRECIATION_MODEL_EDIT = "Permissions.DepreciationModelClaims.Edit";
+  static DEPRECIATION_MODEL_DELETE = "Permissions.DepreciationModelClaims.Delete";
+
+  //Asset
+  static ASSET_VIEW = "Permissions.AssetClaims.View";
+  static ASSET_CREATE = "Permissions.AssetClaims.Create";
+  static ASSET_EDIT = "Permissions.AssetClaims.Edit";
+  static ASSET_DELETE = "Permissions.AssetClaims.Delete";
+
   // allowance
   static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';
 
@@ -367,6 +386,11 @@ export enum PayrollType {
 export enum PayrollItemType {
   Percentage,
   FixedAmount,
+}
+
+export enum DepreciationMethod {
+  StraightLine,
+  Declining
 }
 
 export enum BusinessPartnerType {

@@ -21,7 +21,7 @@ export class AssetCategoryService extends AppServiceBase {
         return this.httpClient.get<IPaginationResponse<IAssetCategory[]>>(this.baseUrl)
     }
 
-    getAssetCategorysDropdown(): Observable<IApiResponse<IAssetCategory[]>> {
+    getAssetCategoriesDropdown(): Observable<IApiResponse<IAssetCategory[]>> {
         return this.httpClient.get<IApiResponse<IAssetCategory[]>>(this.baseUrl + '/dropdown')
     }
 

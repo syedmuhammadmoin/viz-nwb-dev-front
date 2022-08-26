@@ -4,7 +4,6 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
 import { ListDepreciationComponent } from './list-depreciation/list-depreciation.component';
-import { CreateDepreciationComponent } from './create-depreciation/create-depreciation.component';
 
 const route : Routes = [
   {
@@ -13,29 +12,29 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListDepreciationComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.BANKACCOUNT_VIEW },
-        //     { permission: Permissions.BANKACCOUNT_CREATE },
-        //     { permission: Permissions.BANKACCOUNT_DELETE },
-        //     { permission: Permissions.BANKACCOUNT_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
+        data: {
+          array: [
+            { permission: Permissions.DEPRECIATION_MODEL_VIEW },
+            { permission: Permissions.DEPRECIATION_MODEL_CREATE },
+            { permission: Permissions.DEPRECIATION_MODEL_DELETE },
+            { permission: Permissions.DEPRECIATION_MODEL_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard]
       },
-      {
-        path: CRUD_ROUTES.CREATE,
-        component: CreateDepreciationComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.BANKACCOUNT_VIEW },
-        //     { permission: Permissions.BANKACCOUNT_CREATE },
-        //     { permission: Permissions.BANKACCOUNT_DELETE },
-        //     { permission: Permissions.BANKACCOUNT_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard]
-      }
+      // {
+      //   path: CRUD_ROUTES.CREATE,
+      //   component: CreateDepreciationComponent,
+      //   data: {
+      //     array: [
+      //       { permission: Permissions.BANKACCOUNT_VIEW },
+      //       { permission: Permissions.BANKACCOUNT_CREATE },
+      //       { permission: Permissions.BANKACCOUNT_DELETE },
+      //       { permission: Permissions.BANKACCOUNT_EDIT },
+      //     ]
+      //   },
+      //   canActivate: [PermissionGuard]
+      // }
     ]
   }
 ]
