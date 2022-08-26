@@ -18,15 +18,15 @@
                     (permission.isGranted(permissions.JOURNALENTRY_EDIT))" id="journal_edit"
                     [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('edit' , journalEntryMaster?.id)"
                     [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button"  class="btn_public mr-3">
-                    <i class="fa fa-edit"></i> Edit
+                    <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                   </button>
 
                   <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public"  
-                  matTooltip="Add Bank Account"><i class="fa fa-print"></i> Print Journal Entry</button>
+                  matTooltip="Add Bank Account"><i class="fa fa-print icon-e-p-a"></i> Print Journal Entry</button>
                   
 
                   <mat-divider class="mt-5"></mat-divider>
@@ -36,12 +36,12 @@
 
           <div class="col-md-4 col-lg-4  mt-3">
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Document Id: 
+                  <h4 class="print-box-detail-1">Document Id: 
                       <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Date: 
+                  <h4 class="print-box-detail-2">Date: 
                       <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
               </div>
               <!-- <div class="print-box" style="margin-top: 5%;margin-top: 6%;background-color: #bbd3db4d;padding: 10px;">
@@ -49,11 +49,11 @@
                   <p class="mb-0" style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
               </div> -->
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Description: 
+                <h4 class="print-box-detail-2">Description: 
                     <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.description || 'N/A'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus: 
+                <h4 class="print-box-detail-2">Campus: 
                     <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.campusName || 'N/A'}}</span></h4>
               </div>
           </div>
@@ -80,12 +80,12 @@
 
           <div class="col-md-4 col-lg-4  ml-auto mt-3" >
               <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Debit: 
+                <h4 class="net-payment">Total Debit: 
                   <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalDebit || 0)}}</span>
                 </h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Credit:
+                <h4>Total Credit:
                   <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalCredit || 0)}}</span>
                 </h4>
               </div>

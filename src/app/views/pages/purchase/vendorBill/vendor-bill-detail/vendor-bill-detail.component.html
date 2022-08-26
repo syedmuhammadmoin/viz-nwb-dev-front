@@ -20,30 +20,30 @@
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.PAYMENT_CREATE))"
                   [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
                   type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit"></i> Register Payment
+                  <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.DEBITNOTE_CREATE))"
                   [routerLink]="'/' + DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, isBill: true}"
                   type="button" class="mr-3 btn_public">
-                  <i class="fa fa-edit"></i> Debit Note
+                  <i class="fa fa-edit icon-e-p-a"></i> Debit Note
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
                   type="button" class="mr-3 btn_public" >
-                  <i class="fa fa-edit"></i> Edit
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
                 <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))" class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('print', billMaster?.id)" type="button" 
                 class="btn_public" id="bill_print">
-                  <i class="fa fa-print"></i> Print Vendor Bill
+                  <i class="fa fa-print icon-e-p-a"></i> Print Vendor Bill
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
@@ -52,24 +52,24 @@
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Bill No: 
+                <h4 class="print-box-detail-1">Bill No: 
                     <span class="float-right" style="font-weight: 400;">{{billMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
+                <h4 class="print-box-detail-1">Vendor Name:
                     <span class="float-right" style="font-weight: 400;">{{billMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+              <h4 class="print-box-detail-1">Campus:
               <span class="float-right" style="font-weight: 400;">{{billMaster?.campusName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Bill Date:
+              <h4 class="print-box-detail-1">Bill Date:
               <span class="float-right" style="font-weight: 400;">{{billMaster?.billDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Due Date:
+              <h4 class="print-box-detail-1">Due Date:
               <span class="float-right" style="font-weight: 400;">{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
           </div>
@@ -141,7 +141,7 @@
                 <td class="text-right" >
                   {{valueFormatter(billMaster?.totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #1a6b85;">
+              <tr class="grand-total">
                 <th class="text-left"
                   >Total Amount :
                 </th>
@@ -153,12 +153,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title class="paid-anount">
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
+                        <mat-panel-description class="paid-anount-flex-grow">
                           {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -187,8 +185,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title class="paid-anount">
                           Reference
                         </mat-panel-title>
                       </mat-expansion-panel-header>
@@ -207,8 +204,7 @@
               </tr>
 
               <tr *ngIf="(pendingAmount)">
-                <th class="text-right"
-                style="background-image: linear-gradient(to right, #1a6b85, #4a8a9e); color: #fff;">Pending Amount :
+                <th class="text-right pending-amount">Pending Amount :
                 </th>
                 <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
                   {{valueFormatter(pendingAmount || 0)}}</td>

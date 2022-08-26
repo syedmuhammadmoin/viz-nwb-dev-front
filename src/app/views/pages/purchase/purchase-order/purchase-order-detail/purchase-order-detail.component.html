@@ -17,7 +17,7 @@
                 <button *ngIf="(purchaseOrderMaster?.state === docStatus.Draft || purchaseOrderMaster?.state === docStatus.Rejected) &&(permission.isGranted(permissions.PURCHASEORDER_EDIT))" 
                   id="purchase_edit" [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('edit',purchaseOrderMaster?.id) "
                   [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" class="btn_public mr-3">
-                  <i class="fa fa-edit"></i> Edit
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
                 <button *ngIf="purchaseOrderMaster?.state === docStatus.Unpaid || purchaseOrderMaster?.state === docStatus.Partial"
@@ -25,15 +25,15 @@
                   [ngClass]="!(permission.isGranted(permissions.GRN_CREATE)) ? 'disable' : '' "
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.CREATE"
                   [queryParams]="{q: purchaseOrderMaster?.id, 'isPurchaseOrder': true}" type="button" class="btn_public ">
-                  <i class="fa fa-edit"></i> Create GRN
+                  <i class="fa fa-edit icon-e-p-a"></i> Create GRN
                 </button> 
 
                 <button *ngIf="(permission.isGranted(permissions.PURCHASEORDER_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ PURCHASE_ORDER.ID_BASED_ROUTE ('print',purchaseOrderMaster?.id) " id="purchase_print" type="button" class="btn_public">
-                  <i class="fa fa-print"></i> Print Purchase Order
+                  <i class="fa fa-print icon-e-p-a"></i> Print Purchase Order
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
@@ -43,30 +43,30 @@
           <div class="col-md-4 col-lg-4  mt-3">
 
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Doc No: 
+                <h4 class="print-box-detail-1">Doc No: 
                     <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
+                <h4 class="print-box-detail-1">Vendor Name:
                     <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">P.O Date:
+              <h4 class="print-box-detail-1">P.O Date:
               <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.poDate | date: 'MMM d, y'}}</span></h4>
             </div>
 
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Due Date:
+              <h4 class="print-box-detail-1">Due Date:
               <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
 
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Contact:
+              <h4 class="print-box-detail-1">Contact:
               <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.contact ? purchaseOrderMaster?.contact : "-"}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+              <h4 class="print-box-detail-1">Campus:
               <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.campusName ? purchaseOrderMaster?.campusName : "-"}}</span></h4>
             </div>
           </div>
@@ -99,7 +99,7 @@
                 <td class="text-right" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #1a6b85;">
+              <tr class="grand-total">
                 <th class="text-left">Grand Total:</th>
                 <th class="text-right" >
                   {{valueFormatter(total || 0)}}</th>
@@ -110,8 +110,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title class="paid-anount">
                           References 
                         </mat-panel-title>
                         <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;

@@ -17,12 +17,12 @@
                   <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
                     [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
                     type="button" class="btn_public">
-                    <i class="fa fa-edit"></i> Edit
+                    <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
 
                   <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" 
                     class="btn_public mr-3">
-                    <i class="fa fa-print"></i> Print Anticipated Budget
+                    <i class="fa fa-print icon-e-p-a"></i> Print Anticipated Budget
                   </button>
 
                   <mat-divider class="mt-5"></mat-divider>
@@ -32,16 +32,16 @@
             <div class="col-md-4 col-lg-4  mt-3">
 
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">From Date:
+                  <h4 class="print-box-detail-1">From Date:
                       <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">To Date:
+                  <h4 class="print-box-detail-2">To Date:
                       <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Estimated <br> Budget Name:
+                <h4 class="print-box-detail-2">Estimated <br> Budget Name:
                 <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
               </div>
               

@@ -15,30 +15,30 @@
                 <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid) 
                     && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
                   type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit"></i> Register Payment
+                  <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
                 <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid) 
                     && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
                   [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: invoiceMaster?.id, isInvoice: true}"
                   type="button" class="mr-3 btn_public">
-                  <i class="fa fa-edit"></i> Credit Note
+                  <i class="fa fa-edit icon-e-p-a"></i> Credit Note
                 </button>
 
                 <button *ngIf="(invoiceMaster?.state === docStatus.Draft || invoiceMaster?.state === docStatus.Rejected) 
                     && (permission.isGranted(permissions.INVOICE_EDIT))"
                   [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
-                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit"></i>
+                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                   Edit
                 </button>
 
                 <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-3" id="invoice_attachment"
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button" 
                   class="btn_public" id="invoice_print">
-                  <i class="fa fa-print"></i> Print Invoice
+                  <i class="fa fa-print icon-e-p-a"></i> Print Invoice
                 </button>
                 
                 <mat-divider class="mt-5"></mat-divider>
@@ -48,24 +48,24 @@
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Invoice No: 
+                <h4 class="print-box-detail-1">Invoice No: 
                     <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Customer Name: 
+              <h4 class="print-box-detail-2">Customer Name: 
               <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.customerName}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Invoice Date: 
+                <h4 class="print-box-detail-2">Invoice Date: 
                 <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Due Date: 
+              <h4 class="print-box-detail-2">Due Date: 
               <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus: 
+              <h4 class="print-box-detail-2">Campus: 
               <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.campusName}}</span></h4>
             </div>
             
@@ -128,7 +128,7 @@
                 <td class="text-right" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #1a6b85;">
+              <tr class="grand-total">
                 <th class="text-left"
                   >Grand Total :</th>
                 <th class="text-right" >
@@ -140,12 +140,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title class="paid-anount">
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
+                        <mat-panel-description class="paid-anount-flex-grow">
                           {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -170,8 +168,7 @@
 
               <!-- <tr *ngIf="(invoiceMaster?.transactionId)"> -->
                 <tr *ngIf="(pendingAmount)">
-                <th class="text-right"
-                  style="background-image: linear-gradient(to right, #1a6b85, #4a8a9e); color: #fff;">Pending Amount :
+                <th class="text-right pending-amount">Pending Amount :
                 </th>
                 <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
                   {{valueFormatter(pendingAmount || 0)}}</td>

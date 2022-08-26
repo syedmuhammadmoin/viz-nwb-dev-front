@@ -14,23 +14,23 @@
                 <button *ngIf="(payrollMaster?.state === docStatus.Partial || payrollMaster?.state === docStatus.Unpaid) 
                     && (payrollMaster?.ledgerId) && (permission.isGranted(permissions.PAYROLL_PAYMENT_CREATE))"
                   type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit"></i> Register Payment
+                  <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
                   <button *ngIf="(payrollMaster?.state === docStatus.Draft || payrollMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"
                     [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('edit', payrollMaster?.id)" [queryParams]="{q: payrollMaster?.id, 'isPayroll': true}"
-                    type="button"  class="mr-3 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit"></i>
+                    type="button"  class="mr-3 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                     Edit
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                   </button>
 
                   <button [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('print', payrollMaster?.id)" type="button" 
                     class="btn_public" id="payroll_trans_print">
-                    <i class="fa fa-print"></i> Print Payroll
+                    <i class="fa fa-print icon-e-p-a"></i> Print Payroll
                   </button>
                   <mat-divider class="mt-5"></mat-divider>
               </ng-container>
@@ -38,44 +38,44 @@
   
             <div class="col-md-4 col-lg-4  mt-3">
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Doc No: 
+                  <h4 class="print-box-detail-1">Doc No: 
                       <span class="float-right" style="font-weight: 400;">{{payrollMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Employee: 
+                <h4 class="print-box-detail-2">Employee: 
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.employee}}</span></h4>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Transaction Date: 
+                  <h4 class="print-box-detail-2">Transaction Date: 
                   <span class="float-right" style="font-weight: 400;">{{payrollMaster?.transDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Designation: 
+                <h4 class="print-box-detail-2">Designation: 
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.designation}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Department: 
+                <h4 class="print-box-detail-2">Department: 
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.department}}</span></h4>
               </div>
             </div>
 
             <div class="col-md-4 col-lg-4 ml-auto mt-3">
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Account: 
+                  <h4 class="print-box-detail-1">Account: 
                       <span class="float-right" style="font-weight: 400;">{{payrollMaster?.accountPayable}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Working Days: 
+                <h4 class="print-box-detail-2">Working Days: 
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.workingDays}}</span></h4>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Present Days: 
+                  <h4 class="print-box-detail-2">Present Days: 
                   <span class="float-right" style="font-weight: 400;">{{payrollMaster?.presentDays}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Leave Days: 
+                <h4 class="print-box-detail-2">Leave Days: 
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.leaveDays}}</span></h4>
               </div>
             </div>
@@ -151,7 +151,7 @@
                   <td class="text-right" >
                     {{valueFormatter(payrollMaster?.taxDeduction || 0)}}</td>
                 </tr>
-                <tr style="border-top: 2px solid #1a6b85;">
+                <tr class="grand-total">
                   <th class="text-left"
                     >Net Salary :</th>
                   <th class="text-right" >
@@ -192,8 +192,7 @@
                 </tr>
 
                 <tr *ngIf="(pendingAmount)">
-                  <th class="text-right"
-                    style="background-image: linear-gradient(to right, #1a6b85, #4a8a9e); color: #fff;">Pending Amount :
+                  <th class="text-right pending-amount">Pending Amount :
                   </th>
                   <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
                     {{valueFormatter(pendingAmount || 0)}}</td>

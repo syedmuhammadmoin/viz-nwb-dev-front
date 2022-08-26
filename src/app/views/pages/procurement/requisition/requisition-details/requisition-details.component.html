@@ -18,19 +18,19 @@
                     && (permission.isGranted(permissions.REQUISITION_EDIT))" id="requisition_edit"
                     [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                     type="button" class="mr-3 btn_public">
-                    <i class="fa fa-edit"></i> Edit
+                    <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
 
                   <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_CREATE))" id="requisition_issuance"
                     [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                     type="button" class="mr-3 btn_public">
-                    <i class="fa fa-edit"></i> Issuance
+                    <i class="fa fa-edit icon-e-p-a"></i> Issuance
                   </button>
 
                   <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.PURCHASEORDER_CREATE))" id="requisition_purchase"
                     [routerLink]="'/' + PURCHASE_ORDER.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                     type="button" class="mr-3 btn_public">
-                    <i class="fa fa-edit"></i> Purchase Order
+                    <i class="fa fa-edit icon-e-p-a"></i> Purchase Order
                   </button>
 
                   <!-- <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3" 
@@ -39,7 +39,7 @@
 
                   <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" 
                     class="btn_public">
-                    <i class="fa fa-print"></i> Print Requisition
+                    <i class="fa fa-print icon-e-p-a"></i> Print Requisition
                   </button>
                   <mat-divider class="mt-5"></mat-divider>
               </ng-container>
@@ -50,20 +50,20 @@
             <div class="col-md-4 col-lg-4  mt-3">
 
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Requisition No: 
+                  <h4 class="print-box-detail-1">Requisition No: 
                       <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Employee:
+                  <h4 class="print-box-detail-2">Employee:
                       <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.employeeName}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Requisition Date:
+                <h4 class="print-box-detail-2">Requisition Date:
                 <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+                <h4 class="print-box-detail-2">Campus:
                 <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.campus}}</span></h4>
               </div>
             </div>
@@ -107,8 +107,7 @@
                     <mat-accordion>
                       <mat-expansion-panel>
                         <mat-expansion-panel-header>
-                          <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                        font-weight: bold;">
+                          <mat-panel-title class="paid-amount">
                             References 
                           </mat-panel-title>
                           <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;

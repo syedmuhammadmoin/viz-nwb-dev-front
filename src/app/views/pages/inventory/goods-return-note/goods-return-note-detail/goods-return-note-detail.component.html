@@ -16,15 +16,15 @@
                   <button *ngIf="(goodsReturnNoteMaster?.state === docStatus.Draft || goodsReturnNoteMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GOODS_RETURN_NOTE_EDIT))" 
                    id="grn_edit" [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE ('edit', goodsReturnNoteMaster?.id)"
                     [queryParams]="{q: goodsReturnNoteMaster?.id, 'isGoodsReturnNote': true}" type="button" class="btn_public mr-3">
-                    <i class="fa fa-edit"></i>  Edit
+                    <i class="fa fa-edit icon-e-p-a"></i>  Edit
                   </button>
 
                   <button *ngIf="(permission.isGranted(permissions.GOODS_RETURN_NOTE_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                   </button>
   
                   <button [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE ('print', goodsReturnNoteMaster?.id)" id="grn_print" type="button"  class="btn_public">
-                    <i class="fa fa-print"></i> Print Goods Return Note
+                    <i class="fa fa-print icon-e-p-a"></i> Print Goods Return Note
                   </button>
                   <mat-divider class="mt-5"></mat-divider>
               </ng-container>
@@ -33,20 +33,20 @@
             <div class="col-md-4 col-lg-4  mt-3">
   
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Document No: 
+                  <h4 class="print-box-detail-1">Document No: 
                       <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
+                  <h4 class="print-box-detail-2">Vendor Name:
                       <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.vendorName}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">GRN Date:
+                <h4 class="print-box-detail-2">GRN Date:
                 <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.returnDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+                <h4 class="print-box-detail-2">Campus:
                 <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.campusName}}</span></h4>
               </div>
             </div>
@@ -92,8 +92,7 @@
                     <mat-accordion>
                       <mat-expansion-panel>
                         <mat-expansion-panel-header>
-                          <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                        font-weight: bold;">
+                          <mat-panel-title class="paid-amount">
                             Reference
                           </mat-panel-title>
                           <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;

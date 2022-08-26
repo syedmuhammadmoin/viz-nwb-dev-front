@@ -329,19 +329,18 @@
                   <table class="table table-bordered small_table_box">
                     <tr>
                       <th class="text-right" style="width: 70%;">Total Before Tax :</th>
-                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                      <td class="text-right total-value">
                         {{valueFormatter(totalBeforeTax || 0)}}
                     </tr>
                     <tr>
                       <th class="text-right">Total Tax :</th>
-                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                      <td class="text-right total-value">
                         {{valueFormatter(totalTax || 0)}}</td>
                     </tr>
                     <tr>
-                      <th class="text-right"
-                        style="background: #1a6b85; color: #fff;">Grand Total :
+                      <th class="text-right grand-total-two">Grand Total :
                       </th>
-                      <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                      <td class="text-right total-value">
                         {{valueFormatter(grandTotal || 0)}}</td>
                     </tr>
                   </table>

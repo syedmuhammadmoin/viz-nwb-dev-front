@@ -18,16 +18,16 @@
                   [routerLink]= "'/' + DEBIT_NOTE.ID_BASED_ROUTE ('edit',debitNoteMaster?.id)"
                   [queryParams]="{q: debitNoteMaster?.id, 'isDebitNote': true}" type="button"
                   class="mr-3 btn_public">
-                  <i class="fa fa-edit"></i> Edit
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
                 <button *ngIf="(permission.isGranted(permissions.DEBITNOTE_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + DEBIT_NOTE.ID_BASED_ROUTE ('print',debitNoteMaster?.id) " type="button" 
                   class="btn_public" id="debit_note_print">
-                  <i class="fa fa-print"></i> Print Debit Note
+                  <i class="fa fa-print icon-e-p-a"></i> Print Debit Note
                 </button>
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
@@ -36,20 +36,20 @@
           <div class="col-md-4 col-lg-4  mt-3">
 
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Debit Note No: 
+                <h4 class="print-box-detail-1">Debit Note No: 
                     <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
+                <h4 class="print-box-detail-2">Vendor Name:
                     <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Date:
+              <h4 class="print-box-detail-2">Date:
               <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+              <h4 class="print-box-detail-2">Campus:
               <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.campusName}}</span></h4>
             </div>
           </div>
@@ -83,7 +83,7 @@
                 <td class="text-right" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #1a6b85;">
+              <tr class=".grand-total">
                 <th class="text-left">Grand Total :</th>
                 <th class="text-right" >
                   {{valueFormatter(totalAmount || 0)}}</th>
@@ -94,12 +94,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title class="paid-anount">
                            Reconciled Amount : 
                         </mat-panel-title>
-                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
+                        <mat-panel-description class="paid-anount-flex-grow">
                           {{valueFormatter(debitNoteMaster?.reconciledAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -127,8 +125,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title class="paid-anount">
                            References
                         </mat-panel-title>
                         <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;

@@ -105,7 +105,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      rowHeight: 40,
+      rowHeight: 30,
       headerHeight: 35,
       context: "double click to edit",
     };

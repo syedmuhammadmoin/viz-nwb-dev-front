@@ -16,7 +16,7 @@
                   <button *ngIf="(issuanceReturnMaster?.state === docStatus.Draft || issuanceReturnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.ISSUANCE_RETURN_EDIT))" id="issuance_return_edit"
                     [routerLink]="'/'+ ISSUANCE_RETURN.ID_BASED_ROUTE('edit', issuanceReturnMaster?.id)"
                     [queryParams]="{q: issuanceReturnMaster?.id, 'isIssuanceReturn': true}" type="button" class="btn_public mr-3">
-                    <i class="fa fa-edit"></i>  Edit
+                    <i class="fa fa-edit icon-e-p-a"></i>  Edit
                   </button>
 
                   <!-- <button *ngIf="(permission.isGranted(permissions.ISSUANCE_RETURN_EDIT))"  class="btn_public mr-3" 
@@ -24,7 +24,7 @@
                   </button> -->
   
                   <button [routerLink]="'/'+ ISSUANCE_RETURN.ID_BASED_ROUTE ('print',issuanceReturnMaster?.id)" id="issuance_return_print" type="button"  class="btn_public">
-                    <i class="fa fa-print"></i> Print Issuance Return
+                    <i class="fa fa-print icon-e-p-a"></i> Print Issuance Return
                   </button>
                   <mat-divider class="mt-5"></mat-divider>
               </ng-container>
@@ -33,20 +33,20 @@
             <div class="col-md-4 col-lg-4  mt-3">
   
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Document No: 
+                  <h4 class="print-box-detail-1">Document No: 
                       <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Employee:
+                  <h4 class="print-box-detail-2">Employee:
                       <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.employeeName}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Issuance Rreturn Date:
+                <h4 class="print-box-detail-2">Issuance Rreturn Date:
                 <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.issuanceReturnDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
+                <h4 class="print-box-detail-2">Campus:
                 <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.campusName}}</span></h4>
               </div>
             </div>          
@@ -92,8 +92,7 @@
                     <mat-accordion>
                       <mat-expansion-panel>
                         <mat-expansion-panel-header>
-                          <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                        font-weight: bold;">
+                          <mat-panel-title class="paid-amount">
                             Reference
                           </mat-panel-title>
                           <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;

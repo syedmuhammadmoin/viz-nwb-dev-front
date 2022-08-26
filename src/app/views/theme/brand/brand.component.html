@@ -2,13 +2,16 @@
 <div class="brand flex-column-auto" [ngClass]="brandClasses" id="kt-aside">
   <!--begin::Logo-->
   <a href="javascript:;" routerLink="/" class="brand-logo align-items-center">
-	  <img alt="logo"  src="../../../../assets/media/logos/logo-wr.png"  /> <h2 class="mb-0 mt-1 ml-3 tagline-h">SBBU</h2> <!--[attr.src]="headerLogo"-->
+	  <!-- <img alt="logo" class="deshboard-logo"  src="../../../../assets/media/logos/logo-wr.png"  /> -->
+    <div class="deshboard-logo"></div>
+     <h2 class="mb-0 mt-1 ml-3 tagline-h"></h2> <!--[attr.src]="headerLogo"-->
+     <!-- <h2 class="mb-0 mt-1 ml-3 tagline-h">SBBU</h2> -->
   </a>
   <!--end::Logo-->
 
   <ng-container *ngIf="asideSelfMinimizeToggle">
     <!--begin::Toggle-->
-    <button class="brand-toggle btn btn-sm px-0" id="kt_aside_toggle" (click)="toggleAsideClick()" >
+    <button class="brand-toggle btn btn-sm px-0 double-right-arow" id="kt_aside_toggle" (click)="toggleAsideClick()" >
       <span class="svg-icon svg-icon-xl" [inlineSVG]="'./assets/media/svg/icons/Navigation/Angle-double-left.svg'"></span>
     </button>
     <!--end::Toolbar-->

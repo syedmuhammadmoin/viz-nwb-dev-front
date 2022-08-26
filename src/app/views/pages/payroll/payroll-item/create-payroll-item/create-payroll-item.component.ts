@@ -193,7 +193,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     ]
 
     this.gridOptions = {
-      rowHeight: 40,
+      rowHeight: 30,
       headerHeight: 35,
       context: "click to select Employee",
     };

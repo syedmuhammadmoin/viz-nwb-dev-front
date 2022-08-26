@@ -11,7 +11,6 @@ import {locale as esLang} from './core/_config/i18n/es';
 import {locale as jpLang} from './core/_config/i18n/jp';
 import {locale as deLang} from './core/_config/i18n/de';
 import {locale as frLang} from './core/_config/i18n/fr';
-import {ROUTER_NAVIGATION} from '@ngrx/router-store';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -57,6 +56,8 @@ export class AppComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
+
+    // this.globalStyle.textcolor;
     // enable/disable loader
 
     this.loader = this.layoutConfigService.getConfig('page-loader.type');

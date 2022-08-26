@@ -102,8 +102,7 @@
                   <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <!-- <img src="../../../../../assets/media/logos/logo-wr.png"  style="width: 100%;" alt=""> -->
                     <!-- <h3>Welcome To Nawabshah University</h3> -->
-                     <p>Main Campus
-                      SBBU Shaheed benazirabad.</p>
+                     <p class="login-image-title"></p>
                   </div>
                 </div>
                 
@@ -116,7 +115,8 @@
                     <kt-auth-notice></kt-auth-notice>
                     <div class="row mb-4">
                       <div class="col-md-12 col-lg-12">
-                        <img src="../../../../../assets/media/logos/logo-wr.png"  alt="" style="height: 130px;">
+                        <div class="login-image"></div>
+                        <!-- <img src="assets/media/logos/logo-wr.png"  alt="" style="height: 130px;"> -->
                         <h1 class="heading__text">Sign in</h1>
                       </div>
                     </div>
@@ -125,7 +125,7 @@
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <!--error mesage for email start-->
                         <div class="form-group group__sty" >
-                          <input type="email" formControlName="email" class="form-control" placeholder="Email" />
+                          <input type="email" formControlName="email" class="form-control input-filed-color" placeholder="Email" />
                         
                           <mat-error *ngIf="isControlHasError('email', 'required')">
                             <p class="text-left error_msg" >
@@ -151,7 +151,7 @@
                     <div class="row  mb-3">
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group group__sty">
-                          <input type="password" formControlName="password" class="form-control" autocomplete="off" placeholder="Password"  />
+                          <input type="password" formControlName="password" class="form-control input-filed-color" autocomplete="off" placeholder="Password"  />
                             <!--error message for password start-->
                             <mat-error *ngIf="isControlHasError('password', 'required')">
                               <p class="text-left error_msg_pass" >

@@ -29,6 +29,7 @@
     font-smoothing: antialiased;
 }
 
+.fa-balance-scale:before { content: "\f24e"; }
 .flaticon2-notification:before { content: "\f100"; }
 .flaticon2-settings:before { content: "\f101"; }
 .flaticon2-search:before { content: "\f102"; }

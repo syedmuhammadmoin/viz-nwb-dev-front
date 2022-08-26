@@ -49,7 +49,7 @@ export class ListInventoryAdjustmentComponent extends AppComponentBase implement
     
       
     ngOnInit() {
-      this.gridOptions.rowHeight = 40;
+      this.gridOptions.rowHeight = 30;
       this.gridOptions.headerHeight = 35;
   
       this.defaultColDef = {

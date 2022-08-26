@@ -39,17 +39,17 @@
   
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-ripple .mat-ripple-element {
   opacity: 0.03 !important;
-  background-color: #1a6b85 !important;
+  // background-color: #1a6b85 !important;
 }
 
 ::ng-deep .mat-checkbox-checked.mat-accent .mat-checkbox-background,.mat-checkbox-indeterminate.mat-accent .mat-checkbox-background 
 {
-  background-color: #1a6b85;
+  // background-color: #1a6b85;
 }
   
 ::ng-deep .mat-checkbox-label:not(.dontchange)
 {
-  color: #1a6b85;
+  // color: #1a6b85;
   font-size: 14px;
   font-weight: bold;
 }
@@ -70,14 +70,14 @@
 
 .input-group-append
 {
-  background-color: #1a6b85;
+  // background-color: #1a6b85;
   
 }
 
 .input_style
 {
   background-color: #f6fafb;
-  border: 1px solid #1a6b85;
+  // border: 1px solid #1a6b85;
 }
 
 #button-addon1 i

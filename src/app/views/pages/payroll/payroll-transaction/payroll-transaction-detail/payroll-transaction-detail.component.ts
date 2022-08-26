@@ -96,7 +96,7 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
       }
     });
 
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
   }
 
