@@ -100,7 +100,7 @@
                         </div>
 
                         <div *ngIf="showAssetFields" class="col-lg-4 col-sm-4 col-md-4">
-                            <div class="form-group kt-form__group mb-0">
+                            <div class="form-group kt-form__group">
                               <label class="col-form-label pt-0">Acquisition Date:</label>
                               <kt-date-input 
                                 formControlName="acquisitionDate" 
@@ -111,7 +111,7 @@
                           </div>
 
                           <div *ngIf="showAssetFields" class="col-lg-4 col-sm-4 col-md-4">
-                            <div class="form-group kt-form__group mb-0">
+                            <div class="form-group kt-form__group">
                               <label class="col-form-label pt-0">Depreciation Model:</label>
                               <kt-simple-dropdown 
                                 id="product_model" 
@@ -287,9 +287,18 @@
                               </mat-form-field>
                           </div>
                         </div> 
-
-                        
                       </div>
+
+                      <div *ngIf="showAssetFields" class="row">
+                        <div class="col-lg-4 col-sm-4 col-md-4">
+                            <div class="form-group kt-form__group">
+                              <div apperence="outline" class="full-width">
+                                <mat-slide-toggle id="product_prorata" [checked]="isActiveChecked" formControlName="prorataBasis">Prorata Basis</mat-slide-toggle>
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+
                 </div>
             </div>
             <!-- form first section ends -->
