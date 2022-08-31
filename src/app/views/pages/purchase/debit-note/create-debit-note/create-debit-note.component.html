@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header style="color:white !important;" [sticky]="false" [title]="title"
+    <kt-portlet-header  [sticky]="false" [title]="title"
       [class]="'card-head-lg'"></kt-portlet-header>
     <!--begin::Form-->
       <form [formGroup]="debitNoteForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
@@ -8,9 +8,9 @@
           <div class="kt-form__section kt-form__section--first">
 
             <div class="col-md-12 col-lg-12 col-sm-12">
-              <div class="row">
+              <div class="row mt-8 mb-5">
                 <div class="col-lg-4 col-sm-4 col-md-4">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Vendor Name:</label>
                       <kt-simple-dropdown 
                       id="debit_note_vendor_name"
@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="col-lg-4 col-sm-4 col-md-4">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Note Date:</label>
                       <kt-date-input
                         formControlName="noteDate"
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="col-lg-4 col-sm-4 col-md-4">
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Campus:</label>
                       <kt-simple-dropdown 
                       id="debit_note_campus"
@@ -64,7 +64,7 @@
 
               <div class="row mt-5">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="example-container  mat-elevation-z8 ">
+                  <div class="">
                     <ng-container formArrayName="debitNoteLines">
                       <div class="table-responsive">
                         <mat-table #table [dataSource]="debitNoteForm.get('debitNoteLines')['controls']">
@@ -269,7 +269,7 @@
                               <ng-container matColumnDef="action">
                                 <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                                 <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                    <button class=" remove-icon" type="button" [id]="'debit_note_remove_' + i"  (click)="removeDebitNoteLineClick(i); totalCalculation()" >
+                                    <button class="  app-remove-btn" type="button" [id]="'debit_note_remove_' + i"  (click)="removeDebitNoteLineClick(i); totalCalculation()" >
                                     <i  class="fas fa-trash" aria-hidden="true"></i>
                                   </button>
                                 </mat-cell>
@@ -283,7 +283,7 @@
                     <ng-container >
                       <div class="row">
                         <div class="col-md-12 col-sm-12">
-                          <button class=" btn_create" type="button" id="debit_note_add_line"  (click)="addDebitNoteLineClick()">
+                          <button class="  app-add-new-line-btn" type="button" id="debit_note_add_line"  (click)="addDebitNoteLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -295,7 +295,7 @@
               </div>
 
               <div class="row mt-10">
-                <div class="col-lg-4 ml-auto">
+                <!-- <div class="col-lg-4 ml-auto">
                   <table class="table table-bordered small_table_box">
                     <tr>
                       <th class="text-right" style="width: 70%;">Total Before Tax :</th>
@@ -306,10 +306,22 @@
                       <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">{{valueFormatter(totalTax || 0)}}</td>
                     </tr>
                     <tr >
-                      <th class="text-right" style="background: #1a6b85; color: #fff;">Grand Total :</th>
+                      <th class="text-right" style="background: #65c18c; color: #fff;">Grand Total :</th>
                       <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">{{valueFormatter(grandTotal || 0)}}</td>
                     </tr>
                   </table>
+                </div> -->
+
+                <div  class="col-md-4 col-lg-4  ml-auto mt-3">
+                  <div  class="bottom-print-box">
+                    <h4  style="">Total Before Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
+                  </div>
+                  <div  class="bottom-print-box">
+                    <h4  style="">Total Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
+                  </div>
+                  <div  class="bottom-print-box">
+                    <h4  style="">Grand Total : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(grandTotal || 0)}}</span></h4>
+                  </div>
                 </div>
               </div>
             </div>
@@ -323,16 +335,16 @@
   
         <mat-divider class="mt-10"></mat-divider>
 
-        <div class="kt-portlet__foot ">
-          <div class="kt-form__actions kt-form__actions">
+        <div class="kt-portlet__foot p-5">
+          <div class="kt-form__actions kt-form__actions mb-0">
             <div class="row">
               <div class="col-lg-12 text-right">
-                <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="debit_note_reset">Reset</button>
-                <button *ngIf="!isBill"  class="sub___btn  mr-3" mat-raised-button type="submit" id="debit_note_save"
-                (click)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button>
-                <button class="sub___btn " mat-raised-button type="submit" id="debit_note_submit"
+                <button class="mr-2 app-reset-btn" type="button" (click)="reset()" id="debit_note_reset"><i class="fas fa-undo"></i> Reset</button>
+                <button *ngIf="!isBill"  class="mr-2 app-save-btn" type="submit" id="debit_note_save"
+                (click)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i> Save</button>
+                <button class="app-default-btn " type="submit" id="debit_note_submit"
                 (click)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages); isSubmit(1)">
-                    Submit
+                <i class="far fa-save"></i>  Submit
                 </button>
               </div>
             </div>

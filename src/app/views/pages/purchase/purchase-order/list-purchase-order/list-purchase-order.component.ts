@@ -123,15 +123,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
 
   ngOnInit(): void {
 
-    this.gridOptions = {
-      cacheBlockSize: 20,
-      rowModelType: "infinite",
-      paginationPageSize: 10,
-      pagination: true,
-      rowHeight: 40,
-      headerHeight: 35,
-      context: "double click to edit",
-    };
+3
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 

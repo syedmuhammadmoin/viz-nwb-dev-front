@@ -7,44 +7,41 @@
         printTitle="Balance Sheet"
         ngxPrint
         type="button"
-        mat-raised-button
         [useExistingCss]="true"
-        class="sub___btn"
+        class="app-default-btn"
         style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [ktBusy]="isLoading" class="row">
-      <div class="bg-white">
+      <div class="bg-whitee">
 
-        <div class="print_header_area">
-          <div class="print-col-6">
+        <div class="print_header_area p-s-1">
+          <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
-              <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
+              <div class="print-logo"></div>
+              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
               <span class="top-heading">BALANCE SHEET</span>
             </div>
           </div>
         </div>
 
-
-        
-        <div class="print_body_area">
+        <div class="print_body_area p-s-1-two">
 
           <div class="print-col-5" style="margin-top: 3%;">
-            
-            <div class="print-box" >
-              <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+            <div class="print-box-report" >
+              <h4>
                   Date:<span class="float-right" style="font-weight: 400;">{{date}}</span></h4>
-              <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+              <h4>
                   Campus:<span class="float-right" style="font-weight: 400;">{{campus}}</span></h4>    
-              <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
 
           <ng-container *ngFor="let key of rowData.keys()">
-          <div class="print-content-area" >
-            <div class="print-col-12 mt-0">
+          <div class="print-content-area s-p-8" >
+            <div class="print-col-12 mt-0 s-p-8-one">
               <div class="color-cinnabar">
                 <h3 class="head-parent mb-5">> {{key}}</h3>
               </div>
@@ -52,19 +49,17 @@
           
             <div class="print-col-10 mx-auto">
               <table class="table">
-                <tr>
-                  <th style="background-color: #1a6b85;
-                  color: white;">Account</th>
-                  <th style="background-color: #1a6b85;
-                  color: white;" class="text-right">Total</th>
+                <tr class="one">
+                  <th>Account</th>
+                  <th class="text-right">Total</th>
                 </tr>
-                <tr *ngFor="let summaryHead of rowData.get(key)">
+                <tr class="two" *ngFor="let summaryHead of rowData.get(key)">
                   <td>{{summaryHead.transactional}}</td>
                   <td class="text-right">{{valueFormatter(summaryHead.balance)}}</td>
                 </tr>
-                <tr>
-                  <th style="background-color: #e4edf3; border-bottom: 1px solid #1a6b85;" >Total</th>
-                  <th class="text-right" style="background-color: #e4edf3; border-bottom: 1px solid #1a6b85;">{{valueFormatter(calculateTotal(rowData.get(key), 'balance').balance)}}</th>
+                <tr class="three">
+                  <th >Total</th>
+                  <th class="text-right">{{valueFormatter(calculateTotal(rowData.get(key), 'balance').balance)}}</th>
                 </tr>
               </table>
             </div>
@@ -72,24 +67,21 @@
 
           </ng-container>
 
-          <div class="print-col-12" style=" margin-top: 2%;">
-            <div class="print-box">
-              <p style="font-size: 18px;
-            font-weight: 500;">Terms and conditions:</p>
+          <div class="print-col-12 s-p-4">
+            <div class="print-box s-p-4-one">
+              <p>Terms and conditions:</p>
             </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;line-height:18px;font-weight: 100;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <div class="print-box s-p-4-two">
+              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </h4>
             </div>
 
-            <div class="print-box" style="margin-top: 25px;">
-              <p style="
-              font-family: inherit; font-weight: bold;
-              font-size: 22px;">Thank You for your Business</p>
+            <div class="print-box s-p-three" style="margin-top: 25px;">
+              <p>Thank You for your Business</p>
             </div>     
           </div>
 
-          <div class="print-col-4" style=" margin-top: 8%;color: #1a6b85;">
+          <div class="print-col-4 s-p-5">
             _________________________________
             <p class="text-center">Authorised Sign</p>
           </div>

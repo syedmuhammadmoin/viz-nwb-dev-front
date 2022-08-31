@@ -103,14 +103,14 @@
   <ng-container *ngIf="!item.badge; else menuLinkBadge">
     <span class="menu-item-here"></span>
     <!-- menu item title text -->
-    <span class="menu-text" [translate]="item.translate">
+    <span class="menu-text all-text-primary" [translate]="item.translate">
 			{{item.title}}
 		</span>
   </ng-container>
 
   <ng-template #menuLinkBadge>
     <!-- menu item with badge -->
-    <span class="menu-text" [translate]="item.translate">{{item.title}}</span>
+    <span class="menu-text all-text-primary" [translate]="item.translate">{{item.title}}</span>
     <span class="menu-link-badge">
 			<span class="kt-badge kt-badge--brand kt-badge--inline kt-badge--pill" [ngClass]="item.badge.type" [translate]="item.badge.translate">{{item.badge.value}}</span>
 		</span>
@@ -121,7 +121,7 @@
 <ng-template #menuColumnTemplate let-item="item">
   <li class="menu-item">
     <h3 class="menu-heading menu-toggle">
-			<span class="menu-text" [translate]="item.heading.translate">
+			<span class="menu-text all-text-primary" [translate]="item.heading.translate">
 				{{item.heading.title}}
 			</span>
       <i class="menu-ver-arrow la la-angle-right"></i>

@@ -39,7 +39,7 @@
     .ck-balloon-panel{
         .ck-content{
             min-height: 200px;
-            border-color: transparent !important;
+            border-color: transparent;
 
             &.ck-focused{
                 border-color: $primary !important;

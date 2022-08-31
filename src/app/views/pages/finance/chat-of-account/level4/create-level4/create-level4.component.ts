@@ -6,7 +6,9 @@ import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import {AppComponentBase} from '../../../../../shared/app-component-base';
 import { ChartOfAccountService } from '../../service/chart-of-account.service';
 import { finalize, take } from 'rxjs/operators';
-import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AccountLevel4State } from '../../store/account-level4.state';
+import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 
 @Component({
   selector: 'kt-create-level4',
@@ -43,6 +45,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
     public dialogRef: MatDialogRef<CreateLevel4Component>,
     private cdRef : ChangeDetectorRef,
+    private ngxsService: NgxsCustomService,
     public chartOfAccountService: ChartOfAccountService,
     injector: Injector
   ) {
@@ -108,6 +111,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
            })
          )
         .subscribe(() => {
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
           this.toastService.success('Updated Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }
@@ -124,6 +128,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
            })
          )
         .subscribe(() => {
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
           this.toastService.success('Created Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }

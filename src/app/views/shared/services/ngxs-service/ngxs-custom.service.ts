@@ -45,6 +45,10 @@ import { RoleState } from 'src/app/views/pages/access-management/store/role.stat
 import { AccessManagementService } from 'src/app/views/pages/access-management/service/access-management.service';
 import { UnitOfMeasurementState } from 'src/app/views/pages/profiling/unit-of-measurement/store/unit.state';
 import { UnitOfMeasurementService } from 'src/app/views/pages/profiling/unit-of-measurement/service/unit-of-measurement.service';
+import { AssetCategoryState } from 'src/app/views/pages/fixed-asset/asset-category/store/asset-category.state';
+import { AssetCategoryService } from 'src/app/views/pages/fixed-asset/asset-category/service/asset-category.service';
+import { DepreciationModelState } from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
+import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
 
 @Injectable({
   providedIn: 'root'
@@ -73,6 +77,8 @@ export class NgxsCustomService {
     public accessManagementService: AccessManagementService,
     public cashAccountService: CashAccountService,
     public bankAccountService: BankAccountService,
+    public assetCategoryService: AssetCategoryService,
+    public depreciationModelService: DepreciationMethodService,
     public budgetService: BudgetService,
     public store: Store,
   ) { }
@@ -221,6 +227,16 @@ export class NgxsCustomService {
    @Select(UnitOfMeasurementState.entities) units$: Observable<any>;
    @Select(UnitOfMeasurementState.isFetchCompleted) unitsFetchCompleted$: Observable<any>;
    @Select(UnitOfMeasurementState.isLoading) unitsIsLoading$: Observable<any>;
+
+    // Asset Category
+    @Select(AssetCategoryState.entities) assetCategories$: Observable<any>;
+    @Select(AssetCategoryState.isFetchCompleted) assetCategoriesFetchCompleted$: Observable<any>;
+    @Select(AssetCategoryState.isLoading) assetCategoriesIsLoading$: Observable<any>;
+
+    // Depreciation Model
+    @Select(DepreciationModelState.entities) depreciationModels$: Observable<any>;
+    @Select(DepreciationModelState.isFetchCompleted) depreciationModelsFetchCompleted$: Observable<any>;
+    @Select(DepreciationModelState.isLoading) depreciationModelsIsLoading$: Observable<any>;
 
 
   //region State Management
@@ -601,17 +617,33 @@ export class NgxsCustomService {
     })
   }
 
-  
+  // Get Asset Category State From Store if available else fetch from the server and cache.
+  getAssetCategoryFromState() {
+    this.assetCategoriesFetchCompleted$.subscribe((res) => {
+      //console.log('Asset Category State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(AssetCategoryState, {
+          serviceClass: this.assetCategoryService,
+          methodName: 'getAssetCategoriesDropdown',
+          context: this
+        }))
+      }
+    })
+  }
 
-
-
-
-
-
-
-
-
-
+  // Get Depreciation Model State From Store if available else fetch from the server and cache.
+  getDepreciationModelFromState() {
+    this.depreciationModelsFetchCompleted$.subscribe((res) => {
+      //console.log('Depreciation Model State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DepreciationModelState, {
+          serviceClass: this.depreciationModelService,
+          methodName: 'getDepreciationModelsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
   //end state region 
 }
 

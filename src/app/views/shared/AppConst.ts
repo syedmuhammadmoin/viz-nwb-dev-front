@@ -36,6 +36,13 @@ export class AppConst {
     1: 'Partial',
     2: 'Paid'
   }
+  
+  static depreciationMethod = [
+    { id: 0, name: 'Straight Line'},
+    { id: 1, name: 'Declining Rate'},
+   
+  ]
+
   static paymentType = {
     1: 'Inflow',
     2: 'Outflow'
@@ -367,6 +374,24 @@ export class AppConst {
     'Permissions.TransactionReconClaims.Create': 'Transaction Reconcile Create',
     'Permissions.TransactionReconClaims.Edit': 'Transaction Reconcile Update',
     'Permissions.TransactionReconClaims.Delete': 'Transaction Reconcile Delete',
+
+    // Asset Category
+    'Permissions.AssetCategoryClaims.View': 'Asset Category View',
+    'Permissions.AssetCategoryClaims.Create': 'Asset Category Create',
+    'Permissions.AssetCategoryClaims.Edit': 'Asset Category Update',
+    'Permissions.AssetCategoryClaims.Delete': 'Asset Category Delete',
+
+    // Depreciation Model
+    'Permissions.DepreciationModelClaims.View': 'Depreciation Model View',
+    'Permissions.DepreciationModelClaims.Create': 'Depreciation Model Create',
+    'Permissions.DepreciationModelClaims.Edit': 'Depreciation Model Update',
+    'Permissions.DepreciationModelClaims.Delete': 'Depreciation Model Delete',
+
+    // Asset
+    'Permissions.AssetClaims.View': 'Asset View',
+    'Permissions.AssetClaims.Create': 'Asset Create',
+    'Permissions.AssetClaims.Edit': 'Asset Update',
+    'Permissions.AssetClaims.Delete': 'Asset Delete'
   }
   static paymentRegisterType = {
     1: 'Cash Account',

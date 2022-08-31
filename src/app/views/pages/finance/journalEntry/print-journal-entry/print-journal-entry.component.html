@@ -1,140 +1,119 @@
 <div class="container " >
-    <div class="col-lg-10 mx-auto text-right">
-      <div class="row">
-        <button
-          id="journal_print"
-          printSectionId="main"
-          printTitle="Invoice"
-          ngxPrint
-          type="button"
-          mat-raised-button
-          class="sub___btn"
-          [useExistingCss]="true" style="margin-bottom: 20px;"
-          ><i class="fas fa-print"></i> Print
-        </button>
-      </div>
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button
+        id="journal_print"
+        printSectionId="main"
+        printTitle="Invoice"
+        ngxPrint
+        type="button"
+        class="app-default-btn"
+        [useExistingCss]="true" style="margin-bottom: 20px;"
+        ><i class="fas fa-print"></i> Print
+      </button>
     </div>
-    
-
-    <div class="col-lg-10 mx-auto" id="main">
-      <div class="row">
-        <div class="bg-white">
+  </div>
   
-          <div class="print_header_area">
-            <div class="print-col-6">
-              <div class="logo_and_title">
-                <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
-                <span class="top-heading">JOURNAL ENTRY</span>
-              </div>
-              
+
+  <div class="col-lg-10 mx-auto" id="main">
+    <div class="row">
+      <div class="bg-whitee">
+
+        <div class="print_header_area p-s-1">
+          <div class="print-col-6 p-s-1-one">
+            <div class="logo_and_title">
+              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
+              <div class="print-logo"></div>
+              <span class="top-heading">JOURNAL ENTRY</span>
             </div>
-            <div class="print-col-5 ml-auto">
-              <div class="id_num">
-                <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #fff;">Payment No: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
-                  <p style="margin-bottom: 0px;"></p>
-                </div>
-                <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #fff;margin-top: 10px;">Payment Date: <span class="float-right" style="font-weight: 400;">
-                    {{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
-                </div>
+            
+          </div>
+          <div class="print-col-5 ml-auto p-s-1-two">
+            <div class="id_num">
+              <div class="print-box-one">
+                <h4 class="print-page-items">Payment No: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
               </div>
-              
+              <div class="print-box-two">
+                <h4 class="print-page-items">Payment Date: <span class="float-right" style="font-weight: 400;">
+                  {{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
+              </div>
+            </div>
+            
+          </div>
+        </div>
+
+        
+        <div class="print_body_area p-s-2">
+
+          <div class="print-col-5 p-s-2-one">
+            <div class="print-box" >
+              <h4>John Doe </h4>
+              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
-  
-          
-          <div class="print_body_area">
-  
-            <div class="print-col-5" style="margin-top: 3%;">
-              
-              <div class="print-box" >
-                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">John Doe </h4>
-                <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-                <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
-              </div>
+
+          <div class="print-col-12 p-s-2-two">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-dark_color">
+                  <tr>
+                    <th>S.No</th>
+                    <th>Description</th>
+                    <th>Account</th>
+                    <th>Business Partner</th>
+                    <th class="text-center">Debit</th>
+                    <th class="text-center">Credit</th>
+                    <th>Store</th>
+                  </tr>
+                  <tr *ngFor="let line of journalEntryLines ; index as i">
+                    <td>{{i + 1}}</td>
+                    <td  class="description text-left">{{line?.description}}</td>
+                    <td> {{line?.accountName}}</td>
+                    <td> {{line?.businessPartnerName}}</td>
+                    <td class="text-right"><b>{{valueFormatter(line?.debit)}}</b></td>
+                    <td class="text-right"><b>{{valueFormatter(line?.credit)}}</b></td>
+                    <td>{{line?.warehouseName || 'N/A'}}</td>
+                  </tr>
+                </thead>
+              </table>
             </div>
-  
-            <div class="print-col-12" style="margin-top: 3%;">
-              <div class="table-responsive">
-                <table class="table " style="background-color: #fff;">
-                  <thead class="thead-dark_color">
-                    <tr style="background-color: #eaf2f4;">
-                      <th style="background-color: #eaf2f4; ">S.No</th>
-                      <th style="background-color: #eaf2f4; ">Description</th>
-                      <th style="background-color: #eaf2f4; ">Account</th>
-                      <th  style="background-color: #eaf2f4; ">Business Partner</th>
-                      <th class="text-center" style="background-color: #eaf2f4; ">Debit</th>
-                      <th class="text-center" style="background-color: #eaf2f4; ">Credit</th>
-                      <th  style="background-color: #eaf2f4; ">Store</th>
-                    </tr>
-                    <tr *ngFor="let line of journalEntryLines ; index as i">
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{i + 1}}</td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="description text-left">{{line?.description}}</td>
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{line?.accountName}}</td>
-                      <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;"> {{line?.businessPartnerName}}</td>
-                      <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #1a6b85;"><b>{{valueFormatter(line?.debit)}}</b></td>
-                      <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #1a6b85;"><b>{{valueFormatter(line?.credit)}}</b></td>
-                      <td  style="font-weight: 500;border-bottom: 1px solid #1a6b85;">{{line?.warehouseName || 'N/A'}}</td>
-                    </tr>
-                  </thead>
-                </table>
-              </div>
+          </div>
+
+
+          <div class="print-col-5  ml-auto p-s-3">
+            <div class="print-box p-s-3-one">
+              <h4>Total Debit:
+                <span class="float-right" style="font-weight: 500;">{{valueFormatter(journalEntryMaster?.totalDebit)}}</span>
+              </h4>
             </div>
-  
-  
-            <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
-              <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Debit:
-                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(journalEntryMaster?.totalDebit)}}</span>
-                </h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Credit:
-                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(journalEntryMaster?.totalCredit)}}</span>
-                </h4>
-              </div>
-              <!-- <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Income Tax:
-                  <span class="float-right" style="font-weight: 400;">{{paymentMaster?.incomeTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-                </h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">SRB Tax:
-                  <span class="float-right" style="font-weight: 400;">{{paymentMaster?.srbTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-                </h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
-                padding-top: 10px;">Net Payment: 
-                  <span class="float-right" style="font-weight: 400;">{{paymentMaster?.netPayment?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
-                </h4>
-              </div> -->
+            <div class="print-box p-s-3-one">
+              <h4>Total Credit:
+                <span class="float-right" style="font-weight: 500;">{{valueFormatter(journalEntryMaster?.totalCredit)}}</span>
+              </h4>
             </div>
-  
-  
-            <div class="print-col-12" style=" margin-top: 2%;">
-              
-              <div class="print-box">
-                <p style="font-size: 18px;
-              font-weight: 500;">Terms and conditions:</p>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 14px;line-height:18px;font-weight: 100;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                </h4>
-              </div>
-              <div class="print-box" style="margin-top: 25px;">
-                <p style="
-                font-family: inherit; font-weight: bold;
-                font-size: 22px;">Thankyou for your Business</p>
-              </div>
+          </div>
+
+
+          <div class="print-col-12 p-s-4">
+            
+            <div class="print-box p-s-4-one">
+              <p>Terms and conditions:</p>
             </div>
-            <div class="print-col-4" style=" margin-top: 8%;color: #1a6b85;">
-              _________________________________
-              <p class="text-center">Authorised Sign</p>
+            <div class="print-box p-s-4-two">
+              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              </h4>
             </div>
+            <div class="print-box p-s-4-three">
+              <p>Thankyou for your Business</p>
+            </div>
+          </div>
+          <div class="print-col-4 p-s-5">
+            _________________________________
+            <p class="text-center">Authorised Sign</p>
           </div>
         </div>
       </div>
     </div>
+  </div>
 </div>

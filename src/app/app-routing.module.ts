@@ -450,6 +450,34 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // FIXED ASSET
+      // Lazy Load ASSET CATEGORY Module
+      // {
+      //   path: APP_ROUTES.ASSET_CATEGORY, // <= Page URL
+      //   loadChildren: () =>
+      //     import('./views/pages/fixed-asset/asset-category/asset-category.module').then(
+      //       (m) => m.AssetCategoryModule
+      //     ),
+      //     canActivateChild: [AuthGuard]
+      // },
+      // Lazy Load DEPRECIATION MODEL Module
+      {
+        path: APP_ROUTES.DEPRECIATION_MODEL, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/fixed-asset/depreciation-model/depreciation-method.module').then(
+            (m) => m.DepreciationMethodModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+      // Lazy Load ASSET Module
+      {
+        path: APP_ROUTES.ASSET, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/fixed-asset/asset/asset.module').then(
+            (m) => m.AssetModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
     ],

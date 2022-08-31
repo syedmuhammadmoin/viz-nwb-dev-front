@@ -31,7 +31,7 @@ export abstract class AppServiceBase {
     httpParams = httpParams.append('Account', params?.filterModel?.accountTitle?.filter || '');
     
     httpParams = httpParams.append('docNo', (params?.filterModel?.docNo?.filter || params?.filterModel?.cnic?.filter) ||'');
-    httpParams = httpParams.append('businessPartner', (params?.filterModel?.businessPartnerName?.filter || params?.filterModel?.businessPartner?.filter || params?.filterModel?.customerName?.filter || params?.filterModel?.vendorName?.filter ||  params?.filterModel?.employee?.filter ||  params?.filterModel?.employeeName?.filter) || '');
+    httpParams = httpParams.append('businessPartner', (params?.filterModel?.businessPartnerName?.filter || params?.filterModel?.businessPartner?.filter || params?.filterModel?.customerName?.filter || params?.filterModel?.vendorName?.filter ||  params?.filterModel?.employee?.filter ||  params?.filterModel?.employeeName?.filter || params?.filterModel?.bankName?.filter) || '');
     httpParams = httpParams.append('department', (params?.filterModel?.departmentName?.filter || params?.filterModel?.department?.filter) || '');
     httpParams = httpParams.append('designation', (params?.filterModel?.designationName?.filter || params?.filterModel?.designation?.filter) || '');
     httpParams = httpParams.append('warehouse', (params?.filterModel?.warehouseName?.filter || ''));

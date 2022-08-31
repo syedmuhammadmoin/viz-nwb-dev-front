@@ -72,10 +72,10 @@
 
         &.ql-expanded {
             outline: none !important;
-            border-color: transparent !important;
+            border-color: transparent;
 
             .ql-picker-label {
-                border-color: transparent !important;
+                border-color: transparent;
                 color:  $primary;
                 outline: none !important;
 

@@ -1,12 +1,19 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Bill Detail'" [class]="'card-head-lg'">
+    <!-- <kt-portlet-header [sticky]="false" [title]="'Bill Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        <!-- <button [routerLink]="'/journal-entry/print/' + journalEntryMasterData?.id"  mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button> -->
+        
         
         
         <h4 class="overall_statuses {{docStatus[billMaster?.state]}}"> Status:  {{billMaster?.status}} </h4>
+      </ng-container>
+    </kt-portlet-header> -->
+
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'Bill Detail'" >
+      <ng-container class="" ktPortletTools>
+        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <div class="ribbon-target " ><span class="ribbon-inner {{billMaster?.status}}"></span> {{billMaster?.status}} </div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -19,58 +26,58 @@
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.PAYMENT_CREATE))"
                   [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
-                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit"></i> Register Payment
+                  type="button" class="mr-2 btn_public" (click)="openDialog()" >
+                  <i class="fa fa-edit" ></i> Register Payment
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.DEBITNOTE_CREATE))"
                   [routerLink]="'/' + DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, isBill: true}"
-                  type="button" class="mr-3 btn_public">
-                  <i class="fa fa-edit"></i> Debit Note
+                  type="button" class="mr-2 btn_public">
+                  <i class="fa fa-edit"  ></i> Debit Note
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
-                  type="button" class="mr-3 btn_public" >
-                  <i class="fa fa-edit"></i> Edit
+                  type="button" class="mr-2 btn_public" >
+                  <i class="fa fa-edit" ></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))" class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))"  class="btn_public mr-2" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('print', billMaster?.id)" type="button" 
                 class="btn_public" id="bill_print">
-                  <i class="fa fa-print"></i> Print Vendor Bill
+                  <i class="fa fa-print" ></i> Print Vendor Bill
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
           </div>
 
-          <div class="col-md-4 col-lg-4  mt-3">
+          <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Bill No: 
-                    <span class="float-right" style="font-weight: 400;">{{billMaster?.docNo}}</span></h4>
+                <h4 >Bill No: 
+                    <span class="float-right" >{{billMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Vendor Name:
-                    <span class="float-right" style="font-weight: 400;">{{billMaster?.vendorName}}</span></h4>
+                <h4 >Vendor Name:
+                    <span class="float-right" >{{billMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
-              <span class="float-right" style="font-weight: 400;">{{billMaster?.campusName}}</span></h4>
+              <h4 >Campus:
+              <span class="float-right" >{{billMaster?.campusName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Bill Date:
-              <span class="float-right" style="font-weight: 400;">{{billMaster?.billDate | date: 'MMM d, y'}}</span></h4>
+              <h4 >Bill Date:
+              <span class="float-right" >{{billMaster?.billDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Due Date:
-              <span class="float-right" style="font-weight: 400;">{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
+              <h4 >Due Date:
+              <span class="float-right" >{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
           </div>
         </div>
@@ -106,11 +113,11 @@
                     <!-- <a [routerLink]="(unReconPay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a> -->
                     <a [routerLink]="(unReconPay?.docType === 0) ? '/' + PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : 
                       (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) : 
-                      '/' + DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a>
+                      '/' + DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) " class="all-text-primary">{{unReconPay.docNo}}</a>
                   </td>
                   <td>{{valueFormatter(unReconPay.amount)}}</td>
                   <td>
-                    <button (click)="reconcile(i)" class="recon-btn" mat-raised-button>Reconcile
+                    <button (click)="reconcile(i)" class="app-default-btn">Reconcile
                     </button>
                   </td>
                 </tr>
@@ -120,29 +127,29 @@
 
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" style="margin: 0px -6px;">
+            <table class="table  small_table_box">
               <tr>
-                <td class="text-left" style="width: 70%;">Total Before Tax :</td>
+                <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
                 <td class="text-right" >
                   {{valueFormatter(billMaster?.totalBeforeTax || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left">Tax :</td>
+                <td class="text-left Total-Before-Tax-heading">Tax :</td>
                 <td class="text-right" >
                   {{valueFormatter(billMaster?.tax || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left">Other Tax :</td>
+                <td class="text-left Total-Before-Tax-heading">Other Tax :</td>
                 <td class="text-right" >
                   {{valueFormatter(billMaster?.otherTax || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left">Total Tax :</td>
+                <td class="text-left Total-Before-Tax-heading">Total Tax :</td>
                 <td class="text-right" >
                   {{valueFormatter(billMaster?.totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #1a6b85;">
-                <th class="text-left"
+              <tr >
+                <th class="text-left Total-Before-Tax-heading"
                   >Total Amount :
                 </th>
                 <th class="text-right" >
@@ -153,12 +160,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
+                        <mat-panel-description >
                           {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -170,10 +175,10 @@
                         <tr *ngFor="let pay of paidAmountList">
                           <td><a
                               [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
-                              class="links">{{pay?.docNo}}</a></td>
+                              class="all-text-primary">{{pay?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
-                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                            class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
                       </table>
@@ -187,8 +192,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                           Reference
                         </mat-panel-title>
                       </mat-expansion-panel-header>
@@ -198,7 +202,7 @@
                         </tr>
                         <tr>
                           <td><a [routerLink]="('/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', billMaster?.grnId))"
-                              class="links">{{billMaster?.grnDocNo}}</a></td>
+                              class="all-text-primary">{{billMaster?.grnDocNo}}</a></td>
                         </tr>
                       </table>
                     </mat-expansion-panel>
@@ -207,10 +211,10 @@
               </tr>
 
               <tr *ngIf="(pendingAmount)">
-                <th class="text-right"
-                style="background-image: linear-gradient(to right, #1a6b85, #4a8a9e); color: #fff;">Pending Amount :
+                <th class="text-right Total-Before-Tax"
+                >Pending Amount :
                 </th>
-                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                <td class="text-right Total-Before-Tax">
                   {{valueFormatter(pendingAmount || 0)}}</td>
               </tr>
             </table>
@@ -221,12 +225,12 @@
 
     </kt-portlet-body>
     <mat-divider class="mt-10"></mat-divider>
-    <div class="kt-portlet__foot">
-      <div class="kt-form__actions kt-form__actions">
+    <div class="kt-portlet__foot p-5">
+      <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="billMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="bill_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="bill_approve" class="success__btn" mat-raised-button>Approve</button>
+            <button (click)="remarksDialog(action.Reject)" id="bill_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
+            <button (click)="remarksDialog(action.Approve)" id="bill_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
           </div>
         </div>
       </div>

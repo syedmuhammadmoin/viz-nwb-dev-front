@@ -1,137 +1,134 @@
 <div [ktBusy]="isLoading">
-    <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Issuance Return Detail'" [class]="'card-head-lg'">
-        <ng-container ktPortletTools>
-          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <!-- <button [routerLink]="'/journal-entry/print/' + journalEntryMasterData?.id"  mat-raised-button  matTooltip="Add Bank Account">Print Journal Entry</button> -->
-            
-            <h4 class="overall_statuses {{issuanceReturnMaster?.status}}">Status:  {{issuanceReturnMaster?.status}}</h4>
-        </ng-container>
-      </kt-portlet-header>
-      <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-          <div class="row">
-            <div class="col-md-12 col-12 pb-3">
-              <ng-container ktPortletTools >
-                  <button *ngIf="(issuanceReturnMaster?.state === docStatus.Draft || issuanceReturnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.ISSUANCE_RETURN_EDIT))" id="issuance_return_edit"
-                    [routerLink]="'/'+ ISSUANCE_RETURN.ID_BASED_ROUTE('edit', issuanceReturnMaster?.id)"
-                    [queryParams]="{q: issuanceReturnMaster?.id, 'isIssuanceReturn': true}" type="button" class="btn_public mr-3">
-                    <i class="fa fa-edit"></i>  Edit
-                  </button>
+  <kt-portlet>
 
-                  <!-- <button *ngIf="(permission.isGranted(permissions.ISSUANCE_RETURN_EDIT))"  class="btn_public mr-3" 
-                    (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
-                  </button> -->
-  
-                  <button [routerLink]="'/'+ ISSUANCE_RETURN.ID_BASED_ROUTE ('print',issuanceReturnMaster?.id)" id="issuance_return_print" type="button"  class="btn_public">
-                    <i class="fa fa-print"></i> Print Issuance Return
-                  </button>
-                  <mat-divider class="mt-5"></mat-divider>
-              </ng-container>
-            </div>
-  
-            <div class="col-md-4 col-lg-4  mt-3">
-  
-              <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Document No: 
-                      <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.docNo}}</span></h4>
-                  <p style="margin-bottom: 0px;"></p>
-              </div>
-              <div class="print-box">
-                  <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Employee:
-                      <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.employeeName}}</span></h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Issuance Rreturn Date:
-                <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.issuanceReturnDate | date: 'MMM d, y'}}</span></h4>
-              </div>
-              <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Campus:
-                <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.campusName}}</span></h4>
-              </div>
-            </div>          
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'Issuance Return Detail'">
+      <ng-container class="" ktPortletTools>
+        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <div class="ribbon-target " ><span class="ribbon-inner {{issuanceReturnMaster?.status}}"></span> {{issuanceReturnMaster?.status}}</div>
+      </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="row">
+          <div class="col-md-12 col-12 pb-3">
+            <ng-container ktPortletTools >
+                <button *ngIf="(issuanceReturnMaster?.state === docStatus.Draft || issuanceReturnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.ISSUANCE_RETURN_EDIT))" id="issuance_return_edit"
+                  [routerLink]="'/'+ ISSUANCE_RETURN.ID_BASED_ROUTE('edit', issuanceReturnMaster?.id)"
+                  [queryParams]="{q: issuanceReturnMaster?.id, 'isIssuanceReturn': true}" type="button" class="btn_public mr-2">
+                  <i class="fa fa-edit" ></i>  Edit
+                </button>
+
+                <button *ngIf="(permission.isGranted(permissions.ISSUANCE_RETURN_EDIT))"  class="btn_public mr-2" 
+                  (click)="openFileUploadDialog()" type="button"> <i class="fa fa-paperclip"></i> Attachment
+                </button>
+
+                <button [routerLink]="'/'+ ISSUANCE_RETURN.ID_BASED_ROUTE ('print',issuanceReturnMaster?.id)" id="issuance_return_print" type="button"  class="btn_public">
+                  <i class="fa fa-print" ></i> Print Issuance Return
+                </button>
+                <mat-divider class="mt-5"></mat-divider>
+            </ng-container>
           </div>
-    
-          <div class="row mt-10">
-            <div class="col-md-12 col-12">
-                <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;" class="ag-theme-alpine"
-                  [rowData]="issuanceReturnLines"
-                  [columnDefs]="columnDefs" 
-                  [gridOptions]="gridOptions"
-                  (firstDataRendered)="onFirstDataRendered($event)">
-                </ag-grid-angular>
-            </div>
-          </div>
-  
-          <div class="row mt-5">
 
-            <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
-              <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
-            </div>
+          <div class="col-md-5 col-lg-5  mt-3">
 
-            <div class="col-lg-4 ml-auto">
-              <table class="table  small_table_box" style="margin: 0px -6px;">
-                <!-- <tr>
-                  <td class="text-left" style="width: 70%;">Total Before Tax:</td>
-                  <td class="text-right" >
-                    {{valueFormatter(totalBeforeTax || 0)}}</td>
-                </tr>
-                <tr>
-                  <td class="text-left">Total Tax:</td>
-                  <td class="text-right" >
-                    {{valueFormatter(totalTax || 0)}}</td>
-                </tr>
-                <tr style="border-top: 2px solid #1a6b85;">
-                  <th class="text-left">Grand Total:</th>
-                  <th class="text-right" >
-                    {{valueFormatter(total || 0)}}</th>
-                </tr> -->
-  
-                <tr *ngIf="showReference">
-                  <td colspan="2">
-                    <mat-accordion>
-                      <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                          <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                        font-weight: bold;">
-                            Reference
-                          </mat-panel-title>
-                          <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                        font-weight: bold; flex-grow: 0;">
-                            {{valueFormatter(paidAmount || 0)}}
-                          </mat-panel-description> -->
-                        </mat-expansion-panel-header>
-                        <table class="table text-center table-bordered">
-                          <tr>
-                            <th>Doc #</th>
-                          </tr>
-                          <tr>
-                            <td><a [routerLink]="('/' + ISSUANCE.ID_BASED_ROUTE('details', issuanceReturnMaster?.issuanceId))"
-                                class="links">{{issuanceReturnMaster?.issuanceDocNo}}</a></td>
-                          </tr>
-                        </table>
-                      </mat-expansion-panel>
-                    </mat-accordion>
-                  </td>
-                </tr>
-              </table>
+            <div class="print-box">
+                <h4 >Document No: 
+                    <span class="float-right" >{{issuanceReturnMaster?.docNo}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
             </div>
+            <div class="print-box">
+                <h4 >Employee:
+                    <span class="float-right" >{{issuanceReturnMaster?.employeeName}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 >Issuance Rreturn Date:
+              <span class="float-right" >{{issuanceReturnMaster?.issuanceReturnDate | date: 'MMM d, y'}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 >Campus:
+              <span class="float-right" >{{issuanceReturnMaster?.campusName}}</span></h4>
+            </div>
+          </div>          
+        </div>
+  
+        <div class="row mt-10">
+          <div class="col-md-12 col-12">
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;" class="ag-theme-alpine"
+                [rowData]="issuanceReturnLines"
+                [columnDefs]="columnDefs" 
+                [gridOptions]="gridOptions"
+                (firstDataRendered)="onFirstDataRendered($event)">
+              </ag-grid-angular>
           </div>
         </div>
-      </kt-portlet-body>
-    
-      <mat-divider class="mt-10"></mat-divider>
-  
-        <div class="kt-portlet__foot">
-          <div class="kt-form__actions kt-form__actions">
-            <div class="row ">
-                <div class="col-lg-12 text-right" *ngIf="issuanceReturnMaster?.isAllowedRole">
-                  <button (click)="remarksDialog(action.Reject)" id="issuance_return_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-                  <button (click)="remarksDialog(action.Approve)" id="issuance_return_approve" class="success__btn" mat-raised-button>Approve</button>
-               </div>
-            </div>
+
+        <div class="row mt-5">
+
+          <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+            <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+          </div>
+
+          <div class="col-lg-4 ml-auto">
+            <table class="table  small_table_box">
+              <!-- <tr>
+                <td class="text-left" style="width: 70%;">Total Before Tax:</td>
+                <td class="text-right" >
+                  {{valueFormatter(totalBeforeTax || 0)}}</td>
+              </tr>
+              <tr>
+                <td class="text-left">Total Tax:</td>
+                <td class="text-right" >
+                  {{valueFormatter(totalTax || 0)}}</td>
+              </tr>
+              <tr style="border-top: 2px solid #65c18c;">
+                <th class="text-left">Grand Total:</th>
+                <th class="text-right" >
+                  {{valueFormatter(total || 0)}}</th>
+              </tr> -->
+
+              <tr *ngIf="showReference">
+                <td colspan="2">
+                  <mat-accordion>
+                    <mat-expansion-panel>
+                      <mat-expansion-panel-header>
+                        <mat-panel-title >
+                          Reference
+                        </mat-panel-title>
+                        <!-- <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold; flex-grow: 0;">
+                          {{valueFormatter(paidAmount || 0)}}
+                        </mat-panel-description> -->
+                      </mat-expansion-panel-header>
+                      <table class="table text-center table-bordered">
+                        <tr>
+                          <th>Doc #</th>
+                        </tr>
+                        <tr>
+                          <td><a [routerLink]="('/' + ISSUANCE.ID_BASED_ROUTE('details', issuanceReturnMaster?.issuanceId))"
+                              class="all-text-primary">{{issuanceReturnMaster?.issuanceDocNo}}</a></td>
+                        </tr>
+                      </table>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
-    </kt-portlet>
-   </div>
+      </div>
+    </kt-portlet-body>
   
+    <mat-divider class="mt-10"></mat-divider>
+
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
+          <div class="row ">
+              <div class="col-lg-12 text-right" *ngIf="issuanceReturnMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="issuance_return_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="issuance_return_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
+             </div>
+          </div>
+        </div>
+      </div>
+  </kt-portlet>
+ </div>

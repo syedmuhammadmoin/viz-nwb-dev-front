@@ -6,9 +6,9 @@
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
           <div class="col-lg-12 col-md-12 col-sm-12">
-            <div class="row">
+            <div class="row mt-8 mb-5">
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Date:</label>
                   <kt-date-input formControlName="date" placeholder="JV Date" [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)"
@@ -18,7 +18,7 @@
               </div>
 
               <div class="col-lg-3 col-sm-3 col-md-3">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Campus:</label>
                   <kt-simple-dropdown 
                   id="journal_campus"
@@ -36,7 +36,7 @@
               </div>
 
               <div class="col-lg-5 col-sm-5 col-md-5">
-                <div class="form-group kt-form__group">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Description:</label>
                   <kt-input-field formControlName="description" placeholder="Enter Description" id="journal_description"
                   (blurEvent)="logValidationErrors(journalEntryForm, this.formErrors, this.validationMessages)"
@@ -48,7 +48,7 @@
 
             <div class="row mt-5">
               <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="example-container mat-elevation-z8 ">
+                <div >
                   <ng-container formArrayName="journalEntryLines">
                     <mat-table #table [dataSource]="journalEntryForm.get('journalEntryLines')['controls']">
                       <!-- Account Column -->
@@ -56,7 +56,7 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> COA</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-simple-dropdown placeholder="Select Detailed Head" propertyValue="id" propertyName="name"
+                            <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
                               formControlName="accountId" matFormFieldClass="full-width" [id]="'journal_coa_' + i"
                               [errorMessage]="'Account is required.'" [optionList]="ngxsService.accountsLevel4$">
                             </kt-simple-dropdown>
@@ -99,21 +99,21 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Debit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-input-field formControlName="debit" matFormFieldClass="full-width"
+                            <!-- <kt-input-field formControlName="debit" matFormFieldClass="full-width"
                               placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_debit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.touched , 
                                                       error : 'Debit is required' }]">
-                            </kt-input-field>
-                            <!-- <mat-form-field appearance="outline" class="full-width">
+                            </kt-input-field> -->
+                            <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="debit" placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" 
                               [id]="'journal_debit_' + i" type="number" (blur)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)">
                               <mat-error *ngIf="journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
                                     journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.touched">
                                 <strong>Debit is required</strong>
                               </mat-error>
-                            </mat-form-field> -->
+                            </mat-form-field>
                           </div>
                         </mat-cell>
                       </ng-container>
@@ -122,21 +122,21 @@
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Credit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
-                            <kt-input-field formControlName="credit" matFormFieldClass="full-width"
+                            <!-- <kt-input-field formControlName="credit" matFormFieldClass="full-width"
                               placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" type = "number" [id]="'journal_credit_' + i"
                               (blurEvent)="logValidationErrors(this.journalEntryForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
                                                                 journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.touched , 
                                                       error : 'Credit is required' }]">
-                            </kt-input-field>
-                            <!-- <mat-form-field appearance="outline" class="full-width">
+                            </kt-input-field> -->
+                            <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="credit" placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" 
                               [id]="'journal_credit_' + i" type="number" (blur)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)">
                               <mat-error *ngIf="journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
                                     journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.touched">
                                 <strong>Credit is required</strong>
                               </mat-error>
-                            </mat-form-field> -->
+                            </mat-form-field>
                           </div>
                         </mat-cell>
                       </ng-container>
@@ -193,7 +193,7 @@
                           <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
                               </mat-icon> -->
 
-                          <button class=" remove-icon" type="button" [id]="'journal_remove_' + i" (click)="removeJournalEntryLineClick(i);">
+                          <button class=" app-remove-btn" type="button" [id]="'journal_remove_' + i" (click)="removeJournalEntryLineClick(i);">
                             <i class="fas fa-trash" aria-hidden="true"></i>
                           </button>
                         </mat-cell>
@@ -205,7 +205,7 @@
                   <ng-container>
                     <div class="row">
                       <div class="col-md-8 col-sm-8">
-                        <button class=" btn_create" type="button" id="journal_add_line" (click)="addJournalEntryLineClick()">
+                        <button class=" app-add-new-line-btn" type="button" id="journal_add_line" (click)="addJournalEntryLineClick()">
                           <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                         </button>
                       </div>
@@ -224,13 +224,23 @@
             </div>
 
             <div class="row">
-              <div class="col-md-6 col-6 text-center ml-auto " >
-                <div class="" style="background-color: whitesmoke; color: #1a6b85; padding: 10px 0px; font-size: 15px;">
+              <!-- <div class="col-md-6 col-6 text-center ml-auto " >
+                <div class="Total-Debit">
                   <span class="mr-3"><strong>Total Debit</strong> <span> {{debitTotal.toLocaleString(undefined,
                     { maximumFractionDigits: 2 })}}</span>
                   </span>
                   <span class="mr-3"><strong>Total Credit</strong> <span> {{creditTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
                   </span>
+                </div>
+              </div> -->
+              <div class="col-md-4 col-lg-4  ml-auto mt-3">
+                <div class="print-box">
+                  <h4 style="">Total Debit: <span class="float-right" >{{debitTotal.toLocaleString(undefined,
+                    { maximumFractionDigits: 2 })}}</span></h4>
+                </div>
+                <div class="print-box">
+                  <h4 style="">Total Credit: <span  class="float-right" >
+                    {{creditTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></h4>
                 </div>
               </div>
             </div>
@@ -239,17 +249,17 @@
       </div>
 
       <mat-divider class="mt-10"></mat-divider>
-      <div class="kt-portlet__foot ">
-        <div class="kt-form__actions kt-form__actions">
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
             <div class="col-lg-12 text-right">
-              <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="journal_reset">Reset</button>
-              <button mat-raised-button class=" mr-3 sub___btn" type="submit" id="journal_save"
-                (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(0)">
+              <button class="mr-2 app-reset-btn" type="button" (click)="reset()" id="journal_reset"><i class="fas fa-undo"></i> Reset</button>
+              <button class=" mr-2 app-save-btn" type="submit" id="journal_save"
+                (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i>
                 Save
               </button>
-              <button class="sub___btn" mat-raised-button type="submit" id="journal_submit"
-                (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(1)">
+              <button class="app-default-btn" type="submit" id="journal_submit"
+                (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(1)"><i class="far fa-save"></i>
                 Submit
               </button>
             </div>

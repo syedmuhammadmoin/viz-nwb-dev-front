@@ -34,7 +34,7 @@
 <!--begin::Form-->
 <!-- <form class="form rounded-pill" [formGroup]="loginForm" autocomplete="off" novalidate="novalidate"
   id="kt_login_form">
-  <div class="form-group">
+  <div class="form-group mb-0">
     <mat-form-field>
 
       <mat-label class="font-weight-bold">{{ "AUTH.INPUT.EMAIL" | translate }}</mat-label>
@@ -54,7 +54,7 @@
       </mat-error>
     </mat-form-field>
   </div> -->
-<!-- <div class="form-group">
+<!-- <div class="form-group mb-0">
   <mat-form-field>
     <mat-label class="font-weight-bold">{{ "AUTH.INPUT.PASSWORD" | translate }}</mat-label>
     <input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}"
@@ -89,9 +89,9 @@
 
 
 <!-- Custom Login Form Start -->
-<div class="container">
+<div class="col-12">
   <div class="row ">
-          <div class=" col-sm-7 col-md-7 col-lg-7 form-left-div-bg d-flex  ">
+          <div class=" col-sm-8 col-md-8 col-lg-8 form-left-div-bg d-flex  ">
                 <div class="row ">
                   <!-- <div class="col-sm-6 col-md-6 col-lg-6 mx-auto">
                     <img src="../../../../../assets/media/18907.png" class="mb-5" style="width: 100%;" />
@@ -102,30 +102,32 @@
                   <div class="col-sm-12 col-md-12 col-lg-12 ">
                     <!-- <img src="../../../../../assets/media/logos/logo-wr.png"  style="width: 100%;" alt=""> -->
                     <!-- <h3>Welcome To Nawabshah University</h3> -->
-                     <p>Main Campus
-                      SBBU Shaheed benazirabad.</p>
+                     <!-- <p>Main Campus
+                      SBBU Shaheed benazirabad.</p> -->
+                      
+                      <!-- <img src="../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png"  alt="" style="height: 44px;" width="110px"> -->
                   </div>
                 </div>
                 
 
                 <!-- <button class="ghost" id="signUp">Sign Up</button> -->
           </div>
-          <div class="col-sm-5 col-md-5 col-lg-5 form-right-div-bg bg-white">
+          <div class="col-sm-4 col-md-4 col-lg-4 form-right-div-bg bg-white">
               
               <form [formGroup]="loginForm" autocomplete="off" novalidate="novalidate">
                     <kt-auth-notice></kt-auth-notice>
                     <div class="row mb-4">
                       <div class="col-md-12 col-lg-12">
-                        <img src="../../../../../assets/media/logos/logo-wr.png"  alt="" style="height: 130px;">
+                        <div class="bg-login-logo"></div>
                         <h1 class="heading__text">Sign in</h1>
                       </div>
                     </div>
                     
-                    <div class="row mb-3">
+                    <div class="row mb-6">
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <!--error mesage for email start-->
-                        <div class="form-group group__sty" >
-                          <input type="email" formControlName="email" class="form-control" placeholder="Email" />
+                        <div class="form-group group__sty mb-1" >
+                          <input type="email" formControlName="email" class="form-control login-input-field" placeholder="Email" />
                         
                           <mat-error *ngIf="isControlHasError('email', 'required')">
                             <p class="text-left error_msg" >
@@ -148,10 +150,10 @@
                       </div>
                     </div>
 
-                    <div class="row  mb-3">
+                    <div class="row  mb-6">
                       <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="form-group group__sty">
-                          <input type="password" formControlName="password" class="form-control" autocomplete="off" placeholder="Password"  />
+                        <div class="form-group group__sty mb-1">
+                          <input type="password" formControlName="password" class="form-control login-input-field" autocomplete="off" placeholder="Password"  />
                             <!--error message for password start-->
                             <mat-error *ngIf="isControlHasError('password', 'required')">
                               <p class="text-left error_msg_pass" >
@@ -178,9 +180,9 @@
                       <div class="col-md-12 col-lg-12 col-sm-12">
                          <!--begin::Action-->
                           <div class="form-group text-right">
-                            <button style="" mat-raised-button id="kt_login_signin_submit" (click)="submit()" [ngClass]="{
+                            <button style="" id="kt_login_signin_submit" (click)="submit()" [ngClass]="{
                             'spinner spinner-right spinner-md spinner-light': loading
-                            }" class=" sub___btn mt-2 pr-10 pt-1 pb-1 pl-10">{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
+                            }" class="login-btn mt-2 pr-10 pt-1 pb-1 pl-10" mat-raised-button>{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
                           </div>
                         <!--end::Action-->
                       </div>
