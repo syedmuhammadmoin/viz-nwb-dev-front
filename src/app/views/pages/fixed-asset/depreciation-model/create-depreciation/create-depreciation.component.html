@@ -88,7 +88,7 @@
                     </div>
 
                 <div class="row">
-                  <div class="col-lg-6 col-sm-6 col-md-6">
+                  <!-- <div class="col-lg-6 col-sm-6 col-md-6">
                     <div class="form-group kt-form__group">
                       <label class="col-form-label pt-0">Asset Category:</label>
                       <kt-simple-dropdown 
@@ -104,7 +104,7 @@
                         (blurEvent)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">
                       </kt-simple-dropdown>
                      </div>
-                  </div>
+                  </div> -->
 
                 <div class="col-lg-6 col-sm-6 col-md-6">
                   <div class="form-group kt-form__group">
@@ -117,18 +117,6 @@
                       </mat-error>
                       <!-- <mat-hint align="end">Optional</mat-hint> -->
                     </mat-form-field>
-                   </div>
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col-lg-6 col-sm-6 col-md-6">
-                  <div class="form-group kt-form__group">
-                    <label class="col-form-label pt-0">Method:</label>
-                    <mat-radio-group aria-label="Select an option" (change)="methodChange($event)" formControlName="method">
-                      <mat-radio-button id="depreciation_straight" [value]="method.StraightLine" class="ml-5">Straight Line</mat-radio-button>
-                      <mat-radio-button id="depreciation_declining" [value]="method.Declining">Declining</mat-radio-button>
-                     </mat-radio-group>
                    </div>
                 </div>
 
@@ -148,6 +136,18 @@
                            id="depreciation_rate" type="number" (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
                       <!-- <mat-hint align="end">Optional</mat-hint> -->
                     </mat-form-field>
+                   </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-lg-6 col-sm-6 col-md-6">
+                  <div class="form-group kt-form__group">
+                    <label class="col-form-label pt-0">Method:</label>
+                    <mat-radio-group aria-label="Select an option" (change)="methodChange($event)" formControlName="method">
+                      <mat-radio-button id="depreciation_straight" [value]="method.StraightLine" class="ml-5">Straight Line</mat-radio-button>
+                      <mat-radio-button id="depreciation_declining" [value]="method.Declining">Declining</mat-radio-button>
+                     </mat-radio-group>
                    </div>
                 </div>
               </div>

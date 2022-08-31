@@ -481,10 +481,10 @@ export class MenuConfig {
           bullet: 'dot',
           icon: 'flaticon2-box-1',
           permission: [
-            Permissions.ASSET_CATEGORY_VIEW,
-            Permissions.ASSET_CATEGORY_CREATE,
-            Permissions.ASSET_CATEGORY_EDIT,
-            Permissions.ASSET_CATEGORY_DELETE,
+            // Permissions.ASSET_CATEGORY_VIEW,
+            // Permissions.ASSET_CATEGORY_CREATE,
+            // Permissions.ASSET_CATEGORY_EDIT,
+            // Permissions.ASSET_CATEGORY_DELETE,
             Permissions.DEPRECIATION_MODEL_VIEW,
             Permissions.DEPRECIATION_MODEL_CREATE,
             Permissions.DEPRECIATION_MODEL_EDIT,
@@ -495,16 +495,16 @@ export class MenuConfig {
             Permissions.ASSET_DELETE
           ],
           submenu: [
-            {
-              title: 'Asset Category',
-              page: '/' + ASSET_CATEGORY.LIST,
-              permission: [
-                Permissions.ASSET_CATEGORY_VIEW,
-                Permissions.ASSET_CATEGORY_CREATE,
-                Permissions.ASSET_CATEGORY_EDIT,
-                Permissions.ASSET_CATEGORY_DELETE
-              ]
-            },
+            // {
+            //   title: 'Asset Category',
+            //   page: '/' + ASSET_CATEGORY.LIST,
+            //   permission: [
+            //     Permissions.ASSET_CATEGORY_VIEW,
+            //     Permissions.ASSET_CATEGORY_CREATE,
+            //     Permissions.ASSET_CATEGORY_EDIT,
+            //     Permissions.ASSET_CATEGORY_DELETE
+            //   ]
+            // },
             {
               title: 'Depreciation Model',
               page: '/' + DEPRECIATION_MODEL.LIST,

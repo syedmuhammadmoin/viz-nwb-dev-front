@@ -36,6 +36,13 @@ export class AppConst {
     1: 'Partial',
     2: 'Paid'
   }
+  
+  static depreciationMethod = [
+    { id: 0, name: 'Straight Line'},
+    { id: 1, name: 'Declining Rate'},
+   
+  ]
+
   static paymentType = {
     1: 'Inflow',
     2: 'Outflow'

@@ -83,12 +83,6 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value ?? 'N/A'
       }
-    },
-    { 
-      headerName: 'Asset Category', 
-      field: 'assetCategoryName', 
-      tooltipField: 'name', 
-      suppressMenu: true
     }
   ];
 

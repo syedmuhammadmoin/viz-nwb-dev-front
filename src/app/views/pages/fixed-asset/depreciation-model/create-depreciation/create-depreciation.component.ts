@@ -91,9 +91,9 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     usefulLife: {
       required: 'Life is required.',
     },
-    assetCategoryId: {
-      required: 'Category is required.'
-    }
+    // assetCategoryId: {
+    //   required: 'Category is required.'
+    // }
   };
 
   // error keys..
@@ -104,7 +104,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     accumulatedDepAccountId: '',
     assetAccountId: '',
     //decliningRate: '',
-    assetCategoryId: '',
+    //assetCategoryId: '',
     usefulLife: '',
   };
 
@@ -136,7 +136,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       assetAccountId: ['', [Validators.required]],
       // decliningRate: ['', [Validators.required]],
       decliningRate: [null],
-      assetCategoryId: ['', [Validators.required]],
+      //assetCategoryId: ['', [Validators.required]],
       usefulLife: ['', [Validators.required]]
     });
 
@@ -144,7 +144,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     //get Accounts from Accounts State
     //this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getOtherAccountsFromState();
-    this.ngxsService.getAssetCategoryFromState();
+    // this.ngxsService.getAssetCategoryFromState();
 
     if (this._id) {
       //this.showButtons = (this.permission.isGranted(this.permissions.CAMPUS_EDIT)) ? true : false;
@@ -163,7 +163,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
         assetAccountId: null,
         decliningRate: null,
         usefulLife: null,
-        assetCategoryId: null
+        //assetCategoryId: null
       }
     }
     
@@ -234,7 +234,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       depExpenseAccountId: depreciation.depExpenseAccountId,
       assetAccountId: depreciation.assetAccountId,
       decliningRate: depreciation.decliningRate,
-      assetCategoryId: depreciation.assetCategoryId,
+      //assetCategoryId: depreciation.assetCategoryId,
       usefulLife: depreciation.usefulLife,
     });
 
@@ -313,7 +313,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     this.depreciationModel.depExpenseAccountId = this.depreciationForm.value.depExpenseAccountId;
     this.depreciationModel.assetAccountId = this.depreciationForm.value.assetAccountId;
     this.depreciationModel.decliningRate = this.depreciationForm.value.decliningRate;
-    this.depreciationModel.assetCategoryId = this.depreciationForm.value.assetCategoryId;
+    //this.depreciationModel.assetCategoryId = this.depreciationForm.value.assetCategoryId;
     this.depreciationModel.usefulLife = this.depreciationForm.value.usefulLife; 
   }
 

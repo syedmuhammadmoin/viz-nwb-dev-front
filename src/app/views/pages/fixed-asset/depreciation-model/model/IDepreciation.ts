@@ -7,5 +7,5 @@ export interface IDepreciation {
     accumulatedDepAccountId: number;
     usefulLife: number;
     decliningRate: number;
-    assetCategoryId: number;
+    //assetCategoryId: number;
 }

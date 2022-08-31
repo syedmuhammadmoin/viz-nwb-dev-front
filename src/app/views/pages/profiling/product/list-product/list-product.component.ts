@@ -63,15 +63,15 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {headerName: 'Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
     {headerName: 'Category', field: 'categoryName', suppressMenu: true, tooltipField: 'salesTax'},
-    {
-      headerName: 'Sale Price', 
-      field: 'salesPrice', 
-      suppressMenu: true,
-      tooltipField: 'salesTax',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
+    // {
+    //   headerName: 'Sale Price', 
+    //   field: 'salesPrice', 
+    //   suppressMenu: true,
+    //   tooltipField: 'salesTax',
+    //   valueFormatter: (params : ValueFormatterParams) => {
+    //     return this.valueFormatter(params.value)
+    //   }
+    // },
     {
       headerName: 'Purchase Price', 
       field: 'purchasePrice', 
@@ -81,15 +81,15 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
         return this.valueFormatter(params.value)
       }
     },
-    {
-      headerName: 'sales Tax', 
-      field: 'salesTax', 
-      suppressMenu: true,
-      tooltipField: 'salesTax',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    }
+    // {
+    //   headerName: 'sales Tax', 
+    //   field: 'salesTax', 
+    //   suppressMenu: true,
+    //   tooltipField: 'salesTax',
+    //   valueFormatter: (params : ValueFormatterParams) => {
+    //     return this.valueFormatter(params.value)
+    //   }
+    // }
   ];
 
   ngOnInit() {
