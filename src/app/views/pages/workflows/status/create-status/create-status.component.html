@@ -13,7 +13,7 @@
         <div class="kt-form__section kt-form__section--first">
           <!-- first row start -->
           <div class="col-md-12 col-lg-12 col-sm-12">
-            <div class="row">
+            <div class="row mt-8 mb-5">
               <div class="col-lg-6 col-md-6 col-sm-6">
                 <label class="col-form-label">Status:</label>
                 <div class="form-group kt-form__group mb-0">
@@ -56,10 +56,10 @@
         <div class="kt-form__actions row">
           <div class="col-lg-12 col-md-8 col-sm-8 col-9">
             <div class="float-right">
-              <button *ngIf="!isEditButtonShow" class="mr-3 btn_white" mat-raised-button id="status_reset" type="button" (click)="reset()">Reset</button>
-              <button *ngIf="!isEditButtonShow" mat-raised-button class="sub___btn" type="submit" id="status_submit"
-                (click)="logValidationErrors(this.statusForm, this.formErrors, this.validationMessages)">Submit</button>
-              <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" id="status_edit" type="button" (click)="toggleEdit()"><i
+              <button *ngIf="!isEditButtonShow" class="mr-2 app-reset-btn" id="status_reset" type="button" (click)="reset()"><i class="fas fa-undo"></i> Reset</button>
+              <button *ngIf="!isEditButtonShow" class="mr-2 app-reset-btn" type="submit" id="status_submit"
+                (click)="logValidationErrors(this.statusForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit</button>
+              <button *ngIf="isEditButtonShow" class="app-edit-btn" id="status_edit" type="button" (click)="toggleEdit()"><i
                   class="fas fa-edit"></i> Edit
               </button>
   

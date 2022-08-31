@@ -16,13 +16,13 @@
 
                 <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
                   [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
-                  type="button" class="btn_public">
-                  <i class="fa fa-edit" style="color:#65c18c;"></i> Edit
+                  type="button" class="btn_public mr-2">
+                  <i class="fa fa-edit" ></i> Edit
                 </button>
 
                 <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" 
-                  class="btn_public mr-3">
-                  <i class="fa fa-print" style="color:#65c18c;"></i> Print Estimated Budget
+                  class="btn_public">
+                  <i class="fa fa-print" ></i> Print Estimated Budget
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
@@ -32,17 +32,17 @@
           <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">From Date:
-                    <span class="float-right" style="font-weight: 400; font-size: 12px; ">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
+                <h4 >From Date:
+                    <span class="float-right" >{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">To Date:
-                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
+                <h4 >To Date:
+                    <span class="float-right" >{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Estimated <br> Budget Name:
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
+              <h4 >Estimated <br> Budget Name:
+              <span class="float-right" >{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
             </div>
             
           </div>

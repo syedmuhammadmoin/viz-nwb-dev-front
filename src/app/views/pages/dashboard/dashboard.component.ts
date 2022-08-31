@@ -69,7 +69,7 @@ export class DashboardComponent implements OnInit {
       },
       stroke: {
         curve: 'straight',
-        colors: ['#65c18c'],
+        colors: ['transparent !important'],
       },
       title: {
         text: 'sales Trends by Month',

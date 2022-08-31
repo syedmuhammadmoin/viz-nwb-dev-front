@@ -7,39 +7,36 @@
         printTitle="Invoice"
         ngxPrint
         type="button"
-        mat-raised-button
         [useExistingCss]="true"
-        class="sub___btn"
-        style="margin-bottom: 20px;"><i class="fas fa-print" style="color:#fff;"></i> Print
+        class="app-default-btn"
+        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div class="row">
-      <div class="bg-white" style="border-bottom: 5px solid #65c18c;">
+      <div class="bg-whitee">
 
-        <div class="print_header_area"
-        style="width: 100%; display: flex; flex-wrap: nowrap; background-color: rgba(101, 193, 140, 0.2);
-               padding: 15px; border-bottom: 5px solid #65c18c; border-top-left-radius: 10px; border-top-right-radius: 10px;"
-        >
-          <div class="print-col-6">
+        <div class="print_header_area p-s-1">
+          <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
-              <img src="../../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png" style="height: 44px;" width="110px" alt="">
-              <span class="top-heading" style="color: #65c18c ;">INVOICE</span>
+              <div class="print-logo"></div>
+              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
+              <span class="top-heading">INVOICE</span>
             </div>
             
           </div>
-          <div class="print-col-5 ml-auto">
+          <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
-              <div class="print-box">
-                <h4 class="printout0-date" style="font-size: 12px; letter-spacing: 3px; font-weight: 600; color: #65c18c; margin-top: 10px;">Invoice No: <span style="font-weight: 400;" class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
+              <div class="print-box-one">
+                <h4>Invoice No: <span class="float-right" >{{invoiceMaster?.docNo}}</span></h4>
+                <p></p>
               </div>
-              <div class="print-box">
-                <h4 class="printout0-date" style="font-size: 12px; letter-spacing: 3px; font-weight: 600; color: #65c18c; margin-top: 10px;">Invoice Date: <span style="font-weight: 400;" class="float-right" style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
+              <div class="print-box-two">
+                <h4>Invoice Date: <span class="float-right" >{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
               </div>
-              <div class="print-box">
-                <h4 class="printout0-date" style="font-size: 12px; letter-spacing: 3px; font-weight: 600; color: #65c18c; margin-top: 10px;">Due Date: <span style="font-weight: 400;" class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate| date: 'MMM d, y'}}</span></h4>
+              <div class="print-box-two">
+                <h4>Due Date: <span class="float-right" >{{invoiceMaster?.dueDate| date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
             
@@ -47,95 +44,88 @@
         </div>
 
         
-        <div class="print_body_area">
+        <div class="print_body_area p-s-2">
 
-          <div class="print-col-5" style="margin-top: 3%;">
-            
+          <div class="print-col-5 p-s-2-one">
             <div class="print-box" >
-              <h4 style="font-size: 22px;font-weight: 600;color: #65c18c">{{invoiceMaster?.customerName}}</h4>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #65c18c;margin-bottom: 2px;"></p> -->
-              <p style="font-size: 15px;font-weight: 400;color: #65c18c">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              <h4>{{invoiceMaster?.customerName}}</h4>
+              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
+              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
 
-          <div class="print-col-12" style="margin-top: 3%;">
+          <div class="print-col-12 p-s-2-two">
             <div class="table-responsive">
-              <table class="table " style="background-color: #fff; color: #65c18c;">
+              <table class="table ">
                 <thead class="thead-dark_color">
-                  <tr style="background-color: rgba(101, 193, 140, 0.2)">
-                    <th style="background-color: rgba(101, 193, 140, 0.2) ">S.No</th>
-                    <th style="background-color: rgba(101, 193, 140, 0.2) ">Item</th>
-                    <th style="background-color: rgba(101, 193, 140, 0.2) ">Description</th>
-                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Quantity</th>
-                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Price</th>
-                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Tax</th>
-                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Store</th>
-                    <th  class="text-center" style="background-color: rgba(101, 193, 140, 0.2) ">SubTotal</th>
+                  <tr class="b-s-2-b-c">
+                    <th>S.No</th>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th >Quantity</th>
+                    <th >Price</th>
+                    <th >Tax</th>
+                    <th >Store</th>
+                    <th  class="text-center">SubTotal</th>
                     
                     
                   </tr>
                   <tr *ngFor="let line of invoiceLines; index as i">
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;">{{i + 1}}</td>
-                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{line?.itemName || '---'}}</td>
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;"> {{line?.description}}</td>
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;">{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{valueFormatter(line?.price)}}</td>
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;"> {{line?.tax + '%'}}</td>
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;"> {{line?.warehouseName}}</td>
-                    <td class="text-right" style="font-weight: 500;border-bottom: 1px solid #65c18c; "><b>{{valueFormatter(line?.subTotal)}}</b></td>
+                    <td>{{i + 1}}</td>
+                    <td  >{{line?.itemName || '---'}}</td>
+                    <td> {{line?.description}}</td>
+                    <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                    <td  >{{valueFormatter(line?.price)}}</td>
+                    <td> {{line?.tax + '%'}}</td>
+                    <td> {{line?.warehouseName}}</td>
+                    <td class="text-right"><b>{{valueFormatter(line?.subTotal)}}</b></td>
                   </tr>
-                  
-                  
                 </thead>
               </table>
             </div>
           </div>
 
 
-          <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
+          <div class="print-col-5  ml-auto p-s-3">
 
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Before Tax:
-                <span class="float-right" style="font-weight: 500;">{{valueFormatter(invoiceMaster?.totalBeforeTax)}}</span>
+            <div class="print-box p-s-3-one">
+              <h4>Total Before Tax:
+                <span class="float-right">{{valueFormatter(invoiceMaster?.totalBeforeTax)}}</span>
               </h4>
             </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Tax:
-                <span class="float-right" style="font-weight: 500;">{{valueFormatter(invoiceMaster?.totalTax)}}</span>
+            <div class="print-box p-s-3-one">
+              <h4>Total Tax:
+                <span class="float-right">{{valueFormatter(invoiceMaster?.totalTax)}}</span>
               </h4>
             </div>
     
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;border-top: 2px solid #65c18c;
-              padding-top: 10px;">Grand Total:
-                <span class="float-right" style="font-weight: 500;">{{valueFormatter(invoiceMaster?.totalAmount)}}</span>
+            <div class="print-box p-s-3-two">
+              <h4>Grand Total:
+                <span class="float-right">{{valueFormatter(invoiceMaster?.totalAmount)}}</span>
               </h4>
             </div>
           </div>
 
 
-          <div class="print-col-12" style=" margin-top: 2%;">
+          <div class="print-col-12 p-s-4">
             
-            <div class="print-box">
-              <p style="font-size: 18px;
-            font-weight: 500; color: #65c18c;">Terms and conditions:</p>
+            <div class="print-box p-s-4-one">
+              <p>Terms and conditions:</p>
             </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;line-height:18px;font-weight: 100; color: #65c18c;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <div class="print-box p-s-4-two">
+              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </h4>
             </div>
 
-            <div class="print-box" style="margin-top: 25px;">
-              <p style="
-              font-family: inherit; font-weight: bold;
-              font-size: 22px; color: #65c18c;">Thankyou for your Business</p>
+            <div class="print-box p-s-4-three">
+              <p>Thankyou for your Business</p>
             </div>
             
           </div>
 
           
 
-          <div class="print-col-4" style=" margin-top: 8%;color: #65c18c;">
+          <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorised Sign</p>
           </div>

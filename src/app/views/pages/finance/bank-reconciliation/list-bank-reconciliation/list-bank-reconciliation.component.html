@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button *ngIf="(permission.isGranted(permissions.BANK_RECON_CREATE))" id="reconcile" type="button" mat-raised-button matTooltip="Reconcile" class="sub___btn" (click)="onSubmit()">Reconcile</button>
+    <button *ngIf="(permission.isGranted(permissions.BANK_RECON_CREATE))" id="reconcile" type="button" matTooltip="Reconcile" class="app-default-btn" (click)="onSubmit()">Reconcile</button>
   </div>
 </div>
 
@@ -14,7 +14,7 @@
           <div class="kt-portlet__body">
             <div class="kt-form__section kt-form__section--first">
               <div class="col-md-12 col-lg-12 py-6">
-                <div class="row">
+                <div class="row mt-8 mb-5">
                   <div class="col-lg-4">
                     <div class="form-group kt-form__group mb-0">
                       <!-- <label class="col-form-label pt-0">Bank:</label> -->
@@ -26,15 +26,15 @@
                     </div>
                   </div>
                   <div class="col-lg-4">
-                    <button id="reconciliation_fetch" mat-raised-button class="sub___btn"
+                    <button id="reconciliation_fetch" class="app-default-btn"
                       type="submit">Fetch data
                     </button>
                   </div>
                 </div>
                 <div class="row">
   
-                  <div class="col-lg-6 ">
-                    <h4 style=" font-weight: bold; margin-bottom: 0;padding: 15px 0px;" >Bank Statement</h4>
+                  <div class="col-lg-6 mt-3">
+                    <h4 class="all-text-primary" >Bank Statement</h4>
                     <ag-grid-angular
                     class="ag-theme-alpine grid_measurement"
                     [rowData]="bankStatementList"
@@ -50,8 +50,8 @@
                     </ag-grid-angular>
                   </div>
           
-                  <div class="col-lg-6 ">
-                    <h4 style=" font-weight: bold; margin-bottom: 0;padding: 15px 0px; "  >Payments</h4>
+                  <div class="col-lg-6 mt-3">
+                    <h4 class="all-text-primary"  >Payments</h4>
                     <ag-grid-angular
                     class="ag-theme-alpine grid_measurement"
                     [rowData]="paymentList"

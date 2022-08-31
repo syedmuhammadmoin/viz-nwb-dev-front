@@ -1,10 +1,17 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Invoice Detail'" [class]="'card-head-lg'">
+    <!-- <kt-portlet-header [sticky]="false" [title]="'Invoice Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         
         <h4 class="overall_statuses {{docStatus[invoiceMaster?.state]}}"> Status: {{invoiceMaster?.status}} </h4>
+      </ng-container>
+    </kt-portlet-header> -->
+
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Invoice Detail'">
+      <ng-container class="" ktPortletTools>
+        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[invoiceMaster?.state]}}"></span> {{invoiceMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -14,31 +21,31 @@
             <ng-container ktPortletTools >
                 <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid) 
                     && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
-                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit" style="color:#65c18c;"></i> Register Payment
+                  type="button" class="mr-2 btn_public" (click)="openDialog()" >
+                  <i class="fa fa-edit" ></i> Register Payment
                 </button>
 
                 <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid) 
                     && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
                   [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: invoiceMaster?.id, isInvoice: true}"
                   type="button" class="mr-3 btn_public">
-                  <i class="fa fa-edit" style="color:#65c18c;"></i> Credit Note
+                  <i class="fa fa-edit" ></i> Credit Note
                 </button>
 
                 <button *ngIf="(invoiceMaster?.state === docStatus.Draft || invoiceMaster?.state === docStatus.Rejected) 
                     && (permission.isGranted(permissions.INVOICE_EDIT))"
                   [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
-                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit" style="color:#65c18c;"></i>
+                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit" ></i>
                   Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-3" id="invoice_attachment"
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print" style="color:#65c18c;"></i> Attachment
+                <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-2" id="invoice_attachment"
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload" ></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button" 
                   class="btn_public" id="invoice_print">
-                  <i class="fa fa-print" style="color:#65c18c;"></i> Print Invoice
+                  <i class="fa fa-print" ></i> Print Invoice
                 </button>
                 
                 <mat-divider class="mt-5"></mat-divider>
@@ -48,25 +55,25 @@
 
           <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">Invoice No: 
-                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{invoiceMaster?.docNo}}</span></h4>
+                <h4 >Invoice No: 
+                    <span class="float-right" >{{invoiceMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Customer Name: 
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{invoiceMaster?.customerName}}</span></h4>
+              <h4 >Customer Name: 
+              <span class="float-right" >{{invoiceMaster?.customerName}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Invoice Date: 
-                <span class="float-right" style="font-weight: 400; font-size: 12px;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
+                <h4 >Invoice Date: 
+                <span class="float-right" >{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Due Date: 
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{invoiceMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
+              <h4 >Due Date: 
+              <span class="float-right" >{{invoiceMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Campus: 
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{invoiceMaster?.campusName}}</span></h4>
+              <h4 >Campus: 
+              <span class="float-right" >{{invoiceMaster?.campusName}}</span></h4>
             </div>
             
           </div>
@@ -101,7 +108,7 @@
               <tbody>
                 <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
                   <td>
-                    <a
+                    <a class="all-text-primary"
                       [routerLink]="(unReconPay?.docType === 15) ? '/' + RECEIPT.ID_BASED_ROUTE ('details', unReconPay?.id) : 
                       (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) : 
                       '/' + CREDIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a>
@@ -109,7 +116,7 @@
                   <td>{{valueFormatter(unReconPay.amount)}}</td>
                   <td>
                     <!-- <button (click)="reconcile(i)" class="recon-btn" mat-raised-button>Reconcile </button> -->  
-                    <button (click)="reconcile(i)" class="sub___btn" mat-raised-button>Reconcile </button>
+                    <button (click)="reconcile(i)" class="app-default-btn" >Reconcile </button>
                   </td>
                 </tr>
               </tbody>
@@ -117,7 +124,7 @@
           </div>
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" style="margin: 0px -6px; color: #65c18c;">
+            <table class="table small_table_box" >
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
                 <td class="text-right" >
@@ -128,7 +135,7 @@
                 <td class="text-right" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #65c18c;">
+              <tr >
                 <th class="text-left Total-Before-Tax-heading"
                   >Grand Total :</th>
                 <th class="text-right" >
@@ -140,13 +147,11 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
-                          {{valueFormatter(paidAmount || 0)}}
+                        <mat-panel-description >
+                          <b>{{valueFormatter(paidAmount || 0)}}</b>
                         </mat-panel-description>
                       </mat-expansion-panel-header>
                       <table class="table text-center table-bordered">
@@ -156,10 +161,10 @@
                         </tr>
                         <tr *ngFor="let pay of paidAmountList">
                           <td><a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
-                              class="links">{{pay?.docNo}}</a></td>
+                              class="all-text-primary">{{pay?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
-                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                            class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
                       </table>
@@ -170,11 +175,11 @@
 
               <!-- <tr *ngIf="(invoiceMaster?.transactionId)"> -->
                 <tr *ngIf="(pendingAmount)">
-                <th class="text-right"
-                  style="background-image: linear-gradient(to right, #65c18c, #4a8a9e); color: #fff;">Pending Amount :
+                <th class=" Total-Before-Tax"
+                  >Pending Amount :
                 </th>
                 <td class="text-right Total-Before-Tax">
-                  {{valueFormatter(pendingAmount || 0)}}</td>
+                  <b>{{valueFormatter(pendingAmount || 0)}}</b></td>
               </tr>
             </table>
           </div>
@@ -189,8 +194,8 @@
       <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="invoiceMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="invoice_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="invoice_approve" class="success__btn" mat-raised-button>Approve</button>
+            <button (click)="remarksDialog(action.Reject)" id="invoice_reject" class="btn btn-outline-danger font-weight-bold mr-2" >Reject</button>
+            <button (click)="remarksDialog(action.Approve)" id="invoice_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
           </div>
         </div>
       </div>

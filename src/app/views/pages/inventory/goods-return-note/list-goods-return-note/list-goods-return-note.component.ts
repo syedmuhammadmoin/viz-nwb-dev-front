@@ -111,7 +111,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      rowHeight: 30,
+      rowHeight: 35,
       headerHeight: 35,
       context: "double click to view detail",
     };

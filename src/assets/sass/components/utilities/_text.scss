@@ -12,12 +12,12 @@
 
     // Inverse color
     .text-inverse-#{$name} {
-        color: theme-inverse-color($name) !important;
+        color: theme-inverse-color($name) ;
     }
 
     // Light colors
     .text-light-#{$name} {
-        color: theme-light-color($name) !important;
+        color: theme-light-color($name) ;
     }
 
     // Text hover
@@ -30,7 +30,7 @@
             color: $color;
 
             i {
-				color: $color !important;
+				color: $color ;
 			}
 
 			.svg-icon {
@@ -45,10 +45,10 @@
             a.text-hover-#{$name},
             .text-hover-#{$name} {
                 transition:$transition-link;
-                color: $color !important;
+                color: $color ;
 
                 i {
-    				color: $color !important;
+    				color: $color ;
     			}
 
     			.svg-icon {

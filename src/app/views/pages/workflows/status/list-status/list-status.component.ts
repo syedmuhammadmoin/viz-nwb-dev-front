@@ -77,7 +77,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      rowHeight: 30,
+      rowHeight: 35,
       headerHeight: 35,
       context: "double click to edit",
     };

@@ -16,13 +16,13 @@
 
                 <button *ngIf="(permission.isGranted(permissions.BUDGET_EDIT))"
                   [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('edit', budgetMaster?.id)" [queryParams]="{q: budgetMaster?.id, 'isBudget': true}"
-                  type="button" class="btn_public mr-3">
-                  <i class="fa fa-edit" style="color:#65c18c;"></i> Edit
+                  type="button" class="btn_public mr-2">
+                  <i class="fa fa-edit" ></i> Edit
                 </button>
 
                 <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" id="budget_print" type="button"
                   class="btn_public">
-                  <i class="fa fa-print" style="color:#65c18c;"></i> Print Budget
+                  <i class="fa fa-print" ></i> Print Budget
                 </button>
               
                 <mat-divider class="mt-5"></mat-divider>
@@ -32,17 +32,17 @@
           <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">From Date:
-                    <span class="float-right" style="font-weight: 400; font-size: 12px">{{budgetMaster?.from | date: 'MMM d, y'}}</span></h4>
+                <h4 >From Date:
+                    <span class="float-right" >{{budgetMaster?.from | date: 'MMM d, y'}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">To Date:
-                    <span class="float-right" style="font-weight: 400; font-size: 12px">{{budgetMaster?.to | date: 'MMM d, y'}}</span></h4>
+                <h4 >To Date:
+                    <span class="float-right" >{{budgetMaster?.to | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Budget Name:
-              <span class="float-right" style="font-weight: 400; font-size: 12px">{{budgetMaster?.budgetName}}</span></h4>
+              <h4 >Budget Name:
+              <span class="float-right" >{{budgetMaster?.budgetName}}</span></h4>
             </div>
             
           </div>
@@ -60,9 +60,9 @@
 
         <div class="row mt-5">
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" style="margin: 0px -6px; color: #65c18c;">
+            <table class="table  small_table_box" >
               
-              <tr style="border-top: 2px solid #65c18c; color: #65c18c;">
+              <tr >
                 <th class="text-left">Total Amount :</th>
                 <th class="text-right" >
                   {{valueFormatter(totalAmount || 0)}}</th>

@@ -1,10 +1,16 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Debit Note Detail'" [class]="'card-head-lg'">
+    <!-- <kt-portlet-header [sticky]="false" [title]="'Debit Note Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         
         <h4 class="overall_statuses {{docStatus[debitNoteMaster?.state]}}"> Status:  {{debitNoteMaster?.status}} </h4>
+      </ng-container>
+    </kt-portlet-header> -->
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'Debit Note Detail'">
+      <ng-container class="" ktPortletTools>
+        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <div class="ribbon-target " ><span class="ribbon-inner {{debitNoteMaster?.status}}"></span> {{debitNoteMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -17,17 +23,17 @@
                    && (permission.isGranted(permissions.DEBITNOTE_EDIT))" id="debit_note_edit"
                   [routerLink]= "'/' + DEBIT_NOTE.ID_BASED_ROUTE ('edit',debitNoteMaster?.id)"
                   [queryParams]="{q: debitNoteMaster?.id, 'isDebitNote': true}" type="button"
-                  class="mr-3 btn_public">
-                  <i class="fa fa-edit" style="color:#65c18c;"></i> Edit
+                  class="mr-2 btn_public">
+                  <i class="fa fa-edit" ></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.DEBITNOTE_EDIT))"  class="cancel__btn mr-3" 
-                  (click)="openFileUploadDialog()" mat-raised-button type="button">Attachment
+                <button *ngIf="(permission.isGranted(permissions.DEBITNOTE_EDIT))"  class="btn_public mr-2" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip" ></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + DEBIT_NOTE.ID_BASED_ROUTE ('print',debitNoteMaster?.id) " type="button" 
                   class="btn_public" id="debit_note_print">
-                  <i class="fa fa-print" style="color:#65c18c;"></i> Print Debit Note
+                  <i class="fa fa-print" ></i> Print Debit Note
                 </button>
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
@@ -36,21 +42,21 @@
           <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 style="font-size: 13;letter-spacing: 3px;font-weight: 600;color: #65c18c;">Debit Note No: 
-                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{debitNoteMaster?.docNo}}</span></h4>
+                <h4 >Debit Note No: 
+                    <span class="float-right" >{{debitNoteMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 13;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Vendor Name:
-                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{debitNoteMaster?.vendorName}}</span></h4>
+                <h4 >Vendor Name:
+                    <span class="float-right" >{{debitNoteMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Date:
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{debitNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
+              <h4 >Date:
+              <span class="float-right" >{{debitNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Campus:
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{debitNoteMaster?.campusName}}</span></h4>
+              <h4 >Campus:
+              <span class="float-right" >{{debitNoteMaster?.campusName}}</span></h4>
             </div>
           </div>
 
@@ -72,7 +78,7 @@
           </div>
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" style="margin: 0px -6px; color: #65c18c;">
+            <table class="table  small_table_box" >
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
                 <td class="text-right" >
@@ -83,7 +89,7 @@
                 <td class="text-right" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #65c18c;">
+              <tr >
                 <th class="text-left Total-Before-Tax-heading">Grand Total :</th>
                 <th class="text-right" >
                   {{valueFormatter(totalAmount || 0)}}</th>
@@ -94,12 +100,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                            Reconciled Amount : 
                         </mat-panel-title>
-                        <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
+                        <mat-panel-description >
                           {{valueFormatter(debitNoteMaster?.reconciledAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -110,10 +114,10 @@
                         </tr>
                         <tr *ngFor="let pay of paidAmountList">
                           <td><a [routerLink]="'/' + BILL.ID_BASED_ROUTE('details' , pay?.id)"
-                              class="links">{{pay?.docNo}}</a></td>
+                              class="all-text-primary ">{{pay?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="'/' + BILL.ID_BASED_ROUTE('details' , pay?.id)"
-                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                              class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
                       </table>
@@ -127,8 +131,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                            References
                         </mat-panel-title>
                         <!-- <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
@@ -143,10 +146,10 @@
                         </tr>
                         <tr>
                           <td><a [routerLink]="'/' + BILL.ID_BASED_ROUTE('details' , (debitNoteMaster?.documentReconcile?.id))"
-                              class="links">{{debitNoteMaster?.documentReconcile?.docNo}}</a></td>
+                              class="all-text-primary">{{debitNoteMaster?.documentReconcile?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="'/' + BILL.ID_BASED_ROUTE('details' , (debitNoteMaster?.documentReconcile?.id))"
-                              class="links">{{valueFormatter(debitNoteMaster?.documentReconcile?.amount)}}</a>
+                              class="all-text-primary">{{valueFormatter(debitNoteMaster?.documentReconcile?.amount)}}</a>
                           </td>
                         </tr>
                       </table>
@@ -166,8 +169,8 @@
       <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="debitNoteMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="debit_note_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="debit_note_approve" class="success__btn" mat-raised-button>Approve</button>
+            <button (click)="remarksDialog(action.Reject)" id="debit_note_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
+            <button (click)="remarksDialog(action.Approve)" id="debit_note_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
           </div>
         </div>
       </div>

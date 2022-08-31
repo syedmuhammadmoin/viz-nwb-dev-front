@@ -1,15 +1,16 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Journal Entry Detail'" [class]="'card-head-lg'">
-      <ng-container ktPortletTools>
-        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        
-        <h4 class="overall_statuses {{docStatus[journalEntryMaster?.state]}}"> Status:  {{journalEntryMaster?.status}}  </h4>
+    <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+    
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Journal Entry Detail'">
+      <ng-container class="" ktPortletTools>
+        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[journalEntryMaster?.state]}}"></span> {{journalEntryMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-        <div class="row ">
+        <div class="row">
 
           <div class="col-md-12 col-12 pb-3">
               <ng-container ktPortletTools >
@@ -17,16 +18,16 @@
                   <button  *ngIf="(journalEntryMaster?.state === docStatus.Draft || journalEntryMaster?.state === docStatus.Rejected) &&
                     (permission.isGranted(permissions.JOURNALENTRY_EDIT))" id="journal_edit"
                     [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('edit' , journalEntryMaster?.id)"
-                    [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button"  class="btn_public mr-3">
-                    <i class="fa fa-edit" style="color:#65c18c;"></i> Edit
+                    [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button"  class="mr-2 btn_public">
+                    <i class="fa fa-edit" ></i> Edit
                   </button>
 
-                  <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-print" style="color:#65c18c;"></i> Attachment
+                  <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-2" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
                   </button>
 
-                  <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public"  
-                  matTooltip="Add Bank Account"><i class="fa fa-print" style="color:#65c18c;"></i> Print Journal Entry</button>
+                  <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public" 
+                  matTooltip="Add Bank Account"><i class="fa fa-print"></i> Print Journal Entry</button>
                   
 
                   <mat-divider class="mt-5"></mat-divider>
@@ -36,25 +37,22 @@
 
           <div class="col-md-5 col-lg-5  mt-3">
               <div class="print-box">
-                  <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">Document Id: 
-                      <span class="float-right" style="font-weight: 400; font-size: 12px">{{journalEntryMaster?.docNo}}</span></h4>
+                  <h4 >Document Id: 
+                      <span class="float-right" >{{journalEntryMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                  <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Date: 
-                      <span class="float-right" style="font-weight: 400; font-size: 12px">{{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
+                  <h4 >Date: 
+                      <span class="float-right" >{{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
               </div>
-              <!-- <div class="print-box" style="margin-top: 5%;margin-top: 6%;background-color: #bbd3db4d;padding: 10px;">
-                  <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">{{paymentMaster?.businessPartnerName}}</h4>
-                  <p class="mb-0" style="font-size: 15px;font-weight: 400;color: #65c18c;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
-              </div> -->
+              
               <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Description: 
-                    <span class="float-right" style="font-weight: 400; font-size: 12px">{{journalEntryMaster?.description || 'N/A'}}</span></h4>
+                <h4 >Description: 
+                    <span class="float-right" >{{journalEntryMaster?.description || 'N/A'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Campus: 
-                    <span class="float-right" style="font-weight: 400; font-size: 12px">{{journalEntryMaster?.campusName || 'N/A'}}</span></h4>
+                <h4 >Campus: 
+                    <span class="float-right" >{{journalEntryMaster?.campusName || 'N/A'}}</span></h4>
               </div>
           </div>
 
@@ -80,13 +78,13 @@
 
           <div class="col-md-4 col-lg-4  ml-auto mt-3" >
               <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Debit: 
-                  <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalDebit || 0)}}</span>
+                <h4 >Total Debit: 
+                  <span class="float-right" >{{valueFormatter(journalEntryMaster?.totalDebit || 0)}}</span>
                 </h4>
               </div>
               <div class="print-box">
-                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Credit:
-                  <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalCredit || 0)}}</span>
+                <h4 >Total Credit:
+                  <span class="float-right" >{{valueFormatter(journalEntryMaster?.totalCredit || 0)}}</span>
                 </h4>
               </div>
           </div>
@@ -95,8 +93,8 @@
         
 
         <div *ngIf="journalEntryMaster?.isAllowedRole" class="text-right mt-10">
-          <button (click)="remarksDialog(action.Reject)" id="journal_reject" class="mr-5 " mat-raised-button color="warn">Reject</button>
-          <button (click)="remarksDialog(action.Approve)" class="" id="journal_approve" mat-raised-button color="success">Approve</button>
+          <button (click)="remarksDialog(action.Reject)" id="journal_reject" class="btn btn-outline-danger font-weight-bold mr-2 " >Reject</button>
+          <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success font-weight-bold " id="journal_approve" >Approve</button>
         </div>
       </div>
     </kt-portlet-body>

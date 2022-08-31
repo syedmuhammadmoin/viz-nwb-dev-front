@@ -1,10 +1,16 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'issuance Detail'" [class]="'card-head-lg'">
+    <!-- <kt-portlet-header [sticky]="false" [title]="'issuance Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         
         <h4 class="overall_statuses {{issuanceMaster?.status}}"> Status: {{issuanceMaster?.status}} </h4>
+      </ng-container>
+    </kt-portlet-header> -->
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'issuance Detail'" >
+      <ng-container class="" ktPortletTools>
+        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <div class="ribbon-target " ><span class="ribbon-inner {{issuanceMaster?.status}}"></span> {{issuanceMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -15,23 +21,23 @@
                 <button *ngIf="(issuanceMaster?.state === docStatus.Draft || issuanceMaster?.state === docStatus.Rejected) 
                     && (permission.isGranted(permissions.ISSUANCE_EDIT))"
                   [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
-                  type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit" style="color:#65c18c;"></i>
+                  type="button"  class="mr-2 btn_public" id="issuance_edit"> <i class="fa fa-edit"></i>
                   Edit
                 </button>
 
                 <button *ngIf="(issuanceMaster?.state === docStatus.Unpaid || issuanceMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_RETURN_CREATE))"
                   [routerLink]="'/' + ISSUANCE_RETURN.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
-                  type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit" style="color:#65c18c;"></i>
+                  type="button"  class="mr-2 btn_public" id="issuance_edit"> <i class="fa fa-edit"></i>
                   Return Issuance
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-3 btn_public" 
-                (click)="openFileUploadDialog()" type="button"><i class="fa fa-print" style="color:#65c18c;"></i> Attachment
+                <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-2 btn_public" 
+                (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button" 
                   class="btn_public" id="issuance_print">
-                  <i class="fa fa-print" style="color:#65c18c;"></i> Print issuance
+                  <i class="fa fa-print"></i> Print issuance
                 </button>
                 
                 <mat-divider class="mt-5"></mat-divider>
@@ -41,21 +47,21 @@
 
           <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">Issuance No: 
-                    <span class="float-right" style="font-weight: 400; font-size: 12px;">{{issuanceMaster?.docNo}}</span></h4>
+                <h4 >Issuance No: 
+                    <span class="float-right" >{{issuanceMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Employee Name: 
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{issuanceMaster?.employeeName}}</span></h4>
+              <h4 >Employee Name: 
+              <span class="float-right" >{{issuanceMaster?.employeeName}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Issuance Date: 
-                <span class="float-right" style="font-weight: 400; font-size: 12px;">{{issuanceMaster?.issuanceDate | date: 'MMM d, y'}}</span></h4>
+                <h4 >Issuance Date: 
+                <span class="float-right" >{{issuanceMaster?.issuanceDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 13px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Campus: 
-              <span class="float-right" style="font-weight: 400; font-size: 12px;">{{issuanceMaster?.campusName}}</span></h4>
+              <h4 >Campus: 
+              <span class="float-right" >{{issuanceMaster?.campusName}}</span></h4>
             </div>
           </div>
         </div>
@@ -76,7 +82,7 @@
           </div>
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" style="margin: 0px -6px; color: #65c18c;">
+            <table class="table  small_table_box" >
               <!-- <tr>
                 <td class="text-left" style="width: 70%;">Total Before Tax:</td>
                 <td class="text-right" >
@@ -98,8 +104,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                           Reference
                         </mat-panel-title>
                         <!-- <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
@@ -113,12 +118,12 @@
                         </tr>
                         <tr *ngIf="issuanceMaster?.requisitionId">
                           <td><a [routerLink]="('/' + REQUISITION.ID_BASED_ROUTE('details', issuanceMaster?.requisitionId))"
-                            class="links">{{issuanceMaster?.requisitionDocNo}}</a></td>
+                            class="all-text-primary">{{issuanceMaster?.requisitionDocNo}}</a></td>
                         </tr>
                         <ng-container *ngIf="issuanceMaster?.references" >
                           <tr *ngFor="let issuanceReturn of issuanceMaster?.references">
                             <td><a [routerLink]="('/' + ISSUANCE_RETURN.ID_BASED_ROUTE('details', issuanceReturn?.docId))"
-                                class="links">{{issuanceReturn?.docNo}}</a></td>
+                              class="all-text-primary">{{issuanceReturn?.docNo}}</a></td>
                           </tr>
                         </ng-container>
                       </table>
@@ -138,8 +143,8 @@
       <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="issuanceMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="issuance_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="issuance_approve" class="success__btn" mat-raised-button>Approve</button>
+            <button (click)="remarksDialog(action.Reject)" id="issuance_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
+            <button (click)="remarksDialog(action.Approve)" id="issuance_approve"  class="btn btn-outline-success font-weight-bold ">Approve</button>
           </div>
         </div>
       </div>

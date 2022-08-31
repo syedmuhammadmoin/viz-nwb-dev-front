@@ -7,36 +7,33 @@
         id="grn_print"
         ngxPrint
         type="button"
-        mat-raised-button
         [useExistingCss]="true"
-        class="sub___btn"
-        style="margin-bottom: 20px;"><i class="fas fa-print" style="color:#fff;"></i> Print
+        class="app-default-btn"
+        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div class="row">
-      <div class="bg-white" style="border-bottom: 5px solid #65c18c;">
+      <div class="bg-whitee">
 
-        <div class="print_header_area"
-      style="width: 100%; display: flex; flex-wrap: nowrap; background-color: rgba(101, 193, 140, 0.2);
-             padding: 15px; border-bottom: 5px solid #65c18c; border-top-left-radius: 10px; border-top-right-radius: 10px;"
-      >
-          <div class="print-col-6">
+        <div class="print_header_area p-s-1">
+          <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
-              <img src="../../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png" style="height: 44px;" width="110px" alt="">
-              <span class="top-heading" style="color: #65c18c ;">Issuance Return</span>
+              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
+              <div class="print-logo"></div>
+              <span class="top-heading">Issuance Return</span>
             </div>
             
           </div>
-          <div class="print-col-5 ml-auto">
+          <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
-              <div class="print-box">
-                <h4 class="printout0-date" style="font-size: 12px; letter-spacing: 3px; font-weight: 600; color: #65c18c; margin-top: 10px;">Document No: <span style="font-weight: 400;" class="float-right">{{issuanceReturnMaster?.docNo}}</span></h4>
+              <div class="print-box-one">
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
-              <div class="print-box">
-                <h4 class="printout0-date" style="font-size: 12px; letter-spacing: 3px; font-weight: 600; color: #65c18c; margin-top: 10px;">Issuance Return Date: <span style="font-weight: 400;" class="float-right">{{issuanceReturnMaster?.issuanceReturnDate | date: 'MMM d, y'}}</span></h4>
+              <div class="print-box-two">
+                <h4>Issuance Return Date: <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.issuanceReturnDate | date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
             
@@ -44,34 +41,34 @@
         </div>
 
         
-        <div class="print_body_area">
+        <div class="print_body_area p-s-2">
 
-          <div class="print-col-5" style="margin-top: 3%;">
+          <div class="print-col-5 p-s-2-one">
             
             <div class="print-box" >
-              <h4 style="font-size: 22px;font-weight: 600;color: #65c18c">{{issuanceReturnMaster?.employeeName}}</h4>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #65c18c;margin-bottom: 2px;"></p> -->
-              <p style="font-size: 15px;font-weight: 400;color: #65c18c">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              <h4>{{issuanceReturnMaster?.employeeName}}</h4>
+              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
+              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
 
-          <div class="print-col-12" style="margin-top: 3%;">
+          <div class="print-col-12 p-s-2-two">
             <div class="table-responsive">
-              <table class="table " style="background-color: #fff; color: #65c18c;">
+              <table class="table ">
                 <thead class="thead-dark_color">
-                  <tr style="background-color: rgba(101, 193, 140, 0.2)">
-                    <th style="background-color: rgba(101, 193, 140, 0.2) ">S.No</th>
-                    <th style="background-color: rgba(101, 193, 140, 0.2) ">Item</th>
-                    <th style="background-color: rgba(101, 193, 140, 0.2) ">Description</th>
-                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Quantity</th>
-                    <th  style="background-color: rgba(101, 193, 140, 0.2) ">Store</th>       
+                  <tr>
+                    <th>S.No</th>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th >Quantity</th>
+                    <th >Store</th>       
                   </tr>
                   <tr *ngFor="let detail of issuanceReturnLines ; index as i">
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;">{{i + 1}}</td>
-                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{detail?.itemId}}</td>
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;"> {{detail?.description}}</td>
-                    <td style="font-weight: 500;border-bottom: 1px solid #65c18c;">{{detail?.quantity}}</td>
-                    <td  style="font-weight: 500;border-bottom: 1px solid #65c18c;" >{{detail?.warehouseId}}</td>
+                    <td>{{i + 1}}</td>
+                    <td  >{{detail?.item}}</td>
+                    <td> {{detail?.description}}</td>
+                    <td>{{detail?.quantity}}</td>
+                    <td  >{{detail?.warehouse}}</td>
                   </tr>
                   
                 </thead>
@@ -83,18 +80,18 @@
           <!-- <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
 
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Before Tax:
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Before Tax:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalBeforeTax)}}</span>
               </h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Tax:
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Tax:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalTax)}}</span>
               </h4>
             </div>
     
             <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;border-top: 2px solid #65c18c;
+              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
               padding-top: 10px;">Grand Total:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalAmount)}}</span>
               </h4>
@@ -102,24 +99,21 @@
           </div> -->
 
 
-          <div class="print-col-12" style=" margin-top: 2%;">
+          <div class="print-col-12 p-s-4">
             
-            <div class="print-box">
-              <p style="font-size: 18px;
-            font-weight: 500; color: #65c18c;">Terms and conditions:</p>
+            <div class="print-box p-s-4-one">
+              <p>Terms and conditions:</p>
             </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;line-height:18px;font-weight: 100; color: #65c18c;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            <div class="print-box p-s-4-two">
+              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </h4>
             </div>
 
-            <div class="print-box" style="margin-top: 25px;">
-              <p style="
-              font-family: inherit; font-weight: bold;
-              font-size: 22px; color: #65c18c;">Thankyou for your Business</p>
+            <div class="print-box p-s-4-three">
+              <p>Thankyou for your Business</p>
             </div>
           </div>
-          <div class="print-col-4" style=" margin-top: 8%;color: #65c18c;">
+          <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorised Sign</p>
           </div>

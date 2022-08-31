@@ -13,7 +13,7 @@
           <div class="kt-portlet__body">
             <div class="kt-form__section kt-form__section--first">
               <div class="col-md-12 col-lg-12 col-sm-12">
-                <div class="row">
+                <div class="row mt-8 mb-5">
                   <!-- <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Payment Type:</label>
@@ -266,16 +266,16 @@
             <div class="kt-form__actions kt-form__actions mb-0">
               <div class="row justify-content-center align-items-center">
                 <div class="col-lg-6 float-left">
-                  <h6 style="margin-bottom: 0; color: #65c18c; font-weight: 600;">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
+                  <h6 class="text-primary">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
                 </div>
                 <div class="col-lg-6">
                   <div class="float-right">
-                    <button *ngIf="data.docType !== docType.PayrollPayment" class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="payment_reset">Reset</button>
-                    <button mat-raised-button  class="mr-3 sub___btn" type="submit" id="payment_save"
-                          (click)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages); isSubmit(0)">Save
+                    <button *ngIf="data.docType !== docType.PayrollPayment" class="mr-2 app-reset-btn" type="button" (click)="reset()" id="payment_reset"><i class="fas fa-undo"></i> Reset</button>
+                    <button class="mr-2 app-save-btn" type="submit" id="payment_save"
+                          (click)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i> Save
                   </button>
-                    <button mat-raised-button class="sub___btn" type="submit" id="payment_submit"
-                            (click)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages); isSubmit(1)">
+                    <button class="app-default-btn" type="submit" id="payment_submit"
+                            (click)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages); isSubmit(1)"><i class="far fa-save"></i>
                         Submit</button>
                   </div>
                 </div>

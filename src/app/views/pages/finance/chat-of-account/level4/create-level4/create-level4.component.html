@@ -15,7 +15,7 @@
       <div class="kt-form__section kt-form__section--first">
         <!-- first row start -->
         <div class="col-md-12 col-lg-12 col-sm-12">
-          <div class="row">
+          <div class="row mt-8 mb-5">
             <div class="col-lg-6 col-md-6 col-sm-6">
               <label class="col-form-label">Transactional Account Name:</label>
               <div class="form-group kt-form__group mb-0">
@@ -54,10 +54,10 @@
       <div class="kt-form__actions row">
         <div class="col-lg-12">
           <div class="float-right">
-            <button class="mr-3 btn_white" mat-raised-button type="reset" (click)="onCloseLevel4Dialog()">Cancel</button>
-            <button mat-raised-button class="sub___btn"
+            <button class=" mr-2 app-reset-btn"  type="reset" (click)="onCloseLevel4Dialog()"><i  class="fas fa-undo"></i> Cancel</button>
+            <button class="app-default-btn"
                     type="submit"
-                    (click)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)">Submit
+                    (click)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)"><i  class="far fa-save"></i> Submit
             </button>&nbsp;
           </div>
         </div>
