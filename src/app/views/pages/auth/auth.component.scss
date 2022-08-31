@@ -1,5 +1,5 @@
 // import login css
-@import "../../../../assets/sass/pages/login/login-3.scss";
+// @import "../../../../assets/sass/pages/login/login-3.scss";
 
 kt-auth, #kt_login_wrapper {
 	height: 100%;
@@ -114,25 +114,6 @@ kt-auth, .login {
 // 	font-size: 12px;
 // }
 
-a {
-	color: #333;
-	font-size: 14px;
-	text-decoration: none;
-	//margin: 15px 0;
-}
-
-button {
-	border-radius: 20px;
-	border: 1px solid #2c3355;
-	background-color: #4D648D;
-	color: #FFFFFF;
-	font-size: 12px;
-	font-weight: bold;
-	padding: 12px 45px;
-	letter-spacing: 1px;
-	text-transform: uppercase;
-	transition: transform 80ms ease-in;
-}
 
 // button:active {
 // 	transform: scale(0.95);
@@ -280,11 +261,7 @@ button:focus {
 //above stylesheet was old//
 
 /*------------------Login form left div styles start------------*/
-.bg_full
-{
-	background-color: #65c18c !important;
-	background-image:  linear-gradient(to right, #65c18c, #4a8a9e) !important;
-}
+
 .form-left-div-bg
 {
 	
@@ -294,7 +271,7 @@ button:focus {
 	color: white;
 	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
 	min-height: 100vh;
-	background-image: url('../../../../assets/media/Login/edinfini-login-image.jpg');
+	// background-image: url('../../../../assets/media/Login/edinfini-login-image.jpg');
 	background-size: cover;
 	background-position: center;
 	// justify-content: right;
@@ -442,25 +419,8 @@ button:focus {
 
 
 
-.group__sty input
-{
-	background-color: #f2f2f2;
-	padding: 20px;
-	// border-radius: 0px 20px 20px 0px;
-	border: 1px solid #d0d0d0;
-}
 
-.heading__text
-{
-	
-	padding: 10px;
-	text-transform: uppercase;
-	// letter-spacing: 5px;
-	font-size: 45px;
-	color: #65c18c;
-	// letter-spacing: .15em;
-	
-}
+
 
 
 // 
@@ -496,7 +456,7 @@ button:focus {
   font-size: 12px;
 }
 
-.form-control:focus
-{
-	border-color: #65c18c;
-}
+// .form-control:focus
+// {
+// 	border-color: #65c18c;
+// }

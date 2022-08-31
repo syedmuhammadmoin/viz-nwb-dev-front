@@ -11,7 +11,7 @@ $paragraph-color: #6a727e;
 $bg-light: #F9F9F9;
 $anchor-color: #0d6efd;
 $hover-color: #1b375e;
-$bg-light-theme-color: rgb(88 149 77 / 6%);
+$bg-light-theme-color: #F3F6F9;
 $bg-gradient-color: linear-gradient(to right,#1a6b85, #4a8a9e);
 
 $text-white:#ffffff;
@@ -80,6 +80,44 @@ $site-logo :'assets/media/logos/logo-wr.png';
 
 
 
+    .user-card {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background-color: $bg-light-theme-color;
+      border-top: 2px solid $primary-color;
+    }
+    
+    .user-info .lead-text, .user-info .sub-text {
+      display: -webkit-flex;
+      display: flex;
+      -webkit-align-items: center;
+      align-items: center;
+    }
+    
+    .user-avatar, [class^=user-avatar]:not([class*=-group]) {
+      border-radius: 50%;
+      height: 40px;
+      width: 40px;
+      display: -webkit-flex;
+      display: flex;
+      -webkit-justify-content: center;
+      justify-content: center;
+      -webkit-align-items: center;
+      align-items: center;
+      color: #fff;
+      background: $primary-color;
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: .06em;
+      -webkit-flex-shrink: 0;
+      flex-shrink: 0;
+      position: relative;
+      margin-right: 10px;
+    }
+
+
+
 body 
 {
     font-weight: normal;
@@ -88,6 +126,11 @@ body
     color: $paragraph-color;
     background: $white-color;
     overflow-x: hidden !important;
+}
+
+
+.mat-input-element {
+  caret-color: $primary-color !important;
 }
 
 
@@ -800,7 +843,7 @@ body
   box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
   border: 0px;
   border-radius: 50px;
-  color: #ED8C72;
+  color: red;
   height: 30px;
   width: 30px;
   background-color: white;
@@ -809,7 +852,7 @@ body
 {
  
   font-size: 14px;
-  color: $warning-color;
+  color: red;
 }
 
 .app-edit-btn
@@ -1215,4 +1258,101 @@ mat-tree-node div[id^='child']
   width: 100%;
   padding-right: 12.5px;
   padding-left: 12.5px;
+}
+
+
+
+
+
+
+
+
+// 
+
+.mat-pseudo-checkbox.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate
+{
+  border-color: $primary-color !important; 
+}
+
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate
+{
+  background-color: $primary-color;
+}
+
+.mat-pseudo-checkbox-checked + span
+{
+  color: $primary-color !important;
+}
+.mat-active > .mat-option-text
+{
+  color: $primary-color !important;
+}
+
+
+// login screens
+
+.form-left-div-bg
+{
+	
+	background-image: url($login-cover-image);
+
+}
+
+.bg-login-logo
+{
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-image: url($site-logo);
+  margin: 0px auto;
+  background-repeat: no-repeat;
+}
+
+.heading__text
+{
+	
+	padding: 10px;
+	text-transform: uppercase;
+	// letter-spacing: 5px;
+	font-size: 45px;
+	color: $primary-color;
+	// letter-spacing: .15em;
+}
+
+.login-input-field:focus
+{ 
+  border-color: $primary-color;
+}
+
+
+.group__sty input
+{
+	background-color: $bg-light-theme-color;
+	padding: 20px;
+	// border-radius: 0px 20px 20px 0px;
+	border: 1px solid #d0d0d0;
+}
+
+.login-btn
+{
+  background-image: $bg-gradient-color;
+  padding: 10px;
+  color: $text-white;
+}
+
+
+.login-btn:hover
+{
+  background-image: $bg-gradient-color;
+  opacity: 0.8;
+  color: $text-white;
+}
+
+
+
+// spinner
+
+.mat-progress-spinner circle, .mat-spinner circle {
+  // brand color
+  stroke: $primary-color;
 }

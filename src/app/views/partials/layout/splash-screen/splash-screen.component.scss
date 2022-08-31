@@ -25,10 +25,9 @@
 			[role="progressbar"] {
 				margin-left: calc(100vw - 100%);
 			}
-			.mat-progress-spinner circle, .mat-spinner circle {
-				// brand color
-				stroke: #65c18c;
-			}
+			// .mat-progress-spinner circle, .mat-spinner circle {
+			// 	stroke: #65c18c;
+			// }
 		}
 	}
 }
