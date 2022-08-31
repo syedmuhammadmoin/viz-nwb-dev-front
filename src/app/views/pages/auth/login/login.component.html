@@ -104,8 +104,8 @@
                     <!-- <h3>Welcome To Nawabshah University</h3> -->
                      <!-- <p>Main Campus
                       SBBU Shaheed benazirabad.</p> -->
-
-                      <img src="../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png"  alt="" style="height: 44px;" width="110px">
+                      
+                      <!-- <img src="../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png"  alt="" style="height: 44px;" width="110px"> -->
                   </div>
                 </div>
                 
@@ -118,7 +118,7 @@
                     <kt-auth-notice></kt-auth-notice>
                     <div class="row mb-4">
                       <div class="col-md-12 col-lg-12">
-                        
+                        <div class="bg-login-logo"></div>
                         <h1 class="heading__text">Sign in</h1>
                       </div>
                     </div>
@@ -126,8 +126,8 @@
                     <div class="row mb-6">
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <!--error mesage for email start-->
-                        <div class="form-group group__sty" >
-                          <input type="email" formControlName="email" class="form-control " placeholder="Email" />
+                        <div class="form-group group__sty mb-1" >
+                          <input type="email" formControlName="email" class="form-control login-input-field" placeholder="Email" />
                         
                           <mat-error *ngIf="isControlHasError('email', 'required')">
                             <p class="text-left error_msg" >
@@ -152,8 +152,8 @@
 
                     <div class="row  mb-6">
                       <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="form-group group__sty">
-                          <input type="password" formControlName="password" class="form-control" autocomplete="off" placeholder="Password"  />
+                        <div class="form-group group__sty mb-1">
+                          <input type="password" formControlName="password" class="form-control login-input-field" autocomplete="off" placeholder="Password"  />
                             <!--error message for password start-->
                             <mat-error *ngIf="isControlHasError('password', 'required')">
                               <p class="text-left error_msg_pass" >
@@ -182,7 +182,7 @@
                           <div class="form-group text-right">
                             <button style="" id="kt_login_signin_submit" (click)="submit()" [ngClass]="{
                             'spinner spinner-right spinner-md spinner-light': loading
-                            }" class="app-default-btn mt-2 pr-10 pt-1 pb-1 pl-10">{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
+                            }" class="login-btn mt-2 pr-10 pt-1 pb-1 pl-10" mat-raised-button>{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
                           </div>
                         <!--end::Action-->
                       </div>

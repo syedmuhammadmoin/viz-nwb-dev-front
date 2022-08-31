@@ -16,8 +16,10 @@ $btn-gradient-color: linear-gradient(to right, #769157, #65c18c );
 
 $text-white:#ffffff;
 
-// $login-cover-image :'assets/media/logos/edinfini-login-image.jpg';
+$login-cover-image :'assets/media/Login/edinfini-login-image.jpg';
 $site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
+
+
 
 
 
@@ -61,6 +63,43 @@ $site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
   }
 
 
+
+  .user-card {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: $bg-light-theme-color;
+    border-top: 2px solid $primary-color;
+  }
+  
+  .user-info .lead-text, .user-info .sub-text {
+    display: -webkit-flex;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+  }
+  
+  .user-avatar, [class^=user-avatar]:not([class*=-group]) {
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+    color: #fff;
+    background: $primary-color;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: .06em;
+    -webkit-flex-shrink: 0;
+    flex-shrink: 0;
+    position: relative;
+    margin-right: 10px;
+  }
+
 body 
 {
     font-weight: normal;
@@ -71,6 +110,9 @@ body
     overflow-x: hidden !important;
 }
 
+.mat-input-element {
+  caret-color: $primary-color !important;
+}
 
 /* sidebar component start */
 
@@ -781,7 +823,7 @@ body
   box-shadow: rgb(149 157 165 / 20%) 0px 8px 24px;
   border: 0px;
   border-radius: 50px;
-  color: #ED8C72;
+  color: red;
   height: 30px;
   width: 30px;
   background-color: white;
@@ -790,7 +832,7 @@ body
 {
  
   font-size: 14px;
-  color: $warning-color;
+  color: red;
 }
 
 .app-edit-btn
@@ -1196,4 +1238,158 @@ mat-tree-node div[id^='child']
   width: 100%;
   padding-right: 12.5px;
   padding-left: 12.5px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.dialog-heading
+{
+    margin-bottom: 0px !important;
+    padding: 10px 10px 10px 20px;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 16px;
+    background-color: $primary-color;
+    border-bottom: 2px solid #eee;
+    height: 60px;
+    align-items: center;
+    display: flex;
+}
+.dialog-img
+{
+    height: 70px;
+    background-color: #dbebf9;
+    padding: 6px 6px;
+    border-radius: 80%;
+}
+
+.mat-dialog-content
+{
+    padding: 20px;
+}
+
+.mat-dialog-actions
+{
+    background-color: #f2f2f2;
+    padding: 12px 20px;
+}
+
+
+
+
+// custom tooltip
+.appearance
+{
+  background-color: $primary-color !important;
+}
+
+.appearance::after
+{
+  content: "";
+  border-color: transparent $primary-color transparent transparent !important;
+}
+
+
+// 
+
+.mat-pseudo-checkbox.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate
+{
+  border-color: $primary-color !important; 
+}
+
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate
+{
+  background-color: $primary-color;
+}
+
+.mat-pseudo-checkbox-checked + span
+{
+  color: $primary-color !important;
+}
+
+.mat-active > .mat-option-text
+{
+  color: $primary-color !important;
+}
+
+
+// login screens
+
+.form-left-div-bg
+{
+	
+	background-image: url($login-cover-image);
+
+}
+
+.bg-login-logo
+{
+  width: 200px;
+  height: 100px;
+  background-size: 120px;
+  background-image: url($site-logo);
+  margin: 0px auto;
+  background-repeat: no-repeat;
+  background-position: bottom;
+}
+
+.heading__text
+{
+	
+	padding: 10px;
+	text-transform: uppercase;
+	// letter-spacing: 5px;
+	font-size: 45px;
+	color: $primary-color;
+	// letter-spacing: .15em;
+}
+
+.login-input-field:focus
+{ 
+  border-color: $primary-color;
+}
+
+
+.group__sty input
+{
+	background-color: $bg-light-theme-color;
+	padding: 20px;
+	// border-radius: 0px 20px 20px 0px;
+	border: 1px solid #d0d0d0;
+}
+
+.login-btn
+{
+  background-image: $btn-gradient-color;
+  padding: 10px;
+  color: $text-white;
+}
+
+
+.login-btn:hover
+{
+  background-image: $btn-gradient-color;
+  opacity: 0.8;
+  color: $text-white;
+}
+
+
+
+
+
+
+// spinner
+.mat-progress-spinner circle, .mat-spinner circle {
+  // brand color
+  stroke: $primary-color;
 }
