@@ -452,14 +452,14 @@ const routes: Routes = [
       },
       // FIXED ASSET
       // Lazy Load ASSET CATEGORY Module
-      {
-        path: APP_ROUTES.ASSET_CATEGORY, // <= Page URL
-        loadChildren: () =>
-          import('./views/pages/fixed-asset/asset-category/asset-category.module').then(
-            (m) => m.AssetCategoryModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
+      // {
+      //   path: APP_ROUTES.ASSET_CATEGORY, // <= Page URL
+      //   loadChildren: () =>
+      //     import('./views/pages/fixed-asset/asset-category/asset-category.module').then(
+      //       (m) => m.AssetCategoryModule
+      //     ),
+      //     canActivateChild: [AuthGuard]
+      // },
       // Lazy Load DEPRECIATION MODEL Module
       {
         path: APP_ROUTES.DEPRECIATION_MODEL, // <= Page URL
