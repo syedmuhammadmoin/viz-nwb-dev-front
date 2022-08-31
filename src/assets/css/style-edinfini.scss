@@ -16,6 +16,50 @@ $btn-gradient-color: linear-gradient(to right, #769157, #65c18c );
 
 $text-white:#ffffff;
 
+// $login-cover-image :'assets/media/logos/edinfini-login-image.jpg';
+$site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
+
+
+
+.deshboard-logo{
+  background-image: url($site-logo);
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  background-size: contain;
+  width: 110px;
+  height: 80px;
+  }
+  .overall-app-loader{
+  background-image: url($site-logo);
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  background-size: contain;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 32%;
+  }
+  .splash-app-loader{
+  background-image: url($site-logo);
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  background-size: contain;
+  width: 80px;
+  height: 80px;
+  position: absolute;
+  top: 32%;
+  }
+  
+  .login-image{
+  background-image: url($site-logo);
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  background-size: contain;
+  width: 130px;
+  height: 130px;
+  margin-inline: auto;
+  }
+
 
 body 
 {
