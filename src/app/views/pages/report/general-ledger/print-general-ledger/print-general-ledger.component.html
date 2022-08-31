@@ -9,7 +9,7 @@
           type="button"
           mat-raised-button
           [useExistingCss]="true"
-          class="sub___btn"
+          class="app-default-btn"
           style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
         </button>
       </div>
@@ -21,7 +21,7 @@
           <div class="print_header_area">
             <div class="print-col-6">
               <div class="logo_and_title">
-                <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
+                <img src="../../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png" style="height: 100px;" alt="">
                 <span class="top-heading">GENERAL LEDGER</span>
               </div>
             </div>
@@ -33,17 +33,17 @@
             <div class="print-col-5" style="margin-top: 3%;">
   
               <div class="print-box" >
-                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">
                     Date:<span class="float-right" style="font-weight: 400;">{{from}} - {{to}}</span></h4>
-                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">
                     Business Partner:<span class="float-right" style="font-weight: 400;">{{businessPartner}}</span></h4>
-                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">
                     Account:<span class="float-right" style="font-weight: 400;">{{account}}</span></h4>  
-                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">
                     Campus:<span class="float-right" style="font-weight: 400;">{{campus}}</span></h4>  
-                <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+                <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">
                     Store:<span class="float-right" style="font-weight: 400;">{{store}}</span></h4>  
-                <p style="font-size: 15px;font-weight: 400;color: #1a6b85;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+                <p style="font-size: 15px;font-weight: 400;color: #65c18c;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
               </div>
             </div>
   
@@ -66,33 +66,33 @@
                   <tbody>
                     <ng-container *ngFor="let key of rowData.keys()">
                       <tr>
-                        <td [colSpan]="8"  style="font-weight: 500;border-bottom: 1px solid #1a6b85; color:#1a6b85; background-color: #e3ecf2;"> > {{key}}</td>
+                        <td [colSpan]="8"  style="font-weight: 500;border-bottom: 1px solid #65c18c; color:#65c18c; background-color: #e3ecf2;"> > {{key}}</td>
                       </tr>
                       <ng-container *ngFor="let ledger of rowData.get(key)">
                         <tr>
                           <td
-                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{ledger.docNo}} </td>
+                            style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;">{{ledger.docNo}} </td>
                           <td
-                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{ledger.businessPartnerName}} </td>
+                            style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;">{{ledger.businessPartnerName}} </td>
                           <td
-                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{docType[ledger.docType]}}</td>
+                            style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;">{{docType[ledger.docType]}}</td>
                           <td
-                            style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;">{{dateHelperService.transformDate(ledger.docDate, ' MMM d, y')}}</td>
-                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                            style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;">{{dateHelperService.transformDate(ledger.docDate, ' MMM d, y')}}</td>
+                          <td style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;"
                               class="text-left">{{ledger.description}}</td>
-                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                          <td style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;"
                               class="text-right">{{valueFormatter(ledger.debit || 0, '+ve')}}</td>
-                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                          <td style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;"
                               class="text-right">{{valueFormatter(ledger.credit || 0, '-ve')}}</td>
-                          <td style="font-weight: 300;border-bottom: 1px solid #1a6b85;padding: 6px;"
+                          <td style="font-weight: 300;border-bottom: 1px solid #65c18c;padding: 6px;"
                               class="text-right">{{valueFormatter(ledger.balance || 0)}}</td>
                         </tr>
                       </ng-container>
                       <tr>
-                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right" colspan="5">Total:</td>
-                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right">{{valueFormatter(calculateTotal(rowData.get(key), 'debit').debit, '+ve')}}</td>
-                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right">{{valueFormatter(calculateTotal(rowData.get(key), 'credit').credit, '-ve')}}</td>
-                        <td style="font-weight: 500;border-bottom: 1px solid #1a6b85;" class="text-right">
+                        <td style="font-weight: 500;border-bottom: 1px solid #65c18c;" class="text-right" colspan="5">Total:</td>
+                        <td style="font-weight: 500;border-bottom: 1px solid #65c18c;" class="text-right">{{valueFormatter(calculateTotal(rowData.get(key), 'debit').debit, '+ve')}}</td>
+                        <td style="font-weight: 500;border-bottom: 1px solid #65c18c;" class="text-right">{{valueFormatter(calculateTotal(rowData.get(key), 'credit').credit, '-ve')}}</td>
+                        <td style="font-weight: 500;border-bottom: 1px solid #65c18c;" class="text-right">
                           {{valueFormatter(rowData.get(key)[rowData.get(key).length - 1].balance)}}
                         </td>
                       </tr>
@@ -122,7 +122,7 @@
                 </div>     
               </div>
 
-              <div class="print-col-4" style=" margin-top: 8%;color: #1a6b85;">
+              <div class="print-col-4" style=" margin-top: 8%;color: #65c18c;">
                 _________________________________
                 <p class="text-center">Authorised Sign</p>
               </div>

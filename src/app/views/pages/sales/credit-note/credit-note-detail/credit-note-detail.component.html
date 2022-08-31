@@ -1,10 +1,16 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Credit Note Detail'" [class]="'card-head-lg'">
+    <!-- <kt-portlet-header [sticky]="false" [title]="'Credit Note Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         
         <h4 class="overall_statuses {{docStatus[creditNoteMaster?.state]}}"> Status:  {{creditNoteMaster?.status}} </h4>
+      </ng-container>
+    </kt-portlet-header> -->
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'Credit Note Detail'">
+      <ng-container class="" ktPortletTools>
+        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[creditNoteMaster?.state]}}"></span> {{creditNoteMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -18,36 +24,36 @@
                    && (permission.isGranted(permissions.CREDITNOTE_EDIT))"
                   [routerLink]="'/' + CREDIT_NOTE.ID_BASED_ROUTE('edit' , creditNoteMaster?.id)" id="credit_note_edit"
                   [queryParams]="{q: creditNoteMaster?.id, 'isCreditNote': true}" type="button"
-                  class="mr-3 btn_public"><i class="fa fa-edit"></i> Edit
+                  class="mr-2 btn_public"><i class="fa fa-edit" ></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="btn_public mr-3" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
+                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="btn_public mr-2" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + CREDIT_NOTE.ID_BASED_ROUTE('print' , creditNoteMaster?.id)" type="button"
                 class="btn_public" id="credit_note_print">
-                  <i class="fa fa-print"></i> Print Credit Note
+                  <i class="fa fa-print" ></i> Print Credit Note
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
           </div>
 
-          <div class="col-md-4 col-lg-4  mt-3">
+          <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;">Credit Note No: 
-                    <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.docNo}}</span></h4>
+                <h4>Credit Note No: 
+                    <span class="float-right" >{{creditNoteMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Customer Name:
-                    <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.customerName}}</span></h4>
+                <h4 >Customer Name:
+                    <span class="float-right" >{{creditNoteMaster?.customerName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Date:
-              <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
+              <h4 >Date:
+              <span class="float-right" >{{creditNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
             </div>
           </div>
 
@@ -55,7 +61,7 @@
 
         <div class="row mt-10">
           <div class="col-md-12 col-12">
-            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 13px;"
               class="ag-theme-alpine" [rowData]="creditNoteLines" [columnDefs]="columnDefs"
               (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
             </ag-grid-angular>
@@ -69,19 +75,19 @@
           </div>
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" style="margin: 0px -6px;">
+            <table class="table  small_table_box" >
               <tr>
-                <td class="text-left" style="width: 70%;">Total Before Tax :</td>
+                <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
                 <td class="text-right" >
                   {{valueFormatter(creditNoteMaster?.totalBeforeTax || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left">Total Tax :</td>
+                <td class="text-left Total-Before-Tax-heading">Total Tax :</td>
                 <td class="text-right" >
                   {{valueFormatter(creditNoteMaster?.totalTax || 0)}}</td>
               </tr>
-              <tr style="border-top: 2px solid #1a6b85;">
-                <th class="text-left"
+              <tr >
+                <th class="text-left Total-Before-Tax-heading"
                   >Grand Total :</th>
                 <th class="text-right" >
                   {{valueFormatter(creditNoteMaster?.totalAmount || 0)}}</th>
@@ -92,12 +98,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                            Reconciled Amount : 
                         </mat-panel-title>
-                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
+                        <mat-panel-description >
                           {{valueFormatter(creditNoteMaster?.reconciledAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -108,10 +112,10 @@
                         </tr>
                         <tr *ngFor="let pay of paidAmountList">
                           <td><a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , pay?.id)"
-                              class="links">{{pay?.docNo}}</a></td>
+                              class="all-text-primary">{{pay?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('details' , pay?.id)"
-                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
+                            class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
                       </table>
@@ -125,11 +129,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold;">
+                        <mat-panel-title >
                            References
                         </mat-panel-title>
-                        <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                        <!-- <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold; flex-grow: 0;">
                           {{valueFormatter(creditNoteMaster?.reconciledAmount || 0)}}
                         </mat-panel-description> -->
@@ -160,13 +163,13 @@
 
     <mat-divider class="mt-10"></mat-divider>
 
-    <div class="kt-portlet__foot">
-      <div class="kt-form__actions kt-form__actions">
+    <div class="kt-portlet__foot p-5">
+      <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="creditNoteMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="credit_note_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="credit_note_approve" class="success__btn" mat-raised-button>Approve</button>
-          </div>
+            <button (click)="remarksDialog(action.Reject)" class="btn btn-outline-danger font-weight-bold mr-2 " id="payment_reject" >Reject</button>
+            <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success font-weight-bold " id="payment_approve" >Approve</button>
+        </div>
         </div>
       </div>
     </div>

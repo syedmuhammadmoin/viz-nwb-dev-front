@@ -93,7 +93,7 @@
         > span {
             border-width: get($radio-config, types, accent, borderWidth) !important;
             border-style: solid !important;
-            background-color: transparent !important;
+            background-color: transparent;
 
             &:after {
     			display: block;

@@ -7,10 +7,10 @@
         <div class="kt-portlet__body">
           <div class="kt-form__section kt-form__section--first">
             <div class="col-md-12 col-lg-12 col-sm-12">
-              <div class="row " >
+              <div class="row mt-8 mb-5 " >
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <label class="col-form-label">Workflow Name:</label>
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <kt-input-field
                     id="workflow_name"
                     formControlName="name"
@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <label class="col-form-label">Document Type:</label>
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <kt-simple-dropdown 
                       formControlName="docType"
                       id="workflow_document"
@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-3">
                   <label class="col-form-label">Active:</label>
-                  <div class="form-group kt-form__group">
+                  <div class="form-group kt-form__group mb-0">
                     <kt-simple-dropdown 
                     id="workflow_active"
                       formControlName="isActive" 
@@ -58,7 +58,7 @@
               <!--WORKFLOW LINES-->
               <div class="row">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="example-container mat-elevation-z8">
+                  <div >
                     <ng-container formArrayName="workflowLines">
                       <mat-table #table [dataSource]="workflowForm.get('workflowLines')['controls']">
                         <!-- Description Column -->
@@ -134,7 +134,7 @@
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <!-- <mat-icon class="delete-button" (click)="removeInvoiceLineClick(i)">delete_forever</mat-icon> -->
-                            <button class=" remove-icon" [id]="'workflow_remove_' + i" type="button" (click)="removeInvoiceLineClick(i)"
+                            <button class=" app-remove-btn" [id]="'workflow_remove_' + i" type="button" (click)="removeInvoiceLineClick(i)"
                             [disabled]="!showButtons">
                               <i  class="fas fa-trash" aria-hidden="true"></i>
                             </button>
@@ -147,7 +147,7 @@
                     <ng-container>
                       <div class="row" style="align-items: center;">
                         <div class="col-lg-5 col-sm-5">
-                          <button *ngIf="showButtons" class=" btn_create" type="button" id="workflow_add_line" (click)="addWorkflowLineClick()">
+                          <button *ngIf="showButtons" class=" app-add-new-line-btn" type="button" id="workflow_add_line" (click)="addWorkflowLineClick()">
                             <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
                           </button>
                         </div>
@@ -161,15 +161,15 @@
         </div>
 
         <mat-divider class="mt-10"></mat-divider>
-        <div class="kt-portlet__foot mt-lg-n5">
-          <div class="kt-form__actions kt-form__actions">
+        <div class="kt-portlet__foot p-5">
+          <div class="kt-form__actions kt-form__actions mb-0">
             <div class="row text-right">
               <div *ngIf="showButtons" class="col-lg-12">
-                <button class="mr-3 btn_white" mat-raised-button type="button" (click)="reset()" id="workflow_reset">Reset
+                <button class="mr-2 app-reset-btn" type="button" (click)="reset()" id="workflow_reset"><i class="fas fa-undo"></i> Reset
                 </button>
-                <button mat-raised-button class="sub___btn" type="submit" id="workflow_submit"
+                <button class="app-default-btn" type="submit" id="workflow_submit"
                   (click)="logValidationErrors(this.workflowForm, this.formErrors, this.validationMessages)">
-                  Submit
+                  <i class="far fa-save"></i> Submit
                 </button>
               </div>
             </div>

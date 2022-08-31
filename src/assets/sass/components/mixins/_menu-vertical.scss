@@ -1127,7 +1127,7 @@
 
 				&.menu-item-hover,
 				&.menu-item-open {
-					background: transparent !important;
+					background: transparent;
 
 					> .menu-link {
 						background-color: get($layout, minimize, item, link, self, bg-color, open);
@@ -1140,7 +1140,7 @@
 
 				&.menu-item-here,
 				&.menu-item-active {
-					background: transparent !important;
+					background: transparent;
 
 					> .menu-link {
 						background-color: get($layout, minimize, item, link, self, bg-color, active);

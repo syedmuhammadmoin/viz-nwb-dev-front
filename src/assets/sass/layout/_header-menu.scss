@@ -68,7 +68,7 @@
 
 					> .menu-link {
 						align-items: stretch;
-						background-color: transparent !important;
+						background-color: transparent;
 						padding: 0 !important;
 						border-bottom: 1px solid transparent;
 						margin-bottom: -1px;
@@ -82,7 +82,7 @@
 					&.menu-item-here,
 					&.menu-item-active {
 						> .menu-link {
-							background-color: transparent !important;
+							background-color: transparent;
 							border-bottom: 1px solid $primary !important;
 						}
 					}
