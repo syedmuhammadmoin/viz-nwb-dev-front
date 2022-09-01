@@ -166,7 +166,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 						this.store.dispatch(new UserLoaded({ user: this.decodeService.setUser(decodedToken) }));
 						await this.router.navigateByUrl(this.returnUrl); // Main page
 					} else {
-						this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
+						//this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
 					}
 				}),
 				takeUntil(this.unsubscribe),
@@ -179,7 +179,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 				() => { },
 				(e) => {
 					//this.layoutUtilService.showActionNotification(e?.error?.message, null, 5000, true, false)
-					this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN') + ', ' + e?.error?.message, 'danger');
+					//this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN') + ', ' + e?.error?.message, 'danger');
 				});
 	}
 
