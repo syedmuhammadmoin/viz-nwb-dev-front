@@ -1356,3 +1356,20 @@ mat-tree-node div[id^='child']
   // brand color
   stroke: $primary-color;
 }
+
+
+
+// .mat-form-field.mat-form-field-invalid .mat-form-field-label
+// {
+//   color: rgba(0,0,0,.6) !important;
+// }
+
+.mat-form-field .mat-form-field-label
+{
+  color: #a9a9a9 !important;
+}
+
+.mat-form-field-label
+{
+  font-weight: 200 !important;
+}
