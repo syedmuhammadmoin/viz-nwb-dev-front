@@ -4,7 +4,9 @@
   <a href="javascript:;" routerLink="/" class="brand-logo align-items-center">
 	  <!-- <img alt="logo" class="deshboard-logo"  src="../../../../assets/media/logos/logo-wr.png"  /> -->
     <div class="deshboard-logo"></div>
-     <h2 class="mb-0 mt-1 ml-3 tagline-h"></h2> <!--[attr.src]="headerLogo"-->
+    <!-- <p>{{this.edinfini}}</p> -->
+     <h2 class="mb-0 mt-1 ml-3 tagline-h" *ngIf="this.edinfini !== true"></h2> 
+     <h2 class="mb-0 mt-1 ml-3 tagline-h" *ngIf="this.edinfini == true">SBBU</h2>
      <!-- <h2 class="mb-0 mt-1 ml-3 tagline-h">SBBU</h2> -->
   </a>
   <!--end::Logo-->

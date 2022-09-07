@@ -1,18 +1,38 @@
-$bg-gradient-color:linear-gradient(to right, rgba(0, 0, 0, 0.6), #65c18c);
-$bg-white: #fff;
-$text-white: #fff;
-$primary-color:#65c18c;
-$secondary-color: #141e27;
-$input-filed-primary-color : #808080;
-$input-filed-background-color : #f2f2f2;
-$input-filed-border-color : #d0d0d0;
-$form-border-color : rgba(101, 193, 140, 0.1);
-$test-shadow-color : #9195a9;
-$button-background-color:rgba(101, 193, 140, 0.1);
-$light-gray-color :#B5B5C3;
-$bg-light-theme-color: rgb(88 149 77 / 6%);
-$heading-color: #6c7278;
-$site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
+// $bg-gradient-color:linear-gradient(to right, rgba(0, 0, 0, 0.6), #65c18c);
+// $bg-white: #fff;
+// $text-white: #fff;
+// $primary-color:#65c18c;
+// $secondary-color: #141e27;
+// $input-filed-primary-color : #808080;
+// $input-filed-background-color : #f2f2f2;
+// $input-filed-border-color : #d0d0d0;
+// $form-border-color : rgba(101, 193, 140, 0.1);
+// $test-shadow-color : #9195a9;
+// $button-background-color:rgba(101, 193, 140, 0.1);
+// $light-gray-color :#B5B5C3;
+// $bg-light-theme-color: rgb(88 149 77 / 6%);
+// $heading-color: #6c7278;
+// $site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
+
+$bg-gradient-color:linear-gradient(to right, var(--bg_gradient_color_one), var(--bg_gradient_color_two));
+$bg-white: var(--bg_white);
+$primary-color: var(--primary_color);
+$primary-color-rgb:rgb(101 193 140 / 40%);
+$secondary-color:var(--secondary_color);
+$input-filed-primary-color : var(--input_filed_primary_color);
+$input-filed-background-color : var(--input_filed_background_color);
+$input-filed-border-color : var(--input_filed_border_color);
+$form-border-color : var(--form_border_color);
+$test-shadow-color : var(--test_shadow_color);
+$button-background-color: var(--button_background_color);
+$light-gray-color : var(--light_gray_color);
+$title : var(--title);
+$login-title : var(--login_title);
+$login-cover-image :var(--login_cover_image);
+$site-logo :var(--site_logo);
+$dashboard_hight : var(--dashboard_hight);
+$dashboard_logo_width : var(--dashboard_logo_width);
+$dashboard_logo_hight : var(--dashboard_logo_hight);
 
 
 
@@ -26,7 +46,7 @@ $site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
 }
 
 .print-logo{
-  background-image: url($site-logo);
+  background-image: $site-logo;
   background-repeat: no-repeat, repeat;
   background-position: center;
   background-size: contain;

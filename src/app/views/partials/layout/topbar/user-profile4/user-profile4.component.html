@@ -46,6 +46,28 @@
 												<i class="fas fa-sign-out-alt mr-1 dashboard-icon"></i> Sign Out
 											</a>
 										</li>
+										<li class="list-group-item dashboard-li">
+											<a class="dashboard-link"><i class="fa fa-paint-brush mr-1 dashboard-icon"></i>color</a>
+											<div class="row">
+												<div (click)="changeColor('edinfini')" class="theme-changing-edinfini"><i *ngIf="!this.edinfini" class="fa fa-check" aria-hidden="true"></i></div>
+												<div (click)="changeColor('sbbu')" class="theme-changing-sbbu"><i *ngIf="this.edinfini" class="fa fa-check" aria-hidden="true"></i></div>
+											</div>
+										</li>
+										<!-- <li class="list-group-item dashboard-li primery-color">
+											<div class="row">
+												<div class="col">
+												  <div ngbDropdown class="d-inline-block">
+													<button type="button" class="btn btn-outline-primary primery-color-change" id="dropdownBasic1" ngbDropdownToggle>
+														<i class="fa fa-paint-brush mr-1 dashboard-icon"></i>
+														Primary color</button>
+													<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+													  <button style="background-color:#65c18c;" (click)="changeColor('#65c18c' , '' , 'primary')" ngbDropdownItem></button>
+													  <button style="background-color:#48899d;" (click)="changeColor('#48899d' , '' , 'primary')" ngbDropdownItem></button>
+													</div>
+												  </div>
+												</div>
+											</div>
+										</li> -->
 									</ul>
 								<!-- <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary" style="display: block;padding: 20px;
 								background-color: #eceefd;border-top: 2px solid #494b74;">
