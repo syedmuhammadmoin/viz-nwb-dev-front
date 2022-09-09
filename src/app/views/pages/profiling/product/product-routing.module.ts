@@ -4,6 +4,7 @@ import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { ListProductComponent } from './list-product/list-product.component';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,18 @@ const routes: Routes = [
             { permission: Permissions.PRODUCT_VIEW },
             { permission: Permissions.PRODUCT_CREATE },
             { permission: Permissions.PRODUCT_DELETE },
+            { permission: Permissions.PRODUCT_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard]
+      },
+      {
+        path: CRUD_ROUTES.DETAILS,
+        component: ProductDetailComponent,
+        data: {
+          array: [
+            { permission: Permissions.PRODUCT_VIEW },
+            { permission: Permissions.PRODUCT_CREATE },
             { permission: Permissions.PRODUCT_EDIT },
           ]
         },

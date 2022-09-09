@@ -1,5 +1,5 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, Inject, Optional, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
@@ -7,7 +7,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { FirstDataRenderedEvent, RowDoubleClickedEvent } from 'ag-grid-community';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IAsset } from '../model/IAsset';
 import { AssetService } from '../service/asset.service';
 import { AnyCnameRecord } from 'dns';
@@ -64,6 +64,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     acquisitionDate: {
       required: 'Date is required.',
     },
+    accountingDate: {
+      required: 'Date is required.',
+    },
     depreciationModelId: {
       required: 'Model is required.',
     },
@@ -81,25 +84,44 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     },
     usefulLife: {
       required: 'Life is required.',
-    }
+    },
+    correspondingAccountId: {
+      required: 'Account is required.',
+    },
+    categoryId: {
+      required: 'Category is required.',
+    },
+    accumulatedDepreciation: {
+      required: 'Depreciation is required.',
+    },
+    decliningFactor: {
+      required: 'Declining Factor is required.',
+    },
   };
 
   // error keys..
   formErrors = {
     name: '',
     acquisitionDate: '',
+    accountingDate: '',
     depreciationModelId: '',
     depreciableValue: '',
     salvageValue: '',
     depreciationMethod: '',
     purchaseCost: '',
-    usefulLife: ''
+    usefulLife: '',
+    correspondingAccountId: '',
+    accumulatedDepreciation: '',
+    decliningFactor: '',
+    categoryId: ''
   };
 
   // Injecting in dependencies in constructor
   constructor(private fb: FormBuilder,
     private assetService: AssetService,
     public activatedRoute: ActivatedRoute,
+    @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
+    public dialogRef: MatDialogRef<CreateAssetComponent>,
     public dialog: MatDialog,
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
@@ -116,12 +138,16 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetForm = this.fb.group({
       name: ['', [Validators.required]],
       acquisitionDate: ['', [Validators.required]],
+      accountingDate: ['', [Validators.required]],
       depreciationModelId: ['', [Validators.required]],
       purchaseCost: ['', [Validators.required]],
       depreciableValue: ['', [Validators.required]],
       salvageValue: ['', [Validators.required]],
       depreciationMethod: ['', [Validators.required]],
       usefulLife: ['', [Validators.required]],
+      decliningFactor: ['', [Validators.required]],
+      categoryId: ['', [Validators.required]],
+      correspondingAccountId: ['', [Validators.required]],
       prorataBasis: [false]
     });
 
@@ -132,16 +158,21 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       depreciationModelId: null,
       purchaseCost: null,
       salvageValue: null,
-      depValue: null,
-      //depMethod: '',
-      //usefulLife: null,
-      prorataBasis: false,
+      depreciableValue: null,
+      accountingDate: '',
+      depreciationMethod: null,
+      usefulLife: null,
+      decliningFactor: null,
+      categoryId: null,
+      correspondingAccountId: null,
+      prorataBasis: false
     }
 
     //get Accounts from Accounts State
     //this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getDepreciationModelFromState()
     this.ngxsService.getOtherAccountsFromState();
+    this.ngxsService.getCategoryFromState();
     
     this.activatedRoute.params.subscribe((param) => {
       console.log(param)
@@ -242,10 +273,14 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       acquisitionDate: asset.acquisitionDate,
       depreciationModelId: asset.depreciationModelId,
       purchaseCost: asset.purchaseCost,
-      depreciationValue: asset.depValue,
+      depreciableValue: asset.depreciableValue,
       salvageValue: asset.salvageValue,
       depreciationMethod: asset.depMethod,
       usefulLife: asset.usefulLife,
+      accountingDate: asset.depMethod,
+      decliningFactor: asset.depMethod,
+      categoryId: asset.depMethod,
+      correspondingAccountId: asset.depMethod,
       prorataBasis: asset.prorataBasis,
     });
    
@@ -314,14 +349,19 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   //Mapping Form Value to Model
   mapFormValuesToAssetModel() {
+
     this.assetModel.name = this.assetForm.value.name;
     this.assetModel.acquisitionDate = this.dateHelperService.transformDate(this.assetForm.value.acquisitionDate , 'yyyy-MM-dd');
     this.assetModel.depreciationModelId = this.assetForm.value.depreciationModelId;
     this.assetModel.purchaseCost = this.assetForm.value.purchaseCost;
-    this.assetModel.depValue = this.assetForm.value.depreciableValue;
+    this.assetModel.depreciableValue = this.assetForm.value.depreciableValue;
     this.assetModel.salvageValue = this.assetForm.value.salvageValue;
-    //this.assetModel.depMethod = this.assetForm.value.depreciationMethod;
-    //this.assetModel.usefulLife = this.assetForm.value.usefulLife;
+    this.assetModel.depreciationMethod = this.assetForm.value.name;
+    this.assetModel.usefulLife = this.assetForm.value.name;
+    this.assetModel.accountingDate = this.dateHelperService.transformDate(this.assetForm.value.accountingDate , 'yyyy-MM-dd');
+    this.assetModel.decliningFactor = this.assetForm.value.name;
+    this.assetModel.categoryId = this.assetForm.value.name;
+    this.assetModel.correspondingAccountId = this.assetForm.value.name;
     this.assetModel.prorataBasis = this.assetForm.value.prorataBasis;
   }
 
@@ -344,6 +384,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
     //this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
+  }
+
+   // Dialogue close function
+   onCloseDialog() {
+    this.dialogRef.close();
   }
 }
 

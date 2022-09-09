@@ -10,6 +10,8 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { Router } from '@angular/router';
+import { PRODUCT } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-product',
@@ -34,6 +36,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
   constructor(
     private productService: ProductService,
     public dialog: MatDialog,
+    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -134,7 +137,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.openDialog(event.data.id)
+    this.router.navigate(['/' + PRODUCT.ID_BASED_ROUTE('details', event.data.id)])
   }
 
   openDialog(id?: number): void {

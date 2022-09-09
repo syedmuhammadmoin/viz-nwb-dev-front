@@ -6,13 +6,16 @@ import {AgGridModule} from 'ag-grid-angular';
 import { ListProductComponent } from './list-product/list-product.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateProductComponent } from './create-product/create-product.component';
-import { ProductRoutingModule } from './product-routing.module'
+import { ProductRoutingModule } from './product-routing.module';
+import { ProductDetailComponent } from './product-detail/product-detail.component'
+import { CreateAssetComponent } from '../../fixed-asset/asset/create-asset/create-asset.component';
 
 
 @NgModule({
   declarations: [
    CreateProductComponent,
-   ListProductComponent
+   ListProductComponent,
+   ProductDetailComponent
   ],
   imports: [
     SharedModule,
@@ -20,6 +23,9 @@ import { ProductRoutingModule } from './product-routing.module'
     ProductRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ], 
-  entryComponents: [CreateProductComponent, ]
+  entryComponents: [
+    CreateProductComponent,
+    CreateAssetComponent
+   ]
 })
 export class ProductModule { }

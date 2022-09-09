@@ -1,6 +1,15 @@
-<div [ktBusy]="isLoading">
-    <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+<div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
+  <div class="kt-portlet__head">
+      <div class="kt-portlet__head-caption">
+          <div class="kt-portlet__head-title">
+              <h3 class="kt-portlet__head-text modal-header"> {{title}} 
+                <span (click)="onCloseDialog()" id="asset_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+              </h3>
+          </div>
+      </div>
+  </div>
+
+
       <!--begin::Form-->
       <form [formGroup]="assetForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <div class="kt-portlet__body">
@@ -33,19 +42,20 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="col-lg-4 col-sm-4 col-md-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Depreciable Value:</label>
-                        <mat-form-field appearance="outline" class="full-width">
-                          <input matInput formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
-                               id="asset_depreciable" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
-                          <mat-error *ngIf="formErrors.depreciableValue">
-                            <strong>{{formErrors.depreciableValue}}</strong>
-                          </mat-error>
-                          <!-- <mat-hint align="end">Optional</mat-hint> -->
-                        </mat-form-field>
+                      <label class="col-form-label pt-0">Accounting Date:</label>
+                      <kt-date-input 
+                        formControlName="accountingDate" 
+                        placeholder="Accounting Date" 
+                        matFormFieldClass="full-width"
+                        (blurEvent)="logValidationErrors(this.assetForm, formErrors, validationMessages)"
+                        [errorMessage]="formErrors.accountingDate">
+                      </kt-date-input>
                     </div>
-                  </div> 
+                  </div>
+
+                  
               </div>
 
               <div class="row">
@@ -123,7 +133,74 @@
                       </mat-form-field>
                   </div>
                 </div> 
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group kt-form__group mb-0">
+                      <label class="col-form-label pt-0">Accumulated Depreciation:</label>
+                      <mat-form-field appearance="outline" class="full-width">
+                        <input matInput formControlName="accumulatedDepreciation" placeholder="Enter Accumulated Depreciation" 
+                             id="asset_depreciation" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                        <mat-error *ngIf="formErrors.accumulatedDepreciation">
+                          <strong>{{formErrors.accumulatedDepreciation}}</strong>
+                        </mat-error>
+                        <!-- <mat-hint align="end">Optional</mat-hint> -->
+                      </mat-form-field>
+                  </div>
+                </div> 
               </div>
+
+              <div class="row">
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Asset Category:</label>
+                    <kt-simple-dropdown 
+                      id="asset_category" 
+                      formControlName="categoryId" 
+                      matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                      propertyName="name" 
+                      propertyValue="id" 
+                      [errorMessage]="formErrors.categoryId"
+                      [optionList]="ngxsService.categories$"
+                      searchPlaceholder="Search Category..."
+                      placeholder="Select Category">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-sm-4 col-md-4">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Corresponding Account:</label>
+                    <kt-simple-dropdown 
+                      id="asset_account" 
+                      formControlName="correspondingAccountId" 
+                      matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                      propertyName="name" 
+                      propertyValue="id" 
+                      [errorMessage]="formErrors.correspondingAccountId"
+                      [optionList]="ngxsService.otherAccounts$"
+                      searchPlaceholder="Search Account..."
+                      placeholder="Select Account">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+
+                <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div class="form-group kt-form__group mb-0">
+                      <label class="col-form-label pt-0">Depreciable Value:</label>
+                      <mat-form-field appearance="outline" class="full-width">
+                        <input matInput formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
+                             id="asset_depreciable" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                        <mat-error *ngIf="formErrors.depreciableValue">
+                          <strong>{{formErrors.depreciableValue}}</strong>
+                        </mat-error>
+                        <!-- <mat-hint align="end">Optional</mat-hint> -->
+                      </mat-form-field>
+                  </div>
+                </div> 
+              </div>
+
 
               <div class="row">
                 <div class="col-lg-4 col-sm-4 col-md-4">
@@ -156,8 +233,6 @@
           </div>
         </div>
       </form>
-      <!--end::Form-->
-    </kt-portlet>
   </div>
 
 

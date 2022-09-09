@@ -301,7 +301,10 @@ export const CRUD_ROUTES = {
   }
 
   export const PRODUCT = {
-    LIST: APP_ROUTES.PRODUCT + '/' + CRUD_ROUTES.LIST
+    LIST: APP_ROUTES.PRODUCT + '/' + CRUD_ROUTES.LIST,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.PRODUCT + '/' + route + '/' + id
+    }
   }
 
   export const WAREHOUSE = {

@@ -1,0 +1,73 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Product Detail'">
+        <!-- <ng-container class="" ktPortletTools>
+          <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[productMaster?.state]}}"></span> {{productMaster?.status}}</div>
+        </ng-container> -->
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+          <div class="row ">
+            <div class="col-md-12 col-12 pb-3">
+              <ng-container ktPortletTools >
+                  <button *ngIf="(permission.isGranted(permissions.ASSET_CREATE))"
+                    type="button" class="mr-2 btn_public" (click)="addAsset()" >
+                    <i class="fa fa-edit" ></i> Create Asset
+                  </button>
+  
+                  <button *ngIf="(permission.isGranted(permissions.ASSET_CREATE))"
+                    type="button" class="mr-2 btn_public" (click)="addAsset()" >
+                    <i class="fa fa-edit" ></i> Create WIP
+                  </button>
+  
+                  <button *ngIf="(productMaster?.state === docStatus.Draft || productMaster?.state === docStatus.Rejected) 
+                      && (permission.isGranted(permissions.INVOICE_EDIT))"
+                    [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', productMaster?.id)" [queryParams]="{q: productMaster?.id, 'isInvoice': true}"
+                    type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit" ></i>
+                    Edit
+                  </button>  
+                  <mat-divider class="mt-5"></mat-divider>
+              </ng-container>
+            </div>
+  
+            <div class="col-md-5 col-lg-5  mt-3">
+              <div class="print-box">
+                  <h4 >Invoice No: 
+                      <span class="float-right" >{{productMaster?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box">
+                <h4 >Customer Name: 
+                <span class="float-right" >{{productMaster?.customerName}}</span></h4>
+              </div>
+              <div class="print-box">
+                  <h4 >Invoice Date: 
+                  <span class="float-right" >{{productMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 >Due Date: 
+                <span class="float-right" >{{productMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 >Campus: 
+                <span class="float-right" >{{productMaster?.campusName}}</span></h4>
+              </div>   
+            </div>
+          </div>
+        </div>
+    </kt-portlet-body>
+  
+    <mat-divider class="mt-10"></mat-divider>
+  
+    <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
+          <!-- <div class="row ">
+            <div class="col-lg-12 text-right" *ngIf="productMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="invoice_reject" class="btn btn-outline-danger font-weight-bold mr-2" >Reject</button>
+              <button (click)="remarksDialog(action.Approve)" id="invoice_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </kt-portlet>
+  </div>
