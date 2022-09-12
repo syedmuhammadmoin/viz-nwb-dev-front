@@ -164,7 +164,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event : RowDoubleClickedEvent){
-    this.router.navigate(['/' + ASSET.ID_BASED_ROUTE('detail' , event.data.id)])
+    this.router.navigate(['/' + ASSET.ID_BASED_ROUTE('details' , event.data.id)])
   }
 
   addAsset() {

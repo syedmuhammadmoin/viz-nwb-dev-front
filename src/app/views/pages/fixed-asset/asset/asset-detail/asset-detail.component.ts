@@ -3,29 +3,23 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
-import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { ProductService } from '../service/product.service';
-import { IProduct } from '../model/IProduct';
-import { CreateAssetComponent } from '../../../fixed-asset/asset/create-asset/create-asset.component';
-
+import { finalize, take } from 'rxjs/operators';
+import { AssetService } from '../service/asset.service';
 
 @Component({
-  selector: 'kt-product-detail',
-  templateUrl: './product-detail.component.html',
-  styleUrls: ['./product-detail.component.scss']
+  selector: 'kt-asset-detail',
+  templateUrl: './asset-detail.component.html',
+  styleUrls: ['./asset-detail.component.scss']
 })
-
-export class ProductDetailComponent extends AppComponentBase implements OnInit  {
+export class AssetDetailComponent extends AppComponentBase implements OnInit {
 
   docType = DocType
   public permissions = Permissions;
   action = ActionButton
   docStatus = DocumentStatus
-
-  productMaster: IProduct | any
 
   //For ag grid
   gridOptions: GridOptions;
@@ -34,8 +28,16 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
   //kt busy loading
   isLoading: boolean;
 
+  //need for routing
+  assetId: number;
+
+  //Variables for asset data
+  assets: any
+  assetMaster:  any;
+  status: string;
+
   constructor(
-    private productService: ProductService,
+    private assetService: AssetService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
@@ -46,17 +48,20 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
     this.defaultColDef = { resizable: true };
   }
 
-  
-
   ngOnInit() {
+
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
         this.isLoading = true;
+        this.assetId = id;
         this.getAssetData(id);
         this.cdRef.markForCheck();
       }
     });
+
+    this.gridOptions.rowHeight = 40;
+    this.gridOptions.headerHeight = 35;
   }
 
   // First time rendered ag grid
@@ -64,9 +69,9 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
     params.api.sizeColumnsToFit();
   }
 
-  //Getting Asset master data
+  //Getting Asset Master Data
   getAssetData(id: number) {
-    this.productService.getProduct(id)
+    this.assetService.getAssetById(id)
     .pipe(
       take(1),
        finalize(() => {
@@ -74,28 +79,13 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
         this.cdRef.detectChanges();
        })
      )
-    .subscribe((res: IApiResponse<IProduct>) => {
-      this.productMaster = res.result;
-    
+    .subscribe((res: IApiResponse<any>) => {
+      this.assetMaster = res.result;
+      this.assets = res.result;
       this.cdRef.detectChanges();
-    });
-  }
-
-  addAsset(id?: number): void {
-    const dialogRef = this.dialog.open(CreateAssetComponent, {
-      width: '800px',
-      data: id
-    });
-    //Recalling getAsset function on dialog close
-    dialogRef.afterClosed().subscribe(() => {
-      this.cdRef.detectChanges();
-    });
+    })
   }
 }
 
 
-
-
-
-  
 

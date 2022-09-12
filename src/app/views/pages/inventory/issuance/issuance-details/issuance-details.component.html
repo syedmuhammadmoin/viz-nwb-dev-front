@@ -26,7 +26,7 @@
                 </button>
 
                 <button *ngIf="(issuanceMaster?.state === docStatus.Unpaid || issuanceMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_RETURN_CREATE))"
-                  [routerLink]="'/' + ISSUANCE_RETURN.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
+                  [routerLink]="'/' + ISSUANCE_RETURN.CREATE" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
                   type="button"  class="mr-2 btn_public" id="issuance_edit"> <i class="fa fa-edit"></i>
                   Return Issuance
                 </button>

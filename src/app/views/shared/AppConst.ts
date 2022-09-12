@@ -294,17 +294,17 @@ export class AppConst {
     'Permissions.BankReconClaims.Delete': 'Bank Reconciliation Delete',
 
     //Budget
-    'Permissions.BudgetClaims.View': 'Budget View',
-    'Permissions.BudgetClaims.Create': 'Budget Create',
-    'Permissions.BudgetClaims.Edit': 'Budget Update',
-    'Permissions.BudgetClaims.Delete': 'Budget Delete',
-    'Permissions.BudgetReportClaims.View': 'Budget Report View',
+    'Permissions.BudgetClaims.View': 'Estimated Budget View',
+    'Permissions.BudgetClaims.Create': 'Estimated Budget Create',
+    'Permissions.BudgetClaims.Edit': 'Estimated Budget Update',
+    'Permissions.BudgetClaims.Delete': 'Estimated Budget Delete',
+    'Permissions.BudgetReportClaims.View': 'Estimated Budget Report View',
 
-    'Permissions.EstimatedBudgetClaims.View': 'Estimated Budget View',
-    'Permissions.EstimatedBudgetClaims.Create': 'Estimated Budget Create',
-    'Permissions.EstimatedBudgetClaims.Edit': 'Estimated Budget Update',
-    'Permissions.EstimatedBudgetClaims.Delete': 'Estimated Budget Delete',
-    'Permissions.EstimatedBudgetReportClaims.View': 'Estimated Budget Report View',
+    'Permissions.EstimatedBudgetClaims.View': 'Anticipated Budget View',
+    'Permissions.EstimatedBudgetClaims.Create': 'Anticipated Budget Create',
+    'Permissions.EstimatedBudgetClaims.Edit': 'Anticipated Budget Update',
+    'Permissions.EstimatedBudgetClaims.Delete': 'Anticipated Budget Delete',
+    'Permissions.EstimatedBudgetReportClaims.View': 'Anticipated Budget Report View',
 
     // Location
     'Permissions.LocationClaims.View': 'Location View',
