@@ -116,6 +116,7 @@
                               <kt-simple-dropdown 
                                 id="product_model" 
                                 formControlName="depreciationModelId" 
+                                (selectionChange)="getDepreciationModel($event.value)"
                                 matFormFieldClass="full-width"
                                 propertyName="name" 
                                 propertyValue="id" 
@@ -136,7 +137,7 @@
                                     [hintText]="'Optional'">
                                 </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
-                                    <input matInput formControlName="purchasePrice" placeholder="Enter Price" 
+                                    <input (keyup)="calculateDepValue()" matInput formControlName="purchasePrice" placeholder="Enter Price" 
                                           id="product_purchase" type="number">
                                     <mat-hint align="end">Optional</mat-hint>
                                 </mat-form-field>
@@ -230,7 +231,7 @@
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Salvage Value:</label>
                                 <mat-form-field appearance="outline" class="full-width">
-                                  <input matInput formControlName="salvageValue" placeholder="Enter Salvage Value" 
+                                  <input (keyup)="calculateDepValue()" matInput formControlName="salvageValue" placeholder="Enter Salvage Value" 
                                        id="product_salvage" type="number">
                                   <!-- <mat-hint align="end">Optional</mat-hint> -->
                                 </mat-form-field>
@@ -241,7 +242,7 @@
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Depreciable Value:</label>
                                 <mat-form-field appearance="outline" class="full-width">
-                                  <input matInput formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
+                                  <input readonly matInput formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
                                        id="product_depreciable" type="number">
                                   <!-- <mat-hint align="end">Optional</mat-hint> -->
                                 </mat-form-field>

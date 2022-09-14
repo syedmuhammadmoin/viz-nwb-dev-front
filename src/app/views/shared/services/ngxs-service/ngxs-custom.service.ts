@@ -49,6 +49,7 @@ import { AssetCategoryState } from 'src/app/views/pages/fixed-asset/asset-catego
 import { AssetCategoryService } from 'src/app/views/pages/fixed-asset/asset-category/service/asset-category.service';
 import { DepreciationModelState } from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
+import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
 
 @Injectable({
   providedIn: 'root'
@@ -125,6 +126,11 @@ export class NgxsCustomService {
   @Select(AccountReceivableState.entities) accountsReceivable$: Observable<any>;
   @Select(AccountReceivableState.isFetchCompleted) accountReceivableFetchCompleted$: Observable<any>;
   @Select(AccountReceivableState.isLoading) accountReceivableIsLoading$: Observable<any>;
+
+  // Fixed Asset Account
+  @Select(AssetAccountState.entities) assetAccount$: Observable<any>;
+  @Select(AssetAccountState.isFetchCompleted) assetAccountFetchCompleted$: Observable<any>;
+  @Select(AssetAccountState.isLoading) assetAccountIsLoading$: Observable<any>;
 
   // Other Accounts
   @Select(OtherAccountState.entities) otherAccounts$: Observable<any>;
@@ -347,6 +353,19 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(AccountLevel4State, {
           serviceClass: this.chartOfAccountService,
           methodName: 'getLevel4AccountsDropdown',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get All Asset Accounts State From Store if available else fetch from the server and cache.
+  getAssetAccountFromState() {
+    this.assetAccountFetchCompleted$.subscribe((res) => {
+      if (!res) {
+        this.store.dispatch(new GetList(AssetAccountState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getAssetAccounts',
           context: this
         }))
       }

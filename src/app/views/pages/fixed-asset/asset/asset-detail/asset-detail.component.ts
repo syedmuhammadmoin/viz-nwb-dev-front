@@ -8,6 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { finalize, take } from 'rxjs/operators';
 import { AssetService } from '../service/asset.service';
+import { CreateAssetComponent } from '../create-asset/create-asset.component';
 
 @Component({
   selector: 'kt-asset-detail',
@@ -84,6 +85,19 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
       this.assets = res.result;
       this.cdRef.detectChanges();
     })
+  }
+
+  editAsset(id?: number): void {
+    this.dialog.open(CreateAssetComponent, {
+      width: '800px',
+      data: {
+        assetData: this.assetMaster
+      }
+    });
+    // //Recalling getAsset function on dialog close
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.cdRef.detectChanges();
+    // });
   }
 }
 

@@ -61,12 +61,12 @@
               <div class="row">
                 <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Purchase Cost:</label>
+                        <label class="col-form-label pt-0">Purchase Price:</label>
                         <mat-form-field appearance="outline" class="full-width">
-                          <input matInput formControlName="purchaseCost" placeholder="Enter Purchase Cost" 
+                          <input (keyup)="calculateDepValue()" matInput formControlName="purchasePrice" placeholder="Enter Purchase Price" 
                                id="asset_cost" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
-                          <mat-error *ngIf="formErrors.purchaseCost">
-                            <strong>{{formErrors.purchaseCost}}</strong>
+                          <mat-error *ngIf="formErrors.purchasePrice">
+                            <strong>{{formErrors.purchasePrice}}</strong>
                           </mat-error>
                           <!-- <mat-hint align="end">Optional</mat-hint> -->
                         </mat-form-field>
@@ -77,7 +77,7 @@
                     <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Salvage Value:</label>
                         <mat-form-field appearance="outline" class="full-width">
-                          <input matInput formControlName="salvageValue" placeholder="Enter Salvage Value" 
+                          <input matInput (keyup)="calculateDepValue()" formControlName="salvageValue" placeholder="Enter Salvage Value" 
                                id="asset_salvage" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
                           <mat-error *ngIf="formErrors.salvageValue">
                             <strong>{{formErrors.salvageValue}}</strong>
@@ -110,13 +110,19 @@
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Depreciation Method:</label>
-                    <kt-input-field
+                    <kt-simple-dropdown 
                       id="asset_method"
                       formControlName="depreciationMethod"
-                      placeholder="Enter Method"
+                      matFormFieldClass="full-width"
+                      (selectionChange)="getDepreciationModel($event.value)"
+                      propertyName="name" 
+                      propertyValue="id" 
+                      [optionList]="method"
+                      searchPlaceholder="Search..."
+                      placeholder="Select Method"
                       (blurEvent)="logValidationErrors(assetForm, formErrors, validationMessages)"
                       [errorMessage]="[{ condition : formErrors.depreciationMethod , error : formErrors.depreciationMethod }]">
-                    </kt-input-field>
+                    </kt-simple-dropdown>
                   </div>
                 </div>
 
@@ -179,7 +185,7 @@
                       propertyName="name" 
                       propertyValue="id" 
                       [errorMessage]="formErrors.correspondingAccountId"
-                      [optionList]="ngxsService.otherAccounts$"
+                      [optionList]="(data.wip) ? ngxsService.assetAccount$ : ngxsService.accountsLevel4$"
                       searchPlaceholder="Search Account..."
                       placeholder="Select Account">
                     </kt-simple-dropdown>
@@ -190,7 +196,7 @@
                   <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Depreciable Value:</label>
                       <mat-form-field appearance="outline" class="full-width">
-                        <input matInput formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
+                        <input matInput readonly formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
                              id="asset_depreciable" type="number" (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
                         <mat-error *ngIf="formErrors.depreciableValue">
                           <strong>{{formErrors.depreciableValue}}</strong>

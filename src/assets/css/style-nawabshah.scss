@@ -1373,3 +1373,84 @@ mat-tree-node div[id^='child']
 {
   font-weight: 200 !important;
 }
+
+
+.custom-loading-container {
+
+  background: rgba(0, 0, 0, 0.12) none repeat scroll 0% 0%;
+
+  z-index: 10;
+
+}
+
+
+
+.custom-loading-parent-div{
+
+  width: 150px!important;
+
+  height: 150px!important;
+
+}
+
+
+
+.custom-loading {
+
+  display: flex;
+
+  justify-content: center;
+
+}
+
+
+
+.custom-loading::after {
+
+  content: "";
+
+  border-radius: 50%;
+
+  animation: custom-loading 1s ease infinite;
+
+}
+
+
+
+.single-content::after {
+
+  border: 2px solid $text-white;
+
+  border-top-color: $primary-color;
+
+  height: 2rem;
+
+  width: 2rem;
+
+}
+
+
+
+.whole-content::after {
+
+  border: 5px solid $text-white;
+
+  border-top-color: $primary-color;
+
+  height: 4rem;
+
+  width: 4rem;
+
+}
+
+
+
+@keyframes custom-loading {
+
+  to {
+
+    transform: rotate(1turn);
+
+  }
+
+}

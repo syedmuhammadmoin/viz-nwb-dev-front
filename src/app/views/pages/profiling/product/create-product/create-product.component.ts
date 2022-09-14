@@ -1,18 +1,18 @@
 import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IProduct} from '../model/IProduct';
-import { RequireMatch as RequireMatch} from 'src/app/views/shared/requireMatch';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { finalize, take} from "rxjs/operators";
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { DepreciationMethod, Permissions } from 'src/app/views/shared/AppEnum';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { IsReloadRequired } from '../../store/profiling.action';
 import { ProductState } from '../store/product.state.state';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { DepreciationMethodService } from '../../../fixed-asset/depreciation-model/service/depreciation-method.service';
 
 @Component({
   selector: 'kt-create-product',
@@ -84,6 +84,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     private fb: FormBuilder,
     public ngxsService:NgxsCustomService,
     public addButtonService:AddModalButtonService,
+    private depreciationService: DepreciationMethodService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     private cdRef : ChangeDetectorRef,
     public dialogRef: MatDialogRef<CreateProductComponent>, injector: Injector
@@ -252,7 +253,6 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     this.product.acquisitionDate = this.dateHelperService.transformDate(this.productForm.value.acquisitionDate , 'yyyy-MM-dd');
     this.product.depreciationModelId = this.productForm.value.depreciationModelId;
     this.product.salvageValue = this.productForm.value.salvageValue;
-    this.product.depreciableValue = this.productForm.value.depreciableValue;
     this.product.method = this.productForm.value.depreciationMethod;
     this.product.usefulLife = this.productForm.value.usefulLife;
     this.product.decliningRate = this.productForm.value.decliningRate;
@@ -275,6 +275,32 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   // Dialogue close function
   onCloseDialog() {
     this.dialogRef.close();
+  }
+
+  getDepreciationModel(id: number) {
+    this.depreciationService.getDepreciationById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
+      this.productForm.patchValue({
+        depreciationMethod: res.result.method,
+        usefulLife: res.result.usefulLife,
+        decliningRate: res.result.decliningRate
+      })
+     
+      this.cdRef.detectChanges()
+    })
+  }
+
+  calculateDepValue() {
+    const purchasePrice = this.productForm.get('purchasePrice').value
+    const salvageValue = this.productForm.get('salvageValue').value
+    this.productForm.get('depreciableValue').setValue(purchasePrice - salvageValue)
   }
 
   methodChange(event : MatRadioChange) {

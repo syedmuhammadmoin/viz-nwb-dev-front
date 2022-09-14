@@ -393,6 +393,13 @@ export enum DepreciationMethod {
   Declining
 }
 
+export enum AssetType
+{
+  Bill,
+  WorkInProgress,
+  OpeningAssetAddition
+}
+
 export enum BusinessPartnerType {
   Customer,
   Vendor,

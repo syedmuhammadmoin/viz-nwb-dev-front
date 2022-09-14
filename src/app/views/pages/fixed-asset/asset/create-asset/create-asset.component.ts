@@ -10,8 +10,9 @@ import { FirstDataRenderedEvent, RowDoubleClickedEvent } from 'ag-grid-community
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { IAsset } from '../model/IAsset';
 import { AssetService } from '../service/asset.service';
-import { AnyCnameRecord } from 'dns';
 import { ASSET } from 'src/app/views/shared/AppRoutes';
+import { AppConst } from 'src/app/views/shared/AppConst';
+import { AssetType } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-create-asset',
@@ -50,8 +51,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   valueTitle: string = 'Value'
 
-   //show Buttons
-   showButtons: boolean = true; 
+  //show Buttons
+  showButtons: boolean = true; 
+
+  //depreciation method
+  method = AppConst.depreciationMethod;
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -70,13 +74,10 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     depreciationModelId: {
       required: 'Model is required.',
     },
-    purchaseCost: {
+    purchasePrice: {
       required: 'Cost is required.',
     },
     salvageValue: {
-      required: 'Value is required.',
-    },
-    depreciableValue: {
       required: 'Value is required.',
     },
     depreciationMethod: {
@@ -94,7 +95,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     accumulatedDepreciation: {
       required: 'Depreciation is required.',
     },
-    decliningFactor: {
+    decliningRate: {
       required: 'Declining Factor is required.',
     },
   };
@@ -105,14 +106,13 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     acquisitionDate: '',
     accountingDate: '',
     depreciationModelId: '',
-    depreciableValue: '',
     salvageValue: '',
     depreciationMethod: '',
-    purchaseCost: '',
+    purchasePrice: '',
     usefulLife: '',
     correspondingAccountId: '',
     accumulatedDepreciation: '',
-    decliningFactor: '',
+    decliningRate: '',
     categoryId: ''
   };
 
@@ -120,7 +120,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   constructor(private fb: FormBuilder,
     private assetService: AssetService,
     public activatedRoute: ActivatedRoute,
-    @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
+    @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
     public dialogRef: MatDialogRef<CreateAssetComponent>,
     public dialog: MatDialog,
     public addButtonService: AddModalButtonService,
@@ -139,13 +139,14 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       name: ['', [Validators.required]],
       acquisitionDate: ['', [Validators.required]],
       accountingDate: ['', [Validators.required]],
+      accumulatedDepreciation: ['', [Validators.required]],
       depreciationModelId: ['', [Validators.required]],
-      purchaseCost: ['', [Validators.required]],
-      depreciableValue: ['', [Validators.required]],
+      purchasePrice: ['', [Validators.required]],
+      depreciableValue: [0],
       salvageValue: ['', [Validators.required]],
       depreciationMethod: ['', [Validators.required]],
       usefulLife: ['', [Validators.required]],
-      decliningFactor: ['', [Validators.required]],
+      //decliningRate: [3, [Validators.required]],
       categoryId: ['', [Validators.required]],
       correspondingAccountId: ['', [Validators.required]],
       prorataBasis: [false]
@@ -156,35 +157,52 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       name: '',
       acquisitionDate: '',
       depreciationModelId: null,
-      purchaseCost: null,
+      assetType: null,
+      purchasePrice: null,
       salvageValue: null,
-      depreciableValue: null,
+      accumulatedDepreciation: null,
       accountingDate: '',
       depreciationMethod: null,
       usefulLife: null,
-      decliningFactor: null,
+      decliningRate: null,
       categoryId: null,
       correspondingAccountId: null,
       prorataBasis: false
     }
 
+    console.log(this.data)
+
     //get Accounts from Accounts State
-    //this.ngxsService.getAccountLevel4FromState();
+    this.ngxsService.getAccountLevel4FromState();
+    this.ngxsService.getAssetAccountFromState();
     this.ngxsService.getDepreciationModelFromState()
-    this.ngxsService.getOtherAccountsFromState();
+   // this.ngxsService.getOtherAccountsFromState();
     this.ngxsService.getCategoryFromState();
+
+    //getting product data for asset
+    if(this.data.productData) {
+      //this.isLoading = true;
+      // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
+       this.title = 'Create Asset'
+       this.patchAsset(this.data.productData);
+    } 
+    else if (this.data.assetData) {
+      this.title = 'Edit Asset'
+      this.assetModel.id = this.data.assetData.id;
+      this.patchAsset(this.data.assetData);
+    }
     
-    this.activatedRoute.params.subscribe((param) => {
-      console.log(param)
-      const id = param.id;
+    // this.activatedRoute.params.subscribe((param) => {
+    //   console.log(param)
+    //   const id = param.id;
      
-      if (id) {
-        this.isLoading = true;
-       // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
-        this.title = 'Edit Asset'
-        this.getAsset(id);
-      }
-    });
+    //   if (id) {
+    //     this.isLoading = true;
+    //    // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
+    //     this.title = 'Edit Asset'
+    //     this.getAsset(id);
+    //   }
+    // });
 
      //update FornControl 'Value' Validator on checkbox changed
     //  this.assetForm.get('depreciationModelId').valueChanges.subscribe((value: number) => {
@@ -269,24 +287,25 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   //Edit Asset Method
   public patchAsset(asset: IAsset | any) {
     this.assetForm.patchValue({
-      name: asset.name,
+      name: asset.name ?? asset.productName,
       acquisitionDate: asset.acquisitionDate,
       depreciationModelId: asset.depreciationModelId,
-      purchaseCost: asset.purchaseCost,
+      purchasePrice: asset.purchasePrice,
       depreciableValue: asset.depreciableValue,
       salvageValue: asset.salvageValue,
-      depreciationMethod: asset.depMethod,
+      accumulatedDepreciation: asset.accumulatedDepreciation,
+      depreciationMethod: asset.method,
       usefulLife: asset.usefulLife,
-      accountingDate: asset.depMethod,
-      decliningFactor: asset.depMethod,
-      categoryId: asset.depMethod,
-      correspondingAccountId: asset.depMethod,
+      accountingDate: asset.accountingDate,
+      decliningRate: asset.decliningRate,
+      categoryId: asset.categoryId,
+      correspondingAccountId: asset.correspondingAccountId,
       prorataBasis: asset.prorataBasis,
     });
    
     // this.onToggle({checked: asset.isActive})
     // this.onacquisitionDateChange()
-    if(!this.showButtons) this.assetForm.disable();
+    //if(!this.showButtons) this.assetForm.disable();
     // //Clearing Amount Validator Initially
     // this.assetForm.get('amount').setErrors(null)
     // this.assetForm.updateValueAndValidity();
@@ -295,16 +314,18 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   //Submit Form Function
   onSubmit(): void {
+    console.log(this.assetForm.value)
    
-    // if (this.assetForm.invalid) {
-    //   //this.toastService.error("Please fill all required fields!", "Asset")
-    //   return;
-    // }
+    if (this.assetForm.invalid) {
+      //this.toastService.error("Please fill all required fields!", "Asset")
+      return;
+    }
 
-   // this.isLoading = true;
+    this.isLoading = true;
     this.mapFormValuesToAssetModel();
     console.log(this.assetModel)
-    if (this.assetModel.id) {
+    if (this.data.assetData) {
+      console.log("edit")
       this.assetService.updateAsset(this.assetModel)
       .pipe(
         take(1),
@@ -315,12 +336,14 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
        )
         .subscribe((res: IApiResponse<IAsset>) => {
           this.toastService.success('Updated Successfully', 'Asset')
+          this.onCloseDialog();
           this.cdRef.detectChanges();
           this.router.navigate(['/' + ASSET.LIST])
         })
 
     } else {
       delete this.assetModel.id;
+      console.log("create")
       this.assetService.createAsset(this.assetModel)
       .pipe(
         take(1),
@@ -331,6 +354,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
        )
         .subscribe((res: IApiResponse<IAsset>) => {
             this.toastService.success('Created Successfully', 'Asset')
+            this.onCloseDialog();
             this.router.navigate(['/' + ASSET.LIST])
             //this.router.navigate(['/' + PAYROLL_ITEM.LIST])
           }
@@ -353,15 +377,16 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetModel.name = this.assetForm.value.name;
     this.assetModel.acquisitionDate = this.dateHelperService.transformDate(this.assetForm.value.acquisitionDate , 'yyyy-MM-dd');
     this.assetModel.depreciationModelId = this.assetForm.value.depreciationModelId;
-    this.assetModel.purchaseCost = this.assetForm.value.purchaseCost;
-    this.assetModel.depreciableValue = this.assetForm.value.depreciableValue;
+    this.assetModel.assetType = AssetType.OpeningAssetAddition;
+    this.assetModel.purchasePrice = this.assetForm.value.purchasePrice;
     this.assetModel.salvageValue = this.assetForm.value.salvageValue;
-    this.assetModel.depreciationMethod = this.assetForm.value.name;
-    this.assetModel.usefulLife = this.assetForm.value.name;
+    this.assetModel.accumulatedDepreciation = this.assetForm.value.accumulatedDepreciation;
+    this.assetModel.depreciationMethod = this.assetForm.value.depreciationMethod;
+    this.assetModel.usefulLife = this.assetForm.value.usefulLife;
     this.assetModel.accountingDate = this.dateHelperService.transformDate(this.assetForm.value.accountingDate , 'yyyy-MM-dd');
-    this.assetModel.decliningFactor = this.assetForm.value.name;
-    this.assetModel.categoryId = this.assetForm.value.name;
-    this.assetModel.correspondingAccountId = this.assetForm.value.name;
+    this.assetModel.decliningRate = 2;
+    this.assetModel.categoryId = this.assetForm.value.categoryId;
+    this.assetModel.correspondingAccountId = this.assetForm.value.correspondingAccountId;
     this.assetModel.prorataBasis = this.assetForm.value.prorataBasis;
   }
 
@@ -385,6 +410,13 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
     //this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
   }
+
+  calculateDepValue() {
+    const purchasePrice = this.assetForm.get('purchasePrice').value
+    const salvageValue = this.assetForm.get('salvageValue').value
+    this.assetForm.get('depreciableValue').setValue(purchasePrice - salvageValue)
+  }
+  
 
    // Dialogue close function
    onCloseDialog() {

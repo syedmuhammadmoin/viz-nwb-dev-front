@@ -105,6 +105,7 @@ import { CustomUploadFileComponent } from './views/shared/components/custom-uplo
 import { ShowRemarksComponent } from './views/shared/components/show-remarks/show-remarks.component';
 import { AssetCategoryState } from './views/pages/fixed-asset/asset-category/store/asset-category.state';
 import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
+import { AssetAccountState } from './views/pages/finance/chat-of-account/store/asset-account.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -177,6 +178,7 @@ export function getHighlightLanguages() {
       DeductionState,
       BankAccountState,
       CashAccountState,
+      AssetAccountState,
       AssetCategoryState,
       DepreciationModelState,
       BudgetState,

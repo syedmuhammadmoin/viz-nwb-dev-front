@@ -10,6 +10,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ProductService } from '../service/product.service';
 import { IProduct } from '../model/IProduct';
 import { CreateAssetComponent } from '../../../fixed-asset/asset/create-asset/create-asset.component';
+import { CreateProductComponent } from '../create-product/create-product.component';
 
 
 @Component({
@@ -53,7 +54,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
       const id = +params.get('id');
       if (id) {
         this.isLoading = true;
-        this.getAssetData(id);
+        this.getProductData(id);
         this.cdRef.markForCheck();
       }
     });
@@ -64,8 +65,8 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
     params.api.sizeColumnsToFit();
   }
 
-  //Getting Asset master data
-  getAssetData(id: number) {
+  //Getting Product Master data
+  getProductData(id: number) {
     this.productService.getProduct(id)
     .pipe(
       take(1),
@@ -76,18 +77,32 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
      )
     .subscribe((res: IApiResponse<IProduct>) => {
       this.productMaster = res.result;
-    
       this.cdRef.detectChanges();
     });
   }
 
-  addAsset(id?: number): void {
+  addAsset(isWIP: boolean): void {
     const dialogRef = this.dialog.open(CreateAssetComponent, {
       width: '800px',
-      data: id
+      data:  {
+        productData: this.productMaster,
+        wip: isWIP
+      }
     });
     //Recalling getAsset function on dialog close
     dialogRef.afterClosed().subscribe(() => {
+      this.cdRef.detectChanges();
+    });
+  }
+
+  editProduct(): void {
+    const dialogRef = this.dialog.open(CreateProductComponent, {
+      width: '800px',
+      data: this.productMaster.id
+    });
+    // Recalling getProducts function on dialog close
+    dialogRef.afterClosed().subscribe(() => {
+      this.getProductData(this.productMaster.id)
       this.cdRef.detectChanges();
     });
   }
