@@ -94,6 +94,7 @@
                         id="asset_model" 
                         formControlName="depreciationModelId" 
                         matFormFieldClass="full-width"
+                        (selectionChange)="getDepreciationModel($event.value)"
                         (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
                         propertyName="name" 
                         propertyValue="id" 
@@ -114,7 +115,6 @@
                       id="asset_method"
                       formControlName="depreciationMethod"
                       matFormFieldClass="full-width"
-                      (selectionChange)="getDepreciationModel($event.value)"
                       propertyName="name" 
                       propertyValue="id" 
                       [optionList]="method"
@@ -213,6 +213,14 @@
                     <div class="form-group kt-form__group mb-0">
                       <div apperence="outline" class="full-width">
                         <mat-slide-toggle id="asset_prorata" [checked]="isActiveChecked" formControlName="prorataBasis">Prorata Basis</mat-slide-toggle>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-sm-4 col-md-4">
+                    <div class="form-group kt-form__group mb-0">
+                      <div apperence="outline" class="full-width">
+                        <mat-slide-toggle id="asset_active" [checked]="isActiveChecked" formControlName="isActive">Active</mat-slide-toggle>
                       </div>
                     </div>
                   </div>

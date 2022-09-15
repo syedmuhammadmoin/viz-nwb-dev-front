@@ -13,6 +13,7 @@ import { AssetService } from '../service/asset.service';
 import { ASSET } from 'src/app/views/shared/AppRoutes';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { AssetType } from 'src/app/views/shared/AppEnum';
+import { DepreciationMethodService } from '../../depreciation-model/service/depreciation-method.service';
 
 @Component({
   selector: 'kt-create-asset',
@@ -120,10 +121,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   constructor(private fb: FormBuilder,
     private assetService: AssetService,
     public activatedRoute: ActivatedRoute,
-    @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreateAssetComponent>,
     public dialog: MatDialog,
     public addButtonService: AddModalButtonService,
+    private depreciationService: DepreciationMethodService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
     private router: Router,
@@ -149,7 +151,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       //decliningRate: [3, [Validators.required]],
       categoryId: ['', [Validators.required]],
       correspondingAccountId: ['', [Validators.required]],
-      prorataBasis: [false]
+      prorataBasis: [false],
+      isActive: [false]
     });
 
     this.assetModel = {
@@ -167,7 +170,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       decliningRate: null,
       categoryId: null,
       correspondingAccountId: null,
-      prorataBasis: false
+      prorataBasis: false,
+      isActive: false
     }
 
     console.log(this.data)
@@ -227,8 +231,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   // Form Reset
   reset() {
     this.formDirective.resetForm();
-    this.assetForm.get('depreciationModelId').setValue(1)
-    this.assetForm.get('isActive').setValue(true);
+    //this.assetForm.get('depreciationModelId').setValue(1)
+    //this.assetForm.get('isActive').setValue(true);
     //this.onToggle({checked: true})
     // const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
     // invoiceLineArray.clear();
@@ -388,6 +392,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetModel.categoryId = this.assetForm.value.categoryId;
     this.assetModel.correspondingAccountId = this.assetForm.value.correspondingAccountId;
     this.assetModel.prorataBasis = this.assetForm.value.prorataBasis;
+    this.assetModel.isActive = this.assetForm.value.isActive;
   }
 
   // onToggle(event) {
@@ -409,6 +414,26 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
     //this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
+  }
+
+  getDepreciationModel(id: number) {
+    this.depreciationService.getDepreciationById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
+      this.assetForm.patchValue({
+        depreciationMethod: res.result.method,
+        usefulLife: res.result.usefulLife,
+        decliningRate: res.result.decliningRate
+      })
+     
+      this.cdRef.detectChanges()
+    })
   }
 
   calculateDepValue() {

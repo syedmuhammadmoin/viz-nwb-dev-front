@@ -14,4 +14,5 @@ export interface IAsset {
     categoryId: number,
     correspondingAccountId: number,
     prorataBasis: boolean;
+    isActive: boolean;
 }
