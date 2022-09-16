@@ -63,6 +63,8 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
 
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
+
+    this.calculateDepreciation();
   }
 
   // First time rendered ag grid
@@ -99,6 +101,190 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     //   this.cdRef.detectChanges();
     // });
   }
+
+
+
+
+  //************DEFFERENT */
+
+  purchasePrice: number = 250000;
+  salvageValue: number = 25000
+  depreciableValue = this.purchasePrice - this.salvageValue;
+  usefulLife = 5;
+  activeDate : Date = new Date('1/1/2019');
+  day = this.activeDate.getDate() ;
+  month = this.activeDate.getMonth() + 1; 
+  isActive : boolean = true;
+  method: string = 'straightLine'
+  endingBookValue = 0;
+  accumulatedDepreciation = 0;
+  beginingBookValue = 0;
+  totalDaysInYear: number = 0;
+
+
+                                            
+
+//get Fisacal Year from organization
+// organization end date
+
+
+  calculateDepreciation() {
+    if(this.isActive) {
+      //entries
+      //representing i as entries here
+      // if(this.method === 'straightLine') { 
+      //    var chargeForTheYear = 0;
+      //    var numOfDays = 0;
+      //    for(var i = 1 ; i <= 6 ; i++) {
+      //     if(i === 1) {
+      //       if(this.day <= 30) {
+      //           numOfDays = (((12 - this.month) * 30) + (30 - this.day));
+      //       }
+    
+      //       if(this.day > 30) {
+      //           numOfDays = (((12 - this.month) * 30) + ((30 - this.day) + 2));
+      //       }
+    
+      //        chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays/360);
+      //     } 
+    
+      //     else if(i > 1 && i < 6) {
+      //         chargeForTheYear = (this.depreciableValue / this.usefulLife);
+      //     }
+    
+      //     else if(i === 6) {
+      //       if(this.day <= 30) {
+      //           numOfDays = (((this.month - 1) * 30) + (this.day));
+      //       }
+    
+      //       if(this.day > 30) {
+      //           numOfDays = (((this.month - 1) * 30) + ((this.day) - 2));
+      //       }
+      //          chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays / 360)
+      //     }
+    
+      //      if(i === 1) {
+      //         this.beginingBookValue = this.purchasePrice;
+      //         this.endingBookValue = this.purchasePrice - chargeForTheYear;
+      //         this.accumulatedDepreciation = chargeForTheYear;
+      //       }
+    
+      //      else {
+      //         //get AccumulatedDepreciation and endingBookValue from Database;
+      //         //accumulatedDepreciation = ....;
+      //         //endingBookValue = ....;
+    
+      //         this.beginingBookValue = this.endingBookValue;
+      //         this.endingBookValue = this.endingBookValue - chargeForTheYear;
+      //         this.accumulatedDepreciation = this.accumulatedDepreciation + chargeForTheYear;
+      //      }
+
+      //      //consoling
+      //      console.log('beginingBookValue  chargeForTheYear     AccumulatedDepreciation     endingBookValue')
+        
+      //      console.log([
+      //                    this.beginingBookValue,
+      //                    Number(chargeForTheYear),
+      //                    Number(this.accumulatedDepreciation),
+      //                    this.endingBookValue,
+      //                    ])                         
+      //    }
+
+      //                    var date1 = new Date("12/31/2025");
+      //                    var date2 = new Date("3/25/2026");
+
+
+                           
+      //                    // To calculate the time difference of two dates
+      //                    var Difference_In_Time = date2.getTime() - date1.getTime();
+                           
+      //                    // To calculate the no. of days between two dates
+      //                    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
+      //                    console.log("DATE : ")
+      //                    console.log(Difference_In_Days)  
+      // }
+
+      this.totalDaysInYear = this.daysInYear(this.activeDate.getFullYear());
+
+      if(this.method === 'straightLine') { 
+        var chargeForTheYear = 0;
+        var numOfDays = 0;
+        for(var i = 1 ; i <= 6 ; i++) {
+         if(i === 1) {
+           if(this.day <= 30) {
+               numOfDays = (((12 - this.month) * 30) + (30 - this.day));
+           }
+   
+           if(this.day > 30) {
+               numOfDays = (((12 - this.month) * 30) + ((30 - this.day) + 2));
+           }
+   
+            chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays/this.totalDaysInYear);
+         } 
+   
+         else if(i > 1 && i < 6) {
+             chargeForTheYear = (this.depreciableValue / this.usefulLife);
+         }
+   
+         else if(i === 6) {
+           if(this.day <= 30) {
+               numOfDays = (((this.month - 1) * 30) + (this.day));
+           }
+   
+           if(this.day > 30) {
+               numOfDays = (((this.month - 1) * 30) + ((this.day) - 2));
+           }
+              chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays / this.totalDaysInYear)
+         }
+   
+          if(i === 1) {
+             this.beginingBookValue = this.purchasePrice;
+             this.endingBookValue = this.purchasePrice - chargeForTheYear;
+             this.accumulatedDepreciation = chargeForTheYear;
+           }
+   
+          else {
+             //get AccumulatedDepreciation and endingBookValue from Database;
+             //accumulatedDepreciation = ....;
+             //endingBookValue = ....;
+   
+             this.beginingBookValue = this.endingBookValue;
+             this.endingBookValue = this.endingBookValue - chargeForTheYear;
+             this.accumulatedDepreciation = this.accumulatedDepreciation + chargeForTheYear;
+          }
+
+          //consoling
+          console.log('beginingBookValue  chargeForTheYear     AccumulatedDepreciation     endingBookValue')
+       
+          console.log([
+                        this.beginingBookValue,
+                        Number(chargeForTheYear),
+                        Number(this.accumulatedDepreciation),
+                        this.endingBookValue,
+                        ])                         
+        }
+
+                         
+     }
+    }
+  }
+
+  daysInYear(year: number) {
+    return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
+  }
+
+  getTotalDays(activeDate , organizationEndDate) {
+    activeDate = new Date("12/31/2025");
+    organizationEndDate = new Date("3/25/2026");
+      
+    // To calculate the no. of days between two dates
+    var Difference_In_Days = (activeDate.getTime() - organizationEndDate.getTime()) / (1000 * 3600 * 24);
+
+    console.log("DAYS IN Year : ")
+    console.log(Difference_In_Days)
+  }
+
 }
 
 
