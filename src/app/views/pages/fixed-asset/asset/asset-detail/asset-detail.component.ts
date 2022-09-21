@@ -10,6 +10,16 @@ import { finalize, take } from 'rxjs/operators';
 import { AssetService } from '../service/asset.service';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
 
+
+//fixed asset table interface
+interface IFixedAssetTable {
+   year : number;
+   beginingBookValue: number;
+   chargeForTheYear: number;
+   accumulatedDepreciation: number;
+   endingBookValue: number;
+}
+
 @Component({
   selector: 'kt-asset-detail',
   templateUrl: './asset-detail.component.html',
@@ -64,7 +74,11 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
 
-    this.calculateDepreciation();
+   //this.calculateDepreciationForStraightLineWithProrataBasis();
+   this.decliningBalanceProrataBasis()
+   //this.decliningBalance()
+   //this.calculateDepreciationForStraightLineWithoutProrataBasis();
+
   }
 
   // First time rendered ag grid
@@ -111,15 +125,28 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   salvageValue: number = 25000
   depreciableValue = this.purchasePrice - this.salvageValue;
   usefulLife = 5;
-  activeDate : Date = new Date('1/1/2019');
+  activeDate : Date = new Date('1/1/2021');
+  organizationStartDate: Date = new Date('1/1/2016');
+  organiationEndDate: Date = new Date('12/31/2017');
+  year: number = 2021;
   day = this.activeDate.getDate() ;
   month = this.activeDate.getMonth() + 1; 
   isActive : boolean = true;
-  method: string = 'straightLine'
+  method: string = 'decliningBalance'
+  //method: string = 'straightLine'
   endingBookValue = 0;
   accumulatedDepreciation = 0;
+  isProrataBasis: boolean = true;
+  decliningFactor: number = 0.1
+  decliningPercentage: number = this.decliningFactor
+  sameYear = false;
   beginingBookValue = 0;
-  totalDaysInYear: number = 0;
+  totalDaysInYear: number = this.daysInYear(this.activeDate.getFullYear());
+  chargeForTheYear: number = 0;
+  numOfDays: number = 0;
+
+  //fixed asset table store
+   fixedAssetList : IFixedAssetTable[] = []
 
 
                                             
@@ -128,164 +155,389 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
 // organization end date
 
 
-  calculateDepreciation() {
+//STRAIGH LINE METHOD WITH PRORATA
+  straightLineProrataBasis() {
+
+    if( this.organizationStartDate.getMonth() < this.activeDate.getMonth()) {
+      this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+    }
+    else if( this.organizationStartDate.getMonth() > this.activeDate.getMonth()) {
+      this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
+    }
+    else if(this.organizationStartDate.getMonth() === this.activeDate.getMonth()) {
+      if(this.organizationStartDate.getDate() === this.activeDate.getDate()) {
+        this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+        this.sameYear = true;
+        this.straightLine()
+      }
+      else if( this.organizationStartDate.getDate() < this.activeDate.getDate()) {
+        this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+      }
+      else if( this.organizationStartDate.getDate() > this.activeDate.getDate()) {
+        this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
+      }
+    }
+
+    this.organiationEndDate.setFullYear(this.organizationStartDate.getFullYear())
+    this.organiationEndDate.setMonth(this.organizationStartDate.getMonth() + 12)
+    this.organiationEndDate.setDate(this.organizationStartDate.getDate() - 1)
+
+    // console.log("days")
+    // console.log(this.organizationStartDate)
+    // console.log(this.organiationEndDate)
+    // console.log(this.getTotalDays(this.organizationStartDate , this.organiationEndDate , true))
+
+    let firstYearCharge = 0;
+    
+
     if(this.isActive) {
-      //entries
-      //representing i as entries here
-      // if(this.method === 'straightLine') { 
-      //    var chargeForTheYear = 0;
-      //    var numOfDays = 0;
-      //    for(var i = 1 ; i <= 6 ; i++) {
-      //     if(i === 1) {
-      //       if(this.day <= 30) {
-      //           numOfDays = (((12 - this.month) * 30) + (30 - this.day));
-      //       }
-    
-      //       if(this.day > 30) {
-      //           numOfDays = (((12 - this.month) * 30) + ((30 - this.day) + 2));
-      //       }
-    
-      //        chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays/360);
-      //     } 
-    
-      //     else if(i > 1 && i < 6) {
-      //         chargeForTheYear = (this.depreciableValue / this.usefulLife);
-      //     }
-    
-      //     else if(i === 6) {
-      //       if(this.day <= 30) {
-      //           numOfDays = (((this.month - 1) * 30) + (this.day));
-      //       }
-    
-      //       if(this.day > 30) {
-      //           numOfDays = (((this.month - 1) * 30) + ((this.day) - 2));
-      //       }
-      //          chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays / 360)
-      //     }
-    
-      //      if(i === 1) {
-      //         this.beginingBookValue = this.purchasePrice;
-      //         this.endingBookValue = this.purchasePrice - chargeForTheYear;
-      //         this.accumulatedDepreciation = chargeForTheYear;
-      //       }
-    
-      //      else {
-      //         //get AccumulatedDepreciation and endingBookValue from Database;
-      //         //accumulatedDepreciation = ....;
-      //         //endingBookValue = ....;
-    
-      //         this.beginingBookValue = this.endingBookValue;
-      //         this.endingBookValue = this.endingBookValue - chargeForTheYear;
-      //         this.accumulatedDepreciation = this.accumulatedDepreciation + chargeForTheYear;
-      //      }
+      if(this.method === 'straightLine' && (this.sameYear === false)) { 
+        console.log("entered in prorata")
+        for(var i = 0 ; i <= this.usefulLife ; i++) {
 
-      //      //consoling
-      //      console.log('beginingBookValue  chargeForTheYear     AccumulatedDepreciation     endingBookValue')
-        
-      //      console.log([
-      //                    this.beginingBookValue,
-      //                    Number(chargeForTheYear),
-      //                    Number(this.accumulatedDepreciation),
-      //                    this.endingBookValue,
-      //                    ])                         
-      //    }
-
-      //                    var date1 = new Date("12/31/2025");
-      //                    var date2 = new Date("3/25/2026");
-
-
-                           
-      //                    // To calculate the time difference of two dates
-      //                    var Difference_In_Time = date2.getTime() - date1.getTime();
-                           
-      //                    // To calculate the no. of days between two dates
-      //                    var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-
-      //                    console.log("DATE : ")
-      //                    console.log(Difference_In_Days)  
-      // }
-
-      this.totalDaysInYear = this.daysInYear(this.activeDate.getFullYear());
-
-      if(this.method === 'straightLine') { 
-        var chargeForTheYear = 0;
-        var numOfDays = 0;
-        for(var i = 1 ; i <= 6 ; i++) {
-         if(i === 1) {
-           if(this.day <= 30) {
-               numOfDays = (((12 - this.month) * 30) + (30 - this.day));
-           }
-   
-           if(this.day > 30) {
-               numOfDays = (((12 - this.month) * 30) + ((30 - this.day) + 2));
-           }
-   
-            chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays/this.totalDaysInYear);
+         if(i === 0) {
+           this.numOfDays = this.getTotalDays(this.activeDate , this.organiationEndDate , true)
+           this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays/this.totalDaysInYear);
+           firstYearCharge = this.chargeForTheYear
          } 
    
-         else if(i > 1 && i < 6) {
-             chargeForTheYear = (this.depreciableValue / this.usefulLife);
+         else if(i > 0 && i < this.usefulLife) {
+             this.chargeForTheYear = (this.depreciableValue / this.usefulLife);
          }
    
-         else if(i === 6) {
-           if(this.day <= 30) {
-               numOfDays = (((this.month - 1) * 30) + (this.day));
-           }
-   
-           if(this.day > 30) {
-               numOfDays = (((this.month - 1) * 30) + ((this.day) - 2));
-           }
-              chargeForTheYear = (this.depreciableValue / this.usefulLife) * (numOfDays / this.totalDaysInYear)
+         else if(i === this.usefulLife) {
+            
+            // this.numOfDays = this.getTotalDays(this.activeDate , this.organizationStartDate, false)
+            // this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays / this.totalDaysInYear)
+            this.chargeForTheYear = ((this.depreciableValue / this.usefulLife) - firstYearCharge)
          }
    
-          if(i === 1) {
+          if(i === 0) {
              this.beginingBookValue = this.purchasePrice;
-             this.endingBookValue = this.purchasePrice - chargeForTheYear;
-             this.accumulatedDepreciation = chargeForTheYear;
+             this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
+             this.accumulatedDepreciation = this.chargeForTheYear;
            }
    
           else {
-             //get AccumulatedDepreciation and endingBookValue from Database;
-             //accumulatedDepreciation = ....;
-             //endingBookValue = ....;
-   
              this.beginingBookValue = this.endingBookValue;
-             this.endingBookValue = this.endingBookValue - chargeForTheYear;
-             this.accumulatedDepreciation = this.accumulatedDepreciation + chargeForTheYear;
+             this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
+             this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
           }
-
-          //consoling
-          console.log('beginingBookValue  chargeForTheYear     AccumulatedDepreciation     endingBookValue')
        
-          console.log([
-                        this.beginingBookValue,
-                        Number(chargeForTheYear),
-                        Number(this.accumulatedDepreciation),
-                        this.endingBookValue,
-                        ])                         
-        }
-
-                         
+          //storing values in fixed asset table
+          this.valuesInFixedAssetTable()     
+          this.year++
+        }          
      }
     }
   }
 
+
+  //STRAIGHT LINE METHOD WITHOUT PRORATA
+  straightLine() {
+    if(this.isActive) {
+      if(this.method === 'straightLine') { 
+        for(var i = 0 ; i < this.usefulLife ; i++) {
+
+          if(i < this.usefulLife) {
+            this.chargeForTheYear = (this.depreciableValue / this.usefulLife);
+          }
+        
+          if(i === 0) {
+             this.beginingBookValue = this.purchasePrice;
+             this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
+             this.accumulatedDepreciation = this.chargeForTheYear;
+           }
+   
+          else {
+             this.beginingBookValue = this.endingBookValue;
+             this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
+             this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
+          }
+       
+          //storing values in fixed asset table
+          this.valuesInFixedAssetTable()
+          this.year++                        
+        }
+     }
+    }
+  }
+
+
+
+
+
+
+
+
+  //DECLINING BALANCE METHOD WITH PRORATA
+  decliningBalanceProrataBasis() {
+
+    if( this.organizationStartDate.getMonth() < this.activeDate.getMonth()) {
+      this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+    }
+    else if( this.organizationStartDate.getMonth() > this.activeDate.getMonth()) {
+      this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
+    }
+    else if(this.organizationStartDate.getMonth() === this.activeDate.getMonth()) {
+      if(this.organizationStartDate.getDate() === this.activeDate.getDate()) {
+        this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+        this.sameYear = true;
+        this.decliningBalance()
+      }
+      else if( this.organizationStartDate.getDate() < this.activeDate.getDate()) {
+        this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+      }
+      else if( this.organizationStartDate.getDate() > this.activeDate.getDate()) {
+        this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
+      }
+    }
+
+    this.organiationEndDate.setFullYear(this.organizationStartDate.getFullYear())
+    this.organiationEndDate.setMonth(this.organizationStartDate.getMonth() + 12)
+    this.organiationEndDate.setDate(this.organizationStartDate.getDate() - 1)
+
+     //if Asset is Active
+     if(this.isActive) {
+      //if Prorata Basis ON
+      if(this.isProrataBasis) {
+        if(this.method === 'decliningBalance' && (this.sameYear === false)) { 
+          console.log("entered in prorata")
+          //consoling
+          console.log('Year','beginingBookValue  this.chargeForTheYear     AccumulatedDepreciation     endingBookValue')
+          //looping according to functionality
+          for(var i = 0 ; i <= this.usefulLife ; i++) {
+  
+            //depreciate all remaning bookvalue after useful life ends
+            if(i === this.usefulLife) {
+              this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
+            }
+            else if(i === 0) {
+              this.numOfDays = this.getTotalDays(this.activeDate , this.organiationEndDate , true)
+              console.log("number of days in firs year")
+              console.log(this.numOfDays)
+              console.log(this.totalDaysInYear)
+              this.chargeForTheYear = (this.depreciableValue) * this.decliningFactor * (this.numOfDays / this.totalDaysInYear);
+            } 
+            //depreciate values according to declining percentage
+            else if(this.decliningPercentage <= 1.0 ){
+              this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation) * this.decliningFactor;
+            }
+          
+          
+          //  else if(i < this.usefulLife) {
+          //      this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation) * this.decliningFactor;
+          //  }
+     
+           
+     
+            //table values for the first year
+            if(i === 0) {
+              this.beginingBookValue = this.purchasePrice;
+              this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
+              this.accumulatedDepreciation = this.chargeForTheYear;
+              //storing values in fixed asset table
+              this.valuesInFixedAssetTable()
+            }
+    
+           //table values below 100%
+           else if(this.decliningPercentage <= 1.0) {
+              this.beginingBookValue = this.endingBookValue;
+              this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
+              this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
+              //storing values in fixed asset table
+              this.valuesInFixedAssetTable()
+           }
+
+           //checking if declinig Percentage exceeding 100%
+           if(this.decliningPercentage > 1.0) {
+            //charge for the year
+            this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
+
+            this.beginingBookValue = this.endingBookValue;
+            this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
+            this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
+
+            //checking if charge for the year in not zero
+            if(this.chargeForTheYear != 0) {
+              //storing values in fixed asset table
+              this.valuesInFixedAssetTable()
+            }
+
+            //consoling fixed asset table
+            console.log(this.fixedAssetList)
+            return //end operation after 100% charge
+          }
+
+          //increment given declining percentage
+          this.decliningPercentage += this.decliningFactor;
+          //increment year
+          this.year++;
+          }      
+          
+          //consoling fixed asset table
+          console.log('list')
+          console.log(this.fixedAssetList)   
+       }
+      }
+    }
+  }
+
+
+  //DELINING BALANCE METHOD WITHOUT PRORATA
+  decliningBalance() {
+   //if Asset is Active
+    if(this.isActive) {
+        if(this.method === 'decliningBalance') { 
+          //looping according to functionality
+          for(var i = 0 ; i < this.usefulLife ; i++) {
+  
+            //depreciate all remaning bookvalue after useful life ends
+            if(i === this.usefulLife - 1) {
+              this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
+            }
+            //depreciate values according to declining percentage
+            else if(this.decliningPercentage <= 1.0 ){
+              this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation) * this.decliningFactor;
+            }
+           
+            //table values for the first year
+            if(i === 0) {
+               this.beginingBookValue = this.purchasePrice;
+               this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
+               this.accumulatedDepreciation = this.chargeForTheYear;
+               //storing values in fixed asset table
+               this.valuesInFixedAssetTable()
+             }
+     
+            //table values below 100%
+            else if(this.decliningPercentage <= 1.0) {
+               this.beginingBookValue = this.endingBookValue;
+               this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
+               this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
+               //storing values in fixed asset table
+               this.valuesInFixedAssetTable()
+            }
+  
+            //checking if declinig Percentage exceeding 100%
+            if(this.decliningPercentage > 1.0) {
+              //charge for the year
+              this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
+  
+              this.beginingBookValue = this.endingBookValue;
+              this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
+              this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
+  
+              //checking if charge for the year in not zero
+              if(this.chargeForTheYear != 0) {
+                //storing values in fixed asset table
+                this.valuesInFixedAssetTable()
+              }
+  
+              //consoling fixed asset table
+              console.log(this.fixedAssetList)
+              return //end operation after 100% charge
+            }
+  
+            //increment given declining percentage
+            this.decliningPercentage += this.decliningFactor;
+            //increment year
+            this.year++;
+          }              
+
+          //consoling fixed asset table
+          console.log('list')
+          console.log(this.fixedAssetList)    
+       }
+    }
+  }
+
+  //set organization dates according to active date
+
+  //storing values in fixed asset table
+  valuesInFixedAssetTable() {
+    this.fixedAssetList.push({
+      year : this.year,
+      beginingBookValue: this.beginingBookValue,
+      chargeForTheYear:  Number(this.chargeForTheYear),
+      accumulatedDepreciation:  Number(this.accumulatedDepreciation),
+      endingBookValue: this.endingBookValue
+    })
+  }
+
+
+  //check leap year
   daysInYear(year: number) {
-    return ((year % 4 === 0 && year % 100 > 0) || year %400 == 0) ? 366 : 365;
+    return ((year % 4 === 0 && year % 100 > 0) || year % 400 == 0) ? 366 : 365; 
   }
 
-  getTotalDays(activeDate , organizationEndDate) {
-    activeDate = new Date("12/31/2025");
-    organizationEndDate = new Date("3/25/2026");
-      
-    // To calculate the no. of days between two dates
-    var Difference_In_Days = (activeDate.getTime() - organizationEndDate.getTime()) / (1000 * 3600 * 24);
 
-    console.log("DAYS IN Year : ")
-    console.log(Difference_In_Days)
+  //calculate days between two dates
+  getTotalDays(activeDate: Date , organizationDate: Date, isfirstYear: boolean): number {
+    let Difference_In_Days = 0;
+       if(isfirstYear) {
+        //calculate days for first year
+        Difference_In_Days = (organizationDate.getTime() - activeDate.getTime()) / (1000 * 3600 * 24);
+        if(Difference_In_Days === 0) {
+          Difference_In_Days = 1
+        } 
+        console.log(organizationDate)
+        console.log(activeDate)
+        console.log(Difference_In_Days)
+       }
+       else {
+        //calculate days for last year
+        Difference_In_Days = ((activeDate.getTime() - organizationDate.getTime()) / (1000 * 3600 * 24)) + 1;
+       }
+
+    return Difference_In_Days
   }
-
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
