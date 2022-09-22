@@ -74,10 +74,12 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     this.gridOptions.rowHeight = 40;
     this.gridOptions.headerHeight = 35;
 
-   //this.calculateDepreciationForStraightLineWithProrataBasis();
-   this.decliningBalanceProrataBasis()
+   //this.straightLineProrataBasis();
+   //this.decliningBalanceProrataBasis()
    //this.decliningBalance()
    //this.calculateDepreciationForStraightLineWithoutProrataBasis();
+
+   //this.straightLineProrataBasisForDatabase()
 
   }
 
@@ -122,18 +124,18 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   //************DEFFERENT */
 
   purchasePrice: number = 250000;
-  salvageValue: number = 25000
+  salvageValue: number = 15000
   depreciableValue = this.purchasePrice - this.salvageValue;
   usefulLife = 5;
-  activeDate : Date = new Date('1/1/2021');
+  activeDate : Date = new Date('3/25/2021');
   organizationStartDate: Date = new Date('1/1/2016');
   organiationEndDate: Date = new Date('12/31/2017');
   year: number = 2021;
   day = this.activeDate.getDate() ;
   month = this.activeDate.getMonth() + 1; 
   isActive : boolean = true;
-  method: string = 'decliningBalance'
-  //method: string = 'straightLine'
+  //method: string = 'decliningBalance'
+  method: string = 'straightLine'
   endingBookValue = 0;
   accumulatedDepreciation = 0;
   isProrataBasis: boolean = true;
@@ -158,21 +160,23 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
 //STRAIGH LINE METHOD WITH PRORATA
   straightLineProrataBasis() {
 
-    if( this.organizationStartDate.getMonth() < this.activeDate.getMonth()) {
-      this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
-    }
-    else if( this.organizationStartDate.getMonth() > this.activeDate.getMonth()) {
+    this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+
+    // if( this.organizationStartDate.getMonth() < this.activeDate.getMonth()) {
+    //   this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+    // }
+    if( this.organizationStartDate.getMonth() > this.activeDate.getMonth()) {
       this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
     }
     else if(this.organizationStartDate.getMonth() === this.activeDate.getMonth()) {
       if(this.organizationStartDate.getDate() === this.activeDate.getDate()) {
-        this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+        // this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
         this.sameYear = true;
         this.straightLine()
       }
-      else if( this.organizationStartDate.getDate() < this.activeDate.getDate()) {
-        this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
-      }
+      // else if( this.organizationStartDate.getDate() < this.activeDate.getDate()) {
+      //   this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+      // }
       else if( this.organizationStartDate.getDate() > this.activeDate.getDate()) {
         this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
       }
@@ -182,9 +186,9 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     this.organiationEndDate.setMonth(this.organizationStartDate.getMonth() + 12)
     this.organiationEndDate.setDate(this.organizationStartDate.getDate() - 1)
 
-    // console.log("days")
-    // console.log(this.organizationStartDate)
-    // console.log(this.organiationEndDate)
+    console.log("dates")
+    console.log(this.organizationStartDate)
+    console.log(this.organiationEndDate)
     // console.log(this.getTotalDays(this.organizationStartDate , this.organiationEndDate , true))
 
     let firstYearCharge = 0;
@@ -209,7 +213,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
             
             // this.numOfDays = this.getTotalDays(this.activeDate , this.organizationStartDate, false)
             // this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays / this.totalDaysInYear)
-            this.chargeForTheYear = ((this.depreciableValue / this.usefulLife) - firstYearCharge)
+            this.chargeForTheYear = ((this.depreciableValue) - this.accumulatedDepreciation)
          }
    
           if(i === 0) {
@@ -451,6 +455,153 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
        }
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // straightLineProrataBasisForDatabase() {
+
+  //   let entries = 2;
+
+  //   this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+
+  //   // if( this.organizationStartDate.getMonth() < this.activeDate.getMonth()) {
+  //   //   this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+  //   // }
+  //   if( this.organizationStartDate.getMonth() > this.activeDate.getMonth()) {
+  //     this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
+  //   }
+  //   else if(this.organizationStartDate.getMonth() === this.activeDate.getMonth()) {
+  //     if(this.organizationStartDate.getDate() === this.activeDate.getDate()) {
+  //       // this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+  //       this.sameYear = true;
+  //       this.straightLine()
+  //     }
+  //     // else if( this.organizationStartDate.getDate() < this.activeDate.getDate()) {
+  //     //   this.organizationStartDate.setFullYear(this.activeDate.getFullYear())
+  //     // }
+  //     else if( this.organizationStartDate.getDate() > this.activeDate.getDate()) {
+  //       this.organizationStartDate.setFullYear(this.activeDate.getFullYear() - 1)
+  //     }
+  //   }
+
+  //   this.organiationEndDate.setFullYear(this.organizationStartDate.getFullYear())
+  //   this.organiationEndDate.setMonth(this.organizationStartDate.getMonth() + 12)
+  //   this.organiationEndDate.setDate(this.organizationStartDate.getDate() - 1)
+
+  //   console.log("dates")
+  //   console.log(this.organizationStartDate)
+  //   console.log(this.organiationEndDate)
+  //   // console.log(this.getTotalDays(this.organizationStartDate , this.organiationEndDate , true))
+
+  //   let firstYearCharge = 0;
+
+  //   if(this.isActive) {
+  //     if(this.method === 'straightLine' && (this.sameYear === false)) { 
+  //       console.log("entered in prorata")
+  //       for(var i = 0 ; i <= this.usefulLife ; i++) {
+  //         if(i === 0) {
+  //           if(entries != 0) {
+  //             i = entries;
+  //             this.fixedAssetList.push({
+  //               year : 2021,
+  //               beginingBookValue: 250000,
+  //               chargeForTheYear:  34643.83561643835,
+  //               accumulatedDepreciation:  34643.83561643835,
+  //               endingBookValue: 215356.16438356164
+  //             })
+
+  //             this.beginingBookValue = 250000;
+  //            this.endingBookValue = 250000 - 34643.83561643835;
+  //            this.accumulatedDepreciation = 0 + 34643.83561643835;
+  //            firstYearCharge = 34643.83561643835
+  //            this.year++
+
+
+  //            this.fixedAssetList.push({
+  //             year : 2022,
+  //             beginingBookValue: 215356.16438356164,
+  //             chargeForTheYear:  46000,
+  //             accumulatedDepreciation:  80643.83561643836,
+  //             endingBookValue: 169356.16438356164
+  //           })
+
+  //           this.beginingBookValue = 169356.16438356164;
+  //           this.endingBookValue = 169356.16438356164;
+  //           this.accumulatedDepreciation = 80643.83561643836;
+  //           this.year++
+  //           }
+  //         }
+
+  //        if(i === 0) {
+  //          this.numOfDays = this.getTotalDays(this.activeDate , this.organiationEndDate , true)
+  //          this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays/this.totalDaysInYear);
+  //          firstYearCharge = this.chargeForTheYear
+  //        } 
+   
+  //        else if(i > 0 && i < this.usefulLife) {
+  //         console.log(i)
+  //            this.chargeForTheYear = (this.depreciableValue / this.usefulLife);
+  //        }
+   
+  //        else if(i === this.usefulLife) {
+            
+  //           // this.numOfDays = this.getTotalDays(this.activeDate , this.organizationStartDate, false)
+  //           // this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays / this.totalDaysInYear)
+  //           this.chargeForTheYear = ((this.depreciableValue) - this.accumulatedDepreciation) //((this.depreciableValue / this.usefulLife) - firstYearCharge)
+  //        }
+   
+  //         if(i === 0) {
+  //            this.beginingBookValue = this.purchasePrice;
+  //            this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
+  //            this.accumulatedDepreciation = this.chargeForTheYear;
+  //          }
+   
+  //         else {
+  //            this.beginingBookValue = this.endingBookValue;
+  //            this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
+  //            this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
+  //         }
+       
+  //         //storing values in fixed asset table
+  //         this.valuesInFixedAssetTable()     
+  //         this.year++
+  //       }          
+
+  //       console.log(this.fixedAssetList)
+  //    }
+  //   }
+  // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   //set organization dates according to active date
 
