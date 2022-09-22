@@ -20,7 +20,7 @@
                     <div class="row mt-8 mb-5">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Name:</label>
+                                <label class="col-form-label pt-0">Product Name:</label>
                                 <kt-input-field
                                 id="product_name"
                                     formControlName="name"
@@ -59,7 +59,7 @@
                                 <!-- <label class="col-form-label pt-0">Product Type:</label> -->
                                 <div class="kt-radio-list">
                                 
-                                    <mat-radio-group (change)="methodChange($event)" id="product_type" formControlName="productType">
+                                    <mat-radio-group id="product_type" formControlName="productType">
                                     <label class="col-form-label pt-0 mr-2">Product Type:</label>
 
                                         <mat-radio-button [value]="0">Consumable</mat-radio-button>
@@ -82,7 +82,7 @@
                     <!-- second row ends -->
                     <!-- third row starts -->
                     <div class="row ">
-                        <div *ngIf="!showAssetFields" class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Sales Price:</label>
                                 <!-- <kt-input-field
@@ -93,39 +93,14 @@
                                 </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
                                    <input matInput formControlName="salesPrice" placeholder="Enter Sales Price" 
-                                         id="product_sales" type="number">
+                                         id="product_sales" type="number" (blur)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
+                                         <mat-error *ngIf="formErrors.salesPrice">
+                                            <strong>{{formErrors.salesPrice}}</strong>
+                                        </mat-error>
                                    <mat-hint align="end">Optional</mat-hint>
                                 </mat-form-field>
                             </div>
                         </div>
-
-                        <div *ngIf="showAssetFields" class="col-lg-4 col-sm-4 col-md-4">
-                            <div class="form-group kt-form__group">
-                              <label class="col-form-label pt-0">Acquisition Date:</label>
-                              <kt-date-input 
-                                formControlName="acquisitionDate" 
-                                placeholder="Acquisition Date" 
-                                matFormFieldClass="full-width">
-                              </kt-date-input>
-                            </div>
-                          </div>
-
-                          <div *ngIf="showAssetFields" class="col-lg-4 col-sm-4 col-md-4">
-                            <div class="form-group kt-form__group">
-                              <label class="col-form-label pt-0">Depreciation Model:</label>
-                              <kt-simple-dropdown 
-                                id="product_model" 
-                                formControlName="depreciationModelId" 
-                                (selectionChange)="getDepreciationModel($event.value)"
-                                matFormFieldClass="full-width"
-                                propertyName="name" 
-                                propertyValue="id" 
-                                [optionList]="ngxsService.depreciationModels$"
-                                searchPlaceholder="Search Model..."
-                                placeholder="Select Model">
-                              </kt-simple-dropdown>
-                            </div>
-                          </div>
 
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group mb-0">
@@ -137,14 +112,17 @@
                                     [hintText]="'Optional'">
                                 </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
-                                    <input (keyup)="calculateDepValue()" matInput formControlName="purchasePrice" placeholder="Enter Price" 
-                                          id="product_purchase" type="number">
+                                    <input matInput formControlName="purchasePrice" placeholder="Enter Price" 
+                                          id="product_purchase" type="number" (blur)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
+                                          <mat-error *ngIf="formErrors.purchasePrice">
+                                            <strong>{{formErrors.purchasePrice}}</strong>
+                                        </mat-error>
                                     <mat-hint align="end">Optional</mat-hint>
                                 </mat-form-field>
                             </div>
                         </div>
 
-                        <div *ngIf="!showAssetFields" class="col-lg-4 col-md-4 col-sm-4">
+                        <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Sales Tax:</label>
                                 <!-- <kt-input-field
@@ -155,7 +133,10 @@
                                 </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
                                     <input matInput formControlName="salesTax" placeholder="Enter Sales Tax" 
-                                          id="product_tax" type="number">
+                                          id="product_tax" type="number" (blur)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
+                                          <mat-error *ngIf="formErrors.salesTax">
+                                            <strong>{{formErrors.salesTax}}</strong>
+                                        </mat-error>
                                     <mat-hint align="end">Optional</mat-hint>
                                 </mat-form-field>
                             </div>
@@ -164,7 +145,7 @@
                     <!-- third row ends -->
                     <!-- fourth row starts -->
                     <div class="row">
-                        <div *ngIf="!showAssetFields" class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Unit Of Measurement:</label>
                                 <kt-simple-dropdown
@@ -182,7 +163,7 @@
                             </div>
                         </div>
 
-                        <div *ngIf="!showAssetFields" class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Barcode:</label>
                                 <kt-input-field
@@ -195,111 +176,6 @@
                         </div>
                     </div>
                     <!-- fourth row ends -->
-
-                    <!--Fixed Asset Fields-->
-                    <!-- <div *ngIf="showAssetFields" class="row">
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group">
-                              <label class="col-form-label pt-0">Acquisition Date:</label>
-                              <kt-date-input 
-                                formControlName="acquisitionDate" 
-                                placeholder="Acquisition Date" 
-                                matFormFieldClass="full-width">
-                              </kt-date-input>
-                            </div>
-                          </div>
-
-                          <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group">
-                              <label class="col-form-label pt-0">Depreciation Model:</label>
-                              <kt-simple-dropdown 
-                                id="product_model" 
-                                formControlName="depreciationModelId" 
-                                matFormFieldClass="full-width"
-                                propertyName="name" 
-                                propertyValue="id" 
-                                [optionList]="ngxsService.depreciationModels$"
-                                searchPlaceholder="Search Model..."
-                                placeholder="Select Model">
-                              </kt-simple-dropdown>
-                            </div>
-                          </div>
-                    </div> -->
-
-                    <div *ngIf="showAssetFields" class="row">
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Salvage Value:</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                  <input (keyup)="calculateDepValue()" matInput formControlName="salvageValue" placeholder="Enter Salvage Value" 
-                                       id="product_salvage" type="number">
-                                  <!-- <mat-hint align="end">Optional</mat-hint> -->
-                                </mat-form-field>
-                            </div>
-                          </div>
-
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Depreciable Value:</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                  <input readonly matInput formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
-                                       id="product_depreciable" type="number">
-                                  <!-- <mat-hint align="end">Optional</mat-hint> -->
-                                </mat-form-field>
-                            </div>
-                          </div> 
-
-                          <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Declining Rate:</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                  <input matInput formControlName="decliningRate" placeholder="Enter Declining Rate" 
-                                       id="product_rate" type="number">
-                                  <!-- <mat-hint align="end">Optional</mat-hint> -->
-                                </mat-form-field>
-                            </div>
-                          </div> 
-                      </div>
-
-                      <div *ngIf="showAssetFields" class="row">
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                          <div class="form-group kt-form__group mb-0">
-                            <label class="col-form-label pt-0">Depreciation Method:</label>
-                            <kt-simple-dropdown 
-                                id="product_method"
-                                formControlName="depreciationMethod"
-                                matFormFieldClass="full-width"
-                                propertyName="name" 
-                                propertyValue="id" 
-                                [optionList]="method"
-                                searchPlaceholder="Search..."
-                                placeholder="Select Method">
-                              </kt-simple-dropdown>
-                          </div>
-                        </div>
-                    
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                          <div class="form-group kt-form__group mb-0">
-                              <label class="col-form-label pt-0">Useful Life:</label>
-                              <mat-form-field appearance="outline" class="full-width">
-                                <input matInput formControlName="usefulLife" placeholder="Enter Useful Life" 
-                                     id="product_usefulLife" type="number">
-                                <!-- <mat-hint align="end">Optional</mat-hint> -->
-                              </mat-form-field>
-                          </div>
-                        </div> 
-                      </div>
-
-                      <div *ngIf="showAssetFields" class="row">
-                        <div class="col-lg-4 col-sm-4 col-md-4">
-                            <div class="form-group kt-form__group">
-                              <div apperence="outline" class="full-width">
-                                <mat-slide-toggle id="product_prorata" [checked]="isActiveChecked" formControlName="prorataBasis">Prorata Basis</mat-slide-toggle>
-                              </div>
-                            </div>
-                          </div>
-                      </div>
-
                 </div>
             </div>
             <!-- form first section ends -->
@@ -328,6 +204,17 @@
     </form>
     <!-- form ends -->
 </div>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

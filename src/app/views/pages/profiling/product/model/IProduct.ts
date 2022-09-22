@@ -11,12 +11,4 @@ export interface IProduct {
     unitOfMeasurementId: number;
     salesTax: number;
     barcode: string;
-    acquisitionDate: Date;
-    depreciationModelId: number;
-    salvageValue: number;
-    depreciableValue: number;
-    method: string;
-    usefulLife: number;
-    decliningRate: number;
-    prorataBasis: boolean;
 }

@@ -52,7 +52,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   propertyValue: string;
   propertyName: string;
-  paymentRegisterList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
+  bankAccountList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
   netPayment: number = 0;
   
   //for Busy Loading
@@ -87,7 +87,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     account: {
       required: 'Account is required'
     },
-    paymentRegister: {
+    bankAccount: {
       required: 'Payment Register is required'
     },
     grossPayment: {
@@ -98,13 +98,16 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       required: 'Campus is required'
     },
     salesTax: {
-      min: 'Please insert correct value.'
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
     },
     incomeTax: {
-      min: 'Please insert correct value.'
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
     },
     SRBTax: {
-      min: 'Please insert correct value.'
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
     },
   }
 
@@ -116,7 +119,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     description: '',
     businessPartner: '',
     account: '',
-    paymentRegister: '',
+    bankAccount: '',
     grossPayment: '',
     campusId: '',
     salesTax: '',
@@ -159,11 +162,11 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       businessPartner: ['', [Validators.required]],
       account: ['', [Validators.required]],
       campusId: ['', [Validators.required]],
-      paymentRegister: ['', [Validators.required]],
+      bankAccount: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(1)]],
-      salesTax: [0,[Validators.min(0)]],
-      incomeTax: [0,[Validators.min(0)]],
-      SRBTax: [0,[Validators.min(0)]],
+      salesTax: [0,[Validators.min(0) , Validators.max(100)]],
+      incomeTax: [0,[Validators.min(0) , Validators.max(100)]],
+      SRBTax: [0,[Validators.min(0) , Validators.max(100)]],
     });
 
     this.paymentForm.get('registerType').setValue(2)
@@ -235,7 +238,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       description: payment.description,
       businessPartner: payment.businessPartnerId,
       account: payment.accountId,
-      paymentRegister: payment.paymentRegisterId,
+      bankAccount: payment.paymentRegisterId,
       grossPayment: payment.grossPayment,
       campusId: payment.campusId,
       salesTax: payment.salesTax,
@@ -297,7 +300,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
  
   mapFormValueToPaymentModel() {
     this.paymentModel.paymentType = (this.formName === "Payment" || this.formName === "Payroll Payment") ? 1 : 0
-    this.paymentModel.paymentRegisterId = this.paymentForm.value.paymentRegister;
+    this.paymentModel.paymentRegisterId = this.paymentForm.value.bankAccount;
     this.paymentModel.campusId = this.paymentForm.value.campusId;
     this.paymentModel.description = this.paymentForm.value.description;
     this.paymentModel.businessPartnerId = (!this.isPayrollPayment) ? this.paymentForm.value.businessPartner : this.paymentMaster.businessPartnerId ;
@@ -318,18 +321,18 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   loadAccountList($event: MatRadioChange | any, id: number = null) {
     this.paymentForm.patchValue({
-      paymentRegister: id
+      bankAccount: id
     })
     if ($event.value === 1) {
       this.cashAccountService.getCashAccountsDropdown().subscribe((res: IApiResponse<ICashAccount[]>) => {
-        this.paymentRegisterList.next(res.result)
+        this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'chAccountId';
       this.propertyName = 'cashAccountName';
     } else {
       this.bankAccountService.getBankAccountsDropdown().subscribe((res: IApiResponse<IBankAccount[]>) => {
-        this.paymentRegisterList.next(res.result)
+        this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'clearingAccountId';
@@ -341,7 +344,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   calculatingNetPayment(): void {
     this.paymentForm.valueChanges.subscribe((val) => {
       // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
-      this.netPayment = +(Number(val.grossPayment) - (Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
+      // this.netPayment = +(Number(val.grossPayment) - (Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
+      this.netPayment = +(Number(val.grossPayment) - (Number(val.grossPayment) * ((Number(val.salesTax) / 100) + (Number(val.incomeTax) / 100) + (Number(val.SRBTax) / 100)))).toFixed(2);
     });
   }
   // open business partner dialog

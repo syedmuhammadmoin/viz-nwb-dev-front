@@ -10,8 +10,6 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
-import { Router } from '@angular/router';
-import { PRODUCT } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-product',
@@ -36,7 +34,6 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
   constructor(
     private productService: ProductService,
     public dialog: MatDialog,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -66,15 +63,15 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {headerName: 'Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
     {headerName: 'Category', field: 'categoryName', suppressMenu: true, tooltipField: 'salesTax'},
-    // {
-    //   headerName: 'Sale Price', 
-    //   field: 'salesPrice', 
-    //   suppressMenu: true,
-    //   tooltipField: 'salesTax',
-    //   valueFormatter: (params : ValueFormatterParams) => {
-    //     return this.valueFormatter(params.value)
-    //   }
-    // },
+    {
+      headerName: 'Sale Price', 
+      field: 'salesPrice', 
+      suppressMenu: true,
+      tooltipField: 'salesTax',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
+    },
     {
       headerName: 'Purchase Price', 
       field: 'purchasePrice', 
@@ -84,15 +81,15 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
         return this.valueFormatter(params.value)
       }
     },
-    // {
-    //   headerName: 'sales Tax', 
-    //   field: 'salesTax', 
-    //   suppressMenu: true,
-    //   tooltipField: 'salesTax',
-    //   valueFormatter: (params : ValueFormatterParams) => {
-    //     return this.valueFormatter(params.value)
-    //   }
-    // }
+    {
+      headerName: 'sales Tax', 
+      field: 'salesTax', 
+      suppressMenu: true,
+      tooltipField: 'salesTax',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
+    }
   ];
 
   ngOnInit() {
@@ -102,8 +99,8 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      rowHeight: 35,
-      headerHeight: 35,
+      // rowHeight: 40,
+      // headerHeight: 35,
       context: "double click to edit",
     };
 
@@ -137,7 +134,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.router.navigate(['/' + PRODUCT.ID_BASED_ROUTE('details', event.data.id)])
+    this.openDialog(event.data.id)
   }
 
   openDialog(id?: number): void {

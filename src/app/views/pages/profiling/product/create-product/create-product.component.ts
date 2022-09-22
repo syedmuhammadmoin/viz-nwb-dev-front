@@ -10,9 +10,6 @@ import { IsReloadRequired } from '../../store/profiling.action';
 import { ProductState } from '../store/product.state.state';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
-import { AppConst } from 'src/app/views/shared/AppConst';
-import { DepreciationMethodService } from '../../../fixed-asset/depreciation-model/service/depreciation-method.service';
 
 @Component({
   selector: 'kt-create-product',
@@ -39,13 +36,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //show Buttons
   showButtons: boolean = true; 
 
-  //show fixed Asset Fields
-  showAssetFields: boolean = false;
-
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
-
-  method = AppConst.depreciationMethod;
 
   // validation messages
   validationMessages = {
@@ -53,38 +45,40 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       required: 'Name is required'
     },
     unit: {
-      required: 'Unit is required'
+      required: 'Unit is required',
     },
     category: {
       required: 'Category is required',
       incorrect: 'Please select valid category'
     },
-    // salesPrice: {
-    //   required: 'sales Price is required'
-    // },
-    // purchasePrice: {
-    //   required: 'purchasePrice is required'
-    // },
-    // salesTax: {
-    //   required: 'sales Tax is required'
-    // },
+    salesPrice: {
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
+    },
+    purchasePrice: {
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
+    },
+    salesTax: {
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
+    }
   }
 
   //error keys
   formErrors = {
     name: '',
-    unit: '',
+    unit: '',    //productType: '',
     category: '',
-    // salesPrice: '',
-    // purchasePrice: '',
-    // salesTax: '',
+    salesPrice: '',
+    purchasePrice: '',
+    salesTax: '',
   }
 
   constructor(
     private fb: FormBuilder,
     public ngxsService:NgxsCustomService,
     public addButtonService:AddModalButtonService,
-    private depreciationService: DepreciationMethodService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     private cdRef : ChangeDetectorRef,
     public dialogRef: MatDialogRef<CreateProductComponent>, injector: Injector
@@ -97,24 +91,12 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       name: ['', [Validators.required]],
       productType: [0, [Validators.required]],
       category: ['', [Validators.required]],
-      unit: [null, [Validators.required]],
-      salesPrice: [0],
-      purchasePrice: [0],
-      salesTax: [0],
-      barcode: [''],
-      acquisitionDate: [''],
-      depreciationModelId: [null],
-      depreciableValue: [0],
-      salvageValue: [0],
-      depreciationMethod: [null],
-      usefulLife: [null],
-      prorataBasis: [false],
-      decliningRate: [null]
+      unit: ['', [Validators.required]],
+      salesPrice: [0 , [Validators.min(0) , Validators.max(100)]],
+      purchasePrice: [0 , [Validators.min(0) , Validators.max(100)]],
+      salesTax: [0 , [Validators.min(0) , Validators.max(100)]],
+      barcode: ['']
     });
-
-
-    //initialize empty product model
-    this.product = {} as IProduct;
 
     // checking router params for edit product
     if (this._id) {
@@ -122,31 +104,21 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       this.title = 'Edit Product'
       this.isLoading = true;
       this.getProduct(this._id);
+    } else {
+      this.product = {
+        id: null,
+        productName: '',
+        productType: null,
+        unitOfMeasurementId: null,
+        categoryId: null,
+        salesPrice: null,
+        purchasePrice: null,
+        salesTax: null,
+        barcode: '',
+      }
     }
-    //else {
-    //   this.product = {
-    //     id: null,
-    //     productName: '',
-    //     productType: null,
-    //     unitOfMeasurementId: null,
-    //     categoryId: null,
-    //     salesPrice: null,
-    //     purchasePrice: null,
-    //     salesTax: null,
-    //     barcode: '',
-    //     acquisitionDate: null,
-    //     depreciationModelId: null,
-    //     salvageValue: null,
-    //     depreciableValue: null,
-    //     method: null,
-    //     usefulLife: null,
-    //     decliningRate: null,
-    //     prorataBasis: null
-    //   }
-    // }
     //get categoryList from state
       this.ngxsService.getCategoryFromState()
-      this.ngxsService.getDepreciationModelFromState()
       this.ngxsService.getUnitsFromState()
   }
 
@@ -162,10 +134,10 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
      )
       .subscribe(
         (product: IApiResponse<IProduct>) => {
-          this.product.id = product.result.id;
           this.editProduct(product.result);
-          // this.product = product.result;
-        }
+          this.product = product.result;
+        },
+        (err) => console.log(err)
       );
   }
 
@@ -180,18 +152,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       unit: product.unitOfMeasurementId,
       purchasePrice: product.purchasePrice,
       salesTax: product.salesTax,
-      barcode: product.barcode,
-      acquisitionDate: product.acquisitionDate,
-      depreciationModelId: product.depreciationModelId,
-      salvageValue: product.salvageValue,
-      depreciableValue: product.depreciableValue,
-      depreciationMethod: product.method,
-      usefulLife: product.usefulLife,
-      decliningRate: product.decliningRate,
-      prorataBasis: product.prorataBasis
+      barcode: product.barcode
     });
-
-    this.methodChange({source : {} as MatRadioButton , value: product.productType})
 
     //if user have no permission to edit, so disable all fields
     if(!this.showButtons) {
@@ -205,7 +167,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.mapFormValueToProductModel();
-    console.log(this.product)
+    //console.log(this.product)
     if (this.product.id) {
       this.ngxsService.productService.updateProduct(this.product)
       .pipe(
@@ -250,19 +212,11 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     this.product.purchasePrice = (this.productForm.value.purchasePrice) ? this.productForm.value.purchasePrice : 0 ;
     this.product.salesTax = (this.productForm.value.salesTax) ?  this.productForm.value.salesTax : 0;
     this.product.barcode = this.productForm.value.barcode;
-    this.product.acquisitionDate = this.dateHelperService.transformDate(this.productForm.value.acquisitionDate , 'yyyy-MM-dd');
-    this.product.depreciationModelId = this.productForm.value.depreciationModelId;
-    this.product.salvageValue = this.productForm.value.salvageValue;
-    this.product.method = this.productForm.value.depreciationMethod;
-    this.product.usefulLife = this.productForm.value.usefulLife;
-    this.product.decliningRate = this.productForm.value.decliningRate;
-    this.product.prorataBasis = this.productForm.value.prorataBasis;
   }
 
   reset() {
       this.formDirective.resetForm();
       this.productForm.get('productType').setValue(0);
-      this.showAssetFields = false;
   }
 
   //create new category
@@ -277,38 +231,4 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     this.dialogRef.close();
   }
 
-  getDepreciationModel(id: number) {
-    this.depreciationService.getDepreciationById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      this.productForm.patchValue({
-        depreciationMethod: res.result.method,
-        usefulLife: res.result.usefulLife,
-        decliningRate: res.result.decliningRate
-      })
-     
-      this.cdRef.detectChanges()
-    })
-  }
-
-  calculateDepValue() {
-    const purchasePrice = this.productForm.get('purchasePrice').value
-    const salvageValue = this.productForm.get('salvageValue').value
-    this.productForm.get('depreciableValue').setValue(purchasePrice - salvageValue)
-  }
-
-  methodChange(event : MatRadioChange) {
-    if(event.value === 2) {
-      this.showAssetFields = true;
-    }
-    else {
-      this.showAssetFields = false;
-    }
-  }
 }

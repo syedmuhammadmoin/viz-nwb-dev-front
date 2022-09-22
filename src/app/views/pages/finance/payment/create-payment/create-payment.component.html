@@ -73,18 +73,18 @@
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Payment Register:</label>
+                        <label class="col-form-label pt-0">Bank Account:</label>
                         <kt-simple-dropdown
-                        id="payment_register"
-                          placeholder="Select Payment Register"
+                        id="payment_bank"
+                          placeholder="Select Bank Account"
                           searchPlaceholder="Search Accounts..."
                           [propertyValue]="propertyValue"
                           [propertyName]="propertyName"
-                          formControlName="paymentRegister"
+                          formControlName="bankAccount"
                           matFormFieldClass="full-width"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
-                          [errorMessage]="formErrors.paymentRegister"
-                          [optionList]="paymentRegisterList?paymentRegisterList:paymentMaster.paymentRegister?.name">
+                          [errorMessage]="formErrors.bankAccount"
+                          [optionList]="(bankAccountList) ? bankAccountList : paymentMaster.paymentRegister?.name">
                         </kt-simple-dropdown>
                     </div>
                   </div>
@@ -266,7 +266,7 @@
             <div class="kt-form__actions kt-form__actions mb-0">
               <div class="row justify-content-center align-items-center">
                 <div class="col-lg-6 float-left">
-                  <h6 class="text-primary">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
+                  <h6 class="text-primary" style="color:#327b92 !important;">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
                 </div>
                 <div class="col-lg-6">
                   <div class="float-right">
