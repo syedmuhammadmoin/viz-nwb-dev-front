@@ -58,8 +58,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       min: 'Please insert correct value.',
     },
     salesTax: {
-      min: 'Please insert correct value.',
-      max: 'Please insert correct value.'
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
     }
   }
 
