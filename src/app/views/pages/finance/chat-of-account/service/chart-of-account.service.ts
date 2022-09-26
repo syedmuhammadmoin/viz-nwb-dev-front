@@ -82,5 +82,9 @@ export class ChartOfAccountService {
   getBudgetAccounts(): Observable<any> {
     return this.httpClient.get<any>(environment.baseUrl + 'level4/budgetAccounts');
   }
+
+  getAssetAccounts(): Observable<any> {
+    return this.httpClient.get<any>(environment.baseUrl + 'level4/fixedAsset');
+  }
 }
 

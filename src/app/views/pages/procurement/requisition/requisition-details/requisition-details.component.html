@@ -29,14 +29,20 @@
                 </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_CREATE))" id="requisition_edit"
-                  [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
+                  [routerLink]="'/' + ISSUANCE.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                   type="button" class="mr-2 btn_public">
                   <i class="fa fa-edit" ></i> Issuance
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-2" 
+                <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.PURCHASEORDER_CREATE))" id="requisition_purchase"
+                    [routerLink]="'/' + PURCHASE_ORDER.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
+                    type="button" class="mr-2 btn_public">
+                    <i class="fa fa-edit"></i> Purchase Order
+                </button>
+
+                <!-- <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-2" 
                 (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
-              </button>
+              </button> -->
 
                 <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" 
                   class="btn_public">

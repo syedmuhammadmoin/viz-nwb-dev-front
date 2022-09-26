@@ -6,10 +6,11 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AssetRoutingModule } from './asset-routing.module';
+import { AssetDetailComponent } from './asset-detail/asset-detail.component';
 
 
 @NgModule({
-  declarations: [CreateAssetComponent, ListAssetComponent],
+  declarations: [CreateAssetComponent, ListAssetComponent, AssetDetailComponent],
   imports: [
     SharedModule,
     PartialsModule,

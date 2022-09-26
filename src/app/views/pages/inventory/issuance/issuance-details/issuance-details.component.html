@@ -26,14 +26,14 @@
                 </button>
 
                 <button *ngIf="(issuanceMaster?.state === docStatus.Unpaid || issuanceMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_RETURN_CREATE))"
-                  [routerLink]="'/' + ISSUANCE_RETURN.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
+                  [routerLink]="'/' + ISSUANCE_RETURN.CREATE" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
                   type="button"  class="mr-2 btn_public" id="issuance_edit"> <i class="fa fa-edit"></i>
                   Return Issuance
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-2 btn_public" 
+                <!-- <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-2 btn_public" 
                 (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
-                </button>
+                </button> -->
 
                 <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button" 
                   class="btn_public" id="issuance_print">

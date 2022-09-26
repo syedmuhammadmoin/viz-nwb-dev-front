@@ -229,7 +229,7 @@
                                       [errorMessage]="[{ condition : (purchaseOrderForm.get('purchaseOrderLines')['controls'][i].controls.tax.errors?.min ||
                                                                     purchaseOrderForm.get('purchaseOrderLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     purchaseOrderForm.get('purchaseOrderLines')['controls'][i].controls.tax.touched ,
-                                                        error : 'Tax % should be between 0 and 100'}]"
+                                                        error : 'Percentage % range (0 - 100)'}]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>

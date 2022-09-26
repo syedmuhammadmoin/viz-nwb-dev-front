@@ -29,18 +29,18 @@
                       </div>
                       <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="form-group kt-form__group mb-0">
-                            <label class="col-form-label pt-0">Payment Register:</label>
+                            <label class="col-form-label pt-0">Bank Account:</label>
                             <kt-simple-dropdown
                               id="payment_register"
-                              placeholder="Select Payment Register"
+                              placeholder="Select Bank Account"
                               searchPlaceholder="Search Accounts..."
                               [propertyValue]="propertyValue"
                               [propertyName]="propertyName"
-                              formControlName="paymentRegister"
+                              formControlName="bankAccount"
                               matFormFieldClass="full-width"
                               (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
-                              [errorMessage]="formErrors.paymentRegister"
-                              [optionList]="paymentRegisterList">
+                              [errorMessage]="formErrors.bankAccount"
+                              [optionList]="bankAccountList">
                             </kt-simple-dropdown>
                         </div>
                       </div>
@@ -82,7 +82,7 @@
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Sales Tax W/H:</label>
+                        <label class="col-form-label pt-0">Sales Tax W/H (%) :</label>
                         <!-- <kt-input-field
                         id="sales_tax"
                           formControlName="salesTax"
@@ -105,7 +105,7 @@
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Income Tax W/H:</label>
+                        <label class="col-form-label pt-0">Income Tax W/H (%) :</label>
                         <!-- <kt-input-field
                           id="income_tax"
                           formControlName="incomeTax"
@@ -128,7 +128,7 @@
 
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">SRB Tax :</label>
+                        <label class="col-form-label pt-0">SRB Tax (%) :</label>
                         <!-- <kt-input-field
                           id="srb_tax"
                           formControlName="SRBTax"
@@ -146,6 +146,40 @@
                           </mat-error>
                           <mat-hint align="end">Optional</mat-hint>
                         </mat-form-field>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group kt-form__group mb-0">
+                        <label class="col-form-label pt-0">Deduction:</label>
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="deduction" placeholder="Enter Deduction" 
+                               id="deduction" type="number" (change)="updateValueValidators($event.target.value)"
+                               (blur)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.deduction">
+                            <strong>{{formErrors.deduction}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group kt-form__group mb-0">
+                      <label class="col-form-label pt-0">Deduction Account:</label>
+                      <kt-simple-dropdown 
+                      id="deduction_account"
+                       placeholder="Select Account" 
+                       propertyValue="id" 
+                       propertyName="name"
+                       formControlName="deductionAccountId" 
+                       (blurEvent)="logValidationErrors(registerPaymentForm, formErrors, validationMessages)"
+                       matFormFieldClass="full-width"
+                       hintText="Optional"
+                       [errorMessage]="formErrors.deductionAccountId" 
+                       [optionList]="ngxsService.accountsLevel4$">
+                       </kt-simple-dropdown>
                     </div>
                   </div>
                 </div>

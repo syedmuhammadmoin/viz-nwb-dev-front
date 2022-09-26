@@ -73,18 +73,18 @@
                 <div class="row">
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Payment Register:</label>
+                        <label class="col-form-label pt-0">Bank Account:</label>
                         <kt-simple-dropdown
-                        id="payment_register"
-                          placeholder="Select Payment Register"
+                        id="payment_bank"
+                          placeholder="Select Bank Account"
                           searchPlaceholder="Search Accounts..."
                           [propertyValue]="propertyValue"
                           [propertyName]="propertyName"
-                          formControlName="paymentRegister"
+                          formControlName="bankAccount"
                           matFormFieldClass="full-width"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
-                          [errorMessage]="formErrors.paymentRegister"
-                          [optionList]="paymentRegisterList?paymentRegisterList:paymentMaster.paymentRegister?.name">
+                          [errorMessage]="formErrors.bankAccount"
+                          [optionList]="(bankAccountList) ? bankAccountList : paymentMaster.paymentRegister?.name">
                         </kt-simple-dropdown>
                     </div>
                   </div>
@@ -173,7 +173,7 @@
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Sales Tax W/H:</label>
+                        <label class="col-form-label pt-0">Sales Tax W/H (%) :</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="salesTax" placeholder="Enter Sales Tax" 
                                id="payment_sales" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
@@ -196,7 +196,7 @@
     
                   <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Income Tax W/H:</label>
+                        <label class="col-form-label pt-0">Income Tax W/H (%) :</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="incomeTax" placeholder="Enter Income Tax" 
                                id="payment_income" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
@@ -219,9 +219,9 @@
                 </div>
     
                 <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
+                  <div class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">SRB Tax:</label>
+                        <label class="col-form-label pt-0">SRB Tax (%) :</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="SRBTax" placeholder="Enter SRB Tax" 
                                id="payment_srb" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
@@ -241,6 +241,42 @@
                         </kt-input-field> -->
                     </div>
                   </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group mb-0">
+                        <label class="col-form-label pt-0">Deduction:</label>
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="deduction" placeholder="Enter Deduction" 
+                               id="payment_deduction" type="number" (change)="updateValueValidators($event.target.value)"
+                               (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.deduction">
+                            <strong>{{formErrors.deduction}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field>
+                    </div>
+                  </div>
+
+                  <div class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group mb-0">
+                      <label class="col-form-label pt-0">Deduction Account:</label>
+                      <kt-simple-dropdown 
+                      id="deduction_account"
+                       placeholder="Select Account" 
+                       propertyValue="id" 
+                       propertyName="name"
+                       formControlName="deductionAccountId" 
+                       (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
+                       matFormFieldClass="full-width"
+                       hintText="Optional"
+                       [errorMessage]="formErrors.deductionAccountId" 
+                       [optionList]="ngxsService.accountsLevel4$">
+                       </kt-simple-dropdown>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Campus:</label>
@@ -266,7 +302,7 @@
             <div class="kt-form__actions kt-form__actions mb-0">
               <div class="row justify-content-center align-items-center">
                 <div class="col-lg-6 float-left">
-                  <h6 class="text-primary">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
+                  <h6 class="text-primary" style="color:#327b92 !important;">Net Payment: <strong>{{ netPayment | number: "1.2-2" }}</strong></h6>
                 </div>
                 <div class="col-lg-6">
                   <div class="float-right">

@@ -54,8 +54,8 @@ export class PrintProfitNLossComponent extends AppComponentBase implements OnIni
   }
 
   calculateNetProfit(res) {
-    const income = this.calculateTotal(res.get('Income'), 'balance').balance;
-    const expense = this.calculateTotal(res.get('Expenses'), 'balance').balance;
+    const income = (res.get('Income') ? (this.calculateTotal(res.get('Income'), 'balance').balance) : 0);
+    const expense = (res.get('Expenses') ? (this.calculateTotal(res.get('Expenses'), 'balance').balance) : 0);
     
     this.netProfit = ((income) - (expense));
   }

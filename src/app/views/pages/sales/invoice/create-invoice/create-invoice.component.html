@@ -187,7 +187,7 @@
                                                         error : 'Price is required'},
                                                         { condition : invoiceForm.get('invoiceLines')['controls'][i].controls.price.errors?.min &&
                                                         invoiceForm.get('invoiceLines')['controls'][i].controls.price.touched , 
-                                          error : 'Price cannot be zero' }]"
+                                          error : 'Please insert correct value' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
@@ -222,7 +222,7 @@
                                 [errorMessage]="[{ condition : (invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.min ||
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.tax.touched , 
-                                                        error : 'Tax % should be between 0 and 100'}]"
+                                                        error : 'Percentage % range (0 - 100)'}]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>

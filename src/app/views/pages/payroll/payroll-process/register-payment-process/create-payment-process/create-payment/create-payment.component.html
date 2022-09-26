@@ -128,18 +128,18 @@
                 </div>
                 <div class="col-lg-4">
                   <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label">Payment Register:</label>
+                    <label class="col-form-label">Bank Account:</label>
                     <kt-simple-dropdown
                       id="create_payment_register"
-                      placeholder="Select Payment Register"
+                      placeholder="Select Bank Account"
                       searchPlaceholder="Search Accounts..."
                       [propertyValue]="propertyValue"
                       [propertyName]="propertyName"
-                      formControlName="paymentRegisterId"
+                      formControlName="bankAccount"
                       matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(createPayrollPaymentForm, this.formErrors, this.validationMessages)"
-                      [errorMessage]="formErrors.paymentRegisterId"
-                      [optionList]="paymentRegisterList">
+                      [errorMessage]="formErrors.bankAccount"
+                      [optionList]="bankAccountList">
                     </kt-simple-dropdown>
                   </div>
                 </div>

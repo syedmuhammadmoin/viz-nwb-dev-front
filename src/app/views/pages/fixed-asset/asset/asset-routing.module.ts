@@ -5,6 +5,7 @@ import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
 import { ListAssetComponent } from './list-asset/list-asset.component';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
+import { AssetDetailComponent } from './asset-detail/asset-detail.component';
 
 const route : Routes = [
   {
@@ -29,6 +30,18 @@ const route : Routes = [
           array: [
             { permission: Permissions.ASSET_VIEW },
             { permission: Permissions.ASSET_CREATE }
+          ]
+        },
+        canActivate: [PermissionGuard]
+      },
+      {
+        path: CRUD_ROUTES.DETAILS,
+        component: AssetDetailComponent,
+        data: {
+          array: [
+            { permission: Permissions.ASSET_VIEW },
+            { permission: Permissions.ASSET_CREATE },
+            { permission: Permissions.ASSET_EDIT },
           ]
         },
         canActivate: [PermissionGuard]

@@ -86,7 +86,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     },
     value: {
       required: 'Value is required.',
-      min: 'Percentage % range (0 - 100)',
+      min: 'Please insert correct value.',
       max: 'Percentage % range (0 - 100)'
     },
     accountId: {
@@ -146,7 +146,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       name: ['', [Validators.required]],
       payrollType: ['', [Validators.required]],
       payrollItemType: [1, [Validators.required]],
-      value: [0, [Validators.required]],
+      value: [0, [Validators.required , Validators.min(0)]],
       accountId: ['', [Validators.required]],
       isActive: [true],
       remarks: [''],
@@ -244,7 +244,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     }
     else if (value === 1) {
       this.valueTitle = 'Value'
-      this.payrollItemForm.get('value').setValidators([Validators.required])
+      this.payrollItemForm.get('value').setValidators([Validators.required, Validators.min(0)])
       this.payrollItemForm.get('value').updateValueAndValidity();
     }
     this.logValidationErrors(this.payrollItemForm, this.formErrors , this.validationMessages)

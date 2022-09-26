@@ -144,7 +144,7 @@
                                             error : 'price is required' },
                                           { condition : salesOrderForm.get('salesOrderLines')['controls'][i].controls.price.errors?.min &&
                                                         salesOrderForm.get('salesOrderLines')['controls'][i].controls.price.touched ,
-                                            error : 'Price cannot be zero' }]"
+                                            error : 'Please insert correct value' }]"
                                   (change)="onChangeEvent($event , i , itemName)"
                                   (keyup)="onChangeEvent($event , i , itemName)">
                                 </kt-input-field>

@@ -11,6 +11,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 import { DocType, Permissions} from 'src/app/views/shared/AppEnum';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IBankAccount } from '../../../finance/bank-account/model/IBankAccount';
 import { BankAccountService } from '../../../finance/bank-account/service/bankAccount.service';
 import { ICashAccount } from '../../../finance/cash-account/model/ICashAccount';
@@ -65,13 +66,19 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     description: {
       required: 'Description is required'
     },
-    paymentRegister: {
-      required: 'Payment Register is required'
+    bankAccount: {
+      required: 'Bank Account is required'
     },
     grossPayment: {
       required: 'Gross Payment is required',
       min: 'Please insert correct Payment !',
       max: 'Value must be less than total ' + this.data.formName + ' amount!'
+    },
+    deduction: {
+      min: 'Please insert correct amount !',
+    },
+    deductionAccountId: {
+      required: 'Account is required',
     },
     salesTax: {
       min: 'Please insert correct value.'
@@ -88,8 +95,10 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   formErrors = {
     paymentDate: '',
     description: '',
-    paymentRegister: '',
+    bankAccount: '',
     grossPayment: '',
+    deduction: '',
+    deductionAccountId: '',
     salesTax: '',
     incomeTax: '',
     SRBTax: ''
@@ -98,7 +107,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   // For Register Type Accounts
   propertyValue: string;
   propertyName: string;
-  paymentRegisterList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
+  bankAccountList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
 
   constructor(
     public dialogRef: MatDialogRef<RegisterPaymentComponent>,
@@ -106,6 +115,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     private paymentService: PaymentService,
     private cashAccountService: CashAccountService,
     private bankAccountService: BankAccountService,
+    public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
     injector: Injector
@@ -119,8 +129,10 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       paymentDate: ['', [Validators.required]],
       registerType: [2],
       description: ['', [Validators.required]],
-      paymentRegister: ['', [Validators.required]],
+      bankAccount: ['', [Validators.required]],
       grossPayment: [this.data.pendingAmount, [Validators.required, Validators.min(0), Validators.max(this.data.pendingAmount)]],
+      deduction: [0,[Validators.min(0)]],
+      deductionAccountId: [''],
       salesTax: [0,[Validators.min(0)]],
       incomeTax: [0, [Validators.min(0)]],
       SRBTax: [0,[Validators.min(0)]],
@@ -136,6 +148,8 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
 
     this.isPayrollPayment = (this.data.docType === DocType.PayrollPayment) ? true : false;
 
+    this.ngxsService.getAccountLevel4FromState();
+
     // initializing payment model
     this.paymentModel = {
       id: null,
@@ -148,6 +162,8 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       paymentDate: null,
       paymentRegisterId: null,
       description: '',
+      deduction: null,
+      deductionAccountId: null,
       grossPayment: null,
       salesTax: null,
       incomeTax: null,
@@ -155,11 +171,24 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     }
   }
 
+  //update deduction account validation
+  updateValueValidators(value: number) {
+    if(value > 0) {
+      this.registerPaymentForm.get('deductionAccountId').setValidators([Validators.required])
+      this.registerPaymentForm.get('deductionAccountId').updateValueAndValidity();
+    }
+    else if (value < 1) {
+      this.registerPaymentForm.get('deductionAccountId').clearValidators();
+      this.registerPaymentForm.get('deductionAccountId').updateValueAndValidity();
+    }
+    this.logValidationErrors(this.registerPaymentForm, this.formErrors , this.validationMessages)
+  }
+
   // Calculating net payment amount
   calculatingNetPayment(): void {
     this.registerPaymentForm.valueChanges.subscribe((val) => {
       // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
-      this.netPayment = +(Number(val.grossPayment) - (Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
+      this.netPayment = +((Number(val.grossPayment) - (Number(val.grossPayment) * ((Number(val.salesTax) / 100) + (Number(val.incomeTax) / 100) + (Number(val.SRBTax) / 100)))) - Number(val.deduction)).toFixed(2);
     });
   }
 
@@ -195,9 +224,11 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     this.paymentModel.campusId = this.data.campusId;
     this.paymentModel.paymentRegisterType = 2;
     this.paymentModel.paymentDate = this.transformDate(this.registerPaymentForm.value.paymentDate, 'yyyy-MM-dd');
-    this.paymentModel.paymentRegisterId = this.registerPaymentForm.value.paymentRegister;
+    this.paymentModel.paymentRegisterId = this.registerPaymentForm.value.bankAccount;
     this.paymentModel.description = this.registerPaymentForm.value.description;
     this.paymentModel.grossPayment = this.registerPaymentForm.value.grossPayment || 0;
+    this.paymentModel.deduction = this.registerPaymentForm.value.deduction || 0;
+    this.paymentModel.deductionAccountId = this.registerPaymentForm.value.deductionAccountId;
     this.paymentModel.salesTax = this.registerPaymentForm.value.salesTax || 0;
     this.paymentModel.srbTax = this.registerPaymentForm.value.SRBTax || 0;
     this.paymentModel.incomeTax = this.registerPaymentForm.value.incomeTax || 0;
@@ -211,14 +242,14 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     })
     if ($event.value === 1) {
       this.cashAccountService.getCashAccountsDropdown().subscribe((res: IApiResponse<ICashAccount[]>) => {
-        this.paymentRegisterList.next(res.result)
+        this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'chAccountId';
       this.propertyName = 'cashAccountName';
     } else {
       this.bankAccountService.getBankAccountsDropdown().subscribe((res: IApiResponse<IBankAccount[]>) => {
-        this.paymentRegisterList.next(res.result)
+        this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'clearingAccountId';

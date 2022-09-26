@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/Dialog'
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { Router } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions } from 'src/app/views/shared/AppEnum';
+import { AssetType, Permissions } from 'src/app/views/shared/AppEnum';
 import { IAsset } from '../model/IAsset';
 import { AssetService } from '../service/asset.service';
 import { ASSET } from 'src/app/views/shared/AppRoutes';
@@ -49,8 +49,8 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   // Declaring AgGrid data
   columnDefs = [
     { 
-      headerName: 'Name', 
-      field: 'name', 
+      headerName: 'Code', 
+      field: 'assetCode', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
       filter: 'agTextColumnFilter',
@@ -59,6 +59,26 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
+    },
+    { 
+      headerName: 'Name', 
+      field: 'name', 
+      tooltipField: 'name', 
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Type', 
+      field: 'assetType', 
+      tooltipField: 'name', 
+      suppressMenu: true,
+      valueFormatter: (params: ValueFormatterParams) => { 
+        return AssetType[params.value];
+      }
     },
     {
       headerName: 'Acquisition Date',
@@ -76,52 +96,27 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
     },
     { 
       headerName: 'Model', 
-      field: 'model', 
+      field: 'depreciationModelName', 
       tooltipField: 'name', 
       suppressMenu: true
     },
     { 
-      headerName: 'Name', 
-      field: 'name', 
+      headerName: 'Asset Category', 
+      field: 'categoryName', 
       tooltipField: 'name', 
-      cellRenderer: "loadingCellRenderer", 
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
+      suppressMenu: true
     },
     { 
-      headerName: 'Name', 
-      field: 'name', 
+      headerName: 'Useful Life', 
+      field: 'usefulLife', 
       tooltipField: 'name', 
-      cellRenderer: "loadingCellRenderer", 
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
+      suppressMenu: true
     },
     { 
-      headerName: 'Name', 
-      field: 'name', 
+      headerName: 'Account', 
+      field: 'correspondingAccountName', 
       tooltipField: 'name', 
-      cellRenderer: "loadingCellRenderer", 
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
-    },
-
-    { 
-      headerName: 'Description', 
-      field: 'description', 
-      tooltipField: 'name',
-      suppressMenu: true,
+      suppressMenu: true
     }
   ];
 
@@ -164,7 +159,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event : RowDoubleClickedEvent){
-    this.router.navigate(['/' + ASSET.ID_BASED_ROUTE('detail' , event.data.id)])
+    this.router.navigate(['/' + ASSET.ID_BASED_ROUTE('details' , event.data.id)])
   }
 
   addAsset() {

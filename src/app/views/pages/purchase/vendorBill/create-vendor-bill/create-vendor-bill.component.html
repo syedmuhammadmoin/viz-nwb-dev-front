@@ -207,7 +207,7 @@
                                     [errorMessage]="[{ condition : (vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.min ||
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.max) &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.touched , 
-                                                      error : 'Tax % range (0 - 100)'}]"
+                                                      error : 'Percentage % range (0 - 100)'}]"
                                     (change)="onChangeEvent($event , i , itemName)"
                                     (keyup)="onChangeEvent($event , i , itemName)">
                                   </kt-input-field>
@@ -361,19 +361,19 @@
               </div> -->
               <div  class="col-md-4 col-lg-4  ml-auto mt-3">
                 <div  class="bottom-print-box">
-                  <h4  style="">Total Before Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
+                  <h4>Total Before Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
                 </div>
                 <div  class="bottom-print-box">
-                  <h4  style="">Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(taxes || 0)}}</span></h4>
+                  <h4>Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(taxes || 0)}}</span></h4>
                 </div>
                 <div  class="bottom-print-box">
-                  <h4  style="">Other Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(otherTaxes || 0)}}</span></h4>
+                  <h4>Other Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(otherTaxes || 0)}}</span></h4>
                 </div>
                 <div  class="bottom-print-box">
-                  <h4  style="">Total Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
+                  <h4>Total Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
                 </div>
                 <div  class="bottom-print-box">
-                  <h4  style="">Grand Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(grandTotal || 0)}}</span></h4>
+                  <h4>Grand Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(grandTotal || 0)}}</span></h4>
                 </div>
 
               </div>

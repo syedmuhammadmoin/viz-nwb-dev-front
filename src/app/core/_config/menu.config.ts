@@ -476,57 +476,57 @@ export class MenuConfig {
           ]
         },
         //Fixed Asset Section
-        {
-          title: 'Fixed Asset',
-          bullet: 'dot',
-          icon: 'flaticon2-box-1',
-          permission: [
-            // Permissions.ASSET_CATEGORY_VIEW,
-            // Permissions.ASSET_CATEGORY_CREATE,
-            // Permissions.ASSET_CATEGORY_EDIT,
-            // Permissions.ASSET_CATEGORY_DELETE,
-            Permissions.DEPRECIATION_MODEL_VIEW,
-            Permissions.DEPRECIATION_MODEL_CREATE,
-            Permissions.DEPRECIATION_MODEL_EDIT,
-            Permissions.DEPRECIATION_MODEL_DELETE,
-            Permissions.ASSET_VIEW,
-            Permissions.ASSET_CREATE,
-            Permissions.ASSET_EDIT,
-            Permissions.ASSET_DELETE
-          ],
-          submenu: [
-            // {
-            //   title: 'Asset Category',
-            //   page: '/' + ASSET_CATEGORY.LIST,
-            //   permission: [
-            //     Permissions.ASSET_CATEGORY_VIEW,
-            //     Permissions.ASSET_CATEGORY_CREATE,
-            //     Permissions.ASSET_CATEGORY_EDIT,
-            //     Permissions.ASSET_CATEGORY_DELETE
-            //   ]
-            // },
-            {
-              title: 'Depreciation Model',
-              page: '/' + DEPRECIATION_MODEL.LIST,
-              permission: [
-                Permissions.DEPRECIATION_MODEL_VIEW,
-                Permissions.DEPRECIATION_MODEL_CREATE,
-                Permissions.DEPRECIATION_MODEL_EDIT,
-                Permissions.DEPRECIATION_MODEL_DELETE
-              ]
-            },
-            {
-              title: 'Asset',
-              page: '/' + ASSET.LIST,
-              permission: [
-                Permissions.ASSET_VIEW,
-                Permissions.ASSET_CREATE,
-                Permissions.ASSET_EDIT,
-                Permissions.ASSET_DELETE
-              ]
-            }
-          ]
-        },
+        // {
+        //   title: 'Fixed Asset',
+        //   bullet: 'dot',
+        //   icon: 'flaticon2-box-1',
+        //   permission: [
+        //     // Permissions.ASSET_CATEGORY_VIEW,
+        //     // Permissions.ASSET_CATEGORY_CREATE,
+        //     // Permissions.ASSET_CATEGORY_EDIT,
+        //     // Permissions.ASSET_CATEGORY_DELETE,
+        //     Permissions.DEPRECIATION_MODEL_VIEW,
+        //     Permissions.DEPRECIATION_MODEL_CREATE,
+        //     Permissions.DEPRECIATION_MODEL_EDIT,
+        //     Permissions.DEPRECIATION_MODEL_DELETE,
+        //     Permissions.ASSET_VIEW,
+        //     Permissions.ASSET_CREATE,
+        //     Permissions.ASSET_EDIT,
+        //     Permissions.ASSET_DELETE
+        //   ],
+        //   submenu: [
+        //     // {
+        //     //   title: 'Asset Category',
+        //     //   page: '/' + ASSET_CATEGORY.LIST,
+        //     //   permission: [
+        //     //     Permissions.ASSET_CATEGORY_VIEW,
+        //     //     Permissions.ASSET_CATEGORY_CREATE,
+        //     //     Permissions.ASSET_CATEGORY_EDIT,
+        //     //     Permissions.ASSET_CATEGORY_DELETE
+        //     //   ]
+        //     // },
+        //     {
+        //       title: 'Depreciation Model',
+        //       page: '/' + DEPRECIATION_MODEL.LIST,
+        //       permission: [
+        //         Permissions.DEPRECIATION_MODEL_VIEW,
+        //         Permissions.DEPRECIATION_MODEL_CREATE,
+        //         Permissions.DEPRECIATION_MODEL_EDIT,
+        //         Permissions.DEPRECIATION_MODEL_DELETE
+        //       ]
+        //     },
+        //     {
+        //       title: 'Asset',
+        //       page: '/' + ASSET.LIST,
+        //       permission: [
+        //         Permissions.ASSET_VIEW,
+        //         Permissions.ASSET_CREATE,
+        //         Permissions.ASSET_EDIT,
+        //         Permissions.ASSET_DELETE
+        //       ]
+        //     }
+        //   ]
+        // },
 
 
         //Procurement Section

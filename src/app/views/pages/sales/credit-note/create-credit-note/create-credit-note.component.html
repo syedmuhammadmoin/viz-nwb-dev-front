@@ -138,7 +138,7 @@
                                                         error : 'Price is required'},
                                                         { condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.price.errors?.min &&
                                                         creditNoteForm.get('creditNoteLines')['controls'][i].controls.price.touched , 
-                                          error : 'Price cannot be zero' }]"
+                                          error : 'Please insert correct value' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
@@ -159,7 +159,7 @@
                                 [errorMessage]="[{ condition : (creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.errors?.min ||
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.touched , 
-                                                        error : 'Tax % should be between 0 and 100'}]"
+                                                        error : 'Percentage % range (0 - 100)'}]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>

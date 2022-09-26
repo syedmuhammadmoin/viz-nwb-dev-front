@@ -1,12 +1,18 @@
 export interface IAsset {
     id: number;
     name: string;
+    assetType: number;
     acquisitionDate: string;
     depreciationModelId: number;
-    purchaseCost: number;
+    purchasePrice: number;
     salvageValue: number;
-    depValue: number;
-    //depMethod: string;
-    //usefulLife: number;
+    accumulatedDepreciation: number;
+    accountingDate: string;
+    depreciationMethod: number,
+    usefulLife: number,
+    decliningRate: number,
+    categoryId: number,
+    correspondingAccountId: number,
     prorataBasis: boolean;
+    isActive: boolean;
 }
