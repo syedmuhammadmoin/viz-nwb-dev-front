@@ -58,7 +58,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       min: 'Please insert correct value.',
     },
     salesTax: {
-      min: 'Please insert correct value.',
+      min: 'Percentage % range (0 - 100)',
+      max: 'Percentage % range (0 - 100)'
     }
   }
 
@@ -91,7 +92,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       unit: ['', [Validators.required]],
       salesPrice: [0 , [Validators.min(0)]],
       purchasePrice: [0 , [Validators.min(0)]],
-      salesTax: [0 , [Validators.min(0)]],
+      salesTax: [0 , [Validators.min(0), Validators.max(100)]],
       barcode: ['']
     });
 
