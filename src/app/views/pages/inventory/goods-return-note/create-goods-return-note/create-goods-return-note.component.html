@@ -198,7 +198,7 @@
                                       [errorMessage]="[{ condition : (goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.errors?.min ||
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.touched ,
-                                                        error : 'Tax % should be between 0 and 100'}]"
+                                                        error : 'Percentage % range (0 - 100)'}]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>

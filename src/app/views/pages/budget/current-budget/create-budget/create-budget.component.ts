@@ -148,7 +148,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     budgetLines.forEach((line: IBudgetLines) => {
       formArray.push(this.fb.group({
         accountId: [line.accountId, [Validators.required]],
-        amount: [line.amount, [Validators.required,]],
+        amount: [line.amount, [Validators.required, Validators.min(0)]],
       }))
     })
     return formArray
@@ -173,7 +173,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   addBudgetLines(): FormGroup {
     return this.fb.group({
       accountId: ['', [Validators.required]],
-      amount: ['', [Validators.required,]],
+      amount: ['', [Validators.required, Validators.min(0)]],
     });
   }
 

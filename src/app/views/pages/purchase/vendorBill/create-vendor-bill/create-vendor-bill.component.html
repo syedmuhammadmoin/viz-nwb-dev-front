@@ -207,7 +207,7 @@
                                     [errorMessage]="[{ condition : (vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.min ||
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.max) &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.touched , 
-                                                      error : 'Tax % range (0 - 100)'}]"
+                                                      error : 'Percentage % range (0 - 100)'}]"
                                     (change)="onChangeEvent($event , i , itemName)"
                                     (keyup)="onChangeEvent($event , i , itemName)">
                                   </kt-input-field>

@@ -162,7 +162,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
         accountId: [{value: line.accountId , disabled: true} , [Validators.required]],
         amount: [{value: line.amount , disabled: true}, [Validators.required]],
         calculationType: [line.calculationType, [Validators.required]],
-        value: [line.value, [Validators.required]],
+        value: [line.value, [Validators.required, Validators.min(0)]],
         estimatedValue: [line.estimatedValue]
       }))
     })

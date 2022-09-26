@@ -52,16 +52,13 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       incorrect: 'Please select valid category'
     },
     salesPrice: {
-      min: 'Percentage % range (0 - 100)',
-      max: 'Percentage % range (0 - 100)'
+      min: 'Please insert correct value.',
     },
     purchasePrice: {
-      min: 'Percentage % range (0 - 100)',
-      max: 'Percentage % range (0 - 100)'
+      min: 'Please insert correct value.',
     },
     salesTax: {
-      min: 'Percentage % range (0 - 100)',
-      max: 'Percentage % range (0 - 100)'
+      min: 'Please insert correct value.',
     }
   }
 
@@ -92,9 +89,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       productType: [0, [Validators.required]],
       category: ['', [Validators.required]],
       unit: ['', [Validators.required]],
-      salesPrice: [0 , [Validators.min(0) , Validators.max(100)]],
-      purchasePrice: [0 , [Validators.min(0) , Validators.max(100)]],
-      salesTax: [0 , [Validators.min(0) , Validators.max(100)]],
+      salesPrice: [0 , [Validators.min(0)]],
+      purchasePrice: [0 , [Validators.min(0)]],
+      salesTax: [0 , [Validators.min(0)]],
       barcode: ['']
     });
 

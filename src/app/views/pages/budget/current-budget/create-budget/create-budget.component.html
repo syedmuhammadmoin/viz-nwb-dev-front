@@ -107,7 +107,9 @@
                                (blurEvent)="logValidationErrors(budgetForm, formErrors, validationMessages)"
                                [errorMessage]="[{ condition : budgetForm.get('budgetLines')['controls'][i].controls.amount.errors?.required &&
                                                               budgetForm.get('budgetLines')['controls'][i].controls.amount.touched , 
-                                                  error : 'Amount is required.' }]">
+                                                  error : 'Amount is required.' }, { condition : budgetForm.get('budgetLines')['controls'][i].controls.amount.errors?.min &&
+                                                  budgetForm.get('budgetLines')['controls'][i].controls.amount.touched , 
+                                    error : 'Please insert correct value' }]">
                               </kt-input-field>
                             </div>
                           </mat-cell>
