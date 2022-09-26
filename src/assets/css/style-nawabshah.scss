@@ -1454,3 +1454,9 @@ mat-tree-node div[id^='child']
   }
 
 }
+
+
+.mat-calendar-body-selected
+{
+  color: $sub-heading-color !important;
+}

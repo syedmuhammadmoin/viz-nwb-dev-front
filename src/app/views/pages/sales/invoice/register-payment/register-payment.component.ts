@@ -227,8 +227,8 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     this.paymentModel.paymentRegisterId = this.registerPaymentForm.value.bankAccount;
     this.paymentModel.description = this.registerPaymentForm.value.description;
     this.paymentModel.grossPayment = this.registerPaymentForm.value.grossPayment || 0;
-    this.paymentModel.deduction = this.registerPaymentForm.value.deduction || 0;
-    this.paymentModel.deductionAccountId = this.registerPaymentForm.value.deductionAccountId;
+    this.paymentModel.deduction = (this.registerPaymentForm.value.deduction || 0);
+    this.paymentModel.deductionAccountId = (!this.isPayrollPayment) ? (this.registerPaymentForm.value.deductionAccountId || null) : null;
     this.paymentModel.salesTax = this.registerPaymentForm.value.salesTax || 0;
     this.paymentModel.srbTax = this.registerPaymentForm.value.SRBTax || 0;
     this.paymentModel.incomeTax = this.registerPaymentForm.value.incomeTax || 0;

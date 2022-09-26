@@ -61,12 +61,11 @@
                 </h4>
                 <!-- <h6 >{{employeeMaster?.dateofJoining | date: 'MMM d, y'}}</h6> -->
             </div>
-            <div class="print-box">
+            <!-- <div class="print-box">
               <h4 >Role: 
                 <span class="float-right" >{{employeeMaster?.role || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.role || 'N/A'}}</h6> -->
-            </div>
+            </div> -->
             <div class="print-box">
               <h4 >Basic Pay: 
               <span class="float-right" >{{valueFormatter(employeeMaster?.basicPay)}}</span></h4>
@@ -169,7 +168,7 @@
             <div class="print-box">
               <h4 >
                 Date Of Birth: 
-                <span class="float-right" >{{employeeMaster?.dateofBirth || 'N/A'}}</span>
+                <span class="float-right" >{{(employeeMaster?.dateofBirth | date: 'MMM d, y') || 'N/A'}}</span>
               </h4>
               <!-- <h6 >{{employeeMaster?.dateofBirth || 'N/A'}}</h6> -->
             </div>
