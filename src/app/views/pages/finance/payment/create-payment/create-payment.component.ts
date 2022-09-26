@@ -13,7 +13,6 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { PAYMENT, PAYROLL_PAYMENT, RECEIPT } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICashAccount } from '../../cash-account/model/ICashAccount';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
@@ -88,11 +87,17 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       required: 'Account is required'
     },
     bankAccount: {
-      required: 'Payment Register is required'
+      required: 'Bank Account is required'
     },
     grossPayment: {
       required: 'Gross Payment is required',
-      min: 'Value must be greater than zero!'
+      min: 'Please insert correct value!'
+    },
+    deduction: {
+      min: 'Please insert correct value!'
+    },
+    deductionAccountId: {
+      required: 'Account is required',
     },
     campusId: {
       required: 'Campus is required'
@@ -121,6 +126,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     account: '',
     bankAccount: '',
     grossPayment: '',
+    deduction: '',
+    deductionAccountId: '',
     campusId: '',
     salesTax: '',
     incomeTax: '',
@@ -164,6 +171,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       campusId: ['', [Validators.required]],
       bankAccount: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(1)]],
+      deduction: [0,[Validators.min(0)]],
+      deductionAccountId: [''],
       salesTax: [0,[Validators.min(0) , Validators.max(100)]],
       incomeTax: [0,[Validators.min(0) , Validators.max(100)]],
       SRBTax: [0,[Validators.min(0) , Validators.max(100)]],
@@ -191,6 +200,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         campusId: null,
         description: '',
         grossPayment: null,
+        deduction: null,
+        deductionAccountId: null,
         salesTax: null,
         incomeTax: null,
         srbTax : null,
@@ -207,6 +218,24 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.ngxsService.getCampusFromState()
     // //get business partner list from service
     // this.addButtonService.getBusinessPartnerTypes();
+
+    // this.paymentForm.get('deduction').valueChanges.subscribe((value: number) => {
+    //   this.updateValueValidators(value);
+    // })
+  }
+
+  //update deduction account validation
+  updateValueValidators(value: number) {
+    console.log(value)
+    if(value > 0) {
+      this.paymentForm.get('deductionAccountId').setValidators([Validators.required])
+      this.paymentForm.get('deductionAccountId').updateValueAndValidity();
+    }
+    else if (value < 1) {
+      this.paymentForm.get('deductionAccountId').clearValidators();
+      this.paymentForm.get('deductionAccountId').updateValueAndValidity();
+    }
+    this.logValidationErrors(this.paymentForm, this.formErrors , this.validationMessages)
   }
 
   getPayment(id: number) {
@@ -241,13 +270,15 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       bankAccount: payment.paymentRegisterId,
       grossPayment: payment.grossPayment,
       campusId: payment.campusId,
+      deduction: payment.deduction,
+      deductionAccountId: payment.deductionAccountId,
       salesTax: payment.salesTax,
       SRBTax : payment.srbTax || 0,
       incomeTax: payment.incomeTax,
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
     if(this.data.docType === this.docType.PayrollPayment) {
-      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax')
+      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax', 'deduction', 'deductionAccountId')
     }
   }
 
@@ -307,6 +338,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.accountId = (!this.isPayrollPayment) ? this.paymentForm.value.account : this.paymentMaster.accountId ;
     this.paymentModel.paymentDate = (!this.isPayrollPayment) ? this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd') : this.transformDate(this.paymentMaster.paymentDate, 'yyyy-MM-dd');
     this.paymentModel.grossPayment = (!this.isPayrollPayment) ? this.paymentForm.value.grossPayment : this.paymentMaster.grossPayment;
+    this.paymentModel.deduction = (!this.isPayrollPayment) ? this.paymentForm.value.deduction : this.paymentMaster.deduction;
+    this.paymentModel.deductionAccountId = (!this.isPayrollPayment) ? this.paymentForm.value.deductionAccountId : this.paymentMaster.deductionAccountId;
     this.paymentModel.salesTax = (!this.isPayrollPayment) ? (this.paymentForm.value.salesTax || 0) : this.paymentMaster.salesTax;
     this.paymentModel.incomeTax = (!this.isPayrollPayment) ? (this.paymentForm.value.incomeTax || 0) : this.paymentMaster.incomeTax;
     this.paymentModel.srbTax = (!this.isPayrollPayment) ? (this.paymentForm.value.SRBTax || 0) : this.paymentMaster.srbTax;
@@ -345,7 +378,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentForm.valueChanges.subscribe((val) => {
       // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
       // this.netPayment = +(Number(val.grossPayment) - (Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
-      this.netPayment = +(Number(val.grossPayment) - (Number(val.grossPayment) * ((Number(val.salesTax) / 100) + (Number(val.incomeTax) / 100) + (Number(val.SRBTax) / 100)))).toFixed(2);
+      this.netPayment = +((Number(val.grossPayment) - (Number(val.grossPayment) * ((Number(val.salesTax) / 100) + (Number(val.incomeTax) / 100) + (Number(val.SRBTax) / 100)))) - Number(val.deduction)).toFixed(2);
     });
   }
   // open business partner dialog

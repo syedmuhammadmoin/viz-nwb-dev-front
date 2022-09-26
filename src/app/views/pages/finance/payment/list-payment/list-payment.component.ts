@@ -8,7 +8,6 @@ import { PaymentService } from '../service/payment.service';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { MatDialog } from '@angular/material/dialog';
 import { CreatePaymentComponent } from '../create-payment/create-payment.component';
-import { PAYMENT } from 'src/app/views/shared/AppRoutes';
 import { IPayment } from '../model/IPayment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -207,7 +206,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     // Recalling getPaymets function on dialog close
     dialogRef.afterClosed().subscribe(() => {
       this.gridApi.setDatasource(this.dataSource)
-      this.cdRef.detectChanges();
+      //this.cdRef.detectChanges();
     });
   }
 

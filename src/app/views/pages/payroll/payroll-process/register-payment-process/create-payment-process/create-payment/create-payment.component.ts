@@ -41,7 +41,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   @ViewChild('formDirective') private formDirective: NgForm;
   @ViewChild('formDirective2') private formDirective2: NgForm;
 
-  paymentRegisterList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
+  bankAccountList: BehaviorSubject<ICashAccount[] | IBankAccount[] | []> = new BehaviorSubject<ICashAccount[] | IBankAccount[] | []>([]);
   
   @Output() isLoading = new EventEmitter<boolean>();
 
@@ -112,7 +112,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     year: '',
     accountPayableId: '',
     campusId: '',
-    paymentRegisterId: '',
+    bankAccount: '',
     description: '',
   };
   validationMessages = {
@@ -131,8 +131,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     campusId: {
       required: 'Campus is required.'
     },
-    paymentRegisterId: {
-      required: 'Payment Register is required.'
+    bankAccount: {
+      required: 'Bank Account is required.'
     },
     description: {
       required: 'Description is required.'
@@ -171,7 +171,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.createPayrollPaymentForm = this.fb.group({
       campusId: ['', Validators.required],
       // paymentRegisterType: ['', Validators.required],
-      paymentRegisterId: ['', Validators.required],
+      bankAccount: ['', Validators.required],
       description: ['', Validators.required],
     });
 
@@ -271,7 +271,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     })
     if ($event.value === 1) {
       this.ngxsService.cashAccountService.getCashAccountsDropdown().subscribe((res: IApiResponse<ICashAccount[]>) => {
-        this.paymentRegisterList.next(res.result)
+        this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'chAccountId';
@@ -280,7 +280,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.ngxsService.bankAccountService.getBankAccountsDropdown().subscribe((res: IApiResponse<IBankAccount[]>) => {
         console.log("entered")
         console.log(res.result)
-        this.paymentRegisterList.next(res.result)
+        this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })
       this.propertyValue = 'clearingAccountId';

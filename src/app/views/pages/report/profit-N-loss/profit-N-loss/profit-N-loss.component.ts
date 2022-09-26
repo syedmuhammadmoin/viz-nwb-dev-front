@@ -1,5 +1,4 @@
 import { NgxsCustomService } from './../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { HttpClient} from '@angular/common/http';
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
