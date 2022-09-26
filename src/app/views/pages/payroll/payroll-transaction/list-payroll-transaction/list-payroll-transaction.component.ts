@@ -91,7 +91,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       //   suppressAndOrCondition: true,
       // },
       valueFormatter: (params: any) => {
-        return (params.value) ? AppConst.Months.find(x => x.value === params.value).name : 'N/A';
+        return (params.value) ? AppConst.Months.find(x => x.value === params.value)?.name : 'N/A';
         //return AppConst.Months.find(x => x.value === params.value).name
       },
     },
