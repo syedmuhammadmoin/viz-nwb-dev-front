@@ -12,82 +12,108 @@
         style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
-  </div>
-  <div class="col-lg-10 mx-auto" id="main">
-    <div class="row">
-      <div class="bg-whitee">
-
-        <div class="print_header_area p-s-1">
-          <div class="print-col-6 p-s-1-one">
-            <div class="logo_and_title">
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-              <div class="print-logo"></div>
-              <span class="top-heading">Issuance Return</span>
-            </div>
-            
-          </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
-            <div class="id_num">
-              <div class="print-box-one">
-                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.docNo}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
+    <div class="col-lg-10 mx-auto" id="main">
+      <div class="row">
+        <div class="bg-whitee">
+  
+          <div class="print_header_area p-s-1">
+            <div class="print-col-6 p-s-1-one">
+              <div class="logo_and_title">
+                <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
+                <span class="top-heading">Issuance Return</span>
               </div>
-              <div class="print-box-two">
-                <h4>Issuance Return Date: <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.issuanceReturnDate | date: 'MMM d, y'}}</span></h4>
+              
+            </div>
+            <div class="print-col-5 ml-auto p-s-1-two">
+              <div class="id_num">
+                <div class="print-box-one">
+                  <h4>Document No: <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+                </div>
+                <div class="print-box-two">
+                  <h4>Issuance Return Date: <span class="float-right" style="font-weight: 400;">{{issuanceReturnMaster?.issuanceReturnDate | date: 'MMM d, y'}}</span></h4>
+                </div>
               </div>
             </div>
             
           </div>
-        </div>
-
-        
-        <div class="print_body_area p-s-2">
-
-          <div class="print-col-5 p-s-2-one">
-            
-            <div class="print-box" >
-              <h4>{{issuanceReturnMaster?.employeeName}}</h4>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+  
+          
+          <div class="print_body_area p-s-2">
+  
+            <div class="print-col-5 p-s-2-one">
+              
+              <div class="print-box" >
+                <h4>{{issuanceReturnMaster?.employeeName}}</h4>
+                <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
+                <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              </div>
             </div>
-          </div>
-
-          <div class="print-col-12 p-s-2-two">
-            <div class="table-responsive">
-              <table class="table ">
-                <thead class="thead-dark_color">
-                  <tr>
-                    <th>S.No</th>
-                    <th>Item</th>
-                    <th>Description</th>
-                    <th >Quantity</th>
-                    <th >Store</th>       
-                  </tr>
-                  <tr *ngFor="let detail of issuanceReturnLines ; index as i">
-                    <td>{{i + 1}}</td>
-                    <td  >{{detail?.item}}</td>
-                    <td> {{detail?.description}}</td>
-                    <td>{{detail?.quantity}}</td>
-                    <td  >{{detail?.warehouse}}</td>
-                  </tr>
-                  
-                </thead>
-              </table>
+  
+            <div class="print-col-12 p-s-2-two">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-dark_color">
+                    <tr>
+                      <th>S.No</th>
+                      <th>Item</th>
+                      <th>Description</th>
+                      <th >Quantity</th>
+                      <th >Store</th>       
+                    </tr>
+                    <tr *ngFor="let detail of issuanceReturnLines ; index as i">
+                      <td>{{i + 1}}</td>
+                      <td  >{{detail?.item}}</td>
+                      <td> {{detail?.description}}</td>
+                      <td>{{detail?.quantity}}</td>
+                      <td  >{{detail?.warehouse}}</td>
+                    </tr>
+                    
+                  </thead>
+                </table>
+              </div>
             </div>
-          </div>
-
-
-          <!-- <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
-
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Before Tax:
-                <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalBeforeTax)}}</span>
-              </h4>
+  
+  
+            <!-- <div class="print-col-5  ml-auto" style=" margin-top: 2%;">
+  
+              <div class="print-box">
+                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Before Tax:
+                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalBeforeTax)}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Tax:
+                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalTax)}}</span>
+                </h4>
+              </div>
+      
+              <div class="print-box">
+                <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;border-top: 2px solid #1a6b85;
+                padding-top: 10px;">Grand Total:
+                  <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalAmount)}}</span>
+                </h4>
+              </div>
+            </div> -->
+  
+  
+            <div class="print-col-12 p-s-4">
+              
+              <div class="print-box p-s-4-one">
+                <p>Terms and conditions:</p>
+              </div>
+              <div class="print-box p-s-4-two">
+                <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </div>
+  
+              <div class="print-box p-s-4-three">
+                <p>Thankyou for your Business</p>
+              </div>
             </div>
-            <div class="print-box">
-              <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #1a6b85;margin-top: 10px;">Total Tax:
-                <span class="float-right" style="font-weight: 500;">{{valueFormatter(issuanceReturnMaster?.totalTax)}}</span>
-              </h4>
+            <div class="print-col-4 p-s-5">
+              _________________________________
+              <p class="text-center">Authorised Sign</p>
             </div>
     
             <div class="print-box">

@@ -223,10 +223,10 @@
                         </div>
                         <div class="col-lg-7 col-md-7 text-right">
                           <!-- <div class="col-lg-6 amount-font"></div> -->
-                          <div class="all-text-primary"><b> Closing Balance : {{
+                          <div class="amount base-colour"> Closing Balance : {{
                             math.sign(calculateClosingBalance()) !== -1
                             ? (calculateClosingBalance() | number: '1.2-2')
-                            : '(' + (calculateClosingBalance() | number: '1.2-2')?.replace('-', '') + ')' || 0.00}}</b></div>
+                            : '(' + (calculateClosingBalance() | number: '1.2-2')?.replace('-', '') + ')' || 0.00}}</div>
                         </div>
                       </div>
                     </ng-container>

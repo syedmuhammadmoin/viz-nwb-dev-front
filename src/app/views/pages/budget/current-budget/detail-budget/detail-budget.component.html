@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Budget Detail'" [class]="'card-head-lg'">
+    <kt-portlet-header [sticky]="false" [title]="'Estimated Budget Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
 
@@ -16,33 +16,33 @@
 
                 <button *ngIf="(permission.isGranted(permissions.BUDGET_EDIT))"
                   [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('edit', budgetMaster?.id)" [queryParams]="{q: budgetMaster?.id, 'isBudget': true}"
-                  type="button" class="btn_public mr-2">
-                  <i class="fa fa-edit" ></i> Edit
+                  type="button" class="btn_public mr-3">
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
                 <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" id="budget_print" type="button"
                   class="btn_public">
-                  <i class="fa fa-print" ></i> Print Budget
+                  <i class="fa fa-print icon-e-p-a"></i> Print Estimated Budget
                 </button>
               
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
           </div>
 
-          <div class="col-md-5 col-lg-5  mt-3">
+          <div class="col-md-4 col-lg-4  mt-3">
 
             <div class="print-box">
-                <h4 >From Date:
-                    <span class="float-right" >{{budgetMaster?.from | date: 'MMM d, y'}}</span></h4>
+                <h4 class="print-box-detail-1">From Date:
+                    <span class="float-right" style="font-weight: 400;">{{budgetMaster?.from | date: 'MMM d, y'}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 >To Date:
-                    <span class="float-right" >{{budgetMaster?.to | date: 'MMM d, y'}}</span></h4>
+                <h4 class="print-box-detail-2">To Date:
+                    <span class="float-right" style="font-weight: 400;">{{budgetMaster?.to | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Budget Name:
-              <span class="float-right" >{{budgetMaster?.budgetName}}</span></h4>
+              <h4 class="print-box-detail-2">Budget Name:
+              <span class="float-right" style="font-weight: 400;">{{budgetMaster?.budgetName}}</span></h4>
             </div>
             
           </div>
@@ -60,9 +60,9 @@
 
         <div class="row mt-5">
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" >
+            <table class="table  small_table_box" style="margin: 0px -6px;">
               
-              <tr >
+              <tr class="grand-total">
                 <th class="text-left">Total Amount :</th>
                 <th class="text-right" >
                   {{valueFormatter(totalAmount || 0)}}</th>

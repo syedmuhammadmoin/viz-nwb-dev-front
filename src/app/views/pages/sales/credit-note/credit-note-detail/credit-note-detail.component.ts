@@ -126,7 +126,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
         this.cdRef.markForCheck();
       }
     });
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
   }
   // First time rendered ag grid

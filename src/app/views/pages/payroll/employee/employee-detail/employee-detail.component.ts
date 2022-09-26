@@ -117,7 +117,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
       }
     });
 
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
   }
 

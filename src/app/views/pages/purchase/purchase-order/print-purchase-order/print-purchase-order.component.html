@@ -44,15 +44,16 @@
         
         <div class="print_body_area p-s-2">
 
-          <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
+          <div class="print-col-5 p-s-2-one">
             
-            <div class="print-box" >
+            <div class="print-box " >
               <h4>{{purchaseOrderMaster?.vendorName}}</h4>
+              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
               <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
 
-          <div class="print-col-12 p-s-2-two" style="margin-top: 3%;">
+          <div class="print-col-12 p-s-2-two">
             <div class="table-responsive">
               <table class="table ">
                 <thead class="thead-dark_color">
@@ -60,28 +61,34 @@
                     <th>S.No</th>
                     <th>Item</th>
                     <th>Description</th>
-                    <th>Quantity</th>
-                    <th *ngIf="showReceived">Received</th>
-                    <th>Cost</th>
-                    <th>Tax</th>
-                    <th>Subtotal</th>
+                    <th >Quantity</th>
+                    <th *ngIf="showReceived" class="text-center">Received</th>
+                    <th >Cost</th>
+                    <th >Tax</th>
+                    <!-- <th >Store</th> -->
+                    <th  class="text-center">SubTotal</th>
+                    
+                    
                   </tr>
                   <tr *ngFor="let detail of purchaseOrderLines ; index as i">
                     <td>{{i + 1}}</td>
-                    <td>{{detail?.item}}</td>
-                    <td>{{detail?.description}}</td>
+                    <td  >{{detail?.item}}</td>
+                    <td> {{detail?.description}}</td>
                     <td>{{detail?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td>{{detail?.receivedQuantity}}</td>
-                    <td>{{valueFormatter(detail?.cost)}}</td>
-                    <td>{{detail?.tax + '%'}}</td>
-                    <td>{{valueFormatter(detail?.subTotal)}}</td>
+                    <td *ngIf="showReceived" class="text-center" >{{detail?.receivedQuantity}}</td>
+                    <td  >{{valueFormatter(detail?.cost)}}</td>
+                    <td> {{detail?.tax + '%'}}</td>
+                    <!-- <td  >{{detail?.warehouse}}</td> -->
+                    <td class="text-right"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                   </tr>
                 </thead>
               </table>
             </div>
           </div>
 
+
           <div class="print-col-5  ml-auto p-s-3">
+
             <div class="print-box p-s-3-one">
               <h4>Total Before Tax:
                 <span class="float-right">{{valueFormatter(purchaseOrderMaster?.totalBeforeTax)}}</span>
@@ -92,7 +99,8 @@
                 <span class="float-right">{{valueFormatter(purchaseOrderMaster?.totalTax)}}</span>
               </h4>
             </div>
-            <div class="print-box p-s-3-two">
+    
+            <div class="print-box p-s-3-four">
               <h4>Grand Total:
                 <span class="float-right">{{valueFormatter(purchaseOrderMaster?.totalAmount)}}</span>
               </h4>
@@ -101,6 +109,7 @@
 
 
           <div class="print-col-12 p-s-4">
+            
             <div class="print-box p-s-4-one">
               <p>Terms and conditions:</p>
             </div>
@@ -112,6 +121,9 @@
               <p>Thankyou for your Business</p>
             </div>
           </div>
+
+          
+
           <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorised Sign</p>

@@ -1,12 +1,10 @@
 <ng-container *ngIf="user as _user">
 	<div class="topbar-item" data-placement="bottom" autoClose="outside" class="dropdown dropdown-fluid mt-3">
 		<div ngbDropdown placement="bottom-right" class="d-inline-block">
-			<button class="btn header-user-name " id="dropdownBasic2" ngbDropdownToggle>
-				<i class="fa fa-user header-user-icon"></i>
-				 Hi, <b>{{ _user.fullname || 'User'}} </b> 
-				 <i class="fa fa-angle-down ml-1 header-user-dropdown"></i>
-				</button>
-			<div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up  show header-user-dropdown" aria-labelledby="dropdownBasic2" style="width: 250px; top: 5px;">
+			<button class="btn user-btn btn-heading" id="dropdownBasic2" ngbDropdownToggle >
+				<i class="fa fa-user user-btn-icon"></i> Hi, <b>{{ _user.fullname || 'User'}} </b> 
+				<i class="fa fa-angle-down ml-1 down-arrow"></i></button>
+			<div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up  show" aria-labelledby="dropdownBasic2" style="width: 250px; top: 5px;">
 				<div class="offcanvas-content   " >
 					<div >
 						<div class="">
@@ -38,16 +36,38 @@
 												</span>
 											</a>
 										</li> -->
-										<li class="list-group-item" style="padding: 14px;">
-											<a (click)="changePassword()" href="javascript:void(0);" class="header-changePassword all-text-primary">
-												<i class="fa fa-key mr-1" aria-hidden="true"></i> Change Password
+										<li class="list-group-item dashboard-li">
+											<a (click)="changePassword()" class="dashboard-link">
+												<i class="fa fa-key mr-1 dashboard-icon" aria-hidden="true"></i> Change Password
 											</a>
 										</li>
-										<li class="list-group-item" style="padding: 14px;">
-											<a (click)="logout()" href="javascript:void(0);" class="header-changePassword all-text-primary">
-												<i class="fas fa-sign-out-alt mr-1"></i> Sign Out
+										<li class="list-group-item dashboard-li">
+											<a (click)="logout()" class="dashboard-link">
+												<i class="fas fa-sign-out-alt mr-1 dashboard-icon"></i> Sign Out
 											</a>
 										</li>
+										<li class="list-group-item dashboard-li">
+											<a class="dashboard-link"><i class="fa fa-paint-brush mr-1 dashboard-icon"></i>color</a>
+											<div class="row">
+												<div (click)="changeColor('edinfini')" class="theme-changing-edinfini"><i *ngIf="!this.edinfini" class="fa fa-check" aria-hidden="true"></i></div>
+												<div (click)="changeColor('sbbu')" class="theme-changing-sbbu"><i *ngIf="this.edinfini" class="fa fa-check" aria-hidden="true"></i></div>
+											</div>
+										</li>
+										<!-- <li class="list-group-item dashboard-li primery-color">
+											<div class="row">
+												<div class="col">
+												  <div ngbDropdown class="d-inline-block">
+													<button type="button" class="btn btn-outline-primary primery-color-change" id="dropdownBasic1" ngbDropdownToggle>
+														<i class="fa fa-paint-brush mr-1 dashboard-icon"></i>
+														Primary color</button>
+													<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+													  <button style="background-color:#65c18c;" (click)="changeColor('#65c18c' , '' , 'primary')" ngbDropdownItem></button>
+													  <button style="background-color:#48899d;" (click)="changeColor('#48899d' , '' , 'primary')" ngbDropdownItem></button>
+													</div>
+												  </div>
+												</div>
+											</div>
+										</li> -->
 									</ul>
 								<!-- <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary" style="display: block;padding: 20px;
 								background-color: #eceefd;border-top: 2px solid #494b74;">

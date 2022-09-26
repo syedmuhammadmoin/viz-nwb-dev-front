@@ -14,7 +14,7 @@
         <!-- This is the tree node template for leaf nodes -->
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
           <!-- use a disabled button to provide padding for tree leaf -->
-          <div [id]="'child'+ node.id">
+          <div [id]="'child'+ node.id" class="circle-dropdown">
             <button [id]="'child'+ node.name" mat-icon-button disabled></button>
             {{node.name}}
             <button *ngIf="(permission.isGranted(permissions.LEVEL4_CREATE))" [id]="'add_' + node.name" mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 3" (click)="addNewItem(node)" class="btn__add ml-3"> <i class="fa fa-plus"></i></button>
@@ -23,8 +23,8 @@
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
         <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
-          <div [id]="'demo'+ node.id">
-            <button [id]="'expand_' + node.name"  class="tree_arrow mr-3" mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
+          <div [id]="'demo'+ node.id" class="circle-dropdown">
+            <button [id]="'expand_' + node.name"  class="tree_arrow" mat-icon-button matTreeNodeToggle [attr.aria-label]="'Toggle ' + node.name">
               <mat-icon class="mat-icon-rtl-mirror">
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
               </mat-icon>

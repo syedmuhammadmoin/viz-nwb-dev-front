@@ -26,31 +26,31 @@
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.PAYMENT_CREATE))"
                   [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
-                  type="button" class="mr-2 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit" ></i> Register Payment
+                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                  <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.DEBITNOTE_CREATE))"
                   [routerLink]="'/' + DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, isBill: true}"
-                  type="button" class="mr-2 btn_public">
-                  <i class="fa fa-edit"  ></i> Debit Note
+                  type="button" class="mr-3 btn_public">
+                  <i class="fa fa-edit icon-e-p-a"></i> Debit Note
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
-                  type="button" class="mr-2 btn_public" >
-                  <i class="fa fa-edit" ></i> Edit
+                  type="button" class="mr-3 btn_public" >
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))"  class="btn_public mr-2" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
+                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))" class="btn_public mr-3" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('print', billMaster?.id)" type="button" 
                 class="btn_public" id="bill_print">
-                  <i class="fa fa-print" ></i> Print Vendor Bill
+                  <i class="fa fa-print icon-e-p-a"></i> Print Vendor Bill
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
@@ -59,25 +59,25 @@
 
           <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
-                <h4 >Bill No: 
-                    <span class="float-right" >{{billMaster?.docNo}}</span></h4>
+                <h4 class="print-box-detail-1">Bill No: 
+                    <span class="float-right" style="font-weight: 400;">{{billMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 >Vendor Name:
-                    <span class="float-right" >{{billMaster?.vendorName}}</span></h4>
+                <h4 class="print-box-detail-1">Vendor Name:
+                    <span class="float-right" style="font-weight: 400;">{{billMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Campus:
-              <span class="float-right" >{{billMaster?.campusName}}</span></h4>
+              <h4 class="print-box-detail-1">Campus:
+              <span class="float-right" style="font-weight: 400;">{{billMaster?.campusName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Bill Date:
-              <span class="float-right" >{{billMaster?.billDate | date: 'MMM d, y'}}</span></h4>
+              <h4 class="print-box-detail-1">Bill Date:
+              <span class="float-right" style="font-weight: 400;">{{billMaster?.billDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Due Date:
-              <span class="float-right" >{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
+              <h4 class="print-box-detail-1">Due Date:
+              <span class="float-right" style="font-weight: 400;">{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
           </div>
         </div>
@@ -148,8 +148,8 @@
                 <td class="text-right" >
                   {{valueFormatter(billMaster?.totalTax || 0)}}</td>
               </tr>
-              <tr >
-                <th class="text-left Total-Before-Tax-heading"
+              <tr class="grand-total">
+                <th class="text-left"
                   >Total Amount :
                 </th>
                 <th class="text-right" >
@@ -160,10 +160,10 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title >
+                        <mat-panel-title class="paid-anount">
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description >
+                        <mat-panel-description class="paid-anount-flex-grow">
                           {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -192,7 +192,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title >
+                        <mat-panel-title class="paid-anount">
                           Reference
                         </mat-panel-title>
                       </mat-expansion-panel-header>
@@ -211,8 +211,7 @@
               </tr>
 
               <tr *ngIf="(pendingAmount)">
-                <th class="text-right Total-Before-Tax"
-                >Pending Amount :
+                <th class="text-right pending-amount">Pending Amount :
                 </th>
                 <td class="text-right Total-Before-Tax">
                   {{valueFormatter(pendingAmount || 0)}}</td>

@@ -1,133 +1,23 @@
-// $bg-gradient-color:linear-gradient(to right, rgba(0, 0, 0, 0.6), #65c18c);
-// $bg-white: #fff;
-// $primary-color: var(--primary_color);
-// $primary-color-rgb:rgb(101 193 140 / 40%);
-// $secondary-color:#141e27;
-// $input-filed-primary-color : #808080;
-// $input-filed-background-color : #f2f2f2;
-// $input-filed-border-color : #d0d0d0;
-// $form-border-color : rgba(101, 193, 140, 0.1);
-// $test-shadow-color : #9195a9;
-// $button-background-color:rgba(101, 193, 140, 0.1);
-// $light-gray-color :#B5B5C3;
-// $title : '';
-// $login-title : '';
-// $login-cover-image :'assets/media/logos/edinfini-login-image.jpg';
-// $site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
-
-$bg-gradient-color:linear-gradient(to right, var(--bg_gradient_color_one), var(--bg_gradient_color_two));
-$bg-white: var(--bg_white);
-$primary-color: var(--primary_color);
-$primary-color-rgb:rgb(101 193 140 / 40%);
-$secondary-color:var(--secondary_color);
-$input-filed-primary-color : var(--input_filed_primary_color);
-$input-filed-background-color : var(--input_filed_background_color);
-$input-filed-border-color : var(--input_filed_border_color);
-$form-border-color : var(--form_border_color);
-$test-shadow-color : var(--test_shadow_color);
-$button-background-color: var(--button_background_color);
-$light-gray-color : var(--light_gray_color);
-$title : var(--title);
-$login-title : var(--login_title);
-$login-cover-image :var(--login_cover_image);
-$site-logo :var(--site_logo);
-$dashboard_hight : var(--dashboard_hight);
-$dashboard_logo_width : var(--dashboard_logo_width);
-$dashboard_logo_hight : var(--dashboard_logo_hight);
+$bg-gradient-color: linear-gradient(to right,#1a6b85, #4a8a9e);
+$bg-white: #fff;
+$primary-color:#1a6b85;
+$secondary-color:#cba058;
+$input-filed-primary-color : #808080;
+$input-filed-background-color : #f2f2f2;
+$input-filed-border-color : #d0d0d0;
+$form-border-color : #aad7e6;
+$test-shadow-color : #9195a9;
+$button-background-color:#e9f5f9;
+$light-gray-color :#B5B5C3;
+$title : 'SBBU';
+$login-title : 'Main Campus SBBU Shaheed benazirabad.';
+$login-cover-image :'assets/media/logos/bg_login.jpg';
+$site-logo :'assets/media/logos/logo-wr.png';
 
 
 .dropdown-toggle::after {
 	display: none !important;
 }
-
-.theme-changing-edinfini{
-  border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background:#65c18c;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    flex-shrink: 0;
-    position: relative;
-    margin-right: 10px;
-    margin-top: 10px;
-}
-.theme-changing-sbbu{
-  border-radius: 50%;
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background:#48899d;
-    font-size: 14px;
-    font-weight: 500;
-    letter-spacing: 0.06em;
-    flex-shrink: 0;
-    position: relative;
-    margin-right: 10px;
-    margin-top: 10px;
-}
-
-.theme-changing-edinfini i , .theme-changing-sbbu i{
-  color: $bg-white !important;
-  font-size: 1rem !important;
-}
-
-.dashboard-li .row{
-padding: 0px 14px;
-}
-
-
-.primery-color{
-  
-}
-
-.primery-color .d-inline-block{
-  width: 100%;
-}
-
-.primery-color .dropdown-menu{
-  width: 100%;
-}
-
-.primery-color .col{
- padding: 0px !important;
-}
-.primery-color .dashboard-icon{
- padding: 0px !important;
-}
-
-.show:hover .primery-color{
-  background-color:  $bg-white !important;
-}
-
-.primery-color-change{
-  border: none;
-  outline: none;
-  padding: 0px 14px !important;
-  width: 100%;
-  color: $primary-color !important;
-}
-
-.primery-color-change:hover{
-  background-color: $bg-white !important;
-  color:$primary-color !important;
-}
-.primery-color-change:active{
-  background-color: $bg-white !important;
-  color:$primary-color !important;
-}
-
-.show > .btn.btn-outline-primary.dropdown-toggle{
-  background-color:  $bg-white;
-  color: $primary-color;
-}
-  
 
 .login-image-title::after{
   content: $login-title;
@@ -188,6 +78,8 @@ input{
   background-color: $bg-white !important;
   color: $primary-color !important;
   letter-spacing: 1px;
+  // border-radius: 15px / 60% !important;
+  // box-shadow: 0px 0px 3px #9e9e9e !important;
 }
 .sub___btn
 {
@@ -195,6 +87,7 @@ input{
   background-image: $bg-gradient-color; 
   color: $bg-white !important; 
   font-size: 14px;
+  // border-radius: 15px/60% !important;
 }
 .sub___btn i
 {
@@ -216,9 +109,12 @@ input{
   font-size: 14px;
 }
 
+
+
 // card box
 kt-portlet-header
 {
+  // background-image: linear-gradient(135deg, #293055 32%, #ffffff 0%);
   color: $primary-color;
   font-size: 16px;
   text-transform: uppercase;
@@ -244,6 +140,7 @@ kt-portlet-header
 }
 
 .kt-portlet__head-text{
+  // background-image: linear-gradient(135deg, #49899d 45%, #f2f2f2 0%);
   color: $primary-color;
   font-size: 16px;
   text-transform: uppercase;
@@ -261,13 +158,18 @@ kt-portlet-header
 {
   background-color: $button-background-color !important;
 }
-
+// .ag-theme-alpine
+// {
+//   width: 100%; height: 500px; margin-top: 10px;
+// }
 .ag-header-cell-text
 {
   color: $primary-color !important;
+  // font-family: sans-serif !important;
+
+  // font-family: 'Trebuchet MS', sans-serif !important;
   font-weight: 500;
 }
-
 .ag-theme-alpine .ag-header-cell-resize::after
 {
   background-color: rgb(186, 191, 199) !important;
@@ -278,7 +180,6 @@ kt-portlet-header
 {
   width: 100% !important;
 }
-
 .disable {
   color            : grey !important;
   background-color : lightgray !important;
@@ -295,7 +196,6 @@ kt-portlet-header
 {
   cursor: pointer;
 }
-
 .dialog-cross i
 {
   font-size: 20px;
@@ -330,6 +230,10 @@ kt-footer
 {
   margin-bottom: -15px;
 }
+
+
+
+
 
 // custom Loading
 
@@ -416,6 +320,9 @@ kt-footer
   }
 }
 
+
+
+// 
 .remove-icon {
   padding: 8px 10px;
   text-align: center;
@@ -458,6 +365,13 @@ kt-footer
   box-shadow: rgb(0 0 0 / 9%) 0px 3px 12px !important;
 }
 
+// .mat-header-cell:nth-child(even)
+// {
+//   background-color: #9e9e9e33;
+// }
+
+
+
 .flex-1 {
   flex: 1 !important;
 }
@@ -495,6 +409,11 @@ kt-footer
 }
 
 
+.small_table_box th, .small_table_box td
+{
+  // border: 1px solid #2B335C1F !important;
+}
+
 //Approve and Reject Buttons
 .success__btn {
   color: #155724;
@@ -516,6 +435,8 @@ kt-footer
 {
   position: sticky;
   padding: 10px 15px;
+  // border-radius: 15px/60%;
+  // box-shadow: rgb(0 0 0 / 10%) 0px 10px 15px -3px, rgb(0 0 0 / 5%) 0px 4px 6px -2px;
   margin-bottom: 0px;
   font-weight: 500;
 }
@@ -537,6 +458,19 @@ kt-footer
   background: #ff6a6a26;
   color: #ff6a6a;
 }
+
+// .overall_statuses
+// {
+//   background: #ff6a6a26;
+//   position: sticky;
+//   padding: 10px 15px;
+//   color: #ff6a6a;
+//   border-radius: 15px/60%;
+//   box-shadow: rgb(0 0 0 / 10%) 0px 10px 15px -3px, rgb(0 0 0 / 5%) 0px 4px 6px -2px;
+//   margin-bottom: 0px;
+//   font-weight: 500;
+// }
+
 
 mat-tab-body[id^="mat-tab-content"][id$="-1"] > .mat-tab-body-content
 {
@@ -573,7 +507,7 @@ div.search_sticky
 
 .brand
 {
-  height: $dashboard_hight;
+  height: 90px;
 }
 
 .brand-logo img
@@ -721,7 +655,7 @@ div.search_sticky
   align-items: center;
   padding: 15px;
   background-color: #f6fafb;
-  border-top: 2px solid $primary-color;
+  border-top: 2px solid #227089;
 }
 
 .user-info .lead-text, .user-info .sub-text {
@@ -907,28 +841,28 @@ div.search_sticky
 /* Dashboard style section */
 
 .deshboard-logo{
-background-image: $site-logo;
+background-image: url($site-logo);
 background-repeat: no-repeat, repeat;
 background-position: center;
-background-size: contain;
-width: $dashboard_logo_width;
-height: $dashboard_logo_hight;
+background-size: cover;
+width: 70px;
+height: 70px;
 }
 .overall-app-loader{
-background-image: $site-logo;
+background-image: url($site-logo);
 background-repeat: no-repeat, repeat;
 background-position: center;
-background-size: contain;
+background-size: cover;
 width: 80px;
 height: 80px;
 position: absolute;
 top: 32%;
 }
 .splash-app-loader{
-background-image: $site-logo;
+background-image: url($site-logo);
 background-repeat: no-repeat, repeat;
 background-position: center;
-background-size: contain;
+background-size: cover;
 width: 80px;
 height: 80px;
 position: absolute;
@@ -936,10 +870,10 @@ top: 32%;
 }
 
 .login-image{
-background-image: $site-logo;
+background-image: url($site-logo);
 background-repeat: no-repeat, repeat;
 background-position: center;
-background-size: contain;
+background-size: cover;
 width: 130px;
 height: 130px;
 margin-inline: auto;
@@ -953,7 +887,7 @@ margin-inline: auto;
 	color: $bg-white;
 	box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.22);
 	min-height: 70vh;
-	background-image: $login-cover-image;
+	background-image: url($login-cover-image);
 	background-size: cover;
 	background-position: center;
 	justify-content: right;
@@ -971,9 +905,6 @@ margin-inline: auto;
 }
 
 .tagline-h::after{
-  content: $title;
-}
-.tagline-h::before{
   content: $title;
 }
 
@@ -1076,7 +1007,7 @@ i.down-arrow{
   }
 
   .input_style{
-    background-color: $input-filed-background-color !important;
+    background-color: #f6fafb !important;
     border: 1px solid $primary-color !important;
 }
 
@@ -1299,7 +1230,7 @@ table , table a{
 
 .ag-theme-alpine .ag-checkbox-input-wrapper:focus-within, .ag-theme-alpine .ag-checkbox-input-wrapper:active {
   outline: none;
-  box-shadow: 0 0 2px 0.1rem $primary-color-rgb;
+  box-shadow: 0 0 2px 0.1rem rgb(26 107 133 / 40%);
 }
 
 .tree_arrow{
@@ -1327,7 +1258,6 @@ table , table a{
   // brand color
   background-color: $primary-color !important;
 }
-
 
 :host {
   position: absolute;

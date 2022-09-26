@@ -47,7 +47,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   }
 
   ngOnInit() {
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
 
     this.defaultColDef = {

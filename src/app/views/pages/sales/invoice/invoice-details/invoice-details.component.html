@@ -21,31 +21,31 @@
             <ng-container ktPortletTools >
                 <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid) 
                     && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
-                  type="button" class="mr-2 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit" ></i> Register Payment
+                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                  <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
                 <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid) 
                     && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
                   [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: invoiceMaster?.id, isInvoice: true}"
                   type="button" class="mr-3 btn_public">
-                  <i class="fa fa-edit" ></i> Credit Note
+                  <i class="fa fa-edit icon-e-p-a"></i> Credit Note
                 </button>
 
                 <button *ngIf="(invoiceMaster?.state === docStatus.Draft || invoiceMaster?.state === docStatus.Rejected) 
                     && (permission.isGranted(permissions.INVOICE_EDIT))"
                   [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
-                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit" ></i>
+                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                   Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-2" id="invoice_attachment"
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload" ></i> Attachment
+                <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-3" id="invoice_attachment"
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button" 
                   class="btn_public" id="invoice_print">
-                  <i class="fa fa-print" ></i> Print Invoice
+                  <i class="fa fa-print icon-e-p-a"></i> Print Invoice
                 </button>
                 
                 <mat-divider class="mt-5"></mat-divider>
@@ -55,25 +55,25 @@
 
           <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
-                <h4 >Invoice No: 
-                    <span class="float-right" >{{invoiceMaster?.docNo}}</span></h4>
+                <h4 class="print-box-detail-1">Invoice No: 
+                    <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 >Customer Name: 
-              <span class="float-right" >{{invoiceMaster?.customerName}}</span></h4>
+              <h4 class="print-box-detail-2">Customer Name: 
+              <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.customerName}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 >Invoice Date: 
-                <span class="float-right" >{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
+                <h4 class="print-box-detail-2">Invoice Date: 
+                <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Due Date: 
-              <span class="float-right" >{{invoiceMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
+              <h4 class="print-box-detail-2">Due Date: 
+              <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Campus: 
-              <span class="float-right" >{{invoiceMaster?.campusName}}</span></h4>
+              <h4 class="print-box-detail-2">Campus: 
+              <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.campusName}}</span></h4>
             </div>
             
           </div>
@@ -135,8 +135,8 @@
                 <td class="text-right" >
                   {{valueFormatter(totalTax || 0)}}</td>
               </tr>
-              <tr >
-                <th class="text-left Total-Before-Tax-heading"
+              <tr class="grand-total">
+                <th class="text-left"
                   >Grand Total :</th>
                 <th class="text-right" >
                   {{valueFormatter(totalInvoiceAmount || 0)}}</th>
@@ -147,11 +147,11 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title >
+                        <mat-panel-title class="paid-anount">
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description >
-                          <b>{{valueFormatter(paidAmount || 0)}}</b>
+                        <mat-panel-description class="paid-anount-flex-grow">
+                          {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
                       <table class="table text-center table-bordered">
@@ -175,8 +175,7 @@
 
               <!-- <tr *ngIf="(invoiceMaster?.transactionId)"> -->
                 <tr *ngIf="(pendingAmount)">
-                <th class=" Total-Before-Tax"
-                  >Pending Amount :
+                <th class="text-right pending-amount">Pending Amount :
                 </th>
                 <td class="text-right Total-Before-Tax">
                   <b>{{valueFormatter(pendingAmount || 0)}}</b></td>
