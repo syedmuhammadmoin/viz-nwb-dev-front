@@ -90,10 +90,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       required: 'Campus is required'
     },
     contact: {
-      //pattern: 'Please insert valid contact',
+      pattern: '(Insert only number)',
       minlength: 'Minimun 10 digits',
-      maxlength: 'Maximum 15 digits',
-      pattern: 'Please insert valid contact',
+      maxlength: 'Maximum 15 digits'
     }
   }
 
@@ -126,7 +125,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       vendorName: ['', [Validators.required]],
       PODate: ['', [Validators.required]],
       dueDate: ['', [Validators.required]],
-      contact: ['', [Validators.minLength(10), Validators.maxLength(15), [Validators.pattern("^[0-9]*$")]]],
+      contact: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
       campusId: ['', [Validators.required]],
       purchaseOrderLines: this.fb.array([
         this.addPurchaseOrderLines()
