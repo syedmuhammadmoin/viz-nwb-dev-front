@@ -45,13 +45,37 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
     },
     address: {
       required: 'Address is required.'
+    },
+    fax: {
+      pattern: 'Please insert correct Fax.'
+    },
+    srb: {
+      pattern: 'Please insert correct SRB No.'
+    },
+    ntn: {
+      pattern: 'Please insert correct NTN No.'
+    },
+    website: {
+      pattern: 'Please insert correct domain.'
+    },
+    salesTaxId: {
+      pattern: 'Please insert correct ID.'
+    },
+    phone: {
+      pattern: 'Please insert correct NTN No.'
     }
   };
 
   //error keys
   formErrors = {
     name: '',
-    address: ''
+    address: '',
+    ntn: '',
+    srb: '',
+    fax: '',
+    website: '',
+    salesTaxId: '',
+    phone: ''
   };
 
   constructor(private fb: FormBuilder,
@@ -69,12 +93,12 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
     this.campusForm = this.fb.group({
       name: ['', Validators.required],
       address: ['', Validators.required],
-      phone: [''],
-      fax: [''],
-      website: [''],
-      salesTaxId: [''],
-      ntn: [''],
-      srb: ['']
+      phone: ['', [Validators.pattern("^[0-9\\-]+$")]],
+      fax: ['', [Validators.pattern("^[0-9\\-\+\(\)]+$")]],
+      website: ['', [Validators.pattern("^[a-z\\-\.\@]+$")]],
+      salesTaxId: ['', [Validators.pattern("^[0-9]+$")]],
+      ntn: ['' ,[Validators.pattern("^[0-9\\-]+$")]],
+      srb: ['' ,[Validators.pattern("^[0-9\\-\+\(\)]+$")]]
     });
 
     if (this._id) {

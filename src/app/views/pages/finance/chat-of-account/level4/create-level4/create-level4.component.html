@@ -16,7 +16,19 @@
         <!-- first row start -->
         <div class="col-md-12 col-lg-12 col-sm-12">
           <div class="row mt-8 mb-5">
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-4 col-sm-4">
+              <label class="col-form-label">Code:</label>
+              <div class="form-group kt-form__group mb-0">
+                <kt-input-field
+                 formControlName="code"
+                 placeholder="Enter Code"
+                 (blurEvent)="logValidationErrors(this.level4Form, formErrors, validationMessages)"
+                 [errorMessage]="[{ condition : formErrors.code , error : formErrors.code }]">
+                </kt-input-field>
+              </div>
+            </div>
+
+            <div class="col-lg-4 col-md-4 col-sm-4">
               <label class="col-form-label">Transactional Account Name:</label>
               <div class="form-group kt-form__group mb-0">
                 <kt-input-field
@@ -28,7 +40,7 @@
               </div>
             </div>
 
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div class="col-lg-4 col-md-4 col-sm-4">
               <label class="col-form-label">Head Account:</label>
               <div class="form-group kt-form__group mb-0">
                 <kt-simple-dropdown
