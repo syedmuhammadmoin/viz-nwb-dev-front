@@ -6,7 +6,7 @@ import { ChartOfAccountService } from './service/chart-of-account.service';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions } from 'src/app/views/shared/AppEnum';
+import { AccountType, Permissions } from 'src/app/views/shared/AppEnum';
 import { finalize, take } from 'rxjs/operators';
 
 /**
@@ -15,6 +15,7 @@ import { finalize, take } from 'rxjs/operators';
  interface AccountsNode {
   id: number,
   name: string;
+  accountType: number,
   children?: AccountsNode[];
 }
 
@@ -24,6 +25,7 @@ interface FlatNode {
   id: number,
   name: string;
   level: number;
+  accountType: number;
 }
 
 
@@ -39,6 +41,9 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
   public permissions = Permissions;
 
   isLoading : boolean = false;
+
+  //for checking level4 account type
+  accountType: AccountType
  
   constructor(
     private chartOfAccService: ChartOfAccountService,
@@ -51,7 +56,9 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
       expandable: !!node.children && node.children.length > 0,
       name: node.name,
       id: node.id,
+      accountType: node.accountType,
       level,
+      
     };
   }
   treeControl = new FlatTreeControl<FlatNode>(
@@ -76,7 +83,9 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
        })
      )
     .subscribe((data) => {
+     
       this.dataSource.data = data.result;
+      console.log(data.result)
       //console.log('this.dataSource.data', this.dataSource.data);
       this.cdRef.detectChanges();
     });
@@ -139,6 +148,7 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
     //     })
     //   });
     // }
+    console.log(node)
     if (node.level === 3 && node.id) {
       //console.log('nodeId : ', node.id)
       const dialogRef = this.dialog.open(CreateLevel4Component, {

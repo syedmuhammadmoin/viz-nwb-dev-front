@@ -159,6 +159,19 @@
                             </kt-simple-dropdown>
                       </div>
                   </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group kt-form__group mb-0">
+                        <label class="col-form-label pt-0">Account Code:</label>
+                        <kt-input-field
+                        id="bank_account_code"
+                        formControlName="accountCode"
+                        placeholder="Enter Code"
+                        (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
+                        [errorMessage]="[{ condition : formErrors.accountCode , error : formErrors.accountCode }]">
+                      </kt-input-field>
+                    </div>
+                </div>
               </div>
               </div>
             </div>

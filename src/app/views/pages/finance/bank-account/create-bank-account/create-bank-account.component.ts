@@ -68,6 +68,10 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     'campusId': {
       'required': 'Campus is required.'
     },
+    'accountCode': {
+      'required': 'Account Code is required.',
+      'maxlength': 'Limit is 10 characters.'
+    },
   }
 
   //Error keys
@@ -79,7 +83,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     'accountTitle': '',
     'bankAccountType': '',
     'OBDate': '',
-    'campusId': ''
+    'campusId': '',
+    'accountCode': ''
   }
 
   //Injecting dependencies
@@ -101,6 +106,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       branch: [''],
       purpose: [''],
       accountTitle: ['', [Validators.required]],
+      accountCode: ['', [Validators.required, Validators.maxLength(10)]],
       bankAccountType: ['', [Validators.required]],
       openingBalance: ['', [Validators.required, Validators.min(1)]],
       OBDate: ['', [Validators.required]],
@@ -131,6 +137,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         accountNumber: null,
         bankName: '',
         branch: '',
+        accountCode: '',
         openingBalance: null,
         purpose: '',
         bankAccountType: null,
@@ -169,6 +176,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       branch: bankAccount.branch,
       accountTitle: bankAccount.accountTitle,
       purpose: bankAccount.purpose,
+      accountCode: bankAccount.accountCode,
       bankAccountType: bankAccount.bankAccountType,
       openingBalance: bankAccount.openingBalance,
       OBDate: bankAccount.openingBalanceDate,
@@ -224,6 +232,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccount.accountTitle = this.bankAccountForm.value.accountTitle;
     this.bankAccount.bankAccountType = this.bankAccountForm.value.bankAccountType;
     this.bankAccount.purpose = this.bankAccountForm.value.purpose;
+    this.bankAccount.accountCode = this.bankAccountForm.value.accountCode;
     this.bankAccount.openingBalanceDate = this.transformDate(this.bankAccountForm.value.OBDate, 'yyyy-MM-dd');
     this.bankAccount.campusId = this.bankAccountForm.value.campusId;
     this.bankAccount.currency = 'PKR';
