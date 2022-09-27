@@ -16,6 +16,8 @@ import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.
 import { DepartmentState } from '../../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
+import { IPayment } from 'src/app/views/pages/finance/payment/model/IPayment';
+import { IPaymentProcess } from '../../../model/IPaymentProcess';
 
 @Component({
   selector: 'kt-create-payment',
@@ -222,7 +224,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading.emit(true);
     const selectedTransactions = this.employeeGridApi.getSelectedRows()
-    const body = {...this.createPayrollPaymentForm.value} //as IPaymentProcess
+    // const body = {...this.createPayrollPaymentForm.value} //as IPaymentProcess
     const bodyList = [] //as ICreatePayrollTransLines[]
     console.log("selcted employees")
     console.log(selectedTransactions)
@@ -234,9 +236,16 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         ledgerId: x.ledgerId
       })
     });
-    body.createPayrollTransLines = bodyList;
-    body.paymentDate = this.dateHelperService.transformDate(new Date(), 'yyyy-MM-dd')
 
+    const body = {} as IPaymentProcess;
+    body.campusId = this.createPayrollPaymentForm.value.campusId;
+    body.paymentDate = this.dateHelperService.transformDate(new Date(), 'yyyy-MM-dd')
+    body.paymentRegisterType = 2;
+    body.paymentRegisterId = this.createPayrollPaymentForm.value.bankAccount;
+    body.description = this.createPayrollPaymentForm.value.description;
+    body.createPayrollTransLines = bodyList;
+
+    console.log(body)
     this.payrollProcessService.createPaymentProcess(body)
     .pipe(
       take(1),

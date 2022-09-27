@@ -99,6 +99,9 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
+        valueFormatter: (params: ValueFormatterParams) => { 
+          return (params.value) ?? "N/A"
+        }
     },
     { headerName: 'Faculty', field: 'faculty', suppressMenu: true, tooltipField: 'name' },
     { headerName: 'Shift', field: 'dutyShift', suppressMenu: true, tooltipField: 'name' },
