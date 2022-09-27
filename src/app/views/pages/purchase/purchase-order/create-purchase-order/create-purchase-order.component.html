@@ -37,8 +37,18 @@
                         formControlName="contact"
                         placeholder="Enter Contact"
                         hintText="Optional"
-                        (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)">
+                        (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
+                        [errorMessage]="[{ condition : formErrors.contact , error : formErrors.contact }]">
                         </kt-input-field>
+                        <!-- <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="contact" placeholder="Enter Contact" 
+                               (blur)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
+                               id="purchase_contact" type="number">
+                          <mat-error *ngIf="formErrors.contact">
+                            <strong>{{formErrors.contact}}</strong>
+                          </mat-error>
+                          <mat-hint align="end">Optional</mat-hint>
+                        </mat-form-field> -->
                   </div>
                 </div>
   
