@@ -82,7 +82,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       }
     },
     {
-      headerName: 'sales Tax', 
+      headerName: 'Sales Tax', 
       field: 'salesTax', 
       suppressMenu: true,
       tooltipField: 'salesTax',

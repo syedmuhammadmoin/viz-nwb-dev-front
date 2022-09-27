@@ -242,7 +242,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div *ngIf="!(isPayrollPayment)" class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Deduction:</label>
                         <mat-form-field appearance="outline" class="full-width">
@@ -257,7 +257,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-4 col-md-4 col-sm-4">
+                  <div *ngIf="!(isPayrollPayment)" class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Deduction Account:</label>
                       <kt-simple-dropdown 

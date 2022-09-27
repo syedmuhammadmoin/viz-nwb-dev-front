@@ -118,7 +118,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   // Error keys
   formErrors = {
-    registerType: '',
+    //registerType: '',
    // paymentType: '',
     date: '',
     description: '',
@@ -162,7 +162,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     this.paymentForm = this.fb.group({
-      registerType: ['', [Validators.required]],
+      //registerType: ['', [Validators.required]],
       //paymentType: ['', [Validators.required]],
       date: ['', [Validators.required]],
       description: ['', [Validators.required]],
@@ -178,7 +178,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       SRBTax: [0,[Validators.min(0) , Validators.max(100)]],
     });
 
-    this.paymentForm.get('registerType').setValue(2)
+    //this.paymentForm.get('registerType').setValue(2)
     this.loadAccountList({value: 2})
 
     // initializing payment model
@@ -261,7 +261,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   editPayment(payment: IPayment) {
     //console.log(payment.srbTax)
     this.paymentForm.patchValue({
-      registerType: 2,
+      // registerType: 2,
       //paymentType: payment.paymentType,
       date: payment.paymentDate,
       description: payment.description,
@@ -278,7 +278,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
     if(this.data.docType === this.docType.PayrollPayment) {
-      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax', 'deduction', 'deductionAccountId')
+      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax')
     }
   }
 
@@ -290,6 +290,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   // submit payment form
   onSubmit() {
     if (this.paymentForm.invalid) {
+      console.log(this.paymentForm.value)
       return;
     }
 
@@ -338,8 +339,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.accountId = (!this.isPayrollPayment) ? this.paymentForm.value.account : this.paymentMaster.accountId ;
     this.paymentModel.paymentDate = (!this.isPayrollPayment) ? this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd') : this.transformDate(this.paymentMaster.paymentDate, 'yyyy-MM-dd');
     this.paymentModel.grossPayment = (!this.isPayrollPayment) ? this.paymentForm.value.grossPayment : this.paymentMaster.grossPayment;
-    this.paymentModel.deduction = (!this.isPayrollPayment) ? this.paymentForm.value.deduction : this.paymentMaster.deduction;
-    this.paymentModel.deductionAccountId = (!this.isPayrollPayment) ? this.paymentForm.value.deductionAccountId : this.paymentMaster.deductionAccountId;
+    this.paymentModel.deduction = (!this.isPayrollPayment) ? (this.paymentForm.value.deduction || 0) : this.paymentMaster.deduction;
+    this.paymentModel.deductionAccountId = (!this.isPayrollPayment) ? (this.paymentForm.value.deductionAccountId || null) : null;
     this.paymentModel.salesTax = (!this.isPayrollPayment) ? (this.paymentForm.value.salesTax || 0) : this.paymentMaster.salesTax;
     this.paymentModel.incomeTax = (!this.isPayrollPayment) ? (this.paymentForm.value.incomeTax || 0) : this.paymentMaster.incomeTax;
     this.paymentModel.srbTax = (!this.isPayrollPayment) ? (this.paymentForm.value.SRBTax || 0) : this.paymentMaster.srbTax;
