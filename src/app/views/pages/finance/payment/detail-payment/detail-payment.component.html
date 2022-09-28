@@ -73,26 +73,31 @@
 
                 <div class="col-md-4 col-lg-4  ml-auto mt-3" >
 
-                  <div class="print-box">
-                    <h4 class="net-payment">Sales Tax:
-                      <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.salesTax || 0)}}</span>
-                    </h4>
-                  </div>
-                  <div class="print-box">
-                    <h4 class="net-payment">Income Tax:
-                      <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.incomeTax || 0)}}</span>
-                    </h4>
-                  </div>
-                  <div class="print-box">
-                    <h4 class="net-payment">SRB Tax:
-                      <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.srbTax || 0)}}</span>
-                    </h4>
-                  </div>
-                  <div class="print-box">
-                    <h4 class="net-payment-last">Net Payment: 
-                      <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.netPayment || 0)}}</span>
-                    </h4>
-                  </div>
+                    <div class="print-box">
+                      <h4 >Sales Tax:
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.salesTax || 0)}} %</span>
+                      </h4>
+                    </div>
+                    <div class="print-box">
+                      <h4 >Income Tax:
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.incomeTax || 0)}} %</span>
+                      </h4>
+                    </div>
+                    <div class="print-box">
+                      <h4 >SRB Tax:
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.srbTax || 0)}} %</span>
+                      </h4>
+                    </div>
+                    <div *ngIf="(selectedFormType !== 17)" class="print-box">
+                      <h4 >Deduction:
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.deduction || 0)}}</span>
+                      </h4>
+                    </div>
+                    <div class="print-box">
+                      <h4 >Net Payment: 
+                        <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.netPayment || 0)}}</span>
+                      </h4>
+                    </div>
 
                   <div>
                       <table *ngIf="paidAmountList?.length > 0" class="table  small_table_box" style="margin: 0px -6px;">

@@ -9,6 +9,10 @@ import { finalize, take } from 'rxjs/operators';
 import { AccountLevel4State } from '../../store/account-level4.state';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { AccountPayableState } from '../../store/account-payable.state';
+import { AccountReceivableState } from '../../store/account-receivable.state';
+import { OtherAccountState } from '../../store/other-account.state';
+import { AssetAccountState } from '../../store/asset-account.state';
 
 @Component({
   selector: 'kt-create-level4',
@@ -32,12 +36,17 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     },
     level3: {
       required: 'Head Account is required',
+    },
+    code: {
+      required: 'Code is required.',
+      maxlength: 'Limit is 10 characters.'
     }
   };
   // error keys..
   formErrors = {
     transactionalAccount: '',
     level3: '',
+    code: '',
   };
 
   constructor(
@@ -57,11 +66,14 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     this.level4Form = this.fb.group({
       transactionalAccount: ['', [Validators.required]],
       level3: ['', [Validators.required]],
+      code: ['', [Validators.required, Validators.maxLength(10)]],
     });
 
     this.level4Model = {
       id: null,
       name: '',
+      code: '',
+      editableName : null,
       level3_id: null,
     }
 
@@ -112,6 +124,10 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
          )
         .subscribe(() => {
           this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountPayableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
           this.toastService.success('Updated Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }
@@ -129,6 +145,10 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
          )
         .subscribe(() => {
           this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountPayableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
           this.toastService.success('Created Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }
@@ -141,6 +161,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     //console.log(this.level4Form.value.level3)
     this.level4Model.name = this.level4Form.value.transactionalAccount;
     // this.level4Model.level3_id = (this.level4Model.level3_id) || this.level4Form.value.level3;
+    this.level4Model.code = this.level4Form.value.code;
     this.level4Model.level3_id = this.level4Form.value.level3 || this.level4Model.level3_id;
   }
 
@@ -150,10 +171,12 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
   }
 
   private patchLevel4Form(level4Model: ILevel4) {
+    console.log(level4Model)
     //console.log("before : ",level4Model)
     this.level4Form.patchValue({
-      transactionalAccount: level4Model.name,
-      level3: level4Model.level3_id
+      transactionalAccount: level4Model.editableName,
+      level3: level4Model.level3_id,
+      code: level4Model.code
     });
     this.isLoading = false;
   }

@@ -89,13 +89,19 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     campusId: {
       required: 'Campus is required'
     },
+    contact: {
+      pattern: '(Insert only number)',
+      minlength: 'Minimun 10 digits',
+      maxlength: 'Maximum 15 digits'
+    }
   }
 
   formErrors = {
     vendorName: '',
     PODate: '',
     dueDate: '',
-    campusId: ''
+    campusId: '',
+    contact: ''
   }
 
   // Injecting Dependencies
@@ -119,7 +125,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       vendorName: ['', [Validators.required]],
       PODate: ['', [Validators.required]],
       dueDate: ['', [Validators.required]],
-      contact: [''],
+      contact: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
       campusId: ['', [Validators.required]],
       purchaseOrderLines: this.fb.array([
         this.addPurchaseOrderLines()

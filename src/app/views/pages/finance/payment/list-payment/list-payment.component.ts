@@ -99,7 +99,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       }
     },
     {
-      headerName: 'sales Tax',
+      headerName: 'Sales Tax',
       field: 'salesTax',
       tooltipField: 'status',
       suppressMenu: true,

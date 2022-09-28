@@ -374,6 +374,12 @@ export enum DocumentStatus {
     Reconciled
 }
 
+export enum AccountType {
+  SystemDefined,
+  UserDefined
+}
+    
+
 export enum PayrollType {
   BasicPay,
   Increment,
