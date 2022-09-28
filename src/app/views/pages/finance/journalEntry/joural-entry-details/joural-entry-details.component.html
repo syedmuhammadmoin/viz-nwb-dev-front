@@ -18,16 +18,16 @@
                   <button  *ngIf="(journalEntryMaster?.state === docStatus.Draft || journalEntryMaster?.state === docStatus.Rejected) &&
                     (permission.isGranted(permissions.JOURNALENTRY_EDIT))" id="journal_edit"
                     [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('edit' , journalEntryMaster?.id)"
-                    [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button"  class="mr-2 btn_public">
-                    <i class="fa fa-edit" ></i> Edit
+                    [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button"  class="btn_public mr-3">
+                    <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
 
-                  <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-2" 
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip"></i> Attachment
+                  <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-3" 
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                   </button>
 
-                  <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public" 
-                  matTooltip="Add Bank Account"><i class="fa fa-print"></i> Print Journal Entry</button>
+                  <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public"  
+                  matTooltip="Add Bank Account"><i class="fa fa-print icon-e-p-a"></i> Print Journal Entry</button>
                   
 
                   <mat-divider class="mt-5"></mat-divider>
@@ -37,22 +37,22 @@
 
           <div class="col-md-5 col-lg-5  mt-3">
               <div class="print-box">
-                  <h4 >Document Id: 
-                      <span class="float-right" >{{journalEntryMaster?.docNo}}</span></h4>
+                  <h4 class="print-box-detail-1">Document Id: 
+                      <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                  <h4 >Date: 
-                      <span class="float-right" >{{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
+                  <h4 class="print-box-detail-2">Date: 
+                      <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
               </div>
               
               <div class="print-box">
-                <h4 >Description: 
-                    <span class="float-right" >{{journalEntryMaster?.description || 'N/A'}}</span></h4>
+                <h4 class="print-box-detail-2">Description: 
+                    <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.description || 'N/A'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 >Campus: 
-                    <span class="float-right" >{{journalEntryMaster?.campusName || 'N/A'}}</span></h4>
+                <h4 class="print-box-detail-2">Campus: 
+                    <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.campusName || 'N/A'}}</span></h4>
               </div>
           </div>
 
@@ -78,13 +78,13 @@
 
           <div class="col-md-4 col-lg-4  ml-auto mt-3" >
               <div class="print-box">
-                <h4 >Total Debit: 
-                  <span class="float-right" >{{valueFormatter(journalEntryMaster?.totalDebit || 0)}}</span>
+                <h4 class="net-payment">Total Debit: 
+                  <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalDebit || 0)}}</span>
                 </h4>
               </div>
               <div class="print-box">
-                <h4 >Total Credit:
-                  <span class="float-right" >{{valueFormatter(journalEntryMaster?.totalCredit || 0)}}</span>
+                <h4>Total Credit:
+                  <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.totalCredit || 0)}}</span>
                 </h4>
               </div>
           </div>

@@ -9,6 +9,10 @@ import { finalize, take } from 'rxjs/operators';
 import { AccountLevel4State } from '../../store/account-level4.state';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { AccountPayableState } from '../../store/account-payable.state';
+import { AccountReceivableState } from '../../store/account-receivable.state';
+import { OtherAccountState } from '../../store/other-account.state';
+import { AssetAccountState } from '../../store/asset-account.state';
 
 @Component({
   selector: 'kt-create-level4',
@@ -120,6 +124,10 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
          )
         .subscribe(() => {
           this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountPayableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
           this.toastService.success('Updated Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }
@@ -137,6 +145,10 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
          )
         .subscribe(() => {
           this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountPayableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
           this.toastService.success('Created Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }

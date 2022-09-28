@@ -15,7 +15,7 @@
       <div class="kt-form__section kt-form__section--first">
         <!-- first row starts -->
         <div class="col-md-12 col-lg-12 col-sm-12">
-          <div  class="row mt-8 mb-5" id="upload">
+          <div  class="row mt-1 mb-0" id="upload">
             <div class="col-lg-12 col-12">
               <label class="et_pb_contact_form_label" for="et_pb_contact_brand_file_request_0">Enter</label>
               <input #uploadFileInput (change)="uploadFile($event)" accept=".txt, .doc, .docx, .pdf, .xls, .xlsx, .PNG, .JPEG, .JPG"
@@ -27,10 +27,10 @@
                   <span>Selected File : {{file.name || 'File Name'}}</span>
                   <!-- {{file.name || 'File Name'}} -->
                   <span ><i
-                    (click)="reset()" class="fa fa-times float-right" style="color: #721c24;margin-top: 3px;cursor: pointer;"></i></span>
+                    (click)="reset()" mat-raised-button class="fa fa-times float-right" style="color: #721c24;margin-top: 3px;cursor: pointer;"></i></span>
                 </p>
                 <!-- <div class="text-right">
-                  <button style="font-size: 12px;" class="danger__btn" mat-raised-button type="reset" > Delete </button>
+                  <button style="font-size: 12px;" class="btn btn-outline-danger" mat-raised-button type="reset" > Delete </button>
                 </div> -->
               </div>
             </div>
@@ -84,7 +84,7 @@
                   Created At:
                 </p>
                 <div class="text-right">
-                  <button style="font-size: 12px;" class="app-default-btn" (click)="download(file)">Download</button>
+                  <button style="font-size: 12px;" class="app-default-btn" mat-raised-button (click)="download(file)">Download</button>
                 </div>
               </div>
             </div> -->
@@ -100,7 +100,7 @@
           <div class="col-lg-12 col-md-8 col-sm-8 col-9">
             <div class="float-right">
               <!-- <button class="mr-5 cancel__btn" mat-raised-button type="reset" (click)="dialogRef.close()"> Cancel </button> -->
-              <button  (click)="onSubmit()" class="app-default-btn"  type="submit"><i class="fa fa-paperclip"></i> Attach </button>
+              <button  (click)="onSubmit()" class="app-default-btn" mat-raised-button  type="submit"><i class="fa fa-paperclip"></i> Attach </button>
               <!--Edit Button-->
   
             </div>

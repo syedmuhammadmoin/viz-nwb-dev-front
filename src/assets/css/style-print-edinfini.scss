@@ -1,18 +1,38 @@
-// $bg-gradient-color: linear-gradient(to right, #1d6d86, #4a8a9e);
-$bg-white: #fff;
-$text-white: #fff;
-$primary-color:#65c18c;
-$secondary-color: #6c7278;
-$input-filed-primary-color : #808080;
-$input-filed-background-color : #f2f2f2;
-$input-filed-border-color : #d0d0d0;
-$form-border-color : #aad7e6;
-$test-shadow-color : #9195a9;
-$button-background-color:rgb(88 149 77 / 6%);
-$light-gray-color :#B5B5C3;
-$bg-light-theme-color: rgb(88 149 77 / 6%);
-$heading-color: #6c7278;
-$site-logo :'assets/media/logos/logo-edinfini-bg.png';
+// $bg-gradient-color:linear-gradient(to right, rgba(0, 0, 0, 0.6), #65c18c);
+// $bg-white: #fff;
+// $text-white: #fff;
+// $primary-color:#65c18c;
+// $secondary-color: #141e27;
+// $input-filed-primary-color : #808080;
+// $input-filed-background-color : #f2f2f2;
+// $input-filed-border-color : #d0d0d0;
+// $form-border-color : rgba(101, 193, 140, 0.1);
+// $test-shadow-color : #9195a9;
+// $button-background-color:rgba(101, 193, 140, 0.1);
+// $light-gray-color :#B5B5C3;
+// $bg-light-theme-color: rgb(88 149 77 / 6%);
+// $heading-color: #6c7278;
+// $site-logo :'assets/media/logos/LOGO-EDINFINI-HEADER.png';
+
+$bg-gradient-color:linear-gradient(to right, var(--bg_gradient_color_one), var(--bg_gradient_color_two));
+$bg-white: var(--bg_white);
+$primary-color: var(--primary_color);
+$primary-color-rgb:rgb(101 193 140 / 40%);
+$secondary-color:var(--secondary_color);
+$input-filed-primary-color : var(--input_filed_primary_color);
+$input-filed-background-color : var(--input_filed_background_color);
+$input-filed-border-color : var(--input_filed_border_color);
+$form-border-color : var(--form_border_color);
+$test-shadow-color : var(--test_shadow_color);
+$button-background-color: var(--button_background_color);
+$light-gray-color : var(--light_gray_color);
+$title : var(--title);
+$login-title : var(--login_title);
+$login-cover-image :var(--login_cover_image);
+$site-logo :var(--site_logo);
+$dashboard_hight : var(--dashboard_hight);
+$dashboard_logo_width : var(--dashboard_logo_width);
+$dashboard_logo_hight : var(--dashboard_logo_hight);
 
 
 
@@ -26,10 +46,10 @@ $site-logo :'assets/media/logos/logo-edinfini-bg.png';
 }
 
 .print-logo{
-  background-image: url($site-logo);
+  background-image: $site-logo;
   background-repeat: no-repeat, repeat;
   background-position: center;
-  background-size: 100px;
+  background-size: contain;
   width: 100px;
   height: 100px;
   }
@@ -45,9 +65,9 @@ $site-logo :'assets/media/logos/logo-edinfini-bg.png';
   width: 100%;
   display: flex;
   flex-wrap: nowrap;
-  background-color: $primary-color;
+  background-color: $button-background-color;
   padding: 15px;
-  border-bottom: 15px solid $secondary-color;
+  border-bottom: 15px solid $primary-color;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
@@ -56,7 +76,7 @@ $site-logo :'assets/media/logos/logo-edinfini-bg.png';
   margin-left: 12px;
   font-size: 22px;
   font-weight: 500;
-  color: $bg-white;
+  color: $primary-color;
 }
 
 .id_num {
@@ -127,7 +147,7 @@ $site-logo :'assets/media/logos/logo-edinfini-bg.png';
   font-size: 16px;
   letter-spacing: 3px;
   font-weight: 600;
-  color: $text-white;
+  color: $primary-color;
 }
 
 .p-s-1 .p-s-1-two .print-box-one p {
@@ -138,7 +158,7 @@ $site-logo :'assets/media/logos/logo-edinfini-bg.png';
   font-size: 16px;
   letter-spacing: 3px;
   font-weight: 600;
-  color: $text-white;
+  color: $primary-color;
   margin-top: 10px;
 }
 
@@ -456,21 +476,3 @@ $site-logo :'assets/media/logos/logo-edinfini-bg.png';
   padding-right: 12.5px;
   padding-left: 12.5px
 }
-
-.print-box-one
-{
-  color: $text-white !important;
-}
-
-.print-box-two
-{
-  color: $text-white !important;
-}
-
-
-
-
-.print-box-report
-{
-  color: $primary-color !important;
-} 

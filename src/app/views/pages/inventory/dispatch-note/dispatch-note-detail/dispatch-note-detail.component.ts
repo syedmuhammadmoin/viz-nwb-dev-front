@@ -69,7 +69,7 @@ public DISPATCH_NOTE=DISPATCH_NOTE
 
   ngOnInit(): void {
     this.gridOptions.rowStyle = {color: 'black'};
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
 
     this.activatedRoute.paramMap.subscribe(params => {

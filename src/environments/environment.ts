@@ -8,7 +8,7 @@ export const environment = {
   authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
   // baseUrl:'http://api.vizalys.com/api/',
   //baseUrl:'http://nwbtestapi.vizalys.com/api/'
-    // baseUrl: 'http://192.168.100.117:8080/api/'
+  // baseUrl: 'http://192.168.100.117:8080/api/'
   // baseUrl: 'http://192.168.10.28:8080/api/'
   baseUrl: 'https://localhost:7237/api/'
 };
