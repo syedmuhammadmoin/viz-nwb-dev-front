@@ -1,14 +1,9 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <!-- <kt-portlet-header [sticky]="false" [title]="'Payroll Detail'" [class]="'card-head-lg'">
+    <kt-portlet-header [sticky]="false" [title]="'Payroll Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        <h4 class="overall_statuses {{docStatus[payrollMaster?.state]}}"> Status: {{payrollMaster?.status}} </h4>
-      </ng-container>
-    </kt-portlet-header> -->
-    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'Payroll Detail'">
-      <ng-container class="" ktPortletTools>
-        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+        <!-- <h4 class="overall_statuses {{docStatus[payrollMaster?.state]}}"> Status: {{payrollMaster?.status}} </h4> -->
         <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[payrollMaster?.state]}}"></span> {{payrollMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
@@ -19,70 +14,70 @@
             <ng-container ktPortletTools >
               <button *ngIf="(payrollMaster?.state === docStatus.Partial || payrollMaster?.state === docStatus.Unpaid) 
                   && (payrollMaster?.ledgerId) && (permission.isGranted(permissions.PAYROLL_PAYMENT_CREATE))"
-                type="button" class="mr-2 btn_public" (click)="openDialog()" >
-                <i class="fa fa-edit" ></i> Register Payment
+                type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                <i class="fa fa-edit icon-e-p-a"></i> Register Payment
               </button>
 
                 <button *ngIf="(payrollMaster?.state === docStatus.Draft || payrollMaster?.state === docStatus.Rejected)
                   && (permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"
                   [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('edit', payrollMaster?.id)" [queryParams]="{q: payrollMaster?.id, 'isPayroll': true}"
-                  type="button"  class="mr-2 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit" ></i>
+                  type="button"  class="mr-3 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                   Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public mr-2" 
-                (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip" ></i> Attachment
+                <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public mr-3" 
+                (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('print', payrollMaster?.id)" type="button" 
                   class="btn_public" id="payroll_trans_print">
-                  <i class="fa fa-print" ></i> Print Payroll
+                  <i class="fa fa-print icon-e-p-a"></i> Print Payroll
                 </button>
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
           </div>
 
-          <div class="col-md-5 col-lg-5  mt-3">
+          <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
-                <h4 >Doc No: 
-                    <span class="float-right" >{{payrollMaster?.docNo}}</span></h4>
+                <h4 class="print-box-detail-1">Doc No: 
+                    <span class="float-right" style="font-weight: 400;">{{payrollMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 >Employee: 
-              <span class="float-right" >{{payrollMaster?.employee}}</span></h4>
+              <h4 class="print-box-detail-2">Employee: 
+              <span class="float-right" style="font-weight: 400;">{{payrollMaster?.employee}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 >Transaction Date: 
-                <span class="float-right" >{{payrollMaster?.transDate | date: 'MMM d, y'}}</span></h4>
+                <h4 class="print-box-detail-2">Transaction Date: 
+                <span class="float-right" style="font-weight: 400;">{{payrollMaster?.transDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Designation: 
-              <span class="float-right" >{{payrollMaster?.designation}}</span></h4>
+              <h4 class="print-box-detail-2">Designation: 
+              <span class="float-right" style="font-weight: 400;">{{payrollMaster?.designation}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Department: 
-              <span class="float-right" >{{payrollMaster?.department}}</span></h4>
+              <h4 class="print-box-detail-2">Department: 
+              <span class="float-right" style="font-weight: 400;">{{payrollMaster?.department}}</span></h4>
             </div>
           </div>
 
           <div class="col-md-4 col-lg-4 ml-auto mt-3">
             <div class="print-box">
-                <h4 >Account: 
-                    <span class="float-right" >{{payrollMaster?.accountPayable}}</span></h4>
+                <h4 class="print-box-detail-1">Account: 
+                    <span class="float-right" style="font-weight: 400;">{{payrollMaster?.accountPayable}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 >Working Days: 
-              <span class="float-right" >{{payrollMaster?.workingDays}}</span></h4>
+              <h4 class="print-box-detail-2">Working Days: 
+              <span class="float-right" style="font-weight: 400;">{{payrollMaster?.workingDays}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 >Present Days: 
-                <span class="float-right" >{{payrollMaster?.presentDays}}</span></h4>
+                <h4 class="print-box-detail-2">Present Days: 
+                <span class="float-right" style="font-weight: 400;">{{payrollMaster?.presentDays}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Leave Days: 
-              <span class="float-right" >{{payrollMaster?.leaveDays}}</span></h4>
+              <h4 class="print-box-detail-2">Leave Days: 
+              <span class="float-right" style="font-weight: 400;">{{payrollMaster?.leaveDays}}</span></h4>
             </div>
           </div>
          </div>
@@ -131,34 +126,34 @@
 
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" >
+            <table class="table  small_table_box" style="margin: 0px -6px;">
               <tr>
-                <td class="text-left Total-Before-Tax-heading">Basic Salary :</td>
+                <td class="text-left" style="width: 70%;">Basic Salary :</td>
                 <td class="text-right" >
                   {{valueFormatter(payrollMaster?.basicSalary || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left Total-Before-Tax-heading">Total Allowances :</td>
+                <td class="text-left" style="width: 70%;">Total Allowances :</td>
                 <td class="text-right" >
                   {{valueFormatter(payrollMaster?.totalAllowances || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left Total-Before-Tax-heading">Gross Pay :</td>
+                <td class="text-left" style="width: 70%;">Gross Pay :</td>
                 <td class="text-right" >
                   {{valueFormatter(payrollMaster?.grossPay || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left Total-Before-Tax-heading">Total Deduction :</td>
+                <td class="text-left" style="width: 70%;">Total Deduction :</td>
                 <td class="text-right" >
                   {{valueFormatter(payrollMaster?.totalDeductions || 0)}}</td>
               </tr>
               <tr>
-                <td class="text-left Total-Before-Tax-heading">Tax Deduction :</td>
+                <td class="text-left" style="width: 70%;">Tax Deduction :</td>
                 <td class="text-right" >
                   {{valueFormatter(payrollMaster?.taxDeduction || 0)}}</td>
               </tr>
-              <tr >
-                <th class="text-left Total-Before-Tax-heading"
+              <tr class="grand-total">
+                <th class="text-left"
                   >Net Salary :</th>
                 <th class="text-right" >
                   {{valueFormatter(payrollMaster?.netSalary || 0)}}</th>
@@ -169,10 +164,12 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title >
+                        <mat-panel-title style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold;">
                           Paid Amount :
                         </mat-panel-title>
-                        <mat-panel-description >
+                        <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
+                                      font-weight: bold; flex-grow: 0;">
                           {{valueFormatter(paidAmount || 0)}}
                         </mat-panel-description>
                       </mat-expansion-panel-header>
@@ -183,10 +180,10 @@
                         </tr>
                         <tr *ngFor="let pay of paidAmountList">
                           <td><a [routerLink]="('/' + PAYROLL_PAYMENT.ID_BASED_ROUTE('details', pay?.id))"
-                              class="all-text-primary">{{pay?.docNo}}</a></td>
+                              class="links">{{pay?.docNo}}</a></td>
                           <td>
                             <a [routerLink]="('/' + PAYROLL_PAYMENT.ID_BASED_ROUTE('details', pay?.id))"
-                            class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
+                              class="links">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
                       </table>
@@ -196,11 +193,10 @@
               </tr>
 
               <tr *ngIf="(pendingAmount)">
-                <th class="text-left Total-Before-Tax"
-                 >Pending Amount :
+                <th class="text-right pending-amount">Pending Amount :
                 </th>
-                <td class="text-right Total-Before-Tax">
-                  <b>{{valueFormatter(pendingAmount || 0)}}</b></td>
+                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                  {{valueFormatter(pendingAmount || 0)}}</td>
               </tr>
             </table>
           </div>
@@ -210,12 +206,12 @@
 
     <mat-divider class="mt-10"></mat-divider>
 
-    <div class="kt-portlet__foot p-5">
-      <div class="kt-form__actions kt-form__actions mb-0">
+    <div class="kt-portlet__foot">
+      <div class="kt-form__actions kt-form__actions">
         <div class="row ">
           <div class="col-lg-12 text-right" *ngIf="payrollMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="payroll_trans_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="payroll_trans_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
+            <button (click)="remarksDialog(action.Reject)" id="payroll_trans_reject" class="mr-5 danger__btn" mat-raised-button>Reject</button>
+            <button (click)="remarksDialog(action.Approve)" id="payroll_trans_approve" class="success__btn" mat-raised-button>Approve</button>
           </div>
         </div>
       </div>

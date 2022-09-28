@@ -77,7 +77,7 @@ export class ListSaleOrderComponent extends AppComponentBase implements OnInit {
 
     this.getSalesOrderList()
 
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
 
     this.defaultColDef = {

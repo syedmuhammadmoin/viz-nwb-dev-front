@@ -224,8 +224,8 @@
             </div>
 
             <div class="row">
-              <!-- <div class="col-md-6 col-6 text-center ml-auto " >
-                <div class="Total-Debit">
+              <!--<div class="col-md-6 col-6 text-center ml-auto " >
+                <div class="total-debit-credit">
                   <span class="mr-3"><strong>Total Debit</strong> <span> {{debitTotal.toLocaleString(undefined,
                     { maximumFractionDigits: 2 })}}</span>
                   </span>
@@ -253,12 +253,12 @@
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
             <div class="col-lg-12 text-right">
-              <button class="mr-2 app-reset-btn" type="button" (click)="reset()" id="journal_reset"><i class="fas fa-undo"></i> Reset</button>
-              <button class=" mr-2 app-save-btn" type="submit" id="journal_save"
+              <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="journal_reset"><i class="fas fa-undo"></i> Reset</button>
+              <button class=" mr-2 app-save-btn" mat-raised-button type="submit" id="journal_save"
                 (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i>
                 Save
               </button>
-              <button class="app-default-btn" type="submit" id="journal_submit"
+              <button class="app-default-btn" mat-raised-button type="submit" id="journal_submit"
                 (click)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages); isSubmit(1)"><i class="far fa-save"></i>
                 Submit
               </button>

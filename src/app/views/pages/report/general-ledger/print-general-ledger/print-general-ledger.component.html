@@ -8,101 +8,115 @@
         ngxPrint
         type="button"
         [useExistingCss]="true"
-        class="app-default-btn"
+        class="app-default-btn" mat-raised-button
         style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
-  </div>
-  <div class="col-lg-10 mx-auto" id="main">
-    <div [ktBusy]="isLoading" class="row">
-      <div class="bg-whitee">
-
-        <div class="print_header_area s-p-1">
-          <div class="print-col-6 s-p-1-one">
-            <div class="logo_and_title">
-              <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-              <span class="top-heading">GENERAL LEDGER</span>
+    </div>
+    
+    <div class="col-lg-10 mx-auto" id="main">
+      <div [ktBusy]="isLoading" class="row">
+        <div class="bg-whitee">
+  
+          <div class="print_header_area s-p-1">
+            <div class="print-col-6 s-p-1-one">
+              <div class="logo_and_title">
+                <div class="print-logo"></div>
+                <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
+                <span class="top-heading">GENERAL LEDGER</span>
+              </div>
             </div>
           </div>
-        </div>
-
-
-        <div class="print_body_area s-p-2-one">
-
-          <div class="print-col-5 s-p-2-one-one">
-
-            <div class="print-box-four" >
-              <h4>Date:<span class="float-right">{{from}} - {{to}}</span></h4>
-              <h4>Business Partner:<span class="float-right">{{businessPartner}}</span></h4>
-              <h4>Account:<span class="float-right">{{account}}</span></h4>  
-              <h4>Campus:<span class="float-right">{{campus}}</span></h4>  
-              <h4>Store:<span class="float-right">{{store}}</span></h4>  
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+  
+  
+          <div class="print_body_area s-p-2-one">
+  
+            <div class="print-col-5 s-p-2-one-one">
+  
+              <div class="print-box-four" >
+                <h4>Date:<span class="float-right">{{from}} - {{to}}</span></h4>
+                <h4>Business Partner:<span class="float-right">{{businessPartner}}</span></h4>
+                <h4>Account:<span class="float-right">{{account}}</span></h4>  
+                <h4>Campus:<span class="float-right">{{campus}}</span></h4>  
+                <h4>Store:<span class="float-right">{{store}}</span></h4>  
+                <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              </div>
             </div>
-          </div>
-
-          <div class="print-col-12 print-box-five">
-            <div class="table-responsive">
-              <table class="table table-bordered">
-                <thead class="thead-dark_color">
-                  <tr class="b-s-2-b-c">
-                    <th>Doc #</th>
-                    <th>Partner</th>
-                    <th>Doc Type</th>
-                    <th>Date</th>
-                    <th>Description</th>
-                    <th>Debit (Rs)</th>
-                    <th>Credit (Rs)</th>
-                    <th>Balance (Rs)</th>
-                  </tr>
-                </thead>
-
-                <tbody class="ledgre-body">
-                  <ng-container *ngFor="let key of rowData.keys()">
-                    <tr>
-                      <td class="ledgra-col-8" [colSpan]="8">> {{key}}</td>
+  
+            <div class="print-col-12 print-box-five">
+              <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead class="thead-dark_color">
+                    <tr class="b-s-2-b-c">
+                      <th>Doc #</th>
+                      <th>Partner</th>
+                      <th>Doc Type</th>
+                      <th>Date</th>
+                      <th>Description</th>
+                      <th>Debit (Rs)</th>
+                      <th>Credit (Rs)</th>
+                      <th>Balance (Rs)</th>
                     </tr>
-                    <ng-container *ngFor="let ledger of rowData.get(key)">
-                      <tr class="ledgre-one">
-                        <td
-                          >{{ledger.docNo}} </td>
-                        <td
-                          >{{ledger.businessPartnerName}} </td>
-                        <td
-                          >{{docType[ledger.docType]}}</td>
-                        <td
-                          >{{dateHelperService.transformDate(ledger.docDate, ' MMM d, y')}}</td>
-                        <td 
-                            class="text-left">{{ledger.description}}</td>
-                        <td 
-                            class="text-right">{{valueFormatter(ledger.debit || 0, '+ve')}}</td>
-                        <td 
-                            class="text-right">{{valueFormatter(ledger.credit || 0, '-ve')}}</td>
-                        <td 
-                            class="text-right">{{valueFormatter(ledger.balance || 0)}}</td>
+                  </thead>
+  
+                  <tbody class="ledgre-body">
+                    <ng-container *ngFor="let key of rowData.keys()">
+                      <tr>
+                        <td class="ledgra-col-8" [colSpan]="8">> {{key}}</td>
+                      </tr>
+                      <ng-container *ngFor="let ledger of rowData.get(key)">
+                        <tr class="ledgre-one">
+                          <td
+                            >{{ledger.docNo}} </td>
+                          <td
+                            >{{ledger.businessPartnerName}} </td>
+                          <td
+                            >{{docType[ledger.docType]}}</td>
+                          <td
+                            >{{dateHelperService.transformDate(ledger.docDate, ' MMM d, y')}}</td>
+                          <td 
+                              class="text-left">{{ledger.description}}</td>
+                          <td 
+                              class="text-right">{{valueFormatter(ledger.debit || 0, '+ve')}}</td>
+                          <td 
+                              class="text-right">{{valueFormatter(ledger.credit || 0, '-ve')}}</td>
+                          <td 
+                              class="text-right">{{valueFormatter(ledger.balance || 0)}}</td>
+                        </tr>
+                      </ng-container>
+                      <tr class="ledgre-three">
+                        <td colspan="5">Total:</td>
+                        <td>{{valueFormatter(calculateTotal(rowData.get(key), 'debit').debit, '+ve')}}</td>
+                        <td>{{valueFormatter(calculateTotal(rowData.get(key), 'credit').credit, '-ve')}}</td>
+                        <td>
+                          {{valueFormatter(rowData.get(key)[rowData.get(key).length - 1].balance)}}
+                        </td>
                       </tr>
                     </ng-container>
-                    <tr class="ledgre-three">
-                      <td colspan="5">Total:</td>
-                      <td>{{valueFormatter(calculateTotal(rowData.get(key), 'debit').debit, '+ve')}}</td>
-                      <td>{{valueFormatter(calculateTotal(rowData.get(key), 'credit').credit, '-ve')}}</td>
-                      <td>
-                        {{valueFormatter(rowData.get(key)[rowData.get(key).length - 1].balance)}}
-                      </td>
-                    </tr>
-                  </ng-container>
                   </tbody>
               </table>
             </div>
-          </div>
+  
+  
+  
+  
+            <div class="print-col-12 s-p-4">
+                <div class="print-box s-p-4-one">
+                  <p>Terms and conditions:</p>
+                </div>
+                <div class="print-box s-p-4-two">
+                  <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                  </h4>
+                </div>
+    
+                <div class="print-box s-p-4-three">
+                  <p>Thank You for your Business</p>
+                </div>     
+              </div>
 
-
-
-
-          <div class="print-col-12 s-p-4">
-              <div class="print-box s-p-4-one">
-                <p>Terms and conditions:</p>
+              <div class="print-col-4 s-p-5">
+                _________________________________
+                <p class="text-center">Authorised Sign</p>
               </div>
               <div class="print-box s-p-4-two">
                 <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.

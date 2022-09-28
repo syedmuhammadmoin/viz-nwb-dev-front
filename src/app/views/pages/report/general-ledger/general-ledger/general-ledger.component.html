@@ -96,12 +96,12 @@
             </div> -->
             <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5 mb-3">
               <div class="form-group kt-form__group mb-0">
-                <button class="mr-2 app-reset-btn" (click)="reset()" id="ledger_reset"  type="button"><i class="fas fa-undo"></i> Reset
+                <button class="mr-2 app-reset-btn" (click)="reset()" mat-raised-button id="ledger_reset"  type="button"><i class="fas fa-undo"></i> Reset
                 </button>
                 <button *ngIf="!disability" class="mr-2 btn_public" (click)="printGeneralLedger(rowData)" 
                       id="ledger_print" type="button"><i class="fa fa-print"></i> Print
                 </button>
-                <button class="app-default-btn"  id="ledger_fetch" type="submit">Fetch Records
+                <button class="app-default-btn" mat-raised-button  id="ledger_fetch" type="submit">Fetch Records
                 </button>
                 <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
               </div>

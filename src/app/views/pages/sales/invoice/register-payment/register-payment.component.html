@@ -211,10 +211,10 @@
                 <div class="col-lg-6">
                   <div class="float-right">
                     <button class="mr-2 app-reset-btn" type="button" (click)="resetForm()" id="register_reset" ><i class="fas fa-undo"></i> Reset</button>
-                    <!-- <button mat-raised-button  class="mr-3 sub___btn" type="submit" id="register_save"
+                    <!-- <button mat-raised-button  class="mr-3 app-default-btn" type="submit" id="register_save"
                           (click)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages); isSubmit(0)">Save
                   </button> -->
-                    <button class="app-default-btn" type="submit" i="register_submit"
+                    <button class="app-default-btn" mat-raised-button type="submit" i="register_submit"
                             (click)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages); isSubmit(1)"><i class="far fa-save"></i>
                         Submit</button>
                   </div>

@@ -110,7 +110,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       }
     });
 
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
   }
 

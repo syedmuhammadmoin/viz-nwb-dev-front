@@ -1,5 +1,5 @@
 // import login css
-// @import "../../../../assets/sass/pages/login/login-3.scss";
+@import "../../../../assets/sass/pages/login/login-3.scss";
 
 kt-auth, #kt_login_wrapper {
 	height: 100%;
@@ -41,17 +41,17 @@ kt-auth, .login {
  	}
 }
 
-// kt-login, kt-register, kt-forgot-password {
-// 	-webkit-box-pack: center;
-//     -ms-flex-pack: center;
-//     justify-content: center;
-//     -webkit-box-align: center;
-//     -ms-flex-align: center;
-//     align-items: center;
-// 	flex: 1 0 auto;
-// 	height: 100%;
-// 	display: flex !important;
-// }
+kt-login, kt-register, kt-forgot-password {
+	-webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+	flex: 1 0 auto;
+	height: 100%;
+	display: flex !important;
+}
 
 .height-100 {
 	height: 100%;
@@ -114,6 +114,25 @@ kt-auth, .login {
 // 	font-size: 12px;
 // }
 
+a {
+	color: #333;
+	font-size: 14px;
+	text-decoration: none;
+	//margin: 15px 0;
+}
+
+button {
+	border-radius: 20px;
+	border: 1px solid #2c3355;
+	background-color: #4D648D;
+	color: #FFFFFF;
+	font-size: 12px;
+	font-weight: bold;
+	padding: 12px 45px;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	transition: transform 80ms ease-in;
+}
 
 // button:active {
 // 	transform: scale(0.95);
@@ -261,39 +280,31 @@ button:focus {
 //above stylesheet was old//
 
 /*------------------Login form left div styles start------------*/
-
-.form-left-div-bg
+.bg_full
 {
-	
-	text-align:center;
-	padding-top: 20px;
-	padding-bottom: 20px;
-	color: white;
-	box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px;
-	min-height: 100vh;
-	// background-image: url('../../../../assets/media/Login/edinfini-login-image.jpg');
-	background-size: cover;
-	background-position: center;
-	// justify-content: right;
-	// align-items: flex-end;
-	border-radius: 5px;
-	
+	background-color: #1a6b85 !important;
+	background-image:  linear-gradient(to right, #1a6b85, #4a8a9e) !important;
 }
+// .form-left-div-bg
+// {
+// 	//background-color: indigo;
+// 	// background-color: #1a6b85 !important;
+// 	// background-image:  linear-gradient(to right, #1a6b85, #4a8a9e) !important;
+// 	text-align:center;
+// 	padding-top: 20px;
+// 	padding-bottom: 20px;
+// 	color: white;
+// 	box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.22);
+// 	// border-radius: 10px;
+// 	min-height: 70vh;
+// 	background-image: url('../../../../assets/media/logos/bg_login.jpg');
+// 	background-size: cover;
+// 	background-position: center;
+// 	justify-content: right;
+// 	align-items: flex-end;
+	
+// }
 
-.form-left-div-bg::before
-{
-	content: '';
-	position: absolute;
-	width: 100%;
-	height: 100%;
-	top: 0px;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	opacity: 0.7;
-    background-color: #141e27;
-	border-radius: 5px;
-}
 
 // input {
 // 	background-color: #eee;
@@ -419,6 +430,13 @@ button:focus {
 
 
 
+// .group__sty input
+// {
+// 	background-color: #f2f2f2;
+// 	padding: 15px;
+// 	// border-radius: 0px 20px 20px 0px;
+// 	border: 1px solid #d0d0d0;
+// }
 
 
 
@@ -455,8 +473,3 @@ button:focus {
 {
   font-size: 12px;
 }
-
-// .form-control:focus
-// {
-// 	border-color: #65c18c;
-// }

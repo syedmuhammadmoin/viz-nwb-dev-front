@@ -8,7 +8,7 @@
         ngxPrint
         type="button"
         [useExistingCss]="true"
-        class="app-default-btn"
+        class="app-default-btn" mat-raised-button
         style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
@@ -29,14 +29,14 @@
           <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one">
-                <h4>Invoice No: <span class="float-right" >{{invoiceMaster?.docNo}}</span></h4>
+                <h4>Invoice No: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span></h4>
                 <p></p>
               </div>
               <div class="print-box-two">
-                <h4>Invoice Date: <span class="float-right" >{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
+                <h4>Invoice Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box-two">
-                <h4>Due Date: <span class="float-right" >{{invoiceMaster?.dueDate| date: 'MMM d, y'}}</span></h4>
+                <h4>Due Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate| date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
             

@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Estimated Budget Detail'" [class]="'card-head-lg'">
+    <kt-portlet-header [sticky]="false" [title]="'Anticipated Budget Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         
@@ -16,33 +16,33 @@
 
                 <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
                   [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
-                  type="button" class="btn_public mr-2">
-                  <i class="fa fa-edit" ></i> Edit
+                  type="button" class="btn_public">
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
                 <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" 
-                  class="btn_public">
-                  <i class="fa fa-print" ></i> Print Estimated Budget
+                  class="btn_public mr-3">
+                  <i class="fa fa-print icon-e-p-a"></i> Print Anticipated Budget
                 </button>
 
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
           </div>
 
-          <div class="col-md-5 col-lg-5  mt-3">
+          <div class="col-md-4 col-lg-4  mt-3">
 
             <div class="print-box">
-                <h4 >From Date:
-                    <span class="float-right" >{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
+                <h4 class="print-box-detail-1">From Date:
+                    <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 >To Date:
-                    <span class="float-right" >{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
+                <h4 class="print-box-detail-2">To Date:
+                    <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Estimated <br> Budget Name:
-              <span class="float-right" >{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
+              <h4 class="print-box-detail-2">Estimated <br> Budget Name:
+              <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
             </div>
             
           </div>

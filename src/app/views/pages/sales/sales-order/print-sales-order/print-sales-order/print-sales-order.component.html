@@ -7,7 +7,7 @@
         ngxPrint
         type="button"
         mat-raised-button
-        class="app-default-btn"
+        class="app-default-btn" mat-raised-button
         [useExistingCss]="true" style="margin-bottom: 20px;"
         > Print
         </button>
@@ -15,130 +15,95 @@
   </div>
 <div class="col-lg-10 mx-auto" id="main">
   <div class="row">
-    <div class="bg-white" style="border-bottom: 5px solid #65c18c;">
-      <div class="print_header_area"
-        style="width: 100%; display: flex; flex-wrap: nowrap; background-color: rgba(101, 193, 140, 0.2);
-               padding: 15px; border-bottom: 5px solid #65c18c; border-top-left-radius: 10px; border-top-right-radius: 10px;"
-        >
-        <div class="print-col-6 bg__white__logo" style="padding: 0px;">
-          <img src="../../../../../../assets/media/logos/LOGO-EDINFINI-HEADER.png" style="height: 44px;" width="110px" alt="">
+    <div class="bg-whitee">
+      <div class="print_header_area p-s-1">
+        <div class="print-col-6 bg__white__logo p-s-1-one">
+          <img src="../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
           <!-- <p class="slogen-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
           <h1 class="top-heading" style="color: #65c18c ;">SALES ORDER</h1>
         </div>
-        <div class="print-col-5 ml-auto">
-          <div class="print-box">
-            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #65c18c;">Document No: <span class="float-right" style="font-weight: 400;">{{masterData?.docNo}}</span></h4>
+        <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-box-one">
+            <h4 class="print-box-detail-1">Document No: <span class="float-right" style="font-weight: 400;">{{masterData?.docNo}}</span></h4>
             <p style="margin-bottom: 0px;"></p>
           </div>
-          <div class="print-box">
-            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">S.O Date: <span class="float-right" style="font-weight: 400;">{{masterData?.salesOrderDate | date: 'MMM d, y'}}</span></h4>
+          <div class="print-box-two">
+            <h4 class="print-box-detail-2">S.O Date: <span class="float-right" style="font-weight: 400;">{{masterData?.salesOrderDate | date: 'MMM d, y'}}</span></h4>
           </div>
-          <div class="print-box">
-            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Due Date: <span class="float-right" style="font-weight: 400;">{{masterData?.dueDate| date: 'MMM d, y'}}</span></h4>
+          <div class="print-box-two">
+            <h4 class="print-box-detail-2">Due Date: <span class="float-right" style="font-weight: 400;">{{masterData?.dueDate| date: 'MMM d, y'}}</span></h4>
           </div>
-          <!-- <div class="print-box">
-            <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #65c18c;margin-top: 10px;">Customer Name: <span class="float-right" style="font-weight: 400;"></span></h4>
-          </div> -->
-          <div class="print-box" style="margin-top: 8%;">
-            <h4 style="font-size: 22px;font-weight: 600;color: #65c18c;">Customer Name: </h4>
-            <p style="font-size: 16px;font-weight: 600;color: #65c18c;margin-bottom: 2px;">{{masterData?.customer}}</p>
-            <p style="font-size: 15px;font-weight: 400;color: #65c18c;">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+          <div class="print-box-three">
+            <h4>Customer Name: </h4>
+            <p>{{masterData?.customer}}</p>
+            <p class="p2">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
           </div>
         </div>
       </div>
 
 
-      <div class="print_body_area mt-5">
-        <div class="print-col-12" style="padding: 0px;">
+      <div class="print_body_area mt-5 p-s-2">
+        <div class="print-col-12 p-s-2-two">
           <div class="table-responsive">
-            <table class="table text-center" style="background-color: #fff; color: #65c18c;">
+            <table class="table text-center">
               <thead class="thead-dark_color">
-                <tr style="background-color: #65c18c;">
-                  <th style="background-color: #65c18c; color: white;">S.No</th>
-                  <th style="background-color: #65c18c; color: white;">Item</th>
-                  <th style="background-color: #65c18c; color: white;">Description:</th>
-                  <th style="background-color: #65c18c; color: white;">Quantity</th>
-                  <th style="background-color: #65c18c; color: white;">Price</th>
-                  <th style="background-color: #65c18c; color: white;">Tax</th>
-                  <th style="background-color: #65c18c; color: white;">SubTotal</th>
-                  
-                  
+                <tr class="b-s-2-b-c">
+                  <th>S.No</th>
+                  <th>Item</th>
+                  <th>Description:</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Tax</th>
+                  <th>SubTotal</th>
                 </tr>
                 <tr *ngFor="let line of salesOrderLines ; index as i">
                   <td >{{i + 1}}</td>
                   <td>{{line?.item}}</td>
                   <td class="description text-left">{{line?.description}}</td>
                   <td >{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                  <td class="text-right" style="background-color: #eef0f8;">{{line?.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                  <td class="text-right" style="background-color: #eef0f8;">{{line?.tax + '%'}}</td>
-                  <td class="text-right" style="background-color: #eef0f8;">{{line?.subtotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                  <td>{{line?.price.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                  <td>{{line?.tax + '%'}}</td>
+                  <td>{{line?.subtotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                 </tr>
-                
-                
               </thead>
             </table>
           </div>
         </div>
 
 
-        <div class="print-col-6" style="padding:0px; margin-top: 5%;">
+        <div class="print-col-6 s-p-6">
           <div class="print-box">
-            <p style="color: #fff;
-            font-family: inherit;
-            font-size: 18px;">Thankyou for your Business</p>
+            <p>Thankyou for your Business</p>
           </div>
         </div>
 
-        <div class="print-col-5 ml-auto" style="margin-top: 5%;">
-          <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;">Total Before Tax:
-              <span class="float-right" style="font-weight: 400;">{{totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+        <div class="print-col-5 ml-auto s-p-7">
+          <div class="print-box s-p-7-one">
+            <h4>Total Before Tax:
+              <span class="float-right">{{totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
             </h4>
           </div>
-          <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;">Total Tax:
-              <span class="float-right" style="font-weight: 400;">{{totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+          <div class="print-box s-p-7-two">
+            <h4>Total Tax:
+              <span class="float-right">{{totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
             </h4>
           </div>
-          <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #65c18c;margin-top: 10px;border-top: 2px solid #65c18c;
-            padding-top: 10px;">Grand Total:
-              <span class="float-right" style="font-weight: 400;">{{masterData?.total.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+          <div class="print-box s-p-7-three">
+            <h4>Grand Total:
+              <span class="float-right">{{masterData?.total.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
             </h4>
           </div>
         </div>
 
-        <div class="print-col-3" style="padding:0px; ">
-          <!-- <p style="color: rgb(1 143 197);
-          font-size: 18px;
-          font-weight: bold;">Personal Info:</p>
-          <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #fff;margin-top: 10px;">Account #:
-              <span class="float-right" style="font-weight: 400;">123 456 789 10</span>
-            </h4>
-          </div>
-          <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #fff;margin-top: 10px;">A/C Name:
-              <span class="float-right" style="font-weight: 400;">Lorem ipsum</span>
-            </h4>
-          </div>
-          <div class="print-box">
-            <h4 style="font-size: 14px;letter-spacing: 1px;font-weight: 600;color: #fff;margin-top: 10px;">Bank Details:
-              <span class="float-right" style="font-weight: 400;">bank Details</span>
-            </h4>
-          </div>
-          <br>
-          <br> -->
-          <p style="color: #fff;
-          font-size: 18px;
-          font-weight: bold;">Terms and conditions:</p>
-          <div class="print-box">
-            <h4 style="font-size: 14px;line-height:18px;color: #fff;font-weight: 100;">Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+        <div class="print-col-3 p-s-4">
+          <p class="p-s-4-one">Terms and conditions:</p>
+          <div class="print-box p-s-4-two">
+            <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             </h4>
           </div>
         </div>
 
-        <div class="print-col-4 ml-auto text-center" style="padding:0px; margin-top: 8%;color: #65c18c;">
+        <div class="print-col-4 ml-auto text-center p-s-5">
           ______________________________
           <p>Authorised Sign</p>
         </div>

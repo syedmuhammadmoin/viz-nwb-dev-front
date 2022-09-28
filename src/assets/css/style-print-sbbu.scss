@@ -1,4 +1,4 @@
-// $bg-gradient-color: linear-gradient(to right, #1d6d86, #4a8a9e);
+$bg-gradient-color: linear-gradient(to right, #1d6d86, #4a8a9e);
 $bg-white: #fff;
 $text-white: #fff;
 $primary-color:#1d6d86;
@@ -8,28 +8,11 @@ $input-filed-background-color : #f2f2f2;
 $input-filed-border-color : #d0d0d0;
 $form-border-color : #aad7e6;
 $test-shadow-color : #9195a9;
-$button-background-color:rgb(243 246 249);
+$button-background-color:#e9f5f9;
 $light-gray-color :#B5B5C3;
-$bg-light-theme-color: #F3F6F9;
+$bg-light-theme-color: rgb(88 149 77 / 6%);
 $heading-color: #6c7278;
 $site-logo :'assets/media/logos/logo-wr.png';
-
-
-// $bg-gradient-color: linear-gradient(to right, #1d6d86, #4a8a9e);
-// $bg-white: #fff;
-// $text-white: #fff;
-// $primary-color:#1d6d86;
-// $secondary-color: #cba058;
-// $input-filed-primary-color : #808080;
-// $input-filed-background-color : #f2f2f2;
-// $input-filed-border-color : #d0d0d0;
-// $form-border-color : #aad7e6;
-// $test-shadow-color : #9195a9;
-// $button-background-color:#e9f5f9;
-// $light-gray-color :#B5B5C3;
-// $bg-light-theme-color: rgb(88 149 77 / 6%);
-// $heading-color: #6c7278;
-// $site-logo :'assets/media/logos/logo-wr.png';
 
 
 
@@ -46,7 +29,7 @@ $site-logo :'assets/media/logos/logo-wr.png';
   background-image: url($site-logo);
   background-repeat: no-repeat, repeat;
   background-position: center;
-  background-size: 100px;
+  background-size: cover;
   width: 100px;
   height: 100px;
   }
@@ -474,21 +457,3 @@ $site-logo :'assets/media/logos/logo-wr.png';
   padding-left: 12.5px
 }
 
-
-
-// other print classes
-
-.print-box-one
-{
-  color: $text-white !important;
-}
-
-.print-box-two
-{
-  color: $text-white !important;
-}
-
-.print-box-report
-{
-  color: $primary-color !important;
-} 
