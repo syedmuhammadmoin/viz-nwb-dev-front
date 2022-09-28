@@ -62,7 +62,7 @@ export class CreateCampusComponent extends AppComponentBase implements OnInit {
       pattern: 'Please insert correct ID.'
     },
     phone: {
-      pattern: 'Please insert correct NTN No.'
+      pattern: 'Please insert correct phone No.'
     }
   };
 
