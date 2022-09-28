@@ -547,15 +547,15 @@ kt-footer
   color: #ff6a6a;
 }
 
-mat-tab-body[id^="mat-tab-content"][id$="-1"] > .mat-tab-body-content
-{
-  height: 300px !important;
-}
+// mat-tab-body[id^="mat-tab-content"][id$="-1"] > .mat-tab-body-content
+// {
+//   height: 300px !important;
+// }
 
-mat-tab-body[id^="mat-tab-content"][id$="-2"] > .mat-tab-body-content
-{
-  height: 300px !important;
-}
+// mat-tab-body[id^="mat-tab-content"][id$="-2"] > .mat-tab-body-content
+// {
+//   height: 300px !important;
+// }
 
 
 div.search_sticky
@@ -1697,4 +1697,15 @@ mat-tree-node div[id^='child']
 .mat-form-field-label
 {
   color: rgb(0 0 0 / 45%) !important;
+}
+
+
+.mat-pseudo-checkbox
+{
+  color: $primary-color;
+}
+
+.mat-pseudo-checkbox.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate
+{
+  background-color: $primary-color;
 }
