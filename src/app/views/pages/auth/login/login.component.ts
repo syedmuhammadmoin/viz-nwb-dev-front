@@ -14,6 +14,7 @@ import { AppState } from '../../../../core/reducers';
 import { AuthNoticeService, AuthService, Login, User, UserLoaded } from '../../../../core/auth';
 import { DecodeTokenService } from "../../../shared/decode-token.service";
 import { LayoutUtilsService } from "../../../../core/_base/crud";
+import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 
 /**
  * ! Just example => Should be removed in development
@@ -35,6 +36,11 @@ export class LoginComponent implements OnInit, OnDestroy {
 	isLoggedIn$: Observable<boolean>;
 	errors: any = [];
 	user: User = new User();
+	edinfini : boolean;
+  	localsto : any ;
+
+	globalcolor_localStorage : any = '';
+ 	 globalcolor_sessionStorage : any = '';
 
 
 	private unsubscribe: Subject<any>;
@@ -65,7 +71,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 		private cdr: ChangeDetectorRef,
 		private route: ActivatedRoute,
 		private decodeService: DecodeTokenService,
-		private layoutUtilService: LayoutUtilsService
+		private layoutUtilService: LayoutUtilsService,
+		public dynamicColorChanging : DynamicColorChangeService,
+		private ref: ChangeDetectorRef,
 	) {
 		this.unsubscribe = new Subject();
 	}
@@ -84,6 +92,118 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.route.queryParams.subscribe(params => {
 			this.returnUrl = params.returnUrl || '/';
 		});
+
+		this.dynamicColorChanging.global_color.subscribe((res : any)  => {
+			if(sessionStorage.getItem('global_color')){
+
+			  this.globalcolor_localStorage = JSON.parse(sessionStorage.getItem('global_color'))
+			  localStorage.setItem('global_color' , JSON.stringify(this.globalcolor_localStorage))
+			  this.globalcolor_sessionStorage = JSON.parse(sessionStorage.getItem('global_color'))
+			  document.documentElement.style.setProperty('--bg_gradient_color_one' ,this.globalcolor_localStorage.bg_gradient_color_one)
+			  document.documentElement.style.setProperty('--bg_gradient_color_one' ,this.globalcolor_sessionStorage.bg_gradient_color_one)
+			  document.documentElement.style.setProperty('--bg_gradient_color_two' ,this.globalcolor_localStorage.bg_gradient_color_two)
+			  document.documentElement.style.setProperty('--bg_gradient_color_two' ,this.globalcolor_sessionStorage.bg_gradient_color_two)
+			  document.documentElement.style.setProperty('--bg_white' ,this.globalcolor_localStorage.bg_white)
+			  document.documentElement.style.setProperty('--bg_white' ,this.globalcolor_sessionStorage.bg_white)
+			  document.documentElement.style.setProperty('--primary_color' ,this.globalcolor_localStorage.primary_color)
+			  document.documentElement.style.setProperty('--primary_color' ,this.globalcolor_sessionStorage.primary_color)
+			  document.documentElement.style.setProperty('--secondary_color' ,this.globalcolor_localStorage.secondary_color)
+			  document.documentElement.style.setProperty('--secondary_color' ,this.globalcolor_sessionStorage.secondary_color)
+			  document.documentElement.style.setProperty('--input_filed_primary_color' ,this.globalcolor_localStorage.input_filed_primary_color)
+			  document.documentElement.style.setProperty('--input_filed_primary_color' ,this.globalcolor_sessionStorage.input_filed_primary_color)
+			  document.documentElement.style.setProperty('--input_filed_background_color' ,this.globalcolor_localStorage.input_filed_background_color)
+			  document.documentElement.style.setProperty('--input_filed_background_color' ,this.globalcolor_sessionStorage.input_filed_background_color)
+			  document.documentElement.style.setProperty('--input_filed_border_color' ,this.globalcolor_localStorage.input_filed_border_color)
+			  document.documentElement.style.setProperty('--input_filed_border_color' ,this.globalcolor_sessionStorage.input_filed_border_color)
+			  document.documentElement.style.setProperty('--form_border_color' ,this.globalcolor_localStorage.form_border_color)
+			  document.documentElement.style.setProperty('--form_border_color' ,this.globalcolor_sessionStorage.form_border_color)
+			  document.documentElement.style.setProperty('--test_shadow_color' ,this.globalcolor_localStorage.test_shadow_color)
+			  document.documentElement.style.setProperty('--test_shadow_color' ,this.globalcolor_sessionStorage.test_shadow_color)
+			  document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_localStorage.button_background_color)
+			  document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_sessionStorage.button_background_color)
+			  document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_localStorage.button_background_color)
+			  document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_sessionStorage.button_background_color)
+			  document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_localStorage.light_gray_color)
+			  document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_sessionStorage.light_gray_color)
+			  document.documentElement.style.setProperty('--title' ,this.globalcolor_localStorage.title)
+			  document.documentElement.style.setProperty('--title' ,this.globalcolor_sessionStorage.title)
+			  document.documentElement.style.setProperty('--login_title' ,this.globalcolor_localStorage.login_title)
+			  document.documentElement.style.setProperty('--login_title' ,this.globalcolor_sessionStorage.login_title)
+			  document.documentElement.style.setProperty('--login_title' ,this.globalcolor_localStorage.login_title)
+			  document.documentElement.style.setProperty('--login_title' ,this.globalcolor_sessionStorage.login_title)
+			  document.documentElement.style.setProperty('--login_cover_image' ,this.globalcolor_localStorage.login_cover_image)
+			  document.documentElement.style.setProperty('--login_cover_image' ,this.globalcolor_sessionStorage.login_cover_image)
+			  document.documentElement.style.setProperty('--site_logo' ,this.globalcolor_localStorage.site_logo)
+			  document.documentElement.style.setProperty('--site_logo' ,this.globalcolor_sessionStorage.site_logo)
+			  document.documentElement.style.setProperty('--dashboard_hight' ,this.globalcolor_localStorage.dashboard_hight)
+			  document.documentElement.style.setProperty('--dashboard_hight' ,this.globalcolor_sessionStorage.dashboard_hight)
+			  document.documentElement.style.setProperty('--dashboard_logo_width' ,this.globalcolor_localStorage.dashboard_logo_width)
+			  document.documentElement.style.setProperty('--dashboard_logo_width' ,this.globalcolor_sessionStorage.dashboard_logo_width)
+			  document.documentElement.style.setProperty('--dashboard_logo_hight' ,this.globalcolor_localStorage.dashboard_logo_hight)
+			  document.documentElement.style.setProperty('--dashboard_logo_hight' ,this.globalcolor_sessionStorage.dashboard_logo_hight)
+			  document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_localStorage.edinfini_true)
+			  document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_sessionStorage.edinfini_true)
+			}
+	  
+			else{
+			  localStorage.setItem('global_color' , JSON.stringify(res))
+			  sessionStorage.setItem('global_color' ,  JSON.stringify(res))
+			  this.globalcolor_localStorage = JSON.parse(localStorage.getItem('global_color'))
+			  document.documentElement.style.setProperty('--bg_gradient_color_one' ,this.globalcolor_localStorage.bg_gradient_color_one)
+			  document.documentElement.style.setProperty('--bg_gradient_color_two' ,this.globalcolor_localStorage.bg_gradient_color_two)
+			  console.log(this.globalcolor_localStorage.bg_gradient_color_two);
+			  document.documentElement.style.setProperty('--bg_white' ,this.globalcolor_localStorage.bg_white)
+			  console.log(this.globalcolor_localStorage.bg_white);
+			  document.documentElement.style.setProperty('--primary_color' ,this.globalcolor_localStorage.primary_color)
+			  console.log(this.globalcolor_localStorage.primary_color);
+			  document.documentElement.style.setProperty('--secondary_color' ,this.globalcolor_localStorage.secondary_color)
+			  console.log(this.globalcolor_localStorage.secondary_color);
+			  document.documentElement.style.setProperty('--input_filed_primary_color' ,this.globalcolor_localStorage.input_filed_primary_color)
+			  console.log(this.globalcolor_localStorage.input_filed_primary_color);
+			  document.documentElement.style.setProperty('--input_filed_background_color' ,this.globalcolor_localStorage.input_filed_background_color)
+			  console.log(this.globalcolor_localStorage.input_filed_background_color);
+			  document.documentElement.style.setProperty('--input_filed_border_color' ,this.globalcolor_localStorage.input_filed_border_color)
+			  console.log(this.globalcolor_localStorage.input_filed_border_color);
+			  document.documentElement.style.setProperty('--form_border_color' ,this.globalcolor_localStorage.form_border_color)
+			  console.log(this.globalcolor_localStorage.form_border_color);
+			  document.documentElement.style.setProperty('--test_shadow_color' ,this.globalcolor_localStorage.test_shadow_color)
+			  console.log(this.globalcolor_localStorage.test_shadow_color);
+			  document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_localStorage.button_background_color)
+			  console.log(this.globalcolor_localStorage.button_background_color);
+			  document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_localStorage.light_gray_color)
+			  console.log(this.globalcolor_localStorage.light_gray_color);
+			  document.documentElement.style.setProperty('--title' ,this.globalcolor_localStorage.title)
+			  console.log(this.globalcolor_localStorage.title);
+			  document.documentElement.style.setProperty('--login_title' ,this.globalcolor_localStorage.login_title)
+			  console.log(this.globalcolor_localStorage.login_title);
+			  document.documentElement.style.setProperty('--login_cover_image' ,this.globalcolor_localStorage.login_cover_image)
+			  console.log(this.globalcolor_localStorage.login_cover_image);
+			  document.documentElement.style.setProperty('--site_logo' ,this.globalcolor_localStorage.site_logo)
+			  console.log(this.globalcolor_localStorage.site_logo);
+			  document.documentElement.style.setProperty('--dashboard_hight' ,this.globalcolor_localStorage.dashboard_hight)
+			  console.log(this.globalcolor_localStorage.dashboard_hight);
+			  document.documentElement.style.setProperty('--dashboard_logo_width' ,this.globalcolor_localStorage.dashboard_logo_width)
+			  console.log(this.globalcolor_localStorage.dashboard_logo_width);
+			  document.documentElement.style.setProperty('--dashboard_logo_hight' ,this.globalcolor_localStorage.dashboard_logo_width)
+			  console.log(this.globalcolor_localStorage.dashboard_logo_width);
+			  
+			}
+		  })
+
+		  this.dynamicColorChanging.global_color.subscribe(( res : any) => {
+      
+			if(localStorage.getItem('global_color')) {
+			 this.localsto = JSON.parse(localStorage.getItem('global_color'))
+			 this.edinfini = this.localsto.edinfini_true;
+			  console.log("yes Called")
+			} 
+			else{
+			 this.localsto = res;
+			 this.edinfini = this.localsto.edinfini_true;
+			}
+	  
+			this.ref.detectChanges()
+		  })
 	}
 
 	/**

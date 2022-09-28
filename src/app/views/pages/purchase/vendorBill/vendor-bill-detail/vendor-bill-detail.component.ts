@@ -144,7 +144,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       }
     });
 
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
   }
 

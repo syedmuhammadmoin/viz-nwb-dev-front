@@ -16,7 +16,7 @@
             <div class="kt-form__section kt-form__section--first">
                 <!-- first row starts -->
                 <div class="col-md-12 col-lg-12 col-sm-12">
-                    <div class="row mt-8 mb-5">
+                    <div class="row mt-1 mb-0">
                         <div class="col-lg-3 col-md-3 col-sm-3"></div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
@@ -45,7 +45,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div *ngIf="showButtons" class="float-right">
-                            <button class="mr-2 app-reset-btn" type="button" (click)="reset()" id="unitOfMeasurement_reset"><i class="fas fa-undo"></i> Reset</button>
+                            <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="unitOfMeasurement_reset"><i class="fas fa-undo"></i> Reset</button>
                             <button class=" app-default-btn" type="submit" id="unitOfMeasurement_submit"
                             (click)="logValidationErrors(this.unitOfMeasurementForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit
                             </button>&nbsp;

@@ -1,6 +1,6 @@
 <div class="row mb-4">
     <div class="col-md-12 text-right">
-      <button (click)="addPurchaseOrder()" *ngIf="(permission.isGranted(permissions.PURCHASEORDER_CREATE))" id="add_purchase_order" class="app-default-btn" matTooltip="Add Purchaser Order">Add Purchase Order
+      <button (click)="addPurchaseOrder()" *ngIf="(permission.isGranted(permissions.PURCHASEORDER_CREATE))" id="add_purchase_order" class="app-default-btn" mat-raised-button matTooltip="Add Purchaser Order">Add Purchase Order
       </button>
     </div>
   </div>

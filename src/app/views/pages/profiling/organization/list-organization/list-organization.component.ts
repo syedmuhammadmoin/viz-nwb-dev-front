@@ -76,7 +76,7 @@ export class ListOrganizationComponent extends AppComponentBase implements OnIni
   ngOnInit() {
     this.getOrganizations()
 
-    this.gridOptions.rowHeight = 40;
+    this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
 
     this.defaultColDef = {

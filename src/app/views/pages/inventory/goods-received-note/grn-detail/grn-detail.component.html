@@ -13,20 +13,20 @@
             <ng-container ktPortletTools >
                 <button *ngIf="(grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GRN_EDIT))" id="grn_edit"
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-2">
-                  <i class="fa fa-edit" ></i>  Edit
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  <i class="fa fa-edit icon-e-p-a"></i>  Edit
                 </button>
 
                 <button *ngIf="(grnMaster?.state === docStatus.Unpaid) && !(grnMaster?.billReference) && (permission.isGranted(permissions.BILL_CREATE))" id="grn_edit"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-2">
-                  <i class="fa fa-edit" ></i> Bill
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  <i class="fa fa-edit icon-e-p-a"></i> Bill
                 </button>
 
                 <button *ngIf="(grnMaster?.state === docStatus.Unpaid || grnMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.GRN_CREATE))" id="grn_edit"
                   [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-2">
-                  <i class="fa fa-edit" ></i> Goods Return Note
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  <i class="fa fa-edit icon-e-p-a"></i> Goods Return Note
                 </button>
 
                 <button *ngIf="(permission.isGranted(permissions.GRN_EDIT))" class="btn_public mr-2" 
@@ -34,7 +34,7 @@
                 </button>
 
                 <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button"  class="btn_public">
-                  <i class="fa fa-print" ></i> Print GRN
+                  <i class="fa fa-print icon-e-p-a"></i> Print GRN
                 </button>
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
@@ -43,21 +43,21 @@
           <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 >Document No: 
-                    <span class="float-right" >{{grnMaster?.docNo}}</span></h4>
+                <h4 class="print-box-detail-1">Document No: 
+                    <span class="float-right" style="font-weight: 400;">{{grnMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 >Vendor Name:
-                    <span class="float-right" >{{grnMaster?.vendorName}}</span></h4>
+                <h4 class="print-box-detail-2">Vendor Name:
+                    <span class="float-right" style="font-weight: 400;">{{grnMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >GRN Date:
-              <span class="float-right" >{{grnMaster?.grnDate | date: 'MMM d, y'}}</span></h4>
+              <h4 class="print-box-detail-2">GRN Date:
+              <span class="float-right" style="font-weight: 400;">{{grnMaster?.grnDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 >Campus:
-              <span class="float-right" >{{grnMaster?.campusName}}</span></h4>
+              <h4 class="print-box-detail-2">Campus:
+              <span class="float-right" style="font-weight: 400;">{{grnMaster?.campusName}}</span></h4>
             </div>
           </div>          
         </div>
@@ -102,7 +102,7 @@
                   <mat-accordion>
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
-                        <mat-panel-title >
+                        <mat-panel-title class="paid-amount">
                           Reference
                         </mat-panel-title>
                         <!-- <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;

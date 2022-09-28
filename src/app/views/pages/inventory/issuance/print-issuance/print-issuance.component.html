@@ -8,82 +8,87 @@
         ngxPrint
         type="button"
         [useExistingCss]="true"
-        class="app-default-btn"
+        class="app-default-btn" mat-raised-button
         style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
-  </div>
-  <div class="col-lg-10 mx-auto" id="main">
-    <div class="row">
-      <div class="bg-whitee">
-
-        <div class="print_header_area p-s-1">
-          <div class="print-col-6 p-s-1-one">
-            <div class="logo_and_title">
-              <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-              <span class="top-heading">Issuance</span>
-            </div>
-            
-          </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
-            <div class="id_num">
-              <div class="print-box-one">
-                <h4>Issuance No: <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.docNo}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
+    <div class="col-lg-10 mx-auto" id="main">
+      <div class="row">
+        <div class="bg-whitee">
+  
+          <div class="print_header_area p-s-1">
+            <div class="print-col-6 p-s-1-one">
+              <div class="logo_and_title">
+                <div class="print-logo"></div>
+                <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
+                <span class="top-heading">Issuance</span>
               </div>
-              <div class="print-box-two">
-                <h4>Issuance Date: <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.issuanceDate | date: 'MMM d, y'}}</span></h4>
+              
+            </div>
+            <div class="print-col-5 ml-auto p-s-1-two">
+              <div class="id_num">
+                <div class="print-box-one">
+                  <h4>Issuance No: <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+                </div>
+                <div class="print-box-two">
+                  <h4>Issuance Date: <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.issuanceDate | date: 'MMM d, y'}}</span></h4>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-
-        
-        <div class="print_body_area p-s-2">
-          <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
-            <div class="print-box" >
-              <h4>{{issuanceMaster?.employeeName}}</h4>
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+  
+          
+          <div class="print_body_area p-s-2">
+            <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
+              <div class="print-box" >
+                <h4>{{issuanceMaster?.employeeName}}</h4>
+                <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              </div>
             </div>
-          </div>
-
-          <div class="print-col-12 p-s-2-two" style="margin-top: 3%;">
-            <div class="table-responsive">
-              <table class="table">
-                <thead class="thead-dark_color">
-                  <tr>
-                    <th>S.No</th>
-                    <th>Item</th>
-                    <th>Description</th>
-                    <th>Quantity</th>
-                    <th>Store</th>
-                  </tr>
-                  <tr *ngFor="let line of issuanceLines; index as i">
-                    <td>{{i + 1}}</td>
-                    <td>{{line?.itemName || '---'}}</td>
-                    <td> {{line?.description}}</td>
-                    <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td> {{line?.warehouseName}}</td>
-                  </tr>
-                </thead>
-              </table>
+  
+            <div class="print-col-12 p-s-2-two" style="margin-top: 3%;">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead class="thead-dark_color">
+                    <tr>
+                      <th>S.No</th>
+                      <th>Item</th>
+                      <th>Description</th>
+                      <th>Quantity</th>
+                      <th>Store</th>
+                    </tr>
+                    <tr *ngFor="let line of issuanceLines; index as i">
+                      <td>{{i + 1}}</td>
+                      <td>{{line?.itemName || '---'}}</td>
+                      <td> {{line?.description}}</td>
+                      <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                      <td> {{line?.warehouseName}}</td>
+                    </tr>
+                  </thead>
+                </table>
+              </div>
             </div>
-          </div>
-
-
-          <div class="print-col-12 p-s-4">
-            
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
+  
+  
+            <div class="print-col-12 p-s-4">
+              
+              <div class="print-box p-s-4-one">
+                <p>Terms and conditions:</p>
+              </div>
+              <div class="print-box p-s-4-two">
+                <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                </h4>
+              </div>
+  
+              <div class="print-box p-s-4-three">
+                <p>Thankyou for your Business</p>
+              </div>
             </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
+  
+            <div class="print-col-4 p-s-5">
+              _________________________________
+              <p class="text-center">Authorised Sign</p>
             </div>
           </div>
 

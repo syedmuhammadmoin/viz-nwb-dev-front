@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <button *ngIf="(permission.isGranted(permissions.BANK_RECON_CREATE))" id="reconcile" type="button" matTooltip="Reconcile" class="app-default-btn" (click)="onSubmit()">Reconcile</button>
+    <button *ngIf="(permission.isGranted(permissions.BANK_RECON_CREATE))" id="reconcile" type="button" matTooltip="Reconcile" class="app-default-btn" mat-raised-button (click)="onSubmit()">Reconcile</button>
   </div>
 </div>
 
@@ -14,7 +14,7 @@
           <div class="kt-portlet__body">
             <div class="kt-form__section kt-form__section--first">
               <div class="col-md-12 col-lg-12 py-6">
-                <div class="row mt-8 mb-5">
+                <div class="row mt-1 mb-0">
                   <div class="col-lg-4">
                     <div class="form-group kt-form__group mb-0">
                       <!-- <label class="col-form-label pt-0">Bank:</label> -->
@@ -26,7 +26,7 @@
                     </div>
                   </div>
                   <div class="col-lg-4">
-                    <button id="reconciliation_fetch" class="app-default-btn"
+                    <button id="reconciliation_fetch" class="app-default-btn" mat-raised-button
                       type="submit">Fetch data
                     </button>
                   </div>
