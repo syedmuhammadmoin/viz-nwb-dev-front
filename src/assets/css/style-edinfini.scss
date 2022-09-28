@@ -1124,7 +1124,7 @@ color: $primary-color !important;
 .form-group label {
   font-size: 1rem;
   font-weight: 400;
-  color: $primary-color !important;
+  color: $primary-color ;
 }
 
 .mat-radio-outer-circle {
@@ -1516,14 +1516,15 @@ mat-footer-row {
   box-shadow: 0 8px 24px rgb(149 157 165 / 20%);
   border: 0;
   border-radius: 50px;
-  color: #ed8c72;
+  color: red;
   height: 30px;
   width: 30px;
   background-color: #fff;
+  margin-top: -10px;
 }
 
 .app-remove-btn i {
-  color: #ed8c72;
+  color: red;
 }
 
 
@@ -1534,6 +1535,7 @@ mat-footer-row {
   transition: .2s;
   padding: 4px 8px;
   border-radius: 5px;
+  margin-top: 10px;
 }
 
 .app-add-new-line-btn i {
@@ -1620,4 +1622,79 @@ mat-tree-node div[id^='child']
 }
 
 
+// .mat-select-placeholder
+// {
+//   color: $primary-color !important;
+// }
+
+
+// .mat-input-element::placeholder{
+//   color: $primary-color;
+// }
+
 // end chart of account
+
+
+
+.form-left-div-bg
+{
+	
+	background-image: $login-cover-image;
+
+}
+
+.bg-login-logo
+{
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-image: $site-logo;
+  margin: 0px auto;
+  background-repeat: no-repeat;
+}
+
+.heading__text
+{
+	
+	padding: 10px;
+	text-transform: uppercase;
+	// letter-spacing: 5px;
+	font-size: 45px;
+	color: $primary-color;
+	// letter-spacing: .15em;
+}
+
+.login-input-field:focus
+{ 
+  border-color: $primary-color;
+}
+
+
+.group__sty input
+{
+	background-color: $button-background-color;
+	padding: 20px;
+	// border-radius: 0px 20px 20px 0px;
+	border: 1px solid #d0d0d0;
+}
+
+.login-btn
+{
+  background-image: $bg-gradient-color;
+  padding: 10px;
+  color: $bg-white;
+}
+
+
+.login-btn:hover
+{
+  background-image: $bg-gradient-color;
+  opacity: 0.8;
+  color: $bg-white;
+}
+
+
+.mat-form-field-label
+{
+  color: rgb(0 0 0 / 45%) !important;
+}
