@@ -1709,3 +1709,8 @@ mat-tree-node div[id^='child']
 {
   background-color: $primary-color;
 }
+
+.ag-theme-alpine .ag-cell-wrapper > *:not(.ag-cell-value):not(.ag-group-value)
+{
+  height: 30px;
+}

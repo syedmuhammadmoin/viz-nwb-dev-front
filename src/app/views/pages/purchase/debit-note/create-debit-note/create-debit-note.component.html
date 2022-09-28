@@ -342,7 +342,7 @@
                 <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="debit_note_reset"><i class="fas fa-undo"></i> Reset</button>
                 <button *ngIf="!isBill"  class="mr-2 app-save-btn" mat-raised-button type="submit" id="debit_note_save"
                 (click)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i> Save</button>
-                <button class="app-default-btn " type="submit" id="debit_note_submit"
+                <button class="app-default-btn " mat-raised-button type="submit" id="debit_note_submit"
                 (click)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages); isSubmit(1)">
                 <i class="far fa-save"></i>  Submit
                 </button>
