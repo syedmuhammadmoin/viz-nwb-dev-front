@@ -505,13 +505,13 @@ kt-footer
 
 
 //Approve and Reject Buttons
-.success__btn {
+.btn btn-outline-success {
   color: #155724;
   background: #d4edda ;
   border: 1px solid #155724 !important;
 }
 
-.danger__btn {
+.btn btn-outline-danger {
   color: #721c24;
   background: #f8d7da linear-gradient(180deg,#f9dde0,#f8d7da) repeat-x;
   border: 1px solid #721c24 !important;

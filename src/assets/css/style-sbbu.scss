@@ -75,11 +75,16 @@ input{
 // btn-design
 .app-reset-btn
 {
-  background-color: $bg-white !important;
+  background-color: $button-background-color !important;
   color: $primary-color !important;
   letter-spacing: 1px;
-  // border-radius: 15px / 60% !important;
-  // box-shadow: 0px 0px 3px #9e9e9e !important;
+  box-shadow: unset !important;
+}
+
+.app-reset-btn i
+{
+  color: $primary-color !important;
+  font-size: 14px;
 }
 .app-default-btn
 {
@@ -87,27 +92,29 @@ input{
   background-image: $bg-gradient-color; 
   color: $bg-white !important; 
   font-size: 14px;
-  // border-radius: 15px/60% !important;
+  box-shadow: unset !important;
 }
 .app-default-btn i
 {
+  color: $bg-white;
   font-size: 14px;
 }
 
-.save___btn
+.app-save-btn
 {
-  background-color: #e4e6ef;
-  color: #2a3158 !important;
-  font-size: 14px;
-  border-radius: 15px/60% !important;
-  border: 2px solid #2f365f !important;
+  background-color: $button-background-color !important;
+  color: $primary-color !important;
+  letter-spacing: 1px;
+  box-shadow: unset !important;
 
 }
 
-.save___btn i
+.app-save-btn i
 {
+  color: $primary-color !important;
   font-size: 14px;
 }
+
 
 
 
@@ -415,13 +422,13 @@ kt-footer
 }
 
 //Approve and Reject Buttons
-.success__btn {
+.btn btn-outline-success {
   color: #155724;
   background: #d4edda ;
   border: 1px solid #155724 !important;
 }
 
-.danger__btn {
+.btn btn-outline-danger {
   color: #721c24;
   background: #f8d7da linear-gradient(180deg,#f9dde0,#f8d7da) repeat-x;
   border: 1px solid #721c24 !important;
@@ -904,9 +911,9 @@ margin-inline: auto;
   color: $primary-color !important;
 }
 
-.tagline-h::after{
-  content: $title;
-}
+// .tagline-h::after{
+//   content: $title;
+// }
 
 .user-btn{
   font-size: 16px;
@@ -994,20 +1001,20 @@ i.down-arrow{
   color: $input-filed-primary-color !important;
 }
 
-.mat-form-field .mat-form-field-outline {
-  top: -1px !important;
-  border-top: 1px solid $input-filed-border-color !important;
-  border-bottom: 1px solid $input-filed-border-color !important;
-  border-right: 1px solid $input-filed-border-color !important;
-  border-left: 3px solid $primary-color !important;
-}
+// .mat-form-field .mat-form-field-outline {
+//   top: -1px !important;
+//   border-top: 1px solid $input-filed-border-color !important;
+//   border-bottom: 1px solid $input-filed-border-color !important;
+//   border-right: 1px solid $input-filed-border-color !important;
+//   border-left: 3px solid $primary-color !important;
+// }
 
-.mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
-    color: $primary-color;
-  }
+// .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+//     color: $primary-color;
+//   }
 
   .input_style{
-    background-color: #f6fafb !important;
+    background-color: $input-filed-background-color !important;
     border: 1px solid $primary-color !important;
 }
 
@@ -1046,7 +1053,7 @@ color: $primary-color !important;
 .form-group label {
   font-size: 1rem;
   font-weight: 400;
-  color: $primary-color !important;
+  color: $primary-color ;
 }
 
 .mat-radio-outer-circle {
@@ -1250,6 +1257,7 @@ table , table a{
 
 
 
+
 .mat-slide-toggle-bar{
   background-color: $primary-color !important;
 }
@@ -1290,4 +1298,339 @@ table , table a{
   border-width: 5px;
   border-style: solid;
   border-color: transparent $primary-color transparent transparent !important;
+}
+
+
+
+
+
+
+
+
+
+
+// addtional css
+.print-box h4
+{
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.Submitted,
+.Paid, .Approved {
+  background-color: #1bc5bd !important;
+}
+
+.Draft, .Reconciled, .Reviewed, .In, .Partial {
+  background-color: #ffa800 !important;
+}
+
+.Unreconciled, .Unpaid ,.Rejected
+{
+  background-color: #f64e60 !important;
+}
+// additional css
+
+.mat-table {
+
+  mat-cell,
+  mat-header-cell,
+  mat-footer-cell {
+    justify-content: center;
+  }
+
+  mat-cell:first-of-type,
+  mat-header-cell:first-of-type,
+  mat-footer-cell:first-of-type {
+    padding-left: 0px !important;
+  }
+
+  mat-row {
+    padding-top: 20px;
+  }
+
+  .mat-header-cell {
+    color: $primary-color;
+    font-size: 13px;
+    border-right: 2px solid #dae1e9;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  mat-header-row {
+    background-color:$button-background-color;
+    min-height: 36px;
+  }
+}
+
+.input_d_1 {
+  margin-top: 2px;
+}
+
+// mat table end
+
+
+
+
+.mat-form-field-flex>.mat-form-field-infix {
+  padding: 0.4em 0px 8px 0px !important;
+}
+
+.mat-form-field-label-wrapper {
+  top: -17px;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+  transform: translateY(-41.1em) scale(.75);
+  width: 133.33333%;
+}
+
+.mat-form-field-appearance-outline .mat-form-field-outline {
+  background-color: $button-background-color;
+  border: 1px solid #d9e2eb;
+  border-radius: 5px;
+}
+
+
+.mat-form-field {
+  width: 100% !important;
+}
+
+
+mat-row,
+mat-footer-row {
+  padding-top: 0px !important;
+  min-height: 120px !important;
+}
+
+
+.mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-start, .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-end, .mat-form-field-appearance-outline .mat-form-field-outline-thick .mat-form-field-outline-gap
+{
+  border-width: 1px !important;
+}
+
+.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-outline-gap
+{
+ border-top-color: unset !important;
+}
+
+
+.partner__box {
+  margin-top: 5%;
+  margin-top: 6%;
+  background-color: #f6f8f9;
+  padding: 10px;
+}
+
+.partner__box h4 {
+  font-size: 22px;
+  font-weight: 600;
+  color: $primary-color;
+}
+
+.partner__box p {
+  font-size: 15px;
+  font-weight: 400;
+  color: $primary-color;
+}
+
+
+.mat-input-element
+{
+  caret-color: $primary-color;
+}
+
+.mat-calendar-body-selected
+{
+  background-color: $primary-color;
+  color: $bg-white;
+}
+
+
+
+.app-remove-btn {
+  box-shadow: 0 8px 24px rgb(149 157 165 / 20%);
+  border: 0;
+  border-radius: 50px;
+  color: red;
+  height: 30px;
+  width: 30px;
+  background-color: #fff;
+  margin-top: -10px;
+}
+
+.app-remove-btn i {
+  color: red;
+}
+
+
+.app-add-new-line-btn {
+  border: 0;
+  background-color: $primary-color;
+  color: #fff;
+  transition: .2s;
+  padding: 4px 8px;
+  border-radius: 5px;
+  margin-top: 10px;
+}
+
+.app-add-new-line-btn i {
+  color: #fff;
+}
+
+
+
+
+// chart of account light css
+// .mat-tree-node
+// {
+//     background-color: aliceblue;
+//     margin-bottom: 10px;
+//     border-radius: 20px 0px 20px 20px;
+// }
+.tree_arrow
+{
+    background-color: $primary-color;
+    color: #ffffff;
+    margin-right: 15px;
+    border-radius: 25px;
+}
+
+
+
+mat-tree-node div[id^='demo']
+{
+    // background: $button-background-color;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 20px 0px 20px 20px;
+    padding: 5px 0px;
+    color: $primary-color;
+    font-weight: bold;
+}
+
+mat-tree-node div[id^='child']
+{
+    background: $button-background-color;
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 20px 0px 20px 20px;
+    padding: 5px 20px;
+    color: white;
+    font-weight: bold;
+}
+
+.btn__add
+{
+    margin-left: 20px;
+    background-color: #fff;
+    border: 1px solid #4caf50;
+    color: #4caf50;
+    padding: 5px 10px;
+    height: 35px;
+    width: 35px;
+    line-height: 5px;
+    border-radius: 20px;
+}
+
+.btn__add i
+{
+    color: #4caf50;
+    font-size: 14px;
+}
+
+.btn__edit
+{
+    margin-left: 5px;
+    background-color: #fff;
+    border: 1px solid #ff9800;
+    padding: 5px 10px;
+    height: 35px;
+    width: 35px;
+    line-height: 5px;
+    border-radius: 20px;
+}
+
+.btn__edit i
+{
+    color: #ff9800;
+    font-size: 14px;
+}
+
+
+// .mat-select-placeholder
+// {
+//   color: $primary-color !important;
+// }
+
+
+// .mat-input-element::placeholder{
+//   color: $primary-color;
+// }
+
+// end chart of account
+
+
+
+.form-left-div-bg
+{
+	
+	background-image: $login-cover-image;
+
+}
+
+.bg-login-logo
+{
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  background-image: $site-logo;
+  margin: 0px auto;
+  background-repeat: no-repeat;
+}
+
+.heading__text
+{
+	
+	padding: 10px;
+	text-transform: uppercase;
+	// letter-spacing: 5px;
+	font-size: 45px;
+	color: $primary-color;
+	// letter-spacing: .15em;
+}
+
+.login-input-field:focus
+{ 
+  border-color: $primary-color;
+}
+
+
+.group__sty input
+{
+	background-color: $button-background-color;
+	padding: 20px;
+	// border-radius: 0px 20px 20px 0px;
+	border: 1px solid #d0d0d0;
+}
+
+.login-btn
+{
+  background-image: $bg-gradient-color;
+  padding: 10px;
+  color: $bg-white;
+}
+
+
+.login-btn:hover
+{
+  background-image: $bg-gradient-color;
+  opacity: 0.8;
+  color: $bg-white;
+}
+
+
+.mat-form-field-label
+{
+  color: rgb(0 0 0 / 45%) !important;
 }

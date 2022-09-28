@@ -66,13 +66,11 @@
           </div>
 
               <div class="row">
-
-                <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+                <div class="col-md-7 col-7"  *ngIf="remarksList?.length > 0">
                   <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
                 </div>
 
                 <div class="col-md-4 col-lg-4  ml-auto mt-3" >
-
                     <div class="print-box">
                       <h4 >Sales Tax:
                         <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.salesTax || 0)}} %</span>
@@ -217,8 +215,8 @@
           <div class="kt-form__actions kt-form__actions">
           <div class="row ">
               <div class="col-lg-12 text-right" *ngIf="paymentMaster?.isAllowedRole">
-                  <button (click)="remarksDialog(action.Reject)" class="mr-5 danger__btn" id="payment_reject" mat-raised-button>Reject</button>
-                  <button (click)="remarksDialog(action.Approve)" class="success__btn" id="payment_approve" mat-raised-button>Approve</button>
+                  <button (click)="remarksDialog(action.Reject)" class="mr-5 btn btn-outline-danger" id="payment_reject" mat-raised-button>Reject</button>
+                  <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success" id="payment_approve" mat-raised-button>Approve</button>
               </div>
           </div>
           </div>

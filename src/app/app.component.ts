@@ -33,6 +33,9 @@ export class AppComponent implements OnInit, OnDestroy {
   globalcolor_localStorage : any = '';
   globalcolor_sessionStorage : any = '';
 
+  chackSecission: any = '';
+  chacklocalstorage: any = '';
+
   favIcon: HTMLLinkElement = document.querySelector('#favIcon'); 
 
 
@@ -96,11 +99,19 @@ export class AppComponent implements OnInit, OnDestroy {
     this.unsubscribe.push(routerSubscription);
 
     this.dynamicColorChanging.global_color.subscribe((res : any)  => {
-      if(localStorage.getItem('global_color') || sessionStorage.getItem('global_color')){
+      this.chacklocalstorage= localStorage.getItem('global_color');
+      this.chackSecission = sessionStorage.getItem('global_color');
+      if (this.chacklocalstorage= true
+          && this.chacklocalstorage !=""
+          && this.chacklocalstorage != null &&
+          this.chackSecission  &&
+          this.chackSecission !=""
+          && this.chackSecission != null) {
+            console.log('if called');
         this.globalcolor_localStorage = JSON.parse(localStorage.getItem('global_color'))
         this.globalcolor_sessionStorage = JSON.parse(localStorage.getItem('global_color'))
-        localStorage.setItem('global_color' , JSON.stringify(this.globalcolor_sessionStorage))
-        sessionStorage.setItem('global_color' , JSON.stringify(this.globalcolor_localStorage))
+        localStorage.setItem('global_color', JSON.stringify(this.globalcolor_sessionStorage))
+        sessionStorage.setItem('global_color', JSON.stringify(this.globalcolor_localStorage))
         this.globalcolor_sessionStorage = JSON.parse(sessionStorage.getItem('global_color'))
         document.documentElement.style.setProperty('--bg_gradient_color_one' ,this.globalcolor_localStorage.bg_gradient_color_one)
         document.documentElement.style.setProperty('--bg_gradient_color_one' ,this.globalcolor_sessionStorage.bg_gradient_color_one)

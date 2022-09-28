@@ -144,7 +144,7 @@ export class CreateUnitOfMeasurementComponent extends AppComponentBase implement
          })
        )
         .subscribe(() => {        
-            //this.ngxsService.store.dispatch(new IsReloadRequired(unitOfMeasurementState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(UnitOfMeasurementState, true))
             this.toastService.success('Added Successfully', 'Unit Of Measurement')
             this.onCloseDialog();
           }
