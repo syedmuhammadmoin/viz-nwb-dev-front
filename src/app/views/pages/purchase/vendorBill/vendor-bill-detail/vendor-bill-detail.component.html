@@ -174,10 +174,10 @@
                         </tr>
                         <tr *ngFor="let pay of paidAmountList">
                           <td><a
-                              [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
+                              [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 17) ? '/'+ PAYROLL_PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
                               class="all-text-primary">{{pay?.docNo}}</a></td>
                           <td>
-                            <a [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
+                            <a [routerLink]="(pay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 5) ? '/'+ JOURNAL_ENTRY.ID_BASED_ROUTE ('details', pay?.id) : (pay?.docType === 17) ? '/'+ PAYROLL_PAYMENT.ID_BASED_ROUTE ('details', pay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', pay?.id)"
                             class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
                           </td>
                         </tr>
