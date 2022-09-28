@@ -20,8 +20,10 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
  * ! Just example => Should be removed in development
  */
 const DEMO_PARAMS = {
-	EMAIL: 'superadmin@vizalys.com',
-	PASSWORD: 'Admin123!@#'
+	// EMAIL: 'superadmin@vizalys.com',
+	// PASSWORD: 'Admin123!@#'
+	EMAIL: '',
+	PASSWORD: ''
 };
 
 @Component({
