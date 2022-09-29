@@ -10,6 +10,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { TaxService } from '../service/tax.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { getuid } from 'process';
 
 @Component({
   selector: 'kt-create-tax',
@@ -126,8 +127,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.taxForm.patchValue({
       name: tax.name,
       taxType: tax.taxType,
-      accountId: tax.accountId,
+      accountId: (tax.accountId === '00000000-0000-0000-0000-000000000000') ? null : tax.accountId,
     });
+
+    console.log(tax.accountId.empty)
 
     //if user have no permission to edit, so disable all fields
     if(!this.showButtons) {
