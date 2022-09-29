@@ -15,10 +15,10 @@
 							<div class="" >
 								<div class="user-card sm">
 									<div class="user-avatar">
-										<span>AB</span></div>
+										<span>{{ _user.fullname[0] || 'N'}}</span></div>
 										<div class="user-info">
-											<span class="lead-text">User</span>
-											<span class="sub-text">info@Edinfini.edu.pk</span>
+											<span class="lead-text">{{ _user.fullname || 'User'}}</span>
+											<span class="sub-text">{{ _user.email || 'example@vizalys.com'}}</span>
 										</div>
 									</div>
 
