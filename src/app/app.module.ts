@@ -106,6 +106,7 @@ import { ShowRemarksComponent } from './views/shared/components/show-remarks/sho
 import { AssetCategoryState } from './views/pages/fixed-asset/asset-category/store/asset-category.state';
 import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 import { AssetAccountState } from './views/pages/finance/chat-of-account/store/asset-account.state';
+import { AppInitializer } from 'AppInitializer';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -224,6 +225,12 @@ export function getHighlightLanguages() {
     {
       provide: HAMMER_GESTURE_CONFIG,
       useClass: GestureConfig
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
+      deps: [AppInitializer],
+      multi: true,
     },
     {
       // layout config initializer

@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { environment } from 'src/environments/environment';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPayrollTransaction } from '../model/IPayrollTransaction';
 
@@ -14,7 +14,7 @@ import { IPayrollTransaction } from '../model/IPayrollTransaction';
 
 export class PayrollTransactionService extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'payrollTransaction';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'payrollTransaction';
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

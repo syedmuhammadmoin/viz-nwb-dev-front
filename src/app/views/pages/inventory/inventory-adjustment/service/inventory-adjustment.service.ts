@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { environment } from '../../../../../../environments/environment';
 import { IInventoryAdjustment } from '../model/IInventoryAdjustment';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ import { IInventoryAdjustment } from '../model/IInventoryAdjustment';
 
 export class InventoryAdjustmentService {
    // base url 
-    baseUrl = environment.baseUrl + 'InventoryAdjustment';
+    baseUrl = AppConst.remoteServiceBaseUrl + 'InventoryAdjustment';
 
     constructor(private httpClient: HttpClient) { }
 

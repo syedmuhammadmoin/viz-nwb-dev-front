@@ -1,18 +1,18 @@
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
 import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IAsset } from '../model/IAsset';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AssetService extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'Asset';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'Asset';
     
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

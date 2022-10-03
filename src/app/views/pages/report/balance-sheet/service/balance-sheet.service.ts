@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from "@angular/common/http";
-import { environment } from 'src/environments/environment';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class BalanceSheetService {
   }
 
   getBalanceSheetReport(body: any): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'BalanceSheet', body);
+    return this.httpClient.post(AppConst.remoteServiceBaseUrl + 'BalanceSheet', body);
   }
 }
 

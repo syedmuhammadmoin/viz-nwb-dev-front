@@ -1,12 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { IIssuance } from '../model/IIssuance';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class IssuanceService extends AppServiceBase {
 
-    baseUrl = environment.baseUrl + 'issuance';
+    baseUrl = AppConst.remoteServiceBaseUrl + 'issuance';
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

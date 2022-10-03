@@ -2,9 +2,9 @@ import { Injectable }                                 from '@angular/core';
 import { IDispatchNote }                                       from "../model/IDispatchNote";
 import { Observable, throwError }                     from 'rxjs';
 import { catchError }                                 from 'rxjs/operators';
-import { environment }                                from "../../../../../../environments/environment";
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Injectable({
@@ -16,22 +16,22 @@ export class DispatchNoteService {
     constructor( private httpClient: HttpClient ) { }
   
     getAllDispatchNotes(): Observable<any> {
-      return this.httpClient.get(environment.baseUrl + 'gdn')
+      return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'gdn')
       .pipe(catchError(this.handleError));
     }
   
     getDispatchNoteMasterById(id: number): Observable<any> {
-      return this.httpClient.get(environment.baseUrl + 'gdn/' + id)
+      return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'gdn/' + id)
       .pipe(catchError(this.handleError));
     }
   
     // getDispatchNoteDetailById(id: number): Observable<any> {
-    //   return this.httpClient.get(environment.baseUrl + 'gdn/d/' + id)
+    //   return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'gdn/d/' + id)
     //   .pipe(catchError(this.handleError));
     // }
 
     createDispatchNote(dispatchNoteModel: IDispatchNote): Observable<any> {
-      return this.httpClient.post<IDispatchNote>(environment.baseUrl + 'gdn', dispatchNoteModel, {
+      return this.httpClient.post<IDispatchNote>(AppConst.remoteServiceBaseUrl + 'gdn', dispatchNoteModel, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
@@ -39,11 +39,11 @@ export class DispatchNoteService {
     }
   
     workflow(workflow: IWorkflow): Observable<any> {
-      return this.httpClient.post(environment.baseUrl + 'gdn' + '/workflow', workflow);
+      return this.httpClient.post(AppConst.remoteServiceBaseUrl + 'gdn' + '/workflow', workflow);
     }
 
     updateGDN(gdnModel: IDispatchNote): Observable<any> {
-      return this.httpClient.put(environment.baseUrl + `gdn/${gdnModel.id}`,gdnModel)
+      return this.httpClient.put(AppConst.remoteServiceBaseUrl + `gdn/${gdnModel.id}`,gdnModel)
     }
   
 

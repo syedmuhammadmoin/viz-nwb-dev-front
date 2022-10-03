@@ -1,11 +1,11 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../../../environments/environment';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPayrollItem } from '../model/IPayrollItem';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Injectable({
@@ -14,7 +14,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class PayrollItemService extends AppServiceBase{
 
-  baseUrl = environment.baseUrl + 'payrollItem';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'payrollItem';
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

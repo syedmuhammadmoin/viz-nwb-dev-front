@@ -1,10 +1,10 @@
 import { Injectable, Injector }  from '@angular/core';
 import { Observable }  from 'rxjs';
-import { environment } from "../../../../../../environments/environment";
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { IStock } from '../model/IStock';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ import { IStock } from '../model/IStock';
 
 export class StockService extends AppServiceBase {
   
-    baseUrl = environment.baseUrl + 'stock'
+    baseUrl = AppConst.remoteServiceBaseUrl + 'stock'
   
       constructor( private httpClient: HttpClient, injector: Injector ) { super(injector) }
     
@@ -21,11 +21,11 @@ export class StockService extends AppServiceBase {
       }
     
       // getGRNById(id: number): Observable<any> {
-      //   return this.httpClient.get(environment.baseUrl + 'Grn/' + id)
+      //   return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'Grn/' + id)
       // }
   
       // createGRN(grnModel: IGRN): Observable<any> {
-      //   return this.httpClient.post<IGRN>(environment.baseUrl + 'Grn', grnModel, {
+      //   return this.httpClient.post<IGRN>(AppConst.remoteServiceBaseUrl + 'Grn', grnModel, {
       //     headers: new HttpHeaders({
       //       'Content-Type': 'application/json'
       //     })
@@ -33,7 +33,7 @@ export class StockService extends AppServiceBase {
       // }
   
       //  updateGRN(grnModel: IGRN): Observable<any> {
-      //     return this.httpClient.put(environment.baseUrl + `Grn/${grnModel.id}`,grnModel)
+      //     return this.httpClient.put(AppConst.remoteServiceBaseUrl + `Grn/${grnModel.id}`,grnModel)
       //  }
   
        getRecords(params: any): Observable<any> {

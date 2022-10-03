@@ -1,13 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../../../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { IJournalEntry } from '../model/IJournalEntry';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Injectable({
@@ -16,7 +15,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class JournalEntryService extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'journalEntry';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'journalEntry';
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { CreateLevel3Component } from './level3/create-level3/create-level3.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLevel4Component } from './level4/create-level4/create-level4.component';
 import { ChartOfAccountService } from './service/chart-of-account.service';
@@ -8,7 +7,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AccountType, Permissions } from 'src/app/views/shared/AppEnum';
 import { finalize, take } from 'rxjs/operators';
-import { environment } from 'src/environments/environment';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 /**
  * Each node has a name and an optional list of children.
@@ -46,7 +45,7 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
   //for checking level4 account type
   accountType: AccountType
 
-  environment = environment;
+  baseUrl = AppConst.remoteServiceBaseUrl;
  
   constructor(
     private chartOfAccService: ChartOfAccountService,

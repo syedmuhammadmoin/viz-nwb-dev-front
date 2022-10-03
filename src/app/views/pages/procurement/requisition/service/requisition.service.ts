@@ -1,12 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams} from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable} from "rxjs";
-import { environment} from "../../../../../../environments/environment";
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IRequisition } from '../model/IRequisition';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class RequisitionService extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'requisition';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'requisition';
 
   constructor( private httpClient: HttpClient, injector: Injector) { super(injector) }
 

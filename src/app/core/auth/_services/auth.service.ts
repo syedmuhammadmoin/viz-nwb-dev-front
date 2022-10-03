@@ -7,6 +7,7 @@ import {Role} from '../_models/role.model';
 import {catchError, map} from 'rxjs/operators';
 import {QueryParamsModel, QueryResultsModel} from '../../_base/crud';
 import {environment} from '../../../../environments/environment';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 const API_USERS_URL = 'api/users';
 const API_PERMISSION_URL = 'api/permissions';
@@ -21,7 +22,7 @@ export class AuthService {
 
   // Authentication/Authorization
   login(email: string, password: string): Observable<any> {
-    return this.http.post(environment.baseUrl + API_USERS_LOGIN, {Email: email, Password: password});
+    return this.http.post(AppConst.remoteServiceBaseUrl + API_USERS_LOGIN, {Email: email, Password: password});
   }
 
   getUserByToken(): Observable<User> {
@@ -34,7 +35,7 @@ export class AuthService {
   register(user: any): Observable<any> {
     let httpHeaders = new HttpHeaders();
     httpHeaders = httpHeaders.set('Content-Type', 'application/json');
-    return this.http.post(environment.baseUrl + API_USERS_REGISTER,
+    return this.http.post(AppConst.remoteServiceBaseUrl + API_USERS_REGISTER,
       {
         Email: user.email,
         Password: user.password,

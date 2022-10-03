@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { environment } from "src/environments/environment";
 import { IRoleModel } from "../model/IRoleModel";
 import { IUserModel } from "../model/IUserModel";
 import { IResetPassword } from '../model/IResetPassword';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IOrganizationAccessLevel } from '../model/IOrganizationAccessLevel';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -14,56 +14,54 @@ import { IOrganizationAccessLevel } from '../model/IOrganizationAccessLevel';
   
 export class AccessManagementService {
 
-    constructor(
-        private httpClient: HttpClient
-    ) { }
+    constructor( private httpClient: HttpClient) { }
 
     getClaims(): Observable<any> {
-        return this.httpClient.get(environment.baseUrl + 'auth/claims');
+        return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'auth/claims');
     }
 
     getUsers(): Observable<any> {
-        return this.httpClient.get(environment.baseUrl + 'auth/users');
+        return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'auth/users');
     }
 
     getRoles(): Observable<any> {
-        return this.httpClient.get(environment.baseUrl + 'auth/roles')
+        return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'auth/roles')
     }
 
     getRole(id: any): Observable<any> {
-        return this.httpClient.get(environment.baseUrl + 'auth/roles/' + id)
+        return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'auth/roles/' + id)
     }
 
     getUser(id: any): Observable<any> {
-        return this.httpClient.get(environment.baseUrl + 'auth/users/' + id)
+        return this.httpClient.get(AppConst.remoteServiceBaseUrl + 'auth/users/' + id)
     }
 
     createUser(body: IUserModel): Observable<any> {
-        return this.httpClient.post(environment.baseUrl + 'auth/users', body);
+        return this.httpClient.post(AppConst.remoteServiceBaseUrl + 'auth/users', body);
     }
 
     createRole(body: IRoleModel): Observable<any> {
-        return this.httpClient.post(environment.baseUrl + 'auth/roles', body)
+        return this.httpClient.post(AppConst.remoteServiceBaseUrl + 'auth/roles', body)
     }
 
     updateUser(body: IUserModel): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + 'auth/users/' + body.userId, body);
+        return this.httpClient.put(AppConst.remoteServiceBaseUrl + 'auth/users/' + body.userId, body);
     }
 
     updateRole(body: IRoleModel): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + 'auth/roles/' + body.id, body)
+        return this.httpClient.put(AppConst.remoteServiceBaseUrl + 'auth/roles/' + body.id, body)
     }
 
     resetPassword(body: IResetPassword): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + `auth/users/ResetPass/${body.userId}`, body)
+        return this.httpClient.put(AppConst.remoteServiceBaseUrl + `auth/users/ResetPass/${body.userId}`, body)
     }
   
     changePassword(body: IResetPassword): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + `auth/users/changePassword/${body.loginUserId}`, body)
+        return this.httpClient.put(AppConst.remoteServiceBaseUrl + `auth/users/changePassword/${body.loginUserId}`, body)
     }
 
     getUserScope(): Observable<IApiResponse<IOrganizationAccessLevel[]>> {
-        return this.httpClient.get<IApiResponse<IOrganizationAccessLevel[]>>(environment.baseUrl + 'UserScope')
+        return this.httpClient.get<IApiResponse<IOrganizationAccessLevel[]>>(AppConst.remoteServiceBaseUrl + 'UserScope')
     } 
 
     getUserScopeById(): Observable<any> {
@@ -71,7 +69,7 @@ export class AccessManagementService {
     }
 
     getRolesDropdown(): Observable<any> {
-        return this.httpClient.get<IApiResponse<IOrganizationAccessLevel[]>>(environment.baseUrl + 'auth/roles/dropdown')
+        return this.httpClient.get<IApiResponse<IOrganizationAccessLevel[]>>(AppConst.remoteServiceBaseUrl + 'auth/roles/dropdown')
     }
 }
 
