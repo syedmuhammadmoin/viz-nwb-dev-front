@@ -6,7 +6,15 @@
       <button (click)="addLevel4Dialog()" mat-raised-button matTooltip="Add Transactional Account">Add Transactional
         Account</button>
     </ng-container>-->
+
+    <!-- <button class="mr-3" mat-raised-button matTooltip="Export COA">
+      <a [href]="environment.baseUrl + 'coa/download'" target="_blank">Export</a>
+    </button> -->
   </kt-portlet-header>
+
+  <button class="mr-3" mat-raised-button matTooltip="Export COA">
+    <a [href]="environment.baseUrl + 'coa/download'" target="_blank">Export</a>
+  </button>
 
   <kt-portlet-body>
     <div class="col-md-12 col-lg-12 col-sm-12 my-5">
