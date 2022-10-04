@@ -1730,3 +1730,8 @@ mat-tree-node div[id^='child']
   }
 }
 
+
+.cdk-overlay-container
+{
+  z-index: 10 !important;
+}
