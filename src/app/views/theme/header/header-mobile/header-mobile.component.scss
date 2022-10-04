@@ -1,0 +1,20 @@
+.burger-icon span{
+background-color: #fff;
+}
+.burger-icon span::before{
+background-color: #fff;
+}
+.burger-icon span::after{
+background-color: #fff;
+}
+
+.burger-icon:hover span{
+    background-color: #cba058;
+}
+.burger-icon:hover span::before{
+    background-color: #cba058;
+}
+.burger-icon:hover span::after{
+    background-color: #cba058;
+}
+

@@ -1,8 +1,12 @@
 <!-- begin:: Header Mobile -->
-<div id="kt_header_mobile" class="header-mobile align-items-center" [ngClass]="headerMobileClasses">
+<div id="kt_header_mobile" style="background-color:#006b83;" class="header-mobile align-items-center" [ngClass]="headerMobileClasses">
   <!--begin::Logo-->
   <a routerLink="/">
-	  <img alt="logo" [attr.src]="headerLogo"/>
+	  <!-- <img alt="logo" [attr.src]="headerLogo"/> -->
+    <div style="display:flex; align-items: center;">
+      <img src="assets/media/logos/logo-wr.png" alt="" width="40px" style="margin-right: 7px;">
+      <h1 style="color: #fff; font-size:21px; margin:0px;">SBBU</h1>
+    </div>
   </a>
   <!--end::Logo-->
 
@@ -18,9 +22,9 @@
 
     <ng-container *ngIf="headerMenuSelfDisplay">
       <!--begin::Header Menu Mobile Toggle-->
-      <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
+      <!-- <button class="btn p-0 burger-icon ml-4" id="kt_header_mobile_toggle">
         <span></span>
-      </button>
+      </button> -->
       <!--end::Header Menu Mobile Toggle-->
     </ng-container>
 
