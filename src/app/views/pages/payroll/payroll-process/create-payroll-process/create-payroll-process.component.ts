@@ -121,11 +121,11 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   gridOptions: any;
   defaultColDef: any;
 
-  religionList = [
-    { id: 0, value: 'Islam' },
-    { id: 1, value: 'Christian' },
-    { id: 2, value: 'Hinduism' },
-  ]
+  // religionList = [
+  //   { id: 0, value: 'Islam' },
+  //   { id: 1, value: 'Christian' },
+  //   { id: 2, value: 'Hinduism' },
+  // ]
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -154,7 +154,8 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.createPayrollProcessForm = this.fb.group({
       departmentId: ['', Validators.required],
       accountPayableId: ['', Validators.required],
-      religion: [''],
+      campusId: ['', Validators.required],
+      //religion: [''],
       month: ['', Validators.required],
       year: ['', Validators.required],
     })
