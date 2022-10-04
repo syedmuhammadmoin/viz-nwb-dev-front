@@ -110,9 +110,9 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
 
   download(file: any) {
     console.log('download called');
-    let fileUrl = environment.baseUrl + 'DocumentDownload/' + file.id + `?docType=${file.docType}`
+    let fileUrl = AppConst.remoteServiceBaseUrl + 'DocumentDownload/' + file.id + `?docType=${file.docType}`
     if (this.data.name === 'Employee') {
-      fileUrl = environment.baseUrl + 'employee/download/' + file.id
+      fileUrl = AppConst.remoteServiceBaseUrl + 'employee/download/' + file.id
     }
     this.httpClient.get(fileUrl, { responseType: 'blob' })
       .subscribe((event: any) => {

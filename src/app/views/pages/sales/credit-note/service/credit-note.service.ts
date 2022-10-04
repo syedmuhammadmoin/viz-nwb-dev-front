@@ -1,13 +1,12 @@
 import { Injectable, Injector } from '@angular/core';
 import { ICreditNote } from '../model/ICreditNote';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http'; 
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../../../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http'; 
+import { Observable } from 'rxjs';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base'
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +14,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base'
 
 export class CreditNoteService extends AppServiceBase {
 
-    baseUrl = environment.baseUrl + 'CreditNote';
+    baseUrl = AppConst.remoteServiceBaseUrl + 'CreditNote';
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

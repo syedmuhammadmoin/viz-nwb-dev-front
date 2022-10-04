@@ -1,11 +1,11 @@
 import { Injectable, Injector }  from '@angular/core';
 import { IGoodsReturnNote } from "../model/IGoodsReturnNote";
 import { Observable }  from 'rxjs';
-import { environment } from "../../../../../../environments/environment";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Injectable({
@@ -14,7 +14,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class GoodsReturnNoteService  extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'GoodsReturnNote'
+  baseUrl = AppConst.remoteServiceBaseUrl + 'GoodsReturnNote'
 
     constructor( private httpClient: HttpClient, injector: Injector ) { super(injector) }
   
@@ -23,11 +23,11 @@ export class GoodsReturnNoteService  extends AppServiceBase {
     }
   
     getGoodsReturnNoteById(id: number): Observable<any> {
-      return this.httpClient.get(environment.baseUrl + 'GoodsReturnNote/' + id)
+      return this.httpClient.get(this.baseUrl + '/' + id)
     }
 
     createGoodsReturnNote(GoodsReturnNoteModel: IGoodsReturnNote): Observable<any> {
-      return this.httpClient.post<IGoodsReturnNote>(environment.baseUrl + 'GoodsReturnNote', GoodsReturnNoteModel, {
+      return this.httpClient.post<IGoodsReturnNote>(this.baseUrl, GoodsReturnNoteModel, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json'
         })
@@ -35,7 +35,7 @@ export class GoodsReturnNoteService  extends AppServiceBase {
     }
   
      workflow(workflow: IWorkflow): Observable<any> {
-        return this.httpClient.post(environment.baseUrl + 'GoodsReturnNote' + '/workflow', workflow);
+        return this.httpClient.post(this.baseUrl + '/workflow', workflow);
      }
 
      uploadFile(id: number , file: File ): Observable<any> {
@@ -45,7 +45,7 @@ export class GoodsReturnNoteService  extends AppServiceBase {
      }
 
      updateGoodsReturnNote(GoodsReturnNoteModel: IGoodsReturnNote): Observable<any> {
-        return this.httpClient.put(environment.baseUrl + `GoodsReturnNote/${GoodsReturnNoteModel.id}`,GoodsReturnNoteModel)
+        return this.httpClient.put(this.baseUrl + '/' + GoodsReturnNoteModel.id , GoodsReturnNoteModel)
      }
 
      getRecords(params: any): Observable<any> {

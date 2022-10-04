@@ -1,11 +1,11 @@
 import { Injectable, Injector }  from '@angular/core';
 import { IIssuanceReturn } from "../model/IIssuanceReturn";
 import { Observable }  from 'rxjs';
-import { environment } from "../../../../../../environments/environment";
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class IssuanceReturnService extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'issuanceReturn'
+  baseUrl = AppConst.remoteServiceBaseUrl + 'issuanceReturn'
 
     constructor( private httpClient: HttpClient, injector: Injector ) { super(injector) }
   

@@ -1115,6 +1115,10 @@ color: $primary-color !important;
   font-size: 14px !important;
   font-weight: bold !important;
   line-height: 24px !important;
+  width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .dialog-cross .fa-times{
@@ -1713,4 +1717,21 @@ mat-tree-node div[id^='child']
 .ag-theme-alpine .ag-cell-wrapper > *:not(.ag-cell-value):not(.ag-group-value)
 {
   height: 30px;
+}
+
+.mat-checkbox
+{
+  border: 0px solid !important;
+}
+
+@media (max-width: 991.98px){
+  #dropdownBasic2{
+    padding: 0.1rem 1rem !important;
+  }
+}
+
+
+.cdk-overlay-container
+{
+  z-index: 10 !important;
 }

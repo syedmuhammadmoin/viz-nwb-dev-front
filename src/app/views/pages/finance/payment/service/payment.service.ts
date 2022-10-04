@@ -1,11 +1,10 @@
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, Injector } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { environment } from '../../../../../../environments/environment';
 import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 import { IPayment } from '../model/IPayment';
 
@@ -15,33 +14,31 @@ import { IPayment } from '../model/IPayment';
 
 export class PaymentService extends AppServiceBase {
 
-  baseUrl = environment.baseUrl + 'payment';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'payment';
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector)}
 
   getPayments(paymentType: string): Observable<IPaginationResponse<IPayment[]>> {
-    const url = environment.baseUrl + paymentType.replace(/ /g, '');
+    const url = AppConst.remoteServiceBaseUrl + paymentType.replace(/ /g, '');
     return this.httpClient.get<IPaginationResponse<IPayment[]>>(url)
-      .pipe(catchError(this.handleError))
   }
 
   getPaymentById(id : number, docType: string): Observable<IApiResponse<IPayment>> {
-    const url = environment.baseUrl + docType.replace(/ /g, '')
+    const url = AppConst.remoteServiceBaseUrl + docType.replace(/ /g, '')
     return this.httpClient.get<IApiResponse<IPayment>>(url +'/'+id)
-      .pipe(catchError(this.handleError)) 
   }
 
   addPayment(payment: IPayment, docType: string): Observable<IApiResponse<IPayment>> {
-    const url = environment.baseUrl + docType.replace(/ /g, '')
+    const url = AppConst.remoteServiceBaseUrl + docType.replace(/ /g, '')
     return this.httpClient.post<IApiResponse<IPayment>>(`${url}`, payment, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json'
         })
-    }).pipe(catchError(this.handleError));
+    })
   }
 
   updatePayment(payment: IPayment, docType: string): Observable<void> {
-    const url = environment.baseUrl + docType.replace(/ /g, '')
+    const url = AppConst.remoteServiceBaseUrl + docType.replace(/ /g, '')
     return this.httpClient.put<void>(url + `/${payment.id}`, payment, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
@@ -50,38 +47,19 @@ export class PaymentService extends AppServiceBase {
   }
 
   paymentWorkflow(body: IWorkflow, docType: string): Observable<any> {
-    const url = environment.baseUrl + docType.replace(/ /g, '')
+    const url = AppConst.remoteServiceBaseUrl + docType.replace(/ /g, '')
     return this.httpClient.post(url + '/workflow', body)
   }
 
-  // uploadFile(id: number, file: File): Observable<any> {
-
-  //   const formData = new FormData();
-  //   formData.append('file', file, file.name);
-
-  //   return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
-  //     .pipe(catchError(this.handleError))
-  // }
-
   uploadFile(id: number , file: File, docType: string): Observable<any> {
     const formData = new FormData();
-    const url = environment.baseUrl + docType.replace(/ /g, '')
+    const url = AppConst.remoteServiceBaseUrl + docType.replace(/ /g, '')
     formData.append('file', file, file.name);
     return this.httpClient.post<any>(`${url}/DocUpload/${id}`, formData)
   }
 
   getRecords(params: any, paymentType: string): Observable<any> {
-    const url = environment.baseUrl + paymentType.replace(/ /g, '');
+    const url = AppConst.remoteServiceBaseUrl + paymentType.replace(/ /g, '');
     return this.httpClient.get(url, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.paymentDate?.dateFrom, 'MM/d/y'))})
-  }
-
-  // for error handling.....
-  private handleError(errorResponse: HttpErrorResponse) {
-      if (errorResponse.error instanceof ErrorEvent) {
-          console.error('Client Side Error :', errorResponse.error.message);
-      } else {
-          console.error('Server Side Error :', errorResponse);
-      }
-      return throwError('There is a problem with the service. We are notified & working on it. Please try again later.');
   }
 }

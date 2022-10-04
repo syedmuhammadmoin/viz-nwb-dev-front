@@ -255,9 +255,9 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       headerName: 'Name', 
       field: 'name', 
       tooltipField: 'name',
-      headerCheckboxSelection: true,
-      headerCheckboxSelectionFilteredOnly: true,
-      checkboxSelection: true,
+      // headerCheckboxSelection: true,
+      // headerCheckboxSelectionFilteredOnly: true,
+      // checkboxSelection: true,
       cellRenderer: "loadingCellRenderer",
      },
      { 

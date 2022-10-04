@@ -1,20 +1,18 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component,  Injector, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { IBankAccount } from '../../bank-account/model/IBankAccount';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IBankStatement } from '../model/IBankStatement';
 import { BankStatementService } from '../service/bank-statement.service';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BankAccountService } from '../../bank-account/service/bankAccount.service';
 import { finalize, take } from 'rxjs/operators';
 import { IBankStatementLines } from '../model/IBankStatementLines';
-import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { BANK_STATEMENT } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-create-bank-statement',
@@ -31,7 +29,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   math = Math;
   isEdit : boolean = false;
   isLoading: boolean;
-  enviroment = environment
+  baseUrl = AppConst.remoteServiceBaseUrl;
   cumulativeBalance: number = 0;
 
   // Limit Date
@@ -95,7 +93,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   }
  
   ngOnInit() {
-
     // Initializing bank Statement Form
     this.bankStatementForm = this.fb.group({
       bankAccountId: ['', [Validators.required]],

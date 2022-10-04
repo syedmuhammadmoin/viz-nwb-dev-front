@@ -1,15 +1,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { IVendorBill } from '../model/IVendorBill';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
-import { environment } from '../../../../../../environments/environment';
 import { IWorkflow } from '../model/IWorkflow';
 import { ITransactionRecon } from '../model/ITransactionRecon';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Injectable({
@@ -18,7 +16,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class VendorBillService extends AppServiceBase {
 
-    baseUrl = environment.baseUrl + 'bill';
+    baseUrl = AppConst.remoteServiceBaseUrl + 'bill';
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getVendorBills(): Observable<IPaginationResponse<IVendorBill[]>> {
@@ -46,7 +44,7 @@ export class VendorBillService extends AppServiceBase {
     }
     
     createTransitionReconcile(transactionRecon: ITransactionRecon): Observable<any> {
-        return this.httpClient.post<any>(environment.baseUrl + 'TransactionRecon', transactionRecon, {
+        return this.httpClient.post<any>(AppConst.remoteServiceBaseUrl + 'TransactionRecon', transactionRecon, {
           headers: new HttpHeaders({
             'Content-Type': 'application/json'
           })

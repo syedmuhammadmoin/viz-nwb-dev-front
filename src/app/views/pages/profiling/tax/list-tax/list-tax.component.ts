@@ -64,7 +64,14 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       }
 
     },
-    { headerName: 'Account', field: 'accountName', suppressMenu: true, tooltipField: 'name' },
+    { headerName: 'Account', 
+      field: 'accountName', 
+      suppressMenu: true, 
+      tooltipField: 'name',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return params.value ?? ' - '
+      }
+    },
   ];
 // implimentation of ng OnInit
   ngOnInit() { 

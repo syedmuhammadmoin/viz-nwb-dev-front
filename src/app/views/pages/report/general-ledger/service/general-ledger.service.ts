@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { environment} from '../../../../../../environments/environment';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +9,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 
 export class GeneralLedgerService {
 
-  baseUrl = environment.baseUrl + 'generalLedger';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'generalLedger';
 
   ledgerPrintData = new BehaviorSubject<any>([]);
   currentLedgerPrintData = this.ledgerPrintData.asObservable();

@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { AppConst } from 'src/app/views/shared/AppConst';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +14,6 @@ export class PayrollReportsService {
 
   //for Payroll transaction report
   getPayrollsReport(data: any): Observable<IPaginationResponse<any>> {
-    return this.httpClient.get<IPaginationResponse<any>>(environment.baseUrl + 'payrollTransaction/Report', {params: data});
+    return this.httpClient.get<IPaginationResponse<any>>(AppConst.remoteServiceBaseUrl + 'payrollTransaction/Report', {params: data});
   }
 }

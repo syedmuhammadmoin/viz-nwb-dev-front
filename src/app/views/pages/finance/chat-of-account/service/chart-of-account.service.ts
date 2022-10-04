@@ -1,18 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {environment} from '../../../../../../environments/environment';
 import {Observable} from 'rxjs';
 import {ILevel2} from '../model/ILevel2';
 import {ILevel3} from '../level3/model/ILevel3';
 import {ILevel4} from '../level4/model/ILevel4';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChartOfAccountService {
-  baseUrl = environment.baseUrl;
+  baseUrl = AppConst.remoteServiceBaseUrl;
   constructor(private httpClient: HttpClient) { }
 
   getLevel2Account(): Observable<ILevel2[]> {
@@ -44,12 +44,12 @@ export class ChartOfAccountService {
   }
 
   updateLevel4Account(level4: ILevel4): Observable<ILevel4> {
-    const url = environment.baseUrl + 'level4/' + level4.id
+    const url = AppConst.remoteServiceBaseUrl + 'level4/' + level4.id
     return this.httpClient.put<ILevel4>(url, level4);
   }
 
   updateLevel3Account(level3: ILevel3): Observable<ILevel3> {
-    const url = environment.baseUrl + 'level3/' + level3.id
+    const url = AppConst.remoteServiceBaseUrl + 'level3/' + level3.id
     return this.httpClient.put<ILevel3>(url, level3);
   }
 
@@ -58,33 +58,33 @@ export class ChartOfAccountService {
   }
 
   getLevel3AccountById(id: number): Observable<ILevel3> {
-    const url = environment.baseUrl + 'level3/' + id;
+    const url = AppConst.remoteServiceBaseUrl + 'level3/' + id;
     return this.httpClient.get<ILevel3>(url);
   }
 
   getLevel4AccountById(id: number): Observable<ILevel4> {
-    const url = environment.baseUrl + 'level4/' + id;
+    const url = AppConst.remoteServiceBaseUrl + 'level4/' + id;
     return this.httpClient.get<ILevel4>(url);
   }
 
   getPayableAccounts(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseUrl + 'level4/payables');
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/payables');
   }
 
   getReceivableAccounts(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseUrl + 'level4/receivables');
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/receivables');
   }
 
   getOtherAccounts(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseUrl + 'level4/OtherAccounts');
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/OtherAccounts');
   }
 
   getBudgetAccounts(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseUrl + 'level4/budgetAccounts');
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/budgetAccounts');
   }
 
   getAssetAccounts(): Observable<any> {
-    return this.httpClient.get<any>(environment.baseUrl + 'level4/fixedAsset');
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/fixedAsset');
   }
 }
 

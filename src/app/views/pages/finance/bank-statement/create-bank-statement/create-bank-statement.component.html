@@ -3,7 +3,7 @@
     <kt-portlet-header  [sticky]="false" [title]="title" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <!-- <button mat-raised-button class="btn_white" id="statement_download"> -->
-          <a [href]="enviroment.baseUrl + 'BankStmt/getStmtFile'" *ngIf="showButtons" id="statement_download" target="_blank" class=" app-default-btn" mat-raised-button>
+          <a [href]="baseUrl + 'BankStmt/getStmtFile'" *ngIf="showButtons" id="statement_download" target="_self" class=" app-default-btn" mat-raised-button>
             Download
           </a>
         <!-- </button> -->

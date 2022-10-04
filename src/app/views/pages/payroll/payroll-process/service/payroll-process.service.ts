@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { AppConst } from 'src/app/views/shared/AppConst';
 import { IPaymentProcess } from '../model/IPaymentProcess';
 import { IPayrollProcess } from '../model/IPayrollProcess';
 
@@ -11,24 +11,27 @@ import { IPayrollProcess } from '../model/IPayrollProcess';
 
 export class PayrollProcessService {
 
+  private payrollBaseUrl = AppConst.remoteServiceBaseUrl + 'payrollTransaction';
+  private paymentBaseUrl = AppConst.remoteServiceBaseUrl + 'payment';
+
   constructor(private httpClient: HttpClient) { }
 
 
   //Payroll Process
   createPayrollProcess(body: IPayrollProcess): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'PayrollTransaction/getForSubmit', body)
+    return this.httpClient.post(this.payrollBaseUrl + '/getForSubmit', body)
   }
 
   submitPayrollProcess(body: []): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'PayrollTransaction/submitProcess', body)
+    return this.httpClient.post(this.payrollBaseUrl + '/submitProcess', body)
   }
 
   GetApprovePayrollProcess(body: IPayrollProcess): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'PayrollTransaction/getForApproval', body);
+    return this.httpClient.post(this.payrollBaseUrl + '/getForApproval', body);
   }
 
   submitApprovalPayrollProcess(body: {docId: [], action: number}): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'PayrollTransaction/approvalProcess', body);
+    return this.httpClient.post(this.payrollBaseUrl + '/approvalProcess', body);
   }
 
 
@@ -36,26 +39,26 @@ export class PayrollProcessService {
 
   //Payment Process
   getPayrollTransactions(body: IPayrollProcess): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'Payment/GetPayrollTrans', body)
+    return this.httpClient.post(this.paymentBaseUrl + '/GetPayrollTrans', body)
   }
 
   createPaymentProcess(body: IPaymentProcess): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'Payment/createProcess', body)
+    return this.httpClient.post(this.paymentBaseUrl + '/createProcess', body)
   }
 
   getPayrollPayment(body: IPayrollProcess): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'Payment/GetPayrollPayment', body)
+    return this.httpClient.post(this.paymentBaseUrl + '/GetPayrollPayment', body)
   }
 
   submitPaymentProcess(body: []): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'Payment/submitProcess', body)
+    return this.httpClient.post(this.paymentBaseUrl + '/submitProcess', body)
   }
 
   getPayrollPaymentForApproval(body: IPayrollProcess): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'Payment/GetforPayrollPaymentApproval', body)
+    return this.httpClient.post(this.paymentBaseUrl + '/GetforPayrollPaymentApproval', body)
   }
 
   approvePayrollPaymentProcess(body: {docId: [], action: number}): Observable<any> {
-    return this.httpClient.post(environment.baseUrl + 'Payment/approvalProcess', body)
+    return this.httpClient.post(this.paymentBaseUrl + '/approvalProcess', body)
   }
 }

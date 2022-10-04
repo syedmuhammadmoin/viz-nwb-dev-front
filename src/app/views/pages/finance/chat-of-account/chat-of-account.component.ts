@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { CreateLevel3Component } from './level3/create-level3/create-level3.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateLevel4Component } from './level4/create-level4/create-level4.component';
 import { ChartOfAccountService } from './service/chart-of-account.service';
@@ -8,6 +7,7 @@ import { MatTreeFlatDataSource, MatTreeFlattener} from '@angular/material/tree';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AccountType, Permissions } from 'src/app/views/shared/AppEnum';
 import { finalize, take } from 'rxjs/operators';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 /**
  * Each node has a name and an optional list of children.
@@ -44,6 +44,8 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
 
   //for checking level4 account type
   accountType: AccountType
+
+  baseUrl = AppConst.remoteServiceBaseUrl;
  
   constructor(
     private chartOfAccService: ChartOfAccountService,
@@ -85,7 +87,6 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
     .subscribe((data) => {
      
       this.dataSource.data = data.result;
-      console.log(data.result)
       //console.log('this.dataSource.data', this.dataSource.data);
       this.cdRef.detectChanges();
     });
@@ -148,7 +149,6 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
     //     })
     //   });
     // }
-    console.log(node)
     if (node.level === 3 && node.id) {
       //console.log('nodeId : ', node.id)
       const dialogRef = this.dialog.open(CreateLevel4Component, {

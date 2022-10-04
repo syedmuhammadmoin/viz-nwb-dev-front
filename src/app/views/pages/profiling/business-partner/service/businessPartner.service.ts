@@ -1,12 +1,11 @@
 import { IBusinessPartner } from '../model/IBusinessPartner';
-import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-import { environment } from '../../../../../../environments/environment';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Injectable({
@@ -15,7 +14,7 @@ import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 
 export class BusinessPartnerService extends AppServiceBase {
 
-    baseUrl = environment.baseUrl + 'BusinessPartner';
+    baseUrl = AppConst.remoteServiceBaseUrl + 'BusinessPartner';
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

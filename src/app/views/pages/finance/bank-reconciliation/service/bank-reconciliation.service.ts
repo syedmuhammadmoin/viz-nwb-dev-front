@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable} from 'rxjs';
 import { HttpClient} from '@angular/common/http';
-import { environment} from '../../../../../../environments/environment';
 import { IApiResponse} from '../../../../shared/IApiResponse';
 import { IPayment} from '../../payment/model/IPayment';
 import { IBankStatement} from "../../bank-statement/model/IBankStatement";
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +15,7 @@ export class BankReconciliationService {
   bankStatementList = new BehaviorSubject<IBankStatement[]>(null);
   paymentList = new BehaviorSubject<IPayment[]>(null);
 
-  baseUrl = environment.baseUrl;
+  baseUrl = AppConst.remoteServiceBaseUrl;
   constructor(private httpClient: HttpClient) { }
 
 

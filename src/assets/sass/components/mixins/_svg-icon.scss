@@ -8,14 +8,16 @@
         g {
             [fill] {
                 transition: fill 0.3s ease;
-                fill: $color valueif($important, !important, null);
+                fill: #fff valueif($important, !important, null);
             }
         }
 
         &:hover {
             g {
                 [fill] {
+
                     transition: fill 0.3s ease;
+                    fill: #cba058 valueif($important, !important, null);
                 }
             }
         }
