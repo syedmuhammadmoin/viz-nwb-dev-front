@@ -14,11 +14,13 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 export class CampusService extends AppServiceBase {
 
     baseUrl = AppConst.remoteServiceBaseUrl + 'Campus';
-    
+
+    private header = new HttpHeaders().set("key", "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~")
+
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getCampuses(): Observable<IPaginationResponse<ICampus[]>> {
-        return this.httpClient.get<IPaginationResponse<ICampus[]>>(this.baseUrl)
+        return this.httpClient.get<IPaginationResponse<ICampus[]>>(this.baseUrl , {headers: this.header})
     }
 
     getCampusDropdown(): Observable<IApiResponse<ICampus[]>> {
@@ -29,24 +31,24 @@ export class CampusService extends AppServiceBase {
         return this.httpClient.get<IApiResponse<ICampus>>(`${this.baseUrl}/${id}`)
     }
 
-    addCampus(campus: ICampus): Observable<ICampus> {
-        return this.httpClient.post<ICampus>(this.baseUrl, campus, {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        })
-    }
+    // addCampus(campus: ICampus): Observable<ICampus> {
+    //     return this.httpClient.post<ICampus>(this.baseUrl, campus, {
+    //         headers: new HttpHeaders({
+    //             'Content-Type': 'application/json'
+    //         })
+    //     })
+    // }
 
-    updateCampus(campus: ICampus): Observable<void> {
-        return this.httpClient.put<void>(`${this.baseUrl}/${campus.id}`, campus, {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        })
-    }
+    // updateCampus(campus: ICampus): Observable<void> {
+    //     return this.httpClient.put<void>(`${this.baseUrl}/${campus.id}`, campus, {
+    //         headers: new HttpHeaders({
+    //             'Content-Type': 'application/json'
+    //         })
+    //     })
+    // }
 
     getRecords(params: any): Observable<any> {
-        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter)});
-      }
+      return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter) , headers: this.header});
+    }
 }
 

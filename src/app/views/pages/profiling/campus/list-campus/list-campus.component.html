@@ -1,8 +1,8 @@
-<div class="row mb-4">
+<!-- <div class="row mb-4">
     <div class="col-md-12 text-right">
       <button (click)="openDialog()" id="add_campus" *ngIf="(permission.isGranted(permissions.CAMPUS_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Campus">Add Campus</button>
     </div>
-  </div>
+  </div> -->
   
   <div class="row">
     <div class="col-md-12 ">
@@ -16,14 +16,11 @@
                 class="ag-theme-alpine"
                 [components]="components"
                 [columnDefs]="columnDefs"
-                (rowDoubleClicked)="onRowDoubleClicked($event)"
                 (firstDataRendered)="onFirstDataRendered($event)"
                 (paginationChanged)="paginationHelper.onPaginationChanged('campusPageName', gridApi, $event)"
                 [gridOptions]="gridOptions"
-                [frameworkComponents]="frameworkComponents"
                 [overlayNoRowsTemplate]="overlayNoRowsTemplate"
                 [defaultColDef]="defaultColDef"
-                [tooltipShowDelay]="5"
                 (gridReady)="onGridReady($event)">
               </ag-grid-angular>
             </div>

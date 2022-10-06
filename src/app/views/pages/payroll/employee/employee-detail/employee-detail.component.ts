@@ -9,6 +9,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPayrollItem } from '../../payroll-item/model/IPayrollItem';
 import { EmployeeService } from '../service/employee.service';
 import { finalize, take } from 'rxjs/operators';
+import { CreateEmployeeComponent } from '../create-employee/create-employee.component';
 
 @Component({
   selector: 'kt-employee-detail',
@@ -143,5 +144,16 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     })
+  }
+
+  openEmployeeDialog(id?: number): void {
+    const dialogRef = this.dialog.open(CreateEmployeeComponent, {
+      width: '800px',
+      data: this.employeeId
+    });
+    // Recalling getBankAccounts function on dialog close
+    dialogRef.afterClosed().subscribe(() => {
+      this.getEmployeeData(this.employeeId);
+    });
   }
 }

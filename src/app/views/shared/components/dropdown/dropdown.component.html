@@ -19,7 +19,7 @@
         [noEntriesFoundLabel]="'No Record Found...'"
       ></ngx-mat-select-search>
     </mat-option>
-    <mat-option style="padding: 0" *ngIf="isLoading" [ktBusy]="isLoading" type="SINGLE_CONTENT"></mat-option>
+    <mat-option class="remove__checkbox" style="padding: 0" *ngIf="isLoading" [ktBusy]="isLoading" type="SINGLE_CONTENT"></mat-option>
     <mat-option *ngIf="isDisabledNone" [value]="" id="None">-- None --</mat-option>
     <ng-container *ngFor="let option of filteredOptionList | async">
       <mat-option [disabled]="isOptionDisabled(propertyValue !== undefined ? option[propertyValue] : option)" [value]="propertyValue !== undefined || null ? option[propertyValue] : option">

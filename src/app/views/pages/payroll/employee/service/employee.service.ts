@@ -5,6 +5,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { IEmployee } from '../model/IEmployee';
 
 @Injectable({
   providedIn: 'root'
@@ -23,11 +24,19 @@ export class EmployeeService extends AppServiceBase {
     }
 
     getEmployeesDropdown(): Observable<IApiResponse<[]>> {
-      return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/dropdown' , {headers: this.header })
+      return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/dropdown')
     }
 
     getEmployeeById(id: number): Observable<IApiResponse<[]>> {
-      return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + "/" + id , { headers: this.header })
+      return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + "/" + id)
+    }
+
+    updateEmployee(employee: IEmployee): Observable<void> {
+      return this.httpClient.put<void>(`${this.baseUrl}/${employee.id}`, employee, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json'
+          })
+      })
     }
 
     getRecords(params: any): Observable<any> {
