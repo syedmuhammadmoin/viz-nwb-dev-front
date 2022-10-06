@@ -67,8 +67,8 @@
             </div>
             <div class="print-box">
               <h4 >
-                <b>No of Increment:</b> 
-                <span class="float-right" >{{employeeMaster?.noOfIncrements || 0}}</span>
+                <b>Employee Type:</b> 
+                <span class="float-right" >{{employeeMaster?.employeeType || 'N/A'}}</span>
               </h4>
               <!-- <h6 >{{employeeMaster?.noOfIncrements || 'N/A'}}</h6> -->
             </div>
@@ -125,6 +125,13 @@
               </h4>
               <!-- <h6 >{{employeeMaster?.faculty || 'N/A'}}</h6> -->
             </div>
+            <div class="print-box">
+              <h4 >
+                <b>No of Increments:</b> 
+                <span class="float-right" >{{employeeMaster?.noOfIncrements || 0}}</span>
+              </h4>
+              <!-- <h6 >{{employeeMaster?.noOfIncrements || 'N/A'}}</h6> -->
+            </div>
           </div>
 
           <div class="col-md-4 col-lg-4  mt-3">
@@ -158,6 +165,13 @@
             </div>
             <div class="print-box">
               <h4 >
+                <b>Campus:</b> 
+                <span class="float-right" >{{employeeMaster?.campusName}}</span>
+              </h4>
+              <!-- <h6 >{{employeeMaster?.departmentName || 'N/A'}}</h6> -->
+            </div>
+            <div class="print-box">
+              <h4 >
                 <b>Date Of Birth:</b> 
                 <span class="float-right" >{{(employeeMaster?.dateofBirth | date: 'MMM d, y') || 'N/A'}}</span>
               </h4>
@@ -172,7 +186,7 @@
             </div>
             <div class="print-box">
               <h4 >
-                <b>Is Active:</b> 
+                <b>Active:</b> 
                 <span class="float-right" >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</span>
               </h4>
               <!-- <h6 >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</h6> -->

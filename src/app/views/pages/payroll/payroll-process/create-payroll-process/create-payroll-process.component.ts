@@ -13,6 +13,8 @@ import { DepartmentState } from '../../department/store/department.store';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
+import { CampusState } from '../../../profiling/campus/store/campus.state';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'kt-create-payroll-process',
@@ -74,6 +76,12 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       //tooltipField: 'presentDays',
       suppressMenu: true,
     },
+    {
+      headerName: 'Absent Days',
+      // editable: true,
+      field: 'absentDays',
+      suppressMenu: true,
+    },
     /*    {
           headerName: 'Tax',
           // editable: true,
@@ -97,6 +105,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
 
   formErrors = {
     departmentId: '',
+    campusId: '',
     accountPayableId: '',
     month: '',
     year: ''
@@ -104,6 +113,9 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   validationMessages = {
     departmentId: {
       required: 'Department is required'
+    },
+    campusId: {
+      required: 'Campus is required'
     },
     accountPayableId: {
       required: 'Account Payable is required'
@@ -120,6 +132,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   frameworkComponents: any;
   gridOptions: any;
   defaultColDef: any;
+  departmentsList: any = new BehaviorSubject<any>([])
 
   // religionList = [
   //   { id: 0, value: 'Islam' },
@@ -165,8 +178,10 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     // }
     //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    this.getLatestDepartments();
+    // this.getLatestDepartments();
+    // this.getLatestCampuses();
     this.ngxsService.getAccountPayableFromState();
+    this.ngxsService.getCampusFromState();
     this.ngxsService.getDepartmentFromState();
   }
 
@@ -178,6 +193,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.isLoading = true;
     const body = {
       departmentId: this.createPayrollProcessForm.value.departmentId ,
+      campusId : this.createPayrollProcessForm.value.campusId,
       accountPayableId: this.createPayrollProcessForm.value.accountPayableId,
       month: this.createPayrollProcessForm.value.month,
       year: this.createPayrollProcessForm.value.year,
@@ -274,8 +290,31 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   //   // });
   // }
 
+  onCampusSelected(campusId : number) {
+    this.ngxsService.departmentService.getDepartmentByCampusId(campusId).subscribe(res => {
+      this.departmentsList.next(res.result || [])
+    })
+
+    // if(this.createPayrollProcessForm.value.departmentId){
+    //   this.toastService.info("Please Reselect Department!" , "Payroll Process")
+    // }
+
+     this.createPayrollProcessForm.get('departmentId').setValue(null)
+    //  if(this.showMessage) {
+    //   this.toastService.info("Please Reselect Store!" , "Journal Entry")
+    //  }
+     this.cdRef.detectChanges()
+  }
+
   getLatestDepartments(){
+    if(this.createPayrollProcessForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Payroll Process")
+    }
     this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
+  }
+
+  getLatestCampuses(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(CampusState , true))
   }
 }
 

@@ -39,45 +39,53 @@
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1">Doc No: 
+                <h4 class="print-box-detail-1"><b>Doc No:</b> 
                     <span class="float-right" style="font-weight: 400;">{{payrollMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Employee: 
+              <h4 class="print-box-detail-2"><b>Employee:</b> 
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.employee}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-2">Transaction Date: 
+                <h4 class="print-box-detail-2"><b>Transaction Date:</b> 
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.transDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Designation: 
+              <h4 class="print-box-detail-2"><b>Designation:</b> 
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.designation}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Department: 
+              <h4 class="print-box-detail-2"><b>Department:</b> 
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.department}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2"><b>Campus:</b> 
+              <span class="float-right" style="font-weight: 400;">{{payrollMaster?.campus}}</span></h4>
             </div>
           </div>
 
           <div class="col-md-4 col-lg-4 ml-auto mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1">Account: 
+                <h4 class="print-box-detail-1"><b>Account</b> 
                     <span class="float-right" style="font-weight: 400;">{{payrollMaster?.accountPayable}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Working Days: 
+              <h4 class="print-box-detail-2"><b>Working Days:</b> 
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.workingDays}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-2">Present Days: 
+                <h4 class="print-box-detail-2"><b>Present Days: </b>
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.presentDays}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Leave Days: 
+              <h4 class="print-box-detail-2"><b>Leave Days: </b>
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.leaveDays}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2"><b>Absent Days: </b>
+              <span class="float-right" style="font-weight: 400;">{{payrollMaster?.absentDays}}</span></h4>
             </div>
           </div>
          </div>

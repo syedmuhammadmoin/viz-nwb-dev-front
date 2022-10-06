@@ -27,7 +27,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   employeeForm: FormGroup;
 
   //employee model declaration
-  employee: IEmployee;
+  employee: IEmployee = {} as IEmployee;
 
   title: string = 'Edit Employee'
 
@@ -65,16 +65,12 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
     this.employeeForm = this.fb.group({
       noOfIncrements: ['', [Validators.required , Validators.min(1)]]
     });
+
     if (this._id) {
       this.showButtons = (this.permission.isGranted(this.permissions.EMPLOYEE_EDIT)) ? true : false;
       this.title = 'Edit Employee'
       this.isLoading = true
       this.getEmployee(this._id);
-    } else {
-      this.employee = {
-        id: null,
-        noOfIncrements: null
-      }
     }
   }
 
@@ -137,7 +133,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   // Mapping values from Employee form to  employee model
   mapFormValueToEmployeeModel() {
     this.employee.id = this._id;
-    this.employee.noOfIncrements = this.employeeForm.value.id;
+    this.employee.noOfIncrements = this.employeeForm.value.noOfIncrements;
   }
 
   // Dialogue close function
