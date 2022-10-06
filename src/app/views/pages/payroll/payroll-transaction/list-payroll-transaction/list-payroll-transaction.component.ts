@@ -119,6 +119,11 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       },
     },
     {
+      headerName: 'Campus',
+      field: 'campus',
+      suppressMenu: true
+    },
+    {
       headerName: 'Department',
       field: 'department',
       tooltipField: 'docNo',

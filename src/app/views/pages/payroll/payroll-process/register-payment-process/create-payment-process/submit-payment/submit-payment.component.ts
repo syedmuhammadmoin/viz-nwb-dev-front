@@ -14,6 +14,7 @@ import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.
 import { DepartmentState } from '../../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
+import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
 
 @Component({
   selector: 'kt-submit-payment',
@@ -37,6 +38,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
   overlayLoadingTemplate: any;
   paymentRegisterList: BehaviorSubject<any> = new BehaviorSubject<any>([]);
   @Output() isLoading = new EventEmitter<boolean>();
+  departmentsList: any = new BehaviorSubject<any>([])
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -94,6 +96,9 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     departmentId: {
       required: 'Department is required.'
     },
+    campusId: {
+      required: 'Campus is required.'
+    },
     month: {
       required: 'Month is required.'
     },
@@ -104,6 +109,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
 
   formErrors = {
     departmentId: '',
+    campusId: '',
     month: '',
     year: '',
   };
@@ -129,6 +135,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
   ngOnInit(): void {
     this.submitPayrollPaymentForm = this.fb.group({
       departmentId: ['', Validators.required],
+      campusId: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
       bankId: [''],
@@ -139,8 +146,9 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
     
-    this.getLatestDepartments();
+    this.getLatestCampuses();
     this.ngxsService.getDepartmentFromState();
+    this.ngxsService.getCampusFromState();
   }
 
   onSubmitFilters() {
@@ -218,8 +226,22 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     // });
   }
 
-  getLatestDepartments(){
-    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
+  onCampusSelected(campusId : number) {
+    this.ngxsService.departmentService.getDepartmentByCampusId(campusId).subscribe(res => {
+      this.departmentsList.next(res.result || [])
+    })
+     this.submitPayrollPaymentForm.get('departmentId').setValue(null)
+     this.cdRef.detectChanges()
+  }
+
+  checkCampus(){
+    if(this.submitPayrollPaymentForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Payment Process")
+    }
+  }
+
+  getLatestCampuses(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(CampusState , true))
   }
 }
 

@@ -8,14 +8,34 @@
             <div class="row mt-1 mb-0">
               <div class="col-lg-4">
                 <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label">Campus:</label>
+                  <kt-simple-dropdown
+                    id="submit_payment_campus"
+                    (blurEvent)="logValidationErrors(submitPayrollPaymentForm, this.formErrors, this.validationMessages)"
+                    [errorMessage]="formErrors.campusId"
+                    [optionList]="ngxsService.campuses$"
+                    formControlName="campusId"
+                    matFormFieldClass="full-width" 
+                    (selectionChange)="onCampusSelected($event.value)"
+                    (click)="getLatestCampuses()"
+                    placeholder="Select Campus"
+                    propertyName="name"
+                    propertyValue="id"
+                    searchPlaceholder="Search Campus...">
+                  </kt-simple-dropdown>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">Departments:</label>
                   <kt-simple-dropdown
                     id="submit_payment_month"
                     (blurEvent)="logValidationErrors(submitPayrollPaymentForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="formErrors.departmentId"
                     [isMultiple]="true"
-                    [optionList]="ngxsService.departments$"
-                    (click)="getLatestDepartments()"
+                    [optionList]="departmentsList"
+                    (click)="checkCampus()"
                     formControlName="departmentId"
                     matFormFieldClass="full-width" 
                     maxSelectionCount="3"

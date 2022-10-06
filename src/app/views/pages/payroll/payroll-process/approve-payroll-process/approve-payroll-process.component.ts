@@ -3,13 +3,14 @@ import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { MatDialog} from '@angular/material/dialog';
 import { FirstDataRenderedEvent, RowNode} from 'ag-grid-community';
 import { isEmpty } from 'lodash';
+import { BehaviorSubject } from 'rxjs';
 import { finalize, map, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { ActionButton, DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { CampusState } from '../../../profiling/campus/store/campus.state';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
-import { DepartmentState } from '../../department/store/department.store';
 import { PayrollProcessService } from '../service/payroll-process.service';
 
 @Component({
@@ -31,6 +32,7 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   overlayLoadingTemplate: any;
   isDisabled: any;
   rowSelection = 'multiple';
+  departmentsList: any = new BehaviorSubject<any>([])
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -64,6 +66,11 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       suppressMenu: true,
     },
     {
+      headerName: 'Campus',
+      field: 'campus',
+      suppressMenu: true,
+    },
+    {
       headerName: 'Department',
       field: 'department',
       suppressMenu: true,
@@ -76,6 +83,11 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Present Days',
       field: 'presentDays',
+      suppressMenu: true,
+    },
+    {
+      headerName: 'Absent Days',
+      field: 'absentDays',
       suppressMenu: true,
     },
     {
@@ -97,6 +109,9 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     departmentId: {
       required: 'Department is required'
     },
+    campusId: {
+      required: 'Campus is required'
+    },
     month: {
       required: 'Month is required'
     },
@@ -107,6 +122,7 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
   formErrors = {
     departmentId: '',
+    campusId: '',
     month: '',
     year: ''
   };
@@ -115,11 +131,11 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   
   
 
-  religionList = [
-    { id: 0, value: 'Islam' },
-    { id: 1, value: 'Christian' },
-    { id: 2, value: 'Hinduism' },
-  ]
+  // religionList = [
+  //   { id: 0, value: 'Islam' },
+  //   { id: 1, value: 'Christian' },
+  //   { id: 2, value: 'Hinduism' },
+  // ]
 
   // editPayrollTransaction(event: any) {
   //   const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
@@ -148,14 +164,16 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   ngOnInit(): void {
     this.approvePayrollProcessForm = this.fb.group({
       departmentId: ['',Validators.required],
+      campusId: ['',Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
-      religion: ['']
+      // religion: ['']
       // accountPayableId: [null]
     })
 
-    this.getLatestDepartments();
+    this.getLatestCampuses();
     this.ngxsService.getDepartmentFromState();
+    this.ngxsService.getCampusFromState();
   }
 
   onSubmit() {
@@ -165,7 +183,8 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     }
     this.isLoading = true
     const body = {
-      departmentId: this.approvePayrollProcessForm.value.departmentId ,
+      departmentId: this.approvePayrollProcessForm.value.departmentId,
+      campusId: this.approvePayrollProcessForm.value.campusId,
       month: this.approvePayrollProcessForm.value.month,
       year: this.approvePayrollProcessForm.value.year,
     }
@@ -275,8 +294,22 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     return target;
   }
 
-  getLatestDepartments(){
-    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
+  onCampusSelected(campusId : number) {
+    this.ngxsService.departmentService.getDepartmentByCampusId(campusId).subscribe(res => {
+      this.departmentsList.next(res.result || [])
+    })
+     this.approvePayrollProcessForm.get('departmentId').setValue(null)
+     this.cdRef.detectChanges()
+  }
+
+  checkCampus(){
+    if(this.approvePayrollProcessForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Payroll Process")
+    }
+  }
+
+  getLatestCampuses(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(CampusState , true))
   }
 }
 

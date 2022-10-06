@@ -57,6 +57,11 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       suppressMenu: true,
     },
     {
+      headerName: 'Campus',
+      field: 'campus',
+      suppressMenu: true
+    },
+    {
       headerName: 'Department',
       field: 'department',
       suppressMenu: true
@@ -180,6 +185,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
 
     // this.getLatestDepartments();
     // this.getLatestCampuses();
+    this.getLatestCampuses();
     this.ngxsService.getAccountPayableFromState();
     this.ngxsService.getCampusFromState();
     this.ngxsService.getDepartmentFromState();
@@ -294,23 +300,14 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.ngxsService.departmentService.getDepartmentByCampusId(campusId).subscribe(res => {
       this.departmentsList.next(res.result || [])
     })
-
-    // if(this.createPayrollProcessForm.value.departmentId){
-    //   this.toastService.info("Please Reselect Department!" , "Payroll Process")
-    // }
-
      this.createPayrollProcessForm.get('departmentId').setValue(null)
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Journal Entry")
-    //  }
      this.cdRef.detectChanges()
   }
 
-  getLatestDepartments(){
+  checkCampus(){
     if(this.createPayrollProcessForm.value.campusId === '') {
       this.toastService.info("Please Select Campus First!", "Payroll Process")
     }
-    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
   }
 
   getLatestCampuses(){
