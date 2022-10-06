@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component,  Injector, OnInit, ViewChild} from '@angular/core';
 import { AppComponentBase} from '../../../../../../shared/app-component-base';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { AppConst} from '../../../../../../shared/AppConst';
@@ -18,6 +18,7 @@ import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
 import { IPayment } from 'src/app/views/pages/finance/payment/model/IPayment';
 import { IPaymentProcess } from '../../../model/IPaymentProcess';
+import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
 
 @Component({
   selector: 'kt-create-payment',
@@ -39,6 +40,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   overlayLoadingTemplate: any;
   propertyValue: any;
   propertyName: any;
+  departmentsList: any = new BehaviorSubject<any>([])
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
   @ViewChild('formDirective2') private formDirective2: NgForm;
@@ -64,6 +66,12 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
     {
       headerName: 'Designation', field: 'designation',
+      tooltipField: 'cnic',
+      suppressMenu: true,
+    },
+    {
+      headerName: 'Campus',
+      field: 'campus',
       tooltipField: 'cnic',
       suppressMenu: true,
     },
@@ -162,16 +170,15 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.isLoading)
     this.filterForm = this.fb.group({
       departmentId: ['', Validators.required],
+      campusId: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
       bankId: [''],
     });
 
     this.createPayrollPaymentForm = this.fb.group({
-      campusId: ['', Validators.required],
       // paymentRegisterType: ['', Validators.required],
       bankAccount: ['', Validators.required],
       description: ['', Validators.required],
@@ -184,7 +191,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
     this.loadAccountList({value: 2})
 
-    this.getLatestDepartments();
+    this.getLatestCampuses();
     this.ngxsService.getDepartmentFromState();
     this.ngxsService.getCampusFromState();
   }
@@ -232,13 +239,13 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       bodyList.push({
         accountPayableId: x.accountPayableId,
         businessPartnerId: x.businessPartnerId,
+        campusId: x.campusId,
         netSalary: x.netSalary,
         ledgerId: x.ledgerId
       })
     });
 
     const body = {} as IPaymentProcess;
-    body.campusId = this.createPayrollPaymentForm.value.campusId;
     body.paymentDate = this.dateHelperService.transformDate(new Date(), 'yyyy-MM-dd')
     body.paymentRegisterType = 2;
     body.paymentRegisterId = this.createPayrollPaymentForm.value.bankAccount;
@@ -303,8 +310,22 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.transactionList = [];
   }
 
-  getLatestDepartments(){
-    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
+  onCampusSelected(campusId : number) {
+    this.ngxsService.departmentService.getDepartmentByCampusId(campusId).subscribe(res => {
+      this.departmentsList.next(res.result || [])
+    })
+     this.filterForm.get('departmentId').setValue(null)
+     this.cdRef.detectChanges()
+  }
+
+  checkCampus(){
+    if(this.filterForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Payment Process")
+    }
+  }
+
+  getLatestCampuses(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(CampusState , true))
   }
 
 }

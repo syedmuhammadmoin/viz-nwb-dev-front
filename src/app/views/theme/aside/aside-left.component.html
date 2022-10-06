@@ -59,18 +59,32 @@
 		</a>
 
 		<!-- if menu item has submenu child then recursively call new menu item component -->
-		<div *ngIf="item.submenu" class="menu-submenu">
+		<!-- <div *ngIf="item.submenu" class="menu-submenu">
 			<span class="menu-arrow"></span>
-			<div *ngIf="item['custom-class'] === 'menu-item--submenu-fullheight'" class="menu-wrapper">
+			<div *ngIf="item['custom-class'] === 'menu-item--submenu-fullheight'" class="menu-wrapper"> -->
 				<!-- wrap submenu to full height -->
-				<ng-container [ngTemplateOutlet]="menuSubmenuTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
-			</div>
+				<!-- <ng-container [ngTemplateOutlet]="menuSubmenuTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+			</div> -->
 			<!-- normal submenu -->
-			<ng-container *ngIf="item['custom-class'] !== 'menu-item--submenu-fullheight'"
+			<!-- <ng-container *ngIf="item['custom-class'] !== 'menu-item--submenu-fullheight'"
 				[ngTemplateOutlet]="menuSubmenuTemplate"
 				[ngTemplateOutletContext]="{ item: item, parentItem: parentItem }">
 			</ng-container>
-		</div>
+		</div> -->
+
+		<div *ngIf="item.submenu" class="menu-submenu">
+			<span class="menu-arrow"></span>
+			<div *ngIf="item['custom-class'] === 'menu-item--submenu-fullheight'" class="menu-wrapper">
+			  <!-- wrap submenu to full height -->
+			  <ng-container [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"
+							[ngTemplateOutlet]="menuSubmenuTemplate"></ng-container>
+			</div>
+			<!-- normal submenu -->
+			<ng-container *ngIf="item['custom-class'] !== 'menu-item--submenu-fullheight'"
+						  [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"
+						  [ngTemplateOutlet]="menuSubmenuTemplate">
+			</ng-container>
+		  </div>
 	</li>
 
 </ng-template>

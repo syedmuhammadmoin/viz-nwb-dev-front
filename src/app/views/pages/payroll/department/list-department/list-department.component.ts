@@ -50,6 +50,11 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
           suppressAndOrCondition: true,
         },
      },
+     { 
+      headerName: 'Campus', 
+      field: 'campusName',
+      suppressMenu: true
+     }
   ];
 
   ngOnInit() {

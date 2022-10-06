@@ -1728,10 +1728,72 @@ mat-tree-node div[id^='child']
   #dropdownBasic2{
     padding: 0.1rem 1rem !important;
   }
+
+  .btn.btn-hover-text-primary:hover span svg g path{
+    fill: #cba058 !important;
+  }
+
+  .btn.btn-hover-text-primary.active span svg g path{
+    fill: #cba058 !important;
+  }
 }
 
 
 .cdk-overlay-container
 {
   z-index: 10 !important;
+}
+
+.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-arrow {
+
+  color: var(--secondary_color);
+
+}
+
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item.menu-item-active>.menu-link {
+
+  background-color: #ffffff38 !important;
+
+}
+
+
+
+
+.cdk-global-scrollblock .cdk-overlay-container
+
+{
+
+  z-index: 1000 !important;
+
+}
+
+
+
+.cdk-overlay-container
+
+{
+
+  z-index: 10 !important;
+
+}
+
+
+
+
+.mat-pseudo-checkbox-disabled
+
+{
+
+  color: #d5d5d5 !important;
+
+}
+
+
+
+.remove__checkbox .mat-option-pseudo-checkbox
+
+{
+
+  display: none !important;
+
 }

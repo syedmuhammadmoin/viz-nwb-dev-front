@@ -26,6 +26,10 @@ export class DepartmentService extends AppServiceBase {
       return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/dropdown')
     }
 
+    getDepartmentByCampusId(id: number): Observable<IApiResponse<any>> {
+      return this.httpClient.get<IApiResponse<any>>(`${this.baseUrl}/GetDepartmentByCampus/${id}`)
+    }
+
     getRecords(params: any): Observable<any> {
       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null) , headers: this.header});
     }

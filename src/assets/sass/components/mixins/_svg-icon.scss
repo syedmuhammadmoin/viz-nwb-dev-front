@@ -17,7 +17,7 @@
                 [fill] {
 
                     transition: fill 0.3s ease;
-                    fill: #cba058 valueif($important, !important, null);
+                    // fill: #cba058 valueif($important, !important, null);
                 }
             }
         }
@@ -29,6 +29,7 @@
         g {
             [fill] {
                 transition: fill 0.3s ease;
+                fill: #fff;
             }
         }
     }

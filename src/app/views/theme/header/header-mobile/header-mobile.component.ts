@@ -16,6 +16,8 @@ export class HeaderMobileComponent implements OnInit {
   headerMenuSelfDisplay = true;
   headerMobileClasses = '';
 
+  public showThis: Boolean = false;
+
   toggleOptions: ToggleOptions = {
     target: KTUtil.getBody(),
     targetState: 'topbar-mobile-on',

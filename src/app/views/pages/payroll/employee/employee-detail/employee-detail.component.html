@@ -12,25 +12,16 @@
 
         <div class="row ">
 
-          <!-- <div class="col-md-12 col-12 pb-3">
+          <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
-                <button *ngIf="(employeeMaster?.state === docStatus.Draft || employeeMaster?.state === docStatus.Rejected)"
-                  [disabled]="!(permission.isGranted(permissions.INVOICE_EDIT))"
-                  [ngClass]="!(permission.isGranted(permissions.INVOICE_EDIT)) ? 'disable' : '' "
-                  [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', employeeMaster?.id)" [queryParams]="{q: employeeMaster?.id, 'isInvoice': true}"
-                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit"></i>
-                  Edit
+                <button *ngIf="(permission.isGranted(permissions.EMPLOYEE_EDIT))" id="journal_edit"
+                  (click)="openEmployeeDialog()" type="button"  class="btn_public mr-3">
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
-                <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', employeeMaster?.id)" type="button" 
-                  class="btn_public" id="invoice_print">
-                  <i class="fa fa-print"></i> Print Invoice
-                </button>
-                
-
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
             
-          </div> -->
+        </div>
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
@@ -76,8 +67,8 @@
             </div>
             <div class="print-box">
               <h4 >
-                <b>No of Increment:</b> 
-                <span class="float-right" >{{employeeMaster?.noOfIncrements || 'N/A'}}</span>
+                <b>Employee Type:</b> 
+                <span class="float-right" >{{employeeMaster?.employeeType || 'N/A'}}</span>
               </h4>
               <!-- <h6 >{{employeeMaster?.noOfIncrements || 'N/A'}}</h6> -->
             </div>
@@ -134,6 +125,13 @@
               </h4>
               <!-- <h6 >{{employeeMaster?.faculty || 'N/A'}}</h6> -->
             </div>
+            <div class="print-box">
+              <h4 >
+                <b>No of Increments:</b> 
+                <span class="float-right" >{{employeeMaster?.noOfIncrements || 0}}</span>
+              </h4>
+              <!-- <h6 >{{employeeMaster?.noOfIncrements || 'N/A'}}</h6> -->
+            </div>
           </div>
 
           <div class="col-md-4 col-lg-4  mt-3">
@@ -167,6 +165,13 @@
             </div>
             <div class="print-box">
               <h4 >
+                <b>Campus:</b> 
+                <span class="float-right" >{{employeeMaster?.campusName}}</span>
+              </h4>
+              <!-- <h6 >{{employeeMaster?.departmentName || 'N/A'}}</h6> -->
+            </div>
+            <div class="print-box">
+              <h4 >
                 <b>Date Of Birth:</b> 
                 <span class="float-right" >{{(employeeMaster?.dateofBirth | date: 'MMM d, y') || 'N/A'}}</span>
               </h4>
@@ -181,7 +186,7 @@
             </div>
             <div class="print-box">
               <h4 >
-                <b>Is Active:</b> 
+                <b>Active:</b> 
                 <span class="float-right" >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</span>
               </h4>
               <!-- <h6 >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</h6> -->

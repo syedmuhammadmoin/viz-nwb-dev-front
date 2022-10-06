@@ -5,7 +5,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { ICampus } from '../model/ICampus';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CampusService } from '../service/campus.service';
-import { CreateCampusComponent } from '../create-campus/create-campus.component';
+// import { CreateCampusComponent } from '../create-campus/create-campus.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
@@ -20,7 +20,7 @@ import { isEmpty } from 'lodash';
 export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   campusList : ICampus[]
-  frameworkComponents : {[p: string]: unknown};
+  //frameworkComponents : {[p: string]: unknown};
   gridOptions : GridOptions;
   defaultColDef : ColDef;
   components: any;
@@ -51,12 +51,12 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       field: 'index',
       cellRenderer: "loadingCellRenderer",
       suppressMenu: true,
-      tooltipField: 'name'
+      //tooltipField: 'name'
     },
     { 
       headerName: 'Name', 
       field: 'name', 
-      tooltipField: 'name',
+      //tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -64,39 +64,47 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
      },
-     { 
-      headerName: 'Address', 
-      field: 'address', 
-      tooltipField: 'name',
-      suppressMenu: true
-     },
-     { 
-      headerName: 'Website', 
-      field: 'website', 
-      tooltipField: 'name',
+     {
+      headerName: 'Active', 
+      field: 'isActive', 
       suppressMenu: true,
       valueFormatter: (params : ValueFormatterParams) => {
-        return params.value || 'N/A'
+        return (params.value) ? 'Yes' : 'No';
       }
      },
-     { 
-      headerName: 'Sales Tax ID', 
-      field: 'salesTaxId', 
-      tooltipField: 'name',
-      suppressMenu: true,
-      valueFormatter: (params : ValueFormatterParams) => {
-        return params.value || 'N/A'
-      }
-     },
-     { 
-      headerName: 'Phone No', 
-      field: 'phone', 
-      tooltipField: 'name',
-      suppressMenu: true,
-      valueFormatter: (params : ValueFormatterParams) => {
-        return params.value || 'N/A'
-      }
-     },
+    //  { 
+    //   headerName: 'Address', 
+    //   field: 'address', 
+    //   tooltipField: 'name',
+    //   suppressMenu: true
+    //  },
+    //  { 
+    //   headerName: 'Website', 
+    //   field: 'website', 
+    //   tooltipField: 'name',
+    //   suppressMenu: true,
+    //   valueFormatter: (params : ValueFormatterParams) => {
+    //     return params.value || 'N/A'
+    //   }
+    //  },
+    //  { 
+    //   headerName: 'Sales Tax ID', 
+    //   field: 'salesTaxId', 
+    //   tooltipField: 'name',
+    //   suppressMenu: true,
+    //   valueFormatter: (params : ValueFormatterParams) => {
+    //     return params.value || 'N/A'
+    //   }
+    //  },
+    //  { 
+    //   headerName: 'Phone No', 
+    //   field: 'phone', 
+    //   tooltipField: 'name',
+    //   suppressMenu: true,
+    //   valueFormatter: (params : ValueFormatterParams) => {
+    //     return params.value || 'N/A'
+    //   }
+    //  },
   ];
 // implimentation of ng OnInit
   ngOnInit() { 
@@ -111,7 +119,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -141,21 +149,21 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     params.api.sizeColumnsToFit();
   }
 // called when double clicked on record
-  onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.openDialog(event.data.id)
-  }
+  // onRowDoubleClicked(event: RowDoubleClickedEvent) {
+  //   this.openDialog(event.data.id)
+  // }
 // open modal funtion
-  openDialog(id?: number): void {
-    const dialogRef = this.dialog.open(CreateCampusComponent, {
-      width: '800px',
-      data: id
-    });
-    // Recalling getCampuses function on dialog close
-    dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
-      this.cdRef.detectChanges();
-    });
-  }
+  // openDialog(id?: number): void {
+  //   const dialogRef = this.dialog.open(CreateCampusComponent, {
+  //     width: '800px',
+  //     data: id
+  //   });
+  //   // Recalling getCampuses function on dialog close
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.gridApi.setDatasource(this.dataSource)
+  //     this.cdRef.detectChanges();
+  //   });
+  // }
 
   dataSource = {
     getRows: async (params: any) => {

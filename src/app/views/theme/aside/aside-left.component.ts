@@ -142,8 +142,8 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
       return false;
     }
 
-    // return this.currentRouteUrl.indexOf(item.page) !== -1;
-    return false
+    return this.currentRouteUrl.indexOf(item.page) !== -1;
+    // return false
   
   }
 

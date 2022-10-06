@@ -13,6 +13,7 @@ import { DepartmentState } from '../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { finalize, take } from 'rxjs/operators';
+import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
 
 
 @Component({
@@ -36,6 +37,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
   overlayLoadingTemplate: any;
   propertyName: any;
   paymentRegisterList: BehaviorSubject<any> = new BehaviorSubject<any>([]);
+  departmentsList: any = new BehaviorSubject<any>([])
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -87,12 +89,16 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
 
   formErrors = {
     departmentId: '',
+    campusId: '',
     month: '',
     year: '',
   };
   validationMessages = {
     departmentId: {
       required: 'Department is required.'
+    },
+    campusId: {
+      required: 'Campus is required.'
     },
     month: {
       required: 'Month is required.'
@@ -123,6 +129,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
   ngOnInit(): void {
     this.approvePayrollPaymentForm = this.fb.group({
       departmentId: ['', Validators.required],
+      campusId: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
      // bankId: [''],
@@ -133,8 +140,9 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     }
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    this.getLatestDepartments();
+    this.getLatestCampuses();
     this.ngxsService.getDepartmentFromState();
+    this.ngxsService.getCampusFromState();
     // this.getEmployeeBankFromState()
   }
 
@@ -180,7 +188,13 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
        })
      )
       .subscribe((res) => {
-        this.toastService.success(`${res.message || 'Approval Processed successfully.'}`, 'Successful');
+        if(actionButton === 0) {
+          this.toastService.success(`${'Payroll payment approve process completed successfully'}`, 'Successful')
+        }
+        else if(actionButton === 1) {
+          this.toastService.success(`${'Payroll payment rejected process completed successfully'}`, 'Successful')
+        }
+       // this.toastService.success(`${res.message || 'Approval Processed successfully.'}`, 'Successful');
        // this.onSubmitFilters()
         this.resetForm();
         this.cdRef.detectChanges();
@@ -200,10 +214,23 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     this.paymentList = [];
   }
 
-  getLatestDepartments(){
-    this.ngxsService.store.dispatch(new IsReloadRequired(DepartmentState , true))
+  onCampusSelected(campusId : number) {
+    this.ngxsService.departmentService.getDepartmentByCampusId(campusId).subscribe(res => {
+      this.departmentsList.next(res.result || [])
+    })
+     this.approvePayrollPaymentForm.get('departmentId').setValue(null)
+     this.cdRef.detectChanges()
   }
 
+  checkCampus(){
+    if(this.approvePayrollPaymentForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "Payroll Payment Process")
+    }
+  }
+
+  getLatestCampuses(){
+    this.ngxsService.store.dispatch(new IsReloadRequired(CampusState , true))
+  }
 }
 
 

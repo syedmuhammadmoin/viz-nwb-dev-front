@@ -11,14 +11,34 @@
             <div class="row mt-1 mb-0">
               <div class="col-lg-4">
                 <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label">Campus:</label>
+                  <kt-simple-dropdown
+                    id="create_payment_campus"
+                    (blurEvent)="logValidationErrors(filterForm, this.formErrors, this.validationMessages)"
+                    [errorMessage]="formErrors.campusId"
+                    [optionList]="ngxsService.campuses$"
+                    formControlName="campusId"
+                    matFormFieldClass="full-width" 
+                    (selectionChange)="onCampusSelected($event.value)"
+                    (click)="getLatestCampuses()"
+                    placeholder="Select Campus"
+                    propertyName="name"
+                    propertyValue="id"
+                    searchPlaceholder="Search Campus...">
+                  </kt-simple-dropdown>
+                </div>
+              </div>
+
+              <div class="col-lg-4">
+                <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">Departments:</label>
                   <kt-simple-dropdown
-                    id="submit_payment_month"
+                    id="create_payment_department"
                     (blurEvent)="logValidationErrors(filterForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="formErrors.departmentId"
                     [isMultiple]="true"
-                    [optionList]="ngxsService.departments$"
-                    (click)="getLatestDepartments()"
+                    [optionList]="departmentsList"
+                    (click)="checkCampus()"
                     formControlName="departmentId"
                     matFormFieldClass="full-width" 
                     maxSelectionCount="3"
@@ -34,7 +54,7 @@
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">Month:</label>
                   <kt-simple-dropdown
-                   id="submit_payment_month"
+                   id="create_payment_month"
                    (blurEvent)="logValidationErrors(filterForm, this.formErrors, this.validationMessages)"
                    [errorMessage]="formErrors.month" 
                    [optionList]="months"
@@ -47,11 +67,14 @@
                   </kt-simple-dropdown>
                 </div>
               </div>
+            </div>
+
+            <div class="row">
               <div class="col-lg-4">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">Year:</label>
                   <kt-simple-dropdown
-                    id="submit_payment_year"
+                    id="create_payment_year"
                     (blurEvent)="logValidationErrors(filterForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="formErrors.year" 
                     [optionList]="generateArrayOfYears()"
@@ -65,6 +88,8 @@
                 </div>
               </div>
             </div>
+
+
           </div>
         </div>
       </div>
@@ -73,7 +98,7 @@
               <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5">
                 <div class="form-group kt-form__group mb-0">
                   <!-- <button class="mr-3 btn_white" mat-raised-button id="submit_payment_reset" type="button" (click)="resetForm()">Reset</button> -->
-                  <button class="app-default-btn" mat-raised-button id="submit_payment_fetch" type="submit">Fetch Records</button>
+                  <button class="app-default-btn" mat-raised-button id="create_payment_fetch" type="submit">Fetch Records</button>
                   <!--For PDF-->
                   <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
                 </div>
@@ -110,22 +135,6 @@
                   </div>
                 </div>
   
-                <div class="col-lg-4">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label">Campus:</label>
-                    <kt-simple-dropdown 
-                      id="create_payment_campus"
-                      placeholder="Select Campus" 
-                      propertyValue="id" 
-                      propertyName="name"
-                      formControlName="campusId" 
-                      (blurEvent)="logValidationErrors(createPayrollPaymentForm, formErrors, validationMessages)"
-                      matFormFieldClass="full-width"
-                      [errorMessage]="'Campus is required.'" 
-                      [optionList]="ngxsService.campuses$">
-                    </kt-simple-dropdown>
-                  </div>
-                </div>
                 <div class="col-lg-4">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label">Bank Account:</label>

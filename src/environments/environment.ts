@@ -8,8 +8,6 @@ export const environment = {
   production: false,
   isMockEnabled: false, // You have to switch this, when your real back-end is done
   authTokenKey: 'authce9d77b308c149d5992a80073637e4d5',
-  //baseUrl:'http://nwbtestapi.vizalys.com/api/'
-  baseUrl: 'https://localhost:7237/api/'
   // TODO: Base URl for API's had been shifted to assets/appconfig.json file.
 };
 
