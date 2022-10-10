@@ -16,6 +16,7 @@ import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
 import { IRequisitionLines } from '../model/IRequisitionLines';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
+import { EmployeeModule } from '../../../payroll/employee/employee.module';
 
 @Component({
   selector: 'kt-create-requisition',
@@ -80,15 +81,15 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     requisitionDate: {
       required: 'Order Date is required.'
     },
-    campusId: {
-      required: 'Campus is required.'
-    },
+    // campusId: {
+    //   required: 'Campus is required.'
+    // },
   }
 
   formErrors = {
     employeeId: '',
     requisitionDate: '',
-    campusId: ''
+    //campusId: ''
   }
 
   // Injecting Dependencies
@@ -113,7 +114,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       designation: [''],
       department: [''],
       requisitionDate: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      campusId: [{value: '' , disabled: true}],
       requisitionLines: this.fb.array([
         this.addRequisitionLines()
       ])
@@ -267,7 +268,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionForm.patchValue({
       employeeId: requisition.employeeId,
       requisitionDate: requisition.requisitionDate,
-      campusId: requisition.campusId
+      //campusId: requisition.campusId
     });
 
     //this.onCampusSelected(requisition.campusId)
@@ -355,7 +356,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   mapFormValuesTorequisitionModel() {
     this.requisitionModel.employeeId = this.requisitionForm.value.employeeId;
     this.requisitionModel.requisitionDate = this.transformDate(this.requisitionForm.value.requisitionDate, 'yyyy-MM-dd');
-    this.requisitionModel.campusId = this.requisitionForm.value.campusId;
+    this.requisitionModel.campusId = this.requisitionForm.getRawValue().campusId;
     this.requisitionModel.requisitionLines = this.requisitionForm.value.requisitionLines;
   };
 
@@ -392,7 +393,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   checkSelected(employee) {
     this.requisitionForm.patchValue({
       designation: employee.designationName,
-      department: employee.departmentName
+      department: employee.departmentName,
+      campusId: employee.campusId
     })
   }
 
