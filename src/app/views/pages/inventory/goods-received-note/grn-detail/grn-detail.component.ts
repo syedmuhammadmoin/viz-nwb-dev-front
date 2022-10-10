@@ -180,7 +180,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.getGRNMasterData(this.grnId);
         this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'GRN');
+        this.toastService.success('' + res.message, 'Goods Received Note');
       })
   }
 
