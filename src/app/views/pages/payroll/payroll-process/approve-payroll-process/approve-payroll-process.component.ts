@@ -251,10 +251,10 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
      )
       .subscribe((res) => {
         if(actionButton === 0) {
-          this.toastService.success(`${'Payroll approve process completed successfully'}`, 'Successful')
+          this.toastService.success(`${'Payroll approval process completed successfully'}`, 'Successful')
         }
         else if(actionButton === 1) {
-          this.toastService.success(`${'Payroll rejected process completed successfully'}`, 'Successful')
+          this.toastService.success(`${'Payroll rejection process completed successfully'}`, 'Successful')
         }
         this.resetForm();
         this.cdRef.detectChanges();

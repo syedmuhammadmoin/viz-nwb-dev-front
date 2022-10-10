@@ -55,12 +55,12 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
 
   //error messages
   validationMessages = {
-    'name': {
-      'required': 'Name is required.'
+    name: {
+      required: 'Name is required.'
     },
-    'businessPartnerType': {
-      'required': 'Business Partner Type is required.',
-      'RequireMatch': 'Please select a valid type from the list.'
+    businessPartnerType: {
+      required: 'Business Partner Type is required.',
+      RequireMatch: 'Please select a valid type from the list.'
     },
     // 'entity': {
     //   'required': 'Entity is required.',
@@ -77,29 +77,49 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     // 'address': {
     //   'required': 'Address is required.'
     // },
-    // 'phone': {
-    //   'required': 'Phone Number is required.',
-    // },
-    'accountPayable': {
-      'required': 'Account Payable is required.',
+    phone: {
+      pattern: 'Please enter only digits.',
     },
-    'accountReceivable': {
-      'required': 'Account Receivable is required.',
+    mobile: {
+      pattern: 'Please enter only digits.',
+    },
+    cnic: {
+      pattern: 'Please enter 13 digits number.',
+    },
+    bankAccountNumber: {
+      pattern: 'Please enter only digits.',
+    },
+    salesTaxId: {
+      pattern: 'Please enter only digits.',
+    },
+    incomeTaxId: {
+      pattern: 'Please enter only digits.',
+    },
+    accountPayable: {
+      required: 'Account Payable is required.',
+    },
+    accountReceivable: {
+      required: 'Account Receivable is required.',
     },
   };
 
   //error keys
   formErrors = {
-    'name': '',
-    'businessPartnerType' : '',
+    name: '',
+    businessPartnerType : '',
     // 'entity': '',
     // 'country': '',
     // 'state': '',
     // 'city': '',
     //'address': '',
-    // 'phone': '',
-    'accountPayable': '',
-    'accountReceivable': ''
+    bankAccountNumber: '',
+    salesTaxId: '',
+    incomeTaxId: '',
+    phone: '',
+    mobile: '',
+    cnic: '',
+    accountPayable: '',
+    accountReceivable: ''
   };
 
   //variable for un-subscription
@@ -143,15 +163,15 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       // state: ['', [Validators.required]],
       // city: ['', [Validators.required]],
       address: [''],
-      phone: [''],
-      mobile: [''],
-      incomeTaxId: [''],
-      salesTaxId: [''],
+      phone: ['', [Validators.pattern('[0-9]*$')]],
+      mobile: ['', [Validators.pattern('[0-9]*$')]],
+      cnic: ['', [Validators.pattern('^[0-9]{13}$')]],
+      incomeTaxId: ['', [Validators.pattern('[0-9]*$')]],
+      salesTaxId: ['', [Validators.pattern('[0-9]*$')]],
       bankAccountTitle: [''],
-      bankAccountNumber: [''],
+      bankAccountNumber: ['', [Validators.pattern('[0-9]*$')]],
       accountPayable: ['', [Validators.required]],
       accountReceivable: ['', [Validators.required]],
-      cnic: ['']
     });
 
 
