@@ -17,6 +17,7 @@ import { BehaviorSubject } from 'rxjs';
 import { RequisitionService } from '../../../procurement/requisition/service/requisition.service';
 import { IRequisition } from '../../../procurement/requisition/model/IRequisition';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
+import { IEmployee } from '../../../payroll/employee/model/IEmployee';
 
 @Component({
   selector: 'kt-create-issuance',
@@ -78,16 +79,16 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     issuanceDate: {
       required: 'Issuance Date is required.',
     },
-    campusId: {
-      required: 'Campus is required.',
-    }
+    // campusId: {
+    //   required: 'Campus is required.',
+    // }
   };
 
   // error keys..
   formErrors = {
     employeeId: '',
     issuanceDate: '',
-    campusId: '',
+    //campusId: '',
   };
 
   // Injecting in dependencies in constructor
@@ -114,7 +115,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       designation: [''],
       department: [''],
       issuanceDate: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      campusId: [{value: '', disabled: true}],
       issuanceLines: this.fb.array([
         this.addIssuanceLines()
       ])
@@ -239,15 +240,17 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.issuanceForm.patchValue({
       employeeId: data.employeeId,
       issuanceDate: data.issuanceDate ?? data.requisitionDate,
-      campusId: data.campusId
+      //campusId: data.campusId
     });
 
-    console.log(data)
-
-    this.onCampusSelected(data.campusId)
+   // this.onCampusSelected(data.campusId)
     this.showMessage = true;
 
-    this.getEmployee(data.employeeId)
+    this.getEmployee(data.employeeId , true)
+
+    this.ngxsService.warehouseService.getWarehouseByCampusId(data.campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
 
     this.issuanceForm.setControl('issuanceLines', this.patchIssuanceLines((this.requisitionMaster) ? data.requisitionLines : data.issuanceLines))
   }
@@ -296,7 +299,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       return;
     }
 
-    //this.isLoading = true;
+    this.isLoading = true;
     console.log(this.issuanceModel)
     if (this.issuanceModel.id) {
       this.issuanceService.updateIssuance(this.issuanceModel)
@@ -334,7 +337,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   mapFormValuesToissuanceModel() {
     this.issuanceModel.employeeId = this.issuanceForm.value.employeeId;
     this.issuanceModel.issuanceDate = this.transformDate(this.issuanceForm.value.issuanceDate, 'yyyy-MM-dd');
-    this.issuanceModel.campusId = this.issuanceForm.value.campusId;
+    this.issuanceModel.campusId = this.issuanceForm.getRawValue().campusId;
     this.issuanceModel.requisitionId = (this.requisitionMaster?.id ?? this.issuanceModel?.requisitionId ?? null)
     this.issuanceModel.issuanceLines = this.issuanceForm.value.issuanceLines;
   }
@@ -345,7 +348,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   }
 
   // getting employee data by id
-  getEmployee(id: number) {
+  // using isEdit here to avoid onCampusSelected(...) method, which sets all stores values to null
+  getEmployee(id: number , isEdit: boolean = false) {
     this.employeeService.getEmployeeById(id)
     .pipe(
       take(1),
@@ -356,21 +360,25 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
      )
     .subscribe((res) => {
       this.employee = res.result
-      this.checkSelected(this.employee)
+      this.checkSelected(this.employee, isEdit)
       this.cdRef.detectChanges()
     })
   }
 
-  checkSelected(employee) {
+  checkSelected(employee: IIssuance | any , isEdit: boolean = false) {
     this.issuanceForm.patchValue({
       designation: employee.designationName,
-      department: employee.departmentName
+      department: employee.departmentName,
+      campusId: employee.campusId
     })
+    if(!isEdit) {
+      this.onCampusSelected(employee.campusId)
+    } 
   }
 
   checkCampus() {
     this.showMessage = true;
-    if(this.issuanceForm.value.campusId === '') {
+    if(this.issuanceForm.getRawValue().campusId === '') {
       this.toastService.info("Please Select Campus First!", "Issuance")
     }
   }
@@ -380,16 +388,13 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       this.warehouseList.next(res.result || [])
     })
 
+    //if warehouse is selected then show this message
     if(this.issuanceForm.value.issuanceLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Issuance")
     }
 
+    //set warehouse values to null after campus change
      this.issuanceForm.get('issuanceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    // if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Issuance")
-    //  }
      this.cdRef.detectChanges()
   }
 }
-
-
