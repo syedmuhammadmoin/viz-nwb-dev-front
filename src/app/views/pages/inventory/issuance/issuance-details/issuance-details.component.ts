@@ -179,7 +179,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       .subscribe((res) => {
         this.getIssuanceData(this.issuanceId);
         this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'issuance');
+        this.toastService.success('' + res.message, 'Issuance');
       })
   }
 
