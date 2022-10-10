@@ -144,6 +144,8 @@
                             id="business_partner_phone"
                               formControlName="phone"
                               placeholder="Enter Phone Number"
+                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : formErrors.phone , error : formErrors.phone }]"
                               [hintText]="'Optional'">
                             </kt-input-field>
                         </div>
@@ -156,6 +158,8 @@
                             id="business_partner_mobile"
                               formControlName="mobile"
                               placeholder="Enter Mobile Number"
+                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : formErrors.mobile , error : formErrors.mobile }]"
                               [hintText]="'Optional'">
                             </kt-input-field>
                         </div>
@@ -168,6 +172,8 @@
                             id="business_partner_cnic"
                               formControlName="cnic"
                               placeholder="Enter CNIC Number"
+                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : formErrors.cnic , error : formErrors.cnic }]"
                               [hintText]="'Optional'">
                             </kt-input-field>
                         </div>
@@ -184,6 +190,8 @@
                             id="business_partner_sales_Tax"
                               formControlName="salesTaxId"
                               placeholder="Enter Sales Tax"
+                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : formErrors.salesTaxId , error : formErrors.salesTaxId }]"
                               [hintText]="'Optional'">
                             </kt-input-field>
                         </div>
@@ -196,6 +204,8 @@
                             id="business_partner_income_tax"
                               formControlName="incomeTaxId"
                               placeholder="Enter Income Tax"
+                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : formErrors.incomeTaxId , error : formErrors.incomeTaxId }]"
                               [hintText]="'Optional'">
                             </kt-input-field>
                         </div>
@@ -223,6 +233,8 @@
                             id="business_partner_account_no"
                               formControlName="bankAccountNumber"
                               placeholder="Enter Account No"
+                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : formErrors.bankAccountNumber , error : formErrors.bankAccountNumber }]"
                               [hintText]="'Optional'">
                             </kt-input-field>
                         </div>
