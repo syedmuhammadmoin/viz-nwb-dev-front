@@ -204,8 +204,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       accountId: ['',  Validators.required],
       businessPartnerId: ['', Validators.required],
       description: ['', Validators.required],
-      debit: [0, Validators.required],
-      credit: [0, Validators.required],
+      debit: [0, [Validators.required, Validators.min(0)]],
+      credit: [0, [Validators.required, Validators.min(0)]],
       warehouseId: [],
       // locationId: ['', Validators.required]
     });
@@ -264,8 +264,8 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         id: [line.id, [Validators.required]],
         description: [line.description, [Validators.required]],
         businessPartnerId: [line.businessPartnerId, [Validators.required]],
-        debit: [line.debit, [Validators.required]],
-        credit: [line.credit, [Validators.required]],
+        debit: [line.debit, [Validators.required, Validators.min(0)]],
+        credit: [line.credit, [Validators.required, Validators.min(0)]],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId],
         // locationId: line.locationId,
@@ -282,7 +282,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
     const controls = this.journalEntryForm.controls.journalEntryLines as FormArray;
     if (controls.length === 0) {
-      this.toastService.error('Please add journal entry lines', 'Error')
+      this.toastService.error('Please add journal entry lines', 'Journal Entry')
       return
     }
 
@@ -292,7 +292,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     }
 
     if (this.debitTotal !== this.creditTotal) {
-      this.toastService.error('Sum of Debit and Credit are not Equal', 'Error')
+      this.toastService.error('Sum of Debit and Credit is not Equal', 'Journal Entry')
       return
     }
 
