@@ -107,11 +107,13 @@
                                                       error : 'Debit is required' }]">
                             </kt-input-field> -->
                             <mat-form-field appearance="outline" class="full-width">
-                              <input matInput formControlName="debit" placeholder="Enter Debit" (keyup)="onChangeEvent($event , i)" 
+                              <input matInput formControlName="debit" placeholder="Enter Debit" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"   
                               [id]="'journal_debit_' + i" type="number" (blur)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)">
-                              <mat-error *ngIf="journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.errors?.required &&
-                                    journalEntryForm.get('journalEntryLines')['controls'][i].controls.debit.touched">
-                                <strong>Debit is required</strong>
+                              <mat-error *ngIf="element.controls.debit.errors?.required && element.controls.debit.touched">
+                                <strong>Debit is required.</strong>
+                              </mat-error>
+                              <mat-error *ngIf="element.controls.debit.errors?.min && element.controls.debit.touched">
+                                <strong>Minimum value is 0.</strong>
                               </mat-error>
                             </mat-form-field>
                           </div>
@@ -130,11 +132,13 @@
                                                       error : 'Credit is required' }]">
                             </kt-input-field> -->
                             <mat-form-field appearance="outline" class="full-width">
-                              <input matInput formControlName="credit" placeholder="Enter Credit" (keyup)="onChangeEvent($event , i)" 
+                              <input matInput formControlName="credit" placeholder="Enter Credit" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"
                               [id]="'journal_credit_' + i" type="number" (blur)="logValidationErrors(this.journalEntryForm, this.formErrors, this.validationMessages)">
-                              <mat-error *ngIf="journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.errors?.required &&
-                                    journalEntryForm.get('journalEntryLines')['controls'][i].controls.credit.touched">
-                                <strong>Credit is required</strong>
+                              <mat-error *ngIf="element.controls.credit.errors?.required && element.controls.credit.touched">
+                                <strong>Credit is required.</strong>
+                              </mat-error>
+                              <mat-error *ngIf="element.controls.credit.errors?.min && element.controls.credit.touched">
+                                <strong>Minimum value is 0.</strong>
                               </mat-error>
                             </mat-form-field>
                           </div>
@@ -235,11 +239,11 @@
               </div> -->
               <div class="col-md-4 col-lg-4  ml-auto mt-3">
                 <div class="print-box">
-                  <h4 style="">Total Debit: <span class="float-right" >{{debitTotal.toLocaleString(undefined,
+                  <h4>Total Debit: <span class="float-right" >{{debitTotal.toLocaleString(undefined,
                     { maximumFractionDigits: 2 })}}</span></h4>
                 </div>
                 <div class="print-box">
-                  <h4 style="">Total Credit: <span  class="float-right" >
+                  <h4>Total Credit: <span  class="float-right" >
                     {{creditTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></h4>
                 </div>
               </div>

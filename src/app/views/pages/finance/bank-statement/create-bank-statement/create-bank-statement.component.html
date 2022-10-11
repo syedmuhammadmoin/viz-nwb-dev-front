@@ -100,8 +100,8 @@
                                     matFormFieldClass="full-width"
                                     placeholder="Enter Ref #"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
-                                    [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.reference.errors?.required &&
-                                                                    bankStatementForm.get('bankStmtLines')['controls'][i].controls.reference.touched , 
+                                    [errorMessage]="[{ condition : element.controls.reference.errors?.required &&
+                                                                    element.controls.reference.touched , 
                                                         error : 'Ref # is required.' }]">
                                   </kt-input-field>
                                 </div>
@@ -118,8 +118,8 @@
                                     [maxDate]="maxDate"
                                     placeholder="Statement Date"
                                     (blur)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
-                                    [errorMessage]="bankStatementForm.get('bankStmtLines')['controls'][i].controls.stmtDate.errors?.required &&
-                                                    bankStatementForm.get('bankStmtLines')['controls'][i].controls.stmtDate.touched ? 'Date is required.' : false ">
+                                    [errorMessage]="element.controls.stmtDate.errors?.required &&
+                                                    element.controls.stmtDate.touched ? 'Date is required.' : false ">
                                   </kt-date-input>
                                 </div>
                               </mat-cell>
@@ -135,8 +135,8 @@
                                     matFormFieldClass="full-width"
                                     placeholder="Enter Label"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
-                                    [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.label.errors?.required &&
-                                                                    bankStatementForm.get('bankStmtLines')['controls'][i].controls.label.touched , 
+                                    [errorMessage]="[{ condition : element.controls.label.errors?.required &&
+                                                                    element.controls.label.touched , 
                                                         error : 'Label is required.' }]">
                                   </kt-input-field>
                                 </div>
@@ -154,10 +154,12 @@
                                     matFormFieldClass="full-width"
                                     placeholder="Enter Debit"
                                     (keyup)="onChangeEvent($event , i); calculateRunningTotal()"
+                                    (change)="onChangeEvent($event , i); calculateRunningTotal()"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
-                                    [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.debit.errors?.required &&
-                                                                    bankStatementForm.get('bankStmtLines')['controls'][i].controls.debit.touched , 
-                                                        error : 'Debit is required.' }]">
+                                    [errorMessage]="[{ condition : (element.controls.debit.errors?.required && element.controls.debit.touched),
+                                                        error : 'Debit is required.' },
+                                                     { condition : (element.controls.debit.errors?.min && element.controls.debit.touched),
+                                                        error : 'Minimun value is 0.' }]">
                                   </kt-input-field>
                                 </div>
                               </mat-cell>
@@ -174,10 +176,12 @@
                                     matFormFieldClass="full-width"
                                     placeholder="Enter Credit"
                                     (keyup)="onChangeEvent($event , i); calculateRunningTotal()"
+                                    (change)="onChangeEvent($event , i); calculateRunningTotal()"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
-                                    [errorMessage]="[{ condition : bankStatementForm.get('bankStmtLines')['controls'][i].controls.credit.errors?.required &&
-                                                                    bankStatementForm.get('bankStmtLines')['controls'][i].controls.credit.touched , 
-                                                        error : 'Credit is required.' }]">
+                                    [errorMessage]="[{ condition : (element.controls.credit.errors?.required && element.controls.credit.touched),
+                                                             error : 'Debit is required.' },
+                                                     { condition : (element.controls.credit.errors?.min && element.controls.credit.touched),
+                                                             error : 'Minimun value is 0.' }]">
                                     </kt-input-field>
                                 </div>
                               </mat-cell>

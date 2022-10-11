@@ -66,7 +66,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
       required: 'Bank Account is required'
     },
     openingBalance: {
-      required: 'Opening Balance can\'\t be empty'
+      required: 'Opening Balance can\'\t be empty',
+      min: 'Minimum value is 0.'
     },
     description: {
       required: 'Description is required'
@@ -97,7 +98,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     this.bankStatementForm = this.fb.group({
       bankAccountId: ['', [Validators.required]],
       description: ['', [Validators.required]],
-      openingBalance: [0, [Validators.required]],
+      openingBalance: [0, [Validators.required, Validators.min(0)]],
       bankStmtLines: this.fb.array([this.addBanKStatementLines()])
     });
 
@@ -158,8 +159,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
         reference: [line.reference, [Validators.required]],
         stmtDate: [this.dateHelperService.transformDate(line.stmtDate, 'yyyy-MM-dd'), [Validators.required]],
         label: [line.label, [Validators.required]],
-        debit: [line.debit, [Validators.required]],
-        credit: [line.credit, [Validators.required]],
+        debit: [line.debit, [Validators.required, Validators.min(0)]],
+        credit: [line.credit, [Validators.required, Validators.min(0)]],
         cumulativeBalance: [0]
       }))
       if (this.cumulativeBalances.length < statementLines.length) {
@@ -256,8 +257,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
       reference: [0, [Validators.required]],
       stmtDate: ['', [Validators.required]],
       label: ['', [Validators.required]],
-      debit: [0, [Validators.required]],
-      credit: [0, [Validators.required]],
+      debit: [0, [Validators.required, Validators.min(0)]],
+      credit: [0, [Validators.required, Validators.min(0)]],
       cumulativeBalance: [0]
     });
   }
