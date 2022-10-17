@@ -338,7 +338,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     this.journalEntryModel.date = this.transformDate(this.journalEntryForm.value.date, 'yyyy-MM-dd');
     this.journalEntryModel.description = this.journalEntryForm.value.description;
     this.journalEntryModel.campusId = this.journalEntryForm.value.campusId;
-    this.journalEntryModel.journalEntryLines = this.journalEntryForm.value.journalEntryLines;
+    this.journalEntryModel.journalEntryLines = this.journalEntryForm.getRawValue().journalEntryLines;
   }
 
   //for save or submit
