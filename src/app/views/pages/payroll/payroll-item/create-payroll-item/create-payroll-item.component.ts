@@ -280,11 +280,11 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       field: 'departmentName',
       tooltipField: 'name',  
      },
-     { 
-      headerName: 'BPS', 
-      field: 'basicPay',
-      tooltipField: 'name',  
-     },
+    //  { 
+    //   headerName: 'BPS', 
+    //   field: 'basicPay',
+    //   tooltipField: 'name',  
+    //  },
      { 
       headerName: 'Faculty', 
       field: 'faculty',

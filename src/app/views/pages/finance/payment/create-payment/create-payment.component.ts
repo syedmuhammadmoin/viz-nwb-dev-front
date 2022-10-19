@@ -213,7 +213,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.calculatingNetPayment();
     }
     this.ngxsService.getBusinessPartnerFromState();
-    this.ngxsService.getEmployeeFromState();
+    this.ngxsService.getEmployeePaymentsFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getCampusFromState()
     // //get business partner list from service
@@ -278,7 +278,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
     if(this.data.docType === this.docType.PayrollPayment) {
-      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax')
+      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax', 'campusId')
     }
   }
 

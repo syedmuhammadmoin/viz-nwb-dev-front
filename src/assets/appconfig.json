@@ -1,5 +1,5 @@
 {
-    "remoteServiceBaseUrl": "https://localhost:7237/api/",
+    "remoteServiceBaseUrl": "http://nwbtestapi.vizalys.com/api/",
     "appBaseUrl": "http://localhost:4200"
 }
   

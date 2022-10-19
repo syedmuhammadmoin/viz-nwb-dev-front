@@ -19,11 +19,11 @@
                     <div class="row mt-1 mb-0">
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group kt-form__group mb-0">
-                            <label class="col-form-label pt-0">Name:</label>
+                            <label class="col-form-label pt-0">Business Partner Name:</label>
                             <kt-input-field
                               id="business_partner_name"
                               formControlName="name"
-                              placeholder="Enter Name"
+                              placeholder="Enter Business Partner Name"
                               [value]="businessPartnerForm.get('name').value"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
@@ -33,14 +33,13 @@
 
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Type:</label>
+                            <label class="col-form-label pt-0">Business Partner Type:</label>
                             <kt-simple-dropdown
                               id="business_partner_type"
                               propertyName="viewValue"
                               propertyValue="id"
                               matFormFieldClass="full-width"
-                              searchPlaceholder="Search Business Partner Type"
-                              placeholder="Business Partner Type"
+                              placeholder="Select Business Partner Type"
                               (blurEvent)="logValidationErrors(businessPartnerForm, formErrors, validationMessages)"
                               formControlName="businessPartnerType"
                               [optionList]="typeList"
@@ -139,7 +138,7 @@
                     <div class="row">
                       <div class="col-md-4 col-lg-4 col-sm-4">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Phone:</label>
+                            <label class="col-form-label pt-0">Phone No:</label>
                             <kt-input-field
                             id="business_partner_phone"
                               formControlName="phone"
@@ -153,7 +152,7 @@
 
                       <div class="col-md-4 col-lg-4 col-sm-4">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Mobile:</label>
+                            <label class="col-form-label pt-0">Mobile No:</label>
                             <kt-input-field
                             id="business_partner_mobile"
                               formControlName="mobile"
@@ -167,7 +166,7 @@
 
                       <div class="col-md-4 col-lg-4 col-sm-4">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">CNIC:</label>
+                            <label class="col-form-label pt-0">CNIC No:</label>
                             <kt-input-field
                             id="business_partner_cnic"
                               formControlName="cnic"
@@ -185,11 +184,11 @@
                     <div class="row">
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Sales Tax Id:</label>
+                            <label class="col-form-label pt-0">Sales Tax ID:</label>
                             <kt-input-field
                             id="business_partner_sales_Tax"
                               formControlName="salesTaxId"
-                              placeholder="Enter Sales Tax"
+                              placeholder="Enter Sales Tax ID"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : formErrors.salesTaxId , error : formErrors.salesTaxId }]"
                               [hintText]="'Optional'">
@@ -199,11 +198,11 @@
 
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Income Tax Id:</label>
+                            <label class="col-form-label pt-0">Income Tax ID:</label>
                             <kt-input-field
                             id="business_partner_income_tax"
                               formControlName="incomeTaxId"
-                              placeholder="Enter Income Tax"
+                              placeholder="Enter Income Tax ID"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : formErrors.incomeTaxId , error : formErrors.incomeTaxId }]"
                               [hintText]="'Optional'">
@@ -232,7 +231,7 @@
                             <kt-input-field
                             id="business_partner_account_no"
                               formControlName="bankAccountNumber"
-                              placeholder="Enter Account No"
+                              placeholder="Enter Account Number"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="[{ condition : formErrors.bankAccountNumber , error : formErrors.bankAccountNumber }]"
                               [hintText]="'Optional'">
@@ -251,8 +250,7 @@
                               propertyName="name"
                               propertyValue="id"
                               matFormFieldClass="full-width"
-                              searchPlaceholder="Search Account Payable"
-                              placeholder="Account Payable"
+                              placeholder="Select Account Payable"
                               (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
                               [errorMessage]="formErrors.accountPayable"
                               formControlName="accountPayable"
@@ -262,14 +260,13 @@
                       </div>
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Account Receivable</label>
+                            <label class="col-form-label pt-0">Account Receivable:</label>
                             <kt-simple-dropdown
                             id="business_partner_receivable"
                               propertyName="name"
                               matFormFieldClass="full-width"
                               propertyValue="id"
-                              searchPlaceholder="Search Account Receivable"
-                              placeholder="Account Receivable"
+                              placeholder="Select Account Receivable"
                               formControlName="accountReceivable"
                               formClassName="full-width"
                               [optionList]="ngxsService.accountsReceivable$"

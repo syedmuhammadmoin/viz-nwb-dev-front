@@ -19,11 +19,11 @@
                     <div class="row mt-1 mb-0">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Name:</label>
+                                <label class="col-form-label pt-0">Category Name:</label>
                                 <kt-input-field
                                 id="category_name"
                                     formControlName="name"
-                                    placeholder="Enter Name"
+                                    placeholder="Enter Category Name"
                                     (blurEvent)="logValidationErrors(this.categoryForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
                                 </kt-input-field>
@@ -32,13 +32,12 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Assets Account:</label>
+                                <label class="col-form-label pt-0">Asset Account:</label>
                                 <kt-simple-dropdown 
                                 id="category_assets"
                                     propertyValue="id"
                                     propertyName="name" 
-                                    placeholder="Select Assets Account"
-                                    searchPlaceholder="Search Account..."
+                                    placeholder="Select Asset Account"
                                     formControlName="inventoryAccount"
                                     matFormFieldClass="full-width"
                                     [optionList]="ngxsService.otherAccounts$"                                      
@@ -60,7 +59,6 @@
                                     propertyName="name"
                                     matFormFieldClass="full-width"
                                     placeholder="Select Revenue Account"
-                                    searchPlaceholder="Search Revanue..." 
                                     formControlName="revenueAccount"
                                     [optionList]="ngxsService.otherAccounts$"                                   
                                     [errorMessage]="formErrors.revenueAccount"
@@ -77,8 +75,7 @@
                                     propertyValue="id"
                                     propertyName="name"
                                     matFormFieldClass="full-width"
-                                    placeholder="Select Cost Account"
-                                    searchPlaceholder="Search Cost..." 
+                                    placeholder="Select Cost Account" 
                                     formControlName="costAccount"
                                     [optionList]="ngxsService.otherAccounts$"                                     
                                     [errorMessage]="formErrors.costAccount"

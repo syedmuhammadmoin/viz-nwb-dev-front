@@ -42,7 +42,7 @@ export class CreateUnitOfMeasurementComponent extends AppComponentBase implement
   // validation messages
   validationMessages = {
     name: {
-      required: 'Unit is required.',
+      required: 'Unit Name is required.',
     }
   };
 
@@ -145,7 +145,7 @@ export class CreateUnitOfMeasurementComponent extends AppComponentBase implement
        )
         .subscribe(() => {        
           this.ngxsService.store.dispatch(new IsReloadRequired(UnitOfMeasurementState, true))
-            this.toastService.success('Added Successfully', 'Unit Of Measurement')
+            this.toastService.success('Created Successfully', 'Unit Of Measurement')
             this.onCloseDialog();
           }
       );

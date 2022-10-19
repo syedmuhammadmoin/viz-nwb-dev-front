@@ -60,7 +60,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
         },
     },
     {
-      headerName: 'Type',
+      headerName: 'Business Partner Type',
       field: 'businessPartnerType',
       tooltipField: 'name',
       suppressMenu: true,
@@ -69,7 +69,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       }
     },
     {
-      headerName: 'Phone No', 
+      headerName: 'Phone Number', 
       field: 'phone', 
       tooltipField: 'name',
       suppressMenu: true,

@@ -71,7 +71,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     },
     grossPayment: {
       required: 'Gross Payment is required',
-      min: 'Please insert correct Payment !',
+      min: 'Minimun value is 1.',
       max: 'Value must be less than total ' + this.data.formName + ' amount!'
     },
     deduction: {
@@ -130,7 +130,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       registerType: [2],
       description: ['', [Validators.required]],
       bankAccount: ['', [Validators.required]],
-      grossPayment: [this.data.pendingAmount, [Validators.required, Validators.min(0), Validators.max(this.data.pendingAmount)]],
+      grossPayment: [this.data.pendingAmount, [Validators.required, Validators.min(1), Validators.max(this.data.pendingAmount)]],
       deduction: [0,[Validators.min(0)]],
       deductionAccountId: [''],
       salesTax: [0,[Validators.min(0)]],

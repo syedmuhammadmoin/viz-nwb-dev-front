@@ -193,7 +193,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(ProductState, true))
-            this.toastService.success('Added Successfully', 'Product')
+            this.toastService.success('Created Successfully', 'Product')
             this.onCloseDialog();
           }
         );

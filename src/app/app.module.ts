@@ -107,6 +107,7 @@ import { AssetCategoryState } from './views/pages/fixed-asset/asset-category/sto
 import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 import { AssetAccountState } from './views/pages/finance/chat-of-account/store/asset-account.state';
 import { AppInitializer } from 'AppInitializer';
+import { EmployeePaymentState } from './views/pages/payroll/employee/store/employeePayment.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -161,6 +162,7 @@ export function getHighlightLanguages() {
       DepartmentState,
       DesignationState,
       EmployeeState,
+      EmployeePaymentState,
       LocationState,
       ProductState,
       WarehouseState,

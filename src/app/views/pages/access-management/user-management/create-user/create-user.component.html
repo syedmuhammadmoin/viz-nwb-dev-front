@@ -32,7 +32,7 @@
                      </kt-input-field> -->
                      <kt-simple-dropdown 
                        id="user_username"
-                       placeholder="Select User" 
+                       placeholder="Select Employee" 
                        propertyValue="id" 
                        propertyName="name"
                        formControlName="employeeId" 
@@ -52,7 +52,7 @@
                         inputClass="input_transform_none"
                         formControlName="email" 
                         matFormFieldClass="full-width" 
-                        placeholder="Email"
+                        placeholder="Enter Email"
                         [errorMessage]="[{condition: formErrors.email , error: formErrors.email}]"
                         (blurEvent)="logValidationErrors(this.userForm, formErrors, validationMessages)">
                      </kt-input-field>
@@ -67,29 +67,29 @@
                         formControlName="password" 
                         inputClass="input_transform_none"
                         matFormFieldClass="full-width" 
-                        placeholder="Password"
+                        placeholder="Enter Password"
                         type="password"
                         (blurEvent)="logValidationErrors(this.userForm, formErrors, validationMessages)"
                         [errorMessage2]="[
                             {
                                condition: (userForm.controls['password'].hasError('required') || userForm.controls['password'].hasError('minlength')), 
-                               error: 'Must be at least 8 characters!'
+                               error: 'Must be at least 8 characters.'
                             },
                             {
                               condition: (userForm.controls['password'].hasError('required') || userForm.controls['password'].hasError('hasNumber')), 
-                              error: 'Must contain at least 1 number!'
+                              error: 'Must contain at least 1 number.'
                             },
                             {
                               condition: (userForm.controls['password'].hasError('required') || userForm.controls['password'].hasError('hasCapitalCase')), 
-                              error: 'Must contain at least 1 Letter in Capital Case!'
+                              error: 'Must contain at least 1 Letter in Capital Case.'
                             },
                             {
                               condition: (userForm.controls['password'].hasError('required') || userForm.controls['password'].hasError('hasSmallCase')), 
-                              error: 'Must contain at least 1 Letter in Small Case!'
+                              error: 'Must contain at least 1 Letter in Small Case.'
                             },
                             {
                               condition: (userForm.controls['password'].hasError('required') || userForm.controls['password'].hasError('hasSpecialCharacters')), 
-                              error: 'Must contain at least 1 Special Character!'
+                              error: 'Must contain at least 1 Special Character.'
                             }]">
                      </kt-input-field>
                     </div>
@@ -104,7 +104,7 @@
                         inputClass="input_transform_none"
                         formControlName="confirmPassword" 
                         matFormFieldClass="full-width" 
-                        placeholder="Confirm Password"
+                        placeholder="Enter Confirm Password"
                         [errorMessage]="[{condition: formErrors.confirmPassword , error: formErrors.confirmPassword}]"
                        (blurEvent)="logValidationErrors(this.userForm, formErrors, validationMessages)">
                      </kt-input-field>

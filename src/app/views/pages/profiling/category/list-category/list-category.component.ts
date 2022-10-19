@@ -55,7 +55,7 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
      },
-    { headerName: 'Assets Account', field: 'inventoryAccount', suppressMenu: true, tooltipField: 'name' },
+    { headerName: 'Asset Account', field: 'inventoryAccount', suppressMenu: true, tooltipField: 'name' },
     { headerName: 'Revenue Account', field: 'revenueAccount', suppressMenu: true, tooltipField: 'name' },
     { headerName: 'Cost Account', field: 'costAccount', suppressMenu: true }
   ];

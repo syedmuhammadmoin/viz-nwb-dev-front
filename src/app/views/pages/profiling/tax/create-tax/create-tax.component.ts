@@ -47,10 +47,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   // validation messages
   validationMessages = {
     name: {
-      required: 'Name is required.',
+      required: 'Tax Name is required.',
     },
     taxType: {
-      required: 'Type is required.',
+      required: 'Tax Type is required.',
     },
     accountId: {
       required: 'Account is required.',

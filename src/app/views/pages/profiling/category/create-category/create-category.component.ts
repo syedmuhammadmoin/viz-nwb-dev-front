@@ -43,10 +43,10 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   // validation messages
   validationMessages = {
     name: {
-      required: 'Name is required.',
+      required: 'Category Name is required.',
     },
     inventoryAccount: {
-      required: 'Assets Account is required.',
+      required: 'Asset Account is required.',
     },
     revenueAccount: {
       required: 'Revenue Account is required.',
@@ -173,7 +173,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
        )
         .subscribe(() => {        
             this.ngxsService.store.dispatch(new IsReloadRequired(CategoryState, true))
-            this.toastService.success('Added Successfully', 'Category')
+            this.toastService.success('Created Successfully', 'Category')
             this.onCloseDialog();
           }
       );

@@ -44,23 +44,23 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   // validation messages
   validationMessages = {
     employeeId: {
-      required: 'User Name is required.',
+      required: 'Employee is required.',
     },
     email: {
-      required: 'email is required.',
-      email: 'Please enter valid Email!'
+      required: 'Email is required.',
+      email: 'Please enter valid Email.'
     },
     password: {
       required: 'Password is required.',
-      hasNumber: 'Must contain atleast 1 number is required',
-      hasCapitalCase: 'Must contain atleast 1 in Capital Case!',
-      hasSmallCase: 'Must contain atleast 1 in Small Case!',
-      hasSpecialCharacters: 'Must contain atleast 1 in Special Character!',
-      minlength: 'Must be atleast 8 characters long'
+      hasNumber: 'Must contain atleast 1 number is required.',
+      hasCapitalCase: 'Must contain atleast 1 in Capital Case.',
+      hasSmallCase: 'Must contain atleast 1 in Small Case.',
+      hasSpecialCharacters: 'Must contain atleast 1 in Special Character.',
+      minlength: 'Must be atleast 8 characters long.'
 
     },
     confirmPassword: {
-      ConfirmPassword: 'Password & Confirm Password did\'nt\ match'
+      ConfirmPassword: 'Password & Confirm Password did\'nt\ match.'
     },
   };
   // keys for validation
@@ -170,7 +170,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
 
   onSubmit() { 
     if(!this.userRole.some((x) => x.selected === true)) {
-      this.toastService.warning('Atleast 1 Role is required', 'Form Error');
+      this.toastService.warning('Atleast 1 Role is required', 'User');
       this.currentIndex = 1;
       return
     }
@@ -216,7 +216,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
          })
        )
       .subscribe((res) => {
-        this.toastService.success('Created Successfully', 'New User');
+        this.toastService.success('Created Successfully', 'User');
         this.onCloseUserDialog();
       })
     }
