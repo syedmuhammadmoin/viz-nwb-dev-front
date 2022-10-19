@@ -84,6 +84,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Debit', 
       field: 'totalDebit',
+      cellStyle: { 'text-align': "right" }, 
       tooltipField: 'docNo',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
@@ -100,6 +101,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Credit', 
       field: 'totalCredit', 
+      cellStyle: { 'text-align': "right" }, 
       tooltipField: 'docNo',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {

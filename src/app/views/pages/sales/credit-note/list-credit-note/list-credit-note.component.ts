@@ -88,6 +88,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
       headerName: 'Total', 
       field: 'totalAmount',
       tooltipField: 'noteDate',
+      cellStyle: { 'text-align': "right" }, 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || null;

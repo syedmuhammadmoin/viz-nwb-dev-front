@@ -151,6 +151,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Basic Salary',
       field: 'basicSalary',
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'employee',
       valueFormatter: (params: any) => {
@@ -160,6 +161,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Allowance',
       field: 'totalAllowances',
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'docNo',
       valueFormatter: (params: any) => {
@@ -170,6 +172,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Gross Pay',
       field: 'grossPay',
       suppressMenu: true,
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
@@ -178,6 +181,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Deductions',
       field: 'totalDeductions',
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'docNo',
       valueFormatter: (params: any) => {
@@ -196,6 +200,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Net Pay',
       field: 'netSalary',
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'docNo',
       valueFormatter: (params: any) => {

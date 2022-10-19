@@ -82,6 +82,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Opening Balance',
       field: 'openingBalance',
       tooltipField: 'accountNumber',
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
