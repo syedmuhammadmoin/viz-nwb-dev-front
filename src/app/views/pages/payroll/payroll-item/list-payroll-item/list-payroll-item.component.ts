@@ -95,6 +95,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       headerName: 'Value',
       field: 'value',
       tooltipField: 'name',
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => { 
         return this.valueFormatter(params.value);

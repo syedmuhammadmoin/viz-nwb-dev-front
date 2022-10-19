@@ -100,6 +100,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Total', 
       field: 'totalAmount',
+      cellStyle: { 'text-align': "right" }, 
       tooltipField: 'docNo',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {

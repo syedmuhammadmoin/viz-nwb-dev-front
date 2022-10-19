@@ -83,6 +83,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Total', 
       field: 'totalAmount', 
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'status',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
