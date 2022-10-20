@@ -56,11 +56,10 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   //error messages
   validationMessages = {
     name: {
-      required: 'Name is required.'
+      required: 'Business Partner Name is required.'
     },
     businessPartnerType: {
       required: 'Business Partner Type is required.',
-      RequireMatch: 'Please select a valid type from the list.'
     },
     // 'entity': {
     //   'required': 'Entity is required.',
@@ -234,7 +233,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     // this.onChangeState(this.stateList.find(c => c.name == businessPartner.state).id)
 
     this.businessPartnerForm.patchValue({
-      
+    
       id: businessPartner.id,
       // businessPartnerType: this.typeList.find(i => i.viewValue === businessPartner.businessPartnerType).id,
       businessPartnerType: businessPartner.businessPartnerType,
@@ -333,7 +332,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
-            this.toastService.success('Added Successfully', 'Business Partner')
+            this.toastService.success('Created Successfully', 'Business Partner')
             this.onCloseDialog();
         });
     }

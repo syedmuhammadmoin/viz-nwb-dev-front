@@ -23,7 +23,6 @@
                         [optionList]="ngxsService.businessPartners$"
                         clickEventButtonName="Add New Vendor"
                         (clickEvent)="openBusinessPartnerDialog()" 
-                        searchPlaceholder="Search Vendors..."
                         placeholder="Select Vendor">
                       </kt-simple-dropdown>
                   </div>
@@ -78,7 +77,6 @@
                                       [id]="'debit_note_item_' + i"
                                       formControlName="itemId"
                                       matFormFieldClass="mobile-label full-width"
-                                      searchPlaceholder="Select Item" 
                                       [optionList]="ngxsService.products$"
                                       isDisabledNone="true"
                                       clickEventButtonName="Add New Item"
@@ -253,7 +251,6 @@
                                     [id]="'debit_note_store_' + i"
                                       placeholder="Select Store" 
                                       propertyValue="id" 
-                                      searchPlaceholder="Search Store..."
                                       propertyName="name"
                                       [hintText]="'Optional'"
                                       (click)="checkCampus()"

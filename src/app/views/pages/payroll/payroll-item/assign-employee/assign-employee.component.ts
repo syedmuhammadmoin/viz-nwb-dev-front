@@ -165,11 +165,11 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
           suppressAndOrCondition: true,
         }
      },
-     { 
-      headerName: 'BPS', 
-      field: 'basicPay',
-      tooltipField: 'name',  
-     },
+    //  { 
+    //   headerName: 'BPS', 
+    //   field: 'basicPay',
+    //   tooltipField: 'name',  
+    //  },
      { 
       headerName: 'Faculty', 
       field: 'faculty',

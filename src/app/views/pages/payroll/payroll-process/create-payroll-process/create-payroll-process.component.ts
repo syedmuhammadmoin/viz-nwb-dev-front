@@ -117,19 +117,19 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   };
   validationMessages = {
     departmentId: {
-      required: 'Department is required'
+      required: 'Department is required.'
     },
     campusId: {
-      required: 'Campus is required'
+      required: 'Campus is required.'
     },
     accountPayableId: {
-      required: 'Account Payable is required'
+      required: 'Account Payable is required.'
     },
     month: {
-      required: 'Month is required'
+      required: 'Month is required.'
     },
     year: {
-      required: 'Year is required'
+      required: 'Year is required.'
     }
   };
   employeeList: any[] = [];

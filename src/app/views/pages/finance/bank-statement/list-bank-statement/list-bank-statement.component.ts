@@ -61,6 +61,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       {
         headerName: 'Opening Balance', 
         field: 'openingBalance', 
+        cellStyle: { 'text-align': "right" }, 
         suppressMenu: true,
         tooltipField: 'description',
         valueFormatter: (params : ValueFormatterParams) => {

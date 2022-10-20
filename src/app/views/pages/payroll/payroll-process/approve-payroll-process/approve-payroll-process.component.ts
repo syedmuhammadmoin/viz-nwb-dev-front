@@ -107,16 +107,16 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
   validationMessages = {
     departmentId: {
-      required: 'Department is required'
+      required: 'Department is required.'
     },
     campusId: {
-      required: 'Campus is required'
+      required: 'Campus is required.'
     },
     month: {
-      required: 'Month is required'
+      required: 'Month is required.'
     },
     year: {
-      required: 'Year is required'
+      required: 'Year is required.'
     }
   };
 

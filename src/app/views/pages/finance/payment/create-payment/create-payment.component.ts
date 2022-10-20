@@ -68,51 +68,51 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   // validation messages
   validationMessages = {
-    registerType: {
-      required : 'Register Type is required'
-    },
+    // registerType: {
+    //   required : 'Payment Register Type is required.'
+    // },
     // paymentType: {
     //   required: 'Payment Type is required'
     // },
     date: {
-      required: 'Date is required'
+      required: 'Payment Date is required.'
     },
     description: {
-      required: 'Description is required'
+      required: 'Description is required.'
     },
     businessPartner: {
-      required: 'Business Partner is required'
+      required: 'Business Partner is required.'
     },
     account: {
-      required: 'Account is required'
+      required: 'COA is required.'
     },
     bankAccount: {
-      required: 'Bank Account is required'
+      required: 'Bank Account is required.'
     },
     grossPayment: {
-      required: 'Gross Payment is required',
-      min: 'Please insert correct value!'
+      required: 'Gross Payment is required.',
+      min: 'Please insert correct value.'
     },
     deduction: {
-      min: 'Please insert correct value!'
+      min: 'Please insert correct value.'
     },
     deductionAccountId: {
-      required: 'Account is required',
+      required: 'Deduction Account is required.',
     },
     campusId: {
-      required: 'Campus is required'
+      required: 'Campus is required.'
     },
     salesTax: {
-      min: 'Percentage % range (0 - 100)',
-      max: 'Percentage % range (0 - 100)'
+      min: 'Percentage % range (0 - 100).',
+      max: 'Percentage % range (0 - 100).'
     },
     incomeTax: {
-      min: 'Percentage % range (0 - 100)',
-      max: 'Percentage % range (0 - 100)'
+      min: 'Percentage % range (0 - 100).',
+      max: 'Percentage % range (0 - 100).'
     },
     SRBTax: {
-      min: 'Percentage % range (0 - 100)',
-      max: 'Percentage % range (0 - 100)'
+      min: 'Percentage % range (0 - 100).',
+      max: 'Percentage % range (0 - 100).'
     },
   }
 
@@ -213,7 +213,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.calculatingNetPayment();
     }
     this.ngxsService.getBusinessPartnerFromState();
-    this.ngxsService.getEmployeeFromState();
+    this.ngxsService.getEmployeePaymentsFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getCampusFromState()
     // //get business partner list from service
@@ -278,7 +278,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
     if(this.data.docType === this.docType.PayrollPayment) {
-      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax')
+      this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax', 'campusId')
     }
   }
 

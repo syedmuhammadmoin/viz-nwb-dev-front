@@ -17,7 +17,6 @@
                     propertyName="name" propertyValue="id" [errorMessage]="formErrors.employeeId"
                     (selectionChange)="getEmployee($event.value)"
                     [optionList]="ngxsService.employees$"
-                    searchPlaceholder="Search Customers..."
                     placeholder="Select Customer">
                   </kt-simple-dropdown>
                 </div>
@@ -157,7 +156,6 @@
                                 (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
                                 [errorMessage]="'Store is required.'"
                                 (click)="checkCampus()"
-                                searchPlaceholder="Search Store..."
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width" 
                                 [optionList]="warehouseList">

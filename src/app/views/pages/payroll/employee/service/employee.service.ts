@@ -27,6 +27,10 @@ export class EmployeeService extends AppServiceBase {
       return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/dropdown')
     }
 
+    getEmployeePaymentDropdown(): Observable<IApiResponse<[]>> {
+      return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/EmployeePaymentDropDown')
+    }
+
     getEmployeeById(id: number): Observable<IApiResponse<[]>> {
       return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + "/" + id)
     }

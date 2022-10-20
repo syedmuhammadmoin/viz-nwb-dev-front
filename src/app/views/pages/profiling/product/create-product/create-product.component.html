@@ -24,7 +24,7 @@
                                 <kt-input-field
                                 id="product_name"
                                     formControlName="name"
-                                    placeholder="Enter Name"
+                                    placeholder="Enter Product Name"
                                     (blurEvent)="logValidationErrors(this.productForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
                                 </kt-input-field>
@@ -36,7 +36,7 @@
                                 <label class="col-form-label pt-0">Category:</label>
                                 <kt-simple-dropdown
                                 id="product_category"
-                                    placeholder="Category"
+                                    placeholder="Select Category"
                                     matFormFieldClass="full-width"
                                     formControlName="category"
                                     (blurEvent)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)"
@@ -45,8 +45,7 @@
                                     (clickEvent)="openCategoryDialog()"
                                     propertyValue="id"
                                     propertyName="name"
-                                    [errorMessage]="formErrors.category"
-                                    searchPlaceholder="Search Category...">
+                                    [errorMessage]="formErrors.category">
                                 </kt-simple-dropdown>
                             </div>
                         </div>
@@ -112,7 +111,7 @@
                                     [hintText]="'Optional'">
                                 </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
-                                    <input matInput formControlName="purchasePrice" placeholder="Enter Price" 
+                                    <input matInput formControlName="purchasePrice" placeholder="Enter Purchase Price" 
                                           id="product_purchase" type="number" (blur)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
                                           <mat-error *ngIf="formErrors.purchasePrice">
                                             <strong>{{formErrors.purchasePrice}}</strong>
@@ -150,15 +149,14 @@
                                 <label class="col-form-label pt-0">Unit Of Measurement:</label>
                                 <kt-simple-dropdown
                                     id="product_unit"
-                                    placeholder="Select Unit"
+                                    placeholder="Select Unit of Measurement"
                                     matFormFieldClass="full-width"
                                     formControlName="unit"
                                     [optionList]="ngxsService.units$"
                                     (blurEvent)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)"                       
                                     [errorMessage]="formErrors.unit"
                                     propertyValue="id"
-                                    propertyName="name"
-                                    searchPlaceholder="Search Unit...">
+                                    propertyName="name">
                                 </kt-simple-dropdown>
                             </div>
                         </div>

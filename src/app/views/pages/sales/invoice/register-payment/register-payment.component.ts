@@ -61,24 +61,24 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   // validation messages
   validationMessages = {
     paymentDate: {
-      required: 'Date is required'
+      required: 'Date is required.'
     },
     description: {
-      required: 'Description is required'
+      required: 'Description is required.'
     },
     bankAccount: {
-      required: 'Bank Account is required'
+      required: 'Bank Account is required.'
     },
     grossPayment: {
-      required: 'Gross Payment is required',
-      min: 'Please insert correct Payment !',
-      max: 'Value must be less than total ' + this.data.formName + ' amount!'
+      required: 'Gross Payment is required.',
+      min: 'Minimun value is 1.',
+      max: 'Value must be less than total ' + this.data.formName + ' amount.'
     },
     deduction: {
-      min: 'Please insert correct amount !',
+      min: 'Please insert correct amount.',
     },
     deductionAccountId: {
-      required: 'Account is required',
+      required: 'Account is required.',
     },
     salesTax: {
       min: 'Please insert correct value.'
@@ -130,7 +130,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       registerType: [2],
       description: ['', [Validators.required]],
       bankAccount: ['', [Validators.required]],
-      grossPayment: [this.data.pendingAmount, [Validators.required, Validators.min(0), Validators.max(this.data.pendingAmount)]],
+      grossPayment: [this.data.pendingAmount, [Validators.required, Validators.min(1), Validators.max(this.data.pendingAmount)]],
       deduction: [0,[Validators.min(0)]],
       deductionAccountId: [''],
       salesTax: [0,[Validators.min(0)]],

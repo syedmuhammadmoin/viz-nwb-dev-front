@@ -55,7 +55,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
         },
      },
     { 
-      headerName: 'Type', 
+      headerName: 'Tax Type', 
       field: 'taxType', 
       suppressMenu: true, 
       tooltipField: 'name',

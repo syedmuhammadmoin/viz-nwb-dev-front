@@ -101,6 +101,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     {
       headerName: 'Sales Tax',
       field: 'salesTax',
+      cellStyle: { 'text-align': "right" }, 
       tooltipField: 'status',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
@@ -111,6 +112,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       headerName: 'Income Tax',
       field: 'incomeTax',
       tooltipField: 'status',
+      cellStyle: { 'text-align': "right" }, 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -120,6 +122,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       headerName: 'Net Payment', 
       field: 'netPayment',
       tooltipField: 'status',
+      cellStyle: { 'text-align': "right" }, 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)

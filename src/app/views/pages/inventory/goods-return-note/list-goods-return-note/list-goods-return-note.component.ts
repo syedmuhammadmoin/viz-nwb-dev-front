@@ -82,6 +82,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
     {
       headerName: 'Total', 
       field: 'totalAmount', 
+      cellStyle: { 'text-align': "right" }, 
       tooltipField: 'status',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {

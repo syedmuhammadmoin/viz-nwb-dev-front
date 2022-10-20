@@ -40,7 +40,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   validationMessages = {
     noOfIncrements: {
       required: 'No of increments is required.',
-      min: 'Minimum increment is 1'
+      min: 'Minimum increment is 1.'
     },
   };
 

@@ -59,7 +59,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
     },
     {headerName: 'Account Number', suppressMenu: true, field: 'accountNumber', tooltipField: 'accountNumber'},
     {
-      headerName: 'Bank', 
+      headerName: 'Bank Name', 
       field: 'bankName',
       tooltipField: 'accountNumber',
       filter: 'agTextColumnFilter',
@@ -70,7 +70,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
         },
     },
     {
-      headerName: 'Branch', 
+      headerName: 'Branch Name', 
       field: 'branch', 
       tooltipField: 'accountNumber',
       suppressMenu: true,
@@ -82,6 +82,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Opening Balance',
       field: 'openingBalance',
       tooltipField: 'accountNumber',
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)

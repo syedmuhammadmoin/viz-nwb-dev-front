@@ -87,7 +87,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     value: {
       required: 'Value is required.',
       min: 'Please insert correct value.',
-      max: 'Percentage % range (0 - 100)'
+      max: 'Percentage % range (0 - 100).'
     },
     accountId: {
       required: 'Account is required.',
@@ -280,11 +280,11 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       field: 'departmentName',
       tooltipField: 'name',  
      },
-     { 
-      headerName: 'BPS', 
-      field: 'basicPay',
-      tooltipField: 'name',  
-     },
+    //  { 
+    //   headerName: 'BPS', 
+    //   field: 'basicPay',
+    //   tooltipField: 'name',  
+    //  },
      { 
       headerName: 'Faculty', 
       field: 'faculty',

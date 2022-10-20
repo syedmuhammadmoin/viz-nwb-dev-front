@@ -51,7 +51,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   //validation messages
   validationMessages = {
     name: {
-      required: 'Name is required.'
+      required: 'Store Name is required.'
     },
     // country: {
     //   required: 'Country is required'
@@ -66,7 +66,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
     //   required: 'Department is required'
     // },
     manager: {
-      required: 'Officer Or Incharge is required.'
+      required: 'Store Officer Or Incharge is required.'
     },
     campusId: {
       required: 'Campus is required.'

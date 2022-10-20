@@ -59,13 +59,13 @@ export class CreateSalesOrderComponent extends AppComponentBase implements OnIni
   //Validation Messages
   validationMessages = {
     customerName: {
-      required: 'Customer Name is required'
+      required: 'Customer Name is required.'
     },
     salesOrderDate: {
-      required: 'Order Date is required',
+      required: 'Order Date is required.',
     },
     dueDate: {
-      required: 'Due Date is required'
+      required: 'Due Date is required.'
     }
   }
 

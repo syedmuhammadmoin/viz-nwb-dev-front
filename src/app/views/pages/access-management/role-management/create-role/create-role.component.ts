@@ -6,7 +6,6 @@ import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { IOrganizationAccessLevel } from '../../model/IOrganizationAccessLevel';
 import { IRoleClaim} from '../../model/IRoleClaim';
 import { IRoleModel} from '../../model/IRoleModel';
 import { AccessManagementService } from '../../service/access-management.service';
@@ -48,7 +47,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
   // validation messages
   validationMessages = {
     roleName: {
-      required: 'Role name is required.',
+      required: 'Role Name is required.',
     },
   };
   // keys for validation

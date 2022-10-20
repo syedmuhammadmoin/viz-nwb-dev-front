@@ -86,6 +86,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
       headerName: 'Total', 
       field: 'totalAmount',
       tooltipField: 'status',
+      cellStyle: { 'text-align': "right" }, 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'

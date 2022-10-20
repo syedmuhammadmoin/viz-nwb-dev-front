@@ -137,7 +137,7 @@ export class CreateLocationComponent extends AppComponentBase implements OnInit 
         .subscribe(        
           () => {          
             this.ngxsService.store.dispatch(new IsReloadRequired(LocationState, true))
-            this.toastService.success('Added Successfully', 'Location')
+            this.toastService.success('Created Successfully', 'Location')
             this.onCloseDialog();
           },
         

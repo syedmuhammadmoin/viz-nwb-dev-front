@@ -51,10 +51,10 @@ export class CreateDispatchNoteComponent extends AppComponentBase implements OnI
   // validation messages
   validationMessages = {
     customerName: {
-      required: 'Customer Name is required'
+      required: 'Customer Name is required.'
     },
     gdnDate: {
-      required: 'Date is required'
+      required: 'Date is required.'
     },
     /*contact : {
       required: 'Contact Nubmer is required'

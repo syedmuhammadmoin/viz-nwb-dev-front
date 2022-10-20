@@ -60,13 +60,14 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     },
     // {headerName: 'purchase or Sold', field: 'purchasedOrSold', sortable: true, filter: true, tooltipField: 'cost',
     //   cellRenderer: (params: ICellRendererParams) => AppConst.PurchasedOrSold[params.value]},
-    {headerName: 'Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
+    {headerName: 'Product Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
     {headerName: 'Category', field: 'categoryName', suppressMenu: true, tooltipField: 'salesTax'},
     {
       headerName: 'Sale Price', 
       field: 'salesPrice', 
       suppressMenu: true,
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -75,6 +76,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Purchase Price', 
       field: 'purchasePrice', 
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
@@ -84,6 +86,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sales Tax', 
       field: 'salesTax', 
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {

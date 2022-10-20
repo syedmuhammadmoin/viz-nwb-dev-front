@@ -19,11 +19,11 @@
                     <div class="row mt-1 mb-0">
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Name:</label>
+                                <label class="col-form-label pt-0">Tax Name:</label>
                                 <kt-input-field
                                 id="tax_name"
                                     formControlName="name"
-                                    placeholder="Enter Name"
+                                    placeholder="Enter Tax Name"
                                     readonly="true"
                                     (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
@@ -39,7 +39,6 @@
                                     propertyValue="id"
                                     propertyName="type" 
                                     placeholder="Select Tax Type"
-                                    searchPlaceholder="Search Tax..."
                                     formControlName="taxType"
                                     matFormFieldClass="full-width"
                                     [optionList]="taxTypeList"                                      
@@ -57,7 +56,6 @@
                                     propertyValue="id"
                                     propertyName="name" 
                                     placeholder="Select Account"
-                                    searchPlaceholder="Search Account..."
                                     formControlName="accountId"
                                     matFormFieldClass="full-width"
                                     [optionList]="ngxsService.otherAccounts$"                                      

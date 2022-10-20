@@ -29,15 +29,15 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
   validationMessages = {
     password: {
       required: 'Password is required.',
-      hasNumber: 'Must contain atleast 1 number is required',
-      hasCapitalCase: 'Must contain atleast 1 in Capital Case!',
-      hasSmallCase: 'Must contain atleast 1 in Small Case!',
-      hasSpecialCharacters: 'Must contain atleast 1 in Special Character!',
-      minlength: 'Must be atleast 8 characters long'
+      hasNumber: 'Must contain atleast 1 number is required.',
+      hasCapitalCase: 'Must contain atleast 1 in Capital Case.',
+      hasSmallCase: 'Must contain atleast 1 in Small Case.',
+      hasSpecialCharacters: 'Must contain atleast 1 in Special Character.',
+      minlength: 'Must be atleast 8 characters long.'
 
     },
     confirmPassword: {
-      ConfirmPassword: 'Password & Confirm Password did\'nt\ match'
+      ConfirmPassword: 'Password & Confirm Password did\'nt\ match.'
     },
     currentPassword: {
       required: 'Current Password is required.'

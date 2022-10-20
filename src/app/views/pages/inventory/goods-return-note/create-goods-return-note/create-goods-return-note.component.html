@@ -20,8 +20,7 @@
                       matFormFieldClass="full-width"
                       placeholder="Select Vendor"
                       propertyName="name"
-                      propertyValue="id"
-                      searchPlaceholder="Search Vendor...">
+                      propertyValue="id">
                     </kt-simple-dropdown>
                   </div>
                 </div>
@@ -67,7 +66,6 @@
                     (selectionChange)="onCampusSelected($event.value)"
                     (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages)"
                     [optionList]="ngxsService.campuses$"
-                    searchPlaceholder="Search Campuses..."
                     placeholder="Select Campus">
                   </kt-simple-dropdown>
                   </div>
@@ -89,7 +87,6 @@
                                       placeholder="Select Item"
                                       [id]="'goodsReturnNote_item_' + i"
                                       formControlName="itemId"
-                                      searchPlaceholder="Select Item"
                                       [optionList]="ngxsService.products$"
                                       clickEventButtonName="Add New Item"
                                       (clickEvent)="openProductDialog()"
@@ -250,7 +247,6 @@
                                       placeholder="Select Store" 
                                       propertyValue="id" 
                                       propertyName="name"
-                                      searchPlaceholder="Search Store..."
                                       (click)="checkCampus()"
                                       formControlName="warehouseId" 
                                       [errorMessage]="'Store is required.'"

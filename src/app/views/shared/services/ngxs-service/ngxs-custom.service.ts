@@ -50,6 +50,7 @@ import { AssetCategoryService } from 'src/app/views/pages/fixed-asset/asset-cate
 import { DepreciationModelState } from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
 import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
+import { EmployeePaymentState } from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
 
 @Injectable({
   providedIn: 'root'
@@ -203,6 +204,11 @@ export class NgxsCustomService {
    @Select(EmployeeState.entities) employees$: Observable<any>;
    @Select(EmployeeState.isFetchCompleted) employeeFetchCompleted$: Observable<any>;
    @Select(EmployeeState.isLoading) employeeIsLoading$: Observable<any>;
+
+   //Employee Payments
+   @Select(EmployeePaymentState.entities) employeePayments$: Observable<any>;
+   @Select(EmployeePaymentState.isFetchCompleted) employeePaymentsFetchCompleted$: Observable<any>;
+   @Select(EmployeePaymentState.isLoading) employeePaymentsIsLoading$: Observable<any>;
 
    //Status
    @Select(StatusState.entities) statuses$: Observable<any>;
@@ -506,6 +512,20 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(EmployeeState, {
           serviceClass: this.employeeService,
           methodName: 'getEmployeesDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  //Get Employee Payments From Store if available else fetch from the server and cache.
+  getEmployeePaymentsFromState() {
+    this.employeePaymentsFetchCompleted$.subscribe((res) => {
+      console.log('Employee Payment State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(EmployeePaymentState, {
+          serviceClass: this.employeeService,
+          methodName: 'getEmployeePaymentDropdown',
           context: this
         }))
       }
