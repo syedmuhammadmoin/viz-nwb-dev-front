@@ -11,7 +11,7 @@
                 <label class="col-form-label">Start Date:</label>
                 <kt-date-input (blurEvent)="logValidationErrors(this.generalLedgerForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate" formControlName="docDate" matFormFieldClass="full-width"
-                  placeholder="Enter From Date" [maxDate]="maxDate">
+                  placeholder="Select Start Date" [maxDate]="maxDate">
                 </kt-date-input>
               </div>
             </div>
@@ -20,7 +20,7 @@
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input (blurEvent)="logValidationErrors(this.generalLedgerForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate2" formControlName="docDate2" matFormFieldClass="full-width"
-                  placeholder="Enter To Date" [maxDate]="maxDate">
+                  placeholder="Select End Date" [maxDate]="maxDate">
                 </kt-date-input>
               </div>
             </div>

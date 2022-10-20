@@ -10,7 +10,7 @@
             <div class="row mt-1 mb-0">
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label">Vendor Name:</label>
+                    <label class="col-form-label">Vendor:</label>
                     <kt-simple-dropdown
                     id="bill_vendor_name"
                       propertyName="name"
@@ -32,7 +32,7 @@
                     <label class="col-form-label">Bill Date:</label>
                     <kt-date-input
                       formControlName="billDate"
-                      placeholder="Bill Date"
+                      placeholder="Select Bill Date"
                       [maxDate]="maxDate"
                       matFormFieldClass="full-width "
                       (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
@@ -46,7 +46,7 @@
                     <label class="col-form-label">Due Date:</label>
                     <kt-date-input
                       formControlName="dueDate"
-                      placeholder="Due Date"
+                      placeholder="Select Due Date"
                       matFormFieldClass="full-width "
                       (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.dueDate"

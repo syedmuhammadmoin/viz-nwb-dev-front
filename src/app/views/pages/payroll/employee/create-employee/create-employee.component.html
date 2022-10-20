@@ -21,7 +21,7 @@
                             <div class="form-group kt-form__group mb-0">
                             <label class="col-form-label pt-0">No Of Increments:</label>
                             <mat-form-field appearance="outline" class="full-width">
-                                <input matInput formControlName="noOfIncrements" placeholder="Enter No of increments" 
+                                <input matInput formControlName="noOfIncrements" placeholder="Enter No Of Increments" 
                                      id="employee_increment" type="number" (blur)="logValidationErrors(employeeForm, this.formErrors, this.validationMessages)">
                                 <mat-error *ngIf="formErrors.noOfIncrements">
                                   <strong>{{formErrors.noOfIncrements}}</strong>

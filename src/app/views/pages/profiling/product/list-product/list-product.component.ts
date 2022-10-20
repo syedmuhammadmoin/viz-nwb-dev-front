@@ -84,7 +84,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       }
     },
     {
-      headerName: 'Sales Tax', 
+      headerName: 'Sales Tax (%)', 
       field: 'salesTax', 
       cellStyle: { 'text-align': "right" },
       suppressMenu: true,

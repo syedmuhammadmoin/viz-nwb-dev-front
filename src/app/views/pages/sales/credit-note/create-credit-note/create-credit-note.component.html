@@ -9,7 +9,7 @@
             <div class="row mt-1 mb-0">
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Customer Name:</label>
+                  <label class="col-form-label pt-0">Customer:</label>
                   <kt-simple-dropdown formControlName="customerName" matFormFieldClass="full-width" id="credit_note_customer"
                     (blurEvent)="logValidationErrors(this.creditNoteForm, this.formErrors, this.validationMessages)"
                     propertyName="name" propertyValue="id" [errorMessage]="formErrors.customerName"
@@ -23,8 +23,8 @@
 
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Note Date:</label>
-                  <kt-date-input formControlName="noteDate" placeholder="Note Date" matFormFieldClass="full-width"
+                  <label class="col-form-label pt-0">Credit Note Date:</label>
+                  <kt-date-input formControlName="noteDate" placeholder="Select Credit Note Date" matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)" [maxDate]="dateLimit"
                     [errorMessage]="formErrors.noteDate">
                   </kt-date-input>

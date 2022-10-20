@@ -23,7 +23,7 @@
                                 <kt-input-field
                                  id="remarks"
                                  formControlName="remarks"
-                                 placeholder="Remarks"
+                                 placeholder="Enter Remarks"
                                  (blurEvent)="logValidationErrors(this.remarksForm, this.formErrors, this.validationMessages)"
                                  hintText="(Maximum 200 characters)"
                                  [errorMessage]="[{ condition : formErrors.remarks , error : formErrors.remarks }]">

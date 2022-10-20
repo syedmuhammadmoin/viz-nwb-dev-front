@@ -17,7 +17,7 @@
                     propertyName="name" propertyValue="id" [errorMessage]="formErrors.employeeId"
                     (selectionChange)="getEmployee($event.value)"
                     [optionList]="ngxsService.employees$"
-                    placeholder="Select Customer">
+                    placeholder="Select Employee">
                   </kt-simple-dropdown>
                 </div>
               </div>
@@ -71,7 +71,7 @@
                   <label class="col-form-label pt-0">Issuance Date:</label>
                   <kt-date-input 
                     formControlName="issuanceDate" 
-                    placeholder="Issuance Date" matFormFieldClass="full-width" [maxDate]="maxDate"
+                    placeholder="Select Issuance Date" matFormFieldClass="full-width" [maxDate]="maxDate"
                     (blurEvent)="logValidationErrors(this.issuanceForm, formErrors, validationMessages)"
                     [errorMessage]="formErrors.issuanceDate">
                   </kt-date-input>
