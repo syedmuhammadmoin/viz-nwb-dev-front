@@ -99,7 +99,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       }
     },
     {
-      headerName: 'Sales Tax (%)',
+      headerName: 'Sales Tax',
       field: 'salesTax',
       cellStyle: { 'text-align': "right" }, 
       tooltipField: 'status',
@@ -109,7 +109,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       }
     },
     {
-      headerName: 'Income Tax (%)',
+      headerName: 'Income Tax',
       field: 'incomeTax',
       tooltipField: 'status',
       cellStyle: { 'text-align': "right" }, 
