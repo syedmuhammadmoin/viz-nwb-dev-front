@@ -49,7 +49,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   // Validation Messages
   validationMessages = {
     docDate: {
-      required: 'Date is required'
+      required: 'Date is required.'
     },   
   }
 

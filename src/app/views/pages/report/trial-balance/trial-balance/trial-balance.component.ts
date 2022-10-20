@@ -54,10 +54,10 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   // Validation Messages
   validationMessages = {
     docDate: {
-      required: 'From Date is required'
+      required: 'From Date is required.'
     },
     docDate2: {
-      required: 'To Date is required'
+      required: 'To Date is required.'
     }
   }
 

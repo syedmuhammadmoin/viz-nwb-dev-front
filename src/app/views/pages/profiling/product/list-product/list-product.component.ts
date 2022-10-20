@@ -60,7 +60,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     },
     // {headerName: 'purchase or Sold', field: 'purchasedOrSold', sortable: true, filter: true, tooltipField: 'cost',
     //   cellRenderer: (params: ICellRendererParams) => AppConst.PurchasedOrSold[params.value]},
-    {headerName: 'Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
+    {headerName: 'Product Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
     {headerName: 'Category', field: 'categoryName', suppressMenu: true, tooltipField: 'salesTax'},
     {

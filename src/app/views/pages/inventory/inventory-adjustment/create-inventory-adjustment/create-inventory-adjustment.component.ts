@@ -50,13 +50,13 @@ export class CreateInventoryAdjustmentComponent extends AppComponentBase impleme
   //Validatoin messages
   validationMessages = {
     'user': {
-      'required': 'User is required'
+      'required': 'User is required.'
     },
     'date': {
-      'required': 'Date is required'
+      'required': 'Date is required.'
     },
     'natureAdjustment': {
-      'required': 'Nature of Adjustment is required'
+      'required': 'Nature of Adjustment is required.'
     },
   }
 

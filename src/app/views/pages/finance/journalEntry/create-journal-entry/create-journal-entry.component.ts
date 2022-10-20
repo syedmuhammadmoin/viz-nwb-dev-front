@@ -63,7 +63,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   // Validation messages
   validationMessages = {
     date: {
-      required: 'Date is required.',
+      required: 'JV Date is required.',
     },
     description: {
       required: 'Description is required.',

@@ -42,14 +42,13 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   // validation messages
   validationMessages = {
     name: {
-      required: 'Name is required'
+      required: 'Product Name is required.'
     },
     unit: {
-      required: 'Unit is required',
+      required: 'Unit is required.',
     },
     category: {
-      required: 'Category is required',
-      incorrect: 'Please select valid category'
+      required: 'Category is required.',
     },
     salesPrice: {
       min: 'Please insert correct value.',
@@ -58,8 +57,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       min: 'Please insert correct value.',
     },
     salesTax: {
-      min: 'Percentage % range (0 - 100)',
-      max: 'Percentage % range (0 - 100)'
+      min: 'Percentage % range (0 - 100).',
+      max: 'Percentage % range (0 - 100).'
     }
   }
 

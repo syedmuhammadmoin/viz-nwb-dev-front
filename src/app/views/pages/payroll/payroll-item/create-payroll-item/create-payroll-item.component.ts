@@ -87,7 +87,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     value: {
       required: 'Value is required.',
       min: 'Please insert correct value.',
-      max: 'Percentage % range (0 - 100)'
+      max: 'Percentage % range (0 - 100).'
     },
     accountId: {
       required: 'Account is required.',

@@ -16,7 +16,6 @@
                       propertyName="name"
                       id="purchase_vendor_name"
                       propertyValue="id"
-                      searchPlaceholder="Search Vendor"
                       placeholder="Select Vendor"
                       matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
@@ -97,7 +96,6 @@
                         [errorMessage]="formErrors.campusId"
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
                         [optionList]="ngxsService.campuses$"
-                        searchPlaceholder="Search Campuses..."
                         placeholder="Select Campus">
                       </kt-simple-dropdown>
                   </div>
@@ -119,7 +117,6 @@
                                       placeholder="Select Item"
                                       formControlName="itemId"
                                       [id]="'purchase_item_' + i"
-                                      searchPlaceholder="Select Item"
                                       [optionList]="ngxsService.products$"
                                       clickEventButtonName="Add New Item"
                                       (clickEvent)="openProductDialog()"
@@ -291,7 +288,6 @@
                                       [id]="'purchase_store_' + i"
                                       propertyValue="id" 
                                       propertyName="name"
-                                      searchPlaceholder="Search Store..."
                                       (click)="checkCampus()"
                                       formControlName="warehouseId" 
                                       [errorMessage]="'Store is required.'"

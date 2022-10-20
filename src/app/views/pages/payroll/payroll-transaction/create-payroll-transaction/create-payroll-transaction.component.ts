@@ -70,23 +70,23 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       required: 'Year is required.',
     },
     workingDays: {
-      required: 'Working days is required',
-      invalidRange: 'Should be greater than present days',
+      required: 'Working days is required.',
+      invalidRange: 'Should be greater than present days.',
     },
     presentDays: {
-      required: 'Present days is required',
+      required: 'Present days is required.',
     },
     leaveDays: {
-      required: 'Leave days is required',
+      required: 'Leave days is required.',
     },
     transDate: {
-      required: 'Transaction date is required'
+      required: 'Transaction date is required.'
     },
     tax: {
-      required: 'Tax is required'
+      required: 'Tax is required.'
     },
     accountPayableId: {
-      required: 'Account is required'
+      required: 'Account is required.'
     }
   };
 

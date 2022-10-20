@@ -16,7 +16,6 @@
                     [optionList]="ngxsService.businessPartners$"
                     clickEventButtonName="Add New Customer"
                     (clickEvent)="openBusinessPartnerDialog()" 
-                    searchPlaceholder="Search Customers..."
                     placeholder="Select Customer">
                   </kt-simple-dropdown>
                 </div>
@@ -213,7 +212,6 @@
                                 propertyName="name"
                                 isDisabledNone="true"
                                 [hintText]="'Optional'"
-                                searchPlaceholder="Search Store..."
                                 (click)="checkCampus()"
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width" 

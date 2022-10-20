@@ -33,7 +33,7 @@
     
                   <div class="col-lg-5 col-md-5 col-sm-5">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Date:</label>
+                        <label class="col-form-label pt-0">Payment Date:</label>
                         <kt-date-input
                         id="payment_date"
                           formControlName="date"
@@ -75,9 +75,8 @@
                     <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Bank Account:</label>
                         <kt-simple-dropdown
-                        id="payment_bank"
+                          id="payment_bank"
                           placeholder="Select Bank Account"
-                          searchPlaceholder="Search Accounts..."
                           [propertyValue]="propertyValue"
                           [propertyName]="propertyName"
                           formControlName="bankAccount"
@@ -103,7 +102,6 @@
                           [optionList]="ngxsService.businessPartners$"
                           clickEventButtonName="Add New Business Partner"
                           (clickEvent)="openBusinessPartnerDialog()" 
-                          searchPlaceholder="Search Business Partners..."
                           placeholder="Select Business Partner">
                         </kt-simple-dropdown>
                     </div>
@@ -121,7 +119,6 @@
                           matFormFieldClass="full-width"
                           [errorMessage]="'Employee is Required.'"
                           [optionList]="ngxsService.employeePayments$"
-                          searchPlaceholder="Search Employees..."
                           placeholder="Select Employee">
                         </kt-simple-dropdown>
                     </div>
@@ -133,7 +130,6 @@
                         <kt-simple-dropdown
                         id="payment_coa"
                           placeholder="Select Detailed Head"
-                          searchPlaceholder="Search Accounts..."
                           propertyValue="id"
                           propertyName="name"
                           formControlName="account"
@@ -262,7 +258,7 @@
                       <label class="col-form-label pt-0">Deduction Account:</label>
                       <kt-simple-dropdown 
                       id="deduction_account"
-                       placeholder="Select Account" 
+                       placeholder="Select Deduction Account" 
                        propertyValue="id" 
                        propertyName="name"
                        formControlName="deductionAccountId" 

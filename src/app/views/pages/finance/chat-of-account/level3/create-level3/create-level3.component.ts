@@ -26,7 +26,7 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
       'required': 'Head name is required.',
     },
     'level2': {
-      'required': 'Head summary is required',
+      'required': 'Head summary is required.',
     }
   };
   // error keys..

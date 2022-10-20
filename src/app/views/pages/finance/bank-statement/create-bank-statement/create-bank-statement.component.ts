@@ -63,14 +63,14 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   // validation messages
   validationMessages = {
     bankAccountId: {
-      required: 'Bank Account is required'
+      required: 'Bank Account is required.'
     },
     openingBalance: {
-      required: 'Opening Balance can\'\t be empty',
+      required: 'Opening Balance can\'\t be empty.',
       min: 'Minimum value is 0.'
     },
     description: {
-      required: 'Description is required'
+      required: 'Description is required.'
     },
   }
 
