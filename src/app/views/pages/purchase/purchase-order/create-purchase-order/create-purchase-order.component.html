@@ -11,7 +11,7 @@
               <div class="row mt-1 mb-0">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Vendor Name:</label>
+                    <label class="col-form-label pt-0">Vendor:</label>
                       <kt-simple-dropdown
                       propertyName="name"
                       id="purchase_vendor_name"
@@ -56,7 +56,7 @@
                     <label class="col-form-label pt-0">P.O Date:</label>
                       <kt-date-input
                         formControlName="PODate"
-                        placeholder="Purchase Date"
+                        placeholder="Select P.O Date"
                         matFormFieldClass="full-width"
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.PODate"
@@ -70,7 +70,7 @@
                     <label class="col-form-label pt-0">Due Date:</label>
                       <kt-date-input
                         formControlName="dueDate"
-                        placeholder="Due Date"
+                        placeholder="Select Due Date"
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
                         [errorMessage]="formErrors.dueDate"
                         [minDate]="minDate"
@@ -230,7 +230,7 @@
                                       formControlName="tax"
                                       [id]="'purchase_tax_' + i"
                                       matFormFieldClass="mobile-label full-width"
-                                      placeholder="0%"
+                                      placeholder="Enter Tax %"
                                       #itemName
                                       (blurEvent)="logValidationErrors(this.purchaseOrderForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : (purchaseOrderForm.get('purchaseOrderLines')['controls'][i].controls.tax.errors?.min ||

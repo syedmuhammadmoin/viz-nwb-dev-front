@@ -34,7 +34,6 @@
                   formControlName="level2"
                   (blurEvent)="logValidationErrors(this.level3Form, this.formErrors, this.validationMessages)"
                   [errorMessage]="formErrors.level2"
-                  searchPlaceholder="Search Summary Head..."
                   placeholder="Select Summary Head"
                   matFormFieldClass="full-width"
                   [optionList]="chartOfAccountService.getLevel2Account()"

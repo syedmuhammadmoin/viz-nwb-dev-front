@@ -11,7 +11,7 @@
               <div class="row mt-1 mb-0">
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group mb-0">
-                      <label class="col-form-label pt-0">Vendor Name:</label>
+                      <label class="col-form-label pt-0">Vendor:</label>
                       <kt-simple-dropdown 
                       id="debit_note_vendor_name"
                         formControlName="vendorName"
@@ -30,10 +30,10 @@
 
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group mb-0">
-                      <label class="col-form-label pt-0">Note Date:</label>
+                      <label class="col-form-label pt-0">Debit Note Date:</label>
                       <kt-date-input
                         formControlName="noteDate"
-                        placeholder="Note Date"
+                        placeholder="Select Debit Note Date"
                         matFormFieldClass="full-width"
                         [maxDate]="dateLimit"
                         (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"

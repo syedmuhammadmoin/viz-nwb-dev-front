@@ -9,7 +9,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Start Date:</label>
-                <kt-date-input formControlName="docDate" placeholder="Enter From Date" matFormFieldClass="full-width"
+                <kt-date-input formControlName="docDate" placeholder="Select Start Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.trialBalanceForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate"
                   [maxDate]="maxDate">
@@ -19,7 +19,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">End Date:</label>
-                <kt-date-input formControlName="docDate2" placeholder="Enter To Date" matFormFieldClass="full-width"
+                <kt-date-input formControlName="docDate2" placeholder="Select End Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.trialBalanceForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate2"
                   [maxDate]="maxDate">

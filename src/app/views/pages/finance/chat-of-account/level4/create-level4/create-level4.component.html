@@ -47,7 +47,6 @@
                   formControlName="level3"
                   (blurEvent)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)"
                   [errorMessage]="formErrors.level3"
-                  searchPlaceholder="Search Head Account..."
                   placeholder="Select Head Account"
                   [optionList]="chartOfAccountService.getLevel3AccountsDropdown()"
                   propertyValue="id"

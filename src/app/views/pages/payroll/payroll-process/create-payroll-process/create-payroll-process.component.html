@@ -27,7 +27,7 @@
 
                 <div class="col-lg-4">
                   <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label">Departments:</label>
+                    <label class="col-form-label">Department:</label>
                     <kt-simple-dropdown
                       id="create_process_department"
                       (blurEvent)="logValidationErrors(createPayrollProcessForm, this.formErrors, this.validationMessages)"
@@ -91,7 +91,7 @@
                       [optionList]="ngxsService.accountsPayable$"
                       formControlName="accountPayableId"
                       matFormFieldClass="full-width"
-                      placeholder="Select Account" 
+                      placeholder="Select Account Payable" 
                       propertyName="name"
                       propertyValue="id">
                     </kt-simple-dropdown>

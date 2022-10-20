@@ -16,10 +16,10 @@
                 <div class="row mt-1 mb-0">
                   <div class="col-lg-4 col-md-4 col-sm-4">
                         <div class="form-group kt-form__group mb-0">
-                            <label class="col-form-label pt-0">Date:</label>
+                            <label class="col-form-label pt-0">Payment Date:</label>
                             <kt-date-input
                               formControlName="paymentDate"
-                              placeholder="Payment Date"
+                              placeholder="Enter Payment Date"
                               matFormFieldClass="full-width"
                               (blurEvent)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)"
                               [errorMessage]="formErrors.paymentDate"
@@ -169,7 +169,7 @@
                       <label class="col-form-label pt-0">Deduction Account:</label>
                       <kt-simple-dropdown 
                       id="deduction_account"
-                       placeholder="Select Account" 
+                       placeholder="Select Deduction Account" 
                        propertyValue="id" 
                        propertyName="name"
                        formControlName="deductionAccountId" 

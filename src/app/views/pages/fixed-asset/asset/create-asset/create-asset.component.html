@@ -100,7 +100,6 @@
                         propertyValue="id" 
                         [errorMessage]="formErrors.depreciationModelId"
                         [optionList]="ngxsService.depreciationModels$"
-                        searchPlaceholder="Search Model..."
                         placeholder="Select Model">
                       </kt-simple-dropdown>
                     </div>
@@ -118,7 +117,6 @@
                       propertyName="name" 
                       propertyValue="id" 
                       [optionList]="method"
-                      searchPlaceholder="Search..."
                       placeholder="Select Method"
                       (blurEvent)="logValidationErrors(assetForm, formErrors, validationMessages)"
                       [errorMessage]="[{ condition : formErrors.depreciationMethod , error : formErrors.depreciationMethod }]">
@@ -168,7 +166,6 @@
                       propertyValue="id" 
                       [errorMessage]="formErrors.categoryId"
                       [optionList]="ngxsService.categories$"
-                      searchPlaceholder="Search Category..."
                       placeholder="Select Category">
                     </kt-simple-dropdown>
                   </div>
@@ -186,7 +183,6 @@
                       propertyValue="id" 
                       [errorMessage]="formErrors.correspondingAccountId"
                       [optionList]="(data.wip) ? ngxsService.assetAccount$ : ngxsService.accountsLevel4$"
-                      searchPlaceholder="Search Account..."
                       placeholder="Select Account">
                     </kt-simple-dropdown>
                   </div>

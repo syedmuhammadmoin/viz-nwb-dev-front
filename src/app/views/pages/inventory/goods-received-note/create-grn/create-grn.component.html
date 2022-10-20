@@ -10,7 +10,7 @@
               <div class="row mt-1 mb-0">
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Vendor Name:</label>
+                    <label class="col-form-label pt-0">Vendor:</label>
                     <kt-simple-dropdown
                     id="grn_vendor_name"
                       [isDisabled]="true"
@@ -34,7 +34,7 @@
                       [errorMessage]="formErrors.grnDate"
                       formControlName="grnDate"
                       matFormFieldClass="full-width"
-                      placeholder="GRN Date">
+                      placeholder="Select GRN Date">
                     </kt-date-input>
                   </div>
                 </div>
@@ -189,7 +189,7 @@
                                 [id]="'grn_tax_' + i"
                                       formControlName="tax"
                                       matFormFieldClass="mobile-label full-width"
-                                      placeholder="Enter Tax"
+                                      placeholder="Enter Tax %"
                                       readonly="true"
                                       #itemName
                                       type="number"

@@ -149,7 +149,7 @@
                     <label class="col-form-label pt-0">Start Date:</label>
                     <kt-date-input 
                       formControlName="fromDate" 
-                      placeholder="From" 
+                      placeholder="Select Start Date" 
                       matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(this.transactionReportForm, this.formErrors, this.validationMessages)"
                       [errorMessage]="formErrors.fromDate">
@@ -162,7 +162,7 @@
                       <label class="col-form-label pt-0">End Date:</label>
                       <kt-date-input 
                         formControlName="toDate" 
-                        placeholder="To" 
+                        placeholder="Select End Date" 
                         matFormFieldClass="full-width"
                         (blurEvent)="logValidationErrors(this.transactionReportForm, this.formErrors, this.validationMessages)"
                         [errorMessage]="formErrors.toDate">

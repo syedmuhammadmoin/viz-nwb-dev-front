@@ -11,7 +11,7 @@
             <div class="row mt-1 mb-0">
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Customer Name:</label>
+                  <label class="col-form-label pt-0">Customer:</label>
                   <kt-simple-dropdown id="invoice_customer" formControlName="customerName" matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(this.invoiceForm, this.formErrors, this.validationMessages)"
                     propertyName="name" propertyValue="id" [errorMessage]="formErrors.customerName"
@@ -36,7 +36,7 @@
                   <label class="col-form-label pt-0">Invoice Date:</label>
                   <kt-date-input 
                     formControlName="invoiceDate" 
-                    placeholder="Invoice Date" matFormFieldClass="full-width" [maxDate]="maxDate"
+                    placeholder="Select Invoice Date" matFormFieldClass="full-width" [maxDate]="maxDate"
                     (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                     [errorMessage]="formErrors.invoiceDate">
                   </kt-date-input>
@@ -48,7 +48,7 @@
                   <label class="col-form-label pt-0">Due Date:</label>
                   <kt-date-input 
                     formControlName="dueDate" 
-                    placeholder="Due Date" 
+                    placeholder="Select Due Date" 
                     matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                     [errorMessage]="formErrors.dueDate"

@@ -15,12 +15,12 @@
           <div class="col-md-12 col-lg-12 col-sm-12">
             <div class="row mt-1 mb-0">
               <div class="col-lg-6 col-md-6 col-sm-6">
-                <label class="col-form-label">Status:</label>
+                <label class="col-form-label">Status Name:</label>
                 <div class="form-group kt-form__group mb-0">
                   <kt-input-field
                   id="status_name"
                    formControlName="status"
-                   placeholder="Enter Status"
+                   placeholder="Enter Status Name"
                    (blurEvent)="logValidationErrors(this.statusForm, this.formErrors, this.validationMessages)"
                    [errorMessage]="[{ condition : formErrors.status , error : formErrors.status }]">
                   </kt-input-field>
@@ -39,7 +39,7 @@
                     matFormFieldClass='full-width'
                     [errorMessage]="formErrors.state" 
                     [optionList]="workflowStates" 
-                    placeholder="Select state">
+                    placeholder="Select State">
                   </kt-simple-dropdown>
                 </div>
               </div>

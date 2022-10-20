@@ -63,7 +63,6 @@
                     propertyValue="id"
                     matFormFieldClass="full-width "
                     [optionList]="ngxsService.campuses$"
-                    searchPlaceholder="Search Campuses..."
                     placeholder="Select Campus">
                   </kt-simple-dropdown>
                 </div>
@@ -76,7 +75,7 @@
                   <label class="col-form-label pt-0">Requisition Date:</label>
                     <kt-date-input
                       formControlName="requisitionDate"
-                      placeholder="Enter Date"
+                      placeholder="Select Requisition Date"
                       matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(requisitionForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.requisitionDate"
