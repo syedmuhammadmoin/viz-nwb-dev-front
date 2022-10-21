@@ -53,29 +53,34 @@
                     <!-- first row ends -->
                     <!-- second row starts -->
                     <div class="row mb-4">
-                        <div class="col-lg-7 col-md-7 col-sm-7">
-                            <div class="form-group kt-form__group mb-0">
-                                <!-- <label class="col-form-label pt-0">Product Type:</label> -->
-                                <div class="kt-radio-list">
-                                
-                                    <mat-radio-group id="product_type" formControlName="productType">
-                                    <label class="col-form-label pt-0 mr-2">Product Type:</label>
-
-                                        <mat-radio-button [value]="0">Consumable</mat-radio-button>
-                                        <mat-radio-button [value]="1">Service</mat-radio-button>
-                                        <mat-radio-button [value]="2">Fixed Asset</mat-radio-button>
-                                        <!-- <mat-radio-button>Consumable</mat-radio-button>
-                                        <mat-radio-button>Service</mat-radio-button>
-                                        <mat-radio-button>Fixed product</mat-radio-button> -->
+                        <div class="col-lg-6 col-md-6 col-sm-6"> <!--this row will become 7 when third option is uncomment-->
+                            <div class="row" >
+                               <div class="col-lg-11"> <!--this row will remove when third option is uncomment-->
+                                <div class="form-group kt-form__group mb-0">
+                                    <!-- <label class="col-form-label pt-0">Product Type:</label> -->
+                                    <div class="kt-radio-list">
+                                    
+                                        <mat-radio-group id="product_type" formControlName="productType">
+                                        <label class="col-form-label pt-0 mr-2">Product Type:</label>
+    
+                                            <mat-radio-button [value]="0">Consumable</mat-radio-button>
+                                            <mat-radio-button [value]="1">Service</mat-radio-button>
+                                            <!-- <mat-radio-button [value]="2">Fixed Asset</mat-radio-button> -->
+                                            <!-- <mat-radio-button>Consumable</mat-radio-button>
+                                            <mat-radio-button>Service</mat-radio-button>
+                                            <mat-radio-button>Fixed product</mat-radio-button> -->
+                                            <!-- <mat-error *ngIf="formErrors.productType">
+                                                <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
+                                            </mat-error> -->
+                                        </mat-radio-group>
                                         <!-- <mat-error *ngIf="formErrors.productType">
                                             <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
                                         </mat-error> -->
-                                    </mat-radio-group>
-                                    <!-- <mat-error *ngIf="formErrors.productType">
-                                        <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
-                                    </mat-error> -->
+                                    </div>
                                 </div>
+                               </div>
                             </div>
+                            
                         </div>
                     </div>
                     <!-- second row ends -->
