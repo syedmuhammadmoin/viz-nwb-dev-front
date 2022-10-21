@@ -15,7 +15,7 @@ export class CampusService extends AppServiceBase {
 
     baseUrl = AppConst.remoteServiceBaseUrl + 'Campus';
 
-    private header = new HttpHeaders().set("key", "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~")
+    private header = new HttpHeaders().set("key", AppConst.apiKey)
 
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

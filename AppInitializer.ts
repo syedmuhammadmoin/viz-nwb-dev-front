@@ -29,6 +29,7 @@ export class AppInitializer {
     return this.httpClient.get<any>(`${appRootUrl}assets/${environment.appConfig}`)
       .subscribe((res) => {
         AppConst.appBaseUrl = res.appBaseUrl;
+        AppConst.apiKey = res.apiKey;
         AppConst.remoteServiceBaseUrl = res.remoteServiceBaseUrl;
         callback();
       })

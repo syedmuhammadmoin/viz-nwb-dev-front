@@ -71,7 +71,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
         },
     },
     {
-      headerName: 'Note Date',
+      headerName: 'Credit Note Date',
       field: 'noteDate',
       tooltipField: 'noteDate',
       filter: 'agDateColumnFilter',

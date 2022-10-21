@@ -5,6 +5,7 @@ export class AppConst {
   static appBaseUrl: string;
   static remoteServiceBaseUrl: string;
   static appBaseHref: string;
+  static apiKey: string;
 
   static ProductType = {
     0: 'Consumable',

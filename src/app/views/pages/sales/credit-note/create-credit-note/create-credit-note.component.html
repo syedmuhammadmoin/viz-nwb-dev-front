@@ -43,7 +43,7 @@
                      (selectionChange)="onCampusSelected($event.value)"
                      (blurEvent)="logValidationErrors(creditNoteForm, formErrors, validationMessages)"
                      matFormFieldClass="full-width"
-                     [errorMessage]="'Campus is Required'" 
+                     [errorMessage]="'Campus is Required.'" 
                      [optionList]="ngxsService.campuses$">
                   </kt-simple-dropdown>
                 </div>
@@ -85,7 +85,7 @@
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.description.errors?.required &&
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.description.touched , 
-                                                        error : 'Description is required' }]">
+                                                        error : 'Description is required.' }]">
                               </kt-input-field>
                             </div>
                           </mat-cell>
@@ -113,10 +113,10 @@
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Quantity is required' },
+                                                        error : 'Quantity is required.' },
                                                       { condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Minimum value is one' }]"
+                                                        error : 'Minimum value is one.' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
@@ -134,10 +134,10 @@
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.price.errors?.required &&
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.price.touched , 
-                                                        error : 'Price is required'},
+                                                        error : 'Price is required.'},
                                                         { condition : creditNoteForm.get('creditNoteLines')['controls'][i].controls.price.errors?.min &&
                                                         creditNoteForm.get('creditNoteLines')['controls'][i].controls.price.touched , 
-                                          error : 'Please insert correct value' }]"
+                                          error : 'Please insert correct value.' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
@@ -158,7 +158,7 @@
                                 [errorMessage]="[{ condition : (creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.errors?.min ||
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     creditNoteForm.get('creditNoteLines')['controls'][i].controls.tax.touched , 
-                                                        error : 'Percentage % range (0 - 100)'}]"
+                                                        error : 'Percentage % range (0 - 100).'}]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
