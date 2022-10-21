@@ -113,7 +113,7 @@
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : invoiceForm.get('invoiceLines')['controls'][i].controls.description.errors?.required &&
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.description.touched , 
-                                                        error : 'Description is required' }]">
+                                                        error : 'Description is required.' }]">
                               </kt-input-field>
                             </div>
                           </mat-cell>
@@ -126,7 +126,7 @@
                               <kt-simple-dropdown placeholder="Select Detailed Head" propertyValue="id"
                                  propertyName="name" [id]="'invoice_coa_' + i"
                                 formControlName="accountId" matFormFieldClass="mobile-label full-width"
-                                [errorMessage]="'Account is Required'" [optionList]="ngxsService.otherAccounts$">
+                                [errorMessage]="'Account is Required.'" [optionList]="ngxsService.otherAccounts$">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>
@@ -142,10 +142,10 @@
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Quantity is required' },
+                                                        error : 'Quantity is required.' },
                                                       { condition : invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Minimum value is one' }]"
+                                                        error : 'Minimum value is one.' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
@@ -183,10 +183,10 @@
                                 (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : invoiceForm.get('invoiceLines')['controls'][i].controls.price.errors?.required &&
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.price.touched , 
-                                                        error : 'Price is required'},
+                                                        error : 'Price is required.'},
                                                         { condition : invoiceForm.get('invoiceLines')['controls'][i].controls.price.errors?.min &&
                                                         invoiceForm.get('invoiceLines')['controls'][i].controls.price.touched , 
-                                          error : 'Please insert correct value' }]"
+                                          error : 'Please insert correct value.' }]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
@@ -221,7 +221,7 @@
                                 [errorMessage]="[{ condition : (invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.min ||
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     invoiceForm.get('invoiceLines')['controls'][i].controls.tax.touched , 
-                                                        error : 'Percentage % range (0 - 100)'}]"
+                                                        error : 'Percentage % range (0 - 100).'}]"
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>

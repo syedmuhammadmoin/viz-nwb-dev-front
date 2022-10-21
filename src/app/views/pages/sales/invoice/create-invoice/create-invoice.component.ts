@@ -80,7 +80,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   // Validation messages..
   validationMessages = {
     customerName: {
-      required: 'Customer Name is required.',
+      required: 'Customer is required.',
     },
     invoiceDate: {
       required: 'Invoice Date is required.',
