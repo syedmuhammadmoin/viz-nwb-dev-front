@@ -116,7 +116,7 @@
                                     (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : vendorBillForm.get('vendorBillLines')['controls'][i].controls.description.errors?.required &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.description.touched , 
-                                                      error : 'Description is required' }]">
+                                                      error : 'Description is required.' }]">
                                   </kt-input-field>
                                 </div>
                               </mat-cell>
@@ -133,7 +133,7 @@
                                     propertyName="name"
                                     formControlName="accountId"
                                     matFormFieldClass="mobile-label full-width"
-                                    errorMessage="Account is Required"
+                                    errorMessage="Account is Required."
                                     [optionList]="ngxsService.otherAccounts$">
                                   </kt-simple-dropdown>
                                 </div>
@@ -153,10 +153,10 @@
                                     (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : vendorBillForm.get('vendorBillLines')['controls'][i].controls.quantity.errors?.required &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.quantity.touched , 
-                                                      error : 'Quantity is required' },
+                                                      error : 'Quantity is required.' },
                                                     { condition : vendorBillForm.get('vendorBillLines')['controls'][i].controls.quantity.errors?.min &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.quantity.touched , 
-                                                      error : 'Minimum value is one' }]"
+                                                      error : 'Minimum value is one.' }]"
                                     (change)="onChangeEvent($event , i , itemName)"
                                     (keyup)="onChangeEvent($event , i , itemName)">
                                   </kt-input-field>
@@ -178,10 +178,10 @@
                                     (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : vendorBillForm.get('vendorBillLines')['controls'][i].controls.cost.errors?.required &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.cost.touched , 
-                                                      error : 'Cost is required'},
+                                                      error : 'Cost is required.'},
                                                       { condition : vendorBillForm.get('vendorBillLines')['controls'][i].controls.cost.errors?.min &&
                                                                     vendorBillForm.get('vendorBillLines')['controls'][i].controls.cost.touched , 
-                                                        error : 'Cost cannot be zero' }]"
+                                                        error : 'Cost cannot be zero.' }]"
                                     (change)="onChangeEvent($event , i , itemName)"
                                     (keyup)="onChangeEvent($event , i , itemName)">
                                   </kt-input-field>
@@ -206,7 +206,7 @@
                                     [errorMessage]="[{ condition : (vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.min ||
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.errors?.max) &&
                                                                   vendorBillForm.get('vendorBillLines')['controls'][i].controls.tax.touched , 
-                                                      error : 'Percentage % range (0 - 100)'}]"
+                                                      error : 'Percentage % range (0 - 100).'}]"
                                     (change)="onChangeEvent($event , i , itemName)"
                                     (keyup)="onChangeEvent($event , i , itemName)">
                                   </kt-input-field>

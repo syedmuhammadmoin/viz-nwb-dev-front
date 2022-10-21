@@ -79,7 +79,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       required: 'Employee is required.'
     },
     requisitionDate: {
-      required: 'Order Date is required.'
+      required: 'Requisition Date is required.'
     },
     // campusId: {
     //   required: 'Campus is required.'
@@ -406,6 +406,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // }
   canDeactivate(): boolean | Observable<boolean> {
     return !this.requisitionForm.dirty;
+  }
+
+  checkEmployee() {
+    console.log("called")
+    if(this.requisitionForm.value.employeeId === '') {
+      this.toastService.info("Please Select Employee!", "Requisition")
+    }
   }
 
   // onCampusSelected(campusId : number) {

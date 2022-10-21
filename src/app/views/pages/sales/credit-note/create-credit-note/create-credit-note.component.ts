@@ -84,7 +84,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     //   required: 'sales Person is required.',
     // },
     noteDate: {
-      required: 'Note Date is required.',
+      required: 'Credit Note Date is required.',
     },
     campusId: {
       required: 'Campus is required.',

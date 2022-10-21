@@ -71,7 +71,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   // Validation messages..
   validationMessages = {
     vendorName: {
-      required: 'Vendor Name is required.',
+      required: 'Vendor is required.',
     },
     noteDate: {
       required: 'Note Date is required.',

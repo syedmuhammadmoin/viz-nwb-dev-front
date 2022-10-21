@@ -85,7 +85,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   // Validation messages..
   validationMessages = {
     vendorName: {
-      required: 'Vendor Name is required.',
+      required: 'Vendor is required.',
     },
     // vendorBillRef: {
     //   required: 'Vendor Bill Reference is required.',

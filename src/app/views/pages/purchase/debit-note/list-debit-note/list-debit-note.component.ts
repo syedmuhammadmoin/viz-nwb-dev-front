@@ -58,7 +58,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
         },
      },
     { 
-      headerName: 'Vendor Name', 
+      headerName: 'Vendor', 
       field: 'vendorName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
@@ -69,7 +69,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
         },
     },
     {
-      headerName: 'Note Date',
+      headerName: 'Debit Note Date',
       field: 'noteDate',
       tooltipField: 'status',
       filter: 'agDateColumnFilter',
