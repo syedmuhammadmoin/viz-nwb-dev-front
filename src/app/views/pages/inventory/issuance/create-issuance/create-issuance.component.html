@@ -29,6 +29,7 @@
                     id="issuance_designation"
                     formControlName="designation" 
                     matFormFieldClass="full-width" 
+                    (click)="checkEmployee()"
                     placeholder="Designation"
                     readonly="true">
                   </kt-input-field>
@@ -42,6 +43,7 @@
                     id="issuance_department"
                     formControlName="department" 
                     matFormFieldClass="full-width" 
+                    (click)="checkEmployee()"
                     placeholder="Department"
                     readonly="true">
                   </kt-input-field>
@@ -56,6 +58,7 @@
                     placeholder="Select Campus" 
                     propertyValue="id" 
                     propertyName="name"
+                    (click)="checkEmployee()"
                     formControlName="campusId" 
                     (selectionChange)="onCampusSelected($event.value)"
                     matFormFieldClass="full-width"

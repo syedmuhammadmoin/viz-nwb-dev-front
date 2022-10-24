@@ -100,8 +100,9 @@
                           matFormFieldClass="full-width"
                           [errorMessage]="formErrors.businessPartner"
                           [optionList]="ngxsService.businessPartners$"
+                          [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                           clickEventButtonName="Add New Business Partner"
-                          (clickEvent)="openBusinessPartnerDialog()" 
+                          (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
                           placeholder="Select Business Partner">
                         </kt-simple-dropdown>
                     </div>

@@ -118,7 +118,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       vendorName: [{value: '', disabled: true}, [Validators.required]],
       grnDate: ['', [Validators.required]],
       contact: [''],
-      campusId: ['', [Validators.required]],
+      campusId: [null, [Validators.required]],
       GRNLines: this.fb.array([
         this.addGRNLines()
       ])
@@ -399,11 +399,12 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // Form Reset
   reset() {
-    const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
+    // const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
     //grnLineArray.reset();
     this.resetFields(this.grnForm , 'campusId', 'contact' , 'GRNLines');
     //this.formDirective.resetForm();
     this.showMessage = false;
+    this.warehouseList.next([])
     this.table.renderRows();
   }
 
@@ -413,7 +414,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   checkCampus() {
     this.showMessage = true;
-    if(this.grnForm.value.campusId === '') {
+    if(this.grnForm.value.campusId === null) {
       this.toastService.info("Please Select Campus First!", "Goods Received Note")
     }
   }

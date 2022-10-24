@@ -126,7 +126,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       PODate: ['', [Validators.required]],
       dueDate: ['', [Validators.required]],
       contact: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
-      campusId: ['', [Validators.required]],
+      campusId: [null, [Validators.required]],
       purchaseOrderLines: this.fb.array([
         this.addPurchaseOrderLines()
       ])
@@ -184,6 +184,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     // purchaseOrderLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
+    this.warehouseList.next([])
     this.table.renderRows();
   }
 
@@ -426,19 +427,13 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
    // open business partner dialog
    openBusinessPartnerDialog() {
     if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBuinessPartnerDialog();
+      this.addButtonService.openBusinessPartnerDialog();
     }
   }
  // open product dialog
   openProductDialog() {
     if (this.permission.isGranted(this.permissions.PRODUCT_CREATE)) {
       this.addButtonService.openProductDialog();
-    }
-  }
-  // open warehouse Location dialog
-  openLocationDialog() {
-    if (this.permission.isGranted(this.permissions. LOCATION_CREATE)) {
-      this.addButtonService.openLocationDialog();
     }
   }
 
@@ -449,7 +444,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   checkCampus() {
     this.showMessage = true;
-    if(this.purchaseOrderForm.value.campusId === '') {
+    if(this.purchaseOrderForm.value.campusId === null) {
       this.toastService.info("Please Select Campus First!", "Purchase Order")
     }
   }

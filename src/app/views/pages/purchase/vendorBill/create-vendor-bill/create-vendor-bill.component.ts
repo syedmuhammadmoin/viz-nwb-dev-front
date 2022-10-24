@@ -525,7 +525,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   // open business partner dialog
   openBusinessPartnerDialog() {
     if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBuinessPartnerDialog();
+      this.addButtonService.openBusinessPartnerDialog();
     }
   }
  // open product dialog
@@ -534,12 +534,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       this.addButtonService.openProductDialog();
     }
   }
-  // open warehouse Location dialog
-  openLocationDialog() {
-    if (this.permission.isGranted(this.permissions. LOCATION_CREATE)) {
-      this.addButtonService.openLocationDialog();
-    }
-  }
+ 
 
   checkCampus() {
     this.showMessage = true;

@@ -424,7 +424,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   // open business partner dialog
   openBusinessPartnerDialog() {
     if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBuinessPartnerDialog();
+      this.addButtonService.openBusinessPartnerDialog();
     }
   }
   // open product dialog
@@ -433,12 +433,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       this.addButtonService.openProductDialog();
     }
   }
-  // open warehouse Location dialog
-  openLocationDialog() {
-    if (this.permission.isGranted(this.permissions.LOCATION_CREATE)) {
-      this.addButtonService.openLocationDialog();
-    }
-  }
+ 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.invoiceForm.dirty;
   }

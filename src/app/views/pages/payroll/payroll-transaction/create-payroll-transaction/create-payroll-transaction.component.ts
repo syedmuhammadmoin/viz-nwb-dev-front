@@ -200,7 +200,9 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       transDate: payrollTransaction.transDate,
       accountPayableId: payrollTransaction.accountPayableId
     })
-    this.getEmployee(payrollTransaction.employeeId)
+    //this.getEmployee(payrollTransaction.employeeId)
+
+    this.checkSelected(payrollTransaction)
 
     this.disableFields(this.payrollTransactionForm , 
       "employeeId", "month", "year", "workingDays", "presentDays",
@@ -210,12 +212,12 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   checkSelected(employee) {
     this.payrollTransactionForm.patchValue({
-      designation: employee.designationName,
-      department: employee.departmentName,
-      basicPay: employee.basicPay,
+      designation: employee.designation,
+      department: employee.department,
+      basicPay: employee.basicSalary,
       increment: employee.increment,
     })
-    this.payrollItems = employee.payrollItems;
+    this.payrollItems = employee.payrollTransactionLines;
     this.calculateSalary(employee);
     this.cdRef.detectChanges();
   }
@@ -238,21 +240,21 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   // getting employee data by id
-  getEmployee(id: number) {
-    this.employeeService.getEmployeeById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      this.employee = res.result
-      this.checkSelected(this.employee)
-      this.cdRef.detectChanges()
-    })
-  }
+  // getEmployee(id: number) {
+  //   this.employeeService.getEmployeeById(id)
+  //   .pipe(
+  //     take(1),
+  //      finalize(() => {
+  //       this.isLoading = false;
+  //       this.cdRef.detectChanges();
+  //      })
+  //    )
+  //   .subscribe((res) => {
+  //     this.employee = res.result
+  //     this.checkSelected(this.employee)
+  //     this.cdRef.detectChanges()
+  //   })
+  // }
 
 // getting payroll by id
   private getPayroll(id: any) {

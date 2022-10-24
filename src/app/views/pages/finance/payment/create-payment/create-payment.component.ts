@@ -383,11 +383,11 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
   }
   // open business partner dialog
-  openBusinessPartnerDialog() {
-    if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBuinessPartnerDialog();
-    }
-  }
+  // openBusinessPartnerDialog() {
+  //   if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
+  //     this.addButtonService.openBusinessPartnerDialog();
+  //   }
+  // }
   // close dialog
   onCloseDialog() {
     this.dialogRef.close();

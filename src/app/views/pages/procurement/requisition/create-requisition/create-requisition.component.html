@@ -33,7 +33,7 @@
                   <kt-input-field 
                     id="requisition_designation"
                     formControlName="designation" 
-                    (clickEvent)="checkEmployee()"
+                    (click)="checkEmployee()"
                     matFormFieldClass="full-width" 
                     placeholder="Designation"
                     readonly="true">
@@ -48,7 +48,7 @@
                     id="requisition_department"
                     formControlName="department" 
                     matFormFieldClass="full-width" 
-                    (clickEvent)="checkEmployee()"
+                    (click)="checkEmployee()"
                     placeholder="Department"
                     readonly="true">
                   </kt-input-field>
@@ -63,7 +63,7 @@
                     formControlName="campusId"
                     propertyName="name"
                     propertyValue="id"
-                    (clickEvent)="checkEmployee()"
+                    (click)="checkEmployee()"
                     matFormFieldClass="full-width "
                     [optionList]="ngxsService.campuses$"
                     placeholder="Campus">

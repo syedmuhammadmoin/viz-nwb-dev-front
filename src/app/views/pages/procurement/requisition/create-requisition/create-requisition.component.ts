@@ -110,11 +110,11 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   ngOnInit() {
 
     this.requisitionForm = this.fb.group({
-      employeeId: ['', [Validators.required]],
+      employeeId: [null, [Validators.required]],
       designation: [''],
       department: [''],
       requisitionDate: ['', [Validators.required]],
-      campusId: [{value: '' , disabled: true}],
+      campusId: [{value: null , disabled: true}],
       requisitionLines: this.fb.array([
         this.addRequisitionLines()
       ])
@@ -363,7 +363,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
    // open business partner dialog
    openBusinessPartnerDialog() {
     if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBuinessPartnerDialog();
+      this.addButtonService.openBusinessPartnerDialog();
     }
   }
  // open product dialog
@@ -398,19 +398,12 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     })
   }
 
-  // open warehouse Location dialog
-  // openLocationDialog() {
-  //   if (this.permission.isGranted(this.permissions. LOCATION_CREATE)) {
-  //     this.addButtonService.openLocationDialog();
-  //   }
-  // }
   canDeactivate(): boolean | Observable<boolean> {
     return !this.requisitionForm.dirty;
   }
 
   checkEmployee() {
-    console.log("called")
-    if(this.requisitionForm.value.employeeId === '') {
+    if(this.requisitionForm.value.employeeId === null) {
       this.toastService.info("Please Select Employee!", "Requisition")
     }
   }
