@@ -35,7 +35,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   // for getting employee
   employee = {} as any;
   // for getting payroll item
-  payrollItems = [] as IPayrollItem[]
+  payrollItems : any = []
   // app const for month
   months = AppConst.Months
   // for permissions
@@ -120,10 +120,10 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   columnDef = [
-    {headerName: 'Payroll Item', field: 'name'},
-    {headerName: 'Account', field: 'accountName'},
+    {headerName: 'Payroll Item', field: 'payrollItem'},
+    {headerName: 'Account', field: 'account'},
     {
-      headerName: 'Amount', field: 'value', valueFormatter: (params) => {
+      headerName: 'Amount', field: 'amount', valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
     }
@@ -217,7 +217,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       basicPay: employee.basicSalary,
       increment: employee.netIncrement,
     })
-    this.payrollItems = employee.payrollTransactionLines;
+    this.payrollItems = employee?.payrollTransactionLines;
     this.calculateSalary(employee);
     this.cdRef.detectChanges();
   }
