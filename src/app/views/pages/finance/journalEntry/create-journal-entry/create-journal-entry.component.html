@@ -72,8 +72,9 @@
                               formControlName="businessPartnerId" matFormFieldClass="full-width"
                               errorMessage="Partner is required." [id]="'journal_partner_' + i"
                               [optionList]="ngxsService.businessPartners$"
+                              [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                               clickEventButtonName="Add New Business Partner"
-                              (clickEvent)="openBusinessPartnerDialog()">
+                              (clickEvent)="addButtonService.openBusinessPartnerDialog()">
                             </kt-simple-dropdown>
                           </div>
                         </mat-cell>
@@ -151,7 +152,6 @@
                             <!-- <kt-group-dropdown formControlName="locationId" placeholder="Select Location"
                              [optionList]="ngxsService.warehouses$"
                               clickEventButtonName="Add New Location"
-                              (clickEvent)="openLocationDialog()" 
                               [errorMessage]="'Location is Required'"
                               groupPropertyName="name" groupChildrenName="locations" propertyName="name"
                               matFormFieldClass="full-width" propertyValue="id">
@@ -183,7 +183,10 @@
                               [hintText]="'Optional'"
                               formControlName="warehouseId" 
                               matFormFieldClass="full-width"
-                              [optionList]="warehouseList">
+                              [optionList]="warehouseList"
+                              [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                              clickEventButtonName="Add New Store"
+                              (clickEvent)="addButtonService.openWarehouseDialog()">
                             </kt-simple-dropdown>
                           </div>
                         </mat-cell>

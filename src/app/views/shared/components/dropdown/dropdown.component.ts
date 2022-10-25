@@ -38,6 +38,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   @Input() hintText: string;
   @Input() errorMessage: string;
   @Input() clickEventButtonName: string;
+  @Input() buttonPermission: boolean;
   @Input() matFormFieldClass: any | [] | string;
   @Input() matSelectClass: any | [] | string;
   @Input() callBackFunction: (param: any) => any

@@ -10,6 +10,7 @@ import  {finalize, map } from 'rxjs/operators';
 import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { Router } from '@angular/router';
+import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 
 @Component({
@@ -66,6 +67,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     private fb: FormBuilder,  
     private cdRef: ChangeDetectorRef,
     private router: Router,
+    public addButtonService: AddModalButtonService,
     private profitLossService: ProfitLossService,
     public ngxsService:NgxsCustomService,
     injector: Injector,   

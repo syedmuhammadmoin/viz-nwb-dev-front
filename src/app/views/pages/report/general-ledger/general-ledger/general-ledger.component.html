@@ -52,11 +52,14 @@
                   placeholder="Select Location" propertyName="name" propertyValue="name"
                   searchPlaceholder="Search location..."></kt-simple-dropdown> -->
               <!-- </div>
-            </div> -->
+            </div> -->   
             <div class="col-lg-4 ">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Business Partner:</label>
                 <kt-simple-dropdown id="ledger_partner" [optionList]="ngxsService.businessPartners$"
+                 [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                  clickEventButtonName="Add New Business Partner"
+                  (clickEvent)="addButtonService.openBusinessPartnerDialog()"
                   formControlName="businessPartnerName" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Business Partner" propertyName="name" propertyValue="name" hintText="Optional">
                 </kt-simple-dropdown>
@@ -74,6 +77,9 @@
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Store:</label>
                 <kt-simple-dropdown id="ledger_store" [optionList]="ngxsService.warehouses$" hintText="Optional" isDisabledNone="true"
+                  [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                  clickEventButtonName="Add New Store"
+                  (clickEvent)="addButtonService.openWarehouseDialog()"
                   formControlName="warehouseName" matFormFieldClass="full-width" placeholder="Select Store"
                   propertyName="name" propertyValue="name"></kt-simple-dropdown>
               </div>

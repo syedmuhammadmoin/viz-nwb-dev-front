@@ -29,6 +29,7 @@
                     id="issuance_designation"
                     formControlName="designation" 
                     matFormFieldClass="full-width" 
+                    (click)="checkEmployee()"
                     placeholder="Designation"
                     readonly="true">
                   </kt-input-field>
@@ -42,6 +43,7 @@
                     id="issuance_department"
                     formControlName="department" 
                     matFormFieldClass="full-width" 
+                    (click)="checkEmployee()"
                     placeholder="Department"
                     readonly="true">
                   </kt-input-field>
@@ -56,6 +58,7 @@
                     placeholder="Select Campus" 
                     propertyValue="id" 
                     propertyName="name"
+                    (click)="checkEmployee()"
                     formControlName="campusId" 
                     (selectionChange)="onCampusSelected($event.value)"
                     matFormFieldClass="full-width"
@@ -97,6 +100,9 @@
                               [id]="'issuance_item_' + i"
                               formControlName="itemId"
                               (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
+                              [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
+                              clickEventButtonName="Add New Item"
+                              (clickEvent)="addButtonService.openProductDialog()"
                               [errorMessage]="'Item is required.'" 
                               placeholder="Select Item" matFormFieldClass="mobile-label full-width">
                               </kt-simple-dropdown>
@@ -158,7 +164,10 @@
                                 (click)="checkCampus()"
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width" 
-                                [optionList]="warehouseList">
+                                [optionList]="warehouseList"
+                                [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                                clickEventButtonName="Add New Store"
+                                (clickEvent)="addButtonService.openWarehouseDialog()">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>

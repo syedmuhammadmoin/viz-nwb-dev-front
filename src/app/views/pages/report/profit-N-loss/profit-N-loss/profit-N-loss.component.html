@@ -58,6 +58,9 @@
                 <label class="col-form-label">Business Partner:</label>
                 <kt-simple-dropdown id="profit_partner" formControlName="businessPartner" matFormFieldClass="full-width" hintText="Optional"
                   placeholder="Select Business Partner" [optionList]="ngxsService.businessPartners$" isDisabledNone="true"
+                  [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                  clickEventButtonName="Add New Business Partner"
+                  (clickEvent)="addButtonService.openBusinessPartnerDialog()"
                   propertyName="name" propertyValue="name">
                 </kt-simple-dropdown>
               </div>
@@ -75,6 +78,9 @@
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Store:</label>
                 <kt-simple-dropdown id="profit_store" formControlName="warehouse" matFormFieldClass="full-width" hintText="Optional"
+                  [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                  clickEventButtonName="Add New Store"
+                  (clickEvent)="addButtonService.openWarehouseDialog()"
                   placeholder="Select Store" [optionList]="ngxsService.warehouses$" isDisabledNone="true"
                   propertyName="name" propertyValue="name">
                 </kt-simple-dropdown>

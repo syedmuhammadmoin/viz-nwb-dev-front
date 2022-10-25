@@ -71,7 +71,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   // Validation messages..
   validationMessages = {
     vendorName: {
-      required: 'Vendor Name is required.',
+      required: 'Vendor is required.',
     },
     noteDate: {
       required: 'Note Date is required.',
@@ -391,21 +391,15 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   }
 
   // open business partner dialog
-  openBusinessPartnerDialog() {
-    if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBuinessPartnerDialog();
-    }
-  }
+  // openBusinessPartnerDialog() {
+  //   if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
+  //     this.addButtonService.openBusinessPartnerDialog();
+  //   }
+  // }
   // open product dialog
   openProductDialog() {
     if (this.permission.isGranted(this.permissions.PRODUCT_CREATE)) {
       this.addButtonService.openProductDialog();
-    }
-  }
-  // open warehouse Location dialog
-  openLocationDialog() {
-    if (this.permission.isGranted(this.permissions.LOCATION_CREATE)) {
-      this.addButtonService.openLocationDialog();
     }
   }
 

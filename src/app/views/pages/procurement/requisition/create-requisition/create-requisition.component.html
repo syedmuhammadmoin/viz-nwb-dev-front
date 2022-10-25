@@ -33,6 +33,7 @@
                   <kt-input-field 
                     id="requisition_designation"
                     formControlName="designation" 
+                    (click)="checkEmployee()"
                     matFormFieldClass="full-width" 
                     placeholder="Designation"
                     readonly="true">
@@ -47,6 +48,7 @@
                     id="requisition_department"
                     formControlName="department" 
                     matFormFieldClass="full-width" 
+                    (click)="checkEmployee()"
                     placeholder="Department"
                     readonly="true">
                   </kt-input-field>
@@ -61,9 +63,10 @@
                     formControlName="campusId"
                     propertyName="name"
                     propertyValue="id"
+                    (click)="checkEmployee()"
                     matFormFieldClass="full-width "
                     [optionList]="ngxsService.campuses$"
-                    placeholder="Select Campus">
+                    placeholder="Campus">
                   </kt-simple-dropdown>
                 </div>
               </div>
@@ -99,9 +102,10 @@
                               <kt-simple-dropdown propertyName="productName" propertyValue="id"
                               [id]="'requisition_item' + i"                               
                               [optionList]="ngxsService.products$"
-                              clickEventButtonName="Add New Item"
-                              (clickEvent)="openProductDialog()" 
                               [errorMessage]="'Item is required.'"
+                              [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
+                              clickEventButtonName="Add New Item"
+                              (clickEvent)="addButtonService.openProductDialog()"
                               formControlName="itemId"
                               placeholder="Select Item" matFormFieldClass="mobile-label full-width"
                               (selectionChange)="onItemSelected($event.value, i)">
@@ -119,7 +123,7 @@
                                 (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : requisitionForm.get('requisitionLines')['controls'][i].controls.description.errors?.required &&
                                                                     requisitionForm.get('requisitionLines')['controls'][i].controls.description.touched , 
-                                                        error : 'Description is required' }]">
+                                                        error : 'Description is required.' }]">
                               </kt-input-field>
                             </div>
                           </mat-cell>
@@ -135,10 +139,10 @@
                                 (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Quantity is required' },
+                                                        error : 'Quantity is required.' },
                                                       { condition : requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Minimum value is one' }]">
+                                                        error : 'Minimum value is one.' }]">
                               </kt-input-field>
                             </div>
                           </mat-cell>

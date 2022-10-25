@@ -147,12 +147,12 @@ export function getHighlightLanguages() {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    environment.isMockEnabled
-      ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
-        passThruUnknownUrl: true,
-        dataEncapsulation: false
-      })
-      : [],
+    // environment.isMockEnabled
+    //   ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
+    //     passThruUnknownUrl: true,
+    //     dataEncapsulation: false
+    //   })
+    //   : [],
     NgxPermissionsModule.forRoot(),
     NgxsModule.forRoot([
       BusinessPartnerState,

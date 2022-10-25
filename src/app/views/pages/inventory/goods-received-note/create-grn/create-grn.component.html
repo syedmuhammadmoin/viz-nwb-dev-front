@@ -20,6 +20,9 @@
                       formControlName="vendorName"
                       matFormFieldClass="full-width"
                       placeholder="Select Vendor"
+                      [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                      clickEventButtonName="Add New Vendor"
+                      (clickEvent)="addButtonService.openBusinessPartnerDialog()"
                       propertyName="name"
                       propertyValue="id">
                     </kt-simple-dropdown>
@@ -90,8 +93,9 @@
                                       formControlName="itemId"
                                       isDisabled="true"
                                       [optionList]="ngxsService.products$"
+                                      [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
                                       clickEventButtonName="Add New Item"
-                                      (clickEvent)="openProductDialog()"
+                                      (clickEvent)="addButtonService.openProductDialog()"
                                       propertyName="productName"
                                       propertyValue="id"
                                       matFormFieldClass="mobile-label full-width"
@@ -224,7 +228,6 @@
                                   matFormFieldClass="mobile-label full-width"
                                   [optionList]="ngxsService.warehouses$"
                                   clickEventButtonName="Add New Location"
-                                  (clickEvent)="openLocationDialog()" 
                                   groupPropertyName="name" groupChildrenName="locations" propertyName="name"
                                   propertyValue="id">
                                 </kt-group-dropdown> -->
@@ -254,7 +257,10 @@
                                       formControlName="warehouseId" 
                                       [errorMessage]="'Store is required.'"
                                       matFormFieldClass="full-width" 
-                                      [optionList]="warehouseList">
+                                      [optionList]="warehouseList"
+                                      [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                                      clickEventButtonName="Add New Store"
+                                      (clickEvent)="addButtonService.openWarehouseDialog()">
                                     </kt-simple-dropdown>
                               </div>
                             </mat-cell>

@@ -128,10 +128,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getCampusFromState()
-    //this.ngxsService.getLocationFromState()
-
-    // get warehouse location list from service
-    this.addButtonService.getLocationTypes();
   }
 
   // onChangeEvent to set debit or credit zero '0'
@@ -346,17 +342,12 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     this.journalEntryModel.isSubmit = (val === 0) ? false : true;
   }
   // open business partner dialog
-  openBusinessPartnerDialog() {
-    if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBuinessPartnerDialog();
-    }
-  }
-  // open warehouse location dialog
-  openLocationDialog() {
-    if (this.permission.isGranted(this.permissions.LOCATION_CREATE)) {
-      this.addButtonService.openLocationDialog();
-    }
-  }
+  // openBusinessPartnerDialog() {
+  //   if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
+  //     this.addButtonService.openBusinessPartnerDialog();
+  //   }
+  // }
+
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.journalEntryForm.dirty;

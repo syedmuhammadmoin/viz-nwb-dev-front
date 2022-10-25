@@ -98,26 +98,26 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    {
-      headerName: 'Sales Tax',
-      field: 'salesTaxInAmount',
-      cellStyle: { 'text-align': "right" }, 
-      tooltipField: 'status',
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
-    {
-      headerName: 'Income Tax',
-      field: 'incomeTaxInAmount',
-      tooltipField: 'status',
-      cellStyle: { 'text-align': "right" }, 
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
+    // {
+    //   headerName: 'Sales Tax',
+    //   field: 'salesTaxInAmount',
+    //   cellStyle: { 'text-align': "right" }, 
+    //   tooltipField: 'status',
+    //   suppressMenu: true,
+    //   valueFormatter: (params: ValueFormatterParams) => {
+    //     return this.valueFormatter(params.value)
+    //   }
+    // },
+    // {
+    //   headerName: 'Income Tax',
+    //   field: 'incomeTaxInAmount',
+    //   tooltipField: 'status',
+    //   cellStyle: { 'text-align': "right" }, 
+    //   suppressMenu: true,
+    //   valueFormatter: (params: ValueFormatterParams) => {
+    //     return this.valueFormatter(params.value)
+    //   }
+    // },
     {
       headerName: 'Net Payment', 
       field: 'netPayment',

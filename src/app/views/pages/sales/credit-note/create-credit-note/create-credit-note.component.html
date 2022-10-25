@@ -14,8 +14,9 @@
                     (blurEvent)="logValidationErrors(this.creditNoteForm, this.formErrors, this.validationMessages)"
                     propertyName="name" propertyValue="id" [errorMessage]="formErrors.customerName"
                     [optionList]="ngxsService.businessPartners$"
+                    [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                     clickEventButtonName="Add New Customer"
-                    (clickEvent)="openBusinessPartnerDialog()" 
+                    (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
                     placeholder="Select Customer">
                   </kt-simple-dropdown>
                 </div>
@@ -64,10 +65,11 @@
                               <kt-simple-dropdown propertyName="productName" propertyValue="id"
                                 matFormFieldClass="mobile-label full-width"
                                 [id]="'credit_note_item_' + i"
-                                [optionList]="ngxsService.products$"
-                                clickEventButtonName="Add New Item"
+                                [optionList]="ngxsService.products$"                              
                                 isDisabledNone="true"
-                                (clickEvent)="openProductDialog()" 
+                                [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
+                                clickEventButtonName="Add New Item"
+                                (clickEvent)="addButtonService.openProductDialog()"
                                 formControlName="itemId"
                                 placeholder="Select Item" [hintText]="'Optional'"
                                 (selectionChange)="onItemSelected($event.value, i)">
@@ -184,7 +186,6 @@
                               <!-- <kt-group-dropdown formControlName="locationId" placeholder="Select Location"
                               [optionList]="ngxsService.warehouses$"
                               clickEventButtonName="Add New Location"
-                              (clickEvent)="openLocationDialog()"  
                               [errorMessage]="'Location is Required'"
                                 groupPropertyName="name" matFormFieldClass="mobile-label full-width"
                                 groupChildrenName="locations" propertyName="name" propertyValue="id">
@@ -215,7 +216,10 @@
                                 (click)="checkCampus()"
                                 formControlName="warehouseId" 
                                 matFormFieldClass="full-width" 
-                                [optionList]="warehouseList">
+                                [optionList]="warehouseList"
+                                [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                                clickEventButtonName="Add New Store"
+                                (clickEvent)="addButtonService.openWarehouseDialog()">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>

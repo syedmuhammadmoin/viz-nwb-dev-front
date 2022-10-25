@@ -35,6 +35,7 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   @Input() max: number | any;
 
 
+  @Output() clickEvent = new EventEmitter<any>();
   @Output() blurEvent = new EventEmitter<any>();
   @Output() changeEvent = new EventEmitter<any>();
 
@@ -70,6 +71,10 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
 
   writeValue(obj: any): void {
     this.formControlDirective.valueAccessor.writeValue(obj);
+  }
+
+  emitClickEvent() {
+    this.clickEvent.emit();
   }
 
   onChange(event) {

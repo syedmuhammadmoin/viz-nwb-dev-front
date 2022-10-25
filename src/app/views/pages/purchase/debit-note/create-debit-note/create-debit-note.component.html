@@ -21,8 +21,9 @@
                         propertyValue="id" 
                         [errorMessage]="formErrors.vendorName"
                         [optionList]="ngxsService.businessPartners$"
+                        [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                         clickEventButtonName="Add New Vendor"
-                        (clickEvent)="openBusinessPartnerDialog()" 
+                        (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
                         placeholder="Select Vendor">
                       </kt-simple-dropdown>
                   </div>
@@ -79,8 +80,9 @@
                                       matFormFieldClass="mobile-label full-width"
                                       [optionList]="ngxsService.products$"
                                       isDisabledNone="true"
+                                      [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
                                       clickEventButtonName="Add New Item"
-                                      (clickEvent)="openProductDialog()" 
+                                      (clickEvent)="addButtonService.openProductDialog()"
                                       propertyName="productName" 
                                       propertyValue="id" 
                                       [hintText]="'Optional'"
@@ -101,7 +103,7 @@
                                       (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : debitNoteForm.get('debitNoteLines')['controls'][i].controls.description.errors?.required &&
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.description.touched , 
-                                                        error : 'Description is required' }]">
+                                                        error : 'Description is required.' }]">
                                     </kt-input-field>
                                   </div>
                                 </mat-cell>
@@ -139,10 +141,10 @@
                                       (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : debitNoteForm.get('debitNoteLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Quantity is required' },
+                                                        error : 'Quantity is required.' },
                                                       { condition : debitNoteForm.get('debitNoteLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Minimum value is one' }]"
+                                                        error : 'Minimum value is one.' }]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>
@@ -164,10 +166,10 @@
                                       (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : debitNoteForm.get('debitNoteLines')['controls'][i].controls.cost.errors?.required &&
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.cost.touched , 
-                                                        error : 'Cost is required'},
+                                                        error : 'Cost is required.'},
                                                         { condition : debitNoteForm.get('debitNoteLines')['controls'][i].controls.cost.errors?.min &&
                                                                       debitNoteForm.get('debitNoteLines')['controls'][i].controls.cost.touched , 
-                                                          error : 'Cost cannot be zero' }]"
+                                                          error : 'Cost cannot be zero.' }]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>
@@ -192,7 +194,7 @@
                                       [errorMessage]="[{ condition : (debitNoteForm.get('debitNoteLines')['controls'][i].controls.tax.errors?.min ||
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     debitNoteForm.get('debitNoteLines')['controls'][i].controls.tax.touched , 
-                                                        error : 'Percentage % range (0 - 100)'}]"
+                                                        error : 'Percentage % range (0 - 100).'}]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>
@@ -223,7 +225,6 @@
                                       placeholder="Select Location"
                                       [optionList]="ngxsService.warehouses$"
                                       clickEventButtonName="Add New Location"
-                                      (clickEvent)="openLocationDialog()" 
                                       [errorMessage]="'Location is Required'" 
                                       groupPropertyName="name" 
                                       matFormFieldClass="mobile-label full-width"
@@ -257,7 +258,10 @@
                                       isDisabledNone="true"
                                       formControlName="warehouseId" 
                                       matFormFieldClass="full-width" 
-                                      [optionList]="warehouseList">
+                                      [optionList]="warehouseList"
+                                      [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                                      clickEventButtonName="Add New Store"
+                                      (clickEvent)="addButtonService.openWarehouseDialog()">
                                     </kt-simple-dropdown>
                                   </div>
                                 </mat-cell>

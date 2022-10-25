@@ -57,7 +57,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
           suppressAndOrCondition: true,
         },
     },
-    { headerName: 'Vendor Name', 
+    { headerName: 'Vendor', 
       field: 'vendorName', 
       tooltipField: 'status',
       filter: 'agTextColumnFilter',

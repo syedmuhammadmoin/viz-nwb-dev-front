@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { AgGridModule } from 'ag-grid-angular';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
@@ -10,8 +9,6 @@ import { PrintPurchaseOrderComponent } from './print-purchase-order/print-purcha
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { PurchaseOrderRoutingModule } from './purchase-order-routing.module';
 import { CreatePurchaseOrderComponent } from './create-purchase-order/create-purchase-order.component';
-import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 @NgModule({
   declarations: [
@@ -27,10 +24,6 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
     SharedModule,
     PurchaseOrderRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [
-    CustomRemarksComponent,
-    CustomUploadFileComponent
   ]
 })
 export class PurchaseOrderModule { }

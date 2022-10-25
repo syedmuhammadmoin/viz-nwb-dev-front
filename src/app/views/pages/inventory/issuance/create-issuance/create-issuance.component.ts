@@ -111,11 +111,11 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
     // Creating Forms
     this.issuanceForm = this.fb.group({
-      employeeId: ['', [Validators.required]],
+      employeeId: [null, [Validators.required]],
       designation: [''],
       department: [''],
       issuanceDate: ['', [Validators.required]],
-      campusId: [{value: '', disabled: true}],
+      campusId: [{value: null, disabled: true}],
       issuanceLines: this.fb.array([
         this.addIssuanceLines()
       ])
@@ -170,6 +170,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     // issuanceLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
+    this.warehouseList.next([])
     this.table.renderRows();
   }
 
@@ -376,9 +377,15 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     } 
   }
 
+  checkEmployee() {
+    if(this.issuanceForm.value.employeeId === null) {
+      this.toastService.info("Please Select Employee!", "Issuance")
+    }
+  }
+
   checkCampus() {
     this.showMessage = true;
-    if(this.issuanceForm.getRawValue().campusId === '') {
+    if(this.issuanceForm.getRawValue().campusId === null) {
       this.toastService.info("Please Select Campus First!", "Issuance")
     }
   }

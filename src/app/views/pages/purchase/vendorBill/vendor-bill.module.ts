@@ -11,9 +11,6 @@ import { AgingReportComponent } from './aging-report/aging-report.component';
 import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/register-payment.component';
 import { VendorBillRoutingModule } from './vendor-bill-routing.module';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
-
 
 
 
@@ -33,10 +30,6 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
 
-  entryComponents: [
-    RegisterPaymentComponent,
-    CustomRemarksComponent,
-    CustomUploadFileComponent
-  ]
+  entryComponents: [RegisterPaymentComponent]
 })
 export class VendorBillModule { }

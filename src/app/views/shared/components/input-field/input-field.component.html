@@ -3,6 +3,7 @@
          (blur)="blur()"
          (change)="onChange($event)"
          (keyup)="onChange($event)"
+         (click)="emitClickEvent()"
          [formControl]="control"
          [min]="min"
          [placeholder]="placeholder"

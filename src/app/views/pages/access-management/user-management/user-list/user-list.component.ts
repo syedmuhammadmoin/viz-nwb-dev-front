@@ -33,7 +33,7 @@ export class UserListComponent extends AppComponentBase implements OnInit {
     },
     { 
       headerName: 'User Name', 
-      field: 'userName', 
+      field: 'name', 
       tooltipField: 'email',
       menuTabs: ['filterMenuTab'],
       filter: 'agTextColumnFilter',

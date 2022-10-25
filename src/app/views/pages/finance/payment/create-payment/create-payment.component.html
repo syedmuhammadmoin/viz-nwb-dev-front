@@ -83,6 +83,9 @@
                           matFormFieldClass="full-width"
                           (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
                           [errorMessage]="formErrors.bankAccount"
+                          [buttonPermission]="permission.isGranted(this.permissions.BANKACCOUNT_CREATE)"
+                          clickEventButtonName="Add New Bank Account"
+                          (clickEvent)="addButtonService.openBankAccountDialog()"
                           [optionList]="(bankAccountList) ? bankAccountList : paymentMaster.paymentRegister?.name">
                         </kt-simple-dropdown>
                     </div>
@@ -100,8 +103,9 @@
                           matFormFieldClass="full-width"
                           [errorMessage]="formErrors.businessPartner"
                           [optionList]="ngxsService.businessPartners$"
+                          [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                           clickEventButtonName="Add New Business Partner"
-                          (clickEvent)="openBusinessPartnerDialog()" 
+                          (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
                           placeholder="Select Business Partner">
                         </kt-simple-dropdown>
                     </div>

@@ -16,12 +16,10 @@ export class PayrollTransactionService extends AppServiceBase {
 
   baseUrl = AppConst.remoteServiceBaseUrl + 'payrollTransaction';
 
-  private header = new HttpHeaders().set("key", AppConst.apiKey)
-
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getPayrollTransactions(): Observable<IPaginationResponse<IPayrollTransaction[]>> {
-        return this.httpClient.get<IPaginationResponse<IPayrollTransaction[]>>(this.baseUrl, {headers: this.header})
+        return this.httpClient.get<IPaginationResponse<IPayrollTransaction[]>>(this.baseUrl)
     }
 
     getPayrollTransactionById(id: number): Observable<IApiResponse<IPayrollTransaction>> {
@@ -47,7 +45,7 @@ export class PayrollTransactionService extends AppServiceBase {
     }
 
     getRecords(params: any): Observable<any> {
-        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null), headers: this.header});
+        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null)});
     }
 
     workflow(workflow: IWorkflow): Observable<any> {

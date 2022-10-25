@@ -28,6 +28,9 @@
                         propertyValue="id"
                         matFormFieldClass="full-width"
                         [optionList]="ngxsService.bankAccounts$" 
+                        [buttonPermission]="permission.isGranted(this.permissions.BANKACCOUNT_CREATE)"
+                        clickEventButtonName="Add New Bank Account"
+                        (clickEvent)="addButtonService.openBankAccountDialog()"
                         placeholder="Select Bank Account">
                       </kt-simple-dropdown>
                   </div>
@@ -115,7 +118,7 @@
                                     formControlName="stmtDate"
                                     matFormFieldClass="full-width"
                                     [maxDate]="maxDate"
-                                    placeholder="Statement Date"
+                                    placeholder="Select Date"
                                     (blur)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="element.controls.stmtDate.errors?.required &&
                                                     element.controls.stmtDate.touched ? 'Date is required.' : false ">
@@ -178,7 +181,7 @@
                                     (change)="onChangeEvent($event , i); calculateRunningTotal()"
                                     (blurEvent)="logValidationErrors(this.bankStatementForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : (element.controls.credit.errors?.required && element.controls.credit.touched),
-                                                             error : 'Debit is required.' },
+                                                             error : 'Credit is required.' },
                                                      { condition : (element.controls.credit.errors?.min && element.controls.credit.touched),
                                                              error : 'Minimun value is 0.' }]">
                                     </kt-input-field>

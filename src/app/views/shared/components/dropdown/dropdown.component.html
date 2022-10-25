@@ -28,7 +28,7 @@
               style="font-size: 12px !important;">-{{option[secondaryPropertyName]}}</span>
       </mat-option>
     </ng-container>
-    <mat-option *ngIf="clickEvent && clickEventButtonName" style="padding: 0px"><button mat-flat-button style="width: 100%"
+    <mat-option *ngIf="clickEvent && clickEventButtonName && buttonPermission" style="padding: 0px"><button mat-flat-button style="width: 100%"
                                                                                         (click)="emitClickEvent()"
                                                                                         class="btn btn-light">{{ clickEventButtonName || 'clickEventButtonName' }}</button></mat-option>
   </mat-select>
