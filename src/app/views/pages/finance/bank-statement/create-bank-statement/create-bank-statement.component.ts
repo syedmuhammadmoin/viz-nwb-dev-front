@@ -1,5 +1,5 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component,  Injector, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component,  ElementRef,  Injector, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IBankStatement } from '../model/IBankStatement';
@@ -55,6 +55,9 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  //for reset previous files
+  @ViewChild('uploadFileInput') uploadFileInput: ElementRef;
 
   //show Buttons
   showButtons: boolean = true; 
@@ -302,7 +305,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     // const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
     // bankStatementArray.clear();
     this.formDirective.resetForm();
-   // this.addBankStatementLineClick()
+    this.addBankStatementLineClick()
+    this.uploadFileInput.nativeElement.value = '';
     this.body.files = null;
     this.fileName = '';
     this.showFileName = false;

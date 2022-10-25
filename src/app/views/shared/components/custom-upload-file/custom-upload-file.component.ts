@@ -1,11 +1,10 @@
-import { Component, OnInit, Optional, Inject, Injector } from '@angular/core';
+import { Component, OnInit, Optional, Inject, Injector, ViewChild, ElementRef } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { environment } from 'src/environments/environment';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { AppComponentBase } from '../../app-component-base';
 import { AppConst } from '../../AppConst';
 import { FileSizePipe } from '../../pipes/non-negative/file-size/file-size.pipe';
-import { InvoiceDetailsComponent } from 'src/app/views/pages/sales/invoice/invoice-details/invoice-details.component';
 
 
 @Component({
@@ -27,6 +26,9 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
   //for Loading
   isLoading: boolean;
   private httpWithoutInterceptor: HttpClient;
+
+   //for reset previous files
+   @ViewChild('uploadFileInput') uploadFileInput: ElementRef;
 
   constructor(
     public dialog: MatDialog,
@@ -100,6 +102,7 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
   // }
 
   reset() {
+    this.uploadFileInput.nativeElement.value = '';
     this.file = null
     this.fileError = null
   }
