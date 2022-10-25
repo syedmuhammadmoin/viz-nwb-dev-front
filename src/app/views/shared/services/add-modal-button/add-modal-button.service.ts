@@ -1,5 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { CreateBankAccountComponent } from 'src/app/views/pages/finance/bank-account/create-bank-account/create-bank-account.component';
 import { CreateBusinessPartnerComponent } from 'src/app/views/pages/profiling/business-partner/create-business-partner/create-business-partner.component';
 import { CreateCategoryComponent } from 'src/app/views/pages/profiling/category/create-category/create-category.component';
 import { CreateProductComponent } from 'src/app/views/pages/profiling/product/create-product/create-product.component';
@@ -47,6 +48,13 @@ export class AddModalButtonService {
    openUnitOfMeasurementDialog() {
     this.dialog.open(CreateUnitOfMeasurementComponent, {
       width: '500px',
+    });
+   }
+
+   //Create Bank Account
+   openBankAccountDialog() {
+    this.dialog.open(CreateBankAccountComponent, {
+      width: '800px',
     });
    }
 }

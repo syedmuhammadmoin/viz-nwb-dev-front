@@ -28,6 +28,9 @@
                         propertyValue="id"
                         matFormFieldClass="full-width"
                         [optionList]="ngxsService.bankAccounts$" 
+                        [buttonPermission]="permission.isGranted(this.permissions.BANKACCOUNT_CREATE)"
+                        clickEventButtonName="Add New Bank Account"
+                        (clickEvent)="addButtonService.openBankAccountDialog()"
                         placeholder="Select Bank Account">
                       </kt-simple-dropdown>
                   </div>

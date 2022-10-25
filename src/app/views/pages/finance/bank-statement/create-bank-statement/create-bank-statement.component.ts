@@ -13,6 +13,7 @@ import { BANK_STATEMENT } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 @Component({
   selector: 'kt-create-bank-statement',
@@ -91,6 +92,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     private router: Router,
     private cdRef: ChangeDetectorRef,
     public activatedRoute: ActivatedRoute,
+    public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,   
     injector: Injector) {
     super(injector)

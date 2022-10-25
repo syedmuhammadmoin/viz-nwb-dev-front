@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { AgGridFooterHelperService } from 'src/app/views/shared/helpers/ag-grid-footer-helper';
+import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 @Component({
   selector: 'kt-list-bank-reconciliation',
@@ -112,6 +113,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     public bankReconService: BankReconciliationService,
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
+    public addButtonService: AddModalButtonService,
     private footerHelper: AgGridFooterHelperService
   ) {
     super(injector);

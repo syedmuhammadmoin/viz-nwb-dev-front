@@ -62,6 +62,7 @@ import { CreateBusinessPartnerComponent } from '../../pages/profiling/business-p
 import { CreateWarehouseComponent } from '../../pages/profiling/warehouse/create-warehouse/create-warehouse.component';
 import { CreateProductComponent } from '../../pages/profiling/product/create-product/create-product.component';
 import { CreateCategoryComponent } from '../../pages/profiling/category/create-category/create-category.component';
+import { CreateBankAccountComponent } from '../../pages/finance/bank-account/create-bank-account/create-bank-account.component';
 
 
 // @ts-ignore
@@ -206,7 +207,8 @@ import { CreateCategoryComponent } from '../../pages/profiling/category/create-c
     CreateBusinessPartnerComponent,
     CreateWarehouseComponent,
     CreateProductComponent,
-    CreateCategoryComponent
+    CreateCategoryComponent,
+    CreateBankAccountComponent
   ],
 })
 export class SharedModule { }

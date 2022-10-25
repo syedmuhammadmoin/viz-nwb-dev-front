@@ -21,7 +21,11 @@
                       <kt-simple-dropdown placeholder="Select Bank"
                         formControlName="bankName" id="reconciliation_bankName"
                         (blurEvent)="logValidationErrors(this.reconForm, this.formErrors, this.validationMessages)"
-                        propertyValue="id" propertyName="accountTitle" matFormFieldClass="full-width" [errorMessage]="formErrors.bankName"
+                        propertyValue="id" propertyName="accountTitle" matFormFieldClass="full-width" 
+                        [buttonPermission]="permission.isGranted(this.permissions.BANKACCOUNT_CREATE)"
+                        clickEventButtonName="Add New Bank Account"
+                        (clickEvent)="addButtonService.openBankAccountDialog()"
+                        [errorMessage]="formErrors.bankName"
                         [optionList]="ngxsService.bankAccounts$"></kt-simple-dropdown>
                     </div>
                   </div>
