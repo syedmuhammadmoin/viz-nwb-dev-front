@@ -8,8 +8,6 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { RequisitionRoutingModule } from './requisition-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 
 
 @NgModule({
@@ -24,10 +22,6 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
     PartialsModule,
     RequisitionRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [
-    CustomRemarksComponent,
-    //CustomUploadFileComponent
   ]
 })
 export class RequisitionModule { }

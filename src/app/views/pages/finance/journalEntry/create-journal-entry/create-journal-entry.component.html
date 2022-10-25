@@ -183,7 +183,10 @@
                               [hintText]="'Optional'"
                               formControlName="warehouseId" 
                               matFormFieldClass="full-width"
-                              [optionList]="warehouseList">
+                              [optionList]="warehouseList"
+                              [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                              clickEventButtonName="Add New Store"
+                              (clickEvent)="addButtonService.openWarehouseDialog()">
                             </kt-simple-dropdown>
                           </div>
                         </mat-cell>

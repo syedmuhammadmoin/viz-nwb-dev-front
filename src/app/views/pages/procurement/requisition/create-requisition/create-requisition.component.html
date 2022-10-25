@@ -102,9 +102,10 @@
                               <kt-simple-dropdown propertyName="productName" propertyValue="id"
                               [id]="'requisition_item' + i"                               
                               [optionList]="ngxsService.products$"
-                              clickEventButtonName="Add New Item"
-                              (clickEvent)="openProductDialog()" 
                               [errorMessage]="'Item is required.'"
+                              [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
+                              clickEventButtonName="Add New Item"
+                              (clickEvent)="addButtonService.openProductDialog()"
                               formControlName="itemId"
                               placeholder="Select Item" matFormFieldClass="mobile-label full-width"
                               (selectionChange)="onItemSelected($event.value, i)">

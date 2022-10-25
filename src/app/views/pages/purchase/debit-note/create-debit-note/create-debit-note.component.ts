@@ -391,11 +391,11 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   }
 
   // open business partner dialog
-  openBusinessPartnerDialog() {
-    if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-      this.addButtonService.openBusinessPartnerDialog();
-    }
-  }
+  // openBusinessPartnerDialog() {
+  //   if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
+  //     this.addButtonService.openBusinessPartnerDialog();
+  //   }
+  // }
   // open product dialog
   openProductDialog() {
     if (this.permission.isGranted(this.permissions.PRODUCT_CREATE)) {

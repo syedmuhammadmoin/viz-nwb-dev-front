@@ -57,6 +57,11 @@ import { FileSizePipe } from '../pipes/non-negative/file-size/file-size.pipe';
 import { ShowRemarksComponent } from '../components/show-remarks/show-remarks.component';
 import { CustomUploadFileComponent } from '../components/custom-upload-file/custom-upload-file.component';
 import { CustomRemarksComponent } from '../components/custom-remarks/custom-remarks.component';
+import { CreateUnitOfMeasurementComponent } from '../../pages/profiling/unit-of-measurement/create-unit-of-measurement/create-unit-of-measurement.component';
+import { CreateBusinessPartnerComponent } from '../../pages/profiling/business-partner/create-business-partner/create-business-partner.component';
+import { CreateWarehouseComponent } from '../../pages/profiling/warehouse/create-warehouse/create-warehouse.component';
+import { CreateProductComponent } from '../../pages/profiling/product/create-product/create-product.component';
+import { CreateCategoryComponent } from '../../pages/profiling/category/create-category/create-category.component';
 
 
 // @ts-ignore
@@ -193,7 +198,15 @@ import { CustomRemarksComponent } from '../components/custom-remarks/custom-rema
     SweetAlertService,
     DatePipe
   ],
-  entryComponents: [ConfirmationDialogComponent],
+  entryComponents: [
+    ConfirmationDialogComponent , 
+    CreateUnitOfMeasurementComponent,
+    CustomRemarksComponent,
+    CustomUploadFileComponent,
+    CreateBusinessPartnerComponent,
+    CreateWarehouseComponent,
+    CreateProductComponent,
+    CreateCategoryComponent
+  ],
 })
-export class SharedModule {
-}
+export class SharedModule { }

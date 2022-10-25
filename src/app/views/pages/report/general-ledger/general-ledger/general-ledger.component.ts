@@ -13,6 +13,7 @@ import { isEmpty} from 'lodash';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Router } from '@angular/router';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
+import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 
 function sumFunc(params) {
@@ -68,6 +69,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     private fb: FormBuilder,   
     private generalLedgerService: GeneralLedgerService,
     private cdRef: ChangeDetectorRef,   
+    public addButtonService: AddModalButtonService,
     private router: Router,
     public ngxsService: NgxsCustomService,
     private injector: Injector

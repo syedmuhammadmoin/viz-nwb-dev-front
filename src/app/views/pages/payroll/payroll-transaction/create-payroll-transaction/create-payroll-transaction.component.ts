@@ -215,7 +215,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       designation: employee.designation,
       department: employee.department,
       basicPay: employee.basicSalary,
-      increment: employee.increment,
+      increment: employee.netIncrement,
     })
     this.payrollItems = employee.payrollTransactionLines;
     this.calculateSalary(employee);

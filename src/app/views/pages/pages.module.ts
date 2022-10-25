@@ -16,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CreateBusinessPartnerComponent } from './profiling/business-partner/create-business-partner/create-business-partner.component';
 import { CreateLocationComponent } from './profiling/location/create-location/create-location.component';
 import { CreateProductComponent } from './profiling/product/create-product/create-product.component';
+import { CreateUnitOfMeasurementComponent } from './profiling/unit-of-measurement/create-unit-of-measurement/create-unit-of-measurement.component';
 
 
 @NgModule({
@@ -32,14 +33,6 @@ import { CreateProductComponent } from './profiling/product/create-product/creat
   ],
   
     providers:[],
-    entryComponents:[
-      CreateCategoryComponent,
-      CreateOrganizationComponent,
-      CreateWarehouseComponent,
-      CreateBusinessPartnerComponent,
-       CreateLocationComponent, 
-       CreateProductComponent
-    ]
 })
 
 export class PagesModule { }

@@ -21,8 +21,9 @@
                         propertyValue="id" 
                         [errorMessage]="formErrors.vendorName"
                         [optionList]="ngxsService.businessPartners$"
+                        [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                         clickEventButtonName="Add New Vendor"
-                        (clickEvent)="openBusinessPartnerDialog()" 
+                        (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
                         placeholder="Select Vendor">
                       </kt-simple-dropdown>
                   </div>
@@ -79,8 +80,9 @@
                                       matFormFieldClass="mobile-label full-width"
                                       [optionList]="ngxsService.products$"
                                       isDisabledNone="true"
+                                      [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
                                       clickEventButtonName="Add New Item"
-                                      (clickEvent)="openProductDialog()" 
+                                      (clickEvent)="addButtonService.openProductDialog()"
                                       propertyName="productName" 
                                       propertyValue="id" 
                                       [hintText]="'Optional'"
@@ -256,7 +258,10 @@
                                       isDisabledNone="true"
                                       formControlName="warehouseId" 
                                       matFormFieldClass="full-width" 
-                                      [optionList]="warehouseList">
+                                      [optionList]="warehouseList"
+                                      [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                                      clickEventButtonName="Add New Store"
+                                      (clickEvent)="addButtonService.openWarehouseDialog()">
                                     </kt-simple-dropdown>
                                   </div>
                                 </mat-cell>

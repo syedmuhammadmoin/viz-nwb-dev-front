@@ -17,6 +17,8 @@ import { GOODS_RECEIVED_NOTE } from 'src/app/views/shared/AppRoutes';
 import { IGRNLines } from '../model/IGRNLines';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchaseOrder';
+import { Permissions } from 'src/app/views/shared/AppEnum';
+import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 @Component({
   selector: 'kt-create-grn',
@@ -26,6 +28,8 @@ import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchase
 })
 
 export class CreateGrnComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
+
+  public permissions = Permissions;
 
   // For Loading
   isLoading: boolean;
@@ -101,6 +105,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     private grnService: GrnService,
     private purchaseOrderService: PurchaseOrderService,
     public ngxsService: NgxsCustomService,
+    public addButtonService: AddModalButtonService,
     public businessPartnerService: BusinessPartnerService,
     public productService: ProductService,
     public categoryService: CategoryService,

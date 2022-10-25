@@ -69,7 +69,6 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   ngOnInit(): void {
-    console.log('buttonPermission : ' ,this.buttonPermission)
     if (this.optionList instanceof Observable) {
       this.isLoading = true;
       this.optionList.subscribe((res) => {

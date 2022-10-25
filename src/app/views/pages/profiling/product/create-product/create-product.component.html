@@ -41,8 +41,9 @@
                                     formControlName="category"
                                     (blurEvent)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)"
                                     [optionList]="ngxsService.categories$"
+                                    [buttonPermission]="permission.isGranted(this.permissions.CATEGORIES_CREATE)"
                                     clickEventButtonName="Add New Category"
-                                    (clickEvent)="openCategoryDialog()"
+                                    (clickEvent)="addButtonService.openCategoryDialog()"
                                     propertyValue="id"
                                     propertyName="name"
                                     [errorMessage]="formErrors.category">
@@ -160,6 +161,9 @@
                                     [optionList]="ngxsService.units$"
                                     (blurEvent)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)"                       
                                     [errorMessage]="formErrors.unit"
+                                    [buttonPermission]="permission.isGranted(this.permissions.UNIT_OF_MEASUREMENT_CREATE)"
+                                    clickEventButtonName="Add New Unit"
+                                    (clickEvent)="addButtonService.openUnitOfMeasurementDialog()"
                                     propertyValue="id"
                                     propertyName="name">
                                 </kt-simple-dropdown>

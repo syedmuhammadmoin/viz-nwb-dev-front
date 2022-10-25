@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CreateBusinessPartnerComponent } from 'src/app/views/pages/profiling/business-partner/create-business-partner/create-business-partner.component';
 import { CreateCategoryComponent } from 'src/app/views/pages/profiling/category/create-category/create-category.component';
 import { CreateProductComponent } from 'src/app/views/pages/profiling/product/create-product/create-product.component';
+import { CreateUnitOfMeasurementComponent } from 'src/app/views/pages/profiling/unit-of-measurement/create-unit-of-measurement/create-unit-of-measurement.component';
 import { CreateWarehouseComponent } from 'src/app/views/pages/profiling/warehouse/create-warehouse/create-warehouse.component';
 
 @Injectable({
@@ -17,28 +18,35 @@ export class AddModalButtonService {
    //Create Warehouse
    openWarehouseDialog() {
     this.dialog.open(CreateWarehouseComponent, {
-      width: '740px',
+      width: '800px',
     });
    }
   
    //Create Category
    openCategoryDialog() {
     this.dialog.open(CreateCategoryComponent, {
-      width: '740px',
+      width: '800px',
     })
    }
   
    //Create Business Partner
    openBusinessPartnerDialog() {
     this.dialog.open(CreateBusinessPartnerComponent, {
-      width: '740px',
+      width: '800px',
     });
    }
 
    //Create Product
    openProductDialog() {
     this.dialog.open(CreateProductComponent, {
-      width: '740px',
+      width: '800px',
+    });
+   }
+
+   //Create Unit of Measurement
+   openUnitOfMeasurementDialog() {
+    this.dialog.open(CreateUnitOfMeasurementComponent, {
+      width: '500px',
     });
    }
 }
