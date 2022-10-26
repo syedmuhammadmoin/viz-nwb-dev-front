@@ -50,10 +50,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   // Validation Messages
   validationMessages = {
     docDate: {
-      required: 'From Date is required'
+      required: 'Start Date is required.'
     },
     docDate2: {
-      required: 'To Date is required'
+      required: 'End Date is required.'
     }
   }
 

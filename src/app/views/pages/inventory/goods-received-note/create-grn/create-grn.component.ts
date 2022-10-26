@@ -79,17 +79,19 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // validation messages
   validationMessages = {
     vendorName: {
-      required: 'Vendor Name is required.'
+      required: 'Vendor is required.'
     },
     grnDate: {
-      required: 'Date is required.'
+      required: 'GRN Date is required.'
     },
     campusId: {
       required: 'Campus is required.'
+    },
+    contact : {
+      pattern: '(Insert only number).',
+      minlength: 'Minimun 10 digits.',
+      maxlength: 'Maximum 15 digits.'
     }
-    // 'contact' : {
-    //   'required': 'Due Date is required'
-    // },
   }
 
   // Error Keys
@@ -122,7 +124,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.grnForm = this.fb.group({
       vendorName: [{value: '', disabled: true}, [Validators.required]],
       grnDate: ['', [Validators.required]],
-      contact: [''],
+      contact: ['' ,[Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
       campusId: [null, [Validators.required]],
       GRNLines: this.fb.array([
         this.addGRNLines()

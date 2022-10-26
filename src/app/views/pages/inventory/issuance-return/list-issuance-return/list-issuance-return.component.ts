@@ -67,7 +67,7 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
         },
     },
     {
-      headerName: 'Return Date',
+      headerName: 'Issuance Return Date',
       field: 'issuanceReturnDate',
       tooltipField: 'status',
       filter: 'agDateColumnFilter',

@@ -55,7 +55,7 @@
                   <label class="col-form-label pt-0">Campus:</label>
                   <kt-simple-dropdown 
                     id="issuance_campus"
-                    placeholder="Select Campus" 
+                    placeholder="Campus" 
                     propertyValue="id" 
                     propertyName="name"
                     (click)="checkEmployee()"
@@ -119,7 +119,7 @@
                                 (blurEvent)="logValidationErrors(this.issuanceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : issuanceForm.get('issuanceLines')['controls'][i].controls.description.errors?.required &&
                                                                     issuanceForm.get('issuanceLines')['controls'][i].controls.description.touched , 
-                                                        error : 'Description is required' }]">
+                                                        error : 'Description is required.' }]">
                               </kt-input-field>
                             </div>
                           </mat-cell>
@@ -137,10 +137,10 @@
                                 (blurEvent)="logValidationErrors(this.issuanceForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Quantity is required' },
+                                                        error : 'Quantity is required.' },
                                                       { condition : issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.touched , 
-                                                        error : 'Minimum value is one' },
+                                                        error : 'Minimum value is one.' },
                                                         { condition : issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.errors?.max &&
                                                                     issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.touched , 
                                                         error : 'Can not exceed pending quantity.' }]">

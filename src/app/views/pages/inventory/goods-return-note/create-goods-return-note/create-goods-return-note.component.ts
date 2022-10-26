@@ -74,17 +74,19 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
   // validation messages
   validationMessages = {
     vendorName: {
-      required: 'Vendor Name is required.'
+      required: 'Vendor is required.'
     },
     goodsReturnNoteDate: {
-      required: 'Date is required.'
+      required: 'GRN Date is required.'
     },
     campusId: {
       required: 'Campus is required.'
+    },
+    contact : {
+      pattern: '(Insert only number).',
+      minlength: 'Minimun 10 digits.',
+      maxlength: 'Maximum 15 digits.'
     }
-    // 'contact' : {
-    //   'required': 'Due Date is required'
-    // },
   }
 
   // Error Keys
@@ -117,7 +119,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     this.goodsReturnNoteForm = this.fb.group({
       vendorName: [{value: '' , disabled: true}, [Validators.required]],
       goodsReturnNoteDate: ['', [Validators.required]],
-      contact: [''],
+      contact: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
       campusId: [{value: '' , disabled: true},, [Validators.required]],
       goodsReturnNoteLines: this.fb.array([
         this.addGoodsReturnNoteLines()

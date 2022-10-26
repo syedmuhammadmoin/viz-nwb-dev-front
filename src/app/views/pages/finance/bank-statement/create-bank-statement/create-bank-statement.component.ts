@@ -151,7 +151,9 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   editBankStatement(bankStatement: IBankStatement) {
     this.bankStatementForm.patchValue({ ...bankStatement });
     this.bankStatementForm.setControl('bankStmtLines', this.patchStatementLines(bankStatement.bankStmtLines))
+    this.openingBalance = bankStatement.openingBalance
     this.calculateRunningTotal(bankStatement.openingBalance);
+    //this.openingBalance = bankStatement.openingBalance;
 
     if(!this.showButtons) this.bankStatementForm.disable();
   }
@@ -317,6 +319,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   }
 
   calculateRunningTotal(openingBalance?: number) {
+    console.log(openingBalance)
     const arrayControl = this.bankStatementForm.get('bankStmtLines') as FormArray;
       this.openingBalance = this.openingBalance == null ? openingBalance : this.openingBalance;
       if (this.cumulativeBalances[0] !== this.openingBalance) {

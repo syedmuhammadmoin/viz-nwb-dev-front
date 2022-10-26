@@ -74,7 +74,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       required: 'Vendor is required.',
     },
     noteDate: {
-      required: 'Note Date is required.',
+      required: 'Debit Note Date is required.',
     },
     campusId: {
       required: 'Campus is required.',

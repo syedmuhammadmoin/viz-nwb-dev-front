@@ -47,7 +47,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
         },
     },
     {
-      headerName: 'Doc Type',
+      headerName: 'Document Type',
       field: 'docType',
       tooltipField: 'name',
       suppressMenu: true,

@@ -74,6 +74,8 @@
                       formControlName="contact"
                       hintText="Optional"
                       matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(this.issuanceReturnForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.contact , error : formErrors.contact }]"
                       placeholder="Enter Contact">
                     </kt-input-field>
                   </div>
@@ -139,7 +141,7 @@
                                       (blurEvent)="logValidationErrors(this.issuanceReturnForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.description.errors?.required &&
                                                                     issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.description.touched ,
-                                                        error : 'Description is required' }]">
+                                                        error : 'Description is required.' }]">
                                     </kt-input-field>
                               </div>
                             </mat-cell>
@@ -159,10 +161,10 @@
                                       (blurEvent)="logValidationErrors(this.issuanceReturnForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.touched ,
-                                                        error : 'Quantity is required' },
+                                                        error : 'Quantity is required.' },
                                                       { condition : issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.touched ,
-                                                        error : 'Minimum value is one' },
+                                                        error : 'Minimum value is one.' },
                                                       { condition : issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.errors?.max &&
                                                                     issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.touched ,
                                                         error : 'Can not exceed pending quantity.' }

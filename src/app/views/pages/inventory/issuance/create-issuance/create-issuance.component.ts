@@ -74,7 +74,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   // Validation messages..
   validationMessages = {
     employeeId: {
-      required: 'Employee Name is required.',
+      required: 'Employee is required.',
     },
     issuanceDate: {
       required: 'Issuance Date is required.',

@@ -80,10 +80,12 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     },
     campusId: {
       required: 'Campus is required.'
+    },
+    contact: {
+      pattern: '(Insert only number).',
+      minlength: 'Minimun 10 digits.',
+      maxlength: 'Maximum 15 digits.'
     }
-    // 'contact' : {
-    //   'required': 'Due Date is required'
-    // },
   }
 
   // Error Keys
@@ -114,7 +116,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       designation: [''],
       department: [''],
       issuanceReturnDate: ['', [Validators.required]],
-      contact: [''],
+      contact: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
       campusId: [{value: '', disabled: true}, [Validators.required]],
       issuanceReturnLines: this.fb.array([
         this.addIssuanceReturnLines()
