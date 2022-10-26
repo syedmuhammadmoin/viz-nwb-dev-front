@@ -67,7 +67,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       headerName: 'Sale Price', 
       field: 'salesPrice', 
       suppressMenu: true,
-      cellStyle: { 'text-align': "right" },
+      //cellStyle: { 'text-align': "right" },
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -76,7 +76,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Purchase Price', 
       field: 'purchasePrice', 
-      cellStyle: { 'text-align': "right" },
+      //cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
@@ -86,11 +86,11 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sales Tax (%)', 
       field: 'salesTax', 
-      cellStyle: { 'text-align': "right" },
+      //cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
+        return this.valueFormatter(params.value) + ' %'
       }
     }
   ];
