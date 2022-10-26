@@ -78,7 +78,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   // Validation messages..
   validationMessages = {
     customerName: {
-      required: 'Customer Name is required.',
+      required: 'Customer is required.',
     },
     // salesPerson: {
     //   required: 'sales Person is required.',

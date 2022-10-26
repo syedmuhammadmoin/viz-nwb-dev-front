@@ -46,6 +46,8 @@
                       formControlName="contact"
                       hintText="Optional"
                       matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
+                      [errorMessage]="[{ condition : formErrors.contact , error : formErrors.contact }]"
                       placeholder="Enter Contact">
                     </kt-input-field>
                   </div>
@@ -112,7 +114,7 @@
                                       (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.description.errors?.required &&
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.description.touched ,
-                                                        error : 'Description is required' }]">
+                                                        error : 'Description is required.' }]">
                                     </kt-input-field>
                               </div>
                             </mat-cell>
@@ -132,10 +134,10 @@
                                       (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.touched ,
-                                                        error : 'Quantity is required' },
+                                                        error : 'Quantity is required.' },
                                                       { condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.errors?.min &&
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.touched ,
-                                                        error : 'Minimum value is one' },
+                                                        error : 'Minimum value is one.' },
                                                       { condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.errors?.max &&
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.quantity.touched ,
                                                         error : 'Can not exceed pending quantity.' }
@@ -168,10 +170,10 @@
                                       (blurEvent)="logValidationErrors(this.goodsReturnNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.errors?.required &&
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.touched ,
-                                                        error : 'Cost is required'},
+                                                        error : 'Cost is required.'},
                                                         { condition : goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.errors?.min &&
                                                                       goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.cost.touched ,
-                                                          error : 'Cost cannot be zero' }]"
+                                                          error : 'Cost cannot be zero.' }]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>
@@ -195,7 +197,7 @@
                                       [errorMessage]="[{ condition : (goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.errors?.min ||
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.errors?.max) &&
                                                                     goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'][i].controls.tax.touched ,
-                                                        error : 'Percentage % range (0 - 100)'}]"
+                                                        error : 'Percentage % range (0 - 100).'}]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>

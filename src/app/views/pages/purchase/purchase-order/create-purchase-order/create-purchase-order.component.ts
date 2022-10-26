@@ -78,10 +78,10 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   // Validation Messages
   validationMessages = {
     vendorName: {
-      required: 'Name is required.'
+      required: 'Vendor is required.'
     },
     PODate: {
-      required: 'Order Date is required.'
+      required: 'Purchase Order Date is required.'
     },
     dueDate: {
       required: 'Due Date is required.'

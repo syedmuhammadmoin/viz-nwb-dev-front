@@ -70,7 +70,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
         },
     },
     {
-      headerName: 'Order Date',
+      headerName: 'Purchase Order Date',
       field: 'poDate',
       tooltipField: 'status',
       filter: 'agDateColumnFilter',

@@ -36,7 +36,7 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
   //Error Messages
   validationMessages = {
     status: {
-      required: 'Status is required.'
+      required: 'Status Name is required.'
     },
     state: {
       required: 'State is required.'
