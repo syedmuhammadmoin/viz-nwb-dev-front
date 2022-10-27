@@ -83,6 +83,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
       }
      },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
       headerName: 'Price', field: 'price', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
@@ -102,7 +103,6 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { 
       headerName: 'Store', 
       field: 'warehouseName', 

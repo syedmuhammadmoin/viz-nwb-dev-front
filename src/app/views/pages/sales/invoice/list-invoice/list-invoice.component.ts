@@ -84,7 +84,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       }
     },
     {
-      headerName: 'Due Data',
+      headerName: 'Due Date',
       field: 'dueDate',
       tooltipField: 'docNo',
       filter: 'agDateColumnFilter',
