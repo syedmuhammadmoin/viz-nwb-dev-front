@@ -216,6 +216,10 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
         take(1),
          finalize(() => {
           this.isLoading = false;
+          this.uploadFileInput.nativeElement.value = '';
+         this.body.files = null;
+         this.fileName = '';
+          this.showFileName = false;
           this.cdRef.detectChanges();
          })
        )
