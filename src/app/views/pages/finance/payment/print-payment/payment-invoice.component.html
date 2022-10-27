@@ -29,26 +29,48 @@
           <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one">
-                <h4>Payment No: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
-                <h4>Payment Date: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.paymentDate | date: 'MMM d, y'}}</span></h4>
+                <h4>Date: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.paymentDate | date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
             
           </div>
         </div>
-
         
         <div class="print_body_area p-s-2">
 
           <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
-            
+            <div class="print-box-one">
+              <h4>Bank Name: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4>Account Title: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4>Account Number: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4>NTN: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4>STRN: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4>Mobile No: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
             <div class="print-box">
               <h4>{{paymentMaster?.businessPartnerName}} </h4>
               <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+              <p>Address Address Address Address</p>
             </div>
           </div>
 
@@ -59,7 +81,7 @@
                   <tr>
                     <th>Account</th>
                     <th>Description</th>
-                    <th>Campus</th>
+                    <!-- <th>Campus</th> -->
                     <th>Gross Payment</th>
                     
                     
@@ -67,7 +89,7 @@
                   <tr>
                     <td>{{paymentMaster?.accountName}}</td>
                     <td  class="description text-left">{{paymentMaster?.description}}</td>
-                    <td> {{paymentMaster?.campusName}}</td>
+                    <!-- <td> {{paymentMaster?.campusName}}</td> -->
                     <td class="text-right"><b>{{paymentMaster?.grossPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
                   </tr>
                   
@@ -101,34 +123,11 @@
               </h4>
             </div>
           </div>
-
-
-          <div class="print-col-12 p-s-4">
-            
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-            
-          </div>
-
-          
-
           <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorised Sign</p>
           </div>
-          
         </div>
-
-
       </div>
     </div>
   </div>

@@ -31,17 +31,32 @@
 
               <div class="col-md-4 col-lg-4  mt-3">
                   <div class="print-box">
-                      <h4 class="print-box-detail-1">Payment ID: 
+                      <h4 class="print-box-detail-1">Document No: 
                           <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
                       <p style="margin-bottom: 0px;"></p>
                   </div>
-                      <div class="print-box">
-                      <h4 class="print-box-detail-2">Payment Date: 
+                  <div class="print-box">
+                      <h4 class="print-box-detail-2">Date: 
                           <span class="float-right" style="font-weight: 400;">{{paymentMaster?.paymentDate | date: 'MMM d, y'}}</span></h4>
+                  </div>
+                  <div class="print-box">
+                      <h4 class="print-box-detail-1">Bank Name: 
+                          <span class="float-right" style="font-weight: 400;">{{paymentMaster?.bankName || 'N/A'}}</span></h4>
+                      <p style="margin-bottom: 0px;"></p>
+                  </div>
+                  <div class="print-box">
+                      <h4 class="print-box-detail-1">Account Title: 
+                          <span class="float-right" style="font-weight: 400;">{{paymentMaster?.AccountTitle || 'N/A'}}</span></h4>
+                      <p style="margin-bottom: 0px;"></p>
+                  </div>
+                  <div class="print-box">
+                      <h4 class="print-box-detail-1">Account Number: 
+                          <span class="float-right" style="font-weight: 400;">{{paymentMaster?.AccountNo || 'N/A'}}</span></h4>
+                      <p style="margin-bottom: 0px;"></p>
                   </div>
                   <div class="print-box partner__box">
                       <h4>{{paymentMaster?.businessPartnerName}}</h4>
-                      <p class="mb-0">24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+                      <p class="mb-0">Address Address Address Address</p>
                   </div>
               </div>
               
@@ -50,14 +65,14 @@
                       <tr class="b-s-2-b-c">
                           <th class="">Account</th>
                           <th class="text-left">Description</th>
-                          <th class="">Campus</th>
+                          <!-- <th class="">Campus</th> -->
                           <th class="text-right" style="width: 15%;">Gross Payment</th>
                          
                       </tr>
                       <tr>
                           <td class="">{{paymentMaster?.accountName}}</td>
                           <td class="text-left">{{paymentMaster?.description}}</td>
-                          <td class="">{{paymentMaster?.campusName}}</td>
+                          <!-- <td class="">{{paymentMaster?.campusName}}</td> -->
                           <td class="text-right" >{{valueFormatter(paymentMaster?.grossPayment || 0)}}</td>
                       </tr>
                   </table>
