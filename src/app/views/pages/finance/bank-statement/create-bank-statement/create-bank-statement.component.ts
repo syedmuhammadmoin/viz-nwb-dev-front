@@ -211,6 +211,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     } else {
       delete this.bankStatementModel.id;
       //console.log(this.bankStatementModel)
+      this.uploadFileInput.nativeElement = '';
       this.bankStatementService.addBankStatement(this.body)
       .pipe(
         take(1),
