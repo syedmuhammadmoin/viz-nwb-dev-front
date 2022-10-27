@@ -65,7 +65,7 @@ input{
   background-color: $primary-color !important; /* For browsers that do not support gradients */
 	background-image: $bg-gradient-color;
  height: 90vh !important;
- max-height: 100vh; 
+ max-height: 100vh;
  position: relative;
 }
 .brand-dark .brand{
@@ -89,8 +89,8 @@ input{
 .app-default-btn
 {
   background-color: $primary-color;
-  background-image: $bg-gradient-color; 
-  color: $bg-white !important; 
+  background-image: $bg-gradient-color;
+  color: $bg-white !important;
   font-size: 14px;
   box-shadow: unset !important;
 }
@@ -140,7 +140,7 @@ kt-portlet-header
   color: $primary-color !important;
 }
 
-// dialogue body 
+// dialogue body
 .kt-portlet__body
 {
   padding: 10px;
@@ -156,7 +156,7 @@ kt-portlet-header
 }
 
 
-// ag grid 
+// ag grid
 .ag-watermark
 {
   display: none !important;
@@ -199,7 +199,7 @@ kt-portlet-header
   color: $primary-color !important;
 }
 
-.dialog-cross 
+.dialog-cross
 {
   cursor: pointer;
 }
@@ -329,7 +329,7 @@ kt-footer
 
 
 
-// 
+//
 .remove-icon {
   padding: 8px 10px;
   text-align: center;
@@ -398,7 +398,7 @@ kt-footer
 
 // table-responsive
 .table-responsive {
-  
+
   .mat-table {
       width: 100%;
       max-width: 100%;
@@ -407,7 +407,7 @@ kt-footer
       border-collapse: collapse;
       margin: 0px;
   }
-  
+
   .mat-cell,
   .mat-header-cell {
       text-align: center;
@@ -506,9 +506,9 @@ div.search_sticky
 }
 
 .ag-noData {
-  padding: 8px; 
-  border-radius: 5px; 
-  border: 1px solid #D3D3D3; 
+  padding: 8px;
+  border-radius: 5px;
+  border: 1px solid #D3D3D3;
   background: $bg-white
 }
 
@@ -899,7 +899,7 @@ margin-inline: auto;
 	background-position: center;
 	justify-content: right;
 	align-items: flex-end;
-	
+
 }
 
 .aside-minimize .deshboard-logo
@@ -1063,7 +1063,7 @@ color: $primary-color !important;
 .mat-radio-checked .mat-radio-outer-circle {
   background-color: $primary-color !important;
   background-image: linear-gradient(to right, $primary-color, $primary-color) !important;
-  border-color: $primary-color !important;      
+  border-color: $primary-color !important;
 }
 
 /* finance section style */
@@ -1175,7 +1175,7 @@ table , table a{
   font-weight: bold;
   font-family: Poppins, Helvetica, 'sans-serif';
   font-size: 13px !important;
-  font-weight: bold; 
+  font-weight: bold;
 }
 .paid-anount-flex-grow{
   color: $primary-color;
@@ -1183,7 +1183,7 @@ table , table a{
   font-weight: bold;
   font-family: Poppins, Helvetica, 'sans-serif';
   font-size: 13px !important;
-  font-weight: bold; 
+  font-weight: bold;
   flex-grow: 0;
 }
 
@@ -1574,7 +1574,7 @@ mat-tree-node div[id^='child']
 
 .form-left-div-bg
 {
-	
+
 	background-image: $login-cover-image;
 
 }
@@ -1591,7 +1591,7 @@ mat-tree-node div[id^='child']
 
 .heading__text
 {
-	
+
 	padding: 10px;
 	text-transform: uppercase;
 	// letter-spacing: 5px;
@@ -1601,7 +1601,7 @@ mat-tree-node div[id^='child']
 }
 
 .login-input-field:focus
-{ 
+{
   border-color: $primary-color;
 }
 
@@ -1634,3 +1634,5 @@ mat-tree-node div[id^='child']
 {
   color: rgb(0 0 0 / 45%) !important;
 }
+
+
