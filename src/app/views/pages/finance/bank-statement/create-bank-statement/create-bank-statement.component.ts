@@ -311,15 +311,19 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   // Form Reset
   reset() {
-    // const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
+    const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
     // bankStatementArray.clear();
     this.formDirective.resetForm();
-    this.addBankStatementLineClick()
-    this.uploadFileInput.nativeElement.value = '';
-    this.body.files = null;
-    this.fileName = '';
-    this.showFileName = false;
-    this.showLines = true;
+    if(bankStatementArray.length < 1) {
+      this.addBankStatementLineClick()
+    }
+    if(!this.isEdit) {
+      this.uploadFileInput.nativeElement.value = '';
+      this.body.files = null;
+      this.fileName = '';
+      this.showFileName = false;
+      this.showLines = true;
+    }
     this.table?.renderRows();
   }
 

@@ -121,17 +121,17 @@
 
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">Sales Tax:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.salesTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.salesTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">Income Tax:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.incomeTax.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.incomeTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">SRB Tax:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.srbTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.srbTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-two">
