@@ -110,7 +110,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Other Taxes/FET', field: 'anyOthertax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
-        return params.data.anyOtherTax;
+        return this.valueFormatter(params.data.anyOtherTax);
       }
     },
     {

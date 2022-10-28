@@ -46,9 +46,9 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
 
   paidAmountList: any = []
 
-  totalBeforeTax: number;
-  totalTax: number;
-  totalAmount: number;
+  // totalBeforeTax: number;
+  // totalTax: number;
+  // totalAmount: number;
   //Variables for Debit Note Data
   debitNoteMaster: any;
   debitNoteLines: any;
@@ -90,6 +90,12 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
         return params.data.tax + '%';
+      }
+    },
+    {
+      headerName: 'Other Taxes/FET', field: 'anyOthertax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      cellRenderer: (params: ICellRendererParams) => {
+        return this.valueFormatter(params.data.anyOtherTax);
       }
     },
     {
@@ -145,9 +151,9 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     .subscribe(res => {
       this.debitNoteMaster = res.result;
       this.debitNoteLines = res.result.debitNoteLines;
-      this.totalBeforeTax = this.debitNoteMaster.totalBeforeTax;
-      this.totalTax = this.debitNoteMaster.totalTax;
-      this.totalAmount = this.debitNoteMaster.totalAmount;
+      // this.totalBeforeTax = this.debitNoteMaster.totalBeforeTax;
+      // this.totalTax = this.debitNoteMaster.totalTax;
+      // this.totalAmount = this.debitNoteMaster.totalAmount;
       this.paidAmountList = this.debitNoteMaster.paidAmountList;
       this.remarksList = this.debitNoteMaster.remarksList ?? [] 
       //this.reconciledDocumentList = this.debitNoteMaster.reconciledDocuments == null ? [] : this.debitNoteMaster.reconciledDocuments;

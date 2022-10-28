@@ -201,6 +201,29 @@
                                   </div>
                                 </mat-cell>
                               </ng-container>
+                              <ng-container matColumnDef="anyOtherTax">
+                                <mat-header-cell *matHeaderCellDef class="flex-1"> Other Taxes/FED</mat-header-cell>
+                                <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                                  <div class="col-lg-12 col-sm-12 mt-2">
+                                    <kt-input-field
+                                      formControlName="anyOtherTax"
+                                      matFormFieldClass="mobile-label full-width"
+                                      placeholder="Enter Tax Value"
+                                      [id]="'debit_note_other_' + i"
+                                      #itemName
+                                      type="number"
+                                      defaultValue="0"
+                                      [hintText]="'Optional'"
+                                      (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
+                                      [errorMessage]="[{ condition : (debitNoteForm.get('debitNoteLines')['controls'][i].controls.anyOtherTax.errors?.min )
+                                                            && debitNoteForm.get('debitNoteLines')['controls'][i].controls.anyOtherTax.touched , 
+                                                        error : 'Tax must be in Positive.'}]"
+                                      (change)="onChangeEvent($event , i , itemName)"
+                                      (keyup)="onChangeEvent($event , i , itemName)">
+                                    </kt-input-field>
+                                  </div>
+                                </mat-cell>
+                              </ng-container>
     
                               <ng-container matColumnDef="subTotal">
                                 <mat-header-cell *matHeaderCellDef class="flex-1"> SubTotal </mat-header-cell>
@@ -318,6 +341,12 @@
                     <h4>Total Before Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
                   </div>
                   <div  class="bottom-print-box">
+                    <h4>Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(taxes || 0)}}</span></h4>
+                  </div>
+                  <div  class="bottom-print-box">
+                    <h4>Other Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(otherTaxes || 0)}}</span></h4>
+                  </div>
+                  <div  class="bottom-print-box">
                     <h4>Total Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
                   </div>
                   <div  class="bottom-print-box">
@@ -326,9 +355,6 @@
                 </div>
               </div>
             </div>
-
-  
-            
           </div>
         </div>
   

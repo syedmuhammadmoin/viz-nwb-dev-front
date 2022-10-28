@@ -82,17 +82,27 @@
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
                 <td class="text-right" >
-                  {{valueFormatter(totalBeforeTax || 0)}}</td>
+                  {{valueFormatter(debitNoteMaster?.totalBeforeTax || 0)}}</td>
+              </tr>
+              <tr>
+                <td class="text-left Total-Before-Tax-heading">Tax :</td>
+                <td class="text-right" >
+                  {{valueFormatter(debitNoteMaster?.tax || 0)}}</td>
+              </tr>
+              <tr>
+                <td class="text-left Total-Before-Tax-heading">Other Tax :</td>
+                <td class="text-right" >
+                  {{valueFormatter(debitNoteMaster?.otherTax || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Tax :</td>
                 <td class="text-right" >
-                  {{valueFormatter(totalTax || 0)}}</td>
+                  {{valueFormatter(debitNoteMaster?.totalTax || 0)}}</td>
               </tr>
               <tr class=".grand-total">
                 <th class="text-left">Grand Total :</th>
                 <th class="text-right" >
-                  {{valueFormatter(totalAmount || 0)}}</th>
+                  {{valueFormatter(debitNoteMaster?.totalAmount || 0)}}</th>
               </tr>
 
               <tr *ngIf="paidAmountList?.length > 0">

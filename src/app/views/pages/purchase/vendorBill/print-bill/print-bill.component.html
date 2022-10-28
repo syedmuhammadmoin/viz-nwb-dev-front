@@ -84,6 +84,7 @@
                     <th >Quantity</th>
                     <th >Cost</th>
                     <th >Tax %</th>
+                    <th >Other Taxes/FET</th>
                     <!-- <th >Store</th> -->
                     <th  class="text-right">SubTotal</th>
 
@@ -96,6 +97,7 @@
                     <td>{{detail?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td  >{{valueFormatter(detail?.cost)}}</td>
                     <td> {{detail?.tax + '%'}}</td>
+                    <td> {{detail?.anyOthertax}}</td>
                     <!-- <td> {{detail?.warehouseName}}</td> -->
                     <td class="text-right"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                   </tr>
