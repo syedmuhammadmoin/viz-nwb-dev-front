@@ -75,7 +75,7 @@
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td  >{{line?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td> {{line?.tax + '%'}}</td>
-                    <td> {{line?.anyOtherTax}}</td>
+                    <td> {{valueFormatter(line?.anyOtherTax) || 0}}</td>
                     <td class="text-right"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
                   </tr>
                   

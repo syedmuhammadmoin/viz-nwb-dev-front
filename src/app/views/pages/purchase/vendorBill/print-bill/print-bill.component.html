@@ -97,7 +97,7 @@
                     <td>{{detail?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td  >{{valueFormatter(detail?.cost)}}</td>
                     <td> {{detail?.tax + '%'}}</td>
-                    <td> {{detail?.anyOtherTax}}</td>
+                    <td> {{valueFormatter(detail?.anyOtherTax) || 0}}</td>
                     <!-- <td> {{detail?.warehouseName}}</td> -->
                     <td class="text-right"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                   </tr>
