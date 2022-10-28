@@ -1,9 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import { DebitNoteService} from "../service/debit-note.service";
 import { GridOptions} from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
 import { IDebitNoteLines } from '../model/IDebitNoteLines';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 @Component({
   selector: 'kt-print-debit-note',
@@ -12,7 +13,7 @@ import { IDebitNoteLines } from '../model/IDebitNoteLines';
   changeDetection : ChangeDetectionStrategy.OnPush
 })
 
-export class PrintDebitNoteComponent implements OnInit {
+export class PrintDebitNoteComponent extends AppComponentBase implements OnInit {
 
     gridOptions: GridOptions;
     debitNoteMaster: any;
@@ -25,8 +26,9 @@ export class PrintDebitNoteComponent implements OnInit {
     constructor( private debitNoteService: DebitNoteService,
                  private activatedRoute: ActivatedRoute,
                  private cdRef: ChangeDetectorRef,
-                 public  sanitizer: DomSanitizer
-               ) { }
+                 public  sanitizer: DomSanitizer,
+                 injector: Injector
+             ) { super(injector) }
   
     ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {

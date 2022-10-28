@@ -45,10 +45,10 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   }
 
   columnDefs = [
-    { 
-      headerName: 'Bill #', 
-      field: 'docNo', 
-      tooltipField: 'status', 
+    {
+      headerName: 'Bill #',
+      field: 'docNo',
+      tooltipField: 'status',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -57,8 +57,8 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
           suppressAndOrCondition: true,
         },
     },
-    { headerName: 'Vendor', 
-      field: 'vendorName', 
+    { headerName: 'Vendor',
+      field: 'vendorName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -96,18 +96,19 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
       },
     },
     {
-      headerName: 'Total', 
-      field: 'totalAmount', 
-      cellStyle: { 'text-align': "right" }, 
+      headerName: 'Total',
+      field: 'totalAmount',
+      headerClass: 'custom_left',
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'status',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -132,7 +133,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
- 
+
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
@@ -176,8 +177,8 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
         var dataSource = {
           getRows: (params: any) => {
             this.vendorBillService.getRecords(params).subscribe((data) => {
-              if(isEmpty(data.result)) {  
-                this.gridApi.showNoRowsOverlay() 
+              if(isEmpty(data.result)) {
+                this.gridApi.showNoRowsOverlay()
               } else {
                 this.gridApi.hideOverlay();
               }
@@ -205,8 +206,8 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   //   getRows: async (params: any) => {
   //    const res = await this.getBills(params);
 
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }

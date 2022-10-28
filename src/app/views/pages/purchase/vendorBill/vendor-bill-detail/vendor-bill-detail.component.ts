@@ -93,6 +93,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       }
      },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
       headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
@@ -101,7 +102,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       }
     },
     {
-      headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Tax %', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
         return params.data.tax + '%';
       }
@@ -109,7 +110,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Other Taxes/FET', field: 'anyOthertax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
-        return params.data.anyOtherTax;
+        return this.valueFormatter(params.data.anyOtherTax);
       }
     },
     {
@@ -118,7 +119,6 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { 
       headerName: 'Store', 
       field: 'warehouseName', 

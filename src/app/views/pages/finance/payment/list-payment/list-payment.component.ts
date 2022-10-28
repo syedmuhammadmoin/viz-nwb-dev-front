@@ -38,7 +38,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   showCreateButton: boolean = false;
-  
+
   //subscription
   subscription$: Subscription
 
@@ -61,10 +61,10 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
 
   //ag-Grid Columns
   columnDefs = [
-    { 
-      headerName: 'Doc #', 
+    {
+      headerName: 'Doc #',
       field: 'docNo',
-      tooltipField: 'status', 
+      tooltipField: 'status',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -73,8 +73,8 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Business Partner', 
+    {
+      headerName: 'Business Partner',
       field: 'businessPartnerName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
@@ -101,7 +101,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     // {
     //   headerName: 'Sales Tax',
     //   field: 'salesTaxInAmount',
-    //   cellStyle: { 'text-align': "right" }, 
+    //   cellStyle: { 'text-align': "right" },
     //   tooltipField: 'status',
     //   suppressMenu: true,
     //   valueFormatter: (params: ValueFormatterParams) => {
@@ -112,17 +112,18 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     //   headerName: 'Income Tax',
     //   field: 'incomeTaxInAmount',
     //   tooltipField: 'status',
-    //   cellStyle: { 'text-align': "right" }, 
+    //   cellStyle: { 'text-align': "right" },
     //   suppressMenu: true,
     //   valueFormatter: (params: ValueFormatterParams) => {
     //     return this.valueFormatter(params.value)
     //   }
     // },
     {
-      headerName: 'Net Payment', 
+      headerName: 'Net Payment',
       field: 'netPayment',
+      headerClass: 'custom_left',
       tooltipField: 'status',
-      cellStyle: { 'text-align': "right" }, 
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -216,8 +217,8 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getPayments(params);
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
+     if(isEmpty(res.result)) {
+      this.gridApi.showNoRowsOverlay()
     } else {
       this.gridApi.hideOverlay();
     }
@@ -255,8 +256,8 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   //   getRows: async (params: any) => {
   //    const res = await this.getPayments(params);
 
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }

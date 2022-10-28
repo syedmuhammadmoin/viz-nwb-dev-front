@@ -216,9 +216,10 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
         take(1),
          finalize(() => {
           this.isLoading = false;
+          //empty file because it throws general processing error after error form backend
           this.uploadFileInput.nativeElement.value = '';
-         this.body.files = null;
-         this.fileName = '';
+          this.body.files = null;
+          this.fileName = '';
           this.showFileName = false;
           this.cdRef.detectChanges();
          })

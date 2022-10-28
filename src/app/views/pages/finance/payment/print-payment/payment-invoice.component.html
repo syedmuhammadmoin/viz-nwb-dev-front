@@ -18,38 +18,77 @@
       <div class="bg-whitee">
 
         <div class="print_header_area p-s-1">
-          <div class="print-col-6 p-s-1-one">
+          <div class="print-col-7 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
               <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-              <span class="top-heading">{{formName}}</span>
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
-            
+
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-4 ml-auto p-s-1-two">
             <div class="id_num">
+              <div class="print-box-one" style="border-bottom: 1px solid;
+              margin-bottom: 10px;
+              text-align: center;">
+                <h4>{{formName}}</h4>
+              </div>
               <div class="print-box-one">
-                <h4>Payment No: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
-                <h4>Payment Date: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.paymentDate | date: 'MMM d, y'}}</span></h4>
+                <h4 class="mt-1">Date: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.paymentDate | date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
-            
+
           </div>
         </div>
 
-        
         <div class="print_body_area p-s-2">
 
           <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
-            
-            <div class="print-box">
-              <h4>{{paymentMaster?.businessPartnerName}} </h4>
+            <div class="print-box-one">
+              <!-- <h4> </h4> -->
+              <h4 class="font-14">Business Partner: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.businessPartnerName}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
               <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
+            <div class="print-box-one">
+              <h4 class="font-14">NTN: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.incomeTaxId || 'N/A'}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4 class="font-14">STRN: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.salesTaxId || 'N/A'}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4 class="font-14">Contact: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.businessPartnerMobile || 'N/A' }}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <!-- <h4> </h4> -->
+              <h4 class="font-14">Address: <span class="text-left d-block mt-2 " style="font-weight: 400;">{{paymentMaster?.businessPartnerAddress || 'N/A' }}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
+            </div>
+          </div>
+
+          <div class="print-col-5 p-s-2-one ml-auto" style="margin-top: 3%;">
+            <div class="print-box-one">
+              <h4 class="font-14">Bank Name: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.bankName || 'N/A'}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4 class="font-14">Account Title: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.accountTitle || 'N/A'}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4 class="font-14">Account Number: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.accountNumber || 'N/A'}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+
+
           </div>
 
           <div class="print-col-12 p-s-2-two" style="margin-top: 3%;">
@@ -59,19 +98,19 @@
                   <tr>
                     <th>Account</th>
                     <th>Description</th>
-                    <th>Campus</th>
-                    <th>Gross Payment</th>
-                    
-                    
+                    <!-- <th>Campus</th> -->
+                    <th class="text-right">Gross Payment</th>
+
+
                   </tr>
                   <tr>
                     <td>{{paymentMaster?.accountName}}</td>
                     <td  class="description text-left">{{paymentMaster?.description}}</td>
-                    <td> {{paymentMaster?.campusName}}</td>
+                    <!-- <td> {{paymentMaster?.campusName}}</td> -->
                     <td class="text-right"><b>{{paymentMaster?.grossPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
                   </tr>
-                  
-                  
+
+
                 </thead>
               </table>
             </div>
@@ -96,39 +135,41 @@
               </h4>
             </div>
             <div class="print-box p-s-3-two">
-              <h4 class="net-payment-las">Net Payment: 
+              <h4 class="net-payment-las">Net Payment:
                 <span class="float-right" style="font-weight: 500;">{{paymentMaster?.netPayment?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
           </div>
 
 
-          <div class="print-col-12 p-s-4">
-            
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
 
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-            
-          </div>
 
-          
-
-          <div class="print-col-4 p-s-5">
-            _________________________________
-            <p class="text-center">Authorised Sign</p>
-          </div>
-          
         </div>
 
-
+        <div class="row mt-10 ms-10">
+          <div class="print-col-4 p-s-5 text-center">
+            ____________________________
+            <p class="text-center">Account Assistant</p>
+          </div>
+          <div class="print-col-4 p-s-5 text-center">
+            ____________________________
+            <p class="text-center">Asst. Director Finance</p>
+          </div>
+          <div class="print-col-4 p-s-5 text-center">
+            ____________________________
+            <p class="text-center">Deputy Director Finance</p>
+          </div>
+        </div>
+        <div class="row mt-10 ms-10 justify-content-center">
+          <div class="print-col-4 p-s-5 text-center">
+            ____________________________
+            <p class="text-center">Resident Auditor</p>
+          </div>
+          <div class="print-col-4 p-s-5 text-center">
+            ____________________________
+            <p class="text-center">Director Finance</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
