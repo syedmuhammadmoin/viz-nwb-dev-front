@@ -34,7 +34,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   purchaseOrderMaster: any;
 
   //For Table Columns
-  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'subTotal','warehouseId', 'action']
+  displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'cost', 'tax', 'anyOtherTax', 'subTotal','warehouseId', 'action']
 
   //Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -49,6 +49,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   grandTotal: number = 0;
   totalBeforeTax: number = 0;
   totalTax: number = 0;
+  taxes = 0;
+  otherTaxes = 0;
 
   isDebitNote: any;
 
@@ -161,6 +163,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   reset() {
     // const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
     // debitNoteLineArray.clear();
+    this.totalBeforeTax = this.grandTotal = this.totalTax = this.taxes = this.otherTaxes = 0;
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
@@ -191,10 +194,11 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     const arrayControl = this.debitNoteForm.get('debitNoteLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const tax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
+    const otherTax = (arrayControl.at(index).get('anyOtherTax').value) !== null ? arrayControl.at(index).get('anyOtherTax').value : null;
     const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
 
     //calculating subTotal
-    const subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
+    const subTotal = ((cost * quantity) + ((cost * quantity) * (tax / 100))) + otherTax
     arrayControl.at(index).get('subTotal').setValue(subTotal);
     this.totalCalculation();
   }
@@ -205,12 +209,17 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     this.totalTax = 0;
     this.totalBeforeTax = 0;
     this.grandTotal = 0;
+    this.otherTaxes = 0;
+    this.taxes = 0;
     var arrayControl = this.debitNoteForm.get('debitNoteLines') as FormArray;
     arrayControl.controls.forEach((element, index) => {
-      var cost = arrayControl.at(index).get('cost').value;
-      var tax = arrayControl.at(index).get('tax').value;
-      var quantity = arrayControl.at(index).get('quantity').value;
-      this.totalTax += ((cost * quantity) * tax) / 100
+      const cost = arrayControl.at(index).get('cost').value;
+      const tax = arrayControl.at(index).get('tax').value;
+      const otherTax = arrayControl.at(index).get('anyOtherTax').value  || 0;
+      const quantity = arrayControl.at(index).get('quantity').value;
+      this.totalTax += (((cost * quantity) * tax) / 100) + otherTax;
+      this.otherTaxes += otherTax;
+      this.taxes += (((cost * quantity) * tax) / 100);
       this.totalBeforeTax += cost * quantity;
       this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
     });
@@ -230,6 +239,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       cost: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required,Validators.min(1)]],
       tax: [0, [Validators.max(100), Validators.min(0)]],
+      anyOtherTax: [0, [Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
       warehouseId: [null]
@@ -308,6 +318,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         cost: [line.cost, [Validators.required, Validators.min(1)]],
         quantity: [line.quantity, [Validators.required,Validators.min(1)]],
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
+        anyOtherTax: [line.anyOtherTax, [Validators.min(0)]],
         subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId]

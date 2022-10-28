@@ -3,9 +3,9 @@
     <!-- <kt-portlet-header [sticky]="false" [title]="'Bill Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        
-        
-        
+
+
+
         <h4 class="overall_statuses {{docStatus[billMaster?.state]}}"> Status:  {{billMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header> -->
@@ -23,14 +23,14 @@
 
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
-                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
+                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid)
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.PAYMENT_CREATE))"
                   [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
                   type="button" class="mr-3 btn_public" (click)="openDialog()" >
                   <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
-                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid) 
+                <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid)
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.DEBITNOTE_CREATE))"
                   [routerLink]="'/' + DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, isBill: true}"
                   type="button" class="mr-3 btn_public">
@@ -44,11 +44,11 @@
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))" class="btn_public mr-3" 
+                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))" class="btn_public mr-3"
                   (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
-                <button [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('print', billMaster?.id)" type="button" 
+                <button [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('print', billMaster?.id)" type="button"
                 class="btn_public" id="bill_print">
                   <i class="fa fa-print icon-e-p-a"></i> Print Vendor Bill
                 </button>
@@ -59,30 +59,30 @@
 
           <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1">Document No: 
+                <h4 class="print-box-detail-1"><b>Document No:</b>
                     <span class="float-right" style="font-weight: 400;">{{billMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-1">Vendor Name:
+                <h4 class="print-box-detail-1"><b>Vendor Name:</b>
                     <span class="float-right" style="font-weight: 400;">{{billMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-1">Campus:
+              <h4 class="print-box-detail-1"><b>Campus:</b>
               <span class="float-right" style="font-weight: 400;">{{billMaster?.campusName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-1">Bill Date:
+              <h4 class="print-box-detail-1"><b>Bill Date:</b>
               <span class="float-right" style="font-weight: 400;">{{billMaster?.billDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-1">Due Date:
+              <h4 class="print-box-detail-1"><b>Due Date:</b>
               <span class="float-right" style="font-weight: 400;">{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
-            <div class="print-box">
-              <h4 class="print-box-detail-1">Account Payable:
+            <!-- <div class="print-box">
+              <h4 class="print-box-detail-1"><b>Account Payable:</b>
               <span class="float-right" style="font-weight: 400;">{{billMaster?.accountPayable ||'N/A'}}</span></h4>
-            </div>
+            </div> -->
           </div>
         </div>
 
@@ -115,8 +115,8 @@
                 <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
                   <td>
                     <!-- <a [routerLink]="(unReconPay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a> -->
-                    <a [routerLink]="(unReconPay?.docType === 0) ? '/' + PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : 
-                      (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) : 
+                    <a [routerLink]="(unReconPay?.docType === 0) ? '/' + PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) :
+                      (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) :
                       '/' + DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) " class="all-text-primary">{{unReconPay.docNo}}</a>
                   </td>
                   <td>{{valueFormatter(unReconPay.amount)}}</td>

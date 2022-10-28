@@ -63,6 +63,7 @@
                     <th >Quantity</th>
                     <th >Cost</th>
                     <th >Tax</th>
+                    <th >Other Taxes/FET</th>
                     <th  class="text-center">SubTotal</th>
                     
                     
@@ -74,6 +75,7 @@
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td  >{{line?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td> {{line?.tax + '%'}}</td>
+                    <td> {{valueFormatter(line?.anyOtherTax) || 0}}</td>
                     <td class="text-right"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
                   </tr>
                   
@@ -85,21 +87,30 @@
 
 
           <div class="print-col-5  ml-auto p-s-3">
-
             <div class="print-box p-s-3-one">
               <h4>Total Before Tax:
-                <span class="float-right">{{totalBeforeTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right">{{valueFormatter(debitNoteMaster?.totalBeforeTax)}}</span>
+              </h4>
+            </div>
+            <div class="print-box p-s-3-one">
+              <h4>Tax:
+                <span class="float-right">{{valueFormatter(debitNoteMaster?.tax)}}</span>
+              </h4>
+            </div>
+            <div class="print-box p-s-3-one">
+              <h4>Other Tax:
+                <span class="float-right">{{valueFormatter(debitNoteMaster?.otherTax)}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-one">
               <h4>Total Tax:
-                <span class="float-right">{{totalTax?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right">{{valueFormatter(debitNoteMaster?.totalTax)}}</span>
               </h4>
             </div>
-    
+
             <div class="print-box p-s-3-four">
               <h4>Grand Total:
-                <span class="float-right">{{totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right">{{valueFormatter(debitNoteMaster?.totalAmount)}}</span>
               </h4>
             </div>
           </div>
