@@ -217,7 +217,7 @@
                                       (blurEvent)="logValidationErrors(this.debitNoteForm, formErrors, validationMessages)"
                                       [errorMessage]="[{ condition : (debitNoteForm.get('debitNoteLines')['controls'][i].controls.anyOtherTax.errors?.min )
                                                             && debitNoteForm.get('debitNoteLines')['controls'][i].controls.anyOtherTax.touched , 
-                                                        error : 'Tax must be in Positive.'}]"
+                                                        error : 'Minimum Value is 0.'}]"
                                       (change)="onChangeEvent($event , i , itemName)"
                                       (keyup)="onChangeEvent($event , i , itemName)">
                                     </kt-input-field>
