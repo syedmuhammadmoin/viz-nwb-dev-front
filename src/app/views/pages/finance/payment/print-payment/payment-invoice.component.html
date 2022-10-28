@@ -28,7 +28,7 @@
           </div>
           <div class="print-col-4 ml-auto p-s-1-two">
             <div class="id_num">
-              <div class="print-box-one" style="border-bottom: 1px solid;
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
               margin-bottom: 10px;
               text-align: center;">
                 <h4>{{formName}}</h4>
@@ -132,6 +132,11 @@
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">SRB Tax:
                 <span class="float-right" style="font-weight: 500;">{{paymentMaster?.srbTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+              </h4>
+            </div>
+            <div class="print-box p-s-3-one">
+              <h4 class="net-payment">Deduction:
+                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.deduction?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-two">
