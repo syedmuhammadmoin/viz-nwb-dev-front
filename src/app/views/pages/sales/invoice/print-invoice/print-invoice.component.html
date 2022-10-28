@@ -47,10 +47,27 @@
         <div class="print_body_area p-s-2">
 
           <div class="print-col-5 p-s-2-one">
-            <div class="print-box" >
-              <h4>{{invoiceMaster?.customerName}}</h4>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+            <div class="print-box-one">
+              <h4 class="font-14">Customer Name: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.customerName}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">NTN: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.incomeTaxId || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">STRN: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.salesTaxId || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">Bank Name: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.bankName  || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">Account Title: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.accountTitle  || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">Account Number: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.accountNumber  || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">Address: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.customerAddress  || 'N/A'}}</span></h4>
             </div>
           </div>
 

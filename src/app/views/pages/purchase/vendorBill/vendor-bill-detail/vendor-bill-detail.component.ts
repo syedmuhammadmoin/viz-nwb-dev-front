@@ -114,7 +114,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       }
     },
     {
-      headerName: 'Sub total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Subtotal', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }

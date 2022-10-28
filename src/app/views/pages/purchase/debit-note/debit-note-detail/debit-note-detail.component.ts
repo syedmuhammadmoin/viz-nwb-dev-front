@@ -100,7 +100,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       }
     },
     {
-      headerName: 'Sub total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Subtotal', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }

@@ -43,7 +43,7 @@
           <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 class="print-box-detail-1">Credit Note No: 
+                <h4 class="print-box-detail-1">Document No: 
                     <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
@@ -52,8 +52,12 @@
                     <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.customerName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Date:
+              <h4 class="print-box-detail-2">Credit Note Date:
               <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2">Campus:
+              <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.campusName}}</span></h4>
             </div>
           </div>
 
