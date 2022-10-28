@@ -31,11 +31,11 @@
           <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one">
-                <h4 class="print-page-items">Payment No: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
+                <h4 class="print-page-items">Document No: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
-                <h4 class="print-page-items">Payment Date: <span class="float-right" style="font-weight: 400;">
+                <h4 class="print-page-items">JV Date: <span class="float-right" style="font-weight: 400;">
                   {{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
@@ -73,7 +73,7 @@
                     <th>Business Partner</th>
                     <th class="text-center">Debit</th>
                     <th class="text-center">Credit</th>
-                    <th>Store</th>
+                    <!-- <th>Store</th> -->
                   </tr>
                   <tr *ngFor="let line of journalEntryLines ; index as i">
                     <td>{{i + 1}}</td>
@@ -82,7 +82,7 @@
                     <td> {{line?.businessPartnerName}}</td>
                     <td class="text-right"><b>{{valueFormatter(line?.debit)}}</b></td>
                     <td class="text-right"><b>{{valueFormatter(line?.credit)}}</b></td>
-                    <td>{{line?.warehouseName || 'N/A'}}</td>
+                    <!-- <td>{{line?.warehouseName || 'N/A'}}</td> -->
                   </tr>
                 </thead>
               </table>
