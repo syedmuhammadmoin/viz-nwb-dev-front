@@ -162,6 +162,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       // state: ['', [Validators.required]],
       // city: ['', [Validators.required]],
       address: [''],
+      bankName: [''],
+      branchCode: [''],
       phone: ['', [Validators.pattern('[0-9]*$')]],
       mobile: ['', [Validators.pattern('[0-9]*$')]],
       cnic: ['', [Validators.pattern('^[0-9]{13}$')]],
@@ -196,6 +198,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
         name: '',
         address: '',
         phone: null,
+        bankName: '',
+        branchCode: '',
         //email: '',
         mobile: null,
         //website: '',
@@ -245,6 +249,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       address: businessPartner.address,
       phone: businessPartner.phone,
       mobile: businessPartner.mobile,
+      bankName: businessPartner.bankName,
+      branchCode: businessPartner.branchCode,
       incomeTaxId: businessPartner.incomeTaxId,
       salesTaxId: businessPartner.salesTaxId,
       bankAccountTitle: businessPartner.bankAccountTitle,
@@ -347,6 +353,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     // this.businessPartner.city = this.cityList.find(c => c.id == this.businessPartnerForm.value.city).name;
     this.businessPartner.address = this.businessPartnerForm.value.address;
     this.businessPartner.phone = this.businessPartnerForm.value.phone;
+    this.businessPartner.bankName = this.businessPartnerForm.value.bankName;
+    this.businessPartner.branchCode = this.businessPartnerForm.value.branchCode;
     // this.businessPartner.email = this.businessPartnerForm.value.email;
     // this.businessPartner.website = this.businessPartnerForm.value.website;
     this.businessPartner.mobile = this.businessPartnerForm.value.mobile;

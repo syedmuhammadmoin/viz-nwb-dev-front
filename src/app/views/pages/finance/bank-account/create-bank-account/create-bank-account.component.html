@@ -57,21 +57,20 @@
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group kt-form__group mb-0">
                           <label class="col-form-label pt-0">Account Number:</label>
-                          <!-- <kt-input-field
+                          <kt-input-field
                           id="bank_account_number"
                             formControlName="accountNumber"
-                            type="number"
-                            placeholder="Enter account number"
+                            placeholder="Enter Account Number"
                             (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
                             [errorMessage]="[{ condition : formErrors.accountNumber , error : formErrors.accountNumber }]">
-                          </kt-input-field> -->
-                          <mat-form-field appearance="outline" class="full-width">
+                          </kt-input-field>
+                          <!-- <mat-form-field appearance="outline" class="full-width">
                             <input matInput formControlName="accountNumber" placeholder="Enter Account Number" 
                                  id="bank_account_number" type="number" (blur)="logValidationErrors(this.bankAccountForm, this.formErrors, this.validationMessages)">
                             <mat-error *ngIf="formErrors.accountNumber">
                               <strong>{{formErrors.accountNumber}}</strong>
                             </mat-error>
-                          </mat-form-field>
+                          </mat-form-field> -->
                       </div>
                     </div>
                   </div>
@@ -173,9 +172,22 @@
                     </div>
                 </div>
               </div>
-              </div>
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group kt-form__group mb-0">
+                        <label class="col-form-label pt-0">IBAN:</label>
+                        <kt-input-field
+                         id="bank_account_iban"
+                         formControlName="iban"
+                         placeholder="Enter IBAN Number"
+                         hintText="Optional">
+                        </kt-input-field>
+                    </div>
+                </div>
             </div>
           </div>
+        </div>
+      </div>
   
           <mat-divider></mat-divider>
           <div class="kt-portlet__foot p-5">

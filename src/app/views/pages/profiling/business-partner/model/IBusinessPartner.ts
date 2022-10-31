@@ -13,6 +13,8 @@ export interface IBusinessPartner {
   cnic:number;
   //website: string;
   incomeTaxId: string;
+  bankName: string;
+  branchCode: string;
   salesTaxId: string;
   bankAccountTitle: string;
   bankAccountNumber: string;

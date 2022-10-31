@@ -35,9 +35,7 @@
               <div class="print-box-one">
                 <h4>Debit Note Date: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
               </div>
-              
             </div>
-            
           </div>
         </div>
 
@@ -46,9 +44,18 @@
 
           <div class="print-col-5 p-s-2-one">
             
-            <div class="print-box" >
-              <h4>{{debitNoteMaster?.vendorName}}</h4>
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+            <div class="print-box-one">
+              <h4 class="font-14">Vendor Name: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.vendorName}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">NTN: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.incomeTaxId || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">STRN: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.salesTaxId || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14">Address: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.vendorAddress  || 'N/A'}}</span></h4>
             </div>
           </div>
 
@@ -78,8 +85,6 @@
                     <td> {{valueFormatter(line?.anyOtherTax) || 0}}</td>
                     <td class="text-right"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
                   </tr>
-                  
-                  
                 </thead>
               </table>
             </div>
@@ -138,10 +143,7 @@
             _________________________________
             <p class="text-center">Authorized Sign</p>
           </div>
-          
         </div>
-
-
       </div>
     </div>
   </div>

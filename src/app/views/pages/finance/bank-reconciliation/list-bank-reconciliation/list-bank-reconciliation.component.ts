@@ -63,12 +63,12 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
 
   columnPayment = [
     { headerName: 'Doc#', field: 'docNo', menuTabs: ["filterMenuTab"], filter: true, checkboxSelection: true },
-    {
-      headerName: 'Cheque No', field: 'checkNumber', menuTabs: ["filterMenuTab"], filter: true, 
-      cellRenderer: (params) => {
-        return (params.data.checkNumber||'N/A')
-      }
-    },
+    // {
+    //   headerName: 'Cheque No', field: 'checkNumber', menuTabs: ["filterMenuTab"], filter: true, 
+    //   cellRenderer: (params) => {
+    //     return (params.data.checkNumber||'N/A')
+    //   }
+    // },
     // {
     //   headerName: 'Description', field: 'Description', menuTabs: ["filterMenuTab"], filter: true, 
     //   cellRenderer: (params) => {
