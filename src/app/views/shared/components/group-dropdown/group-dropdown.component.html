@@ -32,7 +32,7 @@
         </ng-container>
       </mat-optgroup>
     </ng-container>
-    <mat-option *ngIf="clickEvent && clickEventButtonName" style="padding: 0px">
+    <mat-option *ngIf="clickEvent && clickEventButtonName && buttonPermission" style="padding: 0px">
       <button mat-flat-button style="width: 100%"
               (click)="emitClickEvent()"
               class="btn btn-light">{{ clickEventButtonName || 'clickEventButtonName' }}</button>
