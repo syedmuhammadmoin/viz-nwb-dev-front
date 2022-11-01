@@ -46,10 +46,10 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { 
-      headerName: 'Invoice #', 
-      field: 'docNo', 
-      tooltipField: 'docNo', 
+    {
+      headerName: 'Invoice #',
+      field: 'docNo',
+      tooltipField: 'docNo',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -58,9 +58,9 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Customer', 
-      field: 'customerName', 
+    {
+      headerName: 'Customer',
+      field: 'customerName',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -79,7 +79,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
           filterOptions: ['equals'],
           suppressAndOrCondition: true,
         },
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
@@ -98,18 +98,19 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       }
     },
     {
-      headerName: 'Total', 
+      headerName: 'Total',
       field: 'totalAmount',
-      cellStyle: { 'text-align': "right" }, 
+      headerClass: 'custom_left',
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || null;
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -123,7 +124,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
   ];
 
   ngOnInit() {
-    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -178,8 +179,8 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     var dataSource = {
       getRows: (params: any) => {
         this.invoiceService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -207,8 +208,8 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
   //   getRows: async (params: any) => {
   //    const res = await this.getInvoices(params);
 
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }

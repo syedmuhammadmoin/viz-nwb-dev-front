@@ -15,20 +15,24 @@
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-              <span class="top-heading">CREDIT NOTE</span>
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
 
           </div>
           <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+              margin-bottom: 10px;
+              text-align: center;">
+                <h4>Credit Note</h4>
+              </div>
               <div class="print-box-one">
                 <h4>Document No: <span class="float-right"
                     style="font-weight: 400;">{{creditNoteMaster?.docNo}}</span></h4>
                 <p></p>
               </div>
               <div class="print-box-two">
-                <h4>Credit Note Date: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.noteDate |
+                <h4 class="mt-1">Credit Note Date: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.noteDate |
                     date: 'MMM d, y'}}</span></h4>
               </div>
 
@@ -43,14 +47,14 @@
           <div class="print-col-5 p-s-2-one">
 
             <div class="print-box-one">
-              <h4 class="font-14">Customer Name: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.customerName}}</span></h4>
+              <h4 class="font-14"><b>Customer Name:</b> <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.customerName}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14">NTN: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.incomeTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>NTN: </b><span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.incomeTaxId || 'N/A'}}</span></h4>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14">STRN: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.salesTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>STRN:</b> <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.salesTaxId || 'N/A'}}</span></h4>
             </div>
             <!-- <div class="print-box-two">
               <h4 class="font-14">Bank Name: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.bankName  || 'N/A'}}</span></h4>
@@ -62,7 +66,8 @@
               <h4 class="font-14">Account Number: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.accountNumber  || 'N/A'}}</span></h4>
             </div> -->
             <div class="print-box-two">
-              <h4 class="font-14">Address: <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.customerAddress  || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>Address:</b> </h4>
+              <p>{{creditNoteMaster?.customerAddress  || 'N/A'}}</p>
             </div>
           </div>
 
@@ -78,7 +83,7 @@
                     <th>Price</th>
                     <th>Tax</th>
                     <!-- <th>Store</th> -->
-                    <th class="text-center">SubTotal</th>
+                    <th class="text-right">SubTotal</th>
 
 
                   </tr>
@@ -140,13 +145,19 @@
 
 
 
-          <div class="print-col-4 p-s-5">
+          <!-- <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorized Sign</p>
-          </div>
+          </div> -->
 
         </div>
+        <div class="row mt-10 ms-10">
 
+          <div class="print-col-4 p-s-5 text-center">
+            ____________________________
+            <p class="text-center">Authorized Sign</p>
+          </div>
+        </div>
 
       </div>
     </div>

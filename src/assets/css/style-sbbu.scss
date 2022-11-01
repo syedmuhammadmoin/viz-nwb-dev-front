@@ -1080,13 +1080,13 @@ color: $primary-color !important;
 
 .print-box-detail-1{
   font-size: 16px;
-  letter-spacing: 3px;
+  // letter-spacing: 3px;
   font-weight: 600;
   color: $primary-color;
 }
 .print-box-detail-2{
   font-size: 16px;
-  letter-spacing: 3px;
+  // letter-spacing: 3px;
   font-weight: 600;
   color: $primary-color;
   margin-top: 10px;
@@ -1636,3 +1636,43 @@ mat-tree-node div[id^='child']
 }
 
 
+
+
+.remove__checkbox .mat-option-pseudo-checkbox
+
+{
+
+  display: none !important;
+
+}
+
+
+.border-top-1px
+{
+  border-top: 1px solid $primary-color !important;
+  padding-top: 5px !important;
+}
+
+
+.font-14
+{
+  font-size: 14px !important ;
+}
+
+
+.custom_left .ag-cell-label-container .ag-header-cell-label
+{
+  justify-content: center !important;
+}
+
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow
+{
+  color: $primary-color !important;
+}
+
+
+.paid-anount-flex-grow
+{
+  justify-content: right !important;
+}
