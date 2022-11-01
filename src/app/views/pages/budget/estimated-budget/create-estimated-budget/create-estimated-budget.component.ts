@@ -45,7 +45,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
   // Validation messages..
   validationMessages = {
     budgetId: {
-      required: 'Budget is required.',
+      required: 'Estimated Budget is required.',
     },
     estimatedBudgetName: {
       required: 'Budget Name is required.',
