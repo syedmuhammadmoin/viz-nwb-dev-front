@@ -51,6 +51,7 @@ import { DepreciationModelState } from 'src/app/views/pages/fixed-asset/deprecia
 import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
 import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
 import { EmployeePaymentState } from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
+import { AllBusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/All-business-partner.state';
 
 @Injectable({
   providedIn: 'root'
@@ -91,7 +92,12 @@ export class NgxsCustomService {
   @Select(BusinessPartnerState.isFetchCompleted) businessPartnerFetchCompleted$: Observable<any>;
   @Select(BusinessPartnerState.isLoading) businessPartnerIsLoading$: Observable<any>;
 
-  // Business Partner
+  //All Business Partner with Employees
+  @Select(AllBusinessPartnerState.entities) allBusinessPartners$: Observable<any>;
+  @Select(AllBusinessPartnerState.isFetchCompleted) allBusinessPartnerFetchCompleted$: Observable<any>;
+  @Select(AllBusinessPartnerState.isLoading) allBusinessPartnerIsLoading$: Observable<any>;
+
+  // Campus
   @Select(CampusState.entities) campuses$: Observable<any>;
   @Select(CampusState.isFetchCompleted) campusFetchCompleted$: Observable<any>;
   @Select(CampusState.isLoading) campusIsLoading$: Observable<any>;
@@ -261,6 +267,19 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(BusinessPartnerState, {
           serviceClass: this.businessPartnerService,
           methodName: 'getBusinessPartnersDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get All Business Partner With Employee From Store if available else fetch from the server and cache.
+  getAllBusinessPartnerFromState() {
+    this.allBusinessPartnerFetchCompleted$.subscribe((res) => {
+      if (!res) {
+        this.store.dispatch(new GetList(AllBusinessPartnerState, {
+          serviceClass: this.businessPartnerService,
+          methodName: 'getAllBusinessPartnersDropdown',
           context: this
         }))
       }

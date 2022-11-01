@@ -20,7 +20,7 @@
                         matFormFieldClass="full-width"
                         propertyValue="id" 
                         [errorMessage]="formErrors.vendorName"
-                        [optionList]="ngxsService.businessPartners$"
+                        [optionList]="ngxsService.allBusinessPartners$"
                         [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                         clickEventButtonName="Add New Vendor"
                         (clickEvent)="addButtonService.openBusinessPartnerDialog()" 

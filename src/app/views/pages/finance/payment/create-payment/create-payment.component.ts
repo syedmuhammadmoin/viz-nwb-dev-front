@@ -48,6 +48,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   subscription$: Subscription;
 
   isPayrollPayment : boolean;
+  isReceipt: boolean;
 
   propertyValue: string;
   propertyName: string;
@@ -153,6 +154,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
     this.formName = this.documents.find(x => x.id === this.data.docType).value;
     this.isPayrollPayment = (this.data.docType === this.docType.PayrollPayment) ? true : false;
+    this.isReceipt =  (this.data.docType === this.docType.Receipt) ? true : false;
   }
 
   groups = [
@@ -213,6 +215,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.calculatingNetPayment();
     }
     this.ngxsService.getBusinessPartnerFromState();
+    this.ngxsService.getAllBusinessPartnerFromState();
     this.ngxsService.getEmployeePaymentsFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getCampusFromState()

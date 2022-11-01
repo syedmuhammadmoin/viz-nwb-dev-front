@@ -16,6 +16,7 @@ import { IsReloadRequired } from '../../store/profiling.action';
 import { BusinessPartnerState } from '../store/business-partner.state';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
+import { AllBusinessPartnerState } from '../store/All-business-partner.state';
 
 @Component({
   selector: 'kt-create-business-partner',
@@ -323,6 +324,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
+            this.ngxsService.store.dispatch(new IsReloadRequired(AllBusinessPartnerState, true));
             this.toastService.success('Updated Successfully', 'Business Partner')
             this.onCloseDialog();
         });
@@ -338,6 +340,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
+            this.ngxsService.store.dispatch(new IsReloadRequired(AllBusinessPartnerState, true));
             this.toastService.success('Created Successfully', 'Business Partner')
             this.onCloseDialog();
         });

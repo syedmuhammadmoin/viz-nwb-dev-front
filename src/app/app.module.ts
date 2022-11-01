@@ -108,6 +108,7 @@ import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-m
 import { AssetAccountState } from './views/pages/finance/chat-of-account/store/asset-account.state';
 import { AppInitializer } from 'AppInitializer';
 import { EmployeePaymentState } from './views/pages/payroll/employee/store/employeePayment.state';
+import { AllBusinessPartnerState } from './views/pages/profiling/business-partner/store/All-business-partner.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -156,6 +157,7 @@ export function getHighlightLanguages() {
     NgxPermissionsModule.forRoot(),
     NgxsModule.forRoot([
       BusinessPartnerState,
+      AllBusinessPartnerState,
       CampusState,
       CategoryState,
       OrganizationState,

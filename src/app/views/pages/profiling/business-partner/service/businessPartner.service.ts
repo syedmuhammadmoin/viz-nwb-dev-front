@@ -26,6 +26,11 @@ export class BusinessPartnerService extends AppServiceBase {
         return this.httpClient.get<IApiResponse<IBusinessPartner[]>>(this.baseUrl + '/dropdown')
     }
 
+    //All Business Partners with Employees
+    getAllBusinessPartnersDropdown(): Observable<IApiResponse<any[]>> {
+        return this.httpClient.get<IApiResponse<any[]>>(this.baseUrl + '/AllBusinessPartnerDropdown')
+    }
+
     getBusinessPartner(id: number): Observable<IApiResponse<IBusinessPartner>> {
         return this.httpClient.get<IApiResponse<IBusinessPartner>>(`${this.baseUrl}/${id}`)
     }
