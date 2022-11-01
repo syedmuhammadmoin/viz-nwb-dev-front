@@ -56,30 +56,7 @@
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group kt-form__group mb-0">
-                          <label class="col-form-label pt-0">Account Number:</label>
-                          <!-- <kt-input-field
-                          id="bank_account_number"
-                            formControlName="accountNumber"
-                            type="number"
-                            placeholder="Enter account number"
-                            (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
-                            [errorMessage]="[{ condition : formErrors.accountNumber , error : formErrors.accountNumber }]">
-                          </kt-input-field> -->
-                          <mat-form-field appearance="outline" class="full-width">
-                            <input matInput formControlName="accountNumber" placeholder="Enter Account Number" 
-                                 id="bank_account_number" type="number" (blur)="logValidationErrors(this.bankAccountForm, this.formErrors, this.validationMessages)">
-                            <mat-error *ngIf="formErrors.accountNumber">
-                              <strong>{{formErrors.accountNumber}}</strong>
-                            </mat-error>
-                          </mat-form-field>
-                      </div>
-                    </div>
-                  </div>
-                    <!-- second row ends -->
-                    <div class="row">
-                      <div class="col-lg-6 col-md-6 col-sm-6">
-                          <div class="form-group kt-form__group mb-0">
-                              <label class="col-form-label pt-0">Account Type:</label>
+                          <label class="col-form-label pt-0">Account Type:</label>
                               <kt-simple-dropdown 
                               id="bank_account_type"
                                placeholder="Select Account Type" 
@@ -91,21 +68,69 @@
                                [errorMessage]="'Account Type is required.'" 
                                [optionList]="accountTypeList">
                               </kt-simple-dropdown>
+                      </div>
+                    </div>
+                  </div>
+                    <!-- second row ends -->
+                    <div class="row">
+                      <div class="col-lg-6 col-md-6 col-sm-6">
+                          <div class="form-group kt-form__group mb-0">
+                            <label class="col-form-label pt-0">Account Number:</label>
+                          <kt-input-field
+                          id="bank_account_number"
+                            formControlName="accountNumber"
+                            placeholder="Enter Account Number"
+                            (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
+                            [errorMessage]="[{ condition : formErrors.accountNumber , error : formErrors.accountNumber }]">
+                          </kt-input-field>
+                          <!-- <mat-form-field appearance="outline" class="full-width">
+                            <input matInput formControlName="accountNumber" placeholder="Enter Account Number" 
+                                 id="bank_account_number" type="number" (blur)="logValidationErrors(this.bankAccountForm, this.formErrors, this.validationMessages)">
+                            <mat-error *ngIf="formErrors.accountNumber">
+                              <strong>{{formErrors.accountNumber}}</strong>
+                            </mat-error>
+                          </mat-form-field> -->
                           </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group kt-form__group mb-0">
-                          <label class="col-form-label pt-0">Purpose:</label>
+                          <label class="col-form-label pt-0">IBAN:</label>
                           <kt-input-field
-                          id="bank_account_purpose"
-                            formControlName="purpose"
-                            type="text"
-                            placeholder="Enter Purpose"
-                            hintText="Optional">
+                           id="bank_account_iban"
+                           formControlName="iban"
+                           placeholder="Enter IBAN Number"
+                           hintText="Optional">
                           </kt-input-field>
                       </div>
                     </div>
                   </div>
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                        <div class="form-group kt-form__group mb-0">
+                          <label class="col-form-label pt-0">Account Code:</label>
+                        <kt-input-field
+                        id="bank_account_code"
+                        formControlName="accountCode"
+                        placeholder="Enter Account Code"
+                        (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
+                        [errorMessage]="[{ condition : formErrors.accountCode , error : formErrors.accountCode }]">
+                      </kt-input-field>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6">
+                      <div class="form-group kt-form__group mb-0">
+                        <label class="col-form-label pt-0">Purpose:</label>
+                        <kt-input-field
+                        id="bank_account_purpose"
+                          formControlName="purpose"
+                          type="text"
+                          placeholder="Enter Purpose"
+                          hintText="Optional">
+                        </kt-input-field>
+                    </div>
+                  </div>
+                </div>
+
                   <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group kt-form__group mb-0">
@@ -142,40 +167,27 @@
                       </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-lg-6 col-md-6 col-sm-6">
-                      <div class="form-group kt-form__group mb-0">
-                          <label class="col-form-label pt-0">Campus:</label>
-                          <kt-simple-dropdown 
-                          id="bank_account_campus"
-                            placeholder="Select Campus" 
-                            propertyValue="id" 
-                            propertyName="name"
-                            formControlName="campusId" 
-                            (blurEvent)="logValidationErrors(bankAccountForm, formErrors, validationMessages)"
-                            matFormFieldClass="full-width"
-                            [errorMessage]="'Campus is required.'" 
-                            [optionList]="ngxsService.campuses$">
-                            </kt-simple-dropdown>
-                      </div>
-                  </div>
-
-                  <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Account Code:</label>
-                        <kt-input-field
-                        id="bank_account_code"
-                        formControlName="accountCode"
-                        placeholder="Enter Account Code"
-                        (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
-                        [errorMessage]="[{ condition : formErrors.accountCode , error : formErrors.accountCode }]">
-                      </kt-input-field>
+                      <label class="col-form-label pt-0">Campus:</label>
+                      <kt-simple-dropdown 
+                      id="bank_account_campus"
+                        placeholder="Select Campus" 
+                        propertyValue="id" 
+                        propertyName="name"
+                        formControlName="campusId" 
+                        (blurEvent)="logValidationErrors(bankAccountForm, formErrors, validationMessages)"
+                        matFormFieldClass="full-width"
+                        [errorMessage]="'Campus is required.'" 
+                        [optionList]="ngxsService.campuses$">
+                        </kt-simple-dropdown>
                     </div>
                 </div>
-              </div>
-              </div>
             </div>
           </div>
+        </div>
+      </div>
   
           <mat-divider></mat-divider>
           <div class="kt-portlet__foot p-5">

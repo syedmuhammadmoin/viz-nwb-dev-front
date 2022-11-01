@@ -224,9 +224,9 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
       classes += ' menu-item-active menu-item-here';
     }
 
-    if (item.submenu && this.isMenuItemIsActive(item)) {
-      classes += ' menu-item-open menu-item-here';
-    }
+    // if (item.submenu && this.isMenuItemIsActive(item)) {
+    //   classes += ' menu-item-open menu-item-here';
+    // }
 
     // custom class for menu item
     const customClass = objectPath.get(item, 'custom-class');

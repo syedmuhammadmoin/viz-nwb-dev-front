@@ -1,9 +1,10 @@
 export interface IBankAccount {
     id: number;
-    accountNumber: number;
+    accountNumber: string;
     accountTitle: string;
     bankName: string;
     branch: string;
+    iban: string;
     campusId: number;
     bankAccountType: number,
     purpose: string,

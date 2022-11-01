@@ -21,34 +21,46 @@
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-              <span class="top-heading">Debit Note</span>
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
-            
+
           </div>
           <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+              margin-bottom: 10px;
+              text-align: center;">
+                <h4>Debit Note</h4>
+              </div>
               <div class="print-box-one">
-                <h4>Debit Note No: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.docNo}}</span></h4>
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-one">
                 <h4>Debit Note Date: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
               </div>
-              
             </div>
-            
           </div>
         </div>
 
-        
+
         <div class="print_body_area p-s-2">
 
           <div class="print-col-5 p-s-2-one">
-            
-            <div class="print-box" >
-              <h4>{{debitNoteMaster?.vendorName}}</h4>
-              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+
+            <div class="print-box-one">
+              <h4 class="font-14"><b>Vendor Name: </b><span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.vendorName}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>NTN:</b> <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.incomeTaxId || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>STRN:</b> <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.salesTaxId || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Address:</b> </h4>
+              <p>{{debitNoteMaster?.vendorAddress  || 'N/A'}}</p>
             </div>
           </div>
 
@@ -64,9 +76,9 @@
                     <th >Cost</th>
                     <th >Tax</th>
                     <th >Other Taxes/FET</th>
-                    <th  class="text-center">SubTotal</th>
-                    
-                    
+                    <th  class="text-right">SubTotal</th>
+
+
                   </tr>
                   <tr *ngFor="let line of debitNoteLines; index as i">
                     <td>{{i + 1}}</td>
@@ -78,8 +90,6 @@
                     <td> {{valueFormatter(line?.anyOtherTax) || 0}}</td>
                     <td class="text-right"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
                   </tr>
-                  
-                  
                 </thead>
               </table>
             </div>
@@ -116,8 +126,8 @@
           </div>
 
 
-          <div class="print-col-12 p-s-4">
-            
+          <!-- <div class="print-col-12 p-s-4">
+
             <div class="print-box p-s-4-one">
               <p>Terms and conditions:</p>
             </div>
@@ -129,19 +139,21 @@
             <div class="print-box p-s-4-three">
               <p>Thankyou for your Business</p>
             </div>
-            
-          </div>
 
-          
+          </div> -->
 
-          <div class="print-col-4 p-s-5">
-            _________________________________
-            <p class="text-center">Authorized Sign</p>
-          </div>
-          
+
+
+
         </div>
 
+        <div class="row mt-10 ms-10">
 
+          <div class="print-col-4 p-s-5 text-center">
+            ______________________
+            <p class="text-center">Authorized Sign</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

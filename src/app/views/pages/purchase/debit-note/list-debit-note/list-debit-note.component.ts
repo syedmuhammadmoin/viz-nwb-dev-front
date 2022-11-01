@@ -45,10 +45,10 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   }
 
   columnDefs = [
-    { 
-      headerName: 'Debit Note #', 
+    {
+      headerName: 'Debit Note #',
       field: 'docNo',
-      tooltipField: 'status', 
+      tooltipField: 'status',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -57,8 +57,8 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
      },
-    { 
-      headerName: 'Vendor', 
+    {
+      headerName: 'Vendor',
       field: 'vendorName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
@@ -83,18 +83,19 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
       },
     },
     {
-      headerName: 'Total', 
+      headerName: 'Total',
       field: 'totalAmount',
+      headerClass: 'custom_left',
       tooltipField: 'status',
-      cellStyle: { 'text-align': "right" }, 
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -160,8 +161,8 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     var dataSource = {
       getRows: (params: any) => {
         this.debitNoteService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -189,8 +190,8 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   //   getRows: async (params: any) => {
   //    const res = await this.getDebitNotes(params);
 
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }

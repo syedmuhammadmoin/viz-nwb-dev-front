@@ -28,7 +28,7 @@
                   <label class="col-form-label">From:</label>
                   <kt-date-input
                    formControlName="from"
-                   placeholder="Enter From Date"
+                   placeholder="Select Date"
                    matFormFieldClass="full-width"
                    (blurEvent)="logValidationErrors(budgetForm, formErrors, validationMessages)"
                    [errorMessage]="formErrors.from">
@@ -41,7 +41,7 @@
                   <label class="col-form-label">To:</label>
                   <kt-date-input
                      formControlName="to"
-                     placeholder="Enter To Date"
+                     placeholder="Select Date"
                      [minDate]="budgetForm?.value?.from"
                      matFormFieldClass="full-width"
                      (blurEvent)="logValidationErrors(budgetForm, formErrors, validationMessages)"

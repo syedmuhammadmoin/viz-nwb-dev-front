@@ -42,49 +42,49 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
   //validation messages
   validationMessages = {
-    'accountNumber': {
-      'required': 'Account Number is required.',
-      'min': 'Please insert correct value.'
+    accountNumber: {
+      required: 'Account Number is required.',
+      min: 'Please insert correct value.'
     },
-    'bankName': {
-      'required': 'Bank Name is required.'
+    bankName: {
+      required: 'Bank Name is required.'
     },
     // 'branch': {
     //   'required': 'Branch Name is required.'
     // },
-    'openingBalance': {
-      'required': 'Opening Balance is required.',
-      'min': 'Please insert correct value.'
+    openingBalance: {
+      required: 'Opening Balance is required.',
+      min: 'Please insert correct value.'
     },
-    'bankAccountType': {
-      'required': 'Account type is required.',
+    bankAccountType: {
+      required: 'Account type is required.',
     },
-    'accountTitle': {
-      'required': 'Account Title is required.'
+    accountTitle: {
+      required: 'Account Title is required.'
     },
-    'OBDate': {
-      'required': 'Opening Balance Date is required.'
+    OBDate: {
+      required: 'Opening Balance Date is required.'
     },
-    'campusId': {
-      'required': 'Campus is required.'
+    campusId: {
+      required: 'Campus is required.'
     },
-    'accountCode': {
-      'required': 'Account Code is required.',
-      'maxlength': 'Limit is 10 characters.'
+    accountCode: {
+      required: 'Account Code is required.',
+      maxlength: 'Limit is 10 characters.'
     },
   }
 
   //Error keys
   formErrors = {
-    'accountNumber': '',
-    'bankName': '',
+    accountNumber: '',
+    bankName: '',
    // 'branch': '',
-    'openingBalance': '',
-    'accountTitle': '',
-    'bankAccountType': '',
-    'OBDate': '',
-    'campusId': '',
-    'accountCode': ''
+    openingBalance: '',
+    accountTitle: '',
+    bankAccountType: '',
+    OBDate: '',
+    campusId: '',
+    accountCode: ''
   }
 
   //Injecting dependencies
@@ -105,6 +105,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       bankName: ['', [Validators.required]],
       branch: [''],
       purpose: [''],
+      iban: [''],
       accountTitle: ['', [Validators.required]],
       accountCode: ['', [Validators.required, Validators.maxLength(10)]],
       bankAccountType: ['', [Validators.required]],
@@ -137,6 +138,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
         accountNumber: null,
         bankName: '',
         branch: '',
+        iban: '',
         accountCode: '',
         openingBalance: null,
         purpose: '',
@@ -175,6 +177,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       bankName: bankAccount.bankName,
       branch: bankAccount.branch,
       accountTitle: bankAccount.accountTitle,
+      iban: bankAccount.iban,
       purpose: bankAccount.purpose,
       accountCode: bankAccount.accountCode,
       bankAccountType: bankAccount.bankAccountType,
@@ -195,7 +198,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-    //console.log(this.bankAccount)
+    // console.log(this.bankAccount)
     
     if (this.bankAccount.id) {
       this.bankAccountService.updateBankAccount(this.bankAccount)
@@ -228,6 +231,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     this.bankAccount.accountNumber = this.bankAccountForm.value.accountNumber;
     this.bankAccount.bankName = this.bankAccountForm.value.bankName;
     this.bankAccount.branch = this.bankAccountForm.value.branch;
+    this.bankAccount.iban = this.bankAccountForm.value.iban;
     this.bankAccount.openingBalance = this.bankAccountForm.value.openingBalance;
     this.bankAccount.accountTitle = this.bankAccountForm.value.accountTitle;
     this.bankAccount.bankAccountType = this.bankAccountForm.value.bankAccountType;

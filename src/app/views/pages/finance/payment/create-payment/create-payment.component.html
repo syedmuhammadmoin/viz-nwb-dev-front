@@ -91,7 +91,29 @@
                     </div>
                   </div>
     
-                  <div *ngIf="!isPayrollPayment" class="col-lg-4 col-md-4 col-sm-4">
+                  <div *ngIf="!isPayrollPayment && !isReceipt" class="col-lg-4 col-md-4 col-sm-4">
+                    <div class="form-group kt-form__group mb-0">
+                        <label class="col-form-label pt-0">Business Partner:</label>
+                        <kt-group-dropdown
+                      id="payment_partner"
+                      (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
+                      [errorMessage]="formErrors.vendorName" 
+                      [optionList]="ngxsService.allBusinessPartners$"
+                      [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                      clickEventButtonName="Add New Business Partner"
+                      (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
+                      formControlName="businessPartner"
+                      groupChildrenName="businessPartner"
+                      groupPropertyName="type"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Business Partner" 
+                      propertyName="name"
+                      propertyValue="id">
+                    </kt-group-dropdown>
+                    </div>
+                  </div>
+
+                  <div *ngIf="isReceipt" class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Business Partner:</label>
                         <kt-simple-dropdown 

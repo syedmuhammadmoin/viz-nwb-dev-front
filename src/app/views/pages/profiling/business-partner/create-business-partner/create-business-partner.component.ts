@@ -16,6 +16,7 @@ import { IsReloadRequired } from '../../store/profiling.action';
 import { BusinessPartnerState } from '../store/business-partner.state';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
+import { AllBusinessPartnerState } from '../store/All-business-partner.state';
 
 @Component({
   selector: 'kt-create-business-partner',
@@ -162,6 +163,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       // state: ['', [Validators.required]],
       // city: ['', [Validators.required]],
       address: [''],
+      bankName: [''],
+      branchCode: [''],
       phone: ['', [Validators.pattern('[0-9]*$')]],
       mobile: ['', [Validators.pattern('[0-9]*$')]],
       cnic: ['', [Validators.pattern('^[0-9]{13}$')]],
@@ -196,6 +199,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
         name: '',
         address: '',
         phone: null,
+        bankName: '',
+        branchCode: '',
         //email: '',
         mobile: null,
         //website: '',
@@ -245,6 +250,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
       address: businessPartner.address,
       phone: businessPartner.phone,
       mobile: businessPartner.mobile,
+      bankName: businessPartner.bankName,
+      branchCode: businessPartner.branchCode,
       incomeTaxId: businessPartner.incomeTaxId,
       salesTaxId: businessPartner.salesTaxId,
       bankAccountTitle: businessPartner.bankAccountTitle,
@@ -317,6 +324,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
+            this.ngxsService.store.dispatch(new IsReloadRequired(AllBusinessPartnerState, true));
             this.toastService.success('Updated Successfully', 'Business Partner')
             this.onCloseDialog();
         });
@@ -332,6 +340,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(BusinessPartnerState, true));
+            this.ngxsService.store.dispatch(new IsReloadRequired(AllBusinessPartnerState, true));
             this.toastService.success('Created Successfully', 'Business Partner')
             this.onCloseDialog();
         });
@@ -347,6 +356,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     // this.businessPartner.city = this.cityList.find(c => c.id == this.businessPartnerForm.value.city).name;
     this.businessPartner.address = this.businessPartnerForm.value.address;
     this.businessPartner.phone = this.businessPartnerForm.value.phone;
+    this.businessPartner.bankName = this.businessPartnerForm.value.bankName;
+    this.businessPartner.branchCode = this.businessPartnerForm.value.branchCode;
     // this.businessPartner.email = this.businessPartnerForm.value.email;
     // this.businessPartner.website = this.businessPartnerForm.value.website;
     this.businessPartner.mobile = this.businessPartnerForm.value.mobile;

@@ -1816,3 +1816,9 @@ mat-tree-node div[id^='child']
 {
   justify-content: center !important;
 }
+
+
+.mat-form-field.mat-focused.mat-primary .mat-select-arrow
+{
+  color: $primary-color !important;
+}

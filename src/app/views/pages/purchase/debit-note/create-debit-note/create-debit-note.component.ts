@@ -129,7 +129,8 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     };
 
      // get vendor from state
-     this.ngxsService.getBusinessPartnerFromState();
+     //  this.ngxsService.getBusinessPartnerFromState();
+     this.ngxsService.getAllBusinessPartnerFromState();
      // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
      // get Ware house location from state

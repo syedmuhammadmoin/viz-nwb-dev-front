@@ -23,6 +23,7 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
   @Input() propertyName: string;
   @Input() propertyValue: string;
   @Input() isRequired = false;
+  @Input() buttonPermission: boolean;
   @Input() secondaryPropertyName: string;
   @Input() placeholder: string;
   @Input() searchPlaceholder: string;

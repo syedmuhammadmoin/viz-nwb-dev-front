@@ -244,40 +244,64 @@
                     <div class="row">
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Account Payable:</label>
-                            <kt-simple-dropdown
-                            id="business_partner_payable"
-                              propertyName="name"
-                              propertyValue="id"
-                              matFormFieldClass="full-width"
-                              placeholder="Select Account Payable"
-                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
-                              [errorMessage]="formErrors.accountPayable"
-                              formControlName="accountPayable"
-                              [optionList]="ngxsService.accountsPayable$">
-                            </kt-simple-dropdown>
+                            <label class="col-form-label pt-0">Bank Name:</label>
+                            <kt-input-field
+                              id="business_partner_bankName"
+                                formControlName="bankName"
+                                placeholder="Enter Bank Name"
+                                hintText="Optional">
+                              </kt-input-field>
                         </div>
                       </div>
                       <div class="col-md-6 col-lg-6 col-sm-6">
                         <div class="form-group mb-0">
-                            <label class="col-form-label pt-0">Account Receivable:</label>
-                            <kt-simple-dropdown
-                            id="business_partner_receivable"
-                              propertyName="name"
-                              matFormFieldClass="full-width"
-                              propertyValue="id"
-                              placeholder="Select Account Receivable"
-                              formControlName="accountReceivable"
-                              formClassName="full-width"
-                              [optionList]="ngxsService.accountsReceivable$"
-                              (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
-                              [errorMessage]="formErrors.accountReceivable">
-                            </kt-simple-dropdown>
+                            <label class="col-form-label pt-0">Branch Code:</label>
+                            <kt-input-field
+                              id="business_partner_branchCode"
+                                formControlName="branchCode"
+                                placeholder="Enter Branch Code"
+                                hintText="Optional">
+                              </kt-input-field>
                         </div>
                       </div>
                     </div>
-                  
+                    
                   <!-- seventh row ends -->
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 col-sm-6">
+                      <div class="form-group mb-0">
+                          <label class="col-form-label pt-0">Account Payable:</label>
+                          <kt-simple-dropdown
+                          id="business_partner_payable"
+                            propertyName="name"
+                            propertyValue="id"
+                            matFormFieldClass="full-width"
+                            placeholder="Select Account Payable"
+                            (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                            [errorMessage]="formErrors.accountPayable"
+                            formControlName="accountPayable"
+                            [optionList]="ngxsService.accountsPayable$">
+                          </kt-simple-dropdown>
+                      </div>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-sm-6">
+                      <div class="form-group mb-0">
+                          <label class="col-form-label pt-0">Account Receivable:</label>
+                          <kt-simple-dropdown
+                          id="business_partner_receivable"
+                            propertyName="name"
+                            matFormFieldClass="full-width"
+                            propertyValue="id"
+                            placeholder="Select Account Receivable"
+                            formControlName="accountReceivable"
+                            formClassName="full-width"
+                            [optionList]="ngxsService.accountsReceivable$"
+                            (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
+                            [errorMessage]="formErrors.accountReceivable">
+                          </kt-simple-dropdown>
+                      </div>
+                    </div>
+                  </div>
                 </div>
             </div>
             <!-- form first section ends -->

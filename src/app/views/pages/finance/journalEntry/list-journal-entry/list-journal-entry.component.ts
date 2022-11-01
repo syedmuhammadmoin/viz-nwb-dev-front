@@ -30,7 +30,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-  
+
   // Injecting dependencies
   constructor(
     private journalEntryService: JournalEntryService,
@@ -49,11 +49,11 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
 
   // Declaring AgGrid data
   columnDefs = [
-    { 
-      headerName: 'JV #', 
-      field: 'docNo', 
-      tooltipField: 'docNo', 
-      cellRenderer: "loadingCellRenderer", 
+    {
+      headerName: 'JV #',
+      field: 'docNo',
+      tooltipField: 'docNo',
+      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -75,16 +75,17 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    { 
-      headerName: 'Description', 
-      field: 'description', 
+    {
+      headerName: 'Description',
+      field: 'description',
       tooltipField: 'docNo',
       suppressMenu: true,
     },
     {
-      headerName: 'Debit', 
+      headerName: 'Debit',
       field: 'totalDebit',
-      cellStyle: { 'text-align': "right" }, 
+      headerClass: 'custom_left',
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
@@ -99,18 +100,19 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       // }
     },
     {
-      headerName: 'Credit', 
-      field: 'totalCredit', 
-      cellStyle: { 'text-align': "right" }, 
+      headerName: 'Credit',
+      field: 'totalCredit',
+      headerClass: 'custom_left',
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -176,8 +178,8 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     var dataSource = {
       getRows: (params: any) => {
         this.journalEntryService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -205,8 +207,8 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   //   getRows: async (params: any) => {
   //    const res = await this.getJournalEntries(params)
 
-  //    if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }

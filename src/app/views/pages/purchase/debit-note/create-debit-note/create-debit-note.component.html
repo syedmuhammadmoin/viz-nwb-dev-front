@@ -12,20 +12,22 @@
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">Vendor:</label>
-                      <kt-simple-dropdown 
+                      <kt-group-dropdown
                       id="debit_note_vendor_name"
-                        formControlName="vendorName"
-                        (blurEvent)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages)"
-                        propertyName="name" 
-                        matFormFieldClass="full-width"
-                        propertyValue="id" 
-                        [errorMessage]="formErrors.vendorName"
-                        [optionList]="ngxsService.businessPartners$"
-                        [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
-                        clickEventButtonName="Add New Vendor"
-                        (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
-                        placeholder="Select Vendor">
-                      </kt-simple-dropdown>
+                      (blurEvent)="logValidationErrors(this.debitNoteForm, this.formErrors, this.validationMessages)"
+                      [errorMessage]="formErrors.vendorName" 
+                      [optionList]="ngxsService.allBusinessPartners$"
+                      [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                      clickEventButtonName="Add New Vendor"
+                      (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
+                      formControlName="vendorName"
+                      groupChildrenName="businessPartner"
+                      groupPropertyName="type"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Vendor" 
+                      propertyName="name"
+                      propertyValue="id">
+                    </kt-group-dropdown>
                   </div>
                 </div>
 

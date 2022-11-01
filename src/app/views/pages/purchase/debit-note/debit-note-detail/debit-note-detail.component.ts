@@ -79,6 +79,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       }
      },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
       headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
@@ -99,12 +100,11 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
       }
     },
     {
-      headerName: 'Sub total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Subtotal', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { headerName: 'Account', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { 
       headerName: 'Store', 
       field: 'warehouseName', 

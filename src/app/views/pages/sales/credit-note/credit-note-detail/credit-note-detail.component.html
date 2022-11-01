@@ -3,7 +3,7 @@
     <!-- <kt-portlet-header [sticky]="false" [title]="'Credit Note Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        
+
         <h4 class="overall_statuses {{docStatus[creditNoteMaster?.state]}}"> Status:  {{creditNoteMaster?.status}} </h4>
       </ng-container>
     </kt-portlet-header> -->
@@ -27,7 +27,7 @@
                   class="mr-3 btn_public"><i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="btn_public mr-3" 
+                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="btn_public mr-3"
                   (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
@@ -43,17 +43,21 @@
           <div class="col-md-5 col-lg-5  mt-3">
 
             <div class="print-box">
-                <h4 class="print-box-detail-1">Credit Note No: 
+                <h4 class="print-box-detail-1"><b>Document No:</b>
                     <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-2">Customer Name:
+                <h4 class="print-box-detail-2"><b>Customer Name:</b>
                     <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.customerName}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Date:
+              <h4 class="print-box-detail-2"><b>Credit Note Date:</b>
               <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2"><b>Campus:</b>
+              <span class="float-right" style="font-weight: 400;">{{creditNoteMaster?.campusName}}</span></h4>
             </div>
           </div>
 
@@ -99,7 +103,7 @@
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
                         <mat-panel-title class="paid-anount">
-                           Reconciled Amount : 
+                           Reconciled Amount :
                         </mat-panel-title>
                         <mat-panel-description class="paid-anount-flex-grow">
                           {{valueFormatter(creditNoteMaster?.reconciledAmount || 0)}}
