@@ -18,7 +18,7 @@ import { BankStatementService } from '../service/bank-statement.service';
 })
 
 export class ListBankStatementComponent extends AppComponentBase implements OnInit {
-  
+
     bankStatementList: IBankStatement[];
     gridOptions: GridOptions = ({} as GridOptions);
     frameworkComponents : {[p: string]: unknown};
@@ -29,7 +29,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     gridApi: GridApi;
     gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-    
+
     constructor( private bankStatementService : BankStatementService,
                  private router: Router,
                  private cdRef: ChangeDetectorRef,
@@ -37,8 +37,8 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
                ) {
                  super(injector)
                    this.gridOptions = <GridOptions>(
-                    { 
-                      context : { componentParent : this } 
+                    {
+                      context : { componentParent : this }
                     }
                   );
                  }
@@ -46,8 +46,8 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
 
     columnDefs = [
       {
-        headerName: 'Bank Account', 
-        field: 'bankAccountName', 
+        headerName: 'Bank Account',
+        field: 'bankAccountName',
         tooltipField: 'description',
         filter: 'agTextColumnFilter',
         cellRenderer: "loadingCellRenderer",
@@ -59,9 +59,10 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       },
       {headerName: 'Description', field: 'description', suppressMenu: true ,tooltipField: 'description'},
       {
-        headerName: 'Opening Balance', 
-        field: 'openingBalance', 
-        cellStyle: { 'text-align': "right" }, 
+        headerName: 'Opening Balance',
+        field: 'openingBalance',
+        headerClass: 'custom_left',
+        cellStyle: { 'text-align': "right" },
         suppressMenu: true,
         tooltipField: 'description',
         valueFormatter: (params : ValueFormatterParams) => {
@@ -69,7 +70,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
         }
       }
     ];
-  
+
     ngOnInit() {
 
       this.gridOptions = {
@@ -81,9 +82,9 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
         headerHeight: 35,
         context: "double click to edit",
       };
-  
+
       this.frameworkComponents = {customTooltip: CustomTooltipComponent};
-  
+
       this.defaultColDef = {
         tooltipComponent: 'customTooltip',
         flex: 1,
@@ -91,7 +92,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
         filter: 'agSetColumnFilter',
         resizable: true,
       }
-  
+
       this.components = {
         loadingCellRenderer: function (params: any) {
           if (params.value !== undefined) {
@@ -122,8 +123,8 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     dataSource = {
       getRows: async (params: any) => {
        const res = await this.getBankStatements(params);
-       if(isEmpty(res.result)) {  
-        this.gridApi.showNoRowsOverlay() 
+       if(isEmpty(res.result)) {
+        this.gridApi.showNoRowsOverlay()
       } else {
         this.gridApi.hideOverlay();
       }
@@ -133,13 +134,13 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
        this.cdRef.detectChanges();
      },
     };
-  
+
     onGridReady(params: GridReadyEvent) {
       this.gridApi = params.api;
       this.gridColumnApi = params.columnApi;
       params.api.setDatasource(this.dataSource);
     }
-  
+
     async getBankStatements(params: any): Promise<IPaginationResponse<[]>> {
       const result = await this.bankStatementService.getRecords(params).toPromise()
       return result
@@ -150,18 +151,18 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     //   this.gridColumnApi = params.columnApi;
     //   params.api.setDatasource(this.dataSource);
     // }
-  
+
     // async getBankStatements(params: any): Promise<IPaginationResponse<IBankStatement[]>> {
     //   const result = await  this.bankStatementService.getBankStatements(params).toPromise()
     //   return result
     // }
-  
+
     // dataSource = {
     //   getRows: async (params: any) => {
     //    const res = await this.getBankStatements(params)
 
-    //    if(isEmpty(res.result)) {  
-    //     this.gridApi.showNoRowsOverlay() 
+    //    if(isEmpty(res.result)) {
+    //     this.gridApi.showNoRowsOverlay()
     //   } else {
     //    this.gridApi.hideOverlay();
     //   }
@@ -185,17 +186,6 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
 
 
 
-   
- 
-  
-
- 
- 
-
-
-  
- 
- 
 
 
 
@@ -203,6 +193,17 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
 
 
 
-  
+
+
+
+
+
+
+
+
+
+
+
+
 
 

@@ -8,13 +8,13 @@
         ngxPrint
         type="button"
         mat-raised-button
-        class="sub___btn"
+        class="app-default-btn"
         [useExistingCss]="true" style="margin-bottom: 20px;"
         ><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
-  
+
 
   <div class="col-lg-10 mx-auto" id="main">
     <div class="row">
@@ -23,36 +23,42 @@
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
-              <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt="">
-              <span class="top-heading">JOURNAL ENTRY</span>
+              <div class="print-logo"></div>
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
-            
+
           </div>
           <div class="print-col-5 ml-auto p-s-1-two">
             <div class="id_num">
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+              margin-bottom: 10px;
+              text-align: center;">
+                <h4>JOURNAL ENTRY</h4>
+              </div>
               <div class="print-box-one">
                 <h4 class="print-page-items">Document No: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
-                <h4 class="print-page-items">JV Date: <span class="float-right" style="font-weight: 400;">
+                <h4 class="mt-1">JV Date: <span class="float-right" style="font-weight: 400;">
                   {{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
-            
+
           </div>
         </div>
 
-        
+
         <div class="print_body_area p-s-2">
 
           <div class="print-col-5 p-s-2-one">
             <div class="print-box-one">
-              <h4 class="font-14">Campus: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.campusName}}</span></h4>
+              <h4 class="font-14"><b>Campus:</b> <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.campusName}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14">Description: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.description || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>Description:</b> </h4>
+              <p style="font-weight: 400;">{{journalEntryMaster?.description || 'N/A'}}</p>
             </div>
           </div>
 
@@ -65,8 +71,8 @@
                     <th>Description</th>
                     <th>Account</th>
                     <th>Business Partner</th>
-                    <th class="text-center">Debit</th>
-                    <th class="text-center">Credit</th>
+                    <th class="text-right">Debit</th>
+                    <th class="text-right">Credit</th>
                     <!-- <th>Store</th> -->
                   </tr>
                   <tr *ngFor="let line of journalEntryLines ; index as i">
@@ -99,7 +105,7 @@
 
 
           <!-- <div class="print-col-12 p-s-4">
-            
+
             <div class="print-box p-s-4-one">
               <p>Terms and conditions:</p>
             </div>
@@ -111,8 +117,13 @@
               <p>Thankyou for your Business</p>
             </div>
           </div> -->
-          <div class="print-col-4 p-s-5">
-            _________________________________
+
+        </div>
+
+        <div class="row mt-10 ms-10">
+
+          <div class="print-col-4 p-s-5 text-center">
+            ______________________
             <p class="text-center">Authorized Sign</p>
           </div>
         </div>

@@ -47,10 +47,10 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
 
 
   columnDefs = [
-    { 
-      headerName: 'Credit Note #', 
+    {
+      headerName: 'Credit Note #',
       field: 'docNo',
-      tooltipField: 'noteDate', 
+      tooltipField: 'noteDate',
       cellRenderer: "loadingCellRenderer" ,
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -59,10 +59,10 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Customer', 
+    {
+      headerName: 'Customer',
       field: 'customerName',
-      tooltipField: 'noteDate', 
+      tooltipField: 'noteDate',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -85,18 +85,19 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
       }
     },
     {
-      headerName: 'Total', 
+      headerName: 'Total',
       field: 'totalAmount',
+      headerClass: 'custom_left',
       tooltipField: 'noteDate',
-      cellStyle: { 'text-align': "right" }, 
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || null;
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -161,8 +162,8 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     var dataSource = {
       getRows: (params: any) => {
         this.creditNoteService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -190,8 +191,8 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   //   getRows: async (params: any) => {
   //    const res = await this.getCreditNotes(params);
 
-  //    if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }

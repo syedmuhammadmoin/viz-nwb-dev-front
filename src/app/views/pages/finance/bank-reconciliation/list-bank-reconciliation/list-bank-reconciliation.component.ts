@@ -38,8 +38,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   columnBankStatement = [
     { headerName: 'Ref#', field: 'docNo', menuTabs: ["filterMenuTab"], filter: true, checkboxSelection: true },
     {
-      headerName: 'Label', field: 'label', menuTabs: ["filterMenuTab"], filter: true, 
-      cellRenderer: (params: any) => {       
+      headerName: 'Label', field: 'label', menuTabs: ["filterMenuTab"], filter: true,
+      cellRenderer: (params: any) => {
         return (params.data.label||'N/A' );
       }},
     {
@@ -50,9 +50,10 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       }
     },
     {
-      headerName: 'Amount', 
+      headerName: 'Amount',
       menuTabs: ["filterMenuTab"],
       field: 'unreconciledAmount',
+
       filter: true,
       aggFunc: 'sum',
       valueFormatter: (params) => {
@@ -64,13 +65,13 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   columnPayment = [
     { headerName: 'Doc#', field: 'docNo', menuTabs: ["filterMenuTab"], filter: true, checkboxSelection: true },
     // {
-    //   headerName: 'Cheque No', field: 'checkNumber', menuTabs: ["filterMenuTab"], filter: true, 
+    //   headerName: 'Cheque No', field: 'checkNumber', menuTabs: ["filterMenuTab"], filter: true,
     //   cellRenderer: (params) => {
     //     return (params.data.checkNumber||'N/A')
     //   }
     // },
     // {
-    //   headerName: 'Description', field: 'Description', menuTabs: ["filterMenuTab"], filter: true, 
+    //   headerName: 'Description', field: 'Description', menuTabs: ["filterMenuTab"], filter: true,
     //   cellRenderer: (params) => {
     //     return (params.value||'N/A')
     //   }
@@ -86,6 +87,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       headerName: 'Amount',
       field: 'unreconciledAmount',
       filter: true,
+      headerClass: 'custom_left',
+      cellStyle: { 'text-align': "right" },
       menuTabs: ["filterMenuTab"],
       aggFunc: 'sum',
       valueFormatter: (params) => {
@@ -235,7 +238,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
           this.toastService.error(err?.error?.message || 'Something went wrong! Please try again later');
           this.paymentGridApi.hideOverlay();
           this.statementGridApi.hideOverlay();
-        } 
+        }
       )
     }
   }
@@ -246,7 +249,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     this.bankReconService.bankStatementList.subscribe((res) => {
       this.bankStatementList = res;
       console.log("stat",res);
-      
+
       this.cdRef.detectChanges();
       setTimeout(() => {
         const pinnedBottomData = this.footerHelper.generatePinnedBottomData(this.statementColumnApi, this.statementGridApi, 'docNo', ['unreconciledAmount']);
