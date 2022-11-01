@@ -93,7 +93,7 @@
     
                   <div *ngIf="!isPayrollPayment && !isReceipt" class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Business Partner (Payment):</label>
+                        <label class="col-form-label pt-0">Business Partner:</label>
                         <kt-group-dropdown
                       id="payment_partner"
                       (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
@@ -115,7 +115,7 @@
 
                   <div *ngIf="isReceipt" class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Business Partner (Receipt):</label>
+                        <label class="col-form-label pt-0">Business Partner:</label>
                         <kt-simple-dropdown 
                         id="payment_partner"
                           formControlName="businessPartner"
@@ -135,7 +135,7 @@
 
                   <div *ngIf="isPayrollPayment" class="col-lg-4 col-md-4 col-sm-4">
                     <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Employee (Employee):</label>
+                        <label class="col-form-label pt-0">Employee:</label>
                         <kt-simple-dropdown 
                         id="payment_employee"
                           formControlName="businessPartner"
