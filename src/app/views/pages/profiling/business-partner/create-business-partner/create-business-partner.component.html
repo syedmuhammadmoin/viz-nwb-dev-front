@@ -249,8 +249,6 @@
                               id="business_partner_bankName"
                                 formControlName="bankName"
                                 placeholder="Enter Bank Name"
-                                (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
-                                [errorMessage]="[{ condition : formErrors.bankName , error : formErrors.bankName }]"
                                 hintText="Optional">
                               </kt-input-field>
                         </div>
@@ -262,8 +260,6 @@
                               id="business_partner_branchCode"
                                 formControlName="branchCode"
                                 placeholder="Enter Branch Code"
-                                (blurEvent)="logValidationErrors(this.businessPartnerForm, formErrors, validationMessages)"
-                                [errorMessage]="[{ condition : formErrors.branchCode , error : formErrors.branchCode }]"
                                 hintText="Optional">
                               </kt-input-field>
                         </div>
