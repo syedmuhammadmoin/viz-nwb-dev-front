@@ -38,7 +38,7 @@
                                   propertyValue="id"
                                   matFormFieldClass="full-width"
                                   placeholder="Select Account Payable"
-                                  (blurEvent)="logValidationErrors(this.employeeForm, formErrors, validationMessages)"
+                                  (blurEvent)="logValidationErrors(employeeForm, formErrors, validationMessages)"
                                   [errorMessage]="formErrors.accountPayableId"
                                   formControlName="accountPayableId"
                                   [optionList]="ngxsService.accountsPayable$">

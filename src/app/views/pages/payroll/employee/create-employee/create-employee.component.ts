@@ -49,12 +49,13 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
 
   //error keys
   formErrors = {
-    noOfIncrements: ''
+    noOfIncrements: '',
+    accountPayableId: ''
   };
 
   constructor(private fb: FormBuilder,
     public  employeeService: EmployeeService,
-    private ngxsService: NgxsCustomService,
+    public ngxsService: NgxsCustomService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
