@@ -50,7 +50,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   //error keys
   formErrors = {
     noOfIncrements: '',
-    accountPayableId: ''
+    accountPayableId: '',
   };
 
   constructor(private fb: FormBuilder,
