@@ -217,7 +217,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     if (itemId) {
       const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       const tax = this.salesItem.find(i => i.id === itemId).salesTax
-      const account = this.salesItem.find(i => i.id === itemId).assetAccountId
+      const account = this.salesItem.find(i => i.id === itemId).inventoryAccountId
       // set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
