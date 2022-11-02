@@ -42,16 +42,20 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
       required: 'No of increments is required.',
       min: 'Minimum increment is 1.'
     },
+    accountPayableId: {
+      required: 'Account Payable is required.'
+    }
   };
 
   //error keys
   formErrors = {
-    noOfIncrements: ''
+    noOfIncrements: '',
+    accountPayableId: '',
   };
 
   constructor(private fb: FormBuilder,
     public  employeeService: EmployeeService,
-    private ngxsService: NgxsCustomService,
+    public ngxsService: NgxsCustomService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
@@ -63,7 +67,8 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
 
   ngOnInit() {
     this.employeeForm = this.fb.group({
-      noOfIncrements: ['', [Validators.required , Validators.min(1)]]
+      noOfIncrements: ['', [Validators.required , Validators.min(1)]],
+      accountPayableId: [null , [Validators.required]]
     });
 
     if (this._id) {
@@ -72,6 +77,9 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
       this.isLoading = true
       this.getEmployee(this._id);
     }
+
+    //Get Account Payables from Store
+    this.ngxsService.getAccountPayableFromState();
   }
 
   //Getting employee values for update
@@ -96,7 +104,8 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   editEmployee(employee: IEmployee) {
     console.log(employee)
     this.employeeForm.patchValue({
-      noOfIncrements: employee.noOfIncrements
+      noOfIncrements: employee.noOfIncrements,
+      accountPayableId: employee.accountPayableId
     });
 
     //if user have no permission to edit, so disable all fields
@@ -134,6 +143,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   mapFormValueToEmployeeModel() {
     this.employee.id = this._id;
     this.employee.noOfIncrements = this.employeeForm.value.noOfIncrements;
+    this.employee.accountPayableId = this.employeeForm.value.accountPayableId;
   }
 
   // Dialogue close function
@@ -141,7 +151,3 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
     this.dialogRef.close();
   }
 }
-
-
-
-
