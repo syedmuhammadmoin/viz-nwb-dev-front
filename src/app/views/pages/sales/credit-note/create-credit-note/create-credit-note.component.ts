@@ -175,7 +175,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     if (itemId) {
       var price = this.salesItem.find(i => i.id === itemId).salesPrice
       var tax = this.salesItem.find(i => i.id === itemId).salesTax
-      var account = this.salesItem.find(i => i.id === itemId).costAccountId
+      var account = this.salesItem.find(i => i.id === itemId).revenueAccountId
       //set values for price & tax
       arrayControl.at(index).get('price').setValue(price);
       arrayControl.at(index).get('tax').setValue(tax);

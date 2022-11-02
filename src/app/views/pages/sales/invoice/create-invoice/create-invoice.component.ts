@@ -206,7 +206,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     if (itemId) {
       let price = this.salesItem.find(i => i.id === itemId).salesPrice
       let tax = this.salesItem.find(i => i.id === itemId).salesTax
-      let account = this.salesItem.find(i => i.id === itemId).costAccountId
+      let account = this.salesItem.find(i => i.id === itemId).revenueAccountId
       // set values for price & tax
       arrayControl.at(index).get('price').setValue(price);
       arrayControl.at(index).get('tax').setValue(tax);
