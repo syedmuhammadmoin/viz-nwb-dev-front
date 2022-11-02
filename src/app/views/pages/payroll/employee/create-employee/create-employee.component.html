@@ -29,6 +29,22 @@
                               </mat-form-field>
                             </div>
                         </div>
+                        <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group kt-form__group mb-0">
+                                <label class="col-form-label pt-0">Account Payable:</label>
+                                <kt-simple-dropdown
+                                  id="employee_payable"
+                                  propertyName="name"
+                                  propertyValue="id"
+                                  matFormFieldClass="full-width"
+                                  placeholder="Select Account Payable"
+                                  (blurEvent)="logValidationErrors(this.employeeForm, formErrors, validationMessages)"
+                                  [errorMessage]="formErrors.accountPayableId"
+                                  formControlName="accountPayableId"
+                                  [optionList]="ngxsService.accountsPayable$">
+                                </kt-simple-dropdown>
+                            </div>
+                        </div>
                     </div>
                     <!-- first row ends -->
                 </div>
