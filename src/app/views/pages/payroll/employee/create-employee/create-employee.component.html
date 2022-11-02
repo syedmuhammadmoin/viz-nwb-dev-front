@@ -36,11 +36,11 @@
                                   id="employee_payable"
                                   propertyName="name"
                                   propertyValue="id"
-                                  formControlName="accountPayableId"
                                   matFormFieldClass="full-width"
                                   placeholder="Select Account Payable"
-                                  (blurEvent)="this.logValidationErrors(this.employeeForm, this.formErrors, this.validationMessages)"
+                                  (blurEvent)="logValidationErrors(this.employeeForm, this.formErrors, this.validationMessages)"
                                   [errorMessage]="formErrors.accountPayableId"
+                                  formControlName="accountPayableId"
                                   [optionList]="ngxsService.accountsPayable$">
                                 </kt-simple-dropdown>
                             </div>

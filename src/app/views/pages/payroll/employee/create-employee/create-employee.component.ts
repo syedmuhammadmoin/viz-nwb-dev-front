@@ -68,7 +68,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   ngOnInit() {
     this.employeeForm = this.fb.group({
       noOfIncrements: ['', [Validators.required , Validators.min(1)]],
-      accountPayableId: [null , [Validators.required]]
+      accountPayableId: ['' , [Validators.required]]
     });
 
     if (this._id) {
@@ -102,7 +102,6 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
 
   // Patching values to  employee form
   editEmployee(employee: IEmployee) {
-    console.log(employee)
     this.employeeForm.patchValue({
       noOfIncrements: employee.noOfIncrements,
       accountPayableId: employee.accountPayableId
