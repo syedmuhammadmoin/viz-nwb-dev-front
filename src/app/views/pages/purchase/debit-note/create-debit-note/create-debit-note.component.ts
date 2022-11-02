@@ -43,7 +43,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   debitNoteModel: IDebitNote;
 
   //For DropDown
-  salesItem: IProduct[];
+  salesItem: IProduct[] | any[];
 
   //Variables for Calculation
   grandTotal: number = 0;
@@ -176,7 +176,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     if (itemId) {
       var cost = this.salesItem.find(i => i.id === itemId).purchasePrice
       var tax = this.salesItem.find(i => i.id === itemId).salesTax
-      var account = this.salesItem.find(i => i.id === itemId).costAccountId
+      var account = this.salesItem.find(i => i.id === itemId).assetAccountId
       //set values for price & tax
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
