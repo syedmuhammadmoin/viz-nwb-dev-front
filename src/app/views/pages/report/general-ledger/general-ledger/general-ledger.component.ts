@@ -83,6 +83,11 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         hide: true,
       },
       {
+        headerName: 'Business Partner', 
+        field: 'businessPartnerName', 
+        cellStyle: {textAlign : 'left'}
+      },
+      {
         headerName: 'Date', 
         field: 'docDate', 
         cellStyle: {textAlign : 'left'},
@@ -261,6 +266,11 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             field: 'accountName', 
             rowGroup: true, 
             hide: true
+          },
+          {
+            headerName: 'Business Partner', 
+            field: 'businessPartnerName', 
+            cellStyle: {textAlign : 'left'}
           },
           {
             headerName: 'Date', field: 'docDate',cellStyle: {textAlign : 'left'},
