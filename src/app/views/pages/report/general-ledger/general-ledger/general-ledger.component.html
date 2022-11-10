@@ -56,13 +56,22 @@
             <div class="col-lg-4 ">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Business Partner:</label>
-                <kt-simple-dropdown id="ledger_partner" [optionList]="ngxsService.businessPartners$"
-                 [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
-                  clickEventButtonName="Add New Business Partner"
-                  (clickEvent)="addButtonService.openBusinessPartnerDialog()"
-                  formControlName="businessPartnerName" matFormFieldClass="full-width" isDisabledNone="true"
-                  placeholder="Select Business Partner" propertyName="name" propertyValue="name" hintText="Optional">
-                </kt-simple-dropdown>
+                <kt-group-dropdown
+                      id="ledger_partner"
+                      [optionList]="ngxsService.allBusinessPartners$"
+                      [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                      clickEventButtonName="Add New Business Partner"
+                      (clickEvent)="addButtonService.openBusinessPartnerDialog()"
+                      formControlName="businessPartnerName"
+                      groupChildrenName="businessPartner"
+                      isDisabledNone="true"
+                      groupPropertyName="type"
+                      hintText="Optional"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Business Partner" 
+                      propertyName="name"
+                      propertyValue="name">
+                    </kt-group-dropdown>
               </div>
             </div>
             <div class="col-lg-4">

@@ -233,8 +233,9 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       //location: ['']
     });
 
-     // get customer from state
-     this.ngxsService.getBusinessPartnerFromState();   
+  
+    //get all business partner and employee 
+    this.ngxsService.getAllBusinessPartnerFromState();
      // get Ware house location from state
      this.ngxsService.getWarehouseFromState();    
      // get Accounts of level 4 from state
@@ -245,9 +246,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
      //this.ngxsService.getLocationFromState();
      // get department from state
      //this.ngxsService.getDepatmentFromState();
-
-   
-
   }
 
   onSubmit() {
