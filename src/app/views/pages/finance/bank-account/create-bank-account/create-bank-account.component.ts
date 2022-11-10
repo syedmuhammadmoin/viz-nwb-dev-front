@@ -109,7 +109,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       accountTitle: ['', [Validators.required]],
       accountCode: ['', [Validators.required, Validators.maxLength(10)]],
       bankAccountType: ['', [Validators.required]],
-      openingBalance: ['', [Validators.required, Validators.min(1)]],
+      openingBalance: ['', [Validators.required, Validators.min(0)]],
       OBDate: ['', [Validators.required]],
       campusId: ['', [Validators.required]]
     });
