@@ -21,7 +21,7 @@ export class PayrollReportsService {
 
   //for Payroll transaction report
   getPayrollsReport(data: any): Observable<IPaginationResponse<any>> {
-    return this.httpClient.get<IPaginationResponse<any>>(AppConst.remoteServiceBaseUrl + 'payrollTransaction/Report', {params: data});
+    return this.httpClient.get<IPaginationResponse<any>>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/PayrollExecutiveReport', {params: data});
   }
 
   getExecutiveSummary(data: any): Observable<IPaginationResponse<any>> {

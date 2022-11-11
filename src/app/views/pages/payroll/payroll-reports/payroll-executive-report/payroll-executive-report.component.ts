@@ -7,7 +7,7 @@ import { finalize} from 'rxjs/operators';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
 import { Router } from '@angular/router';
-import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
+import { APP_ROUTES, PAYROLL_REPORT, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { PayrollReportsService } from '../service/payroll-reports.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -201,11 +201,13 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     this.payrollExecutiveModel.year = this.payrollExecutiveForm.value.year || '';
   }
 
-  printPayrollExecutive(data: any) {
+  printPayrollExecutive() {
 
-    this.payrollReportService.setLedgerDataForPrintComponent(data);
+    this.payrollReportService.setLedgerDataForPrintComponent(this.recordsData);
 
-      this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.GENERAL_LEDGER + '/' + REPORT.PRINT], {
+    console.log('/' + APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + REPORT.PRINT)
+
+      this.router.navigate(['/' + APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + REPORT.PRINT], {
         queryParams: {
           from: this.dateHelperService.transformDate(this.payrollExecutiveForm.value.docDate, 'MMM d, y'),
           to: this.dateHelperService.transformDate(this.payrollExecutiveForm.value.docDate2, 'MMM d, y'),
