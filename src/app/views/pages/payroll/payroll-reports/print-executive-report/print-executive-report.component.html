@@ -53,14 +53,14 @@
 
           <div class="print-col-5 p-s-2-one">
             <div class="print-box-one">
-              <h4 class="font-14">Tenure: <span class="float-right" style="font-weight: 400;">{{masterData?.tenureAmount || 0}}</span></h4>
+              <h4 class="font-14">Tenure: <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.tenureAmount) || 0}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14">Contractual: <span class="float-right" style="font-weight: 400;">{{masterData?.contractualAmount || 0}}</span></h4>
+              <h4 class="font-14">Contractual: <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.contractualAmount) || 0}}</span></h4>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14">Regular: <span class="float-right" style="font-weight: 400;">{{masterData?.regularAmount || 0}}</span></h4>
+              <h4 class="font-14">Regular: <span class="float-right" style="font-weight: 400;">{{valueFormatter(masterData?.regularAmount) || 0}}</span></h4>
             </div>
           </div>
 
