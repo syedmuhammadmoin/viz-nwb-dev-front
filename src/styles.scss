@@ -43,6 +43,11 @@
   display: none;
 }
 
+.ag-theme-alpine .ag-paging-panel
+{
+  // border-top:0px solid !important;
+}
+
 // toast
 // @import '~ngx-toastr/toastr';
 
