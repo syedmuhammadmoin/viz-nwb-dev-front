@@ -60,7 +60,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         field: 'payrollType',  
         cellStyle: {textAlign : 'left'},
         valueFormatter: (params: any) => {
-          return AppConst.PayrollType[params.value]
+          return AppConst.PayrollType[params.value].value
         }
       },
       {
@@ -142,6 +142,10 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       this.ngxsService.getPayrollItemsFromState();
   }
 
+  onFirstDataRendered(params: any) {
+    params.api.sizeColumnsToFit();
+  }
+
   onSubmit() {
     if (this.payrollExecutiveForm.invalid) {
       this.logValidationErrors(this.payrollExecutiveForm, this.formErrors, this.validationMessages);
@@ -163,7 +167,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
             field: 'payrollType',  
             cellStyle: {textAlign : 'left'},
             valueFormatter: (params: any) => {
-              return AppConst.PayrollType[params.value]
+              return AppConst.PayrollType[params.value].value
             }
           },
           {
