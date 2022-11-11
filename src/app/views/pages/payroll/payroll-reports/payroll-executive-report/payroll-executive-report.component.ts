@@ -58,7 +58,10 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       {
         headerName: 'Payroll Type', 
         field: 'payrollType',  
-        cellStyle: {textAlign : 'left'}
+        cellStyle: {textAlign : 'left'},
+        valueFormatter: (params: any) => {
+          return AppConst.PayrollType[params.value]
+        }
       },
       {
         headerName: 'Amount',
@@ -158,7 +161,10 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
           {
             headerName: 'Payroll Type', 
             field: 'payrollType',  
-            cellStyle: {textAlign : 'left'}
+            cellStyle: {textAlign : 'left'},
+            valueFormatter: (params: any) => {
+              return AppConst.PayrollType[params.value]
+            }
           },
           {
             headerName: 'Amount',

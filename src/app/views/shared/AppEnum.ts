@@ -378,13 +378,12 @@ export enum AccountType {
   SystemDefined,
   UserDefined
 }
-    
 
 export enum PayrollType {
   BasicPay,
   Increment,
   Deduction,
-  Allowances,
+  Allowance,
   AssignmentAllowance,
   TaxDeduction
 }

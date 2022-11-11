@@ -475,6 +475,15 @@ export class AppConst {
     {id: 5 , type: 'SRBTaxLiability'}
   ]
 
+  static PayrollType = [
+    {value: 'Basic Pay'},
+    {value: 'Increment'},
+    {value: 'Deduction'},
+    {value: 'Allowance'},
+    {value: 'Assignment Allowance'},
+    {value: 'Tax Deduction'}
+  ]
+
   static Months = [
     { name: 'Jan', value: 1 },
     { name: 'Feb', value: 2 },
