@@ -15,7 +15,7 @@ export class PayrollReportsService {
   payrollExecutivePrintdata = new BehaviorSubject<any>([]);
   currentPayrollExecutivePrintData = this.payrollExecutivePrintdata.asObservable();
 
-  setLedgerDataForPrintComponent(data: any[]) {
+  setPayrollDataForPrintComponent(data: any[]) {
     this.payrollExecutivePrintdata.next(data);
   }
 

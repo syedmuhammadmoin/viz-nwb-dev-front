@@ -56,7 +56,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Payroll Type', 
+        headerName: 'Payroll Item Type', 
         field: 'payrollType',  
         cellStyle: {textAlign : 'left'},
         valueFormatter: (params: any) => {
@@ -139,7 +139,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     //Get Campuses from state
       this.ngxsService.getCampusFromState();
     //Get Product from state
-      this.ngxsService.getPayrollItemsFromState();
+    this.ngxsService.getPayrollItemsFromState();
   }
 
   onFirstDataRendered(params: any) {
@@ -163,7 +163,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
             cellStyle: {textAlign : 'left'}
           },
           {
-            headerName: 'Payroll Type', 
+            headerName: 'Payroll Item Type', 
             field: 'payrollType',  
             cellStyle: {textAlign : 'left'},
             valueFormatter: (params: any) => {
@@ -212,19 +212,13 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   }
 
   printPayrollExecutive() {
-
-    this.payrollReportService.setLedgerDataForPrintComponent(this.recordsData);
-
-    console.log('/' + APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + REPORT.PRINT)
+    this.payrollReportService.setPayrollDataForPrintComponent(this.recordsData);
 
       this.router.navigate(['/' + APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + REPORT.PRINT], {
         queryParams: {
-          from: this.dateHelperService.transformDate(this.payrollExecutiveForm.value.docDate, 'MMM d, y'),
-          to: this.dateHelperService.transformDate(this.payrollExecutiveForm.value.docDate2, 'MMM d, y'),
-          account: (this.payrollExecutiveForm.value.accountName || 'All'),
-          businessPartner: (this.payrollExecutiveForm.value.businessPartnerName || 'All'),
-          campus: (this.payrollExecutiveForm.value.campusName || 'All'),
-          store: (this.payrollExecutiveForm.value.warehouseName || 'All'),
+          campus: (this.payrollExecutiveForm.value.campus),
+          months: JSON.stringify(this.payrollExecutiveForm.value.month),
+          year: (this.payrollExecutiveForm.value.year),
         }
       })
   }
