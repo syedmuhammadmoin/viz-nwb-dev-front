@@ -52,6 +52,7 @@ import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depre
 import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
 import { EmployeePaymentState } from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
 import { AllBusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/All-business-partner.state';
+import { PayrollItemState } from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
 
 @Injectable({
   providedIn: 'root'
@@ -220,6 +221,11 @@ export class NgxsCustomService {
    @Select(StatusState.entities) statuses$: Observable<any>;
    @Select(StatusState.isFetchCompleted) statusFetchCompleted$: Observable<any>;
    @Select(StatusState.isLoading) statusIsLoading$: Observable<any>;
+
+   // Payroll Items
+   @Select(PayrollItemState.entities) payrollItems$: Observable<any>;
+   @Select(PayrollItemState.isFetchCompleted) payrollItemsFetchCompleted$: Observable<any>;
+   @Select(PayrollItemState.isLoading) payrollItemsIsLoading$: Observable<any>;
 
    // Basic Payroll Items
    @Select(BasicPayState.entities) basicPayrollItems$: Observable<any>;
@@ -545,6 +551,19 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(EmployeePaymentState, {
           serviceClass: this.employeeService,
           methodName: 'getEmployeePaymentDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getPayrollItemsFromState() {
+    this.payrollItemsFetchCompleted$.subscribe((res) => {
+     // console.log('payrollItemsFetchCompleted$: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(PayrollItemState, {
+          serviceClass: this.payrollItemService,
+          methodName: 'getPayrollItemsDropdown',
           context: this
         }))
       }

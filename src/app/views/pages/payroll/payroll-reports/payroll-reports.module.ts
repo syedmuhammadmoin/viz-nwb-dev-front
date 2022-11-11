@@ -6,10 +6,12 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AllowanceReportComponent } from './allowance-report/allowance-report.component';
+import { PayrollExecutiveReportComponent } from './payroll-executive-report/payroll-executive-report.component';
+import { PrintExecutiveReportComponent } from './print-executive-report/print-executive-report.component';
 
 
 @NgModule({
-  declarations: [PayrollTransReportComponent, AllowanceReportComponent],
+  declarations: [PayrollTransReportComponent, AllowanceReportComponent, PayrollExecutiveReportComponent, PrintExecutiveReportComponent],
   imports: [
     SharedModule,
     PartialsModule,

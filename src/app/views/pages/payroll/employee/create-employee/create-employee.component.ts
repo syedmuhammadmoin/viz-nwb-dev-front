@@ -39,7 +39,6 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   // validation messages
   validationMessages = {
     noOfIncrements: {
-      required: 'No of increments is required.',
       min: 'Minimum increment is 1.'
     },
     accountPayableId: {
@@ -67,7 +66,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
 
   ngOnInit() {
     this.employeeForm = this.fb.group({
-      noOfIncrements: ['', [Validators.required , Validators.min(1)]],
+      noOfIncrements: ['', [Validators.min(1)]],
       accountPayableId: ['' , [Validators.required]]
     });
 

@@ -871,6 +871,18 @@ export class MenuConfig {
                     Permissions.PAYROLL_TRANSACTION_REVIEW,
                   ],
                 },
+                {
+                  title: 'Payroll Executive Summary',
+                  page: '/' + PAYROLL_REPORTS.EXECUTIVE.LIST,
+                  // permission: [
+                  //   Permissions.PAYROLL_TRANSACTION_VIEW,
+                  //   Permissions.PAYROLL_TRANSACTION_CREATE,
+                  //   Permissions.PAYROLL_TRANSACTION_EDIT,
+                  //   Permissions.PAYROLL_TRANSACTION_DELETE,
+                  //   Permissions.PAYROLL_TRANSACTION_APPROVE,
+                  //   Permissions.PAYROLL_TRANSACTION_REVIEW,
+                  // ],
+                },
                 // {
                 //   title: 'Payroll Bank Advice Report',
                 //   page: '/payroll/bank/report',

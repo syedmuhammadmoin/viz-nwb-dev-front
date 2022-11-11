@@ -22,6 +22,10 @@ export class PayrollItemService extends AppServiceBase{
         return this.httpClient.get<IPaginationResponse<IPayrollItem[]>>(this.baseUrl)
     }
 
+    getPayrollItemsDropdown(): Observable<IApiResponse<[]>> {
+        return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + '/dropdown')
+    }
+
     getPayrollItemById(id: number): Observable<IApiResponse<IPayrollItem>> {
         return this.httpClient.get<IApiResponse<IPayrollItem>>(`${this.baseUrl}/${id}`)
     }

@@ -30,22 +30,20 @@
               </h4>
               <!-- <h6 style="font-weight: 400; color: #65c18c; font-size: 12px">{{employeeMaster?.name || 'N/A'}}</h6> -->
             </div>
-            <div class="print-box">
+            <!-- <div class="print-box">
               <h4 ><b>Domicile: </b>
                 <span class="float-right" >{{employeeMaster?.domicile || 'N/A' }}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.domicile || 'N/A' }}</h6> -->
-            </div>
-            <div class="print-box">
+            </div> -->
+            <!-- <div class="print-box">
               <h4 ><b>Nationality: </b>
                 <span class="float-right" >{{employeeMaster?.nationality || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.nationality || 'N/A'}}</h6> -->
-            </div>
-            <div class="print-box">
+            </div> -->
+            <!-- <div class="print-box">
               <h4 ><b>Place Of Birth: </b>
               <span class="float-right" >{{employeeMaster?.placeofBirth}}</span></h4>
-            </div>
+            </div> -->
             <div class="print-box">
                 <h4 ><b>Date Of Joining:</b> 
                   <span class="float-right" >{{employeeMaster?.dateofJoining | date: 'MMM d, y'}}</span>
@@ -77,9 +75,9 @@
             </div>
             <div class="print-box">
               <h4 >
-                <b>Active:</b> 
-                <span class="float-right" >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</span>
-              </h4>
+                <b>Address:</b> 
+                 <span class="float-right" >{{employeeMaster?.address || 'N/A'}}</span>
+               </h4>
               <!-- <h6 >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</h6> -->
             </div>
           </div>
@@ -100,13 +98,13 @@
               </h4>
               <!-- <h6 >{{employeeMaster?.contact || 'N/A'}}</h6> -->
             </div>
-            <div class="print-box">
+            <!-- <div class="print-box">
               <h4 >
-                <b>Martial Status:</b> 
+                <b>Marital Status:</b> 
                 <span class="float-right" >{{employeeMaster?.maritalstatus || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.maritalstatus || 'N/A'}}</h6> -->
-            </div>
+              <h6 >{{employeeMaster?.maritalstatus || 'N/A'}}</h6>
+            </div> -->
             <div class="print-box">
               <h4 >
                 <b>Designation:</b> 
@@ -116,27 +114,25 @@
             </div>
             <div class="print-box">
               <h4 >
-               <b>Address:</b> 
-                <span class="float-right" >{{employeeMaster?.address || 'N/A'}}</span>
+                <b>Grade:</b> 
+                <span class="float-right" >{{employeeMaster?.bps || 'N/A'}}</span>
               </h4>
               <!-- <h6 >{{employeeMaster?.address || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
-              <h4 >
-                <b>Grade:</b> 
-                <span class="float-right" >{{employeeMaster?.bps || 'N/A'}}</span>
-              </h4>
+              <h4 ><b>Increment:</b> 
+                <span class="float-right" >{{valueFormatter(employeeMaster?.increment)}}</span></h4>
             </div>
-            <div class="print-box">
+            <!-- <div class="print-box">
               <h4 >
                 <b>Date Of Retirement:</b> 
                 <span class="float-right" >{{employeeMaster?.dateofRetirment | date: 'MMM d, y'}}</span>
               </h4>
-            </div>
+            </div> -->
             <div class="print-box">
               <h4 >
-                <b>Faculty:</b> 
-                <span class="float-right" >{{employeeMaster?.faculty || 'N/A'}}</span>
+                <b>Active:</b> 
+                <span class="float-right" >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</span>
               </h4>
               <!-- <h6 >{{employeeMaster?.faculty || 'N/A'}}</h6> -->
             </div>
@@ -150,20 +146,20 @@
               </h4>
               <!-- <h6 >{{employeeMaster?.cnic || 'N/A'}}</h6> -->
             </div>
-            <div class="print-box">
+            <!-- <div class="print-box">
               <h4 >
                 <b>Religion:</b> 
                 <span class="float-right" >{{employeeMaster?.religion}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.religion || 'N/A'}}</h6> -->
-            </div>
-            <div class="print-box">
+              <h6 >{{employeeMaster?.religion || 'N/A'}}</h6>
+            </div> -->
+            <!-- <div class="print-box">
               <h4 >
                 <b>Gender:</b> 
                 <span class="float-right" >{{employeeMaster?.gender || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.gender || 'N/A'}}</h6> -->
-            </div>
+              <h6 >{{employeeMaster?.gender || 'N/A'}}</h6>
+            </div> -->
             <div class="print-box">
               <h4 >
                 <b>Department:</b> 
@@ -179,16 +175,18 @@
               <!-- <h6 >{{employeeMaster?.departmentName || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
-              <h4 ><b>Increment:</b> 
-              <span class="float-right" >{{valueFormatter(employeeMaster?.increment)}}</span></h4>
+              <h4 >
+                <b>Faculty:</b> 
+                <span class="float-right" >{{employeeMaster?.faculty || 'N/A'}}</span>
+              </h4>
             </div>
-            <div class="print-box">
+            <!-- <div class="print-box">
               <h4 >
                 <b>Date Of Birth:</b> 
                 <span class="float-right" >{{(employeeMaster?.dateofBirth | date: 'MMM d, y') || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.dateofBirth || 'N/A'}}</h6> -->
-            </div>
+              <h6 >{{employeeMaster?.dateofBirth || 'N/A'}}</h6>
+            </div> -->
             <div class="print-box">
               <h4 >
                 <b>Shift:</b> 

@@ -57,8 +57,8 @@
                   </div>
                 </ng-container>
                 <ng-container *ngFor="let claims of roleClaims | filter:searchText">
-      
-                  <div class="col-md-6">
+                 <!-- Hide Delete Permissions -->
+                  <div *ngIf="!claims.value.includes('Delete')" class="col-md-6">
                     <!-- <div class="checkbox-with-label"> -->
                     <mat-checkbox [id]="'role_' + claims.viewValue" [disabled]="!showButtons" [checked]="claims.selected" (change)="onPermissionChange(claims, $event)">
                       {{claims.viewValue}}

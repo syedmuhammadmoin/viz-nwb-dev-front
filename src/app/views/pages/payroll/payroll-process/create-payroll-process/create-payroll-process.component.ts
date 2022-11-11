@@ -280,6 +280,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   resetForm() {
     this.formDirective.resetForm();
     this.employeeList = []
+    this.cdRef.detectChanges()
   }
 
   // editPayrollTransaction(event: any) {
