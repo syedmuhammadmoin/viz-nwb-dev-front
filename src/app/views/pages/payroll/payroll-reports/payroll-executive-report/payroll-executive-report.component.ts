@@ -139,7 +139,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     //Get Campuses from state
       this.ngxsService.getCampusFromState();
     //Get Product from state
-      this.ngxsService.getProductFromState();
+      this.ngxsService.getPayrollItemsFromState();
   }
 
   onSubmit() {
