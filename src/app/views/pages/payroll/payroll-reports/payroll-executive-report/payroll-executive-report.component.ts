@@ -207,7 +207,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   mapFormValueToModel() {
     this.payrollExecutiveModel.campus = this.payrollExecutiveForm.value.campus || '';
     this.payrollExecutiveModel.payrollItem = this.payrollExecutiveForm.value.payrollItem || '';
-    this.payrollExecutiveModel.month = this.payrollExecutiveForm.value.month || null;
+    this.payrollExecutiveModel.month = this.payrollExecutiveForm.value.month || [];
     this.payrollExecutiveModel.year = this.payrollExecutiveForm.value.year || '';
   }
 
