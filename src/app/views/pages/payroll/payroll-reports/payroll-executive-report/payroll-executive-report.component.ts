@@ -56,8 +56,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Payroll Item Type', 
-        field: 'payrollItemType',  
+        headerName: 'Payroll Type', 
+        field: 'payrollType',  
         cellStyle: {textAlign : 'left'}
       },
       {
@@ -128,7 +128,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     //Initializing Form Group
     this.payrollExecutiveForm = this.fb.group({
       campus: [''],
-      item: [''],
+      payrollItem: [''],
       month: [''],
       year: ['' ,[Validators.required]]
     });
@@ -145,7 +145,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       return;
     }
     this.mapFormValueToModel();
-    // console.log(this.payrollExecutiveModel);
+    console.log(this.payrollExecutiveModel);
     this.isLoading = true;
     this.payrollReportService.getExecutiveSummary(this.payrollExecutiveModel).pipe(
       finalize(() => {
@@ -156,8 +156,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
             cellStyle: {textAlign : 'left'}
           },
           {
-            headerName: 'Payroll Item Type', 
-            field: 'payrollItemType',  
+            headerName: 'Payroll Type', 
+            field: 'payrollType',  
             cellStyle: {textAlign : 'left'}
           },
           {
@@ -173,7 +173,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         this.cdRef.detectChanges();
       })
     ).subscribe((res) => {
-      this.rowData = res.result;
+      this.rowData = res.result.payrollItems;
       this.recordsData = res.result;
       // for PDF
       this.disability = (!isEmpty(res.result)) ? false : true;
@@ -196,7 +196,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   // Mapping value from form to model
   mapFormValueToModel() {
     this.payrollExecutiveModel.campus = this.payrollExecutiveForm.value.campus || '';
-    this.payrollExecutiveModel.item = this.payrollExecutiveForm.value.item || '';
+    this.payrollExecutiveModel.payrollItem = this.payrollExecutiveForm.value.payrollItem || '';
     this.payrollExecutiveModel.month = this.payrollExecutiveForm.value.month || '';
     this.payrollExecutiveModel.year = this.payrollExecutiveForm.value.year || '';
   }
