@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -25,6 +25,10 @@ export class PayrollReportsService {
   }
 
   getExecutiveSummary(data: any): Observable<IPaginationResponse<any>> {
-    return this.httpClient.get<IPaginationResponse<any>>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/PayrollExecutiveReport', {params: data});
+    return this.httpClient.post<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/PayrollExecutiveReport', data, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
   }
 }
