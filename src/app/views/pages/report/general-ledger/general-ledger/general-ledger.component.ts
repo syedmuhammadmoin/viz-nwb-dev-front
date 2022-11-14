@@ -225,7 +225,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
       accountName: [''],
-      businessPartnerId: [''],
+      businessPartnerId: [null],
       // organization: [''],
       // department: [''],
       warehouseName: [''],
@@ -354,7 +354,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.generalLedgerModel.docDate = this.formatDate(this.generalLedgerForm.value.docDate) || '';
     this.generalLedgerModel.docDate2 = this.formatDate(this.generalLedgerForm.value.docDate2) || '';
     this.generalLedgerModel.accountName = this.generalLedgerForm.value.accountName || '';
-    this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId || '';
+    this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId || null;
     this.generalLedgerModel.warehouseName = this.generalLedgerForm.value.warehouseName || '';
     this.generalLedgerModel.campusName = this.generalLedgerForm.value.campusName || '';
     // this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
