@@ -6,11 +6,13 @@ import { AgGridModule} from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { BusinessPartnerRoutingModule } from './business-partner-routing.module';
 import { CreateBusinessPartnerComponent } from './create-business-partner/create-business-partner.component';
+import { PrintBusinessPartnerComponent } from './print-business-partner/print-business-partner.component';
 
 @NgModule({
   declarations: [
     ListBusinessPartnerComponent,
-    CreateBusinessPartnerComponent
+    CreateBusinessPartnerComponent,
+    PrintBusinessPartnerComponent
   ],
   imports: [
     SharedModule,

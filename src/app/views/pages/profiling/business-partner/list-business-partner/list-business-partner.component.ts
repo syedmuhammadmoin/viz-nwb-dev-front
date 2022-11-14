@@ -11,6 +11,8 @@ import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
 import { LoadingCellRenderer } from 'ag-grid-community/dist/lib/rendering/cellRenderers/loadingCellRenderer';
 import { isEmpty } from 'lodash';
 import { truncate } from 'fs';
+import { Router } from '@angular/router';
+import { APP_ROUTES } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-business-partner',
@@ -36,6 +38,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   constructor(
                public dialog: MatDialog,
                public ngxsService:NgxsCustomService,
+               private router: Router,
                private cdRef: ChangeDetectorRef,
                injector: Injector
              ) { super(injector);
@@ -179,6 +182,10 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
     const result = await this.ngxsService.businessPartnerService.getRecords(params).toPromise()
     return result
+  }
+
+  printBusinessPartner() {
+    this.router.navigate(['/' + APP_ROUTES.BUSINESS_PARTNER + '/print/?']);
   }
 
   // onGridReady(params: GridReadyEvent) {
