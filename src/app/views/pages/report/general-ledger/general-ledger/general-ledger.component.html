@@ -62,7 +62,7 @@
                       [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                       clickEventButtonName="Add New Business Partner"
                       (clickEvent)="addButtonService.openBusinessPartnerDialog()"
-                      formControlName="businessPartnerName"
+                      formControlName="businessPartnerId"
                       groupChildrenName="businessPartner"
                       isDisabledNone="true"
                       groupPropertyName="type"
@@ -70,7 +70,7 @@
                       matFormFieldClass="full-width"
                       placeholder="Select Business Partner" 
                       propertyName="name"
-                      propertyValue="name">
+                      propertyValue="id">
                     </kt-group-dropdown>
               </div>
             </div>

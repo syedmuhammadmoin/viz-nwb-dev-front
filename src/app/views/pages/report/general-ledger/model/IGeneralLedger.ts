@@ -22,7 +22,7 @@ export interface IGeneralLedger {
    
    docDate: string,
    docDate2: string,
-   businessPartnerName: string,
+   businessPartnerId: string,
    accountName: string,
    warehouseName: string,
    campusName: string

@@ -1,0 +1,110 @@
+<div class="container " >
+    <div class="col-lg-10 mx-auto text-right">
+      <div class="row">
+        <button
+          printSectionId="main"
+          printTitle="Business Partner"
+          ngxPrint
+          id="partner_print"
+          type="button"
+          [useExistingCss]="true"
+          class="app-default-btn" mat-raised-button
+          style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-10 mx-auto" id="main">
+      <div class="row">
+        <div class="bg-whitee">
+  
+          <div class="print_header_area p-s-1 align-items-center">
+            <div class="print-col-7 p-s-1-one">
+              <div class="logo_and_title">
+                <div class="print-logo"></div>
+                <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
+                <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+              </div>
+  
+            </div>
+            <div class="print-col-4 ml-auto p-s-1-two">
+              <div class="id_num">
+                <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+                margin-bottom: 10px;
+                text-align: center;">
+                  <h4>Business Partner</h4>
+                </div>
+                <!-- <div class="print-box-one">
+                  <h4>Document No: <span class="float-right" style="font-weight: 400;">{{masterData?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+                </div>
+                <div class="print-box-two">
+                  <h4 class="mt-1">Bill Date: <span class="float-right" style="font-weight: 400;">{{masterData?.billDate | date: 'MMM d, y'}}</span></h4>
+                </div>
+                <div class="print-box-two">
+                  <h4 class="mt-1">Due Date: <span class="float-right" style="font-weight: 400;">{{masterData?.dueDate| date: 'MMM d, y'}}</span></h4>
+                </div> -->
+              </div>
+            </div>
+          </div>
+  
+  
+          <div class="print_body_area p-s-2">
+            <div class="print-col-12 p-s-2-one">
+               <div class="row">
+                <div class="col-md-6 col-lg-6  mt-3">
+                    <div class="print-box-one">
+                        <h4 class="font-14">Business Partner Name: <span class="float-right" style="font-weight: 400;"></span></h4>
+                        <p style="margin-bottom: 0px;"></p>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Account Title: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Bank Name: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Phone No: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Income Tax ID: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Sales Tax ID: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                </div>
+
+                <div class="col-md-6 col-lg-6  mt-3">
+                      <div class="print-box-one">
+                        <h4 class="font-14">Business Partner Type: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Account No: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Branch Code: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Mobile No: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">CNIC No: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                      <div class="print-box-one">
+                        <h4 class="font-14">Address: <span class="float-right" style="font-weight: 400;"></span></h4>
+                      </div>
+                </div>
+               </div>
+            </div>
+          </div>
+  
+          <div class="row mt-10 ms-10">
+            <div class="print-col-4 p-s-5 text-center">
+              ______________________
+              <p class="text-center">Authorized Sign</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

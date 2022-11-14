@@ -38,9 +38,9 @@
               class="btn btn-light">{{ clickEventButtonName || 'clickEventButtonName' }}</button>
     </mat-option>
   </mat-select>
-  <mat-hint align="start">{{hintText}}</mat-hint>
   <mat-error *ngIf="formControlDirective && !formControlDirective.control.valid
      && formControlDirective.control.touched">
     <strong>{{ errorMessage || 'Field is required.'}}</strong>
   </mat-error>
+  <mat-hint align="end">{{hintText}}</mat-hint>
 </mat-form-field>
