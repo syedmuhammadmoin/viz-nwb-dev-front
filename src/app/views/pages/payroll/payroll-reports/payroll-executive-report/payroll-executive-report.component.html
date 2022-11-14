@@ -12,12 +12,12 @@
                       <kt-simple-dropdown id="executive_campus" 
                         [optionList]="ngxsService.campuses$" 
                         isDisabledNone="true"
-                        formControlName="campus" 
+                        formControlName="campusId" 
                         matFormFieldClass="full-width" 
                         placeholder="Select Campus" 
                         hintText="Optional"
                         propertyName="name" 
-                        propertyValue="name">
+                        propertyValue="id">
                     </kt-simple-dropdown>
                     </div>
                   </div>
@@ -27,12 +27,12 @@
                         <kt-simple-dropdown id="executive_item" 
                           [optionList]="ngxsService.payrollItems$" 
                           isDisabledNone="true"
-                          formControlName="payrollItem" 
+                          formControlName="payrollItemId" 
                           matFormFieldClass="full-width" 
                           placeholder="Select Payroll Item" 
                           hintText="Optional"
                           propertyName="name" 
-                          propertyValue="name">
+                          propertyValue="id">
                       </kt-simple-dropdown>
                     </div>
                   </div>

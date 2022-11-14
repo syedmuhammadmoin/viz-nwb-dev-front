@@ -66,6 +66,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       {
         headerName: 'Amount',
         field: 'amount',
+        headerClass: 'custom_left',
         suppressMenu: true,
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
@@ -130,8 +131,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
     //Initializing Form Group
     this.payrollExecutiveForm = this.fb.group({
-      campus: [''],
-      payrollItem: [''],
+      campusId: [''],
+      payrollItemId: [''],
       month: [null],
       year: ['' ,[Validators.required]]
     });
@@ -174,6 +175,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
             headerName: 'Amount',
             field: 'amount',
             suppressMenu: true,
+            headerClass: 'custom_left',
             valueFormatter: (params: any) => {
               return this.valueFormatter(params.value)
             }
@@ -186,8 +188,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       this.rowData = res.result.payrollItems;
       this.recordsData = res.result;
       // for PDF
-      this.disability = (!isEmpty(res.result)) ? false : true;
-      if (isEmpty(res.result)) {
+      this.disability = (!isEmpty(res.result.payrollItems)) ? false : true;
+      if (isEmpty(res.result.payrollItems)) {
         this.toastService.info('No Records Found !' , 'Payroll Executive Summary')
       }
     });
@@ -205,8 +207,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   // Mapping value from form to model
   mapFormValueToModel() {
-    this.payrollExecutiveModel.campus = this.payrollExecutiveForm.value.campus || '';
-    this.payrollExecutiveModel.payrollItem = this.payrollExecutiveForm.value.payrollItem || '';
+    this.payrollExecutiveModel.campusId = this.payrollExecutiveForm.value.campusId || null;
+    this.payrollExecutiveModel.payrollItemId = this.payrollExecutiveForm.value.payrollItemId || null;
     this.payrollExecutiveModel.month = this.payrollExecutiveForm.value.month || [];
     this.payrollExecutiveModel.year = this.payrollExecutiveForm.value.year || '';
   }
