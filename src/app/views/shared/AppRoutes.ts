@@ -118,7 +118,8 @@ export const CRUD_ROUTES = {
   export const PAYROLL_REPORT = {
     TRANSACTION: 'transaction',
     ALLOWANCE: 'allowance',
-    EXECUTIVE: 'executive'
+    EXECUTIVE: 'executive',
+    BANK_ADVICE: 'bank-advice'
   }
 
   //ACCESS_MANAGEMENT SECTION
@@ -370,6 +371,9 @@ export const CRUD_ROUTES = {
     },
     EXECUTIVE: {
       LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + CRUD_ROUTES.LIST
+    },
+    BANK_ADVICE: {
+      LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.BANK_ADVICE + '/' + CRUD_ROUTES.LIST
     }
     // CREATE: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.CREATE,
     // ID_BASED_ROUTE (route: string , id: number) {       

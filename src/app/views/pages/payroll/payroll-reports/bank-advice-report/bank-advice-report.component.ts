@@ -12,23 +12,12 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 import { PayrollReportsService } from '../service/payroll-reports.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
 
-function sumFunc(params) {
-  // let sum = 0;
-  if (params && params.values) {
-    this.balance = params?.values[params?.values?.length - 1]
-  }
-  return this.balance;
-}
-
-
-
 @Component({
-  selector: 'kt-payroll-executive-report',
-  templateUrl: './payroll-executive-report.component.html',
-  styleUrls: ['./payroll-executive-report.component.scss']
+  selector: 'kt-bank-advice-report',
+  templateUrl: './bank-advice-report.component.html',
+  styleUrls: ['./bank-advice-report.component.scss']
 })
-
-export class PayrollExecutiveReportComponent extends AppComponentBase implements OnInit {
+export class BankAdviceReportComponent extends AppComponentBase implements OnInit {
   // for permissions 
   public permissions = Permissions;
 
@@ -51,23 +40,31 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     super(injector);
     this.columnDefs = [
       {
-        headerName: 'Payroll Item', 
-        field: 'payrollItem',  
+        headerName: 'Employee Name', 
+        field: 'employeeName',  
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Payroll Item Type', 
-        field: 'payrollType',  
-        cellStyle: {textAlign : 'left'},
-        valueFormatter: (params: any) => {
-          return AppConst.PayrollType[params.value].value
-        }
+        headerName: 'Bank', 
+        field: 'bankName',  
+        cellStyle: {textAlign : 'left'}
       },
+      {
+        headerName: 'Branch', 
+        field: 'branchName',  
+        cellStyle: {textAlign : 'left'},
+      },
+      {
+        headerName: 'Account No',
+        field: 'accountNumber',
+        cellStyle: {textAlign : 'left'},
+        suppressMenu: true
+      },   
       {
         headerName: 'Amount',
         field: 'amount',
-        headerClass: 'custom_left',
         suppressMenu: true,
+        headerClass: 'custom_left',
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
         }
@@ -94,17 +91,23 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   maxDate : Date = new Date()
   
   // Declaring FormGroup
-  payrollExecutiveForm: FormGroup;
+  bankAdviceReportForm: FormGroup;
 
   // For AG Grid..
   gridOptions: GridOptions;
   rowData: any[] = [];
 
   // Declaring Model
-  // Initializing payrollExecutive model...
-  payrollExecutiveModel: any = {};
+  // Initializing bank Advice model...
+  bankAdviceModel: any = {};
   // Validation Messages
   validationMessages = {
+    campusId: {
+      required: 'Campus is required.'
+    },
+    month: {
+      required: 'Month is required.'
+    },
     year: {
       required: 'Year is required.'
     }
@@ -112,6 +115,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   // Error keys for validation messages
   formErrors = {
+    campusId: '',
+    month: '',
     year: ''
   }
   private formSubmitAttempt = true;
@@ -130,17 +135,14 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     };
 
     //Initializing Form Group
-    this.payrollExecutiveForm = this.fb.group({
-      campusId: [''],
-      payrollItemId: [''],
-      month: [null],
-      year: ['' ,[Validators.required]]
+    this.bankAdviceReportForm = this.fb.group({
+      campusId: [null ,[Validators.required]],
+      month: [null ,[Validators.required]],
+      year: [null ,[Validators.required]]
     });
 
     //Get Campuses from state
       this.ngxsService.getCampusFromState();
-    //Get Product from state
-    this.ngxsService.getPayrollItemsFromState();
   }
 
   onFirstDataRendered(params: any) {
@@ -148,29 +150,36 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   }
 
   onSubmit() {
-    if (this.payrollExecutiveForm.invalid) {
-      this.logValidationErrors(this.payrollExecutiveForm, this.formErrors, this.validationMessages);
+    if (this.bankAdviceReportForm.invalid) {
+      this.logValidationErrors(this.bankAdviceReportForm, this.formErrors, this.validationMessages);
       return;
     }
     this.mapFormValueToModel();
-    console.log(this.payrollExecutiveModel);
     this.isLoading = true;
-    this.payrollReportService.getExecutiveSummary(this.payrollExecutiveModel).pipe(
+    this.payrollReportService.getBankAdviceReport(this.bankAdviceModel).pipe(
       finalize(() => {
         this.columnDefs = [
           {
-            headerName: 'Payroll Item', 
-            field: 'payrollItem',  
+            headerName: 'Employee Name', 
+            field: 'employeeName',  
             cellStyle: {textAlign : 'left'}
           },
           {
-            headerName: 'Payroll Item Type', 
-            field: 'payrollType',  
-            cellStyle: {textAlign : 'left'},
-            valueFormatter: (params: any) => {
-              return AppConst.PayrollType[params.value].value
-            }
+            headerName: 'Bank', 
+            field: 'bankName',  
+            cellStyle: {textAlign : 'left'}
           },
+          {
+            headerName: 'Branch', 
+            field: 'branchName',  
+            cellStyle: {textAlign : 'left'},
+          },
+          {
+            headerName: 'Account No',
+            field: 'accountNumber',
+            cellStyle: {textAlign : 'left'},
+            suppressMenu: true
+          },   
           {
             headerName: 'Amount',
             field: 'amount',
@@ -185,12 +194,12 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         this.cdRef.detectChanges();
       })
     ).subscribe((res) => {
-      this.rowData = res.result.payrollItems;
+      this.rowData = res.result;
       this.recordsData = res.result;
       // for PDF
-      this.disability = (!isEmpty(res.result.payrollItems)) ? false : true;
-      if (isEmpty(res.result.payrollItems)) {
-        this.toastService.info('No Records Found !' , 'Payroll Executive Summary')
+      this.disability = (!isEmpty(res.result)) ? false : true;
+      if (isEmpty(res.result)) {
+        this.toastService.info('No Records Found !' , 'Bank Advice Report')
       }
     });
   }
@@ -207,20 +216,19 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   // Mapping value from form to model
   mapFormValueToModel() {
-    this.payrollExecutiveModel.campusId = this.payrollExecutiveForm.value.campusId?.id || null;
-    this.payrollExecutiveModel.payrollItemId = this.payrollExecutiveForm.value.payrollItemId?.id || null;
-    this.payrollExecutiveModel.month = this.payrollExecutiveForm.value.month || [];
-    this.payrollExecutiveModel.year = this.payrollExecutiveForm.value.year || '';
+    this.bankAdviceModel.campusId = this.bankAdviceReportForm.value.campusId?.id || null;
+    this.bankAdviceModel.month = this.bankAdviceReportForm.value.month?.value || null;
+    this.bankAdviceModel.year = this.bankAdviceReportForm.value.year;
   }
 
-  printPayrollExecutive() {
-    this.payrollReportService.setExecutiveDataForPrintComponent(this.recordsData);
+  printBankAdviceReport() {
+    this.payrollReportService.setBankAdviceDataForPrintComponent(this.recordsData);
 
-      this.router.navigate(['/' + APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + REPORT.PRINT], {
+      this.router.navigate(['/' + APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.BANK_ADVICE + '/' + REPORT.PRINT], {
         queryParams: {
-          campus: (this.payrollExecutiveForm.value.campusId?.name),
-          months: JSON.stringify(this.payrollExecutiveForm.value.month),
-          year: (this.payrollExecutiveForm.value.year),
+          campus: (this.bankAdviceReportForm.value.campusId?.name),
+          month: JSON.stringify(this.bankAdviceReportForm.value.month?.name),
+          year: (this.bankAdviceReportForm.value.year),
         }
       })
   }
@@ -246,29 +254,29 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   //       margin: [0, 5, 0, 10]
   //     },
   //     {
-  //       text: 'Report for : ' + this.transformDate(this.payrollExecutiveForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.payrollExecutiveForm.value.docDate2, 'MMM d, y'),
+  //       text: 'Report for : ' + this.transformDate(this.bankAdviceReportForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.bankAdviceReportForm.value.docDate2, 'MMM d, y'),
   //       alignment: 'center',
   //       fontSize: 12,
   //       margin: [0, 0, 0, 10]
   //     },
   //     {
-  //       text: 'Business Partner : ' + (this.payrollExecutiveForm.value.businessPartnerName || 'N/A'),
+  //       text: 'Business Partner : ' + (this.bankAdviceReportForm.value.businessPartnerName || 'N/A'),
   //       fontSize: 10,
   //     },
   //     {
-  //       text: 'Account : ' + (this.payrollExecutiveForm.value.accountName || 'N/A'),
+  //       text: 'Account : ' + (this.bankAdviceReportForm.value.accountName || 'N/A'),
   //       fontSize: 10,
   //     },
   //     {
-  //       text: 'Department : ' + (this.payrollExecutiveForm.value.department || 'N/A'),
+  //       text: 'Department : ' + (this.bankAdviceReportForm.value.department || 'N/A'),
   //       fontSize: 10,
   //     },
   //     {
-  //       text: 'Location : ' + (this.payrollExecutiveForm.value.location || 'N/A'),
+  //       text: 'Location : ' + (this.bankAdviceReportForm.value.location || 'N/A'),
   //       fontSize: 10,
   //     },
   //     {
-  //       text: 'Warehouse : ' + (this.payrollExecutiveForm.value.warehouse || 'N/A'),
+  //       text: 'Warehouse : ' + (this.bankAdviceReportForm.value.warehouse || 'N/A'),
   //       fontSize: 10,
   //       margin: [0, 0, 0, 30]
   //     },
@@ -337,6 +345,9 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   //   return data
   // }
 }
+
+
+
 
 
 
