@@ -222,7 +222,7 @@ kt-portlet-header
 // sticky footer area
 #kt_body
 {
-  min-height: 100vh;
+  max-height: 95vh;
 }
 .flex-root
 {
@@ -237,7 +237,6 @@ kt-footer
 {
   margin-bottom: -15px;
 }
-
 
 
 
@@ -1675,4 +1674,15 @@ mat-tree-node div[id^='child']
 .paid-anount-flex-grow
 {
   justify-content: right !important;
+}
+
+
+.mat-pseudo-checkbox
+{
+  color: $primary-color;
+}
+
+.mat-pseudo-checkbox.mat-pseudo-checkbox-checked, .mat-pseudo-checkbox.mat-pseudo-checkbox-indeterminate
+{
+  background-color: $primary-color;
 }

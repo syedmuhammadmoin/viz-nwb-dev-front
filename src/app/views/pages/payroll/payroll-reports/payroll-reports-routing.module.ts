@@ -4,8 +4,10 @@ import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CRUD_ROUTES, PAYROLL_REPORT } from 'src/app/views/shared/AppRoutes';
 import { AllowanceReportComponent } from './allowance-report/allowance-report.component';
+import { BankAdviceReportComponent } from './bank-advice-report/bank-advice-report.component';
 import { PayrollExecutiveReportComponent } from './payroll-executive-report/payroll-executive-report.component';
 import { PayrollTransReportComponent } from './payroll-trans-report/payroll-trans-report.component';
+import { PrintBankAdviceComponent } from './print-bank-advice/print-bank-advice.component';
 import { PrintExecutiveReportComponent } from './print-executive-report/print-executive-report.component';
 
 const routes: Routes = [
@@ -68,6 +70,41 @@ const routes: Routes = [
           {
             path: 'print',
             component: PrintExecutiveReportComponent,
+            data: {
+              // array: [
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_CREATE},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_VIEW},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_EDIT},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_DELETE},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_REVIEW},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_APPROVE},
+              // ]
+            },
+            //canActivate: [PermissionGuard]
+          },
+        ]
+      },
+      {
+        path: PAYROLL_REPORT.BANK_ADVICE,
+        children: [
+          {
+            path: CRUD_ROUTES.LIST,
+            component: BankAdviceReportComponent,
+            data: {
+              // array: [
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_CREATE},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_VIEW},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_EDIT},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_DELETE},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_REVIEW},
+              //   {permission: Permissions.PAYROLL_EXECUTIVE_APPROVE},
+              // ]
+            },
+            //canActivate: [PermissionGuard]
+          },
+          {
+            path: 'print',
+            component: PrintBankAdviceComponent,
             data: {
               // array: [
               //   {permission: Permissions.PAYROLL_EXECUTIVE_CREATE},

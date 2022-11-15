@@ -15,8 +15,15 @@ export class PayrollReportsService {
   payrollExecutivePrintdata = new BehaviorSubject<any>([]);
   currentPayrollExecutivePrintData = this.payrollExecutivePrintdata.asObservable();
 
-  setPayrollDataForPrintComponent(data: any[]) {
+  bankAdvicePrintdata = new BehaviorSubject<any>([]);
+  currentBankAdvicePrintData = this.bankAdvicePrintdata.asObservable();
+
+  setExecutiveDataForPrintComponent(data: any[]) {
     this.payrollExecutivePrintdata.next(data);
+  }
+
+  setBankAdviceDataForPrintComponent(data: any[]) {
+    this.bankAdvicePrintdata.next(data);
   }
 
   //for Payroll transaction report
@@ -30,5 +37,9 @@ export class PayrollReportsService {
         'Content-Type': 'application/json'
       })
     });
+  }
+
+  getBankAdviceReport(data: any): Observable<IPaginationResponse<any>> {
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/BankAdviceReport', {params: data});
   }
 }

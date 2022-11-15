@@ -354,7 +354,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.generalLedgerModel.docDate = this.formatDate(this.generalLedgerForm.value.docDate) || '';
     this.generalLedgerModel.docDate2 = this.formatDate(this.generalLedgerForm.value.docDate2) || '';
     this.generalLedgerModel.accountName = this.generalLedgerForm.value.accountName || '';
-    this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId || null;
+    this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId?.id || null;
     this.generalLedgerModel.warehouseName = this.generalLedgerForm.value.warehouseName || '';
     this.generalLedgerModel.campusName = this.generalLedgerForm.value.campusName || '';
     // this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
@@ -390,7 +390,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           from: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate, 'MMM d, y'),
           to: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate2, 'MMM d, y'),
           account: (this.generalLedgerForm.value.accountName || 'All'),
-          businessPartner: (this.generalLedgerForm.value.businessPartnerName || 'All'),
+          businessPartner: (this.generalLedgerForm.value.businessPartnerId?.name || 'All'),
           campus: (this.generalLedgerForm.value.campusName || 'All'),
           store: (this.generalLedgerForm.value.warehouseName || 'All'),
         }
