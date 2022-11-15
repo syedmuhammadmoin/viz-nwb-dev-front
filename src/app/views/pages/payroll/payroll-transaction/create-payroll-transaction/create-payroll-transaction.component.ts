@@ -136,7 +136,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         designation: [''],
         department: [''],
         basicPay: [''],
-        increment: [''],
+        //increment: [''],
         employeeId: ['', Validators.required],
         month: ['', Validators.required],
         year: ['', Validators.required],
@@ -173,10 +173,12 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     //      this.payrollTransactionForm.get('leaveDays').updateValueAndValidity()
     // })
     // console.log(this.workingDays)
-    this.getLatestEmployeeData()
+    this.getLatestEmployeeData();
     this.ngxsService.getEmployeeFromState();
     this.ngxsService.getAccountPayableFromState();
-    //this.ngxsService.getAccountLevel4FromState();
+
+    //to show message for information
+    this.toastService.info('Only Account Payable field is editable.', 'Payroll')
   }
 
   //check present and leave days lesser than working days or not
@@ -206,7 +208,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
     this.disableFields(this.payrollTransactionForm , 
       "employeeId", "month", "year", "workingDays", "presentDays",
-       "leaveDays", "transDate", "designation" ,"department" ,"basicPay", "increment")
+       "leaveDays", "transDate", "designation" ,"department" ,"basicPay")
     //this.onChange(payrollTransaction.workingDays)
   }
 
@@ -215,7 +217,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       designation: employee.designation,
       department: employee.department,
       basicPay: employee.basicSalary,
-      increment: employee.netIncrement,
+      //increment: employee.netIncrement,
     })
     this.payrollItems = employee?.payrollTransactionLines;
     this.calculateSalary(employee);
