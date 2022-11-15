@@ -74,7 +74,7 @@
               </div>
 
               <div class="row">
-                <div class="col-lg-3 col-sm-3 col-md-3">
+                <!-- <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Increment:</label>
                     <kt-input-field 
@@ -84,7 +84,7 @@
                       placeholder="Increment">
                     </kt-input-field>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
@@ -122,6 +122,22 @@
                       placeholder="Select Transaction Date" 
                       matFormFieldClass="full-width">
                     </kt-date-input>
+                  </div>
+                </div>
+
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Account Payable:</label>
+                    <kt-simple-dropdown
+                      id="payroll_trans_payable"
+                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
+                      [errorMessage]="formErrors.accountPayableId"
+                      [optionList]="ngxsService.accountsPayable$"
+                      formControlName="accountPayableId"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Account Payable" propertyName="name"
+                      propertyValue="id">
+                    </kt-simple-dropdown> 
                   </div>
                 </div>
               </div>
@@ -162,22 +178,6 @@
                       placeholder="Enter Leave Days"
                       type="number">
                     </kt-input-field>  
-                  </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Account Payable:</label>
-                    <kt-simple-dropdown
-                      id="payroll_trans_payable"
-                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
-                      [errorMessage]="formErrors.accountPayableId"
-                      [optionList]="ngxsService.accountsPayable$"
-                      formControlName="accountPayableId"
-                      matFormFieldClass="full-width"
-                      placeholder="Select Account Payable" propertyName="name"
-                      propertyValue="id">
-                    </kt-simple-dropdown> 
                   </div>
                 </div>
               </div>
