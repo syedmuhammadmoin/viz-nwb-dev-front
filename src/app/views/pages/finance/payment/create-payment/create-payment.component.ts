@@ -336,7 +336,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   mapFormValueToPaymentModel() {
     this.paymentModel.paymentType = (this.formName === "Payment" || this.formName === "Payroll Payment") ? 1 : 0
     this.paymentModel.paymentRegisterId = this.paymentForm.value.bankAccount;
-    this.paymentModel.campusId = this.paymentForm.value.campusId;
+    this.paymentModel.campusId = this.paymentForm.getRawValue().campusId;
     this.paymentModel.description = this.paymentForm.value.description;
     this.paymentModel.businessPartnerId = (!this.isPayrollPayment) ? this.paymentForm.value.businessPartner : this.paymentMaster.businessPartnerId ;
     this.paymentModel.accountId = (!this.isPayrollPayment) ? this.paymentForm.value.account : this.paymentMaster.accountId ;

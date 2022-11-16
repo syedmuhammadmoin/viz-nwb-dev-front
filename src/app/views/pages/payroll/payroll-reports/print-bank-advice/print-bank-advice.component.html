@@ -28,9 +28,8 @@
             </div>
             <div class="print-col-4 ml-auto p-s-1-two">
               <div class="id_num">
-                <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
-                margin-bottom: 10px;
-                text-align: center;">
+                <div class="print-box-one border-bottom-1px" 
+                style="border-bottom: 1px solid; margin-bottom: 10px; text-align: center;">
                   <h4>Bank Advice Report</h4>
                 </div>
                 <div class="print-box-one">
@@ -66,6 +65,10 @@
                       <td>{{record?.branchName || 'N/A'}}</td>
                       <td>{{record?.accountNumber || 'N/A'}}</td>
                       <td class="text-right"><b>{{valueFormatter(record?.amount)}}</b></td>
+                    </tr>
+                    <tr>
+                      <td>Total:</td>
+                      <td class="text-right"><b>{{valueFormatter(totalAmount)}}</b></td>
                     </tr>
                   </thead>
                 </table>
