@@ -69,12 +69,12 @@
               <table class="table ">
                 <thead class="thead-dark_color">
                   <tr>
-                    <th>Payroll Item</th>
+                    <th>COA</th>
                     <th>Payroll Item Type</th>
                     <th class="text-right">Amount</th>
                   </tr>
                   <tr *ngFor="let item of masterData?.payrollItems; index as i">
-                    <td  >{{item?.payrollItem || 'N/A'}}</td>
+                    <td  >{{item?.accountName || 'N/A'}}</td>
                     <td> {{payrollType[item?.payrollType].value || 'N/A'}}</td>
                     <td class="text-right"><b>{{valueFormatter(item?.amount)}}</b></td>
                   </tr>

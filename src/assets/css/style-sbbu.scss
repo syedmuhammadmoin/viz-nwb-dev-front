@@ -259,6 +259,7 @@ kt-footer
   animation: lds-facebook 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
 }
 
+
 .lds-facebook div:nth-child(1) {
   left: 8px;
   animation-delay: -0.24s;
@@ -1686,3 +1687,4 @@ mat-tree-node div[id^='child']
 {
   background-color: $primary-color;
 }
+

@@ -20,7 +20,7 @@
                     </kt-simple-dropdown>
                     </div>
                   </div>
-                  <div class="col-lg-4 col-sm-4 col-md-4">
+                  <!-- <div class="col-lg-4 col-sm-4 col-md-4">
                     <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label">Payroll Item:</label>
                         <kt-simple-dropdown id="executive_item" 
@@ -33,6 +33,22 @@
                           propertyName="name">
                       </kt-simple-dropdown>
                     </div>
+                  </div> -->
+                  <div class="col-lg-4 col-sm-4 col-md-4">
+                    <div class="form-group kt-form__group mb-0">
+                      <label class="col-form-label">COA:</label>
+                        <kt-simple-dropdown
+                        id="executive_account"
+                        placeholder="Select Detailed Head"
+                        propertyValue="id"
+                        propertyName="name"
+                        isDisabledNone="true"
+                        hintText="Optional"
+                        formControlName="accountId"
+                        matFormFieldClass="full-width"
+                        [optionList]="ngxsService.otherAccounts$">
+                      </kt-simple-dropdown>
+                     </div>
                   </div>
                   <div class="col-lg-4 col-sm-4 col-md-4">
                     <div class="form-group kt-form__group mb-0">
