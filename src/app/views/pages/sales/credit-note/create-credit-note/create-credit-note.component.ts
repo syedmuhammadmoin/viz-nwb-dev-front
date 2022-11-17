@@ -136,7 +136,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
 
     this.ngxsService.getBusinessPartnerFromState();
-    this.ngxsService.getAccountLevel4FromState()
+    this.ngxsService.getOtherAccountsFromState()
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState()

@@ -51,8 +51,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     super(injector);
     this.columnDefs = [
       {
-        headerName: 'Payroll Item', 
-        field: 'payrollItem',  
+        headerName: 'COA', 
+        field: 'accountName', 
         cellStyle: {textAlign : 'left'}
       },
       {
@@ -131,16 +131,16 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
     //Initializing Form Group
     this.payrollExecutiveForm = this.fb.group({
-      campusId: [''],
-      payrollItemId: [''],
+      campusId: [null],
+      accountId: [null],
       month: [null],
       year: ['' ,[Validators.required]]
     });
 
     //Get Campuses from state
       this.ngxsService.getCampusFromState();
-    //Get Product from state
-    this.ngxsService.getPayrollItemsFromState();
+    //Get Other Accounts from state
+    this.ngxsService.getOtherAccountsFromState();
   }
 
   onFirstDataRendered(params: any) {
@@ -159,8 +159,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       finalize(() => {
         this.columnDefs = [
           {
-            headerName: 'Payroll Item', 
-            field: 'payrollItem',  
+            headerName: 'COA', 
+            field: 'accountName',  
             cellStyle: {textAlign : 'left'}
           },
           {
@@ -207,8 +207,9 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   // Mapping value from form to model
   mapFormValueToModel() {
+    console.log()
     this.payrollExecutiveModel.campusId = this.payrollExecutiveForm.value.campusId?.id || null;
-    this.payrollExecutiveModel.payrollItemId = this.payrollExecutiveForm.value.payrollItemId?.id || null;
+    this.payrollExecutiveModel.accountId = this.payrollExecutiveForm.value.accountId || null;
     this.payrollExecutiveModel.month = this.payrollExecutiveForm.value.month || [];
     this.payrollExecutiveModel.year = this.payrollExecutiveForm.value.year || '';
   }
