@@ -319,14 +319,15 @@
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">{{(isReceipt) ? "Instrument No:" : "Cheque No:"}}</label>
-                      <mat-form-field appearance="outline" class="full-width">
-                        <input matInput formControlName="chequeNo" placeholder="Enter Number" 
-                             id="payment_cheque" type="number" (blur)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)">
-                        <mat-error *ngIf="formErrors.chequeNo">
-                          <strong>{{formErrors.chequeNo}}</strong>
-                        </mat-error>
-                        <mat-hint align="end">Optional</mat-hint>
-                      </mat-form-field>
+
+                      <kt-input-field
+                        id="payment_cheque"
+                          formControlName="chequeNo"
+                          placeholder="Enter Number"
+                          hintText="Optional"
+                          (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
+                          [errorMessage]="[{ condition : formErrors.chequeNo , error : formErrors.chequeNo }]">
+                        </kt-input-field>
                     </div>
                   </div>
                 </div>
