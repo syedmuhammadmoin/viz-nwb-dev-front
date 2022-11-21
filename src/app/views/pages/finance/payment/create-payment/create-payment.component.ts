@@ -103,6 +103,9 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     campusId: {
       required: 'Campus is required.'
     },
+    chequeNo: {
+      min: 'Please insert valid Number.'
+    },
     salesTax: {
       min: 'Percentage % range (0 - 100).',
       max: 'Percentage % range (0 - 100).'
@@ -130,6 +133,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     deduction: '',
     deductionAccountId: '',
     campusId: '',
+    chequeNo: '',
     salesTax: '',
     incomeTax: '',
     SRBTax: ''
@@ -175,6 +179,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       grossPayment: ['',[Validators.required , Validators.min(1)]],
       deduction: [0,[Validators.min(0)]],
       deductionAccountId: [''],
+      chequeNo: ['', [Validators.min(0)]],
       salesTax: [0,[Validators.min(0) , Validators.max(100)]],
       incomeTax: [0,[Validators.min(0) , Validators.max(100)]],
       SRBTax: [0,[Validators.min(0) , Validators.max(100)]],
@@ -202,6 +207,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
         campusId: null,
         description: '',
         grossPayment: null,
+        chequeNo: null,
         deduction: null,
         deductionAccountId: null,
         salesTax: null,
@@ -274,6 +280,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       grossPayment: payment.grossPayment,
       campusId: payment.campusId,
       deduction: payment.deduction,
+      chequeNo: payment.chequeNo,
       deductionAccountId: payment.deductionAccountId,
       salesTax: payment.salesTax,
       SRBTax : payment.srbTax || 0,
@@ -338,6 +345,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.paymentModel.paymentRegisterId = this.paymentForm.value.bankAccount;
     this.paymentModel.campusId = this.paymentForm.getRawValue().campusId;
     this.paymentModel.description = this.paymentForm.value.description;
+    this.paymentModel.chequeNo = this.paymentForm.value.chequeNo;
     this.paymentModel.businessPartnerId = (!this.isPayrollPayment) ? this.paymentForm.value.businessPartner : this.paymentMaster.businessPartnerId ;
     this.paymentModel.accountId = (!this.isPayrollPayment) ? this.paymentForm.value.account : this.paymentMaster.accountId ;
     this.paymentModel.paymentDate = (!this.isPayrollPayment) ? this.transformDate(this.paymentForm.value.date, 'yyyy-MM-dd') : this.transformDate(this.paymentMaster.paymentDate, 'yyyy-MM-dd');
