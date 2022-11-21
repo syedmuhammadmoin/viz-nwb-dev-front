@@ -315,6 +315,21 @@
                        </kt-simple-dropdown>
                     </div>
                   </div>
+
+                  <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="form-group kt-form__group mb-0">
+                      <label class="col-form-label pt-0">{{(isReceipt) ? "Instrument No:" : "Cheque No:"}}</label>
+
+                      <kt-input-field
+                        id="payment_cheque"
+                          formControlName="chequeNo"
+                          placeholder="Enter Number"
+                          hintText="Optional"
+                          (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
+                          [errorMessage]="[{ condition : formErrors.chequeNo , error : formErrors.chequeNo }]">
+                        </kt-input-field>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
