@@ -48,7 +48,7 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
   }
 
   // upload file
-  uploadFile(event: any) {
+  uploadFile(files: File[]) {
     // if (event.target.files) {
     //   Object.values(event.target.files).map((file: any) => {
     //     const size = Number(this.fileSizePipe.transform(file.size))
@@ -61,8 +61,9 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
     //    this.fileList.push(file)
     //   })
     // }
-    if (event.target.files) {
-      this.file = event.target.files[0] as File;
+
+    if (files) {
+      this.file = files[0] as File;
       const size = Number(this.fileSizePipe.transform(this.file.size))
       this.fileError = (size > 5) ? 'File size exceeds maximum limit 5 MB.' : null
     }

@@ -63,6 +63,7 @@ import { CreateWarehouseComponent } from '../../pages/profiling/warehouse/create
 import { CreateProductComponent } from '../../pages/profiling/product/create-product/create-product.component';
 import { CreateCategoryComponent } from '../../pages/profiling/category/create-category/create-category.component';
 import { CreateBankAccountComponent } from '../../pages/finance/bank-account/create-bank-account/create-bank-account.component';
+import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
 
 
 // @ts-ignore
@@ -82,7 +83,8 @@ import { CreateBankAccountComponent } from '../../pages/finance/bank-account/cre
     CustomUploadFileComponent,
     CustomRemarksComponent,
     NonNegativePipe,
-    FileSizePipe
+    FileSizePipe,
+    DragDropDirective
   ],
   imports: [
     NgxPrintModule,
@@ -190,6 +192,7 @@ import { CreateBankAccountComponent } from '../../pages/finance/bank-account/cre
     InputFieldComponent,
     DateInputComponent,
     BusyDirective,
+    DragDropDirective,
     ShowRemarksComponent,
     CustomUploadFileComponent,
     CustomRemarksComponent
