@@ -18,13 +18,12 @@ export interface IGeneralLedger {
    // warehouse?: string;
    // location?: string;
    // isOpeningBalance?: boolean;
-
    
    docDate: string,
    docDate2: string,
    businessPartnerId: string,
-   accountName: string,
-   warehouseName: string,
-   campusName: string
+   accountId: string,
+   warehouseId: string,
+   campusId: string
 }
 

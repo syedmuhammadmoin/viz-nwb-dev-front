@@ -224,14 +224,16 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.generalLedgerForm = this.fb.group({
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
-      accountName: [''],
+      accountName: [null],
       businessPartnerId: [null],
       // organization: [''],
       // department: [''],
-      warehouseName: [''],
-      campusName : ['']
+      warehouseName: [null],
+      campusName : [null]
       //location: ['']
     });
+
+    
 
   
     //get all business partner and employee 
@@ -351,12 +353,12 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
   // Mapping value from form to model
   mapFormValueToModel() {
-    this.generalLedgerModel.docDate = this.formatDate(this.generalLedgerForm.value.docDate) || '';
-    this.generalLedgerModel.docDate2 = this.formatDate(this.generalLedgerForm.value.docDate2) || '';
-    this.generalLedgerModel.accountName = this.generalLedgerForm.value.accountName || '';
+    this.generalLedgerModel.docDate = this.formatDate(this.generalLedgerForm.value.docDate);
+    this.generalLedgerModel.docDate2 = this.formatDate(this.generalLedgerForm.value.docDate2);
+    this.generalLedgerModel.accountId = this.generalLedgerForm.value.accountName || null;
     this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId?.id || null;
-    this.generalLedgerModel.warehouseName = this.generalLedgerForm.value.warehouseName || '';
-    this.generalLedgerModel.campusName = this.generalLedgerForm.value.campusName || '';
+    this.generalLedgerModel.warehouseId = this.generalLedgerForm.value.warehouseName || null;
+    this.generalLedgerModel.campusId = this.generalLedgerForm.value.campusName || null;
     // this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
     // this.generalLedgerModel.department = this.generalLedgerForm.value.department || '';
     // this.generalLedgerModel.warehouse = this.generalLedgerForm.value.warehouse || '';
