@@ -1,128 +1,133 @@
 <div class="container " >
-    <div class="col-lg-10 mx-auto text-right">
-      <div class="row">
-        <button
-          printSectionId="main"
-          printTitle="Business Partner"
-          ngxPrint
-          id="partner_print"
-          type="button"
-          [useExistingCss]="true"
-          class="app-default-btn" mat-raised-button
-          style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
-        </button>
-      </div>
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button
+        printSectionId="main"
+        printTitle="Business Partner"
+        ngxPrint
+        id="partner_print"
+        type="button"
+        [useExistingCss]="true"
+        class="app-default-btn" mat-raised-button
+        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+      </button>
     </div>
-    <div class="col-lg-10 mx-auto" id="main">
-      <div class="row">
-        <div class="bg-whitee">
+  </div>
+  <div class="col-lg-10 mx-auto" id="main">
+    <div class="row">
+      <div class="bg-whitee">
 
-          <div class="print_header_area p-s-1 align-items-center">
-            <div class="print-col-7 p-s-1-one">
-              <div class="logo_and_title">
-                <div class="print-logo"></div>
-                <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-                <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
-              </div>
-
+        <div class="print_header_area p-s-1 align-items-center">
+          <div class="print-col-7 p-s-1-one">
+            <div class="logo_and_title">
+              <div class="print-logo"></div>
+              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
-            <div class="print-col-4 ml-auto p-s-1-two">
-              <div class="id_num">
-                <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
-                margin-bottom: 10px;
-                text-align: center;">
-                  <h4>Business Partner</h4>
-                </div>
+
+          </div>
+          <div class="print-col-4 ml-auto p-s-1-two">
+            <div class="id_num">
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+              margin-bottom: 10px;
+              text-align: center;">
+                <h4>Business Partner</h4>
               </div>
             </div>
           </div>
-
-
-          <div class="print_body_area p-s-2">
-            <div class="print-col-12 p-s-2-one">
-              <div class="row mt-10">
-                    <div class="print-col-4">
-                      <div class="print-box-one">
-                        <h4 class="font-14"><b>Name:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                      </div>
-                    </div>
-
-                    <div class="print-col-6">
-                      <span class="font-14"><b>Type:</b></span>
-                      <ul id="menu" style="display: inline;padding-left: 2px;">
-                        <li style="margin-left: 10px; width: 180px;">Supplier <span class="box"></span></li>
-                        <li style="margin-left: 10px;">Contractor <span class="box"></span></li>
-                        <li style="margin-left: 10px;">Consultant <span class="box"></span></li>
-                      </ul>
-                    </div>
-                </div>
-                <div class="row " style="margin-top: 50px;">
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Phone:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Mobile:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>CNIC:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row " style="margin-top: 60px;">
-                  <div class="print-col-12">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Address:</b> <span class="" style="font-weight: 400;"> _______________________________________________________________________________________</span></h4>
-                    </div>
-                  </div>
-
-                </div>
-
-                <div class="row " style="margin-top: 50px;">
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Sales Tax ID:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Income Tax ID:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Bank Name:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row " style="margin-top: 50px; margin-bottom: 40px;">
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Branch Code:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Account Title:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                  <div class="print-col-4">
-                    <div class="print-box-one">
-                      <h4 class="font-14"><b>Account No:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
-                    </div>
-                  </div>
-                </div>
-            </div>
-          </div>
-
-
         </div>
+
+
+        <div class="print_body_area p-s-2">
+          <div class="print-col-12 p-s-2-one">
+            <div class="row mt-10">
+                  <div class="print-col-4">
+                    <div class="print-box-one">
+                      <h4 class="font-14"><b>Name:</b> <span class="" style="font-weight: 400;"> __________________</span></h4>
+                    </div>
+                  </div>
+
+                  <div class="print-col-8">
+                    <span class="font-14"><b>Type:</b></span>
+                    <!-- <ul class="list-inline" style="display: inline-block;">
+                        <li class="list-inline-item " style="margin-left: 10px;">Supplier <span class="box"></span> </li>
+                        <li class="list-inline-item" style="margin-left: 10px;">Contractor <span class="box"></span> </li>
+                        <li class="list-inline-item" style="margin-left: 10px;">Consultant <span class="box"></span> </li>
+                    </ul> -->
+                    <ul id="menu" style="display: inline;padding-left: 2px;">
+                      <li style="margin-left: 10px; width: 180px;">Supplier <span class="box"></span></li>
+                      <li style="margin-left: 10px;">Contractor <span class="box"></span></li>
+                      <li style="margin-left: 10px;">Consultant <span class="box"></span></li>
+                    </ul>
+                  </div>
+              </div>
+              <div class="row " style="margin-top: 50px;">
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>Phone:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>Mobile:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>CNIC:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row " style="margin-top: 60px;">
+                <div class="print-col-12">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>Address:</b> <span class="" style="font-weight: 400;"> _______________________________________________________________________________________</span></h4>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row " style="margin-top: 50px;">
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>SalesTaxID:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>IncomeTaxID:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>Bank Name:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row " style="margin-top: 50px; margin-bottom: 40px;">
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>Branch Code:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>Account Title:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+                <div class="print-col-4">
+                  <div class="print-box-one">
+                    <h4 class="font-14" style="width:100%; overflow: hidden;"><b>Account No:</b> <span class="" style="font-weight: 400;width:100%; overflow: hidden;"> __________________</span></h4>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
+</div>
