@@ -38,6 +38,7 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     public sanitizer: DomSanitizer
   ) {
+   
     this.selectedDocumented = this.documents.find(x => x.id === this.activatedRoute.snapshot.data.docType).value
     this.formName = this.selectedDocumented === 'Payment' ? 'Payment Voucher' : this.selectedDocumented 
    }

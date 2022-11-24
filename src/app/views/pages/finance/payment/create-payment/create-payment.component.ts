@@ -103,9 +103,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     campusId: {
       required: 'Campus is required.'
     },
-    chequeNo: {
-      min: 'Please insert valid Number.'
-    },
     salesTax: {
       min: 'Percentage % range (0 - 100).',
       max: 'Percentage % range (0 - 100).'
@@ -133,7 +130,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     deduction: '',
     deductionAccountId: '',
     campusId: '',
-    chequeNo: '',
     salesTax: '',
     incomeTax: '',
     SRBTax: ''
@@ -179,7 +175,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       grossPayment: ['',[Validators.required , Validators.min(1)]],
       deduction: [0,[Validators.min(0)]],
       deductionAccountId: [''],
-      chequeNo: ['', [Validators.min(0)]],
+      chequeNo: [''],
       salesTax: [0,[Validators.min(0) , Validators.max(100)]],
       incomeTax: [0,[Validators.min(0) , Validators.max(100)]],
       SRBTax: [0,[Validators.min(0) , Validators.max(100)]],

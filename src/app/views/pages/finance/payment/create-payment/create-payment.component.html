@@ -324,9 +324,7 @@
                         id="payment_cheque"
                           formControlName="chequeNo"
                           placeholder="Enter Number"
-                          hintText="Optional"
-                          (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.chequeNo , error : formErrors.chequeNo }]">
+                          hintText="Optional">
                         </kt-input-field>
                     </div>
                   </div>
