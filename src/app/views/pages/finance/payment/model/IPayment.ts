@@ -13,7 +13,7 @@ export interface IPayment {
   srbTax : number;
   campusId: number;
   documentLedgerId: number;
-  chequeNo?: number;
+  chequeNo: number;
   deduction: number;
   deductionAccountId: number;
   isSubmit?: any;

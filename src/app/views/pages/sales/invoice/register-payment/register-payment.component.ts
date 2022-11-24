@@ -130,6 +130,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       registerType: [2],
       description: ['', [Validators.required]],
       bankAccount: ['', [Validators.required]],
+      chequeNo: [''],
       grossPayment: [this.data.pendingAmount, [Validators.required, Validators.min(1), Validators.max(this.data.pendingAmount)]],
       deduction: [0,[Validators.min(0)]],
       deductionAccountId: [''],
@@ -160,6 +161,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       campusId: null,
       srbTax: null,
       paymentDate: null,
+      chequeNo: null,
       paymentRegisterId: null,
       description: '',
       deduction: null,
@@ -223,6 +225,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     this.paymentModel.accountId = this.data.accountId;
     this.paymentModel.campusId = this.data.campusId;
     this.paymentModel.paymentRegisterType = 2;
+    this.paymentModel.chequeNo = this.registerPaymentForm.value.chequeNo;
     this.paymentModel.paymentDate = this.transformDate(this.registerPaymentForm.value.paymentDate, 'yyyy-MM-dd');
     this.paymentModel.paymentRegisterId = this.registerPaymentForm.value.bankAccount;
     this.paymentModel.description = this.registerPaymentForm.value.description;
