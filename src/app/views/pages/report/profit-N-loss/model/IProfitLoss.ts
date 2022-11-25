@@ -14,10 +14,10 @@ export interface IProfitLoss {
    // docDate?: string;
    // docDate2?: string;
 
-   accountName: string;
+   accountId: string;
    docDate: string;
    docDate2: string;
-   businessPartner: string;
-   warehouse: string;
-   campus: string;
+   businessPartnerId: string;
+   warehouseId: string;
+   campusId: string;
 }

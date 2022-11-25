@@ -27,9 +27,9 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
-                <kt-simple-dropdown id="profit_account" formControlName="accountName" matFormFieldClass="full-width" isDisabledNone="true"
+                <kt-simple-dropdown id="profit_account" formControlName="accountId" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
-                  propertyName="name" propertyValue="editableName">
+                  propertyName="name" propertyValue="id">
                 </kt-simple-dropdown>
               </div>
             </div>
@@ -56,33 +56,33 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Business Partner:</label>
-                <kt-simple-dropdown id="profit_partner" formControlName="businessPartner" matFormFieldClass="full-width" hintText="Optional"
+                <kt-simple-dropdown id="profit_partner" formControlName="businessPartnerId" matFormFieldClass="full-width" hintText="Optional"
                   placeholder="Select Business Partner" [optionList]="ngxsService.businessPartners$" isDisabledNone="true"
                   [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                   clickEventButtonName="Add New Business Partner"
                   (clickEvent)="addButtonService.openBusinessPartnerDialog()"
-                  propertyName="name" propertyValue="name">
+                  propertyName="name" propertyValue="id">
                 </kt-simple-dropdown>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
-                <kt-simple-dropdown id="profit_campus" formControlName="campus" matFormFieldClass="full-width" hintText="Optional"
+                <kt-simple-dropdown id="profit_campus" formControlName="campusId" matFormFieldClass="full-width" hintText="Optional"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" isDisabledNone="true"
-                  propertyName="name" propertyValue="name">
+                  propertyName="name" propertyValue="id">
                 </kt-simple-dropdown>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Store:</label>
-                <kt-simple-dropdown id="profit_store" formControlName="warehouse" matFormFieldClass="full-width" hintText="Optional"
+                <kt-simple-dropdown id="profit_store" formControlName="warehouseId" matFormFieldClass="full-width" hintText="Optional"
                   [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
                   clickEventButtonName="Add New Store"
                   (clickEvent)="addButtonService.openWarehouseDialog()"
                   placeholder="Select Store" [optionList]="ngxsService.warehouses$" isDisabledNone="true"
-                  propertyName="name" propertyValue="name">
+                  propertyName="name" propertyValue="id">
                 </kt-simple-dropdown>
               </div>
             </div>
