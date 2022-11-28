@@ -29,9 +29,9 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
-                <kt-simple-dropdown id="trial_account" formControlName="accountName" matFormFieldClass="full-width" isDisabledNone="true"
+                <kt-simple-dropdown id="trial_account" formControlName="accountId" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
-                  propertyName="name" propertyValue="editableName"></kt-simple-dropdown>
+                  propertyName="name" propertyValue="id"></kt-simple-dropdown>
               </div>
             </div>
           </div>
@@ -39,9 +39,9 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
-                <kt-simple-dropdown id="trial_campus" formControlName="campusName" matFormFieldClass="full-width" isDisabledNone="true"
+                <kt-simple-dropdown id="trial_campus" formControlName="campusId" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" hintText="Optional"
-                  propertyName="name" propertyValue="name"></kt-simple-dropdown>
+                  propertyName="name" propertyValue="id"></kt-simple-dropdown>
               </div>
             </div>
           </div>

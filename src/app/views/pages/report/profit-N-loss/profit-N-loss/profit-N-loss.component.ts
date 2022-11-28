@@ -123,10 +123,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     this.profitNLossForm = this.fb.group({
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
-      accountName: [''],
-      businessPartner: [''],
-      warehouse: [''],
-      campus: ['']
+      accountId: [null],
+      businessPartnerId: [null],
+      warehouseId: [null],
+      campusId: [null]
     });
     
     // get Ware house location from state
@@ -202,10 +202,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   mapProfitNLossValuesToModel () {
     this.profitNLossModel.docDate = this.formatDate(this.profitNLossForm.value.docDate)
     this.profitNLossModel.docDate2 = this.formatDate(this.profitNLossForm.value.docDate2)
-    this.profitNLossModel.businessPartner = this.profitNLossForm.value.businessPartner || '';
-    this.profitNLossModel.campus = this.profitNLossForm.value.campus || '';
-    this.profitNLossModel.accountName = this.profitNLossForm.value.accountName || '';
-    this.profitNLossModel.warehouse = this.profitNLossForm.value.warehouse || '';
+    this.profitNLossModel.businessPartnerId = this.profitNLossForm.value.businessPartnerId || null;
+    this.profitNLossModel.campusId = this.profitNLossForm.value.campusId || null;
+    this.profitNLossModel.accountId = this.profitNLossForm.value.accountId || null;
+    this.profitNLossModel.warehouseId = this.profitNLossForm.value.warehouseId || null;
   }
 
   calculateNetProfit(res: any[]) {

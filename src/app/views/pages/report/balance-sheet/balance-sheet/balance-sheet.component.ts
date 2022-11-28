@@ -116,7 +116,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       // warehouse: [''],
       // location: [''],
       // organization: [''],
-      campusName: [''],
+      campusId: [''],
       //accountName: [''],
     });
   
@@ -240,7 +240,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET + '/' + REPORT.PRINT], {
         queryParams: {
           date: this.dateHelperService.transformDate(this. balanceSheetForm.value.docDate, 'MMM d, y'),
-          campus: (this. balanceSheetForm.value.campusName || 'All'),
+          campus: (this. balanceSheetForm.value.campusId || 'All'),
         }
       })
   }

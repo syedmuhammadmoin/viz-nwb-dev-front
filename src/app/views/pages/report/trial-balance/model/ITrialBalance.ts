@@ -1,8 +1,8 @@
 export interface ITrialBalance {
    docDate: string;
    docDate2: string;
-   campusName: string;
-   accountName: string;
+   campusId: string;
+   accountId: string;
 }
    // organization?: string;
    // department?: string;

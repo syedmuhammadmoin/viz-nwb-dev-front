@@ -178,8 +178,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     this.trialBalanceForm = this.fb.group({
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
-      accountName: [''],
-      campusName: ['']
+      accountId: [null],
+      campusId: [null]
       // organization: [''],
       // warehouse: [''],
       // department: [''],
@@ -364,8 +364,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         queryParams: {
           from: this.dateHelperService.transformDate(this.trialBalanceForm.value.docDate, 'MMM d, y'),
           to: this.dateHelperService.transformDate(this.trialBalanceForm.value.docDate2, 'MMM d, y'),
-          account: (this.trialBalanceForm.value.accountName || 'All'),
-          campus: (this.trialBalanceForm.value.campusName || 'All'),
+          account: (this.trialBalanceForm.value.accountId || 'All'),
+          campus: (this.trialBalanceForm.value.campusId || 'All'),
         }
       })
   }
