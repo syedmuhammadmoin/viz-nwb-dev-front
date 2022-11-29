@@ -116,7 +116,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       // warehouse: [''],
       // location: [''],
       // organization: [''],
-      campusId: [''],
+      campusId: [null],
       //accountName: [''],
     });
   
