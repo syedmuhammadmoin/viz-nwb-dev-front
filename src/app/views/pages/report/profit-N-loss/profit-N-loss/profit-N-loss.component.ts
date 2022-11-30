@@ -45,7 +45,9 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
 
   //Limit Date
-  maxDate: Date = new Date()
+  maxDate: Date = new Date();
+  minDate: Date
+  dateCondition: boolean
 
   // Validation Messages
   validationMessages = {
@@ -152,6 +154,12 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       menuTabs: ["filterMenuTab"],
       filterValueGetter: (params) => params.data.nature
     }
+
+    //handling dueDate logic
+    this.profitNLossForm.get('docDate').valueChanges.subscribe((value) => {
+      this.minDate = new Date(value);
+      this.dateCondition = this.profitNLossForm.get('docDate2').value < this.profitNLossForm.get('docDate').value
+    })
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {

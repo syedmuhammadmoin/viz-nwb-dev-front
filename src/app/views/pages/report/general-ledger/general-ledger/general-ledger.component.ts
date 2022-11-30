@@ -64,6 +64,54 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
+  //Limit Date
+  maxDate: Date = new Date();
+  minDate: Date
+  dateCondition: boolean
+
+
+  // gridOptions: GridOptions;
+
+  autoGroupColumnDef;
+  openingBalance = 0;
+  balance = 0;
+  columnDefs;
+  defaultColDef: any
+
+  // data for PDF
+  recordsData: any = []
+  disability = true
+
+  //Busy Loading
+  isLoading: boolean;
+  
+  // Declaring FormGroup
+  generalLedgerForm: FormGroup;
+
+  // For AG Grid..
+  gridOptions: GridOptions;
+  rowData: IGeneralLedger[] = [];
+
+  // Declaring Model
+  // Initializing generalLedger model...
+  generalLedgerModel: IGeneralLedger = {} as IGeneralLedger
+  // Validation Messages
+  validationMessages = {
+    docDate: {
+      required: 'Start Date is required.'
+    },
+    docDate2: {
+      required: 'End Date is required.'
+    }
+  }
+
+  // Error keys for validation messages
+  formErrors = {
+    docDate: '',
+    docDate2: ''
+  }
+  private formSubmitAttempt = true;
+
   constructor(
     // Injecting services in constructor
     private fb: FormBuilder,   
@@ -148,51 +196,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     ];
   }
 
-  // gridOptions: GridOptions;
-
-  autoGroupColumnDef;
-  openingBalance = 0;
-  balance = 0;
-  columnDefs;
-  defaultColDef: any
-
-  // data for PDF
-  recordsData: any = []
-  disability = true
-
-  //Busy Loading
-  isLoading: boolean;
-
-  //Limit Date
-  maxDate : Date = new Date()
-  
-  // Declaring FormGroup
-  generalLedgerForm: FormGroup;
-
-  // For AG Grid..
-  gridOptions: GridOptions;
-  rowData: IGeneralLedger[] = [];
-
-  // Declaring Model
-  // Initializing generalLedger model...
-  generalLedgerModel: IGeneralLedger = {} as IGeneralLedger
-  // Validation Messages
-  validationMessages = {
-    docDate: {
-      required: 'Start Date is required.'
-    },
-    docDate2: {
-      required: 'End Date is required.'
-    }
-  }
-
-  // Error keys for validation messages
-  formErrors = {
-    docDate: '',
-    docDate2: ''
-  }
-  private formSubmitAttempt = true;
-
   onRowDoubleClicked($event: any) {
   }
 
@@ -248,6 +251,12 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
      //this.ngxsService.getLocationFromState();
      // get department from state
      //this.ngxsService.getDepatmentFromState();
+
+     //handling dueDate logic
+    this.generalLedgerForm.get('docDate').valueChanges.subscribe((value) => {
+      this.minDate = new Date(value);
+      this.dateCondition = this.generalLedgerForm.get('docDate2').value < this.generalLedgerForm.get('docDate').value
+    })
   }
 
   onSubmit() {

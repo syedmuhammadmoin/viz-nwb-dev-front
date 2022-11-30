@@ -49,7 +49,9 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
 
   //Limit Date
-  maxDate: Date = new Date()
+  maxDate: Date = new Date();
+  minDate: Date
+  dateCondition: boolean
 
   // Validation Messages
   validationMessages = {
@@ -212,6 +214,12 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     //     checkbox: false,
     //   },
     // }
+
+     //handling dueDate logic
+     this.trialBalanceForm.get('docDate').valueChanges.subscribe((value) => {
+      this.minDate = new Date(value);
+      this.dateCondition = this.trialBalanceForm.get('docDate2').value < this.trialBalanceForm.get('docDate').value
+    })
   }
 
   onFirstDataRendered(params: any) {
