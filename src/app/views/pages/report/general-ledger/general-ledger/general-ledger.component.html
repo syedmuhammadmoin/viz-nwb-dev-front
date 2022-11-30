@@ -20,7 +20,9 @@
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input (blurEvent)="logValidationErrors(this.generalLedgerForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate2" formControlName="docDate2" matFormFieldClass="full-width"
-                  placeholder="Select End Date" [maxDate]="maxDate">
+                  placeholder="Select End Date" [minDate]="minDate"
+                  dateCondition="dateCondition" 
+                  dateMessage="Start">
                 </kt-date-input>
               </div>
             </div>
