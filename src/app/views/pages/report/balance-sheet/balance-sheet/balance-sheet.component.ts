@@ -43,6 +43,8 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   recordsData: any = [];
   disability: boolean = true;
 
+  balanceSheetModel = {} as IBalanceSheet
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -161,11 +163,10 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       this.logValidationErrors(this.balanceSheetForm, this.formErrors, this.validationMessages);
       return;
     }
-    const balanceSheetModel = {...this.balanceSheetForm.value} as IBalanceSheet
-    balanceSheetModel.docDate = this.formatDate(this.balanceSheetForm.value.docDate)
+   
     this.isLoading = true;
-    console.log(balanceSheetModel)
-    this.balanceSheetService.getBalanceSheetReport(balanceSheetModel)
+    this.mapFormValueToModel()
+    this.balanceSheetService.getBalanceSheetReport(this.balanceSheetModel)
       .pipe(
         finalize(() => {
           this.isLoading = false;
@@ -189,6 +190,11 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         this.cdRef.detectChanges();
         this.calculateNetProfit(res);
       });
+  }
+
+  mapFormValueToModel() {
+    this.balanceSheetModel.docDate = this.formatDate(this.balanceSheetForm.value.docDate);
+    this.balanceSheetModel.campusId = this.balanceSheetForm.value.campusId?.id;
   }
 
   formatDate(date) {
@@ -240,7 +246,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.BALANCE_SHEET + '/' + REPORT.PRINT], {
         queryParams: {
           date: this.dateHelperService.transformDate(this. balanceSheetForm.value.docDate, 'MMM d, y'),
-          campus: (this. balanceSheetForm.value.campusId || 'All'),
+          campus: (this. balanceSheetForm.value.campusId?.name || 'All'),
         }
       })
   }

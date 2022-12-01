@@ -210,10 +210,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   mapProfitNLossValuesToModel () {
     this.profitNLossModel.docDate = this.formatDate(this.profitNLossForm.value.docDate)
     this.profitNLossModel.docDate2 = this.formatDate(this.profitNLossForm.value.docDate2)
-    this.profitNLossModel.businessPartnerId = this.profitNLossForm.value.businessPartnerId || null;
-    this.profitNLossModel.campusId = this.profitNLossForm.value.campusId || null;
-    this.profitNLossModel.accountId = this.profitNLossForm.value.accountId || null;
-    this.profitNLossModel.warehouseId = this.profitNLossForm.value.warehouseId || null;
+    this.profitNLossModel.businessPartnerId = this.profitNLossForm.value.businessPartnerId?.id || null;
+    this.profitNLossModel.campusId = this.profitNLossForm.value.campusId?.id || null;
+    this.profitNLossModel.accountId = this.profitNLossForm.value.accountId?.id || null;
+    this.profitNLossModel.warehouseId = this.profitNLossForm.value.warehouseId?.id || null;
   }
 
   calculateNetProfit(res: any[]) {
@@ -259,10 +259,10 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         queryParams: {
           from: this.dateHelperService.transformDate(this.profitNLossForm.value.docDate, 'MMM d, y'),
           to: this.dateHelperService.transformDate(this.profitNLossForm.value.docDate2, 'MMM d, y'),
-          account: (this.profitNLossForm.value.accountName || 'All'),
-          businessPartner: (this.profitNLossForm.value.businessPartner || 'All'),
-          campus: (this.profitNLossForm.value.campus || 'All'),
-          store: (this.profitNLossForm.value.warehouse || 'All'),
+          account: (this.profitNLossForm.value.accountId?.editableName || 'All'),
+          businessPartner: (this.profitNLossForm.value.businessPartnerId?.name || 'All'),
+          campus: (this.profitNLossForm.value.campusId?.name || 'All'),
+          store: (this.profitNLossForm.value.warehouseId?.name || 'All'),
         }
       })
   }

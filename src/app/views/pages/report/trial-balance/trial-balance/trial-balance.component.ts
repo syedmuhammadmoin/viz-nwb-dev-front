@@ -182,10 +182,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       docDate2: ['', [Validators.required]],
       accountId: [null],
       campusId: [null]
-      // organization: [''],
-      // warehouse: [''],
-      // department: [''],
-      // location: ['']
     });
      // get Ware house location from state
     this.ngxsService.getWarehouseFromState();    
@@ -237,14 +233,11 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       return;
     }
 
-    const body = { ...this.trialBalanceForm.value } as ITrialBalance
-    // body.docDate = this.transformDate(new Date(body.docDate), 'MMM d, y') 
-    // body.docDate2 = this.transformDate(new Date(body.docDate2), 'MMM d, y')
-    body.docDate = this.formatDate(body.docDate)
-    body.docDate2 = this.formatDate(body.docDate2)
+    
     
     this.isLoading = true;
-    this.trialBalanceService.getTrialBalance(body)
+    this.mapFormValueToModel();
+    this.trialBalanceService.getTrialBalance(this.trialBalanceModel)
     .pipe(
       finalize(() => {
         this.isLoading = false;
@@ -270,6 +263,14 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
       }, 500)
     });
+  }
+
+  // Mapping value from form to model
+  mapFormValueToModel() {
+    this.trialBalanceModel.docDate = this.formatDate(this.trialBalanceForm.value.docDate);
+    this.trialBalanceModel.docDate2 = this.formatDate(this.trialBalanceForm.value.docDate2);
+    this.trialBalanceModel.accountId = this.trialBalanceForm.value.accountId?.id || null;
+    this.trialBalanceModel.campusId = this.trialBalanceForm.value.campusId?.id || null;
   }
 
   formatDate(date) {
@@ -372,8 +373,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         queryParams: {
           from: this.dateHelperService.transformDate(this.trialBalanceForm.value.docDate, 'MMM d, y'),
           to: this.dateHelperService.transformDate(this.trialBalanceForm.value.docDate2, 'MMM d, y'),
-          account: (this.trialBalanceForm.value.accountId || 'All'),
-          campus: (this.trialBalanceForm.value.campusId || 'All'),
+          account: (this.trialBalanceForm.value.accountId?.name || 'All'),
+          campus: (this.trialBalanceForm.value.campusId?.name || 'All'),
         }
       })
   }

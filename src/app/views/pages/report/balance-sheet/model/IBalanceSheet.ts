@@ -11,7 +11,7 @@ export interface IBalanceSheet {
    // debit?: number;
    // credit?: number;
    // balance?: number;
-   docDate?: string;
+   docDate: string;
   // accountName?: string;
-   campusName?: string;
+   campusId: number;
 }
