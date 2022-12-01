@@ -364,10 +364,10 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   mapFormValueToModel() {
     this.generalLedgerModel.docDate = this.formatDate(this.generalLedgerForm.value.docDate);
     this.generalLedgerModel.docDate2 = this.formatDate(this.generalLedgerForm.value.docDate2);
-    this.generalLedgerModel.accountId = this.generalLedgerForm.value.accountName || null;
+    this.generalLedgerModel.accountId = this.generalLedgerForm.value.accountName?.id || null;
     this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId?.id || null;
-    this.generalLedgerModel.warehouseId = this.generalLedgerForm.value.warehouseName || null;
-    this.generalLedgerModel.campusId = this.generalLedgerForm.value.campusName || null;
+    this.generalLedgerModel.warehouseId = this.generalLedgerForm.value.warehouseName?.id || null;
+    this.generalLedgerModel.campusId = this.generalLedgerForm.value.campusName?.id || null;
     // this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
     // this.generalLedgerModel.department = this.generalLedgerForm.value.department || '';
     // this.generalLedgerModel.warehouse = this.generalLedgerForm.value.warehouse || '';
@@ -400,10 +400,10 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         queryParams: {
           from: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate, 'MMM d, y'),
           to: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate2, 'MMM d, y'),
-          account: (this.generalLedgerForm.value.accountName || 'All'),
+          account: (this.generalLedgerForm.value.accountName?.editableName || 'All'),
           businessPartner: (this.generalLedgerForm.value.businessPartnerId?.name || 'All'),
-          campus: (this.generalLedgerForm.value.campusName || 'All'),
-          store: (this.generalLedgerForm.value.warehouseName || 'All'),
+          campus: (this.generalLedgerForm.value.campusName?.name || 'All'),
+          store: (this.generalLedgerForm.value.warehouseName?.name || 'All'),
         }
       })
   }
