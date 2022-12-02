@@ -20,9 +20,12 @@
         <div class="print_header_area p-s-1">
           <div class="print-col-7 p-s-1-one">
             <div class="logo_and_title">
-              <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
-              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+              <div class="logo_and_title">
+                <div *ngIf="sbbu" class="print-logo" style="width:100px;"></div>
+                <div *ngIf="edinfini" class="print-logo" style="width:150px;"></div>
+                <div *ngIf="vizalys" class="print-logo" style="width:200px;"></div>
+                <span *ngIf="sbbu" class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+              </div>
             </div>
 
           </div>

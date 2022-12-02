@@ -34,6 +34,9 @@ $site-logo :var(--site_logo);
 $dashboard_hight : var(--dashboard_hight);
 $dashboard_logo_width : var(--dashboard_logo_width);
 $dashboard_logo_hight : var(--dashboard_logo_hight);
+$toggler_arrow_color : var(--toggler_arrow_color);
+$home_logo_bg : var(--home_logo_bg);
+$db_dd_t_c : var(--db_dd_t_c);
 
 
 .dropdown-toggle::after {
@@ -73,7 +76,24 @@ $dashboard_logo_hight : var(--dashboard_logo_hight);
     margin-top: 10px;
 }
 
-.theme-changing-edinfini i , .theme-changing-sbbu i{
+.theme-changing-vizalys{
+  border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background:#2988bc;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    flex-shrink: 0;
+    position: relative;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.theme-changing-edinfini i , .theme-changing-sbbu i , .theme-changing-vizalys i{
   color: $bg-white !important;
   font-size: 1rem !important;
 }
@@ -1193,7 +1213,7 @@ color: $primary-color !important;
 
 .brand-dark .brand .btn .svg-icon svg g [fill] {
   transition: fill 0.3s ease;
-  fill: $primary-color !important;
+  fill: $primary-color!important;
 }
 
 

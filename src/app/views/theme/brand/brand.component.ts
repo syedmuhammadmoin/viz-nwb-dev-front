@@ -15,6 +15,8 @@ export class BrandComponent implements OnInit, AfterViewInit {
   headerLogo = '';
   brandClasses = '';
   edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
   localsto : any ;
   asideSelfMinimizeToggle = true;
 
@@ -55,11 +57,14 @@ export class BrandComponent implements OnInit, AfterViewInit {
          if(localStorage.getItem('global_color')) {
           this.localsto = JSON.parse(localStorage.getItem('global_color'))
           this.edinfini = this.localsto.edinfini_true;
-           console.log("yes Called")
+          this.vizalys = this.localsto.vizalys_true;
+          this.sbbu = this.localsto.nawabshah_true;
          } 
          else{
           this.localsto = res;
           this.edinfini = this.localsto.edinfini_true;
+          this.vizalys = this.localsto.vizalys_true;
+          this.sbbu = this.localsto.nawabshah_true;
          }
    
          this.ref.detectChanges()
