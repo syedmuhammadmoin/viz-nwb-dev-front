@@ -64,6 +64,54 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
+  //Limit Date
+  maxDate: Date = new Date();
+  minDate: Date
+  dateCondition: boolean
+
+
+  // gridOptions: GridOptions;
+
+  autoGroupColumnDef;
+  openingBalance = 0;
+  balance = 0;
+  columnDefs;
+  defaultColDef: any
+
+  // data for PDF
+  recordsData: any = []
+  disability = true
+
+  //Busy Loading
+  isLoading: boolean;
+  
+  // Declaring FormGroup
+  generalLedgerForm: FormGroup;
+
+  // For AG Grid..
+  gridOptions: GridOptions;
+  rowData: IGeneralLedger[] = [];
+
+  // Declaring Model
+  // Initializing generalLedger model...
+  generalLedgerModel: IGeneralLedger = {} as IGeneralLedger
+  // Validation Messages
+  validationMessages = {
+    docDate: {
+      required: 'Start Date is required.'
+    },
+    docDate2: {
+      required: 'End Date is required.'
+    }
+  }
+
+  // Error keys for validation messages
+  formErrors = {
+    docDate: '',
+    docDate2: ''
+  }
+  private formSubmitAttempt = true;
+
   constructor(
     // Injecting services in constructor
     private fb: FormBuilder,   
@@ -148,51 +196,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     ];
   }
 
-  // gridOptions: GridOptions;
-
-  autoGroupColumnDef;
-  openingBalance = 0;
-  balance = 0;
-  columnDefs;
-  defaultColDef: any
-
-  // data for PDF
-  recordsData: any = []
-  disability = true
-
-  //Busy Loading
-  isLoading: boolean;
-
-  //Limit Date
-  maxDate : Date = new Date()
-  
-  // Declaring FormGroup
-  generalLedgerForm: FormGroup;
-
-  // For AG Grid..
-  gridOptions: GridOptions;
-  rowData: IGeneralLedger[] = [];
-
-  // Declaring Model
-  // Initializing generalLedger model...
-  generalLedgerModel: IGeneralLedger = {} as IGeneralLedger
-  // Validation Messages
-  validationMessages = {
-    docDate: {
-      required: 'Start Date is required.'
-    },
-    docDate2: {
-      required: 'End Date is required.'
-    }
-  }
-
-  // Error keys for validation messages
-  formErrors = {
-    docDate: '',
-    docDate2: ''
-  }
-  private formSubmitAttempt = true;
-
   onRowDoubleClicked($event: any) {
   }
 
@@ -248,6 +251,12 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
      //this.ngxsService.getLocationFromState();
      // get department from state
      //this.ngxsService.getDepatmentFromState();
+
+     //handling dueDate logic
+    this.generalLedgerForm.get('docDate').valueChanges.subscribe((value) => {
+      this.minDate = new Date(value);
+      this.dateCondition = this.generalLedgerForm.get('docDate2').value < this.generalLedgerForm.get('docDate').value
+    })
   }
 
   onSubmit() {
@@ -355,10 +364,10 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   mapFormValueToModel() {
     this.generalLedgerModel.docDate = this.formatDate(this.generalLedgerForm.value.docDate);
     this.generalLedgerModel.docDate2 = this.formatDate(this.generalLedgerForm.value.docDate2);
-    this.generalLedgerModel.accountId = this.generalLedgerForm.value.accountName || null;
+    this.generalLedgerModel.accountId = this.generalLedgerForm.value.accountName?.id || null;
     this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId?.id || null;
-    this.generalLedgerModel.warehouseId = this.generalLedgerForm.value.warehouseName || null;
-    this.generalLedgerModel.campusId = this.generalLedgerForm.value.campusName || null;
+    this.generalLedgerModel.warehouseId = this.generalLedgerForm.value.warehouseName?.id || null;
+    this.generalLedgerModel.campusId = this.generalLedgerForm.value.campusName?.id || null;
     // this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
     // this.generalLedgerModel.department = this.generalLedgerForm.value.department || '';
     // this.generalLedgerModel.warehouse = this.generalLedgerForm.value.warehouse || '';
@@ -391,10 +400,10 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         queryParams: {
           from: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate, 'MMM d, y'),
           to: this.dateHelperService.transformDate(this.generalLedgerForm.value.docDate2, 'MMM d, y'),
-          account: (this.generalLedgerForm.value.accountName || 'All'),
+          account: (this.generalLedgerForm.value.accountName?.editableName || 'All'),
           businessPartner: (this.generalLedgerForm.value.businessPartnerId?.name || 'All'),
-          campus: (this.generalLedgerForm.value.campusName || 'All'),
-          store: (this.generalLedgerForm.value.warehouseName || 'All'),
+          campus: (this.generalLedgerForm.value.campusName?.name || 'All'),
+          store: (this.generalLedgerForm.value.warehouseName?.name || 'All'),
         }
       })
   }

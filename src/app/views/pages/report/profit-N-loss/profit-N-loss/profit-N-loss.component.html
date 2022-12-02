@@ -20,7 +20,9 @@
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input formControlName="docDate2" placeholder="Select End Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.profitNLossForm, formErrors, validationMessages)"
-                  [errorMessage]="formErrors.docDate2" [maxDate]="maxDate">
+                  [errorMessage]="formErrors.docDate2" [minDate]="minDate"
+                  dateCondition="dateCondition" 
+                  dateMessage="Start">
                 </kt-date-input>
               </div>
             </div>
@@ -29,7 +31,7 @@
                 <label class="col-form-label">COA:</label>
                 <kt-simple-dropdown id="profit_account" formControlName="accountId" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
-                  propertyName="name" propertyValue="id">
+                  propertyName="name">
                 </kt-simple-dropdown>
               </div>
             </div>
@@ -61,7 +63,7 @@
                   [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                   clickEventButtonName="Add New Business Partner"
                   (clickEvent)="addButtonService.openBusinessPartnerDialog()"
-                  propertyName="name" propertyValue="id">
+                  propertyName="name">
                 </kt-simple-dropdown>
               </div>
             </div>
@@ -70,7 +72,7 @@
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="profit_campus" formControlName="campusId" matFormFieldClass="full-width" hintText="Optional"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" isDisabledNone="true"
-                  propertyName="name" propertyValue="id">
+                  propertyName="name">
                 </kt-simple-dropdown>
               </div>
             </div>
@@ -82,7 +84,7 @@
                   clickEventButtonName="Add New Store"
                   (clickEvent)="addButtonService.openWarehouseDialog()"
                   placeholder="Select Store" [optionList]="ngxsService.warehouses$" isDisabledNone="true"
-                  propertyName="name" propertyValue="id">
+                  propertyName="name">
                 </kt-simple-dropdown>
               </div>
             </div>

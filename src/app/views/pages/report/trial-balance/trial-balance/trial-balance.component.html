@@ -21,8 +21,9 @@
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input formControlName="docDate2" placeholder="Select End Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.trialBalanceForm, formErrors, validationMessages)"
-                  [errorMessage]="formErrors.docDate2"
-                  [maxDate]="maxDate">
+                  [errorMessage]="formErrors.docDate2" [minDate]="minDate"
+                  dateCondition="dateCondition" 
+                  dateMessage="Start">
                 </kt-date-input>
               </div>
             </div>
@@ -31,7 +32,7 @@
                 <label class="col-form-label">COA:</label>
                 <kt-simple-dropdown id="trial_account" formControlName="accountId" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
-                  propertyName="name" propertyValue="id"></kt-simple-dropdown>
+                  propertyName="name"></kt-simple-dropdown>
               </div>
             </div>
           </div>
@@ -41,7 +42,7 @@
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="trial_campus" formControlName="campusId" matFormFieldClass="full-width" isDisabledNone="true"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" hintText="Optional"
-                  propertyName="name" propertyValue="id"></kt-simple-dropdown>
+                  propertyName="name"></kt-simple-dropdown>
               </div>
             </div>
           </div>

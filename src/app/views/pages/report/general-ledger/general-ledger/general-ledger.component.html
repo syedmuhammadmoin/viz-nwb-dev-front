@@ -20,7 +20,9 @@
                 <label class="col-form-label">End Date:</label>
                 <kt-date-input (blurEvent)="logValidationErrors(this.generalLedgerForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate2" formControlName="docDate2" matFormFieldClass="full-width"
-                  placeholder="Select End Date" [maxDate]="maxDate">
+                  placeholder="Select End Date" [minDate]="minDate"
+                  dateCondition="dateCondition" 
+                  dateMessage="Start">
                 </kt-date-input>
               </div>
             </div>
@@ -28,7 +30,7 @@
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
                 <kt-simple-dropdown id="ledger_account" [optionList]="ngxsService.accountsLevel4$" formControlName="accountName" isDisabledNone="true"
-                  matFormFieldClass="full-width" placeholder="Select Detailed Head" propertyName="name" propertyValue="id"
+                  matFormFieldClass="full-width" placeholder="Select Detailed Head" propertyName="name"
                   hintText="Optional"></kt-simple-dropdown>
               </div>
             </div>
@@ -78,7 +80,7 @@
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="ledger_campus" [optionList]="ngxsService.campuses$" isDisabledNone="true"
                   formControlName="campusName" matFormFieldClass="full-width" placeholder="Select Campus" hintText="Optional"
-                  propertyName="name" propertyValue="id"></kt-simple-dropdown>
+                  propertyName="name"></kt-simple-dropdown>
               </div>
             </div>
             <div class="col-lg-4">
@@ -89,7 +91,7 @@
                   clickEventButtonName="Add New Store"
                   (clickEvent)="addButtonService.openWarehouseDialog()"
                   formControlName="warehouseName" matFormFieldClass="full-width" placeholder="Select Store"
-                  propertyName="name" propertyValue="id"></kt-simple-dropdown>
+                  propertyName="name"></kt-simple-dropdown>
               </div>
             </div>
           </div>
