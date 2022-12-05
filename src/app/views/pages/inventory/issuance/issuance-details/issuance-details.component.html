@@ -10,9 +10,10 @@
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
         <div class="row ">
-          <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools >
-                <button *ngIf="(issuanceMaster?.state === docStatus.Draft || issuanceMaster?.state === docStatus.Rejected) 
+          <div class="btn_container">
+            <div class="col-md-6 col-6">
+              <ng-container ktPortletTools >
+                <button *ngIf="(issuanceMaster?.state === docStatus.Draft || issuanceMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.ISSUANCE_EDIT))"
                   [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
                   type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit icon-e-p-a"></i>
@@ -25,36 +26,41 @@
                   Return Issuance
                 </button>
 
-                <!-- <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-3 btn_public" 
+                <!-- <button *ngIf="(permission.isGranted(permissions.ISSUANCE_EDIT))"  class="mr-3 btn_public"
                 (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                 </button> -->
 
-                <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button" 
+                <button [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('print', issuanceMaster?.id)" type="button"
                   class="btn_public" id="issuance_print">
                   <i class="fa fa-print icon-e-p-a"></i> Print issuance
                 </button>
-                
-                <mat-divider class="mt-5"></mat-divider>
-            </ng-container>
-            
+
+              </ng-container>
+
+            </div>
+            <div class="col-lg-6 text-right" *ngIf="issuanceMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="issuance_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+              <button (click)="remarksDialog(action.Approve)" id="issuance_approve" class="btn btn-outline-success" >Approve</button>
+            </div>
           </div>
+
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1">Issuance No: 
+                <h4 class="print-box-detail-1">Issuance No:
                     <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Employee Name: 
+              <h4 class="print-box-detail-2">Employee Name:
               <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.employeeName}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-2">Issuance Date: 
+                <h4 class="print-box-detail-2">Issuance Date:
                 <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.issuanceDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Campus: 
+              <h4 class="print-box-detail-2">Campus:
               <span class="float-right" style="font-weight: 400;">{{issuanceMaster?.campusName}}</span></h4>
             </div>
           </div>
@@ -136,10 +142,7 @@
     <div class="kt-portlet__foot">
       <div class="kt-form__actions kt-form__actions">
         <div class="row ">
-          <div class="col-lg-12 text-right" *ngIf="issuanceMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="issuance_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="issuance_approve" class="btn btn-outline-success" >Approve</button>
-          </div>
+
         </div>
       </div>
     </div>

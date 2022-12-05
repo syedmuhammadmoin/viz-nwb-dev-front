@@ -48,6 +48,16 @@
   // border-top:0px solid !important;
 }
 
+.btn_container
+{
+  width: 100%;
+  display: flex;
+  border-bottom: 1px solid #ebedf3;
+  padding-bottom: 10px;
+  // justify-content: center;
+  align-items: center;
+}
+
 // toast
 // @import '~ngx-toastr/toastr';
 

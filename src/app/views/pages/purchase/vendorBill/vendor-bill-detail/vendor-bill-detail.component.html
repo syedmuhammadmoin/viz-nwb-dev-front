@@ -20,9 +20,9 @@
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
 
         <div class="row ">
-
-          <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools >
+          <div class="btn_container">
+            <div class="col-md-6 col-6">
+              <ng-container ktPortletTools >
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid)
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.PAYMENT_CREATE))"
                   [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
@@ -53,8 +53,17 @@
                   <i class="fa fa-print icon-e-p-a"></i> Print Vendor Bill
                 </button>
 
-                <mat-divider class="mt-5"></mat-divider>
             </ng-container>
+            </div>
+            <div class="col-lg-6 text-right" *ngIf="billMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="bill_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
+              <button (click)="remarksDialog(action.Approve)" id="bill_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
+            </div>
+          </div>
+
+
+          <div class="col-md-12 col-12 pb-3">
+
           </div>
 
           <div class="col-md-5 col-lg-5  mt-3">
@@ -231,10 +240,7 @@
     <div class="kt-portlet__foot p-5">
       <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
-          <div class="col-lg-12 text-right" *ngIf="billMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="bill_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="bill_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
-          </div>
+
         </div>
       </div>
     </div>

@@ -12,27 +12,36 @@
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mb-5">
         <div class="row">
-          <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools>
-              <button
-                *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected) && (showButtons)"
-                (click)="addPaymentDialog(paymentId)" id="payment_edit" class="mr-3 btn_public" type="button"><i
-                  class="fa fa-edit icon-e-p-a"></i> Edit
-              </button>
 
-              <button *ngIf="(showButtons)" class="btn_public mr-3" (click)="openFileUploadDialog()" type="button"><i
-                  class="fas fa-file-upload icon-e-p-a"></i> Attachment
-              </button>
+          <div class="btn_container">
+            <div class="col-md-6 col-6">
+              <ng-container ktPortletTools>
+                <button
+                  *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected) && (showButtons)"
+                  (click)="addPaymentDialog(paymentId)" id="payment_edit" class="mr-3 btn_public" type="button"><i
+                    class="fa fa-edit icon-e-p-a"></i> Edit
+                </button>
 
-              <button class="btn_public" [routerLink]="'/payment/'+ printRoute + '/print/' + paymentMaster?.id"
-                id="payment_print" type="button">
-                <i class="fa fa-print icon-e-p-a"></i> Print {{formName}}
-              </button>
+                <button *ngIf="(showButtons)" class="btn_public mr-3" (click)="openFileUploadDialog()" type="button"><i
+                    class="fas fa-file-upload icon-e-p-a"></i> Attachment
+                </button>
 
-              <mat-divider class="mt-5"></mat-divider>
-            </ng-container>
+                <button class="btn_public" [routerLink]="'/payment/'+ printRoute + '/print/' + paymentMaster?.id"
+                  id="payment_print" type="button">
+                  <i class="fa fa-print icon-e-p-a"></i> Print {{formName}}
+                </button>
 
+              </ng-container>
+
+            </div>
+            <div class="col-lg-6 text-right" *ngIf="paymentMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" class="mr-2 btn btn-outline-danger"
+                id="payment_reject">Reject</button>
+              <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success"
+                id="payment_approve">Approve</button>
+            </div>
           </div>
+
         </div>
 
         <div class="row">
@@ -256,12 +265,7 @@
     <div class="kt-portlet__foot">
       <div class="kt-form__actions kt-form__actions">
         <div class="row ">
-          <div class="col-lg-12 text-right" *ngIf="paymentMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" class="mr-2 btn btn-outline-danger"
-              id="payment_reject">Reject</button>
-            <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success"
-              id="payment_approve">Approve</button>
-          </div>
+
         </div>
       </div>
     </div>

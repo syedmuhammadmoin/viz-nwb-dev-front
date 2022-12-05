@@ -12,8 +12,9 @@
 
         <div class="row">
 
-          <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools >
+          <div class="btn_container">
+            <div class="col-md-6 col-6">
+              <ng-container ktPortletTools >
                 <button *ngIf="(requisitionMaster?.state === docStatus.Draft || requisitionMaster?.state === docStatus.Rejected)
                   && (permission.isGranted(permissions.REQUISITION_EDIT))" id="requisition_edit"
                   [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
@@ -33,24 +34,30 @@
                   <i class="fa fa-edit icon-e-p-a"></i> Purchase Order
                 </button>
 
-                <!-- <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3" 
+                <!-- <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3"
                 (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
                 </button> -->
 
-                <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button" 
+                <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button"
                   class="btn_public">
                   <i class="fa fa-print icon-e-p-a"></i> Print Requisition
                 </button>
-                <mat-divider class="mt-5"></mat-divider>
             </ng-container>
+
+            </div>
+            <div class="col-lg-6 text-right" *ngIf="requisitionMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="requisition_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+              <button (click)="remarksDialog(action.Approve)" id="requisition_approve" class="btn btn-outline-success" >Approve</button>
+            </div>
           </div>
 
-          
+
+
 
           <div class="col-md-4 col-lg-4  mt-3">
 
             <div class="print-box">
-                <h4 class="print-box-detail-1">Requisition No: 
+                <h4 class="print-box-detail-1">Requisition No:
                     <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
@@ -108,7 +115,7 @@
                     <mat-expansion-panel>
                       <mat-expansion-panel-header>
                         <mat-panel-title class="paid-amount">
-                          References 
+                          References
                         </mat-panel-title>
                         <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                       font-weight: bold; flex-grow: 0;">
@@ -139,10 +146,7 @@
     <div class="kt-portlet__foot">
       <div class="kt-form__actions kt-form__actions">
         <div class="row ">
-          <div class="col-lg-12 text-right" *ngIf="requisitionMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="requisition_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="requisition_approve" class="btn btn-outline-success" >Approve</button>
-          </div>
+
         </div>
       </div>
     </div>

@@ -10,69 +10,76 @@
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
         <div class="row ">
-          <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools >
-              <button *ngIf="(payrollMaster?.state === docStatus.Partial || payrollMaster?.state === docStatus.Unpaid) 
-                  && (payrollMaster?.ledgerId) && (permission.isGranted(permissions.PAYROLL_PAYMENT_CREATE))"
-                type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                <i class="fa fa-edit icon-e-p-a"></i> Register Payment
-              </button>
-
-                <button *ngIf="(payrollMaster?.state === docStatus.Draft || payrollMaster?.state === docStatus.Rejected)
-                  && (permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"
-                  [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('edit', payrollMaster?.id)" [queryParams]="{q: payrollMaster?.id, 'isPayroll': true}"
-                  type="button"  class="mr-3 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit icon-e-p-a"></i>
-                  Edit
+          <div class="btn_container">
+            <div class="col-md-6 col-6">
+              <ng-container ktPortletTools >
+                <button *ngIf="(payrollMaster?.state === docStatus.Partial || payrollMaster?.state === docStatus.Unpaid)
+                    && (payrollMaster?.ledgerId) && (permission.isGranted(permissions.PAYROLL_PAYMENT_CREATE))"
+                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                  <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public mr-3" 
-                (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
-                </button>
+                  <button *ngIf="(payrollMaster?.state === docStatus.Draft || payrollMaster?.state === docStatus.Rejected)
+                    && (permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"
+                    [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('edit', payrollMaster?.id)" [queryParams]="{q: payrollMaster?.id, 'isPayroll': true}"
+                    type="button"  class="mr-3 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                    Edit
+                  </button>
 
-                <button [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('print', payrollMaster?.id)" type="button" 
-                  class="btn_public" id="payroll_trans_print">
-                  <i class="fa fa-print icon-e-p-a"></i> Print Payroll
-                </button>
-                <mat-divider class="mt-5"></mat-divider>
-            </ng-container>
+                  <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public mr-3"
+                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
+                  </button>
+
+                  <button [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('print', payrollMaster?.id)" type="button"
+                    class="btn_public" id="payroll_trans_print">
+                    <i class="fa fa-print icon-e-p-a"></i> Print Payroll
+                  </button>
+              </ng-container>
+
+            </div>
+            <div class="col-lg-6 text-right" *ngIf="payrollMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="payroll_trans_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+              <button (click)="remarksDialog(action.Approve)" id="payroll_trans_approve" class="btn btn-outline-success" >Approve</button>
+            </div>
           </div>
+
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1"><b>Doc No:</b> 
+                <h4 class="print-box-detail-1"><b>Doc No:</b>
                     <span class="float-right" style="font-weight: 400;">{{payrollMaster?.docNo}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Employee:</b> 
+              <h4 class="print-box-detail-2"><b>Employee:</b>
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.employee}}</span></h4>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-2"><b>Transaction Date:</b> 
+                <h4 class="print-box-detail-2"><b>Transaction Date:</b>
                 <span class="float-right" style="font-weight: 400;">{{payrollMaster?.transDate | date: 'MMM d, y'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Designation:</b> 
+              <h4 class="print-box-detail-2"><b>Designation:</b>
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.designation}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Department:</b> 
+              <h4 class="print-box-detail-2"><b>Department:</b>
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.department}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Campus:</b> 
+              <h4 class="print-box-detail-2"><b>Campus:</b>
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.campus}}</span></h4>
             </div>
           </div>
 
           <div class="col-md-4 col-lg-4 ml-auto mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1"><b>Account:</b> 
+                <h4 class="print-box-detail-1"><b>Account:</b>
                     <span class="float-right" style="font-weight: 400;">{{payrollMaster?.accountPayable || 'N/A'}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Working Days:</b> 
+              <h4 class="print-box-detail-2"><b>Working Days:</b>
               <span class="float-right" style="font-weight: 400;">{{payrollMaster?.workingDays}}</span></h4>
             </div>
             <div class="print-box">
@@ -118,8 +125,8 @@
                 <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
                   <td>
                     <a
-                      [routerLink]="(unReconPay?.docType === 15) ? '/' + RECEIPT.ID_BASED_ROUTE ('details', unReconPay?.id) : 
-                      (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) : 
+                      [routerLink]="(unReconPay?.docType === 15) ? '/' + RECEIPT.ID_BASED_ROUTE ('details', unReconPay?.id) :
+                      (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) :
                       '/' + CREDIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a>
                   </td>
                   <td>{{valueFormatter(unReconPay.amount)}}</td>
@@ -217,10 +224,7 @@
     <div class="kt-portlet__foot">
       <div class="kt-form__actions kt-form__actions">
         <div class="row ">
-          <div class="col-lg-12 text-right" *ngIf="payrollMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="payroll_trans_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="payroll_trans_approve" class="btn btn-outline-success" >Approve</button>
-          </div>
+
         </div>
       </div>
     </div>

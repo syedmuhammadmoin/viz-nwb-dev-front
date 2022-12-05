@@ -17,40 +17,47 @@
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
         <div class="row ">
-          <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools >
-                <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid)
-                    && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
-                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                  <i class="fa fa-edit icon-e-p-a"></i> Register Payment
-                </button>
 
-                <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid)
-                    && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
-                  [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: invoiceMaster?.id, isInvoice: true}"
-                  type="button" class="mr-3 btn_public">
-                  <i class="fa fa-edit icon-e-p-a"></i> Credit Note
-                </button>
+          <div class="btn_container">
+            <div class="col-md-6 col-6">
+              <ng-container ktPortletTools >
+                  <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid)
+                      && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
+                    type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                    <i class="fa fa-edit icon-e-p-a"></i> Register Payment
+                  </button>
 
-                <button *ngIf="(invoiceMaster?.state === docStatus.Draft || invoiceMaster?.state === docStatus.Rejected)
-                    && (permission.isGranted(permissions.INVOICE_EDIT))"
-                  [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
-                  type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit icon-e-p-a"></i>
-                  Edit
-                </button>
+                  <button *ngIf="(invoiceMaster?.state === docStatus.Partial || invoiceMaster?.state === docStatus.Unpaid)
+                      && (invoiceMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
+                    [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: invoiceMaster?.id, isInvoice: true}"
+                    type="button" class="mr-3 btn_public">
+                    <i class="fa fa-edit icon-e-p-a"></i> Credit Note
+                  </button>
 
-                <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-3" id="invoice_attachment"
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
-                </button>
+                  <button *ngIf="(invoiceMaster?.state === docStatus.Draft || invoiceMaster?.state === docStatus.Rejected)
+                      && (permission.isGranted(permissions.INVOICE_EDIT))"
+                    [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', invoiceMaster?.id)" [queryParams]="{q: invoiceMaster?.id, 'isInvoice': true}"
+                    type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                    Edit
+                  </button>
 
-                <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button"
-                  class="btn_public" id="invoice_print">
-                  <i class="fa fa-print icon-e-p-a"></i> Print Invoice
-                </button>
+                  <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))" class="btn_public mr-3" id="invoice_attachment"
+                    (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
+                  </button>
 
-                <mat-divider class="mt-5"></mat-divider>
-            </ng-container>
+                  <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', invoiceMaster?.id)" type="button"
+                    class="btn_public" id="invoice_print">
+                    <i class="fa fa-print icon-e-p-a"></i> Print Invoice
+                  </button>
 
+
+              </ng-container>
+
+            </div>
+            <div class="col-lg-6 text-right" *ngIf="invoiceMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="invoice_reject" class="btn btn-outline-danger font-weight-bold mr-2" >Reject</button>
+              <button (click)="remarksDialog(action.Approve)" id="invoice_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
+            </div>
           </div>
 
           <div class="col-md-5 col-lg-5  mt-3">
@@ -192,10 +199,7 @@
     <div class="kt-portlet__foot p-5">
       <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
-          <div class="col-lg-12 text-right" *ngIf="invoiceMaster?.isAllowedRole">
-            <button (click)="remarksDialog(action.Reject)" id="invoice_reject" class="btn btn-outline-danger font-weight-bold mr-2" >Reject</button>
-            <button (click)="remarksDialog(action.Approve)" id="invoice_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
-          </div>
+
         </div>
       </div>
     </div>
