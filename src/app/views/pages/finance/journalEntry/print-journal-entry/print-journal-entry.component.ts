@@ -25,12 +25,12 @@ export class PrintJournalEntryComponent extends AppComponentBase implements OnIn
   sbbu : boolean;
   vizalys : boolean;
   localsto : any ;
+  className : any;
 
   constructor( private journalEntryService : JournalEntryService,
                private activatedRoute: ActivatedRoute,
                private cDRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
-               private ref: ChangeDetectorRef,
                public  sanitizer: DomSanitizer,
                injector: Injector
              ) { super(injector) }
@@ -45,23 +45,32 @@ export class PrintJournalEntryComponent extends AppComponentBase implements OnIn
       }
     });
 
-    this.dynamicColorChanging.global_color.subscribe(( res : any) => {
-      
-      if(localStorage.getItem('global_color')) {
-       this.localsto = JSON.parse(localStorage.getItem('global_color'))
-       this.edinfini = this.localsto.edinfini_true;
-       this.sbbu = this.localsto.nawabshah_true;
-       this.vizalys = this.localsto.vizalys_true;
-        console.log("yes Called")
-      } 
-      else{
-       this.localsto = res;
-       this.edinfini = this.localsto.edinfini_true;
-       this.sbbu = this.localsto.nawabshah_true;
-       this.vizalys = this.localsto.vizalys_true;
+    this.dynamicColorChanging.global_color.subscribe((res: any) => {
+
+      if (localStorage.getItem('global_color')) {
+        this.localsto = JSON.parse(localStorage.getItem('global_color'))
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+      else {
+        this.localsto = res;
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
       }
 
-      this.ref.detectChanges()
+      if(this.edinfini){
+        this.className = 'edinfini row'
+      }
+      else if(this.sbbu){
+        this.className = 'sbbu row'
+      }
+      else if(this.vizalys){
+        this.className = 'vizalys row'
+      }
+
+      this.cDRef.detectChanges()
     })
   }
 
