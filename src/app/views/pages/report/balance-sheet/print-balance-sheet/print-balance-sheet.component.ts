@@ -1,6 +1,7 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 import { BalanceSheetService } from '../service/balance-sheet.service';
 
 @Component({
@@ -19,11 +20,19 @@ export class PrintBalanceSheetComponent extends AppComponentBase implements OnIn
   rowData: any = [];
   date:string;
   campus: string;
+  edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
+  localsto : any ;
+  className : any;
+
 
   constructor(
     injector: Injector,
     private activatedRoute: ActivatedRoute,
-    private balanceSheetService: BalanceSheetService
+    private balanceSheetService: BalanceSheetService,
+    private cdr: ChangeDetectorRef,
+    public dynamicColorChanging : DynamicColorChangeService,
   ) {
     super(injector);
   }
@@ -41,6 +50,34 @@ export class PrintBalanceSheetComponent extends AppComponentBase implements OnIn
       this.date = param.get('date');
       this.campus = param.get('campus');
     });
+
+    this.dynamicColorChanging.global_color.subscribe((res: any) => {
+
+      if (localStorage.getItem('global_color')) {
+        this.localsto = JSON.parse(localStorage.getItem('global_color'))
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+      else {
+        this.localsto = res;
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+
+      if(this.edinfini){
+        this.className = 'edinfini row'
+      }
+      else if(this.sbbu){
+        this.className = 'sbbu row'
+      }
+      else if(this.vizalys){
+        this.className = 'vizalys row'
+      }
+
+      this.cdr.detectChanges()
+    })
   }
 
 

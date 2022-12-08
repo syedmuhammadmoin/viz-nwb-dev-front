@@ -8,6 +8,8 @@ import { IPayment } from '../model/IPayment';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { DocType } from 'src/app/views/shared/AppEnum';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
+
 
 
 @Component({
@@ -26,6 +28,12 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
   paymentMasterData: any;
   formName: any;
   docType = DocType;
+  edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
+  localsto : any ;
+  className : any;
+
 
 
   //subscription
@@ -36,6 +44,8 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
     private paymentService: PaymentService,
     private activatedRoute: ActivatedRoute,
     private cdr: ChangeDetectorRef,
+    public dynamicColorChanging : DynamicColorChangeService,
+    private ref: ChangeDetectorRef,
     public sanitizer: DomSanitizer
   ) {
    
@@ -50,6 +60,34 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
         this.getPaymentMaster(id);
       }
     });
+
+    this.dynamicColorChanging.global_color.subscribe((res: any) => {
+
+      if (localStorage.getItem('global_color')) {
+        this.localsto = JSON.parse(localStorage.getItem('global_color'))
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+      else {
+        this.localsto = res;
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+
+      if(this.edinfini){
+        this.className = 'edinfini row'
+      }
+      else if(this.sbbu){
+        this.className = 'sbbu row'
+      }
+      else if(this.vizalys){
+        this.className = 'vizalys row'
+      }
+
+      this.ref.detectChanges()
+    })
   }
 
   printDiv(divName: any) {

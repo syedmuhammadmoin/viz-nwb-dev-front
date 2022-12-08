@@ -14,8 +14,10 @@ export class BrandComponent implements OnInit, AfterViewInit {
   // Public properties
   headerLogo = '';
   brandClasses = '';
-  edinfini : boolean;
-  localsto : any ;
+  edinfini: boolean;
+  sbbu: boolean;
+  vizalys: boolean;
+  localsto: any;
   asideSelfMinimizeToggle = true;
 
   toggleOptions: ToggleOptions = {
@@ -33,8 +35,8 @@ export class BrandComponent implements OnInit, AfterViewInit {
   constructor(
     private layoutConfigService: LayoutConfigService,
     private ref: ChangeDetectorRef,
-    public htmlClassService: HtmlClassService ,
-    public dynamicColorChanging : DynamicColorChangeService) {
+    public htmlClassService: HtmlClassService,
+    public dynamicColorChanging: DynamicColorChangeService) {
 
   }
 
@@ -50,20 +52,23 @@ export class BrandComponent implements OnInit, AfterViewInit {
     this.brandClasses = this.htmlClassService.getClasses('brand', true).toString();
     this.asideSelfMinimizeToggle = this.layoutConfigService.getConfig('aside.self.minimize.toggle');
 
-    this.dynamicColorChanging.global_color.subscribe(( res : any) => {
-      
-         if(localStorage.getItem('global_color')) {
-          this.localsto = JSON.parse(localStorage.getItem('global_color'))
-          this.edinfini = this.localsto.edinfini_true;
-           console.log("yes Called")
-         } 
-         else{
-          this.localsto = res;
-          this.edinfini = this.localsto.edinfini_true;
-         }
-   
-         this.ref.detectChanges()
-       })
+    this.dynamicColorChanging.global_color.subscribe((res: any) => {
+
+      if (localStorage.getItem('global_color')) {
+        this.localsto = JSON.parse(localStorage.getItem('global_color'))
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+      else {
+        this.localsto = res;
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+
+      this.ref.detectChanges()
+    })
   }
 
   /**

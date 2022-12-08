@@ -1,8 +1,9 @@
-import { Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { DomSanitizer} from '@angular/platform-browser';
 import { ProfitLossService} from "../service/profit-loss.service";
 import { AppComponentBase} from "../../../../shared/app-component-base";
 import { ActivatedRoute} from "@angular/router";
+import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 
 @Component({
   selector: 'kt-print-profit-n-loss',
@@ -22,12 +23,19 @@ export class PrintProfitNLossComponent extends AppComponentBase implements OnIni
   profitnlossReport: any[] = [];
   rowData: any = [];
   netProfit = 0;
+  edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
+  localsto : any ;
+  className : any;
 
 
   constructor(
     injector: Injector,
     private activatedRoute: ActivatedRoute,
     private profitLossService: ProfitLossService,
+    private cdr: ChangeDetectorRef,
+    public dynamicColorChanging : DynamicColorChangeService,
     public sanitizer: DomSanitizer,
   ) {
     super(injector)
@@ -50,6 +58,34 @@ export class PrintProfitNLossComponent extends AppComponentBase implements OnIni
       this.businessPartner = params.get('businessPartner');
       this.campus = params.get('campus');
       this.store = params.get('store');
+    })
+
+    this.dynamicColorChanging.global_color.subscribe((res: any) => {
+
+      if (localStorage.getItem('global_color')) {
+        this.localsto = JSON.parse(localStorage.getItem('global_color'))
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+      else {
+        this.localsto = res;
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+
+      if(this.edinfini){
+        this.className = 'edinfini row'
+      }
+      else if(this.sbbu){
+        this.className = 'sbbu row'
+      }
+      else if(this.vizalys){
+        this.className = 'vizalys row'
+      }
+
+      this.cdr.detectChanges()
     })
   }
 

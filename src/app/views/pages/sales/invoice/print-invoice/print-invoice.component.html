@@ -1,27 +1,19 @@
-<div class="container " >
+<div class="container ">
   <div class="col-lg-10 mx-auto text-right">
     <div class="row">
-      <button
-        printSectionId="main"
-        id="invoice_print"
-        printTitle="Invoice"
-        ngxPrint
-        type="button"
-        [useExistingCss]="true"
-        class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+      <button printSectionId="main" id="invoice_print" printTitle="Invoice" ngxPrint [useExistingCss]="true"
+        type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+          class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
-    <div class="row">
+    <div [class]="className">
       <div class="bg-whitee">
-
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
               <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
 
@@ -34,14 +26,17 @@
                 <h4>Invoice</h4>
               </div>
               <div class="print-box-one">
-                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span></h4>
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span>
+                </h4>
                 <p></p>
               </div>
               <div class="print-box-two">
-                <h4 class="mt-1">Invoice Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
+                <h4 class="mt-1">Invoice Date: <span class="float-right"
+                    style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box-two">
-                <h4 class="mt-1">Due Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate| date: 'MMM d, y'}}</span></h4>
+                <h4 class="mt-1">Due Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate|
+                    date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
 
@@ -53,14 +48,17 @@
 
           <div class="print-col-6 p-s-2-one">
             <div class="print-box-one">
-              <h4 class="font-14"><b>Customer Name: </b><span class="float-right" style="font-weight: 400;">{{invoiceMaster?.customerName}}</span></h4>
+              <h4 class="font-14"><b>Customer Name: </b><span class="float-right"
+                  style="font-weight: 400;">{{invoiceMaster?.customerName}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14"><b>NTN:</b> <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.incomeTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>NTN:</b> <span class="float-right"
+                  style="font-weight: 400;">{{invoiceMaster?.incomeTaxId || 'N/A'}}</span></h4>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14"><b>STRN: </b><span class="float-right" style="font-weight: 400;">{{invoiceMaster?.salesTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>STRN: </b><span class="float-right"
+                  style="font-weight: 400;">{{invoiceMaster?.salesTaxId || 'N/A'}}</span></h4>
             </div>
             <!-- <div class="print-box-two">
               <h4 class="font-14">Bank Name: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.bankName  || 'N/A'}}</span></h4>
@@ -73,7 +71,7 @@
             </div> -->
             <div class="print-box-two">
               <h4 class="font-14"><b>Address:</b> </h4>
-              <p> {{invoiceMaster?.customerAddress  || 'N/A'}}</p>
+              <p> {{invoiceMaster?.customerAddress || 'N/A'}}</p>
             </div>
           </div>
 
@@ -85,20 +83,20 @@
                     <th>S.No</th>
                     <th>Item</th>
                     <th>Description</th>
-                    <th >Quantity</th>
-                    <th >Price</th>
-                    <th >Tax %</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Tax %</th>
                     <!-- <th >Store</th> -->
-                    <th  class="text-right">SubTotal</th>
+                    <th class="text-right">SubTotal</th>
 
 
                   </tr>
                   <tr *ngFor="let line of invoiceLines; index as i">
                     <td>{{i + 1}}</td>
-                    <td  >{{line?.itemName || '---'}}</td>
+                    <td>{{line?.itemName || '---'}}</td>
                     <td> {{line?.description}}</td>
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td  >{{valueFormatter(line?.price)}}</td>
+                    <td>{{valueFormatter(line?.price)}}</td>
                     <td> {{line?.tax + '%'}}</td>
                     <!-- <td> {{line?.warehouseName}}</td> -->
                     <td class="text-right"><b>{{valueFormatter(line?.subTotal)}}</b></td>
@@ -166,4 +164,3 @@
       </div>
     </div>
   </div>
-</div>

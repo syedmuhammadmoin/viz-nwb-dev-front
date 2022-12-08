@@ -14,7 +14,7 @@
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
-    <div [ktBusy]="isLoading" class="row">
+    <div [ktBusy]="isLoading" [class]="className">
       <div class="bg-whitee">
 
         <div class="print_header_area s-p-1">
@@ -30,7 +30,7 @@
         <div class="print_body_area p-s-2">
           <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
             <div class="print-box" >
-              <h4 style="font-size: 22px;font-weight: 600;color: #1a6b85;">
+              <h4 >
                   Date:<span class="float-right" style="font-weight: 400;">{{from}} - {{to}}</span></h4>
               <h4 >
                   Business Partner:<span class="float-right" style="font-weight: 400;">{{businessPartner}}</span></h4>
