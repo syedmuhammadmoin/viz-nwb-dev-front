@@ -26,6 +26,7 @@ export class UserProfile4Component extends AppComponentBase implements OnInit {
   edinfini : boolean;
   sbbu : boolean;
   vizalys : boolean;
+  environment: any = environment
   localsto : any ;
   edinfinitheming : any = '';
   sbbutheming : any = '';
