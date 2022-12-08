@@ -224,46 +224,6 @@ export class UserProfile4Component extends AppComponentBase implements OnInit {
 
     }
 
-    else if(name === 'sbbu') {
-
-      console.log('sbbu')
-
-      this.sbbutheming = {
-        bg_gradient_color_one : "#1a6b85",
-        bg_gradient_color_two : '#4a8a9e',
-        bg_white :'#ffffff',
-        primary_color :'#1a6b85',
-        secondary_color :'#cba058',
-        input_filed_primary_color :'#808080',
-        input_filed_background_color :'#f2f2f2',
-        input_filed_border_color :'#d0d0d0',
-        form_border_color :'#aad7e6',
-        test_shadow_color :'#9195a9',
-        button_background_color :'#e9f5f9',
-        light_gray_color :'#B5B5C3',
-        toggler_arrow_color : '#1a6b85',
-        db_dd_t_c : '#fff',
-        home_logo_bg : '#fff',
-        title :'SBBU',
-        login_title :'Main Campus SBBU Shaheed benazirabad.',
-        login_cover_image :"url('assets/media/logos/bg_login.jpg')",
-        site_logo :"url('assets/media/logos/logo-wr.png')",
-        dashboard_hight :'90px',
-        dashboard_logo_width :'70px',
-        dashboard_logo_hight :'70px',
-        chart_color : ['#1a6b85', '#1a6b85', '#5390a3', '#5390a3'],
-        site_title : 'SBBU',
-        fav_icon : 'assets/media/logos/logo-wr.png',
-        edinfini_true :false,
-        nawabshah_true :true,
-        vizalys_true :false,
-      }
-
-      localStorage.setItem('global_color', JSON.stringify(this.sbbutheming))
-      this.dynamicColorChanging.global_color.next(this.sbbutheming)
-      
-    }
-
     else if(name === 'vizalys') {
 
       console.log('vizalys')
