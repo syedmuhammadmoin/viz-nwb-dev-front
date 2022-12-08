@@ -51,140 +51,140 @@ export class AppConst {
   static PermissionsDisplayName = {
 
     // Business Partner
-    'Permissions.BusinessPartnerClaims.Create': 'Business Partner Create',
-    'Permissions.BusinessPartnerClaims.View': 'Business Partner View',
-    'Permissions.BusinessPartnerClaims.Edit': 'Business Partner Update',
-    'Permissions.BusinessPartnerClaims.Delete': 'Business Partner Delete',
+    'Permissions.Profiling.BusinessPartnerClaims.Create': 'Business Partner Create',
+    'Permissions.Profiling.BusinessPartnerClaims.View': 'Business Partner View',
+    'Permissions.Profiling.BusinessPartnerClaims.Edit': 'Business Partner Update',
+    'Permissions.Profiling.BusinessPartnerClaims.Delete': 'Business Partner Delete',
 
     // Invoice
-    'Permissions.InvoiceClaims.Create': 'Invoice Create',
-    'Permissions.InvoiceClaims.View': 'Invoice View',
-    'Permissions.InvoiceClaims.Edit': 'Invoice Update',
-    'Permissions.InvoiceClaims.Delete': 'Invoice Delete',
-    'Permissions.InvoiceClaims.Review': 'Invoice Review',
-    'Permissions.InvoiceClaims.Approve': 'Invoice Approve',
+    'Permissions.Finance.InvoiceClaims.Create': 'Invoice Create',
+    'Permissions.Finance.InvoiceClaims.View': 'Invoice View',
+    'Permissions.Finance.InvoiceClaims.Edit': 'Invoice Update',
+    'Permissions.Finance.InvoiceClaims.Delete': 'Invoice Delete',
+    'Permissions.Finance.InvoiceClaims.Review': 'Invoice Review',
+    'Permissions.Finance.InvoiceClaims.Approve': 'Invoice Approve',
 
     // Bank Account
-    'Permissions.BankAccountClaims.View': 'Bank Account View',
-    'Permissions.BankAccountClaims.Create': 'Bank Account Create',
-    'Permissions.BankAccountClaims.Edit': 'Bank Account Update',
-    'Permissions.BankAccountClaims.Delete': 'Bank Account Delete',
+    'Permissions.Finance.BankAccountClaims.View': 'Bank Account View',
+    'Permissions.Finance.BankAccountClaims.Create': 'Bank Account Create',
+    'Permissions.Finance.BankAccountClaims.Edit': 'Bank Account Update',
+    'Permissions.Finance.BankAccountClaims.Delete': 'Bank Account Delete',
 
     // Bank Statement
-    'Permissions.BankStatementClaims.View': 'Bank Statement View',
-    'Permissions.BankStatementClaims.Create': 'Bank Statement Create',
-    'Permissions.BankStatementClaims.Edit': 'Bank Statement Update',
-    'Permissions.BankStatementClaims.Delete': 'Bank Statement Delete',
+    'Permissions.Finance.BankStatementClaims.View': 'Bank Statement View',
+    'Permissions.Finance.BankStatementClaims.Create': 'Bank Statement Create',
+    'Permissions.Finance.BankStatementClaims.Edit': 'Bank Statement Update',
+    'Permissions.Finance.BankStatementClaims.Delete': 'Bank Statement Delete',
 
     // Business Partner Entities
-    'Permissions.BusinessPartnerEntitiesClaims.View': 'Business Partner Entities View',
-    'Permissions.BusinessPartnerEntitiesClaims.Create': 'Business Partner Entities Create',
-    'Permissions.BusinessPartnerEntitiesClaims.Edit': 'Business Partner Entities Update',
-    'Permissions.BusinessPartnerEntitiesClaims.Delete': 'Business Partner Entities Delete',
+    'Permissions.Profiling.BusinessPartnerEntitiesClaims.View': 'Business Partner Entities View',
+    'Permissions.Profiling.BusinessPartnerEntitiesClaims.Create': 'Business Partner Entities Create',
+    'Permissions.Profiling.BusinessPartnerEntitiesClaims.Edit': 'Business Partner Entities Update',
+    'Permissions.Profiling.BusinessPartnerEntitiesClaims.Delete': 'Business Partner Entities Delete',
 
     // Business Partner type
-    'Permissions.BusinessPartnerTypesClaims.View': 'Business Partner Type View',
-    'Permissions.BusinessPartnerTypesClaims.Create': 'Business Partner Type Create',
-    'Permissions.BusinessPartnerTypesClaims.Edit': 'Business Partner Type Update',
-    'Permissions.BusinessPartnerTypesClaims.Delete': 'Business Partner Type Delete',
+    'Permissions.Profiling.BusinessPartnerTypesClaims.View': 'Business Partner Type View',
+    'Permissions.Profiling.BusinessPartnerTypesClaims.Create': 'Business Partner Type Create',
+    'Permissions.Profiling.BusinessPartnerTypesClaims.Edit': 'Business Partner Type Update',
+    'Permissions.Profiling.BusinessPartnerTypesClaims.Delete': 'Business Partner Type Delete',
 
     // Campus
-    'Permissions.CampusClaims.View': 'Campus View',
-    'Permissions.CampusClaims.Create': 'Campus Create',
-    'Permissions.CampusClaims.Edit': 'Campus Update',
-    'Permissions.CampusClaims.Delete': 'Campus Delete',
+    'Permissions.Profiling.CampusClaims.View': 'Campus View',
+    'Permissions.Profiling.CampusClaims.Create': 'Campus Create',
+    'Permissions.Profiling.CampusClaims.Edit': 'Campus Update',
+    'Permissions.Profiling.CampusClaims.Delete': 'Campus Delete',
 
     // Cash Account
-    'Permissions.CashAccountClaims.View': 'Cash Account View',
-    'Permissions.CashAccountClaims.Create': 'Cash Account Create',
-    'Permissions.CashAccountClaims.Edit': 'Cash Account Update',
-    'Permissions.CashAccountClaims.Delete': 'Cash Account Delete',
+    'Permissions.Finance.CashAccountClaims.View': 'Cash Account View',
+    'Permissions.Finance.CashAccountClaims.Create': 'Cash Account Create',
+    'Permissions.Finance.CashAccountClaims.Edit': 'Cash Account Update',
+    'Permissions.Finance.CashAccountClaims.Delete': 'Cash Account Delete',
 
     // Category
-    'Permissions.CategoriesClaims.View': 'Category View',
-    'Permissions.CategoriesClaims.Create': 'Category Create',
-    'Permissions.CategoriesClaims.Edit': 'Category Update',
-    'Permissions.CategoriesClaims.Delete': 'Category Delete',
+    'Permissions.Profiling.CategoriesClaims.View': 'Category View',
+    'Permissions.Profiling.CategoriesClaims.Create': 'Category Create',
+    'Permissions.Profiling.CategoriesClaims.Edit': 'Category Update',
+    'Permissions.Profiling.CategoriesClaims.Delete': 'Category Delete',
 
     // Chart of Account
-    'Permissions.ChartOfAccountClaims.View': 'Chart of Account View',
+    'Permissions.Finance.ChartOfAccountClaims.View': 'Chart of Account View',
 
     // Country
-    'Permissions.CountryClaims.View': 'Country View',
-    'Permissions.CountryClaims.Create': 'Country Create',
-    'Permissions.CountryClaims.Edit': 'Country Update',
-    'Permissions.CountryClaims.Delete': 'Country Delete',
+    'Permissions.Profiling.CountryClaims.View': 'Country View',
+    'Permissions.Profiling.CountryClaims.Create': 'Country Create',
+    'Permissions.Profiling.CountryClaims.Edit': 'Country Update',
+    'Permissions.Profiling.CountryClaims.Delete': 'Country Delete',
 
     // State
-    'Permissions.StateClaims.View': 'State View',
-    'Permissions.StateClaims.Create': 'State Create',
-    'Permissions.StateClaims.Edit': 'State Update',
-    'Permissions.StateClaims.Delete': 'State Delete',
+    'Permissions.Profiling.StateClaims.View': 'State View',
+    'Permissions.Profiling.StateClaims.Create': 'State Create',
+    'Permissions.Profiling.StateClaims.Edit': 'State Update',
+    'Permissions.Profiling.StateClaims.Delete': 'State Delete',
 
     // City
-    'Permissions.CityClaims.View': 'City View',
-    'Permissions.CityClaims.Create': 'City Create',
-    'Permissions.CityClaims.Edit': 'City Update',
-    'Permissions.CityClaims.Delete': 'City Delete',
+    'Permissions.Profiling.CityClaims.View': 'City View',
+    'Permissions.Profiling.CityClaims.Create': 'City Create',
+    'Permissions.Profiling.CityClaims.Edit': 'City Update',
+    'Permissions.Profiling.CityClaims.Delete': 'City Delete',
 
     // Department
-    'Permissions.DepartmentClaims.View': 'Department View',
-    'Permissions.DepartmentClaims.Create': 'Department Create',
-    'Permissions.DepartmentClaims.Edit': 'Department Update',
-    'Permissions.DepartmentClaims.Delete': 'Department Delete',
+    'Permissions.Payroll.DepartmentClaims.View': 'Department View',
+    'Permissions.Payroll.DepartmentClaims.Create': 'Department Create',
+    'Permissions.Payroll.DepartmentClaims.Edit': 'Department Update',
+    'Permissions.Payroll.DepartmentClaims.Delete': 'Department Delete',
 
     // Designation
-    'Permissions.DesignationClaims.View': 'Designation View',
-    'Permissions.DesignationClaims.Create': 'Designation Create',
-    'Permissions.DesignationClaims.Edit': 'Designation Update',
-    'Permissions.DesignationClaims.Delete': 'Designation Delete',
+    'Permissions.Payroll.DesignationClaims.View': 'Designation View',
+    'Permissions.Payroll.DesignationClaims.Create': 'Designation Create',
+    'Permissions.Payroll.DesignationClaims.Edit': 'Designation Update',
+    'Permissions.Payroll.DesignationClaims.Delete': 'Designation Delete',
 
     // Employee
-    'Permissions.EmployeeClaims.View': 'Employee View',
-    'Permissions.EmployeeClaims.Create': 'Employee Create',
-    'Permissions.EmployeeClaims.Edit': 'Employee Update',
-    'Permissions.EmployeeClaims.Delete': 'Employee Delete',
+    'Permissions.Payroll.EmployeeClaims.View': 'Employee View',
+    'Permissions.Payroll.EmployeeClaims.Create': 'Employee Create',
+    'Permissions.Payroll.EmployeeClaims.Edit': 'Employee Update',
+    'Permissions.Payroll.EmployeeClaims.Delete': 'Employee Delete',
 
     // Organization
-    'Permissions.OrganizationClaims.View': 'Organization View',
-    'Permissions.OrganizationClaims.Create': 'Organization Create',
-    'Permissions.OrganizationClaims.Edit': 'Organization Update',
-    'Permissions.OrganizationClaims.Delete': 'Organization Delete',
+    'Permissions.Profiling.OrganizationClaims.View': 'Organization View',
+    'Permissions.Profiling.OrganizationClaims.Create': 'Organization Create',
+    'Permissions.Profiling.OrganizationClaims.Edit': 'Organization Update',
+    'Permissions.Profiling.OrganizationClaims.Delete': 'Organization Delete',
 
     // Payroll Item
-    'Permissions.PayrollItemClaims.View': 'Payroll Item View',
-    'Permissions.PayrollItemClaims.Create': 'Payroll Item Create',
-    'Permissions.PayrollItemClaims.Edit': 'Payroll Item Update',
-    'Permissions.PayrollItemClaims.Delete': 'Payroll Item Delete',
+    'Permissions.Payroll.PayrollItemClaims.View': 'Payroll Item View',
+    'Permissions.Payroll.PayrollItemClaims.Create': 'Payroll Item Create',
+    'Permissions.Payroll.PayrollItemClaims.Edit': 'Payroll Item Update',
+    'Permissions.Payroll.PayrollItemClaims.Delete': 'Payroll Item Delete',
 
     // Payroll Transaction
-    'Permissions.PayrollTransactionClaims.View': 'Payroll Transaction View',
-    'Permissions.PayrollTransactionClaims.Create': 'Payroll Transaction Create',
-    'Permissions.PayrollTransactionClaims.Edit': 'Payroll Transaction Update',
-    'Permissions.PayrollTransactionClaims.Delete': 'Payroll Transaction Delete',
-    'Permissions.PayrollTransactionClaims.Review': 'Payroll Transaction Review',
-    'Permissions.PayrollTransactionClaims.Approve': 'Payroll Transaction Approve',
+    'Permissions.Payroll.PayrollTransactionClaims.View': 'Payroll Transaction View',
+    'Permissions.Payroll.PayrollTransactionClaims.Create': 'Payroll Transaction Create',
+    'Permissions.Payroll.PayrollTransactionClaims.Edit': 'Payroll Transaction Update',
+    'Permissions.Payroll.PayrollTransactionClaims.Delete': 'Payroll Transaction Delete',
+    'Permissions.Payroll.PayrollTransactionClaims.Review': 'Payroll Transaction Review',
+    'Permissions.Payroll.PayrollTransactionClaims.Approve': 'Payroll Transaction Approve',
 
     // Allowance
-    'Permissions.AllowanceReportClaims.View': 'Allowance Report View',
+    'Permissions.Payroll.AllowanceReportClaims.View': 'Allowance Report View',
 
     // Product
-    'Permissions.ProductsClaims.View': 'Product View',
-    'Permissions.ProductsClaims.Create': 'Product Create',
-    'Permissions.ProductsClaims.Edit': 'Product Update',
-    'Permissions.ProductsClaims.Delete': 'Product Delete',
+    'Permissions.Profiling.ProductsClaims.View': 'Product View',
+    'Permissions.Profiling.ProductsClaims.Create': 'Product Create',
+    'Permissions.Profiling.ProductsClaims.Edit': 'Product Update',
+    'Permissions.Profiling.ProductsClaims.Delete': 'Product Delete',
 
     // Tax
-    'Permissions.TaxesClaims.View': 'Tax View',
-    'Permissions.TaxesClaims.Create': 'Tax Create',
-    'Permissions.TaxesClaims.Edit': 'Tax Update',
-    'Permissions.TaxesClaims.Delete': 'Tax Delete',
+    'Permissions.Profiling.TaxesClaims.View': 'Tax View',
+    'Permissions.Profiling.TaxesClaims.Create': 'Tax Create',
+    'Permissions.Profiling.TaxesClaims.Edit': 'Tax Update',
+    'Permissions.Profiling.TaxesClaims.Delete': 'Tax Delete',
 
     // Unit Of Measurement
-    'Permissions.UnitOfMeasurementClaims.View': 'Unit Of Measurement View',
-    'Permissions.UnitOfMeasurementClaims.Create': 'Unit Of Measurement Create',
-    'Permissions.UnitOfMeasurementClaims.Edit': 'Unit Of Measurement Update',
-    'Permissions.UnitOfMeasurementClaims.Delete': 'Unit Of Measurement Delete',
+    'Permissions.Profiling.UnitOfMeasurementClaims.View': 'Unit Of Measurement View',
+    'Permissions.Profiling.UnitOfMeasurementClaims.Create': 'Unit Of Measurement Create',
+    'Permissions.Profiling.UnitOfMeasurementClaims.Edit': 'Unit Of Measurement Update',
+    'Permissions.Profiling.UnitOfMeasurementClaims.Delete': 'Unit Of Measurement Delete',
 
     // Vehicle
     'Permissions.VehicleClaims.View': 'Vehicle View',
@@ -193,131 +193,131 @@ export class AppConst {
     'Permissions.VehicleClaims.Delete': 'Vehicle Delete',
 
     // Level 3
-    'Permissions.Level3Claims.View': 'Chart of Account Level 3 View',
-    'Permissions.Level3Claims.Create': 'Chart of Account Level 3 Create',
-    'Permissions.Level3Claims.Edit': 'Chart of Account Level 3 Update',
-    'Permissions.Level3Claims.Delete': 'Chart of Account Level 3 Delete',
+    'Permissions.Finance.Level3Claims.View': 'Chart of Account Level 3 View',
+    'Permissions.Finance.Level3Claims.Create': 'Chart of Account Level 3 Create',
+    'Permissions.Finance.Level3Claims.Edit': 'Chart of Account Level 3 Update',
+    'Permissions.Finance.Level3Claims.Delete': 'Chart of Account Level 3 Delete',
 
     // Level 4
-    'Permissions.Level4Claims.View': 'Chart of Account Level 4 View',
-    'Permissions.Level4Claims.Create': 'Chart of Account Level 4 Create',
-    'Permissions.Level4Claims.Edit': 'Chart of Account Level 4 Update',
-    'Permissions.Level4Claims.Delete': 'Chart of Account Level 4 Delete',
+    'Permissions.Finance.Level4Claims.View': 'Chart of Account Level 4 View',
+    'Permissions.Finance.Level4Claims.Create': 'Chart of Account Level 4 Create',
+    'Permissions.Finance.Level4Claims.Edit': 'Chart of Account Level 4 Update',
+    'Permissions.Finance.Level4Claims.Delete': 'Chart of Account Level 4 Delete',
 
     // Balance Sheet
-    'Permissions.BalanceSheetClaims.View': 'Balance Sheet',
+    'Permissions.Report.BalanceSheetClaims.View': 'Balance Sheet',
 
     // General Ledger
-    'Permissions.GeneralLedgerClaims.View': 'General Ledger',
+    'Permissions.Report.GeneralLedgerClaims.View': 'General Ledger',
 
     // Income Expenditure
-    'Permissions.ProfitLossClaims.View': 'Profit and Loss Statement',
+    'Permissions.Report.ProfitLossClaims.View': 'Profit and Loss Statement',
 
     // Trial Balance
-    'Permissions.TrialBalanceClaims.View': 'Trial Balance',
+    'Permissions.Report.TrialBalanceClaims.View': 'Trial Balance',
 
     // Bill
-    'Permissions.BillClaims.View': 'Bill View',
-    'Permissions.BillClaims.Create': 'Bill Create',
-    'Permissions.BillClaims.Edit': 'Bill Update',
-    'Permissions.BillClaims.Delete': 'Bill Delete',
-    'Permissions.BillClaims.Review': 'Bill Review',
-    'Permissions.BillClaims.Approve': 'Bill Approve',
+    'Permissions.Finance.BillClaims.View': 'Bill View',
+    'Permissions.Finance.BillClaims.Create': 'Bill Create',
+    'Permissions.Finance.BillClaims.Edit': 'Bill Update',
+    'Permissions.Finance.BillClaims.Delete': 'Bill Delete',
+    'Permissions.Finance.BillClaims.Review': 'Bill Review',
+    'Permissions.Finance.BillClaims.Approve': 'Bill Approve',
 
     // Payment
-    'Permissions.PaymentClaims.View': 'Payment View',
-    'Permissions.PaymentClaims.Create': 'Payment Create',
-    'Permissions.PaymentClaims.Edit': 'Payment Update',
-    'Permissions.PaymentClaims.Delete': 'Payment Delete',
-    'Permissions.PaymentClaims.Review': 'Payment Review',
-    'Permissions.PaymentClaims.Approve': 'Payment Approve',
+    'Permissions.Finance.PaymentClaims.View': 'Payment View',
+    'Permissions.Finance.PaymentClaims.Create': 'Payment Create',
+    'Permissions.Finance.PaymentClaims.Edit': 'Payment Update',
+    'Permissions.Finance.PaymentClaims.Delete': 'Payment Delete',
+    'Permissions.Finance.PaymentClaims.Review': 'Payment Review',
+    'Permissions.Finance.PaymentClaims.Approve': 'Payment Approve',
 
     // Internal Receipt
-    'Permissions.ReceiptClaims.View': 'Receipt View',
-    'Permissions.ReceiptClaims.Create': 'Receipt Create',
-    'Permissions.ReceiptClaims.Edit': 'Receipt Update',
-    'Permissions.ReceiptClaims.Delete': 'Receipt Delete',
-    'Permissions.ReceiptClaims.Review': 'Receipt Review',
-    'Permissions.ReceiptClaims.Approve': 'Receipt Approve',
+    'Permissions.Finance.ReceiptClaims.View': 'Receipt View',
+    'Permissions.Finance.ReceiptClaims.Create': 'Receipt Create',
+    'Permissions.Finance.ReceiptClaims.Edit': 'Receipt Update',
+    'Permissions.Finance.ReceiptClaims.Delete': 'Receipt Delete',
+    'Permissions.Finance.ReceiptClaims.Review': 'Receipt Review',
+    'Permissions.Finance.ReceiptClaims.Approve': 'Receipt Approve',
 
     // Payroll Payment
-    'Permissions.PayrollPaymentClaims.View': 'Payroll Payment View',
-    'Permissions.PayrollPaymentClaims.Create': 'Payroll Payment Create',
-    'Permissions.PayrollPaymentClaims.Edit': 'Payroll Payment Update',
-    'Permissions.PayrollPaymentClaims.Delete': 'Payroll Payment Delete',
+    'Permissions.Payroll.PayrollPaymentClaims.View': 'Payroll Payment View',
+    'Permissions.Payroll.PayrollPaymentClaims.Create': 'Payroll Payment Create',
+    'Permissions.Payroll.PayrollPaymentClaims.Edit': 'Payroll Payment Update',
+    'Permissions.Payroll.PayrollPaymentClaims.Delete': 'Payroll Payment Delete',
 
     // Credit Note
-    'Permissions.CreditNoteClaims.View': 'Credit Note View',
-    'Permissions.CreditNoteClaims.Create': 'Credit Note Create',
-    'Permissions.CreditNoteClaims.Edit': 'Credit Note Update',
-    'Permissions.CreditNoteClaims.Delete': 'Credit Note Delete',
-    'Permissions.CreditNoteClaims.Review': 'Credit Note Review',
-    'Permissions.CreditNoteClaims.Approve': 'Credit Note Approve',
+    'Permissions.Finance.CreditNoteClaims.View': 'Credit Note View',
+    'Permissions.Finance.CreditNoteClaims.Create': 'Credit Note Create',
+    'Permissions.Finance.CreditNoteClaims.Edit': 'Credit Note Update',
+    'Permissions.Finance.CreditNoteClaims.Delete': 'Credit Note Delete',
+    'Permissions.Finance.CreditNoteClaims.Review': 'Credit Note Review',
+    'Permissions.Finance.CreditNoteClaims.Approve': 'Credit Note Approve',
 
     // Debit Note
-    'Permissions.DebitNoteClaims.View': 'Debit Note View',
-    'Permissions.DebitNoteClaims.Create': 'Debit Note Create',
-    'Permissions.DebitNoteClaims.Edit': 'Debit Note Update',
-    'Permissions.DebitNoteClaims.Delete': 'Debit Note Delete',
-    'Permissions.DebitNoteClaims.Review': 'Debit Note Review',
-    'Permissions.DebitNoteClaims.Approve': 'Debit Note Approve',
+    'Permissions.Finance.DebitNoteClaims.View': 'Debit Note View',
+    'Permissions.Finance.DebitNoteClaims.Create': 'Debit Note Create',
+    'Permissions.Finance.DebitNoteClaims.Edit': 'Debit Note Update',
+    'Permissions.Finance.DebitNoteClaims.Delete': 'Debit Note Delete',
+    'Permissions.Finance.DebitNoteClaims.Review': 'Debit Note Review',
+    'Permissions.Finance.DebitNoteClaims.Approve': 'Debit Note Approve',
 
     // Journal Voucher
-    'Permissions.JournalEntryClaims.View': 'Journal Voucher View',
-    'Permissions.JournalEntryClaims.Create': 'Journal Voucher Create',
-    'Permissions.JournalEntryClaims.Edit': 'Journal Voucher Update',
-    'Permissions.JournalEntryClaims.Delete': 'Journal Voucher Delete',
-    'Permissions.JournalEntryClaims.Review': 'Journal Voucher Review',
-    'Permissions.JournalEntryClaims.Approve': 'Journal Voucher Approve',
+    'Permissions.Finance.JournalEntryClaims.View': 'Journal Voucher View',
+    'Permissions.Finance.JournalEntryClaims.Create': 'Journal Voucher Create',
+    'Permissions.Finance.JournalEntryClaims.Edit': 'Journal Voucher Update',
+    'Permissions.Finance.JournalEntryClaims.Delete': 'Journal Voucher Delete',
+    'Permissions.Finance.JournalEntryClaims.Review': 'Journal Voucher Review',
+    'Permissions.Finance.JournalEntryClaims.Approve': 'Journal Voucher Approve',
 
     // Access Management
-    'Permissions.AuthClaims.Create': 'Access Management Create',
-    'Permissions.AuthClaims.View': 'Access Management View',
-    'Permissions.AuthClaims.Edit': 'Access Management Update',
-    'Permissions.AuthClaims.Delete': 'Access Management Delete',
+    'Permissions.AccessManagement.AuthClaims.Create': 'Access Management Create',
+    'Permissions.AccessManagement.AuthClaims.View': 'Access Management View',
+    'Permissions.AccessManagement.AuthClaims.Edit': 'Access Management Update',
+    'Permissions.AccessManagement.AuthClaims.Delete': 'Access Management Delete',
 
     // Workflow
-    'Permissions.WorkflowClaims.Create': 'Workflow Create',
-    'Permissions.WorkflowClaims.View': 'Workflow View',
-    'Permissions.WorkflowClaims.Edit': 'Workflow Update',
-    'Permissions.WorkflowClaims.Delete': 'Workflow Delete',
+    'Permissions.Workflow.WorkflowClaims.Create': 'Workflow Create',
+    'Permissions.Workflow.WorkflowClaims.View': 'Workflow View',
+    'Permissions.Workflow.WorkflowClaims.Edit': 'Workflow Update',
+    'Permissions.Workflow.WorkflowClaims.Delete': 'Workflow Delete',
 
     // Status
-    'Permissions.WorkflowStatusClaims.Create': 'Status Create',
-    'Permissions.WorkflowStatusClaims.View': 'Status View',
-    'Permissions.WorkflowStatusClaims.Edit': 'Status Update',
-    'Permissions.WorkflowStatusClaims.Delete': 'Status Delete',
+    'Permissions.Workflow.WorkflowStatusClaims.Create': 'Status Create',
+    'Permissions.Workflow.WorkflowStatusClaims.View': 'Status View',
+    'Permissions.Workflow.WorkflowStatusClaims.Edit': 'Status Update',
+    'Permissions.Workflow.WorkflowStatusClaims.Delete': 'Status Delete',
 
     // Bank Reconciliation
-    'Permissions.BankReconClaims.Create': 'Bank Reconciliation Create',
-    'Permissions.BankReconClaims.View': 'Bank Reconciliation View',
-    'Permissions.BankReconClaims.Edit': 'Bank Reconciliation Update',
-    'Permissions.BankReconClaims.Delete': 'Bank Reconciliation Delete',
+    'Permissions.Finance.BankReconClaims.Create': 'Bank Reconciliation Create',
+    'Permissions.Finance.BankReconClaims.View': 'Bank Reconciliation View',
+    'Permissions.Finance.BankReconClaims.Edit': 'Bank Reconciliation Update',
+    'Permissions.Finance.BankReconClaims.Delete': 'Bank Reconciliation Delete',
 
     //Budget
-    'Permissions.BudgetClaims.View': 'Estimated Budget View',
-    'Permissions.BudgetClaims.Create': 'Estimated Budget Create',
-    'Permissions.BudgetClaims.Edit': 'Estimated Budget Update',
-    'Permissions.BudgetClaims.Delete': 'Estimated Budget Delete',
-    'Permissions.BudgetReportClaims.View': 'Estimated Budget Report View',
+    'Permissions.Budget.BudgetClaims.View': 'Estimated Budget View',
+    'Permissions.Budget.BudgetClaims.Create': 'Estimated Budget Create',
+    'Permissions.Budget.BudgetClaims.Edit': 'Estimated Budget Update',
+    'Permissions.Budget.BudgetClaims.Delete': 'Estimated Budget Delete',
+    'Permissions.Budget.BudgetReportClaims.View': 'Estimated Budget Report View',
 
-    'Permissions.EstimatedBudgetClaims.View': 'Anticipated Budget View',
-    'Permissions.EstimatedBudgetClaims.Create': 'Anticipated Budget Create',
-    'Permissions.EstimatedBudgetClaims.Edit': 'Anticipated Budget Update',
-    'Permissions.EstimatedBudgetClaims.Delete': 'Anticipated Budget Delete',
-    'Permissions.EstimatedBudgetReportClaims.View': 'Anticipated Budget Report View',
+    'Permissions.Budget.EstimatedBudgetClaims.View': 'Anticipated Budget View',
+    'Permissions.Budget.EstimatedBudgetClaims.Create': 'Anticipated Budget Create',
+    'Permissions.Budget.EstimatedBudgetClaims.Edit': 'Anticipated Budget Update',
+    'Permissions.Budget.EstimatedBudgetClaims.Delete': 'Anticipated Budget Delete',
+    'Permissions.Budget.EstimatedBudgetReportClaims.View': 'Anticipated Budget Report View',
 
     // Location
-    'Permissions.LocationClaims.View': 'Location View',
-    'Permissions.LocationClaims.Create': 'Location Create',
-    'Permissions.LocationClaims.Edit': 'Location Update',
-    'Permissions.LocationClaims.Delete': 'Location Delete',
+    'Permissions.Profiling.LocationClaims.View': 'Location View',
+    'Permissions.Profiling.LocationClaims.Create': 'Location Create',
+    'Permissions.Profiling.LocationClaims.Edit': 'Location Update',
+    'Permissions.Profiling.LocationClaims.Delete': 'Location Delete',
 
     //  Warehouse
-    'Permissions.WarehouseClaims.View': 'Store View',
-    'Permissions.WarehouseClaims.Create': 'Store Create',
-    'Permissions.WarehouseClaims.Edit': 'Store Update',
-    'Permissions.WarehouseClaims.Delete': 'Store Delete',
+    'Permissions.Profiling.WarehouseClaims.View': 'Store View',
+    'Permissions.Profiling.WarehouseClaims.Create': 'Store Create',
+    'Permissions.Profiling.WarehouseClaims.Edit': 'Store Update',
+    'Permissions.Profiling.WarehouseClaims.Delete': 'Store Delete',
 
     // sales Order
     'Permissions.SalesOrderClaims.View': 'Sales Order View',
@@ -326,55 +326,55 @@ export class AppConst {
     'Permissions.SalesOrderClaims.Delete': 'Sales Order Delete',
 
     //  purchase Order
-    'Permissions.PurchaseOrderClaims.View': 'Purchase Order View',
-    'Permissions.PurchaseOrderClaims.Create': 'Purchase Order Create',
-    'Permissions.PurchaseOrderClaims.Edit': 'Purchase Order Update',
-    'Permissions.PurchaseOrderClaims.Delete': 'Purchase Order Delete',
+    'Permissions.Procurement.PurchaseOrderClaims.View': 'Purchase Order View',
+    'Permissions.Procurement.PurchaseOrderClaims.Create': 'Purchase Order Create',
+    'Permissions.Procurement.PurchaseOrderClaims.Edit': 'Purchase Order Update',
+    'Permissions.Procurement.PurchaseOrderClaims.Delete': 'Purchase Order Delete',
 
     // Requisition
-    'Permissions.RequisitionClaims.View': 'Requisition View',
-    'Permissions.RequisitionClaims.Create': 'Requisition Create',
-    'Permissions.RequisitionClaims.Edit': 'Requisition Update',
-    'Permissions.RequisitionClaims.Delete': 'Requisition Delete',
+    'Permissions.Procurement.RequisitionClaims.View': 'Requisition View',
+    'Permissions.Procurement.RequisitionClaims.Create': 'Requisition Create',
+    'Permissions.Procurement.RequisitionClaims.Edit': 'Requisition Update',
+    'Permissions.Procurement.RequisitionClaims.Delete': 'Requisition Delete',
 
     // GRN
-    'Permissions.GRNClaims.View': 'Goods Receive Note View',
-    'Permissions.GRNClaims.Create': 'Goods Receive Note Create',
-    'Permissions.GRNClaims.Edit': 'Goods Receive Note Update',
-    'Permissions.GRNClaims.Delete': 'Goods Receive Note Delete',
+    'Permissions.Procurement.GRNClaims.View': 'Goods Receive Note View',
+    'Permissions.Procurement.GRNClaims.Create': 'Goods Receive Note Create',
+    'Permissions.Procurement.GRNClaims.Edit': 'Goods Receive Note Update',
+    'Permissions.Procurement.GRNClaims.Delete': 'Goods Receive Note Delete',
 
     //  GDN
-    'Permissions.GDNClaims.View': 'Good Dispatch Note View',
-    'Permissions.GDNClaims.Create': 'Good Dispatch Note Create',
-    'Permissions.GDNClaims.Edit': 'Good Dispatch Note Update',
-    'Permissions.GDNClaims.Delete': 'Good Dispatch Note Delete',
+    'Permissions.Procurement.GDNClaims.View': 'Good Dispatch Note View',
+    'Permissions.Procurement.GDNClaims.Create': 'Good Dispatch Note Create',
+    'Permissions.Procurement.GDNClaims.Edit': 'Good Dispatch Note Update',
+    'Permissions.Procurement.GDNClaims.Delete': 'Good Dispatch Note Delete',
 
     // Goods Return Note
-    'Permissions.GoodsReturnNoteClaims.View': 'Goods Return Note View',
-    'Permissions.GoodsReturnNoteClaims.Create': 'Goods Return Note Create',
-    'Permissions.GoodsReturnNoteClaims.Edit': 'Goods Return Note Update',
-    'Permissions.GoodsReturnNoteClaims.Delete': 'Goods Return Note Delete',
+    'Permissions.Procurement.GoodsReturnNoteClaims.View': 'Goods Return Note View',
+    'Permissions.Procurement.GoodsReturnNoteClaims.Create': 'Goods Return Note Create',
+    'Permissions.Procurement.GoodsReturnNoteClaims.Edit': 'Goods Return Note Update',
+    'Permissions.Procurement.GoodsReturnNoteClaims.Delete': 'Goods Return Note Delete',
 
     //ISSUANCE
-    'Permissions.IssuanceClaims.View': 'Issuance View',
-    'Permissions.IssuanceClaims.Create': 'Issuance Create',
-    'Permissions.IssuanceClaims.Edit': 'Issuance Update',
-    'Permissions.IssuanceClaims.Delete': 'Issuance Delete',
+    'Permissions.Procurement.IssuanceClaims.View': 'Issuance View',
+    'Permissions.Procurement.IssuanceClaims.Create': 'Issuance Create',
+    'Permissions.Procurement.IssuanceClaims.Edit': 'Issuance Update',
+    'Permissions.Procurement.IssuanceClaims.Delete': 'Issuance Delete',
 
     //ISSUANCE RETURN
-    'Permissions.IssuanceReturnClaims.View': 'Issuance Return View',
-    'Permissions.IssuanceReturnClaims.Create': 'Issuance Return Create',
-    'Permissions.IssuanceReturnClaims.Edit': 'Issuance Return Update',
-    'Permissions.IssuanceReturnClaims.Delete': 'Issuance Return Delete',
+    'Permissions.Procurement.IssuanceReturnClaims.View': 'Issuance Return View',
+    'Permissions.Procurement.IssuanceReturnClaims.Create': 'Issuance Return Create',
+    'Permissions.Procurement.IssuanceReturnClaims.Edit': 'Issuance Return Update',
+    'Permissions.Procurement.IssuanceReturnClaims.Delete': 'Issuance Return Delete',
 
     // Stock
-    'Permissions.StockClaims.View': 'Inventory View',
+    'Permissions.Procurement.StockClaims.View': 'Inventory View',
 
     // Transaction Recon
-    'Permissions.TransactionReconClaims.View': 'Transaction Reconcile View',
-    'Permissions.TransactionReconClaims.Create': 'Transaction Reconcile Create',
-    'Permissions.TransactionReconClaims.Edit': 'Transaction Reconcile Update',
-    'Permissions.TransactionReconClaims.Delete': 'Transaction Reconcile Delete',
+    'Permissions.Finance.TransactionReconClaims.View': 'Transaction Reconcile View',
+    'Permissions.Finance.TransactionReconClaims.Create': 'Transaction Reconcile Create',
+    'Permissions.Finance.TransactionReconClaims.Edit': 'Transaction Reconcile Update',
+    'Permissions.Finance.TransactionReconClaims.Delete': 'Transaction Reconcile Delete',
 
     // Asset Category
     'Permissions.AssetCategoryClaims.View': 'Asset Category View',

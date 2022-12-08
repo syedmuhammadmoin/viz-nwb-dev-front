@@ -10,6 +10,27 @@ import { IRoleClaim} from '../../model/IRoleClaim';
 import { IRoleModel} from '../../model/IRoleModel';
 import { AccessManagementService } from '../../service/access-management.service';
 import { UserAccessLevelComponent } from '../user-access-level/user-access-level.component';
+import { SelectionModel } from '@angular/cdk/collections';
+import { FlatTreeControl } from '@angular/cdk/tree';
+import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
+import { BehaviorSubject } from 'rxjs';
+
+/**
+ * Node for to-do item
+ */
+export class TodoItemNode {
+  children: TodoItemNode[];
+  value: string;
+}
+
+/** Flat to-do item node with expandable and level information */
+export class TodoItemFlatNode {
+  type: string;
+  value: string;
+  viewValue: string;
+  level: number;
+  expandable: boolean;
+}
 
 @Component({
   selector: 'kt-create-role',
@@ -17,9 +38,7 @@ import { UserAccessLevelComponent } from '../user-access-level/user-access-level
   styleUrls: ['./create-role.component.scss']
 })
   
-export class CreateRoleComponent extends AppComponentBase implements OnInit {
-
-  @ViewChild(UserAccessLevelComponent) accessLevelComponent!: UserAccessLevelComponent;
+export class CreateRoleComponent extends AppComponentBase implements OnInit{
 
   searchText: string
   currentIndex = 0
@@ -41,7 +60,8 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
   //Hide Submit And Cancel button
   isEditButtonShow: boolean = false;
 
-  //accessLevelModel: IOrganizationAccessLevel[]
+  //Store tree view data
+  dataChange = new BehaviorSubject<any[]>([]);
 
   isLoading: boolean
   // validation messages
@@ -64,7 +84,86 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
     injector: Injector
   ) {
     super(injector);
+    this.treeFlattener = new MatTreeFlattener(
+      this.transformer,
+      this.getLevel,
+      this.isExpandable,
+      this.getChildren,
+    );
+    this.treeControl = new FlatTreeControl<TodoItemFlatNode>(this.getLevel, this.isExpandable);
+    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
+
+    this.dataChange.subscribe((data: any) => {
+      this.dataSource.data = data;
+    });
   }
+
+  initialize() {
+    /**Spliting every permissions in permissions array to get module name
+    //and group permissions module wise
+    */
+    let groupByPerms = this.groupBy(this.roleClaims, value => value.value.split('.')[1])
+
+    //Passing Group data in buildFileTree function to get tree view
+    const data = this.buildFileTree(Object.fromEntries(groupByPerms), 0);
+
+    //Notify the change.
+    this.dataChange.next(data);
+
+    //check all selected items in roles
+    if(this._id) {
+      this.checkAll()
+    }
+  }
+
+
+  /** Map from flat node to nested node. This helps us finding the nested node to be modified */
+  flatNodeMap = new Map<TodoItemFlatNode, TodoItemNode>();
+
+  /** Map from nested node to flattened node. This helps us to keep the same object for selection */
+  nestedNodeMap = new Map<TodoItemNode, TodoItemFlatNode>();
+
+  /** A selected parent node to be inserted */
+  selectedParent: TodoItemFlatNode | null = null;
+
+  /** The new item's name */
+  newItemName = '';
+
+  treeControl: FlatTreeControl<TodoItemFlatNode>;
+
+  treeFlattener: MatTreeFlattener<TodoItemNode, TodoItemFlatNode>;
+
+  dataSource: MatTreeFlatDataSource<TodoItemNode, TodoItemFlatNode>;
+
+  /** The selection for checklist */
+  checklistSelection = new SelectionModel<TodoItemFlatNode>(true /* multiple */);
+
+
+  getLevel = (node: TodoItemFlatNode) => node.level;
+
+  isExpandable = (node: TodoItemFlatNode) => node.expandable;
+
+  getChildren = (node: TodoItemNode): TodoItemNode[] => node.children;
+
+  hasChild = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.expandable;
+
+  hasNoContent = (_: number, _nodeData: TodoItemFlatNode) => _nodeData.value === '';
+
+  /**
+   * Transformer to convert nested node to flat node. Record the nodes in maps for later use.
+   */
+  transformer = (node: TodoItemNode, level: number) => {
+    const existingNode = this.nestedNodeMap.get(node);
+    const flatNode =
+      existingNode && existingNode.value === node.value ? existingNode : new TodoItemFlatNode();
+    flatNode.value = node.value;
+    flatNode.level = level;
+    flatNode.expandable = !!node.children?.length;
+    this.flatNodeMap.set(flatNode, node);
+    this.nestedNodeMap.set(node, flatNode);
+    return flatNode;
+  };
+
 
   ngOnInit() {
     this.roleForm = this.fb.group({
@@ -82,8 +181,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
       this.roleModel = {
         id: null,
         roleName: '',
-        roleClaims: [],
-        //locationIds: []
+        roleClaims: []
       }
     }
   }
@@ -107,14 +205,19 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
     this.roleForm.patchValue({
       roleName: roleModel.roleName,
     })
+
     this.roleClaims = roleModel.roleClaims.map(x => {
       x.viewValue = this.appConsts.PermissionsDisplayName[x.value]
       return x;
     });
     this.roleModel.id = this._id;
 
+    //Calling Grouping Functionality Module Wise
+    this.initialize()
+
     if(!this.showButtons) this.roleForm.disable()
   }
+
 
   onSubmit() {
 
@@ -122,12 +225,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
       this.currentIndex = 0;
       return
     }
-  
-    if (this.roleClaims.filter(x => x.selected === true).length < 2) {
-      this.toastService.warning('Atleast 2 Permissions is required !', 'Role');
-      this.currentIndex = 1;
-      return
-    }
+
 
     // if(!this.accessLevelComponent.checklistSelection.selected.length){
     //   this.toastService.warning('Atleast 1 Access Level is required', 'Form Error');
@@ -135,9 +233,28 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
     //   return
     // }
 
+    let roles = [];
+    this.treeControl.dataNodes.map((res) => {
+     if(res.level === 1) {
+       if(this.checklistSelection.isSelected(res)){
+         res.value['selected'] = true;
+       }
+       else{
+         res.value['selected'] = false;
+       }
+       roles.push(res.value)
+     }
+    })
+
+    if (roles.filter(x => x.selected === true).length < 2) {
+      this.toastService.warning('Atleast 2 Permissions is required !', 'Role');
+      this.currentIndex = 1;
+      return
+    }
+
     this.isLoading = true;
     this.roleModel = {...this.roleForm.value, id: this._id};
-    this.roleModel.roleClaims = this.roleClaims;
+    this.roleModel.roleClaims = roles;
 
     //get access Level location ids
     // this.accessLevelComponent.checklistSelection.selected.map((node: any) => {
@@ -145,9 +262,9 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
     //      this.locationIds.push(node.id)
     //   }
     // })
-    //this.roleModel.locationIds = this.locationIds
+    // this.roleModel.locationIds = this.locationIds
 
-    //console.log("Rolle Model: ", this.roleModel)
+    console.log("Rolle Model: ", this.roleModel)
     if (this.roleModel.id) {
       this.accessManagementService.updateRole(this.roleModel)
       .pipe(
@@ -199,7 +316,9 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
             viewValue: this.appConsts.PermissionsDisplayName[element]
           })
       });
-      // this.roleClaims = res.result;
+
+      //Calling Grouping Functionality Module Wise
+      this.initialize()
     })
   }
 
@@ -212,5 +331,175 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
   onPermissionChange(permission: IRoleClaim, $event: MatCheckboxChange) {
     this.roleClaims[this.roleClaims.indexOf(permission)].selected = $event.checked
   }
+
+
+
+
+  //Manage Grouping
+  /** Whether all the descendants of the node are selected. */
+  descendantsAllSelected(node: TodoItemFlatNode): boolean {
+    const descendants = this.treeControl.getDescendants(node);
+    const descAllSelected =
+      descendants.length > 0 &&
+      descendants.every(child => {
+        return this.checklistSelection.isSelected(child);
+      });
+    return descAllSelected;
+  }
+
+  /** Whether part of the descendants are selected */
+  descendantsPartiallySelected(node: TodoItemFlatNode): boolean {
+    const descendants = this.treeControl.getDescendants(node);
+    const result = descendants.some(child => this.checklistSelection.isSelected(child));
+    return result && !this.descendantsAllSelected(node);
+  }
+
+  /** Toggle the to-do item selection. Select/deselect all the descendants node */
+  todoItemSelectionToggle(node: TodoItemFlatNode): void {
+    this.checklistSelection.toggle(node);
+    const descendants = this.treeControl.getDescendants(node);
+    this.checklistSelection.isSelected(node)
+      ? this.checklistSelection.select(...descendants)
+      : this.checklistSelection.deselect(...descendants);
+
+    // Force update for the parent
+    descendants.forEach(child => this.checklistSelection.isSelected(child));
+    this.checkAllParentsSelection(node);
+  }
+
+  /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
+  todoLeafItemSelectionToggle(node: TodoItemFlatNode): void {
+    this.checklistSelection.toggle(node);
+    this.checkAllParentsSelection(node);
+  }
+
+  /* Checks all the parents when a leaf node is selected/unselected */
+  checkAllParentsSelection(node: TodoItemFlatNode): void {
+    let parent: TodoItemFlatNode | null = this.getParentNode(node);
+    while (parent) {
+      this.checkRootNodeSelection(parent);
+      parent = this.getParentNode(parent);
+    }
+  }
+
+  /** Check root node checked state and change it accordingly */
+  checkRootNodeSelection(node: TodoItemFlatNode): void {
+    const nodeSelected = this.checklistSelection.isSelected(node);
+    const descendants = this.treeControl.getDescendants(node);
+    const descAllSelected =
+      descendants.length > 0 &&
+      descendants.every(child => {
+        return this.checklistSelection.isSelected(child);
+      });
+    if (nodeSelected && !descAllSelected) {
+      this.checklistSelection.deselect(node);
+    } else if (!nodeSelected && descAllSelected) {
+      this.checklistSelection.select(node);
+    }
+  }
+
+  /* Get the parent node of a node */
+  getParentNode(node: TodoItemFlatNode): TodoItemFlatNode | null {
+    const currentLevel = this.getLevel(node);
+
+    if (currentLevel < 1) {
+      return null;
+    }
+
+    const startIndex = this.treeControl.dataNodes.indexOf(node) - 1;
+
+    for (let i = startIndex; i >= 0; i--) {
+      const currentNode = this.treeControl.dataNodes[i];
+
+      if (this.getLevel(currentNode) < currentLevel) {
+        return currentNode;
+      }
+    }
+    return null;
+  }
+
+  /**
+   * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
+   * The return value is the list of `TodoItemNode`.
+   */
+   buildFileTree(obj: any, level: number): TodoItemNode[] {
+
+    return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
+
+      const value = obj[key];
+      const node = new TodoItemNode(); 
+      
+      node.value = (key === 'AccessManagement') ? 'Access Management': key;
+
+      if (value != null) {
+        if (typeof value === 'object' && value.type?.toLowerCase() !== 'permission') {
+          node.children = this.buildFileTree(value, level + 1);
+        } else {
+          node.value = value;
+        }
+      }
+
+      return accumulator.concat(node);
+    }, []);
+  }
+
+  //check all permissions
+  checkAll(){
+    for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
+    if(this.treeControl.dataNodes[i].value['selected']) {
+        this.checklistSelection.toggle(this.treeControl.dataNodes[i]);
+        this.checkAllParentsSelection(this.treeControl.dataNodes[i])
+      //this.treeControl.expand(this.treeControl.dataNodes[i])
+    }
+   }
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
