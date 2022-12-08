@@ -139,6 +139,12 @@ export class AppComponent implements OnInit, OnDestroy {
         document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_sessionStorage.button_background_color)
         document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_localStorage.light_gray_color)
         document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_sessionStorage.light_gray_color)
+        document.documentElement.style.setProperty('--toggler_arrow_color' ,this.globalcolor_localStorage.toggler_arrow_color)
+        document.documentElement.style.setProperty('--toggler_arrow_color' ,this.globalcolor_sessionStorage.toggler_arrow_color)
+        document.documentElement.style.setProperty('--home_logo_bg' ,this.globalcolor_localStorage.home_logo_bg)
+        document.documentElement.style.setProperty('--home_logo_bg' ,this.globalcolor_sessionStorage.home_logo_bg)
+        document.documentElement.style.setProperty('--db_dd_t_c' ,this.globalcolor_localStorage.db_dd_t_c)
+        document.documentElement.style.setProperty('--db_dd_t_c' ,this.globalcolor_sessionStorage.db_dd_t_c)
         document.documentElement.style.setProperty('--title' ,this.globalcolor_localStorage.title)
         document.documentElement.style.setProperty('--title' ,this.globalcolor_sessionStorage.title)
         document.documentElement.style.setProperty('--login_title' ,this.globalcolor_localStorage.login_title)
@@ -163,6 +169,10 @@ export class AppComponent implements OnInit, OnDestroy {
         document.documentElement.style.setProperty('--fav_icon' ,this.globalcolor_sessionStorage.fav_icon)
         document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_localStorage.edinfini_true)
         document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_sessionStorage.edinfini_true)
+        document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_localStorage.nawabshah_true)
+        document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_sessionStorage.nawabshah_true)
+        document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_localStorage.vizalys_true)
+        document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_sessionStorage.vizalys_true)
 
         this.title.setTitle(this.globalcolor_localStorage.site_title)
         this.title.setTitle(this.globalcolor_sessionStorage.site_title)
@@ -201,6 +211,12 @@ export class AppComponent implements OnInit, OnDestroy {
 
         document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_localStorage.light_gray_color)
 
+        document.documentElement.style.setProperty('--toggler_arrow_color' ,this.globalcolor_localStorage.toggler_arrow_color)
+
+        document.documentElement.style.setProperty('--home_logo_bg' ,this.globalcolor_localStorage.home_logo_bg)
+
+        document.documentElement.style.setProperty('--db_dd_t_c' ,this.globalcolor_localStorage.db_dd_t_c)
+
         document.documentElement.style.setProperty('--title' ,this.globalcolor_localStorage.title)
 
         document.documentElement.style.setProperty('--login_title' ,this.globalcolor_localStorage.login_title)
@@ -222,6 +238,8 @@ export class AppComponent implements OnInit, OnDestroy {
         document.documentElement.style.setProperty('--fav_icon' ,this.globalcolor_localStorage.fav_icon)
 
         document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_localStorage.edinfini_true)
+        document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_localStorage.nawabshah_true)
+        document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_localStorage.vizalys_true)
 
         this.title.setTitle(this.globalcolor_localStorage.site_title)
         this.title.setTitle(this.globalcolor_sessionStorage.site_title)

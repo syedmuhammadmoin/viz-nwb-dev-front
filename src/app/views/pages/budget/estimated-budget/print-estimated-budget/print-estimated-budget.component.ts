@@ -7,6 +7,7 @@ import { IEstimatedBudget } from '../model/IEstimatedBudget';
 import { IEstimatedBudgetLines } from '../model/IEstimatedBudgetLines';
 import { EstimatedBudgetService } from '../service/estimated-budget.service';
 import { CalculationType } from 'src/app/views/shared/AppEnum';
+import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 
 @Component({
   selector: 'kt-print-estimated-budget',
@@ -18,10 +19,16 @@ export class PrintEstimatedBudgetComponent implements OnInit {
   gridOptions: GridOptions;
   estimatedBudgetMaster: IEstimatedBudget | any;
   estimatedBudgetLines: IEstimatedBudgetLines[] | any;
-  calculationType = CalculationType
+  calculationType = CalculationType;
+  edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
+  localsto : any ;
+  className : any;
 
   constructor( private _estimatedBudgetService: EstimatedBudgetService,
                private activatedRoute: ActivatedRoute,
+               public dynamicColorChanging : DynamicColorChangeService,
                private cdr: ChangeDetectorRef,
                public sanitizer: DomSanitizer
              ) { }
@@ -33,6 +40,34 @@ export class PrintEstimatedBudgetComponent implements OnInit {
         this.getEstimatedBudgetData(id);
       }
     });
+
+    this.dynamicColorChanging.global_color.subscribe((res: any) => {
+
+      if (localStorage.getItem('global_color')) {
+        this.localsto = JSON.parse(localStorage.getItem('global_color'))
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+      else {
+        this.localsto = res;
+        this.edinfini = this.localsto.edinfini_true;
+        this.vizalys = this.localsto.vizalys_true;
+        this.sbbu = this.localsto.nawabshah_true;
+      }
+
+      if(this.edinfini){
+        this.className = 'edinfini row'
+      }
+      else if(this.sbbu){
+        this.className = 'sbbu row'
+      }
+      else if(this.vizalys){
+        this.className = 'vizalys row'
+      }
+
+      this.cdr.detectChanges()
+    })
   }  
 
   printDiv(divName : any) {

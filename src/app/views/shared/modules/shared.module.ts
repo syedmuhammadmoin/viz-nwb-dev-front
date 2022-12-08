@@ -64,6 +64,7 @@ import { CreateProductComponent } from '../../pages/profiling/product/create-pro
 import { CreateCategoryComponent } from '../../pages/profiling/category/create-category/create-category.component';
 import { CreateBankAccountComponent } from '../../pages/finance/bank-account/create-bank-account/create-bank-account.component';
 import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
+import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
 
 
 // @ts-ignore
@@ -84,6 +85,7 @@ import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
     CustomRemarksComponent,
     NonNegativePipe,
     FileSizePipe,
+    TreeFilter,
     DragDropDirective
   ],
   imports: [
@@ -195,7 +197,8 @@ import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
     DragDropDirective,
     ShowRemarksComponent,
     CustomUploadFileComponent,
-    CustomRemarksComponent
+    CustomRemarksComponent,
+    TreeFilter
   ],
   providers: [
     FormConfirmationGuard,

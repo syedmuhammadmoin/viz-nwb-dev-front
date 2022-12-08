@@ -6,6 +6,7 @@ import { IGoodsReturnNote } from '../model/IGoodsReturnNote';
 import { IGoodsReturnNoteLines } from '../model/IGoodsReturnNoteLines';
 import { GridOptions } from 'ag-grid-community';
 import { GoodsReturnNoteService } from '../service/goods-return-note.service';
+import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 
 @Component({
   selector: 'kt-print-goods-return-note',
@@ -18,10 +19,16 @@ export class PrintGoodsReturnNoteComponent extends AppComponentBase implements O
     gridOptions: GridOptions;
     goodsReturnNoteMaster: IGoodsReturnNote | any;
     goodsReturnNoteLines: IGoodsReturnNoteLines;
+    edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
+  localsto : any ;
+  className : any;
 
     constructor( private goodsReturnNoteService : GoodsReturnNoteService,
                  private activatedRoute: ActivatedRoute,
                  private cDRef: ChangeDetectorRef,
+               public dynamicColorChanging : DynamicColorChangeService,
                  public  sanitizer: DomSanitizer,
                  injector: Injector
                ) { super(injector) }
@@ -33,6 +40,34 @@ export class PrintGoodsReturnNoteComponent extends AppComponentBase implements O
           this.getGoodsReturnNoteMasterData(id);
         }
       });
+
+      this.dynamicColorChanging.global_color.subscribe((res: any) => {
+
+        if (localStorage.getItem('global_color')) {
+          this.localsto = JSON.parse(localStorage.getItem('global_color'))
+          this.edinfini = this.localsto.edinfini_true;
+          this.vizalys = this.localsto.vizalys_true;
+          this.sbbu = this.localsto.nawabshah_true;
+        }
+        else {
+          this.localsto = res;
+          this.edinfini = this.localsto.edinfini_true;
+          this.vizalys = this.localsto.vizalys_true;
+          this.sbbu = this.localsto.nawabshah_true;
+        }
+  
+        if(this.edinfini){
+          this.className = 'edinfini row'
+        }
+        else if(this.sbbu){
+          this.className = 'sbbu row'
+        }
+        else if(this.vizalys){
+          this.className = 'vizalys row'
+        }
+  
+        this.cDRef.detectChanges()
+      })
     }
 
     printDiv(divName : any) {

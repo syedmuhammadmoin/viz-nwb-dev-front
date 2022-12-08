@@ -21,6 +21,9 @@ export class DynamicColorChangeService {
     test_shadow_color :'#9195a9',
     button_background_color :'#e9f5f9',
     light_gray_color :'#B5B5C3',
+    toggler_arrow_color :'#1a6b85',
+    home_logo_bg :'fff',
+    db_dd_t_c :'fff',
     title :'SBBU',
     login_title :'Main Campus SBBU Shaheed benazirabad.',
     login_cover_image :"url('assets/media/logos/bg_login.jpg')",
@@ -31,11 +34,13 @@ export class DynamicColorChangeService {
     chart_color : ['#1a6b85', '#1a6b85', '#5390a3', '#5390a3'],
     site_title : 'SBBU',
     fav_icon : 'assets/media/logos/logo-wr.png',
-    edinfini_true :true,
+    edinfini_true :false,
+    nawabshah_true :true,
+    vizalys_true :false,
   })
 
   // public edinfini : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
-  edinfini$ : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
+  // edinfini$ : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
 
     // public bg_gradient_color_one : BehaviorSubject<any> = new BehaviorSubject<any>("rgba(0, 0, 0, 0.6)")
     // public bg_gradient_color_two : BehaviorSubject<any> = new BehaviorSubject<any>('#65c18c')
