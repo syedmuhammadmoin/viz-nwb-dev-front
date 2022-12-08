@@ -39,6 +39,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 	errors: any = [];
 	user: User = new User();
 	edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
   	localsto : any ;
 
 	globalcolor_localStorage : any = '';
@@ -144,50 +146,71 @@ export class LoginComponent implements OnInit, OnDestroy {
 			  document.documentElement.style.setProperty('--dashboard_logo_hight' ,this.globalcolor_localStorage.dashboard_logo_hight)
 			  document.documentElement.style.setProperty('--dashboard_logo_hight' ,this.globalcolor_sessionStorage.dashboard_logo_hight)
 			  document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_localStorage.edinfini_true)
-			  document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_sessionStorage.edinfini_true)
+        document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_sessionStorage.edinfini_true)
+        document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_localStorage.nawabshah_true)
+        document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_sessionStorage.nawabshah_true)
+        document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_localStorage.vizalys_true)
+        document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_sessionStorage.vizalys_true)
 			}
 	  
 			else{
 			  localStorage.setItem('global_color' , JSON.stringify(res))
 			  sessionStorage.setItem('global_color' ,  JSON.stringify(res))
 			  this.globalcolor_localStorage = JSON.parse(localStorage.getItem('global_color'))
-			  document.documentElement.style.setProperty('--bg_gradient_color_one' ,this.globalcolor_localStorage.bg_gradient_color_one)
-			  document.documentElement.style.setProperty('--bg_gradient_color_two' ,this.globalcolor_localStorage.bg_gradient_color_two)
-			  console.log(this.globalcolor_localStorage.bg_gradient_color_two);
-			  document.documentElement.style.setProperty('--bg_white' ,this.globalcolor_localStorage.bg_white)
-			  console.log(this.globalcolor_localStorage.bg_white);
-			  document.documentElement.style.setProperty('--primary_color' ,this.globalcolor_localStorage.primary_color)
-			  console.log(this.globalcolor_localStorage.primary_color);
-			  document.documentElement.style.setProperty('--secondary_color' ,this.globalcolor_localStorage.secondary_color)
-			  console.log(this.globalcolor_localStorage.secondary_color);
-			  document.documentElement.style.setProperty('--input_filed_primary_color' ,this.globalcolor_localStorage.input_filed_primary_color)
-			  console.log(this.globalcolor_localStorage.input_filed_primary_color);
-			  document.documentElement.style.setProperty('--input_filed_background_color' ,this.globalcolor_localStorage.input_filed_background_color)
-			  console.log(this.globalcolor_localStorage.input_filed_background_color);
-			  document.documentElement.style.setProperty('--input_filed_border_color' ,this.globalcolor_localStorage.input_filed_border_color)
-			  console.log(this.globalcolor_localStorage.input_filed_border_color);
-			  document.documentElement.style.setProperty('--form_border_color' ,this.globalcolor_localStorage.form_border_color)
-			  console.log(this.globalcolor_localStorage.form_border_color);
-			  document.documentElement.style.setProperty('--test_shadow_color' ,this.globalcolor_localStorage.test_shadow_color)
-			  console.log(this.globalcolor_localStorage.test_shadow_color);
-			  document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_localStorage.button_background_color)
-			  console.log(this.globalcolor_localStorage.button_background_color);
-			  document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_localStorage.light_gray_color)
-			  console.log(this.globalcolor_localStorage.light_gray_color);
-			  document.documentElement.style.setProperty('--title' ,this.globalcolor_localStorage.title)
-			  console.log(this.globalcolor_localStorage.title);
-			  document.documentElement.style.setProperty('--login_title' ,this.globalcolor_localStorage.login_title)
-			  console.log(this.globalcolor_localStorage.login_title);
-			  document.documentElement.style.setProperty('--login_cover_image' ,this.globalcolor_localStorage.login_cover_image)
-			  console.log(this.globalcolor_localStorage.login_cover_image);
-			  document.documentElement.style.setProperty('--site_logo' ,this.globalcolor_localStorage.site_logo)
-			  console.log(this.globalcolor_localStorage.site_logo);
-			  document.documentElement.style.setProperty('--dashboard_hight' ,this.globalcolor_localStorage.dashboard_hight)
-			  console.log(this.globalcolor_localStorage.dashboard_hight);
-			  document.documentElement.style.setProperty('--dashboard_logo_width' ,this.globalcolor_localStorage.dashboard_logo_width)
-			  console.log(this.globalcolor_localStorage.dashboard_logo_width);
-			  document.documentElement.style.setProperty('--dashboard_logo_hight' ,this.globalcolor_localStorage.dashboard_logo_width)
-			  console.log(this.globalcolor_localStorage.dashboard_logo_width);
+
+        document.documentElement.style.setProperty('--bg_gradient_color_one' ,this.globalcolor_localStorage.bg_gradient_color_one)
+
+        document.documentElement.style.setProperty('--bg_gradient_color_two' ,this.globalcolor_localStorage.bg_gradient_color_two)
+        
+        document.documentElement.style.setProperty('--bg_white' ,this.globalcolor_localStorage.bg_white)
+      
+        document.documentElement.style.setProperty('--primary_color' ,this.globalcolor_localStorage.primary_color)
+
+        document.documentElement.style.setProperty('--secondary_color' ,this.globalcolor_localStorage.secondary_color)
+
+        document.documentElement.style.setProperty('--input_filed_primary_color' ,this.globalcolor_localStorage.input_filed_primary_color)
+    
+        document.documentElement.style.setProperty('--input_filed_background_color' ,this.globalcolor_localStorage.input_filed_background_color)
+
+        document.documentElement.style.setProperty('--input_filed_border_color' ,this.globalcolor_localStorage.input_filed_border_color)
+ 
+        document.documentElement.style.setProperty('--form_border_color' ,this.globalcolor_localStorage.form_border_color)
+   
+        document.documentElement.style.setProperty('--test_shadow_color' ,this.globalcolor_localStorage.test_shadow_color)
+ 
+        document.documentElement.style.setProperty('--button_background_color' ,this.globalcolor_localStorage.button_background_color)
+
+        document.documentElement.style.setProperty('--light_gray_color' ,this.globalcolor_localStorage.light_gray_color)
+
+        document.documentElement.style.setProperty('--toggler_arrow_color' ,this.globalcolor_localStorage.toggler_arrow_color)
+
+        document.documentElement.style.setProperty('--home_logo_bg' ,this.globalcolor_localStorage.home_logo_bg)
+
+        document.documentElement.style.setProperty('--db_dd_t_c' ,this.globalcolor_localStorage.db_dd_t_c)
+
+        document.documentElement.style.setProperty('--title' ,this.globalcolor_localStorage.title)
+
+        document.documentElement.style.setProperty('--login_title' ,this.globalcolor_localStorage.login_title)
+
+        document.documentElement.style.setProperty('--login_cover_image' ,this.globalcolor_localStorage.login_cover_image)
+    
+        document.documentElement.style.setProperty('--site_logo' ,this.globalcolor_localStorage.site_logo)
+  
+        document.documentElement.style.setProperty('--dashboard_hight' ,this.globalcolor_localStorage.dashboard_hight)
+
+        document.documentElement.style.setProperty('--dashboard_logo_width' ,this.globalcolor_localStorage.dashboard_logo_width)
+
+        document.documentElement.style.setProperty('--dashboard_logo_hight' ,this.globalcolor_localStorage.dashboard_logo_width)
+
+        document.documentElement.style.setProperty('--chart_color' ,this.globalcolor_localStorage.chart_color)
+
+        document.documentElement.style.setProperty('--site_title' ,this.globalcolor_localStorage.site_title)
+
+        document.documentElement.style.setProperty('--fav_icon' ,this.globalcolor_localStorage.fav_icon)
+
+        document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_localStorage.edinfini_true)
+        document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_localStorage.nawabshah_true)
+        document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_localStorage.vizalys_true)
 			  
 			}
 		  })
@@ -195,13 +218,16 @@ export class LoginComponent implements OnInit, OnDestroy {
 		  this.dynamicColorChanging.global_color.subscribe(( res : any) => {
       
 			if(localStorage.getItem('global_color')) {
-			 this.localsto = JSON.parse(localStorage.getItem('global_color'))
-			 this.edinfini = this.localsto.edinfini_true;
-			  console.log("yes Called")
+				this.localsto = JSON.parse(localStorage.getItem('global_color'))
+				this.edinfini = this.localsto.edinfini_true;
+				this.sbbu = this.localsto.nawabshah_true;
+				this.vizalys = this.localsto.vizalys_true;
 			} 
 			else{
-			 this.localsto = res;
-			 this.edinfini = this.localsto.edinfini_true;
+				this.localsto = res;
+				this.edinfini = this.localsto.edinfini_true;
+				this.sbbu = this.localsto.nawabshah_true;
+				this.vizalys = this.localsto.vizalys_true;
 			}
 	  
 			this.ref.detectChanges()
