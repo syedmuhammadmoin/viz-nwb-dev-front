@@ -98,4 +98,7 @@
 // }
 
 
-
+.ag-body-viewport.ag-layout-normal
+{
+  overflow-y: scroll !important;
+}
