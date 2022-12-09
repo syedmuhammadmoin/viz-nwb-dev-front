@@ -1,5 +1,3 @@
-
-
 $bg-gradient-color:linear-gradient(to right, var(--bg_gradient_color_one), var(--bg_gradient_color_two));
 $bg-white: var(--bg_white);
 $primary-color: var(--primary_color);
@@ -1815,3 +1813,38 @@ mat-tree-node div[id^='child']
 {
   color: $primary-color !important;
 }
+
+.create-user-role .mat-icon-button{
+  margin-top: -10px;
+  background: #f3f6f9;
+  width: 7.5%;
+  border-radius: 0px;
+  height: 44px;}
+
+  .create-user-role .col-md-6{
+    
+    padding-right: 20px !important;
+    display: inline-block;
+    padding-left: 20px !important;
+  }
+
+  .create-user-role .create-user-role-children .mat-checkbox-layout .mat-checkbox-label{
+    font-weight: 400 !important;
+  }
+
+  // .create-user-role .col-md-6:nth-child(3){
+  //   padding-right: 40px;
+  //   display: inline-block;
+  //   padding-left: 10px !important;
+  // }
+
+  // .create-user-role .col-md-6:nth-child(4){
+  //   padding-left: 40px;
+  //   display: inline-block;
+  //   padding-right: 10px !important;
+  // }
+  // .create-user-role .col-md-6:nth-child(5){
+  //   padding-right: 40px;
+  //   display: inline-block;
+  //   padding-left: 10px !important;
+  // }
