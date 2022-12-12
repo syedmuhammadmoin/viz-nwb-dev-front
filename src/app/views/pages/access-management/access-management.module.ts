@@ -13,6 +13,7 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ChangePasswordComponent } from './user-management/change-password/change-password.component';
 import { ResetPasswordComponent } from './user-management/reset-password/reset-password.component';
 import { UserAccessLevelComponent } from './role-management/user-access-level/user-access-level.component';
+import { PrintRolePermissionsComponent } from './role-management/print-role-permissions/print-role-permissions.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { UserAccessLevelComponent } from './role-management/user-access-level/us
     UserListComponent,
     ChangePasswordComponent,
     ResetPasswordComponent,
-    UserAccessLevelComponent
+    UserAccessLevelComponent,
+    PrintRolePermissionsComponent
   ],
   entryComponents: [ResetPasswordComponent]
 })

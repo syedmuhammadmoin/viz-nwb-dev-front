@@ -129,6 +129,7 @@ export const CRUD_ROUTES = {
       ROLE_LIST: 'roles',
       CREATE_ROLE: 'roles/create',
       CHANGE_PASSWORD: 'users/change-password',
+      ROLE_PERMISSIONS: 'roles/permissions/print'
   }
     
   //FINANCE SECTION

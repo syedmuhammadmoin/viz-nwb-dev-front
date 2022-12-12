@@ -1,8 +1,10 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { ACCESS_MANAGEMENT, APP_ROUTES } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AccessManagementService } from '../../service/access-management.service';
 import { CreateRoleComponent } from '../create-role/create-role.component';
@@ -48,6 +50,7 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
     private accessManagementService: AccessManagementService,
     private cdRef: ChangeDetectorRef,
     public dialog: MatDialog,
+    private router : Router,
     injector: Injector
   ) {
     super(injector)
@@ -102,6 +105,10 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
       if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       this.cdRef.detectChanges();
     });
+  }
+
+  printPermission() {
+    this.router.navigate(['/' + APP_ROUTES.ACCESS_MANAGEMENT + '/' + ACCESS_MANAGEMENT.ROLE_PERMISSIONS])
   }
 }
 
