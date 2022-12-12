@@ -39,31 +39,6 @@ export class DynamicColorChangeService {
     vizalys_true :false,
   })
 
-  // public edinfini : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
-  // edinfini$ : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true)
-
-    // public bg_gradient_color_one : BehaviorSubject<any> = new BehaviorSubject<any>("rgba(0, 0, 0, 0.6)")
-    // public bg_gradient_color_two : BehaviorSubject<any> = new BehaviorSubject<any>('#65c18c')
-    // public bg_white : BehaviorSubject<any> = new BehaviorSubject<any>('#ffffff')
-    // public primary_color : BehaviorSubject<any> = new BehaviorSubject<any>('#65c18c')
-    // public secondary_color : BehaviorSubject<any> = new BehaviorSubject<any>('#141e27')
-    // public input_filed_primary_color : BehaviorSubject<any> = new BehaviorSubject<any>('#808080')
-    // public input_filed_background_color : BehaviorSubject<any> = new BehaviorSubject<any>('#f2f2f2')
-    // public input_filed_border_color : BehaviorSubject<any> = new BehaviorSubject<any>('#d0d0d0')
-    // public form_border_color : BehaviorSubject<any> = new BehaviorSubject<any>('rgba(101, 193, 140, 0.1)')
-    // public test_shadow_color : BehaviorSubject<any> = new BehaviorSubject<any>('#9195a9')
-    // public button_background_color : BehaviorSubject<any> = new BehaviorSubject<any>('rgba(101, 193, 140, 0.1)')
-    // public light_gray_color : BehaviorSubject<any> = new BehaviorSubject<any>('#B5B5C3')
-    // public title : BehaviorSubject<any> = new BehaviorSubject<any>('')
-    // public login_title : BehaviorSubject<any> = new BehaviorSubject<any>('')
-    // public login_cover_image : BehaviorSubject<any> = new BehaviorSubject<any>("url('assets/media/logos/edinfini-login-image.jpg')")
-    // public site_logo : BehaviorSubject<any> = new BehaviorSubject<any>("url('assets/media/logos/LOGO-EDINFINI-HEADER.png')")
-    // public dashboard_hight : BehaviorSubject<any> = new BehaviorSubject<any>('65px')
-    // public dashboard_logo_width : BehaviorSubject<any> = new BehaviorSubject<any>('110px')
-    // public dashboard_logo_hight : BehaviorSubject<any> = new BehaviorSubject<any>('80px')
-    // public edinfini_true : BehaviorSubject<any> = new BehaviorSubject<any>(true)
-    // public sbbu_true : BehaviorSubject<any> = new BehaviorSubject<any>(false)
-
   constructor() {
    }
 }
