@@ -108,7 +108,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 		this.dynamicColorChanging.global_color.subscribe((res : any)  => {
 			this.chacklocalstorage = localStorage.getItem('global_color');
 			if(this.chacklocalstorage){
-			  console.log("yeeeeees")
 			//   this.globalcolor_sessionStorage = JSON.parse(sessionStorage.getItem('global_color'))
 
 			this.globalcolor_localStorage = JSON.parse(localStorage.getItem('global_color'))

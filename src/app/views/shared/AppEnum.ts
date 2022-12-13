@@ -170,6 +170,14 @@ export class Permissions {
   static REQUISITION_REVIEW = 'Permissions.Procurement.RequisitionClaims.Review';
   static REQUISITION_APPROVE = 'Permissions.Procurement.RequisitionClaims.Approve';
 
+  // Requisition
+  static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
+  static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';
+  static REQUEST_EDIT = 'Permissions.Procurement.RequestClaims.Edit';
+  static REQUEST_DELETE = 'Permissions.Procurement.RequestClaims.Delete';
+  static REQUEST_REVIEW = 'Permissions.Procurement.RequestClaims.Review';
+  static REQUEST_APPROVE = 'Permissions.Procurement.RequestClaims.Approve';
+
   // Payment
   static PAYMENT_VIEW = 'Permissions.Finance.PaymentClaims.View';
   static PAYMENT_CREATE = 'Permissions.Finance.PaymentClaims.Create';
@@ -348,7 +356,8 @@ export enum DocType {
     PayrollPayment,
     Issuance,
     GoodsReturnNote,
-    IssuanceReturn
+    IssuanceReturn,
+    Request
 }
 
 // export enum DocStatus {

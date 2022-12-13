@@ -4,12 +4,11 @@ import { IRequestRequisitionLines } from "./IRequestRequisitionLine";
 export interface IRequestRequisition {
       id: number;
       employeeId: number;
-      requisitionDate: string;
+      requestDate: string;
       campusId : number;
-      requestRequisitionLines: IRequestRequisitionLines[];
+      requestLines: IRequestRequisitionLines[];
       isSubmit? : boolean;
 }
-
 
 
 

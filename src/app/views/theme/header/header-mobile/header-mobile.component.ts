@@ -56,23 +56,18 @@ export class HeaderMobileComponent implements OnInit {
     this.headerMenuSelfDisplay = this.layoutConfigService.getConfig('header.menu.self.display');
 
     this.dynamicColorChanging.global_color.subscribe(( res : any) => {
-
-      console.log(this.edinfini , this.sbbu , this.vizalys );
       
 			if(localStorage.getItem('global_color')) {
 				this.localsto = JSON.parse(localStorage.getItem('global_color'))
 				this.edinfini = this.localsto.edinfini_true;
 				this.sbbu = this.localsto.nawabshah_true;
-				this.vizalys = this.localsto.vizalys_true;
-        console.log(this.edinfini , this.sbbu , this.vizalys );
-        
+				this.vizalys = this.localsto.vizalys_true;    
 			}
 			else{
 				this.localsto = res;
 				this.edinfini = this.localsto.edinfini_true;
 				this.sbbu = this.localsto.nawabshah_true;
 				this.vizalys = this.localsto.vizalys_true;
-        console.log(this.edinfini , this.sbbu , this.vizalys );
 			}
 	  
 			this.ref.detectChanges()

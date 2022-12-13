@@ -1,11 +1,11 @@
 // Angular
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
+import { NgModule} from '@angular/core';
+import { CommonModule} from '@angular/common';
+import { RouterModule, Routes} from '@angular/router';
 // Components
-import {BaseComponent} from './views/theme/base/base.component';
+import { BaseComponent} from './views/theme/base/base.component';
 // Auth
-import {AuthGuard} from './core/auth';
+import { AuthGuard} from './core/auth';
 import { APP_ROUTES } from './views/shared/AppRoutes';
 
 const routes: Routes = [
@@ -229,6 +229,16 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/procurement/requisition/requisition.module').then(
             (m) => m.RequisitionModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+
+      // Lazy Load REQUEST REQUISITION Module
+      {
+        path: APP_ROUTES.REQUEST_REQUISITION,
+        loadChildren: () =>
+          import('./views/pages/procurement/request-requisition/request-requisition.module').then(
+            (m) => m.RequestRequisitionModule
           ),
           canActivateChild: [AuthGuard]
       },

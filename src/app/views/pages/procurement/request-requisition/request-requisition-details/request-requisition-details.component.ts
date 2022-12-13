@@ -2,10 +2,10 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { REQUEST_REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { finalize, take } from 'rxjs/operators';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
@@ -31,7 +31,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
   gridOptions: GridOptions;
   defaultColDef: ColDef;
 
-  public REQUISITION = REQUISITION;
+  public REQUEST_REQUISITION = REQUEST_REQUISITION;
 
   requestRequisitionId: number;
 
@@ -63,28 +63,23 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
   //Defining columns for ag grid
   columnDefs = [
     { 
-      headerName: 'Item', 
-      field: 'item', 
-      cellStyle: { 'font-size': '12px' }
-    },
-    { 
       headerName: 'Description', 
-      field: 'description', 
+      field: 'itemDescription', 
       cellStyle: { 'font-size': '12px' }
     },
     { 
       headerName: 'Quantity', 
-      field: 'quantity', 
+      field: 'itemQuantity', 
       cellStyle: { 'font-size': '12px' }
     },
-    {
-      headerName: 'Issued', 
-      field: 'issuedQuantity',  
-      cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ValueFormatterParams) => {
-        return params.value || 0
-      }
-    },
+    // {
+    //   headerName: 'Issued', 
+    //   field: 'issuedQuantity',  
+    //   cellStyle: {'font-size': '12px'},
+    //   valueFormatter: (params: ValueFormatterParams) => {
+    //     return params.value || 0
+    //   }
+    // },
     // { 
     //   headerName: 'Store', 
     //   field: 'warehouse', 
@@ -129,7 +124,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
      )
     .subscribe((res: IApiResponse<IRequestRequisition>) => {
       this.requestRequisitionMaster = res.result;
-      this.requestRequisitionLines = res.result.requestRequisitionLines;
+      this.requestRequisitionLines = res.result.requestLines;
       this.status = this.requestRequisitionMaster.status;
       this.remarksList = this.requestRequisitionMaster.remarksList ?? [] 
 

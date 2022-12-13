@@ -18,9 +18,9 @@ const routes: Routes = [
         component: ListRequestRequisitionComponent,
         data: {
           array: [
-            { permission: Permissions.REQUISITION_VIEW },
-            { permission: Permissions.REQUISITION_CREATE },
-            { permission: Permissions.REQUISITION_EDIT },
+            { permission: Permissions.REQUEST_VIEW },
+            { permission: Permissions.REQUEST_CREATE },
+            { permission: Permissions.REQUEST_EDIT },
           ]
         },
         canActivate: [PermissionGuard]
@@ -31,8 +31,8 @@ const routes: Routes = [
        // canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
-            { permission: Permissions.REQUISITION_CREATE },
-            { permission: Permissions.REQUISITION_VIEW },
+            { permission: Permissions.REQUEST_CREATE },
+            { permission: Permissions.REQUEST_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -42,8 +42,8 @@ const routes: Routes = [
         component: CreateRequestRequisitionComponent,
         data: {
           array: [
-            { permission: Permissions.REQUISITION_EDIT },
-            { permission: Permissions.REQUISITION_VIEW },
+            { permission: Permissions.REQUEST_EDIT },
+            { permission: Permissions.REQUEST_VIEW },
           ]
         },
         canActivate: [PermissionGuard],
@@ -53,9 +53,9 @@ const routes: Routes = [
         component: RequestRequisitionDetailsComponent,
         data: {
           array: [
-            { permission: Permissions.REQUISITION_VIEW },
-            { permission: Permissions.REQUISITION_EDIT },
-            { permission: Permissions.REQUISITION_CREATE },
+            { permission: Permissions.REQUEST_VIEW },
+            { permission: Permissions.REQUEST_EDIT },
+            { permission: Permissions.REQUEST_CREATE },
           ]
         },
         canActivate: [PermissionGuard]
@@ -65,9 +65,9 @@ const routes: Routes = [
         component: PrintRequestRequisitionComponent,
         data: {
           array: [
-            { permission: Permissions.REQUISITION_VIEW },
-            { permission: Permissions.REQUISITION_EDIT },
-            { permission: Permissions.REQUISITION_CREATE },
+            { permission: Permissions.REQUEST_VIEW },
+            { permission: Permissions.REQUEST_EDIT },
+            { permission: Permissions.REQUEST_CREATE },
           ]
         },
         canActivate: [PermissionGuard]

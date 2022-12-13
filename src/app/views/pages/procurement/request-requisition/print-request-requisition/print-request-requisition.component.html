@@ -3,9 +3,9 @@
       <div class="row">
         <button
           printSectionId="main"
-          printTitle="Requisition"
+          printTitle="Request Requisition"
           ngxPrint
-          id="requisition_print"
+          id="request_print"
           type="button"
           [useExistingCss]="true"
           class="app-default-btn" mat-raised-button
@@ -20,32 +20,27 @@
             <div class="print-col-6 p-s-1-one">
               <div class="logo_and_title">
                 <div class="print-logo"></div>
-                <span class="top-heading">REQUISITION</span>
+                <span class="top-heading">REQUEST REQUISITION</span>
               </div>
-              
             </div>
             <div class="print-col-5 ml-auto p-s-1-two">
               <div class="id_num">
                 <div class="print-box-one">
-                  <h4>Requisition No: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
+                  <h4>Request No: <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
                 </div>
                 <div class="print-box-two">
-                  <h4>Requisition Date: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</span></h4>
+                  <h4>Request Date: <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.requestDate | date: 'MMM d, y'}}</span></h4>
                 </div>
-                
               </div>
-              
             </div>
           </div>
   
           
           <div class="print_body_area p-s-2">
-  
             <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
-              
               <div class="print-box" >
-                <h4>{{requisitionMaster?.employeeName}}</h4>
+                <h4>{{requestRequisitionMaster?.employeeName}}</h4>
                 <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
               </div>
             </div>
@@ -56,55 +51,24 @@
                   <thead class="thead-dark_color">
                     <tr>
                       <th>S.No</th>
-                      <th>Item</th>
                       <th>Description</th>
                       <th >Quantity</th>
-                      
-                      
                     </tr>
-                    <tr *ngFor="let line of requisitionLines; index as i">
+                    <tr *ngFor="let line of requestRequisitionLines; index as i">
                       <td>{{i + 1}}</td>
-                      <td  >{{line?.item || '---'}}</td>
-                      <td> {{line?.description}}</td>
-                      <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                      <td> {{line?.itemDescription}}</td>
+                      <td>{{line?.itemQuantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     </tr>
-                    
-                    
                   </thead>
                 </table>
               </div>
             </div>
   
-  
-            
-  
-  
-            <div class="print-col-12 p-s-4">
-              
-              <div class="print-box p-s-4-one">
-                <p>Terms and conditions:</p>
-              </div>
-              <div class="print-box p-s-4-two">
-                <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                </h4>
-              </div>
-  
-              <div class="print-box p-s-4-three">
-                <p>Thankyou for your Business</p>
-              </div>
-              
-            </div>
-  
-            
-  
             <div class="print-col-4 p-s-5">
               _________________________________
               <p class="text-center">Authorized Sign</p>
             </div>
-            
           </div>
-  
-  
         </div>
       </div>
     </div>

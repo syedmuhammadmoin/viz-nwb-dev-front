@@ -31,6 +31,7 @@ export const APP_ROUTES = {
 
   //PROCUREMENT
   REQUISITION: 'requisition',
+  REQUEST_REQUISITION: 'request-requisition',
   QUOTATION: 'quotation',
 
   //PROFILING
@@ -270,6 +271,15 @@ export const CRUD_ROUTES = {
     CREATE: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.CREATE,
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.REQUISITION + '/' + route + '/' + id
+    }
+  }
+
+  //PROCUREMENT SECTION
+  export const REQUEST_REQUISITION = {
+    LIST: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.REQUEST_REQUISITION + '/' + route + '/' + id
     }
   }
 

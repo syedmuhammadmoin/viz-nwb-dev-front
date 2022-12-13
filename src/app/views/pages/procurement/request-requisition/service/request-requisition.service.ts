@@ -14,7 +14,7 @@ import { IRequestRequisition } from '../model/IRequestRequisition';
 
 export class RequestRequisitionService extends AppServiceBase {
 
-  baseUrl = AppConst.remoteServiceBaseUrl + 'requisition';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'request';
 
   constructor( private httpClient: HttpClient, injector: Injector) { super(injector) }
 

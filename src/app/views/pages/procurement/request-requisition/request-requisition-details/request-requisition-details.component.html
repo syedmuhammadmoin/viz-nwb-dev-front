@@ -3,75 +3,55 @@
       <kt-portlet-header [sticky]="false" [title]="'Requisition Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[requisitionMaster?.state]}}"></span> {{requisitionMaster?.status}}</div>
-          <!-- <h4 class="overall_statuses {{docStatus[requisitionMaster?.state]}}"> Status: {{requisitionMaster?.status}} </h4> -->
+          <div class="ribbon-target"><span class="ribbon-inner {{docStatus[requestRequisitionMaster?.state]}}"></span> {{requestRequisitionMaster?.status}}</div>
+          <!-- <h4 class="overall_statuses {{docStatus[requestRequisitionMaster?.state]}}"> Status: {{requestRequisitionMaster?.status}} </h4> -->
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
         <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-  
           <div class="row">
-  
             <div class="btn_container">
               <div class="col-md-6 col-6">
                 <ng-container ktPortletTools >
-                  <button *ngIf="(requisitionMaster?.state === docStatus.Draft || requisitionMaster?.state === docStatus.Rejected)
-                    && (permission.isGranted(permissions.REQUISITION_EDIT))" id="requisition_edit"
-                    [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
+                  <button *ngIf="(requestRequisitionMaster?.state === docStatus.Draft || requestRequisitionMaster?.state === docStatus.Rejected)
+                    && (permission.isGranted(permissions.REQUEST_EDIT))" id="request_edit"
+                    [routerLink]="'/' + REQUEST_REQUISITION.ID_BASED_ROUTE('edit', requestRequisitionMaster?.id)" [queryParams]="{q: requestRequisitionMaster?.id, 'isRequestRequisition': true}"
                     type="button" class="mr-3 btn_public">
                     <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
   
-                  <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_CREATE))" id="requisition_issuance"
-                    [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                    type="button" class="mr-3 btn_public">
-                    <i class="fa fa-edit icon-e-p-a"></i> Issuance
-                  </button>
-  
-                  <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.PURCHASEORDER_CREATE))" id="requisition_purchase"
-                    [routerLink]="'/' + PURCHASE_ORDER.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                    type="button" class="mr-3 btn_public">
-                    <i class="fa fa-edit icon-e-p-a"></i> Purchase Order
-                  </button>
-  
-                  <!-- <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3"
-                  (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
-                  </button> -->
-  
-                  <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button"
+                  <button [routerLink]="'/' + REQUEST_REQUISITION.ID_BASED_ROUTE('print', requestRequisitionMaster?.id)" id="request_print" type="button"
                     class="btn_public">
                     <i class="fa fa-print icon-e-p-a"></i> Print Requisition
                   </button>
               </ng-container>
   
               </div>
-              <div class="col-lg-6 text-right" *ngIf="requisitionMaster?.isAllowedRole">
-                <button (click)="remarksDialog(action.Reject)" id="requisition_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
-                <button (click)="remarksDialog(action.Approve)" id="requisition_approve" class="btn btn-outline-success" >Approve</button>
+              <div class="col-lg-6 text-right" *ngIf="requestRequisitionMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="request_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="request_approve" class="btn btn-outline-success" >Approve</button>
               </div>
             </div>
   
-  
-  
-  
+
             <div class="col-md-4 col-lg-4  mt-3">
   
               <div class="print-box">
-                  <h4 class="print-box-detail-1">Requisition No:
-                      <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
+                  <h4 class="print-box-detail-1">Request No:
+                      <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
                   <h4 class="print-box-detail-2">Employee:
-                      <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.employeeName}}</span></h4>
+                      <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.employeeName}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 class="print-box-detail-2">Requisition Date:
-                <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</span></h4>
+                <h4 class="print-box-detail-2">Request Date:
+                <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.requestDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">
                 <h4 class="print-box-detail-2">Campus:
-                <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.campus}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.campus}}</span></h4>
               </div>
             </div>
           </div>
@@ -79,7 +59,7 @@
           <div class="row mt-10">
             <div class="col-md-12 col-12">
               <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
-                class="ag-theme-alpine" [rowData]="requisitionLines" [columnDefs]="columnDefs"
+                class="ag-theme-alpine" [rowData]="requestRequisitionLines" [columnDefs]="columnDefs"
                 (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
               </ag-grid-angular>
             </div>
@@ -109,24 +89,24 @@
                     {{valueFormatter(total || 0)}}</th>
                 </tr> -->
   
-                <tr *ngIf="requisitionMaster?.references?.length > 0">
+                <!-- <tr *ngIf="requestRequisitionMaster?.references?.length > 0">
                   <td colspan="2">
                     <mat-accordion>
                       <mat-expansion-panel>
                         <mat-expansion-panel-header>
                           <mat-panel-title class="paid-amount">
                             References
-                          </mat-panel-title>
+                          </mat-panel-title> -->
                           <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
                                         font-weight: bold; flex-grow: 0;">
                             {{valueFormatter(paidAmount || 0)}}
                           </mat-panel-description> -->
-                        </mat-expansion-panel-header>
+                        <!-- </mat-expansion-panel-header>
                         <table class="table text-center table-bordered">
                           <tr>
                             <th>Doc #</th>
                           </tr>
-                          <tr *ngFor="let issuance of requisitionMaster?.references">
+                          <tr *ngFor="let issuance of requestRequisitionMaster?.references">
                             <td><a [routerLink]="('/' + ISSUANCE.ID_BASED_ROUTE('details', issuance?.docId))"
                                 class="links">{{issuance?.docNo}}</a></td>
                           </tr>
@@ -134,7 +114,7 @@
                       </mat-expansion-panel>
                     </mat-accordion>
                   </td>
-                </tr>
+                </tr> -->
               </table>
             </div>
           </div>

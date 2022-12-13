@@ -80,7 +80,7 @@ export class PrintRequestRequisitionComponent implements OnInit {
   getRequisitionData(id: number){
     this.requestRequisitionService.getRequestRequisitionById(id).subscribe((res: IApiResponse<IRequestRequisition>) => {
         this.requestRequisitionMaster = res.result;
-        this.requestRequisitionLines = res.result.requestRequisitionLines;
+        this.requestRequisitionLines = res.result.requestLines;
         this.cdr.markForCheck();
       })
   }
