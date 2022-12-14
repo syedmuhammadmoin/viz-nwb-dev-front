@@ -1,88 +1,66 @@
 <div class="container">
-    <div class="col-lg-10 mx-auto text-right">
-      <div class="row">
-        <button printSectionId="main" id="permissions_print" printTitle="Role Permissions" ngxPrint [useExistingCss]="true"
-          type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
-            class="fas fa-print"></i> Print
-        </button>
-      </div>
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button printSectionId="main" id="permissions_print" printTitle="Role Permissions" ngxPrint
+        [useExistingCss]="true" type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+          class="fas fa-print"></i> Print
+      </button>
     </div>
-    <div class="col-lg-10 mx-auto" id="main">
-      <div [ktBusy]="isLoading" [class]="className">
-        <div class="bg-whitee">
-          <div class="print_header_area p-s-1">
-            <div class="print-col-6 p-s-1-one">
-              <div class="logo_and_title">
-                <div class="print-logo"></div>
-                <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
-              </div>
-  
+  </div>
+  <div class="col-lg-10 mx-auto" id="main">
+    <div [ktBusy]="isLoading" [class]="className">
+      <div class="bg-whitee">
+        <div class="print_header_area p-s-1">
+          <div class="print-col-7 p-s-1-one">
+            <div class="logo_and_title">
+              <div class="print-logo"></div>
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
-            <div class="print-col-5 ml-auto p-s-1-two">
-              <!-- <div class="id_num">
-                <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+
+          </div>
+          <div class="print-col-5 ml-auto p-s-1-two">
+            <div class="id_num">
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
                 margin-bottom: 10px;
                 text-align: center;">
-                  <h4>Invoice</h4>
-                </div>
-                <div class="print-box-one">
-                  <h4>Document No: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.docNo}}</span>
-                  </h4>
-                  <p></p>
-                </div>
-                <div class="print-box-two">
-                  <h4 class="mt-1">Invoice Date: <span class="float-right"
-                      style="font-weight: 400;">{{invoiceMaster?.invoiceDate | date: 'MMM d, y'}}</span></h4>
-                </div>
-                <div class="print-box-two">
-                  <h4 class="mt-1">Due Date: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate|
-                      date: 'MMM d, y'}}</span></h4>
-                </div>
-              </div> -->
+                <h4>Detail of Role Permissions</h4>
+              </div>
             </div>
           </div>
-  
-  
-          <div class="print_body_area p-s-2">
-            <!-- <div class="print-col-6 p-s-2-one">
-              <div class="print-box-one">
-                <h4 class="font-14"><b>Customer Name: </b><span class="float-right"
-                    style="font-weight: 400;">{{invoiceMaster?.customerName}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>NTN:</b> <span class="float-right"
-                    style="font-weight: 400;">{{invoiceMaster?.incomeTaxId || 'N/A'}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>STRN: </b><span class="float-right"
-                    style="font-weight: 400;">{{invoiceMaster?.salesTaxId || 'N/A'}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Address:</b> </h4>
-                <p> {{invoiceMaster?.customerAddress || 'N/A'}}</p>
-              </div>
-            </div> -->
+        </div>
 
-            <tbody class="ledgre-body">
-                <ng-container *ngFor="let key of roleClaims.keys()">
-                  <tr>
-                    <td class="ledgra-col-8" [colSpan]="8">> {{key}}</td>
-                  </tr>
-                  <ng-container *ngFor="let claim of roleClaims.get(key)">
-                    <tr class="ledgre-one">
-                      <td>{{claim.viewValue}} </td>
-                    </tr>
-                  </ng-container>
-                </ng-container>
-              </tbody>
+
+        <div class="print_body_area p-s-2">
+          <div class="print-col-12">
+            <h4 class="print-permession-heading">Role</h4>
           </div>
-          <div class="row mt-10 ms-10">
-            <div class="print-col-4 p-s-5 text-center">
-              ______________________
-              <p class="text-center">Authorized Sign</p>
+
+          <ng-container *ngFor="let key of roleClaims.keys()">
+            <div class="print-col-12 print-permession-body">
+              <div class="one">{{(key === 'AccessManagement') ? 'Access Management' : key}}</div>
+              <div class="roww two">
+                <ng-container *ngFor="let claim of roleClaims.get(key)">
+                  <div class="print-col-6">
+                    <p>
+                      <span></span>
+                      {{claim.viewValue}}
+                    </p>
+                  </div>
+                </ng-container>
+              </div>
             </div>
+          </ng-container>
+
+        </div>
+        <div class="row mt-10 ms-10" style="margin: 10px;">
+          <div class="print-col-6 p-s-5 text-center">
+
+          </div>
+          <div class="print-col-6 p-s-5 text-center" style="margin-inline: auto;">
+            ______________________
+            <p class="text-center">Authorized Sign</p>
           </div>
         </div>
       </div>
     </div>
+  </div>
