@@ -9,7 +9,6 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { IRoleClaim} from '../../model/IRoleClaim';
 import { IRoleModel} from '../../model/IRoleModel';
 import { AccessManagementService } from '../../service/access-management.service';
-import { UserAccessLevelComponent } from '../user-access-level/user-access-level.component';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
@@ -99,9 +98,17 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
   }
 
   initialize() {
-    /**Spliting every permissions in permissions array to get module name
-    //and group permissions module wise
-    */
+   
+    //Excluding Delete permissions from claims
+    this.roleClaims.map((claim: IRoleClaim, i: number) => {
+      if(claim.value.toLowerCase().includes('delete')){
+         this.roleClaims.splice(i , 1)
+      }
+      return claim
+    })
+
+    /**Spliting every permissions in permissions array to get module name and group permissions module wise */
+
     let groupByPerms = this.groupBy(this.roleClaims, value => value.value.split('.')[1])
 
     //Passing Group data in buildFileTree function to get tree view

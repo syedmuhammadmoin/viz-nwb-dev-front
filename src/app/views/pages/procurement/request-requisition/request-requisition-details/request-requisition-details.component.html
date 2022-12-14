@@ -1,6 +1,6 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Requisition Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
+      <kt-portlet-header [sticky]="false" [title]="'Request Requisition Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
           <div class="ribbon-target"><span class="ribbon-inner {{docStatus[requestRequisitionMaster?.state]}}"></span> {{requestRequisitionMaster?.status}}</div>
@@ -22,7 +22,7 @@
   
                   <button [routerLink]="'/' + REQUEST_REQUISITION.ID_BASED_ROUTE('print', requestRequisitionMaster?.id)" id="request_print" type="button"
                     class="btn_public">
-                    <i class="fa fa-print icon-e-p-a"></i> Print Requisition
+                    <i class="fa fa-print icon-e-p-a"></i> Print Request Requisition
                   </button>
               </ng-container>
   

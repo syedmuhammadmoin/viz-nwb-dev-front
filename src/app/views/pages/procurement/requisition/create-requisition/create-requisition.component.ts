@@ -16,7 +16,7 @@ import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
 import { IRequisitionLines } from '../model/IRequisitionLines';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
-import { EmployeeModule } from '../../../payroll/employee/employee.module';
+import { StockService } from '../../../inventory/stock/service/stock.service';
 
 @Component({
   selector: 'kt-create-requisition',
@@ -36,7 +36,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   requisitionForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'action'];
+  displayedColumns = ['itemId', 'description', 'quantity', 'purchasePrice', 'subtotal', 'warehouseId', 'availableQuantity', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -48,6 +48,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   salesItem: IProduct[] = [];
 
   isRequisition: any;
+
+  // switch
+  userStatus = 'Workflow is Applied'
 
   // For Calculation
   grandTotal = 0 ;
@@ -99,6 +102,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
                private requisitionService: RequisitionService,
                public activatedRoute: ActivatedRoute,
                private employeeService: EmployeeService,
+               private stockService: StockService,
                public productService: ProductService,
                public addButtonService: AddModalButtonService,
                public ngxsService: NgxsCustomService,
@@ -113,6 +117,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       employeeId: [null, [Validators.required]],
       designation: [''],
       department: [''],
+      isWithoutWorkflow: [false],
       requisitionDate: ['', [Validators.required]],
       campusId: [{value: null , disabled: true}],
       requisitionLines: this.fb.array([
@@ -124,6 +129,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       id: null,
       employeeId: null,
       requisitionDate: '',
+      isWithoutWorkflow: false,
       campusId : null,
       requisitionLines: []
     }
@@ -162,6 +168,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     // const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
     // requisitionLineArray.clear();
     this.formDirective.resetForm();
+    this.requisitionForm.get('isWithoutWorkflow').setValue(false);
+    this.onToggle({checked: false})
     //this.showMessage = false;
     this.table.renderRows();
   }
@@ -171,34 +179,33 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionModel.isSubmit = (val === 0) ? false : true;
   }
 
-
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    // const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
-    // if (itemId) {
-    //   const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
-    //   const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
-    //   // set values for price & tax
-    //   arrayControl.at(index).get('cost').setValue(cost);
-    //   arrayControl.at(index).get('tax').setValue(salesTax);
-    //   // Calculating subtotal
-    //   const quantity = arrayControl.at(index).get('quantity').value;
-    //   const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-    //   arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // }
+    const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
+    if (itemId) {
+      const price = this.salesItem.find(i => i.id === itemId).purchasePrice
+
+      // set values for purchasePrice & tax
+      arrayControl.at(index).get('purchasePrice').setValue(price);
+
+      // Calculating subtotal
+      // const quantity = arrayControl.at(index).get('quantity').value;
+      // const subTotal = (price * quantity) + ((price * quantity) * (salesTax / 100))
+      // arrayControl.at(index).get('subTotal').setValue(subTotal);
+      this.onChangeEvent(null, index)
+    }
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
   onChangeEvent(value: any, index: number , element?: HTMLElement) {
-    // const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
-    // const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
-    // const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
-    // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
+    const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
+    const price = (arrayControl.at(index).get('purchasePrice').value) !== null ? arrayControl.at(index).get('purchasePrice').value : null;
+    const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
 
-    // // calculating subTotal
-    // const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-    // arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // this.totalCalculation();
+    // calculating subTotal
+    const subTotal = (price * quantity)
+    arrayControl.at(index).get('subTotal').setValue(subTotal);
+    //this.totalCalculation();
   }
 
   // Calculations
@@ -227,10 +234,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   addRequisitionLines(): FormGroup {
     return this.fb.group({
-      itemId: ['', [ Validators.required]],
+      itemId: [null, [ Validators.required]],
       description: ['', Validators.required],
+      purchasePrice: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required, Validators.min(1)]],
-      warehouseId: [null],
+      subTotal: [{ value: '0', disabled: true }],
+      availableQuantity: [{ value: '0', disabled: true }],
+      warehouseId: [null]
     });
   }
 
@@ -273,6 +283,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
     //this.onCampusSelected(requisition.campusId)
     //this.showMessage = true;
+    this.onToggle({checked: requisition.isWithoutWorkflow})
     this.getEmployee(requisition.employeeId)
     this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(requisition.requisitionLines));
     this.totalCalculation();
@@ -286,11 +297,23 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         id: line.id,
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
+        purchasePrice: [line.purchasePrice, [Validators.required, Validators.min(1)]],
         quantity: [line.quantity, [Validators.required, Validators.min(1)]],
-        warehouseId: [null]
+        subTotal: [{ value: line.subtotal, disabled: true }],
+        availableQuantity: [{ value: line.availableQuantity, disabled: true }],
+        warehouseId: [line.warehouseId, [Validators.required]]
       }))
     })
     return formArray
+  }
+
+  //handle isWithoutWorkflow slide
+  onToggle(event) {
+    if (event.checked) {
+      this.userStatus = 'Workflow is Removed'
+    } else {
+      this.userStatus = 'Workflow is Applied'
+    }
   }
 
   // Submit Form Function
@@ -396,6 +419,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       department: employee.departmentName,
       campusId: employee.campusId
     })
+
+    this.onCampusSelected(employee.campusId) 
   }
 
   canDeactivate(): boolean | Observable<boolean> {
@@ -408,15 +433,35 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     }
   }
 
-  // onCampusSelected(campusId : number) {
-  //   this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
-  //     this.warehouseList.next(res.result || [])
-  //   })
+  onCampusSelected(campusId : number) {
 
-  //    this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-  //    if(this.showMessage) {
-  //     this.toastService.info("Please Reselect Store!" , "Requisition")
-  //    }
-  //    this.cdRef.detectChanges()
-  // }
+    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+      this.warehouseList.next(res.result || [])
+    })
+
+    if(this.requisitionForm.value.requisitionLines.some(line => line.warehouseId)){
+
+      this.toastService.info("Please Reselect Store!" , "Requisition")
+    }
+
+     this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => {
+        line.controls.warehouseId.setValue(null);
+        line.controls.availableQuantity.setValue(0);
+        return line
+     })
+     this.cdRef.detectChanges()
+  }
+
+  //get Item Stock by item and warehouse Id
+  getStock(index) {
+    const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
+    const itemId = arrayControl.at(index).get('itemId').value
+    const warehouseId = arrayControl.at(index).get('warehouseId').value
+
+  
+    if(itemId && warehouseId) {
+      this.stockService.getStockByIds({itemId: itemId, warehouseId: warehouseId})
+      .subscribe((res) => arrayControl.at(index).get('availableQuantity').setValue((res.result) ? res.result.availableQuantity : 0))
+    }
+  }
 }

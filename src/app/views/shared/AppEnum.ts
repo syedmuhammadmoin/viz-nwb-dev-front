@@ -326,7 +326,7 @@ export class Permissions {
   static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';
 
   // Stock
-  static STOCK_VIEW = 'Permissions.StockClaims.View';
+  static STOCK_VIEW = 'Permissions.Procurement.StockClaims.View';
 
 }
 

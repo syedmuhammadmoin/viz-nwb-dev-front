@@ -78,19 +78,8 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
   getClaims(){
 
     this.accessManagementService.getClaims().subscribe((res) => {
-      console.log(res.result)
-
-      // res.result.forEach( newElement =>{
-      //   if(newElement.split(".").pop() === 'Delete'){
-      //     return console.log('delete found');
-      //   }
-      //   else{
-      //     return this.filterData.push(newElement);
-      //   }
-      // })
-
       res.result.forEach(element => {
-        if(!element.includes('Delete')) {
+        if(!element.toLowerCase().includes('delete')){
           this.roleClaims.push(
             {
               value: element,
