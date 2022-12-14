@@ -5,6 +5,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 import { AccessManagementService } from '../../service/access-management.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { forEach } from 'lodash';
 
 
 @Component({
@@ -21,6 +22,7 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
   sbbu : boolean;
   vizalys : boolean;
   roleClaims: any = [];
+  filterData: any = [];
   localsto : any ;
   className : any;
 
@@ -76,17 +78,33 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
   getClaims(){
 
     this.accessManagementService.getClaims().subscribe((res) => {
+      console.log(res.result)
+
+      // res.result.forEach( newElement =>{
+      //   if(newElement.split(".").pop() === 'Delete'){
+      //     return console.log('delete found');
+      //   }
+      //   else{
+      //     return this.filterData.push(newElement);
+      //   }
+      // })
+
       res.result.forEach(element => {
-        this.roleClaims.push(
-          {
-            value: element,
-            viewValue: AppConst.PermissionsDisplayName[element]
-          })
+        if(!element.includes('Delete')) {
+          this.roleClaims.push(
+            {
+              value: element,
+              viewValue: AppConst.PermissionsDisplayName[element]
+            })
+        }
       });
 
       this.roleClaims = this.groupBy(this.roleClaims, value => value.value.split('.')[1])
+      // console.log(this.roleClaims);
+      
       this.cdr.markForCheck();
       this.isLoading = false;
+      console.log(this.filterData);
     })
   }
 }
