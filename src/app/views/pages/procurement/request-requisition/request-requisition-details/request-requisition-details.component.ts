@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { REQUEST_REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { REQUEST_REQUISITION, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { finalize, take } from 'rxjs/operators';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
@@ -32,6 +32,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
   defaultColDef: ColDef;
 
   public REQUEST_REQUISITION = REQUEST_REQUISITION;
+  public REQUISITION = REQUISITION;
 
   requestRequisitionId: number;
 

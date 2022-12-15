@@ -81,12 +81,25 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       cellStyle: { 'font-size': '12px' }
     },
     {
-      headerName: 'Issued', 
-      field: 'issuedQuantity',  
+      headerName: 'Price', 
+      field: 'purchasePrice',  
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
-        return params.value || 0
+        return this.valueFormatter(params.value)
       }
+    },
+    {
+      headerName: 'Subtotal', 
+      field: 'subTotal',  
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Store', 
+      field: 'warehouse',  
+      cellStyle: {'font-size': '12px'}
     },
     // { 
     //   headerName: 'Store', 

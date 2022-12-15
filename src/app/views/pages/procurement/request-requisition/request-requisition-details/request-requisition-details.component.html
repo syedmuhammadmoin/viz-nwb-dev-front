@@ -19,6 +19,13 @@
                     type="button" class="mr-3 btn_public">
                     <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
+
+                  <button *ngIf="(requestRequisitionMaster?.state === docStatus.Unpaid) 
+                    && (permission.isGranted(permissions.REQUEST_CREATE))" id="request_grn"
+                    [routerLink]="'/'+ REQUISITION.CREATE"
+                    [queryParams]="{q: requestRequisitionMaster?.id, 'isRequestRequisition': true}" type="button" class="mr-3 btn_public ">
+                    <i class="fa fa-edit icon-e-p-a"></i> Create Requisition
+                  </button>
   
                   <button [routerLink]="'/' + REQUEST_REQUISITION.ID_BASED_ROUTE('print', requestRequisitionMaster?.id)" id="request_print" type="button"
                     class="btn_public">

@@ -17,6 +17,8 @@ import { RequisitionService } from '../service/requisition.service';
 import { IRequisitionLines } from '../model/IRequisitionLines';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
 import { StockService } from '../../../inventory/stock/service/stock.service';
+import { RequestRequisitionService } from '../../request-requisition/service/request-requisition.service';
+import { IRequestRequisition } from '../../request-requisition/model/IRequestRequisition';
 
 @Component({
   selector: 'kt-create-requisition',
@@ -36,7 +38,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   requisitionForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'purchasePrice', 'subtotal', 'warehouseId', 'availableQuantity', 'action'];
+  displayedColumns = ['itemId', 'description', 'quantity', 'purchasePrice', 'subTotal', 'warehouseId', 'availableQuantity', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -48,6 +50,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   salesItem: IProduct[] = [];
 
   isRequisition: any;
+
+  // param to get request Requisition master
+  isRequestRequisition: any;
+  requestRequisitionMaster: any;
 
   // switch
   userStatus = 'Workflow is Applied'
@@ -100,6 +106,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
                private router: Router,
                private cdRef: ChangeDetectorRef,
                private requisitionService: RequisitionService,
+               private requestService: RequestRequisitionService,
                public activatedRoute: ActivatedRoute,
                private employeeService: EmployeeService,
                private stockService: StockService,
@@ -129,6 +136,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       id: null,
       employeeId: null,
       requisitionDate: '',
+      requestId: null,
       isWithoutWorkflow: false,
       campusId : null,
       requisitionLines: []
@@ -148,6 +156,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isRequisition = param.isRequisition;
+      this.isRequestRequisition = param.isRequestRequisition;
+      if (id && this.isRequestRequisition) {
+        this.getRequestRequisition(id);
+      }
       if (id && this.isRequisition) {
         this.title = 'Edit Requisition'
         this.getRequisition(id);
@@ -188,7 +200,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       // set values for purchasePrice & tax
       arrayControl.at(index).get('purchasePrice').setValue(price);
 
-      // Calculating subtotal
+      // Calculating subTotal
       // const quantity = arrayControl.at(index).get('quantity').value;
       // const subTotal = (price * quantity) + ((price * quantity) * (salesTax / 100))
       // arrayControl.at(index).get('subTotal').setValue(subTotal);
@@ -196,7 +208,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     }
   }
 
-  // For Calculating subtotal and Quantity to Ton and vice versa Conversion
+  // For Calculating subTotal and Quantity to Ton and vice versa Conversion
   onChangeEvent(value: any, index: number , element?: HTMLElement) {
     const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
     const price = (arrayControl.at(index).get('purchasePrice').value) !== null ? arrayControl.at(index).get('purchasePrice').value : null;
@@ -253,6 +265,24 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.table.renderRows();
   }
 
+  //Get Request Requisition Master Data
+  private getRequestRequisition(id: number) {
+    this.isLoading = true;
+    this.requestService.getRequestRequisitionById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res) => {
+      if (!res) return
+      this.requestRequisitionMaster = res.result
+      this.editRequisition(this.requestRequisitionMaster);
+    });
+  }
+
   //Get Requisition Data for Edit
   private getRequisition(id: number) {
     this.isLoading = true;
@@ -274,19 +304,19 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   }
 
   //Edit Requisition
-  editRequisition(requisition : IRequisition) {
+  editRequisition(data : IRequisition | IRequestRequisition | any) {
     this.requisitionForm.patchValue({
-      employeeId: requisition.employeeId,
-      requisitionDate: requisition.requisitionDate,
-      //campusId: requisition.campusId
+      employeeId: data.employeeId,
+      requisitionDate: data.requisitionDate ?? data.requestDate
     });
 
     //this.onCampusSelected(requisition.campusId)
     //this.showMessage = true;
-    this.onToggle({checked: requisition.isWithoutWorkflow})
-    this.getEmployee(requisition.employeeId)
-    this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(requisition.requisitionLines));
-    this.totalCalculation();
+    this.onToggle({checked: data.isWithoutWorkflow})
+    this.getEmployee(data.employeeId)
+    console.log(data.requestLines)
+    this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(data.requisitionLines ?? data.requestLines));
+    //this.totalCalculation();
   }
 
   //Edit Requisition Lines
@@ -296,10 +326,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       formArray.push(this.fb.group({
         id: line.id,
         itemId: [line.itemId, [ Validators.required]],
-        description: [line.description, Validators.required],
+        description: [line.description ?? line.itemDescription, Validators.required],
         purchasePrice: [line.purchasePrice, [Validators.required, Validators.min(1)]],
-        quantity: [line.quantity, [Validators.required, Validators.min(1)]],
-        subTotal: [{ value: line.subtotal, disabled: true }],
+        quantity: [line.quantity ?? line.itemQuantity, [Validators.required, Validators.min(1)]],
+        subTotal: [{ value: line.subTotal ?? 0, disabled: true }],
         availableQuantity: [{ value: line.availableQuantity, disabled: true }],
         warehouseId: [line.warehouseId, [Validators.required]]
       }))
@@ -333,6 +363,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       }
   
       this.mapFormValuesTorequisitionModel();
+
+      console.log(this.requisitionModel)
   
       const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId))))
   
@@ -341,9 +373,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         return;
       }
 
-      this.isLoading = true;
+     // this.isLoading = true;
       console.log(this.requisitionModel)
     if (this.requisitionModel.id) {
+      console.log('entered in update')
         this.requisitionService.updateRequisition(this.requisitionModel)
         .pipe(
           take(1),
@@ -359,6 +392,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
           })
       } else {
         delete this.requisitionModel.id;
+        console.log("entered in create")
         this.requisitionService.createRequisition(this.requisitionModel)
         .pipe(
           take(1),
@@ -380,6 +414,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionModel.employeeId = this.requisitionForm.value.employeeId;
     this.requisitionModel.requisitionDate = this.transformDate(this.requisitionForm.value.requisitionDate, 'yyyy-MM-dd');
     this.requisitionModel.campusId = this.requisitionForm.getRawValue().campusId;
+    this.requisitionModel.isWithoutWorkflow = this.requisitionForm.value.isWithoutWorkflow;
+    this.requisitionModel.requestId = this.requestRequisitionMaster?.id || this.requisitionModel?.requestId;
     this.requisitionModel.requisitionLines = this.requisitionForm.value.requisitionLines;
   };
 
