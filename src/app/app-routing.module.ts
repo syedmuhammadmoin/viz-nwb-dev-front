@@ -243,6 +243,16 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
 
+      // Lazy Load BID EVALUATION Module
+      {
+        path: APP_ROUTES.BID_EVALUATION,
+        loadChildren: () =>
+          import('./views/pages/procurement/bid-evaluation/bid-evaluation.module').then(
+            (m) => m.BidEvaluationModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+
       //sales Section
        // Lazy Load CREDIT NOTE Module
        {

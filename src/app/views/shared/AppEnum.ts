@@ -170,13 +170,19 @@ export class Permissions {
   static REQUISITION_REVIEW = 'Permissions.Procurement.RequisitionClaims.Review';
   static REQUISITION_APPROVE = 'Permissions.Procurement.RequisitionClaims.Approve';
 
-  // Requisition
+  // Request Requisition
   static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
   static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';
   static REQUEST_EDIT = 'Permissions.Procurement.RequestClaims.Edit';
   static REQUEST_DELETE = 'Permissions.Procurement.RequestClaims.Delete';
   static REQUEST_REVIEW = 'Permissions.Procurement.RequestClaims.Review';
   static REQUEST_APPROVE = 'Permissions.Procurement.RequestClaims.Approve';
+
+  // Bid Evaluation
+  static BIDEVALUATION_VIEW = 'Permissions.Procurement.BidEvaluationClaims.View';
+  static BIDEVALUATION_CREATE = 'Permissions.Procurement.BidEvaluationClaims.Create';
+  static BIDEVALUATION_EDIT = 'Permissions.Procurement.BidEvaluationClaims.Edit';
+  static BIDEVALUATION_DELETE = 'Permissions.Procurement.BidEvaluationClaims.Delete';
 
   // Payment
   static PAYMENT_VIEW = 'Permissions.Finance.PaymentClaims.View';

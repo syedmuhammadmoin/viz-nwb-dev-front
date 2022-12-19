@@ -307,7 +307,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   editRequisition(data : IRequisition | IRequestRequisition | any) {
     this.requisitionForm.patchValue({
       employeeId: data.employeeId,
-      requisitionDate: data.requisitionDate ?? data.requestDate
+      requisitionDate: data.requisitionDate ?? data.requestDate,
+      isWithoutWorkflow: data.isWithoutWorkflow
     });
 
     //this.onCampusSelected(requisition.campusId)
@@ -339,6 +340,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   //handle isWithoutWorkflow slide
   onToggle(event) {
+    console.log(event)
     if (event.checked) {
       this.userStatus = 'Workflow is Removed'
     } else {
@@ -373,10 +375,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         return;
       }
 
-     // this.isLoading = true;
+      this.isLoading = true;
       console.log(this.requisitionModel)
     if (this.requisitionModel.id) {
-      console.log('entered in update')
         this.requisitionService.updateRequisition(this.requisitionModel)
         .pipe(
           take(1),
@@ -392,7 +393,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
           })
       } else {
         delete this.requisitionModel.id;
-        console.log("entered in create")
         this.requisitionService.createRequisition(this.requisitionModel)
         .pipe(
           take(1),

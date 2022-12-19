@@ -343,6 +343,12 @@ export class AppConst {
     'Permissions.Procurement.RequestClaims.Edit': 'Request Requisition Update',
     'Permissions.Procurement.RequestClaims.Delete': 'Request Requisition Delete',
 
+    // Bid Evaluation
+    'Permissions.Procurement.BidEvaluationClaims.View': 'Bid Evaluation View',
+    'Permissions.Procurement.BidEvaluationClaims.Create': 'Bid Evaluation Create',
+    'Permissions.Procurement.BidEvaluationClaims.Edit': 'Bid Evaluation Update',
+    'Permissions.Procurement.BidEvaluationClaims.Delete': 'Bid Evaluation Delete',
+
     // GRN
     'Permissions.Procurement.GRNClaims.View': 'Goods Receive Note View',
     'Permissions.Procurement.GRNClaims.Create': 'Goods Receive Note Create',
