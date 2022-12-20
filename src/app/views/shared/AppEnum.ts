@@ -170,6 +170,14 @@ export class Permissions {
   static REQUISITION_REVIEW = 'Permissions.Procurement.RequisitionClaims.Review';
   static REQUISITION_APPROVE = 'Permissions.Procurement.RequisitionClaims.Approve';
 
+  //Quotation
+  static QUOTATION_VIEW = 'Permissions.Procurement.Quotation.View'
+  static QUOTATION_CREATE = 'Permissions.Procurement.Quotation.Create';
+  static QUOTATION_EDIT = 'Permissions.Procurement.Quotation.Edit';
+  static QUOTATION_DELETE = 'Permissions.Procurement.Quotation.Delete';
+  static QUOTATION_REVIEW = 'Permissions.Procurement.Quotation.Review';
+  static QUOTATION_APPROVE = 'Permissions.Procurement.Quotation.Approve';
+
   // Request Requisition
   static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
   static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';

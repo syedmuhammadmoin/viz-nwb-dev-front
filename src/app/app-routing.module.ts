@@ -233,6 +233,16 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
 
+      // Lazy Load Quotation Module
+      {
+        path: APP_ROUTES.QUOTATION,
+        loadChildren: () =>
+          import('./views/pages/procurement/quotation/quotation.module').then(
+            (m) => m.QuotationModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+
       // Lazy Load REQUEST REQUISITION Module
       {
         path: APP_ROUTES.REQUEST_REQUISITION,

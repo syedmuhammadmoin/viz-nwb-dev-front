@@ -294,11 +294,11 @@ export const CRUD_ROUTES = {
   }
 
   export const QUOTATION = {
-    // LIST: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.LIST,
-    // CREATE: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.CREATE,
-    // ID_BASED_ROUTE (route: string , id: number) {       
-    //   return APP_ROUTES.QUOTATION + '/' + route + '/' + id
-    // }
+    LIST: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.QUOTATION + '/' + route + '/' + id
+    }
   }
 
 
