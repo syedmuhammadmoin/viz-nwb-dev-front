@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { QuotationComponent } from './quotation.component';
+import { ListQuotationComponent } from './list-quotation.component';
 
-describe('QuotationComponent', () => {
-  let component: QuotationComponent;
-  let fixture: ComponentFixture<QuotationComponent>;
+describe('ListQuotationComponent', () => {
+  let component: ListQuotationComponent;
+  let fixture: ComponentFixture<ListQuotationComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ QuotationComponent ]
+      declarations: [ ListQuotationComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(QuotationComponent);
+    fixture = TestBed.createComponent(ListQuotationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
