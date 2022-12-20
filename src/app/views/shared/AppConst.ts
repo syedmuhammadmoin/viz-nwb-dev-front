@@ -454,7 +454,10 @@ export class AppConst {
     {value: 'Issuance' , id: DocType.Issuance},
     {value: 'Goods Return Note' , id: DocType.GoodsReturnNote},
     {value: 'Issuance Return' , id: DocType.IssuanceReturn},
-    {value: 'Request Requisition' , id: DocType.Request}
+    {value: 'Request Requisition' , id: DocType.Request},
+    {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
+    {value: 'Quotation' , id: DocType.Quotation},
+    {value: 'Call For Quotation' , id: DocType.CallForQuotaion}
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },
