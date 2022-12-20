@@ -1,0 +1,148 @@
+<div class="container " >
+    <div class="col-lg-10  mx-auto text-right">
+      <div class="row">
+        <button
+          id="bid_print"
+          printSectionId="main"
+          printTitle="Bid Evaluation"
+          ngxPrint
+          type="button"
+          [useExistingCss]="true"
+          class="app-default-btn" mat-raised-button
+          style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-10 mx-auto" id="main">
+      <div [class]="className">
+        <div class="bg-whitee">
+          <div class="print_header_area p-s-1">
+            <div class="print-col-7 p-s-1-one">
+              <div class="logo_and_title">
+                <div class="logo_and_title">
+                  <div class="print-logo" ></div>
+                  <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+                </div>
+              </div>
+  
+            </div>
+            <div class="print-col-5 ml-auto p-s-1-two">
+              <div class="id_num">
+                <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+                margin-bottom: 10px;
+                text-align: center;">
+                  <h4>Bid Evaluation</h4>
+                </div>
+                <div class="print-box-one">
+                  <h4>Document No: <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+                </div>
+                <div class="print-box-two">
+                  <h4 class="mt-1">Bid Opening Date: <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.dateOfOpeningBid | date: 'MMM d, y'}}</span></h4>
+                </div>
+                <div class="print-box-two">
+                    <h4 class="mt-1">Bid Closing Date: <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.dateOfClosingBid | date: 'MMM d, y'}}</span></h4>
+                  </div>
+              </div>
+            </div>
+          </div>
+  
+          <div class="print_body_area p-s-2">
+  
+            <div class="print-col-6 p-s-2-one" style="margin-top: 3%;">
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Procurement Agency Name:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.name}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Procurement Title:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.title}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>PPRA Ref. No. (TSE):</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.refNo}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Bid Evaluation Criteria:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.bidEvaluationCriteria}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+            </div>
+  
+            <div class="print-col-6 p-s-2-one ml-auto" style="margin-top: 3%;">
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Procurement Method:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.methodOfProcurement}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Tendor Inquiry Number:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.tendorInquiryNumber}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Bid Received Number:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.numberOfBids}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Lowest Evaluated Bidder:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.lowestEvaluatedBidder}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+            </div>
+  
+            <div class="print-col-12 p-s-2-two">
+                <div class="table-responsive">
+                  <table class="table ">
+                    <thead class="thead-dark_color">
+                      <tr class="b-s-2-b-c">
+                        <th>S.No</th>
+                        <th>Bidder Name</th>
+                        <th>Technical Total</th> 
+                        <th>Technical Obtain</th>
+                        <th>Financial Total</th>
+                        <th>Financial Obtain</th>
+                        <th class="text-right">Evaluated Cost</th>
+                        <th>Rule</th>
+                      </tr>
+                      <tr *ngFor="let line of bidEvaluationLines; index as i">
+                        <td>{{i + 1}}</td>
+                        <td>{{line?.nameOfBider}}</td>
+                        <td> {{line?.technicalTotal}}</td>
+                        <td> {{line?.technicalObtain}}</td>
+                        <td> {{line?.financialTotal}}</td>
+                        <td> {{line?.financialObtain}}</td>
+                        <td class="text-right"><b>{{valueFormatter(line?.evaluatedCost)}}</b></td>
+                        <td> {{line?.rule}}</td>
+                      </tr>
+                    </thead>
+                  </table>
+                </div>
+              </div>
+              <!-- <div class="print-col-12 p-s-2-two">
+                <div class="table-responsive">
+                  <table class="table ">
+                    <thead class="thead-dark_color">
+                      <ng-container *ngFor="let line of bidEvaluationLines; index as i">
+                        <tr><th class="col-3">S.No</th><td>{{i + 1}}</td></tr>
+                        <tr><th>Bidder Name</th><td>{{line?.nameOfBider}}</td></tr>
+                        <tr><th>Technical Total</th><td> {{line?.technicalTotal}}</td></tr>
+                        <tr><th>Technical Obtain</th><td> {{line?.technicalObtain}}</td></tr>
+                        <tr><th>Financial Total</th><td> {{line?.financialTotal}}</td></tr>
+                        <tr><th>Financial Obtain</th><td> {{line?.financialObtain}}</td></tr>
+                        <tr><th >Evaluated Cost</th><td class="text-right"><b>{{valueFormatter(line?.evaluatedCost)}}</b></td></tr>
+                        <tr><th>Rule</th><td> {{line?.rule}}</td></tr>
+                      </ng-container>
+                    </thead>
+                  </table>
+                </div>
+              </div> -->
+            </div>
+  
+          <div class="row mt-10 ms-10">
+            <div class="print-col-4 p-s-5 text-center" style="overflow: hidden;">
+              ______________________
+              <p class="text-center">Authorized Sign</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

@@ -150,7 +150,7 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
       const id = param.q;
       this.isBidEvaluation = param.isBidEvaluation;
     
-      if (id && this.isBidEvaluation) {
+        if (id && this.isBidEvaluation) {
         this.title = 'Edit Bid Evaluation'
         this.getBidEvaluation(id);
       }
@@ -268,17 +268,13 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
         this.toastService.error("Please fill all required fields!", "Bid Evaluation")
           return;
       }
-  
-      this.mapFormValuesToBidEvaluationModel();
 
-      console.log(this.bidEvaluationModel)
   
-     
-
     this.isLoading = true;
+    this.mapFormValuesToBidEvaluationModel();
+    console.log(this.bidEvaluationModel)
       
     if (this.bidEvaluationModel.id) {
-      console.log('entered in update')
         this.bidEvaluationService.updateBidEvaluation(this.bidEvaluationModel)
         .pipe(
           take(1),
@@ -290,12 +286,10 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
           .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Bid Evaluation')
             this.cdRef.detectChanges();
-            //this.router.navigate(['/' + B.ID_BASED_ROUTE('details',this.bidEvaluationModel.id ) ]);
-            this.router.navigate(['/' + BID_EVALUATION.LIST ])
+            this.router.navigate(['/' + BID_EVALUATION.ID_BASED_ROUTE('details',this.bidEvaluationModel.id ) ]);
           })
       } else {
         delete this.bidEvaluationModel.id;
-        console.log("entered in create")
         this.bidEvaluationService.createBidEvaluation(this.bidEvaluationModel)
         .pipe(
           take(1),
@@ -307,8 +301,7 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Bid Evaluation')
-              //this.router.navigate(['/' + BidEvaluation.ID_BASED_ROUTE('details',res.result.id ) ]);
-              this.router.navigate(['/' + BID_EVALUATION.LIST ])
+              this.router.navigate(['/' + BID_EVALUATION.ID_BASED_ROUTE('details', res.result.id ) ]);
             });
       }
   }

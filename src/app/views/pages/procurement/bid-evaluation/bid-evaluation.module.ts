@@ -6,12 +6,14 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { BidEvaluationRoutingModule } from './bid-evaluation-routing.module';
+import { BidEvaluationDetailComponent } from './bid-evaluation-detail/bid-evaluation-detail.component';
+import { PrintBidEvaluationComponent } from './print-bid-evaluation/print-bid-evaluation.component';
 
 
 @NgModule({
   declarations: [
     CreateBidEvaluationComponent, 
-    ListBidEvaluationComponent
+    ListBidEvaluationComponent, BidEvaluationDetailComponent, PrintBidEvaluationComponent
   ],
   imports: [
     SharedModule,

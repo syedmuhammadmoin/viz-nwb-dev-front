@@ -46,7 +46,7 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
 
   columnDefs = [
     { 
-      headerName: 'bidEvaluation #', 
+      headerName: 'Bid Evaluation #', 
       field: 'docNo', 
       tooltipField: 'docNo', 
       cellRenderer: "loadingCellRenderer",
@@ -58,8 +58,41 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
         }
     },
     { 
-      headerName: 'Employee', 
-      field: 'employeeName', 
+      headerName: 'Agency Name', 
+      field: 'name', 
+      tooltipField: 'docNo',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Method', 
+      field: 'name', 
+      tooltipField: 'docNo',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Procurement Title', 
+      field: 'title', 
+      tooltipField: 'docNo',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    { 
+      headerName: 'Tendor Inquiry Number', 
+      field: 'tendorInquiryNumber', 
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -69,27 +102,12 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
         },
     },
     {
-      headerName: 'bidEvaluation Date',
-      field: 'bidEvaluationDate',
-      tooltipField: 'docNo',
-      filter: 'agDateColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['equals'],
-          suppressAndOrCondition: true,
-        },
-      valueFormatter: (params: ValueFormatterParams) => { 
-        return this.transformDate(params.value, 'MMM d, y') || null;
-      }
-    },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          // values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
-          values: ['Draft', 'Rejected', 'Open', 'Closed', 'Submitted', 'Reviewed'],
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
           defaultToNothingSelected: true,
           suppressSorting:true,
           suppressSelectAll: true,
