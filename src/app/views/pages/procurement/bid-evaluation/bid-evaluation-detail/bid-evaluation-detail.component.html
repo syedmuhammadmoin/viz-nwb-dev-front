@@ -1,0 +1,111 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+      <kt-portlet-header [sticky]="false" [title]="'Bid Evaluation Detail'"
+        [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
+        <ng-container ktPortletTools>
+          <div class="ribbon-target "><span class="ribbon-inner {{docStatus[bidEvaluationMaster?.state]}}"></span>
+            {{bidEvaluationMaster?.status}}</div>
+        </ng-container>
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mb-5">
+          <div class="row">
+  
+            <div class="btn_container">
+              <div class="col-md-6 col-6">
+                <ng-container ktPortletTools>
+                  <button
+                    *ngIf="(bidEvaluationMaster?.state === docStatus.Draft) && (permission.isGranted(permissions.BIDEVALUATION_CREATE))"
+                    [routerLink]="'/' + BID_EVALUATION.ID_BASED_ROUTE('edit', bidEvaluationMaster?.id)" [queryParams]="{q: bidEvaluationMaster?.id, 'isBidEvaluation': true}"
+                    id="payment_edit" class="mr-3 btn_public" type="button"><i class="fa fa-edit icon-e-p-a"></i> Edit
+                  </button>
+
+                  <button class="btn_public" [routerLink]="'/' + BID_EVALUATION.ID_BASED_ROUTE('print', bidEvaluationMaster?.id)"
+                    id="payment_print" type="button">
+                    <i class="fa fa-print icon-e-p-a"></i> Print Bid Evaluation
+                  </button>
+                </ng-container>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row">
+            <div class="col-lg-5 col-md-5 col-6  mt-3">
+                <div class="print-box">
+                    <h4 class="print-box-detail-2"><b>Procuring Agency Name:</b>
+                      <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.name}}</span>
+                    </h4>
+                  </div>
+                  <div class="print-box">
+                    <h4 class="print-box-detail-2"><b>Procurement Title: </b>
+                      <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.title}}</span>
+                    </h4>
+                  </div>
+                 
+                  <div class="print-box">
+                    <h4 class="print-box-detail-2"><b>PPRA Ref. No. (TSE):</b>
+                      <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.refNo}}</span>
+                    </h4>
+                  </div>
+                  <div class="print-box">
+                    <h4 class="print-box-detail-2"><b>Bid Opening Date: </b>
+                      <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.dateOfOpeningBid | date: 'MMM d, y'}}
+                      </span>
+                    </h4>
+                  </div>
+                  <div class="print-box">
+                    <h4 class="print-box-detail-2"><b>Bid Evaluation Criteria: </b>
+                      <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.bidEvaluationCriteria}}</span>
+                    </h4>
+                    <p style="margin-bottom: 0px;"></p>
+                  </div>
+            </div>
+            <div class="col-lg-5 ml-auto mt-3">
+                <div class="print-box">
+                  <h4 class="print-box-detail-2"><b>Procurement Method: </b>
+                    <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.methodOfProcurement}}</span>
+                </h4>
+                <div class="print-box">
+                    <h4 class="print-box-detail-2"><b>Tendor Inquiry Number:</b>
+                      <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.tendorInquiryNumber}}</span>
+                    </h4>
+                    <p style="margin-bottom: 0px;"></p>
+                </div>
+              <div class="print-box">
+                <h4 class="print-box-detail-2"><b>Bid Received Number:</b>
+                  <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.numberOfBids}}</span>
+                </h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box">
+                <h4 class="print-box-detail-2"><b>Bid Closing Date: </b>
+                  <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.dateOfClosingBid | date: 'MMM d, y'}}
+                  </span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 class="print-box-detail-2"><b>Lowest Evaluated Bidder:</b>
+                  <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.lowestEvaluatedBidder}}</span>
+                </h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="row mt-10">
+            <div class="col-md-12 col-12">
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
+                class="ag-theme-alpine" [rowData]="bidEvaluationLines" [columnDefs]="columnDefs"
+                (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+              </ag-grid-angular>
+            </div>
+          </div>
+        </div>
+  
+      </kt-portlet-body>
+      <mat-divider></mat-divider>
+    </kt-portlet>
+  </div>
+  

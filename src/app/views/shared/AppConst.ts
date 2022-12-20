@@ -337,6 +337,24 @@ export class AppConst {
     'Permissions.Procurement.RequisitionClaims.Edit': 'Requisition Update',
     'Permissions.Procurement.RequisitionClaims.Delete': 'Requisition Delete',
 
+    // Quatation
+    'Permissions.Procurement.Quotation.View': 'Quotation View',
+    'Permissions.Procurement.Quotation.Create': 'Quotation Create',
+    'Permissions.Procurement.Quotation.Edit': 'Quotation Update',
+    'Permissions.Procurement.Quotation.Delete': 'Quotation Delete',
+
+    // Request Requisition
+    'Permissions.Procurement.RequestClaims.View': 'Request Requisition View',
+    'Permissions.Procurement.RequestClaims.Create': 'Request Requisition Create',
+    'Permissions.Procurement.RequestClaims.Edit': 'Request Requisition Update',
+    'Permissions.Procurement.RequestClaims.Delete': 'Request Requisition Delete',
+
+    // Bid Evaluation
+    'Permissions.Procurement.BidEvaluationClaims.View': 'Bid Evaluation View',
+    'Permissions.Procurement.BidEvaluationClaims.Create': 'Bid Evaluation Create',
+    'Permissions.Procurement.BidEvaluationClaims.Edit': 'Bid Evaluation Update',
+    'Permissions.Procurement.BidEvaluationClaims.Delete': 'Bid Evaluation Delete',
+
     // GRN
     'Permissions.Procurement.GRNClaims.View': 'Goods Receive Note View',
     'Permissions.Procurement.GRNClaims.Create': 'Goods Receive Note Create',
@@ -435,7 +453,11 @@ export class AppConst {
     {value: 'Payroll Payment' , id: DocType.PayrollPayment, route: 'payroll-payment'},
     {value: 'Issuance' , id: DocType.Issuance},
     {value: 'Goods Return Note' , id: DocType.GoodsReturnNote},
-    {value: 'Issuance Return' , id: DocType.IssuanceReturn}
+    {value: 'Issuance Return' , id: DocType.IssuanceReturn},
+    {value: 'Request Requisition' , id: DocType.Request},
+    {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
+    {value: 'Quotation' , id: DocType.Quotation},
+    {value: 'Call For Quotation' , id: DocType.CallForQuotaion}
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

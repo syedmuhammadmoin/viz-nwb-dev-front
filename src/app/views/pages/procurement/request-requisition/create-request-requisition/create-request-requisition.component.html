@@ -1,0 +1,186 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+      <!--begin::Form-->
+  
+      <form [formGroup]="requestRequisitionForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+        <div class="kt-portlet__body">
+          <div class="kt-form__section kt-form__section--first">
+  
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div class="row mt-1 mb-0">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Employee:</label>
+                      <kt-simple-dropdown 
+                      id="requisition_employee"
+                        formControlName="employeeId" 
+                        matFormFieldClass="full-width"
+                        (selectionChange)="getEmployee($event.value)"
+                        (blurEvent)="logValidationErrors(requestRequisitionForm, this.formErrors, this.validationMessages)"
+                        propertyName="name" 
+                        propertyValue="id" 
+                        [errorMessage]="formErrors.employeeId"
+                        [optionList]="ngxsService.employees$"
+                        placeholder="Select Employee">
+                       </kt-simple-dropdown>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Designation:</label>
+                    <kt-input-field 
+                      id="requisition_designation"
+                      formControlName="designation" 
+                      (click)="checkEmployee()"
+                      matFormFieldClass="full-width" 
+                      placeholder="Designation"
+                      readonly="true">
+                    </kt-input-field>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Department:</label>
+                    <kt-input-field 
+                      id="requisition_department"
+                      formControlName="department" 
+                      matFormFieldClass="full-width" 
+                      (click)="checkEmployee()"
+                      placeholder="Department"
+                      readonly="true">
+                    </kt-input-field>
+                  </div>
+                </div>
+  
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Campus:</label>
+                    <kt-simple-dropdown
+                      id="requisition_campus"
+                      formControlName="campusId"
+                      propertyName="name"
+                      propertyValue="id"
+                      (click)="checkEmployee()"
+                      matFormFieldClass="full-width "
+                      [optionList]="ngxsService.campuses$"
+                      placeholder="Campus">
+                    </kt-simple-dropdown>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row">
+                <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Request Date:</label>
+                      <kt-date-input
+                        formControlName="requestDate"
+                        placeholder="Select Request Date"
+                        matFormFieldClass="full-width"
+                        (blurEvent)="logValidationErrors(requestRequisitionForm, formErrors, validationMessages)"
+                        [errorMessage]="formErrors.requestDate"
+                        [maxDate]="maxDate">
+                      </kt-date-input>
+                  </div>
+                </div>
+              </div>
+  
+              <div class="row mt-5">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                  <div class="">
+                    <ng-container formArrayName="requestLines">
+                      <div class="table-responsive">
+                        <mat-table #table [dataSource]="requestRequisitionForm.get('requestLines')['controls']">
+                          <!--Description Column-->
+                          <ng-container matColumnDef="description">
+                            <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field formControlName="itemDescription" [id]="'request_Description' + i"
+                                  matFormFieldClass="mobile-label full-width" placeholder="Enter Description"
+                                  (blurEvent)="logValidationErrors(this.requestRequisitionForm, formErrors, validationMessages)"
+                                  [errorMessage]="[{ condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.itemDescription.errors?.required &&
+                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.itemDescription.touched , 
+                                                          error : 'Description is required.' }]">
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Quantity Column -->
+                          <ng-container matColumnDef="quantity">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2">
+                                <kt-input-field formControlName="itemQuantity" [id]="'request_Quantity' + i"
+                                  matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
+                                  #itemName type="number"
+                                  (blurEvent)="logValidationErrors(this.requestRequisitionForm, formErrors, validationMessages)"
+                                  [errorMessage]="[{ condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.errors?.required &&
+                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.touched , 
+                                                          error : 'Quantity is required.' },
+                                                        { condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.errors?.min &&
+                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.touched , 
+                                                          error : 'Minimum value is one.' }]">
+                                </kt-input-field>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <!-- Action Column -->
+                          <ng-container matColumnDef="action">
+                            <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
+                                    </mat-icon> -->
+  
+                              <button class=" app-remove-btn" type="button" [id]="'requisition_remove' + i"
+                                (click)="removerequestRequisitionLineClick(i)">
+                                <i class="fas fa-trash" aria-hidden="true"></i>
+                              </button>
+                            </mat-cell>
+                          </ng-container>
+                          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                          <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                        </mat-table>
+                      </div>
+                    </ng-container>
+  
+                    <ng-container>
+                      <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                          <button class="  app-add-new-line-btn" type="button" id="request_add_line" (click)="addRequestRequisitionLineClick()">
+                            <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
+                          </button>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--End Requisition Lines-->
+          </div>
+        </div>
+  
+        <mat-divider class="mt-10"></mat-divider>
+        <div class="kt-portlet__foot p-5">
+          <div class="kt-form__actions kt-form__actions mb-0">
+            <div class="row">
+              <div class="col-lg-12 text-right">
+                <button class="mr-2 app-reset-btn" id="request_reset" type="button" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
+                <button class="mr-2 app-save-btn" type="submit" mat-raised-button id="request_save"
+                  (click)="logValidationErrors(this.requestRequisitionForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i> Save</button>
+                <button class="app-default-btn" mat-raised-button type="submit" id="request_submit"
+                  (click)="logValidationErrors(this.requestRequisitionForm, this.formErrors, this.validationMessages); isSubmit(1)">
+                  <i class="far fa-save"></i> Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+      <!--end::Form-->
+    </kt-portlet>
+  </div>

@@ -8,6 +8,7 @@ import { ChangePasswordComponent } from './user-management/change-password/chang
 import { ACCESS_MANAGEMENT } from '../../shared/AppRoutes';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { Permissions } from '../../shared/AppEnum';
+import { PrintRolePermissionsComponent } from './role-management/print-role-permissions/print-role-permissions.component';
 
 
 
@@ -52,6 +53,10 @@ const routes: Routes = [
           {
               path: ACCESS_MANAGEMENT.CREATE_ROLE,
               component: CreateRoleComponent
+          },
+          {
+            path: ACCESS_MANAGEMENT.ROLE_PERMISSIONS,
+            component: PrintRolePermissionsComponent
           }
       ]
   }

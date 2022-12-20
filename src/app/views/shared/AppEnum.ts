@@ -170,6 +170,28 @@ export class Permissions {
   static REQUISITION_REVIEW = 'Permissions.Procurement.RequisitionClaims.Review';
   static REQUISITION_APPROVE = 'Permissions.Procurement.RequisitionClaims.Approve';
 
+  //Quotation
+  static QUOTATION_VIEW = 'Permissions.Procurement.Quotation.View'
+  static QUOTATION_CREATE = 'Permissions.Procurement.Quotation.Create';
+  static QUOTATION_EDIT = 'Permissions.Procurement.Quotation.Edit';
+  static QUOTATION_DELETE = 'Permissions.Procurement.Quotation.Delete';
+  static QUOTATION_REVIEW = 'Permissions.Procurement.Quotation.Review';
+  static QUOTATION_APPROVE = 'Permissions.Procurement.Quotation.Approve';
+
+  // Request Requisition
+  static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
+  static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';
+  static REQUEST_EDIT = 'Permissions.Procurement.RequestClaims.Edit';
+  static REQUEST_DELETE = 'Permissions.Procurement.RequestClaims.Delete';
+  static REQUEST_REVIEW = 'Permissions.Procurement.RequestClaims.Review';
+  static REQUEST_APPROVE = 'Permissions.Procurement.RequestClaims.Approve';
+
+  // Bid Evaluation
+  static BIDEVALUATION_VIEW = 'Permissions.Procurement.BidEvaluationClaims.View';
+  static BIDEVALUATION_CREATE = 'Permissions.Procurement.BidEvaluationClaims.Create';
+  static BIDEVALUATION_EDIT = 'Permissions.Procurement.BidEvaluationClaims.Edit';
+  static BIDEVALUATION_DELETE = 'Permissions.Procurement.BidEvaluationClaims.Delete';
+
   // Payment
   static PAYMENT_VIEW = 'Permissions.Finance.PaymentClaims.View';
   static PAYMENT_CREATE = 'Permissions.Finance.PaymentClaims.Create';
@@ -318,7 +340,7 @@ export class Permissions {
   static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';
 
   // Stock
-  static STOCK_VIEW = 'Permissions.StockClaims.View';
+  static STOCK_VIEW = 'Permissions.Procurement.StockClaims.View';
 
 }
 
@@ -328,27 +350,30 @@ export enum ActionButton {
 }
 
 export enum DocType {
-    Payment,
-    CreditNote,
-    DebitNote,
-    Invoice,
-    Bill,
-    JournalEntry,
-    BankAccount,
-    CashAccount,
-    PurchaseOrder,
-    SalesOrder,
-    GRN,
-    GDN,
-    InventoryAdjustment,
-    Quotation,
-    Requisition,
-    Receipt,
-    PayrollTransaction,
-    PayrollPayment,
-    Issuance,
-    GoodsReturnNote,
-    IssuanceReturn
+  Payment,
+  CreditNote,
+  DebitNote,
+  Invoice,
+  Bill,
+  JournalEntry,
+  BankAccount ,
+  CashAccount,
+  PurchaseOrder,
+  SalesOrder,
+  GRN,
+  GDN,
+  InventoryAdjustment,
+  Quotation,
+  Requisition,
+  Receipt,
+  PayrollTransaction,
+  PayrollPayment,
+  Issuance,
+  GoodsReturnNote,
+  IssuanceReturn,
+  Request,
+  BidEvaluation,
+  CallForQuotaion
 }
 
 // export enum DocStatus {

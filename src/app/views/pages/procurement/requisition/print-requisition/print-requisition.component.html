@@ -33,17 +33,13 @@
               <div class="print-box-two">
                 <h4>Requisition Date: <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.requisitionDate | date: 'MMM d, y'}}</span></h4>
               </div>
-              
             </div>
-            
           </div>
         </div>
 
         
         <div class="print_body_area p-s-2">
-
           <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
-            
             <div class="print-box" >
               <h4>{{requisitionMaster?.employeeName}}</h4>
               <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
@@ -58,54 +54,35 @@
                     <th>S.No</th>
                     <th>Item</th>
                     <th>Description</th>
-                    <th >Quantity</th>
-                    
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>SubTotal</th>
+                    <th>Store</th>
                     
                   </tr>
                   <tr *ngFor="let line of requisitionLines; index as i">
                     <td>{{i + 1}}</td>
-                    <td  >{{line?.item || '---'}}</td>
-                    <td> {{line?.description}}</td>
-                    <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                    <td>{{line?.item}}</td>
+                    <td>{{line?.description}}</td>
+                    <td>{{line?.quantity?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                    <td>{{line?.purchasePrice?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                    <td>{{line?.subTotal?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                    <td>{{line?.warehouse}}</td>
                   </tr>
-                  
-                  
                 </thead>
               </table>
             </div>
           </div>
 
-
-          
-
-
-          <div class="print-col-12 p-s-4">
-            
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-            
-          </div>
-
-          
-
           <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorized Sign</p>
           </div>
-          
         </div>
-
-
       </div>
     </div>
   </div>
 </div>
+
+
+

@@ -12,7 +12,6 @@ export abstract class AppServiceBase {
 
 
   getfilterParams(params: any, date?: any, name?: any) {
-    console.log(params)
     let isActive: boolean | any = '';
     let status = '';
 

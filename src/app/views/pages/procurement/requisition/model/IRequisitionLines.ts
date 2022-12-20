@@ -3,7 +3,7 @@ export interface IRequisitionLines {
     itemId: number;
     description: string;
     quantity: number;
-    cost?: number;
+    purchasePrice?: number;
     tax?: number;
     accountId?: number;
     warehouseId: number;

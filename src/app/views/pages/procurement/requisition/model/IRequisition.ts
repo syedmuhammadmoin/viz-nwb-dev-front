@@ -5,10 +5,11 @@ export interface IRequisition {
       employeeId: number;
       requisitionDate: string;
       campusId : number;
+      requestId : number;
+      isWithoutWorkflow: boolean;
       requisitionLines: IRequisitionLines[];
       isSubmit? : boolean;
 }
-
 
 
 

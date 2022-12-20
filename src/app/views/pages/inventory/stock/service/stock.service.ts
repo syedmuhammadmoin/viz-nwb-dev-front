@@ -1,6 +1,6 @@
 import { Injectable, Injector }  from '@angular/core';
 import { Observable }  from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { IStock } from '../model/IStock';
@@ -18,6 +18,15 @@ export class StockService extends AppServiceBase {
     
       getStock(): Observable<IPaginationResponse<IStock[]>> {
         return this.httpClient.get<IPaginationResponse<IStock[]>>(this.baseUrl)
+      }
+
+      //get stock by item and warehouse Id
+      getStockByIds(model: any): Observable<any> {
+        return this.httpClient.post<any>(this.baseUrl, model, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json'
+          })
+      });
       }
     
       // getGRNById(id: number): Observable<any> {

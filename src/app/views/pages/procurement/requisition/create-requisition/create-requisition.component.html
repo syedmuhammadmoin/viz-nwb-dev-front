@@ -86,6 +86,14 @@
                     </kt-date-input>
                 </div>
               </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mt-10">
+                  <div apperence="outline" class="full-width">
+                    <mat-slide-toggle (change)="onToggle($event)" id="requisition_isWithoutWorkflow" formControlName="isWithoutWorkflow">{{userStatus}}</mat-slide-toggle>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <div class="row mt-5">
@@ -108,7 +116,7 @@
                               (clickEvent)="addButtonService.openProductDialog()"
                               formControlName="itemId"
                               placeholder="Select Item" matFormFieldClass="mobile-label full-width"
-                              (selectionChange)="onItemSelected($event.value, i)">
+                              (selectionChange)="onItemSelected($event.value, i); getStock(i);">
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>
@@ -136,6 +144,8 @@
                               <kt-input-field formControlName="quantity" [id]="'requisition_quantity' + i"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                                 #itemName type="number"
+                                (change)="onChangeEvent($event , i , itemName)"
+                                (keyup)="onChangeEvent($event , i , itemName)"
                                 (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
                                 [errorMessage]="[{ condition : requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.errors?.required &&
                                                                     requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.touched , 
@@ -147,8 +157,65 @@
                             </div>
                           </mat-cell>
                         </ng-container>
+                         <!-- Cost Column -->
+                        <ng-container matColumnDef="purchasePrice">
+                          <mat-header-cell *matHeaderCellDef class="flex-1"> Price</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                            <div class="col-lg-12 col-sm-12 mt-2">
+                              <kt-input-field formControlName="purchasePrice"
+                                matFormFieldClass="mobile-label full-width" placeholder="Enter Price"
+                                #itemName type="number" [id]="'requisition_purchasePrice_' + i"
+                                (blurEvent)="logValidationErrors(this.requisitionForm, formErrors, validationMessages)"
+                                [errorMessage]="[{ condition : requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.errors?.required &&
+                                                                    requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.touched , 
+                                                        error : 'Price is required.'},
+                                                        { condition : requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.errors?.min &&
+                                                        requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.touched , 
+                                          error : 'Please insert correct value.' }]"
+                                (change)="onChangeEvent($event , i , itemName)"
+                                (keyup)="onChangeEvent($event , i , itemName)">
+                              </kt-input-field>
+                              <!-- <mat-form-field appearance="outline" class="full-width">
+                                <input matInput formControlName="purchasePrice" #itemName placeholder="Enter purchasePrice" (change)="onChangeEvent($event , i , itemName)"
+                                (keyup)="onChangeEvent($event , i , itemName)" [id]="'requisition_purchasePrice_' + i" type="number"
+                                 (blur)="logValidationErrors(this.requisitionForm, this.formErrors, this.validationMessages)">
+                                <mat-error *ngIf="requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.errors?.required &&
+                                        requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.touched">
+                                  <strong>purchasePrice is required</strong>
+                                </mat-error>
+  
+                                <mat-error *ngIf="requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.errors?.min &&
+                                        requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.touched">
+                                  <strong>purchasePrice cannot be zero</strong>
+                                </mat-error>
+                              </mat-form-field> -->
+                            </div>
+                          </mat-cell>
+                        </ng-container>
+                         <!-- SubTotal Column -->
+                        <ng-container matColumnDef="subTotal">
+                          <mat-header-cell *matHeaderCellDef class="flex-1"> SubTotal </mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                            <div class="col-lg-12 col-sm-12 mt-2">
+                              <kt-input-field formControlName="subTotal" [id]="'requisition_subTotal_' + i"
+                                matFormFieldClass="mobile-label full-width" placeholder="SubTotal">
+                              </kt-input-field>
+                            </div>
+                          </mat-cell>
+                        </ng-container>
+                        <!-- Available Quantity Column -->
+                        <ng-container matColumnDef="availableQuantity">
+                          <mat-header-cell *matHeaderCellDef class="flex-1"> Available Quantity </mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                            <div class="col-lg-12 col-sm-12 mt-2">
+                              <kt-input-field formControlName="availableQuantity" [id]="'requisition_availableQuantity_' + i"
+                                matFormFieldClass="mobile-label full-width" placeholder="Available Quantity">
+                              </kt-input-field>
+                            </div>
+                          </mat-cell>
+                        </ng-container>
                         <!-- Warehouse Column -->
-                        <!-- <ng-container matColumnDef="warehouseId">
+                        <ng-container matColumnDef="warehouseId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Store</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                             <div class="col-lg-12 col-sm-12 mt-2">
@@ -158,7 +225,7 @@
                                 searchPlaceholder="Search Store..."
                                 propertyValue="id" 
                                 propertyName="name"
-                                (selectionChange)="showMessage = true"
+                                (selectionChange)="getStock(i)"
                                 formControlName="warehouseId" 
                                 [errorMessage]="'Store is required.'"
                                 matFormFieldClass="full-width" 
@@ -166,7 +233,7 @@
                               </kt-simple-dropdown>
                             </div>
                           </mat-cell>
-                        </ng-container> -->
+                        </ng-container>
                         <!-- Action Column -->
                         <ng-container matColumnDef="action">
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>

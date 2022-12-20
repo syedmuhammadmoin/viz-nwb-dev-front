@@ -1,8 +1,9 @@
 // Angular
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 // Layout
 import { HtmlClassService } from '../../html-class.service';
 import { LayoutConfigService, ToggleOptions } from '../../../../core/_base/layout';
+import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 
 @Component({
   selector: 'kt-header-mobile',
@@ -15,13 +16,17 @@ export class HeaderMobileComponent implements OnInit {
   asideSelfDisplay = true;
   headerMenuSelfDisplay = true;
   headerMobileClasses = '';
+  edinfini : boolean;
+  sbbu : boolean;
+  vizalys : boolean;
+  localsto : any ;
 
   public showThis: Boolean = false;
 
   toggleOptions: ToggleOptions = {
-    target: KTUtil.getBody(),
-    targetState: 'topbar-mobile-on',
-    toggleState: 'active'
+  target: KTUtil.getBody(),
+  targetState: 'topbar-mobile-on',
+  toggleState: 'active'
   };
 
   /**
@@ -29,7 +34,12 @@ export class HeaderMobileComponent implements OnInit {
    *
    * @param layoutConfigService: LayoutConfigService
    */
-  constructor(private layoutConfigService: LayoutConfigService, private uiService: HtmlClassService) {
+  constructor(
+    private layoutConfigService: LayoutConfigService,
+    private uiService: HtmlClassService,
+    public dynamicColorChanging : DynamicColorChangeService,
+		private ref: ChangeDetectorRef
+    ) {
   }
 
   /**
@@ -44,6 +54,24 @@ export class HeaderMobileComponent implements OnInit {
     this.headerLogo = this.getLogoUrl();
     this.asideSelfDisplay = this.layoutConfigService.getConfig('aside.self.display');
     this.headerMenuSelfDisplay = this.layoutConfigService.getConfig('header.menu.self.display');
+
+    this.dynamicColorChanging.global_color.subscribe(( res : any) => {
+      
+			if(localStorage.getItem('global_color')) {
+				this.localsto = JSON.parse(localStorage.getItem('global_color'))
+				this.edinfini = this.localsto.edinfini_true;
+				this.sbbu = this.localsto.nawabshah_true;
+				this.vizalys = this.localsto.vizalys_true;    
+			}
+			else{
+				this.localsto = res;
+				this.edinfini = this.localsto.edinfini_true;
+				this.sbbu = this.localsto.nawabshah_true;
+				this.vizalys = this.localsto.vizalys_true;
+			}
+	  
+			this.ref.detectChanges()
+		  })
   }
 
   getLogoUrl() {
