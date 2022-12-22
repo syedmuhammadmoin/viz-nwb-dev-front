@@ -342,6 +342,12 @@ export class AppConst {
     'Permissions.Procurement.Quotation.Create': 'Quotation Create',
     'Permissions.Procurement.Quotation.Edit': 'Quotation Update',
     'Permissions.Procurement.Quotation.Delete': 'Quotation Delete',
+    
+    // Call Quatation
+    'Permissions.Procurement.CallQuotation.View': 'Call Quotation View',
+    'Permissions.Procurement.CallQuotation.Create': 'Call Quotation Create',
+    'Permissions.Procurement.CallQuotation.Edit': 'Call Quotation Update',
+    'Permissions.Procurement.CallQuotation.Delete': 'Call Quotation Delete',
 
     // Request Requisition
     'Permissions.Procurement.RequestClaims.View': 'Request Requisition View',

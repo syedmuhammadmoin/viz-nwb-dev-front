@@ -178,6 +178,14 @@ export class Permissions {
   static QUOTATION_REVIEW = 'Permissions.Procurement.Quotation.Review';
   static QUOTATION_APPROVE = 'Permissions.Procurement.Quotation.Approve';
 
+  //Call Quotation
+  static CALL_QUOTATION_VIEW = 'Permissions.Procurement.CallQuotation.View'
+  static CALL_QUOTATION_CREATE = 'Permissions.Procurement.CallQuotation.Create';
+  static CALL_QUOTATION_EDIT = 'Permissions.Procurement.CallQuotation.Edit';
+  static CALL_QUOTATION_DELETE = 'Permissions.Procurement.CallQuotation.Delete';
+  static CALL_QUOTATION_REVIEW = 'Permissions.Procurement.CallQuotation.Review';
+  static CALL_QUOTATION_APPROVE = 'Permissions.Procurement.CallQuotation.Approve';
+
   // Request Requisition
   static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
   static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';

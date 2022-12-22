@@ -242,6 +242,15 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load Call Quotation Module
+      {
+        path: APP_ROUTES.CALL_QUOTATION,
+        loadChildren: () =>
+          import('./views/pages/procurement/call-quotation/call-quotation.module').then(
+            (m) => m.CallQuotationModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
 
       // Lazy Load REQUEST REQUISITION Module
       {
