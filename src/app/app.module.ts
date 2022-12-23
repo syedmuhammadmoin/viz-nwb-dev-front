@@ -110,6 +110,7 @@ import { AppInitializer } from 'AppInitializer';
 import { EmployeePaymentState } from './views/pages/payroll/employee/store/employeePayment.state';
 import { AllBusinessPartnerState } from './views/pages/profiling/business-partner/store/All-business-partner.state';
 import { PayrollItemState } from './views/pages/payroll/payroll-item/store/payroll-item.state';
+import { RequisitionState } from './views/pages/procurement/requisition/store/requisition.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -189,7 +190,8 @@ export function getHighlightLanguages() {
       DepreciationModelState,
       BudgetState,
       StatusState,
-      PayrollItemState
+      PayrollItemState,
+      RequisitionState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

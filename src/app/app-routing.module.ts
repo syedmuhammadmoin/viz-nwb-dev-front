@@ -243,6 +243,16 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
 
+      // Lazy Load Quotation Comparative Module
+      {
+        path: APP_ROUTES.QUOTATION_COMPARATIVE,
+        loadChildren: () =>
+          import('./views/pages/procurement/quotation-comparative/quotation-comparative.module').then(
+            (m) => m.QuotationComparativeModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+
       // Lazy Load REQUEST REQUISITION Module
       {
         path: APP_ROUTES.REQUEST_REQUISITION,

@@ -19,6 +19,8 @@ import { EmployeeService } from '../../../payroll/employee/service/employee.serv
 import { StockService } from '../../../inventory/stock/service/stock.service';
 import { RequestRequisitionService } from '../../request-requisition/service/request-requisition.service';
 import { IRequestRequisition } from '../../request-requisition/model/IRequestRequisition';
+import { RequisitionState } from '../store/requisition.state';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 
 @Component({
   selector: 'kt-create-requisition',
@@ -388,6 +390,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
          )
           .subscribe((res) => {
             this.toastService.success('Updated Successfully', 'Requisition')
+            this.ngxsService.store.dispatch(new IsReloadRequired(RequisitionState, true));
             this.cdRef.detectChanges();
             this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details',this.requisitionModel.id ) ]);
           })
@@ -404,6 +407,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
           .subscribe(
             (res) => {
               this.toastService.success('Created Successfully', 'Requisition')
+              this.ngxsService.store.dispatch(new IsReloadRequired(RequisitionState, true));
               this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details',res.result.id ) ]);
             });
       }

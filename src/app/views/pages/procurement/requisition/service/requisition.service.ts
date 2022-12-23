@@ -22,6 +22,10 @@ export class RequisitionService extends AppServiceBase {
     return this.httpClient.get<IPaginationResponse<IRequisition[]>>(this.baseUrl);
   }
 
+  getRequisitionDropdown(): Observable<IApiResponse<IRequisition[]>> {
+    return this.httpClient.get<IApiResponse<IRequisition[]>>(this.baseUrl + '/dropdown')
+  }
+
   getRequisitionById(id: number): Observable<IApiResponse<IRequisition>> {
     return this.httpClient.get<IApiResponse<IRequisition>>(this.baseUrl + '/' + id);
   }

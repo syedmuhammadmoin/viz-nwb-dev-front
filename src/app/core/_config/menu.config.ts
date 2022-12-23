@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET_CATEGORY, ASSET, REQUEST_REQUISITION, BID_EVALUATION, QUOTATION } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET_CATEGORY, ASSET, REQUEST_REQUISITION, BID_EVALUATION, QUOTATION, QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -580,42 +580,54 @@ export class MenuConfig {
             Permissions.QUOTATION_DELETE
           ],
           submenu: [
-            // {
-            //   title: 'Quotation',
-            //   page: '/' + QUOTATION.LIST,
-            //   permission: [
-            //     Permissions.QUOTATION_VIEW,
-            //     Permissions.QUOTATION_CREATE,
-            //     Permissions.QUOTATION_EDIT,
-            //     Permissions.QUOTATION_DELETE,
-            //     Permissions.QUOTATION_REVIEW,
-            //     Permissions.QUOTATION_APPROVE,
-            //   ]
-            // },
-            // {
-            //   title: 'Request Requisition',
-            //   page: '/' + REQUEST_REQUISITION.LIST,
-            //   permission: [
-            //     Permissions.REQUEST_VIEW,
-            //     Permissions.REQUEST_CREATE,
-            //     Permissions.REQUEST_EDIT,
-            //     Permissions.REQUEST_DELETE,
-            //     Permissions.REQUEST_REVIEW,
-            //     Permissions.REQUEST_APPROVE,
-            //   ]
-            // },
-            // {
-            //   title: 'Requisition',
-            //   page: '/' + REQUISITION.LIST,
-            //   permission: [
-            //     Permissions.REQUISITION_VIEW,
-            //     Permissions.REQUISITION_CREATE,
-            //     Permissions.REQUISITION_EDIT,
-            //     Permissions.REQUISITION_DELETE,
-            //     Permissions.REQUISITION_REVIEW,
-            //     Permissions.REQUISITION_APPROVE
-            //   ]
-            // },
+            {
+              title: 'Quotation',
+              page: '/' + QUOTATION.LIST,
+              permission: [
+                Permissions.QUOTATION_VIEW,
+                Permissions.QUOTATION_CREATE,
+                Permissions.QUOTATION_EDIT,
+                Permissions.QUOTATION_DELETE,
+                Permissions.QUOTATION_REVIEW,
+                Permissions.QUOTATION_APPROVE,
+              ]
+            },
+            {
+              title: 'Quotation Comparative',
+              page: '/' + QUOTATION_COMPARATIVE.LIST,
+              // permission: [
+              //   Permissions.QUOTATION_VIEW,
+              //   Permissions.QUOTATION_CREATE,
+              //   Permissions.QUOTATION_EDIT,
+              //   Permissions.QUOTATION_DELETE,
+              //   Permissions.QUOTATION_REVIEW,
+              //   Permissions.QUOTATION_APPROVE,
+              // ]
+            },
+            {
+              title: 'Request Requisition',
+              page: '/' + REQUEST_REQUISITION.LIST,
+              permission: [
+                Permissions.REQUEST_VIEW,
+                Permissions.REQUEST_CREATE,
+                Permissions.REQUEST_EDIT,
+                Permissions.REQUEST_DELETE,
+                Permissions.REQUEST_REVIEW,
+                Permissions.REQUEST_APPROVE,
+              ]
+            },
+            {
+              title: 'Requisition',
+              page: '/' + REQUISITION.LIST,
+              permission: [
+                Permissions.REQUISITION_VIEW,
+                Permissions.REQUISITION_CREATE,
+                Permissions.REQUISITION_EDIT,
+                Permissions.REQUISITION_DELETE,
+                Permissions.REQUISITION_REVIEW,
+                Permissions.REQUISITION_APPROVE
+              ]
+            },
             {
               title: 'Issuance',
               page: '/' + ISSUANCE.LIST,
@@ -668,16 +680,16 @@ export class MenuConfig {
                 Permissions.GOODS_RETURN_NOTE_DELETE
               ]
             },
-            // {
-            //   title: 'Bid Evaluation',
-            //   page: '/' + BID_EVALUATION.LIST,
-            //   permission: [
-            //     Permissions.BIDEVALUATION_VIEW,
-            //     Permissions.BIDEVALUATION_CREATE,
-            //     Permissions.BIDEVALUATION_EDIT,
-            //     Permissions.BIDEVALUATION_DELETE
-            //   ]
-            // },
+            {
+              title: 'Bid Evaluation',
+              page: '/' + BID_EVALUATION.LIST,
+              permission: [
+                Permissions.BIDEVALUATION_VIEW,
+                Permissions.BIDEVALUATION_CREATE,
+                Permissions.BIDEVALUATION_EDIT,
+                Permissions.BIDEVALUATION_DELETE
+              ]
+            },
             {
               title: 'Inventory',
               page: '/' + STOCK.LIST,
