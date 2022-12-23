@@ -344,10 +344,10 @@ export class AppConst {
     'Permissions.Procurement.Quotation.Delete': 'Quotation Delete',
     
     // Call Quatation
-    'Permissions.Procurement.CallQuotation.View': 'Call Quotation View',
-    'Permissions.Procurement.CallQuotation.Create': 'Call Quotation Create',
-    'Permissions.Procurement.CallQuotation.Edit': 'Call Quotation Update',
-    'Permissions.Procurement.CallQuotation.Delete': 'Call Quotation Delete',
+    'Permissions.Procurement.CallForQuotationClaims.View': 'Call Quotation View',
+    'Permissions.Procurement.CallForQuotationClaims.Create': 'Call Quotation Create',
+    'Permissions.Procurement.CallForQuotationClaims.Edit': 'Call Quotation Update',
+    'Permissions.Procurement.CallForQuotationClaims.Delete': 'Call Quotation Delete',
 
     // Request Requisition
     'Permissions.Procurement.RequestClaims.View': 'Request Requisition View',

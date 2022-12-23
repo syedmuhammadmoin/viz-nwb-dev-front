@@ -1,14 +1,14 @@
 <div class="row mb-4">
     <div class="col-md-12 text-right">
       
-      <button (click)="addQuotation()" *ngIf="(permission.isGranted(permissions.CALL_QUOTATION_CREATE))" id="add_quotation" class="app-default-btn" mat-raised-button matTooltip="Add Quotation">Add Quotation</button>
+      <button (click)="addCallQuotation()" *ngIf="(permission.isGranted(permissions.CALL_QUOTATION_CREATE))" id="add_quotation" class="app-default-btn" mat-raised-button matTooltip="Add Quotation">Add call Quotation</button>
     </div>
   </div>
   
   <div class="row">
     <div class="col-md-12 ">
       <kt-portlet >
-        <kt-portlet-header [sticky]="false" [title]="'Quotation'" [class]="'card-head-lg'">
+        <kt-portlet-header [sticky]="false" [title]="'Call Quotation'" [class]="'card-head-lg'">
         </kt-portlet-header>
         <kt-portlet-body>
             <div class="col-lg-12 col-md-12 my-5">

@@ -1,4 +1,4 @@
-import { ICallQuotationLines } from "./ICallQuotationLines";
+import { ICallForQuotationLines } from "./ICallQuotationLines";
 
 export interface ICallQuotation {
     id: number;
@@ -6,7 +6,7 @@ export interface ICallQuotation {
     callForQuotationDate: string;
     description: string;
     isSubmit ?: any;
-    callQuotationLines: ICallQuotationLines[];
+    callForQuotationLines: ICallForQuotationLines[];
 }
 
 

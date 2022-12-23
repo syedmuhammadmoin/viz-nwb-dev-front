@@ -47,7 +47,7 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
 
   columnDefs = [
     {
-      headerName: 'Quotation #',
+      headerName: 'Vendor #',
       field: 'docNo',
       tooltipField: 'docNo',
       cellRenderer: "loadingCellRenderer",
@@ -59,19 +59,8 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
         },
     },
     {
-      headerName: 'Customer',
-      field: 'customerName',
-      tooltipField: 'docNo',
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
-    },
-    {
-      headerName: 'Quotation Date',
-      field: 'quotationDate',
+      headerName: 'Call Quotation Date',
+      field: 'callForQuotationDate',
       tooltipField: 'docNo',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -84,43 +73,54 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
       }
     },
     {
-      headerName: 'Due Date',
-      field: 'dueDate',
+      headerName: 'Description',
+      field: '',
       tooltipField: 'docNo',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['equals'],
           suppressAndOrCondition: true,
-        },
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.transformDate(params.value, 'MMM d, y') || null;
-      }
+        }
     },
-    {
-      headerName: 'Total',
-      field: 'totalAmount',
-      headerClass: 'custom_left',
-      cellStyle: { 'text-align': "right" },
-      tooltipField: 'docNo',
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value) || null;
-      }
-    },
-    {
-      headerName: 'Status',
-      field: 'status',
-      filter: 'agSetColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
-          defaultToNothingSelected: true,
-          suppressSorting:true,
-          suppressSelectAll: true,
-          suppressAndOrCondition: true,
-        },
-    },
+    // {
+    //   headerName: 'Due Date',
+    //   field: 'dueDate',
+    //   tooltipField: 'docNo',
+    //   filter: 'agDateColumnFilter',
+    //   menuTabs: ['filterMenuTab'],
+    //     filterParams: {
+    //       filterOptions: ['equals'],
+    //       suppressAndOrCondition: true,
+    //     },
+    //   valueFormatter: (params: ValueFormatterParams) => {
+    //     return this.transformDate(params.value, 'MMM d, y') || null;
+    //   }
+    // },
+    // {
+    //   headerName: 'Total',
+    //   field: 'totalAmount',
+    //   headerClass: 'custom_left',
+    //   cellStyle: { 'text-align': "right" },
+    //   tooltipField: 'docNo',
+    //   suppressMenu: true,
+    //   valueFormatter: (params: ValueFormatterParams) => {
+    //     return this.valueFormatter(params.value) || null;
+    //   }
+    // },
+    // {
+    //   headerName: 'Status',
+    //   field: 'status',
+    //   filter: 'agSetColumnFilter',
+    //   menuTabs: ['filterMenuTab'],
+    //     filterParams: {
+    //       values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+    //       defaultToNothingSelected: true,
+    //       suppressSorting:true,
+    //       suppressSelectAll: true,
+    //       suppressAndOrCondition: true,
+    //     },
+    // },
   ];
 
   ngOnInit() {
@@ -160,7 +160,7 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
     params.api.sizeColumnsToFit();
   }
 
-  addQuotation() {
+  addCallQuotation() {
     this.router.navigate(['/' + CALL_QUOTATION.CREATE]);
   }
 
@@ -170,24 +170,24 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
 
 
   onGridReady(params: GridReadyEvent) {
-    // this.gridApi = params.api;
-    // this.gridColumnApi = params.columnApi;
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
 
-    // var dataSource = {
-    //   getRows: (params: any) => {
-    //     this.quotationService.getRecords(params).subscribe((data) => {
-    //       if(isEmpty(data.result)) {
-    //         this.gridApi.showNoRowsOverlay()
-    //       } else {
-    //         this.gridApi.hideOverlay();
-    //       }
-    //       params.successCallback(data.result || 0, data.totalRecords);
-    //       this.paginationHelper.goToPage(this.gridApi, 'quotationPageName')
-    //       this.cdRef.detectChanges();
-    //     });
-    //   },
-    // };
-    // params.api.setDatasource(dataSource);
+    var dataSource = {
+      getRows: (params: any) => {
+        this.callQuotationService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'callQuotationPageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
 
 }

@@ -18,8 +18,8 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 export class PrintCallQuotaionComponent extends AppComponentBase implements OnInit {
 
   gridOptions: GridOptions;
-  quotationMaster: any;
-  quotationLines: any;
+  callQuotationMaster: any;
+  callQuotationLines: any;
   edinfini : boolean;
   sbbu : boolean;
   vizalys : boolean;
@@ -83,11 +83,11 @@ export class PrintCallQuotaionComponent extends AppComponentBase implements OnIn
   }
 
   getQuotationData(id: number){
-    // this.quotationService.getQuotationById(id).subscribe((res: IApiResponse<IQuotation>) => {
-    //     this.quotationMaster = res.result;
-    //     this.quotationLines = res.result.quotationLines;
-    //     this.cdr.markForCheck();
-    //   })
+    this.callQuotationService.getCallQuotationById(id).subscribe((res: IApiResponse<ICallQuotation>) => {
+        this.callQuotationMaster = res.result;
+        this.callQuotationLines = res.result.callForQuotationLines;
+        this.cdr.markForCheck();
+      })
   }
 }
 

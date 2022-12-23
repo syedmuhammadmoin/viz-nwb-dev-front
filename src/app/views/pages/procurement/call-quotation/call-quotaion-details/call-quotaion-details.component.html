@@ -17,26 +17,12 @@
       <kt-portlet-body>
         <div class="col-md-12 col-lg-12 mx-auto  mb-5">
           <div class="row ">
-  
             <div class="btn_container">
               <div class="col-md-6 col-6">
                 <ng-container ktPortletTools >
-                    <button *ngIf="(callQuotationMaster?.state === docStatus.Partial || callQuotationMaster?.state === docStatus.Unpaid)
-                        && (callQuotationMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
-                      type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                      <i class="fa fa-edit icon-e-p-a"></i> Register Payment
-                    </button>
-  
-                    <button *ngIf="(callQuotationMaster?.state === docStatus.Partial || callQuotationMaster?.state === docStatus.Unpaid)
-                        && (callQuotationMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
-                      [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: callQuotationMaster?.id, isQuotation: true}"
-                      type="button" class="mr-3 btn_public">
-                      <i class="fa fa-edit icon-e-p-a"></i> Credit Note
-                    </button>
-  
                     <button *ngIf="(callQuotationMaster?.state === docStatus.Draft || callQuotationMaster?.state === docStatus.Rejected)
                         && (permission.isGranted(permissions.CALL_QUOTATION_EDIT))"
-                      [routerLink]="'/' + QUOTATION.ID_BASED_ROUTE('edit', callQuotationMaster?.id)" [queryParams]="{q: callQuotationMaster?.id, 'isQuotation': true}"
+                      [routerLink]="'/' + CALL_QUOTATION.ID_BASED_ROUTE('edit', callQuotationMaster?.id)" [queryParams]="{q: callQuotationMaster?.id, 'isCallQuotation': true}"
                       type="button"  class="mr-3 btn_public" id="quotation_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                       Edit
                     </button>
@@ -69,7 +55,7 @@
               </div>
               <div class="print-box">
                 <h4 class="print-box-detail-2"><b>Vender Name: </b>
-                <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.vendorId}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.vendorName}}</span></h4>
               </div>
               <!-- <div class="print-box">
                 <h4 class="print-box-detail-2"><b>Campus: </b>
@@ -92,7 +78,7 @@
           <div class="row mt-10">
             <div class="col-md-12 col-12">
               <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
-                class="ag-theme-alpine" [rowData]="callQuotationLines" [columnDefs]="columnDefs"
+                class="ag-theme-alpine" [rowData]="callForQuotationLines" [columnDefs]="columnDefs"
                 (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
               </ag-grid-angular>
             </div>

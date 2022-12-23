@@ -10,7 +10,7 @@ import { CallQuotationService } from '../service/call-quotation.service';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ITransactionRecon } from '../../../purchase/vendorBill/model/ITransactionRecon';
 import { CREDIT_NOTE, CALL_QUOTATION, JOURNAL_ENTRY, RECEIPT } from 'src/app/views/shared/AppRoutes';
-import { ICallQuotationLines } from '../model/ICallQuotationLines';
+import { ICallForQuotationLines } from '../model/ICallQuotationLines';
 import { ICallQuotation } from '../model/ICallQuotation';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
@@ -53,8 +53,8 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
   loader: boolean = true;
 
   //Variables for Quotation data
-  callQuotationLines: ICallQuotationLines | any
   callQuotationMaster: ICallQuotation | any;
+  callForQuotationLines: ICallForQuotationLines | any;
   bpUnReconPaymentList: any = [];
   pendingAmount: any;
   status: string;
@@ -88,7 +88,7 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
   columnDefs = [
     { 
       headerName: 'Item', 
-      field: 'itemName', 
+      field: 'item', 
       sortable: true, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
@@ -160,34 +160,23 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
 
   //Getting quotation master data
   getQuotationData(id: number) {
-    // this.quotationService.getQuotationById(id)
-    // .pipe(
-    //   take(1),
-    //    finalize(() => {
-    //     this.isLoading = false;
-    //     this.cdRef.detectChanges();
-    //    })
-    //  )
-    // .subscribe((res: IApiResponse<IQuotation>) => {
-    //   this.quotationMaster = res.result;
-    //   this.quotationLines = res.result.quotationLines;
-    //   this.totalBeforeTax = this.quotationMaster.totalBeforeTax;
-    //   this.totalTax = this.quotationMaster.totalTax;
-    //   this.totalQuotationAmount = this.quotationMaster.totalAmount;
-    //   this.status = this.quotationMaster.status;
-    //   this.businessPartnerId = this.quotationMaster.customerId;
-    //   this.ledgerId = this.quotationMaster.ledgerId;
-    //   this.paidAmount = this.quotationMaster.totalPaid;
-    //   this.pendingAmount = this.quotationMaster.pendingAmount;
-    //   this.paidAmountList = this.quotationMaster.paidAmountList == null ? [] : this.quotationMaster.paidAmountList;
-    //   this.bpUnReconPaymentList = this.quotationMaster.bpUnreconPaymentList == null ? [] : this.quotationMaster.bpUnreconPaymentList;
-    //   this.remarksList = this.quotationMaster.remarksList ?? [] 
+    this.callquotationService.getCallQuotationById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<ICallQuotation>) => {
+      this.callQuotationMaster = res.result;
+      this.callForQuotationLines = res.result.callForQuotationLines;
 
-    //   // //handling disablity of register payment button
-    //   // this.isDisabled = (this.quotationMaster.status === "Paid" ? true : false)
-    //   this.cdRef.markForCheck();
-    //   this.cdRef.detectChanges();
-    // });
+      // //handling disablity of register payment button
+      // this.isDisabled = (this.quotationMaster.status === "Paid" ? true : false)
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    });
   }
 
   //on dialogue open funtions

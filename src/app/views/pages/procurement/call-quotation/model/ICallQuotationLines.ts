@@ -1,4 +1,4 @@
-export interface ICallQuotationLines {
+export interface ICallForQuotationLines {
     id: number;
     itemId: number;
     quantity: number;

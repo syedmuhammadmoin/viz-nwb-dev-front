@@ -23,16 +23,16 @@
                 <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
                 margin-bottom: 10px;
                 text-align: center;">
-                  <h4>Quotation</h4>
+                  <h4>Call Quotation</h4>
                 </div>
                 <div class="print-box-one">
-                  <h4>Document No: <span class="float-right" style="font-weight: 400;">{{quotationMaster?.docNo}}</span>
+                  <h4>Document No: <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.docNo}}</span>
                   </h4>
                   <p></p>
                 </div>
                 <div class="print-box-two">
                   <h4 class="mt-1">Quotation Date: <span class="float-right"
-                      style="font-weight: 400;">{{quotationMaster?.quotationDate | date: 'MMM d, y'}}</span></h4>
+                      style="font-weight: 400;">{{callQuotationMaster?.callForQuotationDate | date: 'MMM d, y'}}</span></h4>
                 </div>
                 <!-- <div class="print-box-two">
                   <h4 class="mt-1">Due Date: <span class="float-right" style="font-weight: 400;">{{quotationMaster?.dueDate|
@@ -49,12 +49,12 @@
             <div class="print-col-6 p-s-2-one">
               <div class="print-box-one">
                 <h4 class="font-14"><b>Vendor Name: </b><span class="float-right"
-                    style="font-weight: 400;">{{quotationMaster?.customerName}}</span></h4>
+                    style="font-weight: 400;">{{callQuotationMaster?.vendorName}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
-                <h4 class="font-14"><b>Time Frame:</b> <span class="float-right"
-                    style="font-weight: 400;">{{quotationMaster?.incomeTaxId || 'N/A'}}</span></h4>
+                <h4 class="font-14"><b>Description:</b> <span class="float-right"
+                    style="font-weight: 400;">{{callQuotationMaster?.description || 'N/A'}}</span></h4>
               </div>
               <!-- <div class="print-box-two">
                 <h4 class="font-14"><b>STRN: </b><span class="float-right"
@@ -80,18 +80,18 @@
                 <table class="table ">
                   <thead class="thead-dark_color">
                     <tr class="b-s-2-b-c">
-                      <th>S.No</th>
-                      <th>Item</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Price</th>
+                      <th class="b-s-2-b-cc">S.No</th>
+                      <th class="b-s-2-b-cc">Item</th>
+                      <th class="b-s-2-b-cc">Description</th>
+                      <th class="b-s-2-b-cc">Quantity</th>
+                      <th class="b-s-2-b-cc">Price</th>
                       <!-- <th>Tax %</th> -->
                       <!-- <th >Store</th> -->
                       <!-- <th class="text-right">SubTotal</th> -->
   
   
                     </tr>
-                    <tr *ngFor="let line of quotationLines; index as i">
+                    <tr *ngFor="let line of callQuotationLines; index as i">
                       <td>{{i + 1}}</td>
                       <td>{{line?.itemName || '---'}}</td>
                       <td> {{line?.description}}</td>

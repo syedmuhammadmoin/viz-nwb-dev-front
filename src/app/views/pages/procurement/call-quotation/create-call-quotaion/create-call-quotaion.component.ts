@@ -13,7 +13,7 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { CALL_QUOTATION, QUOTATION } from 'src/app/views/shared/AppRoutes';
-import { ICallQuotationLines } from '../model/ICallQuotationLines';
+import { ICallForQuotationLines } from '../model/ICallQuotationLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 
@@ -24,7 +24,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CreateCallQuotaionComponent extends AppComponentBase implements OnInit, OnDestroy, FormsCanDeactivate {
+export class CreateCallQuotaionComponent extends AppComponentBase implements OnInit, OnDestroy {
   public permissions = Permissions;
 
   // For Loading
@@ -78,7 +78,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     vendorId: {
       required: 'Vendor is required.',
     },
-    callQuotationDate: {
+    callForQuotationDate: {
       required: 'Call Quotation Date is required.',
     },
     description: {
@@ -92,7 +92,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
   // error keys..
   formErrors = {
     vendorId: '',
-    callQuotationDate: '',
+    callForQuotationDate: '',
     description: '',
   };
 
@@ -115,11 +115,9 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     // Creating Forms
     this.callQuotationForm = this.fb.group({
       vendorId: ['', [Validators.required]],
-      callQuotationDate: ['', [Validators.required]],
+      callForQuotationDate: ['', [Validators.required]],
       description: ['', [Validators.required]],
-    
-      //contact: [''],
-      callQuotationLines: this.fb.array([
+      callForQuotationLines: this.fb.array([
         this.addCallQuotationLines()
       ])
     });
@@ -129,7 +127,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     vendorId: null,
     callForQuotationDate: null,
     description: null,
-    callQuotationLines: []
+    callForQuotationLines: []
     }
     // get customer from state
     this.ngxsService.getBusinessPartnerFromState();
@@ -189,7 +187,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
 
     /*
     console.log("yes")
-    let arrayControl = this.callQuotationForm.get('callQuotationLines') as FormArray;
+    let arrayControl = this.callQuotationForm.get('callForQuotationLines') as FormArray;
     if (itemId) {
       let price = this.salesItem.find(i => i.id === itemId).salesPrice
       let tax = this.salesItem.find(i => i.id === itemId).salesTax
@@ -211,7 +209,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
   // onChangeEvent for calculating subtotal
   onChangeEvent(value: unknown, index: number, element?: HTMLElement) {
 
-    // const arrayControl = this.callQuotationForm.get('callQuotationLines') as FormArray;
+    // const arrayControl = this.callQuotationForm.get('callForQuotationLines') as FormArray;
     // const price = (arrayControl.at(index).get('price').value) !== null ? arrayControl.at(index).get('price').value : null;
     // const tax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
     // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
@@ -229,7 +227,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     // this.totalTax = 0;
     // this.totalBeforeTax = 0;
     // this.grandTotal = 0;
-    // let arrayControl = this.callQuotationForm.get('callQuotationLines') as FormArray;
+    // let arrayControl = this.callQuotationForm.get('callForQuotationLines') as FormArray;
     // arrayControl.controls.forEach((element, index) => {
     //   let price = arrayControl.at(index).get('price').value;
     //   let tax = arrayControl.at(index).get('tax').value;
@@ -242,7 +240,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
 
   //Add Quotation Lines
   addCallQuotationLineClick(): void {
-    const controls = this.callQuotationForm.controls.callQuotationLines as FormArray;
+    const controls = this.callQuotationForm.controls.callForQuotationLines as FormArray;
     controls.push(this.addCallQuotationLines());
     this.table.renderRows();
   }
@@ -250,16 +248,15 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
   // Add Quotation Lines
   addCallQuotationLines(): FormGroup {
     return this.fb.group({
-      itemId: [null],
+      itemId: [null , Validators.required],
       quantity: ['', [Validators.required,Validators.min(1)]],
       description: ['', Validators.required]
-      // locationId: [''],
     });
   }
 
   //Remove Quotation Line
   removeCallQuotationLineClick(callQuotationLineIndex: number): void {
-    const callQuotationLineArray = this.callQuotationForm.get('callQuotationLines') as FormArray;
+    const callQuotationLineArray = this.callQuotationForm.get('callForQuotationLines') as FormArray;
     callQuotationLineArray.removeAt(callQuotationLineIndex);
     callQuotationLineArray.markAsDirty();
     callQuotationLineArray.markAsTouched();
@@ -311,16 +308,15 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     });
 
 
-    this.onCampusSelected(data.vendorId)
     this.showMessage = true;
 
-    // this.invoiceForm.setControl('quotationLines', this.patchQuotationLines((this.salesOrderMaster) ? data.salesOrderLines : data.quotationLines))
-    this.callQuotationForm.setControl('callQuotationLines', this.patchCallQuotationLines(data.callQuotationLines))
+    // this.invoiceForm.setControl('callForQuotationLines', this.patchQuotationLines((this.salesOrderMaster) ? data.salesOrderLines : data.callForQuotationLines))
+    this.callQuotationForm.setControl('callForQuotationLines', this.patchCallQuotationLines(data.callForQuotationLines))
     this.totalCalculation();
   }
 
   //Patch Inovice Lines From sales Order Or Quotation Master Data
-  patchCallQuotationLines(lines: ICallQuotationLines[]): FormArray {
+  patchCallQuotationLines(lines: ICallForQuotationLines[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
@@ -342,17 +338,17 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
   //Submit Form Function
   onSubmit(): void {
 
-    if (this.callQuotationForm.get('callQuotationLines').invalid) {
-      this.callQuotationForm.get('callQuotationLines').markAllAsTouched();
+    if (this.callQuotationForm.get('callForQuotationLines').invalid) {
+      this.callQuotationForm.get('callForQuotationLines').markAllAsTouched();
     }
-    const controls = <FormArray>this.callQuotationForm.controls['callQuotationLines'];
+    const controls = <FormArray>this.callQuotationForm.controls['callForQuotationLines'];
     if (controls.length == 0) {
       this.toastService.error('Please add call quotation lines', 'Error')
       return;
     }
     
     if (this.callQuotationForm.invalid) {
-      this.toastService.error("Please fill all required fields!", "Quotation")
+      this.toastService.error("Please fill all required fields!", "Call Quotation")
       return;
     }
 
@@ -384,7 +380,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
          })
        )
         .subscribe((res: IApiResponse<ICallQuotation>) => {
-            this.toastService.success('Created Successfully', 'Quotation')
+            this.toastService.success('Created Successfully', 'Call Quotation')
             // this.router.navigate(['/' + QUOTATION.LIST])
             this.router.navigate(['/' + CALL_QUOTATION.ID_BASED_ROUTE('details', res.result.id)]);
           });
@@ -393,10 +389,10 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
 
   // Mapping value to model
   mapFormValuesToCallQuotationModel() {
-    this.callQuotationModel.vendorId = this.callQuotationForm.value.customerName;
+    this.callQuotationModel.vendorId = this.callQuotationForm.value.vendorId;
     this.callQuotationModel.callForQuotationDate = this.transformDate(this.callQuotationForm.value.callForQuotationDate, 'yyyy-MM-dd');
     this.callQuotationModel.description = this.callQuotationForm.value.description
-    this.callQuotationModel.callQuotationLines = this.callQuotationForm.value.callQuotationLines;
+    this.callQuotationModel.callForQuotationLines = this.callQuotationForm.value.callForQuotationLines;
   }
 
   //for save or submit
@@ -415,35 +411,6 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     if (this.permission.isGranted(this.permissions.PRODUCT_CREATE)) {
       this.addButtonService.openProductDialog();
     }
-  }
- 
-  canDeactivate(): boolean | Observable<boolean> {
-    return !this.callQuotationForm.dirty;
-  }
-
-  checkCampus() {
-    this.showMessage = true;
-    if(this.callQuotationForm.value.campusId === '') {
-      this.toastService.info("Please Select Campus First!", "Call Quotation")
-    }
-  }
-
-  onCampusSelected(campusId : number) {
-    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
-      this.warehouseList.next(res.result || [])
-    })
-
-    console.log(this.callQuotationForm.value.quotationLines)
-
-    if(this.callQuotationForm.value.callQuotationLines.some(line => line.warehouseId)){
-      this.toastService.info("Please Reselect Store!" , "Call Quotation")
-    }
-
-     this.callQuotationForm.get('callQuotationLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //   if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Quotation")
-    //  }
-     this.cdRef.detectChanges()
   }
 }
 

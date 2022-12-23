@@ -15,7 +15,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 
 export class CallQuotationService extends AppServiceBase {
 
-  baseUrl = AppConst.remoteServiceBaseUrl + 'Call-Quotation';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'CallForQuotation';
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 

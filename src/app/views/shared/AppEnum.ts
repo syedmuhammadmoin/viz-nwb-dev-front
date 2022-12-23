@@ -179,12 +179,10 @@ export class Permissions {
   static QUOTATION_APPROVE = 'Permissions.Procurement.Quotation.Approve';
 
   //Call Quotation
-  static CALL_QUOTATION_VIEW = 'Permissions.Procurement.CallQuotation.View'
-  static CALL_QUOTATION_CREATE = 'Permissions.Procurement.CallQuotation.Create';
-  static CALL_QUOTATION_EDIT = 'Permissions.Procurement.CallQuotation.Edit';
-  static CALL_QUOTATION_DELETE = 'Permissions.Procurement.CallQuotation.Delete';
-  static CALL_QUOTATION_REVIEW = 'Permissions.Procurement.CallQuotation.Review';
-  static CALL_QUOTATION_APPROVE = 'Permissions.Procurement.CallQuotation.Approve';
+  static CALL_QUOTATION_VIEW = 'Permissions.Procurement.CallForQuotationClaims.View'
+  static CALL_QUOTATION_CREATE = 'Permissions.Procurement.CallForQuotationClaims.Create';
+  static CALL_QUOTATION_EDIT = 'Permissions.Procurement.CallForQuotationClaims.Edit';
+  static CALL_QUOTATION_DELETE = 'Permissions.Procurement.CallForQuotationClaims.Delete';
 
   // Request Requisition
   static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
