@@ -149,7 +149,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
       const isSalesOrder = param.isSalesOrder;
       if (id && isCallQuotation) {
         this.isLoading = true;
-        this.title = 'Edit Call Of Quotation'
+        this.title = 'Edit Call Quotation'
         this.getCallQuotation(id);
       }
     });
@@ -300,7 +300,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
   
   patchCallQuotation(data: ICallQuotation) {
     this.callQuotationForm.patchValue({
-      VenderId: data.vendorId,
+      vendorId: data.vendorId,
       callForQuotationDate: data.callForQuotationDate,
       description: data.description,
       // invoiceDate: (data.invoiceDate) ? data.invoiceDate : data.salesOrderDate,

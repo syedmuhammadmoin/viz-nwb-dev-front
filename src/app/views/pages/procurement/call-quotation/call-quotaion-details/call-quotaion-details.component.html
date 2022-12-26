@@ -8,7 +8,7 @@
         </ng-container>
       </kt-portlet-header> -->
   
-      <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Call Of Quotation Detail'">
+      <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Call Quotation Detail'">
         <ng-container class="" ktPortletTools>
           <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
           <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[callQuotationMaster?.state]}}"></span> {{callQuotationMaster?.status}}</div>
@@ -34,7 +34,7 @@
                     <button [routerLink]="'/' + CALL_QUOTATION.ID_BASED_ROUTE('print', callQuotationMaster?.id)" type="button"
                       class="btn_public" id="quotation_print">
                       
-                      <i class="fa fa-print icon-e-p-a"></i> Print Call Of Quotation
+                      <i class="fa fa-print icon-e-p-a"></i> Print Call Quotation
                     </button>
   
   
@@ -62,7 +62,7 @@
                 <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.campusName}}</span></h4>
               </div> -->
               <div class="print-box">
-                  <h4 class="print-box-detail-2"><b>Call Of Quotation Date: </b>
+                  <h4 class="print-box-detail-2"><b>Call Quotation Date: </b>
                   <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.callForQuotationDate | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box">

@@ -74,7 +74,7 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
     },
     {
       headerName: 'Description',
-      field: '',
+      field: 'description',
       tooltipField: 'docNo',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -108,19 +108,19 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
     //     return this.valueFormatter(params.value) || null;
     //   }
     // },
-    // {
-    //   headerName: 'Status',
-    //   field: 'status',
-    //   filter: 'agSetColumnFilter',
-    //   menuTabs: ['filterMenuTab'],
-    //     filterParams: {
-    //       values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
-    //       defaultToNothingSelected: true,
-    //       suppressSorting:true,
-    //       suppressSelectAll: true,
-    //       suppressAndOrCondition: true,
-    //     },
-    // },
+    {
+      headerName: 'Status',
+      field: 'status',
+      filter: 'agSetColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
+          defaultToNothingSelected: true,
+          suppressSorting:true,
+          suppressSelectAll: true,
+          suppressAndOrCondition: true,
+        },
+    },
   ];
 
   ngOnInit() {

@@ -88,7 +88,7 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
   columnDefs = [
     { 
       headerName: 'Item', 
-      field: 'item', 
+      field: 'itemName', 
       sortable: true, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
@@ -255,7 +255,7 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
       .subscribe((res) => {
         this.getQuotationData(this.callQuotationId);
         this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'Call Of Quotation');
+        this.toastService.success('' + res.message, 'Call Quotation');
       })
   }
 
@@ -267,7 +267,7 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
         response: this.callQuotationMaster,
         serviceClass: this.callquotationService,
         functionName: 'uploadFile',
-        name: 'Call Of Quotation'
+        name: 'Call Quotation'
       },
     }).afterClosed().subscribe(() => {
       this.getQuotationData(this.callQuotationId)
