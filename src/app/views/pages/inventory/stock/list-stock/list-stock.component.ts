@@ -96,6 +96,11 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
         },
     },
     { 
+      headerName: 'Reserved Requisition Quantity', 
+      field: 'reservedRequisitionQuantity', 
+      suppressMenu: true
+    },
+    { 
       headerName: 'Store', 
       field: 'warehouseName', 
       tooltipField: 'itemName',

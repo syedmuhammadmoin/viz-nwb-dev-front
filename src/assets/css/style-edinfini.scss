@@ -817,10 +817,10 @@ div.search_sticky
   font-size: 13px;
 }
 
-.ag-theme-alpine .ag-row
-{
-  height: 30px !important;
-}
+// .ag-theme-alpine .ag-row
+// {
+//   height: 30px !important;
+// }
 
 
 .head-remarks
@@ -1869,4 +1869,6 @@ mat-tree-node div[id^='child']
 
   }
 
-  
+  .card-custom .table .b-s-2-b-c {
+    background-color: $button-background-color;
+  }

@@ -315,6 +315,8 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
   getClaims() {
     this.accessManagementService.getClaims().subscribe((res) => {
       res.result.forEach(element => {
+        console.log(element)
+        console.log(this.appConsts.PermissionsDisplayName[element])
         this.roleClaims.push(
           {
             type: 'permission',

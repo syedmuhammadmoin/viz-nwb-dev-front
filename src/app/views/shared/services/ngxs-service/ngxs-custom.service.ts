@@ -53,6 +53,8 @@ import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/s
 import { EmployeePaymentState } from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
 import { AllBusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/All-business-partner.state';
 import { PayrollItemState } from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
+import { RequisitionState } from 'src/app/views/pages/procurement/requisition/store/requisition.state';
+import { RequisitionService } from 'src/app/views/pages/procurement/requisition/service/requisition.service';
 
 @Injectable({
   providedIn: 'root'
@@ -76,6 +78,7 @@ export class NgxsCustomService {
     public warehouseService: WarehouseService,
     public payrollItemService: PayrollItemService,
     public unitOfMeasurementService: UnitOfMeasurementService,
+    public requisitionService: RequisitionService,
     public cscService: CscService,
     public statusService: StatusService,
     public accessManagementService: AccessManagementService,
@@ -261,6 +264,11 @@ export class NgxsCustomService {
     @Select(DepreciationModelState.entities) depreciationModels$: Observable<any>;
     @Select(DepreciationModelState.isFetchCompleted) depreciationModelsFetchCompleted$: Observable<any>;
     @Select(DepreciationModelState.isLoading) depreciationModelsIsLoading$: Observable<any>;
+
+    // Requisition
+    @Select(RequisitionState.entities) requisitions$: Observable<any>;
+    @Select(RequisitionState.isFetchCompleted) requisitionsFetchCompleted$: Observable<any>;
+    @Select(RequisitionState.isLoading) requisitionsIsLoading$: Observable<any>;
 
 
   //region State Management
@@ -716,6 +724,20 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(DepreciationModelState, {
           serviceClass: this.depreciationModelService,
           methodName: 'getDepreciationModelsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get Requisition From Store if available else fetch from the server and cache.
+  getRequisitionFromState() {
+    this.requisitionsFetchCompleted$.subscribe((res) => {
+      //console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(RequisitionState, {
+          serviceClass: this.requisitionService,
+          methodName: 'getRequisitionDropdown',
           context: this
         }))
       }

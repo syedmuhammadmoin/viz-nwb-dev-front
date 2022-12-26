@@ -338,10 +338,16 @@ export class AppConst {
     'Permissions.Procurement.RequisitionClaims.Delete': 'Requisition Delete',
 
     // Quatation
-    'Permissions.Procurement.Quotation.View': 'Quotation View',
-    'Permissions.Procurement.Quotation.Create': 'Quotation Create',
-    'Permissions.Procurement.Quotation.Edit': 'Quotation Update',
-    'Permissions.Procurement.Quotation.Delete': 'Quotation Delete',
+    'Permissions.Procurement.QuotationClaims.View': 'Quotation View',
+    'Permissions.Procurement.QuotationClaims.Create': 'Quotation Create',
+    'Permissions.Procurement.QuotationClaims.Edit': 'Quotation Update',
+    'Permissions.Procurement.QuotationClaims.Delete': 'Quotation Delete',
+
+    // Quatation Comparative
+    'Permissions.Procurement.QuotationComparativeClaims.View': 'Quotation Comparative View',
+    'Permissions.Procurement.QuotationComparativeClaims.Create': 'Quotation Comparative Create',
+    'Permissions.Procurement.QuotationComparativeClaims.Edit': 'Quotation Comparative Update',
+    'Permissions.Procurement.QuotationComparativeClaims.Delete': 'Quotation Comparative Delete',
 
     // Request Requisition
     'Permissions.Procurement.RequestClaims.View': 'Request Requisition View',
