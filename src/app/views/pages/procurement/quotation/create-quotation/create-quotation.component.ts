@@ -1,7 +1,7 @@
 
 
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { IQuotation } from '../model/IQuotation';
@@ -9,14 +9,15 @@ import { QuotationService } from '../service/quotation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { QUOTATION } from 'src/app/views/shared/AppRoutes';
 import { IQuotationLines } from '../model/IQuotationLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { RequisitionService } from '../../requisition/service/requisition.service';
+import { IRequisition } from '../../requisition/model/IRequisition';
 
 
 @Component({
@@ -26,7 +27,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class CreateQuotationComponent extends AppComponentBase implements OnInit, OnDestroy, FormsCanDeactivate {
+export class CreateQuotationComponent extends AppComponentBase implements OnInit {
   public permissions = Permissions;
 
   // For Loading
@@ -65,11 +66,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   //show toast mesasge of on campus select
   showMessage: boolean = false;
 
-  //payment
-  subscription1$: Subscription
-  //sales Order
-  subscription2$: Subscription
-
   title: string = 'Create Quotation'
 
   //for resetting form
@@ -101,6 +97,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   // Injecting in dependencies in constructor
   constructor(private fb: FormBuilder,
     private quotationService: QuotationService,
+    private requisitionService: RequisitionService,
     public activatedRoute: ActivatedRoute,
     public productService: ProductService,
     public addButtonService: AddModalButtonService,
@@ -119,7 +116,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
       vendorId: ['', [Validators.required]],
       quotationDate: ['', [Validators.required]],
       timeframe: ['', [Validators.required]],
-    
       //contact: [''],
       quotationLines: this.fb.array([
         this.addQuotationLines()
@@ -128,11 +124,11 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
 
     this.quotationModel = {
       id: null,
-    vendorId: null,
-    quotationDate: null,
-    timeframe: null,
-    requisitionId: null,
-    quotationLines: []
+      vendorId: null,
+      quotationDate: null,
+      timeframe: null,
+      requisitionId: null,
+      quotationLines: []
     }
     // get customer from state
     this.ngxsService.getBusinessPartnerFromState();
@@ -151,7 +147,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isQuotation = param.isQuotation;
-      const isSalesOrder = param.isSalesOrder;
+      const isRequisition = param.isRequisitionId;
       if (id && isQuotation) {
         this.isLoading = true;
         this.title = 'Edit Quotation'
@@ -166,17 +162,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     // })
   }
 
-  //unsubscribe Observable
-  ngOnDestroy() {
-    if (this.subscription1$) {
-      this.subscription1$.unsubscribe();
-    }
-    if (this.subscription2$) {
-      this.subscription2$.unsubscribe();
-    }
-  }
-
-
   // Form Reset
   reset() {
     // const invoiceLineArray = this.invoiceForm.get('quotationLines') as FormArray;
@@ -188,54 +173,61 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    console.log("yes")
     let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
     if (itemId) {
-      let price = this.salesItem.find(i => i.id === itemId).salesPrice
-      let tax = this.salesItem.find(i => i.id === itemId).salesTax
-      let account = this.salesItem.find(i => i.id === itemId).revenueAccountId
-      // set values for price & tax
+      const price = this.salesItem.find(i => i.id === itemId).purchasePrice
+
+      // set values for purchasePrice & tax
       arrayControl.at(index).get('price').setValue(price);
-      arrayControl.at(index).get('tax').setValue(tax);
-      arrayControl.at(index).get('accountId').setValue(account);
-      // Calculating subtotal
-      // let quantity = arrayControl.at(index).get('quantity').value;
-      // let subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
-      // arrayControl.at(index).get('subTotal').setValue(subTotal);
-      this.onChangeEvent(null, index)
     }
+    // console.log("yes")
+    // let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
+    // if (itemId) {
+    //   let price = this.salesItem.find(i => i.id === itemId).salesPrice
+    //   let tax = this.salesItem.find(i => i.id === itemId).salesTax
+    //   let account = this.salesItem.find(i => i.id === itemId).revenueAccountId
+    //   // set values for price & tax
+    //   arrayControl.at(index).get('price').setValue(price);
+    //   arrayControl.at(index).get('tax').setValue(tax);
+    //   arrayControl.at(index).get('accountId').setValue(account);
+    //   // Calculating subtotal
+    //   // let quantity = arrayControl.at(index).get('quantity').value;
+    //   // let subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
+    //   // arrayControl.at(index).get('subTotal').setValue(subTotal);
+    //   this.onChangeEvent(null, index)
+    // }
   }
 
   // onChangeEvent for calculating subtotal
   onChangeEvent(value: unknown, index: number, element?: HTMLElement) {
 
-    const arrayControl = this.quotationForm.get('quotationLines') as FormArray;
-    const price = (arrayControl.at(index).get('price').value) !== null ? arrayControl.at(index).get('price').value : null;
-    const tax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
-    const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
+    // const arrayControl = this.quotationForm.get('quotationLines') as FormArray;
+    // const price = (arrayControl.at(index).get('price').value) !== null ? arrayControl.at(index).get('price').value : null;
+    // const tax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
+    // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
 
-    //calculating subTotal
-    const subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
-    arrayControl.at(index).get('subTotal').setValue(subTotal);
-    this.totalCalculation();
+    // //calculating subTotal
+    // const subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
+    // arrayControl.at(index).get('subTotal').setValue(subTotal);
+    // this.totalCalculation();
   }
 
 
   // Calculations
   // Calculate Total Before Tax ,Total Tax , grandTotal
   totalCalculation() {
-    this.totalTax = 0;
-    this.totalBeforeTax = 0;
-    this.grandTotal = 0;
-    let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
-    arrayControl.controls.forEach((element, index) => {
-      let price = arrayControl.at(index).get('price').value;
-      let tax = arrayControl.at(index).get('tax').value;
-      let quantity = arrayControl.at(index).get('quantity').value;
-      this.totalTax += ((price * quantity) * tax) / 100
-      this.totalBeforeTax += price * quantity;
-      this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
-    });
+    // this.totalTax = 0;
+    // this.totalBeforeTax = 0;
+    // this.grandTotal = 0;
+    // let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
+    // arrayControl.controls.forEach((element, index) => {
+    //   let price = arrayControl.at(index).get('price').value;
+    //   let tax = arrayControl.at(index).get('tax').value;
+    //   let quantity = arrayControl.at(index).get('quantity').value;
+    //   this.totalTax += ((price * quantity) * tax) / 100
+    //   this.totalBeforeTax += price * quantity;
+    //   this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
+    // });
   }
 
   //Add Quotation Lines
@@ -252,7 +244,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
       quantity: ['', [Validators.required,Validators.min(1)]],
       price: ['', [Validators.required, Validators.min(1)]],
       description: ['', Validators.required]
-      // locationId: [''],
     });
   }
 
@@ -265,21 +256,22 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     this.table.renderRows();
   }
 
-  // private getSalesOrder(id: number) {
-  //   this.salesOrderService.getSalesOrderById(id)
-  //   .pipe(
-  //     take(1),
-  //      finalize(() => {
-  //       this.isLoading = false;
-  //       this.cdRef.detectChanges();
-  //      })
-  //    )
-  //   .subscribe((res) => {
-  //     if (!res) return
-  //     this.salesOrderMaster = res.result
-  //     this.patchQuotation(this.salesOrderMaster);
-  //   });
-  // }
+  //Get Requisition Data
+  private getRequisition(id: number) {
+    this.requisitionService.getRequisitionById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: any) => {
+      if (!res) return
+      this.quotationModel = res.result
+      this.patchQuotation(this.quotationModel)
+    });
+  }
 
   //Get Quotation Data for Edit
   private getQuotation(id: number) {
@@ -300,25 +292,23 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
 
   //Patch Quotation Form through Quotation Or sales Order Master Data
   
-  patchQuotation(data: IQuotation) {
+  patchQuotation(data: IQuotation | IRequisition | any ) {
+    console.log(data.vendorId)
     this.quotationForm.patchValue({
-      VenderId: data.vendorId,
-      timeframe: data.quotationDate,
-      requisitionId: data.requisitionId,
-      // invoiceDate: (data.invoiceDate) ? data.invoiceDate : data.salesOrderDate,
-      //contact: data.contact
+      vendorId: data.vendorId ?? data.employeeId,
+      quotationDate: data.quotationDate ?? data.requisitionDate,
+      timeframe: data.timeframe
     });
 
 
-    this.onCampusSelected(data.vendorId)
+    //this.onCampusSelected(data.vendorId)
     this.showMessage = true;
 
-    // this.invoiceForm.setControl('quotationLines', this.patchQuotationLines((this.salesOrderMaster) ? data.salesOrderLines : data.quotationLines))
-    this.quotationForm.setControl('quotationLines', this.patchQuotationLines(data.quotationLines))
-    this.totalCalculation();
+    this.quotationForm.setControl('quotationLines', this.patchQuotationLines(data.quotationLines ?? data.requisitionLines))
+    //this.totalCalculation();
   }
 
-  //Patch Inovice Lines From sales Order Or Quotation Master Data
+  //Patch Quotation Lines From Requisition Or Quotation Master Data
   patchQuotationLines(lines: IQuotationLines[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
@@ -327,12 +317,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
         itemId: [line.itemId],
         description: [line.description , Validators.required],
         price: [line.price , [Validators.required, Validators.min(1)]],
-        quantity: [line.quantity , [Validators.required,Validators.min(1)]],
-        tax: [line.tax , [Validators.max(100), Validators.min(0)]],
-        subTotal: [{ value: line.subTotal, disabled: true }],
-        accountId: [line.accountId , [Validators.required]],
-        warehouseId: [line.warehouseId],
-        //locationId: line.locationId,
+        quantity: [line.quantity , [Validators.required,Validators.min(1)]]
       }))
     })
     return formArray
@@ -346,18 +331,18 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     }
     const controls = <FormArray>this.quotationForm.controls['quotationLines'];
     if (controls.length == 0) {
-      this.toastService.error('Please add quotation lines', 'Error')
+      this.toastService.error('Please add quotation lines', 'Quotation')
       return;
     }
     
     if (this.quotationForm.invalid) {
-      this.toastService.error("Please fill all required fields!", "Quotation")
+      //this.toastService.error("Please fill all required fields!", "Quotation")
       return;
     }
 
     this.isLoading = true;
     this.mapFormValuesToQuotationModel();
-    //console.log(this.quotationModel)
+    console.log(this.quotationModel)
     if (this.quotationModel.id) {
       this.quotationService.updateQuotation(this.quotationModel)
       .pipe(
@@ -384,7 +369,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
        )
         .subscribe((res: IApiResponse<IQuotation>) => {
             this.toastService.success('Created Successfully', 'Quotation')
-            // this.router.navigate(['/' + QUOTATION.LIST])
             this.router.navigate(['/' + QUOTATION.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
@@ -392,10 +376,10 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
 
   // Mapping value to model
   mapFormValuesToQuotationModel() {
-    this.quotationModel.vendorId = this.quotationForm.value.customerName;
+    this.quotationModel.vendorId = this.quotationForm.value.vendorId;
     this.quotationModel.quotationDate = this.transformDate(this.quotationForm.value.quotationDate, 'yyyy-MM-dd');
-    this.quotationModel.timeframe = this.transformDate(this.quotationForm.value.dueDate, 'yyyy-MM-dd');
-    this.quotationModel.requisitionId = this.quotationForm.value.requisitionId;
+    this.quotationModel.timeframe = this.quotationForm.value.timeframe;
+    this.quotationModel.requisitionId = this.quotationModel.requisitionId;
     this.quotationModel.quotationLines = this.quotationForm.value.quotationLines;
   }
 
@@ -415,34 +399,5 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     if (this.permission.isGranted(this.permissions.PRODUCT_CREATE)) {
       this.addButtonService.openProductDialog();
     }
-  }
- 
-  canDeactivate(): boolean | Observable<boolean> {
-    return !this.quotationForm.dirty;
-  }
-
-  checkCampus() {
-    this.showMessage = true;
-    if(this.quotationForm.value.campusId === '') {
-      this.toastService.info("Please Select Campus First!", "Quotation")
-    }
-  }
-
-  onCampusSelected(campusId : number) {
-    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
-      this.warehouseList.next(res.result || [])
-    })
-
-    console.log(this.quotationForm.value.quotationLines)
-
-    if(this.quotationForm.value.quotationLines.some(line => line.warehouseId)){
-      this.toastService.info("Please Reselect Store!" , "Quotation")
-    }
-
-     this.quotationForm.get('quotationLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //   if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Quotation")
-    //  }
-     this.cdRef.detectChanges()
   }
 }

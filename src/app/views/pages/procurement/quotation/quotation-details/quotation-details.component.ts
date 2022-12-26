@@ -1,6 +1,3 @@
-
-
-
 import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
@@ -110,32 +107,7 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
-    },
-    // {
-    //   headerName: 'Tax %', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
-    //   cellRenderer: (params: ICellRendererParams) => {
-    //     return params.data.tax + '%';
-    //   }
-    // },
-    // {
-    //   headerName: 'Subtotal',
-    //   field: 'subTotal',
-    //   filter: true,
-    //   cellStyle: { 'font-size': '12px' },
-    //   valueFormatter: (params: ICellRendererParams) => {
-    //     return this.valueFormatter(params.value)
-    //   }
-    // },
-    // { 
-    //   headerName: 'Store', 
-    //   field: 'warehouseName', 
-    //   sortable: true, 
-    //   filter: true, 
-    //   cellStyle: { 'font-size': '12px' },
-    //   valueFormatter: (params: ICellRendererParams) => {
-    //     return params.value || 'N/A'
-    //   }
-    // }
+    }
   ];
 
   ngOnInit() {
@@ -163,34 +135,24 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
 
   //Getting quotation master data
   getQuotationData(id: number) {
-    // this.quotationService.getQuotationById(id)
-    // .pipe(
-    //   take(1),
-    //    finalize(() => {
-    //     this.isLoading = false;
-    //     this.cdRef.detectChanges();
-    //    })
-    //  )
-    // .subscribe((res: IApiResponse<IQuotation>) => {
-    //   this.quotationMaster = res.result;
-    //   this.quotationLines = res.result.quotationLines;
-    //   this.totalBeforeTax = this.quotationMaster.totalBeforeTax;
-    //   this.totalTax = this.quotationMaster.totalTax;
-    //   this.totalQuotationAmount = this.quotationMaster.totalAmount;
-    //   this.status = this.quotationMaster.status;
-    //   this.businessPartnerId = this.quotationMaster.customerId;
-    //   this.ledgerId = this.quotationMaster.ledgerId;
-    //   this.paidAmount = this.quotationMaster.totalPaid;
-    //   this.pendingAmount = this.quotationMaster.pendingAmount;
-    //   this.paidAmountList = this.quotationMaster.paidAmountList == null ? [] : this.quotationMaster.paidAmountList;
-    //   this.bpUnReconPaymentList = this.quotationMaster.bpUnreconPaymentList == null ? [] : this.quotationMaster.bpUnreconPaymentList;
-    //   this.remarksList = this.quotationMaster.remarksList ?? [] 
+    this.quotationService.getQuotationById(id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+    .subscribe((res: IApiResponse<IQuotation>) => {
+      this.quotationMaster = res.result;
+      this.quotationLines = res.result.quotationLines;
+     
 
-    //   // //handling disablity of register payment button
-    //   // this.isDisabled = (this.quotationMaster.status === "Paid" ? true : false)
-    //   this.cdRef.markForCheck();
-    //   this.cdRef.detectChanges();
-    // });
+      // //handling disablity of register payment button
+      // this.isDisabled = (this.quotationMaster.status === "Paid" ? true : false)
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    });
   }
 
   //on dialogue open funtions
@@ -215,33 +177,6 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
   //     this.cdRef.detectChanges();
   //   });
   // }
-
-  // reconcile(index: number) {
-  //   this.mapTransactionReconModel(index);
-  //   this.quotationService.reconcilePayment(this.transactionReconModel)
-  //   .pipe(
-  //     take(1),
-  //      finalize(() => {
-  //       this.isLoading = false;
-  //       this.cdRef.detectChanges();
-  //      })
-  //    )
-  //     .subscribe(() => {
-  //         this.toastService.success('Reconciled Successfully', 'Quotation')
-  //         this.getQuotationData(this.quotationId);
-  //         this.cdRef.detectChanges();
-  //         this.cdRef.markForCheck();
-  //       });
-  // }
-
-  mapTransactionReconModel(index: number) {
-    console.log('this.bpUnReconPaymentList[index].paymentledgerId', this.bpUnReconPaymentList[index].paymentledgerId)
-    this.transactionReconModel.paymentLedgerId = this.bpUnReconPaymentList[index].paymentLedgerId;
-    this.transactionReconModel.documentLedgerId = this.ledgerId;
-    this.transactionReconModel.amount = this.bpUnReconPaymentList[index].amount > this.pendingAmount
-      ? this.pendingAmount
-      : this.bpUnReconPaymentList[index].amount;
-  };
 
   //Get Remarks From User
   remarksDialog(action: any): void {

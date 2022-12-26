@@ -1,6 +1,3 @@
-
-
-
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { QuotationService} from "../service/quotation.service";
@@ -86,10 +83,10 @@ export class PrintQuotationComponent extends AppComponentBase implements OnInit 
   }
 
   getQuotationData(id: number){
-    // this.quotationService.getQuotationById(id).subscribe((res: IApiResponse<IQuotation>) => {
-    //     this.quotationMaster = res.result;
-    //     this.quotationLines = res.result.quotationLines;
-    //     this.cdr.markForCheck();
-    //   })
+    this.quotationService.getQuotationById(id).subscribe((res: IApiResponse<IQuotation>) => {
+        this.quotationMaster = res.result;
+        this.quotationLines = res.result.quotationLines;
+        this.cdr.markForCheck();
+      })
   }
 }

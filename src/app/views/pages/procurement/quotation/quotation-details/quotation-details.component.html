@@ -21,19 +21,6 @@
             <div class="btn_container">
               <div class="col-md-6 col-6">
                 <ng-container ktPortletTools >
-                    <button *ngIf="(quotationMaster?.state === docStatus.Partial || quotationMaster?.state === docStatus.Unpaid)
-                        && (quotationMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
-                      type="button" class="mr-3 btn_public" (click)="openDialog()" >
-                      <i class="fa fa-edit icon-e-p-a"></i> Register Payment
-                    </button>
-  
-                    <button *ngIf="(quotationMaster?.state === docStatus.Partial || quotationMaster?.state === docStatus.Unpaid)
-                        && (quotationMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
-                      [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: quotationMaster?.id, isQuotation: true}"
-                      type="button" class="mr-3 btn_public">
-                      <i class="fa fa-edit icon-e-p-a"></i> Credit Note
-                    </button>
-  
                     <button *ngIf="(quotationMaster?.state === docStatus.Draft || quotationMaster?.state === docStatus.Rejected)
                         && (permission.isGranted(permissions.QUOTATION_EDIT))"
                       [routerLink]="'/' + QUOTATION.ID_BASED_ROUTE('edit', quotationMaster?.id)" [queryParams]="{q: quotationMaster?.id, 'isQuotation': true}"
@@ -41,10 +28,10 @@
                       Edit
                     </button>
   
-                    <button *ngIf="(permission.isGranted(permissions.QUOTATION_EDIT))" class="btn_public mr-3" id="quotation_attachment"
+                    <!-- <button *ngIf="(permission.isGranted(permissions.QUOTATION_EDIT))" class="btn_public mr-3" id="quotation_attachment"
                       (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                     </button>
-  
+   -->
                     <button [routerLink]="'/' + QUOTATION.ID_BASED_ROUTE('print', quotationMaster?.id)" type="button"
                       class="btn_public" id="quotation_print">
                       
@@ -68,8 +55,8 @@
                   <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box">
-                <h4 class="print-box-detail-2"><b>Vender Name: </b>
-                <span class="float-right" style="font-weight: 400;">{{quotationMaster?.venderName}}</span></h4>
+                <h4 class="print-box-detail-2"><b>Vendor Name: </b>
+                <span class="float-right" style="font-weight: 400;">{{quotationMaster?.vendorName}}</span></h4>
               </div>
               <!-- <div class="print-box">
                 <h4 class="print-box-detail-2"><b>Campus: </b>
@@ -81,12 +68,9 @@
               </div>
               <div class="print-box">
                 <h4 class="print-box-detail-2"><b>Time Frame: </b>
-                <span class="float-right" style="font-weight: 400;">{{quotationMaster?.timefra | date: 'MMM d, y'}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{quotationMaster?.timeframe}}</span></h4>
               </div>
-  
             </div>
-  
-  
           </div>
   
           <div class="row mt-10">

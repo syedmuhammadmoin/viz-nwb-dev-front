@@ -91,7 +91,14 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
       field: 'cost', 
       cellStyle: {'font-size': '12px'}
     },
-    {headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {
+      headerName: 'Tax%', 
+      field: 'tax', 
+      cellStyle: { 'font-size': '12px' },
+      valueFormatter: (params: ValueFormatterParams) => {
+        return (params.value) + '%'
+      }
+    },
     {
       headerName: 'Store', 
       field: 'warehouse', 

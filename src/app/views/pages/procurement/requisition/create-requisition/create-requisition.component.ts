@@ -310,7 +310,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionForm.patchValue({
       employeeId: data.employeeId,
       requisitionDate: data.requisitionDate ?? data.requestDate,
-      isWithoutWorkflow: data.isWithoutWorkflow
+      isWithoutWorkflow: data.isWithoutWorkflow ?? false
     });
 
     //this.onCampusSelected(requisition.campusId)

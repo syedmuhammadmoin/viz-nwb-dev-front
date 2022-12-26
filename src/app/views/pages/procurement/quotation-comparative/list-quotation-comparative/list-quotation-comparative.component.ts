@@ -1,27 +1,22 @@
-
-
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
-import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { QUOTATION } from 'src/app/views/shared/AppRoutes';
+import { QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { IQuotation } from '../model/IQuotation';
-import { QuotationService } from '../service/quotation.service';
-
+import { IQuotationComparative } from '../model/IQuotationComparative';
+import { QuotationComparativeService } from '../service/quotation-comparative.service';
 
 @Component({
-  selector: 'kt-list-quotation',
-  templateUrl: './list-quotation.component.html',
-  styleUrls: ['./list-quotation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'kt-list-quotation-comparative',
+  templateUrl: './list-quotation-comparative.component.html',
+  styleUrls: ['./list-quotation-comparative.component.scss']
 })
 
-export class ListQuotationComponent extends AppComponentBase implements OnInit {
+export class ListQuotationComparativeComponent extends AppComponentBase implements OnInit {
 
-  quotationList: IQuotation[];
+  quotationComparativeList: IQuotationComparative[];
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
@@ -33,7 +28,7 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
-    private quotationService: QuotationService,
+    private quotationComparativeService: QuotationComparativeService,
     private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
@@ -60,8 +55,8 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
         },
     },
     {
-      headerName: 'Vendor Name',
-      field: 'vendorName',
+      headerName: 'Customer',
+      field: 'customerName',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -85,10 +80,29 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
       }
     },
     {
-      headerName: 'Time Frame',
-      field: 'timeframe',
+      headerName: 'Due Date',
+      field: 'dueDate',
       tooltipField: 'docNo',
-      suppressMenu: true
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
+      }
+    },
+    {
+      headerName: 'Total',
+      field: 'totalAmount',
+      headerClass: 'custom_left',
+      cellStyle: { 'text-align': "right" },
+      tooltipField: 'docNo',
+      suppressMenu: true,
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value) || null;
+      }
     },
     {
       headerName: 'Status',
@@ -142,38 +156,34 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
     params.api.sizeColumnsToFit();
   }
 
-  addQuotation() {
-    this.router.navigate(['/' + QUOTATION.CREATE]);
+  addQuotationComparative() {
+    this.router.navigate(['/' + QUOTATION_COMPARATIVE.CREATE]);
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.router.navigate(['/' + QUOTATION.ID_BASED_ROUTE('details', event.data.id)]);
+    this.router.navigate(['/' + QUOTATION_COMPARATIVE.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
 
   onGridReady(params: GridReadyEvent) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
+    // this.gridApi = params.api;
+    // this.gridColumnApi = params.columnApi;
 
-    var dataSource = {
-      getRows: (params: any) => {
-        this.quotationService.getRecords(params).subscribe((data) => {
-          console.log(data.result)
-          if(isEmpty(data.result)) {
-            this.gridApi.showNoRowsOverlay()
-          } else {
-            this.gridApi.hideOverlay();
-          }
-          params.successCallback(data.result || 0, data.totalRecords);
-          this.paginationHelper.goToPage(this.gridApi, 'quotationPageName')
-          this.cdRef.detectChanges();
-        });
-      },
-    };
-    params.api.setDatasource(dataSource);
+    // var dataSource = {
+    //   getRows: (params: any) => {
+    //     this.quotationService.getRecords(params).subscribe((data) => {
+    //       if(isEmpty(data.result)) {
+    //         this.gridApi.showNoRowsOverlay()
+    //       } else {
+    //         this.gridApi.hideOverlay();
+    //       }
+    //       params.successCallback(data.result || 0, data.totalRecords);
+    //       this.paginationHelper.goToPage(this.gridApi, 'quotationPageName')
+    //       this.cdRef.detectChanges();
+    //     });
+    //   },
+    // };
+    // params.api.setDatasource(dataSource);
   }
 
 }
-
-
-

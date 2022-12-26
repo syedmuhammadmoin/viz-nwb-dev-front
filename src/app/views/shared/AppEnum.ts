@@ -171,13 +171,19 @@ export class Permissions {
   static REQUISITION_APPROVE = 'Permissions.Procurement.RequisitionClaims.Approve';
 
   //Quotation
-  static QUOTATION_VIEW = 'Permissions.Procurement.Quotation.View'
-  static QUOTATION_CREATE = 'Permissions.Procurement.Quotation.Create';
-  static QUOTATION_EDIT = 'Permissions.Procurement.Quotation.Edit';
-  static QUOTATION_DELETE = 'Permissions.Procurement.Quotation.Delete';
-  static QUOTATION_REVIEW = 'Permissions.Procurement.Quotation.Review';
-  static QUOTATION_APPROVE = 'Permissions.Procurement.Quotation.Approve';
+  static QUOTATION_VIEW = 'Permissions.Procurement.QuotationClaims.View'
+  static QUOTATION_CREATE = 'Permissions.Procurement.QuotationClaims.Create';
+  static QUOTATION_EDIT = 'Permissions.Procurement.QuotationClaims.Edit';
+  static QUOTATION_DELETE = 'Permissions.Procurement.QuotationClaims.Delete';
+  static QUOTATION_REVIEW = 'Permissions.Procurement.QuotationClaims.Review';
+  static QUOTATION_APPROVE = 'Permissions.Procurement.QuotationClaims.Approve';
 
+  //Quotation Comparative
+  static QUOTATION_COMPARATIVE_VIEW = 'Permissions.Procurement.QuotationComparativeClaims.View'
+  static QUOTATION_COMPARATIVE_CREATE = 'Permissions.Procurement.QuotationComparativeClaims.Create';
+  static QUOTATION_COMPARATIVE_EDIT = 'Permissions.Procurement.QuotationComparativeClaims.Edit';
+  static QUOTATION_COMPARATIVE_DELETE = 'Permissions.Procurement.QuotationComparativeClaims.Delete';
+ 
   // Request Requisition
   static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
   static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';

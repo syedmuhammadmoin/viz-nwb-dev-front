@@ -580,30 +580,30 @@ export class MenuConfig {
             Permissions.QUOTATION_DELETE
           ],
           submenu: [
-            {
-              title: 'Quotation',
-              page: '/' + QUOTATION.LIST,
-              permission: [
-                Permissions.QUOTATION_VIEW,
-                Permissions.QUOTATION_CREATE,
-                Permissions.QUOTATION_EDIT,
-                Permissions.QUOTATION_DELETE,
-                Permissions.QUOTATION_REVIEW,
-                Permissions.QUOTATION_APPROVE,
-              ]
-            },
-            {
-              title: 'Quotation Comparative',
-              page: '/' + QUOTATION_COMPARATIVE.LIST,
-              // permission: [
-              //   Permissions.QUOTATION_VIEW,
-              //   Permissions.QUOTATION_CREATE,
-              //   Permissions.QUOTATION_EDIT,
-              //   Permissions.QUOTATION_DELETE,
-              //   Permissions.QUOTATION_REVIEW,
-              //   Permissions.QUOTATION_APPROVE,
-              // ]
-            },
+            // {
+            //   title: 'Quotation',
+            //   page: '/' + QUOTATION.LIST,
+            //   permission: [
+            //     Permissions.QUOTATION_VIEW,
+            //     Permissions.QUOTATION_CREATE,
+            //     Permissions.QUOTATION_EDIT,
+            //     Permissions.QUOTATION_DELETE,
+            //     Permissions.QUOTATION_REVIEW,
+            //     Permissions.QUOTATION_APPROVE,
+            //   ]
+            // },
+            // {
+            //   title: 'Quotation Comparative',
+            //   page: '/' + QUOTATION_COMPARATIVE.LIST,
+            //   // permission: [
+            //   //   Permissions.QUOTATION_VIEW,
+            //   //   Permissions.QUOTATION_CREATE,
+            //   //   Permissions.QUOTATION_EDIT,
+            //   //   Permissions.QUOTATION_DELETE,
+            //   //   Permissions.QUOTATION_REVIEW,
+            //   //   Permissions.QUOTATION_APPROVE,
+            //   // ]
+            // },
             {
               title: 'Request Requisition',
               page: '/' + REQUEST_REQUISITION.LIST,
