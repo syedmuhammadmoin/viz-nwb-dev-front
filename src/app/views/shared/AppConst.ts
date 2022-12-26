@@ -211,7 +211,7 @@ export class AppConst {
     'Permissions.Report.GeneralLedgerClaims.View': 'General Ledger',
 
     // Income Expenditure
-    'Permissions.Report.ProfitLossClaims.View': 'Profit and Loss Statement',
+    'Permissions.Report.ProfitLossClaims.View': 'Income & Expenditure',
 
     // Trial Balance
     'Permissions.Report.TrialBalanceClaims.View': 'Trial Balance',

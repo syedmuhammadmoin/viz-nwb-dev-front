@@ -541,18 +541,18 @@ export class MenuConfig {
             Permissions.PURCHASEORDER_DELETE,
             Permissions.PURCHASEORDER_REVIEW,
             Permissions.PURCHASEORDER_APPROVE,
-            Permissions.REQUISITION_VIEW,
-            Permissions.REQUISITION_CREATE,
-            Permissions.REQUISITION_EDIT,
-            Permissions.REQUISITION_DELETE,
-            Permissions.REQUISITION_REVIEW,
-            Permissions.REQUISITION_APPROVE,
-            Permissions.REQUEST_VIEW,
-            Permissions.REQUEST_CREATE,
-            Permissions.REQUEST_EDIT,
-            Permissions.REQUEST_DELETE,
-            Permissions.REQUEST_REVIEW,
-            Permissions.REQUEST_APPROVE,
+            //Permissions.REQUISITION_VIEW,
+            // Permissions.REQUISITION_CREATE,
+            // Permissions.REQUISITION_EDIT,
+            // Permissions.REQUISITION_DELETE,
+            // Permissions.REQUISITION_REVIEW,
+            // Permissions.REQUISITION_APPROVE,
+            // Permissions.REQUEST_VIEW,
+            // Permissions.REQUEST_CREATE,
+            // Permissions.REQUEST_EDIT,
+            // Permissions.REQUEST_DELETE,
+            // Permissions.REQUEST_REVIEW,
+            // Permissions.REQUEST_APPROVE,
             Permissions.ISSUANCE_VIEW,
             Permissions.ISSUANCE_CREATE,
             Permissions.ISSUANCE_EDIT,
@@ -570,14 +570,14 @@ export class MenuConfig {
             Permissions.GOODS_RETURN_NOTE_CREATE,
             Permissions.GOODS_RETURN_NOTE_EDIT,
             Permissions.GOODS_RETURN_NOTE_DELETE,
-            Permissions.BIDEVALUATION_VIEW,
-            Permissions.BIDEVALUATION_CREATE,
-            Permissions.BIDEVALUATION_EDIT,
-            Permissions.BIDEVALUATION_DELETE,
-            Permissions.QUOTATION_VIEW,
-            Permissions.QUOTATION_CREATE,
-            Permissions.QUOTATION_EDIT,
-            Permissions.QUOTATION_DELETE
+            // Permissions.BIDEVALUATION_VIEW,
+            // Permissions.BIDEVALUATION_CREATE,
+            // Permissions.BIDEVALUATION_EDIT,
+            // Permissions.BIDEVALUATION_DELETE,
+            // Permissions.QUOTATION_VIEW,
+            // Permissions.QUOTATION_CREATE,
+            // Permissions.QUOTATION_EDIT,
+            // Permissions.QUOTATION_DELETE
           ],
           submenu: [
             // {
@@ -604,30 +604,30 @@ export class MenuConfig {
             //   //   Permissions.QUOTATION_APPROVE,
             //   // ]
             // },
-            {
-              title: 'Request Requisition',
-              page: '/' + REQUEST_REQUISITION.LIST,
-              permission: [
-                Permissions.REQUEST_VIEW,
-                Permissions.REQUEST_CREATE,
-                Permissions.REQUEST_EDIT,
-                Permissions.REQUEST_DELETE,
-                Permissions.REQUEST_REVIEW,
-                Permissions.REQUEST_APPROVE,
-              ]
-            },
-            {
-              title: 'Requisition',
-              page: '/' + REQUISITION.LIST,
-              permission: [
-                Permissions.REQUISITION_VIEW,
-                Permissions.REQUISITION_CREATE,
-                Permissions.REQUISITION_EDIT,
-                Permissions.REQUISITION_DELETE,
-                Permissions.REQUISITION_REVIEW,
-                Permissions.REQUISITION_APPROVE
-              ]
-            },
+            // {
+            //   title: 'Request Requisition',
+            //   page: '/' + REQUEST_REQUISITION.LIST,
+            //   permission: [
+            //     Permissions.REQUEST_VIEW,
+            //     Permissions.REQUEST_CREATE,
+            //     Permissions.REQUEST_EDIT,
+            //     Permissions.REQUEST_DELETE,
+            //     Permissions.REQUEST_REVIEW,
+            //     Permissions.REQUEST_APPROVE,
+            //   ]
+            // },
+            // {
+            //   title: 'Requisition',
+            //   page: '/' + REQUISITION.LIST,
+            //   permission: [
+            //     Permissions.REQUISITION_VIEW,
+            //     Permissions.REQUISITION_CREATE,
+            //     Permissions.REQUISITION_EDIT,
+            //     Permissions.REQUISITION_DELETE,
+            //     Permissions.REQUISITION_REVIEW,
+            //     Permissions.REQUISITION_APPROVE
+            //   ]
+            // },
             {
               title: 'Issuance',
               page: '/' + ISSUANCE.LIST,
@@ -680,16 +680,16 @@ export class MenuConfig {
                 Permissions.GOODS_RETURN_NOTE_DELETE
               ]
             },
-            {
-              title: 'Bid Evaluation',
-              page: '/' + BID_EVALUATION.LIST,
-              permission: [
-                Permissions.BIDEVALUATION_VIEW,
-                Permissions.BIDEVALUATION_CREATE,
-                Permissions.BIDEVALUATION_EDIT,
-                Permissions.BIDEVALUATION_DELETE
-              ]
-            },
+            // {
+            //   title: 'Bid Evaluation',
+            //   page: '/' + BID_EVALUATION.LIST,
+            //   permission: [
+            //     Permissions.BIDEVALUATION_VIEW,
+            //     Permissions.BIDEVALUATION_CREATE,
+            //     Permissions.BIDEVALUATION_EDIT,
+            //     Permissions.BIDEVALUATION_DELETE
+            //   ]
+            // },
             {
               title: 'Inventory',
               page: '/' + STOCK.LIST,
