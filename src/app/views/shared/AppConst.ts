@@ -348,6 +348,12 @@ export class AppConst {
     'Permissions.Procurement.QuotationComparativeClaims.Create': 'Quotation Comparative Create',
     'Permissions.Procurement.QuotationComparativeClaims.Edit': 'Quotation Comparative Update',
     'Permissions.Procurement.QuotationComparativeClaims.Delete': 'Quotation Comparative Delete',
+    
+    // Call Quatation
+    'Permissions.Procurement.CallForQuotationClaims.View': 'Call Quotation View',
+    'Permissions.Procurement.CallForQuotationClaims.Create': 'Call Quotation Create',
+    'Permissions.Procurement.CallForQuotationClaims.Edit': 'Call Quotation Update',
+    'Permissions.Procurement.CallForQuotationClaims.Delete': 'Call Quotation Delete',
 
     // Request Requisition
     'Permissions.Procurement.RequestClaims.View': 'Request Requisition View',
