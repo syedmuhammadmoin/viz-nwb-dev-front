@@ -28,10 +28,10 @@
                       Edit
                     </button>
   
-                    <!-- <button *ngIf="(permission.isGranted(permissions.QUOTATION_EDIT))" class="btn_public mr-3" id="quotation_attachment"
+                    <button *ngIf="(permission.isGranted(permissions.QUOTATION_EDIT))" class="btn_public mr-3" id="quotation_attachment"
                       (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                     </button>
-   -->
+  
                     <button [routerLink]="'/' + QUOTATION.ID_BASED_ROUTE('print', quotationMaster?.id)" type="button"
                       class="btn_public" id="quotation_print">
                       

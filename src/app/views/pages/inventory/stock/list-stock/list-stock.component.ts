@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from "ag-grid-community";
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from "ag-grid-community";
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { isEmpty } from 'lodash';
@@ -88,18 +88,18 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
       headerName: 'Reserved Quantity', 
       field: 'reservedQuantity', 
       tooltipField: 'itemName',
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
+      suppressMenu: true,
+      valueGetter: (params: ICellRendererParams) => {
+        if(params.data){
+         return params.data.reservedQuantity + params.data.reservedRequisitionQuantity
+        }
+      }
     },
-    { 
-      headerName: 'Reserved Requisition Quantity', 
-      field: 'reservedRequisitionQuantity', 
-      suppressMenu: true
-    },
+    // { 
+    //   headerName: 'Reserved Requisition Quantity', 
+    //   field: 'reservedRequisitionQuantity', 
+    //   suppressMenu: true
+    // },
     { 
       headerName: 'Store', 
       field: 'warehouseName', 

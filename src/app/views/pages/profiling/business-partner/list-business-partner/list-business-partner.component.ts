@@ -1,6 +1,6 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import { ColDef, ColumnApi, ComponentType, FirstDataRenderedEvent, GridApi, GridOptions, GridParams, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, UserComponentFactory} from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, UserComponentFactory} from 'ag-grid-community';
 import { MatDialog} from '@angular/material/Dialog'
 import { CustomTooltipComponent} from "src/app/views/shared/components/custom-tooltip/custom-tooltip.component";
 import { CreateBusinessPartnerComponent } from '../create-business-partner/create-business-partner.component';
@@ -8,9 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IBusinessPartner } from '../model/IBusinessPartner';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { BusinessPartnerType, Permissions } from 'src/app/views/shared/AppEnum';
-import { LoadingCellRenderer } from 'ag-grid-community/dist/lib/rendering/cellRenderers/loadingCellRenderer';
 import { isEmpty } from 'lodash';
-import { truncate } from 'fs';
 import { Router } from '@angular/router';
 import { APP_ROUTES } from 'src/app/views/shared/AppRoutes';
 

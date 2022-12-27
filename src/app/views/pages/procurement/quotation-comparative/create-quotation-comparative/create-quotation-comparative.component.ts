@@ -16,6 +16,7 @@ import { IRequisition } from '../../requisition/model/IRequisition';
 import { IQuotationComparative } from '../model/IQuotationComparative';
 import { QuotationComparativeService } from '../service/quotation-comparative.service';
 import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IsRowMaster , DetailGridInfo} from 'ag-grid-community';
+import { QuotationService } from '../../quotation/service/quotation.service';
 
 
 
@@ -171,7 +172,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   //sales Order
   subscription2$: Subscription
 
-  title: string = 'Create Quotation'
+  title: string = 'Create Quotation Comparative'
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -224,6 +225,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   // Injecting in dependencies in constructor
   constructor(private fb: FormBuilder,
     private quotationComparativeService: QuotationComparativeService,
+    private quotationService: QuotationService,
     private requisitionService: RequisitionService,
     public activatedRoute: ActivatedRoute,
     public productService: ProductService,
@@ -355,10 +357,13 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
 
       if (id && isQuotationComparative) {
         this.isLoading = true;
-        this.title = 'Edit Quotation'
+        this.title = 'Edit Quotation Comparative'
         this.getQuotationComparative(id);
       }
     });
+
+    //get requisitions from store
+    this.ngxsService.getRequisitionFromState()
   }
 
   // Form Reset
@@ -494,6 +499,12 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     this.quotationComparativeModel.quotationComparativeDate = this.transformDate(this.quotationComparativeForm.value.quotationComparativeDate, 'yyyy-MM-dd');
     this.quotationComparativeModel.remarks = this.quotationComparativeForm.value.remarks;
     this.quotationComparativeModel.quotationIds = this.quotationComparativeForm.value.quotationIds;
+  }
+
+  getQuotation(id: number) {
+    this.quotationService.getQuotatationByReqId(id).subscribe(res => {
+      console.log(res)
+    }) 
   }
 
   //for save or submit

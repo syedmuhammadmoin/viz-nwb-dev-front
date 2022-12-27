@@ -14,12 +14,9 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { SaleOrderService } from '../../sales-order/service/sale-order.service';
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
-import { ISalesOrder } from '../../sales-order/model/ISalesOrder';
 import { IInvoiceLines } from '../model/IInvoiceLines';
 import { ISalesOrderLines } from '../../sales-order/model/ISalesOrderLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { IWarehouse } from '../../../profiling/warehouse/model/IWarehouse';
-import { unlink } from 'fs';
 
 
 @Component({

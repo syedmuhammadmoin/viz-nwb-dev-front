@@ -36,11 +36,18 @@
                   <i class="fa fa-edit icon-e-p-a"></i> Purchase Order
                 </button>
 
-                <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.QUOTATION_CREATE)) 
+                <!-- <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.QUOTATION_CREATE)) 
                 && (requisitionMaster?.isShowCFQButton)" id="requisition_quotation"
                   [routerLink]="'/' + QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                   type="button" class="mr-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Call For Quotation
+                </button> -->
+
+                <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.QUOTATION_CREATE)) 
+                && (requisitionMaster?.isShowCFQButton)" id="requisition_quotation"
+                  [routerLink]="'/' + QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
+                  type="button" class="mr-3 btn_public">
+                  <i class="fa fa-edit icon-e-p-a"></i> Quotation
                 </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.BIDEVALUATION_CREATE))

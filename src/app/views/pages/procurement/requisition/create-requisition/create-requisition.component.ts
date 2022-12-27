@@ -170,6 +170,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       if (id && this.isRequisition) {
         this.title = 'Edit Requisition'
         this.getRequisition(id);
+        this.requisitionForm.get('isWithoutWorkflow').disable()
       }
     })
 
@@ -333,11 +334,11 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     const formArray = new FormArray([]);
     requisitionLines.forEach((line : IRequisitionLines | any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isRequestRequisition) ? 0 : line.id,
         itemId: [line.itemId, [ Validators.required]],
-        description: [line.description ?? line.itemDescription, Validators.required],
+        description: [line.description ?? line.description, Validators.required],
         purchasePrice: [line.purchasePrice, [Validators.required, Validators.min(1)]],
-        quantity: [line.quantity ?? line.itemQuantity, [Validators.required, Validators.min(1)]],
+        quantity: [line.quantity ?? line.quantity, [Validators.required, Validators.min(1)]],
         subTotal: [{ value: line.subTotal ?? 0, disabled: true }],
         availableQuantity: [{ value: line.availableQuantity, disabled: true }],
         warehouseId: [line.warehouseId, [Validators.required]]
@@ -424,7 +425,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionModel.employeeId = this.requisitionForm.value.employeeId;
     this.requisitionModel.requisitionDate = this.transformDate(this.requisitionForm.value.requisitionDate, 'yyyy-MM-dd');
     this.requisitionModel.campusId = this.requisitionForm.getRawValue().campusId;
-    this.requisitionModel.isWithoutWorkflow = this.requisitionForm.value.isWithoutWorkflow;
+    this.requisitionModel.isWithoutWorkflow = this.requisitionForm.getRawValue().isWithoutWorkflow;
     this.requisitionModel.requestId = this.requestRequisitionMaster?.id || this.requisitionModel?.requestId;
     this.requisitionModel.requisitionLines = this.requisitionForm.value.requisitionLines;
   };

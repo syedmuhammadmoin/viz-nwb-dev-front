@@ -99,11 +99,11 @@
                             <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                               <div class="col-lg-12 col-sm-12 mt-2">
-                                <kt-input-field formControlName="itemDescription" [id]="'request_Description' + i"
+                                <kt-input-field formControlName="description" [id]="'request_Description' + i"
                                   matFormFieldClass="mobile-label full-width" placeholder="Enter Description"
                                   (blurEvent)="logValidationErrors(this.requestRequisitionForm, formErrors, validationMessages)"
-                                  [errorMessage]="[{ condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.itemDescription.errors?.required &&
-                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.itemDescription.touched , 
+                                  [errorMessage]="[{ condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.description.errors?.required &&
+                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.description.touched , 
                                                           error : 'Description is required.' }]">
                                 </kt-input-field>
                               </div>
@@ -114,15 +114,15 @@
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
                               <div class="col-lg-12 col-sm-12 mt-2">
-                                <kt-input-field formControlName="itemQuantity" [id]="'request_Quantity' + i"
+                                <kt-input-field formControlName="quantity" [id]="'request_Quantity' + i"
                                   matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                                   #itemName type="number"
                                   (blurEvent)="logValidationErrors(this.requestRequisitionForm, formErrors, validationMessages)"
-                                  [errorMessage]="[{ condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.errors?.required &&
-                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.touched , 
+                                  [errorMessage]="[{ condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.quantity.errors?.required &&
+                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.quantity.touched , 
                                                           error : 'Quantity is required.' },
-                                                        { condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.errors?.min &&
-                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.itemQuantity.touched , 
+                                                        { condition : requestRequisitionForm.get('requestLines')['controls'][i].controls.quantity.errors?.min &&
+                                                                      requestRequisitionForm.get('requestLines')['controls'][i].controls.quantity.touched , 
                                                           error : 'Minimum value is one.' }]">
                                 </kt-input-field>
                               </div>

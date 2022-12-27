@@ -469,7 +469,7 @@ export class AppConst {
     {value: 'Request Requisition' , id: DocType.Request},
     {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
     {value: 'Quotation' , id: DocType.Quotation},
-    {value: 'Call For Quotation' , id: DocType.CallForQuotaion}
+    {value: 'Call Quotation' , id: DocType.CallForQuotaion}
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

@@ -14,8 +14,8 @@
                     <label class="col-form-label pt-0">Requisition #:</label>
                     <kt-simple-dropdown id="quotation_requisition" formControlName="requisitionId" matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(this.quotationComparativeForm, this.formErrors, this.validationMessages)"
-                      propertyName="name" propertyValue="id" [errorMessage]="formErrors.requisitionId"
-                      [optionList]="ngxsService.businessPartners$"
+                      propertyName="docNo" propertyValue="id" (selectionChange)="getQuotation($event.value)"
+                      [errorMessage]="formErrors.requisitionId" [optionList]="ngxsService.requisitions$"
                       placeholder="Select Requisition">
                     </kt-simple-dropdown>
                   </div>
@@ -27,7 +27,7 @@
                     <label class="col-form-label pt-0">Date:</label>
                     <kt-date-input 
                       formControlName="quotationComparativeDate" 
-                      placeholder="Select Quotation Date" matFormFieldClass="full-width" [maxDate]="maxDate"
+                      placeholder="Select Date" matFormFieldClass="full-width" [maxDate]="maxDate"
                       (blurEvent)="logValidationErrors(this.quotationComparativeForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.quotationComparativeDate">
                     </kt-date-input>

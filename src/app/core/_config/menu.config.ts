@@ -589,6 +589,30 @@ export class MenuConfig {
           ],
           submenu: [
             {
+              title: 'Request Requisition',
+              page: '/' + REQUEST_REQUISITION.LIST,
+              permission: [
+                Permissions.REQUEST_VIEW,
+                Permissions.REQUEST_CREATE,
+                Permissions.REQUEST_EDIT,
+                Permissions.REQUEST_DELETE,
+                Permissions.REQUEST_REVIEW,
+                Permissions.REQUEST_APPROVE,
+              ]
+            },
+            {
+              title: 'Requisition',
+              page: '/' + REQUISITION.LIST,
+              permission: [
+                Permissions.REQUISITION_VIEW,
+                Permissions.REQUISITION_CREATE,
+                Permissions.REQUISITION_EDIT,
+                Permissions.REQUISITION_DELETE,
+                Permissions.REQUISITION_REVIEW,
+                Permissions.REQUISITION_APPROVE
+              ]
+            },
+            {
               title: 'Call Quotation',
               page: '/' + CALL_QUOTATION.LIST,
               permission: [
@@ -618,30 +642,6 @@ export class MenuConfig {
                 Permissions.QUOTATION_COMPARATIVE_CREATE,
                 Permissions.QUOTATION_COMPARATIVE_EDIT,
                 Permissions.QUOTATION_COMPARATIVE_DELETE
-              ]
-            },
-            {
-              title: 'Request Requisition',
-              page: '/' + REQUEST_REQUISITION.LIST,
-              permission: [
-                Permissions.REQUEST_VIEW,
-                Permissions.REQUEST_CREATE,
-                Permissions.REQUEST_EDIT,
-                Permissions.REQUEST_DELETE,
-                Permissions.REQUEST_REVIEW,
-                Permissions.REQUEST_APPROVE,
-              ]
-            },
-            {
-              title: 'Requisition',
-              page: '/' + REQUISITION.LIST,
-              permission: [
-                Permissions.REQUISITION_VIEW,
-                Permissions.REQUISITION_CREATE,
-                Permissions.REQUISITION_EDIT,
-                Permissions.REQUISITION_DELETE,
-                Permissions.REQUISITION_REVIEW,
-                Permissions.REQUISITION_APPROVE
               ]
             },
             {

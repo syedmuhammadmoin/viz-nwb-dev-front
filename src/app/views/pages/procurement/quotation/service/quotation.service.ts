@@ -27,6 +27,10 @@ export class QuotationService extends AppServiceBase {
         return this.httpClient.get<IApiResponse<IQuotation>>(`${this.baseUrl}/${id}`)
     }
 
+    getQuotatationByReqId(id: number): Observable<IApiResponse<any>> {
+       return this.httpClient.get<IApiResponse<any>>(this.baseUrl + '/GetQouteByReqId/' + id);
+    }
+
     createQuotation(Invoice: IQuotation): Observable<any> {
         return this.httpClient.post<any>(this.baseUrl, Invoice, {
             headers: new HttpHeaders({
