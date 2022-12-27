@@ -68,6 +68,11 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // for getting employee
   employee = {} as any;
 
+  /* handle warehouses gets empty for edit route 
+     on first render by onCampusSelected() function
+  */
+  emptyWarehouses : boolean = true;
+
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
@@ -315,9 +320,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
     //this.onCampusSelected(requisition.campusId)
     //this.showMessage = true;
+    this.emptyWarehouses = false;
     this.onToggle({checked: data.isWithoutWorkflow})
     this.getEmployee(data.employeeId)
-    console.log(data.requestLines)
+
     this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(data.requisitionLines ?? data.requestLines));
     //this.totalCalculation();
   }
@@ -479,16 +485,18 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       this.warehouseList.next(res.result || [])
     })
 
-    if(this.requisitionForm.value.requisitionLines.some(line => line.warehouseId)){
-
-      this.toastService.info("Please Reselect Store!" , "Requisition")
+    if(this.emptyWarehouses){
+      if(this.requisitionForm.value.requisitionLines.some(line => line.warehouseId)){
+        this.toastService.info("Please Reselect Store!" , "Requisition")
+      }
+  
+       this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => {
+          line.controls.warehouseId.setValue(null);
+          line.controls.availableQuantity.setValue(0);
+          return line
+       })
     }
-
-     this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => {
-        line.controls.warehouseId.setValue(null);
-        line.controls.availableQuantity.setValue(0);
-        return line
-     })
+     this.emptyWarehouses = true;
      this.cdRef.detectChanges()
   }
 
