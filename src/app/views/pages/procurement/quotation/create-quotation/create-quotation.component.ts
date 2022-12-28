@@ -387,7 +387,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     this.quotationModel.vendorId = this.quotationForm.value.vendorId;
     this.quotationModel.quotationDate = this.transformDate(this.quotationForm.value.quotationDate, 'yyyy-MM-dd');
     this.quotationModel.timeframe = this.quotationForm.value.timeframe;
-    this.quotationModel.requisitionId = this.requisitionId || null;
+    this.quotationModel.requisitionId = this.requisitionId || this.quotationModel.requisitionId || null;
     this.quotationModel.quotationLines = this.quotationForm.value.quotationLines;
   }
 
