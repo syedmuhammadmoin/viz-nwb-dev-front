@@ -9,9 +9,7 @@
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-
         <div class="row">
-
           <div class="btn_container">
             <div class="col-md-6 col-6">
               <ng-container ktPortletTools >
@@ -35,7 +33,7 @@
                   type="button" class="mr-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Purchase Order
                 </button>
-                
+
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.CALL_QUOTATION_CREATE)) 
                 && (requisitionMaster?.isShowCFQButton)" id="requisition_call"
                   [routerLink]="'/' + CALL_QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"

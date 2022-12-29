@@ -279,7 +279,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       remarks: data.remarks
     });
 
-    await this.getQuotations(data.requisitionId);
+    await this.getQuotations(data.requisitionId, data.id);
     this.patchQuotationComparativeLines(data.quotations);
   }
 
@@ -379,9 +379,9 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
 
   // }
 
-  async getQuotations(id: number): Promise<IApiResponse<any[]>> {
+  async getQuotations(reqId: number , id: any = ''): Promise<IApiResponse<any[]>> {
     this.isLoading = true;
-    const res = await this.quotationService.getQuotatationByReqId(id).toPromise()
+    const res = await this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: id}).toPromise()
     this.quotationList = res.result;
     this.isLoading = false;
     this.cdRef.detectChanges()
