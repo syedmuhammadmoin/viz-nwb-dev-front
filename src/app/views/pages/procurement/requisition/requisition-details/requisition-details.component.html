@@ -35,16 +35,16 @@
                   type="button" class="mr-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Purchase Order
                 </button>
-
-                <!-- <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.QUOTATION_CREATE)) 
-                && (requisitionMaster?.isShowCFQButton)" id="requisition_quotation"
-                  [routerLink]="'/' + QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
+                
+                <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.CALL_QUOTATION_CREATE)) 
+                && (requisitionMaster?.isShowCFQButton)" id="requisition_call"
+                  [routerLink]="'/' + CALL_QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                   type="button" class="mr-3 btn_public">
-                  <i class="fa fa-edit icon-e-p-a"></i> Call For Quotation
-                </button> -->
+                  <i class="fa fa-edit icon-e-p-a"></i> Call Quotation
+                </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.QUOTATION_CREATE)) 
-                && (requisitionMaster?.isShowCFQButton)" id="requisition_quotation"
+                && (requisitionMaster?.isShowQuotationButton)" id="requisition_quotation"
                   [routerLink]="'/' + QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
                   type="button" class="mr-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Quotation
@@ -149,9 +149,9 @@
                         <tr>
                           <th>Doc #</th>
                         </tr>
-                        <tr *ngFor="let issuance of requisitionMaster?.references">
-                          <td><a [routerLink]="('/' + ISSUANCE.ID_BASED_ROUTE('details', issuance?.docId))"
-                              class="links">{{issuance?.docNo}}</a></td>
+                        <tr *ngFor="let request of requisitionMaster?.references">
+                          <td><a [routerLink]="('/' + REQUEST.ID_BASED_ROUTE('details', request?.docId))"
+                              class="links">{{request?.docNo}}</a></td>
                         </tr>
                       </table>
                     </mat-expansion-panel>

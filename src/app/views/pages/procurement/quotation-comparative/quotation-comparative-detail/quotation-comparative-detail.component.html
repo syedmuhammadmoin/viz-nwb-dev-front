@@ -1,0 +1,209 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      <!-- <kt-portlet-header [sticky]="false" [title]="'Quotation Detail'" [class]="'card-head-lg'">
+        <ng-container ktPortletTools>
+          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+  
+          <h4 class="overall_statuses {{docStatus[quotationComparativeMaster?.state]}}"> Status: {{quotationComparativeMaster?.status}} </h4>
+        </ng-container>
+      </kt-portlet-header> -->
+  
+      <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Quotation Comparative Detail'">
+        <ng-container class="" ktPortletTools>
+          <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
+          <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[quotationComparativeMaster?.state]}}"></span> {{quotationComparativeMaster?.status}}</div>
+        </ng-container>
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+          <div class="row ">
+  
+            <div class="btn_container">
+              <div class="col-md-6 col-6">
+                <ng-container ktPortletTools >
+                    <button *ngIf="(quotationComparativeMaster?.state === docStatus.Draft || quotationComparativeMaster?.state === docStatus.Rejected)
+                        && (permission.isGranted(permissions.QUOTATION_COMPARATIVE_EDIT))"
+                      [routerLink]="'/' + QUOTATION_COMP.ID_BASED_ROUTE('edit', quotationComparativeMaster?.id)" [queryParams]="{q: quotationComparativeMaster?.id, 'isQuotationComparative': true}"
+                      type="button"  class="mr-3 btn_public" id="quotation_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                      Edit
+                    </button>
+  
+                    <!-- <button *ngIf="(permission.isGranted(permissions.QUOTATION_EDIT))" class="btn_public mr-3" id="quotation_attachment"
+                      (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
+                    </button> -->
+  
+                    <!-- <button [routerLink]="'/' + QUOTATION.ID_BASED_ROUTE('print', quotationComparativeMaster?.id)" type="button"
+                      class="btn_public" id="quotation_print">
+                      
+                      <i class="fa fa-print icon-e-p-a"></i> Print Quotation
+                    </button> -->
+  
+  
+                </ng-container>
+  
+              </div>
+              <!-- <div class="col-lg-6 text-right" *ngIf="quotationComparativeMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="quotation_reject" class="btn btn-outline-danger font-weight-bold mr-2" >Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="quotation_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
+              </div> -->
+            </div>
+  
+            <div class="col-md-5 col-lg-5  mt-3">
+              <div class="print-box">
+                  <h4 class="print-box-detail-1"><b>Doc No:</b>
+                      <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.docNo}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+              </div>
+              <!-- <div class="print-box">
+                <h4 class="print-box-detail-2"><b>Requisition No: </b>
+                <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.vendorName}}</span></h4>
+              </div> -->
+              <!-- <div class="print-box">
+                <h4 class="print-box-detail-2"><b>Campus: </b>
+                <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.campusName}}</span></h4>
+              </div> -->
+              <div class="print-box">
+                  <h4 class="print-box-detail-2"><b>Quotation Comparative Date: </b>
+                  <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.quotationComparativeDate | date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 class="print-box-detail-2"><b>Remarks: </b>
+                <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.remarks}}</span></h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-10">
+            <div class="col-lg-12 col-md-12 my-5">
+              <ag-grid-angular
+                style="width: 100%; height: 400px; margin-top: 10px;"
+                class="ag-theme-alpine"
+                [columnDefs]="columnDefs"
+                [masterDetail]="true"
+                [isRowMaster]="isRowMaster"
+                [detailCellRendererParams]="detailCellRendererParams"
+                [rowData]="quotationList"
+                [rowSelection]="'multiple'"
+                [rowMultiSelectWithClick]="true"
+                (gridReady)="onGridReady($event)"
+                [defaultColDef]="defaultColDef">
+              </ag-grid-angular>
+            </div>
+          </div>
+  
+          <!-- <div class="row mt-10">
+            <div class="col-md-12 col-12">
+              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
+                class="ag-theme-alpine" [rowData]="quotationLines" [columnDefs]="columnDefs"
+                (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+              </ag-grid-angular>
+            </div>
+          </div> -->
+  
+          <!-- <div class="row mt-5">
+  
+            <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+              <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+            </div>
+  
+            <div *ngIf="bpUnReconPaymentList.length > 0" class="col-md-6 col-6 ">
+              <table class="table table-bordered text-center styled-table">
+                <thead>
+                  <tr>
+                    <th>Doc No</th>
+                    <th>Amount</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
+                    <td>
+                      <a class="all-text-primary"
+                        [routerLink]="(unReconPay?.docType === 15) ? '/' + RECEIPT.ID_BASED_ROUTE ('details', unReconPay?.id) :
+                        (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) :
+                        '/' + CREDIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a>
+                    </td>
+                    <td>{{valueFormatter(unReconPay.amount)}}</td>
+                    <td>
+                      <button (click)="reconcile(i)" class="app-default-btn" mat-raised-button >Reconcile </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+   -->
+            <!-- <div class="col-lg-4 ml-auto">
+              <table class="table small_table_box" >
+                <tr>
+                  <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
+                  <td class="text-right" >
+                    {{valueFormatter(totalBeforeTax || 0)}}</td>
+                </tr>
+                <tr>
+                  <td class="text-left Total-Before-Tax-heading">Total Tax :</td>
+                  <td class="text-right" >
+                    {{valueFormatter(totalTax || 0)}}</td>
+                </tr>
+                <tr class="grand-total">
+                  <th class="text-left"
+                    >Grand Total :</th>
+                  <th class="text-right" >
+                    {{valueFormatter(totalQuotationAmount || 0)}}</th>
+                </tr>
+  
+                <tr *ngIf="paidAmountList.length > 0">
+                  <td colspan="2">
+                    <mat-accordion>
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="paid-anount">
+                            Paid Amount :
+                          </mat-panel-title>
+                          <mat-panel-description class="paid-anount-flex-grow">
+                            {{valueFormatter(paidAmount || 0)}}
+                          </mat-panel-description>
+                        </mat-expansion-panel-header>
+                        <table class="table text-center table-bordered">
+                          <tr>
+                            <th>Doc #</th>
+                            <th>Amount</th>
+                          </tr>
+                          <tr *ngFor="let pay of paidAmountList">
+                            <td><a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
+                                class="all-text-primary">{{pay?.docNo}}</a></td>
+                            <td>
+                              <a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
+                              class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
+                            </td>
+                          </tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </td>
+                </tr>
+                  <tr *ngIf="(pendingAmount)">
+                  <th class="text-right pending-amount">Pending Amount :
+                  </th>
+                  <td class="text-right Total-Before-Tax">
+                    <b>{{valueFormatter(pendingAmount || 0)}}</b></td>
+                </tr>
+              </table>
+            </div> -->
+          <!-- </div> -->
+  
+        </div>
+      </kt-portlet-body>
+  
+      <mat-divider class="mt-10"></mat-divider>
+  
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
+          <div class="row ">
+  
+          </div>
+        </div>
+      </div>
+    </kt-portlet>
+  </div>
+  
+  

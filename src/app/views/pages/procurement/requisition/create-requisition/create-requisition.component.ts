@@ -260,7 +260,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       quantity: ['', [Validators.required, Validators.min(1)]],
       subTotal: [{ value: '0', disabled: true }],
       availableQuantity: [{ value: '0', disabled: true }],
-      warehouseId: [null]
+      warehouseId: [null, [ Validators.required]]
     });
   }
 
@@ -340,7 +340,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         purchasePrice: [line.purchasePrice, [Validators.required, Validators.min(1)]],
         quantity: [line.quantity ?? line.quantity, [Validators.required, Validators.min(1)]],
         subTotal: [{ value: line.subTotal ?? 0, disabled: true }],
-        availableQuantity: [{ value: line.availableQuantity, disabled: true }],
+        availableQuantity: [{ value: (line.availableQuantity ?? 0), disabled: true }],
         warehouseId: [line.warehouseId, [Validators.required]]
       }))
     })

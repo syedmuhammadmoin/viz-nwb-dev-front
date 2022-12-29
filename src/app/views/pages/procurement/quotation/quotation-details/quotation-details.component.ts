@@ -146,6 +146,7 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
     .subscribe((res: IApiResponse<IQuotation>) => {
       this.quotationMaster = res.result;
       this.quotationLines = res.result.quotationLines;
+      this.remarksList = this.quotationMaster.remarksList ?? []
      
 
       // //handling disablity of register payment button

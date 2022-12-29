@@ -14,7 +14,7 @@
                     <label class="col-form-label pt-0">Requisition #:</label>
                     <kt-simple-dropdown id="quotation_requisition" formControlName="requisitionId" matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(this.quotationComparativeForm, this.formErrors, this.validationMessages)"
-                      propertyName="docNo" propertyValue="id" (selectionChange)="getQuotation($event.value)"
+                      propertyName="docNo" propertyValue="id" (selectionChange)="getQuotations($event.value)"
                       [errorMessage]="formErrors.requisitionId" [optionList]="ngxsService.requisitions$"
                       placeholder="Select Requisition">
                     </kt-simple-dropdown>
@@ -56,7 +56,7 @@
                     [masterDetail]="true"
                     [isRowMaster]="isRowMaster"
                     [detailCellRendererParams]="detailCellRendererParams"
-                    [rowData]="rowData"
+                    [rowData]="quotationList"
                     [rowSelection]="'multiple'"
                     [rowMultiSelectWithClick]="true"
                     (gridReady)="onGridReady($event)"

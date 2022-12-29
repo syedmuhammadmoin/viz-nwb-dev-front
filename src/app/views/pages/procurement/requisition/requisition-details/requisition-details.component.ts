@@ -2,17 +2,17 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BID_EVALUATION, ISSUANCE, PURCHASE_ORDER, QUOTATION, REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { BID_EVALUATION, CALL_QUOTATION, ISSUANCE, PURCHASE_ORDER, QUOTATION, REQUEST_REQUISITION, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IRequisitionLines } from '../model/IRequisitionLines';
 import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
 import { finalize, take } from 'rxjs/operators';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+
 
 @Component({
   selector: 'kt-requisition-details',
@@ -34,9 +34,11 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
 
   public REQUISITION = REQUISITION;
   public ISSUANCE = ISSUANCE
+  public REQUEST = REQUEST_REQUISITION
   public PURCHASE_ORDER = PURCHASE_ORDER
   public BIDEVALUATION = BID_EVALUATION
   public QUOTATION = QUOTATION
+  public CALL_QUOTATION = CALL_QUOTATION
 
   requisitionId: number;
 
