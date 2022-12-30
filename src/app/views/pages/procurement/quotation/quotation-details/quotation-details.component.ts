@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
@@ -9,7 +9,7 @@ import { QuotationService } from '../service/quotation.service';
 // import { RegisterPaymentComponent } from '../register-payment/register-payment.component'
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ITransactionRecon } from '../../../purchase/vendorBill/model/ITransactionRecon';
-import { CREDIT_NOTE, QUOTATION, JOURNAL_ENTRY, RECEIPT } from 'src/app/views/shared/AppRoutes';
+import { CREDIT_NOTE, QUOTATION, JOURNAL_ENTRY, RECEIPT, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IQuotationLines } from '../model/IQuotationLines';
 import { IQuotation } from '../model/IQuotation';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -38,6 +38,7 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
   public JOURNAL_ENTRY = JOURNAL_ENTRY;
   public CREDIT_NOTE = CREDIT_NOTE;
   public RECEIPT = RECEIPT;
+  public REQUISITION = REQUISITION;
 
   transactionReconModel: ITransactionRecon;
 

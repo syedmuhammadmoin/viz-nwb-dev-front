@@ -248,7 +248,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   // Add Quotation Lines
   addQuotationLines(): FormGroup {
     return this.fb.group({
-      itemId: [null],
+      itemId: [null , Validators.required],
       quantity: ['', [Validators.required,Validators.min(1)]],
       price: ['', [Validators.required, Validators.min(1)]],
       description: ['', Validators.required]
@@ -320,7 +320,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
         id: (this.requisitionId) ? 0 : line.id,
-        itemId: [line.itemId],
+        itemId: [line.itemId ,[Validators.required]],
         description: [line.description , Validators.required],
         price: [line.price ?? line.purchasePrice , [Validators.required, Validators.min(1)]],
         quantity: [line.quantity , [Validators.required,Validators.min(1)]]

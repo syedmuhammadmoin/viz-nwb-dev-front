@@ -70,6 +70,34 @@
             <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
               <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
             </div>
+  
+            <div class="col-lg-4 ml-auto">
+              <table class="table  small_table_box" style="margin: 0px -6px;">
+               
+                <tr *ngIf="quotationMaster?.references?.length > 0">
+                  <td colspan="2">
+                    <mat-accordion>
+                      <mat-expansion-panel>
+                        <mat-expansion-panel-header>
+                          <mat-panel-title class="paid-amount">
+                            References
+                          </mat-panel-title>
+                        </mat-expansion-panel-header>
+                        <table class="table text-center table-bordered">
+                          <tr>
+                            <th>Doc #</th>
+                          </tr>
+                          <tr *ngFor="let requisition of quotationMaster?.references">
+                            <td><a [routerLink]="('/' + REQUISITION.ID_BASED_ROUTE('details', requisition?.docId))"
+                                class="links">{{requisition?.docNo}}</a></td>
+                          </tr>
+                        </table>
+                      </mat-expansion-panel>
+                    </mat-accordion>
+                  </td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
       </kt-portlet-body>

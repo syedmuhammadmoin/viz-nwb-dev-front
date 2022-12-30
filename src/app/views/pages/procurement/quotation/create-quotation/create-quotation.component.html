@@ -19,7 +19,7 @@
                       [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
                       clickEventButtonName="Add New Vendor"
                       (clickEvent)="addButtonService.openBusinessPartnerDialog()" 
-                      placeholder="Select Vender">
+                      placeholder="Select Vendor">
                     </kt-simple-dropdown>
                   </div>
                 </div>
@@ -68,8 +68,7 @@
                                 clickEventButtonName="Add New Item"
                                 (clickEvent)="addButtonService.openProductDialog()"
                                 formControlName="itemId"
-                                isDisabledNone="true"
-                                hintText="Optional"
+                                [errorMessage]="'Item is required.'"
                                 placeholder="Select Item" matFormFieldClass="mobile-label full-width"
                                 (selectionChange)="onItemSelected($event.value, i)">
                                 </kt-simple-dropdown>

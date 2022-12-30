@@ -84,6 +84,11 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       field: 'quantity', 
       cellStyle: { 'font-size': '12px' }
     },
+    { 
+      headerName: 'Reserve Quantity', 
+      field: 'reserveQuantity', 
+      cellStyle: { 'font-size': '12px' }
+    },
     {
       headerName: 'Price', 
       field: 'purchasePrice',  
