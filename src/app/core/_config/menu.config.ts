@@ -612,38 +612,38 @@ export class MenuConfig {
                 Permissions.REQUISITION_APPROVE
               ]
             },
-            {
-              title: 'Call Quotation',
-              page: '/' + CALL_QUOTATION.LIST,
-              permission: [
-                Permissions.CALL_QUOTATION_VIEW,
-                Permissions.CALL_QUOTATION_CREATE,
-                Permissions.CALL_QUOTATION_EDIT,
-                Permissions.CALL_QUOTATION_DELETE,
-              ]
-            },
-            {
-              title: 'Quotation',
-              page: '/' + QUOTATION.LIST,
-              permission: [
-                Permissions.QUOTATION_VIEW,
-                Permissions.QUOTATION_CREATE,
-                Permissions.QUOTATION_EDIT,
-                Permissions.QUOTATION_DELETE,
-                Permissions.QUOTATION_REVIEW,
-                Permissions.QUOTATION_APPROVE,
-              ]
-            },
-            {
-              title: 'Quotation Comparative',
-              page: '/' + QUOTATION_COMPARATIVE.LIST,
-              permission: [
-                Permissions.QUOTATION_COMPARATIVE_VIEW,
-                Permissions.QUOTATION_COMPARATIVE_CREATE,
-                Permissions.QUOTATION_COMPARATIVE_EDIT,
-                Permissions.QUOTATION_COMPARATIVE_DELETE
-              ]
-            },
+            // {
+            //   title: 'Call Quotation',
+            //   page: '/' + CALL_QUOTATION.LIST,
+            //   permission: [
+            //     Permissions.CALL_QUOTATION_VIEW,
+            //     Permissions.CALL_QUOTATION_CREATE,
+            //     Permissions.CALL_QUOTATION_EDIT,
+            //     Permissions.CALL_QUOTATION_DELETE,
+            //   ]
+            // },
+            // {
+            //   title: 'Quotation',
+            //   page: '/' + QUOTATION.LIST,
+            //   permission: [
+            //     Permissions.QUOTATION_VIEW,
+            //     Permissions.QUOTATION_CREATE,
+            //     Permissions.QUOTATION_EDIT,
+            //     Permissions.QUOTATION_DELETE,
+            //     Permissions.QUOTATION_REVIEW,
+            //     Permissions.QUOTATION_APPROVE,
+            //   ]
+            // },
+            // {
+            //   title: 'Quotation Comparative',
+            //   page: '/' + QUOTATION_COMPARATIVE.LIST,
+            //   permission: [
+            //     Permissions.QUOTATION_COMPARATIVE_VIEW,
+            //     Permissions.QUOTATION_COMPARATIVE_CREATE,
+            //     Permissions.QUOTATION_COMPARATIVE_EDIT,
+            //     Permissions.QUOTATION_COMPARATIVE_DELETE
+            //   ]
+            // },
             {
               title: 'Issuance',
               page: '/' + ISSUANCE.LIST,

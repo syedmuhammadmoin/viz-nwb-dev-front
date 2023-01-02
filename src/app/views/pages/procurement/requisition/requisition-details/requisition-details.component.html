@@ -126,11 +126,14 @@
                       </mat-expansion-panel-header>
                       <table class="table text-center table-bordered">
                         <tr>
-                          <th>Doc #</th>
+                          <th>Doc #</th> 
+                          <!-- request quotation issuance -->
                         </tr>
-                        <tr *ngFor="let request of requisitionMaster?.references">
-                          <td><a [routerLink]="('/' + REQUEST.ID_BASED_ROUTE('details', request?.docId))"
-                              class="links">{{request?.docNo}}</a></td>
+                        <tr *ngFor="let doc of requisitionMaster?.references">
+                          <td><a [routerLink]="(doc?.docType === 18) ? '/' + ISSUANCE.ID_BASED_ROUTE ('details', doc?.docId) :
+                             (doc?.docType === 13) ? '/' + QUOTATION.ID_BASED_ROUTE ('details', doc?.docId) :
+                            '/' + REQUEST.ID_BASED_ROUTE('details', doc?.docId) "
+                              class="links">{{doc?.docNo}}</a></td>
                         </tr>
                       </table>
                     </mat-expansion-panel>
