@@ -211,7 +211,7 @@ export class AppConst {
     'Permissions.Report.GeneralLedgerClaims.View': 'General Ledger',
 
     // Income Expenditure
-    'Permissions.Report.ProfitLossClaims.View': 'Profit and Loss Statement',
+    'Permissions.Report.ProfitLossClaims.View': 'Income & Expenditure',
 
     // Trial Balance
     'Permissions.Report.TrialBalanceClaims.View': 'Trial Balance',
@@ -348,6 +348,12 @@ export class AppConst {
     'Permissions.Procurement.QuotationComparativeClaims.Create': 'Quotation Comparative Create',
     'Permissions.Procurement.QuotationComparativeClaims.Edit': 'Quotation Comparative Update',
     'Permissions.Procurement.QuotationComparativeClaims.Delete': 'Quotation Comparative Delete',
+    
+    // Call Quatation
+    'Permissions.Procurement.CallForQuotationClaims.View': 'Call Quotation View',
+    'Permissions.Procurement.CallForQuotationClaims.Create': 'Call Quotation Create',
+    'Permissions.Procurement.CallForQuotationClaims.Edit': 'Call Quotation Update',
+    'Permissions.Procurement.CallForQuotationClaims.Delete': 'Call Quotation Delete',
 
     // Request Requisition
     'Permissions.Procurement.RequestClaims.View': 'Request Requisition View',
@@ -463,7 +469,7 @@ export class AppConst {
     {value: 'Request Requisition' , id: DocType.Request},
     {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
     {value: 'Quotation' , id: DocType.Quotation},
-    {value: 'Call For Quotation' , id: DocType.CallForQuotaion}
+    {value: 'Call Quotation' , id: DocType.CallForQuotaion}
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

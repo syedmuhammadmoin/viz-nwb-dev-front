@@ -225,8 +225,8 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
 
   addRequestRequisitionLines(): FormGroup {
     return this.fb.group({
-      itemDescription: ['', Validators.required],
-      itemQuantity: ['', [Validators.required, Validators.min(1)]],
+      description: ['', Validators.required],
+      quantity: ['', [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -280,8 +280,8 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     requisitionLines.forEach((line : IRequestRequisitionLines | any) => {
       formArray.push(this.fb.group({
         id: line.id,
-        itemDescription: [line.itemDescription, Validators.required],
-        itemQuantity: [line.itemQuantity, [Validators.required, Validators.min(1)]],
+        description: [line.description, Validators.required],
+        quantity: [line.quantity, [Validators.required, Validators.min(1)]],
       }))
     })
     return formArray

@@ -35,6 +35,7 @@ export const APP_ROUTES = {
   BID_EVALUATION: 'bid-evaluation',
   QUOTATION: 'quotation',
   QUOTATION_COMPARATIVE: 'quotation-comparative',
+  CALL_QUOTATION: 'call-quotation',
 
   //PROFILING
   CAMPUS : 'campus',
@@ -307,6 +308,14 @@ export const CRUD_ROUTES = {
     CREATE: APP_ROUTES.QUOTATION_COMPARATIVE + '/' + CRUD_ROUTES.CREATE,
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.QUOTATION_COMPARATIVE + '/' + route + '/' + id
+    }
+  }
+  
+  export const CALL_QUOTATION = {
+    LIST: APP_ROUTES.CALL_QUOTATION + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.CALL_QUOTATION + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.CALL_QUOTATION + '/' + route + '/' + id
     }
   }
 

@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
@@ -43,7 +44,7 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
 
   columnDefs = [
     {
-      headerName: 'Quotation #',
+      headerName: 'Quotation Comparative #',
       field: 'docNo',
       tooltipField: 'docNo',
       cellRenderer: "loadingCellRenderer",
@@ -55,19 +56,8 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
         },
     },
     {
-      headerName: 'Customer',
-      field: 'customerName',
-      tooltipField: 'docNo',
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
-    },
-    {
-      headerName: 'Quotation Date',
-      field: 'quotationDate',
+      headerName: 'Quotation Comparative Date',
+      field: 'quotationComparativeDate',
       tooltipField: 'docNo',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -80,29 +70,9 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
       }
     },
     {
-      headerName: 'Due Date',
-      field: 'dueDate',
-      tooltipField: 'docNo',
-      filter: 'agDateColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['equals'],
-          suppressAndOrCondition: true,
-        },
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.transformDate(params.value, 'MMM d, y') || null;
-      }
-    },
-    {
-      headerName: 'Total',
-      field: 'totalAmount',
-      headerClass: 'custom_left',
-      cellStyle: { 'text-align': "right" },
-      tooltipField: 'docNo',
+      headerName: 'Remarks',
+      field: 'remarks',
       suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.valueFormatter(params.value) || null;
-      }
     },
     {
       headerName: 'Status',
@@ -166,24 +136,24 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
 
 
   onGridReady(params: GridReadyEvent) {
-    // this.gridApi = params.api;
-    // this.gridColumnApi = params.columnApi;
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
 
-    // var dataSource = {
-    //   getRows: (params: any) => {
-    //     this.quotationService.getRecords(params).subscribe((data) => {
-    //       if(isEmpty(data.result)) {
-    //         this.gridApi.showNoRowsOverlay()
-    //       } else {
-    //         this.gridApi.hideOverlay();
-    //       }
-    //       params.successCallback(data.result || 0, data.totalRecords);
-    //       this.paginationHelper.goToPage(this.gridApi, 'quotationPageName')
-    //       this.cdRef.detectChanges();
-    //     });
-    //   },
-    // };
-    // params.api.setDatasource(dataSource);
+    var dataSource = {
+      getRows: (params: any) => {
+        this.quotationComparativeService.getRecords(params).subscribe((data) => {
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
+          } else {
+            this.gridApi.hideOverlay();
+          }
+          params.successCallback(data.result || 0, data.totalRecords);
+          this.paginationHelper.goToPage(this.gridApi, 'quotationComparativePageName')
+          this.cdRef.detectChanges();
+        });
+      },
+    };
+    params.api.setDatasource(dataSource);
   }
 
 }

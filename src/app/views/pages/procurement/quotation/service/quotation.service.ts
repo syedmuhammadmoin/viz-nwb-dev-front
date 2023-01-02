@@ -7,6 +7,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { HttpParams } from '@angular/common/http';
 
 
 @Injectable({
@@ -25,6 +26,11 @@ export class QuotationService extends AppServiceBase {
 
     getQuotationById(id: number): Observable<IApiResponse<IQuotation>> {
         return this.httpClient.get<IApiResponse<IQuotation>>(`${this.baseUrl}/${id}`)
+    }
+
+    getQuotatationByReqId(model: any): Observable<any> {
+        https://localhost:7237/api/Quotation/GetQuoteByReqId?RequisitionId=67
+       return this.httpClient.get<any>(this.baseUrl + '/GetQuoteByReqId', {params: model });
     }
 
     createQuotation(Invoice: IQuotation): Observable<any> {

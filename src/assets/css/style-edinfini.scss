@@ -26,6 +26,12 @@ $db_dd_t_c : var(--db_dd_t_c);
 	display: none !important;
 }
 
+.create-component .ag-theme-alpine .ag-cell{
+  //line-height: 25px !important;
+}
+
+
+
 .theme-changing-edinfini{
   border-radius: 50%;
     height: 30px;
@@ -1860,6 +1866,10 @@ mat-tree-node div[id^='child']
     background-color: #fff;
     border-radius: 6px;
   }
+
+  .ag-theme-alpine .ag-row{ height: 30px !important;}
+  .quotation-comparitive .ag-full-width-container .ag-row{height: 300px !important;}
+  
 
   @media (max-width: 991.98px){
 

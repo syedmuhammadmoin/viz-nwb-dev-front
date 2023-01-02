@@ -68,6 +68,11 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // for getting employee
   employee = {} as any;
 
+  /* handle warehouses gets empty for edit route 
+     on first render by onCampusSelected() function
+  */
+  emptyWarehouses : boolean = true;
+
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
@@ -165,6 +170,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       if (id && this.isRequisition) {
         this.title = 'Edit Requisition'
         this.getRequisition(id);
+        this.requisitionForm.get('isWithoutWorkflow').disable()
       }
     })
 
@@ -254,7 +260,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       quantity: ['', [Validators.required, Validators.min(1)]],
       subTotal: [{ value: '0', disabled: true }],
       availableQuantity: [{ value: '0', disabled: true }],
-      warehouseId: [null]
+      warehouseId: [null, [ Validators.required]]
     });
   }
 
@@ -315,9 +321,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
     //this.onCampusSelected(requisition.campusId)
     //this.showMessage = true;
+    this.emptyWarehouses = false;
     this.onToggle({checked: data.isWithoutWorkflow})
     this.getEmployee(data.employeeId)
-    console.log(data.requestLines)
+
     this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(data.requisitionLines ?? data.requestLines));
     //this.totalCalculation();
   }
@@ -327,13 +334,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     const formArray = new FormArray([]);
     requisitionLines.forEach((line : IRequisitionLines | any) => {
       formArray.push(this.fb.group({
-        id: line.id,
+        id: (this.isRequestRequisition) ? 0 : line.id,
         itemId: [line.itemId, [ Validators.required]],
-        description: [line.description ?? line.itemDescription, Validators.required],
+        description: [line.description ?? line.description, Validators.required],
         purchasePrice: [line.purchasePrice, [Validators.required, Validators.min(1)]],
-        quantity: [line.quantity ?? line.itemQuantity, [Validators.required, Validators.min(1)]],
+        quantity: [line.quantity ?? line.quantity, [Validators.required, Validators.min(1)]],
         subTotal: [{ value: line.subTotal ?? 0, disabled: true }],
-        availableQuantity: [{ value: line.availableQuantity, disabled: true }],
+        availableQuantity: [{ value: (line.availableQuantity ?? 0), disabled: true }],
         warehouseId: [line.warehouseId, [Validators.required]]
       }))
     })
@@ -418,7 +425,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionModel.employeeId = this.requisitionForm.value.employeeId;
     this.requisitionModel.requisitionDate = this.transformDate(this.requisitionForm.value.requisitionDate, 'yyyy-MM-dd');
     this.requisitionModel.campusId = this.requisitionForm.getRawValue().campusId;
-    this.requisitionModel.isWithoutWorkflow = this.requisitionForm.value.isWithoutWorkflow;
+    this.requisitionModel.isWithoutWorkflow = this.requisitionForm.getRawValue().isWithoutWorkflow;
     this.requisitionModel.requestId = this.requestRequisitionMaster?.id || this.requisitionModel?.requestId;
     this.requisitionModel.requisitionLines = this.requisitionForm.value.requisitionLines;
   };
@@ -479,16 +486,18 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       this.warehouseList.next(res.result || [])
     })
 
-    if(this.requisitionForm.value.requisitionLines.some(line => line.warehouseId)){
-
-      this.toastService.info("Please Reselect Store!" , "Requisition")
+    if(this.emptyWarehouses){
+      if(this.requisitionForm.value.requisitionLines.some(line => line.warehouseId)){
+        this.toastService.info("Please Reselect Store!" , "Requisition")
+      }
+  
+       this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => {
+          line.controls.warehouseId.setValue(null);
+          line.controls.availableQuantity.setValue(0);
+          return line
+       })
     }
-
-     this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => {
-        line.controls.warehouseId.setValue(null);
-        line.controls.availableQuantity.setValue(0);
-        return line
-     })
+     this.emptyWarehouses = true;
      this.cdRef.detectChanges()
   }
 

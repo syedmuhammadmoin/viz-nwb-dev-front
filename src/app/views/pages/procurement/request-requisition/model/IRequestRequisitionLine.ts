@@ -1,7 +1,7 @@
 export interface IRequestRequisitionLines {
     id: number;
-    itemDescription: string;
-    itemQuantity: number;
+    description: string;
+    quantity: number;
 }
 
 

@@ -184,6 +184,12 @@ export class Permissions {
   static QUOTATION_COMPARATIVE_EDIT = 'Permissions.Procurement.QuotationComparativeClaims.Edit';
   static QUOTATION_COMPARATIVE_DELETE = 'Permissions.Procurement.QuotationComparativeClaims.Delete';
  
+  //Call Quotation
+  static CALL_QUOTATION_VIEW = 'Permissions.Procurement.CallForQuotationClaims.View'
+  static CALL_QUOTATION_CREATE = 'Permissions.Procurement.CallForQuotationClaims.Create';
+  static CALL_QUOTATION_EDIT = 'Permissions.Procurement.CallForQuotationClaims.Edit';
+  static CALL_QUOTATION_DELETE = 'Permissions.Procurement.CallForQuotationClaims.Delete';
+
   // Request Requisition
   static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
   static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';

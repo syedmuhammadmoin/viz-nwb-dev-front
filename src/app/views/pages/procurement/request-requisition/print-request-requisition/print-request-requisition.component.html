@@ -56,8 +56,8 @@
                     </tr>
                     <tr *ngFor="let line of requestRequisitionLines; index as i">
                       <td>{{i + 1}}</td>
-                      <td> {{line?.itemDescription}}</td>
-                      <td>{{line?.itemQuantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
+                      <td> {{line?.description}}</td>
+                      <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     </tr>
                   </thead>
                 </table>

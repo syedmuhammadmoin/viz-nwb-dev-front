@@ -1,7 +1,7 @@
 import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET_CATEGORY, ASSET, REQUEST_REQUISITION, BID_EVALUATION, QUOTATION, QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET_CATEGORY, ASSET, REQUEST_REQUISITION, BID_EVALUATION, QUOTATION, QUOTATION_COMPARATIVE, CALL_QUOTATION } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -577,33 +577,17 @@ export class MenuConfig {
             Permissions.QUOTATION_VIEW,
             Permissions.QUOTATION_CREATE,
             Permissions.QUOTATION_EDIT,
-            Permissions.QUOTATION_DELETE
+            Permissions.QUOTATION_DELETE,
+            Permissions.CALL_QUOTATION_VIEW,
+            Permissions.CALL_QUOTATION_CREATE,
+            Permissions.CALL_QUOTATION_EDIT,
+            Permissions.CALL_QUOTATION_DELETE,
+            Permissions.QUOTATION_COMPARATIVE_VIEW,
+            Permissions.QUOTATION_COMPARATIVE_CREATE,
+            Permissions.QUOTATION_COMPARATIVE_EDIT,
+            Permissions.QUOTATION_COMPARATIVE_DELETE
           ],
           submenu: [
-            // {
-            //   title: 'Quotation',
-            //   page: '/' + QUOTATION.LIST,
-            //   permission: [
-            //     Permissions.QUOTATION_VIEW,
-            //     Permissions.QUOTATION_CREATE,
-            //     Permissions.QUOTATION_EDIT,
-            //     Permissions.QUOTATION_DELETE,
-            //     Permissions.QUOTATION_REVIEW,
-            //     Permissions.QUOTATION_APPROVE,
-            //   ]
-            // },
-            // {
-            //   title: 'Quotation Comparative',
-            //   page: '/' + QUOTATION_COMPARATIVE.LIST,
-            //   // permission: [
-            //   //   Permissions.QUOTATION_VIEW,
-            //   //   Permissions.QUOTATION_CREATE,
-            //   //   Permissions.QUOTATION_EDIT,
-            //   //   Permissions.QUOTATION_DELETE,
-            //   //   Permissions.QUOTATION_REVIEW,
-            //   //   Permissions.QUOTATION_APPROVE,
-            //   // ]
-            // },
             {
               title: 'Request Requisition',
               page: '/' + REQUEST_REQUISITION.LIST,
@@ -628,6 +612,38 @@ export class MenuConfig {
                 Permissions.REQUISITION_APPROVE
               ]
             },
+            // {
+            //   title: 'Call Quotation',
+            //   page: '/' + CALL_QUOTATION.LIST,
+            //   permission: [
+            //     Permissions.CALL_QUOTATION_VIEW,
+            //     Permissions.CALL_QUOTATION_CREATE,
+            //     Permissions.CALL_QUOTATION_EDIT,
+            //     Permissions.CALL_QUOTATION_DELETE,
+            //   ]
+            // },
+            // {
+            //   title: 'Quotation',
+            //   page: '/' + QUOTATION.LIST,
+            //   permission: [
+            //     Permissions.QUOTATION_VIEW,
+            //     Permissions.QUOTATION_CREATE,
+            //     Permissions.QUOTATION_EDIT,
+            //     Permissions.QUOTATION_DELETE,
+            //     Permissions.QUOTATION_REVIEW,
+            //     Permissions.QUOTATION_APPROVE,
+            //   ]
+            // },
+            // {
+            //   title: 'Quotation Comparative',
+            //   page: '/' + QUOTATION_COMPARATIVE.LIST,
+            //   permission: [
+            //     Permissions.QUOTATION_COMPARATIVE_VIEW,
+            //     Permissions.QUOTATION_COMPARATIVE_CREATE,
+            //     Permissions.QUOTATION_COMPARATIVE_EDIT,
+            //     Permissions.QUOTATION_COMPARATIVE_DELETE
+            //   ]
+            // },
             {
               title: 'Issuance',
               page: '/' + ISSUANCE.LIST,

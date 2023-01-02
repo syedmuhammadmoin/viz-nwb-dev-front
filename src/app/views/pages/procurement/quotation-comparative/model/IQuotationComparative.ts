@@ -1,3 +1,7 @@
+export interface IQuotationComparativeLines {
+  quotationId: number;
+  isSelected: boolean;
+}
 
 export interface IQuotationComparative {
     id: number;
@@ -5,7 +9,7 @@ export interface IQuotationComparative {
     quotationComparativeDate: string;
     remarks: string;
     isSubmit ?: any;
-    quotationIds: number[];
+    quotationComparativeLines: IQuotationComparativeLines[];
 }
 
 

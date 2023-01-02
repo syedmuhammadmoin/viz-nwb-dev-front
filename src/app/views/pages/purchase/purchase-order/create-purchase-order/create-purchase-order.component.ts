@@ -345,7 +345,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
         cost: [line.cost, [Validators.required, Validators.min(1)]],
-        quantity: [line.quantity, [Validators.required, Validators.min(1)]],
+        quantity: [(this.isRequisition) ? (line.quantity) - (line.reserveQuantity) : line.quantity, [Validators.required, Validators.min(1)]],
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
         subTotal: [{value: line.subTotal, disabled: true}],
         accountId: [line.accountId, [Validators.required]],

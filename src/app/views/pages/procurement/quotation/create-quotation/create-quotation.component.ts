@@ -45,6 +45,8 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   // Quotation Model
   quotationModel: IQuotation;
 
+  requisitionId: number;
+
   // For DropDown
   salesItem: IProduct[];
 
@@ -147,11 +149,17 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isQuotation = param.isQuotation;
-      const isRequisition = param.isRequisitionId;
+      const isRequisition = param.isRequisition;
       if (id && isQuotation) {
         this.isLoading = true;
         this.title = 'Edit Quotation'
         this.getQuotation(id);
+      }
+
+      if (id && isRequisition) {
+        this.isLoading = true;
+        this.requisitionId = +id;
+        this.getRequisition(id);
       }
     });
 
@@ -240,7 +248,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   // Add Quotation Lines
   addQuotationLines(): FormGroup {
     return this.fb.group({
-      itemId: [null],
+      itemId: [null , Validators.required],
       quantity: ['', [Validators.required,Validators.min(1)]],
       price: ['', [Validators.required, Validators.min(1)]],
       description: ['', Validators.required]
@@ -268,8 +276,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
      )
     .subscribe((res: any) => {
       if (!res) return
-      this.quotationModel = res.result
-      this.patchQuotation(this.quotationModel)
+      this.patchQuotation(res.result)
     });
   }
 
@@ -293,9 +300,8 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   //Patch Quotation Form through Quotation Or sales Order Master Data
   
   patchQuotation(data: IQuotation | IRequisition | any ) {
-    console.log(data.vendorId)
     this.quotationForm.patchValue({
-      vendorId: data.vendorId ?? data.employeeId,
+      vendorId: data.vendorId,
       quotationDate: data.quotationDate ?? data.requisitionDate,
       timeframe: data.timeframe
     });
@@ -313,10 +319,10 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        id: line.id,
-        itemId: [line.itemId],
+        id: (this.requisitionId) ? 0 : line.id,
+        itemId: [line.itemId ,[Validators.required]],
         description: [line.description , Validators.required],
-        price: [line.price , [Validators.required, Validators.min(1)]],
+        price: [line.price ?? line.purchasePrice , [Validators.required, Validators.min(1)]],
         quantity: [line.quantity , [Validators.required,Validators.min(1)]]
       }))
     })
@@ -344,6 +350,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     this.mapFormValuesToQuotationModel();
     console.log(this.quotationModel)
     if (this.quotationModel.id) {
+      console.log("updated")
       this.quotationService.updateQuotation(this.quotationModel)
       .pipe(
         take(1),
@@ -358,6 +365,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
           this.router.navigate(['/' + QUOTATION.ID_BASED_ROUTE('details', this.quotationModel.id)]);
         })
     } else {
+      console.log("create")
       delete this.quotationModel.id;
       this.quotationService.createQuotation(this.quotationModel)
       .pipe(
@@ -379,7 +387,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     this.quotationModel.vendorId = this.quotationForm.value.vendorId;
     this.quotationModel.quotationDate = this.transformDate(this.quotationForm.value.quotationDate, 'yyyy-MM-dd');
     this.quotationModel.timeframe = this.quotationForm.value.timeframe;
-    this.quotationModel.requisitionId = this.quotationModel.requisitionId;
+    this.quotationModel.requisitionId = this.requisitionId || this.quotationModel.requisitionId || null;
     this.quotationModel.quotationLines = this.quotationForm.value.quotationLines;
   }
 

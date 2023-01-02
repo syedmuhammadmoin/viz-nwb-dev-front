@@ -1,27 +1,22 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnDestroy, OnInit, Optional, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Observable, Subscription } from 'rxjs';
-import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { PayrollItemType, Permissions } from 'src/app/views/shared/AppEnum';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { PayrollItemService } from '../service/payroll-item.service'
 import { IPayrollItem } from '../model/IPayrollItem'
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent} from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssignEmployeeComponent } from '../assign-employee/assign-employee.component';
 import { isEmpty } from 'lodash';
 import { ActionButtonComponent } from 'src/app/views/shared/components/action-button/action-button.component';
-import { Button } from 'protractor';
 import { PAYROLL_ITEM } from 'src/app/views/shared/AppRoutes';
-import { RowDragComp } from 'ag-grid-community/dist/lib/rendering/row/rowDragComp';
-import { RowDragFeature } from 'ag-grid-community/dist/lib/gridPanel/rowDragFeature';
+
 
 @Component({
   selector: 'kt-create-payroll-item',

@@ -23,21 +23,21 @@ export class QuotationComparativeService extends AppServiceBase {
     //     return this.httpClient.get<IPaginationResponse<IQuotationComparative[]>>(this.baseUrl)
     // }
 
-    getQuotationByRequisition(id: number): Observable<IApiResponse<any>> {
-        return this.httpClient.get<IApiResponse<any>>(`${this.baseUrl}/${id}`)
+    getQuotationComparativeById(id: number): Observable<IApiResponse<any>> {
+      return this.httpClient.get<IApiResponse<any>>(`${this.baseUrl}/${id}`)
     }
 
-    // createQuotationComparative(quotComparative: IQuotationComparative): Observable<any> {
-    //     return this.httpClient.post<any>(this.baseUrl, quotComparative, {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json'
-    //         })
-    //     });
-    // }
+    createQuotationComparative(quotComparative: IQuotationComparative): Observable<any> {
+        return this.httpClient.post<any>(this.baseUrl, quotComparative, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        });
+    }
 
-    // updateQuotationComparative(quotComparativeModel: IQuotationComparative): Observable<any> {
-    //     return this.httpClient.put<any>(this.baseUrl + `/${quotComparativeModel.id}`, quotComparativeModel)
-    // }
+    updateQuotationComparative(quotComparativeModel: IQuotationComparative): Observable<any> {
+        return this.httpClient.put<any>(this.baseUrl + `/${quotComparativeModel.id}`, quotComparativeModel)
+    }
 
     // workflow(workflow: IWorkflow): Observable<any> {
     //     return this.httpClient.post(this.baseUrl + '/workflow', workflow);
@@ -49,7 +49,7 @@ export class QuotationComparativeService extends AppServiceBase {
     //     return this.httpClient.post<any>(`${this.baseUrl}/DocUpload/${id}`, formData)
     // }
 
-    // getRecords(params: any): Observable<any> {
-    //     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.quotComparativeDate?.dateFrom, 'MM/d/y'))});
-    // }
+    getRecords(params: any): Observable<any> {
+        return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.quotComparativeDate?.dateFrom, 'MM/d/y'))});
+    }
 }

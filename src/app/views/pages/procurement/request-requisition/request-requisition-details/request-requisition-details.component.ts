@@ -65,12 +65,12 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
   columnDefs = [
     { 
       headerName: 'Description', 
-      field: 'itemDescription', 
+      field: 'description', 
       cellStyle: { 'font-size': '12px' }
     },
     { 
       headerName: 'Quantity', 
-      field: 'itemQuantity', 
+      field: 'quantity', 
       cellStyle: { 'font-size': '12px' }
     },
     // {
