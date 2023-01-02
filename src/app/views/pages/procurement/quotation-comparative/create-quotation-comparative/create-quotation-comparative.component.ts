@@ -1,27 +1,18 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { IProduct } from '../../../profiling/product/model/IProduct';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { QUOTATION, QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
+import { QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { RequisitionService } from '../../requisition/service/requisition.service';
-import { IRequisition } from '../../requisition/model/IRequisition';
 import { IQuotationComparative } from '../model/IQuotationComparative';
 import { QuotationComparativeService } from '../service/quotation-comparative.service';
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IsRowMaster , DetailGridInfo, ICellRendererParams} from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent, IsRowMaster , ICellRendererParams} from 'ag-grid-community';
 import { QuotationService } from '../../quotation/service/quotation.service';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-
-
-
-
 
 
 
@@ -52,6 +43,8 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
 
   title: string = 'Create Quotation Comparative'
 
+  public gridApi: GridApi
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -76,27 +69,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   };
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  public gridApi: GridApi
-
-
   // Injecting in dependencies in constructor
   constructor(private fb: FormBuilder,
     private quotationComparativeService: QuotationComparativeService,
@@ -112,22 +84,17 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     super(injector);
   }
 
-  value: boolean = false
 
   public isRowMaster: IsRowMaster = (dataItem: any) => {
     return dataItem ? dataItem.quotationLines?.length > 0 : false;
   };
+
   public columnDefs: ColDef[] = [
 
     // group cell renderer needed for expand / collapse icons
     { headerName: 'Quotation #', 
       field: 'docNo', 
       cellRenderer: 'agGroupCellRenderer', 
-      //headerCheckboxSelection: this.value,
-      // checkboxSelection: (params) => {
-      //   console.log(params)
-      //   return false
-      // },
       headerCheckboxSelection: true,
       checkboxSelection: true,
       suppressMenu: true
@@ -170,60 +137,22 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     getDetailRowData: function (params) {
       console.log(params)
       params.successCallback(params.data.quotationLines);
-    },
-  
+    }
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
   }
 
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ngOnInit() {
-
-    // Creating Forms
+    //Creating Form
     this.quotationComparativeForm = this.fb.group({
       requisitionId: ['', [Validators.required]],
       quotationComparativeDate: ['', [Validators.required]],
       remarks: ['', [Validators.required]]
     });
 
+    //Initializing empty model
     this.quotationComparativeModel = {
       id: null,
       requisitionId: null,
@@ -231,8 +160,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       remarks: '',
       quotationComparativeLines: []
     }
-    
-    this.ngxsService.getCampusFromState()
     
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
@@ -285,7 +212,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
 
   //Patch Quotation Comparative Lines Quotation Comparative Master Data
   patchQuotationComparativeLines(quotations: any) {
-    //console.log(this.quotationList)
     this.gridApi.forEachNode(node => {
       let isSelect = quotations.some((x: any) => x.id === node.data.id);
 
@@ -293,11 +219,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
         node.setSelected(true)
       }
     })
-
-  
-    // this.quotationList.filter
-   
-    
   }
 
   //Submit Form Function
@@ -358,27 +279,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     })
   }
 
-  // getQuotations(id: number) {
-  //   this.quotationService.getQuotatationByReqId(id)
-  //   .pipe(
-  //     take(1),
-  //      finalize(() => {
-  //       this.isLoading = false;
-  //       this.cdRef.detectChanges();
-  //      })
-  //    )
-  //   .subscribe(res => {
-  //    this.quotationList = res.result;
-  //    return 
-  //   }) 
-
-  //   // setTimeout(() => {
-  //   //   console.log("yes")
-  //   // this.gridApi.forEachNode(node => node.setSelected(true))
-  //   // },500)
-
-  // }
-
+  //Get Quotations by requisition Id
   async getQuotations(reqId: number , id: any = ''): Promise<IApiResponse<any[]>> {
     this.isLoading = true;
     const res = await this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: id}).toPromise()

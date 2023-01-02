@@ -26,6 +26,12 @@ $db_dd_t_c : var(--db_dd_t_c);
 	display: none !important;
 }
 
+.create-component .ag-theme-alpine .ag-cell{
+  line-height: 25px !important;
+}
+
+
+
 .theme-changing-edinfini{
   border-radius: 50%;
     height: 30px;

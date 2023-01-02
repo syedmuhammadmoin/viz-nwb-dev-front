@@ -41,6 +41,8 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   //need for routing
   quotationId: number;
 
+  quotationList: any;
+
   loader: boolean = true;
 
   public gridApi: GridApi
@@ -80,7 +82,6 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       //   console.log(params)
       //   return false
       // },
-      headerCheckboxSelection: true,
       checkboxSelection: true,
       suppressMenu: true
     },
@@ -120,7 +121,6 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       },
     },
     getDetailRowData: function (params) {
-      console.log(params)
       params.successCallback(params.data.quotationLines);
     },
   
@@ -129,33 +129,6 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   ngOnInit() {
    
@@ -170,7 +143,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
     });
   }
 
-  // First time rendered ag grid
+  //First time rendered ag grid
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
@@ -185,15 +158,11 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
         this.cdRef.detectChanges();
        })
      )
-    .subscribe((res: IApiResponse<IQuotationComparative>) => {
+    .subscribe((res: IApiResponse<IQuotationComparative | any>) => {
 
       this.quotationComparativeMaster = res.result;
-      // this.quotationLines = res.result.quotationLines;
+      this.quotationList = res.result.quotations
      
-
-      // //handling disablity of register payment button
-      // this.isDisabled = (this.quotationMaster.status === "Paid" ? true : false)
-      this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     });
   }
