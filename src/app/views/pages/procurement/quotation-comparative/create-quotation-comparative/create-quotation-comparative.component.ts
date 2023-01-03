@@ -56,16 +56,16 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     quotationComparativeDate: {
       required: 'Date is required.',
     },
-    remarks: {
-      required: 'Remarks is required.',
-    }
+    // remarks: {
+    //   required: 'Remarks is required.',
+    // }
   };
 
   // error keys..
   formErrors = {
     requisitionId: '',
     quotationComparativeDate: '',
-    remarks: ''
+    //remarks: ''
   };
 
 
@@ -149,7 +149,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     this.quotationComparativeForm = this.fb.group({
       requisitionId: ['', [Validators.required]],
       quotationComparativeDate: ['', [Validators.required]],
-      remarks: ['', [Validators.required]]
+      //remarks: ['', [Validators.required]]
     });
 
     //Initializing empty model
@@ -157,7 +157,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       id: null,
       requisitionId: null,
       quotationComparativeDate: '',
-      remarks: '',
+      //remarks: '',
       quotationComparativeLines: []
     }
     
@@ -224,8 +224,8 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   //Submit Form Function
   onSubmit(): void {
    
-    if(this.gridApi?.getSelectedRows().length === 0) {
-      this.toastService.error('Select at least 1 Quotation.', 'Quotation Comparative')
+    if(this.gridApi?.getSelectedRows().length < 3) {
+      this.toastService.error('Select at least 3 Quotations.', 'Quotation Comparative')
       return;
     }
     
@@ -271,7 +271,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   mapFormValuesToQuotationComparativeModel() {
     this.quotationComparativeModel.requisitionId = this.quotationComparativeForm.value.requisitionId;
     this.quotationComparativeModel.quotationComparativeDate = this.transformDate(this.quotationComparativeForm.value.quotationComparativeDate, 'yyyy-MM-dd');
-    this.quotationComparativeModel.remarks = this.quotationComparativeForm.value.remarks;
+    //this.quotationComparativeModel.remarks = this.quotationComparativeForm.value.remarks;
     this.quotationComparativeModel.quotationComparativeLines = [];
     this.quotationList.forEach((res: any) => {
       let val = this.gridApi?.getSelectedRows().includes(res);

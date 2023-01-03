@@ -10,6 +10,8 @@ import { QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { QuotationComparativeService } from '../service/quotation-comparative.service';
 import { IQuotationComparative } from '../model/IQuotationComparative';
+import { AwardVendorComponent } from '../award-vendor/award-vendor.component';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -39,17 +41,19 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   isLoading: boolean;
 
   //need for routing
+  quotationComparativeId: number;
+
+  checkBoxSelection: boolean = true;
+
   quotationId: number;
+
+  status: boolean = false;
 
   quotationList: any;
 
   loader: boolean = true;
 
   public gridApi: GridApi
-
-  //Variables for Quotation data
-  // quotationLines: IQuotationLines | any
-  // quotationMaster: IQuotation | any;
  
   //Showing Remarks
   //remarksList: string[] = [];
@@ -82,7 +86,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       //   console.log(params)
       //   return false
       // },
-      checkboxSelection: true,
+      checkboxSelection: () => (this.checkBoxSelection && this.status),
       suppressMenu: true
     },
     { headerName: 'Vendor', field: 'vendorName' , suppressMenu: true},
@@ -95,6 +99,14 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       }
     },
     { headerName: 'Time Frame', field: 'timeframe', suppressMenu: true},
+    { 
+      headerName: 'Awarded', 
+      field: 'isAwarded', 
+      suppressMenu: true,
+      valueFormatter: (params: ICellRendererParams) => {
+        return (params.value) ? "Yes" : "No"
+      }
+    }
   ];
 
   public defaultColDef: ColDef = {
@@ -122,8 +134,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
     },
     getDetailRowData: function (params) {
       params.successCallback(params.data.quotationLines);
-    },
-  
+    }
   }
 
   onGridReady(params: GridReadyEvent) {
@@ -135,12 +146,18 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
-        this.quotationId = id;
+        this.quotationComparativeId = id;
         this.isLoading = true;
         this.getQuotationComparativeData(id);
         this.cdRef.markForCheck();
       }
     });
+
+    this.gridOptions = {
+      rowClassRules: {
+        "selected-row": (params) => params.data.isAwarded
+      }
+    }
   }
 
   //First time rendered ag grid
@@ -161,8 +178,33 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
     .subscribe((res: IApiResponse<IQuotationComparative | any>) => {
 
       this.quotationComparativeMaster = res.result;
-      this.quotationList = res.result.quotations
-     
+      this.quotationList = res.result.quotations;
+      this.checkBoxSelection = res.result.checkBoxSelection;
+
+      this.status = (res.result.state === DocumentStatus.Submitted) ? true : false; 
+
+      console.log(this.status)
+
+      this.cdRef.detectChanges();
+    });
+  }
+
+  openDialog(): void {
+
+    if(isEmpty(this.gridApi.getSelectedRows())){
+      this.toastService.warning('Please Select Vendor.', 'Warning') 
+      return; 
+    }
+    
+    const dialogRef = this.dialog.open(AwardVendorComponent, {
+      width: '800px',
+      data: {
+        id: this.quotationComparativeId,
+        quotationId: this.gridApi.getSelectedRows()[0].id,
+      }
+    });
+    dialogRef.afterClosed().subscribe(() => {
+      this.getQuotationComparativeData(this.quotationComparativeId);
       this.cdRef.detectChanges();
     });
   }

@@ -1867,8 +1867,13 @@ mat-tree-node div[id^='child']
     border-radius: 6px;
   }
 
-  .ag-theme-alpine .ag-row{ height: 30px !important;}
-  .quotation-comparitive .ag-full-width-container .ag-row{height: 300px !important;}
+  .ag-theme-alpine .ag-row{ 
+    height: 30px !important;
+  }
+
+  .quotation-comparitive .ag-full-width-container .ag-row-level-1{ 
+    height: 300px !important;
+  }
   
 
   @media (max-width: 991.98px){
@@ -1881,4 +1886,10 @@ mat-tree-node div[id^='child']
 
   .card-custom .table .b-s-2-b-c {
     background-color: $button-background-color;
+  }
+  
+
+  .selected-row {
+    font-weight: bold;
+    background-color: #b2dffa !important;
   }

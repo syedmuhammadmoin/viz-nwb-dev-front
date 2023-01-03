@@ -7,19 +7,21 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { QuotationComparativeRoutingModule } from './quotation-comparative-routing.module';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { AwardVendorComponent } from './award-vendor/award-vendor.component';
 
 
 @NgModule({
   declarations: [
     CreateQuotationComparativeComponent, 
     ListQuotationComparativeComponent, 
-    QuotationComparativeDetailComponent
+    QuotationComparativeDetailComponent, AwardVendorComponent
   ],
   imports: [
     PartialsModule,
     SharedModule,
     QuotationComparativeRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ]
+  ],
+  entryComponents: [ AwardVendorComponent ]
 })
 export class QuotationComparativeModule { }
