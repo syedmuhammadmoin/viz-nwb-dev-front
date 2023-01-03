@@ -33,18 +33,6 @@
                     </kt-date-input>
                   </div>
                 </div>
-  
-                <div class="col-lg-6 col-sm-6 col-md-6">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Remarks:</label>
-                    <kt-input-field formControlName="remarks" id="quotation_remarks"
-                                  matFormFieldClass="mobile-label full-width" placeholder="Enter Remarks"
-                                  (blurEvent)="logValidationErrors(this.quotationComparativeForm, formErrors, validationMessages)"
-                                  [errorMessage]="[{ condition : formErrors.remarks , 
-                                  error : formErrors.remarks }]">
-                                </kt-input-field>
-                  </div>
-                </div>
               </div>
   
               <div class="row mt-5 quotation-comparitive">
