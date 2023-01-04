@@ -456,11 +456,14 @@ export class AppConst {
     {value: 'Debit Note', id: DocType.DebitNote},
     {value: 'Invoice', id: DocType.Invoice},
     {value: 'Bill', id: DocType.Bill},
-    {value: 'Journal Voucher', id: DocType.JournalEntry},
-    {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'},
+    {value: 'Journal Entry', id: DocType.JournalEntry},
+    {value: 'Bank Account' , id: DocType.BankAccount},
+    {value: 'Cash Account' , id: DocType.CashAccount},
     {value: 'Purchase Order' , id: DocType.PurchaseOrder},
-    {value: 'Requisition' , id: DocType.Requisition},
     {value: 'Goods Received Note' , id: DocType.GRN},
+    {value: 'Quotation' , id: DocType.Quotation},
+    {value: 'Requisition' , id: DocType.Requisition},
+    {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'},
     {value: 'Payroll Transaction', id: DocType.PayrollTransaction},
     {value: 'Payroll Payment' , id: DocType.PayrollPayment, route: 'payroll-payment'},
     {value: 'Issuance' , id: DocType.Issuance},
@@ -468,10 +471,9 @@ export class AppConst {
     {value: 'Issuance Return' , id: DocType.IssuanceReturn},
     {value: 'Request Requisition' , id: DocType.Request},
     {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
-    {value: 'Quotation' , id: DocType.Quotation},
     {value: 'Call Quotation' , id: DocType.CallForQuotaion}
+
     //{value: 'sales Order', id: DocType.SalesOrder},
-    //{value: 'Goods Receiving Note', id: DocType.GRN},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },
     //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
   ]
