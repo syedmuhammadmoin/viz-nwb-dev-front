@@ -43,7 +43,7 @@
                     <kt-input-field formControlName="description" id="call_quotation_description"
                                   matFormFieldClass="mobile-label full-width" placeholder="Enter Description"
                                   (blurEvent)="logValidationErrors(this.callQuotationForm, formErrors, validationMessages)"
-                                  [errorMessage]="[{ condition : formErrors.description, error : 'Call quotation time is required.' }]">
+                                  [errorMessage]="[{ condition : formErrors.description, error : formErrors.description }]">
                                 </kt-input-field>
                   </div>
                 </div>
