@@ -1,7 +1,6 @@
 export interface IAwardVendor {
     id: number;
     remarks: string;
-    awardedVendor: string;
     quotationId: number;
 }
 

@@ -69,7 +69,8 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
       required: 'Inquiry Number is required.'
     },
     numberOfBids: {
-      required: 'Number is required.'
+      required: 'Number is required.',
+      min: 'Minimum value is zero.'
     },
     dateOfOpeningBid: {
       required: 'Bid Opening Date is required.'
@@ -119,7 +120,7 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
       refNo: ['', [Validators.required]],
       methodOfProcurement: ['', [Validators.required]],
       tendorInquiryNumber: ['', [Validators.required]],
-      numberOfBids: [0, [Validators.required]],
+      numberOfBids: [0, [Validators.required, Validators.min(0)]],
       dateOfOpeningBid: ['', [Validators.required]],
       dateOfClosingBid: ['', [Validators.required]],
       bidEvaluationCriteria: ['', [Validators.required]],

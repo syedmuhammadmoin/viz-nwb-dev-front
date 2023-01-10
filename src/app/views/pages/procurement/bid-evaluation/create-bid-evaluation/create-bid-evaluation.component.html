@@ -83,15 +83,22 @@
 
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Bid Received Number:</label>
-                    <kt-input-field 
+                    <!-- <kt-input-field 
                       id="bid_bidNumber"
                       formControlName="numberOfBids" 
                       matFormFieldClass="full-width" 
                       placeholder="Number Of Bids"
                       (blurEvent)="logValidationErrors(bidEvaluationForm, formErrors, validationMessages)"
                       [errorMessage]="[{ condition : formErrors.numberOfBids , error : formErrors.numberOfBids }]">
-                    </kt-input-field>
+                    </kt-input-field> -->
+                    <label class="col-form-label pt-0">Bid Received Number:</label>
+                        <mat-form-field appearance="outline" class="full-width">
+                          <input matInput formControlName="numberOfBids" placeholder="Enter Number Of Bids" 
+                               id="bid_bidNumber" type="number" (blur)="logValidationErrors(this.bidEvaluationForm, this.formErrors, this.validationMessages)">
+                          <mat-error *ngIf="formErrors.numberOfBids">
+                            <strong>{{formErrors.numberOfBids}}</strong>
+                          </mat-error>
+                        </mat-form-field>
                   </div>
                 </div>
 

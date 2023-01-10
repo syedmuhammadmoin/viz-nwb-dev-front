@@ -39,7 +39,7 @@
                     </button> -->
                 </ng-container>
               </div>
-              <div class="col-lg-6 text-right" *ngIf="(checkBoxSelection && status)">
+              <div class="col-lg-6 text-right" *ngIf="checkBoxSelection">
                 <button (click)="openDialog()" id="quotation_award" class="btn btn-outline-success font-weight-bold " >Award Vendor</button>
               </div>
             </div>
@@ -54,14 +54,9 @@
                   <h4 class="print-box-detail-2"><b>Quotation Comparative Date: </b>
                   <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.quotationComparativeDate | date: 'MMM d, y'}}</span></h4>
               </div>
-              <div class="print-box" *ngIf="!checkBoxSelection">
-                <h4 class="print-box-detail-1"><b>Awarded Vendor:</b>
-                    <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.awardedVendor}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
-            </div>
-              <div class="print-box" *ngIf="!checkBoxSelection">
+              <div class="print-box">
                 <h4 class="print-box-detail-2"><b>Remarks: </b>
-                <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.remarks}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{quotationComparativeMaster?.remarks || 'N/A'}}</span></h4>
               </div>
             </div>
           </div>

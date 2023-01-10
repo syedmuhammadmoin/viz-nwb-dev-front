@@ -1,5 +1,5 @@
 import { Component, Inject, Injector, OnInit, Optional} from '@angular/core';
-import { FormGroup, FormBuilder, Validators,} from '@angular/forms'
+import { FormGroup, FormBuilder, Validators,} from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AppComponentBase } from '../../app-component-base';
 

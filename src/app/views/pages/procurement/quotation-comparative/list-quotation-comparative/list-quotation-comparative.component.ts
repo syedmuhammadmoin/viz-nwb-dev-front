@@ -78,14 +78,6 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
       }
     },
     {
-      headerName: 'Awarded Vendor',
-      field: 'awardedVendor',
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return params.value || 'N/A'
-      }
-    },
-    {
       headerName: 'Status',
       field: 'status',
       filter: 'agSetColumnFilter',

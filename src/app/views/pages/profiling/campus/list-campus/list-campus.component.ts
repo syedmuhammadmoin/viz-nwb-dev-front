@@ -109,6 +109,8 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
 // implimentation of ng OnInit
   ngOnInit() { 
 
+    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
