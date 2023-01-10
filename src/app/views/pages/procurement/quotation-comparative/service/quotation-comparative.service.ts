@@ -40,7 +40,7 @@ export class QuotationComparativeService extends AppServiceBase {
     }
 
     awardVendor(model: IAwardVendor): Observable<any> {
-      return this.httpClient.put<any>(this.baseUrl + `/AwardedVendor/${model.id}`, model)
+      return this.httpClient.put<any>(this.baseUrl + '/AwardedVendor', model)
     }
 
     // workflow(workflow: IWorkflow): Observable<any> {

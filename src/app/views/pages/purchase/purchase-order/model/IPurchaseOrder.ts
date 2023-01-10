@@ -7,6 +7,7 @@ export interface IPurchaseOrder {
     dueDate: string;
     contact: string;
     campusId: number;
+    requisitionId?: number;
     purchaseOrderLines: IPurchaseOrderLines[];
     isSubmit?: boolean;
 }

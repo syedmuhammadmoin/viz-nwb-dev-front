@@ -32,9 +32,6 @@ export class AwardVendorComponent extends AppComponentBase implements OnInit {
 
   //validation messages
   validationMessages = {
-    awardedVendor: {
-      required: 'Vendor Name is required.'
-    },
     remarks: {
       required: 'Remarks is required.'
     },
@@ -42,7 +39,6 @@ export class AwardVendorComponent extends AppComponentBase implements OnInit {
 
   //error keys
   formErrors = {
-    awardedVendor: '',
     remarks: ''
   }
 
@@ -59,7 +55,6 @@ export class AwardVendorComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     this.awardVendorForm = this.fb.group({
-      awardedVendor: ['', [Validators.required]],
       remarks: ['', [Validators.required]]
     });
 
@@ -68,7 +63,6 @@ export class AwardVendorComponent extends AppComponentBase implements OnInit {
   
       this.awardVendorModel = {
         id: null,
-        awardedVendor: '',
         remarks: '',
         quotationId: null
       };
@@ -101,7 +95,6 @@ export class AwardVendorComponent extends AppComponentBase implements OnInit {
   mapFormValueToAwardVendorModel() {
     this.awardVendorModel.id = this.data.id;
     this.awardVendorModel.quotationId = this.data.quotationId;
-    this.awardVendorModel.awardedVendor = this.awardVendorForm.value.awardedVendor;
     this.awardVendorModel.remarks = this.awardVendorForm.value.remarks;
   }
 

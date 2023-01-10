@@ -161,14 +161,34 @@ padding: 0px 14px;
 }
 
 
-body
-{
-  background-color: $bg-white;
+body {
+  background-color: $bg-white; 
   color: $primary-color;
+  overflow: hidden;
+ // height: 100vh;
+}
+
+#kt-root{
+  height: 100vh;
+}
+
+kt-base{
+  overflow-y: auto;
+  margin-top: 119px;
+}
+
+.mat-raised-button .mat-button-wrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.mat-raised-button .mat-button-wrapper i{
+  margin-right: 5px
 }
 
 input{
-  color: $input-filed-primary-color !important;
+  color: #000 !important;
 }
 
 .fa-chart-line{
@@ -333,7 +353,7 @@ kt-portlet-header
 // sticky footer area
 #kt_body
 {
-  max-height: 95vh;
+  max-height: 100vh;
 }
 .flex-root
 {
@@ -1874,6 +1894,23 @@ mat-tree-node div[id^='child']
   .quotation-comparitive .ag-full-width-container .ag-row-level-1{ 
     height: 300px !important;
   }
+
+
+  .mat-slide-toggle-thumb {
+    height: 21px !important;
+    width: 21px !important;
+  }
+
+.card-custom .table .b-s-2-b-c {
+  background-color: $button-background-color;
+}
+
+
+.selected-row {
+  font-weight: bold;
+  background-color: #b2dffa !important;
+}
+
   
 
   @media (max-width: 991.98px){
@@ -1884,12 +1921,8 @@ mat-tree-node div[id^='child']
 
   }
 
-  .card-custom .table .b-s-2-b-c {
-    background-color: $button-background-color;
-  }
-  
-
-  .selected-row {
-    font-weight: bold;
-    background-color: #b2dffa !important;
+  @media (min-width: 992px) {
+    .header-fixed.subheader-fixed.subheader-enabled .wrapper {
+      padding-top: 0px;
+    }
   }

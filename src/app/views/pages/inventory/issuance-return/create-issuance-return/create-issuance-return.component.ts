@@ -348,7 +348,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     }
 
     if (this.issuanceReturnForm.invalid) {
-      this.toastService.error("Please fill all required fields!", "Issuance Return")
+      //this.toastService.error("Please fill all required fields!", "Issuance Return")
         return;
     }
 

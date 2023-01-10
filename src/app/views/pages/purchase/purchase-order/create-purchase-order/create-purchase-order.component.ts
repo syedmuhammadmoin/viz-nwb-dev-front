@@ -64,6 +64,8 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   minDate: Date
   dateCondition : boolean
 
+  requisitionId: number
+
   title: string = 'Create Purchase Order'
 
   //for resetting form
@@ -166,7 +168,8 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         //this.getSalesOrder(id);
       }
       else if(id && this.isRequisition) {
-        this.title = 'Create Purchase Order'
+        this.title = 'Create Purchase Order';
+        this.requisitionId = +id;
         this.getRequisition(id);
       }
     })
@@ -421,6 +424,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.purchaseOrderModel.dueDate = this.transformDate(this.purchaseOrderForm.value.dueDate, 'yyyy-MM-dd');
     this.purchaseOrderModel.contact = this.purchaseOrderForm.value.contact;
     this.purchaseOrderModel.campusId = this.purchaseOrderForm.value.campusId;
+   // this.purchaseOrderModel.requisitionId = this.requisitionId || this.purchaseOrderModel.requisitionId;
     this.purchaseOrderModel.purchaseOrderLines = this.purchaseOrderForm.value.purchaseOrderLines;
   };
 

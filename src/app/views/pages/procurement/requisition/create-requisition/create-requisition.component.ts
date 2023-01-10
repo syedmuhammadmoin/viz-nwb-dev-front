@@ -374,10 +374,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       }
   
       this.mapFormValuesTorequisitionModel();
-
-      console.log(this.requisitionModel)
   
-      const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId))))
+      const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))));
   
       if(isDuplicateLines) {
         this.toastService.error("Please Remove Duplicate Items!", "Requisition")

@@ -43,7 +43,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   //need for routing
   quotationComparativeId: number;
 
-  checkBoxSelection: boolean = true;
+  checkBoxSelection: boolean = false;
 
   quotationId: number;
 
@@ -86,7 +86,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       //   console.log(params)
       //   return false
       // },
-      checkboxSelection: () => (this.checkBoxSelection && this.status),
+      checkboxSelection: () => (this.checkBoxSelection),
       suppressMenu: true
     },
     { headerName: 'Vendor', field: 'vendorName' , suppressMenu: true},
@@ -98,15 +98,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
         return this.dateHelperService.transformDate(params.value, 'MMM d, y')
       }
     },
-    { headerName: 'Time Frame', field: 'timeframe', suppressMenu: true},
-    { 
-      headerName: 'Awarded', 
-      field: 'isAwarded', 
-      suppressMenu: true,
-      valueFormatter: (params: ICellRendererParams) => {
-        return (params.value) ? "Yes" : "No"
-      }
-    }
+    { headerName: 'Time Frame', field: 'timeframe', suppressMenu: true}
   ];
 
   public defaultColDef: ColDef = {
@@ -155,7 +147,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
 
     this.gridOptions = {
       rowClassRules: {
-        "selected-row": (params) => params.data.isAwarded
+        "selected-row": (params) => (params.data.state === 4)
       }
     }
   }
@@ -179,7 +171,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
 
       this.quotationComparativeMaster = res.result;
       this.quotationList = res.result.quotations;
-      this.checkBoxSelection = res.result.checkBoxSelection;
+      this.checkBoxSelection = (res.result.state === 5) ? true : false;
 
       this.status = (res.result.state === DocumentStatus.Submitted) ? true : false; 
 

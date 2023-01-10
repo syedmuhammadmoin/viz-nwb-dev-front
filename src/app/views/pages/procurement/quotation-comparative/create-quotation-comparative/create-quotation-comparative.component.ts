@@ -179,6 +179,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   // Form Reset
   reset() {
     this.formDirective.resetForm();
+    this.quotationList = [];
   }
 
   //Get Quotation Data for Edit
