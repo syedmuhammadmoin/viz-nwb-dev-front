@@ -89,6 +89,11 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       field: 'reserveQuantity', 
       cellStyle: { 'font-size': '12px' }
     },
+    { 
+      headerName: 'Issued Quantity', 
+      field: 'issuedQuantity', 
+      cellStyle: { 'font-size': '12px' }
+    },
     {
       headerName: 'Price', 
       field: 'purchasePrice',  
@@ -139,7 +144,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   // First time rendered ag grid
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     this.gridApi = params.api
-    params.api.sizeColumnsToFit();
+   // params.api.sizeColumnsToFit();
   }
 
   //Getting invoice master data
@@ -164,7 +169,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       else {
         this.gridOptions.columnApi.setColumnVisible('issuedQuantity', true);
         console.log("entered")
-        this.gridApi?.sizeColumnsToFit();
+        //this.gridApi?.sizeColumnsToFit();
       }
       this.cdRef.detectChanges()
     })
