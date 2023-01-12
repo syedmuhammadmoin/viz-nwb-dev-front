@@ -133,9 +133,10 @@
                         <tr>
                           <th>Doc #</th>
                         </tr>
-                        <tr *ngFor="let grn of purchaseOrderMaster?.references">
-                          <td><a [routerLink]="('/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', grn?.docId))"
-                              class="all-text-primary">{{grn?.docNo}}</a></td>
+                        <tr *ngFor="let doc of purchaseOrderMaster?.references">
+                          <td><a [routerLink]="(doc?.docType === 10) ? '/' + GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', doc?.docId) :
+                            '/' + REQUISITION.ID_BASED_ROUTE('details', doc?.docId)"
+                              class="all-text-primary">{{doc?.docNo}}</a></td>
                         </tr>
                       </table>
                     </mat-expansion-panel>

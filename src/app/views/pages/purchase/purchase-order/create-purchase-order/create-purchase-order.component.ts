@@ -335,6 +335,13 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.onCampusSelected(purchaseOrder.campusId)
     this.showMessage = true;
 
+    //only fetch those lines of requisition which require reserve quantity
+    purchaseOrder?.requisitionLines?.map((x, i) => {
+      if (((x.quantity) - (x.reserveQuantity) - (x.issuedQuantity)) === 0){
+         purchaseOrder.requisitionLines.splice(i, 1)
+      }
+    })
+
     this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines ?? purchaseOrder.requisitionLines));
     this.totalCalculation();
   }
@@ -348,7 +355,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
         itemId: [line.itemId, [ Validators.required]],
         description: [line.description, Validators.required],
         cost: [line.cost, [Validators.required, Validators.min(1)]],
-        quantity: [(this.isRequisition) ? (line.quantity) - (line.reserveQuantity) : line.quantity, [Validators.required, Validators.min(1)]],
+        quantity: [(this.isRequisition) ? (line.quantity) - (line.reserveQuantity) - (line.issuedQuantity) : line.quantity, [Validators.required, Validators.min(1)]],
         tax: [line.tax, [Validators.max(100), Validators.min(0)]],
         subTotal: [{value: line.subTotal, disabled: true}],
         accountId: [line.accountId, [Validators.required]],
@@ -424,7 +431,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.purchaseOrderModel.dueDate = this.transformDate(this.purchaseOrderForm.value.dueDate, 'yyyy-MM-dd');
     this.purchaseOrderModel.contact = this.purchaseOrderForm.value.contact;
     this.purchaseOrderModel.campusId = this.purchaseOrderForm.value.campusId;
-   // this.purchaseOrderModel.requisitionId = this.requisitionId || this.purchaseOrderModel.requisitionId;
+    this.purchaseOrderModel.requisitionId = this.requisitionId || this.purchaseOrderModel.requisitionId;
     this.purchaseOrderModel.purchaseOrderLines = this.purchaseOrderForm.value.purchaseOrderLines;
   };
 

@@ -1,4 +1,4 @@
-import { PURCHASE_ORDER, BILL, GOODS_RECEIVED_NOTE } from '../../../../shared/AppRoutes';
+import { PURCHASE_ORDER, BILL, GOODS_RECEIVED_NOTE, REQUISITION } from '../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, Component, Injector, OnInit} from '@angular/core';
 import { PurchaseOrderService} from '../service/purchase-order.service';
 import { ActivatedRoute, Router} from '@angular/router';
@@ -27,6 +27,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   public PURCHASE_ORDER= PURCHASE_ORDER;
   public BILL= BILL;
   public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE
+  public REQUISITION = REQUISITION
 
   docType = DocType
   public permissions = Permissions;
