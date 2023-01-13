@@ -34,6 +34,9 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   // Quotation Model
   quotationComparativeModel: IQuotationComparative;
 
+  //taking in string because send in query params
+  quotationCompId: any = '';
+
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
@@ -168,6 +171,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       if (id && isQuotationComparative) {
         this.isLoading = true;
         this.title = 'Edit Quotation Comparative'
+        this.quotationCompId = +id
         this.getQuotationComparative(id);
       }
     });
@@ -207,7 +211,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       remarks: data.remarks
     });
 
-    await this.getQuotations(data.requisitionId, data.id);
+    await this.getQuotations(data.requisitionId);
     this.patchQuotationComparativeLines(data.quotations);
   }
 
@@ -281,9 +285,9 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   }
 
   //Get Quotations by requisition Id
-  async getQuotations(reqId: number , id: any = ''): Promise<IApiResponse<any[]>> {
+  async getQuotations(reqId: number): Promise<IApiResponse<any[]>> {
     this.isLoading = true;
-    const res = await this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: id}).toPromise()
+    const res = await this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: this.quotationCompId}).toPromise()
     this.quotationList = res.result;
     this.isLoading = false;
     this.cdRef.detectChanges()
