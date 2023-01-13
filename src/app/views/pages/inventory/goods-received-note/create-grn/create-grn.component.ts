@@ -125,7 +125,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       vendorName: [{value: '', disabled: true}, [Validators.required]],
       grnDate: ['', [Validators.required]],
       contact: ['' ,[Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
-      campusId: [null, [Validators.required]],
+      campusId: [{value: '', disabled: true}, [Validators.required]],
       GRNLines: this.fb.array([
         this.addGRNLines()
       ])
@@ -399,7 +399,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     this.grnModel.vendorId = this.grnForm.getRawValue().vendorName;
     this.grnModel.grnDate = this.transformDate(this.grnForm.value.grnDate, 'yyyy-MM-dd');
     this.grnModel.contact = this.grnForm.value.contact;
-    this.grnModel.campusId = this.grnForm.value.campusId;
+    this.grnModel.campusId = this.grnForm.getRawValue().campusId;
     this.grnModel.purchaseOrderId = this.purchaseOrderMaster?.id || this.grnModel?.purchaseOrderId;
     this.grnModel.grnLines = this.grnForm.value.GRNLines;
   }
@@ -408,10 +408,10 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   reset() {
     // const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
     //grnLineArray.reset();
-    this.resetFields(this.grnForm , 'campusId', 'contact' , 'GRNLines');
+    this.resetFields(this.grnForm , 'grnDate', 'contact' , 'GRNLines');
     //this.formDirective.resetForm();
     this.showMessage = false;
-    this.warehouseList.next([])
+    // this.warehouseList.next([])
     this.table.renderRows();
   }
 

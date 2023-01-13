@@ -336,13 +336,9 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.showMessage = true;
 
     //only fetch those lines of requisition which require reserve quantity
-    purchaseOrder?.requisitionLines?.map((x, i) => {
-      if (((x.quantity) - (x.reserveQuantity) - (x.issuedQuantity)) === 0){
-         purchaseOrder.requisitionLines.splice(i, 1)
-      }
-    })
+    let requisitionLines = purchaseOrder?.requisitionLines?.filter((x => ((x.quantity) - (x.reserveQuantity) - (x.issuedQuantity)) !== 0));
 
-    this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines ?? purchaseOrder.requisitionLines));
+    this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines ?? requisitionLines));
     this.totalCalculation();
   }
 
