@@ -83,7 +83,9 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       name: ['', Validators.required],
       inventoryAccount: ['', [Validators.required]],
       revenueAccount: ['', [Validators.required]],
-      costAccount: ['', [Validators.required]]
+      costAccount: ['', [Validators.required]],
+      isFixedAsset: [0, [Validators.required]],
+      depreciationId: [null]
     });
 
     if (this._id) {
@@ -98,6 +100,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
         inventoryAccountId: null,
         revenueAccountId: null,
         costAccountId: null,
+        isFixedAsset: false,
+        depreciationId: null
       }
     }
 
@@ -132,6 +136,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       inventoryAccount: category.inventoryAccountId,
       revenueAccount: category.revenueAccountId,
       costAccount: category.costAccountId,
+      isFixedAsset: (category.isFixedAsset === false) ? 0 : 1,
+      depreciationId: category.depreciationId
     });
 
     //if user have no permission to edit, so disable all fields
@@ -186,6 +192,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     this.category.inventoryAccountId = this.categoryForm.value.inventoryAccount
     this.category.revenueAccountId = this.categoryForm.value.revenueAccount;
     this.category.costAccountId = this.categoryForm.value.costAccount;
+    this.category.isFixedAsset = (this.categoryForm.value.isFixedAsset === 0) ? false : true;
+    this.category.depreciationId = this.categoryForm.value.depreciationId;
   }
 
   reset() {

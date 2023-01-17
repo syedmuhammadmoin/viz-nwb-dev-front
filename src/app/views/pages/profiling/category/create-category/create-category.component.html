@@ -84,6 +84,38 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="row">
+                        <div class="col-lg-11"> <!--this row will remove when third option is uncomment-->
+                            <div class="form-group kt-form__group mb-0">
+                                <div class="kt-radio-list">
+                                    <mat-radio-group id="fixedAssetType" formControlName="isFixedAsset">
+                                    <!-- <label class="col-form-label pt-0 mr-2">Product Type:</label> -->
+                                        <mat-radio-button [value]="0">Non Fixed Asset</mat-radio-button>
+                                        <mat-radio-button [value]="1">Fixed Asset</mat-radio-button>
+                                    </mat-radio-group>
+                                </div>
+                            </div>
+                           </div>
+
+                           <!-- <div class="col-lg-6 col-md-6 col-sm-6">
+                            <div class="form-group kt-form__group mb-0">
+                                <label class="col-form-label pt-0">Depreciation Model:</label>
+                                <kt-simple-dropdown 
+                                  id="asset_model" 
+                                  formControlName="depreciationModelId" 
+                                  matFormFieldClass="full-width"
+                                  (selectionChange)="getDepreciationModel($event.value)"
+                                  (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                                  propertyName="name" 
+                                  propertyValue="id" 
+                                  [errorMessage]="formErrors.depreciationModelId"
+                                  [optionList]="ngxsService.depreciationModels$"
+                                  placeholder="Select Model">
+                              </kt-simple-dropdown>
+                            </div>
+                        </div> -->
+                    </div>
                     <!-- second row ends -->
                 </div>
             </div>
