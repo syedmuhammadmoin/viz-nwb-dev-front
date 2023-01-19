@@ -93,7 +93,6 @@ export class AuthModule {
 		return {
 			ngModule: AuthModule,
 			providers: [
-				//AuthService,
 				AuthGuard
 			]
 		};
