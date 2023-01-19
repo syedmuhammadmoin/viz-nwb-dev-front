@@ -5,7 +5,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions, CalculationType } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BUDGET, ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
+import { ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IEstimatedBudgetLines } from '../model/IEstimatedBudgetLines';
 import { EstimatedBudgetService } from '../service/estimated-budget.service';
@@ -25,23 +25,21 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
   action = ActionButton
   docStatus = DocumentStatus
 
-  //For ag grid
+  //For AG Grid
   gridOptions: GridOptions;
   defaultColDef: ColDef;
 
-  public ESTIMATED_BUDGET = ESTIMATED_BUDGET;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
-  //need for routing
+  //Need For Routing
   estimatedBudgetId: number;
+  public ESTIMATED_BUDGET = ESTIMATED_BUDGET;
 
   estimatedBudgetLines: IEstimatedBudgetLines | any
   estimatedBudgetMaster: IEstimatedBudgetLines | any;
 
-  totalAmount = 0
-
+  //Injecting Dependencies
   constructor(
     private _estimatedBudgetService: EstimatedBudgetService,
     private route: ActivatedRoute,
@@ -54,9 +52,8 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining AG Grid Columns
   columnDefs = [
-    // {headerName: 'Description', field: 'description', filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Account', field: 'accountName', filter: true, cellStyle: {'font-size': '12px'}},
     {
       headerName: 'Amount',
@@ -130,9 +127,6 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
       this.estimatedBudgetMaster = res.result;
       this.estimatedBudgetLines = res.result.estimatedBudgetLines;
       
-      // this.budgetLines.forEach((line: any) => {
-      //   this.totalAmount += line.amount;
-      // })
       this.cdRef.markForCheck();
     })
   }

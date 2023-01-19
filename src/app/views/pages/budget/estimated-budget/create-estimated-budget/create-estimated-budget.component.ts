@@ -25,14 +25,10 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
   // Declaring form variable
   estimatedBudgetForm: FormGroup;
 
-  // Limit Date
-  maxDate = new Date();
-  dateCondition: boolean;
-
   //Title Name
   title: string = 'Create Anticipated Budget'
 
-  estimatedBudgetModel: IEstimatedBudget;
+  estimatedBudgetModel: IEstimatedBudget = {} as IEstimatedBudget;
   estimatedBudgetMaster: IEstimatedBudget;
 
   showLines: boolean = false;
@@ -86,17 +82,15 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
         this.getEstimatedBudgetMaster(res.id);
         this.showLines = true;
         this.cdRef.markForCheck();
-      } else {
-        this.estimatedBudgetModel = ({} as IEstimatedBudget)
       }
     })
 
-    // get Accounts of level 4 from state
+    //Get Data from Store
     this.ngxsService.getAccountLevel4FromState()
-    // get Budgets  from state
     this.ngxsService.getBudgetsFromState()
   }
 
+  //For Dropdown
   calculationType = [
     {id: 0 , value: 'Percentage'},
     {id: 1 , value: 'FixedAmount'}
@@ -119,7 +113,6 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     });
   }
 
-  // OnItemSelected
   onItemSelected(budgetId: number) {
     this.isLoading = true;
     this.budgetService.getBudgetById(budgetId)
@@ -142,7 +135,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     const calculationType = (arrayControl.at(index).get('calculationType').value) !== null ? +arrayControl.at(index).get('calculationType').value : null;
     const insertedValue = (arrayControl.at(index).get('value').value) !== null ? +arrayControl.at(index).get('value').value : null;
 
-    // //calculating estimated Value
+    //calculating estimated Value
     const estimatedValue = (calculationType === 0) ? ((amount * insertedValue / 100) + (amount)) : (amount + insertedValue)
     arrayControl.at(index).get('estimatedValue').setValue(estimatedValue);
   }
@@ -185,9 +178,9 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
       return;
     }
 
-    this.mapFormValuesToEstimatedBudgetModel();
-    console.log(this.estimatedBudgetModel)
     this.isLoading = true
+    this.mapFormValuesToEstimatedBudgetModel();
+
     if (this.estimatedBudgetModel.id) {
       this.estimatedBudgetService.updateEstimatedBudget(this.estimatedBudgetModel)
       .pipe(
@@ -214,14 +207,13 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
        )
        .subscribe((res) => {
           this.toastService.success('Created Successfully', 'Anticipated Budget')
-          // this.router.navigate(['/' + ESTIMATED_BUDGET.LIST])
           this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
         }
       );
     }
   }
 
-  // Mapping form value to budget model
+  //Mapping form values to Budget model
   mapFormValuesToEstimatedBudgetModel() {
     this.estimatedBudgetModel.budgetId = this.estimatedBudgetForm.value.budgetId;
     this.estimatedBudgetModel.estimatedBudgetName = this.estimatedBudgetForm.value.estimatedBudgetName;
