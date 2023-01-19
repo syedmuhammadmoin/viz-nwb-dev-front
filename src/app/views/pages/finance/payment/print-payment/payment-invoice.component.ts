@@ -43,7 +43,7 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
   constructor(
     private paymentService: PaymentService,
     private activatedRoute: ActivatedRoute,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public dynamicColorChanging : DynamicColorChangeService,
     private ref: ChangeDetectorRef,
     public sanitizer: DomSanitizer
@@ -102,7 +102,7 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
     this.paymentService.getPaymentById(id, this.selectedDocumented).subscribe((res: IApiResponse<IPayment>) => {
       this.paymentMaster = res.result;
      // this.netPayment = (res.result.grossPayment - res.result.discount - res.result.incomeTax - res.result.salesTax);
-      this.cdr.markForCheck();
+      this.cdRef.markForCheck();
     })
   }
 

@@ -28,7 +28,7 @@ export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
 
   constructor( private invoiceService: InvoiceService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer,
                injector: Injector
@@ -67,7 +67,7 @@ export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
 
     
@@ -86,7 +86,7 @@ export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
     this.invoiceService.getInvoiceById(id).subscribe((res: IApiResponse<IInvoice>) => {
         this.invoiceMaster = res.result;
         this.invoiceLines = res.result.invoiceLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

@@ -29,7 +29,7 @@ export class PrintBudgetComponent extends AppComponentBase implements OnInit {
 
   constructor( private _budgetService: BudgetService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public sanitizer: DomSanitizer,
                public dynamicColorChanging : DynamicColorChangeService,
                injector: Injector
@@ -68,7 +68,7 @@ export class PrintBudgetComponent extends AppComponentBase implements OnInit {
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }  
 
@@ -87,7 +87,7 @@ export class PrintBudgetComponent extends AppComponentBase implements OnInit {
         this.budgetLines.forEach((line: any) => {
           this.totalAmount += line.amount;
         })
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

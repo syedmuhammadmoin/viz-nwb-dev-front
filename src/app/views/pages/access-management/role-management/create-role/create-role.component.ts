@@ -233,13 +233,6 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
       return
     }
 
-
-    // if(!this.accessLevelComponent.checklistSelection.selected.length){
-    //   this.toastService.warning('Atleast 1 Access Level is required', 'Form Error');
-    //   this.currentIndex = 2;
-    //   return
-    // }
-
     let roles = [];
     this.treeControl.dataNodes.map((res) => {
      if(res.level === 1) {
@@ -263,15 +256,6 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
     this.roleModel = {...this.roleForm.value, id: this._id};
     this.roleModel.roleClaims = roles;
 
-    //get access Level location ids
-    // this.accessLevelComponent.checklistSelection.selected.map((node: any) => {
-    //   if(node.level === 3){
-    //      this.locationIds.push(node.id)
-    //   }
-    // })
-    // this.roleModel.locationIds = this.locationIds
-
-    console.log("Rolle Model: ", this.roleModel)
     if (this.roleModel.id) {
       this.accessManagementService.updateRole(this.roleModel)
       .pipe(
@@ -286,7 +270,6 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
         this.onRoleDialogClose();
       })
     } else {
-     // console.log('created');
       this.accessManagementService.createRole(this.roleModel)
       .pipe(
         take(1),
@@ -305,12 +288,6 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
   onRoleDialogClose() {
     this.dialogRef.close();
   }
-
-  // toggleEdit() {
-  //   this.isEditButtonShow = false;
-  //   this.titleName = 'Edit Role'
-  //   this.roleForm.enable()
-  // }
 
   getClaims() {
     this.accessManagementService.getClaims().subscribe((res) => {
@@ -341,9 +318,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
     this.roleClaims[this.roleClaims.indexOf(permission)].selected = $event.checked
   }
 
-
-
-
+  
   //Manage Grouping
   /** Whether all the descendants of the node are selected. */
   descendantsAllSelected(node: TodoItemFlatNode): boolean {

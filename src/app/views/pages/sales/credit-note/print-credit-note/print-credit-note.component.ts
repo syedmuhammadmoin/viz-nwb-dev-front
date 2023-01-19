@@ -34,7 +34,7 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
     constructor( private creditNoteService: CreditNoteService,
                  private activatedRoute: ActivatedRoute,
                  public  sanitizer: DomSanitizer,
-                 private cdr: ChangeDetectorRef,
+                 private cdRef: ChangeDetectorRef,
                  public dynamicColorChanging : DynamicColorChangeService,
                  injector: Injector
                ) {  super(injector)}
@@ -72,7 +72,7 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
           this.className = 'vizalys row'
         }
   
-        this.cdr.detectChanges()
+        this.cdRef.detectChanges()
       })
     }
   
@@ -92,8 +92,8 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
         this.totalAmount = this.creditNoteMaster.totalAmount;
         this.totalBeforeTax = this.creditNoteLines.reduce((total: number, obj: ICreditNoteLines) => (obj.quantity * obj.price) + total, 0);
         this.totalTax = this.creditNoteLines.reduce((total: number, obj: ICreditNoteLines) => (obj.quantity * obj.price * obj.tax) / 100 + total, 0);
-        this.cdr.markForCheck();
-        this.cdr.detectChanges()
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges()
         })
     }
 }

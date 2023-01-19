@@ -221,7 +221,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     // // Recalling getBillMasterData function on dialog close
     // dialogRef.afterClosed().subscribe(result => {
     //   this.onSubmitFilters();
-    //   // this.cdr.markForCheck();
+    //   // this.cdRef.markForCheck();
     //   this.cdRef.detectChanges();
     // });
   }

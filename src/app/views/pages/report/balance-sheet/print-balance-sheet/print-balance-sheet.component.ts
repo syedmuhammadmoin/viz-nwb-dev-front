@@ -31,7 +31,7 @@ export class PrintBalanceSheetComponent extends AppComponentBase implements OnIn
     injector: Injector,
     private activatedRoute: ActivatedRoute,
     private balanceSheetService: BalanceSheetService,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public dynamicColorChanging : DynamicColorChangeService,
   ) {
     super(injector);
@@ -76,7 +76,7 @@ export class PrintBalanceSheetComponent extends AppComponentBase implements OnIn
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }
 

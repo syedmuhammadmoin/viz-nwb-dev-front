@@ -9,18 +9,12 @@
     </div>
   </div>
 
-  <!-- form start -->
   <form [formGroup]="roleForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
 
     <div class="kt-portlet__body">
       <div class="kt-form__section kt-form__section--first">
         <mat-tab-group [(selectedIndex)]="currentIndex">
           <mat-tab label="Details">
-            <!-- portlet body starts -->
-            
-              <!-- form first section starts -->
-    
-                <!-- first row starts -->
                 <div class="col-md-12 col-lg-12 col-sm-12">
                   <div class="row mt-1 mb-0">
                     <div class="col-lg-7 col-md-7 col-sm-7 mx-auto">
@@ -38,50 +32,23 @@
                     </div>
                   </div>
                 </div>
-                <!-- first row ends -->
-    
-              <!-- form first section ends -->
           </mat-tab>
           <mat-tab label="Permissions" class="role__list">
             <div class="row mx-auto scroll-view-cus">
-              <!-- <ng-container>
-                <div class="col-md-12 search_sticky">
-                  <div class="p-1 input_style shadow-sm mb-4">
-                    <div class="input-group">
-                      <input type="text" id="role_permissions_search" [(ngModel)]="searchText" [ngModelOptions]="{standalone: true}" placeholder="Search Permissions..." aria-describedby="button-addon1" class="form-control border-0 bg-light">
-                      <div class="input-group-append">
-                        <button id="button-addon1" type="submit" class="btn btn-link text-primary" disabled><i class="fa fa-search"></i></button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </ng-container> -->
               <ng-container>
-              <!-- <ng-container *ngFor="let claims of roleClaims | filter:searchText"> -->
-               <!-- Hide Delete Permissions -->
-                <!-- <div *ngIf="!claims.value.includes('Delete')" class="col-md-6"> -->
-                  <!-- <div class="checkbox-with-label"> -->
-                  <!-- <mat-checkbox [id]="'role_' + claims.viewValue" [disabled]="!showButtons" [checked]="claims.selected" (change)="onPermissionChange(claims, $event)">
-                    {{claims.viewValue}} -->
-                  <!-- appConsts.PermissionsDisplayName[claims.value]-->
-                  <!-- </mat-checkbox> -->
-                  <!-- </div> -->
-                <!-- </div> -->
                 <mat-tree [dataSource]="dataSource"  [treeControl]="treeControl" class="col-12 create-user-role">
 
                       <mat-tree-node class="col-md-6 create-user-role-children" *matTreeNodeDef="let node;" 
                       matTreeNodeToggle matTreeNodePadding>
-                        <!-- <button type="button" mat-icon-button disabled></button> -->
                           <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
                           (change)="todoLeafItemSelectionToggle(node)">{{node.value.viewValue}}</mat-checkbox>
                       </mat-tree-node>
 
                   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
                     <mat-checkbox [checked]="descendantsAllSelected(node)"
-                    class="col-11"
-                                  [indeterminate]="descendantsPartiallySelected(node)"
+                    class="col-11" 
+                    [indeterminate]="descendantsPartiallySelected(node)"
                                   (change)="todoItemSelectionToggle(node)">{{node.value}}</mat-checkbox>
-                    <!-- <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button> -->
                     <button type="button" mat-icon-button matTreeNodeToggle
                             [attr.aria-label]="'Toggle ' + 'node.value'">
                       <mat-icon class="mat-icon-rtl-mirror">
@@ -117,15 +84,10 @@
               (click)="logValidationErrors(this.roleForm, this.formErrors, this.validationMessages)">
                 <i  class="far fa-save"></i> Submit 
               </button>
-              <!-- <button *ngIf="isEditButtonShow" mat-raised-button class="btn_white" id="role_edit" type="button"
-                (click)="toggleEdit()"><i class="fas fa-edit"></i> Edit
-              </button>&nbsp; -->
             </div>
           </div>
         </div>
       </div>
-      <!-- form action ends-->
     </div>
   </form>
-  <!-- form ends -->
 </div>

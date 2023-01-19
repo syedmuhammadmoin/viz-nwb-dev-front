@@ -28,7 +28,7 @@ export class PrintRequisitionComponent implements OnInit {
 
   constructor( private requisitionService: RequisitionService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer
              ) { }
@@ -66,7 +66,7 @@ export class PrintRequisitionComponent implements OnInit {
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }  
 
@@ -82,7 +82,7 @@ export class PrintRequisitionComponent implements OnInit {
     this.requisitionService.getRequisitionById(id).subscribe((res: IApiResponse<IRequisition>) => {
         this.requisitionMaster = res.result;
         this.requisitionLines = res.result.requisitionLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

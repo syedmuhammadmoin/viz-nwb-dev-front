@@ -29,7 +29,7 @@ export class PrintEstimatedBudgetComponent implements OnInit {
   constructor( private _estimatedBudgetService: EstimatedBudgetService,
                private activatedRoute: ActivatedRoute,
                public dynamicColorChanging : DynamicColorChangeService,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public sanitizer: DomSanitizer
              ) { }
 
@@ -66,7 +66,7 @@ export class PrintEstimatedBudgetComponent implements OnInit {
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }  
 
@@ -85,7 +85,7 @@ export class PrintEstimatedBudgetComponent implements OnInit {
         // this.budgetLines.forEach((line: any) => {
         //   this.totalAmount += line.amount;
         // })
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

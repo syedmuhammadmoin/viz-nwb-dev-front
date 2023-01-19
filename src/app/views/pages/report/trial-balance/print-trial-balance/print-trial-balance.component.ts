@@ -30,7 +30,7 @@ export class PrintTrialBalanceComponent extends AppComponentBase implements OnIn
     // public sanitizer: DomSanitizer,
     private trialBalanceService: TrialBalanceService,
     public dynamicColorChanging : DynamicColorChangeService,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute
   ) {
     super(injector);
@@ -76,7 +76,7 @@ export class PrintTrialBalanceComponent extends AppComponentBase implements OnIn
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }
 }
