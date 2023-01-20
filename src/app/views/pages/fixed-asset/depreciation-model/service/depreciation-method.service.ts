@@ -12,7 +12,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 })
 export class DepreciationMethodService extends AppServiceBase {
 
-    baseUrl = AppConst.remoteServiceBaseUrl + 'DepreciationModel';
+    baseUrl = AppConst.remoteServiceBaseUrl + 'Depreciation';
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
