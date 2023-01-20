@@ -14,23 +14,6 @@
             <div class="kt-form__section kt-form__section--first">
               <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="row mt-1 mb-0">
-                  <!-- <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Payment Type:</label>
-                        <kt-simple-dropdown
-                          formControlName="paymentType"
-                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
-                          propertyName="viewValue"
-                          propertyValue="id"
-                          matFormFieldClass="full-width"
-                          [errorMessage]="formErrors.paymentType"
-                          [optionList]="groups"
-                          searchPlaceholder="Search Payment Types..."
-                          placeholder="Select Payment Type">
-                        </kt-simple-dropdown>
-                    </div>
-                  </div> -->
-    
                   <div class="col-lg-5 col-md-5 col-sm-5">
                     <div class="form-group kt-form__group mb-0">
                         <label class="col-form-label pt-0">Payment Date:</label>
@@ -58,16 +41,6 @@
                         </kt-input-field>
                     </div>
                   </div>
-    
-                  <!-- <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Register Type:</label>
-                        <mat-radio-group (change)="loadAccountList($event)" formControlName="registerType" aria-label="Select an option">
-                          <mat-radio-button [value]="1">Cash Account</mat-radio-button>
-                          <mat-radio-button [value]="2">Bank Account</mat-radio-button>
-                        </mat-radio-group>
-                    </div>
-                  </div> -->
                 </div>
     
                 <div class="row">
@@ -178,18 +151,7 @@
                           <mat-error *ngIf="formErrors.grossPayment">
                             <strong>{{formErrors.grossPayment}}</strong>
                           </mat-error>
-                          <!-- <mat-hint align="end">Optional</mat-hint> -->
                         </mat-form-field>
-                        
-                        <!-- <kt-input-field
-                        id="payment_gross"
-                          formControlName="grossPayment"
-                          type = "number"
-                          [min]="0"
-                          placeholder="Enter Gross Payment"
-                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.grossPayment , error : formErrors.grossPayment }]">
-                        </kt-input-field> -->
                     </div>
                   </div>
     
@@ -204,15 +166,6 @@
                           </mat-error>
                           <mat-hint align="end">Optional</mat-hint>
                         </mat-form-field>
-                        <!-- <kt-input-field
-                        id="payment_sales"
-                          formControlName="salesTax"
-                          type = "number"
-                          hintText="Optional"
-                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.salesTax , error : formErrors.salesTax }]"
-                          placeholder="Enter Sales Tax">
-                        </kt-input-field> -->
                     </div>
                   </div>
     
@@ -227,15 +180,6 @@
                           </mat-error>
                           <mat-hint align="end">Optional</mat-hint>
                         </mat-form-field>
-                        <!-- <kt-input-field
-                        id="payment_income"
-                          formControlName="incomeTax"
-                          type = "number"
-                          hintText="Optional"
-                          (blurEvent)="logValidationErrors(this.paymentForm, this.formErrors, this.validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.incomeTax , error : formErrors.incomeTax }]"
-                          placeholder="Enter Income Tax">
-                        </kt-input-field> -->
                     </div>
                   </div>
                 </div>
@@ -252,15 +196,6 @@
                           </mat-error>
                           <mat-hint align="end">Optional</mat-hint>
                         </mat-form-field>
-                        <!-- <kt-input-field
-                        id="payment_srb"
-                          formControlName="SRBTax"
-                          placeholder="Enter SRB Tax"
-                          type = "number"
-                          hintText="Optional"
-                          (blurEvent)="logValidationErrors(paymentForm, formErrors, validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.SRBTax , error : formErrors.SRBTax }]">
-                        </kt-input-field> -->
                     </div>
                   </div>
 
@@ -319,7 +254,6 @@
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="form-group kt-form__group mb-0">
                       <label class="col-form-label pt-0">{{(isReceipt) ? "Instrument No:" : "Cheque No:"}}</label>
-
                       <kt-input-field
                         id="payment_cheque"
                           formControlName="chequeNo"

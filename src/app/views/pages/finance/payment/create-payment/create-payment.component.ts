@@ -42,7 +42,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   maxDate = new Date();
 
   // payment Model
-  paymentModel: IPayment;
+  paymentModel: IPayment = {} as IPayment;
 
   // subscription
   subscription$: Subscription;
@@ -69,12 +69,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   // validation messages
   validationMessages = {
-    // registerType: {
-    //   required : 'Payment Register Type is required.'
-    // },
-    // paymentType: {
-    //   required: 'Payment Type is required'
-    // },
     date: {
       required: 'Payment Date is required.'
     },
@@ -119,8 +113,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   // Error keys
   formErrors = {
-    //registerType: '',
-   // paymentType: '',
     date: '',
     description: '',
     businessPartner: '',
@@ -135,7 +127,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     SRBTax: ''
   }
 
-  // Injecting dependencies
+  //Injecting dependencies
   constructor(
     private cashAccountService: CashAccountService,
     private bankAccountService: BankAccountService,  
@@ -164,8 +156,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     this.paymentForm = this.fb.group({
-      //registerType: ['', [Validators.required]],
-      //paymentType: ['', [Validators.required]],
       date: ['', [Validators.required]],
       description: ['', [Validators.required]],
       businessPartner: ['', [Validators.required]],
@@ -181,7 +171,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       SRBTax: [0,[Validators.min(0) , Validators.max(100)]],
     });
 
-    //this.paymentForm.get('registerType').setValue(2)
     this.loadAccountList({value: 2})
 
     // initializing payment model
@@ -190,46 +179,21 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.isLoading = true;
       this.getPayment(this.data.id);
       this.cdRef.markForCheck();
-    } else {
-      // initializing payment model
-      this.paymentModel = {
-        paymentRegisterType: null,
-        id: null,
-        paymentType: null,
-        businessPartnerId: null,
-        accountId: null,
-        paymentDate: null,
-        paymentRegisterId: null,
-        campusId: null,
-        description: '',
-        grossPayment: null,
-        chequeNo: null,
-        deduction: null,
-        deductionAccountId: null,
-        salesTax: null,
-        incomeTax: null,
-        srbTax : null,
-        documentLedgerId: null,
-      }
-    };    
+    }
 
     if(this.data.docType !== this.docType.PayrollPayment) {
       this.calculatingNetPayment();
     }
+
+    //Get Data From Store
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getAllBusinessPartnerFromState();
     this.ngxsService.getEmployeePaymentsFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getCampusFromState()
-    // //get business partner list from service
-    // this.addButtonService.getBusinessPartnerTypes();
-
-    // this.paymentForm.get('deduction').valueChanges.subscribe((value: number) => {
-    //   this.updateValueValidators(value);
-    // })
   }
 
-  //update deduction account validation
+  //Update deduction account validation
   updateValueValidators(value: number) {
     console.log(value)
     if(value > 0) {
@@ -258,16 +222,12 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
           this.editPayment(payment.result);
           this.paymentModel = payment.result;
           this.netPayment = this.paymentMaster.netPayment;
-        },
-        (err) => console.log(err)
+        }
       );
   }
 
   editPayment(payment: IPayment) {
-    //console.log(payment.srbTax)
     this.paymentForm.patchValue({
-      // registerType: 2,
-      //paymentType: payment.paymentType,
       date: payment.paymentDate,
       description: payment.description,
       businessPartner: payment.businessPartnerId,
@@ -282,6 +242,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       SRBTax : payment.srbTax || 0,
       incomeTax: payment.incomeTax,
     });
+
     this.loadAccountList({value: payment.paymentRegisterType}, payment.paymentRegisterId)
     if(this.data.docType === this.docType.PayrollPayment) {
       this.disableFields(this.paymentForm , 'date', 'businessPartner', 'account', 'grossPayment', 'salesTax', 'incomeTax', 'SRBTax', 'campusId')
@@ -296,13 +257,11 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   // submit payment form
   onSubmit() {
     if (this.paymentForm.invalid) {
-      console.log(this.paymentForm.value)
       return;
     }
 
     this.isLoading = true;
     this.mapFormValueToPaymentModel();
-    console.log(this.paymentModel)
     if (this.paymentModel.id) {
       this.paymentService.updatePayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
       .pipe(
@@ -329,7 +288,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
        )
         .subscribe((res) => {
             this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
-            // this.route.navigate(['/' + ((this.formName === 'Payment') ? PAYMENT.LIST : (this.formName === 'Payroll Payment') ? PAYROLL_PAYMENT.LIST : RECEIPT.LIST)])
             this.route.navigate(['/payment/'+ this.documents.find(x => x.id === this.data.docType).route +'/details/' + res.result.id])
             this.onCloseDialog();
           });
@@ -384,17 +342,10 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   // Calculating net payment amount
   calculatingNetPayment(): void {
     this.paymentForm.valueChanges.subscribe((val) => {
-      // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
-      // this.netPayment = +(Number(val.grossPayment) - (Number(val.salesTax) + Number(val.incomeTax) + Number(val.SRBTax))).toFixed(2);
       this.netPayment = +((Number(val.grossPayment) - (Number(val.grossPayment) * ((Number(val.salesTax) / 100) + (Number(val.incomeTax) / 100) + (Number(val.SRBTax) / 100)))) - Number(val.deduction)).toFixed(2);
     });
   }
-  // open business partner dialog
-  // openBusinessPartnerDialog() {
-  //   if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-  //     this.addButtonService.openBusinessPartnerDialog();
-  //   }
-  // }
+
   // close dialog
   onCloseDialog() {
     this.dialogRef.close();

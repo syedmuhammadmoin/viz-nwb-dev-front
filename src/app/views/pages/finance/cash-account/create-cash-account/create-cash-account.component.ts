@@ -1,10 +1,10 @@
-import {Component, Inject, Injector, OnInit, Optional} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
-import {CashAccountService} from '../service/cashAccount.service';
-import {ICashAccount} from '../model/ICashAccount';
-import {AppComponentBase} from 'src/app/views/shared/app-component-base';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {finalize, take} from "rxjs/operators";
+import { Component, Inject, Injector, OnInit, Optional} from '@angular/core';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { CashAccountService} from '../service/cashAccount.service';
+import { ICashAccount} from '../model/ICashAccount';
+import { AppComponentBase} from 'src/app/views/shared/app-component-base';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { finalize, take} from "rxjs/operators";
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
@@ -19,13 +19,14 @@ import { CashAccountState } from '../store/cash-account.state';
 export class CreateCashAccountComponent extends AppComponentBase implements OnInit {
   
  
+    //Loader
     isLoading: boolean;
   
     // Cash account Form variable
     cashAccountForm: FormGroup;
   
     // Cash account model
-    cashAccountModel: ICashAccount;
+    cashAccountModel: ICashAccount = {} as ICashAccount;
 
     title: string = 'Create Cash Account'
 
@@ -36,9 +37,6 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       cashAccountName: {
         required: 'Cash Account Name is required.'
       },
-      // handler: {
-      //   required: 'Manager/Handler is required'
-      // },
       openingBalance: {
         required: 'opening balance is required.',
         min: 'Please insert correct value.'
@@ -48,23 +46,18 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
       },
       campusId: {
         required: 'Campus is required.'
-      },
-      // currency: {
-      //   required: 'currency is required'
-      // }
+      }
     }
   
-    // Error keys
+    //Keys for Validation Messages
     formErrors = {
       cashAccountName: '',
-      //handler: '',
       openingBalance: '',
       OBDate: '',
       campusId: ''
-      //currency: '',
     }
   
-    // Injecting dependencies
+    //Injecting Dependencies
     constructor(
       private fb: FormBuilder,
       @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
@@ -83,25 +76,15 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         openingBalance: ['', [Validators.required, Validators.min(1)]],
         OBDate: ['', [Validators.required]],
         campusId: ['', [Validators.required]],
-        //currency: ['', [Validators.required]]
       });
   
       if (this._id) {
         this.title = 'Edit Cash Account'
         this.isLoading = true
         this.getCashAccount(this._id);
-      } else {
-        this.cashAccountModel = {
-          id: null,
-          cashAccountName: '',
-          handler: '',
-          campusId: null,
-          openingBalance: null,
-          openingBalanceDate: null,
-          currency: '',
-        };
       }
 
+      //Get Data from Store
       this.ngxsService.getCampusFromState()
     }
   
@@ -132,12 +115,8 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
         openingBalance: cashAccount.openingBalance,
         OBDate: cashAccount.openingBalanceDate,
         campusId: cashAccount.campusId
-        //currency: cashAccount.currency,
       });
-      // this.cashAccountForm.get('openingBalance').disable()
-      // this.cashAccountForm.get('OBDate').disable()
-      // this.cashAccountForm.get('campusId').disable()
-
+     
       this.disableFields(this.cashAccountForm , 'openingBalance', 'OBDate', 'campusId')
     }
   
@@ -157,8 +136,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
             this.ngxsService.store.dispatch(new IsReloadRequired (CashAccountState , true))
             this.toastService.success('Updated Successfully' , 'Cash Account')
             this.onCloseDialog()
-          },
-          (err) => this.toastService.error('Something went wrong', 'Cash Account')
+          }
         );
       } else {
         delete this.cashAccountModel.id;
@@ -170,13 +148,11 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
             this.ngxsService.store.dispatch(new IsReloadRequired (CashAccountState , true))
             this.toastService.success('Created Successfully' , 'Cash Account')
             this.onCloseDialog()
-          },
-          (err) => this.toastService.error('Something went wrong', 'Cash Account')
+          }
         );
       }
     }
   
-    // map form values
     mapFormValueToCashAccountModel() {
       this.cashAccountModel.cashAccountName = this.cashAccountForm.value.cashAccountName;
       this.cashAccountModel.handler = this.cashAccountForm.value.handler;
@@ -187,7 +163,6 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
     }
 
     reset() {
-
       this.resetFields(this.cashAccountForm , 'cashAccountName','handler')
 
       if(!this._id) this.resetFields(this.cashAccountForm , 'openingBalance','OBDate','campusId')

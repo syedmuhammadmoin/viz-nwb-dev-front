@@ -18,7 +18,6 @@ export class BankReconciliationService {
   baseUrl = AppConst.remoteServiceBaseUrl;
   constructor(private httpClient: HttpClient) { }
 
-
   getBankStatement(id: number){
     return this.httpClient.get<IApiResponse<IBankStatement[]>>(`${this.baseUrl}bankStmt/bankstatus/${id}`)
       .subscribe((res) => {

@@ -6,7 +6,6 @@ import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/view
 import { LayoutUtilsService } from 'src/app/core/_base/crud';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { JOURNAL_ENTRY } from 'src/app/views/shared/AppRoutes';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IJournalEntry } from '../model/IJournalEntry';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IJournalEntryLines } from '../model/IJournalEntryLines';
@@ -19,12 +18,11 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'kt-joural-entry-details',
   templateUrl: './joural-entry-details.component.html',
   styleUrls: ['./joural-entry-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class JouralEntryDetailsComponent extends AppComponentBase implements OnInit {
 
-  //for busy loading
+  //Loader
   isLoading: boolean;
 
   docType = DocType
@@ -60,7 +58,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     super(injector)
   }
 
-
+  //Defining AG Grid Columns
   columnDefs = [
     { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Partner', field: 'businessPartnerName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
@@ -136,7 +134,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     const dialogRef = this.dialog.open(CustomRemarksComponent, {
       width: '740px'
     });
-    //sending remarks data after dialog closed
+    //Getting Updated Journal Entry Data
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.workflow(action, res.data)
@@ -161,7 +159,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
       })
   }
 
-  //upload File
+  //Upload File
   openFileUploadDialog() {
     this.dialog.open(CustomUploadFileComponent, {
       width: '740px',

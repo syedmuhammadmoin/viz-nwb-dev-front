@@ -13,8 +13,7 @@ import { BankStatementService } from '../service/bank-statement.service';
 @Component({
   selector: 'kt-list-bank-statement',
   templateUrl: './list-bank-statement.component.html',
-  styleUrls: ['./list-bank-statement.component.scss'],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-bank-statement.component.scss']
 })
 
 export class ListBankStatementComponent extends AppComponentBase implements OnInit {
@@ -30,6 +29,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
     gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
+    //Injecting Dependencies
     constructor( private bankStatementService : BankStatementService,
                  private router: Router,
                  private cdRef: ChangeDetectorRef,
@@ -43,7 +43,7 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
                   );
                  }
 
-
+    //Defining AG Grid Columns
     columnDefs = [
       {
         headerName: 'Bank Account',
@@ -128,7 +128,6 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       } else {
         this.gridApi.hideOverlay();
       }
-      // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
        params.successCallback(res.result || 0, res.totalRecords);
        this.paginationHelper.goToPage(this.gridApi, 'bankStatementPageName');
        this.cdRef.detectChanges();
@@ -145,40 +144,6 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       const result = await this.bankStatementService.getRecords(params).toPromise()
       return result
     }
-
-    // onGridReady(params: GridReadyEvent) {
-    //   this.gridApi = params.api;
-    //   this.gridColumnApi = params.columnApi;
-    //   params.api.setDatasource(this.dataSource);
-    // }
-
-    // async getBankStatements(params: any): Promise<IPaginationResponse<IBankStatement[]>> {
-    //   const result = await  this.bankStatementService.getBankStatements(params).toPromise()
-    //   return result
-    // }
-
-    // dataSource = {
-    //   getRows: async (params: any) => {
-    //    const res = await this.getBankStatements(params)
-
-    //    if(isEmpty(res.result)) {
-    //     this.gridApi.showNoRowsOverlay()
-    //   } else {
-    //    this.gridApi.hideOverlay();
-    //   }
-    //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-    //    params.successCallback(res.result || 0, res.totalRecords);
-    //    this.paginationHelper.goToPage(this.gridApi, 'bankStatementPageName')
-    //    this.cdRef.detectChanges();
-    //  },
-    // };
-
-  //   getBankStatements() {
-  //     this.bankStatementService.getBankStatements().subscribe((res: IPaginationResponse<IBankStatement[]>) => {
-  //     this.bankStatementList = res.result;
-  //     this.cdRef.markForCheck();
-  //   })
-  // }
 }
 
 

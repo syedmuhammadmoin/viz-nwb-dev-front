@@ -6,7 +6,6 @@ import { ListJournalEntryComponent } from './list-journal-entry/list-journal-ent
 import { CreateJournalEntryComponent } from './create-journal-entry/create-journal-entry.component';
 import { JouralEntryDetailsComponent } from './joural-entry-details/joural-entry-details.component';
 import { PrintJournalEntryComponent } from './print-journal-entry/print-journal-entry.component';
-import { FormConfirmationGuard } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
 
 const routes: Routes = [
@@ -28,7 +27,6 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateJournalEntryComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.JOURNALENTRY_CREATE },

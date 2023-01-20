@@ -32,12 +32,12 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   isLoading: boolean;
   baseUrl = AppConst.remoteServiceBaseUrl;
   cumulativeBalance: number = 0;
-
-  // Limit Date
-  maxDate: Date = new Date();
-
   openingBalance: number = 0;
   cumulativeBalances: number[] = [0];
+
+  //Limit Date
+  maxDate: Date = new Date();
+
   // For Table Columns
   displayedColumns = ['reference', 'stmtDate', 'label', 'debit', 'credit', 'cumulativeBalance', 'action']
 
@@ -63,7 +63,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   //show Buttons
   showButtons: boolean = true; 
 
-
   // validation messages
   validationMessages = {
     bankAccountId: {
@@ -78,14 +77,14 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     },
   }
 
-  // keys for validation
+  //keys for validation
   formErrors = {
     bankAccountId: '',
     openingBalance: '',
     description: ''
   }
 
-  // Injecting dependencies  in constructor
+  //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
     private bankStatementService: BankStatementService,
@@ -107,9 +106,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
       bankStmtLines: this.fb.array([this.addBanKStatementLines()])
     });
 
-    // business partner names
+    //Get Data from Store
     this.ngxsService.getBankAccountFromState();
-   // this.bankAccountService.getBankAccounts().subscribe(res => this.bankAccountList = res.result)
     this.activatedRoute.paramMap.subscribe(params => {
       const bankStatementId = +params.get('id');
       if (bankStatementId) {
@@ -130,7 +128,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     });
   }
 
-  // get Bank Statement
+  //Get Bank Statement
   getBankStatement(id: number) {
     this.bankStatementService.getBankStatement(id)
     .pipe(
@@ -147,14 +145,12 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
       });
   }
 
-  // Edit Bank Statement
+  //Edit Bank Statement
   editBankStatement(bankStatement: IBankStatement) {
     this.bankStatementForm.patchValue({ ...bankStatement });
     this.bankStatementForm.setControl('bankStmtLines', this.patchStatementLines(bankStatement.bankStmtLines))
     this.openingBalance = bankStatement.openingBalance
     this.calculateRunningTotal(bankStatement.openingBalance);
-    //this.openingBalance = bankStatement.openingBalance;
-
     if(!this.showButtons) this.bankStatementForm.disable();
   }
 
@@ -177,9 +173,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     return formArray
   }
 
-  
-
-  // submitting Form
+  //Submitting Form
   onSubmit() {
 
     if (this.bankStatementForm.get('bankStmtLines').invalid) {
@@ -193,7 +187,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
     this.isLoading = true;
     this.mapFormValueToBankStatementModel();
-    console.log(this.bankStatementModel)
     if (this.bankStatementModel.id) {
       this.bankStatementService.updateBankStatement(this.bankStatementModel)
       .pipe(
@@ -210,7 +203,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
         );
     } else {
       delete this.bankStatementModel.id;
-      //console.log(this.bankStatementModel)
       this.bankStatementService.addBankStatement(this.body)
       .pipe(
         take(1),
@@ -232,13 +224,12 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
   }
 
-  // mapping Form Values
+
   mapFormValueToBankStatementModel() {
     this.bankStatementModel = { ...this.bankStatementModel, ...this.bankStatementForm.value } as IBankStatement
     this.bankStatementModel.bankAccountId = this.bankStatementForm.value.bankAccountId;
     this.bankStatementModel.description = this.bankStatementForm.value.description;
     this.bankStatementModel.openingBalance = Number(this.bankStatementForm.value.openingBalance);
-    //this.bankStatementModel.bankStmtLines = this.bankStatementForm.value.bankStatementLines;
     this.bankStatementModel.bankStmtLines.map((data: IBankStatementLines) => {
       //delete data.id
       delete data.cumulativeBalance;
@@ -254,7 +245,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
   }
 
-  // Add Bank Statement Line
+  //Add Bank Statement Line
   addBankStatementLineClick() {
     const controls = this.bankStatementForm.controls.bankStmtLines as FormArray;
     controls.push(this.addBanKStatementLines());
@@ -266,7 +257,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     console.log(e)
   }
 
-  // add Bank Statement Line
+  //Add Bank Statement Line
   addBanKStatementLines(): FormGroup {
     return this.fb.group({
       id: [0],
@@ -279,7 +270,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     });
   }
 
-  // Remove Bank Statement Line
+  //Remove Bank Statement Line
   removeBankStatementLine(bankStatementLineIndex: number): void {
     const BankStatementLineArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
     if (BankStatementLineArray.length > 1) {
@@ -292,7 +283,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
   }
 
-  // onChangeEvent to set debit or credit zero '0'
+  // OnChangeEvent to set debit or credit zero '0'
   onChangeEvent(_:unknown, index: number) {
     const arrayControl = this.bankStatementForm.get('bankStmtLines') as FormArray;
     const debitControl = arrayControl.at(index).get('debit');
@@ -306,17 +297,15 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     } else if (credit > 0) {
       debitControl.setValue(0);
       debitControl.disable();
-    // } else if ((debit === "") || (credit === "")) {
     } else if (!debit || !credit) {
       creditControl.enable();
       debitControl.enable();
     }
   }
 
-  // Form Reset
+  //Form Reset
   reset() {
     const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
-    // bankStatementArray.clear();
     this.formDirective.resetForm();
     if(bankStatementArray.length < 1) {
       this.addBankStatementLineClick()
@@ -332,7 +321,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   }
 
   calculateRunningTotal(openingBalance?: number) {
-    console.log(openingBalance)
     const arrayControl = this.bankStatementForm.get('bankStmtLines') as FormArray;
       this.openingBalance = this.openingBalance == null ? openingBalance : this.openingBalance;
       if (this.cumulativeBalances[0] !== this.openingBalance) {
@@ -359,7 +347,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     return closingBalance !== null ? Number(closingBalance) : 0.00;
   }
 
-  // upload file
+  //Upload file
   uploadFile(files: File[]) {
     this.showLines = false;
     this.body.files = files[0] as File;

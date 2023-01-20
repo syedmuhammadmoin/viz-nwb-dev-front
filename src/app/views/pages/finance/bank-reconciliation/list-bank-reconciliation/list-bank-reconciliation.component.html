@@ -17,7 +17,6 @@
                 <div class="row mt-1 mb-0">
                   <div class="col-lg-4">
                     <div class="form-group kt-form__group mb-0">
-                      <!-- <label class="col-form-label pt-0">Bank:</label> -->
                       <kt-simple-dropdown placeholder="Select Bank Account"
                         formControlName="bankName" id="reconciliation_bankName"
                         (blurEvent)="logValidationErrors(this.reconForm, this.formErrors, this.validationMessages)"
@@ -36,7 +35,6 @@
                   </div>
                 </div>
                 <div class="row">
-  
                   <div class="col-lg-6 mt-3">
                     <h4 class="all-text-primary" >Bank Statement</h4>
                     <ag-grid-angular
@@ -49,13 +47,12 @@
                     [rowSelection]="rowSelectionBankStatement"
                     [rowMultiSelectWithClick]="true"
                     (gridReady)="onStatementGridReady($event)"
-                    (rowSelected)="onBankStatementRowClicked($event)"
-                    (firstDataRendered)="onFirstDataRendered($event)">
+                    (rowSelected)="onBankStatementRowClicked()">
                     </ag-grid-angular>
                   </div>
           
                   <div class="col-lg-6 mt-3">
-                    <h4 class="all-text-primary"  >Payments</h4>
+                    <h4 class="all-text-primary">Payments</h4>
                     <ag-grid-angular
                     class="ag-theme-alpine grid_measurement"
                     [rowData]="paymentList"
@@ -63,9 +60,8 @@
                     [pagination]="true"
                     [animateRows]="true"
                     [rowSelection]="rowSelectionPayment"
-                    (rowSelected)="onPaymentRowClicked($event)"
+                    (rowSelected)="onPaymentRowClicked()"
                     [overlayLoadingTemplate]="overlayLoadingTemplate"
-                    (firstDataRendered)="onFirstDataRendered($event)"
                     (gridReady)="onPaymentGridReady($event)"
                     [rowMultiSelectWithClick]="true"
                     [isRowSelectable]="isRowSelectable">

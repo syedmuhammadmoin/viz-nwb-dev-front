@@ -6,7 +6,6 @@ import { ListCashAccountComponent} from './list-cash-account/list-cash-account.c
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateCashAccountComponent } from './create-cash-account/create-cash-account.component';
 import { CashAccountRoutingModule } from './cash-account-routing.module';
-import { CashAccountService } from './service/cashAccount.service';
 
 
 @NgModule({
@@ -20,7 +19,6 @@ import { CashAccountService } from './service/cashAccount.service';
     CashAccountRoutingModule,   
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
-  providers: [],
   entryComponents: [CreateCashAccountComponent],
 })
 
