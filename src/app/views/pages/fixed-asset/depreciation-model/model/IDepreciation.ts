@@ -1,11 +1,11 @@
-export interface IDepreciation {
-    id: number;
-    name: string;
-    method: number;
-    assetAccountId: number;
-    depExpenseAccountId: number;
-    accumulatedDepAccountId: number;
-    usefulLife: number;
-    decliningRate: number;
-    //assetCategoryId: number;
-}
+export interface IDepreciation{
+    id: number,
+    modelName: string,
+    useFullLife: number,
+    assetAccountId: string,
+    depreciationExpenseId: string,
+    accumulatedDepreciationId: string,
+    modelType: number,
+    decliningRate: number
+  }
+

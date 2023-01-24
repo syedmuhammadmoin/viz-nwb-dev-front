@@ -4,4 +4,6 @@ export interface ICategory {
     inventoryAccountId: number;
     revenueAccountId: number;
     costAccountId: number;
+    isFixedAsset: boolean;
+    depreciationId: number
 }

@@ -11,6 +11,9 @@ import { CategoryState } from '../store/category.state';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { MatRadioButton } from '@angular/material/radio';
+import { BehaviorSubject} from 'rxjs';
+import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service'
 
 
 @Component({
@@ -37,6 +40,12 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   //show Buttons
   showButtons: boolean = true;
 
+  // asset Account Dropdown
+
+  propertyValue: string;
+  propertyName: string;
+  assetAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -56,6 +65,10 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       required: 'Cost Account is required.',
       //incorrect: 'Please select valid Cost Account'
     },
+    depreciationId: {
+      required: 'Depreciation Account is required.',
+      //incorrect: 'Please select valid Cost Account'
+    },
   };
 
   //error keys
@@ -64,10 +77,12 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     inventoryAccount: '',
     revenueAccount: '',
     costAccount: '',
+    depreciationId: '',
   };
 
   constructor(private fb: FormBuilder,
     public categoryService:CategoryService,
+    public chartOfAccountService : ChartOfAccountService,
     public ngxsService:NgxsCustomService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
@@ -83,8 +98,12 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       name: ['', Validators.required],
       inventoryAccount: ['', [Validators.required]],
       revenueAccount: ['', [Validators.required]],
-      costAccount: ['', [Validators.required]]
+      costAccount: ['', [Validators.required]],
+      isFixedAsset: [0, [Validators.required]],
+      depreciationId: [null]
     });
+
+    this.loadAssetList({value: 0});
 
     if (this._id) {
       this.showButtons = (this.permission.isGranted(this.permissions.CATEGORIES_EDIT)) ? true : false;
@@ -98,11 +117,14 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
         inventoryAccountId: null,
         revenueAccountId: null,
         costAccountId: null,
+        isFixedAsset: false,
+        depreciationId: null
       }
     }
 
-    //this.ngxsService.getAccountLevel4FromState();
-    this.ngxsService.getOtherAccountsFromState();
+    //Get Data from Store
+    this.ngxsService.getOtherAccountsFromState()
+    this.ngxsService.getDepreciationModelFromState();
   }
 
   // Getting category values for update
@@ -132,12 +154,43 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       inventoryAccount: category.inventoryAccountId,
       revenueAccount: category.revenueAccountId,
       costAccount: category.costAccountId,
+      isFixedAsset: (category.isFixedAsset === false) ? 0 : 1,
+      depreciationId: category.depreciationId
     });
+
+    this.loadAssetList({value: (category.isFixedAsset === false) ? 0 : 1})
 
     //if user have no permission to edit, so disable all fields
     if(!this.showButtons) {
       this.categoryForm.disable();
     }
+  }
+
+  loadAssetList($event : MatRadioButton | any, id : number = null){
+
+    // this.categoryForm.patchValue({
+    //   isFixedAsset : id
+    // })
+
+    console.log($event.value);
+
+    if($event.value === 0){
+      this.chartOfAccountService.getOtherAccounts().subscribe((res : any) =>{
+        console.log(res);
+        
+        this.assetAccountList.next(res.result || [])
+        
+        this.cdRef.markForCheck();
+      })
+    } else{
+      this.chartOfAccountService.getAssetAccounts().subscribe((res : any) =>{
+        console.log(res);
+        this.assetAccountList.next(res.result || [])
+        this.cdRef.markForCheck();
+      })
+    }
+    
+
   }
 
   onSubmit() {
@@ -186,6 +239,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     this.category.inventoryAccountId = this.categoryForm.value.inventoryAccount
     this.category.revenueAccountId = this.categoryForm.value.revenueAccount;
     this.category.costAccountId = this.categoryForm.value.costAccount;
+    this.category.isFixedAsset = (this.categoryForm.value.isFixedAsset === 0) ? false : true;
+    this.category.depreciationId = this.categoryForm.value.depreciationId;
   }
 
   reset() {

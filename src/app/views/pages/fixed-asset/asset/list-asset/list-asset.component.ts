@@ -7,8 +7,9 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AssetType, Permissions } from 'src/app/views/shared/AppEnum';
 import { IAsset } from '../model/IAsset';
 import { AssetService } from '../service/asset.service';
-import { ASSET } from 'src/app/views/shared/AppRoutes';
+import { ASSET, INVOICE } from 'src/app/views/shared/AppRoutes';
 import { isEmpty } from 'lodash';
+import { CreateAssetComponent } from '../create-asset/create-asset.component';
 
 
 @Component({
@@ -162,31 +163,47 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
     this.router.navigate(['/' + ASSET.ID_BASED_ROUTE('details' , event.data.id)])
   }
 
-  addAsset() {
-    this.router.navigate(['/' + ASSET.CREATE])
+  openDialog(id?: number): void {
+    const dialogRef = this.dialog.open(CreateAssetComponent, {
+      width: '800px',
+      data: id
+    });
+    // Recalling getBusinessPartners function on dialog close
+    dialogRef.afterClosed().subscribe(() => {
+      this.gridApi.setDatasource(this.dataSource)
+      this.cdRef.detectChanges();
+    });
   }
 
+  // addAsset() {
+  //   this.router.navigate(['/' + INVOICE.CREATE])
+  // }
+
+
+  dataSource = {
+    getRows: (params: any) => {
+      // this.assetService.getRecords(params).subscribe((data) => {
+      //   if(isEmpty(data.result)) {  
+      //     this.gridApi.showNoRowsOverlay() 
+      //   } else {
+      //     this.gridApi.hideOverlay();
+      //   }
+      //   params.successCallback(data.result || 0, data.totalRecords);
+      //   this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
+      //   this.cdRef.detectChanges();
+      // });
+    },
+  };
+
+  
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-
-    var dataSource = {
-      getRows: (params: any) => {
-        this.assetService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
-          } else {
-            this.gridApi.hideOverlay();
-          }
-          params.successCallback(data.result || 0, data.totalRecords);
-          this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
-          this.cdRef.detectChanges();
-        });
-      },
-    };
-    params.api.setDatasource(dataSource);
+    params.api.setDatasource(this.dataSource);
   }
+
+ 
 
   // onGridReady(params: GridReadyEvent) {
   //   this.gridApi = params.api;

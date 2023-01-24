@@ -36,6 +36,12 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //show Buttons
   showButtons: boolean = true; 
 
+
+  //show Buttons
+  isFixedAsset: boolean = false; 
+
+
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -95,6 +101,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       barcode: ['']
     });
 
+    
+    
+
     // checking router params for edit product
     if (this._id) {
       this.showButtons = (this.permission.isGranted(this.permissions.PRODUCT_EDIT)) ? true : false;
@@ -152,10 +161,27 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       barcode: product.barcode
     });
 
+    this.onItemSelected(product.categoryId)
     //if user have no permission to edit, so disable all fields
     if(!this.showButtons) {
       this.productForm.disable();
     }
+  }
+
+  onItemSelected(e){
+    console.log(e);
+    this.ngxsService.categories$.subscribe(res => {
+      this.isFixedAsset = res.find(x => e === x.id)?.isFixedAsset;
+    })
+    // this.isFixedAsset = e.isFixedAsset;
+    if(this.isFixedAsset){
+      this.productForm.get('productType').setValue(2);
+    }
+    else{
+      this.productForm.get('productType').setValue(0);
+    }
+
+
   }
 
   onSubmit() {
@@ -198,6 +224,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
         );
     }
   }
+
+  
 
   // Mapping value from product form to product model
   mapFormValueToProductModel() {

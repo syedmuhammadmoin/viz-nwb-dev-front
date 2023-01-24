@@ -337,10 +337,10 @@ export class Permissions {
   static ASSET_CATEGORY_DELETE = "Permissions.AssetCategoryClaims.Delete";
 
   //Depreciation Model
-  static DEPRECIATION_MODEL_VIEW = "Permissions.DepreciationModelClaims.View";
-  static DEPRECIATION_MODEL_CREATE = "Permissions.DepreciationModelClaims.Create";
-  static DEPRECIATION_MODEL_EDIT = "Permissions.DepreciationModelClaims.Edit";
-  static DEPRECIATION_MODEL_DELETE = "Permissions.DepreciationModelClaims.Delete";
+  static DEPRECIATION_MODEL_VIEW = "Permissions.FixedAsset.DepreciationClaims.View";
+  static DEPRECIATION_MODEL_CREATE = "Permissions.FixedAsset.DepreciationClaims.Create";
+  static DEPRECIATION_MODEL_EDIT = "Permissions.FixedAsset.DepreciationClaims.Edit";
+  static DEPRECIATION_MODEL_DELETE = "Permissions.FixedAsset.DepreciationClaims.Delete";
 
   //Asset
   static ASSET_VIEW = "Permissions.AssetClaims.View";

@@ -47,6 +47,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   title: string = 'Create Asset'
 
   isActiveChecked = true;
+
+  depApplicabilityToggle =  false;
   // switch
   userStatus = 'Active'
 
@@ -143,6 +145,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       accountingDate: ['', [Validators.required]],
       accumulatedDepreciation: ['', [Validators.required]],
       depreciationModelId: ['', [Validators.required]],
+      depreciationApplicability: [false],
       purchasePrice: ['', [Validators.required]],
       depreciableValue: [0],
       salvageValue: ['', [Validators.required]],
@@ -176,25 +179,28 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
     console.log(this.data)
 
+    
+    
+
     //get Accounts from Accounts State
-    this.ngxsService.getAccountLevel4FromState();
-    this.ngxsService.getAssetAccountFromState();
-    this.ngxsService.getDepreciationModelFromState()
+    // this.ngxsService.getAccountLevel4FromState();
+    // this.ngxsService.getAssetAccountFromState();
+    // this.ngxsService.getDepreciationModelFromState()
    // this.ngxsService.getOtherAccountsFromState();
-    this.ngxsService.getCategoryFromState();
+    // this.ngxsService.getCategoryFromState();
 
     //getting product data for asset
-    if(this.data.productData) {
-      //this.isLoading = true;
-      // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
-       this.title = 'Create Asset'
-       this.patchAsset(this.data.productData);
-    } 
-    else if (this.data.assetData) {
-      this.title = 'Edit Asset'
-      this.assetModel.id = this.data.assetData.id;
-      this.patchAsset(this.data.assetData);
-    }
+    // if(this.data.productData) {
+    //   //this.isLoading = true;
+    //   // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
+    //    this.title = 'Create Asset'
+    //    this.patchAsset(this.data.productData);
+    // } 
+    // else if (this.data.assetData) {
+    //   this.title = 'Edit Asset'
+    //   this.assetModel.id = this.data.assetData.id;
+    //   this.patchAsset(this.data.assetData);
+    // }
     
     // this.activatedRoute.params.subscribe((param) => {
     //   console.log(param)
@@ -366,6 +372,13 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     }
   }
 
+  onChangeDepApplicability(e){
+    // console.log(e.checked);
+    this.depApplicabilityToggle = e.checked
+  }
+
+  
+
   // onacquisitionDateChange() {
   //   if (this.assetForm.value.acquisitionDate === 0 || this.assetForm.value.acquisitionDate === 1) {
   //     this.assetForm.get('depreciationModelId').setValue(1);
@@ -427,8 +440,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
      )
     .subscribe((res) => {
       this.assetForm.patchValue({
-        depreciationMethod: res.result.method,
-        usefulLife: res.result.usefulLife,
+        modelType: res.result.modelType,
+        useFullLife: res.result.useFullLife,
         decliningRate: res.result.decliningRate
       })
      

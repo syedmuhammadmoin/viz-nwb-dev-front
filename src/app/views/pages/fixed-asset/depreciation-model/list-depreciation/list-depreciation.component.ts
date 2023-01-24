@@ -49,8 +49,8 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   // Declaring AgGrid data
   columnDefs = [
     { 
-      headerName: 'Name', 
-      field: 'name', 
+      headerName: 'Model Name', 
+      field: 'modelName', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
       filter: 'agTextColumnFilter',
@@ -61,24 +61,23 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
         },
     },
     { 
-      headerName: 'Method', 
-      field: 'method', 
+      headerName: 'UseFull Life', 
+      field: 'useFullLife', 
       tooltipField: 'name', 
       suppressMenu: true,
+    },
+    { 
+      headerName: 'Model Type', 
+      field: 'modelType', 
+      tooltipField: 'name', 
+      suppressMenu: true, 
       valueFormatter: (params: ValueFormatterParams) => {
-        return DepreciationMethod[params.value]
+        return DepreciationMethod[params.value];
       }
     },
     { 
-      headerName: 'Useful Life', 
-      field: 'usefulLife', 
-      tooltipField: 'name', 
-      suppressMenu: true
-    },
-    { 
-      headerName: 'Declining Rate', 
+      headerName: 'Declining Rate (%)', 
       field: 'decliningRate', 
-      tooltipField: 'name', 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value ?? 'N/A'
