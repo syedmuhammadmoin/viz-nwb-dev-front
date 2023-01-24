@@ -70,10 +70,13 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
       headerName: 'Model Type', 
       field: 'modelType', 
       tooltipField: 'name', 
-      suppressMenu: true
+      suppressMenu: true, 
+      valueFormatter: (params: ValueFormatterParams) => {
+        return DepreciationMethod[params.value];
+      }
     },
     { 
-      headerName: 'Declining Rate', 
+      headerName: 'Declining Rate (%)', 
       field: 'decliningRate', 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {

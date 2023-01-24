@@ -85,11 +85,12 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     },
     decliningRate: {
       // required: 'Rate is required.',
-      min: 'Percentage % range (1 - 100)',
-      max: 'Percentage % range (1 - 100)'
+      min: 'Percentage % range (0 - 100).',
+      max: 'Percentage % range (0 - 100).'
     },
     useFullLife: {
       required: 'Life is required.',
+      min : 'Minimum value is 1.'
     },
     // assetCategoryId: {
     //   required: 'Category is required.'
@@ -135,9 +136,9 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       accumulatedDepreciationId: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
       // decliningRate: ['', [Validators.required]],
-      decliningRate: [null , [Validators.max(100), Validators.min(0)]],
+      decliningRate: [0 , [Validators.max(100), Validators.min(0)]],
       //assetCategoryId: ['', [Validators.required]],
-      useFullLife: ['', [Validators.required]]
+      useFullLife: ['', [Validators.required , Validators.min(1)]]
     });
 
 
@@ -368,7 +369,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       this.isDeclining = true;
     }
     else {
-      this.depreciationForm.get('decliningRate').setValue(null)
+      this.depreciationForm.get('decliningRate').setValue(0)
       this.isDeclining = false;
     }
   }

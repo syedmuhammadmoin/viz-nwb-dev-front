@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { CategoryService } from '../service/category.service';
 import { MatDialog } from '@angular/material/Dialog'
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IServerSideDatasource, IServerSideGetRowsParams, IServerSideGetRowsRequest, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IServerSideDatasource, IServerSideGetRowsParams, IServerSideGetRowsRequest, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateCategoryComponent } from '../create-category/create-category.component';
 import { ICategory } from '../model/ICategory';
@@ -57,7 +57,18 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
      },
     { headerName: 'Asset Account', field: 'inventoryAccount', suppressMenu: true, tooltipField: 'name' },
     { headerName: 'Revenue Account', field: 'revenueAccount', suppressMenu: true, tooltipField: 'name' },
-    { headerName: 'Cost Account', field: 'costAccount', suppressMenu: true }
+    { headerName: 'Cost Account', field: 'costAccount', suppressMenu: true },
+    { headerName: 'Fixed Asset',
+     field: 'isFixedAsset',
+     valueFormatter: (params: ValueFormatterParams) => {
+      if(params.value){
+        return 'Yes'
+      }
+      else{
+        return 'No'
+      }
+      // return params.value ?? 'N/A'
+    }}
   ];
 // implimentation of ng OnInit
   ngOnInit() { 
