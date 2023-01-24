@@ -28,8 +28,7 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
   entryComponents: [
-    CustomRemarksComponent,
-   //CustomUploadFileComponent
+    CustomRemarksComponent
   ]
 })
 export class IssuanceReturnModule { }

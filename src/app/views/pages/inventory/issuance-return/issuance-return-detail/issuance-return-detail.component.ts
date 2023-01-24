@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
@@ -6,15 +6,13 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ISSUANCE, ISSUANCE_RETURN } from 'src/app/views/shared/AppRoutes';
 import { finalize, take } from 'rxjs/operators';
 import { IssuanceReturnService } from '../service/issuance-return.service';
-import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'kt-issuance-return-detail',
   templateUrl: './issuance-return-detail.component.html',
-  styleUrls: ['./issuance-return-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./issuance-return-detail.component.scss']
 })
 
 export class IssuanceReturnDetailComponent extends AppComponentBase implements OnInit {
@@ -60,7 +58,7 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
                 this.gridOptions = ({} as GridOptions);
               }
 
-
+  //Defining Issuance Return Columns
   columnDefs = [
     {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
@@ -121,13 +119,6 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
       //Checking grn status to Issuance reference
       this.showReference = (["Draft" , "Rejected"].includes(this.issuanceReturnMaster.status)) ? false : true;
 
-      // if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.issuanceMaster.state)) {
-      //   this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
-      // }
-      // else {
-      //   this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
-      //   this.gridApi?.sizeColumnsToFit();
-      // }
       this.cdRef.markForCheck();
     })
   }
@@ -161,22 +152,6 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
         this.toastService.success('' + res.message, 'Issuance Return');
       })
   }
-
-  //upload File
-  // openFileUploadDialog() {
-  //   this.dialog.open(CustomUploadFileComponent, {
-  //     width: '740px',
-  //     data: {
-  //       response: this.issuanceReturnMaster,
-  //       serviceClass: this.issuanceReturnService,
-  //       functionName: 'uploadFile',
-  //       name: 'Issuance Return'
-  //     },
-  //   }).afterClosed().subscribe(() => {
-  //     this.getIssuanceReturnMasterData(this.issuanceReturnId)
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
 }
 
 

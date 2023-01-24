@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
-import { FormConfirmationGuard } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { ListGrnComponent } from './list-grn/list-grn.component';
 import { GrnDetailComponent } from './grn-detail/grn-detail.component';
 import { PrintGrnComponent } from './print-grn/print-grn.component';
@@ -28,7 +27,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateGrnComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.GRN_CREATE },

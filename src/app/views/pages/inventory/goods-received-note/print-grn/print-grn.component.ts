@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-grn',
   templateUrl: './print-grn.component.html',
-  styleUrls: ['./print-grn.component.scss'],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-grn.component.scss']
 })
 
 export class PrintGrnComponent extends AppComponentBase implements OnInit {
@@ -21,16 +20,16 @@ export class PrintGrnComponent extends AppComponentBase implements OnInit {
     grnMaster: IGRN | any;
     grnLines: IGRNLines;
     edinfini : boolean;
-  sbbu : boolean;
-  vizalys : boolean;
-  localsto : any ;
-  className : any;
+    sbbu : boolean;
+    vizalys : boolean;
+    localsto : any ;
+    className : any;
 
 
     constructor( private grnService : GrnService,
                  private activatedRoute: ActivatedRoute,
                  private cDRef: ChangeDetectorRef,
-               public dynamicColorChanging : DynamicColorChangeService,
+                 public dynamicColorChanging : DynamicColorChangeService,
                  public  sanitizer: DomSanitizer,
                  injector: Injector
                ) { super(injector) }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
@@ -7,8 +7,7 @@ import { DispatchNoteService } from '../service/dispatch-note.service';
 @Component({
   selector: 'kt-print-dispatch-note',
   templateUrl: './print-dispatch-note.component.html',
-  styleUrls: ['./print-dispatch-note.component.scss'],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-dispatch-note.component.scss']
 })
 
 export class PrintDispatchNoteComponent implements OnInit {
@@ -26,11 +25,8 @@ export class PrintDispatchNoteComponent implements OnInit {
     ngOnInit(): void {
       this.activatedRoute.paramMap.subscribe(params => {
         const id = +params.get('id');
-          console.log(id);
         if(id){
           this.getDispatchNoteMasterData(id);
-        }else{
-          console.log('bong');
         }
       });
     }
@@ -49,9 +45,6 @@ export class PrintDispatchNoteComponent implements OnInit {
         this.gdnMaster = res.result;
         this.gdnLines = res.result.gdnLines;
           this.cDRef.markForCheck();
-        },
-        (err: any) => {
-          console.log(err);
         })
     }
   }

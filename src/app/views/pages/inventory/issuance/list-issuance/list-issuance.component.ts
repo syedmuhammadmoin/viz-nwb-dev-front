@@ -13,8 +13,7 @@ import { IssuanceService } from '../service/issuance.service';
 @Component({
   selector: 'kt-list-issuance',
   templateUrl: './list-issuance.component.html',
-  styleUrls: ['./list-issuance.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-issuance.component.scss']
 })
 
 export class ListIssuanceComponent extends AppComponentBase implements OnInit {
@@ -44,6 +43,7 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
     );
   }
 
+  //Defining Issuance Columns
   columnDefs = [
     { 
       headerName: 'Issuance #', 

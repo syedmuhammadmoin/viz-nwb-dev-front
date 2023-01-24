@@ -416,15 +416,6 @@ const routes: Routes = [
       },
 
       //Inventory Section
-       // Lazy Load INVENTORY ADJUSTMENT Module
-       {
-        path: APP_ROUTES.INVENTORY_ADJUSTMENT,
-        loadChildren: () =>
-          import('./views/pages/inventory/inventory-adjustment/inventory-adjustment.module').then(
-            (m) => m.InventoryAdjustmentModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
       // Lazy Load STOCK Module
       {
         path: APP_ROUTES.STOCK,

@@ -1155,19 +1155,6 @@ export class MenuConfig {
         //     //   ],
         //     // },
         //     // {
-        //     //   title: 'inventory-adjustment',
-        //     //   page: '/' + INVENTORY_ADJUSTMENT.LIST,
-        //     // },
-        //     // {
-        //     //   title: 'Goods Received Note',
-        //     //   page: '/' + GOODS_RECEIVED_NOTE.LIST,
-        //     //   permission: [
-        //     //     Permissions.GRN_VIEW,
-        //     //     Permissions.GRN_CREATE,
-        //     //     Permissions.GRN_EDIT,
-        //     //     Permissions.GRN_DELETE
-        //     //   ],
-        //     // },
         //     // {
         //     //   title: 'Goods Dispatch Note',
         //     //   page: '/' + DISPATCH_NOTE.LIST,

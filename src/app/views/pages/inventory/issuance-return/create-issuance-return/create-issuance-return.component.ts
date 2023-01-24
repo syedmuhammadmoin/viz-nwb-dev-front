@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IProduct} from '../../../profiling/product/model/IProduct';
 import { ActivatedRoute, Router} from '@angular/router';
@@ -17,13 +17,12 @@ import { EmployeeService } from '../../../payroll/employee/service/employee.serv
 @Component({
   selector: 'kt-create-issuance-return',
   templateUrl: './create-issuance-return.component.html',
-  styleUrls: ['./create-issuance-return.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./create-issuance-return.component.scss']
 })
 
 export class CreateIssuanceReturnComponent extends AppComponentBase implements OnInit {
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -36,7 +35,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   @ViewChild('table', {static: true}) table: any;
 
   // Issuance Return Model
-  issuanceReturnModel: IIssuanceReturn | any;
+  issuanceReturnModel: IIssuanceReturn | any = {} as IIssuanceReturn;
 
   title: string = 'Create Issuance Return'
 
@@ -96,6 +95,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     campusId: ''
   }
 
+  //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
     private issuanceReturnService: IssuanceReturnService,
@@ -123,28 +123,13 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       ])
     });
 
-    this.issuanceReturnModel = {
-      id: null,
-      employeeId: null,
-      issuanceReturnDate: null,
-      contact: null,
-      issuanceId: null,
-      purchaseOrderId: null,
-      campusId: null,
-      issuanceReturnLines: []
-    }
-
     this.ngxsService.products$.subscribe(res => this.salesItem = res);
 
-    // get Vendor from state
+    //Get Data from Store
     this.ngxsService.getEmployeeFromState();
-    // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
-    // get Ware house location from state
     this.ngxsService.getWarehouseFromState();
-    // get item from state
     this.ngxsService.getProductFromState();
-
     this.ngxsService.getCampusFromState();
 
     this.activatedRoute.queryParams.subscribe((param) => {
@@ -164,68 +149,15 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   // Form Reset
   reset() {
-    // const issuanceReturnLineArray = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
-    // issuanceReturnLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
-  }
-
-  // OnItemSelected
-  onItemSelected(itemId: number, index: number) {
-    // const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
-    // if (itemId) {
-    //   const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
-    //   const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
-    //   const account = this.salesItem.find(i => i.id === itemId).costAccountId
-    //   // set values for price & tax
-    //   arrayControl.at(index).get('cost').setValue(cost);
-    //   arrayControl.at(index).get('tax').setValue(salesTax);
-    //   arrayControl.at(index).get('accountId').setValue(account);
-    //   // Calculating subtotal
-    //   const quantity = arrayControl.at(index).get('quantity').value;
-    //   const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-    //   arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // }
-
-    // console.log(arrayControl)
-  }
-
-  // For Calculating subtotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number , element?: HTMLElement) {
-    // const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
-    // const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
-    // const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
-    // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
-
-    // // calculating subTotal
-    // const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-    // arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // this.totalCalculation();
-  }
-
-  // Calculations
-  // Calculate Total Before Tax ,Total Tax , grandTotal
-  totalCalculation() {
-    // this.totalTax = 0;
-    // this.totalBeforeTax = 0;
-    // this.grandTotal = 0;
-    // const arrayControl = this.issuanceReturnForm.get('issuanceReturnLines') as FormArray;
-    // arrayControl.controls.forEach((element, index) => {
-    //   const cost = arrayControl.at(index).get('cost').value;
-    //   const tax = arrayControl.at(index).get('tax').value;
-    //   const quantity = arrayControl.at(index).get('quantity').value;
-    //   this.totalTax += ((cost * quantity) * tax) / 100
-    //   this.totalBeforeTax += cost * quantity;
-    //   this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
-    // });
   }
 
   //for save or submit
   isSubmit(val: number) {
     this.issuanceReturnModel.isSubmit = (val === 0) ? false : true;
   }
-
 
   // Add Issuance Return Line
   addIssuanceReturnLineClick(): void {
@@ -310,14 +242,6 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     this.getEmployee(data.employeeId)
 
     this.issuanceReturnForm.setControl('issuanceReturnLines', this.patchIssuanceReturnLines(data.issuanceReturnLines ?? data.issuanceLines));
-
-    // if(this.isIssuance) {
-    //   data.issuanceLines.map((line, index) => {
-    //     this.onItemSelected(line.itemId , index)
-    //   })
-    // }
-    
-    this.totalCalculation();
   }
 
   //Patch Issuance Return Lines From Issuance Return Or Issuance Data
@@ -348,7 +272,6 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     }
 
     if (this.issuanceReturnForm.invalid) {
-      //this.toastService.error("Please fill all required fields!", "Issuance Return")
         return;
     }
 
@@ -362,7 +285,6 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     }
 
     this.isLoading = true;
-    console.log(this.issuanceReturnModel)
     if (this.issuanceReturnModel.id && this.isIssuanceReturn) {
       this.issuanceReturnService.updateIssuanceReturn(this.issuanceReturnModel)
       .pipe(
@@ -450,9 +372,6 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     }
 
      this.issuanceReturnForm.get('issuanceReturnLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Issuance Return")
-    //  }
      this.cdRef.detectChanges()
   }
 }

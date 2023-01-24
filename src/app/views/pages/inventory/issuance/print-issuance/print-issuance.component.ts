@@ -25,6 +25,7 @@ export class PrintIssuanceComponent extends AppComponentBase implements OnInit {
   localsto : any ;
   className : any;
 
+  //Injecting Dependencies
   constructor( private issuanceService: IssuanceService,
                private activatedRoute: ActivatedRoute,
                private cdRef: ChangeDetectorRef,

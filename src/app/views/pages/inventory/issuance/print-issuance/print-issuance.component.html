@@ -56,30 +56,14 @@
                   <tr *ngFor="let line of issuanceLines; index as i">
                     <td>{{i + 1}}</td>
                     <td>{{line?.itemName || '---'}}</td>
-                    <td> {{line?.description}}</td>
+                    <td>{{line?.description}}</td>
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td> {{line?.warehouseName}}</td>
+                    <td>{{line?.warehouseName}}</td>
                   </tr>
                 </thead>
               </table>
             </div>
           </div>
-
-
-          <!-- <div class="print-col-12 p-s-4">
-
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-          </div> -->
         </div>
 
         <div class="row mt-10 ms-10 justify-content-center">

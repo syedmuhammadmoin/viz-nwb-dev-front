@@ -11,8 +11,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-grn',
   templateUrl: './list-grn.component.html',
-  styleUrls: ['./list-grn.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-grn.component.scss']
 })
 
 export class ListGrnComponent extends AppComponentBase implements OnInit {
@@ -42,6 +41,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     );
   }
 
+  //Defining GRN Columns
   columnDefs = [
     { 
       headerName: 'GRN #', 
