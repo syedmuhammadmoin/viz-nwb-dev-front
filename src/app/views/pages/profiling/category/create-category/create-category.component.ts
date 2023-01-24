@@ -46,6 +46,12 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   propertyName: string;
   assetAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
 
+  // hide depreciation model
+
+  showDepreciation: boolean = false;
+
+
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -177,15 +183,15 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     if($event.value === 0){
       this.chartOfAccountService.getOtherAccounts().subscribe((res : any) =>{
         console.log(res);
-        
         this.assetAccountList.next(res.result || [])
-        
         this.cdRef.markForCheck();
+        this.showDepreciation = false
       })
     } else{
       this.chartOfAccountService.getAssetAccounts().subscribe((res : any) =>{
         console.log(res);
         this.assetAccountList.next(res.result || [])
+        this.showDepreciation = true
         this.cdRef.markForCheck();
       })
     }
