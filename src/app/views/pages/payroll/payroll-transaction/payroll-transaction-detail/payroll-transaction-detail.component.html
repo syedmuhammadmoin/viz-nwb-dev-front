@@ -3,7 +3,6 @@
     <kt-portlet-header [sticky]="false" [title]="'Payroll Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        <!-- <h4 class="overall_statuses {{docStatus[payrollMaster?.state]}}"> Status: {{payrollMaster?.status}} </h4> -->
         <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[payrollMaster?.state]}}"></span> {{payrollMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
@@ -107,38 +106,9 @@
         </div>
 
         <div class="row mt-5">
-
           <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
-
-          <!-- <div *ngIf="bpUnReconPaymentList.length > 0" class="col-md-6 col-6 ">
-            <table class="table table-bordered text-center styled-table">
-              <thead>
-                <tr>
-                  <th>Doc No</th>
-                  <th>Amount</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
-                  <td>
-                    <a
-                      [routerLink]="(unReconPay?.docType === 15) ? '/' + RECEIPT.ID_BASED_ROUTE ('details', unReconPay?.id) :
-                      (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) :
-                      '/' + CREDIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a>
-                  </td>
-                  <td>{{valueFormatter(unReconPay.amount)}}</td>
-                  <td>
-                    <button (click)="reconcile(i)" class="recon-btn" mat-raised-button>Reconcile
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div> -->
-
 
           <div class="col-lg-4 ml-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">

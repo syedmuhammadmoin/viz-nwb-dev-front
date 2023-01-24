@@ -28,7 +28,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
   gridOptions: GridOptions;
   defaultColDef: ColDef;
 
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //need for routing
@@ -37,7 +37,6 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
   //Variables for employee data
   payrollItems: IPayrollItem | any
   employeeMaster:  any;
-  status: string;
 
   constructor(
     private employeeService: EmployeeService,
@@ -51,10 +50,9 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining Employee Columns
   columnDefs = [
     { headerName: 'Item Name', field: 'name', sortable: true, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
-    //{ headerName: 'Item Code', field: 'itemCode', sortable: true, filter: true, tooltipField: 'name' },
     { 
       headerName: 'Payroll Type', 
       field: 'payrollType', 
@@ -92,9 +90,6 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
         return this.valueFormatter(params.value);
       }
     },
-    // {
-    //   headerName: 'Remarks', field: 'remarks', sortable: true, filter: true
-    // },
     { 
       headerName: 'Active', 
       field: 'isActive', 
@@ -151,7 +146,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
       width: '800px',
       data: this.employeeId
     });
-    // Recalling getBankAccounts function on dialog close
+    //Get Updated Employee Data
     dialogRef.afterClosed().subscribe(() => {
       this.getEmployeeData(this.employeeId);
     });

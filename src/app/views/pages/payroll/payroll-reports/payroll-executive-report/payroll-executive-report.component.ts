@@ -114,8 +114,6 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   formErrors = {
     year: ''
   }
-  private formSubmitAttempt = true;
-
 
   ngOnInit() {
     // AG Grid Options
@@ -137,9 +135,8 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       year: ['' ,[Validators.required]]
     });
 
-    //Get Campuses from state
-      this.ngxsService.getCampusFromState();
-    //Get Other Accounts from state
+    //Get Data from Store
+    this.ngxsService.getCampusFromState();
     this.ngxsService.getOtherAccountsFromState();
   }
 
@@ -197,7 +194,6 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   reset() {
     this.formDirective.resetForm();
-    this.formSubmitAttempt = false;
     this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;
@@ -207,7 +203,6 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   // Mapping value from form to model
   mapFormValueToModel() {
-    console.log()
     this.payrollExecutiveModel.campusId = this.payrollExecutiveForm.value.campusId?.id || null;
     this.payrollExecutiveModel.accountId = this.payrollExecutiveForm.value.accountId || null;
     this.payrollExecutiveModel.month = this.payrollExecutiveForm.value.month || [];
@@ -225,118 +220,6 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         }
       })
   }
-
-  // PDF Content
-  // contentData() {
-  //   const data = [
-  //     {
-  //       text: 'VIZALYS',
-  //       bold: true,
-  //       fontSize: 10,
-  //       alignment: 'center',
-  //       // color: 'lightblue',
-  //       margin: [0, 35, 0, 10]
-  //     },
-  //     {
-  //       text: 'GENERAL LEDGER REPORT',
-  //       bold: true,
-  //       decoration: 'underline',
-  //       fontSize: 20,
-  //       alignment: 'center',
-  //       // color: 'green',
-  //       margin: [0, 5, 0, 10]
-  //     },
-  //     {
-  //       text: 'Report for : ' + this.transformDate(this.payrollExecutiveForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.payrollExecutiveForm.value.docDate2, 'MMM d, y'),
-  //       alignment: 'center',
-  //       fontSize: 12,
-  //       margin: [0, 0, 0, 10]
-  //     },
-  //     {
-  //       text: 'Business Partner : ' + (this.payrollExecutiveForm.value.businessPartnerName || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Account : ' + (this.payrollExecutiveForm.value.accountName || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Department : ' + (this.payrollExecutiveForm.value.department || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Location : ' + (this.payrollExecutiveForm.value.location || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Warehouse : ' + (this.payrollExecutiveForm.value.warehouse || 'N/A'),
-  //       fontSize: 10,
-  //       margin: [0, 0, 0, 30]
-  //     },
-  //     {
-  //       table: {
-  //         widths: [70, 180, 180, 70, 70, 70],
-  //         body: [
-  //           [{
-  //             text: 'Doc#',
-  //             style: 'tableHeader',
-  //             // margin: [10, 5, 10, 5]
-  //           },
-  //             {
-  //               text: 'Account',
-  //               style: 'tableHeader'
-  //             },
-  //             {
-  //               text: 'Description',
-  //               style: 'tableHeader',
-  //               // margin: [36, 5, 130, 5]
-  //             },
-  //             {
-  //               text: 'Debit',
-  //               style: 'tableHeader',
-  //               alignment: 'right'
-  //             },
-  //             {
-  //               text: 'Credit',
-  //               style: 'tableHeader',
-  //               alignment: 'right'
-  //             },
-  //             {
-  //               text: 'Balance',
-  //               style: 'tableHeader',
-  //               alignment: 'right'
-  //             },
-  //           ],
-  //           ...this.recordsData.map((val) => {
-  //             return [
-  //               val.docNo,
-  //               val.accountName,
-  //               val.description,
-  //               {text: this.valueFormatter(val.debit), alignment: 'right'},
-  //               {text: this.valueFormatter(val.credit), alignment: 'right'},
-  //               {text: this.valueFormatter(val.balance), alignment: 'right'}]
-  //           })
-  //         ],
-  //       },
-  //       layout: {
-  //         paddingTop () {
-  //           return 10
-  //         },
-  //         paddingLeft () {
-  //           return 10
-  //         },
-  //         // paddingRight: function (i) { return (i === 1 || i === 2) ? 10 : 5 },
-  //         paddingRight () {
-  //           return 10
-  //         },
-  //         paddingBottom () {
-  //           return 10
-  //         }
-  //       }
-  //     }
-  //   ]
-  //   return data
-  // }
 }
 
 

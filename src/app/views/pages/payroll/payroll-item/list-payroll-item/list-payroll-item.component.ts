@@ -43,6 +43,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
     );
   }
 
+  //Defining Payroll Item Columns
   columnDefs = [
     { 
       headerName: 'Item Code', 
@@ -174,7 +175,6 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
     } else {
       this.gridApi.hideOverlay();
     }
-    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, 'payrollItemPageName');
      this.cdRef.detectChanges();
@@ -191,33 +191,6 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
     const result = await this.payrollItemService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getPayrollItems(params: any): Promise<IPaginationResponse<IPayrollItem[]>> {
-  //   const result = await this.payrollItemService.getPayrollItems(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getPayrollItems(params);
-
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'payrollItemPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 }
 
 

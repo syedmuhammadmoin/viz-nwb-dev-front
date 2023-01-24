@@ -24,7 +24,6 @@ import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/r
     PayrollTransactionRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
-  providers: [],
   entryComponents: [RegisterPaymentComponent]
 })
 export class PayrollTransactionModule { }

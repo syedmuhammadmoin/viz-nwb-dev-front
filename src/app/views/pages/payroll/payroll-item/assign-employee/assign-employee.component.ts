@@ -17,7 +17,7 @@ import { isEmpty } from 'lodash';
 
 export class AssignEmployeeComponent extends AppComponentBase implements OnInit {
 
-  //busy loading
+  //Loader
   isLoading: boolean
 
   title: string = 'Select Employee'
@@ -88,7 +88,6 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     }
   }
   
-
   
   onSubmit() {
     this.dialogRef.close(this.gridApi.getSelectedRows());
@@ -106,10 +105,9 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   gridApi: GridApi;
   gridColumnApi: any;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-   //tooltipData : string = "double click to edit"
    
 
-// defaults columns
+  //Defining Employee Columns
   columnDefs = [
     { 
       headerName: 'Name', 
@@ -122,9 +120,6 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
-      // headerCheckboxSelection: true,    //not supported in infinite row model 
-      // headerCheckboxSelectionFilteredOnly: true,
-      // checkboxSelection: true,
      },
      { 
       headerName: 'Father Name', 
@@ -165,11 +160,6 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
           suppressAndOrCondition: true,
         }
      },
-    //  { 
-    //   headerName: 'BPS', 
-    //   field: 'basicPay',
-    //   tooltipField: 'name',  
-    //  },
      { 
       headerName: 'Faculty', 
       field: 'faculty',
@@ -182,7 +172,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
      }
   ];
 
-// data rendering on first
+  // data rendering on first
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
@@ -196,14 +186,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
       this.gridApi.hideOverlay();
     }
 
-    // this.griApi.getRowNodeId(id)
-
-    //  this.gridApi.forEachNode((node , index) => {
-    //     node.setSelected(true)
-    //  })
-    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
-     //this.paginationHelper.goToPage(this.gridApi, 'employeePageName');
      this.cdRef.detectChanges();
    },
   };
@@ -228,40 +211,4 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
       this.gridApi.forEachNode(node => (node.setSelected(false) , this.employeeSelection = 'Select All'))
     }
   }
-  
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getEmployees(params: any): Promise<IPaginationResponse<any>> {
-  //   const result = await this.employeeService.getEmployees(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //   const res = await this.getEmployees(params);
-
-  //   if(isEmpty(res.result)) {  
-  //      this.gridApi.showNoRowsOverlay() 
-  //    } else {
-  //     this.gridApi.hideOverlay();
-  //    }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 }
-
-// set in Grip options
-// getRowNodeId: (data) => data.id,
-
-// this.griApi.getRowNodeId(id)
-
-// this.gridApi.forEachNode((node , index) => {
-//     node.setSelected(true)
-// })

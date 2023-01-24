@@ -20,7 +20,7 @@ import { EmployeeState } from '../store/employee.state';
 
 export class CreateEmployeeComponent extends AppComponentBase implements OnInit {
 
-  //busy loading
+  //Loader
   isLoading: boolean
 
   //employee form declaration
@@ -52,6 +52,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
     accountPayableId: '',
   };
 
+  //Injecting Dependencies
   constructor(private fb: FormBuilder,
     public  employeeService: EmployeeService,
     public ngxsService: NgxsCustomService,
@@ -77,7 +78,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
       this.getEmployee(this._id);
     }
 
-    //Get Account Payables from Store
+    //Get Data from Store
     this.ngxsService.getAccountPayableFromState();
   }
 
@@ -92,8 +93,6 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
        })
      )
       .subscribe((employee: IApiResponse<any>) => {
-          //this.edi  employee.result;
-          //this.employee =  employee.result;
           this.editEmployee(employee.result)
         }
       );
@@ -118,7 +117,6 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
     }
     this.isLoading = true;
     this.mapFormValueToEmployeeModel();
-    console.log(this.employee)
     if (this.employee.id) {
       this.employeeService.updateEmployee(this.employee)
       .pipe(
