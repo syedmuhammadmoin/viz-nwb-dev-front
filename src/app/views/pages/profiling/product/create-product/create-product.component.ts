@@ -22,14 +22,14 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   // for permissions
   public permissions = Permissions;
 
-  //Busy loading
+  //Loader
   isLoading: boolean;
 
   //Product form declaration
   productForm: FormGroup;
 
   //product model declaration
-  product: IProduct;
+  product: IProduct = {} as IProduct;
 
   title: string = 'Create Product'
 
@@ -65,7 +65,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   //error keys
   formErrors = {
     name: '',
-    unit: '',    //productType: '',
+    unit: '',    
     category: '',
     salesPrice: '',
     purchasePrice: '',
@@ -101,20 +101,9 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
       this.title = 'Edit Product'
       this.isLoading = true;
       this.getProduct(this._id);
-    } else {
-      this.product = {
-        id: null,
-        productName: '',
-        productType: null,
-        unitOfMeasurementId: null,
-        categoryId: null,
-        salesPrice: null,
-        purchasePrice: null,
-        salesTax: null,
-        barcode: '',
-      }
-    }
-    //get categoryList from state
+    } 
+
+      //Get Data From Store
       this.ngxsService.getCategoryFromState()
       this.ngxsService.getUnitsFromState()
   }
@@ -164,7 +153,6 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.mapFormValueToProductModel();
-    //console.log(this.product)
     if (this.product.id) {
       this.ngxsService.productService.updateProduct(this.product)
       .pipe(
@@ -227,5 +215,4 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   onCloseDialog() {
     this.dialogRef.close();
   }
-
 }

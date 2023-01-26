@@ -10,7 +10,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { TaxService } from '../service/tax.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { getuid } from 'process';
+
 
 @Component({
   selector: 'kt-create-tax',
@@ -20,14 +20,14 @@ import { getuid } from 'process';
 
 export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
-  //busy loading
+  //Loader
   isLoading: boolean
 
   // tax form declaration
   taxForm: FormGroup;
 
-  // tax model declaration
-  taxModel: ITax;
+  //tax model 
+  taxModel: ITax = {} as ITax;;
 
   //get tax data by id
   taxDataByID: ITax | any;
@@ -84,21 +84,13 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     });
 
     if (this._id) {
-      //initialize empty taxModel
-      this.taxModel = {} as ITax;
-
       this.showButtons = (this.permission.isGranted(this.permissions.TAXES_EDIT)) ? true : false;
       this.title = 'Edit tax'
       this.isLoading = true
       this.getTax(this._id);
-    } else {
-      this.taxModel = {
-        id: null,
-        accountId: null
-      }
-    }
+    } 
 
-    //this.ngxsService.getAccountLevel4FromState();
+    //Get Data From Store
     this.ngxsService.getOtherAccountsFromState();
   }
 
@@ -121,16 +113,12 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
 
   // Patching values to tax form
-
-  
   editTax(tax: ITax | any) {
     this.taxForm.patchValue({
       name: tax.name,
       taxType: tax.taxType,
       accountId: (tax.accountId === '00000000-0000-0000-0000-000000000000') ? null : tax.accountId,
     });
-
-    console.log(tax.accountId.empty)
 
     //if user have no permission to edit, so disable all fields
     if(!this.showButtons) {
@@ -154,29 +142,11 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
          })
        )
         .subscribe(() => {
-            //this.ngxsService.store.dispatch(new IsReloadRequired(taxState, true))
             this.toastService.success('Updated Successfully', 'Tax')
             this.onCloseDialog();
           }
       );
     }
-    // } else {
-    //   delete this.tax.id;
-    //   this.taxService.addTax(this.tax)
-    //   .pipe(
-    //     take(1),
-    //      finalize(() => {
-    //       this.isLoading = false;
-    //       this.cdRef.detectChanges();
-    //      })
-    //    )
-    //     .subscribe(() => {        
-    //         //this.ngxsService.store.dispatch(new IsReloadRequired(taxState, true))
-    //         this.toastService.success('Added Successfully', 'Tax')
-    //         this.onCloseDialog();
-    //       }
-    //   );
-    // }
   }
 
   // Mapping values from tax form to tax model

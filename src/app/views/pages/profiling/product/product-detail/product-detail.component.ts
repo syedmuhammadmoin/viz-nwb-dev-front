@@ -32,7 +32,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
   gridOptions: GridOptions;
   defaultColDef: ColDef;
 
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   constructor(
@@ -46,8 +46,6 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
     this.gridOptions = ({} as GridOptions);
     this.defaultColDef = { resizable: true };
   }
-
-  
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: Params) => {
