@@ -41,20 +41,11 @@
                 <h4 class="mt-1">Due Date: <span class="float-right" style="font-weight: 400;">{{masterData?.dueDate| date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
-
           </div>
         </div>
 
-
         <div class="print_body_area p-s-2">
-
           <div class="print-col-5 p-s-2-one">
-
-            <!-- <div class="print-box" >
-              <h4>{{masterData?.vendorName}}</h4> -->
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
-              <!-- <p>Address Address Address</p>
-            </div> -->
             <div class="print-box-one">
               <h4 class="font-14">Vendor Name: <span class="float-right" style="font-weight: 400;">{{masterData?.vendorName}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
@@ -78,24 +69,20 @@
                     <th>S.No</th>
                     <th>Item</th>
                     <th>Description</th>
-                    <th >Quantity</th>
-                    <th >Cost</th>
-                    <th >Tax %</th>
-                    <th >Other Taxes/FET</th>
-                    <!-- <th >Store</th> -->
-                    <th  class="text-right">SubTotal</th>
-
-
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                    <th>Tax %</th>
+                    <th>Other Taxes/FET</th>
+                    <th class="text-right">SubTotal</th>
                   </tr>
                   <tr *ngFor="let detail of billLines; index as i">
                     <td>{{i + 1}}</td>
-                    <td  >{{detail?.itemName || '---'}}</td>
-                    <td> {{detail?.description}}</td>
+                    <td>{{detail?.itemName || '---'}}</td>
+                    <td>{{detail?.description}}</td>
                     <td>{{detail?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                    <td  >{{valueFormatter(detail?.cost)}}</td>
-                    <td> {{detail?.tax + '%'}}</td>
-                    <td> {{valueFormatter(detail?.anyOtherTax) || 0}}</td>
-                    <!-- <td> {{detail?.warehouseName}}</td> -->
+                    <td>{{valueFormatter(detail?.cost)}}</td>
+                    <td>{{detail?.tax + '%'}}</td>
+                    <td>{{valueFormatter(detail?.anyOtherTax) || 0}}</td>
                     <td class="text-right"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                   </tr>
                 </thead>
@@ -103,9 +90,7 @@
             </div>
           </div>
 
-
           <div class="print-col-5  ml-auto p-s-3">
-
             <div class="print-box p-s-3-one">
               <h4>Total Before Tax:
                 <span class="float-right">{{valueFormatter(masterData?.totalBeforeTax)}}</span>
@@ -126,36 +111,12 @@
                 <span class="float-right">{{valueFormatter(masterData?.totalTax)}}</span>
               </h4>
             </div>
-
             <div class="print-box p-s-3-four">
               <h4>Grand Total:
                 <span class="float-right">{{valueFormatter(masterData?.totalAmount)}}</span>
               </h4>
             </div>
           </div>
-
-
-          <!-- <div class="print-col-12 p-s-4">
-
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-
-          </div> -->
-
-          <!-- <div class="print-col-4 p-s-5">
-            _________________________________
-            <p class="text-center">Authorized Sign</p>
-          </div> -->
-
         </div>
 
         <div class="row mt-10 ms-10">
@@ -164,8 +125,6 @@
             <p class="text-center">Authorized Sign</p>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>

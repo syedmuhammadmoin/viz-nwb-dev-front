@@ -1,12 +1,11 @@
 import { BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, JOURNAL_ENTRY, PAYMENT, PAYROLL_PAYMENT } from '../../../../shared/AppRoutes';
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, } from '@angular/router';
 import { FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
 import { VendorBillService } from '../services/vendor-bill.service';
 import { finalize, take } from 'rxjs/operators';
-
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -18,8 +17,7 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
 @Component({
   selector: 'kt-vendor-bill-detail',
   templateUrl: './vendor-bill-detail.component.html',
-  styleUrls: ['./vendor-bill-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./vendor-bill-detail.component.scss']
 })
 
 export class VendorBillDetailComponent extends AppComponentBase implements OnInit {
@@ -59,7 +57,6 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   // Variables for bill data
   billLines: any;
   billMaster: any;
-  loader: boolean = true;
   paidAmountList: any = [];
   pendingAmount: any;
   status: string;
@@ -80,7 +77,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining Bill Columns
   columnDefs = [
     { 
       headerName: 'Item', 
@@ -196,7 +193,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
         docType: DocType.Payment
       }
     });
-    //Recalling getBillMasterData function on dialog close
+    //Getting Updated Bill Data
     dialogRef.afterClosed().subscribe(result => {
       this.getBillMasterData(this.billId);
       this.cdRef.markForCheck();
@@ -207,7 +204,6 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     // initializing empty model
     this.transactionReconModel = {} as ITransactionRecon;
     this.mapTransactionReconModel(index);
-    //console.log(this.transactionReconModel)
     this.vendorBillService.createTransitionReconcile(this.transactionReconModel)
     .pipe(
       take(1),

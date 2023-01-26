@@ -149,7 +149,6 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
 
   onGridReady() {
     this.billService.getAgingReport().subscribe((data: IApiResponse<any[]>) => {
-      // this.agingReportList = data.result.filter((x: any) => x.state == DocumentStatus.Unpaid || x.state == DocumentStatus.Partial);
       this.agingReportList = data.result
       this.cdRef.detectChanges();
     });

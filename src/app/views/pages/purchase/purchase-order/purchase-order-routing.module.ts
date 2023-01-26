@@ -30,7 +30,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreatePurchaseOrderComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.PURCHASEORDER_CREATE },

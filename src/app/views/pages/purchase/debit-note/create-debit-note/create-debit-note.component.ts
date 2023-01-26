@@ -24,7 +24,7 @@ import { IProduct } from '../../../profiling/product/model/IProduct';
 export class CreateDebitNoteComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
   public permissions = Permissions;
 
-  //for busy loading
+  //Loader
   isLoading: boolean
 
   //Declaring form variable
@@ -40,7 +40,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   @ViewChild('table', { static: true }) table: any;
 
   // debit Note Model
-  debitNoteModel: IDebitNote;
+  debitNoteModel: IDebitNote = {} as IDebitNote;
 
   //For DropDown
   salesItem: IProduct[] | any[];
@@ -88,7 +88,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     vendorName: '',
     noteDate: '',
     campusId: ''
-    //department: '',
   };
 
   // Injecting in dependencies in constructor
@@ -113,31 +112,16 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       vendorName: ['', [Validators.required]],
       noteDate: ['', [Validators.required]],
       campusId: ['', [Validators.required]],
-      //department: ['', [Validators.required]],
       debitNoteLines: this.fb.array([
         this.addDebitNoteLines()
       ])
     });
 
-    this.debitNoteModel = {
-      id: null,
-      vendorId: null,
-      noteDate: null,
-      campusId: null,
-      //billTransactionId: null,
-      debitNoteLines: []
-    };
-
-     // get vendor from state
-     //  this.ngxsService.getBusinessPartnerFromState();
+     //Get Data from Store
      this.ngxsService.getAllBusinessPartnerFromState();
-     // get Other Accounts From State
      this.ngxsService.getOtherAccountsFromState()
-     // get Ware house location from state
      this.ngxsService.getWarehouseFromState();
-     // get item from state
      this.ngxsService.getProductFromState();
-     //this.ngxsService.getLocationFromState();
      this.ngxsService.getCampusFromState()
 
      this.ngxsService.products$.subscribe(res => this.salesItem = res)
@@ -162,8 +146,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   //Form Reset
   reset() {
-    // const debitNoteLineArray = <FormArray>this.debitNoteForm.get('debitNoteLines');
-    // debitNoteLineArray.clear();
     this.totalBeforeTax = this.grandTotal = this.totalTax = this.taxes = this.otherTaxes = 0;
     this.formDirective.resetForm();
     this.showMessage = false;
@@ -245,7 +227,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
       warehouseId: [null]
-      //locationId: ['', [Validators.required]],
     });
   }
 
@@ -324,7 +305,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId]
-        //locationId: line.locationId,
       }))
     })
     return formArray
@@ -352,7 +332,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
     this.isLoading = true;
     this.mapFormValuesToDebitNoteModel();
-   // console.log(this.debitNoteModel)
     if (this.debitNoteModel.id) {
       this.debitNoteService.updateDebitNote(this.debitNoteModel)
       .pipe(
@@ -380,7 +359,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
         .subscribe(
           (res) => {
             this.toastService.success('Created Successfully', 'Debit Note')
-            // this.router.navigate(['/'+ DEBIT_NOTE.LIST])
             this.router.navigate(['/' + DEBIT_NOTE.ID_BASED_ROUTE('details', res.result.id ) ]);
           });
     }
@@ -390,7 +368,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   mapFormValuesToDebitNoteModel() {
     this.debitNoteModel.vendorId = this.debitNoteForm.value.vendorName;
     this.debitNoteModel.noteDate = this.transformDate(this.debitNoteForm.value.noteDate, 'yyyy-MM-dd');
-    //this.debitNoteModel.billTransactionId = null;
     this.debitNoteModel.debitNoteLines = this.debitNoteForm.value.debitNoteLines;
     this.debitNoteModel.campusId = this.debitNoteForm.value.campusId;
     if (this.isBill) {
@@ -403,12 +380,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     this.debitNoteModel.isSubmit = (val === 0) ? false : true;
   }
 
-  // open business partner dialog
-  // openBusinessPartnerDialog() {
-  //   if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-  //     this.addButtonService.openBusinessPartnerDialog();
-  //   }
-  // }
   // open product dialog
   openProductDialog() {
     if (this.permission.isGranted(this.permissions.PRODUCT_CREATE)) {
@@ -437,9 +408,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     }
 
      this.debitNoteForm.get('debitNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Debit Note")
-    //  }
      this.cdRef.detectChanges()
   }
 }

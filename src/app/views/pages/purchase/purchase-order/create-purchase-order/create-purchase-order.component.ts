@@ -1,13 +1,13 @@
 import { PURCHASE_ORDER } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IPurchaseOrder} from '../model/IPurchaseOrder';
 import { PurchaseOrderService} from '../service/purchase-order.service';
 import { finalize, map, take} from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import {  Permissions } from 'src/app/views/shared/AppEnum';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -22,15 +22,14 @@ import { IRequisitionLines } from '../../../procurement/requisition/model/IRequi
 @Component({
   selector: 'kt-create-purchase-order',
   templateUrl: './create-purchase-order.component.html',
-  styleUrls: ['./create-purchase-order.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./create-purchase-order.component.scss']
 })
 
 export class CreatePurchaseOrderComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
 
   public permissions = Permissions;
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // for sales Order Data
@@ -46,7 +45,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   @ViewChild('table', {static: true}) table: any;
 
   // purchaseOrderModel
-  purchaseOrderModel: IPurchaseOrder | any;
+  purchaseOrderModel: IPurchaseOrder = {} as IPurchaseOrder;
 
   // For DropDown
   salesItem: IProduct[] = [];
@@ -134,25 +133,11 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       ])
     });
 
-    this.purchaseOrderModel = {
-      id: null,
-      vendorId: null,
-      poDate: null,
-      dueDate: null,
-      contact: null,
-      campusId: null,
-      purchaseOrderLines: []
-    }
-
-     // get Vendor from state
+     //Get Data From Store
      this.ngxsService.getBusinessPartnerFromState();
-     // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
-     // get Ware house location from state
      this.ngxsService.getWarehouseFromState();
-     // get item from state
      this.ngxsService.getProductFromState();
-
      this.ngxsService.getCampusFromState();
 
      this.ngxsService.products$.subscribe(res => this.salesItem = res)
@@ -165,7 +150,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
       if (id && this.isPurchaseOrder) {
         this.title = 'Edit Purchase Order'
         this.getPurchaseOrder(id);
-        //this.getSalesOrder(id);
       }
       else if(id && this.isRequisition) {
         this.title = 'Create Purchase Order';
@@ -183,8 +167,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   // Form Reset
   reset() {
-    // const purchaseOrderLineArray = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
-    // purchaseOrderLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.warehouseList.next([])
@@ -466,9 +448,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     }
 
      this.purchaseOrderForm.get('purchaseOrderLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Purchase Order")
-    //  }
      this.cdRef.detectChanges()
   }
 }

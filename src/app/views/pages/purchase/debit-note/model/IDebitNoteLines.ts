@@ -8,5 +8,4 @@ export interface IDebitNoteLines {
     anyOtherTax: number;
     accountId: number;
     warehouseId: number;
-    //locationId: number;
 }
