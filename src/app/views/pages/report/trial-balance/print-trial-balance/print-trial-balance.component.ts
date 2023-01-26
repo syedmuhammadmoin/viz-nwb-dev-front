@@ -27,7 +27,6 @@ export class PrintTrialBalanceComponent extends AppComponentBase implements OnIn
 
   constructor(
     injector: Injector,
-    // public sanitizer: DomSanitizer,
     private trialBalanceService: TrialBalanceService,
     public dynamicColorChanging : DynamicColorChangeService,
     private cdRef: ChangeDetectorRef,

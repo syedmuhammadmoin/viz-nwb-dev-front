@@ -89,7 +89,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
-        // width: 300
       },
       {
         headerName: 'Opening Balance',
@@ -97,9 +96,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debitOB',
-            //filter: 'agNumberColumnFilter',
             suppressMenu: true,
-            //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             },
@@ -108,9 +105,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'creditOB',
-            //filter: 'agNumberColumnFilter',
             suppressMenu: true,
-            //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
@@ -125,7 +120,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
             headerName: 'Debit',
             field: 'debit',
             suppressMenu: true,
-            //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             }
@@ -133,9 +127,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'credit',
-            //filter: 'agNumberColumnFilter',
             suppressMenu: true,
-            //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
@@ -149,7 +141,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
             headerName: 'Debit',
             field: 'debitCB',
             suppressMenu: true,
-            //aggFunc: 'sum',
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             }
@@ -157,8 +148,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'creditCB',
-            //aggFunc: 'sum',
-            //filter: 'agNumberColumnFilter',
             suppressMenu: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
@@ -171,7 +160,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
 
   ngOnInit(): void {
     this.autoGroupColumnDef = {
-      // minWidth: 300,
       cellRendererParams: {
         suppressCount: true,
         checkbox: false,
@@ -183,16 +171,11 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       accountId: [null],
       campusId: [null]
     });
-     // get Ware house location from state
+    
+    //Get Data from Store
     this.ngxsService.getWarehouseFromState();    
-    // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
-    // get Campuses of level 4 from state
     this.ngxsService.getCampusFromState()
-    // get location from state
-    //this.ngxsService.getLocationFromState();
-    // get department from state
-    //this.ngxsService.getDepatmentFromState();
 
     this.defaultColDef = {
       filter: true,
@@ -200,17 +183,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       menuTabs: ["filterMenuTab"],
     };
    
-    // this.autoGroupColumnDef = {
-    //   headerName: 'Account',
-    //   menuTabs: ["filterMenuTab"],
-    //   minWidth: 300,
-    //   filterValueGetter: (params) => params.data.accountName,
-    //   cellRendererParams: {
-    //     suppressCount: true,
-    //     checkbox: false,
-    //   },
-    // }
-
      //handling dueDate logic
      this.trialBalanceForm.get('docDate').valueChanges.subscribe((value) => {
       this.minDate = new Date(value);
@@ -233,8 +205,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       return;
     }
 
-    
-    
     this.isLoading = true;
     this.mapFormValueToModel();
     this.trialBalanceService.getTrialBalance(this.trialBalanceModel)
@@ -250,7 +220,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     })).subscribe((result: ITrialBalance[]) => {
       this.rowData = result;
       this.recordsData = result;
-      //this.totals = this.calculateTotal(result, 'creditCB', 'debitCB', 'creditOB', 'debitOB', 'credit', 'debit')
     
       //for PDF
       this.disability = (!isEmpty(result)) ? false : true;
@@ -273,21 +242,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     this.trialBalanceModel.campusId = this.trialBalanceForm.value.campusId?.id || null;
   }
 
-  formatDate(date) {
-    let d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
-
-
   generatePinnedBottomData() {
     // generate a row-data with null values
     const result = {};
@@ -302,10 +256,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     // list of columns fo aggregation
     const columnsWithAggregation = ['debitOB', 'creditOB', 'debit', 'credit', 'debitCB', 'creditCB']
     columnsWithAggregation.forEach(element => {
-     // console.log('element', element);
       this.gridApi.forEachNodeAfterFilter((rowNode: RowNode) => {
         if (rowNode.data[element])
-          //console.log('forEach if: ', rowNode.data[element]);
         target[element] += Number(rowNode.data[element].toFixed(2));
 
         //for PDF
@@ -331,29 +283,11 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
         }
       });
       if (target[element]) {
-        //console.log('if: ', target[element]);
         target[element] = target[element]
-        // .toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
       }
     })
     target.accountName = 'Total'
-    // console.log(target);
     return target;
-  }
-
-  calculateTotal(res: ITrialBalance[], ...keys) : any {
-    const objectToReturn = {}
-    keys.forEach((key) => {
-      res.map((item) => {
-        if (objectToReturn[key]) {
-          objectToReturn[key] += item[key]
-        } else {
-          objectToReturn[key] = item[key]
-        }
-      })
-    })
-    //console.log(objectToReturn)
-    return objectToReturn
   }
 
   reset() {
@@ -366,9 +300,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   }
 
   printTrialBalance(data: any) {
-
     this.trialBalanceService.setTrialBalanceDataForPrintComponent(data);
-
       this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.TRIAL_BALANCE + '/' + REPORT.PRINT], {
         queryParams: {
           from: this.dateHelperService.transformDate(this.trialBalanceForm.value.docDate, 'MMM d, y'),
@@ -377,186 +309,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           campus: (this.trialBalanceForm.value.campusId?.name || 'All'),
         }
       })
-  }
-
-  //PDF Content
-  contentData() {
-    const data = [
-      {
-        text: 'VIZALYS',
-        bold: true,
-        fontSize: 10,
-        alignment: 'center',
-        margin: [0, 35, 0, 10]
-      },
-      {
-        text: 'TRIAL BALANCE REPORT',
-        bold: true,
-        decoration: "underline",
-        fontSize: 20,
-        alignment: 'center',
-        margin: [0, 5, 0, 10]
-      },
-      {
-        text: 'Report for : ' + this.transformDate(this.trialBalanceForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.trialBalanceForm.value.docDate2, 'MMM d, y'),
-        alignment: 'center',
-        fontSize: 12,
-        margin: [0, 0, 0, 10]
-      },
-      {
-        text: 'Account : ' + (this.trialBalanceForm.value.accountName || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Department : ' + (this.trialBalanceForm.value.department || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Location : ' + (this.trialBalanceForm.value.location || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Warehouse : ' + (this.trialBalanceForm.value.warehouse || 'N/A'),
-        fontSize: 10,
-        margin: [0, 0, 0, 30]
-      },
-      {
-        margin: [0, 0, 0, 8],
-        table: {
-          widths: [200, 75, 75, 75, 75, 75, 75],
-          body: [
-            [
-              {
-                text: 'Account',
-                alignment: 'center',
-                style: 'tableHeader2',
-                margin: [0, 20, 20, 0],
-                rowSpan: 2,
-              },
-              {
-                text: 'Opening Balance',
-                style: 'tableHeader2',
-                colSpan: 2,
-                alignment: 'center'
-              },
-              {},
-              {
-                text: 'Active Period',
-                style: 'tableHeader2',
-                colSpan: 2,
-                alignment: 'center'
-              },
-              {},
-              {
-                text: 'Closing Balance',
-                style: 'tableHeader2',
-                colSpan: 2,
-                alignment: 'center'
-              },
-              {}
-            ],
-            [
-              {},
-              {
-                text: 'Debit',
-                alignment: 'right'
-              },
-              {
-                text: 'Credit',
-                alignment: 'right'
-              },
-              {
-                text: 'Debit',
-                alignment: 'right'
-              },
-              {
-                text: 'Credit',
-                alignment: 'right'
-              },
-              {
-                text: 'Debit',
-                alignment: 'right'
-              },
-              {
-                text: 'Credit',
-                alignment: 'right'
-              }
-            ],
-            ...this.recordsData.map((val) => {
-              return [
-                val.accountName,
-                { text: this.valueFormatter(val.debitOB, '+ve'), alignment: 'right' },
-                { text: this.valueFormatter(val.creditOB, '-ve'), alignment: 'right' },
-                { text: this.valueFormatter(val.debit, '+ve'), alignment: 'right' },
-                { text: this.valueFormatter(val.credit, '-ve'), alignment: 'right' },
-                { text: this.valueFormatter(val.debitCB, '+ve'), alignment: 'right' },
-                { text: this.valueFormatter(val.creditCB, '-ve'), alignment: 'right' }]
-            })
-          ],
-        },
-        layout: {
-          paddingTop: function () { return 10 },
-          paddingLeft: function () { return 10 },
-          paddingRight: function () { return 5 },
-          paddingBottom: function () { return 10 }
-        }
-      },
-      {
-        table: {
-          headerRows: 1,
-          widths: [200, 75, 75, 75, 75, 75, 75],
-          body: [
-            [
-              {
-                text: 'Total',
-                alignment: 'center',
-                //style: 'underLine',
-              },
-              {
-                text: this.valueFormatter(this.debitOB, '+ve'),
-                //style: 'underLine',
-                alignment: 'right'
-              },
-              {
-                text: this.valueFormatter(this.creditOB, '-ve'),
-                //style: 'underLine',
-                alignment: 'right'
-              },
-              {
-                text: this.valueFormatter(this.debit, '+ve'),
-                //style: 'underLine',
-                alignment: 'right'
-              },
-              {
-                text: this.valueFormatter(this.credit, '-ve'),
-                //style: 'underLine',
-                alignment: 'right'
-              },
-              {
-                text: this.valueFormatter(this.debitCB, '+ve'),
-                //style: 'underLine',
-                alignment: 'right'
-              },
-              {
-                text: this.valueFormatter(this.creditCB, '-ve'),
-                //style: 'underLine',
-                alignment: 'right'
-              }
-            ],
-          ],
-        },
-        layout: {
-          //hLineWidth: function () { return 0; },
-          hLineWidth: function (i) { return (i === 1) ? 1 : 0; },
-          vLineWidth: function () { return 0; },
-          paddingTop: function () { return 10 },
-          paddingLeft: function () { return 10 },
-          paddingRight: function () { return 7 },
-          paddingBottom: function () { return 10 },
-        }
-      }
-    ]
-    return data
   }
 }
    

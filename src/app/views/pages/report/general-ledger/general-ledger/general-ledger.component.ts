@@ -2,15 +2,12 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { AppComponentBase} from '../../../../shared/app-component-base';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
-import { CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
 import { GeneralLedgerService} from '../service/general-ledger.service';
 import { GridOptions, ValueFormatterParams} from 'ag-grid-community';
 import { IGeneralLedger} from '../model/IGeneralLedger';
 import { finalize} from 'rxjs/operators';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
-import { AppConst } from 'src/app/views/shared/AppConst';
 import { Router } from '@angular/router';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
@@ -156,7 +153,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         cellStyle: {textAlign : 'left'},
         valueFormatter: (params: ValueFormatterParams) => {
           return DocType[params.value]
-          // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
         } 
       },
       {
@@ -229,28 +225,15 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       docDate2: ['', [Validators.required]],
       accountName: [null],
       businessPartnerId: [null],
-      // organization: [''],
-      // department: [''],
       warehouseName: [null],
       campusName : [null]
-      //location: ['']
     });
 
-    
-
-  
-    //get all business partner and employee 
+    //Get Data From Store
     this.ngxsService.getAllBusinessPartnerFromState();
-     // get Ware house location from state
-     this.ngxsService.getWarehouseFromState();    
-     // get Accounts of level 4 from state
-     this.ngxsService.getAccountLevel4FromState()
-      // get Campuses from state
-     this.ngxsService.getCampusFromState()
-     // get location from state
-     //this.ngxsService.getLocationFromState();
-     // get department from state
-     //this.ngxsService.getDepatmentFromState();
+    this.ngxsService.getWarehouseFromState();    
+    this.ngxsService.getAccountLevel4FromState()
+    this.ngxsService.getCampusFromState()
 
      //handling dueDate logic
     this.generalLedgerForm.get('docDate').valueChanges.subscribe((value) => {
@@ -265,7 +248,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       return;
     }
     this.mapFormValueToModel();
-    // console.log(this.generalLedgerModel);
     this.isLoading = true;
     this.generalLedgerService.getLedger(this.generalLedgerModel).pipe(
       finalize(() => {
@@ -284,7 +266,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Date', field: 'docDate',cellStyle: {textAlign : 'left'},
             cellRenderer: (params: any) => {
-              // console.log(params);
               const date = params?.data?.docDate != null ? params?.data?.docDate : null;
               return date == null ? null : this.transformDate(date, 'MMM d, y');
             }
@@ -301,7 +282,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             cellStyle: {textAlign : 'left'},
             valueFormatter: (params: ValueFormatterParams) => {
               return DocType[params.value]
-              // return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
             } 
           },
 
@@ -368,24 +348,6 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.generalLedgerModel.businessPartnerId = this.generalLedgerForm.value.businessPartnerId?.id || null;
     this.generalLedgerModel.warehouseId = this.generalLedgerForm.value.warehouseName?.id || null;
     this.generalLedgerModel.campusId = this.generalLedgerForm.value.campusName?.id || null;
-    // this.generalLedgerModel.location = this.generalLedgerForm.value.location || '';
-    // this.generalLedgerModel.department = this.generalLedgerForm.value.department || '';
-    // this.generalLedgerModel.warehouse = this.generalLedgerForm.value.warehouse || '';
-    // this.generalLedgerModel.organization = this.generalLedgerForm.value.organization || '';
-  }
-
-  formatDate(date) {
-    let d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-
-    return [year, month, day].join('-');
   }
 
   onFirstDataRendered(params: any) {
@@ -406,117 +368,5 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           store: (this.generalLedgerForm.value.warehouseName?.name || 'All'),
         }
       })
-  }
-
-  // PDF Content
-  contentData() {
-    const data = [
-      {
-        text: 'VIZALYS',
-        bold: true,
-        fontSize: 10,
-        alignment: 'center',
-        // color: 'lightblue',
-        margin: [0, 35, 0, 10]
-      },
-      {
-        text: 'GENERAL LEDGER REPORT',
-        bold: true,
-        decoration: 'underline',
-        fontSize: 20,
-        alignment: 'center',
-        // color: 'green',
-        margin: [0, 5, 0, 10]
-      },
-      {
-        text: 'Report for : ' + this.transformDate(this.generalLedgerForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.generalLedgerForm.value.docDate2, 'MMM d, y'),
-        alignment: 'center',
-        fontSize: 12,
-        margin: [0, 0, 0, 10]
-      },
-      {
-        text: 'Business Partner : ' + (this.generalLedgerForm.value.businessPartnerName || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Account : ' + (this.generalLedgerForm.value.accountName || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Department : ' + (this.generalLedgerForm.value.department || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Location : ' + (this.generalLedgerForm.value.location || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Warehouse : ' + (this.generalLedgerForm.value.warehouse || 'N/A'),
-        fontSize: 10,
-        margin: [0, 0, 0, 30]
-      },
-      {
-        table: {
-          widths: [70, 180, 180, 70, 70, 70],
-          body: [
-            [{
-              text: 'Doc#',
-              style: 'tableHeader',
-              // margin: [10, 5, 10, 5]
-            },
-              {
-                text: 'Account',
-                style: 'tableHeader'
-              },
-              {
-                text: 'Description',
-                style: 'tableHeader',
-                // margin: [36, 5, 130, 5]
-              },
-              {
-                text: 'Debit',
-                style: 'tableHeader',
-                alignment: 'right'
-              },
-              {
-                text: 'Credit',
-                style: 'tableHeader',
-                alignment: 'right'
-              },
-              {
-                text: 'Balance',
-                style: 'tableHeader',
-                alignment: 'right'
-              },
-            ],
-            ...this.recordsData.map((val) => {
-              return [
-                val.docNo,
-                val.accountName,
-                val.description,
-                {text: this.valueFormatter(val.debit), alignment: 'right'},
-                {text: this.valueFormatter(val.credit), alignment: 'right'},
-                {text: this.valueFormatter(val.balance), alignment: 'right'}]
-            })
-          ],
-        },
-        layout: {
-          paddingTop () {
-            return 10
-          },
-          paddingLeft () {
-            return 10
-          },
-          // paddingRight: function (i) { return (i === 1 || i === 2) ? 10 : 5 },
-          paddingRight () {
-            return 10
-          },
-          paddingBottom () {
-            return 10
-          }
-        }
-      }
-    ]
-    return data
   }
 }

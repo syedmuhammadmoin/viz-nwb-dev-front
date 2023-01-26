@@ -88,10 +88,7 @@ export class PrintBalanceSheetComponent extends AppComponentBase implements OnIn
     const liablity = res.find(x => x.nature.toString().toLowerCase().replace(/ /g, '') === 'liabilities').totalBalance || 0;
     // Equity
     const equity = res.find(x => x.nature.toString().toLowerCase().replace(/ /g, '') === 'accumulatedfund').totalBalance || 0;
-    /*// Deficit / Surplus
-    const netProfit = res.find(x => x.nature.toString().toLowerCase().replace(/ /g, '') === 'deficit/surplus').totalBalance || 0;*/
-    // this.netProfit = netProfit
+    // Deficit / Surplus
     this.equityNLiability = this.valueFormatter((equity) + (liablity))
-    // console.log((equity) + (liablity) + (netProfit));
   }
 }
