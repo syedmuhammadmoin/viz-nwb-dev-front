@@ -11,8 +11,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 @Component({
   selector: 'kt-print-bid-evaluation',
   templateUrl: './print-bid-evaluation.component.html',
-  styleUrls: ['./print-bid-evaluation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-bid-evaluation.component.scss']
 })
 
 export class PrintBidEvaluationComponent extends AppComponentBase implements OnInit {

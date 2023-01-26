@@ -6,7 +6,6 @@
       <form [formGroup]="requestRequisitionForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <div class="kt-portlet__body">
           <div class="kt-form__section kt-form__section--first">
-  
             <div class="col-md-12 col-sm-12 col-lg-12">
               <div class="row mt-1 mb-0">
                 <div class="col-lg-3 col-sm-3 col-md-3">
@@ -132,9 +131,6 @@
                           <ng-container matColumnDef="action">
                             <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
-                                    </mat-icon> -->
-  
                               <button class=" app-remove-btn" type="button" [id]="'requisition_remove' + i"
                                 (click)="removeRequestRequisitionLineClick(i)">
                                 <i class="fas fa-trash" aria-hidden="true"></i>

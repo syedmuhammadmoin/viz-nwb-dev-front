@@ -33,7 +33,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   public permissions = Permissions;
   
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -46,7 +46,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   @ViewChild('table', {static: true}) table: any;
 
   // requisitionModel
-  requisitionModel: IRequisition;
+  requisitionModel: IRequisition = {} as IRequisition;
 
   // For DropDown
   salesItem: IProduct[] = [];
@@ -85,10 +85,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   warehouseList: any = new BehaviorSubject<any>([])
 
-  //show toast mesasge of on campus select
-  //showMessage: boolean = false;
-
-
   // Validation Messages
   validationMessages = {
     employeeId: {
@@ -96,19 +92,15 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     },
     requisitionDate: {
       required: 'Requisition Date is required.'
-    },
-    // campusId: {
-    //   required: 'Campus is required.'
-    // },
+    }
   }
 
   formErrors = {
     employeeId: '',
-    requisitionDate: '',
-    //campusId: ''
+    requisitionDate: ''
   }
 
-  // Injecting Dependencies
+  //Injecting Dependencies
   constructor( private fb: FormBuilder,
                private router: Router,
                private cdRef: ChangeDetectorRef,
@@ -139,24 +131,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       ])
     });
 
-    this.requisitionModel = {
-      id: null,
-      employeeId: null,
-      requisitionDate: '',
-      requestId: null,
-      isWithoutWorkflow: false,
-      campusId : null,
-      requisitionLines: []
-    }
-
-     // get Vendor from state
-     //this.ngxsService.getBusinessPartnerFromState();
+     //Get Data from Store
      this.ngxsService.getEmployeeFromState();
-     // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
-     // get item from state
      this.ngxsService.getProductFromState();
-     // get Campus from state
      this.ngxsService.getCampusFromState();
 
      //get id by using route
@@ -175,22 +153,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     })
 
     this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
-
-    //handling dueDate logic
-    // this.requisitionForm.get('PODate').valueChanges.subscribe((value) => {
-    //   this.minDate = new Date(value);
-    //   this.dateCondition = this.requisitionForm.get('dueDate').value < this.requisitionForm.get('PODate').value
-    // })
   }
 
   // Form Reset
   reset() {
-    // const requisitionLineArray = this.requisitionForm.get('requisitionLines') as FormArray;
-    // requisitionLineArray.clear();
     this.formDirective.resetForm();
     this.requisitionForm.get('isWithoutWorkflow').setValue(false);
     this.onToggle({checked: false})
-    //this.showMessage = false;
     this.table.renderRows();
   }
 
@@ -207,11 +176,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
       // set values for purchasePrice & tax
       arrayControl.at(index).get('purchasePrice').setValue(price);
-
-      // Calculating subTotal
-      // const quantity = arrayControl.at(index).get('quantity').value;
-      // const subTotal = (price * quantity) + ((price * quantity) * (salesTax / 100))
-      // arrayControl.at(index).get('subTotal').setValue(subTotal);
       this.onChangeEvent(null, index)
     }
   }
@@ -319,14 +283,11 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       isWithoutWorkflow: data.isWithoutWorkflow ?? false
     });
 
-    //this.onCampusSelected(requisition.campusId)
-    //this.showMessage = true;
     this.emptyWarehouses = false;
     this.onToggle({checked: data.isWithoutWorkflow})
     this.getEmployee(data.employeeId)
 
     this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(data.requisitionLines ?? data.requestLines));
-    //this.totalCalculation();
   }
 
   //Edit Requisition Lines

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { GridOptions} from "ag-grid-community";
 import { DomSanitizer} from "@angular/platform-browser";
@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-requisition',
   templateUrl: './print-requisition.component.html',
-  styleUrls: ['./print-requisition.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-requisition.component.scss']
 })
 
 export class PrintRequisitionComponent implements OnInit {

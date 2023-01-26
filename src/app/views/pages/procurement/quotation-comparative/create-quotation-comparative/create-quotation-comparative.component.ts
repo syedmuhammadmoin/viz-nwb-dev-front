@@ -58,17 +58,13 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     },
     quotationComparativeDate: {
       required: 'Date is required.',
-    },
-    // remarks: {
-    //   required: 'Remarks is required.',
-    // }
+    }
   };
 
   // error keys..
   formErrors = {
     requisitionId: '',
-    quotationComparativeDate: '',
-    //remarks: ''
+    quotationComparativeDate: ''
   };
 
 
@@ -276,7 +272,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   mapFormValuesToQuotationComparativeModel() {
     this.quotationComparativeModel.requisitionId = this.quotationComparativeForm.value.requisitionId;
     this.quotationComparativeModel.quotationComparativeDate = this.transformDate(this.quotationComparativeForm.value.quotationComparativeDate, 'yyyy-MM-dd');
-    //this.quotationComparativeModel.remarks = this.quotationComparativeForm.value.remarks;
     this.quotationComparativeModel.quotationComparativeLines = [];
     this.quotationList.forEach((res: any) => {
       let val = this.gridApi?.getSelectedRows().includes(res);

@@ -1,12 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import {CALL_QUOTATION} from 'src/app/views/shared/AppRoutes';
+import { CALL_QUOTATION } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { ICallQuotation } from '../model/ICallQuotation';
 import { CallQuotationService } from '../service/call-quotation.service';
 
@@ -14,8 +13,7 @@ import { CallQuotationService } from '../service/call-quotation.service';
 @Component({
   selector: 'kt-list-call-quotaion',
   templateUrl: './list-call-quotaion.component.html',
-  styleUrls: ['./list-call-quotaion.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-call-quotaion.component.scss']
 })
 
 export class ListCallQuotaionComponent extends AppComponentBase implements OnInit {
@@ -45,6 +43,7 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
     );
   }
 
+  //Defining Call Quotation Columns
   columnDefs = [
     {
       headerName: 'Vendor #',
@@ -83,31 +82,6 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
           suppressAndOrCondition: true,
         }
     },
-    // {
-    //   headerName: 'Due Date',
-    //   field: 'dueDate',
-    //   tooltipField: 'docNo',
-    //   filter: 'agDateColumnFilter',
-    //   menuTabs: ['filterMenuTab'],
-    //     filterParams: {
-    //       filterOptions: ['equals'],
-    //       suppressAndOrCondition: true,
-    //     },
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return this.transformDate(params.value, 'MMM d, y') || null;
-    //   }
-    // },
-    // {
-    //   headerName: 'Total',
-    //   field: 'totalAmount',
-    //   headerClass: 'custom_left',
-    //   cellStyle: { 'text-align': "right" },
-    //   tooltipField: 'docNo',
-    //   suppressMenu: true,
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return this.valueFormatter(params.value) || null;
-    //   }
-    // },
     {
       headerName: 'Status',
       field: 'status',
@@ -189,7 +163,6 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
     };
     params.api.setDatasource(dataSource);
   }
-
 }
 
 

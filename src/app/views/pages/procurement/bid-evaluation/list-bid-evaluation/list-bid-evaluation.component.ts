@@ -44,6 +44,7 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
     );
   }
 
+  //Defining Bid Evaluation Columns
   columnDefs = [
     { 
       headerName: 'Bid Evaluation #', 

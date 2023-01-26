@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { GridOptions} from "ag-grid-community";
 import { DomSanitizer} from "@angular/platform-browser";
@@ -11,8 +11,7 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 @Component({
   selector: 'kt-print-request-requisition',
   templateUrl: './print-request-requisition.component.html',
-  styleUrls: ['./print-request-requisition.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-request-requisition.component.scss']
 })
 export class PrintRequestRequisitionComponent implements OnInit {
 

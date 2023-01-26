@@ -13,8 +13,7 @@ import { RequisitionService } from '../service/requisition.service';
 @Component({
   selector: 'kt-list-requisition',
   templateUrl: './list-requisition.component.html',
-  styleUrls: ['./list-requisition.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-requisition.component.scss']
 })
 
 export class ListRequisitionComponent  extends AppComponentBase implements OnInit {
@@ -44,6 +43,7 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
     );
   }
 
+  //Defining Requisition Columns
   columnDefs = [
     { 
       headerName: 'Requisition #', 
@@ -88,7 +88,6 @@ export class ListRequisitionComponent  extends AppComponentBase implements OnIni
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          // values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
           values: ['Draft', 'Rejected', 'Open', 'Closed', 'Submitted', 'Reviewed'],
           defaultToNothingSelected: true,
           suppressSorting:true,

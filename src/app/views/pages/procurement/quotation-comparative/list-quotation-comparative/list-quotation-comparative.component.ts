@@ -42,6 +42,7 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
     );
   }
 
+  //Defining Quotation Comparative Columns
   columnDefs = [
     {
       headerName: 'Quotation Comparative #',
@@ -158,5 +159,4 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
     };
     params.api.setDatasource(dataSource);
   }
-
 }

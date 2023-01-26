@@ -13,7 +13,9 @@ import { PrintBidEvaluationComponent } from './print-bid-evaluation/print-bid-ev
 @NgModule({
   declarations: [
     CreateBidEvaluationComponent, 
-    ListBidEvaluationComponent, BidEvaluationDetailComponent, PrintBidEvaluationComponent
+    ListBidEvaluationComponent, 
+    BidEvaluationDetailComponent, 
+    PrintBidEvaluationComponent
   ],
   imports: [
     SharedModule,

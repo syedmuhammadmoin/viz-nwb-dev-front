@@ -104,35 +104,17 @@
                       <tr *ngFor="let line of bidEvaluationLines; index as i">
                         <td>{{i + 1}}</td>
                         <td>{{line?.nameOfBider}}</td>
-                        <td> {{line?.technicalTotal}}</td>
-                        <td> {{line?.technicalObtain}}</td>
-                        <td> {{line?.financialTotal}}</td>
-                        <td> {{line?.financialObtain}}</td>
+                        <td>{{line?.technicalTotal}}</td>
+                        <td>{{line?.technicalObtain}}</td>
+                        <td>{{line?.financialTotal}}</td>
+                        <td>{{line?.financialObtain}}</td>
                         <td class="text-right"><b>{{valueFormatter(line?.evaluatedCost)}}</b></td>
-                        <td> {{line?.rule}}</td>
+                        <td>{{line?.rule}}</td>
                       </tr>
                     </thead>
                   </table>
                 </div>
               </div>
-              <!-- <div class="print-col-12 p-s-2-two">
-                <div class="table-responsive">
-                  <table class="table ">
-                    <thead class="thead-dark_color">
-                      <ng-container *ngFor="let line of bidEvaluationLines; index as i">
-                        <tr><th class="col-3">S.No</th><td>{{i + 1}}</td></tr>
-                        <tr><th>Bidder Name</th><td>{{line?.nameOfBider}}</td></tr>
-                        <tr><th>Technical Total</th><td> {{line?.technicalTotal}}</td></tr>
-                        <tr><th>Technical Obtain</th><td> {{line?.technicalObtain}}</td></tr>
-                        <tr><th>Financial Total</th><td> {{line?.financialTotal}}</td></tr>
-                        <tr><th>Financial Obtain</th><td> {{line?.financialObtain}}</td></tr>
-                        <tr><th >Evaluated Cost</th><td class="text-right"><b>{{valueFormatter(line?.evaluatedCost)}}</b></td></tr>
-                        <tr><th>Rule</th><td> {{line?.rule}}</td></tr>
-                      </ng-container>
-                    </thead>
-                  </table>
-                </div>
-              </div> -->
             </div>
   
           <div class="row mt-10 ms-10">

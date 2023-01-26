@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-call-quotaion',
   templateUrl: './print-call-quotaion.component.html',
-  styleUrls: ['./print-call-quotaion.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-call-quotaion.component.scss']
 })
 
 export class PrintCallQuotaionComponent extends AppComponentBase implements OnInit {
