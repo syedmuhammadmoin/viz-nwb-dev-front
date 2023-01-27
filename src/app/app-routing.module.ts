@@ -82,15 +82,6 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
-       // Lazy Load LOCATION Module
-       {
-        path: APP_ROUTES.LOCATION,
-        loadChildren: () =>
-          import('./views/pages/profiling/location/location.module').then(
-            (m) => m.LocationModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
        // Lazy Load ORGANIZATION Module
        {
         path: APP_ROUTES.ORGANIZATION,

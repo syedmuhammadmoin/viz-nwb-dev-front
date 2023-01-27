@@ -5,6 +5,4 @@ export interface IRoleModel {
     id: any;
     roleName: string;
     roleClaims: IRoleClaim[];
-    //locationIds: number[];
-    //userScope?: IOrganizationAccessLevel[] 
 }

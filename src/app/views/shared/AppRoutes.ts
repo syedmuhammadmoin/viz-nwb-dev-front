@@ -39,7 +39,6 @@ export const APP_ROUTES = {
   CAMPUS : 'campus',
   BUSINESS_PARTNER : 'business-partner',
   CATEGORY: 'category',
-  LOCATION: 'location',
   ORGANIZATION: 'organization',
   PRODUCT: 'product',
   WAREHOUSE: 'warehouse',
@@ -311,10 +310,6 @@ export const CRUD_ROUTES = {
 
   export const CATEGORY = {
     LIST: APP_ROUTES.CATEGORY + '/' + CRUD_ROUTES.LIST,
-  }
-
-  export const LOCATION = {
-    LIST: APP_ROUTES.LOCATION + '/' + CRUD_ROUTES.LIST
   }
 
   export const ORGANIZATION = {

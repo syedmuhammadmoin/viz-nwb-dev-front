@@ -16,8 +16,4 @@ export interface IOrganization {
     startDate: string;
     endDate: string;
     clientId: number;
-    //description: string;
-    // street: string;
-    // block: string;
-    // road: string;
 }

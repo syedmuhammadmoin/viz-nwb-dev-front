@@ -24,7 +24,6 @@ import { CampusService } from 'src/app/views/pages/profiling/campus/service/camp
 import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
 import { CategoryService } from 'src/app/views/pages/profiling/category/service/category.service';
 import { CategoryState } from 'src/app/views/pages/profiling/category/store/category.state';
-import { LocationService } from 'src/app/views/pages/profiling/location/service/location.service';
 import { OrganizationService } from 'src/app/views/pages/profiling/organization/services/organization.service';
 import { ProductService } from 'src/app/views/pages/profiling/product/service/product.service';
 import { ProductState } from 'src/app/views/pages/profiling/product/store/product.state.state';
@@ -32,7 +31,6 @@ import { GetList } from 'src/app/views/pages/profiling/store/profiling.action';
 import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
 import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
 import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
-import { CscService } from 'src/app/views/shared/csc.service';
 import { AccountPayableState } from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
 import { StatusService } from 'src/app/views/pages/workflows/status/service/status.service';
 import { BasicPayState } from 'src/app/views/pages/payroll/payroll-item/store/basic-pay.state';
@@ -70,14 +68,12 @@ export class NgxsCustomService {
     public departmentService: DepartmentService,
     public designationService: DesignationService,
     public employeeService: EmployeeService,
-    public locationService: LocationService,
     public organizationService: OrganizationService,
     public productService: ProductService,
     public warehouseService: WarehouseService,
     public payrollItemService: PayrollItemService,
     public unitOfMeasurementService: UnitOfMeasurementService,
     public requisitionService: RequisitionService,
-    public cscService: CscService,
     public statusService: StatusService,
     public accessManagementService: AccessManagementService,
     public cashAccountService: CashAccountService,

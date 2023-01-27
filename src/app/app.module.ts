@@ -2,7 +2,6 @@ import { CityState } from './core/shared-state/account-state/store/city.state';
 import { StateState } from './core/shared-state/account-state/store/state.state';
 import { CountryState } from './core/shared-state/account-state/store/country.state';
 import { WarehouseState } from './views/pages/profiling/warehouse/store/warehouse.state';
-import { LocationState } from './views/pages/profiling/location/store/location.state';
 import { OrganizationState } from './views/pages/profiling/organization/store/organization.state';
 import { CategoryState } from './views/pages/profiling/category/store/category.state';
 import { CommonModule } from '@angular/common';
@@ -163,7 +162,6 @@ export function getHighlightLanguages() {
       DesignationState,
       EmployeeState,
       EmployeePaymentState,
-      LocationState,
       ProductState,
       WarehouseState,
       AccountLevel4State,

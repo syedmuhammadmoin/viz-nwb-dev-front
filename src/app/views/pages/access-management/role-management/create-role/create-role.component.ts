@@ -45,7 +45,6 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
   roleForm: FormGroup
   roleModel: IRoleModel
   roleClaims: IRoleClaim[] = []
-  //locationIds: number[] = []
   permissions = Permissions
   //title name
   titleName: string = "Create Role ";

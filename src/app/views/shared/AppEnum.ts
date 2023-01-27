@@ -24,12 +24,6 @@ export class Permissions {
   static BANKSTATEMENT_EDIT = 'Permissions.Finance.BankStatementClaims.Edit';
   static BANKSTATEMENT_DELETE = 'Permissions.Finance.BankStatementClaims.Delete';
 
-  // Address
-  // static ADDRESS_VIEW = 'Permissions.AddressClaims.View';
-  // static ADDRESS_CREATE = 'Permissions.AddressClaims.Create';
-  // static ADDRESS_EDIT = 'Permissions.AddressClaims.Edit';
-  // static ADDRESS_DELETE = 'Permissions.AddressClaims.Delete';
-
   // Warehouse
   static WAREHOUSE_VIEW = 'Permissions.Profiling.WarehouseClaims.View';
   static WAREHOUSE_CREATE = 'Permissions.Profiling.WarehouseClaims.Create';
@@ -374,16 +368,6 @@ export enum DocType {
   CallForQuotaion
 }
 
-// export enum DocStatus {
-//   Draft, // +1
-//   Rejected, // +1
-//   Unpaid, // +1
-//   Partial, // +1
-//   Paid, // +1
-//   Submitted,
-//   Reviewed
-// }
-
 export enum DocumentStatus {
     Draft,
     Rejected,
@@ -457,5 +441,3 @@ export enum TaxType {
     FixedAmount
   }
 
-
-// Draft - Yellow,  Cancelled - Gray, Upaid - Red, Partial - Yellow,  Paid - Green, Submitted - Yellow, Reviewed - Green

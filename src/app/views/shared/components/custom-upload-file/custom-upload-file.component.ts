@@ -49,34 +49,13 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
 
   // upload file
   uploadFile(files: File[]) {
-    // if (event.target.files) {
-    //   Object.values(event.target.files).map((file: any) => {
-    //     const size = Number(this.fileSizePipe.transform(file.size))
-    //     this.fileError = (size > 5) ? 'File size exceeds maximum limit 5 MB.' : null
-    //     if (this.fileError) {
-    //       console.log(this.fileError)
-    //       return false;
-    //     }
-    //     console.log("yes")
-    //    this.fileList.push(file)
-    //   })
-    // }
-
     if (files) {
       this.file = files[0] as File;
       const size = Number(this.fileSizePipe.transform(this.file.size))
       this.fileError = (size > 5) ? 'File size exceeds maximum limit 5 MB.' : null
     }
   }
-
-  // downloadFile(file){
-  //   console.log("yes enteed")
-  //     let params = new HttpParams();
-  //     params = params.append("docType", file.docType);
-  //   this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'UploadDocument/' + file.id, { params: params }
-  //   ).subscribe((res) => console.log('server response: ', new File([file], 'testFile')))
-  // }
-
+  
   onSubmit() {
     if (!this.file || this.fileError) {
       this.fileError = 'Please upload file.'
@@ -87,20 +66,8 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
       this.toastService.success("File Uploaded Successfully", this.data.name)
       this.isLoading = false;
       this.dialogRef.close()
-    }, (err: any) => {
-      //this.toastService.error("Something went wrong", 'Error')
     })
-    // this.dialogRef.close({ file: this.file })
   }
-
-  // reset(i : number) {
-  //   this.fileList.map((_, index: number) => {
-  //     if (index === i) {
-  //       this.fileList.splice(i , 1)
-  //     }
-  //   });
-  //   this.fileError = null
-  // }
 
   reset() {
     this.uploadFileInput.nativeElement.value = '';

@@ -116,7 +116,6 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
         [this.groupChildrenName]: optionGroup[this.groupChildrenName].slice()
       });
     });
-    // console.log(optionGroupsCopy)
     return optionGroupsCopy;
   }
 
@@ -128,7 +127,6 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
 
   registerOnTouched(fn: any): void {
     this.formControlDirective.valueAccessor.registerOnTouched(fn);
-    // this.onTouched = fn;
   }
 
   writeValue(obj: any): void {

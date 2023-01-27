@@ -1,14 +1,9 @@
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { IOrganization} from '../model/IOrganization';
-import { IState } from 'src/app/views/shared/models/state';
-import { ICity} from 'src/app/views/shared/models/city';
-import { ICountry } from 'src/app/views/shared/models/country';
-import { CscService} from 'src/app/views/shared/csc.service';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { Component, Inject, Injector, OnInit, Optional} from '@angular/core';
 import { finalize, take} from "rxjs/operators";
-import { Subject } from 'rxjs';
 import { IsReloadRequired } from '../../store/profiling.action';
 import { OrganizationState } from '../store/organization.state';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
@@ -31,77 +26,24 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
   //Organization Model
   organization: IOrganization;
 
-  //country , state and city list
-  countryList: ICountry[] = [];
-  stateList: IState[] = [];
-  cityList: ICity[] = [];
-
-  //for optionList dropdown
-  stateList2: Subject<IState[]> = new Subject<IState[]>();
-  cityList2: Subject<ICity[]> = new Subject<ICity[]>();
-
   validationMessages = {
     'name': {
       'required': 'Name is required.',
     },
-    // 'country': {
-    //   'required': 'Country is required.',
-    // },
-    // 'state': {
-    //   'required': 'State is required.',
-    // },
-    // 'city': {
-    //   'required': 'City is required.'
-    // },
-    // 'phone': {
-    //   'required': 'Phone is required.',
-    // },
-    // 'fax': {
-    //   'required': 'Fax is required.',
-    // },
-    // 'email': {
-    //   'required': 'Email is required.',
-    //   'email': 'Email is not valid.',
-    // },
     'website': {
       'pattern': 'Website pattern is not correct.'
     },
-    // 'industry': {
-    //   'required': 'Industry is required.',
-    // },
-    // 'legalStatus': {
-    //   'required': 'Legal Status is required.',
-    // },
-    // 'incomeTaxId': {
-    //   'required': 'Income Tax ID is required.',
-    // },
-    // 'salesTaxId': {
-    //   'required': 'sales Tax ID is required.',
-    // },
     'startDate': {
       'required': 'Start Date is required.',
     },
     'endDate': {
       'required': 'End Date is required.',
     },
-    // 'description': {
-    //   'required': 'Description is required.',
-    // },
   };
 
   formErrors = {
     'name': '',
-    // 'country': '',
-    // 'state': '',
-    // 'city': '',
-    // 'phone': '',
-    // 'fax': '',
-    // 'email': '',
     'website': '',
-    // 'industry': '',
-    // 'legalStatus': '',
-    // 'incomeTaxId': '',
-    // 'salesTaxId': '',
     'startDate': '',
     'endDate': '',
   };
@@ -109,7 +51,6 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
   constructor(
     private fb: FormBuilder,
     public ngxsService:NgxsCustomService,
-    private cscService: CscService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     public dialogRef: MatDialogRef<CreateOrganizationComponent>,
     injector: Injector) {
@@ -127,8 +68,8 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
       phone: [''],
       address: [''],
       fax: [''],
-      email: [''], //[Validators.required, Validators.email]
-      website: ['', [Validators.pattern(websitePattern)]], //[Validators.required,Validators.pattern(websitePattern)]
+      email: [''], 
+      website: ['', [Validators.pattern(websitePattern)]],
       industry: [''],
       legalStatus: [''],
       incomeTaxId: [''],
@@ -137,8 +78,6 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
       endDate: ['',[Validators.required]],
       clientId: [1]
     });
-
-    this.getCountryList();
 
     if (this._id) {
       this.isLoading = true;
@@ -179,49 +118,11 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
       );
   }
 
-
-  getCountryList() {
-    this.cscService.getCountries().subscribe((data: ICountry[]) => {
-      this.countryList = data;
-    });
-  }
-
-  getStateLists(id: number) {
-    this.cscService.getStates(id).subscribe((data: IState[]) => {
-      this.stateList = data;
-      this.stateList2.next(this.stateList)
-    });
-  }
-
-
-  onChangeCountry(countryId: number) {
-    if (countryId) {
-      this.getStateLists(parseInt(countryId.toString()));
-      this.stateList2.next(this.stateList)
-    }
-  }
-
-  onChangeState(stateId: number) {
-    if (stateId) {
-      this.cscService.getCities(parseInt(stateId.toString())).subscribe(
-        (data: ICity[]) => {
-          this.cityList = data
-          this.cityList2.next(this.cityList)
-        });
-    }
-  }
-
   //edit organization
   editOrganization(organization: IOrganization) {
-    this.onChangeCountry(this.countryList.find(c => c.name == organization.country).id);
-    this.onChangeState(this.stateList.find(c => c.name == organization.state).id)
-
     this.organizationForm.patchValue({
       id: organization.id,
       name: organization.name,
-      country: (organization.country) ? this.countryList.find(c => c.name == organization.country).id : null,
-      state: (organization.state) ? this.stateList.find(c => c.name == organization.state).id : null,
-      city: (organization.city) ? this.cityList.find(c => c.name == organization.city).id : null,
       phone: organization.phone,
       address: organization.address,
       fax: organization.fax,
@@ -243,7 +144,6 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-    console.log(this.organization)
     if (this.organization.id) {
       this.ngxsService.organizationService.updateOrganization(this.organization)
         .pipe(
@@ -251,7 +151,6 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
           finalize(() => this.isLoading = false))
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
-            // this.toastService.success('Updated Successfully', 'Organization')
             this.toastService.success('Updated Successfully', 'Campus')
             this.onCloseDialog();
           },
@@ -265,7 +164,6 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
           finalize(() => this.isLoading = false))
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
-            // this.toastService.success('Created Successfully', 'Organization')
             this.toastService.success('Created Successfully', 'Campus')
             this.onCloseDialog();
           },
@@ -276,12 +174,6 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
 
   mapFormValueToClientModel() {
     this.organization.name = this.organizationForm.value.name;
-    // this.organization.country = this.countryList.find(c => c.id == this.organizationForm.value.country).name;
-    // this.organization.state = this.stateList.find(c => c.id == this.organizationForm.value.state).name;
-    // this.organization.city = this.cityList.find(c => c.id == this.organizationForm.value.city).name;
-    this.organization.country = (this.organizationForm.value.country) ? this.countryList.find(c => c.id == this.organizationForm.value.country).name : null;
-    this.organization.state = (this.organizationForm.value.state) ? this.stateList.find(c => c.id == this.organizationForm.value.state).name : null;
-    this.organization.city = (this.organizationForm.value.city) ? this.cityList.find(c => c.id == this.organizationForm.value.city).name : null;
     this.organization.phone = this.organizationForm.value.phone;
     this.organization.fax = this.organizationForm.value.fax;
     this.organization.email = this.organizationForm.value.email;

@@ -47,15 +47,9 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
     return this.formControl || this.controlContainer.control.get(this.formControlName) 
   }
 
-  // registerOnChange(fn: any): void {
-  //   this.formControlDirective.valueAccessor.registerOnChange(fn);
-  // }
-
   registerOnChange(fn: (_: number|null|string) => void): void {
     if(this.type === 'number') {
       this.onChange = () => {
-        //this condition is not working on '0' value
-        //fn((this.control.value) ? Number(this.control.value) : null);
         const value = this.defaultValue || null;
         fn((this.control.value === '' || this.control.value === null ) ? value : Number(this.control.value));
       };
@@ -84,5 +78,4 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   blur() {
     this.blurEvent.emit()
   }
-
 }

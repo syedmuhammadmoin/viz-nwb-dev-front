@@ -42,12 +42,6 @@ export class ListOrganizationComponent extends AppComponentBase implements OnIni
     { headerName: 'Country', field: 'country', sortable: true, filter: true, tooltipField: 'name' },
     { headerName: 'Contact', field: 'phone', sortable: true, filter: true, tooltipField: 'name' },
     { headerName: 'Industry', field: 'industry', sortable: true, filter: true, tooltipField: 'name' },
-    // { headerName: 'Description', field: 'description', sortable: true, filter: true, tooltipField: 'name' },
-    // { headerName: 'Email', field: 'email', sortable: true, filter: true, tooltipField: 'name' },
-    // { headerName: 'Website', field: 'website', sortable: true, filter: true, tooltipField: 'name' },
-    // { headerName: 'Legal Status', field: 'legalStatus', sortable: true, filter: true, tooltipField: 'name' },
-    // { headerName: 'Income Tax Id', field: 'incomeTaxId', sortable: true, filter: true, tooltipField: 'name' },
-    // { headerName: 'sales Tax Id', field: 'salesTaxId', sortable: true, filter: true, tooltipField: 'name' },
     {
       headerName: 'Start Date',
       field: 'startDate',
