@@ -33,7 +33,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   isDeclining: boolean = false;
 
   // for item type
-  //accumulatedDepAccountIds = accumulatedDepAccountId;
+  //accumulatedDepreciationIds = accumulatedDepreciationId;
 
   //Depreciation Method
   method = DepreciationMethod
@@ -68,28 +68,29 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
   // Validation messages..
   validationMessages = {
-    name: {
+    modelName: {
       required: 'Name is required.',
     },
-    method: {
+    modelType: {
       required: 'Method is required.',
     },
-    depExpenseAccountId: {
+    depreciationExpenseId: {
       required: 'Account is required.',
     },
-    accumulatedDepAccountId: {
+    accumulatedDepreciationId: {
       required: 'Account is required.',
     },
     assetAccountId: {
       required: 'Account is required.',
     },
-    // decliningRate: {
-    //   required: 'Rate is required.',
-    //   min: 'Percentage % range (0 - 100)',
-    //   max: 'Percentage % range (0 - 100)'
-    // },
-    usefulLife: {
+    decliningRate: {
+      // required: 'Rate is required.',
+      min: 'Percentage % range (0 - 100).',
+      max: 'Percentage % range (0 - 100).'
+    },
+    useFullLife: {
       required: 'Life is required.',
+      min : 'Minimum value is 1.'
     },
     // assetCategoryId: {
     //   required: 'Category is required.'
@@ -98,14 +99,14 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
   // error keys..
   formErrors = {
-    name: '',
-    method: '',
-    depExpenseAccountId: '',
-    accumulatedDepAccountId: '',
+    modelName: '',
+    modelType: '',
+    depreciationExpenseId: '',
+    accumulatedDepreciationId: '',
     assetAccountId: '',
     //decliningRate: '',
     //assetCategoryId: '',
-    usefulLife: '',
+    useFullLife: '',
   };
 
 
@@ -129,15 +130,15 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
     // Creating Forms
     this.depreciationForm = this.fb.group({
-      name: ['', [Validators.required]],
-      method: [0, [Validators.required]],
-      depExpenseAccountId: ['', [Validators.required]],
-      accumulatedDepAccountId: ['', [Validators.required]],
+      modelName: ['', [Validators.required]],
+      modelType: [0, [Validators.required]],
+      depreciationExpenseId: ['', [Validators.required]],
+      accumulatedDepreciationId: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
       // decliningRate: ['', [Validators.required]],
-      decliningRate: [null],
+      decliningRate: [0 , [Validators.max(100), Validators.min(0)]],
       //assetCategoryId: ['', [Validators.required]],
-      usefulLife: ['', [Validators.required]]
+      useFullLife: ['', [Validators.required , Validators.min(1)]]
     });
 
 
@@ -156,13 +157,13 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     } else {
       this.depreciationModel = {
         id: null,
-        name: '',
-        method: null,
-        depExpenseAccountId: null,
-        accumulatedDepAccountId: null,
+        modelName: '',
+        modelType: null,
+        depreciationExpenseId: null,
+        accumulatedDepreciationId: null,
         assetAccountId: null,
         decliningRate: null,
-        usefulLife: null,
+        useFullLife: null,
         //assetCategoryId: null
       }
     }
@@ -179,7 +180,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
 
      //update FornControl 'assetAccountId' Validator on checkbox changed
-    //  this.depreciationForm.get('accumulatedDepAccountId').assetAccountIdChanges.subscribe((assetAccountId: number) => {
+    //  this.depreciationForm.get('accumulatedDepreciationId').assetAccountIdChanges.subscribe((assetAccountId: number) => {
     //     this.updateassetAccountIdValidators(assetAccountId);
     //   })
   }
@@ -205,7 +206,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   reset() {
     this.formDirective.resetForm();
     this.isDeclining = false;
-    this.depreciationForm.get('method').setValue(0)
+    this.depreciationForm.get('modelType').setValue(0)
     this.onToggle({checked: true})
   }
 
@@ -225,21 +226,21 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     });
   }
 
-  // edit Depreciation method
+  // edit Depreciation modelType
   public patchDepreciation(depreciation: IDepreciation | any) {
     this.depreciationForm.patchValue({
-      name: depreciation.name,
-      method: depreciation.method,
-      accumulatedDepAccountId: depreciation.accumulatedDepAccountId,
-      depExpenseAccountId: depreciation.depExpenseAccountId,
+      modelName: depreciation.modelName,
+      modelType: depreciation.modelType,
+      accumulatedDepreciationId: depreciation.accumulatedDepreciationId,
+      depreciationExpenseId: depreciation.depreciationExpenseId,
       assetAccountId: depreciation.assetAccountId,
       decliningRate: depreciation.decliningRate,
       //assetCategoryId: depreciation.assetCategoryId,
-      usefulLife: depreciation.usefulLife,
+      useFullLife: depreciation.useFullLife,
     });
 
-    this.onToggle({checked: depreciation.usefulLife})
-    this.methodChange({source : {} as MatRadioButton , value: depreciation.method})
+    this.onToggle({checked: depreciation.useFullLife})
+    this.methodChange({source : {} as MatRadioButton , value: depreciation.modelType})
     if(!this.showButtons) this.depreciationForm.disable();
     // //Clearing Amount Validator Initially
     // this.depreciationForm.get('amount').setErrors(null)
@@ -297,7 +298,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
   // onValueChange() {
   //   if (this.depreciationForm.assetAccountId.method === 0 || this.depreciationForm.assetAccountId.method === 1) {
-  //     this.depreciationForm.get('accumulatedDepAccountId').setassetAccountId(1);
+  //     this.depreciationForm.get('accumulatedDepreciationId').setassetAccountId(1);
   //     this.disablePercentage = true;
   //   } else {
   //     this.disablePercentage = false;
@@ -307,14 +308,14 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   //Mapping assetAccountId to model
   mapFormValuesToDepreciationModel() {
     this.depreciationModel.id = this._id;
-    this.depreciationModel.name = this.depreciationForm.value.name;
-    this.depreciationModel.method = this.depreciationForm.value.method;
-    this.depreciationModel.accumulatedDepAccountId = this.depreciationForm.value.accumulatedDepAccountId;
-    this.depreciationModel.depExpenseAccountId = this.depreciationForm.value.depExpenseAccountId;
+    this.depreciationModel.modelName = this.depreciationForm.value.modelName;
+    this.depreciationModel.modelType = this.depreciationForm.value.modelType;
+    this.depreciationModel.accumulatedDepreciationId = this.depreciationForm.value.accumulatedDepreciationId;
+    this.depreciationModel.depreciationExpenseId = this.depreciationForm.value.depreciationExpenseId;
     this.depreciationModel.assetAccountId = this.depreciationForm.value.assetAccountId;
     this.depreciationModel.decliningRate = this.depreciationForm.value.decliningRate;
     //this.depreciationModel.assetCategoryId = this.depreciationForm.value.assetCategoryId;
-    this.depreciationModel.usefulLife = this.depreciationForm.value.usefulLife; 
+    this.depreciationModel.useFullLife = this.depreciationForm.value.useFullLife; 
   }
 
   onToggle(event) {
@@ -368,7 +369,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       this.isDeclining = true;
     }
     else {
-      this.depreciationForm.get('decliningRate').setValue(null)
+      this.depreciationForm.get('decliningRate').setValue(0)
       this.isDeclining = false;
     }
   }

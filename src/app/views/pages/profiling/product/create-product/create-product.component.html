@@ -32,7 +32,7 @@
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Category:</label>
                                 <kt-simple-dropdown
-                                id="product_category"
+                                    id="product_category"
                                     placeholder="Select Category"
                                     matFormFieldClass="full-width"
                                     formControlName="category"
@@ -41,6 +41,7 @@
                                     [buttonPermission]="permission.isGranted(this.permissions.CATEGORIES_CREATE)"
                                     clickEventButtonName="Add New Category"
                                     (clickEvent)="addButtonService.openCategoryDialog()"
+                                    (selectionChange)="onItemSelected($event.value)"
                                     propertyValue="id"
                                     propertyName="name"
                                     [errorMessage]="formErrors.category">
@@ -51,20 +52,22 @@
                     <!-- first row ends -->
                     <!-- second row starts -->
                     <div class="row mb-4">
-                        <div class="col-lg-6 col-md-6 col-sm-6"> 
+                        <div [ngClass]="{'col-lg-8 col-md-8 col-sm-8':this.isFixedAsset == true , 'col-lg-6 col-md-6 col-sm-6': this.isFixedAsset != true }"> <!--this row will become 7 when third option is uncomment-->
                             <div class="row" >
-                               <div class="col-lg-11"> 
+                               <div class="col-lg-11"> <!--this row will remove when third option is uncomment-->
                                 <div class="form-group kt-form__group mb-0">
                                     <div class="kt-radio-list">
-                                        <mat-radio-group id="product_type" formControlName="productType">
+                                        <mat-radio-group id="product_type" formControlName="productType" [disabled]="this.isFixedAsset">
                                         <label class="col-form-label pt-0 mr-2">Product Type:</label>
                                             <mat-radio-button [value]="0">Consumable</mat-radio-button>
                                             <mat-radio-button [value]="1">Service</mat-radio-button>
+                                            <mat-radio-button [value]="2" *ngIf="this.isFixedAsset">Fixed Asset</mat-radio-button>
                                         </mat-radio-group>
                                     </div>
                                 </div>
                                </div>
                             </div>
+                            
                         </div>
                     </div>
                     <!-- second row ends -->
@@ -149,11 +152,10 @@
                     </div>
                 </div>
             </div>
-            <!-- form first section ends -->
         </div>
-        <!-- portlet body ends -->
+
         <mat-divider></mat-divider>
-        <!-- portlet footer start -->
+
         <div class="kt-portlet__foot p-5" >
             <!-- form action starts -->
             <div class="kt-form__actions kt-form__actions mb-0">

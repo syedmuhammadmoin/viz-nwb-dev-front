@@ -10,12 +10,17 @@ import { AssetDetailComponent } from './asset-detail/asset-detail.component';
 
 
 @NgModule({
-  declarations: [CreateAssetComponent, ListAssetComponent, AssetDetailComponent],
+  declarations: [
+    CreateAssetComponent,
+    ListAssetComponent,
+    AssetDetailComponent],
+    
   imports: [
     SharedModule,
     PartialsModule,
     AssetRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
-  ]
+  ],
+  entryComponents : [CreateAssetComponent]
 })
 export class AssetModule { }

@@ -84,7 +84,7 @@ export class ChartOfAccountService {
   }
 
   getAssetAccounts(): Observable<any> {
-    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/fixedAsset');
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/nonCurrentAsset');
   }
 }
 

@@ -401,10 +401,10 @@ export class AppConst {
     'Permissions.AssetCategoryClaims.Delete': 'Asset Category Delete',
 
     // Depreciation Model
-    'Permissions.DepreciationModelClaims.View': 'Depreciation Model View',
-    'Permissions.DepreciationModelClaims.Create': 'Depreciation Model Create',
-    'Permissions.DepreciationModelClaims.Edit': 'Depreciation Model Update',
-    'Permissions.DepreciationModelClaims.Delete': 'Depreciation Model Delete',
+    'Permissions.FixedAsset.DepreciationClaims.View': 'Depreciation Model View',
+    'Permissions.FixedAsset.DepreciationClaims.Create': 'Depreciation Model Create',
+    'Permissions.FixedAsset.DepreciationClaims.Edit': 'Depreciation Model Update',
+    'Permissions.FixedAsset.DepreciationClaims.Delete': 'Depreciation Model Delete',
 
     // Asset
     'Permissions.AssetClaims.View': 'Asset View',
