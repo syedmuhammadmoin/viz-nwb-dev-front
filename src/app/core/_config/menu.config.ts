@@ -1,7 +1,11 @@
-import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, CASH_ACCOUNT, BANK_ACCOUNT,
+import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, BANK_ACCOUNT,
          PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
          PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET_CATEGORY, ASSET, REQUEST_REQUISITION, BID_EVALUATION, QUOTATION, QUOTATION_COMPARATIVE, CALL_QUOTATION } from 'src/app/views/shared/AppRoutes';
+         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, 
+         PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, 
+         PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, 
+         STOCK, ISSUANCE_RETURN, REQUEST_REQUISITION, 
+         BID_EVALUATION, QUOTATION, QUOTATION_COMPARATIVE, CALL_QUOTATION } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from '../../views/shared/AppEnum'
 export class MenuConfig {
   public defaults: any = {
@@ -15,18 +19,6 @@ export class MenuConfig {
           page: '/' + APP_ROUTES.DASHBOARD,
           translate: 'MENU.DASHBOARD',
         },
-        // {
-        //   title: 'Add Journal Entry',
-        //   root: true,
-        //   alignment: 'left',
-        //   page: '/' + JOURNAL_ENTRY.CREATE
-        // },
-        // {
-        //   title: 'General Ledger',
-        //   root: true,
-        //   alignment: 'left',
-        //   page: '/' + APP_ROUTES.REPORT + '/' + REPORT.GENERAL_LEDGER
-        // },
       ]
     },
     aside: {
@@ -49,29 +41,6 @@ export class MenuConfig {
         //   page: '/builder'
         // },
         // {
-        // 	title: 'Client', // <= Title of the page
-        // 	desc: 'Some my description goes here', // <= Description of the page
-        // 	root: true,
-        // 	page: '/list-client', // <= URL
-        // 	icon: 'flaticon2-avatar' // <= Choose the icon class
-        // },
-        // // { section: 'User Management' },
-        // {
-        //   title: 'User Management',
-        //   bullet: 'dot',
-        //   icon: 'flaticon2-avatar',
-        //   submenu: [
-        //     {
-        //       title: 'Roles', // <= Title of the page
-        //       page: '/user-management/roles', // <= URL
-        //     },
-        //     {
-        //       title: 'Users', // <= Title of the page
-        //       page: '/user-management/users', // <= URL
-        //     },
-        //   ]
-        // },
-
         {
           title: 'Access Management',
           bullet: 'dot',
@@ -136,58 +105,12 @@ export class MenuConfig {
             Permissions.UNIT_OF_MEASUREMENT_CREATE,
             Permissions.UNIT_OF_MEASUREMENT_EDIT,
             Permissions.UNIT_OF_MEASUREMENT_DELETE,
-            // Permissions.LOCATION_VIEW,
-            // Permissions.LOCATION_CREATE,
-            // Permissions.LOCATION_EDIT,
-            // Permissions.LOCATION_DELETE,
-            // Permissions.DEPARTMENTS_VIEW,
-            // Permissions.DEPARTMENTS_CREATE,
-            // Permissions.DEPARTMENTS_EDIT,
-            // Permissions.DEPARTMENTS_DELETE,
-            // Permissions.ORGANIZATION_VIEW,
-            // Permissions.ORGANIZATION_CREATE,
-            // Permissions.ORGANIZATION_EDIT,
-            // Permissions.ORGANIZATION_DELETE,
             Permissions.CAMPUS_VIEW,
             Permissions.CAMPUS_CREATE,
             Permissions.CAMPUS_EDIT,
             Permissions.CAMPUS_DELETE
           ],
           submenu: [
-            // {
-            // 	title: 'Client',
-            //   page: '/client/list',
-            // },
-            // {
-            //   title: 'Organization',
-            //   page: '/' + ORGANIZATION.LIST,
-            //   permission: [
-            //     Permissions.ORGANIZATION_VIEW,
-            //     Permissions.ORGANIZATION_CREATE,
-            //     Permissions.ORGANIZATION_EDIT,
-            //     Permissions.ORGANIZATION_DELETE
-            //   ]
-            // },
-            // {
-            //   title: 'Department',
-            //   page: '/' + DEPARTMENT.LIST,
-            //   permission: [
-            //     Permissions.DEPARTMENTS_VIEW,
-            //     Permissions.DEPARTMENTS_CREATE,
-            //     Permissions.DEPARTMENTS_EDIT,
-            //     Permissions.DEPARTMENTS_DELETE
-            //   ]
-            // },
-            // {
-            //   title: 'Location',
-            //   page: '/' + LOCATION.LIST,
-            //   permission: [
-            //     Permissions.LOCATION_VIEW,
-            //     Permissions.LOCATION_CREATE,
-            //     Permissions.LOCATION_EDIT,
-            //     Permissions.LOCATION_DELETE
-            //   ]
-            // },
             {
               title: 'Campus', // <= Title of the page
               page: '/' + CAMPUS.LIST, // <= URL
@@ -334,16 +257,6 @@ export class MenuConfig {
             Permissions.BANK_RECON_DELETE,
           ],
           submenu: [
-            // {
-            //   title: 'Cash Account',
-            //   page: '/' + CASH_ACCOUNT.LIST,
-            //   permission: [
-            //     Permissions.CASHACCOUNT_VIEW,
-            //     Permissions.CASHACCOUNT_CREATE,
-            //     Permissions.CASHACCOUNT_EDIT,
-            //     Permissions.CASHACCOUNT_DELETE
-            //   ]
-            // },
             {
               title: 'Bank Account',
               page: '/' + BANK_ACCOUNT.LIST,
@@ -495,16 +408,6 @@ export class MenuConfig {
         //     Permissions.ASSET_DELETE
         //   ],
         //   submenu: [
-        //     // {
-        //     //   title: 'Asset Category',
-        //     //   page: '/' + ASSET_CATEGORY.LIST,
-        //     //   permission: [
-        //     //     Permissions.ASSET_CATEGORY_VIEW,
-        //     //     Permissions.ASSET_CATEGORY_CREATE,
-        //     //     Permissions.ASSET_CATEGORY_EDIT,
-        //     //     Permissions.ASSET_CATEGORY_DELETE
-        //     //   ]
-        //     // },
         //     {
         //       title: 'Depreciation Model',
         //       page: '/' + DEPRECIATION_MODEL.LIST,
@@ -527,8 +430,6 @@ export class MenuConfig {
         //     }
         //   ]
         // },
-
-
         //Procurement Section
         {
           title: 'Procurement',
@@ -910,9 +811,6 @@ export class MenuConfig {
               title: 'Payroll Reports',
               bullet: 'dot',
               permission: [
-                // Permissions.ALLOWANCE_VIEW,
-                // Permissions.EMPLOYEE_LEDGER,
-                // Permissions.EMPLOYEE_REPORT,
                 Permissions.PAYROLL_TRANSACTION_VIEW,
                 Permissions.PAYROLL_TRANSACTION_CREATE,
                 Permissions.PAYROLL_TRANSACTION_EDIT,
@@ -921,20 +819,6 @@ export class MenuConfig {
                 Permissions.PAYROLL_TRANSACTION_REVIEW,
               ],
               submenu: [
-                // {
-                //   title: 'Allowances Report', // <= Title of the page
-                //   page: '/payroll/allowances/report', // <= URL
-                //   permission: [
-                //     Permissions.ALLOWANCE_VIEW
-                //   ],
-                // },
-                // {
-                //   title: 'Batch Payslips', // <= Title of the page
-                //   page: '/payroll/batch-payslips', // <= URL
-                //   // permission: [
-                //   //   Permissions.ALLOWANCE_VIEW
-                //   // ],
-                // },
                 {
                   title: 'Payroll Transaction Report',
                   page: '/' + PAYROLL_REPORTS.TRANSACTION.LIST,
@@ -971,204 +855,10 @@ export class MenuConfig {
                   //   Permissions.PAYROLL_TRANSACTION_REVIEW,
                   // ],
                 },
-                // {
-                //   title: 'Payroll Bank Advice Report',
-                //   page: '/payroll/bank/report',
-                //   /*permission: []*/
-                // },
-                // {
-                //   title: 'Employee Report',
-                //   page: '/payroll/employee/report',
-                //   permission: [
-                //     Permissions.EMPLOYEE_REPORT
-                //   ]
-                // },
-                // {
-                //   title: 'Employee Ledger',
-                //   page: '/payroll/ledger/employee',
-                //   permission: [
-                //     Permissions.EMPLOYEE_LEDGER
-                //   ]
-                // },
               ]
             },
           ]
         },
-
-        // { section: 'sales' },
-        // {
-        //   title: 'sales',
-        //   bullet: 'dot',
-        //   icon: 'flaticon2-delivery-package',
-        //   permission: [
-        //     Permissions.INVOICE_VIEW,
-        //     Permissions.INVOICE_CREATE,
-        //     Permissions.INVOICE_EDIT,
-        //     Permissions.INVOICE_DELETE,
-        //     Permissions.INVOICE_REVIEW,
-        //     Permissions.INVOICE_APPROVE,
-        //     Permissions.CREDITNOTE_VIEW,
-        //     Permissions.CREDITNOTE_CREATE,
-        //     Permissions.CREDITNOTE_EDIT,
-        //     Permissions.CREDITNOTE_DELETE,
-        //     Permissions.CREDITNOTE_REVIEW,
-        //     Permissions.CREDITNOTE_APPROVE,
-        //     // Permissions.SALESORDER_VIEW,
-        //     // Permissions.SALESORDER_CREATE,
-        //     // Permissions.SALESORDER_EDIT,
-        //     // Permissions.SALESORDER_DELETE,
-        //     // Permissions.SALESORDER_REVIEW,
-        //     // Permissions.SALESORDER_APPROVE,
-        //   ],
-        //   submenu: [
-        //     // {
-        //     //   title: 'sales Order',
-        //     //   page: '/' + SALES_ORDER.LIST,
-        //     //   permission: [
-        //     //     Permissions.SALESORDER_VIEW,
-        //     //     Permissions.SALESORDER_CREATE,
-        //     //     Permissions.SALESORDER_EDIT,
-        //     //     Permissions.SALESORDER_DELETE,
-        //     //     Permissions.SALESORDER_REVIEW,
-        //     //     Permissions.SALESORDER_APPROVE,
-        //     //   ]
-        //     // },
-        //     {
-        //       title: 'Invoice',
-        //       page: '/' + INVOICE.LIST,
-        //       permission: [
-        //         Permissions.INVOICE_VIEW,
-        //         Permissions.INVOICE_CREATE,
-        //         Permissions.INVOICE_EDIT,
-        //         Permissions.INVOICE_DELETE,
-        //         Permissions.INVOICE_REVIEW,
-        //         Permissions.INVOICE_APPROVE,
-        //       ]
-        //     },
-        //     {
-        //       title: 'Credit Note',
-        //       page: '/' + CREDIT_NOTE.LIST,
-        //       permission: [
-        //         Permissions.CREDITNOTE_VIEW,
-        //         Permissions.CREDITNOTE_CREATE,
-        //         Permissions.CREDITNOTE_EDIT,
-        //         Permissions.CREDITNOTE_DELETE,
-        //         Permissions.CREDITNOTE_REVIEW,
-        //         Permissions.CREDITNOTE_APPROVE,
-        //       ]
-        //     },
-        //   ]
-        // },
-
-        // // { section: 'purchase' },
-        // {
-        //   title: 'purchase',
-        //   bullet: 'dot',
-        //   icon: 'flaticon2-shopping-cart',
-        //   permission: [
-        //     Permissions.BILL_VIEW,
-        //     Permissions.BILL_CREATE,
-        //     Permissions.BILL_EDIT,
-        //     Permissions.BILL_DELETE,
-        //     Permissions.BILL_REVIEW,
-        //     Permissions.BILL_APPROVE,
-        //     Permissions.DEBITNOTE_VIEW,
-        //     Permissions.DEBITNOTE_CREATE,
-        //     Permissions.DEBITNOTE_EDIT,
-        //     Permissions.DEBITNOTE_DELETE,
-        //     Permissions.DEBITNOTE_REVIEW,
-        //     Permissions.DEBITNOTE_APPROVE,
-        //     // Permissions.PURCHASEORDER_VIEW,
-        //     // Permissions.PURCHASEORDER_CREATE,
-        //     // Permissions.PURCHASEORDER_EDIT,
-        //     // Permissions.PURCHASEORDER_DELETE,
-        //     // Permissions.PURCHASEORDER_REVIEW,
-        //     // Permissions.PURCHASEORDER_APPROVE,
-        //   ],
-        //   submenu: [
-        //     // {
-        //     //   title: 'purchase Order',
-        //     //   page: '/' + PURCHASE_ORDER.LIST,
-        //     //   permission: [
-        //     //     Permissions.PURCHASEORDER_VIEW,
-        //     //     Permissions.PURCHASEORDER_CREATE,
-        //     //     Permissions.PURCHASEORDER_EDIT,
-        //     //     Permissions.PURCHASEORDER_DELETE,
-        //     //     Permissions.PURCHASEORDER_REVIEW,
-        //     //     Permissions.PURCHASEORDER_APPROVE,
-        //     //   ]
-        //     // },
-        //     {
-        //       title: 'Vendor Bill',
-        //       page: '/' + BILL.LIST,
-        //       permission: [
-        //         Permissions.BILL_VIEW,
-        //         Permissions.BILL_CREATE,
-        //         Permissions.BILL_EDIT,
-        //         Permissions.BILL_DELETE,
-        //         Permissions.BILL_REVIEW,
-        //         Permissions.BILL_APPROVE,
-        //       ]
-        //     },
-        //     {
-        //       title: 'Debit Note',
-        //       page: '/' + DEBIT_NOTE.LIST,
-        //       permission: [
-        //         Permissions.DEBITNOTE_VIEW,
-        //         Permissions.DEBITNOTE_CREATE,
-        //         Permissions.DEBITNOTE_EDIT,
-        //         Permissions.DEBITNOTE_DELETE,
-        //         Permissions.DEBITNOTE_REVIEW,
-        //         Permissions.DEBITNOTE_APPROVE,
-        //       ]
-        //     },
-        //   ]
-        // },
-        // // { section: 'Inventory' },
-        // {
-        //   title: 'Inventory',
-        //   bullet: 'dot',
-        //   icon: 'flaticon-open-box',
-        //   permission: [
-        //     // Permissions.GRN_VIEW,
-        //     // Permissions.GRN_CREATE,
-        //     // Permissions.GRN_EDIT,
-        //     // Permissions.GRN_DELETE,
-        //     // Permissions.GDN_VIEW,
-        //     // Permissions.GDN_CREATE,
-        //     // Permissions.GDN_EDIT,
-        //     // Permissions.GDN_DELETE,
-        //     // Permissions.ISSUANCE_VIEW,
-        //     // Permissions.ISSUANCE_CREATE,
-        //     // Permissions.ISSUANCE_EDIT,
-        //     // Permissions.ISSUANCE_DELETE
-        //   ],
-        //   submenu: [
-        //     // {
-        //     //   title: 'Issuance',
-        //     //   page: '/' + ISSUANCE.LIST,
-        //     //   permission: [
-        //     //     Permissions.ISSUANCE_VIEW,
-        //     //     Permissions.ISSUANCE_CREATE,
-        //     //     Permissions.ISSUANCE_EDIT,
-        //     //     Permissions.ISSUANCE_DELETE
-        //     //   ],
-        //     // },
-        //     // {
-        //     // {
-        //     //   title: 'Goods Dispatch Note',
-        //     //   page: '/' + DISPATCH_NOTE.LIST,
-        //     //   permission: [
-        //     //     Permissions.GDN_VIEW,
-        //     //     Permissions.GDN_CREATE,
-        //     //     Permissions.GDN_EDIT,
-        //     //     Permissions.GDN_DELETE
-        //     //   ],
-        //     // },
-        //   ]
-        // },
-        // //endregion
-
         //region Report
         {
           title: 'Report',
@@ -1178,7 +868,6 @@ export class MenuConfig {
             Permissions.GENERALLEDGER_VIEW,
             Permissions.TRIALBALANCE_VIEW,
             Permissions.BALANCESHEET_VIEW,
-            // Permissions.PROFITLOSS_VIEW
           ],
           submenu: [
             {

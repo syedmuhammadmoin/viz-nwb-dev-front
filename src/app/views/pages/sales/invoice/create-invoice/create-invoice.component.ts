@@ -12,10 +12,8 @@ import { ProductService } from '../../../profiling/product/service/product.servi
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { SaleOrderService } from '../../sales-order/service/sale-order.service';
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
 import { IInvoiceLines } from '../model/IInvoiceLines';
-import { ISalesOrderLines } from '../../sales-order/model/ISalesOrderLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 
@@ -284,7 +282,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   }
 
   //Patch Inovice Lines From Invoice Master Data
-  patchInvoiceLines(lines: IInvoiceLines[] | ISalesOrderLines[]): FormArray {
+  patchInvoiceLines(lines: IInvoiceLines[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
