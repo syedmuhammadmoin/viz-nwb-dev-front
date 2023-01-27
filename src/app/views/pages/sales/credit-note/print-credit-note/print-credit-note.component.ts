@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { CreditNoteService} from "../service/credit-note.service";
 import { GridOptions} from "ag-grid-community";
@@ -12,8 +12,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-credit-note',
   templateUrl: './print-credit-note.component.html',
-  styleUrls: ['./print-credit-note.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-credit-note.component.scss']
 })
 
 export class PrintCreditNoteComponent extends AppComponentBase implements OnInit {
@@ -26,10 +25,10 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
     totalTax: number;
     totalAmount: number;
     edinfini : boolean;
-  sbbu : boolean;
-  vizalys : boolean;
-  localsto : any ;
-  className : any;
+    sbbu : boolean;
+    vizalys : boolean;
+    localsto : any ;
+    className : any;
   
     constructor( private creditNoteService: CreditNoteService,
                  private activatedRoute: ActivatedRoute,
@@ -85,8 +84,7 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
     }
   
     getCreditNoteData(id: number){
-      this.creditNoteService.getCreditNoteById(id).subscribe((res: IApiResponse<ICreditNote>) =>
-        {
+      this.creditNoteService.getCreditNoteById(id).subscribe((res: IApiResponse<ICreditNote>) => {
         this.creditNoteMaster = res.result;
         this.creditNoteLines = res.result.creditNoteLines;
         this.totalAmount = this.creditNoteMaster.totalAmount;

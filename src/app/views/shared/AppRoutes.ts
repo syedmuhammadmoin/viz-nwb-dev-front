@@ -21,7 +21,6 @@ export const APP_ROUTES = {
   PAYMENT: 'payment',
 
   //INVENTORY
-  DISPATCH_NOTE: 'dispatch-note',
   GOODS_RECEIVED_NOTE: 'goods-received-note',
   GOODS_RETURN_NOTE: 'goods-return-note',
   STOCK: 'stock',
@@ -71,7 +70,6 @@ export const APP_ROUTES = {
   //SALES
   CREDIT_NOTE: 'credit-note',
   INVOICE: 'invoice',
-  SALES_ORDER: 'sales-order',
 
   //WORKFLOW
   WORKFLOW: 'workflow',
@@ -82,7 +80,6 @@ export const APP_ROUTES = {
   //FIXED ASSET
   FIXED_ASSET: 'fixed-asset',
   DEPRECIATION_MODEL: 'depreciation-model',
-  ASSET_CATEGORY: 'asset-category',
   ASSET: 'asset'
 }
 
@@ -214,14 +211,6 @@ export const CRUD_ROUTES = {
 
 
   //INVENTORY SECTION
-  export const DISPATCH_NOTE = {
-    LIST: APP_ROUTES.DISPATCH_NOTE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.DISPATCH_NOTE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.DISPATCH_NOTE + '/' + route + '/' + id
-    }
-  }
-
   export const GOODS_RECEIVED_NOTE = {
     LIST: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.LIST,
     CREATE: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.CREATE,
@@ -356,10 +345,6 @@ export const CRUD_ROUTES = {
     LIST: APP_ROUTES.DEPRECIATION_MODEL + '/' + CRUD_ROUTES.LIST
   }
 
-  export const ASSET_CATEGORY = {
-    LIST: APP_ROUTES.ASSET_CATEGORY + '/' + CRUD_ROUTES.LIST,
-  }
-
   export const ASSET = {
     LIST: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.LIST,
     CREATE: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.CREATE,
@@ -467,14 +452,6 @@ export const CRUD_ROUTES = {
     AGING_REPORT: APP_ROUTES.INVOICE + '/aging-report',
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.INVOICE + '/' + route + '/' + id
-    }
-  }
-
-  export const SALES_ORDER = {
-    LIST: APP_ROUTES.SALES_ORDER + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.SALES_ORDER + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.SALES_ORDER + '/' + route + '/' + id
     }
   }
 

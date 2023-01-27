@@ -1,7 +1,6 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ICreditNote } from '../model/ICreditNote';
 import { CreditNoteService } from '../service/credit-note.service';
@@ -14,9 +13,7 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { RequireMatch } from 'src/app/views/shared/requireMatch';
 import { CREDIT_NOTE } from 'src/app/views/shared/AppRoutes';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IInvoice } from '../../invoice/model/IInvoice';
 import { ICreditNoteLines } from '../model/ICreditNoteLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -31,7 +28,7 @@ import { IInvoiceLines } from '../../invoice/model/IInvoiceLines';
 export class CreateCreditNoteComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
   public permissions = Permissions;
 
-  //kt busy for loading
+  //Loader
   isLoading: boolean
 
   //Declaring form variable
@@ -44,15 +41,12 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   @ViewChild('table', { static: true }) table: any;
 
   //Credit Note Model
-  creditNoteModel: ICreditNote;
+  creditNoteModel: ICreditNote = {} as ICreditNote;
 
   //For DropDown
   salesItem: IProduct[]
 
   isCreditNote: boolean;
-
-  //sales Order Data
-  salesOrderMaster: any;
 
   warehouseList: any = new BehaviorSubject<any>([])
 
@@ -80,9 +74,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     customerName: {
       required: 'Customer is required.',
     },
-    // salesPerson: {
-    //   required: 'sales Person is required.',
-    // },
     noteDate: {
       required: 'Credit Note Date is required.',
     },
@@ -96,7 +87,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     customerName: '',
     noteDate: '',
     campusId:''
-    //contact: '',
   };
 
   // Injecting in dependencies in constructor
@@ -126,21 +116,12 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       ])
     });
 
-    this.creditNoteModel = {
-      id: null,
-      customerId: null,
-      noteDate: null,
-      campusId: null,
-      creditNoteLines: []
-    };
-
-
+    //Get Data from Store
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getOtherAccountsFromState()
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState()
-   // this.ngxsService.getLocationFromState();
 
    this.ngxsService.products$.subscribe((res) => this.salesItem = res)
 
@@ -162,8 +143,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
   //Form Reset
   reset() {
-    // const creditNoteLineArray = <FormArray>this.creditNoteForm.get('creditNoteLines');
-    // creditNoteLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
@@ -237,7 +216,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
       warehouseId: [null]
-     // locationId: ['', [Validators.required]],
     });
   }
 
@@ -312,7 +290,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
         subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId]
-       // locationId: line.locationId,
       }))
     })
     return formArray
@@ -342,7 +319,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
 
     this.isLoading = true;
     this.mapFormValuesToCreditNoteModel();
-    console.log(this.creditNoteModel)
     if (this.creditNoteModel.id) {
       this.creditNoteService.updateCreditNote(this.creditNoteModel)
       .pipe(
@@ -369,7 +345,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
        )
         .subscribe((res: IApiResponse<ICreditNote>) => {
             this.toastService.success('Created Successfully' , 'Credit Note')
-            // this.router.navigate(['/' + CREDIT_NOTE.LIST])
             this.router.navigate(['/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , res.result.id)]);
           });
     }
@@ -424,9 +399,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     }
 
      this.creditNoteForm.get('creditNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Credit Note")
-    //  }
      this.cdRef.detectChanges()
   }
 }

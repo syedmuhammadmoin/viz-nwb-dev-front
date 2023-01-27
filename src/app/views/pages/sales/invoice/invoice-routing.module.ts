@@ -4,7 +4,6 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { ListInvoiceComponent } from './list-invoice/list-invoice.component';
 import { CreateInvoiceComponent } from './create-invoice/create-invoice.component';
-import { FormConfirmationGuard } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { InvoiceDetailsComponent } from './invoice-details/invoice-details.component';
 import { PrintInvoiceComponent } from './print-invoice/print-invoice.component';
 import { AgingReportComponent } from './aging-report/aging-report.component';
@@ -29,7 +28,6 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateInvoiceComponent,
-       // canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.INVOICE_CREATE },

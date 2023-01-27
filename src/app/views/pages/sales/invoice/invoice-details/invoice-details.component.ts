@@ -20,8 +20,7 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
 @Component({
   selector: 'kt-invoice-details',
   templateUrl: './invoice-details.component.html',
-  styleUrls: ['./invoice-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./invoice-details.component.scss']
 })
 
 export class InvoiceDetailsComponent extends AppComponentBase implements OnInit {
@@ -40,12 +39,9 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   public CREDIT_NOTE = CREDIT_NOTE;
   public RECEIPT = RECEIPT;
 
-  transactionReconModel: ITransactionRecon;
+  transactionReconModel: ITransactionRecon = {} as ITransactionRecon;
 
-  //handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //need for routing
@@ -85,7 +81,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining Invoice Columns
   columnDefs = [
     { 
       headerName: 'Item', 
@@ -137,8 +133,6 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   ];
 
   ngOnInit() {
-    // initializing empty model
-    this.transactionReconModel = {} as ITransactionRecon;
 
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
@@ -184,8 +178,6 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
       this.bpUnReconPaymentList = this.invoiceMaster.bpUnreconPaymentList == null ? [] : this.invoiceMaster.bpUnreconPaymentList;
       this.remarksList = this.invoiceMaster.remarksList ?? [] 
 
-      // //handling disablity of register payment button
-      // this.isDisabled = (this.invoiceMaster.status === "Paid" ? true : false)
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     });
@@ -206,7 +198,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
         docType: DocType.Receipt
       }
     });
-    //Recalling getInvoiceData function on dialog close
+    //Getting Updated Invoice Data
     dialogRef.afterClosed().subscribe(() => {
       this.getInvoiceData(this.invoiceId);
       this.cdRef.markForCheck();

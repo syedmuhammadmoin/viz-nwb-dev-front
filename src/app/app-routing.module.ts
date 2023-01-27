@@ -301,16 +301,6 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard] // <= Page component registration
       },
-      // Lazy Load SALES ORDER Module
-      {
-        path: APP_ROUTES.SALES_ORDER,
-        loadChildren: () =>
-          import('./views/pages/sales/sales-order/sales-order.module').then(
-            (m) => m.SalesOrderModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
-
       //purchase Section
       // Lazy Load DEBIT NOTE Module
       {
@@ -425,15 +415,6 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
-      // Lazy Load DISPATCH NOTE Module
-      {
-        path: APP_ROUTES.DISPATCH_NOTE, // <= Page URL
-        loadChildren: () =>
-          import('./views/pages/inventory/dispatch-note/dispatch-note.module').then(
-            (m) => m.DispatchNoteModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
       // Lazy Load GOODS RECEIVED NOTE Module
       {
         path: APP_ROUTES.GOODS_RECEIVED_NOTE, // <= Page URL
@@ -491,15 +472,6 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
       // FIXED ASSET
-      // Lazy Load ASSET CATEGORY Module
-      // {
-      //   path: APP_ROUTES.ASSET_CATEGORY, // <= Page URL
-      //   loadChildren: () =>
-      //     import('./views/pages/fixed-asset/asset-category/asset-category.module').then(
-      //       (m) => m.AssetCategoryModule
-      //     ),
-      //     canActivateChild: [AuthGuard]
-      // },
       // Lazy Load DEPRECIATION MODEL Module
       {
         path: APP_ROUTES.DEPRECIATION_MODEL, // <= Page URL

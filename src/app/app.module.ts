@@ -100,10 +100,6 @@ import { AccountReceivableState } from './views/pages/finance/chat-of-account/st
 import { OtherAccountState } from './views/pages/finance/chat-of-account/store/other-account.state';
 import { RoleState } from './views/pages/access-management/store/role.state';
 import { UnitOfMeasurementState } from './views/pages/profiling/unit-of-measurement/store/unit.state';
-import { CustomRemarksComponent } from './views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from './views/shared/components/custom-upload-file/custom-upload-file.component';
-import { ShowRemarksComponent } from './views/shared/components/show-remarks/show-remarks.component';
-import { AssetCategoryState } from './views/pages/fixed-asset/asset-category/store/asset-category.state';
 import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 import { AssetAccountState } from './views/pages/finance/chat-of-account/store/asset-account.state';
 import { AppInitializer } from 'AppInitializer';
@@ -186,7 +182,6 @@ export function getHighlightLanguages() {
       BankAccountState,
       CashAccountState,
       AssetAccountState,
-      AssetCategoryState,
       DepreciationModelState,
       BudgetState,
       StatusState,
@@ -220,12 +215,6 @@ export function getHighlightLanguages() {
     KtDialogService,
     DataTableService,
     SplashScreenService,
-    // BusinessPartnerResolverService,
-    // LocationResolverService,
-    // AccountResolverService,
-    // ProductResolverService,
-    // BankAccountResolverService,
-    // DepartmentResolverService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -10,7 +10,6 @@ import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { DocType, Permissions} from 'src/app/views/shared/AppEnum';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IBankAccount } from '../../../finance/bank-account/model/IBankAccount';
 import { BankAccountService } from '../../../finance/bank-account/service/bankAccount.service';
@@ -24,7 +23,6 @@ import { IAccount } from '../../../profiling/category/model/IAccount';
   selector: 'kt-register-payment',
   templateUrl: './register-payment.component.html',
   styleUrls: ['./register-payment.component.scss'],
-  // providers:[PaymentService, CashAccountService,BankAccountService]
 })
 
 export class RegisterPaymentComponent extends AppComponentBase implements OnInit {
@@ -36,7 +34,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
 
   documents = AppConst.Documents
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Limit Date
@@ -49,8 +47,8 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   @ViewChild('formDirective') private formDirective: NgForm;
 
 
-  // paymentModel declaration
-  paymentModel: IPayment;
+  // Payment Model
+  paymentModel: IPayment = {} as IPayment;
 
   // account list for drop down
   accountList: IAccount[];
@@ -149,28 +147,8 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
 
     this.isPayrollPayment = (this.data.docType === DocType.PayrollPayment) ? true : false;
 
+    //Get Data From Store
     this.ngxsService.getAccountLevel4FromState();
-
-    // initializing payment model
-    this.paymentModel = {
-      id: null,
-      paymentRegisterType: null,
-      paymentType: null,
-      businessPartnerId: null,
-      accountId: null,
-      campusId: null,
-      srbTax: null,
-      paymentDate: null,
-      chequeNo: null,
-      paymentRegisterId: null,
-      description: '',
-      deduction: null,
-      deductionAccountId: null,
-      grossPayment: null,
-      salesTax: null,
-      incomeTax: null,
-      documentLedgerId: null,
-    }
   }
 
   //update deduction account validation
@@ -189,7 +167,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   // Calculating net payment amount
   calculatingNetPayment(): void {
     this.registerPaymentForm.valueChanges.subscribe((val) => {
-      // this.netPayment = (Number(val.grossPayment) - (Number(val.discount) + Number(val.salesTax) + Number(val.incomeTax))).toFixed(2);
       this.netPayment = +((Number(val.grossPayment) - (Number(val.grossPayment) * ((Number(val.salesTax) / 100) + (Number(val.incomeTax) / 100) + (Number(val.SRBTax) / 100)))) - Number(val.deduction)).toFixed(2);
     });
   }
@@ -201,7 +178,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
     }
 
     this.isLoading = true;
-    console.log(this.paymentModel)
     this.mapFormValueToPaymentModel();
     delete this.paymentModel.id;
     this.paymentService.addPayment(this.paymentModel, this.documents.find(x => x.id === this.data.docType).value)
@@ -213,8 +189,7 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
           this.toastService.success('Registered Successfully', '' + this.documents.find(x => x.id === this.data.docType).value)
           this.dialogRef.close(this.registerPaymentForm.value);
           this.dialogRef.close()
-        },
-        (err) => console.log(err)
+        }
       );
   }
 
@@ -280,7 +255,6 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
 export interface DialogData {
   accountId: number
   businessPartnerId: number;
-  //customerInvoiceId: number;
   campusId: number,
   documentLedgerId: number;
   pendingAmount: number;

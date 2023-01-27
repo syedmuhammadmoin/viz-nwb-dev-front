@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { InvoiceService} from "../services/invoice.service";
 import { GridOptions} from "ag-grid-community";
@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-invoice',
   templateUrl: './print-invoice.component.html',
-  styleUrls: ['./print-invoice.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-invoice.component.scss']
 })
 
 export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
@@ -69,9 +68,6 @@ export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
 
       this.cdRef.detectChanges()
     })
-
-    
-
   }  
 
   printDiv(divName : any) {

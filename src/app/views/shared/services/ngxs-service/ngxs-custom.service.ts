@@ -45,8 +45,6 @@ import { RoleState } from 'src/app/views/pages/access-management/store/role.stat
 import { AccessManagementService } from 'src/app/views/pages/access-management/service/access-management.service';
 import { UnitOfMeasurementState } from 'src/app/views/pages/profiling/unit-of-measurement/store/unit.state';
 import { UnitOfMeasurementService } from 'src/app/views/pages/profiling/unit-of-measurement/service/unit-of-measurement.service';
-import { AssetCategoryState } from 'src/app/views/pages/fixed-asset/asset-category/store/asset-category.state';
-import { AssetCategoryService } from 'src/app/views/pages/fixed-asset/asset-category/service/asset-category.service';
 import { DepreciationModelState } from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
 import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
@@ -84,7 +82,6 @@ export class NgxsCustomService {
     public accessManagementService: AccessManagementService,
     public cashAccountService: CashAccountService,
     public bankAccountService: BankAccountService,
-    public assetCategoryService: AssetCategoryService,
     public depreciationModelService: DepreciationMethodService,
     public budgetService: BudgetService,
     public store: Store,
@@ -105,23 +102,6 @@ export class NgxsCustomService {
   @Select(CampusState.entities) campuses$: Observable<any>;
   @Select(CampusState.isFetchCompleted) campusFetchCompleted$: Observable<any>;
   @Select(CampusState.isLoading) campusIsLoading$: Observable<any>;
-
-
-  //  // Business Partner Country
-  //  @Select(CountryState.entities) countries$: Observable<any>;
-  //  @Select(CountryState.isFetchCompleted) countryFetchCompleted$: Observable<any>;
-  //  @Select(CountryState.isLoading) countryIsLoading$: Observable<any>;
-
-
-  //  // Business Partner State
-  //  @Select(StateState.entities) states$: Observable<any>;
-  //  @Select(StateState.isFetchCompleted) stateFetchCompleted$: Observable<any>;
-  //  @Select(StateState.isLoading) stateIsLoading$: Observable<any>;
-
-  //  //Business Partner Cities
-  //  @Select(CityState.entities) cities$: Observable<any>;
-  //  @Select(CityState.isFetchCompleted) cityFetchCompleted$: Observable<any>;
-  //  @Select(CityState.isLoading) cityIsLoading$: Observable<any>;
 
   // Level 4 Accounts
   @Select(AccountLevel4State.entities) accountsLevel4$: Observable<any>;
@@ -158,17 +138,6 @@ export class NgxsCustomService {
   @Select(CategoryState.entities) categories$: Observable<any>;
   @Select(CategoryState.isFetchCompleted) categoryFetchCompleted$: Observable<any>;
   @Select(CategoryState.isLoading) categoryIsLoading$: Observable<any>;
-
-
-  // // Location
-  // @Select(LocationState.entities) locations$: Observable<any>;
-  // @Select(LocationState.isFetchCompleted) locationFetchCompleted$: Observable<any>;
-  // @Select(LocationState.isLoading) locationIsLoading$: Observable<any>;
-
-  // // Organization
-  // @Select(OrganizationState.entities) organizations$: Observable<any>;
-  // @Select(OrganizationState.isFetchCompleted) organizationFetchCompleted$: Observable<any>;
-  // @Select(OrganizationState.isLoading) organizationIsLoading$: Observable<any>;
 
   // Product
   @Select(ProductState.entities) products$: Observable<any>;
@@ -255,11 +224,6 @@ export class NgxsCustomService {
    @Select(UnitOfMeasurementState.isFetchCompleted) unitsFetchCompleted$: Observable<any>;
    @Select(UnitOfMeasurementState.isLoading) unitsIsLoading$: Observable<any>;
 
-    // Asset Category
-    @Select(AssetCategoryState.entities) assetCategories$: Observable<any>;
-    @Select(AssetCategoryState.isFetchCompleted) assetCategoriesFetchCompleted$: Observable<any>;
-    @Select(AssetCategoryState.isLoading) assetCategoriesIsLoading$: Observable<any>;
-
     // Depreciation Model
     @Select(DepreciationModelState.entities) depreciationModels$: Observable<any>;
     @Select(DepreciationModelState.isFetchCompleted) depreciationModelsFetchCompleted$: Observable<any>;
@@ -341,48 +305,6 @@ export class NgxsCustomService {
       }
     })
   }
-
-//  // Get Country From Store if available else fetch from the server and cache.
-//  getCountryFromState() {
-//   this.countryFetchCompleted$.subscribe((res) => {
-//     console.log('Country State fetch completed: ', res);
-//     if (!res) {
-//       this.store.dispatch(new GetList(CountryState, {
-//         serviceClass: this.cscService,
-//         methodName: 'getCountries',
-//         context: this
-//       }))
-//     }
-//   })
-// }
-
-//  // Get Country state From Store if available else fetch from the server and cache.
-//  getStateFromState() {
-//   this.stateFetchCompleted$.subscribe((res) => {
-//     console.log('Country State fetch completed: ', res);
-//     if (!res) {
-//       this.store.dispatch(new GetList(StateState, {
-//         serviceClass: this.cscService,
-//         methodName: 'getStates',
-//         context: this
-//       }))
-//     }
-//   })
-// }
-
-//   // Get City State From Store if available else fetch from the server and cache.
-//   getCityFromState() {
-//     this.cityFetchCompleted$.subscribe((res) => {
-//       console.log('City State fetch completed: ', res);
-//       if (!res) {
-//         this.store.dispatch(new GetList(CityState, {
-//           serviceClass: this.cscService,
-//           methodName: 'getCities',
-//           context: this
-//         }))
-//       }
-//     })
-//   }
 
    // Get All Level 4 Accounts State From Store if available else fetch from the server and cache.
   getAccountLevel4FromState() {
@@ -480,34 +402,6 @@ export class NgxsCustomService {
       }
     })
   }
-
-  
-  // // Get Location From Store if available else fetch from the server and cache.
-  // getLocationFromState() {
-  //   this.locationFetchCompleted$.subscribe((res) => {
-  //     console.log('Location Statefetch completed: ', res);
-  //     if (!res) {
-  //       this.store.dispatch(new GetList(LocationState, {
-  //         serviceClass: this.locationService,
-  //         methodName: 'getLocationsDropdown',
-  //         context: this
-  //       }))
-  //     }
-  //   })
-  // }
-  // // Get Organization From Store if available else fetch from the server and cache.
-  // getOrganizationFromState() {
-  //   this.organizationFetchCompleted$.subscribe((res) => {
-  //     console.log('Organization State fetch completed: ', res);
-  //     if (!res) {
-  //       this.store.dispatch(new GetList(OrganizationState, {
-  //         serviceClass: this.organizationService,
-  //         methodName: 'getOrganizationsDropdown',
-  //         context: this
-  //       }))
-  //     }
-  //   })
-  // }
 
   //Get Department From Store if available else fetch from the server and cache.
   getDepartmentFromState() {
@@ -696,20 +590,6 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(CashAccountState, {
           serviceClass: this.bankAccountService,
           methodName: 'getCashAccountsDropdown',
-          context: this
-        }))
-      }
-    })
-  }
-
-  // Get Asset Category State From Store if available else fetch from the server and cache.
-  getAssetCategoryFromState() {
-    this.assetCategoriesFetchCompleted$.subscribe((res) => {
-      //console.log('Asset Category State fetch completed: ', res);
-      if (!res) {
-        this.store.dispatch(new GetList(AssetCategoryState, {
-          serviceClass: this.assetCategoryService,
-          methodName: 'getAssetCategoriesDropdown',
           context: this
         }))
       }

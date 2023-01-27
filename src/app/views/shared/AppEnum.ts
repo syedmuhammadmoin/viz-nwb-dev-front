@@ -138,14 +138,6 @@ export class Permissions {
   static INVOICE_REVIEW = 'Permissions.Finance.InvoiceClaims.Review';
   static INVOICE_APPROVE = 'Permissions.Finance.InvoiceClaims.Approve';
 
-  // sales Order
-  static SALESORDER_VIEW = 'Permissions.Finance.SalesOrderClaims.View';
-  static SALESORDER_CREATE = 'Permissions.Finance.SalesOrderClaims.Create';
-  static SALESORDER_EDIT = 'Permissions.Finance.SalesOrderClaims.Edit';
-  static SALESORDER_DELETE = 'Permissions.Finance.SalesOrderClaims.Delete';
-  static SALESORDER_REVIEW = 'Permissions.Finance.SalesOrderClaims.Review';
-  static SALESORDER_APPROVE = 'Permissions.Finance.SalesOrderClaims.Approve';
-
   // Bill
   static BILL_VIEW = 'Permissions.Finance.BillClaims.View';
   static BILL_CREATE = 'Permissions.Finance.BillClaims.Create';
@@ -290,12 +282,6 @@ export class Permissions {
   static GOODS_RETURN_NOTE_CREATE = 'Permissions.Procurement.GoodsReturnNoteClaims.Create';
   static GOODS_RETURN_NOTE_EDIT = 'Permissions.Procurement.GoodsReturnNoteClaims.Edit';
   static GOODS_RETURN_NOTE_DELETE = 'Permissions.Procurement.GoodsReturnNoteClaims.Delete';
-
-  // GDN
-  static GDN_VIEW = 'Permissions.Procurement.GDNClaims.View';
-  static GDN_CREATE = 'Permissions.Procurement.GDNClaims.Create';
-  static GDN_EDIT = 'Permissions.Procurement.GDNClaims.Edit';
-  static GDN_DELETE = 'Permissions.Procurement.GDNClaims.Delete';
 
   // Issuance
   static ISSUANCE_VIEW = 'Permissions.Procurement.IssuanceClaims.View';

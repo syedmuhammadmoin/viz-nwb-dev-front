@@ -32,9 +32,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   //Loader
   isLoading: boolean;
 
-  // for sales Order Data
-  salesOrderMaster : any;
-
   // Declaring form variable
   purchaseOrderForm: FormGroup;
 

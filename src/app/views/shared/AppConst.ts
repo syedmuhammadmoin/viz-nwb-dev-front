@@ -319,12 +319,6 @@ export class AppConst {
     'Permissions.Profiling.WarehouseClaims.Edit': 'Store Update',
     'Permissions.Profiling.WarehouseClaims.Delete': 'Store Delete',
 
-    // sales Order
-    'Permissions.SalesOrderClaims.View': 'Sales Order View',
-    'Permissions.SalesOrderClaims.Create': 'Sales Order Create',
-    'Permissions.SalesOrderClaims.Edit': 'Sales Order Update',
-    'Permissions.SalesOrderClaims.Delete': 'Sales Order Delete',
-
     //  purchase Order
     'Permissions.Procurement.PurchaseOrderClaims.View': 'Purchase Order View',
     'Permissions.Procurement.PurchaseOrderClaims.Create': 'Purchase Order Create',
@@ -372,12 +366,6 @@ export class AppConst {
     'Permissions.Procurement.GRNClaims.Create': 'Goods Receive Note Create',
     'Permissions.Procurement.GRNClaims.Edit': 'Goods Receive Note Update',
     'Permissions.Procurement.GRNClaims.Delete': 'Goods Receive Note Delete',
-
-    //  GDN
-    'Permissions.Procurement.GDNClaims.View': 'Good Dispatch Note View',
-    'Permissions.Procurement.GDNClaims.Create': 'Good Dispatch Note Create',
-    'Permissions.Procurement.GDNClaims.Edit': 'Good Dispatch Note Update',
-    'Permissions.Procurement.GDNClaims.Delete': 'Good Dispatch Note Delete',
 
     // Goods Return Note
     'Permissions.Procurement.GoodsReturnNoteClaims.View': 'Goods Return Note View',
@@ -441,12 +429,7 @@ export class AppConst {
   }
 
   static workflowStates = [
-    // {viewValue: 'Draft',  value: 'Draft', id: 0 },
-    // { value: 'Cancelled', id: 1 },
     {viewValue: 'Approved', value: 'Unpaid', id: 2},
-    // { value: 'Partial', id: 3 },
-    // { value: 'Paid', id: 4 },
-    //{viewValue: 'Submitted', value: 'Submitted', id: 5},
     {viewValue: 'Reviewed', value: 'Reviewed', id: 6},
   ]
 
@@ -472,10 +455,6 @@ export class AppConst {
     {value: 'Request Requisition' , id: DocType.Request},
     {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
     {value: 'Call Quotation' , id: DocType.CallForQuotaion}
-
-    //{value: 'sales Order', id: DocType.SalesOrder},
-    //{ value: 'Goods Dispatch Note', id: DocType.GDN },
-    //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
   ]
 
   static DocTypeValue = {
