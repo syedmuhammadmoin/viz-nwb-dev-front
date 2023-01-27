@@ -41,6 +41,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
     );
   }
 
+  //Defining Goods Return Note Columns
   columnDefs = [
     { 
       headerName: 'GRTRN #', 

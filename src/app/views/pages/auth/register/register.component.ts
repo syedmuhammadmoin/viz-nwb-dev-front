@@ -25,8 +25,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	loading = false;
 	errors: any = [];
 
-	private unsubscribe: Subject<any>; // Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
-
+	private unsubscribe: Subject<any>;
 	/**
 	 * Component constructor
 	 *
@@ -76,26 +75,13 @@ export class RegisterComponent implements OnInit, OnDestroy {
 	 */
 	initRegisterForm() {
 		this.registerForm = this.fb.group({
-			// fullname: ['', Validators.compose([
-			// 	Validators.required,
-			// 	Validators.minLength(3),
-			// 	Validators.maxLength(100)
-			// ])
-			// ],
 			email: ['', Validators.compose([
 				Validators.required,
 				Validators.email,
 				Validators.minLength(3),
-				// https://stackoverflow.com/questions/386294/what-is-the-maximum-length-of-a-valid-email-address
 				Validators.maxLength(320)
 			]),
 			],
-			// username: ['', Validators.compose([
-			// 	Validators.required,
-			// 	Validators.minLength(3),
-			// 	Validators.maxLength(100)
-			// ]),
-			// ],
 			password: ['', Validators.compose([
 				Validators.required,
 				Validators.minLength(3),
@@ -131,8 +117,6 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		this.loading = true;
 
 		if (!controls.agree.value) {
-			// you must agree the terms and condition
-			// checkbox cannot work inside mat-form-field https://github.com/angular/material2/issues/7891
 			this.authNoticeService.setNotice('You must agree the terms and condition', 'danger');
 			return;
 		}
@@ -140,15 +124,11 @@ export class RegisterComponent implements OnInit, OnDestroy {
 		const _user: User = new User();
 		_user.clear();
 		_user.email = controls.email.value;
-		// _user.username = controls.username.value;
-		// _user.fullname = controls.fullname.value;
 		_user.password = controls.password.value;
 		_user.roles = [];
 		this.auth.register(_user).pipe(
 			tap(user => {
 				if (user.isSuccess) {
-					// this.store.dispatch(new Register({authToken: user.accessToken}));
-					// pass notice message to the login page
 					this.authNoticeService.setNotice(this.translate.instant('AUTH.REGISTER.SUCCESS'), 'success');
 					this.router.navigateByUrl('/' + APP_ROUTES.AUTH + '/' + AUTH.LOGIN);
 				} else {

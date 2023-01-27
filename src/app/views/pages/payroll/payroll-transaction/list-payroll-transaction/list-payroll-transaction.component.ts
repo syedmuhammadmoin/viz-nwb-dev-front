@@ -44,6 +44,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     );
   }
 
+  //Defining Payroll Transaction Columns
   columnDefs = [
     {
       headerName: 'DocNo ',
@@ -68,44 +69,20 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
         suppressAndOrCondition: true,
       },
     },
-    // {
-    //   headerName: 'CNIC',
-    //   field: 'cnic',
-    //   tooltipField: 'employee',
-    //   // filter: 'agTextColumnFilter',
-    //   // menuTabs: ['filterMenuTab'],
-    //   // filterParams: {
-    //   //   filterOptions: ['contains'],
-    //   //   suppressAndOrCondition: true,
-    //   // },
-    // },
     {
       headerName: 'Month',
       field: 'month',
       tooltipField: 'docNo',
       suppressMenu: true,
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['contains'],
-      //   suppressAndOrCondition: true,
-      // },
       valueFormatter: (params: any) => {
         return (params.value) ? AppConst.Months.find(x => x.value === params.value)?.name : 'N/A';
-        //return AppConst.Months.find(x => x.value === params.value).name
       },
     },
     {
       headerName: 'Year',
       field: 'year',
       tooltipField: 'docNo',
-      suppressMenu: true,
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      // filterParams: {
-      //   filterOptions: ['contains'],
-      //   suppressAndOrCondition: true,
-      // },
+      suppressMenu: true
     },
     {
       headerName: 'Designation',
@@ -134,20 +111,6 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
         suppressAndOrCondition: true,
       },
     },
-    // {
-    //   headerName: 'Transaction Date',
-    //   field: 'transDate',
-    //   tooltipField: 'docNo',
-    //   // filter: 'agDateColumnFilter',
-    //   // menuTabs: ['filterMenuTab'],
-    //   // filterParams: {
-    //   //   filterOptions: ['equals'],
-    //   //   suppressAndOrCondition: true,
-    //   // },
-    //   valueFormatter: (params: any) => {
-    //     return this.dateHelperService.transformDate(params.value, 'MMM d, y');
-    //   },
-    // },
     {
       headerName: 'Basic Salary',
       field: 'basicSalary',
@@ -188,15 +151,6 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
         return params.value ? this.valueFormatter(params.value) : null;
       },
     },
-    // {
-    //   headerName: 'Tax',
-    //   field: 'taxDeduction',
-    //   suppressMenu: true,
-    //   tooltipField: 'employee',
-    //   valueFormatter: (params: any) => {
-    //     return params.value ? this.valueFormatter(params.value) : null;
-    //   },
-    // },
     {
       headerName: 'Net Pay',
       field: 'netSalary',
@@ -276,7 +230,6 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     } else {
       this.gridApi.hideOverlay();
     }
-    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, 'payrollTransactionPageName');
      this.cdRef.detectChanges();
@@ -293,33 +246,6 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     const result = await this.payrollTransactionService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getPayrollTransactions(params: any): Promise<IPaginationResponse<IPayrollTransaction[]>> {
-  //   const result = await this.payrollTransactionService.getPayrollTransactions(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getPayrollTransactions(params);
-
-  //    if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'payrollTransactionPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 }
 
 

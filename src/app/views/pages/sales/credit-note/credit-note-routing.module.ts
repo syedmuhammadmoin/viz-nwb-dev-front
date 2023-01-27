@@ -6,7 +6,6 @@ import { ListCreditNoteComponent } from './list-credit-note/list-credit-note.com
 import { CreateCreditNoteComponent } from './create-credit-note/create-credit-note.component';
 import { CreditNoteDetailComponent } from './credit-note-detail/credit-note-detail.component';
 import { PrintCreditNoteComponent } from './print-credit-note/print-credit-note.component';
-import { FormConfirmationGuard } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
 
 const route : Routes = [
@@ -28,7 +27,6 @@ const route : Routes = [
         {
           path: CRUD_ROUTES.CREATE,
           component: CreateCreditNoteComponent,
-          //canDeactivate: [FormConfirmationGuard],
           data: {
           array: [
             { permission: Permissions.CREDITNOTE_CREATE },

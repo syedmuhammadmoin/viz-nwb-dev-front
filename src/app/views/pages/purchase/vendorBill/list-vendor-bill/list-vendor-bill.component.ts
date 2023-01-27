@@ -1,12 +1,10 @@
 import { BILL } from '../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
+import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { VendorBillService } from '../services/vendor-bill.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from "../../../../shared/app-component-base";
-import { IVendorBill } from '../model/IVendorBill';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
 
@@ -14,8 +12,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-vendor-bill',
   templateUrl: './list-vendor-bill.component.html',
-  styleUrls: ['./list-vendor-bill.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-vendor-bill.component.scss']
 })
 
 export class ListVendorBillComponent extends AppComponentBase implements OnInit {
@@ -44,6 +41,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     );
   }
 
+  //Defining Bill Columns
   columnDefs = [
     {
       headerName: 'Bill #',
@@ -190,33 +188,6 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
        };
     params.api.setDatasource(dataSource)
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getBills(params: any): Promise<IPaginationResponse<IVendorBill[]>> {
-  //   const result = await this.vendorBillService.getVendorBills(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getBills(params);
-
-  //    if(isEmpty(res.result)) {
-  //     this.gridApi.showNoRowsOverlay()
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'billPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 }
 
 

@@ -18,7 +18,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class GoodsReturnNoteDetailComponent extends AppComponentBase implements OnInit {
 
-// routing variables
+  //routing variables
   public GOODS_RETURN_NOTE = GOODS_RETURN_NOTE;
   public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE;
   docType = DocType
@@ -28,22 +28,18 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
 
   showReference: boolean = false;
 
-  // handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //need for routing
   goodsReturnNoteId: number;
-
 
    //For ag grid
    gridOptions = ({} as GridOptions);
    defaultColDef: any;
    frameworkComponents : any;
 
-   // Variables for Goods Received Note data
+   //Variables for Goods Received Note data
    goodsReturnNoteLines: any;
    goodsReturnNoteMaster: any;
 
@@ -60,7 +56,7 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
                 this.gridOptions = ({} as GridOptions);
               }
 
-
+  //Defining Goods Return Note Columns
   columnDefs = [
     {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
@@ -150,7 +146,7 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
       })
   }
 
-  //upload File
+  //Upload File
   openFileUploadDialog() {
     this.dialog.open(CustomUploadFileComponent, {
       width: '740px',

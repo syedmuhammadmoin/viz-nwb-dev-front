@@ -1,6 +1,6 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, UserComponentFactory} from 'ag-grid-community';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
 import { MatDialog} from '@angular/material/Dialog'
 import { CustomTooltipComponent} from "src/app/views/shared/components/custom-tooltip/custom-tooltip.component";
 import { CreateBusinessPartnerComponent } from '../create-business-partner/create-business-partner.component';
@@ -15,8 +15,7 @@ import { APP_ROUTES } from 'src/app/views/shared/AppRoutes';
 @Component({
   selector: 'kt-list-business-partner',
   templateUrl: './list-business-partner.component.html',
-  styleUrls: ['./list-business-partner.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-business-partner.component.scss']
 })
 
 export class ListBusinessPartnerComponent extends AppComponentBase implements OnInit {
@@ -30,9 +29,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-  //tooltipData : string = "double click to edit"
 
-  // constructor
   constructor(
                public dialog: MatDialog,
                public ngxsService:NgxsCustomService,
@@ -47,6 +44,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
                  );
                }
 
+  //Defining Business Partner Columns
   columnDefs = [
     {
       headerName: 'Name', 
@@ -164,7 +162,6 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       } else {
         this.gridApi.hideOverlay();
       }
-      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       params.successCallback(res.result || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'businessPartnerPageName');
       this.cdRef.detectChanges();
@@ -185,38 +182,4 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   printBusinessPartner() {
     this.router.navigate(['/' + APP_ROUTES.BUSINESS_PARTNER + '/print/?']);
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
-  //   const result = await this.ngxsService.businessPartnerService.getBusinessPartners(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getBusinessPartners(params);
-
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'businessPartnerPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
-  // getBusinessPartners() : void {
-  //   this.ngxsService.businessPartnerService.getBusinessPartners().subscribe((res: IPaginationResponse<IBusinessPartner[]>) => {
-  //     this.businessPartnerList = res.result;
-  //     this.cdRef.detectChanges();
-  //   })
-  // }
 }

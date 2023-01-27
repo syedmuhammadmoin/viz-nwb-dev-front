@@ -17,7 +17,6 @@ import { BehaviorSubject } from 'rxjs';
 import { RequisitionService } from '../../../procurement/requisition/service/requisition.service';
 import { IRequisition } from '../../../procurement/requisition/model/IRequisition';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
-import { IEmployee } from '../../../payroll/employee/model/IEmployee';
 
 @Component({
   selector: 'kt-create-issuance',
@@ -29,7 +28,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
   public permissions = Permissions;
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -78,20 +77,16 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     },
     issuanceDate: {
       required: 'Issuance Date is required.',
-    },
-    // campusId: {
-    //   required: 'Campus is required.',
-    // }
+    }
   };
 
   // error keys..
   formErrors = {
     employeeId: '',
-    issuanceDate: '',
-    //campusId: '',
+    issuanceDate: ''
   };
 
-  // Injecting in dependencies in constructor
+  //Injecting Dependencies
   constructor(private fb: FormBuilder,
     private issuanceService: IssuanceService,
     public activatedRoute: ActivatedRoute,
@@ -128,18 +123,15 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       campusId: null,
       issuanceLines: []
     }
-    // get customer from state
+    
+    //Get Data from Store
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getEmployeeFromState();
-   
-    // get Ware house from state
     this.ngxsService.getWarehouseFromState();
-    // get item from state
     this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState()
     
     this.activatedRoute.queryParams.subscribe((param) => {
-
       const id = param.q;
       this.isIssuance = param.isIssuance;
       this.isRequisition = param.isRequisition;
@@ -156,18 +148,10 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     });
 
     this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
-
-    //handling dueDate logic
-    // this.issuanceForm.get('issuanceDate').valueChanges.subscribe((value) => {
-    //   this.minDate = new Date(value);
-    //   this.dateCondition = this.issuanceForm.get('dueDate').value < this.issuanceForm.get('issuanceDate').value
-    // })
   }
 
-  // Form Reset
+  //Form Reset
   reset() {
-    // const issuanceLineArray = this.issuanceForm.get('issuanceLines') as FormArray;
-    // issuanceLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.warehouseList.next([])
@@ -199,8 +183,6 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     issuanceLineArray.markAsTouched();
     this.table.renderRows();
   }
-
- 
 
   //Get issuance Data for Edit
   private getIssuance(id: number) {
@@ -240,11 +222,9 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   patchIssuance(data: IIssuance | IRequisition | any) {
     this.issuanceForm.patchValue({
       employeeId: data.employeeId,
-      issuanceDate: data.issuanceDate ?? data.requisitionDate,
-      //campusId: data.campusId
+      issuanceDate: data.issuanceDate ?? data.requisitionDate
     });
 
-   // this.onCampusSelected(data.campusId)
     this.showMessage = true;
 
     this.getEmployee(data.employeeId , true)
@@ -301,7 +281,6 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     }
 
     this.isLoading = true;
-    console.log(this.issuanceModel)
     if (this.issuanceModel.id) {
       this.issuanceService.updateIssuance(this.issuanceModel)
       .pipe(
@@ -328,7 +307,6 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
        )
         .subscribe((res: IApiResponse<IIssuance>) => {
             this.toastService.success('Created Successfully', 'Issuance')
-            // this.router.navigate(['/' + issuance.LIST])
             this.router.navigate(['/' + ISSUANCE.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }

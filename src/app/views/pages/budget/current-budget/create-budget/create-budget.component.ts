@@ -26,10 +26,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   // Declaring form variable
   budgetForm: FormGroup;
 
-  // Limit Date
-  maxDate = new Date();
-  dateCondition: boolean;
-
   //Title Name
   title: string = 'Create Estimated Budget'
 
@@ -40,11 +36,12 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   totalAmount: number;
   budgetMaster: any;
 
-
   // For Table Columns
   displayedColumns = ['accountId', 'amount', 'action']
+
   // Getting Table by id
   @ViewChild('table', {static: false}) table: any;
+
   // Validation messages..
   validationMessages = {
     budgetName: {
@@ -60,7 +57,8 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       required: 'Campus is required.',
     },
   };
-  // error keys..
+
+  //Keys for validation messages
   formErrors = {
     budgetName: '',
     from: '',
@@ -68,7 +66,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     campusId: ''
   };
 
-  // constructor
+  //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
     public addNewButtonService: AddModalButtonService,
@@ -103,16 +101,10 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       }
     })
 
-    // get Accounts of level 4 from state
+    //Get Data From Store
     this.ngxsService.getAccountLevel4FromState()
-     // get Budget Accounts from state
     this.ngxsService.getBudgetAccountsFromState()
     this.ngxsService.getCampusFromState();
-    // this.getBudgetAccountsFromState();
-    // this.budgetForm.get('from').valueChanges.subscribe((value) => {
-    //   this.dateCondition = this.budgetForm.get('to').value < this.budgetForm.get('from').value
-    //   // this.invoiceForm.get('dueDate').enable()
-    // })
   }
 
   public getBudgetMaster(id: any) {
@@ -156,13 +148,10 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
 
   // Form Reset
   reset() {
-    // const budgetLineArray = this.budgetForm.get('budgetLines') as FormArray;
-    // budgetLineArray.clear();
     this.formDirective.resetForm();
     this.table.renderRows();
   }
 
-  // to add bill line
   addBudgetLineClick(): void {
     const controls = this.budgetForm.controls.budgetLines as FormArray;
     controls.push(this.addBudgetLines());
@@ -177,7 +166,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     });
   }
 
-  // to remove budget line
   removeBudgetLineClick(budgetLineIndex: number): void {
     const budgetArray = this.budgetForm.get('budgetLines') as FormArray;
     budgetArray.removeAt(budgetLineIndex);
@@ -188,7 +176,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.cdRef.detectChanges()
   }
 
-  // total amount calculation
+
   totalAmountCalculation() {
     this.totalAmount = 0;
     const controls = this.budgetForm.controls.budgetLines as FormArray;
@@ -197,7 +185,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     }
   }
 
-  // Submit Form Function
+
   onSubmit(): void {
     if (this.budgetForm.get('budgetLines').invalid) {
       this.budgetForm.get('budgetLines').markAllAsTouched();
@@ -213,10 +201,9 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       return;
     }
 
-
-    this.mapFormValuesToBudgetModel();
-    //console.log(this.budgetModel)
     this.isLoading = true
+    this.mapFormValuesToBudgetModel();
+
     if (this.budgetModel.id) {
       this.budgetService.updateBudget(this.budgetModel)
       .pipe(
@@ -244,14 +231,12 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         .subscribe((res) => {
           this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
           this.toastService.success('Created Successfully', 'Estimated Budget')
-          //console.log('/' + BUDGET.LIST)
-          // this.router.navigate(['/' + BUDGET.LIST])
           this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
         });
     }
   }
 
-  // Mapping form value to budget model
+  //Mapping form values to Budget Model
   mapFormValuesToBudgetModel() {
     this.budgetModel.budgetName = this.budgetForm.value.budgetName;
     this.budgetModel.from = this.transformDate(this.budgetForm.value.from, 'yyyy-MM-dd');

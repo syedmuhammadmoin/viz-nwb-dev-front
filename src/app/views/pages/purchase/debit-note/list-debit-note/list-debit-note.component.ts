@@ -13,8 +13,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-debit-note',
   templateUrl: './list-debit-note.component.html',
-  styleUrls: ['./list-debit-note.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-debit-note.component.scss']
 })
 
 export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
@@ -44,6 +43,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     );
   }
 
+  //Defining Debit Note Columns
   columnDefs = [
     {
       headerName: 'Debit Note #',
@@ -174,33 +174,6 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     };
     params.api.setDatasource(dataSource)
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getDebitNotes(params: any): Promise<IPaginationResponse<IDebitNote[]>> {
-  //   const result = await this.debitNoteService.getDebitNotes(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getDebitNotes(params);
-
-  //    if(isEmpty(res.result)) {
-  //     this.gridApi.showNoRowsOverlay()
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'debitNotePageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // }
 }
 
 

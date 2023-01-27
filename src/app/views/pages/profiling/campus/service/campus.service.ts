@@ -31,22 +31,6 @@ export class CampusService extends AppServiceBase {
         return this.httpClient.get<IApiResponse<ICampus>>(`${this.baseUrl}/${id}`)
     }
 
-    // addCampus(campus: ICampus): Observable<ICampus> {
-    //     return this.httpClient.post<ICampus>(this.baseUrl, campus, {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json'
-    //         })
-    //     })
-    // }
-
-    // updateCampus(campus: ICampus): Observable<void> {
-    //     return this.httpClient.put<void>(`${this.baseUrl}/${campus.id}`, campus, {
-    //         headers: new HttpHeaders({
-    //             'Content-Type': 'application/json'
-    //         })
-    //     })
-    // }
-
     getRecords(params: any): Observable<any> {
       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.name?.filter) , headers: this.header});
     }

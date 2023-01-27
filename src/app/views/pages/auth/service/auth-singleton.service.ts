@@ -15,7 +15,6 @@ export class AuthSingletonService {
         if (this.decodeTokenService.getToken()) {
             const token = this.decodeTokenService.decode(this.decodeTokenService.getToken())
             isExpired = this.decodeTokenService.isTokenExpired();
-            //console.log(isExpired);
         }
         return !isExpired;
     }
@@ -37,7 +36,6 @@ export class AuthSingletonService {
         try {
             permission = this.getCurrentUser().permissions
         } catch (err) {
-            //console.log('user permission error', err);
             permission = false
         }
         return permission

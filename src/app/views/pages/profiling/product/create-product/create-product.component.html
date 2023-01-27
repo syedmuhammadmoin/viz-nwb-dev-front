@@ -10,11 +10,8 @@
     </div>
     <!-- form start -->
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
-        <!-- portlet body starts -->
         <div class="kt-portlet__body" >
-            <!-- form first section starts -->
             <div class="kt-form__section kt-form__section--first">
-               
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <!-- first row starts -->
                     <div class="row mt-1 mb-0">
@@ -59,26 +56,13 @@
                             <div class="row" >
                                <div class="col-lg-11"> <!--this row will remove when third option is uncomment-->
                                 <div class="form-group kt-form__group mb-0">
-                                    <!-- <label class="col-form-label pt-0">Product Type:</label> -->
                                     <div class="kt-radio-list">
-                                    
                                         <mat-radio-group id="product_type" formControlName="productType" [disabled]="this.isFixedAsset">
                                         <label class="col-form-label pt-0 mr-2">Product Type:</label>
-    
                                             <mat-radio-button [value]="0">Consumable</mat-radio-button>
                                             <mat-radio-button [value]="1">Service</mat-radio-button>
                                             <mat-radio-button [value]="2" *ngIf="this.isFixedAsset">Fixed Asset</mat-radio-button>
-                                            <!-- <mat-radio-button [value]="2">Fixed Asset</mat-radio-button> -->
-                                            <!-- <mat-radio-button>Consumable</mat-radio-button>
-                                            <mat-radio-button>Service</mat-radio-button>
-                                            <mat-radio-button>Fixed product</mat-radio-button> -->
-                                            <!-- <mat-error *ngIf="formErrors.productType">
-                                                <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
-                                            </mat-error> -->
                                         </mat-radio-group>
-                                        <!-- <mat-error *ngIf="formErrors.productType">
-                                            <strong style="font-size: 8px;">{{formErrors.productType}}</strong>
-                                        </mat-error> -->
                                     </div>
                                 </div>
                                </div>
@@ -92,12 +76,6 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Sales Price:</label>
-                                <!-- <kt-input-field
-                                id="product_sales"
-                                    formControlName="salesPrice"
-                                    placeholder="Enter Sales Price"
-                                    [hintText]="'Optional'">
-                                </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
                                    <input matInput formControlName="salesPrice" placeholder="Enter Sales Price" 
                                          id="product_sales" type="number" (blur)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
@@ -112,12 +90,6 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Purchase Price:</label>
-                                <!-- <kt-input-field
-                                id="product_purchase"
-                                    formControlName="purchasePrice"
-                                    placeholder="Enter Price"
-                                    [hintText]="'Optional'">
-                                </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
                                     <input matInput formControlName="purchasePrice" placeholder="Enter Purchase Price" 
                                           id="product_purchase" type="number" (blur)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
@@ -132,12 +104,6 @@
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Sales Tax (%) :</label>
-                                <!-- <kt-input-field
-                                id="product_tax"
-                                    formControlName="salesTax"
-                                    placeholder="Enter Sales Tax"
-                                    [hintText]="'Optional'">
-                                </kt-input-field> -->
                                 <mat-form-field appearance="outline" class="full-width">
                                     <input matInput formControlName="salesTax" placeholder="Enter Sales Tax" 
                                           id="product_tax" type="number" (blur)="logValidationErrors(this.productForm, this.formErrors, this.validationMessages)">
@@ -184,14 +150,12 @@
                             </div>
                         </div>
                     </div>
-                    <!-- fourth row ends -->
                 </div>
             </div>
-            <!-- form first section ends -->
         </div>
-        <!-- portlet body ends -->
+
         <mat-divider></mat-divider>
-        <!-- portlet footer start -->
+
         <div class="kt-portlet__foot p-5" >
             <!-- form action starts -->
             <div class="kt-form__actions kt-form__actions mb-0">
@@ -207,9 +171,7 @@
                     </div>
                 </div>
             </div>
-            <!-- form action ends-->
         </div>
-        <!-- portlet footer ends -->
     </form>
     <!-- form ends -->
 </div>

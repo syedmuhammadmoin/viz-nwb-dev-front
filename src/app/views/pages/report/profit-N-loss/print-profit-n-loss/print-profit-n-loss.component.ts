@@ -34,7 +34,7 @@ export class PrintProfitNLossComponent extends AppComponentBase implements OnIni
     injector: Injector,
     private activatedRoute: ActivatedRoute,
     private profitLossService: ProfitLossService,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public dynamicColorChanging : DynamicColorChangeService,
     public sanitizer: DomSanitizer,
   ) {
@@ -85,7 +85,7 @@ export class PrintProfitNLossComponent extends AppComponentBase implements OnIni
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }
 

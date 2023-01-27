@@ -27,7 +27,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateGoodsReturnNoteComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.GOODS_RETURN_NOTE_CREATE },

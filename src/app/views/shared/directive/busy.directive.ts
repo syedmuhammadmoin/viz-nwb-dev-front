@@ -44,16 +44,12 @@ export class BusyDirective implements OnInit, OnChanges {
     this.renderer.addClass(loadingContainer, this.uid);
     this.renderer.setStyle(loadingContainer, 'position', 'absolute');
     this.renderer.setStyle(loadingContainer, 'top', '0');
-    // this.renderer.setStyle(loadingContainer, 'background', '#e4e4e4');
     this.renderer.setStyle(loadingContainer, 'width', '100%');
     this.renderer.setStyle(loadingContainer, 'height', '100%');
     this.renderer.addClass(loadingContainer, 'custom-loading-container')
 
     // custom spinner -- start
-    // const spinnerContainer = this.renderer.createElement('div');
-    // this.renderer.addClass(spinnerContainer, 'lds-facebook');
     const spinnerParentDiv = this.renderer.createElement('div')
-    // this.renderer.addClass(spinnerParentDiv, 'custom-loading-parent-div');
     const spinnerChildDiv = this.renderer.createElement('div')
     this.renderer.addClass(spinnerChildDiv, 'custom-loading')
     if (this.type === TypeEnums.SINGLE_CONTENT) {
@@ -61,19 +57,9 @@ export class BusyDirective implements OnInit, OnChanges {
     } else {
       this.renderer.addClass(spinnerChildDiv, 'whole-content')
     }
-    // this.renderer.addClass(spinnerChildDiv, 'custom-loading--full-height')
-    // const spinnerInnerDiv1 = this.renderer.createElement('div');
-    // const spinnerInnerDiv2 = this.renderer.createElement('div');
-    // const spinnerInnerDiv3 = this.renderer.createElement('div');
-
-    // this.renderer.appendChild(spinnerContainer, spinnerInnerDiv1);
-    // this.renderer.appendChild(spinnerContainer, spinnerInnerDiv2);
-    // this.renderer.appendChild(spinnerContainer, spinnerInnerDiv3);
     this.renderer.appendChild(spinnerParentDiv, spinnerChildDiv);
-    // this.renderer.appendChild(spinnerContainer, spinnerParentDiv)
 
     this.renderer.appendChild(loadingContainer, spinnerParentDiv);
-    // custom spinner -- end
 
     this.renderer.appendChild(this.targetEl.nativeElement, loadingContainer);
   }

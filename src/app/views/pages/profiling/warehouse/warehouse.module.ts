@@ -22,8 +22,7 @@ import { WarehouseRoutingModule } from './warehouse-routing.module';
   ],
  
   entryComponents: [
-    CreateWarehouseComponent,
-    
+    CreateWarehouseComponent
   ],
  
 })

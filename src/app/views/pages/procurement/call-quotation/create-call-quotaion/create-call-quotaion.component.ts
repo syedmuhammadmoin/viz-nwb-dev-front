@@ -1,5 +1,5 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ICallQuotation } from '../model/ICallQuotation';
@@ -7,7 +7,6 @@ import { CallQuotationService } from '../service/call-quotation.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -21,14 +20,13 @@ import { IRequisition } from '../../requisition/model/IRequisition';
 @Component({
   selector: 'kt-create-call-quotaion',
   templateUrl: './create-call-quotaion.component.html',
-  styleUrls: ['./create-call-quotaion.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./create-call-quotaion.component.scss']
 })
 
 export class CreateCallQuotaionComponent extends AppComponentBase implements OnInit {
   public permissions = Permissions;
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -41,7 +39,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
   @ViewChild('table', { static: true }) table: any;
 
   // Quotation Model
-  callQuotationModel: ICallQuotation;
+  callQuotationModel: ICallQuotation = {} as ICallQuotation;
 
   // For DropDown
   salesItem: IProduct[];
@@ -68,10 +66,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     },
     description: {
       required: 'Description is required.',
-    },
-    // contact: {
-    //   required: 'Contact Name is required.',
-    // }
+    }
   };
 
   // error keys..
@@ -81,7 +76,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     description: '',
   };
 
-  // Injecting in dependencies in constructor
+  //Injecting Dependencies
   constructor(private fb: FormBuilder,
     private callQuotationService: CallQuotationService,
     private requisitionService: RequisitionService,
@@ -108,17 +103,8 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
       ])
     });
 
-    this.callQuotationModel = {
-      id: null,
-      vendorId: null,
-      callForQuotationDate: null,
-      description: null,
-      callForQuotationLines: []
-    }
-
-    // get customer from state
+    //Get Data from Store
     this.ngxsService.getBusinessPartnerFromState();
-    // get item from state
     this.ngxsService.getProductFromState();
 
     this.ngxsService.products$.subscribe(res => this.salesItem = res)
@@ -138,12 +124,6 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
         this.getRequisition(id);
       }
     });
-
-    //handling dueDate logic
-    // this.quotationForm.get('invoiceDate').valueChanges.subscribe((value) => {
-    //   this.minDate = new Date(value);
-    //   this.dateCondition = this.quotationForm.get('dueDate').value < this.quotationForm.get('invoiceDate').value
-    // })
   }
 
 
@@ -255,7 +235,6 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
 
     this.isLoading = true;
     this.mapFormValuesToCallQuotationModel();
-    //console.log(this.quotationModel)
     if (this.callQuotationModel.id) {
       this.callQuotationService.updateCallQuotation(this.callQuotationModel)
       .pipe(

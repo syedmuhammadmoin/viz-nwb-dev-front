@@ -95,11 +95,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       tooltipField: 'cnic',
       suppressMenu: true,
     },
-/*    {
-      headerName: 'Tax',
-      field: 'tax',
-      tooltipField: 'tax'
-    },*/
     {
       headerName: 'Net Salary',
       field: 'netSalary',
@@ -125,6 +120,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     bankAccount: '',
     description: '',
   };
+
   validationMessages = {
     departmentId: {
       required: 'Department is required.'
@@ -164,9 +160,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       }
 
     ) as GridOptions);
-    // this.getDepartmentFromState();
-    // this.getCampusesFromState();
-    // this.getEmployeeBankFromState()
   }
 
   ngOnInit(): void {
@@ -179,7 +172,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     });
 
     this.createPayrollPaymentForm = this.fb.group({
-      // paymentRegisterType: ['', Validators.required],
       bankAccount: ['', Validators.required],
       description: ['', Validators.required],
     });
@@ -192,6 +184,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.loadAccountList({value: 2})
 
     this.getLatestCampuses();
+
+    //Get Data from Store
     this.ngxsService.getDepartmentFromState();
     this.ngxsService.getCampusFromState();
   }
@@ -231,7 +225,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading.emit(true);
     const selectedTransactions = this.employeeGridApi.getSelectedRows()
-    // const body = {...this.createPayrollPaymentForm.value} //as IPaymentProcess
     const bodyList = [] //as ICreatePayrollTransLines[]
     console.log("selcted employees")
     console.log(selectedTransactions)

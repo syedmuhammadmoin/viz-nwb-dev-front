@@ -1,6 +1,6 @@
 
 
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
@@ -15,8 +15,7 @@ import { QuotationService } from '../service/quotation.service';
 @Component({
   selector: 'kt-list-quotation',
   templateUrl: './list-quotation.component.html',
-  styleUrls: ['./list-quotation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-quotation.component.scss']
 })
 
 export class ListQuotationComponent extends AppComponentBase implements OnInit {
@@ -46,6 +45,7 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
     );
   }
 
+  //Defining Quotation Columns
   columnDefs = [
     {
       headerName: 'Quotation #',
@@ -158,7 +158,6 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
     var dataSource = {
       getRows: (params: any) => {
         this.quotationService.getRecords(params).subscribe((data) => {
-          console.log(data.result)
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
@@ -172,7 +171,6 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
     };
     params.api.setDatasource(dataSource);
   }
-
 }
 
 

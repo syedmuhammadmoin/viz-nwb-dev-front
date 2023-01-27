@@ -6,14 +6,11 @@ import { ActivatedRoute, Router} from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ActionButton, DocumentStatus, Permissions} from 'src/app/views/shared/AppEnum';
-//import {AddModalButtonService} from 'src/app/shared/service/add-modal-button.service';
 import { AccessManagementService } from '../../../access-management/service/access-management.service';
 
 import { IWorkflow} from '../model/IWorkflow';
 import { WorkflowService} from '../service/workflow.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { Observable } from 'rxjs';
-import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { IStatus } from '../../status/model/IStatus';
 import { StatusService } from '../../status/service/status.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service'
@@ -33,14 +30,13 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
 
   permissions = Permissions
 
-  // busy loading
+  //Loader
   isLoading: boolean;
 
   //show Buttons
   showButtons: boolean = true; 
 
   // For Table Columns
-  // displayedColumns = ['itemId', 'description', 'accountId', 'quantity', 'salesPrice', 'salesTax', 'subTotal', 'action']
   displayedColumns = ['currentStatusId', 'action', 'nextStatusId', 'allowedRoleId', 'delete']
 
   // Getting Table by id
@@ -69,12 +65,11 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
     name: '',
     docType: '',
   };
-  // workflowMaster: any;
+  
   statuses: IStatus[] = [] as IStatus[];
 
   constructor(
     private fb: FormBuilder,
-   // public addNewButtonService: AddModalButtonService,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
     private route: Router,
@@ -104,14 +99,9 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
         this.getWorkflow(id);
       }
     })
-    //get data from state
+    //Get Data From Store
     this.ngxsService.getStatusesFromState()
     this.ngxsService.getRolesFromState();
-
-    //for check status on add new line button
-    // this.ngxsService.statuses$.subscribe((res) => {
-    //   this.statuses = res.result
-    // });
 
     this.statusService.getStatusesDropdown().subscribe((res) => {
       this.statuses = res.result
@@ -159,8 +149,6 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
 
   // Form Reset
   reset() {
-    // const workflowLineArray = this.workflowForm.get('workflowLines') as FormArray;
-    // workflowLineArray.clear();
     this.formDirective.resetForm();
     this.table.renderRows();
   }
@@ -224,7 +212,6 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
 
     this.isLoading = true
     this.mapFormValuesToworkflowModel();
-   // console.log(this.workflowModel);
     if (this.workflowModel.id) {
       this.workflowService.updateWorkflow(this.workflowModel)
       .pipe(
@@ -265,13 +252,6 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
     this.workflowModel.isActive = this.workflowForm.value.isActive;
     this.workflowModel.workflowTransitions = this.workflowForm.value.workflowLines
   }
-
-  openStatusDialog() {
-  }
-
-  // canDeactivate(): boolean | Observable<boolean> {
-  //   return !this.workflowForm.dirty;
-  // }
 
   filterFunction = (param): any => {
     return param.state !== this.docStatus.Unpaid ? param : []

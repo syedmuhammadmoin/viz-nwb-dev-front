@@ -61,12 +61,6 @@ export class DashboardComponent implements OnInit {
     this.title = this.titleService.getTitle();
         console.log("Title is " + this.title);
 
-       
-        
-    
-
-
-
       // this.chartOptions = {
       //   series: [
       //     {

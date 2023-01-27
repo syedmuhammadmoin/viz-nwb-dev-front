@@ -4,7 +4,6 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { ListCategoryComponent } from './list-category/list-category.component';
-import { CATEGORY } from 'src/app/views/shared/AppRoutes';
 
 const route : Routes = [
   {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { GridOptions} from "ag-grid-community";
 import { DomSanitizer} from "@angular/platform-browser";
@@ -11,8 +11,7 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 @Component({
   selector: 'kt-print-request-requisition',
   templateUrl: './print-request-requisition.component.html',
-  styleUrls: ['./print-request-requisition.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-request-requisition.component.scss']
 })
 export class PrintRequestRequisitionComponent implements OnInit {
 
@@ -27,7 +26,7 @@ export class PrintRequestRequisitionComponent implements OnInit {
 
   constructor( private requestRequisitionService: RequestRequisitionService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer
              ) { }
@@ -65,7 +64,7 @@ export class PrintRequestRequisitionComponent implements OnInit {
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }  
 
@@ -81,7 +80,7 @@ export class PrintRequestRequisitionComponent implements OnInit {
     this.requestRequisitionService.getRequestRequisitionById(id).subscribe((res: IApiResponse<IRequestRequisition>) => {
         this.requestRequisitionMaster = res.result;
         this.requestRequisitionLines = res.result.requestLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

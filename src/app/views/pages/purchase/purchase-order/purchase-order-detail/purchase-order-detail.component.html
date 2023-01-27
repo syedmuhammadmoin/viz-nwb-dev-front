@@ -1,15 +1,7 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <!-- <kt-portlet-header [sticky]="false" [title]="'purchase Order Detail'" [class]="'card-head-lg'">
-      <ng-container ktPortletTools>
-        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-
-        <h4 class="overall_statuses {{docStatus[purchaseOrderMaster?.state]}}"> Status: {{purchaseOrderMaster?.status}} </h4>
-      </ng-container>
-    </kt-portlet-header> -->
     <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'purchase Order Detail'">
       <ng-container class="" ktPortletTools>
-        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
         <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[purchaseOrderMaster?.state]}}"></span> {{purchaseOrderMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
@@ -50,9 +42,7 @@
             </div>
           </div>
 
-
           <div class="col-md-5 col-lg-5  mt-3">
-
             <div class="print-box">
                 <h4 class="print-box-detail-1">Doc No:
                     <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.docNo}}</span></h4>
@@ -93,7 +83,6 @@
 
 
         <div class="row mt-5">
-
           <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
@@ -124,10 +113,6 @@
                         <mat-panel-title class="paid-anount">
                           References
                         </mat-panel-title>
-                        <!-- <mat-panel-description style="color: #65c18c;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                      font-weight: bold; flex-grow: 0;">
-                          {{valueFormatter(paidAmount || 0)}}
-                        </mat-panel-description> -->
                       </mat-expansion-panel-header>
                       <table class="table text-center table-bordered">
                         <tr>
@@ -150,12 +135,6 @@
     </kt-portlet-body>
 
     <mat-divider class="mt-10"></mat-divider>
-      <div class="kt-portlet__foot p-5">
-        <div class="kt-form__actions kt-form__actions mb-0">
-          <div class="row ">
-
-          </div>
-        </div>
-      </div>
+     
   </kt-portlet>
  </div>

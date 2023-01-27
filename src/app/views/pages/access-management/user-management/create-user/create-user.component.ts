@@ -37,10 +37,11 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  //show Buttons
+  //show Buttons on Permissions
   showButtons: boolean = true;
 
   isLoading: boolean
+
   // validation messages
   validationMessages = {
     employeeId: {
@@ -63,7 +64,8 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       ConfirmPassword: 'Password & Confirm Password did\'nt\ match.'
     },
   };
-  // keys for validation
+
+  //keys for validation
   formErrors = {
     employeeId: '',
     email: '',
@@ -71,6 +73,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     confirmPassword: '',
   };
 
+  //Injecting Dependencies
   constructor(
     private accessManagementService: AccessManagementService,
     @Optional() @Inject(MAT_DIALOG_DATA) public _id: any,
@@ -149,6 +152,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       this.patchUser(this.userModel);
     })
   }
+
   patchUser(userModel: IUserModel) {
     console.log(userModel)
     this.userForm.patchValue({
@@ -192,7 +196,6 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
     }
     this.userModel.userRoles = this.userRole;
 
-    console.log("model: ", this.userModel)
     if (this.userModel.userId) {
       this.accessManagementService.updateUser(this.userModel)
       .pipe(
@@ -204,7 +207,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       )
       .subscribe((res) => {
         this.toastService.success('Updated Successfully', "User");
-        this.onCloseUserDialog();
+        this.onCloseDialog();
       })
     } else {
       this.accessManagementService.createUser(this.userModel)
@@ -217,11 +220,11 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
        )
       .subscribe((res) => {
         this.toastService.success('Created Successfully', 'User');
-        this.onCloseUserDialog();
+        this.onCloseDialog();
       })
     }
   }
-  onCloseUserDialog() {
+  onCloseDialog() {
     this.dialogRef.close();
   }
 
@@ -241,14 +244,10 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   }
 
   resetPassword() {
-    this.onCloseUserDialog();
-    const dialogRef = this.dialog.open(ResetPasswordComponent, {
+    this.onCloseDialog();
+    this.dialog.open(ResetPasswordComponent, {
       width: '800px',
-      // height: '750px',
       data: this._id
-    });
-    // Recalling getInvoiceMasterData function on dialog close
-    dialogRef.afterClosed().subscribe(() => {
     });
   }
 

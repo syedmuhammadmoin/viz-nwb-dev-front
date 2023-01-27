@@ -1,10 +1,8 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { PayrollTransactionService } from '../../payroll-transaction/service/payroll-transaction.service';
-import { FirstDataRenderedEvent, GridApi, GridOptions } from 'ag-grid-community';
+import { GridApi, GridOptions } from 'ag-grid-community';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DesignationService } from '../../designation/service/designation.service';
-import { CampusService } from '../../../profiling/campus/service/campus.service';
 import { PayrollItemService } from '../../payroll-item/service/payroll-item.service';
 import { finalize, take } from 'rxjs/operators';
 import { isEmpty} from 'lodash';
@@ -68,7 +66,6 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
 
   // ag grid
   columnDefs = [
-    //{ headerName: 'Employee Title ', field: 'employeeTitle', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
     { headerName: 'CNIC ', field: 'cnic', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
     {
@@ -90,17 +87,9 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       }
     },
     {headerName: 'Year ', field: 'year', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee'},
-    // {
-    //   headerName: 'Last Updated', field: 'modifiedDate', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee',
-    //   cellRenderer: (params: any) => {
-    //     const date = params?.data?.modifiedDate != null ? params?.data?.modifiedDate : null;
-    //     return date == null ? null : this.dateHelperService.transformDate(date, 'MMM d, y');
-    //   }
-    // },
     { headerName: 'BPS ', field: 'bpsName', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
     { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
     { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    // { headerName: 'Campus ', field: 'campus', menuTabs: ["filterMenuTab"], filter: true, tooltipField: 'employee' },
     {
       headerName: 'Basic Pay ',
       field: 'basicSalary',
@@ -184,22 +173,15 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     public designationService: DesignationService,
     public ngxsService: NgxsCustomService,
     public bpsService: PayrollItemService,
-    //public campusService: CampusService,
     public payrollReportService: PayrollReportsService
-   // public PrintPayrollTransactionService: PrintPayrollTransactionReportService
   ) {
     super(injector);
     this.gridOptions = (({ context: { componentParent: this } }) as GridOptions);
-    //this.employeeTypeList = Object.keys(this.employeeType).filter(f => !isNaN(Number(f)));
   }
-
- 
 
   onGridReady(params) {
     this.gridApi = params.api;
   }
-  //ag grid ends
-
 
   ngOnInit(): void {
     this.gridOptions = ({} as GridOptions);
@@ -216,8 +198,6 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       employeeId: [''],
       department: [''],
       designation: [''],
-     // employeeType: [''],
-      //campus: [''],
       bps: [''],
       month: [''],
       year: ['', Validators.required],
@@ -230,21 +210,19 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       month: null,
       year: null,
       employeeId: '',
-      // employeeType: '',
       designation: '',
       department: '',
-     // campus: '',
       bps: '',
       IsBankAdvice: false
     }
-    this.transactionReportForm.get('fromDate').valueChanges.subscribe((value) => {
+      this.transactionReportForm.get('fromDate').valueChanges.subscribe((value) => {
       this.dateCondition = this.transactionReportForm.get('toDate').value < this.transactionReportForm.get('fromDate').value
-      // this.invoiceForm.get('dueDate').enable()
     })
 
     this.getLatestEmployeeData();
+
+    //Get Data from Store
     this.ngxsService.getEmployeeFromState();
-   // this.ngxsService.getCampusFromState();
     this.ngxsService.getDepartmentFromState();
     this.ngxsService.getDesignationFromState();
     this.ngxsService.getBasicPayFromState();
@@ -259,7 +237,6 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       this.router.navigate(['/' + PAYROLL_TRANSACTION.CREATE])
     }
   }
-  // handling dueDate logic
 
 
   reset() {
@@ -272,12 +249,10 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
 
     if (this.transactionReportForm.invalid) {
       this.logValidationErrors(this.transactionReportForm, this.formErrors, this.validationMessages)
-      // this.transactionReportForm.markAsTouched();
       return;
     }
 
     this.mapFormValueToModel();
-    console.log('model', this.payrollTransitionModel);
     this.isLoading = true
     this.payrollReportService.getPayrollsReport(this.payrollTransitionModel)
     .pipe(
@@ -305,10 +280,8 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     this.payrollTransitionModel.fromDate = this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.fromDate), 'MMM d, y') || '';
     this.payrollTransitionModel.toDate = this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.toDate), 'MMM d, y') || '';
     this.payrollTransitionModel.employeeId = this.transactionReportForm.value.employeeId || '';
-    //this.payrollTransitionModel.employeeType = this.transactionReportForm.value.employeeType || '';
     this.payrollTransitionModel.department = this.transactionReportForm.value.department || '';
     this.payrollTransitionModel.designation = this.transactionReportForm.value.designation || '';
-   // this.payrollTransitionModel.campus = this.transactionReportForm.value.campus || '';
     this.payrollTransitionModel.month = this.transactionReportForm.value.month || '';
     this.payrollTransitionModel.year = this.transactionReportForm.value.year || '';
     this.payrollTransitionModel.bps = this.transactionReportForm.value.bps || '';
@@ -317,271 +290,6 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
   getLatestEmployeeData() {
     this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState , true))
   }
-
-    // PDF Content
-  contentData() {
-    // const data = [
-    //   {
-    //     text: 'UNIVERSITY OF SINDH',
-    //     bold: true,
-    //     fontSize: 10,
-    //     alignment: 'center',
-    //     // color: 'lightblue',
-    //     margin: [0, 35, 0, 10]
-    //   },
-    //   {
-    //     text: 'PAYROLL TRANSACTION REPORT',
-    //     bold: true,
-    //     decoration: 'underline',
-    //     fontSize: 20,
-    //     alignment: 'center',
-    //     // color: 'green',
-    //     margin: [0, 5, 0, 10]
-    //   },
-    //   {
-    //     text: 'Report for Month : ' + ((this.transactionReportForm.value.month) ? AppConst.Months[this.transactionReportForm.value.month - 1].name : '-') + ' & Year : ' + this.transactionReportForm.value.year,
-    //     alignment: 'center',
-    //     fontSize: 12,
-    //     margin: [0, 0, 0, 10]
-    //   },
-    //   {
-    //     text: 'Employee : ' + (this.transactionReportForm.value.employeeId || 'All'),
-    //     fontSize: 10,
-    //   },
-    //   {
-    //     text: 'Department : ' + (this.transactionReportForm.value.department || 'All'),
-    //     fontSize: 10,
-    //   },
-    //   {
-    //     text: 'Campus : ' + (this.transactionReportForm.value.campus || 'All'),
-    //     fontSize: 10,
-    //     margin: [0, 0, 0, 30]
-    //   },
-    //   {
-    //     table: {
-    //       headerRows: 1,
-    //       widths: [23, 39, 39, 39, 30, 44, 43, 38, 39, 39, 39, 42, 39],
-    //       body: [
-    //         [
-    //           {
-    //             text: 'S.No',
-    //             style: 'tableHeader',
-    //             fontSize: 8,
-    //             alignment: 'center'
-    //           },
-    //           {
-    //           text: 'Employee Title',
-    //           style: 'tableHeader',
-    //           fontSize:8
-    //           // margin: [10, 5, 10, 5]
-    //           },
-    //           {
-    //             text: 'Employee Name',
-    //             style: 'tableHeader',
-    //             fontSize:8
-    //           },
-    //           {
-    //             text: 'CNIC',
-    //             style: 'tableHeader',
-    //             // margin: [36, 5, 130, 5]
-    //             fontSize:8
-    //           },
-    //           {
-    //             text: 'BPS',
-    //             style: 'tableHeader',
-    //             fontSize: 8
-    //            // alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Department',
-    //             style: 'tableHeader',
-    //             fontSize: 8
-    //            // alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Designation',
-    //             style: 'tableHeader',
-    //             fontSize: 8
-    //             //alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Campus',
-    //             style: 'tableHeader',
-    //             fontSize: 8
-    //             //alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Basic Pay',
-    //             style: 'tableHeader',
-    //             fontSize: 8,
-    //             alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Allowance',
-    //             style: 'tableHeader',
-    //             fontSize: 8,
-    //             alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Gross Pay',
-    //             style: 'tableHeader',
-    //             fontSize: 8,
-    //             alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Deductions',
-    //             style: 'tableHeader',
-    //             fontSize: 8,
-    //             alignment: 'center',
-
-    //           },
-    //           {
-    //             text: 'Net Pay',
-    //             style: 'tableHeader',
-    //             fontSize: 8,
-    //             alignment: 'center',
-
-    //           },
-
-    //         ],
-    //         ...this.recordsData.map((val, index) => {
-    //           return [
-    //             { text: index + 1, fontSize: 7, alignment: 'center' },
-    //             { text: val.employeeTitle, fontSize: 7 },
-    //             { text: val.employee, fontSize: 7 },
-    //             { text: val.cnic, fontSize: 5 },
-    //             { text: val.bps , fontSize: 7 },
-    //             { text: val.department, fontSize: 7 },
-    //             { text: val.designation, fontSize: 7 },
-    //             { text: val.campus, fontSize: 7 },
-    //             { text: this.valueFormatter(val.basicSalary), fontSize: 7,  alignment: 'center' },
-    //             { text: this.valueFormatter(val.totalAllowances), fontSize: 7,  alignment: 'center' },
-    //             { text: this.valueFormatter(val.grossSalary), fontSize: 7,  alignment: 'center' },
-    //             { text: this.valueFormatter(val.totalDeductions), fontSize: 7,  alignment: 'center' },
-    //             { text: this.valueFormatter(val.netSalary) , fontSize: 7,  alignment: 'center' }
-    //           ]
-    //         })
-    //       ],
-    //     },
-    //     layout: {
-    //       paddingTop() {
-    //         return 10
-    //       },
-    //       paddingLeft() {
-    //         return 10
-    //       },
-    //       // paddingRight: function (i) { return (i === 1 || i === 2) ? 10 : 5 },
-    //       paddingRight() {
-    //         return 10
-    //       },
-    //       paddingBottom() {
-    //         return 10
-    //       }
-    //     },
-    //   },
-    //   {
-    //     table: {
-    //       headerRows: 1,
-    //       widths: [433, 43, 43, 43, 43, 43],
-    //       body: [
-    //         [
-    //           {
-    //             text: 'Total (Rs)',
-    //             fontSize: 9
-    //           },
-    //           {
-    //             text: this.valueFormatter(this.totals['basicSalary']),
-    //             alignment: 'center',
-    //             fontSize: 8
-    //           },
-    //           {
-    //             text: this.valueFormatter(this.totals['totalAllowances']),
-    //             alignment: 'center',
-    //             fontSize: 8
-    //           },
-    //           {
-    //             text: this.valueFormatter(this.totals['grossSalary']),
-    //             alignment: 'center',
-    //             fontSize: 8
-    //           },
-    //           {
-    //             text: this.valueFormatter(this.totals['totalDeductions']),
-    //             alignment: 'center',
-    //             fontSize: 8
-    //           },
-    //           {
-    //             text: this.valueFormatter(this.totals['netSalary']),
-    //             alignment: 'center',
-    //             fontSize: 8
-    //           }
-    //         ],
-    //       ],
-    //     },
-    //     layout: {
-    //       //hLineWidth: function () { return 0; },
-    //       hLineWidth: function (i) {
-    //         return (i === 1) ? 1 : 0;
-    //       },
-    //       vLineWidth: function () {
-    //         return 0;
-    //       },
-    //       paddingTop: function () {
-    //         return 10
-    //       },
-    //       paddingLeft: function () {
-    //         return 10
-    //       },
-    //       paddingRight: function () {
-    //         return 10
-    //       },
-    //       paddingBottom: function () {
-    //         return 10
-    //       },
-    //     }
-    //   }
-    // ]
-    // return data
-  }
-
-  calculateTotal(res: any, ...keys): {} {
-    const objectToReturn = {}
-    keys.forEach((key) => {
-      res.map((item) => {
-        if (objectToReturn[key]) {
-          objectToReturn[key] += item[key]
-        } else {
-          objectToReturn[key] = item[key]
-        }
-      })
-    })
-    return objectToReturn
-  }
-
-
-  printPayrollTransactions(rowData: any) {
-    // console.log('usama', rowData);
-    // this.payrollReportService.setData(rowData);
-    // this.router.navigate(['/payroll/transaction-report/print'], {
-    //   queryParams: {
-    //     fromDate: this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.fromDate), 'MMM d, y') || '',
-    //     toDate: this.dateHelperService.transformDate(new Date(this.transactionReportForm.value.toDate), 'MMM d, y') || '',
-    //     employeeId: this.transactionReportForm.value.employeeId || 'All',
-    //     employeeType: this.transactionReportForm.value.employeeType || 'All',
-    //     department: this.transactionReportForm.value.department || 'All',
-    //     designation: this.transactionReportForm.value.designation || 'All',
-    //     campus: this.transactionReportForm.value.campus || 'All',
-    //     month: this.transactionReportForm.value.month || 'All',
-    //     year: this.transactionReportForm.value.year || 'All',
-    //     bps: this.transactionReportForm.value.bps || 'All',
-    //   }})
- }
 }
 
 

@@ -12,18 +12,6 @@
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Employee:</label>
-                    <!-- <kt-simple-dropdown
-                      id="payroll_trans_employee"
-                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)"
-                      (selectionChange)="getEmployee($event.value)"
-                      (click)="getLatestEmployeeData()"
-                      [errorMessage]="formErrors.employeeId" [optionList]="ngxsService.employees$"
-                      formControlName="employeeId" matFormFieldClass="full-width"
-                      placeholder="Select Employee"
-                      propertyName="name"
-                      propertyValue="id"
-                      searchPlaceholder="Search Employee...">
-                    </kt-simple-dropdown> -->
                     <kt-simple-dropdown
                       id="payroll_trans_employee"
                       [optionList]="ngxsService.employees$"
@@ -74,18 +62,6 @@
               </div>
 
               <div class="row">
-                <!-- <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Increment:</label>
-                    <kt-input-field 
-                      id="payroll_trans_increment"
-                      formControlName="increment" 
-                      matFormFieldClass="full-width" 
-                      placeholder="Increment">
-                    </kt-input-field>
-                  </div>
-                </div> -->
-
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Month:</label>
@@ -203,9 +179,6 @@
           <div class="kt-form__actions kt-form__actions mb-0">
             <div class="row">
               <div class="col-lg-12 text-right">
-                <!-- <button type="button" class="mr-3 btn_white" mat-raised-button (click)="reset()" mat-raised-button id="payroll_trans_reset">Reset</button>
-                <button class="app-default-btn  mr-3" mat-raised-button type="submit" id="payroll_trans_save"
-                  (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(0)">Save</button> -->
                 <button class="app-default-btn" mat-raised-button type="submit" id="payroll_trans_submit"
                   (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(1)"><i class="far fa-save"></i> Submit
                 </button>

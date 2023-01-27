@@ -141,8 +141,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         month: ['', Validators.required],
         year: ['', Validators.required],
         workingDays: [0, Validators.required],
-        // presentDays: [0, [Validators.required, (control: AbstractControl) => Validators.max(this.workingDays)(control)]],
-        // leaveDays: [0, [Validators.required, (control: AbstractControl) => Validators.max(this.workingDays)(control)]],
         presentDays: [0, [Validators.required]],
         leaveDays: [0, [Validators.required]],
         accountPayableId: ['', Validators.required]
@@ -164,31 +162,17 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       this.payrollId = this._id;
       this.title = 'Edit Payroll';
       this.getPayroll(this._id);
-      //this.disableFields(this.payrollTransactionForm , "month" , "year")
     }
 
-    // this.payrollTransactionForm.get('workingDays').valueChanges.subscribe((value) => {
-    //     this.workingDays = value
-    //      this.payrollTransactionForm.get('presentDays').updateValueAndValidity()
-    //      this.payrollTransactionForm.get('leaveDays').updateValueAndValidity()
-    // })
-    // console.log(this.workingDays)
     this.getLatestEmployeeData();
+
+    //Get Data from Store
     this.ngxsService.getEmployeeFromState();
     this.ngxsService.getAccountPayableFromState();
 
     //to show message for information
     this.toastService.info('Only Account Payable field is editable.', 'Payroll')
   }
-
-  //check present and leave days lesser than working days or not
-  // onChange(value) {
-  //   this.workingDays = value
-  //   this.payrollTransactionForm.get('presentDays').updateValueAndValidity()
-  //   this.payrollTransactionForm.get('leaveDays').updateValueAndValidity()
-  // }
-
- 
 
 // patch paroll transition
   patchPayroll(payrollTransaction) {
@@ -202,14 +186,12 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       transDate: payrollTransaction.transDate,
       accountPayableId: payrollTransaction.accountPayableId
     })
-    //this.getEmployee(payrollTransaction.employeeId)
 
     this.checkSelected(payrollTransaction)
 
     this.disableFields(this.payrollTransactionForm , 
       "employeeId", "month", "year", "workingDays", "presentDays",
        "leaveDays", "transDate", "designation" ,"department" ,"basicPay")
-    //this.onChange(payrollTransaction.workingDays)
   }
 
   checkSelected(employee) {
@@ -217,7 +199,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       designation: employee.designation,
       department: employee.department,
       basicPay: employee.basicSalary,
-      //increment: employee.netIncrement,
     })
     this.payrollItems = employee?.payrollTransactionLines;
     this.calculateSalary(employee);
@@ -226,7 +207,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
 // for salary calculation
   calculateSalary(employee: any) {
-    // const employee = this.employees.find(x => x.id === employeeId);
     const workingDays = this.payrollTransactionForm.value.workingDays || 1
     const presentDays = this.payrollTransactionForm.value.presentDays || 1
     const tax = this.payrollTransactionForm.value.tax || 0
@@ -241,23 +221,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     params.api.sizeColumnsToFit();
   }
 
-  // getting employee data by id
-  // getEmployee(id: number) {
-  //   this.employeeService.getEmployeeById(id)
-  //   .pipe(
-  //     take(1),
-  //      finalize(() => {
-  //       this.isLoading = false;
-  //       this.cdRef.detectChanges();
-  //      })
-  //    )
-  //   .subscribe((res) => {
-  //     this.employee = res.result
-  //     this.checkSelected(this.employee)
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
-
 // getting payroll by id
   private getPayroll(id: any) {
     this.payrollTransactionService.getPayrollTransactionById(id)
@@ -269,7 +232,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
        })
      )
     .subscribe((res) => {
-      // this.payrollTransaction = res.result;
       this.patchPayroll(res.result);
       this.cdRef.detectChanges()
     });
@@ -279,27 +241,11 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   onSubmit() {
   
     if (this.payrollTransactionForm.invalid) {
-      //this.toastService.error("Please fill all required fields!", "Payroll")
       return;
     }
 
-
-    // if (this.payrollTransactionForm.value.workingDays <
-    //   (Number(this.payrollTransactionForm.value.presentDays) + Number(this.payrollTransactionForm.value.leaveDays))) {
-    //   this.toastService.error('Present days and Leave days sum must be less than Working days', 'Error');
-    //   return;
-    // }
-    // this.isLoading = true;
-    // this.payrollTransaction = {
-    //   ...this.payrollTransactionForm.value,
-    //   transDate: this.dateHelperService.transformDate(this.payrollTransactionForm.value.transDate, 'MM/d/y'),
-    //   id: this.payrollTransaction.id,
-    //   isSubmit: this.payrollTransaction.isSubmit
-    // } as IPayrollTransaction
-
     this.isLoading = true;
     this.mapPayrollTransactionValuesToPayrollModel()
-    console.log(this.payrollTransaction)
     if (this.payrollId) {
       this.payrollTransactionService.updatePayrollTransaction(this.payrollTransaction)
       .pipe(
@@ -320,28 +266,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
             }
           })
     } 
-    //else {
-    //   this.payrollTransactionService.createPayrollTransaction(this.payrollTransaction)
-    //   .pipe(
-    //     take(1),
-    //      finalize(() => {
-    //       this.isLoading = false;
-    //       this.cdRef.detectChanges();
-    //      })
-    //    )
-    //     .subscribe(
-    //       (res) => {
-    //         this.toastService.success('Created Successfully', "Payroll");
-            
-    //         if (!this._id) {
-    //           // this.router.navigate(['/' + PAYROLL_TRANSACTION.LIST])
-    //           this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details' , res.result.id)])
-    //         } else {
-    //           this.dialogRef.close();
-    //         }
-    //       }
-    //     )
-    // }
   }
 
   mapPayrollTransactionValuesToPayrollModel() {
@@ -372,7 +296,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   getMonth(val) {
     if (this.payrollTransactionForm.value.year != '') {
       const numberOfDays = this.getNumberOfDays(val.value, this.payrollTransactionForm.value.year);
-      //this.onChange(numberOfDays)
       this.payrollTransactionForm.patchValue({
         workingDays: numberOfDays
       })
@@ -383,7 +306,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   getYear(val) {
     if (this.payrollTransactionForm.value.month != '') {
       const numberOfDays = this.getNumberOfDays(this.payrollTransactionForm.value.month, val.value);
-     // this.onChange(numberOfDays)
       this.payrollTransactionForm.patchValue({
         workingDays: numberOfDays
       })

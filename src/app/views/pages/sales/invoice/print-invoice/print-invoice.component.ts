@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { InvoiceService} from "../services/invoice.service";
 import { GridOptions} from "ag-grid-community";
@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-invoice',
   templateUrl: './print-invoice.component.html',
-  styleUrls: ['./print-invoice.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-invoice.component.scss']
 })
 
 export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
@@ -28,7 +27,7 @@ export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
 
   constructor( private invoiceService: InvoiceService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer,
                injector: Injector
@@ -67,11 +66,8 @@ export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
-
-    
-
   }  
 
   printDiv(divName : any) {
@@ -86,7 +82,7 @@ export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
     this.invoiceService.getInvoiceById(id).subscribe((res: IApiResponse<IInvoice>) => {
         this.invoiceMaster = res.result;
         this.invoiceLines = res.result.invoiceLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

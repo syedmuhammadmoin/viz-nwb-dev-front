@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { MatDialog } from '@angular/material/dialog';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 import { Router } from '@angular/router';
 import { ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -16,7 +15,6 @@ import { isEmpty } from 'lodash';
   selector: 'kt-list-estimated-budget',
   templateUrl: './list-estimated-budget.component.html',
   styleUrls: ['./list-estimated-budget.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ListEstimatedBudgetComponent extends AppComponentBase implements OnInit {
@@ -32,6 +30,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
+  //Injecting Dependencies
   constructor( private _estimatedBudgetService: EstimatedBudgetService,
                public  dialog: MatDialog,
                private router: Router,
@@ -47,7 +46,6 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
                } 
 
     columnDefs = [
-      // { headerName: 'Account', field: 'accountId', sortable: true, filter: true, tooltipField: 'to', },
       {
         headerName: 'Estimated Budget Name', 
         field: 'estimatedBudgetName', 
@@ -61,19 +59,22 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
         },
       },
       {
-        headerName: 'From', field: 'from',  menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'to',
-  
-        // valueFormatter: (params: ICellRendererParams) => {
-        //   return this.dateHelperService.transformDate(params.value, "MMM d, y");
-        // },
+        headerName: 'From', 
+        field: 'from',  
+        menuTabs: ["filterMenuTab"], 
+        suppressMenu: true, 
+        tooltipField: 'to',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
         }
       },
       {
-        headerName: 'To', field: 'to',  menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'to',
-  
+        headerName: 'To', 
+        field: 'to',  
+        menuTabs: ["filterMenuTab"], 
+        suppressMenu: true, 
+        tooltipField: 'to',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
@@ -134,7 +135,6 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
     } else {
       this.gridApi.hideOverlay();
     }
-    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, 'anticipatedBudgetPageName');
      this.cdRef.detectChanges();
@@ -151,33 +151,6 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
     const result = await this._estimatedBudgetService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getEstimatedBudgets(params: any): Promise<IPaginationResponse<IEstimatedBudget[]>> {
-  //   const result = await this._estimatedBudgetService.getEstimatedBudgets(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getEstimatedBudgets(params);
-
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'estimatedBudgetPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 }
 
  

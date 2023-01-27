@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ValueFormatterParams } from 'ag-grid-community';
@@ -17,8 +17,7 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
 @Component({
   selector: 'kt-requisition-details',
   templateUrl: './requisition-details.component.html',
-  styleUrls: ['./requisition-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./requisition-details.component.scss']
 })
 
 export class RequisitionDetailsComponent extends AppComponentBase implements OnInit {
@@ -42,7 +41,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
 
   requisitionId: number;
 
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   gridApi: any
@@ -67,7 +66,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining Requisition Columns
   columnDefs = [
     { 
       headerName: 'Item', 
@@ -114,15 +113,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       headerName: 'Store', 
       field: 'warehouse',  
       cellStyle: {'font-size': '12px'}
-    },
-    // { 
-    //   headerName: 'Store', 
-    //   field: 'warehouse', 
-    //   cellStyle: { 'font-size': '12px' },
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return params.value || 'N/A'
-    //   }
-    // }
+    }
   ];
 
   ngOnInit() {
@@ -147,7 +138,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
    // params.api.sizeColumnsToFit();
   }
 
-  //Getting invoice master data
+  //Getting Requisition Master Data
   getRequisitionData(id: number) {
     this.requisitionService.getRequisitionById(id)
     .pipe(
@@ -168,7 +159,6 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       }
       else {
         this.gridOptions.columnApi.setColumnVisible('issuedQuantity', true);
-        console.log("entered")
         //this.gridApi?.sizeColumnsToFit();
       }
       this.cdRef.detectChanges()
@@ -204,21 +194,5 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
         this.toastService.success('' + res.message, 'Requisition');
       })
   }
-
-  //upload File
-  // openFileUploadDialog() {
-  //   this.dialog.open(CustomUploadFileComponent, {
-  //     width: '740px',
-  //     data: {
-  //       response: this.requisitionMaster,
-  //       serviceClass: this.requisitionService,
-  //       functionName: 'uploadFile',
-  //       name: 'Requisition'
-  //     },
-  //   }).afterClosed().subscribe(() => {
-  //     this.getRequisitionData(this.requisitionId)
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
 }
 

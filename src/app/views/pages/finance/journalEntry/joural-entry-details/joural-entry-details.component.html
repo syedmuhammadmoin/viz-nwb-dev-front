@@ -4,7 +4,6 @@
 
     <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Journal Entry Detail'">
       <ng-container class="" ktPortletTools>
-        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
         <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[journalEntryMaster?.state]}}"></span> {{journalEntryMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
@@ -15,22 +14,17 @@
           <div class="btn_container">
             <div class="col-md-6 col-6">
               <ng-container ktPortletTools >
-
                 <button  *ngIf="(journalEntryMaster?.state === docStatus.Draft || journalEntryMaster?.state === docStatus.Rejected) &&
                   (permission.isGranted(permissions.JOURNALENTRY_EDIT))" id="journal_edit"
                   [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('edit' , journalEntryMaster?.id)"
                   [queryParams]="{q: journalEntryMaster?.id, 'isJournalEntry': true}" type="button"  class="btn_public mr-3">
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
-
                 <button *ngIf="(permission.isGranted(permissions.JOURNALENTRY_EDIT))"  class="btn_public mr-3"
                 (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
-
                 <button  id="journal_print" [routerLink]="'/' + journalEntryRoute.ID_BASED_ROUTE('print' , journalEntryMaster?.id)" class="btn_public"
                 matTooltip="Add Bank Account"><i class="fa fa-print icon-e-p-a"></i> Print Journal Entry</button>
-
-
             </ng-container>
             </div>
 
@@ -38,11 +32,6 @@
               <button (click)="remarksDialog(action.Reject)" id="journal_reject" class="btn btn-outline-danger font-weight-bold mr-2 " >Reject</button>
               <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success font-weight-bold " id="journal_approve" >Approve</button>
             </div>
-          </div>
-
-          <div class="col-md-12 col-12 pb-3">
-
-
           </div>
 
           <div class="col-lg-5 mt-3">
@@ -65,8 +54,6 @@
                 <p style="font-weight: 400;">{{journalEntryMaster?.description || 'N/A'}}</p>
               </div>
           </div>
-
-
         </div>
 
         <div class="row">
@@ -81,7 +68,6 @@
         </div>
 
         <div class="row">
-
           <div class="col-md-7 col-7 mt-10"  *ngIf="remarksList.length > 0">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
@@ -99,9 +85,6 @@
               </div>
           </div>
         </div>
-
-
-
       </div>
     </kt-portlet-body>
   </kt-portlet>

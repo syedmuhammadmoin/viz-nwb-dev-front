@@ -19,31 +19,52 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   reconForm: FormGroup;
 
   public permissions = Permissions;
-  paymentGridApi;
-  statementGridApi;
-
+  paymentGridApi: any;
+  statementGridApi: any;
   bankAccountId: number;
   clearingAccountId: number;
-  isRowSelectable;
+  isRowSelectable: any;
   paymentsToReconcile = [];
   defaultColDef: any
-
   bankStatementList = [];
   paymentList = [];
-
-  overlayLoadingTemplate;
+  overlayLoadingTemplate: any;
   rowSelectionPayment = 'multiple';
   rowSelectionBankStatement = 'multiple';
+  private paymentColumnApi: any;
+  private statementColumnApi: any;
 
+  //Loader
+  isloading: boolean;
+
+  //Validation Messages
+  validationMessages = {
+    bankName: {
+      required: 'Bank Account is required.'
+    }
+  }
+
+  //Keys for validations messages
+  formErrors = {
+    bankName: '',
+  }
+
+  //Defining Bank Statement AG Grid Columns
   columnBankStatement = [
     { headerName: 'Ref#', field: 'docNo', menuTabs: ["filterMenuTab"], filter: true, checkboxSelection: true },
     {
-      headerName: 'Label', field: 'label', menuTabs: ["filterMenuTab"], filter: true,
+      headerName: 'Label', 
+      field: 'label', 
+      menuTabs: ["filterMenuTab"], 
+      filter: true,
       cellRenderer: (params: any) => {
         return (params.data.label||'N/A' );
       }},
     {
-      headerName: 'Date', field: 'docDate', menuTabs: ["filterMenuTab"], filter: true,
+      headerName: 'Date', 
+      field: 'docDate', 
+      menuTabs: ["filterMenuTab"], 
+      filter: true,
       cellRenderer: (params: any) => {
         const date = params.data.docDate != null ? params.data.docDate : null;
         return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
@@ -53,7 +74,6 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       headerName: 'Amount',
       menuTabs: ["filterMenuTab"],
       field: 'unreconciledAmount',
-
       filter: true,
       aggFunc: 'sum',
       valueFormatter: (params) => {
@@ -62,20 +82,9 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     }
   ];
 
+  //Defining Payment AG Grid Columns
   columnPayment = [
     { headerName: 'Doc#', field: 'docNo', menuTabs: ["filterMenuTab"], filter: true, checkboxSelection: true },
-    // {
-    //   headerName: 'Cheque No', field: 'checkNumber', menuTabs: ["filterMenuTab"], filter: true,
-    //   cellRenderer: (params) => {
-    //     return (params.data.checkNumber||'N/A')
-    //   }
-    // },
-    // {
-    //   headerName: 'Description', field: 'Description', menuTabs: ["filterMenuTab"], filter: true,
-    //   cellRenderer: (params) => {
-    //     return (params.value||'N/A')
-    //   }
-    // },
     {
       headerName: 'Date', field: 'docDate', menuTabs: ["filterMenuTab"], filter: true,
       cellRenderer: (params: any) => {
@@ -96,20 +105,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       }
     },
   ];
-  isloading: boolean;
-  // Validation Messages
-  validationMessages = {
-    bankName: {
-      required: 'Bank Account is required.'
-    }
-  }
-  // Error keys for validation messages
-  formErrors = {
-    bankName: '',
-  }
-  private paymentColumnApi: any;
-  private statementColumnApi: any;
 
+  //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
     injector: Injector,
@@ -131,12 +128,13 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       bankName: ['', [Validators.required]],
     });
 
-    this.ngxsService.getBankAccountFromState();
-
     this.defaultColDef = {
       filter: true,
       resizable: true,
     };
+
+    //Get Data from Store
+    this.ngxsService.getBankAccountFromState();
   }
 
 
@@ -163,64 +161,44 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       );
   }
 
-  onFirstDataRendered(params: any) {
-    //params.api.sizeColumnsToFit();
-  }
-
-  onBankStatementRowClicked($event: any) {
-    console.log($event.data);
+  onBankStatementRowClicked() {
     this.rowSelectionPayment = this.statementGridApi.getSelectedRows().length > 1 ? 'single' : 'multiple'
   }
 
-  onPaymentRowClicked($event: any) {
-    console.log($event.data);
+  onPaymentRowClicked() {
     this.rowSelectionBankStatement = this.paymentGridApi.getSelectedRows().length > 1 ? 'single' : 'multiple'
   }
 
 
   calculateReconTotal(array, fieldName) {
-    console.log(array)
     return array.reduce((a, b) => {
       return a + this.prepareAmountToReconcile(b[fieldName]);
     }, 0);
   }
 
   onPaymentGridReady(params) {
-    console.log('onPaymentGridReady')
     this.paymentGridApi = params.api;
     this.paymentColumnApi = params.columnApi;
-    /*setTimeout(() => {
-      const pinnedBottomData = this.generatePinnedBottomData(this.paymentGridApi, 'docNo', 'unreconciledAmount');
-      this.paymentGridApi.setPinnedBottomRowData([pinnedBottomData]);
-    }, 500)*/
   }
 
   onStatementGridReady(params) {
-    console.log('onStatementGridReady')
     this.statementGridApi = params.api;
     this.statementColumnApi = params.columnApi;
-    /*setTimeout(() => {
-      const pinnedBottomData = this.generatePinnedBottomData(this.statementGridApi, 'docNo', 'unreconciledAmount');
-      this.statementGridApi.setPinnedBottomRowData([pinnedBottomData]);
-    }, 500)*/
   }
 
   onSubmit() {
-    // TODO: Optimize the below code
+    // TODO: Optimize the below code (By Humza)
     const isStatementNegative = this.statementGridApi.getSelectedRows().every((x) => Math.sign(x.unreconciledAmount) === -1)
     const isStatementPositive = this.statementGridApi.getSelectedRows().every((x) => Math.sign(x.unreconciledAmount) !== -1)
     const isPaymentNegative = this.paymentGridApi.getSelectedRows().every((x) => Math.sign(x.unreconciledAmount) === -1)
     const isPaymentPositive = this.paymentGridApi.getSelectedRows().every((x) => Math.sign(x.unreconciledAmount) !== -1)
 
     if ((isStatementNegative && isPaymentNegative) || (isPaymentPositive && isStatementPositive)) {
-      console.log(`payment: ${isPaymentNegative}, statement: ${isStatementNegative}`)
-      // this.toastService.success('Success!')
       this.prepareToReconcile();
     } else {
       this.toastService.error('Both Sides Should either be positive or negative only!')
       return;
     }
-    // }
   }
 
   reconcile(arrayOfReconData: any[], isExceeded: boolean) {
@@ -232,10 +210,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
           this.isloading = true;
           this.loadReconciliationGridData();
           this.cdRef.detectChanges();
-          // this.sweetAlertService.createAlert({ imageUrl: 'assets/media/logos/task-completed.gif' })
           this.toastService.success('Reconciliation Successful', 'Reconciled Successfully')
         }, (err) => {
-          this.toastService.error(err?.error?.message || 'Something went wrong! Please try again later');
           this.paymentGridApi.hideOverlay();
           this.statementGridApi.hideOverlay();
         }
@@ -248,7 +224,6 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     this.bankReconService.getBankStatement(this.bankAccountId);
     this.bankReconService.bankStatementList.subscribe((res) => {
       this.bankStatementList = res;
-      console.log("stat",res);
 
       this.cdRef.detectChanges();
       setTimeout(() => {
@@ -311,8 +286,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       const statementAmount = this.prepareAmountToReconcile(this.statementGridApi.getSelectedRows()[0].unreconciledAmount)
       statementAmount
       < this.calculateReconTotal(this.paymentGridApi.getSelectedRows(), 'unreconciledAmount')
-        ? this.toastService
-          .error('Payments amount total cannot exceed Statement amount', 'Amount Exceeded')
+        ? this.toastService.error('Payments amount total cannot exceed Statement amount', 'Amount Exceeded')
         : isExceeded = false;
       this.paymentGridApi.getSelectedRows().forEach((row) => {
         this.paymentsToReconcile.push({

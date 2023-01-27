@@ -21,19 +21,7 @@ const routes: Routes = [
           ]
         },
         canActivate: [PermissionGuard]
-      },
-      // {
-      //   path: CRUD_ROUTES.DETAILS,
-      //   component: ProductDetailComponent,
-      //   data: {
-      //     array: [
-      //       { permission: Permissions.PRODUCT_VIEW },
-      //       { permission: Permissions.PRODUCT_CREATE },
-      //       { permission: Permissions.PRODUCT_EDIT },
-      //     ]
-      //   },
-      //   canActivate: [PermissionGuard]
-      // }
+      }
     ]
   }
 ]

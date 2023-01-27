@@ -102,7 +102,7 @@
                   <ng-container formArrayName="requisitionLines">
                     <div class="table-responsive">
                       <mat-table #table [dataSource]="requisitionForm.get('requisitionLines')['controls']">
-                        <!-- Account Column -->
+                        <!-- Item Column -->
                         <ng-container matColumnDef="itemId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -121,7 +121,7 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                        <!--Partner Column-->
+                        <!--Description Column-->
                         <ng-container matColumnDef="description">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -157,7 +157,7 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                         <!-- Cost Column -->
+                         <!-- Price Column -->
                         <ng-container matColumnDef="purchasePrice">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Price</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -175,20 +175,6 @@
                                 (change)="onChangeEvent($event , i , itemName)"
                                 (keyup)="onChangeEvent($event , i , itemName)">
                               </kt-input-field>
-                              <!-- <mat-form-field appearance="outline" class="full-width">
-                                <input matInput formControlName="purchasePrice" #itemName placeholder="Enter purchasePrice" (change)="onChangeEvent($event , i , itemName)"
-                                (keyup)="onChangeEvent($event , i , itemName)" [id]="'requisition_purchasePrice_' + i" type="number"
-                                 (blur)="logValidationErrors(this.requisitionForm, this.formErrors, this.validationMessages)">
-                                <mat-error *ngIf="requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.errors?.required &&
-                                        requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.touched">
-                                  <strong>purchasePrice is required</strong>
-                                </mat-error>
-  
-                                <mat-error *ngIf="requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.errors?.min &&
-                                        requisitionForm.get('requisitionLines')['controls'][i].controls.purchasePrice.touched">
-                                  <strong>purchasePrice cannot be zero</strong>
-                                </mat-error>
-                              </mat-form-field> -->
                             </div>
                           </mat-cell>
                         </ng-container>
@@ -240,9 +226,6 @@
                         <ng-container matColumnDef="action">
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
-                                  </mat-icon> -->
-
                             <button class=" app-remove-btn" type="button" [id]="'requisition_remove' + i"
                               (click)="removeRequisitionLineClick(i)">
                               <i class="fas fa-trash" aria-hidden="true"></i>

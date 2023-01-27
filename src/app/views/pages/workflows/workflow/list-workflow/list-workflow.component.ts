@@ -1,5 +1,5 @@
 import { WORKFLOW } from './../../../../shared/AppRoutes';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
@@ -15,8 +15,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-workflow',
   templateUrl: './list-workflow.component.html',
-  styleUrls: ['./list-workflow.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-workflow.component.scss']
 })
   
 export class ListWorkflowComponent extends AppComponentBase implements OnInit {
@@ -33,7 +32,6 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   columnDefs = [
-    //{ headerName: 'S.NO', valueGetter: 'node.rowIndex + 1', tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
     { 
       headerName: 'Name', 
       field: 'name',
@@ -136,7 +134,6 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       } else {
         this.gridApi.hideOverlay();
       }
-      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       params.successCallback(res.result || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'workflowPageName');
       this.cdRef.detectChanges();
@@ -153,32 +150,4 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
     const result = await this.workflowService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getWorkflows(params: any): Promise<IPaginationResponse<IWorkflow[]>> {
-  //   const result = await  this.workflowService.getWorkflows(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getWorkflows(params);
-
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'workflowPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 }

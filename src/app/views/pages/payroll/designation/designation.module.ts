@@ -14,7 +14,6 @@ import { AgGridModule } from 'ag-grid-angular';
     SharedModule,
     PartialsModule,
     DesignationRoutingModule,
-    // AgGridModule.withComponents([CustomTooltipComponent])
     AgGridModule
   ]
 })

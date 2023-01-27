@@ -7,5 +7,4 @@ export interface IInvoiceLines {
     tax: number;
     accountId: number;
     warehouseId: number;
-    // locationId: Date;
 }

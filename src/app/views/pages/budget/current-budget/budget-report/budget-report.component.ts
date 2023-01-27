@@ -18,17 +18,9 @@ import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 
 export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
-  // for permissions 
   public permissions = Permissions;
 
-  // gridOptions: GridOptions;
-
-  defaultColDef: ColDef
-  // data for PDF
-  recordsData: any = []
-  disability = true
-
-  //Busy Loading
+  //Loader
   isLoading: boolean;
   
   // Declaring FormGroup
@@ -36,14 +28,15 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
   // For AG Grid..
   gridOptions: GridOptions;
+  defaultColDef: ColDef
   rowData: IBudgetReport[] = [];
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  // Declaring Model
-  // Initializing budgetReport model...
+  //Budget Model
   budgetReportModel: IBudgetReport = {} as IBudgetReport
+
   // Validation Messages
   validationMessages = {
     budgetName: {
@@ -54,14 +47,14 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
     }
   }
 
-  // Error keys for validation messages
+  //Keys for validation messages
   formErrors = {
     budgetName: '',
     to: ''
   }
 
+  //Injecting Dependencies
   constructor(
-    // Injecting services in constructor
     private fb: FormBuilder,   
     private _budgetService: BudgetService,
     private cdRef: ChangeDetectorRef,   
@@ -72,6 +65,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
     super(injector);
   }
 
+  //Defining AG Grid Columns
   columnDefs = [
     {headerName: 'Budget Name', field: 'budgetName', suppressMenu: true,  cellStyle: {textAlign : 'left'},},
     {
@@ -112,7 +106,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
 
   ngOnInit() {
-    // AG Grid Options
+
     this.gridOptions = ({} as GridOptions);
     this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
@@ -121,13 +115,13 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
       resizable: true,
     }
 
-    // initializing formGroup
+    //Initializing formGroup
     this.budgetReportForm = this.fb.group({
       budgetName: ['', [Validators.required]],
       to: ['', [Validators.required]],
     });
 
-    //get Budgets from state
+    //Get Data From Store
     this.ngxsService.getBudgetsFromState()
   }
 
@@ -136,9 +130,9 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
       this.logValidationErrors(this.budgetReportForm, this.formErrors, this.validationMessages);
       return;
     }
-    this.mapFormValueToModel();
-    console.log(this.budgetReportModel);
+
     this.isLoading = true;
+    this.mapFormValueToModel();
     this._budgetService.getBudgetReport(this.budgetReportModel)
     .pipe(
       take(1),
@@ -149,9 +143,6 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
      )
     .subscribe((res) => {
       this.rowData = res.result;
-      this.recordsData = res.result;
-      // for PDF
-      (!isEmpty(res.result)) ? this.disability = false : this.disability = true;
       if (isEmpty(res.result)) {
         this.toastService.info('No Records Found !' , 'Budget Report')
       }
@@ -161,143 +152,14 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
   reset() {
     this.formDirective.resetForm();
-    this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;
-    // for PDF
-    this.disability = true;
   }
 
-  // Mapping value from form to model
+  //Mapping Form values to Model
   mapFormValueToModel() {
     this.budgetReportModel.to = this.formatDate(this.budgetReportForm.value.to) || '';
     this.budgetReportModel.budgetName = this.budgetReportForm.value.budgetName || '';
-  }
-
-  formatDate(date) {
-    let d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
-
-  // PDF Content
-  contentData() {
-    // const data = [
-    //   {
-    //     text: 'VIZALYS',
-    //     bold: true,
-    //     fontSize: 10,
-    //     alignment: 'center',
-    //     // color: 'lightblue',
-    //     margin: [0, 35, 0, 10]
-    //   },
-    //   {
-    //     text: 'GENERAL LEDGER REPORT',
-    //     bold: true,
-    //     decoration: 'underline',
-    //     fontSize: 20,
-    //     alignment: 'center',
-    //     // color: 'green',
-    //     margin: [0, 5, 0, 10]
-    //   },
-    //   {
-    //     text: 'Report for : ' + this.transformDate(this.budgetReportForm.value.to, 'MMM d, y') + ' - ' + this.transformDate(this.budgetReportForm.value.to2, 'MMM d, y'),
-    //     alignment: 'center',
-    //     fontSize: 12,
-    //     margin: [0, 0, 0, 10]
-    //   },
-    //   {
-    //     text: 'Business Partner : ' + (this.budgetReportForm.value.businessPartnerName || 'N/A'),
-    //     fontSize: 10,
-    //   },
-    //   {
-    //     text: 'Account : ' + (this.budgetReportForm.value.accountName || 'N/A'),
-    //     fontSize: 10,
-    //   },
-    //   {
-    //     text: 'Department : ' + (this.budgetReportForm.value.department || 'N/A'),
-    //     fontSize: 10,
-    //   },
-    //   {
-    //     text: 'Location : ' + (this.budgetReportForm.value.location || 'N/A'),
-    //     fontSize: 10,
-    //   },
-    //   {
-    //     text: 'Warehouse : ' + (this.budgetReportForm.value.warehouse || 'N/A'),
-    //     fontSize: 10,
-    //     margin: [0, 0, 0, 30]
-    //   },
-    //   {
-    //     table: {
-    //       widths: [70, 180, 180, 70, 70, 70],
-    //       body: [
-    //         [{
-    //           text: 'Doc#',
-    //           style: 'tableHeader',
-    //           // margin: [10, 5, 10, 5]
-    //         },
-    //           {
-    //             text: 'Account',
-    //             style: 'tableHeader'
-    //           },
-    //           {
-    //             text: 'Description',
-    //             style: 'tableHeader',
-    //             // margin: [36, 5, 130, 5]
-    //           },
-    //           {
-    //             text: 'Debit',
-    //             style: 'tableHeader',
-    //             alignment: 'right'
-    //           },
-    //           {
-    //             text: 'Credit',
-    //             style: 'tableHeader',
-    //             alignment: 'right'
-    //           },
-    //           {
-    //             text: 'Balance',
-    //             style: 'tableHeader',
-    //             alignment: 'right'
-    //           },
-    //         ],
-    //         ...this.recordsData.map((val) => {
-    //           return [
-    //             val.docNo,
-    //             val.accountName,
-    //             val.description,
-    //             {text: this.valueFormatter(val.debit), alignment: 'right'},
-    //             {text: this.valueFormatter(val.credit), alignment: 'right'},
-    //             {text: this.valueFormatter(val.balance), alignment: 'right'}]
-    //         })
-    //       ],
-    //     },
-    //     layout: {
-    //       paddingTop () {
-    //         return 10
-    //       },
-    //       paddingLeft () {
-    //         return 10
-    //       },
-    //       // paddingRight: function (i) { return (i === 1 || i === 2) ? 10 : 5 },
-    //       paddingRight () {
-    //         return 10
-    //       },
-    //       paddingBottom () {
-    //         return 10
-    //       }
-    //     }
-    //   }
-    // ]
-    // return data
   }
 }
 

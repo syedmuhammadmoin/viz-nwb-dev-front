@@ -49,7 +49,6 @@
 
 
         <div class="print_body_area p-s-2">
-
           <div class="print-col-5 p-s-2-one">
             <div class="print-box-one">
               <h4 class="font-14"><b>Campus:</b> <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.campusName}}</span></h4>
@@ -72,7 +71,6 @@
                     <th>Business Partner</th>
                     <th class="text-right">Debit</th>
                     <th class="text-right">Credit</th>
-                    <!-- <th>Store</th> -->
                   </tr>
                   <tr *ngFor="let line of journalEntryLines ; index as i">
                     <td>{{i + 1}}</td>
@@ -81,7 +79,6 @@
                     <td> {{line?.businessPartnerName}}</td>
                     <td class="text-right"><b>{{valueFormatter(line?.debit)}}</b></td>
                     <td class="text-right"><b>{{valueFormatter(line?.credit)}}</b></td>
-                    <!-- <td>{{line?.warehouseName || 'N/A'}}</td> -->
                   </tr>
                 </thead>
               </table>
@@ -101,26 +98,9 @@
               </h4>
             </div>
           </div>
-
-
-          <!-- <div class="print-col-12 p-s-4">
-
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-          </div> -->
-
         </div>
 
         <div class="row mt-10 ms-10">
-
           <div class="print-col-4 p-s-5 text-center">
             ______________________
             <p class="text-center">Authorized Sign</p>

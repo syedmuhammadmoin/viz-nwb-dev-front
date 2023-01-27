@@ -31,6 +31,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
   
+  //Injecting Dependencies
   constructor( private cashAccountService: CashAccountService,
                public  dialog: MatDialog,
                private cdRef: ChangeDetectorRef,
@@ -44,6 +45,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
                 );
                } 
 
+  //Injecting Dependencies
   columnDefs = [
     {
       
@@ -130,7 +132,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       width: '800px',
       data: id
     });
-    // Recalling getCashAccounts function on dialog close
+    //Get Data from Store
     dialogRef.afterClosed().subscribe( () => {
       this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
@@ -145,7 +147,6 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
     } else {
       this.gridApi.hideOverlay();
     }
-     //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, 'cashAccountPageName')
      this.cdRef.detectChanges();
@@ -162,46 +163,6 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
     const result = await this.cashAccountService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getCashAccounts(params: any): Promise<IPaginationResponse<ICashAccount[]>> {
-  //   const result = await this.cashAccountService.getCashAccounts(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //     console.log(params)
-  //    const res = await this.getCashAccounts(params);
-
-  //   // if(res.result) { 
-  //   //   this.gridApi.showNoRowsOverlay() 
-  //   // } else {
-  //   //  this.gridApi.hideOverlay();
-  //   // }
-  //   if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //     this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'cashAccountPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
-  // getCashAccounts() {
-  //   this.cashAccountService.getCashAccounts().subscribe((res: IPaginationResponse<ICashAccount[]>) => {
-  //     this.cashAccountList = res.result;
-  //     this.cdRef.markForCheck();
-  //   })
-  // }
 }
 
 

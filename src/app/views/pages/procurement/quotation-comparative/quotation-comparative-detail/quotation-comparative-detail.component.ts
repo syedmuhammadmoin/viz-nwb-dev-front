@@ -34,10 +34,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
 
   quotationComparativeMaster: any
 
-  //handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //need for routing
@@ -47,16 +44,9 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
 
   quotationId: number;
 
-  status: boolean = false;
-
   quotationList: any;
 
-  loader: boolean = true;
-
   public gridApi: GridApi
- 
-  //Showing Remarks
-  //remarksList: string[] = [];
 
   constructor(
     private quotationComparativeService: QuotationComparativeService,
@@ -71,21 +61,17 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   }
 
 
-
+ //Master Detail Work in AG Grid
   public isRowMaster: IsRowMaster = (dataItem: any) => {
     return dataItem ? dataItem.quotationLines?.length > 0 : false;
   };
+
   public columnDefs: ColDef[] = [
 
     // group cell renderer needed for expand / collapse icons
     { headerName: 'Quotation #', 
       field: 'docNo', 
       cellRenderer: 'agGroupCellRenderer', 
-      //headerCheckboxSelection: this.value,
-      // checkboxSelection: (params) => {
-      //   console.log(params)
-      //   return false
-      // },
       checkboxSelection: () => (this.checkBoxSelection),
       suppressMenu: true
     },
@@ -117,7 +103,6 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
           return this.valueFormatter(params.value)
         }
       },
-       
       ],
       angularCompileRows: false,
       defaultColDef: {
@@ -173,10 +158,6 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       this.quotationList = res.result.quotations;
       this.checkBoxSelection = (res.result.state === 5) ? true : false;
 
-      this.status = (res.result.state === DocumentStatus.Submitted) ? true : false; 
-
-      console.log(this.status)
-
       this.cdRef.detectChanges();
     });
   }
@@ -200,51 +181,5 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       this.cdRef.detectChanges();
     });
   }
-
-  //Get Remarks From User
-  // remarksDialog(action: any): void {
-  //   const dialogRef = this.dialog.open(CustomRemarksComponent, {
-  //     width: '740px'
-  //   });
-  //   //sending remarks data after dialog closed
-  //   dialogRef.afterClosed().subscribe((res) => {
-  //     if (res) {
-  //       this.workflow(action, res.data)
-  //     }
-  //   })
-  // }
-
-  // workflow(action: number , remarks: string) {
-  //   this.isLoading = true
-  //   this.quotationService.workflow({ action, docId: this.quotationMaster.id , remarks })
-  //   .pipe(
-  //     take(1),
-  //      finalize(() => {
-  //       this.isLoading = false;
-  //       this.cdRef.detectChanges();
-  //      })
-  //    )
-  //     .subscribe((res) => {
-  //       this.getQuotationComparativeData(this.quotationId);
-  //       this.cdRef.detectChanges();
-  //       this.toastService.success('' + res.message, 'Quotation');
-  //     })
-  // }
-
-  //upload File
-  // openFileUploadDialog() {
-  //   this.dialog.open(CustomUploadFileComponent, {
-  //     width: '740px',
-  //     data: {
-  //       response: this.quotationMaster,
-  //       serviceClass: this.quotationService,
-  //       functionName: 'uploadFile',
-  //       name: 'Quotation'
-  //     },
-  //   }).afterClosed().subscribe(() => {
-  //     this.getQuotationComparativeData(this.quotationId)
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
 }
 

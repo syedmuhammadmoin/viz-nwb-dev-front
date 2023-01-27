@@ -4,7 +4,6 @@ import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { ListVendorBillComponent } from './list-vendor-bill/list-vendor-bill.component';
 import { CreateVendorBillComponent } from './create-vendor-bill/create-vendor-bill.component';
-import { FormConfirmationGuard } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { VendorBillDetailComponent } from './vendor-bill-detail/vendor-bill-detail.component';
 import { PrintBillComponent } from './print-bill/print-bill.component';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
@@ -28,7 +27,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateVendorBillComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BILL_CREATE },

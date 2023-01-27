@@ -1,9 +1,8 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ConfirmPasswordValidator, CustomValidator} from '../../../auth/register/confirm-password.validator';
 import { AccessManagementService } from '../../service/access-management.service';
-import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { AuthSingletonService } from '../../../auth/service/auth-singleton.service';
 import { IResetPassword} from '../../model/IResetPassword';
 import { AuthenticationService} from '../../../auth/service/authentication.service';
@@ -34,7 +33,6 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
       hasSmallCase: 'Must contain atleast 1 in Small Case.',
       hasSpecialCharacters: 'Must contain atleast 1 in Special Character.',
       minlength: 'Must be atleast 8 characters long.'
-
     },
     confirmPassword: {
       ConfirmPassword: 'Password & Confirm Password did\'nt\ match.'
@@ -44,22 +42,22 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
     }
   };
 
+  //Keys for validation messages
   formErrors = {
     password: '',
     confirmPassword: '',
     currentPassword: ''
   };
 
+  //Injecting Dependencies
   constructor(
     injector: Injector,
     private fb: FormBuilder,
     private accessManagementService: AccessManagementService,
     private cdRef: ChangeDetectorRef,
-   // public dialogRef: MatDialogRef<ChangePasswordComponent>,
     private authSingletonService: AuthSingletonService,
     private authService: AuthenticationService,
     private router: Router,
-   // @Optional() @Inject(MAT_DIALOG_DATA) public _id: any,
   ) {
     super(injector);
   }
@@ -87,10 +85,6 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
     })
   }
 
-  onCloseResetPassDialog() {
-   // this.dialogRef.close();
-  }
-
   onSubmit() {
     if (this.changePassForm.invalid) {
       return;
@@ -115,7 +109,6 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
       this.authService.signOut().subscribe((result) => {
         if (result) {
           this.router.navigate(['/' + APP_ROUTES.AUTH + '/' + AUTH.LOGIN])
-          this.onCloseResetPassDialog();
         }
       });
     })

@@ -15,7 +15,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListEstimatedBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_VIEW },
@@ -28,7 +27,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateEstimatedBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_CREATE },
@@ -40,7 +38,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.EDIT,
         component: CreateEstimatedBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.ESTIMATED_BUDGET_EDIT },

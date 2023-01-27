@@ -24,14 +24,14 @@ import { ChartOfAccountService } from '../../../finance/chat-of-account/service/
 
 export class CreateCategoryComponent extends AppComponentBase implements OnInit {
 
-  //busy loading
+  //Loader
   isLoading: boolean
 
   // category form declaration
   categoryForm: FormGroup;
 
   // category model declaration
-  category: ICategory;
+  category: ICategory = {} as ICategory;
 
   title: string = 'Create Category'
 
@@ -65,11 +65,9 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     },
     revenueAccount: {
       required: 'Revenue Account is required.',
-      //incorrect: 'Please select valid Revenue Account'
     },
     costAccount: {
       required: 'Cost Account is required.',
-      //incorrect: 'Please select valid Cost Account'
     },
     depreciationId: {
       required: 'Depreciation Account is required.',
@@ -116,16 +114,6 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       this.title = 'Edit Category'
       this.isLoading = true
       this.getCategory(this._id);
-    } else {
-      this.category = {
-        id: null,
-        name: '',
-        inventoryAccountId: null,
-        revenueAccountId: null,
-        costAccountId: null,
-        isFixedAsset: false,
-        depreciationId: null
-      }
     }
 
     //Get Data from Store
@@ -153,7 +141,6 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
 
   // Patching values to category form
   editCategory(category: ICategory) {
-    //console.log(category)
     this.categoryForm.patchValue({
       id: category.id,
       name: category.name,

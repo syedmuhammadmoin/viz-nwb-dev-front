@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { BankAccountService }          from '../service/bankAccount.service';
@@ -14,8 +14,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-bankAccount',
   templateUrl: './list-bank-account.component.html',
-  styleUrls: ['./list-bank-account.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-bank-account.component.scss']
 })
 
 export class ListBankAccountComponent extends AppComponentBase implements OnInit {
@@ -31,6 +30,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
   
+  //Injecting Dependencies
   constructor( private _bankAccountService: BankAccountService,
                public  dialog: MatDialog,
                private cdRef: ChangeDetectorRef,
@@ -44,6 +44,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
                 );
                } 
 
+  //Defining AG Grid Columns
   columnDefs = [
     {
       headerName: 'Account Title', 
@@ -117,7 +118,6 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       filter: 'agSetColumnFilter',
       resizable: true,
     }
-    //this.gridApi.showNoRowsOverlay();
 
     this.components = {
       loadingCellRenderer: function (params: any) {
@@ -148,7 +148,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       width: '800px',
       data: id
     });
-    // Recalling getBankAccounts function on dialog close
+    //Get updated bank Account Data
     dialogRef.afterClosed().subscribe(() => {
       this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
@@ -163,7 +163,6 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
     } else {
       this.gridApi.hideOverlay();
     }
-    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, 'bankAccountPageName');
      this.cdRef.detectChanges();
@@ -180,40 +179,6 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
     const result = await this._bankAccountService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getBankAccounts(params: any): Promise<IPaginationResponse<IBankAccount[]>> {
-  //   const result = await this._bankAccountService.getBankAccounts(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //   const res = await this.getBankAccounts(params);
-    
-  //   if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'bankAccountPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
-  // getBankAccounts() : void {
-  //   this._bankAccountService.getBankAccounts().subscribe((res: IPaginationResponse<IBankAccount[]>) => {
-  //     this.bankAccountList = res.result;
-  //     this.cdRef.detectChanges();
-  //   })
-  // }
 }
 
  

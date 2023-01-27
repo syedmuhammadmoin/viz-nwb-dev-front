@@ -23,7 +23,6 @@ import {NgApexchartsModule} from "ng-apexcharts";
         component: DashboardComponent
       },
     ]),
-    // ng-bootstrap modules
     NgbDropdownModule,
     NgbTabsetModule,
     NgbTooltipModule,
@@ -34,5 +33,4 @@ import {NgApexchartsModule} from "ng-apexcharts";
     DashboardComponent,
   ]
 })
-export class DashboardModule {
-}
+export class DashboardModule { }

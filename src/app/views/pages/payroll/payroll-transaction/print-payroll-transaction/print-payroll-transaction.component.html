@@ -21,7 +21,6 @@
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
               <span class="top-heading">Salary Slip</span>
             </div>
             
@@ -36,18 +35,14 @@
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #fff;margin-top: 10px;">Transaction Date: <span class="float-right" style="font-weight: 400;">{{payrollTransactionMaster?.transDate | date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
-            
           </div>
         </div>
 
         
         <div class="print_body_area p-s-2">
-
           <div class="print-col-5 p-s-2-one" style="margin-top: 3%;">
-            
             <div class="print-box" >
               <h4>{{payrollTransactionMaster?.employee}}</h4>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
               <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
             </div>
           </div>
@@ -60,14 +55,12 @@
                     <th>S.No</th>
                     <th>Payroll Item</th>
                     <th>Account</th>
-                    <th  class="text-center">Amount</th>
-                    
-                    
+                    <th class="text-center">Amount</th>
                   </tr>
                   <tr *ngFor="let line of payrollTransactionLines; index as i">
                     <td>{{i + 1}}</td>
                     <td>{{line?.payrollItem || '---'}}</td>
-                    <td> {{line?.account}}</td>
+                    <td>{{line?.account}}</td>
                     <td class="text-right"><b>{{valueFormatter(line?.amount || 0)}}</b></td>
                   </tr>
                 </thead>
@@ -77,7 +70,6 @@
 
 
           <div class="print-col-5 ml-auto p-s-3">
-
             <div class="print-box p-s-3-one">
               <h4>Basic Salary:
                 <span class="float-right">{{valueFormatter(payrollTransactionMaster?.basicSalary || 0)}}</span>
@@ -110,31 +102,7 @@
               </h4>
             </div>
           </div>
-
-
-          <!-- <div class="print-col-12 p-s-4">
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-          </div> -->
-
-          
-
-          <!-- <div class="print-col-4 p-s-5">
-            _________________________________
-            <p class="text-center">Authorized Sign</p>
-          </div> -->
-          
         </div>
-
-
       </div>
     </div>
   </div>

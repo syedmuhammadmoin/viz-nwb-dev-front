@@ -29,26 +29,19 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   gridOptions: GridOptions;
   defaultColDef: ColDef;
 
-  public BUDGET = BUDGET;
-
-  //handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //need for routing
   budgetId: number;
+  public BUDGET = BUDGET;
 
-  //Variables for Invoice data
+  //Variables for Budget data
   budgetLines: IBudgetLines | any
   budgetMaster: IBudgetResponse | any;
-
   totalAmount = 0
   
-  pendingAmount: any;
-  status: string;
-
+  //Injecting Dependencies
   constructor(
     private _budgetService: BudgetService,
     private route: ActivatedRoute,
@@ -61,9 +54,8 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining columns of AG Grid
   columnDefs = [
-    // {headerName: 'Description', field: 'description', filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'COA', field: 'accountName', filter: true, cellStyle: {'font-size': '12px'}},
     {
       headerName: 'Amount',
@@ -109,12 +101,10 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
     .subscribe((res: IApiResponse<IBudgetResponse>) => {
       this.budgetMaster = res.result;
       this.budgetLines = res.result.budgetLines;
-      // console.log('budget', this.budgetMaster);
-      // console.log('lines',this.budgetLines)
       this.budgetLines.forEach((line: any) => {
         this.totalAmount += line.amount;
       })
       this.cdRef.markForCheck();
-    }, (err: any) => console.log(err));
+    });
   }
 }

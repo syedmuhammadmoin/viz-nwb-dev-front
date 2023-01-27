@@ -27,20 +27,20 @@ import { IGRNLines } from '../../goods-received-note/model/IGRNLines';
 
 export class CreateGoodsReturnNoteComponent extends AppComponentBase implements OnInit {
 
-  // For Loading
+  //For Loading
   isLoading: boolean;
 
-  // Declaring form variable
+  //Declaring form variable
   goodsReturnNoteForm: FormGroup;
 
-  // For Table Columns
+  //For Table Columns
   displayedColumns = ['itemId', 'description', 'quantity', 'cost', 'tax', 'subTotal', 'warehouseId', 'action']
 
-  // Getting Table by id
+  //Getting Table by id
   @ViewChild('table', {static: true}) table: any;
 
-  // Goods Return Note Model
-  goodsReturnNoteModel: IGoodsReturnNote;
+  //Goods Return Note Model
+  goodsReturnNoteModel: IGoodsReturnNote = {} as IGoodsReturnNote;
 
   title: string = 'Create Goods Return Note'
 
@@ -48,7 +48,6 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
    @ViewChild('formDirective') private formDirective: NgForm;
 
    warehouseList: any = new BehaviorSubject<any>([])
-
 
    //show toast mesasge of on campus select
   showMessage: boolean = false;
@@ -100,7 +99,6 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
   constructor(
     private fb: FormBuilder,
     private goodsReturnNoteService: GoodsReturnNoteService,
-    private purchaseOrderService: PurchaseOrderService,
     private grnService: GrnService,
     public ngxsService: NgxsCustomService,
     public businessPartnerService: BusinessPartnerService,
@@ -126,16 +124,6 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
       ])
     });
 
-    this.goodsReturnNoteModel = {
-      id: null,
-      vendorId: null,
-      returnDate: null,
-      contact: null,
-      grnId: null,
-      campusId: null,
-      goodsReturnNoteLines: []
-    }
-
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isGoodsReturnNote = param.isGoodsReturnNote;
@@ -150,22 +138,16 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
 
     this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result);
 
-    // get Vendor from state
+    //Get Data from Store
     this.ngxsService.getBusinessPartnerFromState();
-    // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
-    // get Ware house location from state
     this.ngxsService.getWarehouseFromState();
-    // get item from state
     this.ngxsService.getProductFromState();
-
     this.ngxsService.getCampusFromState();
   }
 
   // Form Reset
   reset() {
-    // const goodsReturnNoteLineArray = this.goodsReturnNoteForm.get('goodsReturnNoteLines') as FormArray;
-    // goodsReturnNoteLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
@@ -223,7 +205,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
   }
 
 
-  // Add Goods Return Note Line
+  //Add Goods Return Note Line
   addGoodsReturnNoteLineClick(): void {
     const controls = this.goodsReturnNoteForm.controls.goodsReturnNoteLines as FormArray;
     controls.push(this.addGoodsReturnNoteLines());
@@ -347,9 +329,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
 
     this.isLoading = true;
     this.mapFormValuesTogoodsReturnNoteModel();
-    console.log(this.goodsReturnNoteModel)
     if (this.goodsReturnNoteModel.id && this.isGoodsReturnNote) {
-      console.log("entered 1")
       this.goodsReturnNoteService.updateGoodsReturnNote(this.goodsReturnNoteModel)
       .pipe(
         take(1),
@@ -365,7 +345,6 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
           })
     } else if (this.grnMaster.id && this.isGRN) {
       delete this.goodsReturnNoteModel.id;
-      console.log("entered 2")
       this.goodsReturnNoteService.createGoodsReturnNote(this.goodsReturnNoteModel)
       .pipe(
         take(1),
@@ -413,9 +392,6 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     }
 
      this.goodsReturnNoteForm.get('goodsReturnNoteLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Goods Received Note")
-    //  }
      this.cdRef.detectChanges()
   }
 }

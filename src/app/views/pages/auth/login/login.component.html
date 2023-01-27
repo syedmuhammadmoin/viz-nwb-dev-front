@@ -1,115 +1,13 @@
-<!-- <div class="d-flex flex-column-fluid flex-center mt-30 mt-lg-0 ">
-
-	test start-->
-<!-- <div
-      class="position-absolute top-0 right-0 text-right mt-5 mb-15 mb-lg-0 flex-column-auto justify-content-center py-5 px-10"
-    >
-      <span class="font-weight-bold text-dark-50">
-        Don't have an account yet?
-      </span>
-      <a
-        href="javascript:;"
-        routerLink="/auth/register"
-        class="font-weight-bold ml-2"
-        id="kt_login_signup"
-      >{{ "AUTH.GENERAL.SIGNUP_BUTTON" | translate }}</a>
-    </div> -->
-<!--test end-->
-<!--begin::Signin-->
-<!-- <div class="login-form login-signin">
-  <div class="">
-    <img src="./assets/media/logos/logo1-for-login.jpg" class="rounded mx-auto d-block mb-5"
-      alt="image caption" />
-  </div> -->
-<!---- <div class="text-center mb-10 mb-lg-20">
-<h3 class="font-size-h1">Login Here</h3>
-
- - <p class="text-muted font-weight-bold">
-  Enter your username and password
-</p>-
-</div> -->
-
-<!--<kt-auth-notice></kt-auth-notice>-->
-
-<!--begin::Form-->
-<!-- <form class="form rounded-pill" [formGroup]="loginForm" autocomplete="off" novalidate="novalidate"
-  id="kt_login_form">
-  <div class="form-group mb-0">
-    <mat-form-field>
-
-      <mat-label class="font-weight-bold">{{ "AUTH.INPUT.EMAIL" | translate }}</mat-label>
-      <input matInput type="email" placeholder="{{ 'AUTH.INPUT.EMAIL' | translate }}"
-        formControlName="email" autocomplete="off" autofocus />
-      <mat-error *ngIf="isControlHasError('email', 'required')">
-        <strong>{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}</strong>
-      </mat-error>
-      <mat-error *ngIf="isControlHasError('email', 'email')">
-        <strong>{{ "AUTH.VALIDATION.INVALID_FIELD" | translate }}</strong>
-      </mat-error>
-      <mat-error *ngIf="isControlHasError('email', 'minlength')">
-        <strong>{{ "AUTH.VALIDATION.MIN_LENGTH_FIELD" | translate }} 3</strong>
-      </mat-error>
-      <mat-error *ngIf="isControlHasError('email', 'maxlength')">
-        <strong>{{ "AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate }} 320</strong>
-      </mat-error>
-    </mat-form-field>
-  </div> -->
-<!-- <div class="form-group mb-0">
-  <mat-form-field>
-    <mat-label class="font-weight-bold">{{ "AUTH.INPUT.PASSWORD" | translate }}</mat-label>
-    <input matInput type="password" placeholder="{{ 'AUTH.INPUT.PASSWORD' | translate }}"
-      formControlName="password" autocomplete="off" />
-    <mat-error *ngIf="isControlHasError('password', 'required')">
-      <strong>{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }}</strong>
-    </mat-error>
-    <mat-error *ngIf="isControlHasError('password', 'minlength')">
-      <strong>{{ "AUTH.VALIDATION.MIN_LENGTH_FIELD" | translate }} 3</strong>
-    </mat-error>
-    <mat-error *ngIf="isControlHasError('password', 'maxlength')">
-      <strong>{{ "AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate }} 100</strong>
-    </mat-error>
-  </mat-form-field>
-</div>  -->
-<!--begin::Action-->
-<!-- <div class="form-group d-flex flex-wrap justify-content-between align-items-center hover ">
-  <a href="javascript:;" routerLink="/auth/forgot-password"
-    class="text-dark-50 text-hover-indikoink my-3 mr-2" id="kt_login_forgot">{{
-    "AUTH.GENERAL.FORGOT_BUTTON" | translate }}</a>
-  <button id="kt_login_signin_submit" (click)="submit()" [ngClass]="{
-  'spinner spinner-right spinner-md spinner-light': loading
-}" class="btn bg-color-blue-berry font-weight-bold px-9 py-4 my-3">{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
-</div> -->
-<!--end::Action-->
-<!-- </form> -->
-
-<!--end::Form-->
-
-<!-- </div> -->
-<!--end::Signin-->
-
-
-<!-- Custom Login Form Start -->
 <div class="col-12">
   <div class="row ">
           <div class=" col-sm-8 col-md-8 col-lg-8 form-left-div-bg d-flex  ">
                 <div class="row ">
-                  <!-- <div class="col-sm-6 col-md-6 col-lg-6 mx-auto">
-                    <img src="../../../../../assets/media/18907.png" class="mb-5" style="width: 100%;" />
-                  </div> -->
-                  <!-- <div class="col-sm-12 col-md-12 col-lg-12">
-                    <img src="../../../../../assets/media/logos/final-white-logo.png" class="logo-img " alt="">
-                  </div> -->
                   <div class="col-sm-12 col-md-12 col-lg-12 ">
-                    <!-- <img src="../../../../../assets/media/logos/logo-wr.png"  style="width: 100%;" alt=""> -->
-                    <!-- <h3>Welcome To Nawabshah University</h3> -->
                      <p class="login-image-title" *ngIf="vizalys"></p>
                      <p class="login-image-title" *ngIf="sbbu">Main Campus SBBU Shaheed benazirabad.</p>
                      <p class="login-image-title" *ngIf="edinfini"></p>
                   </div>
                 </div>
-                
-
-                <!-- <button class="ghost" id="signUp">Sign Up</button> -->
           </div>
           <div class="col-sm-4 col-md-4 col-lg-4 form-right-div-bg bg-white">
               
@@ -118,14 +16,12 @@
                     <div class="row mb-4">
                       <div class="col-md-12 col-lg-12">
                         <div class="login-image"></div>
-                        <!-- <img src="assets/media/logos/logo-wr.png"  alt="" style="height: 130px;"> -->
                         <h1 class="heading__text">Sign in</h1>
                       </div>
                     </div>
                     
                     <div class="row mb-6">
                       <div class="col-md-12 col-lg-12 col-sm-12">
-                        <!--error mesage for email start-->
                         <div class="form-group group__sty" >
                           <input type="email" formControlName="email" class="form-control input-filed-color" placeholder="Email" />
                         
@@ -139,13 +35,6 @@
                               <strong>{{ "AUTH.VALIDATION.INVALID_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
                             </p>
                           </mat-error>
-                          <!-- <mat-error *ngIf="isControlHasError('email', 'minlength')">
-                              <strong>{{ "AUTH.VALIDATION.MIN_LENGTH_FIELD" | translate }} 3</strong>
-                          </mat-error>
-                          <mat-error *ngIf="isControlHasError('email', 'maxlength')">
-                            <strong>{{ "AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate }} 320</strong>
-                          </mat-error> -->
-                          <!--error mesage for email end-->
                         </div>
                       </div>
                     </div>
@@ -154,7 +43,6 @@
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group group__sty">
                           <input type="password" formControlName="password" class="form-control input-filed-color" autocomplete="off" placeholder="Password"  />
-                            <!--error message for password start-->
                             <mat-error *ngIf="isControlHasError('password', 'required')">
                               <p class="text-left error_msg_pass" >
                                 <strong>{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
@@ -170,7 +58,6 @@
                                   <strong>{{ "AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate }} 50 <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
                                 </p>
                             </mat-error>
-                            <!--error message for password end-->
                         </div>
                       </div>
                     </div>
@@ -178,43 +65,14 @@
 
                     <div class="row">
                       <div class="col-md-12 col-lg-12 col-sm-12">
-                         <!--begin::Action-->
                           <div class="form-group text-right">
-                            <button class="app-default-btn" id="kt_login_signin_submit" (click)="submit()" [ngClass]="{
-                            'spinner spinner-right spinner-md spinner-light': loading
-                            }" class="login-btn mt-2 pr-10 pt-1 pb-1 pl-10" mat-raised-button>{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
+                            <button class="app-default-btn" id="kt_login_signin_submit" (click)="submit()" 
+                            [ngClass]="{'spinner spinner-right spinner-md spinner-light': loading}" 
+                            class="login-btn mt-2 pr-10 pt-1 pb-1 pl-10" mat-raised-button>{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
                           </div>
-                        <!--end::Action-->
                       </div>
                     </div>
-                    
-                    
-                    
-
-
-                    
-
-
-                   
               </form>
          </div>
-
-    
   </div>
 </div>
-<!-- Custom Login Form Start -->
-
-<!--start custom::Form-->
-
-<!-- <div class="container1 mt-30 " id="container">
-
-    <div class="form-container1 sign-in-container">
-
-    </div>
-    <div class="overlay-container">
-
-    </div>
-
-
-</div> -->
-<!--end custom::Form-->

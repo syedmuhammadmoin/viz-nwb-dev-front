@@ -54,8 +54,4 @@ export class BudgetService extends AppServiceBase {
   getRecords(params: any): Observable<any> {
     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.budgetName?.filter )});
   }
-
-  // getBudgetComparisonReport(body: IBudgetComparisonReport): Observable<any> {
-  //   return this.httpClient.post(this.baseUrl + '/budgetComparisonReport', body)
-  // }
 }

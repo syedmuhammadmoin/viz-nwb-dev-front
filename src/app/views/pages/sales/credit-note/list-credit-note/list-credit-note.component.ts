@@ -1,21 +1,19 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CREDIT_NOTE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { ICreditNote } from '../model/ICreditNote';
 import { CreditNoteService } from '../service/credit-note.service';
 
 @Component({
   selector: 'kt-list-credit-note',
   templateUrl: './list-credit-note.component.html',
-  styleUrls: ['./list-credit-note.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-credit-note.component.scss']
 })
 
 export class ListCreditNoteComponent extends AppComponentBase implements OnInit {
@@ -45,7 +43,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     );
   }
 
-
+  //Defining Credit Note Columns
   columnDefs = [
     {
       headerName: 'Credit Note #',
@@ -175,38 +173,4 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
     };
     params.api.setDatasource(dataSource);
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getCreditNotes(params: any): Promise<IPaginationResponse<ICreditNote[]>> {
-  //   const result = await this.creditNoteService.getCreditNotes(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getCreditNotes(params);
-
-  //    if(isEmpty(res.result)) {
-  //     this.gridApi.showNoRowsOverlay()
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'creditNotePageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
-  // getCreditNoteList() {
-  //   this.creditNoteService.getCreditNotes().subscribe((res: IPaginationResponse<ICreditNote[]>) => {
-  //       this.creditNoteList = res.result;
-  //       this.cdRef.markForCheck();
-  //     })
-  // }
 }

@@ -21,7 +21,6 @@
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
               <span class="top-heading">ANTICIPATED BUDGET</span>
             </div>
             
@@ -36,15 +35,12 @@
                 <h4 class="print-page-items">To Date: <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
-            
           </div>
         </div>
 
         
         <div class="print_body_area p-s-2">
-
           <div class="print-col-5 p-s-2-one">
-            
             <div class="print-box" >
               <h4>{{estimatedBudgetMaster?.estimatedBudgetName}}</h4>
               <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
@@ -62,8 +58,6 @@
                     <th >Calculation Type</th>
                     <th >Value</th>
                     <th class="text-center">Estimated Value</th>
-                    
-                    
                   </tr>
                   <tr *ngFor="let line of estimatedBudgetLines; index as i">
                     <td>{{i + 1}}</td>
@@ -79,10 +73,7 @@
           </div>
 
 
-          
-
           <div class="print-col-12 p-s-4">
-            
             <div class="print-box p-s-4-one">
               <p>Terms and conditions:</p>
             </div>
@@ -90,23 +81,16 @@
               <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </h4>
             </div>
-
             <div class="print-box p-s-4-three">
               <p>Thankyou for your Business</p>
             </div>
-            
           </div>
-
-          
 
           <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorized Sign</p>
           </div>
-          
         </div>
-
-
       </div>
     </div>
   </div>

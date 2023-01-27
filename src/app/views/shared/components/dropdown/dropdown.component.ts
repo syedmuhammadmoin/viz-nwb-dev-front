@@ -4,8 +4,6 @@ import {
   ControlValueAccessor,
   FormControl,
   FormControlDirective, NG_VALUE_ACCESSOR,
-  NgControl,
-  ValidatorFn,
   Validators
 } from '@angular/forms';
 import {Observable, ReplaySubject} from 'rxjs';
@@ -28,7 +26,6 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   @Input() formControl: FormControl;
   @Input() formControlName: string;
   @Input() optionList: Observable<any> | any;
-  // @Input() optionList: any = []
   @Input() propertyName: string;
   @Input() propertyValue: string;
   @Input() isRequired = false;
@@ -125,11 +122,7 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
 
   writeValue(obj: any): void {
     this.formControlDirective.valueAccessor.writeValue(obj);
-    // this.customSelect.nativeElement.value = obj;
   }
-
-  /*onTouched() {}
-  onChange(event) {}*/
 
   emitClickEvent() {
     this.clickEvent.emit();

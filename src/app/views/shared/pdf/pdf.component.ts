@@ -24,7 +24,6 @@ export class PdfComponent implements OnInit {
   //PDF Work Here ....
   async generatePdf() {
     const imageUrl = await this.getBase64ImageFromURL("assets/media/logos/v-logo2.png")
-    //const imageUrl = await this.getBase64ImageFromURL("assets/media/logos/favicon.png")
     const documentDefinition = {
      
       pageOrientation: 'landscape',
@@ -83,15 +82,6 @@ export class PdfComponent implements OnInit {
         }
     },
         
-      // footer: {
-      //   columns: [ 
-      //       { 
-      //         alignment: 'center',
-      //         text: 'Copyright © University of Sindh, Jamshoro. 2021 All Rights Reserved.'
-      //       },
-      //   ],
-      // },
-
       content: [
         this.content
       ],

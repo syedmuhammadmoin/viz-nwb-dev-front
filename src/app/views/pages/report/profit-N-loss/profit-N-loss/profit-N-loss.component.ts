@@ -6,7 +6,7 @@ import { ProfitLossService} from '../service/profit-loss.service';
 import { IProfitLoss} from '../model/IProfitLoss';
 import { isEmpty } from 'lodash';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import  {finalize, map } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { Router } from '@angular/router';
@@ -82,20 +82,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         rowGroup: true,
         hide: true,
       },
-      // {
-      //   // headerName: 'Head',
-      //   rowGroup: true,
-      //   field: 'head',
-      //   hide: true
-      //   // filter: 'agTextColumnFilter',
-      // },
-      // {
-      //   // headerName: 'Summary Head',
-      //   field: 'summeryHead',
-      //   // filter: 'agNumberColumnFilter',
-      //   rowGroup: true,
-      //   hide: true
-      // },
       {
         headerName: 'Transactional',
         field: 'transactional',
@@ -109,19 +95,13 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         suppressMenu: true,
         valueFormatter: (param: ValueFormatterParams) => {
           return this.valueFormatter(param.value)
-          // Math.sign(param.value) === -1 ? `(${Math.abs(param.value).toLocaleString()})` : param.value.toString().toLocaleString()
         }
-        
       },
     ];
   }
 
   ngOnInit(): void {
-    // this.autoGroupColumnDef = {
-    //   headerName: 'Nature',
-    //   field: 'nature',
-    //   minWidth: 300,
-    // };
+
     this.profitNLossForm = this.fb.group({
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
@@ -131,18 +111,12 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       campusId: [null]
     });
     
-    // get Ware house location from state
+    //Get Data from Store
     this.ngxsService.getWarehouseFromState();    
-    // get Accounts of level 4 from state
     this.ngxsService.getAccountLevel4FromState()
-    // get Campuses of level 4 from state
     this.ngxsService.getCampusFromState()
-    // get business Partners of level 4 from state
     this.ngxsService.getBusinessPartnerFromState()
-    // get location from state
-    //this.ngxsService.getLocationFromState();
-    // get department from state
-    //this.ngxsService.getDepatmentFromState();
+  
     this.defaultColDef = {
       filter: true,
       resizable: true,
@@ -177,7 +151,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       return;
     }
     this.mapProfitNLossValuesToModel();
-    console.log(this.profitNLossModel)
     this.isLoading = true;
     this.profitLossService.getProfitNLoss(this.profitNLossModel)
       .pipe(
@@ -188,7 +161,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         map((x: any) => {
           console.log(x.result)
           return x.result.map((item: any) => {
-            // item.balance = item.nature === 'EXPENSES' ? item.debit - item.credit : item.credit - item.debit;
             return item;
           })
         })
@@ -228,20 +200,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     console.log((revenue) - (expense));
   }
 
-  formatDate(date) {
-    let d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
-
-    if (month.length < 2)
-      month = '0' + month;
-    if (day.length < 2)
-      day = '0' + day;
-
-    return [year, month, day].join('-');
-  }
-
   reset() {
     this.formDirective.resetForm();
     this.recordsData = [];
@@ -252,9 +210,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   printProfitNLoss(data: any) {
-
     this.profitLossService.setProfitNLossDataForPrintComponent(data);
-
       this.router.navigate(['/' + APP_ROUTES.REPORT + '/' + REPORT.PROFIT_N_LOSS + '/' + REPORT.PRINT], {
         queryParams: {
           from: this.dateHelperService.transformDate(this.profitNLossForm.value.docDate, 'MMM d, y'),
@@ -266,100 +222,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         }
       })
   }
-
-  //PDF Content
-  contentData() {
-    const data = [
-      {
-        text: 'VIZALYS',
-        bold: true,
-        fontSize: 10,
-        alignment: 'center',
-        //color: 'lightblue',
-        margin: [0, 35, 0, 10]
-      },
-      {
-        text: 'PROFIT & LOSS REPORT',
-        bold: true,
-        decoration: "underline",
-        fontSize: 20,
-        alignment: 'center',
-        //color: 'green',
-        margin: [0, 5, 0, 10]
-      },
-      {
-        text: 'Report for : ' + this.transformDate(this.profitNLossForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.profitNLossForm.value.docDate2, 'MMM d, y'),
-        alignment: 'center',
-        fontSize: 12,
-      },
-      {
-        text: 'Account : ' + (this.profitNLossForm.value.transactional || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Location : ' + (this.profitNLossForm.value.location || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Warehouse : ' + (this.profitNLossForm.value.warehouse || 'N/A'),
-        fontSize: 10,
-      },
-      {
-        text: 'Department : ' + (this.profitNLossForm.value.department || 'N/A'),
-        fontSize: 10,
-        margin: [0, 0, 0, 30]
-      },
-      {
-        table: {
-          widths: [132,132,132,132,132],
-          body: [
-            [
-            {
-              text: 'Nature',
-                style: 'tableHeader3'
-            },
-            {
-              text: 'Head',
-              style: 'tableHeader3'
-            },
-            {
-              text: 'Summery Head',
-              style: 'tableHeader3'
-            },
-            {
-              text: 'Transactional',
-              style: 'tableHeader3'
-            },
-            {
-              text: 'Balance',
-              style: 'tableHeader3',
-              alignment: 'right'
-            }
-            ],
-            ...this.recordsData.map((val) => {
-              return [val.nature, val.head, val.summeryHead, val.transactional, { text: this.valueFormatter(val.balance), alignment: 'right' }]
-            })
-          ],
-        },
-        layout: {
-          paddingTop: function () { return 10 },
-          paddingLeft: function () { return 10 },
-          paddingRight: function () { return 10},
-          paddingBottom: function () { return 10 }
-        }
-      },
-      {
-        text: 'Net Profit : ' + this.netProfit,
-        alignment: 'right',
-        fontSize: 12,
-        margin: [0, 10, 0, 0],
-       // decoration: 'underline',
-        bold: true,
-        //lineHeight: 2,
-      }
-    ]
-    return data
-  }
-  };
+};
 
   

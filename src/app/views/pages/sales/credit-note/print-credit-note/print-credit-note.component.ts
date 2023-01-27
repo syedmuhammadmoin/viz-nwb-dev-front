@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute, Params} from "@angular/router";
 import { CreditNoteService} from "../service/credit-note.service";
 import { GridOptions} from "ag-grid-community";
@@ -12,8 +12,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-credit-note',
   templateUrl: './print-credit-note.component.html',
-  styleUrls: ['./print-credit-note.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-credit-note.component.scss']
 })
 
 export class PrintCreditNoteComponent extends AppComponentBase implements OnInit {
@@ -26,15 +25,15 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
     totalTax: number;
     totalAmount: number;
     edinfini : boolean;
-  sbbu : boolean;
-  vizalys : boolean;
-  localsto : any ;
-  className : any;
+    sbbu : boolean;
+    vizalys : boolean;
+    localsto : any ;
+    className : any;
   
     constructor( private creditNoteService: CreditNoteService,
                  private activatedRoute: ActivatedRoute,
                  public  sanitizer: DomSanitizer,
-                 private cdr: ChangeDetectorRef,
+                 private cdRef: ChangeDetectorRef,
                  public dynamicColorChanging : DynamicColorChangeService,
                  injector: Injector
                ) {  super(injector)}
@@ -72,7 +71,7 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
           this.className = 'vizalys row'
         }
   
-        this.cdr.detectChanges()
+        this.cdRef.detectChanges()
       })
     }
   
@@ -85,15 +84,14 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
     }
   
     getCreditNoteData(id: number){
-      this.creditNoteService.getCreditNoteById(id).subscribe((res: IApiResponse<ICreditNote>) =>
-        {
+      this.creditNoteService.getCreditNoteById(id).subscribe((res: IApiResponse<ICreditNote>) => {
         this.creditNoteMaster = res.result;
         this.creditNoteLines = res.result.creditNoteLines;
         this.totalAmount = this.creditNoteMaster.totalAmount;
         this.totalBeforeTax = this.creditNoteLines.reduce((total: number, obj: ICreditNoteLines) => (obj.quantity * obj.price) + total, 0);
         this.totalTax = this.creditNoteLines.reduce((total: number, obj: ICreditNoteLines) => (obj.quantity * obj.price * obj.tax) / 100 + total, 0);
-        this.cdr.markForCheck();
-        this.cdr.detectChanges()
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges()
         })
     }
 }

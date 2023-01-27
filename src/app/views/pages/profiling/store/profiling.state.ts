@@ -27,9 +27,6 @@ export abstract class ProfilingState<T extends {}> {
   private readonly idKey: string;
   private readonly storePath: string;
 
-  // protected readonly idGenerator: IdGenerator<T>;
-
-
   protected constructor(
     storeClass: Type<ProfilingState<T>>,
     _idKey: keyof T,
@@ -59,7 +56,6 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   getAll({getState, setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
-    // console.log('getAll: ', payload)
     const serviceClass = payload.payload.serviceClass
     const methodName = payload.payload.methodName
 
@@ -81,7 +77,6 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   addEntity({setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
-    //console.log(payload)
     const serviceClass = payload.payload.serviceClass;
     const methodName = payload.payload.methodName
 
@@ -97,7 +92,6 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   setLoadingIndicator({setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
-    //console.log(payload)
     setState(
       setLoading(payload)
     )
@@ -105,19 +99,10 @@ export abstract class ProfilingState<T extends {}> {
 
   isReloadRequired({setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
     setState(setIsReloadRequired(payload))
-    /*const state = getState();
-    setState(
-      // @ts-ignore
-      patch({
-        ...state,
-        isFetchCompleted: false
-      })
-    )*/
   }
 
 
   private setup(storeClass: Type<ProfilingState<T>>, actions: string[]) {
-    // validation if a matching action handler exists has moved to reflection-validation tests
     actions.forEach(fn => {
       const actionName = `[${this.storePath}] ${fn}`;
       storeClass['NGXS_META'].actions[actionName] = [
@@ -142,7 +127,6 @@ export enum EntityActionType {
 }
 
 export function setLoading<T>(payload: any): StateOperator<ProfilingStateModel<T>> {
-  //console.log('setLoading func: ', payload)
   return (state: ProfilingStateModel<T>) => {
     return {
       ...state,

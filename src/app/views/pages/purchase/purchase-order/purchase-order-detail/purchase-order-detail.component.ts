@@ -17,8 +17,7 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'kt-purchase-order-detail',
   templateUrl: './purchase-order-detail.component.html',
-  styleUrls: ['./purchase-order-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./purchase-order-detail.component.scss']
 })
 
 export class PurchaseOrderDetailComponent extends AppComponentBase implements OnInit {
@@ -42,19 +41,18 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
   totalTax: number;
   total: number;
 
-  loader: boolean = true;
-
   //need for routing
   purchaseOrderId: number;
 
   gridApi: any
 
-  //busy loading
+  //Loader
   isLoading: boolean;
 
   //Showing Remarks
   remarksList: string[] = [];
 
+  //Defining Purchase Order Columns
   columnDefs = [
     {
       headerName: 'Item', 
@@ -119,30 +117,21 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
     }
   ];
 
-
   constructor(
     private activatedRoute: ActivatedRoute,
     private purchaseOrderService: PurchaseOrderService,
     private cdRef:ChangeDetectorRef,
     public dialog: MatDialog,
-    private router: Router,
-    private layoutUtilService: LayoutUtilsService,
     injector: Injector
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-
-    //hide received column initially
-    // this.gridOptions.onGridReady = () => {
-    //   this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
-    // }//onGridReady
   }
 
   ngOnInit(): void {
     this.gridOptions.rowStyle = {color: 'black'};
     this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
-    // this.gridOptions.suppressHorizontalScroll = true;
 
     this.activatedRoute.paramMap.subscribe(params => {
       const id = +params.get('id');

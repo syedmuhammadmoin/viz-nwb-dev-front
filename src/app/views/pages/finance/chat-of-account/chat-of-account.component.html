@@ -1,25 +1,12 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <!-- <button class="app-default-btn" mat-raised-button matTooltip="Export COA"> -->
       <a [href]="baseUrl + 'coa/download'" matTooltip="Export COA" class="app-default-btn" mat-raised-button target="_self">Export</a>
-    <!-- </button> -->
   </div>
 </div>
 
 
 <kt-portlet [ktBusy]="isLoading">
-  <kt-portlet-header [sticky]="false" [title]="'Chart of Account'" [class]="'card-head-lg'">
-    <!--<ng-container ktPortletTools>
-      <button (click)="addLevel3Dialog()" class="mr-3" mat-raised-button matTooltip="Add Head Account">Add Head
-        Account</button>
-      <button (click)="addLevel4Dialog()" mat-raised-button matTooltip="Add Transactional Account">Add Transactional
-        Account</button>
-    </ng-container>-->
-
-    <!-- <button class="mr-3" mat-raised-button matTooltip="Export COA">
-      <a [href]="environment.baseUrl + 'coa/download'" target="_blank">Export</a>
-    </button> -->
-  </kt-portlet-header>
+  <kt-portlet-header [sticky]="false" [title]="'Chart of Account'" [class]="'card-head-lg'"></kt-portlet-header>
 
   <kt-portlet-body>
     <div class="col-md-12 col-lg-12 col-sm-12 my-5">

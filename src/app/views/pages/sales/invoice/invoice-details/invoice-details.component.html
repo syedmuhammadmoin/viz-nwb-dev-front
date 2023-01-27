@@ -1,23 +1,13 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <!-- <kt-portlet-header [sticky]="false" [title]="'Invoice Detail'" [class]="'card-head-lg'">
-      <ng-container ktPortletTools>
-        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-
-        <h4 class="overall_statuses {{docStatus[invoiceMaster?.state]}}"> Status: {{invoiceMaster?.status}} </h4>
-      </ng-container>
-    </kt-portlet-header> -->
-
     <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Invoice Detail'">
       <ng-container class="" ktPortletTools>
-        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
         <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[invoiceMaster?.state]}}"></span> {{invoiceMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
         <div class="row ">
-
           <div class="btn_container">
             <div class="col-md-6 col-6">
               <ng-container ktPortletTools >
@@ -49,8 +39,6 @@
                     class="btn_public" id="invoice_print">
                     <i class="fa fa-print icon-e-p-a"></i> Print Invoice
                   </button>
-
-
               </ng-container>
 
             </div>
@@ -82,10 +70,7 @@
               <h4 class="print-box-detail-2"><b>Due Date: </b>
               <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
-
           </div>
-
-
         </div>
 
         <div class="row mt-10">
@@ -98,7 +83,6 @@
         </div>
 
         <div class="row mt-5">
-
           <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
@@ -122,7 +106,6 @@
                   </td>
                   <td>{{valueFormatter(unReconPay.amount)}}</td>
                   <td>
-                    <!-- <button (click)="reconcile(i)" class="recon-btn" mat-raised-button>Reconcile </button> -->
                     <button (click)="reconcile(i)" class="app-default-btn" mat-raised-button >Reconcile </button>
                   </td>
                 </tr>
@@ -179,8 +162,6 @@
                   </mat-accordion>
                 </td>
               </tr>
-
-              <!-- <tr *ngIf="(invoiceMaster?.transactionId)"> -->
                 <tr *ngIf="(pendingAmount)">
                 <th class="text-right pending-amount">Pending Amount :
                 </th>
@@ -196,13 +177,6 @@
 
     <mat-divider class="mt-10"></mat-divider>
 
-    <div class="kt-portlet__foot p-5">
-      <div class="kt-form__actions kt-form__actions mb-0">
-        <div class="row ">
-
-        </div>
-      </div>
-    </div>
   </kt-portlet>
 </div>
 

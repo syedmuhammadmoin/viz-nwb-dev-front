@@ -1,10 +1,10 @@
-import {Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
-import {FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
-import {BankAccountService} from '../service/bankAccount.service';
-import {IBankAccount} from '../model/IBankAccount';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {AppComponentBase} from 'src/app/views/shared/app-component-base';
-import {finalize, take} from "rxjs/operators";
+import { Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
+import { BankAccountService} from '../service/bankAccount.service';
+import { IBankAccount} from '../model/IBankAccount';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AppComponentBase} from 'src/app/views/shared/app-component-base';
+import { finalize, take} from "rxjs/operators";
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
@@ -28,7 +28,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   permissions = Permissions
 
   //Bank account model
-  bankAccount: IBankAccount;
+  bankAccount: IBankAccount = {} as IBankAccount;
 
   title: string = 'Create Bank Account'
 
@@ -49,9 +49,6 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     bankName: {
       required: 'Bank Name is required.'
     },
-    // 'branch': {
-    //   'required': 'Branch Name is required.'
-    // },
     openingBalance: {
       required: 'Opening Balance is required.',
       min: 'Please insert correct value.'
@@ -78,7 +75,6 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   formErrors = {
     accountNumber: '',
     bankName: '',
-   // 'branch': '',
     openingBalance: '',
     accountTitle: '',
     bankAccountType: '',
@@ -87,7 +83,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     accountCode: ''
   }
 
-  //Injecting dependencies
+  //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
@@ -117,38 +113,13 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
     if (this._id) {
       this.showButtons = (this.permission.isGranted(this.permissions.BANKACCOUNT_EDIT)) ? true : false;
-      // if(!this.showButtons) this.disableFields(
-      //   this.bankAccountForm , 
-      //   'accountNumber',
-      //   'bankName',
-      //   'branch', 
-      //   'purpose',
-      //   'accountTitle',
-      //   'bankAccountType',
-      //   'openingBalance',
-      //   'OBDate',
-      //   'campusId')
       //if user have no permission to edit, so disable all fields
       this.title = 'Edit Bank Account'
       this.isLoading = true
       this.getBankAccount(this._id);
-    } else {
-      this.bankAccount = {
-        id: null,
-        accountNumber: null,
-        bankName: '',
-        branch: '',
-        iban: '',
-        accountCode: '',
-        openingBalance: null,
-        purpose: '',
-        bankAccountType: null,
-        accountTitle: '',
-        openingBalanceDate: null,
-        campusId: null,
-        currency: ''
-      };
-    }
+    } 
+
+    //Get Data from Store
     this.ngxsService.getCampusFromState()
   }
 
@@ -198,7 +169,6 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-    // console.log(this.bankAccount)
     
     if (this.bankAccount.id) {
       this.bankAccountService.updateBankAccount(this.bankAccount)
@@ -248,14 +218,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   }
 
   reset() {
-
     this.formDirective.resetForm();
-    
-    // this.resetFields(this.bankAccountForm , 'accountNumber','bankName' ,'branch' ,'accountTitle' ,'purpose')
-
-    // if(!this._id) this.resetFields(this.bankAccountForm , 'bankAccountType','openingBalance' ,'OBDate' ,'campusId')
-
-    // this.logValidationErrors(this.bankAccountForm , this.formErrors , this.validationMessages)
   }
 }
 

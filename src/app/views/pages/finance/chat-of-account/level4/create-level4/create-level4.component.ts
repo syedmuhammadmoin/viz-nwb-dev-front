@@ -1,9 +1,9 @@
-import {ChangeDetectorRef, Component, Inject, Injector, OnInit} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ILevel4} from '../model/ILevel4';
-import {Optional} from 'ag-grid-community';
-import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import {AppComponentBase} from '../../../../../shared/app-component-base';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit} from '@angular/core';
+import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { ILevel4} from '../model/ILevel4';
+import { Optional} from 'ag-grid-community';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AppComponentBase} from '../../../../../shared/app-component-base';
 import { ChartOfAccountService } from '../../service/chart-of-account.service';
 import { finalize, take } from 'rxjs/operators';
 import { AccountLevel4State } from '../../store/account-level4.state';
@@ -92,7 +92,6 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
         this.level4Model = res.result;
         this.patchLevel4Form(this.level4Model);
       })
-      //console.log(this.level4Form)
     }
     if (this.data.parentId) {
       this.isLoading = true;
@@ -113,7 +112,6 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.mapFormValuesToInvoiceModel();
     if (this.level4Model.id) {
-      //console.log("after : ",this.level4Model)
       this.chartOfAccountService.updateLevel4Account(this.level4Model)
         .pipe(
           take(1),
@@ -134,7 +132,6 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
         );
     } else {
       delete this.level4Model['id'];
-      // Sending data to Service
       this.chartOfAccountService.createLevel4Account(this.level4Model)
         .pipe(
           take(1),
@@ -158,9 +155,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
   // Mapping value to model
   mapFormValuesToInvoiceModel() {
-    //console.log(this.level4Form.value.level3)
     this.level4Model.name = this.level4Form.value.transactionalAccount;
-    // this.level4Model.level3_id = (this.level4Model.level3_id) || this.level4Form.value.level3;
     this.level4Model.code = this.level4Form.value.code;
     this.level4Model.level3_id = this.level4Form.value.level3 || this.level4Model.level3_id;
   }
@@ -171,8 +166,6 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
   }
 
   private patchLevel4Form(level4Model: ILevel4) {
-    console.log(level4Model)
-    //console.log("before : ",level4Model)
     this.level4Form.patchValue({
       transactionalAccount: level4Model.editableName,
       level3: level4Model.level3_id,

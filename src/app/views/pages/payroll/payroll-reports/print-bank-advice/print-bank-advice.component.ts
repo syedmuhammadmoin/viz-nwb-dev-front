@@ -29,7 +29,7 @@ export class PrintBankAdviceComponent extends AppComponentBase implements OnInit
     injector: Injector,
     private activatedRoute: ActivatedRoute,
     private payrollReportService: PayrollReportsService,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public dynamicColorChanging : DynamicColorChangeService,
   ) {
     super(injector);
@@ -74,7 +74,7 @@ export class PrintBankAdviceComponent extends AppComponentBase implements OnInit
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }
 }

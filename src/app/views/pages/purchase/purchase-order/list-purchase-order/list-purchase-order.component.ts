@@ -13,8 +13,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-purchase-order',
   templateUrl: './list-purchase-order.component.html',
-  styleUrls: ['./list-purchase-order.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-purchase-order.component.scss']
 })
 
 export class ListPurchaseOrderComponent extends AppComponentBase implements OnInit {
@@ -45,6 +44,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     );
   }
 
+  //Defining Purchase Order Columns
   columnDefs = [
     { 
       headerName: 'PO #', 

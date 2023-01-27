@@ -3,33 +3,21 @@
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
           <h3 class="kt-portlet__head-text modal-header">
-            {{titleName}} <span (click)="onCloseUserDialog()" id="user_close" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
+            {{titleName}} <span (click)="onCloseDialog()" id="user_close" class="dialog-cross"><i class="fa fa-times float-right"></i></span>
           </h3>
         </div>
       </div>
     </div>
-    <!-- form start -->
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
-  
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
           <mat-tab-group [(selectedIndex)]="currentIndex" >
             <mat-tab label="Details">
-              <!-- first row start -->
               <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="row mt-1 mb-0">
                   <div class="col-lg-6 col-md-6 col-sm-6">
                     <label class="col-form-label">Employee:</label>
                     <div class="form-group kt-form__group mb-0">
-                      <!-- <kt-input-field 
-                        id="user_username"
-                        inputClass="input_transform_none"
-                        formControlName="userName" 
-                        matFormFieldClass="full-width" 
-                        placeholder="Username"
-                        [errorMessage]="[{condition: formErrors.userName , error: formErrors.userName}]"
-                        (blurEvent)="logValidationErrors(this.userForm, formErrors, validationMessages)">
-                     </kt-input-field> -->
                      <kt-simple-dropdown 
                        id="user_username"
                        placeholder="Select Employee" 
@@ -112,7 +100,6 @@
                   </div>
                 </div>
               </div>
-              <!-- second row start -->
             </mat-tab>
             <mat-tab label="Roles">
               <div class="role-options">
@@ -131,12 +118,9 @@
                 </ng-container>
                 <ng-container *ngFor="let role of userRole | filter:searchText">
                   <div class="col-md-6">
-                    <!-- <div class="checkbox-with-label"> -->
                     <mat-checkbox [id]="'user_' + role.roleName" [disabled]="isEditButtonShow || !showButtons" [checked]="role.selected"
-                      (change)="onRoleChange(role, $event)">
-                      {{role.roleName}}
+                      (change)="onRoleChange(role, $event)"> {{role.roleName}}
                     </mat-checkbox>
-                    <!-- </div> -->
                   </div>
                 </ng-container>
               </div>
@@ -153,21 +137,13 @@
           <div class="row">
             <div class="col-lg-12 col-md-8 col-sm-8 col-9">
               <div *ngIf="showButtons" class="float-right">
-
-                <!-- <button class="app-reset-btn mr-2 " id="role_reset" (click)="reset()" mat-raised-button type="button" ><i class="fas fa-undo"></i> Reset </button>
-                <button  class="app-default-btn " type="submit" id="role_submit"
-                (click)="logValidationErrors(this.roleForm, this.formErrors, this.validationMessages)">
-                   Submit 
-                </button> -->
                 <button *ngIf="!isEditButtonShow" class="app-reset-btn mr-2" id="user_reset" type="button" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
                 <button *ngIf="!isEditButtonShow" class="app-default-btn mr-2" type="submit" id="user_submit" mat-raised-button
                   (click)="logValidationErrors(this.userForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit
                 </button>
-                <!--Reset Password-->
                 <button (click)="resetPassword()" id="user_reset_password" *ngIf="isEditButtonShow" class="mr-2 app-reset-btn " mat-raised-button 
                    type="button"><i class="fa fa-lock"></i> Reset Password
                 </button>
-                <!--Edit Button-->
                 <button *ngIf="isEditButtonShow" id="user_edit" class="app-default-btn" mat-raised-button type="button"
                   (click)="toggleEdit()"><i class="fa fa-edit"></i> Edit</button>
               </div>
@@ -176,5 +152,4 @@
         </div>
       </div>
     </form>
-    <!-- form ends -->
   </div>

@@ -93,6 +93,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     month: '',
     year: '',
   };
+
   validationMessages = {
     departmentId: {
       required: 'Department is required.'
@@ -141,9 +142,10 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.getLatestCampuses();
+
+    //Get Data from Store
     this.ngxsService.getDepartmentFromState();
     this.ngxsService.getCampusFromState();
-    // this.getEmployeeBankFromState()
   }
 
   onSubmitFilters() {
@@ -178,7 +180,6 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     const selectedTransactions = this.employeeGridApi.getSelectedRows().map(x => {
       return x.id
     })
-    console.log(selectedTransactions);
     this.payrollProcessService.approvePayrollPaymentProcess({docId: selectedTransactions, action: actionButton})
     .pipe(
       take(1),
@@ -194,8 +195,6 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
         else if(actionButton === 1) {
           this.toastService.success(`${'Payroll payment rejection process completed successfully'}`, 'Successful')
         }
-       // this.toastService.success(`${res.message || 'Approval Processed successfully.'}`, 'Successful');
-       // this.onSubmitFilters()
         this.resetForm();
         this.cdRef.detectChanges();
       });

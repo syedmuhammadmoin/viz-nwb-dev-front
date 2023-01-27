@@ -6,5 +6,4 @@ export interface IJournalEntryLines {
         debit           : number;
         credit          : number;
         warehouseId : number;
-        // locationId        : number;
 }

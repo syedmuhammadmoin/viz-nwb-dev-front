@@ -34,24 +34,15 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   public PAYROLL_TRANSACTION = PAYROLL_TRANSACTION;
   public PAYROLL_PAYMENT = PAYROLL_PAYMENT;
 
-  //handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //Variables for Payroll Transaction data
   paidAmountList: any = [];
-  bpUnReconPaymentList: any = [];
   paidAmount: number;
-
   months = AppConst.Months
-
   pendingAmount: number;
- 
-  employeeType;
   remarksList: any = [];
-  totalPaidAmount: number;
   payrollId: number;
 
   payrollMaster: IPayrollTransaction | any;
@@ -116,7 +107,6 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
      )
       .subscribe((res: IPayrollTransaction | any) => {
         this.payrollMaster = res.result;
-        console.log('master data payroll', this.payrollMaster)
         this.pendingAmount = this.payrollMaster.pendingAmount;
         this.businessPartnerId = this.payrollMaster.businessPartnerId;
         this.ledgerId = this.payrollMaster.ledgerId;
@@ -125,9 +115,6 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
         this.paidAmountList = this.payrollMaster.paidAmountList == null ? [] : this.payrollMaster.paidAmountList;
         this.remarksList = this.payrollMaster.remarksList ?? [] 
 
-       // this.bpUnReconPaymentList = this.payrollMaster.bpUnreconPaymentList == null ? [] : this.payrollMaster.bpUnreconPaymentList;
-        //this.employeeType = AppConst.EmployeeType[this.payrollMaster.employeeType];
-       
         this.employeeItems = res.result.payrollTransactionLines
         this.cdRef.detectChanges();
       })
@@ -157,25 +144,6 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
       this.getPayroll(this.payrollId);
       this.cdRef.detectChanges();
     });
-  }
-
-  registerPayrollPayment() {
-    // const dialogRef = this.dialog.open(RegisterPaymentComponent, {
-    //   width: '900px',
-    //   data: {
-    //     isPayroll: true,
-    //     accountId: this.payrollMaster.accountPayableId,
-    //     paymentType: 2,
-    //     transactionId: this.payrollMaster.transactionId,
-    //     businessPartnerId: this.payrollMaster.businessPartnerId,
-    //     pendingAmount: this.payrollMaster.netSalary,
-    //     docType: DocType.PayrollPayment
-    //   },
-    // });
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.getPayroll(this.payrollId);
-    //   this.cdRef.detectChanges();
-    // });
   }
 
   //Get Remarks From User

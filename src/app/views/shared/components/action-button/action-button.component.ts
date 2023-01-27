@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'kt-action-button',
@@ -27,16 +26,9 @@ export class ActionButtonComponent {
       const params = {
         event: $event,
         rowData: this.params.node.data
-        // ...something
       }
-
 
       this.params.onClick(params);
     }
   }
-
-  onRemoveSelected(params) {
-    console.log(params);
-  }
-
 }

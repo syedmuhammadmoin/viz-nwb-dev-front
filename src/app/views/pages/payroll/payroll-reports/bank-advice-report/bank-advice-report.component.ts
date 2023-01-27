@@ -35,7 +35,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
     public addButtonService: AddModalButtonService,
     private router: Router,
     public ngxsService: NgxsCustomService,
-    private injector: Injector
+    injector: Injector
   ) {
     super(injector);
     this.columnDefs = [
@@ -232,118 +232,6 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
         }
       })
   }
-
-  // PDF Content
-  // contentData() {
-  //   const data = [
-  //     {
-  //       text: 'VIZALYS',
-  //       bold: true,
-  //       fontSize: 10,
-  //       alignment: 'center',
-  //       // color: 'lightblue',
-  //       margin: [0, 35, 0, 10]
-  //     },
-  //     {
-  //       text: 'GENERAL LEDGER REPORT',
-  //       bold: true,
-  //       decoration: 'underline',
-  //       fontSize: 20,
-  //       alignment: 'center',
-  //       // color: 'green',
-  //       margin: [0, 5, 0, 10]
-  //     },
-  //     {
-  //       text: 'Report for : ' + this.transformDate(this.bankAdviceReportForm.value.docDate, 'MMM d, y') + ' - ' + this.transformDate(this.bankAdviceReportForm.value.docDate2, 'MMM d, y'),
-  //       alignment: 'center',
-  //       fontSize: 12,
-  //       margin: [0, 0, 0, 10]
-  //     },
-  //     {
-  //       text: 'Business Partner : ' + (this.bankAdviceReportForm.value.businessPartnerName || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Account : ' + (this.bankAdviceReportForm.value.accountName || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Department : ' + (this.bankAdviceReportForm.value.department || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Location : ' + (this.bankAdviceReportForm.value.location || 'N/A'),
-  //       fontSize: 10,
-  //     },
-  //     {
-  //       text: 'Warehouse : ' + (this.bankAdviceReportForm.value.warehouse || 'N/A'),
-  //       fontSize: 10,
-  //       margin: [0, 0, 0, 30]
-  //     },
-  //     {
-  //       table: {
-  //         widths: [70, 180, 180, 70, 70, 70],
-  //         body: [
-  //           [{
-  //             text: 'Doc#',
-  //             style: 'tableHeader',
-  //             // margin: [10, 5, 10, 5]
-  //           },
-  //             {
-  //               text: 'Account',
-  //               style: 'tableHeader'
-  //             },
-  //             {
-  //               text: 'Description',
-  //               style: 'tableHeader',
-  //               // margin: [36, 5, 130, 5]
-  //             },
-  //             {
-  //               text: 'Debit',
-  //               style: 'tableHeader',
-  //               alignment: 'right'
-  //             },
-  //             {
-  //               text: 'Credit',
-  //               style: 'tableHeader',
-  //               alignment: 'right'
-  //             },
-  //             {
-  //               text: 'Balance',
-  //               style: 'tableHeader',
-  //               alignment: 'right'
-  //             },
-  //           ],
-  //           ...this.recordsData.map((val) => {
-  //             return [
-  //               val.docNo,
-  //               val.accountName,
-  //               val.description,
-  //               {text: this.valueFormatter(val.debit), alignment: 'right'},
-  //               {text: this.valueFormatter(val.credit), alignment: 'right'},
-  //               {text: this.valueFormatter(val.balance), alignment: 'right'}]
-  //           })
-  //         ],
-  //       },
-  //       layout: {
-  //         paddingTop () {
-  //           return 10
-  //         },
-  //         paddingLeft () {
-  //           return 10
-  //         },
-  //         // paddingRight: function (i) { return (i === 1 || i === 2) ? 10 : 5 },
-  //         paddingRight () {
-  //           return 10
-  //         },
-  //         paddingBottom () {
-  //           return 10
-  //         }
-  //       }
-  //     }
-  //   ]
-  //   return data
-  // }
 }
 
 

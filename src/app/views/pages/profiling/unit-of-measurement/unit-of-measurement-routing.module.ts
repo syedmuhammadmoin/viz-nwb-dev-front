@@ -6,7 +6,6 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 
 
-
 const routes : Routes = [
   {
     path: '',

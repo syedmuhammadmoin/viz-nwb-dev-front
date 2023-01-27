@@ -27,7 +27,7 @@ import { IJournalEntryLines } from '../model/IJournalEntryLines';
 export class CreateJournalEntryComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
   public permissions = Permissions;
 
-  //For busy loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -42,7 +42,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   dateLimit: Date = new Date()
 
   // JournaL Entry Model
-  journalEntryModel: IJournalEntry;
+  journalEntryModel: IJournalEntry = {} as IJournalEntry;
 
   isJournalEntry: boolean;
 
@@ -80,7 +80,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     campusId: ''
   }
 
-  // Injecting Dependencies
+  //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
     private journalEntryService: JournalEntryService,
@@ -108,14 +108,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       ])
     });
 
-    this.journalEntryModel = {
-      id: null,
-      date: null,
-      description: '',
-      campusId: null,
-      journalEntryLines: [],
-    }
-
     this.activatedRoute.queryParams.subscribe((param: Params) => {
       const id = param.q;
       this.isJournalEntry = param.isJournalEntry;
@@ -124,13 +116,15 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         this.getJournalEntry(id);
       }
     })
+
+    //Get Data from Store
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getCampusFromState()
   }
 
-  // onChangeEvent to set debit or credit zero '0'
+  //onChangeEvent to set debit or credit zero '0'
   onChangeEvent(_:unknown, index: number) {
     const arrayControl = this.journalEntryForm.get('journalEntryLines') as FormArray;
     const debitControl = arrayControl.at(index).get('debit');
@@ -138,18 +132,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     const debit = (debitControl.value) !== null ? debitControl.value : null;
     const credit = (creditControl.value) !== null ? creditControl.value : null;
 
-    // if (debit > 0 || debit < 0) {
-    //   creditControl.setValue(0);
-    //   creditControl.disable();
-    // }
-    // else if (credit > 0 || credit < 0) {
-    //   debitControl.setValue(0);
-    //   debitControl.disable();
-    // }
-    // else if (debit === "" || credit === "") {
-    //   creditControl.enable();
-    //   debitControl.enable();
-    // }
     if (debit) {
       creditControl.setValue(0);
       creditControl.disable();
@@ -158,7 +140,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       debitControl.setValue(0);
       debitControl.disable();
     }
-    // else if (debit === "" || credit === "") {
       else if (!debit || !credit) {
       creditControl.enable();
       debitControl.enable();
@@ -181,8 +162,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
   // Form Reset
   reset() {
-    // const journalEntryArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
-    // journalEntryArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
@@ -203,11 +182,10 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       debit: [0, [Validators.required, Validators.min(0)]],
       credit: [0, [Validators.required, Validators.min(0)]],
       warehouseId: [],
-      // locationId: ['', Validators.required]
     });
   }
 
-  // Remove Journal Entry Line
+  //Remove Journal Entry Line
   removeJournalEntryLineClick(journalEntryLineIndex: number): void {
     const journalEntryLineArray = this.journalEntryForm.get('journalEntryLines') as FormArray;
     journalEntryLineArray.removeAt(journalEntryLineIndex);
@@ -264,7 +242,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         credit: [line.credit, [Validators.required, Validators.min(0)]],
         accountId: [line.accountId, [Validators.required]],
         warehouseId: [line.warehouseId],
-        // locationId: line.locationId,
       }))
     })
     return formArray
@@ -294,7 +271,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
 
     this.isLoading = true;
     this.mapFormValuesToJournalEntryModel();
-    //console.log(this.journalEntryModel)
     if (this.journalEntryModel.id) {
       this.journalEntryService.updateJournalEntry(this.journalEntryModel)
       .pipe(
@@ -323,13 +299,12 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         .subscribe(
           (res: IApiResponse<IJournalEntry>) => {
             this.toastService.success('Created Successfully', 'Journal Entry')
-            // this.router.navigate(['/' + JOURNAL_ENTRY.LIST])
             this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , res.result.id)]); 
           });
     }
   }
 
-  // Mapping Form Values To Model
+  //Mapping Form Values To Model
   mapFormValuesToJournalEntryModel() {
     this.journalEntryModel.date = this.transformDate(this.journalEntryForm.value.date, 'yyyy-MM-dd');
     this.journalEntryModel.description = this.journalEntryForm.value.description;
@@ -341,13 +316,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   isSubmit(val: number) {
     this.journalEntryModel.isSubmit = (val === 0) ? false : true;
   }
-  // open business partner dialog
-  // openBusinessPartnerDialog() {
-  //   if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
-  //     this.addButtonService.openBusinessPartnerDialog();
-  //   }
-  // }
-
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.journalEntryForm.dirty;
@@ -370,9 +338,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     }
 
      this.journalEntryForm.get('journalEntryLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Journal Entry")
-    //  }
      this.cdRef.detectChanges()
   }
 }

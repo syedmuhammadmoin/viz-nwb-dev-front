@@ -7,7 +7,6 @@ import { EMPLOYEE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { EmployeeService } from '../service/employee.service';
 
 @Component({
@@ -31,7 +30,6 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   constructor(
     private employeeService: EmployeeService,
     private router: Router,
-    private ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -43,6 +41,7 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
     );
   }
 
+  //Defining Employee Columns
   columnDefs = [
     { 
       headerName: 'Name', 
@@ -171,7 +170,6 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
     } else {
       this.gridApi.hideOverlay();
     }
-    // if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, 'employeePageName');
      this.cdRef.detectChanges();
@@ -188,35 +186,6 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
     const result = await this.employeeService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
-  //   const result = await this.employeeService.getEmployees(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getEmployees(params);
-
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'employeePageName')
-
-  //    //to get new employee record on dropdown
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
 }
 
 

@@ -4,7 +4,6 @@
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[requisitionMaster?.state]}}"></span> {{requisitionMaster?.status}}</div>
-        <!-- <h4 class="overall_statuses {{docStatus[requisitionMaster?.state]}}"> Status: {{requisitionMaster?.status}} </h4> -->
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -55,10 +54,6 @@
                   <i class="fa fa-edit icon-e-p-a"></i> Open Tendor
                 </button>
 
-                <!-- <button *ngIf="(permission.isGranted(permissions.REQUISITION_EDIT))"  class="btn_public mr-3"
-                (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload"></i> Attachment
-                </button> -->
-
                 <button [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('print', requisitionMaster?.id)" id="requisition_print" type="button"
                   class="btn_public">
                   <i class="fa fa-print icon-e-p-a"></i> Print Requisition
@@ -72,11 +67,7 @@
             </div>
           </div>
 
-
-
-
           <div class="col-md-4 col-lg-4  mt-3">
-
             <div class="print-box">
                 <h4 class="print-box-detail-1">Requisition No:
                     <span class="float-right" style="font-weight: 400;">{{requisitionMaster?.docNo}}</span></h4>
@@ -107,7 +98,6 @@
         </div>
 
         <div class="row mt-5">
-
           <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
@@ -127,7 +117,6 @@
                       <table class="table text-center table-bordered">
                         <tr>
                           <th>Doc #</th> 
-                          <!-- request quotation issuance -->
                         </tr>
                         <tr *ngFor="let doc of requisitionMaster?.references">
                           <td><a [routerLink]="(doc?.docType === 18) ? '/' + ISSUANCE.ID_BASED_ROUTE ('details', doc?.docId) :

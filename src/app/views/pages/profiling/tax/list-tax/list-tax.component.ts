@@ -13,8 +13,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 @Component({
   selector: 'kt-list-tax',
   templateUrl: './list-tax.component.html',
-  styleUrls: ['./list-tax.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-tax.component.scss']
 })
 
 export class ListTaxComponent extends AppComponentBase implements OnInit {
@@ -40,7 +39,8 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
                super(injector)
                 this.gridOptions = <GridOptions>({ context : { componentParent : this } } );
                }
-// defaults columns
+
+  //Defining Tax Columns
   columnDefs = [
     { 
       headerName: 'Name', 
@@ -73,7 +73,8 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       }
     },
   ];
-// implimentation of ng OnInit
+
+
   ngOnInit() { 
    
     this.gridOptions = {
@@ -126,7 +127,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       width: '800px',
       data: id
     });
-    // Recalling getTaxes function on dialog close
+    //Get Updated Tax Data
     dialogRef.afterClosed().subscribe(() => {
       this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
@@ -141,7 +142,6 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       } else {
         this.gridApi.hideOverlay();
       }
-      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       params.successCallback(res.result || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'taxPageName');
       this.cdRef.detectChanges();

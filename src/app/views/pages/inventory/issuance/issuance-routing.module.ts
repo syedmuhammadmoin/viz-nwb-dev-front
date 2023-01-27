@@ -28,7 +28,6 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateIssuanceComponent,
-       //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.ISSUANCE_VIEW },

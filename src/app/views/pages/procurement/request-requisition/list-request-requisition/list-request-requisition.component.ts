@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { REQUEST_REQUISITION, REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { REQUEST_REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IRequestRequisition } from '../model/IRequestRequisition';
 import { RequestRequisitionService } from '../service/request-requisition.service';
@@ -13,8 +13,7 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 @Component({
   selector: 'kt-list-request-requisition',
   templateUrl: './list-request-requisition.component.html',
-  styleUrls: ['./list-request-requisition.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-request-requisition.component.scss']
 })
 
 export class ListRequestRequisitionComponent extends AppComponentBase implements OnInit {
@@ -44,6 +43,7 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
     );
   }
 
+  //Injecting Request Columns
   columnDefs = [
     { 
       headerName: 'Request #', 
@@ -88,7 +88,6 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          // values: ['Draft', 'Rejected', 'Unpaid', 'Partial', 'Paid', 'Submitted', 'Reviewed'],
           values: ['Draft', 'Rejected', 'Open', 'Closed', 'Submitted', 'Reviewed'],
           defaultToNothingSelected: true,
           suppressSorting:true,

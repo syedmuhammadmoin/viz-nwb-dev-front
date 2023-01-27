@@ -1,6 +1,5 @@
 <div class="row mb-4">
   <div class="col-md-12 text-right">
-    <!-- <button (click)="openDialog()" [disabled]="!(permission.isGranted(permissions.BANKACCOUNT_CREATE))" id="add_bank_account" class="app-default-btn" mat-raised-button mat-raised-button  matTooltip="Add Bank Account">Add Bank Account</button> -->
     <button (click)="openDialog()" *ngIf="(permission.isGranted(permissions.BANKACCOUNT_CREATE))" id="add_bank_account" class="app-default-btn" mat-raised-button matTooltip="Add Bank Account">Add Bank Account</button>
   </div>
 </div>

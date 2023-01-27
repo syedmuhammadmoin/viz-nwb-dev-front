@@ -4,7 +4,6 @@
     <kt-portlet-header [sticky]="false" [title]="formName + ' Detail'"
       [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
       <ng-container ktPortletTools>
-        <!-- <h4 class="overall_statuses  {{docStatus[paymentMaster?.state]}}">Status:  {{paymentMaster?.status}}</h4> -->
         <div class="ribbon-target "><span class="ribbon-inner {{docStatus[paymentMaster?.state]}}"></span>
           {{paymentMaster?.status}}</div>
       </ng-container>
@@ -98,14 +97,11 @@
               <tr class="b-s-2-b-c">
                 <th class="" style="width: 30%;">Account</th>
                 <th class="text-left">Description</th>
-                <!-- <th class="">Campus</th> -->
                 <th class="text-right" style="width: 15%;">Gross Payment</th>
-
               </tr>
               <tr>
                 <td class="">{{paymentMaster?.accountName}}</td>
                 <td class="text-left">{{paymentMaster?.description}}</td>
-                <!-- <td class="">{{paymentMaster?.campusName}}</td> -->
                 <td class="text-right">{{valueFormatter(paymentMaster?.grossPayment || 0)}}</td>
               </tr>
             </table>
@@ -159,10 +155,6 @@
                           <mat-panel-title class="paid-amount">
                             References
                           </mat-panel-title>
-                          <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                                      font-weight: bold; flex-grow: 0;">
-                                          {{valueFormatter(paidAmount || 0)}}
-                                        </mat-panel-description> -->
                         </mat-expansion-panel-header>
                         <table class="table text-center table-bordered">
                           <tr>
@@ -196,10 +188,6 @@
                           <mat-panel-title class="paid-amount">
                             References
                           </mat-panel-title>
-                          <!-- <mat-panel-description style="color: #1a6b85;text-indent: initial;font-weight: bold;font-family: Poppins, Helvetica, 'sans-serif'; font-size: 13px !important;
-                                              font-weight: bold; flex-grow: 0;">
-                                  {{valueFormatter(paidAmount || 0)}}
-                                </mat-panel-description> -->
                         </mat-expansion-panel-header>
                         <table class="table text-center table-bordered">
                           <tr>
@@ -224,7 +212,6 @@
                                   class="links" style="margin-left: 3px;">{{paymentMaster?.documentReconcile.docNo}}</a>
                               </ng-template>
                             </td>
-
                             <td>
                               <ng-container
                                 *ngIf="(paymentMaster?.documentReconcile.docType === docType.Invoice); else payrollTransactionAmount">
@@ -256,18 +243,7 @@
           </div>
         </div>
       </div>
-
-
     </kt-portlet-body>
-
     <mat-divider></mat-divider>
-
-    <div class="kt-portlet__foot">
-      <div class="kt-form__actions kt-form__actions">
-        <div class="row ">
-
-        </div>
-      </div>
-    </div>
   </kt-portlet>
 </div>

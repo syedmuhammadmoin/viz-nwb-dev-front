@@ -3,14 +3,11 @@
     <kt-portlet-header [sticky]="false" [title]="'Anticipated Budget Detail'" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
         <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-
         <div class="row">
-
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
 
@@ -30,7 +27,6 @@
           </div>
 
           <div class="col-md-4 col-lg-4  mt-3">
-
             <div class="print-box">
                 <h4 class="print-box-detail-1">From Date:
                     <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
@@ -44,10 +40,7 @@
               <h4 class="print-box-detail-2">Estimated <br> Budget Name:
               <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
             </div>
-            
           </div>
-
-          
         </div>
 
         <div class="row mt-10">
@@ -58,20 +51,6 @@
             </ag-grid-angular>
           </div>
         </div>
-
-        <!-- <div class="row mt-5">
-          <div class="col-lg-4 ml-auto">
-            <table class="table table-bordered small_table_box" style="margin: 0px -6px;">
-              <tr>
-                <th class="text-right"
-                  style="background-image: linear-gradient(to right, #20222a, #2b335d); color: #fff;">Total Amount :
-                </th>
-                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
-                  {{valueFormatter(totalAmount || 0)}}</td>
-              </tr>
-            </table>
-          </div>
-        </div> -->
       </div>
     </kt-portlet-body>
   </kt-portlet>

@@ -6,7 +6,6 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { CreateCategoryComponent } from '../create-category/create-category.component';
 import { ICategory } from '../model/ICategory';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { DataSource } from '@angular/cdk/collections';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
@@ -14,8 +13,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-category',
   templateUrl: './list-category.component.html',
-  styleUrls: ['./list-category.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-category.component.scss']
 })
 
 export class ListCategoryComponent extends AppComponentBase implements OnInit {
@@ -41,7 +39,8 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
                super(injector)
                 this.gridOptions = <GridOptions>({ context : { componentParent : this } } );
                }
-// defaults columns
+
+  //Defining Category columns
   columnDefs = [
     { 
       headerName: 'Name', 
@@ -70,7 +69,8 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
       // return params.value ?? 'N/A'
     }}
   ];
-// implimentation of ng OnInit
+
+
   ngOnInit() { 
    
     this.gridOptions = {
@@ -138,7 +138,6 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
       } else {
         this.gridApi.hideOverlay();
       }
-      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       params.successCallback(res.result || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'categoryPageName');
       this.cdRef.detectChanges();
@@ -155,40 +154,6 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     const result = await this.categoryService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getCategories(params: any): Promise<IPaginationResponse<ICategory[]>> {
-  //   const result = await this.categoryService.getCategories(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getCategories(params);
-
-  //    if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'categoryPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
-  // getCategories () : void {
-  //   this.categoryService.getCategories().subscribe((res: IPaginationResponse<ICategory[]>) => {
-  //     this.categoryList = res.result;
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
 }
 
 

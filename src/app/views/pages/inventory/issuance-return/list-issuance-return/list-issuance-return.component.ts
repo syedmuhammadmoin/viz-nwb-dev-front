@@ -11,8 +11,7 @@ import { IssuanceReturnService } from '../service/issuance-return.service';
 @Component({
   selector: 'kt-list-issuance-return',
   templateUrl: './list-issuance-return.component.html',
-  styleUrls: ['./list-issuance-return.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-issuance-return.component.scss']
 })
 
 export class ListIssuanceReturnComponent extends AppComponentBase implements OnInit {
@@ -42,6 +41,7 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
     );
   }
 
+  //Defining Issuance Return Columns
   columnDefs = [
     { 
       headerName: 'Issuance Return #', 
@@ -80,15 +80,6 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    // {
-    //   headerName: 'Total', 
-    //   field: 'totalAmount', 
-    //   tooltipField: 'status',
-    //   suppressMenu: true,
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return this.valueFormatter(params.value)
-    //   }
-    // },
     { 
       headerName: 'Status', 
       field: 'status', 
