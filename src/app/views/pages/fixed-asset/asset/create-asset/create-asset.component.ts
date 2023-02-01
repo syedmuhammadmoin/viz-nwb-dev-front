@@ -49,6 +49,10 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   isActiveChecked = true;
 
   depApplicabilityToggle =  false;
+
+
+  modelType =  false;
+
   // switch
   userStatus = 'Active'
 
@@ -65,58 +69,55 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   // Validation messages..
   validationMessages = {
+    dateofAcquisition: {
+      required: 'Date is required.',
+    },
     name: {
       required: 'Name is required.',
     },
-    acquisitionDate: {
-      required: 'Date is required.',
-    },
-    accountingDate: {
-      required: 'Date is required.',
-    },
-    depreciationModelId: {
-      required: 'Model is required.',
-    },
-    purchasePrice: {
-      required: 'Cost is required.',
-    },
-    salvageValue: {
-      required: 'Value is required.',
-    },
-    depreciationMethod: {
-      required: 'Method is required.',
-    },
-    usefulLife: {
-      required: 'Life is required.',
-    },
-    correspondingAccountId: {
-      required: 'Account is required.',
+    purchaseCost: {
+      required: 'Purchase Price is required.',
     },
     categoryId: {
       required: 'Category is required.',
     },
-    accumulatedDepreciation: {
-      required: 'Depreciation is required.',
+    depreciationId: {
+      required: 'Depreciation Ac is required.',
     },
-    decliningRate: {
+    modelType: {
+      required: 'Method is required.',
+    },
+    assetAccountId: {
+      required: 'Asset A/C is required.',
+    },
+    depreciationExpenseId: {
+      required: 'Depreciation Exp A/C is required.',
+    },
+    accumulatedDepreciationId: {
+      required: 'Accumulated Dep A/C is required.',
+    },
+    useFullLife: {
+      required: 'UseFull Life is required.',
+    },
+    decLiningRate: {
       required: 'Declining Factor is required.',
     },
   };
 
   // error keys..
   formErrors = {
-    name: '',
-    acquisitionDate: '',
-    accountingDate: '',
-    depreciationModelId: '',
-    salvageValue: '',
-    depreciationMethod: '',
-    purchasePrice: '',
-    usefulLife: '',
-    correspondingAccountId: '',
-    accumulatedDepreciation: '',
-    decliningRate: '',
-    categoryId: ''
+
+      dateofAcquisition:'',
+      name: '',
+      purchaseCost: '',
+      categoryId:'',
+      depreciationId:'',
+      modelType: '',
+      assetAccountId:'',
+      depreciationExpenseId:'',
+      accumulatedDepreciationId: '',
+      useFullLife:'',
+      decLiningRate:''
   };
 
   // Injecting in dependencies in constructor
@@ -140,44 +141,46 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
     // Creating Forms
     this.assetForm = this.fb.group({
+
+      dateofAcquisition:['', [Validators.required]],
       name: ['', [Validators.required]],
-      acquisitionDate: ['', [Validators.required]],
-      accountingDate: ['', [Validators.required]],
-      accumulatedDepreciation: ['', [Validators.required]],
-      depreciationModelId: ['', [Validators.required]],
+      purchaseCost: ['', [Validators.required]],
+      categoryId:['', [Validators.required]],
+      salvageValue:[0],
       depreciationApplicability: [false],
-      purchasePrice: ['', [Validators.required]],
-      depreciableValue: [0],
-      salvageValue: ['', [Validators.required]],
-      depreciationMethod: ['', [Validators.required]],
-      usefulLife: ['', [Validators.required]],
-      //decliningRate: [3, [Validators.required]],
-      categoryId: ['', [Validators.required]],
-      correspondingAccountId: ['', [Validators.required]],
+      depreciationId:[null],
+      modelType: [0],
+      assetAccountId: [null],
+      depreciationExpenseId:[null],
+      accumulatedDepreciationId: [null],
+      useFullLife:[0],
+      decLiningRate: [0],
       prorataBasis: [false],
-      isActive: [false]
+      active: [false]
     });
 
     this.assetModel = {
-      id: null,
-      name: '',
-      acquisitionDate: '',
-      depreciationModelId: null,
-      assetType: null,
-      purchasePrice: null,
-      salvageValue: null,
-      accumulatedDepreciation: null,
-      accountingDate: '',
-      depreciationMethod: null,
-      usefulLife: null,
-      decliningRate: null,
-      categoryId: null,
-      correspondingAccountId: null,
-      prorataBasis: false,
-      isActive: false
+
+    id: null,
+    dateofAcquisition:'',
+    name: '',
+    purchaseCost: null,
+    categoryId:null,
+    salvageValue:null,
+    depreciationApplicability: false,
+    depreciationId:null,
+    modelType: '',
+    assetAccountId: '',
+    depreciationExpenseId: '',
+    accumulatedDepreciationId: '',
+    useFullLife:null,
+    decLiningRate: null,
+    prorataBasis: true,
+    active: false
     }
 
     console.log(this.data)
+    this.onChangeDepApplicability(this.assetForm.value.depreciationApplicability)
 
     
     
@@ -187,7 +190,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     // this.ngxsService.getAssetAccountFromState();
     // this.ngxsService.getDepreciationModelFromState()
    // this.ngxsService.getOtherAccountsFromState();
-    // this.ngxsService.getCategoryFromState();
+    this.ngxsService.getCategoryFromState();
+    this.ngxsService.getDepreciationModelFromState();
+    this.ngxsService.getOtherAccountsFromState();
+    this.ngxsService.getAssetAccountFromState();
+    this.ngxsService.getCategoryAssetFromState();
 
     //getting product data for asset
     // if(this.data.productData) {
@@ -237,6 +244,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   // Form Reset
   reset() {
     this.formDirective.resetForm();
+    this.depApplicabilityToggle = false;
     //this.assetForm.get('depreciationModelId').setValue(1)
     //this.assetForm.get('isActive').setValue(true);
     //this.onToggle({checked: true})
@@ -296,21 +304,24 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   //Edit Asset Method
   public patchAsset(asset: IAsset | any) {
+    console.log(asset.depreciationExpenseId)
+    console.log(asset.accumulatedDepreciationId)
     this.assetForm.patchValue({
+      dateofAcquisition:asset.acquisitionDate,
       name: asset.name ?? asset.productName,
-      acquisitionDate: asset.acquisitionDate,
-      depreciationModelId: asset.depreciationModelId,
-      purchasePrice: asset.purchasePrice,
-      depreciableValue: asset.depreciableValue,
+      purchaseCost: asset.purchasePrice,
+      categoryId:asset.categoryId,
       salvageValue: asset.salvageValue,
-      accumulatedDepreciation: asset.accumulatedDepreciation,
-      depreciationMethod: asset.method,
-      usefulLife: asset.usefulLife,
-      accountingDate: asset.accountingDate,
-      decliningRate: asset.decliningRate,
-      categoryId: asset.categoryId,
-      correspondingAccountId: asset.correspondingAccountId,
+      depreciationApplicability: asset.depreciationApplicability,
+      depreciationId:asset.depreciationId,
+      modelType: asset.modelType,
+      assetAccountId: asset.assetAccountId,
+      depreciationExpenseId: asset.depreciationExpenseId,
+      accumulatedDepreciationId: asset.accumulatedDepreciationId,
+      useFullLife:asset.useFullLife,
+      decLiningRate: asset.decLiningRate,
       prorataBasis: asset.prorataBasis,
+      active: asset.active
     });
    
     // this.onToggle({checked: asset.isActive})
@@ -327,6 +338,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     console.log(this.assetForm.value)
    
     if (this.assetForm.invalid) {
+      console.log(this.assetForm)
       //this.toastService.error("Please fill all required fields!", "Asset")
       return;
     }
@@ -334,7 +346,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.mapFormValuesToAssetModel();
     console.log(this.assetModel)
-    if (this.data.assetData) {
+    if (this.data?.assetData) {
       console.log("edit")
       this.assetService.updateAsset(this.assetModel)
       .pipe(
@@ -363,6 +375,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
          })
        )
         .subscribe((res: IApiResponse<IAsset>) => {
+
             this.toastService.success('Created Successfully', 'Asset')
             this.onCloseDialog();
             this.router.navigate(['/' + ASSET.LIST])
@@ -373,8 +386,55 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   }
 
   onChangeDepApplicability(e){
-    // console.log(e.checked);
     this.depApplicabilityToggle = e.checked
+
+    if(e){
+      this.assetForm.get('depreciationId').setValidators([Validators.required])
+      this.assetForm.get('depreciationId').updateValueAndValidity();
+      this.assetForm.get('assetAccountId').setValidators([Validators.required])
+      this.assetForm.get('assetAccountId').updateValueAndValidity();
+      this.assetForm.get('depreciationExpenseId').setValidators([Validators.required])
+      this.assetForm.get('depreciationExpenseId').updateValueAndValidity();
+      this.assetForm.get('accumulatedDepreciationId').setValidators([Validators.required])
+      this.assetForm.get('accumulatedDepreciationId').updateValueAndValidity();
+      this.assetForm.get('useFullLife').setValidators([Validators.required])
+      this.assetForm.get('useFullLife').updateValueAndValidity();
+
+    }else{
+      this.assetForm.get('depreciationId').clearValidators()
+      this.assetForm.get('depreciationId').updateValueAndValidity();
+      this.assetForm.get('assetAccountId').clearValidators()
+      this.assetForm.get('assetAccountId').updateValueAndValidity();
+      this.assetForm.get('depreciationExpenseId').clearValidators()
+      this.assetForm.get('depreciationExpenseId').updateValueAndValidity();
+      this.assetForm.get('accumulatedDepreciationId').clearValidators()
+      this.assetForm.get('accumulatedDepreciationId').updateValueAndValidity();
+      this.assetForm.get('useFullLife').clearValidators()
+      this.assetForm.get('useFullLife').updateValueAndValidity();
+
+
+    }
+
+    this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages)
+    // getModelType(e)
+    
+
+  }
+
+  getModelType(e){
+
+    if(e){
+      this.modelType = true;
+      this.assetForm.get('decLiningRate').setValidators([Validators.required])
+      this.assetForm.get('decLiningRate').updateValueAndValidity();
+    }else{
+      this.modelType = false;
+      this.assetForm.get('decLiningRate').clearValidators()
+      this.assetForm.get('decLiningRate').updateValueAndValidity();
+    }
+
+    this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages) 
+
   }
 
   
@@ -391,21 +451,23 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   //Mapping Form Value to Model
   mapFormValuesToAssetModel() {
 
-    this.assetModel.name = this.assetForm.value.name;
-    this.assetModel.acquisitionDate = this.dateHelperService.transformDate(this.assetForm.value.acquisitionDate , 'yyyy-MM-dd');
-    this.assetModel.depreciationModelId = this.assetForm.value.depreciationModelId;
-    this.assetModel.assetType = AssetType.OpeningAssetAddition;
-    this.assetModel.purchasePrice = this.assetForm.value.purchasePrice;
-    this.assetModel.salvageValue = this.assetForm.value.salvageValue;
-    this.assetModel.accumulatedDepreciation = this.assetForm.value.accumulatedDepreciation;
-    this.assetModel.depreciationMethod = this.assetForm.value.depreciationMethod;
-    this.assetModel.usefulLife = this.assetForm.value.usefulLife;
-    this.assetModel.accountingDate = this.dateHelperService.transformDate(this.assetForm.value.accountingDate , 'yyyy-MM-dd');
-    this.assetModel.decliningRate = 2;
-    this.assetModel.categoryId = this.assetForm.value.categoryId;
-    this.assetModel.correspondingAccountId = this.assetForm.value.correspondingAccountId;
-    this.assetModel.prorataBasis = this.assetForm.value.prorataBasis;
-    this.assetModel.isActive = this.assetForm.value.isActive;
+    this.assetModel.dateofAcquisition = this.dateHelperService.transformDate(this.assetForm.value.dateofAcquisition , 'yyyy-MM-dd'),
+    this.assetModel.name = this.assetForm.value.name,
+    this.assetModel.purchaseCost =  this.assetForm.value.purchaseCost,
+    this.assetModel.categoryId = this.assetForm.value.categoryId,
+    this.assetModel.salvageValue = this.assetForm.value.salvageValue,
+    this.assetModel.depreciationApplicability =  this.assetForm.value.depreciationApplicability,
+    this.assetModel.depreciationId = this.assetForm.value.depreciationId,
+    this.assetModel.modelType = this.assetForm.value.modelType,
+    this.assetModel.assetAccountId = this.assetForm.value.assetAccountId,
+    this.assetModel.depreciationExpenseId =  this.assetForm.value.depreciationExpenseId,
+    this.assetModel.accumulatedDepreciationId = this.assetForm.value.accumulatedDepreciationId,
+    this.assetModel.useFullLife = this.assetForm.value.useFullLife,
+    this.assetModel.decLiningRate =  this.assetForm.value.decLiningRate,
+    this.assetModel.prorataBasis =  this.assetForm.value.prorataBasis,
+    this.assetModel.active =  this.assetForm.value.active
+
+    
   }
 
   // onToggle(event) {
@@ -442,17 +504,21 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       this.assetForm.patchValue({
         modelType: res.result.modelType,
         useFullLife: res.result.useFullLife,
-        decliningRate: res.result.decliningRate
+        decLiningRate: res.result.decliningRate,
+        depreciationExpenseId : res.result.depreciationExpenseId,
+        accumulatedDepreciationId : res.result.accumulatedDepreciationId,
+        assetAccountId : res.result.assetAccountId
       })
-     
+      this.getModelType(res.result.modelType)
       this.cdRef.detectChanges()
     })
+    
   }
 
   calculateDepValue() {
-    const purchasePrice = this.assetForm.get('purchasePrice').value
+    const purchaseCost = this.assetForm.get('purchaseCost').value
     const salvageValue = this.assetForm.get('salvageValue').value
-    this.assetForm.get('depreciableValue').setValue(purchasePrice - salvageValue)
+    this.assetForm.get('depreciableValue').setValue(purchaseCost - salvageValue)
   }
   
 

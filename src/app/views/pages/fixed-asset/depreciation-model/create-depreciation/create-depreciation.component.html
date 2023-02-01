@@ -36,11 +36,11 @@
                           <kt-simple-dropdown 
                             id="depreciation_asset"
                             propertyValue="id"
-                            propertyName="name" 
+                            propertyName="editableName" 
                             placeholder="Select Assets Account"
                             formControlName="assetAccountId"
                             matFormFieldClass="full-width"
-                            [optionList]="ngxsService.otherAccounts$"                                      
+                            [optionList]="ngxsService.assetAccount$"                                      
                             [errorMessage]="formErrors.assetAccountId"
                             (blurEvent)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">
                           </kt-simple-dropdown>
@@ -55,7 +55,7 @@
                           <kt-simple-dropdown 
                             id="depreciation_expense"
                             propertyValue="id"
-                            propertyName="name" 
+                            propertyName="editableName" 
                             placeholder="Select Expense Account"
                             formControlName="depreciationExpenseId"
                             matFormFieldClass="full-width"
@@ -72,7 +72,7 @@
                           <kt-simple-dropdown 
                             id="depreciation_accumulated"
                             propertyValue="id"
-                            propertyName="name" 
+                            propertyName="editableName" 
                             placeholder="Select Depreciation Account"
                             formControlName="accumulatedDepreciationId"
                             matFormFieldClass="full-width"

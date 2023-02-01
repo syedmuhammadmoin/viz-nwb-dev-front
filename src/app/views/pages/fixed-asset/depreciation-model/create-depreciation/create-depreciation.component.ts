@@ -145,7 +145,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     //get Accounts from Accounts State
     //this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getOtherAccountsFromState();
-    // this.ngxsService.getAssetCategoryFromState();
+    this.ngxsService.getAssetAccountFromState();
 
     if (this._id) {
       //this.showButtons = (this.permission.isGranted(this.permissions.CAMPUS_EDIT)) ? true : false;

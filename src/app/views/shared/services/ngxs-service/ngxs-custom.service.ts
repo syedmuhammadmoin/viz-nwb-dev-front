@@ -55,6 +55,7 @@ import { AllBusinessPartnerState } from 'src/app/views/pages/profiling/business-
 import { PayrollItemState } from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
 import { RequisitionState } from 'src/app/views/pages/procurement/requisition/store/requisition.state';
 import { RequisitionService } from 'src/app/views/pages/procurement/requisition/service/requisition.service';
+import { CategoryAssetState } from 'src/app/views/pages/profiling/category/store/categoryAsset.state';
 
 @Injectable({
   providedIn: 'root'
@@ -158,6 +159,11 @@ export class NgxsCustomService {
   @Select(CategoryState.entities) categories$: Observable<any>;
   @Select(CategoryState.isFetchCompleted) categoryFetchCompleted$: Observable<any>;
   @Select(CategoryState.isLoading) categoryIsLoading$: Observable<any>;
+  
+  // Category Asset
+  @Select(CategoryAssetState.entities) categoriesAsset$: Observable<any>;
+  @Select(CategoryAssetState.isFetchCompleted) categoryAssetFetchCompleted$: Observable<any>;
+  @Select(CategoryAssetState.isLoading) categoryAssetIsLoading$: Observable<any>;
 
 
   // // Location
@@ -475,6 +481,19 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(CategoryState, {
           serviceClass: this.categoryService,
           methodName: 'getCategoriesDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get Category From Store if available else fetch from the server and cache.
+  getCategoryAssetFromState() {
+    this.categoryAssetFetchCompleted$.subscribe((res) => {
+      if (!res) {
+        this.store.dispatch(new GetList(CategoryAssetState, {
+          serviceClass: this.categoryService,
+          methodName: 'getCategoryAssetsDropdown',
           context: this
         }))
       }

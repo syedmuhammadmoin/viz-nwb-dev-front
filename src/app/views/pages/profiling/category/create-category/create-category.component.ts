@@ -14,6 +14,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { MatRadioButton } from '@angular/material/radio';
 import { BehaviorSubject} from 'rxjs';
 import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service'
+import { CategoryAssetState } from '../store/categoryAsset.state';
 
 
 @Component({
@@ -216,6 +217,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(CategoryState, true))
+            this.ngxsService.store.dispatch(new IsReloadRequired(CategoryAssetState, true))
             this.toastService.success('Updated Successfully', 'Category')
             this.onCloseDialog();
           }
@@ -227,11 +229,13 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
         take(1),
          finalize(() => {
           this.isLoading = false;
+          
           this.cdRef.detectChanges();
          })
        )
         .subscribe(() => {        
             this.ngxsService.store.dispatch(new IsReloadRequired(CategoryState, true))
+            this.ngxsService.store.dispatch(new IsReloadRequired(CategoryAssetState, true))
             this.toastService.success('Created Successfully', 'Category')
             this.onCloseDialog();
           }

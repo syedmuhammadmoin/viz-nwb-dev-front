@@ -527,6 +527,15 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load CWIP Module
+      {
+        path: APP_ROUTES.CWIP, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/fixed-asset/cwip/cwip.module').then(
+            (m) => m.CwipModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
     ],

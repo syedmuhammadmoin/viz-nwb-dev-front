@@ -29,8 +29,12 @@ export class CategoryService extends AppServiceBase {
         return this.httpClient.get<IApiResponse<ICategory>>(`${this.baseUrl}/${id}`)
     }
 
+    getCategoryAssetsDropdown(id: number): Observable<IApiResponse<ICategory>> {
+        return this.httpClient.get<IApiResponse<ICategory>>(this.baseUrl + '/AssetDropdown')
+    }
+
     addCategory(category: ICategory): Observable<ICategory> {
-        return this.httpClient.post<ICategory>(this.baseUrl, category, {
+        return this.httpClient.post<ICategory>(this.baseUrl , category, {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })

@@ -111,6 +111,7 @@ import { EmployeePaymentState } from './views/pages/payroll/employee/store/emplo
 import { AllBusinessPartnerState } from './views/pages/profiling/business-partner/store/All-business-partner.state';
 import { PayrollItemState } from './views/pages/payroll/payroll-item/store/payroll-item.state';
 import { RequisitionState } from './views/pages/procurement/requisition/store/requisition.state';
+import { CategoryAssetState } from './views/pages/profiling/category/store/categoryAsset.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -187,6 +188,7 @@ export function getHighlightLanguages() {
       CashAccountState,
       AssetAccountState,
       AssetCategoryState,
+      CategoryAssetState,
       DepreciationModelState,
       BudgetState,
       StatusState,

@@ -3,41 +3,41 @@ import { Observable } from 'rxjs';
 import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { IAsset } from '../model/IAsset';
+import { ICwip } from '../model/ICwip';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AssetService extends AppServiceBase {
+export class CwipService extends AppServiceBase {
 
-  baseUrl = AppConst.remoteServiceBaseUrl + 'FixedAsset';
+  baseUrl = AppConst.remoteServiceBaseUrl + 'CWIP';
     
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-  getAssets(): Observable<IPaginationResponse<IAsset[]>> {
-      return this.httpClient.get<IPaginationResponse<IAsset[]>>(this.baseUrl)
+  getCwip(): Observable<IPaginationResponse<ICwip[]>> {
+      return this.httpClient.get<IPaginationResponse<ICwip[]>>(this.baseUrl)
   }
 
-  getAssetsDropdown(): Observable<IApiResponse<IAsset[]>> {
-      return this.httpClient.get<IApiResponse<IAsset[]>>(this.baseUrl + '/dropdown')
+//   getCwipDropdown(): Observable<IApiResponse<ICwip[]>> {
+//       return this.httpClient.get<IApiResponse<ICwip[]>>(this.baseUrl + '/dropdown')
+//   }
+
+  getCwipById(id: number): Observable<IApiResponse<ICwip>> {
+      return this.httpClient.get<IApiResponse<ICwip>>(`${this.baseUrl}/${id}`)
   }
 
-  getAssetById(id: number): Observable<IApiResponse<IAsset>> {
-      return this.httpClient.get<IApiResponse<IAsset>>(`${this.baseUrl}/${id}`)
-  }
-
-  createAsset(Asset : IAsset): Observable<any>{
-      return this.httpClient.post<any>(`${this.baseUrl}`, Asset, {
+  createCwip(Cwip : ICwip): Observable<any>{
+      return this.httpClient.post<any>(`${this.baseUrl}`, Cwip, {
           headers: new HttpHeaders({
               'Content-Type': 'application/json'
           })
       })
   }
 
-  updateAsset(Asset: IAsset): Observable<any> {
-      return this.httpClient.put<any>(`${this.baseUrl}/${Asset.id}`, Asset, {
+  updateCwip(Cwip: ICwip): Observable<any> {
+      return this.httpClient.put<any>(`${this.baseUrl}/${Cwip.id}`, Cwip, {
           headers: new HttpHeaders({
               'Content-Type': 'application/json'
           })
@@ -48,3 +48,4 @@ export class AssetService extends AppServiceBase {
       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.bankName?.filter)});
   }
 }
+

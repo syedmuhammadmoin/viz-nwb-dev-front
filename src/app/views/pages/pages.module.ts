@@ -20,7 +20,6 @@ import { CreateUnitOfMeasurementComponent } from './profiling/unit-of-measuremen
 
 
 @NgModule({
-  declarations: [],
   exports: [],
   imports: [
     CommonModule,

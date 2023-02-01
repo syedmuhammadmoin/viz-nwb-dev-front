@@ -34,162 +34,162 @@
               
             </div>
   
-            <div class="col-md-4 col-lg-4  mt-3">
+            <div class="col-md-6 col-lg-6  mt-3">
               <div class="print-box">
-                <h4 >Employee Name: 
-                  <span class="float-right" >{{assetMaster?.name || 'N/A'}}</span>
+                <h4 >Name: 
+                  <span class="float-right" >{{assetMaster?.name}}</span>
                 </h4>
                 <!-- <h6 style="font-weight: 400; color: #65c18c; font-size: 12px">{{assetMaster?.name || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
-                <h4 >Domicile: 
-                  <span class="float-right" >{{assetMaster?.domicile || 'N/A' }}</span>
+                <h4 >Acquisition Date: 
+                  <span class="float-right" >{{assetMaster?.dateofAcquisition | date: 'MMM d, y'}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.domicile || 'N/A' }}</h6> -->
               </div>
               <div class="print-box">
-                <h4 >Nationality: 
-                  <span class="float-right" >{{assetMaster?.nationality || 'N/A'}}</span>
+                <h4 >Purchase Cost: 
+                  <span class="float-right" >{{valueFormatter(assetMaster?.purchaseCost)}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.nationality || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
-                <h4 >Place Of Birth: 
-                <span class="float-right" >{{assetMaster?.placeofBirth}}</span></h4>
+                <h4 >Category: 
+                <span class="float-right" >{{assetMaster?.categoryName}}</span></h4>
               </div>
               <div class="print-box">
-                  <h4 >Date Of Joining: 
-                    <span class="float-right" >{{assetMaster?.dateofJoining | date: 'MMM d, y'}}</span>
+                  <h4 >Salvage Value: 
+                    <span class="float-right" >{{valueFormatter(assetMaster?.salvageValue)}}</span>
                   </h4>
                   <!-- <h6 >{{assetMaster?.dateofJoining | date: 'MMM d, y'}}</h6> -->
               </div>
               <div class="print-box">
-                <h4 >Role: 
-                  <span class="float-right" >{{assetMaster?.role || 'N/A'}}</span>
+                <h4 >Depreciation Applicability: 
+                  <span class="float-right" >{{assetMaster?.depreciationApplicability ? "Applicable" : 'Not Applicable'}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.role || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
-                <h4 >Basic Pay: 
-                <span class="float-right" >{{valueFormatter(assetMaster?.basicPay)}}</span></h4>
+                <h4 >Depreciation: 
+                <span class="float-right" >{{assetMaster?.depreciation || 'N/A'}}</span></h4>
               </div>
               <div class="print-box">
-                <h4 >Increment: 
-                <span class="float-right" >{{valueFormatter(assetMaster?.increment)}}</span></h4>
+                <h4 >Model Type: 
+                <span class="float-right" >{{modelType[assetMaster?.modelType]}}</span></h4>
               </div>
             </div>
   
-            <div class="col-md-4 col-lg-4  mt-3">
+            <div class="col-md-6 col-lg-6  mt-3">
               <div class="print-box">
                 <h4 >
-                  Father Name: 
-                  <span class="float-right" >{{assetMaster?.fatherName || 'N/A'}}</span>
+                  Asset Account: 
+                  <span class="float-right" >{{assetMaster?.assetAccount || 'N/A'}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.fatherName || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
-                  Contact: 
-                  <span class="float-right" >{{assetMaster?.contact || 'N/A'}}</span>
+                  Depreciation Expense Account: 
+                  <span class="float-right" >{{assetMaster?.depreciationExpense || 'N/A'}}</span>
                   
                 </h4>
                 <!-- <h6 >{{assetMaster?.contact || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
-                  Martial Status: 
-                  <span class="float-right" >{{assetMaster?.maritalstatus || 'N/A'}}</span>
+                  Accumulated Depreciation Account: 
+                  <span class="float-right" >{{assetMaster?.accumulatedDepreciation || 'N/A'}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.maritalstatus || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
-                  Designation: 
-                  <span class="float-right" >{{assetMaster?.designationName || 'N/A'}}</span>
+                  UseFull Life: 
+                  <span class="float-right" >{{valueFormatter(assetMaster?.useFullLife || 'NAN')}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.designationName || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
-                  Address: 
-                  <span class="float-right" >{{assetMaster?.address || 'N/A'}}</span>
+                  DecLining Rate: 
+                  <span class="float-right" >{{valueFormatter(assetMaster?.decLiningRate || 'NAN')}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.address || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
-                  Date Of Retirement: 
-                  <span class="float-right" >{{assetMaster?.dateofRetirment | date: 'MMM d, y'}}</span>
+                  Prorata Basis: 
+                  <span class="float-right" >{{assetMaster?.prorataBasis ? "Applicable" : 'Not Applicable'}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.dateofRetirment | date: 'MMM d, y'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
-                  Faculty: 
-                  <span class="float-right" >{{assetMaster?.faculty || 'N/A'}}</span>
+                  Active: 
+                  <span class="float-right" >{{assetMaster?.active ? "Applicable" : 'Not Applicable'}}</span>
                 </h4>
                 <!-- <h6 >{{assetMaster?.faculty || 'N/A'}}</h6> -->
               </div>
-              <div class="print-box">
+              <!-- <div class="print-box">
                 <h4 >
                   No of Increment: 
                   <span class="float-right" >{{assetMaster?.noOfIncrements || 'N/A'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.noOfIncrements || 'N/A'}}</h6> -->
-              </div>
+                <h6 >{{assetMaster?.noOfIncrements || 'N/A'}}</h6>
+              </div> -->
             </div>
   
-            <div class="col-md-4 col-lg-4  mt-3">
+            <!-- <div class="col-md-4 col-lg-4  mt-3">
               <div class="print-box">
                 <h4 >
                   Cnic: 
                   <span class="float-right" >{{assetMaster?.cnic || 'N/A'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.cnic || 'N/A'}}</h6> -->
+                <h6 >{{assetMaster?.cnic || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 >
                   Religion: 
                   <span class="float-right" >{{assetMaster?.religion}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.religion || 'N/A'}}</h6> -->
+                <h6 >{{assetMaster?.religion || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 >
                   Gender: 
                   <span class="float-right" >{{assetMaster?.gender || 'N/A'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.gender || 'N/A'}}</h6> -->
+                <h6 >{{assetMaster?.gender || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 >
                   Department: 
                   <span class="float-right" >{{assetMaster?.departmentName}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.departmentName || 'N/A'}}</h6> -->
+                <h6 >{{assetMaster?.departmentName || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 >
                   Date Of Birth: 
                   <span class="float-right" >{{assetMaster?.dateofBirth || 'N/A'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.dateofBirth || 'N/A'}}</h6> -->
+                <h6 >{{assetMaster?.dateofBirth || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 >
                   Shift: 
                   <span class="float-right" >{{assetMaster?.dutyShift}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.dutyShift || 'N/A'}}</h6> -->
+                <h6 >{{assetMaster?.dutyShift || 'N/A'}}</h6>
               </div>
               <div class="print-box">
                 <h4 >
                   Is Active: 
                   <span class="float-right" >{{(assetMaster?.isActive === true) ? 'Yes' : "No"}}</span>
                 </h4>
-                <!-- <h6 >{{(assetMaster?.isActive === true) ? 'Yes' : "No"}}</h6> -->
+                <h6 >{{(assetMaster?.isActive === true) ? 'Yes' : "No"}}</h6>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </kt-portlet-body>

@@ -3,7 +3,7 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
-import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
+import { ActionButton, DocumentStatus, DocType, Permissions, DepreciationMethod } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { finalize, take } from 'rxjs/operators';
@@ -31,6 +31,8 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   public permissions = Permissions;
   action = ActionButton
   docStatus = DocumentStatus
+
+  modelType: any = DepreciationMethod
 
   //For ag grid
   gridOptions: GridOptions;
@@ -60,7 +62,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit() {
-
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
