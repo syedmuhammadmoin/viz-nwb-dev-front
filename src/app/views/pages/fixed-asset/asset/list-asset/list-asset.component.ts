@@ -51,7 +51,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     { 
       headerName: 'Doc No', 
-      field: 'docNo', 
+      field: 'assetCode', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
       // filter: 'agTextColumnFilter',
@@ -105,6 +105,25 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
         }
         // return params.value ?? 'N/A'
       }
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
+    },
+    {
+      headerName: 'Status',
+      field: 'status',
+      tooltipField: 'name',
+      // valueFormatter: (params: ValueFormatterParams) => {
+      //   if(params.value){
+      //     return 'Applicable'
+      //   }
+      //   else{
+      //     return 'Not Applicable'
+      //   }
+      // }
       // filter: 'agDateColumnFilter',
       // menuTabs: ['filterMenuTab'],
       //   filterParams: {

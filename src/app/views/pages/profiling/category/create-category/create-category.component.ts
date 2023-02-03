@@ -185,18 +185,22 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       this.chartOfAccountService.getOtherAccounts().subscribe((res : any) =>{
         console.log(res);
         this.assetAccountList.next(res.result || [])
-        this.cdRef.markForCheck();
         this.showDepreciation = false
+        this.categoryForm.get('depreciationId').clearValidators()
+        this.categoryForm.get('depreciationId').updateValueAndValidity();
+        this.cdRef.markForCheck();
       })
     } else{
       this.chartOfAccountService.getAssetAccounts().subscribe((res : any) =>{
         console.log(res);
         this.assetAccountList.next(res.result || [])
         this.showDepreciation = true
+        this.categoryForm.get('depreciationId').setValidators([Validators.required])
+        this.categoryForm.get('depreciationId').updateValueAndValidity();
         this.cdRef.markForCheck();
       })
     }
-    
+    this.logValidationErrors(this.categoryForm, this.formErrors , this.validationMessages) 
 
   }
 

@@ -471,7 +471,9 @@ export class AppConst {
     {value: 'Issuance Return' , id: DocType.IssuanceReturn},
     {value: 'Request Requisition' , id: DocType.Request},
     {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
-    {value: 'Call Quotation' , id: DocType.CallForQuotaion}
+    {value: 'Call Quotation' , id: DocType.CallForQuotaion},
+    {value: 'FixedAsset' , id: DocType.FixedAsset},
+    {value: 'CWIP ' , id: DocType.CWIP}
 
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

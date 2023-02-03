@@ -51,7 +51,7 @@
                     <div class="row">
                       <div class="col-lg-6 col-sm-6 col-md-6">
                         <div class="form-group kt-form__group mb-0">
-                          <label class="col-form-label pt-0">depreciation Expense Account:</label>
+                          <label class="col-form-label pt-0">Depreciation Expense Account:</label>
                           <kt-simple-dropdown 
                             id="depreciation_expense"
                             propertyValue="id"
@@ -68,7 +68,7 @@
 
                       <div class="col-lg-6 col-sm-6 col-md-6">
                         <div class="form-group kt-form__group mb-0">
-                          <label class="col-form-label pt-0">Accumulated depreciation Account:</label>
+                          <label class="col-form-label pt-0">Accumulated Depreciation Account:</label>
                           <kt-simple-dropdown 
                             id="depreciation_accumulated"
                             propertyValue="id"
@@ -120,21 +120,16 @@
                 <div *ngIf="isDeclining" class="col-lg-6 col-sm-6 col-md-6">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Declining Rate (%):</label>
-                    <!-- <kt-input-field
-                      id="depreciation_rate"
-                      type="number"
-                      formControlName="decliningRate"
-                      placeholder="Enter Declining Rate"
-                      (blurEvent)="logValidationErrors(depreciationForm, formErrors, validationMessages)"
-                      [errorMessage]="[{ condition : formErrors.decliningRate , error : formErrors.decliningRate }]">
-                    </kt-input-field> -->
                     <mat-form-field appearance="outline" class="full-width">
-                      <input matInput formControlName="decliningRate" placeholder="Enter Declining Rate" 
-                           id="depreciation_rate" type="number" (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
-                           <mat-error *ngIf="formErrors.decliningRate">
-                            <strong>{{formErrors.decliningRate}}</strong>
-                          </mat-error>
-                      <!-- <mat-hint align="end">Optional</mat-hint> -->
+                      <input matInput 
+                        formControlName="decliningRate" 
+                        placeholder="Enter Declining Rate" 
+                        id="depreciation_rate" 
+                        type="number" 
+                        (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
+                        <mat-error *ngIf="formErrors.decliningRate">
+                        <strong>{{formErrors.decliningRate}}</strong>
+                        </mat-error>
                     </mat-form-field>
                    </div>
                 </div>

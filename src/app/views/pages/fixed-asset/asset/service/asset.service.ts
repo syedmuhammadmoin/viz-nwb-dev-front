@@ -6,6 +6,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IAsset } from '../model/IAsset';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 
 @Injectable({
   providedIn: 'root'
@@ -42,6 +43,10 @@ export class AssetService extends AppServiceBase {
               'Content-Type': 'application/json'
           })
       })
+  }
+
+  workflow(workflow: IWorkflow): Observable<any> {
+    return this.httpClient.post(this.baseUrl + '/workflow', workflow);
   }
 
   getRecords(params: any): Observable<any> {

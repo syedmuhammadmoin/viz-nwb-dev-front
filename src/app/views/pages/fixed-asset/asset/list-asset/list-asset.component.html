@@ -1,7 +1,7 @@
 <div class="row mb-4">
     <div class="col-md-12 text-right">
-      <button (click)="openDialog()"  id="add_asset" class="app-default-btn" mat-raised-button matTooltip="Add Asset">Add Asset</button>
-      <!-- <button (click)="openDialog()" *ngIf="(permission.isGranted(permissions.ASSET_CREATE))" id="add_asset" class="app-default-btn" mat-raised-button matTooltip="Add Asset">Add Asset</button> -->
+      <!-- <button (click)="openDialog()"  id="add_asset" class="app-default-btn" mat-raised-button matTooltip="Add Asset">Add Asset</button> -->
+      <button (click)="openDialog()" *ngIf="(permission.isGranted(permissions.ASSET_CREATE))" id="add_asset" class="app-default-btn" mat-raised-button matTooltip="Add Asset">Add Asset</button>
     </div>
   </div>
 

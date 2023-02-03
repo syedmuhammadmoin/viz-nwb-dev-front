@@ -175,7 +175,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     accumulatedDepreciationId: '',
     useFullLife:null,
     decLiningRate: null,
-    prorataBasis: true,
+    isSubmit: false,
+    prorataBasis: false,
     active: false
     }
 
@@ -186,28 +187,31 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     
 
     //get Accounts from Accounts State
-    // this.ngxsService.getAccountLevel4FromState();
-    // this.ngxsService.getAssetAccountFromState();
-    // this.ngxsService.getDepreciationModelFromState()
-   // this.ngxsService.getOtherAccountsFromState();
+
     this.ngxsService.getCategoryFromState();
     this.ngxsService.getDepreciationModelFromState();
     this.ngxsService.getOtherAccountsFromState();
     this.ngxsService.getAssetAccountFromState();
     this.ngxsService.getCategoryAssetFromState();
 
-    //getting product data for asset
+    // getting product data for asset
+
     // if(this.data.productData) {
-    //   //this.isLoading = true;
+    //   this.isLoading = true;
     //   // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
     //    this.title = 'Create Asset'
     //    this.patchAsset(this.data.productData);
+       
+       
     // } 
-    // else if (this.data.assetData) {
-    //   this.title = 'Edit Asset'
-    //   this.assetModel.id = this.data.assetData.id;
-    //   this.patchAsset(this.data.assetData);
-    // }
+
+    if (this.data?.assetData) {
+      this.title = 'Edit Asset'
+      this.assetModel.id = this.data.assetData.id;
+      this.patchAsset(this.data.assetData);
+      this.depApplicabilityToggle = this.data.assetData.depreciationApplicability;
+      
+    }
     
     // this.activatedRoute.params.subscribe((param) => {
     //   console.log(param)
@@ -304,12 +308,10 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   //Edit Asset Method
   public patchAsset(asset: IAsset | any) {
-    console.log(asset.depreciationExpenseId)
-    console.log(asset.accumulatedDepreciationId)
     this.assetForm.patchValue({
-      dateofAcquisition:asset.acquisitionDate,
-      name: asset.name ?? asset.productName,
-      purchaseCost: asset.purchasePrice,
+      dateofAcquisition:asset.dateofAcquisition,
+      name: asset.name,
+      purchaseCost: asset.purchaseCost,
       categoryId:asset.categoryId,
       salvageValue: asset.salvageValue,
       depreciationApplicability: asset.depreciationApplicability,
@@ -323,6 +325,30 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       prorataBasis: asset.prorataBasis,
       active: asset.active
     });
+
+
+// accumulatedDepreciation: null
+// accumulatedDepreciationId: "00000000-0000-0000-0000-000000000000"
+// active: false
+// assetAccount: null
+// assetAccountId: "00000000-0000-0000-0000-000000000000"
+// assetCode: "FXA-007"
+// categoryId: 5
+// categoryName: "Category 5"
+// dateofAcquisition: "2023-02-02T00:00:00"
+// decLiningRate: 0
+// depreciation: null
+// depreciationApplicability: false
+// depreciationExpense: null
+// depreciationExpenseId: "00000000-0000-0000-0000-000000000000"
+// depreciationId: 0
+// id: 7
+// modelType: 0
+// name: "Asset 6"
+// prorataBasis: false
+// purchaseCost: 6000
+// salvageValue: 12
+// useFullLife: 0
    
     // this.onToggle({checked: asset.isActive})
     // this.onacquisitionDateChange()
@@ -347,7 +373,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.mapFormValuesToAssetModel();
     console.log(this.assetModel)
     if (this.data?.assetData) {
-      console.log("edit")
+      // this.onChangeDepApplicability(this.data.assetData.depreciationApplicability)
       this.assetService.updateAsset(this.assetModel)
       .pipe(
         take(1),
@@ -479,9 +505,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   // }
 
   //for save or submit
-  // isSubmit(val: number) {
-  //   this.assetModel.isSubmit = (val === 0) ? false : true;
-  // }
+  isSubmit(val: number) {
+    this.assetModel.isSubmit = (val === 0) ? false : true;
+  }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();

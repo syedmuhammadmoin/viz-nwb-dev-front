@@ -1,17 +1,21 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Asset Detail'" [class]="'card-head-lg'">
-        <!-- <ng-container ktPortletTools>
+      
+      <kt-portlet-header [sticky]="false" [title]="'Asset Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
+        <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-          
-          <h4 class="overall_statuses {{docStatus[assetMaster?.state]}}"> Status: {{assetMaster?.status}} </h4>
-        </ng-container> -->
+          <div class="ribbon-target"><span class="ribbon-inner {{docStatus[assetMaster?.state]}}"></span> {{assetMaster?.status}}</div>
+          <!-- <h4 class="overall_statuses {{docStatus[requestRequisitionMaster?.state]}}"> Status: {{requestRequisitionMaster?.status}} </h4> -->
+        </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
         <div class="col-md-12 col-lg-12 mx-auto  mb-5">
           <div class="row ">
-            <div class="col-md-12 col-12 pb-3">
-              <ng-container ktPortletTools >
+            <div class="btn_container">
+              <div class="col-md-6 col-6">
+                <ng-container ktPortletTools>
+                  
+  
                   <!-- <button *ngIf="(assetMaster?.state === docStatus.Draft || assetMaster?.state === docStatus.Rejected)"
                     [disabled]="!(permission.isGranted(permissions.INVOICE_EDIT))"
                     [ngClass]="!(permission.isGranted(permissions.INVOICE_EDIT)) ? 'disable' : '' "
@@ -27,11 +31,17 @@
                     type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset()" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>
-                  
   
-                  <mat-divider class="mt-5"></mat-divider>
-              </ng-container>
-              
+                 
+                </ng-container>
+  
+              </div>
+              <div class="col-lg-6 text-right" *ngIf="assetMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="request_reject"
+                  class="mr-2 btn btn-outline-danger">Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="request_approve"
+                  class="btn btn-outline-success">Approve</button>
+              </div>
             </div>
   
             <div class="col-md-6 col-lg-6  mt-3">
@@ -39,19 +49,16 @@
                 <h4 >Name: 
                   <span class="float-right" >{{assetMaster?.name}}</span>
                 </h4>
-                <!-- <h6 style="font-weight: 400; color: #65c18c; font-size: 12px">{{assetMaster?.name || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >Acquisition Date: 
                   <span class="float-right" >{{assetMaster?.dateofAcquisition | date: 'MMM d, y'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.domicile || 'N/A' }}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >Purchase Cost: 
                   <span class="float-right" >{{valueFormatter(assetMaster?.purchaseCost)}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.nationality || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >Category: 
@@ -61,13 +68,11 @@
                   <h4 >Salvage Value: 
                     <span class="float-right" >{{valueFormatter(assetMaster?.salvageValue)}}</span>
                   </h4>
-                  <!-- <h6 >{{assetMaster?.dateofJoining | date: 'MMM d, y'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >Depreciation Applicability: 
                   <span class="float-right" >{{assetMaster?.depreciationApplicability ? "Applicable" : 'Not Applicable'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.role || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >Depreciation: 
@@ -85,7 +90,6 @@
                   Asset Account: 
                   <span class="float-right" >{{assetMaster?.assetAccount || 'N/A'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.fatherName || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
@@ -93,103 +97,38 @@
                   <span class="float-right" >{{assetMaster?.depreciationExpense || 'N/A'}}</span>
                   
                 </h4>
-                <!-- <h6 >{{assetMaster?.contact || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
                   Accumulated Depreciation Account: 
                   <span class="float-right" >{{assetMaster?.accumulatedDepreciation || 'N/A'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.maritalstatus || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
                   UseFull Life: 
                   <span class="float-right" >{{valueFormatter(assetMaster?.useFullLife || 'NAN')}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.designationName || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
                   DecLining Rate: 
                   <span class="float-right" >{{valueFormatter(assetMaster?.decLiningRate || 'NAN')}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.address || 'N/A'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
                   Prorata Basis: 
                   <span class="float-right" >{{assetMaster?.prorataBasis ? "Applicable" : 'Not Applicable'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.dateofRetirment | date: 'MMM d, y'}}</h6> -->
               </div>
               <div class="print-box">
                 <h4 >
                   Active: 
                   <span class="float-right" >{{assetMaster?.active ? "Applicable" : 'Not Applicable'}}</span>
                 </h4>
-                <!-- <h6 >{{assetMaster?.faculty || 'N/A'}}</h6> -->
               </div>
-              <!-- <div class="print-box">
-                <h4 >
-                  No of Increment: 
-                  <span class="float-right" >{{assetMaster?.noOfIncrements || 'N/A'}}</span>
-                </h4>
-                <h6 >{{assetMaster?.noOfIncrements || 'N/A'}}</h6>
-              </div> -->
             </div>
-  
-            <!-- <div class="col-md-4 col-lg-4  mt-3">
-              <div class="print-box">
-                <h4 >
-                  Cnic: 
-                  <span class="float-right" >{{assetMaster?.cnic || 'N/A'}}</span>
-                </h4>
-                <h6 >{{assetMaster?.cnic || 'N/A'}}</h6>
-              </div>
-              <div class="print-box">
-                <h4 >
-                  Religion: 
-                  <span class="float-right" >{{assetMaster?.religion}}</span>
-                </h4>
-                <h6 >{{assetMaster?.religion || 'N/A'}}</h6>
-              </div>
-              <div class="print-box">
-                <h4 >
-                  Gender: 
-                  <span class="float-right" >{{assetMaster?.gender || 'N/A'}}</span>
-                </h4>
-                <h6 >{{assetMaster?.gender || 'N/A'}}</h6>
-              </div>
-              <div class="print-box">
-                <h4 >
-                  Department: 
-                  <span class="float-right" >{{assetMaster?.departmentName}}</span>
-                </h4>
-                <h6 >{{assetMaster?.departmentName || 'N/A'}}</h6>
-              </div>
-              <div class="print-box">
-                <h4 >
-                  Date Of Birth: 
-                  <span class="float-right" >{{assetMaster?.dateofBirth || 'N/A'}}</span>
-                </h4>
-                <h6 >{{assetMaster?.dateofBirth || 'N/A'}}</h6>
-              </div>
-              <div class="print-box">
-                <h4 >
-                  Shift: 
-                  <span class="float-right" >{{assetMaster?.dutyShift}}</span>
-                </h4>
-                <h6 >{{assetMaster?.dutyShift || 'N/A'}}</h6>
-              </div>
-              <div class="print-box">
-                <h4 >
-                  Is Active: 
-                  <span class="float-right" >{{(assetMaster?.isActive === true) ? 'Yes' : "No"}}</span>
-                </h4>
-                <h6 >{{(assetMaster?.isActive === true) ? 'Yes' : "No"}}</h6>
-              </div>
-            </div> -->
           </div>
         </div>
       </kt-portlet-body>
@@ -199,10 +138,10 @@
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
-            <!-- <div class="col-lg-12 text-right" *ngIf="assetMaster?.isAllowedRole">
+            <div class="col-lg-12 text-right" *ngIf="assetMaster?.isAllowedRole">
               <button (click)="workflow(action.Reject)" id="invoice_reject" class="mr-5 btn btn-outline-danger" mat-raised-button>Reject</button>
               <button (click)="workflow(action.Approve)" id="invoice_approve" class="btn btn-outline-success" mat-raised-button>Approve</button>
-            </div> -->
+            </div>
           </div>
         </div>
       </div>

@@ -392,7 +392,9 @@ export enum DocType {
   IssuanceReturn,
   Request,
   BidEvaluation,
-  CallForQuotaion
+  CallForQuotaion,
+  FixedAsset,
+  CWIP  
 }
 
 // export enum DocStatus {
