@@ -472,7 +472,7 @@ export class AppConst {
     {value: 'Request Requisition' , id: DocType.Request},
     {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
     {value: 'Call Quotation' , id: DocType.CallForQuotaion},
-    {value: 'FixedAsset' , id: DocType.FixedAsset},
+    {value: 'Fixed Asset' , id: DocType.FixedAsset},
     {value: 'CWIP ' , id: DocType.CWIP}
 
     //{value: 'sales Order', id: DocType.SalesOrder},

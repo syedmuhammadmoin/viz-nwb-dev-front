@@ -142,7 +142,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       // decliningRate: ['', [Validators.required]],
       decliningRate: [0 , [Validators.max(100), Validators.min(0) , Validators.required]],
       //assetCategoryId: ['', [Validators.required]],
-      useFullLife: ['', [Validators.required , Validators.min(1) , Validators.pattern(this.numRegex)]]
+      useFullLife: ['', [Validators.required , Validators.min(1)]]
     });
 
 

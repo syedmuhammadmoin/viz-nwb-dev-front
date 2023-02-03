@@ -375,7 +375,7 @@ export enum DocType {
   Invoice,
   Bill,
   JournalEntry,
-  BankAccount ,
+  BankAccount,
   CashAccount,
   PurchaseOrder,
   SalesOrder,
@@ -393,8 +393,9 @@ export enum DocType {
   Request,
   BidEvaluation,
   CallForQuotaion,
+  QuotationComparative,
   FixedAsset,
-  CWIP  
+  CWIP
 }
 
 // export enum DocStatus {
