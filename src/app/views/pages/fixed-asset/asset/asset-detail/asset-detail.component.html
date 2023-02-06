@@ -27,7 +27,8 @@
                     class="btn_public" id="invoice_print">
                     <i class="fa fa-print"></i> Print Invoice
                   </button> -->
-                  <button *ngIf="(permission.isGranted(permissions.ASSET_EDIT))" 
+                  <button *ngIf="(assetMaster?.state === docStatus.Draft || assetMaster?.state === docStatus.Rejected)
+                  && (permission.isGranted(permissions.ASSET_EDIT))" 
                     type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset()" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>
@@ -37,10 +38,8 @@
   
               </div>
               <div class="col-lg-6 text-right" *ngIf="assetMaster?.isAllowedRole">
-                <button (click)="remarksDialog(action.Reject)" id="request_reject"
-                  class="mr-2 btn btn-outline-danger">Reject</button>
-                <button (click)="remarksDialog(action.Approve)" id="request_approve"
-                  class="btn btn-outline-success">Approve</button>
+                <button (click)="remarksDialog(action.Reject)" id="request_reject" class="mr-2 btn btn-outline-danger">Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="request_approve" class="btn btn-outline-success">Approve</button>
               </div>
             </div>
   
@@ -135,7 +134,7 @@
   
       <mat-divider class="mt-10"></mat-divider>
   
-      <div class="kt-portlet__foot p-5">
+      <!-- <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
             <div class="col-lg-12 text-right" *ngIf="assetMaster?.isAllowedRole">
@@ -144,6 +143,6 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </kt-portlet>
   </div>

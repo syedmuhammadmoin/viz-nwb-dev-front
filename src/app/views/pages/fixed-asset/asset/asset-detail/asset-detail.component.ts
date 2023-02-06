@@ -9,6 +9,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { finalize, take } from 'rxjs/operators';
 import { AssetService } from '../service/asset.service';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 
 //fixed asset table interface
@@ -643,6 +644,36 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
        }
 
     return Difference_In_Days
+  }
+
+   //Get Remarks From User
+   remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
+    this.isLoading = true
+    this.assetService.workflow({ action, docId: this.assetMaster.id, remarks})
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+      .subscribe((res) => {
+        this.getAssetData(this.assetId);
+        this.cdRef.detectChanges();
+        this.toastService.success('' + res.message, 'Request Requisition');
+      })
   }
 }
 
