@@ -2,7 +2,7 @@
     <kt-portlet>
       <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Quotation Comparative Detail'">
         <ng-container class="" ktPortletTools>
-          <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[quotationComparativeMaster?.state]}}"></span> {{quotationComparativeMaster?.status}}</div>
+          <div class="ribbon-target"><span class="ribbon-inner {{docStatus[quotationComparativeMaster?.state]}}"></span> {{quotationComparativeMaster?.status}}</div>
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
@@ -16,6 +16,11 @@
                       [routerLink]="'/' + QUOTATION_COMP.ID_BASED_ROUTE('edit', quotationComparativeMaster?.id)" [queryParams]="{q: quotationComparativeMaster?.id, 'isQuotationComparative': true}"
                       type="button"  class="mr-3 btn_public" id="quotation_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                       Edit
+                    </button>
+
+                    <button [routerLink]="'/' + QUOTATION_COMP.ID_BASED_ROUTE('print', quotationComparativeMaster?.id)" type="button"
+                      class="btn_public" id="quotation_print">
+                      <i class="fa fa-print icon-e-p-a"></i> Print Quotation Comparative
                     </button>
                 </ng-container>
               </div>

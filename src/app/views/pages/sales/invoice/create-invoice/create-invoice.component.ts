@@ -7,7 +7,7 @@ import { InvoiceService } from '../services/invoice.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -108,7 +108,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   }
 
   ngOnInit() {
-
     // Creating Forms
     this.invoiceForm = this.fb.group({
       customerName: ['', [Validators.required]],
@@ -146,6 +145,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       this.minDate = new Date(value);
       this.dateCondition = this.invoiceForm.get('dueDate').value < this.invoiceForm.get('invoiceDate').value
     })
+
+    this.warehouseList.next(0)
   }
 
   //unsubscribe Observable
@@ -392,6 +393,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
+      console.log(res.result)
     })
 
     console.log(this.invoiceForm.value.invoiceLines)

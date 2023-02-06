@@ -8,13 +8,14 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { QuotationComparativeRoutingModule } from './quotation-comparative-routing.module';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AwardVendorComponent } from './award-vendor/award-vendor.component';
+import { PrintQuotationComparativeComponent } from './print-quotation-comparative/print-quotation-comparative.component';
 
 
 @NgModule({
   declarations: [
     CreateQuotationComparativeComponent, 
     ListQuotationComparativeComponent, 
-    QuotationComparativeDetailComponent, AwardVendorComponent
+    QuotationComparativeDetailComponent, AwardVendorComponent, PrintQuotationComparativeComponent
   ],
   imports: [
     PartialsModule,
