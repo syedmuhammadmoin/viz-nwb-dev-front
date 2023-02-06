@@ -138,8 +138,8 @@ export class NgxsCustomService {
   
   // Category Asset
   @Select(CategoryAssetState.entities) categoriesAsset$: Observable<any>;
-  @Select(CategoryAssetState.isFetchCompleted) categoryAssetFetchCompleted$: Observable<any>;
-  @Select(CategoryAssetState.isLoading) categoryAssetIsLoading$: Observable<any>;
+  @Select(CategoryAssetState.isFetchCompleted) categoriesAssetFetchCompleted$: Observable<any>;
+  @Select(CategoryAssetState.isLoading) categoriesAssetIsLoading$: Observable<any>;
 
   // Product
   @Select(ProductState.entities) products$: Observable<any>;
@@ -329,6 +329,19 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(AssetAccountState, {
           serviceClass: this.chartOfAccountService,
           methodName: 'getAssetAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get All Category Assets State From Store if available else fetch from the server and cache.
+  getCategoryAssetFromState() {
+    this.categoriesAssetFetchCompleted$.subscribe((res) => {
+      if (!res) {
+        this.store.dispatch(new GetList(CategoryAssetState, {
+          serviceClass: this.categoryService,
+          methodName: 'getCategoryAssetsDropdown',
           context: this
         }))
       }
