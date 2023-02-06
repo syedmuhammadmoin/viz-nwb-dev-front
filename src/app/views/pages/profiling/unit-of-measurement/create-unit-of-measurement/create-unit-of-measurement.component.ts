@@ -20,14 +20,14 @@ import { UnitOfMeasurementState } from '../store/unit.state';
 
 export class CreateUnitOfMeasurementComponent extends AppComponentBase implements OnInit {
 
-  //busy loading
+  //Loader
   isLoading: boolean
 
   // unitOfMeasurement form declaration
   unitOfMeasurementForm: FormGroup;
 
   // unitOfMeasurement model declaration
-  unitOfMeasurement: IUnitOfMeasurement;
+  unitOfMeasurement: IUnitOfMeasurement = {} as IUnitOfMeasurement;
 
   title: string = 'Create Unit Of Measurement'
 
@@ -73,12 +73,7 @@ export class CreateUnitOfMeasurementComponent extends AppComponentBase implement
       this.title = 'Edit Unit Of Measurement'
       this.isLoading = true
       this.getunitOfMeasurement(this._id);
-    } else {
-      this.unitOfMeasurement = {
-        id: null,
-        name: ''
-      }
-    }
+    } 
   }
 
   // Getting unitOfMeasurement values for update

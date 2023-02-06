@@ -8,5 +8,4 @@ export interface IVendorBillLines {
     anyOtherTax: number;
     accountId: number;
     warehouseId: number;
-   // locationId: number;
 }

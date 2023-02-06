@@ -6,9 +6,7 @@ import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { QuotationService } from '../service/quotation.service';
-// import { RegisterPaymentComponent } from '../register-payment/register-payment.component'
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { ITransactionRecon } from '../../../purchase/vendorBill/model/ITransactionRecon';
 import { CREDIT_NOTE, QUOTATION, JOURNAL_ENTRY, RECEIPT, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IQuotationLines } from '../model/IQuotationLines';
 import { IQuotation } from '../model/IQuotation';
@@ -40,35 +38,15 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
   public RECEIPT = RECEIPT;
   public REQUISITION = REQUISITION;
 
-  transactionReconModel: ITransactionRecon;
-
-  //handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //need for routing
   quotationId: number;
 
-  loader: boolean = true;
-
   //Variables for Quotation data
   quotationLines: IQuotationLines | any
   quotationMaster: IQuotation | any;
-  bpUnReconPaymentList: any = [];
-  pendingAmount: any;
-  status: string;
-  paidAmount: number;
-  paidAmountList: any = [];
-
-  //need for Register Payment
-  totalBeforeTax: number;
-  totalTax: number;
-  totalQuotationAmount: number;
-  businessPartnerId: number;
-  transactionId: number;
-  ledgerId: number
 
   //Showing Remarks
   remarksList: string[] = [];
@@ -85,7 +63,7 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining Quotation Columns
   columnDefs = [
     { 
       headerName: 'Item', 
@@ -98,7 +76,6 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
       }
      },
     { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    // { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
       headerName: 'Price',
@@ -112,9 +89,6 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
   ];
 
   ngOnInit() {
-    // initializing empty model
-    this.transactionReconModel = {} as ITransactionRecon;
-
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
@@ -149,36 +123,10 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
       this.quotationLines = res.result.quotationLines;
       this.remarksList = this.quotationMaster.remarksList ?? []
      
-
-      // //handling disablity of register payment button
-      // this.isDisabled = (this.quotationMaster.status === "Paid" ? true : false)
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     });
   }
-
-  //on dialogue open funtions
-  // openDialog(): void {
-  //   const dialogRef = this.dialog.open(RegisterPaymentComponent, {
-  //     width: '900px',
-  //     data: {
-  //       accountId: this.quotationMaster.receivableAccountId,
-  //       paymentType: 1,
-  //       documentLedgerId: this.ledgerId,
-  //       campusId: this.quotationMaster.campusId,
-  //       businessPartnerId: this.businessPartnerId,
-  //       pendingAmount: this.pendingAmount,
-  //       formName: 'Quotation',
-  //       docType: DocType.Receipt
-  //     }
-  //   });
-  //   //Recalling getQuotationData function on dialog close
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.getQuotationData(this.quotationId);
-  //     this.cdRef.markForCheck();
-  //     this.cdRef.detectChanges();
-  //   });
-  // }
 
   //Get Remarks From User
   remarksDialog(action: any): void {

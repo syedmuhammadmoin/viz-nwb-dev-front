@@ -1,11 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/Dialog'
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { ICampus } from '../model/ICampus';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CampusService } from '../service/campus.service';
-// import { CreateCampusComponent } from '../create-campus/create-campus.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
@@ -13,14 +11,12 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-campus',
   templateUrl: './list-campus.component.html',
-  styleUrls: ['./list-campus.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-campus.component.scss']
 })
 
 export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   campusList : ICampus[]
-  //frameworkComponents : {[p: string]: unknown};
   gridOptions : GridOptions;
   defaultColDef : ColDef;
   components: any;
@@ -28,7 +24,6 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   gridColumnApi: any;
   public permissions = Permissions
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-   //tooltipData : string = "double click to edit"
    
   // constructor
   constructor(
@@ -44,19 +39,17 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       );
     }
 
-// defaults columns
+  //Defining Campus Columns
   columnDefs = [
     {
       headerName: "Sr.No",
       field: 'index',
       cellRenderer: "loadingCellRenderer",
       suppressMenu: true,
-      //tooltipField: 'name'
     },
     { 
       headerName: 'Name', 
       field: 'name', 
-      //tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -72,45 +65,9 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
         return (params.value) ? 'Yes' : 'No';
       }
      },
-    //  { 
-    //   headerName: 'Address', 
-    //   field: 'address', 
-    //   tooltipField: 'name',
-    //   suppressMenu: true
-    //  },
-    //  { 
-    //   headerName: 'Website', 
-    //   field: 'website', 
-    //   tooltipField: 'name',
-    //   suppressMenu: true,
-    //   valueFormatter: (params : ValueFormatterParams) => {
-    //     return params.value || 'N/A'
-    //   }
-    //  },
-    //  { 
-    //   headerName: 'Sales Tax ID', 
-    //   field: 'salesTaxId', 
-    //   tooltipField: 'name',
-    //   suppressMenu: true,
-    //   valueFormatter: (params : ValueFormatterParams) => {
-    //     return params.value || 'N/A'
-    //   }
-    //  },
-    //  { 
-    //   headerName: 'Phone No', 
-    //   field: 'phone', 
-    //   tooltipField: 'name',
-    //   suppressMenu: true,
-    //   valueFormatter: (params : ValueFormatterParams) => {
-    //     return params.value || 'N/A'
-    //   }
-    //  },
   ];
-// implimentation of ng OnInit
+
   ngOnInit() { 
-
-    
-
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -121,8 +78,6 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       context: "double click to edit",
     };
 
-    //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
-
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
@@ -130,7 +85,6 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       filter: 'agSetColumnFilter',
       resizable: true,
     }
-
 
     this.components = {
       loadingCellRenderer: function (params) {
@@ -150,22 +104,6 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
-// called when double clicked on record
-  // onRowDoubleClicked(event: RowDoubleClickedEvent) {
-  //   this.openDialog(event.data.id)
-  // }
-// open modal funtion
-  // openDialog(id?: number): void {
-  //   const dialogRef = this.dialog.open(CreateCampusComponent, {
-  //     width: '800px',
-  //     data: id
-  //   });
-  //   // Recalling getCampuses function on dialog close
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.gridApi.setDatasource(this.dataSource)
-  //     this.cdRef.detectChanges();
-  //   });
-  // }
 
   dataSource = {
     getRows: async (params: any) => {
@@ -192,40 +130,6 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     const result = await this.campusService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getCampuses(params: any): Promise<IPaginationResponse<ICampus[]>> {
-  //   const result = await this.campusService.getCampuses(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //   const res = await this.getCampuses(params);
-
-  //   if(isEmpty(res.result)) {  
-  //      this.gridApi.showNoRowsOverlay() 
-  //    } else {
-  //     this.gridApi.hideOverlay();
-  //    }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'campusPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
-  // getCampuses () : void {
-  //   this.campusService.getCampuses().subscribe((res: IPaginationResponse<ICampus[]>) => {
-  //     this.campusList = res.result;
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
 }
 
 

@@ -31,7 +31,7 @@ export class PrintExecutiveReportComponent extends AppComponentBase implements O
     injector: Injector,
     private activatedRoute: ActivatedRoute,
     private payrollReportService: PayrollReportsService,
-    private cdr: ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     public dynamicColorChanging : DynamicColorChangeService,
   ) {
     super(injector);
@@ -79,7 +79,7 @@ export class PrintExecutiveReportComponent extends AppComponentBase implements O
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }
 }

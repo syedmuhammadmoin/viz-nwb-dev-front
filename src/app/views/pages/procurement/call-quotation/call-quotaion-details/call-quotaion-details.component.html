@@ -1,16 +1,7 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
-      <!-- <kt-portlet-header [sticky]="false" [title]="'Quotation Detail'" [class]="'card-head-lg'">
-        <ng-container ktPortletTools>
-          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-  
-          <h4 class="overall_statuses {{docStatus[callQuotationMaster?.state]}}"> Status: {{callQuotationMaster?.status}} </h4>
-        </ng-container>
-      </kt-portlet-header> -->
-  
       <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Call Quotation Detail'">
         <ng-container class="" ktPortletTools>
-          <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
           <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[callQuotationMaster?.state]}}"></span> {{callQuotationMaster?.status}}</div>
         </ng-container>
       </kt-portlet-header>
@@ -36,8 +27,6 @@
                       
                       <i class="fa fa-print icon-e-p-a"></i> Print Call Quotation
                     </button>
-  
-  
                 </ng-container>
   
               </div>
@@ -57,10 +46,6 @@
                 <h4 class="print-box-detail-2"><b>Vendor Name: </b>
                 <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.vendorName}}</span></h4>
               </div>
-              <!-- <div class="print-box">
-                <h4 class="print-box-detail-2"><b>Campus: </b>
-                <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.campusName}}</span></h4>
-              </div> -->
               <div class="print-box">
                   <h4 class="print-box-detail-2"><b>Call Quotation Date: </b>
                   <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.callForQuotationDate | date: 'MMM d, y'}}</span></h4>
@@ -69,10 +54,7 @@
                 <h4 class="print-box-detail-2"><b>Description: </b>
                 <span class="float-right" style="font-weight: 400;">{{callQuotationMaster?.description}}</span></h4>
               </div>
-  
             </div>
-  
-  
           </div>
   
           <div class="row mt-10">
@@ -85,7 +67,6 @@
           </div>
   
           <div class="row mt-5">
-  
             <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
               <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
             </div>
@@ -109,85 +90,18 @@
                     </td>
                     <td>{{valueFormatter(unReconPay.amount)}}</td>
                     <td>
-                      <!-- <button (click)="reconcile(i)" class="recon-btn" mat-raised-button>Reconcile </button> -->
                       <button (click)="reconcile(i)" class="app-default-btn" mat-raised-button >Reconcile </button>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-  
-            <!-- <div class="col-lg-4 ml-auto">
-              <table class="table small_table_box" >
-                <tr>
-                  <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
-                  <td class="text-right" >
-                    {{valueFormatter(totalBeforeTax || 0)}}</td>
-                </tr>
-                <tr>
-                  <td class="text-left Total-Before-Tax-heading">Total Tax :</td>
-                  <td class="text-right" >
-                    {{valueFormatter(totalTax || 0)}}</td>
-                </tr>
-                <tr class="grand-total">
-                  <th class="text-left"
-                    >Grand Total :</th>
-                  <th class="text-right" >
-                    {{valueFormatter(totalQuotationAmount || 0)}}</th>
-                </tr>
-  
-                <tr *ngIf="paidAmountList.length > 0">
-                  <td colspan="2">
-                    <mat-accordion>
-                      <mat-expansion-panel>
-                        <mat-expansion-panel-header>
-                          <mat-panel-title class="paid-anount">
-                            Paid Amount :
-                          </mat-panel-title>
-                          <mat-panel-description class="paid-anount-flex-grow">
-                            {{valueFormatter(paidAmount || 0)}}
-                          </mat-panel-description>
-                        </mat-expansion-panel-header>
-                        <table class="table text-center table-bordered">
-                          <tr>
-                            <th>Doc #</th>
-                            <th>Amount</th>
-                          </tr>
-                          <tr *ngFor="let pay of paidAmountList">
-                            <td><a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
-                                class="all-text-primary">{{pay?.docNo}}</a></td>
-                            <td>
-                              <a [routerLink]="(pay?.docType === 15) ? ('/' + RECEIPT.ID_BASED_ROUTE('details', pay?.id)) : (pay?.docType === 5) ? ('/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , pay?.id)) : ('/' + CREDIT_NOTE.ID_BASED_ROUTE('details' , pay?.id))"
-                              class="all-text-primary">{{valueFormatter(pay.amount || 0)}}</a>
-                            </td>
-                          </tr>
-                        </table>
-                      </mat-expansion-panel>
-                    </mat-accordion>
-                  </td>
-                </tr>
-                  <tr *ngIf="(pendingAmount)">
-                  <th class="text-right pending-amount">Pending Amount :
-                  </th>
-                  <td class="text-right Total-Before-Tax">
-                    <b>{{valueFormatter(pendingAmount || 0)}}</b></td>
-                </tr>
-              </table>
-            </div> -->
           </div>
-  
         </div>
       </kt-portlet-body>
   
       <mat-divider class="mt-10"></mat-divider>
   
-      <div class="kt-portlet__foot p-5">
-        <div class="kt-form__actions kt-form__actions mb-0">
-          <div class="row ">
-  
-          </div>
-        </div>
-      </div>
     </kt-portlet>
   </div>
   

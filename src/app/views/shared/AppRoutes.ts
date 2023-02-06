@@ -21,9 +21,7 @@ export const APP_ROUTES = {
   PAYMENT: 'payment',
 
   //INVENTORY
-  DISPATCH_NOTE: 'dispatch-note',
   GOODS_RECEIVED_NOTE: 'goods-received-note',
-  INVENTORY_ADJUSTMENT: 'inventory-adjustment',
   GOODS_RETURN_NOTE: 'goods-return-note',
   STOCK: 'stock',
   ISSUANCE: 'issuance',
@@ -41,7 +39,6 @@ export const APP_ROUTES = {
   CAMPUS : 'campus',
   BUSINESS_PARTNER : 'business-partner',
   CATEGORY: 'category',
-  LOCATION: 'location',
   ORGANIZATION: 'organization',
   PRODUCT: 'product',
   WAREHOUSE: 'warehouse',
@@ -72,7 +69,6 @@ export const APP_ROUTES = {
   //SALES
   CREDIT_NOTE: 'credit-note',
   INVOICE: 'invoice',
-  SALES_ORDER: 'sales-order',
 
   //WORKFLOW
   WORKFLOW: 'workflow',
@@ -216,27 +212,11 @@ export const CRUD_ROUTES = {
 
 
   //INVENTORY SECTION
-  export const DISPATCH_NOTE = {
-    LIST: APP_ROUTES.DISPATCH_NOTE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.DISPATCH_NOTE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.DISPATCH_NOTE + '/' + route + '/' + id
-    }
-  }
-
   export const GOODS_RECEIVED_NOTE = {
     LIST: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.LIST,
     CREATE: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.CREATE,
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + route + '/' + id
-    }
-  }
-
-  export const INVENTORY_ADJUSTMENT = {
-    LIST: APP_ROUTES.INVENTORY_ADJUSTMENT + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.INVENTORY_ADJUSTMENT + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.INVENTORY_ADJUSTMENT + '/' + route + '/' + id
     }
   }
 
@@ -334,10 +314,6 @@ export const CRUD_ROUTES = {
     LIST: APP_ROUTES.CATEGORY + '/' + CRUD_ROUTES.LIST,
   }
 
-  export const LOCATION = {
-    LIST: APP_ROUTES.LOCATION + '/' + CRUD_ROUTES.LIST
-  }
-
   export const ORGANIZATION = {
     LIST: APP_ROUTES.ORGANIZATION + '/' + CRUD_ROUTES.LIST
   }
@@ -364,10 +340,6 @@ export const CRUD_ROUTES = {
   //FIXED ASSET SECTION
   export const DEPRECIATION_MODEL = {
     LIST: APP_ROUTES.DEPRECIATION_MODEL + '/' + CRUD_ROUTES.LIST
-  }
-
-  export const ASSET_CATEGORY = {
-    LIST: APP_ROUTES.ASSET_CATEGORY + '/' + CRUD_ROUTES.LIST,
   }
 
   export const ASSET = {
@@ -484,14 +456,6 @@ export const CRUD_ROUTES = {
     AGING_REPORT: APP_ROUTES.INVOICE + '/aging-report',
     ID_BASED_ROUTE (route: string , id: number) {       
       return APP_ROUTES.INVOICE + '/' + route + '/' + id
-    }
-  }
-
-  export const SALES_ORDER = {
-    LIST: APP_ROUTES.SALES_ORDER + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.SALES_ORDER + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.SALES_ORDER + '/' + route + '/' + id
     }
   }
 

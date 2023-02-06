@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { Subscription } from 'rxjs';
@@ -16,8 +16,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-payment',
   templateUrl: './list-payment.component.html',
-  styleUrls: ['./list-payment.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-payment.component.scss']
 })
 
 export class ListPaymentComponent extends AppComponentBase implements OnInit, OnDestroy {
@@ -59,7 +58,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     );
   }
 
-  //ag-Grid Columns
+  //Defining AG Grid Columns
   columnDefs = [
     {
       headerName: 'Doc #',
@@ -98,26 +97,6 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    // {
-    //   headerName: 'Sales Tax',
-    //   field: 'salesTaxInAmount',
-    //   cellStyle: { 'text-align': "right" },
-    //   tooltipField: 'status',
-    //   suppressMenu: true,
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return this.valueFormatter(params.value)
-    //   }
-    // },
-    // {
-    //   headerName: 'Income Tax',
-    //   field: 'incomeTaxInAmount',
-    //   tooltipField: 'status',
-    //   cellStyle: { 'text-align': "right" },
-    //   suppressMenu: true,
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return this.valueFormatter(params.value)
-    //   }
-    // },
     {
       headerName: 'Net Payment',
       field: 'netPayment',
@@ -177,12 +156,6 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     };
 
     if(this.selectedDocumentType === 17) this.showCreateButton = false;
-    //checking create permissions
-    // if(this.selectedDocumentType === 0) this.showButton(this.permission.isGranted(this.permissions.PAYMENT_CREATE))
-
-    // if(this.selectedDocumentType === 15) this.showButton(this.permission.isGranted(this.permissions.RECEIPT_CREATE))
-
-    // if(this.selectedDocumentType === 17) this.showButton(this.permission.isGranted(this.permissions.PAYROLL_PAYMENT_CREATE))
 
     (this.selectedDocumentType === 0) ? this.showButton(this.permission.isGranted(this.permissions.PAYMENT_CREATE)) :
       (this.selectedDocumentType === 15) ? this.showButton(this.permission.isGranted(this.permissions.RECEIPT_CREATE)) : null
@@ -207,10 +180,9 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
       width: '800px',
       data: { id, docType: this.selectedDocumentType }
     });
-    // Recalling getPaymets function on dialog close
+    //Getting Updated Payment Data
     dialogRef.afterClosed().subscribe(() => {
       this.gridApi.setDatasource(this.dataSource)
-      //this.cdRef.detectChanges();
     });
   }
 
@@ -222,7 +194,6 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     } else {
       this.gridApi.hideOverlay();
     }
-    //  if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
      params.successCallback(res.result || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, this.docType[this.selectedDocumentType]);
      this.cdRef.detectChanges();
@@ -239,33 +210,4 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     const result = await this.paymentService.getRecords(params, this.documents.find(x => x.id === this.selectedDocumentType).value).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getPayments(params: any): Promise<IPaginationResponse<IPayment[]>> {
-  //   const result = await this.paymentService.getPayments((this.documents.find(x => x.id === this.selectedDocumentType).value) , params).toPromise()
-  //   console.log(result)
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getPayments(params);
-
-  //    if(isEmpty(res.result)) {
-  //     this.gridApi.showNoRowsOverlay()
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, this.docType[this.selectedDocumentType])
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
 }

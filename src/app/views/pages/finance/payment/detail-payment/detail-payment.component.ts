@@ -20,7 +20,6 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
   selector: 'kt-detail-payment',
   templateUrl: './detail-payment.component.html',
   styleUrls: ['./detail-payment.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class DetailPaymentComponent extends AppComponentBase implements OnInit, OnDestroy {
@@ -41,7 +40,7 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   
   docStatus = DocumentStatus
 
-  //for busy loading
+  //Loader
   isLoading: boolean
 
   action = ActionButton;
@@ -63,6 +62,7 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
   //Showing Remarks
   remarksList: string[] = [];
 
+  //Injecting Dependencies
     constructor( private paymentService: PaymentService,
                  private route: ActivatedRoute,
                  public  dialog: MatDialog,
@@ -86,6 +86,7 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
         }
       });
 
+      //Handling Button hide/show Case in all payment specific forms
       (this.selectedFormType === 0) ? this.showButton(this.permission.isGranted(this.permissions.PAYMENT_EDIT)) :
       (this.selectedFormType === 15) ? this.showButton(this.permission.isGranted(this.permissions.RECEIPT_EDIT)) :
         (this.selectedFormType === 17) ? this.showButton(this.permission.isGranted(this.permissions.PAYROLL_PAYMENT_EDIT)) : null
@@ -108,15 +109,6 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
           this.paymentMaster = res.result;
           this.paidAmountList = this.paymentMaster.paidAmountList;
           this.remarksList = this.paymentMaster.remarksList ?? [] 
-          
-          // this.status = AppConst.ConsileOrReconcile[this.paymentMaster.bankReconStatus]
-          // this.paymentType = AppConst.paymentType[this.paymentMasterList.paymentType]
-          // this.registerType = AppConst.paymentRegisterType[this.paymentMasterList.paymentRegisterType]
-          // this.salesTax = this.paymentMasterList.salesTax;
-          // this.incomeTax = this.paymentMasterList.incomeTax;
-          // this.grossAmount = this.paymentMasterList.grossPayment ?? 0;
-          // const grossPayment = this.paymentMasterList.grossAmount;
-          // const tax = res.result.salesTax + res.result.incomeTax
           this.cdRef.markForCheck();
         })
   }
@@ -126,7 +118,7 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
       width: '760px',
       data: {id, docType: this.selectedFormType}
     });
-    // Recalling getInvoiceMasterData function on dialog close
+    //Getting Updated Payment Data
     dialogRef.afterClosed().subscribe(() => {
       this.getPaymentData(this.paymentId)
     });
@@ -163,7 +155,7 @@ export class DetailPaymentComponent extends AppComponentBase implements OnInit, 
     })
   }
 
-  //upload File
+  //Upload File
   openFileUploadDialog() {
     this.dialog.open(CustomUploadFileComponent, {
       width: '740px',

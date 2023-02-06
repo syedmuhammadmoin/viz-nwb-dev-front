@@ -95,20 +95,6 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
   hasChild = (_: number, node: FlatNode) => node.expandable;
 
   addNewItem(node: FlatNode) {
-    //console.log(node);
-    // if (node.level == 1) {
-    //   const dialogRef = this.dialog.open(CreateLevel3Component, {
-    //     width: '800px',
-    //     data: {parentId: node.id}
-    //   });
-    //   // Recalling getBankAccounts function on dialog close
-    //   dialogRef.afterClosed().subscribe(() => {
-    //     this.chartOfAccService.getChartOfAccount().subscribe((res) => {
-    //       this.dataSource.data = res.result;
-    //       this.cdRef.detectChanges();
-    //     })
-    //   });
-    // }
     if (node.level == 2) {
       const dialogRef = this.dialog.open(CreateLevel4Component, {
         width: '800px',
@@ -130,27 +116,10 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
         })
       });
     }
-    // const parentNode = this.flatNodeMap.get(node);
-    // this._database.insertItem(parentNode!, '');
-    // this.treeControl.expand(node);
   }
 
   editItem(node) {
-    // if (node.level === 2 && node.id) {
-    //   const dialogRef = this.dialog.open(CreateLevel3Component, {
-    //     width: '800px',
-    //     data: {modelId: node.id}
-    //   });
-    //   // Recalling getBankAccounts function on dialog close
-    //   dialogRef.afterClosed().subscribe(() => {
-    //     this.chartOfAccService.getChartOfAccount().subscribe((res) => {
-    //       this.dataSource.data = res.result;
-    //       this.cdRef.detectChanges();
-    //     })
-    //   });
-    // }
     if (node.level === 3 && node.id) {
-      //console.log('nodeId : ', node.id)
       const dialogRef = this.dialog.open(CreateLevel4Component, {
         width: '800px',
         data: {modelId: node.id}
@@ -191,7 +160,6 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
       return null;
     }
 
-    // const startIndex = this.treeControl.dataNodes.indexOf(node) - 1;
     const startIndex = this.treeControl.dataNodes.indexOf(this.treeControl.dataNodes.find(x => x.id === node.id)) - 1;
 
     for (let i = startIndex; i >= 0; i--) {

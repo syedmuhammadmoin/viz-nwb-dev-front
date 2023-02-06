@@ -1,6 +1,3 @@
-import { CreateWarehouseComponent } from 'src/app/views/pages/profiling/warehouse/create-warehouse/create-warehouse.component';
-import { CreateOrganizationComponent } from 'src/app/views/pages/profiling/organization/create-organization/create-organization.component';
-import { CreateCategoryComponent } from 'src/app/views/pages/profiling/category/create-category/create-category.component';
 // Angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -10,17 +7,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { PartialsModule } from '../partials/partials.module';
 // Pages
 import { CoreModule } from '../../core/core.module';
-
 import {AgGridModule} from "ag-grid-angular";
 import { MatButtonModule } from '@angular/material/button';
-import { CreateBusinessPartnerComponent } from './profiling/business-partner/create-business-partner/create-business-partner.component';
-import { CreateLocationComponent } from './profiling/location/create-location/create-location.component';
-import { CreateProductComponent } from './profiling/product/create-product/create-product.component';
-import { CreateUnitOfMeasurementComponent } from './profiling/unit-of-measurement/create-unit-of-measurement/create-unit-of-measurement.component';
 
 
 @NgModule({
-  exports: [],
   imports: [
     CommonModule,
     HttpClientModule,
@@ -30,8 +21,6 @@ import { CreateUnitOfMeasurementComponent } from './profiling/unit-of-measuremen
     MatButtonModule,
     PartialsModule
   ],
-  
-    providers:[],
 })
 
 export class PagesModule { }

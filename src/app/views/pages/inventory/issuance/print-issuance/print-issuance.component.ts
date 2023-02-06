@@ -25,9 +25,10 @@ export class PrintIssuanceComponent extends AppComponentBase implements OnInit {
   localsto : any ;
   className : any;
 
+  //Injecting Dependencies
   constructor( private issuanceService: IssuanceService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public sanitizer: DomSanitizer,
                public dynamicColorChanging : DynamicColorChangeService,
                injector: Injector
@@ -66,7 +67,7 @@ export class PrintIssuanceComponent extends AppComponentBase implements OnInit {
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }  
 
@@ -82,7 +83,7 @@ export class PrintIssuanceComponent extends AppComponentBase implements OnInit {
     this.issuanceService.getIssuanceById(id).subscribe((res: IApiResponse<IIssuance>) => {
         this.issuanceMaster = res.result;
         this.issuanceLines = res.result.issuanceLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

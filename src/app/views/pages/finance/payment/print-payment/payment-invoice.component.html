@@ -49,10 +49,8 @@
 
           <div class="print-col-6 p-s-2-one" style="margin-top: 3%;">
             <div class="print-box-one">
-              <!-- <h4> </h4> -->
               <h4 class="font-14"><b>Business Partner:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.businessPartnerName}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
             </div>
             <div class="print-box-one">
               <h4 class="font-14"><b>NTN:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.incomeTaxId || 'N/A'}}</span></h4>
@@ -67,10 +65,8 @@
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <!-- <h4> </h4> -->
               <h4 class="font-14"><b>Address:</b> <span class="text-left d-block mt-2 " style="font-weight: 400;">{{paymentMaster?.businessPartnerAddress || 'N/A' }}</span></h4>
               <p style="margin-bottom: 0px;"></p>
-              <!-- <p style="font-size: 16px;font-weight: 600;color: #1a6b85;margin-bottom: 2px;"></p> -->
             </div>
           </div>
 
@@ -91,8 +87,6 @@
               <h4 class="font-14"><b>{{(this.selectedDocumented === 'Receipt') ? 'Instrument No' : 'Cheque No'}}:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.chequeNo || 'N/A'}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
-
-
           </div>
 
           <div class="print-col-12 p-s-2-two" style="margin-top: 3%;">
@@ -102,27 +96,19 @@
                   <tr>
                     <th>Account</th>
                     <th>Description</th>
-                    <!-- <th>Campus</th> -->
                     <th class="text-right">Gross Payment</th>
-
-
                   </tr>
                   <tr>
                     <td>{{paymentMaster?.accountName}}</td>
                     <td  class="description text-left">{{paymentMaster?.description}}</td>
-                    <!-- <td> {{paymentMaster?.campusName}}</td> -->
                     <td class="text-right"><b>{{paymentMaster?.grossPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
                   </tr>
-
-
                 </thead>
               </table>
             </div>
           </div>
 
-
           <div class="print-col-5  ml-auto p-s-3">
-
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">Sales Tax:
                 <span class="float-right" style="font-weight: 500;">{{paymentMaster?.salesTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
@@ -149,10 +135,6 @@
               </h4>
             </div>
           </div>
-
-
-
-
         </div>
 
         <div class="row mt-10 ms-10">

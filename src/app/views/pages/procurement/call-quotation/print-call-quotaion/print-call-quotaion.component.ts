@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-call-quotaion',
   templateUrl: './print-call-quotaion.component.html',
-  styleUrls: ['./print-call-quotaion.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-call-quotaion.component.scss']
 })
 
 export class PrintCallQuotaionComponent extends AppComponentBase implements OnInit {
@@ -28,7 +27,7 @@ export class PrintCallQuotaionComponent extends AppComponentBase implements OnIn
 
   constructor( private callQuotationService: CallQuotationService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer,
                injector: Injector
@@ -67,7 +66,7 @@ export class PrintCallQuotaionComponent extends AppComponentBase implements OnIn
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
 
     
@@ -86,7 +85,7 @@ export class PrintCallQuotaionComponent extends AppComponentBase implements OnIn
     this.callQuotationService.getCallQuotationById(id).subscribe((res: IApiResponse<ICallQuotation>) => {
         this.callQuotationMaster = res.result;
         this.callQuotationLines = res.result.callForQuotationLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

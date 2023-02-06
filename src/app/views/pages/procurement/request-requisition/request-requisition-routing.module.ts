@@ -28,7 +28,6 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateRequestRequisitionComponent,
-       // canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.REQUEST_CREATE },

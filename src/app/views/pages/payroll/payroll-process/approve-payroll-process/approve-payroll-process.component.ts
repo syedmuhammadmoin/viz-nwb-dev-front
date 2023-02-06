@@ -127,28 +127,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     year: ''
   };
 
-  
-  
-  
-
-  // religionList = [
-  //   { id: 0, value: 'Islam' },
-  //   { id: 1, value: 'Christian' },
-  //   { id: 2, value: 'Hinduism' },
-  // ]
-
-  // editPayrollTransaction(event: any) {
-  //   const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
-  //     width: '100%',
-  //     data: event?.data?.id
-  //   });
-  //   // Recalling getBankAccounts function on dialog close
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.onSubmit();
-  //   });
-  // }
-
-
   constructor(
     injector: Injector,
     private fb: FormBuilder,
@@ -166,9 +144,7 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       departmentId: ['',Validators.required],
       campusId: ['',Validators.required],
       month: ['', Validators.required],
-      year: ['', Validators.required],
-      // religion: ['']
-      // accountPayableId: [null]
+      year: ['', Validators.required]
     })
 
     this.getLatestCampuses();

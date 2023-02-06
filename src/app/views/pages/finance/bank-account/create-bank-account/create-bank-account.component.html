@@ -83,13 +83,6 @@
                             (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
                             [errorMessage]="[{ condition : formErrors.accountNumber , error : formErrors.accountNumber }]">
                           </kt-input-field>
-                          <!-- <mat-form-field appearance="outline" class="full-width">
-                            <input matInput formControlName="accountNumber" placeholder="Enter Account Number" 
-                                 id="bank_account_number" type="number" (blur)="logValidationErrors(this.bankAccountForm, this.formErrors, this.validationMessages)">
-                            <mat-error *ngIf="formErrors.accountNumber">
-                              <strong>{{formErrors.accountNumber}}</strong>
-                            </mat-error>
-                          </mat-form-field> -->
                           </div>
                       </div>
                       <div class="col-lg-6 col-md-6 col-sm-6">
@@ -135,14 +128,6 @@
                     <div class="col-lg-6 col-md-6 col-sm-6">
                         <div class="form-group kt-form__group mb-0">
                             <label class="col-form-label pt-0">Opening Balance:</label>
-                            <!-- <kt-input-field
-                            id="bank_account_balance"
-                              formControlName="openingBalance"
-                              type="number"
-                              placeholder="Enter opening balance"
-                              (blurEvent)="logValidationErrors(this.bankAccountForm, formErrors, validationMessages)"
-                              [errorMessage]="[{ condition : formErrors.openingBalance , error : formErrors.openingBalance }]">
-                            </kt-input-field> -->
                             <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="openingBalance" placeholder="Enter Opening Balance" 
                                    id="bank_account_balance" type="number" (blur)="logValidationErrors(this.bankAccountForm, this.formErrors, this.validationMessages)">

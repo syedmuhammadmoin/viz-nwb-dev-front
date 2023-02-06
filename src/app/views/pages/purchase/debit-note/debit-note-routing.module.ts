@@ -32,7 +32,6 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateDebitNoteComponent,
-       // canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.DEBITNOTE_CREATE },

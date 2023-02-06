@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IProduct} from '../../../profiling/product/model/IProduct';
 import { IGRN} from '../model/IGRN';
@@ -23,8 +23,7 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 @Component({
   selector: 'kt-create-grn',
   templateUrl: './create-grn.component.html',
-  styleUrls: ['./create-grn.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./create-grn.component.scss']
 })
 
 export class CreateGrnComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
@@ -43,8 +42,8 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
 
-  // Goods Received NoteModel
-  grnModel: IGRN | any;
+  //Goods Received Note Model
+  grnModel: IGRN | any = {} as IGRN;
 
   title: string = 'Create Goods Received Note'
 
@@ -64,7 +63,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // for Edit
   isGRN: any;
-
   grnId: number;
 
   // For Calculation
@@ -72,11 +70,11 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   totalBeforeTax = 0 ;
   totalTax = 0;
 
-  // For DropDown
+  //For Product DropDown
   salesItem: IProduct[] = [];
 
 
-  // validation messages
+  //Validation messages
   validationMessages = {
     vendorName: {
       required: 'Vendor is required.'
@@ -94,7 +92,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     }
   }
 
-  // Error Keys
+  //Error Keys
   formErrors = {
     vendorName: '',
     grnDate: '',
@@ -102,6 +100,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     campusId: ''
   }
 
+  //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
     private grnService: GrnService,
@@ -131,28 +130,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
       ])
     });
 
-    this.grnModel = {
-      vendorId: null,
-      grnDate: null,
-      contact: null,
-      purchaseOrderId: null,
-      campusId: null,
-      grnLines: []
-    }
-
-    this.ngxsService.products$.subscribe(res => this.salesItem = res);
-
-    // get Vendor from state
-    this.ngxsService.getBusinessPartnerFromState();
-    // get Accounts of level 4 from state
-    this.ngxsService.getAccountLevel4FromState()
-    // get Ware house location from state
-    this.ngxsService.getWarehouseFromState();
-    // get item from state
-    this.ngxsService.getProductFromState();
-
-    this.ngxsService.getCampusFromState();
-
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isGRN = param.isGRN;
@@ -165,6 +142,15 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
         this.getGRN(id);
       }
     })
+
+    this.ngxsService.products$.subscribe(res => this.salesItem = res);
+
+    //Get Data from Store
+    this.ngxsService.getBusinessPartnerFromState();
+    this.ngxsService.getAccountLevel4FromState()
+    this.ngxsService.getWarehouseFromState();
+    this.ngxsService.getProductFromState();
+    this.ngxsService.getCampusFromState();
   }
 
   // OnItemSelected
@@ -221,7 +207,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   }
 
 
-  // Add Grn Line
+  //Add Grn Line
   addGRNLineClick(): void {
     const controls = this.grnForm.controls.GRNLines as FormArray;
     controls.push(this.addGRNLines());
@@ -240,7 +226,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     });
   }
 
-  // Remove Grn Line
+  //Remove Grn Line
   removeGRNLineClick(grnLineIndex: number): void {
     const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
 
@@ -357,10 +343,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     }
 
     this.isLoading = true;
-    console.log(this.grnModel)
-    // if (this.grnModel.id && this.isGRN) {
       if (this.grnId) {
-      console.log("updated")
       this.grnService.updateGRN(this.grnModel)
       .pipe(
         take(1),
@@ -375,8 +358,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
             this.router.navigate(['/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', this.grnModel.id)]);
           })
     } else if (this.isPurchaseOrder) {
-      console.log("created")
-
       this.grnService.createGRN(this.grnModel)
       .pipe(
         take(1),
@@ -395,7 +376,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // Mapping value to model
   mapFormValuesToGRNModel() {
-    // this.grnModel.vendorId = this.purchaseOrderMaster?.vendorId || this.grnModel?.vendorId;
     this.grnModel.vendorId = this.grnForm.getRawValue().vendorName;
     this.grnModel.grnDate = this.transformDate(this.grnForm.value.grnDate, 'yyyy-MM-dd');
     this.grnModel.contact = this.grnForm.value.contact;
@@ -406,8 +386,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
 
   // Form Reset
   reset() {
-    // const grnLineArray = this.grnForm.get('GRNLines') as FormArray;
-    //grnLineArray.reset();
     this.resetFields(this.grnForm , 'grnDate', 'contact' , 'GRNLines');
     //this.formDirective.resetForm();
     this.showMessage = false;
@@ -436,9 +414,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     }
 
      this.grnForm.get('GRNLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //  if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Goods Received Note")
-    //  }
      this.cdRef.detectChanges()
   }
 }

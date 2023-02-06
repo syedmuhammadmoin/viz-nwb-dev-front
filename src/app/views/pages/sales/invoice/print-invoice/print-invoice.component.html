@@ -39,13 +39,11 @@
                     date: 'MMM d, y'}}</span></h4>
               </div>
             </div>
-
           </div>
         </div>
 
 
         <div class="print_body_area p-s-2">
-
           <div class="print-col-6 p-s-2-one">
             <div class="print-box-one">
               <h4 class="font-14"><b>Customer Name: </b><span class="float-right"
@@ -60,15 +58,6 @@
               <h4 class="font-14"><b>STRN: </b><span class="float-right"
                   style="font-weight: 400;">{{invoiceMaster?.salesTaxId || 'N/A'}}</span></h4>
             </div>
-            <!-- <div class="print-box-two">
-              <h4 class="font-14">Bank Name: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.bankName  || 'N/A'}}</span></h4>
-            </div>
-            <div class="print-box-two">
-              <h4 class="font-14">Account Title: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.accountTitle  || 'N/A'}}</span></h4>
-            </div>
-            <div class="print-box-two">
-              <h4 class="font-14">Account Number: <span class="float-right" style="font-weight: 400;">{{invoiceMaster?.accountNumber  || 'N/A'}}</span></h4>
-            </div> -->
             <div class="print-box-two">
               <h4 class="font-14"><b>Address:</b> </h4>
               <p> {{invoiceMaster?.customerAddress || 'N/A'}}</p>
@@ -86,19 +75,15 @@
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Tax %</th>
-                    <!-- <th >Store</th> -->
                     <th class="text-right">SubTotal</th>
-
-
                   </tr>
                   <tr *ngFor="let line of invoiceLines; index as i">
                     <td>{{i + 1}}</td>
                     <td>{{line?.itemName || '---'}}</td>
-                    <td> {{line?.description}}</td>
+                    <td>{{line?.description}}</td>
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td>{{valueFormatter(line?.price)}}</td>
-                    <td> {{line?.tax + '%'}}</td>
-                    <!-- <td> {{line?.warehouseName}}</td> -->
+                    <td>{{line?.tax + '%'}}</td>
                     <td class="text-right"><b>{{valueFormatter(line?.subTotal)}}</b></td>
                   </tr>
                 </thead>
@@ -106,9 +91,7 @@
             </div>
           </div>
 
-
           <div class="print-col-5  ml-auto p-s-3">
-
             <div class="print-box p-s-3-one">
               <h4>Total Before Tax:
                 <span class="float-right">{{valueFormatter(invoiceMaster?.totalBeforeTax)}}</span>
@@ -119,48 +102,20 @@
                 <span class="float-right">{{valueFormatter(invoiceMaster?.totalTax)}}</span>
               </h4>
             </div>
-
             <div class="print-box p-s-3-two">
               <h4>Grand Total:
                 <span class="float-right">{{valueFormatter(invoiceMaster?.totalAmount)}}</span>
               </h4>
             </div>
           </div>
-
-
-          <!-- <div class="print-col-12 p-s-4">
-
-            <div class="print-box p-s-4-one">
-              <p>Terms and conditions:</p>
-            </div>
-            <div class="print-box p-s-4-two">
-              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-              </h4>
-            </div>
-
-            <div class="print-box p-s-4-three">
-              <p>Thankyou for your Business</p>
-            </div>
-
-          </div> -->
-
-
-
-          <!-- <div class="print-col-4 p-s-5">
-            _________________________________
-            <p class="text-center">Authorized Sign</p>
-          </div> -->
-
         </div>
 
         <div class="row mt-10 ms-10">
-
           <div class="print-col-4 p-s-5 text-center">
             ______________________
             <p class="text-center">Authorized Sign</p>
           </div>
         </div>
-
       </div>
     </div>
   </div>

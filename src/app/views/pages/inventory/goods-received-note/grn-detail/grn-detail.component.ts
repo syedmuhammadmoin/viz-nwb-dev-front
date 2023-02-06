@@ -14,13 +14,12 @@ import { MatDialog } from '@angular/material/dialog';
 @Component({
   selector: 'kt-grn-detail',
   templateUrl: './grn-detail.component.html',
-  styleUrls: ['./grn-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./grn-detail.component.scss']
 })
 
 export class GrnDetailComponent extends AppComponentBase implements OnInit {
 // routing variables
-  public GOODS_RECEIVED_NOTE=GOODS_RECEIVED_NOTE;
+  public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE;
   public PURCHASE_ORDER = PURCHASE_ORDER;
   public ISSUANCE = ISSUANCE;
   public BILL = BILL;
@@ -33,10 +32,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
 
   showReference: boolean = false;
 
-  // handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   gridApi: any
@@ -44,32 +40,30 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   //need for routing
   grnId: number;
 
-
    //For ag grid
    gridOptions = ({} as GridOptions);
    defaultColDef: any;
    frameworkComponents : any;
 
-   // Variables for Goods Received Note data
+   //Variables for Goods Received Note data
    grnLines: any;
    grnMaster: any;
 
    //Showing Remarks
   remarksList: string[] = [];
 
+  //Injecting Dependencies
  constructor( private activatedRoute: ActivatedRoute,
               private grnService: GrnService,
               private cdRef: ChangeDetectorRef,
               private dialog: MatDialog,
-              private router: Router,
-              private layoutUtilService: LayoutUtilsService,
               injector: Injector
               ) {
                 super(injector)
                 this.gridOptions = ({} as GridOptions);
               }
 
-
+  //Defining GRN Columns
   columnDefs = [
     {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
@@ -191,7 +185,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
       })
   }
 
-  //upload File
+  //Upload File
   openFileUploadDialog() {
     this.dialog.open(CustomUploadFileComponent, {
       width: '740px',

@@ -56,7 +56,7 @@
                     <ng-container formArrayName="quotationLines">
                       <div class="table-responsive">
                         <mat-table #table [dataSource]="quotationForm.get('quotationLines')['controls']">
-                          <!-- Account Column -->
+                          <!-- Item Column -->
                           <ng-container matColumnDef="itemId">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -75,7 +75,7 @@
                               </div>
                             </mat-cell>
                           </ng-container>
-                          <!--Partner Column-->
+                          <!--Description Column-->
                           <ng-container matColumnDef="description">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -90,6 +90,7 @@
                               </div>
                             </mat-cell>
                           </ng-container>
+                           <!--Quantity Column-->
                           <ng-container matColumnDef="quantity">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -103,14 +104,12 @@
                                                           error : 'Quantity is required.' },
                                                         { condition : quotationForm.get('quotationLines')['controls'][i].controls.quantity.errors?.min &&
                                                                       quotationForm.get('quotationLines')['controls'][i].controls.quantity.touched , 
-                                                          error : 'Minimum value is one.' }]"
-                                  (change)="onChangeEvent($event , i , itemName)"
-                                  (keyup)="onChangeEvent($event , i , itemName)">
+                                                          error : 'Minimum value is one.' }]">
                                 </kt-input-field>
                               </div>
                             </mat-cell>
                           </ng-container>
-                          <!-- Credit Column -->
+                          <!-- Price Column -->
                           <ng-container matColumnDef="price">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Price</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -124,9 +123,7 @@
                                                           error : 'Price is required.'},
                                                           { condition : quotationForm.get('quotationLines')['controls'][i].controls.price.errors?.min &&
                                                           quotationForm.get('quotationLines')['controls'][i].controls.price.touched , 
-                                            error : 'Please insert correct value.' }]"
-                                  (change)="onChangeEvent($event , i , itemName)"
-                                  (keyup)="onChangeEvent($event , i , itemName)">
+                                            error : 'Please insert correct value.' }]">
                                 </kt-input-field>
                               </div>
                             </mat-cell>
@@ -137,7 +134,7 @@
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
   
                               <button class="app-remove-btn" type="button" [id]="'quotation_remove_' + i"
-                                (click)="removeQuotationLineClick(i); totalCalculation()">
+                                (click)="removeQuotationLineClick(i)">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
                               </button>
                             </mat-cell>

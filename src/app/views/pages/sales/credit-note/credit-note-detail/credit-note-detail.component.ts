@@ -19,8 +19,7 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
 @Component({
   selector: 'kt-credit-note-detail',
   templateUrl: './credit-note-detail.component.html',
-  styleUrls: ['./credit-note-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./credit-note-detail.component.scss']
 })
 
 export class CreditNoteDetailComponent extends AppComponentBase implements OnInit {
@@ -49,10 +48,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
   public CREDIT_NOTE = CREDIT_NOTE
   public INVOICE = INVOICE
 
-  // handling register payment button
-  isDisabled: boolean;
-
-  // kt busy loading
+  //Loader
   isLoading: boolean;
 
   // need for routing

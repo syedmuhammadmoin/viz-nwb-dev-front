@@ -39,23 +39,7 @@ export abstract class AppServiceBase {
     httpParams = httpParams.append('docDate', date || '');
     httpParams = httpParams.append('dueDate', this.dateHelperService.transformDate(params?.filterModel?.dueDate?.dateFrom, 'MM/d/y') || '');
     httpParams = httpParams.append('state', status);
-    // httpParams = httpParams.append('challanNumber', (params?.filterModel?.challanNumber?.filter) || '');
-    // httpParams = httpParams.append('studentName', (params?.filterModel?.studentName?.filter) || '');
-    // httpParams = httpParams.append('fatherName', (params?.filterModel?.fatherName?.filter) || '');
-    // httpParams = httpParams.append('academicCampus', (params?.filterModel?.academicCampus?.filter) || '');
-    // httpParams = httpParams.append('faculty', (params?.filterModel?.faculty?.filter) || '');
-    // httpParams = httpParams.append('program', (params?.filterModel?.program?.filter) || '');
-    // httpParams = httpParams.append('programType', (params?.filterModel?.programType?.filter) || '');
-    // httpParams = httpParams.append('rollNumber', (params?.filterModel?.rollNumber?.filter) || '');
-    // httpParams = httpParams.append('amount', (params?.filterModel?.netPayment?.filter) || '');
-    // httpParams = httpParams.append('academicDepartment', (params?.filterModel?.academicDepartment?.filter) || '');
-    // httpParams = httpParams.append('batchId', (params?.filterModel?.batchId?.filter) || '');
-    // for Business Partner
-    // httpParams = httpParams.append('name', (params?.filterModel?.businessPartner?.filter) || '');
-    // httpParams = httpParams.append('entity', (params?.filterModel?.entity?.filter) || '');
-    // httpParams = httpParams.append('type', (params?.filterModel?.type?.filter) || '');
-    // httpParams = httpParams.append('cnic', (params?.filterModel?.docNo?.filter) || '');
-
+    
     return httpParams
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
@@ -17,8 +17,7 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 @Component({
   selector: 'kt-request-requisition-details',
   templateUrl: './request-requisition-details.component.html',
-  styleUrls: ['./request-requisition-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./request-requisition-details.component.scss']
 })
 export class RequestRequisitionDetailsComponent extends AppComponentBase implements OnInit {
 
@@ -36,7 +35,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
 
   requestRequisitionId: number;
 
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   gridApi: any
@@ -61,7 +60,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
     this.defaultColDef = { resizable: true };
   }
 
-  //Defining columns for ag grid
+  //Defining Request Columns
   columnDefs = [
     { 
       headerName: 'Description', 
@@ -72,23 +71,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
       headerName: 'Quantity', 
       field: 'quantity', 
       cellStyle: { 'font-size': '12px' }
-    },
-    // {
-    //   headerName: 'Issued', 
-    //   field: 'issuedQuantity',  
-    //   cellStyle: {'font-size': '12px'},
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return params.value || 0
-    //   }
-    // },
-    // { 
-    //   headerName: 'Store', 
-    //   field: 'warehouse', 
-    //   cellStyle: { 'font-size': '12px' },
-    //   valueFormatter: (params: ValueFormatterParams) => {
-    //     return params.value || 'N/A'
-    //   }
-    // }
+    }
   ];
 
   ngOnInit() {
@@ -134,7 +117,6 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
       }
       else {
         this.gridOptions.columnApi.setColumnVisible('issuedQuantity', true);
-        console.log("entered")
         this.gridApi?.sizeColumnsToFit();
       }
       this.cdRef.detectChanges()
@@ -170,21 +152,5 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
         this.toastService.success('' + res.message, 'Request Requisition');
       })
   }
-
-  //upload File
-  // openFileUploadDialog() {
-  //   this.dialog.open(CustomUploadFileComponent, {
-  //     width: '740px',
-  //     data: {
-  //       response: this.requisitionMaster,
-  //       serviceClass: this.requisitionService,
-  //       functionName: 'uploadFile',
-  //       name: 'Requisition'
-  //     },
-  //   }).afterClosed().subscribe(() => {
-  //     this.getRequisitionData(this.requisitionId)
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
 }
 

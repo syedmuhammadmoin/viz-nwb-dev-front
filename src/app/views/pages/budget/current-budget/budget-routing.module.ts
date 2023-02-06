@@ -16,7 +16,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BUDGET_VIEW },
@@ -29,7 +28,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BUDGET_CREATE },
@@ -41,7 +39,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.EDIT,
         component: CreateBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BUDGET_EDIT },
@@ -53,7 +50,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.DETAILS,
         component: DetailBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BUDGET_VIEW },
@@ -66,7 +62,6 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.PRINT,
         component: PrintBudgetComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             { permission: Permissions.BUDGET_VIEW },
@@ -76,7 +71,6 @@ const routes : Routes = [
         },
         canActivate: [PermissionGuard] 
       },
-      //Budget Report
       {
         path: REPORT.BUDGET_REPORT,
         component: BudgetReportComponent,

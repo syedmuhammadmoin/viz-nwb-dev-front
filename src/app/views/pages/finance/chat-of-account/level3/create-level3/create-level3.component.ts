@@ -13,26 +13,29 @@ import { finalize, take } from 'rxjs/operators';
   styleUrls: ['./create-level3.component.scss']
 })
 export class CreateLevel3Component extends AppComponentBase implements OnInit {
+
   // Declaring form variable
   level3Form: FormGroup;
+
   //For Loading
   isLoading: boolean;
+
   // Level3 Model
   level3Model: ILevel3;
 
   // Validation messages..
   validationMessages = {
-    'name': {
+    name: {
       'required': 'Head name is required.',
     },
-    'level2': {
+    level2: {
       'required': 'Head summary is required.',
     }
   };
-  // error keys..
+  //Kyes for Validation messages
   formErrors = {
-    'name': '',
-    'level2': '',
+    name: '',
+    level2: '',
   };
 
   constructor(
@@ -58,7 +61,6 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
       level2_id: null,
     }
 
-    console.log('data: ', this.data);
     // get data by id
     if (this.data.modelId) {
       this.isLoading = true;
@@ -92,7 +94,6 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
       return;
     }
     this.mapFormValuesToInvoiceModel();
-    console.log(this.level3Model);
     if (this.level3Model.id) {
       this.isLoading = true;
       this.chartOfAccountService.updateLevel3Account(this.level3Model)
@@ -120,14 +121,12 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
          })
        )
        .subscribe((res) => {
-      
           this.toastService.success('Created Successfully!', 'Summary Head');
           this.onCloseLevel3Dialog()
         });
     }
   }
 
-  // Mapping value to model
   mapFormValuesToInvoiceModel() {
     console.log(this.level3Form.value);
     this.level3Model.name = this.level3Form.value.name;

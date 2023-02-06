@@ -82,15 +82,6 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
-       // Lazy Load LOCATION Module
-       {
-        path: APP_ROUTES.LOCATION,
-        loadChildren: () =>
-          import('./views/pages/profiling/location/location.module').then(
-            (m) => m.LocationModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
        // Lazy Load ORGANIZATION Module
        {
         path: APP_ROUTES.ORGANIZATION,
@@ -301,16 +292,6 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard] // <= Page component registration
       },
-      // Lazy Load SALES ORDER Module
-      {
-        path: APP_ROUTES.SALES_ORDER,
-        loadChildren: () =>
-          import('./views/pages/sales/sales-order/sales-order.module').then(
-            (m) => m.SalesOrderModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
-
       //purchase Section
       // Lazy Load DEBIT NOTE Module
       {
@@ -416,30 +397,12 @@ const routes: Routes = [
       },
 
       //Inventory Section
-       // Lazy Load INVENTORY ADJUSTMENT Module
-       {
-        path: APP_ROUTES.INVENTORY_ADJUSTMENT,
-        loadChildren: () =>
-          import('./views/pages/inventory/inventory-adjustment/inventory-adjustment.module').then(
-            (m) => m.InventoryAdjustmentModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
       // Lazy Load STOCK Module
       {
         path: APP_ROUTES.STOCK,
         loadChildren: () =>
           import('./views/pages/inventory/stock/stock.module').then(
             (m) => m.StockModule
-          ),
-          canActivateChild: [AuthGuard]
-      },
-      // Lazy Load DISPATCH NOTE Module
-      {
-        path: APP_ROUTES.DISPATCH_NOTE, // <= Page URL
-        loadChildren: () =>
-          import('./views/pages/inventory/dispatch-note/dispatch-note.module').then(
-            (m) => m.DispatchNoteModule
           ),
           canActivateChild: [AuthGuard]
       },
@@ -500,15 +463,6 @@ const routes: Routes = [
           canActivateChild: [AuthGuard]
       },
       // FIXED ASSET
-      // Lazy Load ASSET CATEGORY Module
-      // {
-      //   path: APP_ROUTES.ASSET_CATEGORY, // <= Page URL
-      //   loadChildren: () =>
-      //     import('./views/pages/fixed-asset/asset-category/asset-category.module').then(
-      //       (m) => m.AssetCategoryModule
-      //     ),
-      //     canActivateChild: [AuthGuard]
-      // },
       // Lazy Load DEPRECIATION MODEL Module
       {
         path: APP_ROUTES.DEPRECIATION_MODEL, // <= Page URL

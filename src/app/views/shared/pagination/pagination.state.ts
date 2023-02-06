@@ -1,6 +1,6 @@
 import {Type} from '@angular/core';
 import {createSelector, StateContext} from '@ngxs/store';
-import {EntityActionType, ProfilingState,} from '../../pages/profiling/store/profiling.state';
+import {EntityActionType } from '../../pages/profiling/store/profiling.state';
 
 export function defaultEntityState<T>(
   defaults: Partial<PaginationStateModel> = {}
@@ -58,41 +58,6 @@ export abstract class PaginationState<T extends {}>{
       })
     }
   }
-
-/*
-  getAll({getState, setState}: StateContext<PaginationStateModel>, payload: any) {
-    console.log('getAll: ', payload)
-    const serviceClass = payload.payload.serviceClass
-    const methodName = payload.payload.methodName
-
-    const state = getState();
-    if (payload) {
-      serviceClass[methodName]().subscribe((res) => {
-        setState({
-          ...state,
-          pageNumber: 0
-        })
-      })
-    }
-  }
-*/
-
-/*
-  addEntity({setState}: StateContext<PaginationStateModel>, payload: any) {
-    console.log(payload)
-    const serviceClass = payload.payload.serviceClass;
-    const methodName = payload.payload.methodName
-
-    serviceClass[methodName](payload.payload.entity).subscribe((res) => {
-      setState(
-        // @ts-ignore
-        patch({
-          pageNumber: 0
-        })
-      )
-    })
-  }
-*/
 
   private setup(storeClass: Type<PaginationState<T>>, actions: string[]) {
     // validation if a matching action handler exists has moved to reflection-validation tests

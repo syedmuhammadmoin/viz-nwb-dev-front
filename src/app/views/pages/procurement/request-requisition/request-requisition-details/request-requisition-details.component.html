@@ -4,7 +4,6 @@
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
           <div class="ribbon-target"><span class="ribbon-inner {{docStatus[requestRequisitionMaster?.state]}}"></span> {{requestRequisitionMaster?.status}}</div>
-          <!-- <h4 class="overall_statuses {{docStatus[requestRequisitionMaster?.state]}}"> Status: {{requestRequisitionMaster?.status}} </h4> -->
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
@@ -42,7 +41,6 @@
   
 
             <div class="col-md-4 col-lg-4  mt-3">
-  
               <div class="print-box">
                   <h4 class="print-box-detail-1">Request No:
                       <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.docNo}}</span></h4>
@@ -73,7 +71,6 @@
           </div>
   
           <div class="row mt-5">
-  
             <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
               <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
             </div>
@@ -111,13 +108,6 @@
   
       <mat-divider class="mt-10"></mat-divider>
   
-      <div class="kt-portlet__foot">
-        <div class="kt-form__actions kt-form__actions">
-          <div class="row ">
-  
-          </div>
-        </div>
-      </div>
     </kt-portlet>
   </div>
   

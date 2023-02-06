@@ -7,5 +7,4 @@ export interface ICreditNoteLines {
     tax: number;
     accountId: number;
     warehouseId: number;
-    //locationId: number;
 }

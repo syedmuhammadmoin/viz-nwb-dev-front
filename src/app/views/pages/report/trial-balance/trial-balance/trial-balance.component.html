@@ -46,39 +46,6 @@
               </div>
             </div>
           </div>
-          <!-- <div class="row">
-            <div class="col-lg-4">
-              <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label">Department:</label>
-                <kt-simple-dropdown formControlName="department" matFormFieldClass="full-width"
-                  placeholder="Select Department" 
-                  [optionList]="ngxsService.departments$"
-                    
-                  searchPlaceholder="Search departments..." propertyName="name" propertyValue="name">
-                </kt-simple-dropdown> 
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label">Location:</label>
-                 <kt-simple-dropdown formControlName="location" matFormFieldClass="full-width"
-                  placeholder="Select Location" 
-                  [optionList]="ngxsService.locations$"
-                 
-                  searchPlaceholder="Search location..." propertyName="name" propertyValue="name"></kt-simple-dropdown> 
-              </div>
-            </div>
-            <div class="col-lg-4">
-              <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label">Warehouse:</label>
-                <kt-simple-dropdown formControlName="warehouse" matFormFieldClass="full-width"
-                  placeholder="Select Warehouse" 
-                  [optionList]="ngxsService.warehouses$"
-                    
-                  searchPlaceholder="Search warehouse..." propertyName="name" propertyValue="name"></kt-simple-dropdown>
-              </div>
-            </div>
-          </div> -->
           <!-- endregion -->
           <!-- region Second Row -->
           <div class="row">
@@ -88,23 +55,15 @@
                 <button *ngIf="!disability" class="mr-2 app-default-btn" mat-raised-button (click)="printTrialBalance(rowData)" 
                      id="trial_print" type="button"><i class="fa fa-print"></i> Print</button>
                 <button class="app-default-btn" mat-raised-button type="submit" id="trial_fetch">Fetch Records</button>
-                <!--For PDF-->
-                <!-- <kt-pdf [disabled]="disability" [content]="contentData()"></kt-pdf> -->
               </div>
             </div>
           </div>
           <!-- endregion -->
           <!-- region Action Row -->
-
           <!-- endregion -->
           <div class="row" style="padding-top: 10px;">
             <div class="col-lg-12 text-right">
               <div [ktBusy]="isLoading">
-                <!-- <ag-grid-angular style="width: 100%; height: 500px; margin-top: 10px;" class="ag-theme-alpine"
-                [rowData]="rowData" [columnDefs]="columnDefs" [autoGroupColumnDef]="autoGroupColumnDef"
-                [gridOptions]="gridOptions" (firstDataRendered)="onFirstDataRendered($event)"
-                (gridReady)="onGridReady($event)">
-              </ag-grid-angular> -->
               <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)" (gridReady)="onGridReady($event)" [autoGroupColumnDef]="autoGroupColumnDef"
                     [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" [animateRows]="true"
                     [rowData]="rowData" [suppressAggFuncInHeader]="true" class="ag-theme-alpine" (firstDataRendered)="onFirstDataRendered($event)"
@@ -116,6 +75,5 @@
         </div>
       </div>
     </div>
-
   </form>
 </kt-portlet>

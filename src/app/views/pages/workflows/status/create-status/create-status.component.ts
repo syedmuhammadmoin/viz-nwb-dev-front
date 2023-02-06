@@ -170,10 +170,8 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
     this.formDirective.resetForm();
   }
 
-
   //Dialogue close function
   onCloseStatusDialog() {
     this.dialogRef.close();
   }
-
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { GridOptions } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridOptions, RowDoubleClickedEvent } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -24,6 +24,7 @@ export class UserListComponent extends AppComponentBase implements OnInit {
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
+  //Defining Ag Grid Columns
   columnDefs = [
     { 
       headerName: 'S.No', 
@@ -45,7 +46,7 @@ export class UserListComponent extends AppComponentBase implements OnInit {
     { headerName: 'Email', field: 'email', suppressMenu: true, },
   ];
 
-
+  //Injecting Dependencies
   constructor (
     private accessManagementService: AccessManagementService,
     public dialog: MatDialog,
@@ -61,9 +62,8 @@ export class UserListComponent extends AppComponentBase implements OnInit {
    }
 
   ngOnInit() {
+    //Get Users Data
     this.getUsers();
-    // this.gridOptions.rowHeight = 30;
-    // this.gridOptions.headerHeight = 35;
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -73,26 +73,27 @@ export class UserListComponent extends AppComponentBase implements OnInit {
 
     this.frameworkComponents = { customTooltip: CustomTooltipComponent };
 
+    //Change content On Behave of Permissions
     if(!this.permission.isGranted(this.permissions.AUTH_EDIT)) {
       this.gridOptions.context = 'double click to view detail'
     }
   }
 
-  onFirstDataRendered(params) {
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
-  onRowDoubleClicked(event) {
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
     this.createUserDialog(event.data.id);
   }
 
+  //Modal
   createUserDialog(id?: any): void {
     const dialogRef = this.dialog.open(CreateUserComponent, {
       width: '800px',
-      // height: '750px',
       data: id
     });
-    // Recalling getInvoiceMasterData function on dialog close
+    //Get Updated User Data on dialog close
     dialogRef.afterClosed().subscribe(() => {
       this.getUsers();
     });
@@ -101,6 +102,7 @@ export class UserListComponent extends AppComponentBase implements OnInit {
   getUsers() {
     this.accessManagementService.getUsers().subscribe((res: any) => {
       this.userList = res.result;
+      //Setting Seriol Nos of rows in Grid
       if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       this.cdRef.detectChanges();
     });

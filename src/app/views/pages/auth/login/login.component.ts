@@ -308,17 +308,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 			email: controls.email.value,
 			password: controls.password.value
 		};
-
-		/*this.auth.login(authData.email, authData.password)
-	  .pipe(
-		tap(res => {
-		  console.log('tap response: ', res);
-		})
-	  )
-	  .subscribe(
-		  // ((res) => console.log(res)),
-		(res) => {},
-	  (err) => alert(err?.error?.message));*/
 		this.auth
 			.login(authData.email, authData.password)
 			.pipe(
@@ -328,8 +317,6 @@ export class LoginComponent implements OnInit, OnDestroy {
 						const decodedToken = await this.decodeService.decode(res.message);
 						this.store.dispatch(new UserLoaded({ user: this.decodeService.setUser(decodedToken) }));
 						await this.router.navigateByUrl(this.returnUrl); // Main page
-					} else {
-						//this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN'), 'danger');
 					}
 				}),
 				takeUntil(this.unsubscribe),
@@ -339,11 +326,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 				})
 			)
 			.subscribe(
-				() => { },
-				(e) => {
-					//this.layoutUtilService.showActionNotification(e?.error?.message, null, 5000, true, false)
-					//this.authNoticeService.setNotice(this.translate.instant('AUTH.VALIDATION.INVALID_LOGIN') + ', ' + e?.error?.message, 'danger');
-				});
+				() => { });
 	}
 
 	/**

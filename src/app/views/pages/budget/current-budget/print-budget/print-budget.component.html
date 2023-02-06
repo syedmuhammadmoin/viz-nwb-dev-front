@@ -20,7 +20,6 @@
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
-              <!-- <img src="../../../../../../assets/media/logos/logo-wr.png" style="height: 100px;" alt=""> -->
               <span class="top-heading">ESTIMATED BUDGET</span>
             </div>
             
@@ -57,16 +56,12 @@
                     <th>S.No</th>
                     <th>Account</th>
                     <th  class="text-center">Amount</th>
-                    
-                    
                   </tr>
                   <tr *ngFor="let line of budgetLines; index as i">
                     <td>{{i + 1}}</td>
                     <td>{{line?.accountName || '---'}}</td>
                     <td class="text-right"><b>{{valueFormatter(line?.amount)}}</b></td>
                   </tr>
-                  
-                  
                 </thead>
               </table>
             </div>
@@ -91,23 +86,15 @@
               <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
               </h4>
             </div>
-
             <div class="print-box p-s-4-three">
               <p>Thankyou for your Business</p>
             </div>
-            
           </div>
-
-          
-
           <div class="print-col-4 p-s-5">
             _________________________________
             <p class="text-center">Authorized Sign</p>
           </div>
-          
         </div>
-
-
       </div>
     </div>
   </div>

@@ -7,15 +7,13 @@ import { InvoiceService } from '../services/invoice.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { SaleOrderService } from '../../sales-order/service/sale-order.service';
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
 import { IInvoiceLines } from '../model/IInvoiceLines';
-import { ISalesOrderLines } from '../../sales-order/model/ISalesOrderLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 
@@ -28,7 +26,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 export class CreateInvoiceComponent extends AppComponentBase implements OnInit, OnDestroy, FormsCanDeactivate {
   public permissions = Permissions;
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -41,13 +39,10 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   @ViewChild('table', { static: true }) table: any;
 
   // Invoice Model
-  invoiceModel: IInvoice;
+  invoiceModel: IInvoice = {} as IInvoice;
 
   // For DropDown
   salesItem: IProduct[];
-
-  //sales Order Data
-  salesOrderMaster: any;
 
   //variables for calculation
   grandTotal: number = 0;
@@ -87,10 +82,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     },
     dueDate: {
       required: 'Due Date is required.',
-    },
-    // contact: {
-    //   required: 'Contact Name is required.',
-    // }
+    }
   };
 
   // error keys..
@@ -110,14 +102,12 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
     private router: Router,
-    private salesOrderService: SaleOrderService,
     injector: Injector
   ) {
     super(injector);
   }
 
   ngOnInit() {
-
     // Creating Forms
     this.invoiceForm = this.fb.group({
       customerName: ['', [Validators.required]],
@@ -130,42 +120,23 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       ])
     });
 
-    this.invoiceModel = {
-      id: null,
-      customerId: null,
-      invoiceDate: null,
-      campusId: null,
-      contact: '',
-      dueDate: null,
-     // contact: '',
-      invoiceLines: []
-    }
-    // get customer from state
-    this.ngxsService.getBusinessPartnerFromState();
-    // get Other Accounts from state
+    //Get Data From Store
+    this.ngxsService.getBusinessPartnerFromState(); 
     this.ngxsService.getOtherAccountsFromState()
-    // get Ware house location from state
     this.ngxsService.getWarehouseFromState();
-    // get item from state
     this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState()
-    // get location from location
-    //this.ngxsService.getLocationFromState();
 
     this.ngxsService.products$.subscribe(res => this.salesItem = res)
     
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isInvoice = param.isInvoice;
-      const isSalesOrder = param.isSalesOrder;
+
       if (id && isInvoice) {
         this.isLoading = true;
         this.title = 'Edit Invoice'
         this.getInvoice(id);
-      }
-      else if (id && isSalesOrder) {
-        this.isLoading = true;
-        this.getSalesOrder(id);
       }
     });
 
@@ -174,6 +145,8 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       this.minDate = new Date(value);
       this.dateCondition = this.invoiceForm.get('dueDate').value < this.invoiceForm.get('invoiceDate').value
     })
+
+    this.warehouseList.next(0)
   }
 
   //unsubscribe Observable
@@ -189,8 +162,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
   // Form Reset
   reset() {
-    // const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
-    // invoiceLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
@@ -265,8 +236,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       tax: [0, [Validators.max(100), Validators.min(0)]],
       subTotal: [{ value: '0', disabled: true }],
       accountId: ['', [Validators.required]],
-      warehouseId: [null],
-      // locationId: [''],
+      warehouseId: [null]
     });
   }
 
@@ -277,22 +247,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     invoiceLineArray.markAsDirty();
     invoiceLineArray.markAsTouched();
     this.table.renderRows();
-  }
-
-  private getSalesOrder(id: number) {
-    this.salesOrderService.getSalesOrderById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      if (!res) return
-      this.salesOrderMaster = res.result
-      this.patchInvoice(this.salesOrderMaster);
-    });
   }
 
   //Get Invoice Data for Edit
@@ -312,27 +266,24 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     });
   }
 
-  //Patch Invoice Form through Invoice Or sales Order Master Data
+  //Patch Invoice Form through Invoice Master Data
   patchInvoice(data: IInvoice) {
     this.invoiceForm.patchValue({
       customerName: data.customerId,
-      // invoiceDate: (data.invoiceDate) ? data.invoiceDate : data.salesOrderDate,
       invoiceDate: data.invoiceDate ,
       dueDate: data.dueDate,
       campusId: data.campusId
-      //contact: data.contact
     });
 
     this.onCampusSelected(data.campusId)
     this.showMessage = true;
 
-    // this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines((this.salesOrderMaster) ? data.salesOrderLines : data.invoiceLines))
     this.invoiceForm.setControl('invoiceLines', this.patchInvoiceLines(data.invoiceLines))
     this.totalCalculation();
   }
 
-  //Patch Inovice Lines From sales Order Or Invoice Master Data
-  patchInvoiceLines(lines: IInvoiceLines[] | ISalesOrderLines[]): FormArray {
+  //Patch Inovice Lines From Invoice Master Data
+  patchInvoiceLines(lines: IInvoiceLines[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
@@ -344,8 +295,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
         tax: [line.tax , [Validators.max(100), Validators.min(0)]],
         subTotal: [{ value: line.subTotal, disabled: true }],
         accountId: [line.accountId , [Validators.required]],
-        warehouseId: [line.warehouseId],
-        //locationId: line.locationId,
+        warehouseId: [line.warehouseId]
       }))
     })
     return formArray
@@ -370,7 +320,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
     this.isLoading = true;
     this.mapFormValuesToInvoiceModel();
-    //console.log(this.invoiceModel)
     if (this.invoiceModel.id) {
       this.invoiceService.updateInvoice(this.invoiceModel)
       .pipe(
@@ -397,7 +346,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
        )
         .subscribe((res: IApiResponse<IInvoice>) => {
             this.toastService.success('Created Successfully', 'Invoice')
-            // this.router.navigate(['/' + INVOICE.LIST])
             this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', res.result.id)]);
           });
     }
@@ -445,6 +393,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
+      console.log(res.result)
     })
 
     console.log(this.invoiceForm.value.invoiceLines)
@@ -454,9 +403,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     }
 
      this.invoiceForm.get('invoiceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    //   if(this.showMessage) {
-    //   this.toastService.info("Please Reselect Store!" , "Invoice")
-    //  }
      this.cdRef.detectChanges()
   }
 }

@@ -42,7 +42,6 @@ import {DropdownComponent} from "../components/dropdown/dropdown.component";
 import {GroupDropdownComponent} from "../components/group-dropdown/group-dropdown.component";
 import {ConfirmationDialogComponent} from "../components/confirmation-dialog/confirmation-dialog.component";
 import {FormConfirmationGuard} from "../route-guards/form-confirmation.guard";
-import {SweetAlertService} from "../services/sweet-alert/sweet-alert.service";
 import {NgxPrintModule} from "ngx-print";
 import {BusyDirective} from "../directive/busy.directive";
 import {ToastrModule} from "ngx-toastr";
@@ -202,7 +201,6 @@ import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
   ],
   providers: [
     FormConfirmationGuard,
-    SweetAlertService,
     DatePipe
   ],
   entryComponents: [

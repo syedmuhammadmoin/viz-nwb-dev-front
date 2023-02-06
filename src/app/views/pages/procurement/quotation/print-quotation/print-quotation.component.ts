@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-quotation',
   templateUrl: './print-quotation.component.html',
-  styleUrls: ['./print-quotation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-quotation.component.scss']
 })
 
 export class PrintQuotationComponent extends AppComponentBase implements OnInit {
@@ -28,7 +27,7 @@ export class PrintQuotationComponent extends AppComponentBase implements OnInit 
 
   constructor( private quotationService: QuotationService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer,
                injector: Injector
@@ -67,7 +66,7 @@ export class PrintQuotationComponent extends AppComponentBase implements OnInit 
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
 
     
@@ -86,7 +85,7 @@ export class PrintQuotationComponent extends AppComponentBase implements OnInit 
     this.quotationService.getQuotationById(id).subscribe((res: IApiResponse<IQuotation>) => {
         this.quotationMaster = res.result;
         this.quotationLines = res.result.quotationLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

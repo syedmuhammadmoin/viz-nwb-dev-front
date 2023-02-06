@@ -20,15 +20,15 @@ export class PrintGoodsReturnNoteComponent extends AppComponentBase implements O
     goodsReturnNoteMaster: IGoodsReturnNote | any;
     goodsReturnNoteLines: IGoodsReturnNoteLines;
     edinfini : boolean;
-  sbbu : boolean;
-  vizalys : boolean;
-  localsto : any ;
-  className : any;
+    sbbu : boolean;
+    vizalys : boolean;
+    localsto : any ;
+    className : any;
 
     constructor( private goodsReturnNoteService : GoodsReturnNoteService,
                  private activatedRoute: ActivatedRoute,
                  private cDRef: ChangeDetectorRef,
-               public dynamicColorChanging : DynamicColorChangeService,
+                 public dynamicColorChanging : DynamicColorChangeService,
                  public  sanitizer: DomSanitizer,
                  injector: Injector
                ) { super(injector) }

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import { DebitNoteService} from "../service/debit-note.service";
 import { GridOptions} from "ag-grid-community";
@@ -10,8 +10,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-debit-note',
   templateUrl: './print-debit-note.component.html',
-  styleUrls: ['./print-debit-note.component.scss'],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-debit-note.component.scss']
 })
 
 export class PrintDebitNoteComponent extends AppComponentBase implements OnInit {
@@ -19,15 +18,14 @@ export class PrintDebitNoteComponent extends AppComponentBase implements OnInit 
     gridOptions: GridOptions;
     debitNoteMaster: any;
     debitNoteLines: any
-  
     totalBeforeTax: number;
     totalTax: number;
     totalAmount: number;
     edinfini : boolean;
-  sbbu : boolean;
-  vizalys : boolean;
-  localsto : any ;
-  className : any;
+    sbbu : boolean;
+    vizalys : boolean;
+    localsto : any ;
+    className : any;
   
     constructor( private debitNoteService: DebitNoteService,
                  private activatedRoute: ActivatedRoute,
@@ -90,8 +88,7 @@ export class PrintDebitNoteComponent extends AppComponentBase implements OnInit 
         this.totalBeforeTax = this.debitNoteLines.reduce((total: number, obj: IDebitNoteLines) => (obj.quantity * obj.cost) + total, 0);
         this.totalTax = this.debitNoteLines.reduce((total: number, obj: IDebitNoteLines) => (obj.quantity * obj.cost * obj.tax) / 100 + total, 0);
         this.cdRef.markForCheck();
-        },
-        (err: any) => console.log(err));
+        })
     }
   }
   

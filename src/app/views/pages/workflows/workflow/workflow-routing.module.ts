@@ -1,11 +1,10 @@
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
-import {NgModule} from "@angular/core";
-import {RouterModule, Routes} from "@angular/router";
-import {PermissionGuard} from "src/app/core/auth/_guards/permission.guard";
+import { NgModule} from "@angular/core";
+import { RouterModule, Routes} from "@angular/router";
+import { PermissionGuard} from "src/app/core/auth/_guards/permission.guard";
 import { Permissions } from "../../../shared/AppEnum";
-import { FormConfirmationGuard } from "../../../shared/route-guards/form-confirmation.guard";
-import {CreateWorkflowComponent} from "./create-workflow/create-workflow.component";
-import {ListWorkflowComponent} from "./list-workflow/list-workflow.component";
+import { CreateWorkflowComponent} from "./create-workflow/create-workflow.component";
+import { ListWorkflowComponent} from "./list-workflow/list-workflow.component";
 
 const routes: Routes = [
   {
@@ -26,7 +25,6 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateWorkflowComponent,
-        //canDeactivate: [FormConfirmationGuard],
         data: {
           array: [
             {permission: Permissions.WORKFLOW_CREATE},

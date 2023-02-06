@@ -39,7 +39,8 @@ export class ListUnitOfMeasurementComponent extends AppComponentBase implements 
                super(injector)
                 this.gridOptions = <GridOptions>({ context : { componentParent : this } } );
                }
-// defaults columns
+
+  //Defining unit Columns
   columnDefs = [
     { 
       headerName: 'Unit', 
@@ -54,7 +55,8 @@ export class ListUnitOfMeasurementComponent extends AppComponentBase implements 
         },
      }
   ];
-// implimentation of ng OnInit
+
+  
   ngOnInit() { 
    
     this.gridOptions = {
@@ -107,7 +109,7 @@ export class ListUnitOfMeasurementComponent extends AppComponentBase implements 
       width: '500px',
       data: id
     });
-    // Recalling getUnitOfMeasurements function on dialog close
+    //Getting Updated Data
     dialogRef.afterClosed().subscribe(() => {
       this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
@@ -122,7 +124,6 @@ export class ListUnitOfMeasurementComponent extends AppComponentBase implements 
       } else {
         this.gridApi.hideOverlay();
       }
-      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       params.successCallback(res.result || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'unitOfMeasurementPageName');
       this.cdRef.detectChanges();

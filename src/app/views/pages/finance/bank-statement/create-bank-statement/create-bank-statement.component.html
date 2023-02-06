@@ -2,7 +2,6 @@
   <kt-portlet>
     <kt-portlet-header  [sticky]="false" [title]="title" [class]="'card-head-lg'">
       <ng-container ktPortletTools>
-        <!-- <button mat-raised-button class="btn_white" id="statement_download"> -->
           <a [href]="baseUrl + 'BankStmt/getStmtFile'" *ngIf="showButtons" id="statement_download" target="_self" class=" app-default-btn" mat-raised-button>
             Download
           </a>
@@ -90,7 +89,7 @@
                   <div *ngIf="showLines" >
                     <ng-container formArrayName="bankStmtLines">
                       <mat-table #table [dataSource]="bankStatementForm.get('bankStmtLines')['controls']">
-                          <!-- Account Column -->
+                          <!-- Reference Column -->
                             <ng-container matColumnDef="reference">
                               <mat-header-cell *matHeaderCellDef class="flex-2"> Ref #</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
@@ -109,7 +108,7 @@
                                 </div>
                               </mat-cell>
                             </ng-container>
-                            <!--Partner Column-->
+                            <!--Date Column-->
                             <ng-container matColumnDef="stmtDate">
                               <mat-header-cell *matHeaderCellDef [ngClass]="'width'" class="flex-2"> Date</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2" [ngClass]="'width'">
@@ -126,7 +125,7 @@
                                 </div>
                               </mat-cell>
                             </ng-container>
-                            <!-- Description Column -->
+                            <!-- Label Column -->
                             <ng-container matColumnDef="label">
                               <mat-header-cell *matHeaderCellDef class="flex-2"> Label</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
@@ -188,7 +187,7 @@
                                 </div>
                               </mat-cell>
                             </ng-container>
-                            <!-- Location Column -->
+                            <!-- Cumulative Column -->
                             <ng-container matColumnDef="cumulativeBalance">
                               <mat-header-cell *matHeaderCellDef class="flex-2"> Cumulative Balance</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
@@ -207,9 +206,6 @@
                             <ng-container matColumnDef="action">
                               <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
-                                </mat-icon> -->
-
                                 <button class=" app-remove-btn" type="button" [disabled]="!showButtons" [id]="'statement_remove_' + i"  (click)="removeBankStatementLine(i); calculateRunningTotal()" >
                                   <i  class="fas fa-trash" aria-hidden="true"></i>
                                 </button>
@@ -228,7 +224,6 @@
                           </button>
                         </div>
                         <div class="col-lg-7 col-md-7 text-right">
-                          <!-- <div class="col-lg-6 amount-font"></div> -->
                           <div class="amount base-colour"> Closing Balance : {{
                             math.sign(calculateClosingBalance()) !== -1
                             ? (calculateClosingBalance() | number: '1.2-2')
@@ -236,19 +231,10 @@
                         </div>
                       </div>
                     </ng-container>
-
                   </div>
                 </div>
-                
               </div>
             </div>
-
-            <!--File Upload-->
-            
-
-
-            <!--Journal Entry Lines-->
-            
           </div>
         </div>
         
@@ -266,7 +252,6 @@
           </div>
         </div>
       </form>
-
     <!--end::Form-->
   </kt-portlet>
 

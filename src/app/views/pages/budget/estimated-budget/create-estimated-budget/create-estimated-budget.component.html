@@ -64,7 +64,7 @@
                               </div>
                             </mat-cell>
                           </ng-container>
-                          <!--Partner Column-->
+                          <!--Amount Column-->
                           <ng-container matColumnDef="amount">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Amount</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -78,7 +78,7 @@
                               </div>
                             </mat-cell>
                           </ng-container>
-                          <!-- Description Column -->
+                          <!-- Calculation Column -->
                           <ng-container matColumnDef="calculationType">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Calculation Type</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -97,7 +97,7 @@
                               </div>
                             </mat-cell>
                           </ng-container>
-                          <!-- Debit Column -->
+                          <!-- Value Column -->
                           <ng-container matColumnDef="value">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Value</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -120,7 +120,7 @@
                               </div>
                             </mat-cell>
                           </ng-container>
-                          <!-- Credit Column -->
+                          <!-- Estimated Value Column -->
                           <ng-container matColumnDef="estimatedValue">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Estimated Value</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">

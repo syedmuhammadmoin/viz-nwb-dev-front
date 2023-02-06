@@ -11,8 +11,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 @Component({
   selector: 'kt-print-bid-evaluation',
   templateUrl: './print-bid-evaluation.component.html',
-  styleUrls: ['./print-bid-evaluation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-bid-evaluation.component.scss']
 })
 
 export class PrintBidEvaluationComponent extends AppComponentBase implements OnInit {
@@ -28,7 +27,7 @@ export class PrintBidEvaluationComponent extends AppComponentBase implements OnI
 
   constructor( private bidEvaluationService: BidEvaluationService,
                private activatedRoute: ActivatedRoute,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer,
                injector: Injector
@@ -67,7 +66,7 @@ export class PrintBidEvaluationComponent extends AppComponentBase implements OnI
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
   }  
 
@@ -83,7 +82,7 @@ export class PrintBidEvaluationComponent extends AppComponentBase implements OnI
     this.bidEvaluationService.getBidEvaluationById(id).subscribe((res: IApiResponse<IBidEvaluation>) => {
         this.bidEvaluationMaster = res.result;
         this.bidEvaluationLines = res.result.bidEvaluationLines;
-        this.cdr.markForCheck();
+        this.cdRef.markForCheck();
       })
   }
 }

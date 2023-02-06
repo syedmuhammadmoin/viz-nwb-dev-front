@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
@@ -11,8 +11,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 @Component({
   selector: 'kt-print-issuance-return',
   templateUrl: './print-issuance-return.component.html',
-  styleUrls: ['./print-issuance-return.component.scss'],
-  changeDetection : ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-issuance-return.component.scss']
 })
 
 export class PrintIssuanceReturnComponent extends AppComponentBase  implements OnInit {
@@ -21,10 +20,10 @@ export class PrintIssuanceReturnComponent extends AppComponentBase  implements O
     issuanceReturnMaster: IIssuanceReturn | any;
     issuanceReturnLines: IIssuanceReturnLines;
     edinfini : boolean;
-  sbbu : boolean;
-  vizalys : boolean;
-  localsto : any ;
-  className : any;
+    sbbu : boolean;
+    vizalys : boolean;
+    localsto : any ;
+    className : any;
 
     constructor( private issuanceReturnService : IssuanceReturnService,
                  private activatedRoute: ActivatedRoute,

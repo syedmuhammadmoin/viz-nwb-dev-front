@@ -1,6 +1,4 @@
 
-
-
   ::ng-deep .mat-radio-group {
     display: flex;
     padding-top: 10px;
@@ -9,10 +7,6 @@
     background-color: white !important;
   }
 
-
-  // ::ng-deep .mat-slide-toggle-bar{
-  //   background-color: #1594a5 !important;
-  // }
   ::ng-deep .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-bar {
     background-color: rgb(181, 179, 184) !important; /* set your color here */
   }

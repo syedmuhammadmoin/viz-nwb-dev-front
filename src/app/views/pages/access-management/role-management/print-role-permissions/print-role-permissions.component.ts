@@ -5,7 +5,6 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
 import { AccessManagementService } from '../../service/access-management.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { forEach } from 'lodash';
 
 
 @Component({
@@ -27,7 +26,7 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
   className : any;
 
   constructor( private accessManagementService: AccessManagementService,
-               private cdr: ChangeDetectorRef,
+               private cdRef: ChangeDetectorRef,
                public dynamicColorChanging : DynamicColorChangeService,
                public sanitizer: DomSanitizer,
                injector: Injector
@@ -38,7 +37,6 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
     //Get All Permissions 
     this.getClaims();
       
-    
     this.dynamicColorChanging.global_color.subscribe((res: any) => {
 
       if (localStorage.getItem('global_color')) {
@@ -62,7 +60,7 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
         this.className = 'vizalys row'
       }
 
-      this.cdr.detectChanges()
+      this.cdRef.detectChanges()
     })
 
   }  
@@ -89,9 +87,8 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
       });
 
       this.roleClaims = this.groupBy(this.roleClaims, value => value.value.split('.')[1])
-      // console.log(this.roleClaims);
-      
-      this.cdr.markForCheck();
+   
+      this.cdRef.markForCheck();
       this.isLoading = false;
       console.log(this.filterData);
     })

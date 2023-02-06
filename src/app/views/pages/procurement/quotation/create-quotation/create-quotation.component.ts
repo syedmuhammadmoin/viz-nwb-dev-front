@@ -30,7 +30,7 @@ import { IRequisition } from '../../requisition/model/IRequisition';
 export class CreateQuotationComponent extends AppComponentBase implements OnInit {
   public permissions = Permissions;
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -43,15 +43,12 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   @ViewChild('table', { static: true }) table: any;
 
   // Quotation Model
-  quotationModel: IQuotation;
+  quotationModel: IQuotation = {} as IQuotation;
 
   requisitionId: number;
 
   // For DropDown
   salesItem: IProduct[];
-
-  //sales Order Data
-  salesOrderMaster: any;
 
   //variables for calculation
   grandTotal: number = 0;
@@ -83,10 +80,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     },
     timeframe: {
       required: 'Time Frame is required.',
-    },
-    // contact: {
-    //   required: 'Contact Name is required.',
-    // }
+    }
   };
 
   // error keys..
@@ -118,31 +112,17 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
       vendorId: ['', [Validators.required]],
       quotationDate: ['', [Validators.required]],
       timeframe: ['', [Validators.required]],
-      //contact: [''],
       quotationLines: this.fb.array([
         this.addQuotationLines()
       ])
     });
 
-    this.quotationModel = {
-      id: null,
-      vendorId: null,
-      quotationDate: null,
-      timeframe: null,
-      requisitionId: null,
-      quotationLines: []
-    }
-    // get customer from state
+    //Get Data From Store
     this.ngxsService.getBusinessPartnerFromState();
-    // get Other Accounts from state
     this.ngxsService.getOtherAccountsFromState()
-    // get Ware house location from state
     this.ngxsService.getWarehouseFromState();
-    // get item from state
     this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState()
-    // get location from location
-    //this.ngxsService.getLocationFromState();
 
     this.ngxsService.products$.subscribe(res => this.salesItem = res)
     
@@ -162,18 +142,10 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
         this.getRequisition(id);
       }
     });
-
-    //handling dueDate logic
-    // this.quotationForm.get('invoiceDate').valueChanges.subscribe((value) => {
-    //   this.minDate = new Date(value);
-    //   this.dateCondition = this.quotationForm.get('dueDate').value < this.quotationForm.get('invoiceDate').value
-    // })
   }
 
   // Form Reset
   reset() {
-    // const invoiceLineArray = this.invoiceForm.get('quotationLines') as FormArray;
-    // invoiceLineArray.clear();
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
@@ -188,54 +160,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
       // set values for purchasePrice & tax
       arrayControl.at(index).get('price').setValue(price);
     }
-    // console.log("yes")
-    // let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
-    // if (itemId) {
-    //   let price = this.salesItem.find(i => i.id === itemId).salesPrice
-    //   let tax = this.salesItem.find(i => i.id === itemId).salesTax
-    //   let account = this.salesItem.find(i => i.id === itemId).revenueAccountId
-    //   // set values for price & tax
-    //   arrayControl.at(index).get('price').setValue(price);
-    //   arrayControl.at(index).get('tax').setValue(tax);
-    //   arrayControl.at(index).get('accountId').setValue(account);
-    //   // Calculating subtotal
-    //   // let quantity = arrayControl.at(index).get('quantity').value;
-    //   // let subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
-    //   // arrayControl.at(index).get('subTotal').setValue(subTotal);
-    //   this.onChangeEvent(null, index)
-    // }
-  }
-
-  // onChangeEvent for calculating subtotal
-  onChangeEvent(value: unknown, index: number, element?: HTMLElement) {
-
-    // const arrayControl = this.quotationForm.get('quotationLines') as FormArray;
-    // const price = (arrayControl.at(index).get('price').value) !== null ? arrayControl.at(index).get('price').value : null;
-    // const tax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
-    // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
-
-    // //calculating subTotal
-    // const subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
-    // arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // this.totalCalculation();
-  }
-
-
-  // Calculations
-  // Calculate Total Before Tax ,Total Tax , grandTotal
-  totalCalculation() {
-    // this.totalTax = 0;
-    // this.totalBeforeTax = 0;
-    // this.grandTotal = 0;
-    // let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
-    // arrayControl.controls.forEach((element, index) => {
-    //   let price = arrayControl.at(index).get('price').value;
-    //   let tax = arrayControl.at(index).get('tax').value;
-    //   let quantity = arrayControl.at(index).get('quantity').value;
-    //   this.totalTax += ((price * quantity) * tax) / 100
-    //   this.totalBeforeTax += price * quantity;
-    //   this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
-    // });
   }
 
   //Add Quotation Lines
@@ -297,8 +221,8 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     });
   }
 
-  //Patch Quotation Form through Quotation Or sales Order Master Data
-  
+  //Patch Quotation Form through Quotation Or Requisition Master Data
+
   patchQuotation(data: IQuotation | IRequisition | any ) {
     this.quotationForm.patchValue({
       vendorId: data.vendorId,
@@ -306,12 +230,9 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
       timeframe: data.timeframe
     });
 
-
-    //this.onCampusSelected(data.vendorId)
     this.showMessage = true;
 
     this.quotationForm.setControl('quotationLines', this.patchQuotationLines(data.quotationLines ?? data.requisitionLines))
-    //this.totalCalculation();
   }
 
   //Patch Quotation Lines From Requisition Or Quotation Master Data
@@ -342,15 +263,12 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     }
     
     if (this.quotationForm.invalid) {
-      //this.toastService.error("Please fill all required fields!", "Quotation")
       return;
     }
 
     this.isLoading = true;
     this.mapFormValuesToQuotationModel();
-    console.log(this.quotationModel)
     if (this.quotationModel.id) {
-      console.log("updated")
       this.quotationService.updateQuotation(this.quotationModel)
       .pipe(
         take(1),
@@ -365,7 +283,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
           this.router.navigate(['/' + QUOTATION.ID_BASED_ROUTE('details', this.quotationModel.id)]);
         })
     } else {
-      console.log("create")
       delete this.quotationModel.id;
       this.quotationService.createQuotation(this.quotationModel)
       .pipe(

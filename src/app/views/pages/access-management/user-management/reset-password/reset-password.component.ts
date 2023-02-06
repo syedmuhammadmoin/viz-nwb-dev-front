@@ -49,13 +49,13 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
     })
   }
 
-  onCloseResetPassDialog() {
+  onCloseDialog() {
     this.dialogRef.close();
   }
 
   onSubmit() {
     if (!this._id) {
-      this.onCloseResetPassDialog();
+      this.onCloseDialog();
       return
     }
     if (this.resetPassForm.invalid) {
@@ -75,7 +75,7 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
      )
     .subscribe((res) => {
       this.toastService.success('Successfully!', 'Password Reset')
-      this.onCloseResetPassDialog();
+      this.onCloseDialog();
     })
   }
 

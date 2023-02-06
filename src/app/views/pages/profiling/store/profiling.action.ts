@@ -5,7 +5,6 @@ export class GetList<T> {
   static readonly type = 'Get List'
 
   constructor(target: Type<ProfilingState<T>>, payload: any) {
-    //console.log('get list method called.' ,payload)
     return generateActionObject(EntityActionType.getAll, target, payload);
   }
 }

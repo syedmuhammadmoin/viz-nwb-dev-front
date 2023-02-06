@@ -1,17 +1,10 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
     <kt-portlet-header [sticky]="false" [title]="'Employee Detail'" [class]="'card-head-lg'">
-      <!-- <ng-container ktPortletTools>
-        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-        
-        <h4 class="overall_statuses {{docStatus[employeeMaster?.state]}}"> Status: {{employeeMaster?.status}} </h4>
-      </ng-container> -->
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-
         <div class="row ">
-
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
                 <button *ngIf="(permission.isGranted(permissions.EMPLOYEE_EDIT))" id="journal_edit"
@@ -20,7 +13,6 @@
                 </button>
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
-            
         </div>
 
           <div class="col-md-4 col-lg-4  mt-3">
@@ -28,33 +20,12 @@
               <h4 ><b>Employee Name: </b>
                 <span class="float-right" >{{employeeMaster?.name || 'N/A'}}</span>
               </h4>
-              <!-- <h6 style="font-weight: 400; color: #65c18c; font-size: 12px">{{employeeMaster?.name || 'N/A'}}</h6> -->
             </div>
-            <!-- <div class="print-box">
-              <h4 ><b>Domicile: </b>
-                <span class="float-right" >{{employeeMaster?.domicile || 'N/A' }}</span>
-              </h4>
-            </div> -->
-            <!-- <div class="print-box">
-              <h4 ><b>Nationality: </b>
-                <span class="float-right" >{{employeeMaster?.nationality || 'N/A'}}</span>
-              </h4>
-            </div> -->
-            <!-- <div class="print-box">
-              <h4 ><b>Place Of Birth: </b>
-              <span class="float-right" >{{employeeMaster?.placeofBirth}}</span></h4>
-            </div> -->
             <div class="print-box">
                 <h4 ><b>Date Of Joining:</b> 
                   <span class="float-right" >{{employeeMaster?.dateofJoining | date: 'MMM d, y'}}</span>
                 </h4>
-                <!-- <h6 >{{employeeMaster?.dateofJoining | date: 'MMM d, y'}}</h6> -->
             </div>
-            <!-- <div class="print-box">
-              <h4 >Role: 
-                <span class="float-right" >{{employeeMaster?.role || 'N/A'}}</span>
-              </h4>
-            </div> -->
             <div class="print-box">
               <h4 ><b>Basic Pay:</b> 
               <span class="float-right" >{{valueFormatter(employeeMaster?.basicPay)}}</span></h4>
@@ -64,21 +35,18 @@
                 <b>Employee Type:</b> 
                 <span class="float-right" >{{employeeMaster?.employeeType || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.noOfIncrements || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
               <h4 >
                 <b>No of Increments:</b> 
                 <span class="float-right" >{{employeeMaster?.noOfIncrements || 0}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.noOfIncrements || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
               <h4 >
                 <b>Address:</b> 
                  <span class="float-right" >{{employeeMaster?.address || 'N/A'}}</span>
                </h4>
-              <!-- <h6 >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</h6> -->
             </div>
           </div>
 
@@ -88,53 +56,34 @@
                 <b>Father Name:</b> 
                 <span class="float-right" >{{employeeMaster?.fatherName || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.fatherName || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
               <h4 >
                 <b>Contact:</b> 
                 <span class="float-right" >{{employeeMaster?.contact || 'N/A'}}</span>
-                
               </h4>
-              <!-- <h6 >{{employeeMaster?.contact || 'N/A'}}</h6> -->
             </div>
-            <!-- <div class="print-box">
-              <h4 >
-                <b>Marital Status:</b> 
-                <span class="float-right" >{{employeeMaster?.maritalstatus || 'N/A'}}</span>
-              </h4>
-              <h6 >{{employeeMaster?.maritalstatus || 'N/A'}}</h6>
-            </div> -->
             <div class="print-box">
               <h4 >
                 <b>Designation:</b> 
                 <span class="float-right" >{{employeeMaster?.designationName || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.designationName || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
               <h4 >
                 <b>Grade:</b> 
                 <span class="float-right" >{{employeeMaster?.bps || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.address || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
               <h4 ><b>Increment:</b> 
                 <span class="float-right" >{{valueFormatter(employeeMaster?.incrementAmount)}}</span></h4>
             </div>
-            <!-- <div class="print-box">
-              <h4 >
-                <b>Date Of Retirement:</b> 
-                <span class="float-right" >{{employeeMaster?.dateofRetirment | date: 'MMM d, y'}}</span>
-              </h4>
-            </div> -->
             <div class="print-box">
               <h4 >
                 <b>Active:</b> 
                 <span class="float-right" >{{(employeeMaster?.isActive === true) ? 'Yes' : "No"}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.faculty || 'N/A'}}</h6> -->
             </div>
           </div>
 
@@ -144,35 +93,18 @@
                 <b>Cnic:</b> 
                 <span class="float-right" >{{employeeMaster?.cnic || 'N/A'}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.cnic || 'N/A'}}</h6> -->
             </div>
-            <!-- <div class="print-box">
-              <h4 >
-                <b>Religion:</b> 
-                <span class="float-right" >{{employeeMaster?.religion}}</span>
-              </h4>
-              <h6 >{{employeeMaster?.religion || 'N/A'}}</h6>
-            </div> -->
-            <!-- <div class="print-box">
-              <h4 >
-                <b>Gender:</b> 
-                <span class="float-right" >{{employeeMaster?.gender || 'N/A'}}</span>
-              </h4>
-              <h6 >{{employeeMaster?.gender || 'N/A'}}</h6>
-            </div> -->
             <div class="print-box">
               <h4 >
                 <b>Department:</b> 
                 <span class="float-right" >{{employeeMaster?.departmentName}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.departmentName || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
               <h4 >
                 <b>Campus:</b> 
                 <span class="float-right" >{{employeeMaster?.campusName}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.departmentName || 'N/A'}}</h6> -->
             </div>
             <div class="print-box">
               <h4 >
@@ -180,19 +112,11 @@
                 <span class="float-right" >{{employeeMaster?.faculty || 'N/A'}}</span>
               </h4>
             </div>
-            <!-- <div class="print-box">
-              <h4 >
-                <b>Date Of Birth:</b> 
-                <span class="float-right" >{{(employeeMaster?.dateofBirth | date: 'MMM d, y') || 'N/A'}}</span>
-              </h4>
-              <h6 >{{employeeMaster?.dateofBirth || 'N/A'}}</h6>
-            </div> -->
             <div class="print-box">
               <h4 >
                 <b>Shift:</b> 
                 <span class="float-right" >{{employeeMaster?.dutyShift}}</span>
               </h4>
-              <!-- <h6 >{{employeeMaster?.dutyShift || 'N/A'}}</h6> -->
             </div>
           </div>
         </div>
@@ -207,9 +131,7 @@
         </div>
 
         <div class="row mt-5">
-
             <div class="col-md-4 col-lg-4  ml-auto mt-3" >
-
               <div class="print-box">
                 <h4 >Basic Pay :
                   <span class="float-right" style="font-weight: 400;">{{valueFormatter(employeeMaster?.totalBasicPay || 0)}}</span>
@@ -235,58 +157,12 @@
                   <span class="float-right" style="font-weight: 400;"> {{valueFormatter(employeeMaster?.netPay || 0)}}</span>
                 </h4>
               </div>
-            <!-- <table class="table  small_table_box" >
-              <tr>
-                <td class="text-left Total-Before-Tax-heading"></td>
-                <td class="text-right" >
-                  </td>
-              </tr>
-              <tr>
-                <td class="text-left Total-Before-Tax-heading"></td>
-                <td class="text-right" >
-                  </td>
-              </tr>
-              <tr>
-                <td class="text-left Total-Before-Tax-heading"></td>
-                <td class="text-right" >
-                  </td>
-              </tr>
-              <tr>
-                <td class="text-left Total-Before-Tax-heading"></td>
-                <td class="text-right" >
-                  </td>
-              </tr>
-              <tr>
-                <td class="text-left Total-Before-Tax-heading">Tax Deduction :</td>
-                <td class="text-right" >
-                  {{valueFormatter(employeeMaster?.taxDeduction || 0)}}</td>
-              </tr>
-              <tr style="border-top: 2px solid #65c18c;">
-                <th class="text-left Total-Before-Tax-heading"
-                  >Net Pay :</th>
-                <th class="text-right" >
-                  {{valueFormatter(employeeMaster?.netPay || 0)}}</th>
-              </tr>
-            </table> -->
           </div>
         </div>
-
-
-
       </div>
     </kt-portlet-body>
 
     <mat-divider class="mt-10"></mat-divider>
 
-    <div class="kt-portlet__foot p-5">
-      <div class="kt-form__actions kt-form__actions mb-0">
-        <div class="row ">
-          <!-- <div class="col-lg-12 text-right" *ngIf="employeeMaster?.isAllowedRole">
-            <button (click)="workflow(action.Reject)" id="invoice_reject" class="mr-5 btn btn-outline-danger" mat-raised-button>Reject</button>
-            <button (click)="workflow(action.Approve)" id="invoice_approve" class="btn btn-outline-success" mat-raised-button>Approve</button>
-          </div> -->
-        </div>
-      </div>
-    </div>
   </kt-portlet>
 </div>

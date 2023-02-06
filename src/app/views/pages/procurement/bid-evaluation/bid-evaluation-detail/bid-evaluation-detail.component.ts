@@ -1,5 +1,5 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params} from '@angular/router';
 import { ActionButton, DocType, DocumentStatus, Permissions } from 'src/app/views/shared/AppEnum';
@@ -13,8 +13,7 @@ import { FirstDataRenderedEvent, GridOptions, ValueFormatterParams } from 'ag-gr
 @Component({
   selector: 'kt-bid-evaluation-detail',
   templateUrl: './bid-evaluation-detail.component.html',
-  styleUrls: ['./bid-evaluation-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./bid-evaluation-detail.component.scss']
 })
 
 export class BidEvaluationDetailComponent extends AppComponentBase implements OnInit {
@@ -35,6 +34,7 @@ export class BidEvaluationDetailComponent extends AppComponentBase implements On
   action = ActionButton;
   docType = DocType;
 
+  //Defining Bid Evaluation Columns
   columnDefs = [
     {
       headerName: 'Bidder Name', 

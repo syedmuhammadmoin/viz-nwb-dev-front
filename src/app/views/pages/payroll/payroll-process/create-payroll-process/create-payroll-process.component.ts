@@ -6,10 +6,7 @@ import { MatDialog} from "@angular/material/dialog";
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { CreatePayrollTransactionComponent } from '../../payroll-transaction/create-payroll-transaction/create-payroll-transaction.component';
-import { DepartmentState } from '../../department/store/department.store';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
@@ -29,7 +26,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   overlayLoadingTemplate;
   permissions = Permissions
   createPayrollProcessForm: FormGroup;
-  //tooltipData = 'double click to edit'
 
   columnDefs = [
     {
@@ -69,30 +65,19 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
 
     {
       headerName: 'Working Days',
-      // editable: true,
       field: 'workingDays',
-      //tooltipField: 'workingDays',
       suppressMenu: true,
     },
     {
       headerName: 'Present Days',
-      // editable: true,
       field: 'presentDays',
-      //tooltipField: 'presentDays',
       suppressMenu: true,
     },
     {
       headerName: 'Absent Days',
-      // editable: true,
       field: 'absentDays',
       suppressMenu: true,
     },
-    /*    {
-          headerName: 'Tax',
-          // editable: true,
-          field: 'tax',
-          tooltipField: 'tax'
-        },*/
     {
       headerName: 'Net Salary',
       field: 'netSalary',
@@ -139,12 +124,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   defaultColDef: any;
   departmentsList: any = new BehaviorSubject<any>([])
 
-  // religionList = [
-  //   { id: 0, value: 'Islam' },
-  //   { id: 1, value: 'Christian' },
-  //   { id: 2, value: 'Hinduism' },
-  // ]
-
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -173,18 +152,11 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       departmentId: ['', Validators.required],
       accountPayableId: ['', Validators.required],
       campusId: ['', Validators.required],
-      //religion: [''],
       month: ['', Validators.required],
       year: ['', Validators.required],
     })
 
-    // this.defaultColDef = {
-    //   tooltipComponent: 'customTooltip'
-    // }
-    //this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    // this.getLatestDepartments();
-    // this.getLatestCampuses();
     this.getLatestCampuses();
     this.ngxsService.getAccountPayableFromState();
     this.ngxsService.getCampusFromState();
@@ -273,7 +245,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     // Traverse through selected employee list
     return listToMap.map(x => {
       return x.id
-      // return {id: x.id, netSalary: x.netSalary}
     })
   }
 
@@ -282,20 +253,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     this.employeeList = []
     this.cdRef.detectChanges()
   }
-
-  // editPayrollTransaction(event: any) {
-  //   this.dialog.open(CreatePayrollTransactionComponent, {
-  //   // const dialogRef = this.dialog.open(CreatePayrollTransactionComponent, {
-  //     width: '860px',
-  //     height: '700px',
-  //     data: event?.data?.id,
-  //     //panelClass: 'custom-modalbox'
-  //   });
-  //   // Recalling getBankAccounts function on dialog close
-  //   // dialogRef.afterClosed().subscribe(() => {
-  //   //   this.createProcess();
-  //   // });
-  // }
 
   onCampusSelected(campusId : number) {
     this.ngxsService.departmentService.getDepartmentByCampusId(campusId).subscribe(res => {

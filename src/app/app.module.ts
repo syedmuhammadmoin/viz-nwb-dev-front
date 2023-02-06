@@ -2,7 +2,6 @@ import { CityState } from './core/shared-state/account-state/store/city.state';
 import { StateState } from './core/shared-state/account-state/store/state.state';
 import { CountryState } from './core/shared-state/account-state/store/country.state';
 import { WarehouseState } from './views/pages/profiling/warehouse/store/warehouse.state';
-import { LocationState } from './views/pages/profiling/location/store/location.state';
 import { OrganizationState } from './views/pages/profiling/organization/store/organization.state';
 import { CategoryState } from './views/pages/profiling/category/store/category.state';
 import { CommonModule } from '@angular/common';
@@ -100,10 +99,6 @@ import { AccountReceivableState } from './views/pages/finance/chat-of-account/st
 import { OtherAccountState } from './views/pages/finance/chat-of-account/store/other-account.state';
 import { RoleState } from './views/pages/access-management/store/role.state';
 import { UnitOfMeasurementState } from './views/pages/profiling/unit-of-measurement/store/unit.state';
-import { CustomRemarksComponent } from './views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from './views/shared/components/custom-upload-file/custom-upload-file.component';
-import { ShowRemarksComponent } from './views/shared/components/show-remarks/show-remarks.component';
-import { AssetCategoryState } from './views/pages/fixed-asset/asset-category/store/asset-category.state';
 import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
 import { AssetAccountState } from './views/pages/finance/chat-of-account/store/asset-account.state';
 import { AppInitializer } from 'AppInitializer';
@@ -168,7 +163,6 @@ export function getHighlightLanguages() {
       DesignationState,
       EmployeeState,
       EmployeePaymentState,
-      LocationState,
       ProductState,
       WarehouseState,
       AccountLevel4State,
@@ -187,7 +181,6 @@ export function getHighlightLanguages() {
       BankAccountState,
       CashAccountState,
       AssetAccountState,
-      AssetCategoryState,
       CategoryAssetState,
       DepreciationModelState,
       BudgetState,
@@ -222,12 +215,6 @@ export function getHighlightLanguages() {
     KtDialogService,
     DataTableService,
     SplashScreenService,
-    // BusinessPartnerResolverService,
-    // LocationResolverService,
-    // AccountResolverService,
-    // ProductResolverService,
-    // BankAccountResolverService,
-    // DepartmentResolverService,
     {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

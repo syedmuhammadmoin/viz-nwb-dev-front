@@ -7,7 +7,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateBankAccountComponent } from './create-bank-account/create-bank-account.component';
 import { BankAccountRoutingModule } from './bank-account-routing.module';
-import { BankAccountService } from './service/bankAccount.service';
+
 @NgModule({
   declarations: [
     ListBankAccountComponent,
@@ -19,9 +19,6 @@ import { BankAccountService } from './service/bankAccount.service';
     PartialsModule,
     BankAccountRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent]),
-  ],
-  providers: [
-  
   ],
   entryComponents: [CreateBankAccountComponent]
 })

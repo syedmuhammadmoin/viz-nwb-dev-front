@@ -4,8 +4,6 @@ export interface IAwardVendor {
     quotationId: number;
 }
 
-
-
 export interface IQuotationComparativeLines {
   quotationId: number;
   isSelected: boolean;

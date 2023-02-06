@@ -1,18 +1,7 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <!-- <kt-portlet-header [sticky]="false" [title]="'Bill Detail'" [class]="'card-head-lg'">
-      <ng-container ktPortletTools>
-        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-
-
-
-        <h4 class="overall_statuses {{docStatus[billMaster?.state]}}"> Status:  {{billMaster?.status}} </h4>
-      </ng-container>
-    </kt-portlet-header> -->
-
     <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'Bill Detail'" >
       <ng-container class="" ktPortletTools>
-        <!-- <h4 class="overall_statuses  {{paymentMaster?.status}}">Status:  {{paymentMaster?.status}}</h4> -->
         <div class="ribbon-target " ><span class="ribbon-inner {{billMaster?.status}}"></span> {{billMaster?.status}} </div>
       </ng-container>
     </kt-portlet-header>
@@ -61,11 +50,6 @@
             </div>
           </div>
 
-
-          <div class="col-md-12 col-12 pb-3">
-
-          </div>
-
           <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
                 <h4 class="print-box-detail-1"><b>Document No:</b>
@@ -88,10 +72,6 @@
               <h4 class="print-box-detail-1"><b>Due Date:</b>
               <span class="float-right" style="font-weight: 400;">{{billMaster?.dueDate | date: 'MMM d, y'}}</span></h4>
             </div>
-            <!-- <div class="print-box">
-              <h4 class="print-box-detail-1"><b>Account Payable:</b>
-              <span class="float-right" style="font-weight: 400;">{{billMaster?.accountPayable ||'N/A'}}</span></h4>
-            </div> -->
           </div>
         </div>
 
@@ -106,7 +86,6 @@
 
 
         <div class="row mt-5">
-
           <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
@@ -123,7 +102,6 @@
               <tbody>
                 <tr *ngFor="let unReconPay of bpUnReconPaymentList; let i = index">
                   <td>
-                    <!-- <a [routerLink]="(unReconPay?.docType === 0) ? '/'+ PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) : '/'+ DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) ">{{unReconPay.docNo}}</a> -->
                     <a [routerLink]="(unReconPay?.docType === 0) ? '/' + PAYMENT.ID_BASED_ROUTE ('details', unReconPay?.id) :
                       (unReconPay?.docType === 5) ? '/' + JOURNAL_ENTRY.ID_BASED_ROUTE ('details', unReconPay?.id) :
                       '/' + DEBIT_NOTE.ID_BASED_ROUTE ('details', unReconPay?.id) " class="all-text-primary">{{unReconPay.docNo}}</a>
@@ -232,17 +210,10 @@
             </table>
           </div>
         </div>
-
       </div>
 
     </kt-portlet-body>
     <mat-divider class="mt-10"></mat-divider>
-    <div class="kt-portlet__foot p-5">
-      <div class="kt-form__actions kt-form__actions mb-0">
-        <div class="row ">
-
-        </div>
-      </div>
-    </div>
+   
   </kt-portlet>
 </div>

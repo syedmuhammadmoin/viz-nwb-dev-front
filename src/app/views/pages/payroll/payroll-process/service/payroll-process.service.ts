@@ -35,8 +35,6 @@ export class PayrollProcessService {
   }
 
 
-
-
   //Payment Process
   getPayrollTransactions(body: IPayrollProcess): Observable<any> {
     return this.httpClient.post(this.paymentBaseUrl + '/GetPayrollTrans', body)

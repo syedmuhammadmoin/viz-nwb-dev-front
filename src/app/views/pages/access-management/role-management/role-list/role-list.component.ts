@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { GridOptions } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridOptions, RowDoubleClickedEvent } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { ACCESS_MANAGEMENT, APP_ROUTES } from 'src/app/views/shared/AppRoutes';
@@ -26,10 +26,10 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
+  //Defining Ag Grid Columns
   columnDefs = [
     { 
       headerName: 'S.No', 
-      //valueGetter: 'node.rowIndex + 1', 
       field: 'index',
       tooltipField: 'name',
       suppressMenu: true,
@@ -46,6 +46,8 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
       }
     },
   ];
+
+  //Injecting Dependencies
   constructor(
     private accessManagementService: AccessManagementService,
     private cdRef: ChangeDetectorRef,
@@ -62,10 +64,9 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit() {
+    //Get Roles Data
     this.getRoles();
-    // this.gridOptions.rowHeight = 30;
-    // this.gridOptions.headerHeight = 35;
-
+  
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       resizable: true,
@@ -80,11 +81,11 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
 
   }
 
-  onFirstDataRendered(params) {
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
-  onRowDoubleClicked(event) {
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
     this.createRoleDialog(event.data.id);
   }
 
@@ -93,7 +94,7 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
       width: '840px',
       data: id
     });
-    // Recalling getInvoiceMasterData function on dialog close
+     //Get Updated Roles Data on dialog close
     dialogRef.afterClosed().subscribe(() => {
       this.getRoles();
     });
@@ -102,6 +103,7 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
   getRoles() {
     this.accessManagementService.getRoles().subscribe((res: any) => {
       this.roleList = res.result
+      //Setting Seriol Nos of rows in Grid
       if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       this.cdRef.detectChanges();
     });

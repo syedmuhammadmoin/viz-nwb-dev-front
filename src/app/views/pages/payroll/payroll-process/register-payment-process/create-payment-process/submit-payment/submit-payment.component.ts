@@ -11,7 +11,6 @@ import { PayrollProcessService } from '../../../service/payroll-process.service'
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
-import { DepartmentState } from '../../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
 import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
@@ -147,6 +146,8 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
     
     this.getLatestCampuses();
+
+    //Get Data from Store
     this.ngxsService.getDepartmentFromState();
     this.ngxsService.getCampusFromState();
   }
@@ -210,20 +211,6 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
   resetForm() {
     this.formDirective.resetForm();
     this.paymentList = [];
-  }
-
-  onRowDoubleClick($event: any) {
-    // console.log($event);
-    // const dialogRef = this.dialog.open(CreatePaymentComponent, {
-    //   width: '900px',
-    //   data: {id: $event.data.id, docType: this.docType.PayrollPayment, isProcess: true}
-    // });
-    // // Recalling getBillMasterData function on dialog close
-    // dialogRef.afterClosed().subscribe(result => {
-    //   this.onSubmitFilters();
-    //   // this.cdr.markForCheck();
-    //   this.cdRef.detectChanges();
-    // });
   }
 
   onCampusSelected(campusId : number) {

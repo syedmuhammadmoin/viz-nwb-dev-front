@@ -1,8 +1,8 @@
 import { DEBIT_NOTE, BILL } from '../../../../shared/AppRoutes';
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
 import { GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { DebitNoteService } from '../service/debit-note.service';
@@ -16,8 +16,7 @@ import { CustomUploadFileComponent } from 'src/app/views/shared/components/custo
 @Component({
   selector: 'kt-debit-note-detail',
   templateUrl: './debit-note-detail.component.html',
-  styleUrls: ['./debit-note-detail.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./debit-note-detail.component.scss']
 })
 
 export class DebitNoteDetailComponent extends AppComponentBase implements OnInit {
@@ -31,10 +30,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
   action = ActionButton
   docStatus = DocumentStatus
 
-  // handling register payment button
-  isDisabled: boolean;
-
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //For ag grid
@@ -46,20 +42,15 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
 
   paidAmountList: any = []
 
-  // totalBeforeTax: number;
-  // totalTax: number;
-  // totalAmount: number;
   //Variables for Debit Note Data
   debitNoteMaster: any;
   debitNoteLines: any;
-  reconciledDocumentList: any = [];
 
   //Showing Remarks
   remarksList: string[] = [];
 
   constructor(private debitNoteService: DebitNoteService,
     private activatedRoute: ActivatedRoute,
-    private router: Router,
     public dialog: MatDialog,
     injector: Injector,
     private cdRef: ChangeDetectorRef) {
@@ -151,12 +142,8 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     .subscribe(res => {
       this.debitNoteMaster = res.result;
       this.debitNoteLines = res.result.debitNoteLines;
-      // this.totalBeforeTax = this.debitNoteMaster.totalBeforeTax;
-      // this.totalTax = this.debitNoteMaster.totalTax;
-      // this.totalAmount = this.debitNoteMaster.totalAmount;
       this.paidAmountList = this.debitNoteMaster.paidAmountList;
       this.remarksList = this.debitNoteMaster.remarksList ?? [] 
-      //this.reconciledDocumentList = this.debitNoteMaster.reconciledDocuments == null ? [] : this.debitNoteMaster.reconciledDocuments;
       this.cdRef.detectChanges();
     })
   }

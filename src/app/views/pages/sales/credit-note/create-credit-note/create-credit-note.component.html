@@ -57,7 +57,7 @@
                   <ng-container formArrayName="creditNoteLines">
                     <div class="table-responsive">
                       <mat-table #table [dataSource]="creditNoteForm.get('creditNoteLines')['controls']">
-                        <!-- Account Column -->
+                        <!-- Item Column -->
                         <ng-container matColumnDef="itemId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -77,7 +77,7 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                        <!--Partner Column-->
+                        <!--Description Column-->
                         <ng-container matColumnDef="description">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -92,7 +92,7 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                        <!-- Description Column -->
+                        <!-- COA Column -->
                         <ng-container matColumnDef="accountId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> COA</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -104,7 +104,7 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                        <!-- Debit Column -->
+                        <!-- Quantity Column -->
                         <ng-container matColumnDef="quantity">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -125,7 +125,7 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                        <!-- Credit Column -->
+                        <!-- Price Column -->
                         <ng-container matColumnDef="price">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Price</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -146,7 +146,7 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                        <!-- Location Column -->
+                        <!-- Tax Column -->
                         <ng-container matColumnDef="tax">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Tax%</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -178,30 +178,6 @@
                             </div>
                           </mat-cell>
                         </ng-container>
-                        <!-- Location Column -->
-                        <!-- <ng-container matColumnDef="locationId">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> Location</mat-header-cell>
-                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2"> -->
-                              <!-- <kt-group-dropdown formControlName="locationId" placeholder="Select Location"
-                              [optionList]="ngxsService.warehouses$"
-                              clickEventButtonName="Add New Location"
-                              [errorMessage]="'Location is Required'"
-                                groupPropertyName="name" matFormFieldClass="mobile-label full-width"
-                                groupChildrenName="locations" propertyName="name" propertyValue="id">
-                              </kt-group-dropdown> -->
-                              <!-- <kt-simple-dropdown 
-                              placeholder="Select Location" 
-                              propertyValue="id" 
-                              propertyName="name"
-                              formControlName="locationId" 
-                              matFormFieldClass="full-width"
-                              [errorMessage]="'Location is Required.'" 
-                              [optionList]="ngxsService.locations$">
-                            </kt-simple-dropdown>
-                            </div>
-                          </mat-cell>
-                        </ng-container> -->
                         <ng-container matColumnDef="warehouseId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Store</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -228,9 +204,6 @@
                         <ng-container matColumnDef="action">
                           <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <!-- <mat-icon class="delete-button" (click)="removeJournalEntryLineClick(i);">delete_forever
-                                  </mat-icon> -->
-
                             <button class=" app-remove-btn" type="button" [id]="'credit_note_remove_' + i"
                               (click)="removeCreditNoteLineClick(i); totalCalculation()">
                               <i class="fas fa-trash" aria-hidden="true"></i>
@@ -252,32 +225,11 @@
                       </div>
                     </div>
                   </ng-container>
-
                 </div>
               </div>
             </div>
 
             <div class="row mt-10">
-              <!-- <div class="col-lg-4 ml-auto">
-                <table class="table table-bordered small_table_box">
-                  <tr>
-                    <th class="text-right" style="width: 70%;">Total Before Tax :</th>
-                    <td class="text-right btn-bg-colorr">
-                      {{valueFormatter(totalBeforeTax || 0)}}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Total Tax :</th>
-                    <td class="text-right btn-bg-colorr">
-                      {{valueFormatter(totalTax || 0)}}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right grand-total-two">Grand Total :
-                    </th>
-                    <td class="text-right btn-bg-colorr">
-                      {{valueFormatter(grandTotal || 0)}}</td>
-                  </tr>
-                </table>
-              </div> -->
               <div  class="col-md-4 col-lg-4  ml-auto mt-3">
                 <div  class="print-box">
                   <h4>Total Before Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
@@ -290,13 +242,7 @@
                 </div>
               </div>
             </div>
-
           </div>
-
-
-
-          <!--Credit Note Lines-->
-
         </div>
       </div>
 

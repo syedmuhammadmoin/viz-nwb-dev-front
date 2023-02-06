@@ -1,24 +1,23 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { GOODS_RECEIVED_NOTE, ISSUANCE, ISSUANCE_RETURN, REQUISITION } from 'src/app/views/shared/AppRoutes';
+import { ISSUANCE, ISSUANCE_RETURN, REQUISITION } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IIssuanceLines } from '../model/IssuanceLines';
 import { IIssuance } from '../model/IIssuance';
 import { IssuanceService } from '../service/issuance.service';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+
 
 @Component({
   selector: 'kt-issuance-details',
   templateUrl: './issuance-details.component.html',
-  styleUrls: ['./issuance-details.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./issuance-details.component.scss']
 })
 
 export class IssuanceDetailsComponent extends AppComponentBase implements OnInit {
@@ -35,13 +34,12 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   public ISSUANCE = ISSUANCE;
   public ISSUANCE_RETURN = ISSUANCE_RETURN;
   public REQUISITION = REQUISITION;
-  public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE;
 
   showReference: boolean = false;
 
   gridApi: any
 
-  //kt busy loading
+  //Loader
   isLoading: boolean;
 
   //need for routing
@@ -50,7 +48,6 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   //Variables for Issuance data
   issuanceLines: IIssuanceLines | any
   issuanceMaster: IIssuance | any;
-  status: string;
 
   //Showing Remarks
   remarksList: string[] = [];
@@ -136,7 +133,6 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
     .subscribe((res: IApiResponse<IIssuance>) => {
       this.issuanceMaster = res.result;
       this.issuanceLines = res.result.issuanceLines;
-      this.status = this.issuanceMaster.status;
       this.remarksList = this.issuanceMaster.remarksList ?? [] 
 
       //Checking grn status to show Requisition reference
@@ -182,22 +178,6 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
         this.toastService.success('' + res.message, 'Issuance');
       })
   }
-
-  //upload File
-  // openFileUploadDialog() {
-  //   this.dialog.open(CustomUploadFileComponent, {
-  //     width: '740px',
-  //     data: {
-  //       response: this.issuanceMaster,
-  //       serviceClass: this.issuanceService,
-  //       functionName: 'uploadFile',
-  //       name: 'Issuance'
-  //     },
-  //   }).afterClosed().subscribe(() => {
-  //     this.getIssuanceData(this.issuanceId)
-  //     this.cdRef.detectChanges()
-  //   })
-  // }
 }
 
 

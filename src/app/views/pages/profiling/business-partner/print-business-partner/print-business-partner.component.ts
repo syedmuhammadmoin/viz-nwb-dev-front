@@ -12,6 +12,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
   templateUrl: './print-business-partner.component.html',
   styleUrls: ['./print-business-partner.component.scss']
 })
+
 export class PrintBusinessPartnerComponent extends AppComponentBase implements OnInit {
 
   gridOptions: GridOptions;

@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { REQUEST_REQUISITION, REQUISITION } from '../../../../shared/AppRoutes';
+import { REQUEST_REQUISITION } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { finalize, take } from 'rxjs/operators';
 import { ActivatedRoute, Router} from '@angular/router';
@@ -19,15 +19,14 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 @Component({
   selector: 'kt-create-request-requisition',
   templateUrl: './create-request-requisition.component.html',
-  styleUrls: ['./create-request-requisition.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./create-request-requisition.component.scss']
 })
 
 export class CreateRequestRequisitionComponent extends AppComponentBase implements OnInit {
 
   public permissions = Permissions;
   
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -40,17 +39,12 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   @ViewChild('table', {static: true}) table: any;
 
   // requestRequisitionModel
-  requestRequisitionModel: IRequestRequisition;
+  requestRequisitionModel: IRequestRequisition = {} as IRequestRequisition;
 
   // For DropDown
   salesItem: IProduct[] = [];
 
   isRequestRequisition: any;
-
-  // For Calculation
-  // grandTotal = 0 ;
-  // totalBeforeTax = 0 ;
-  // totalTax = 0;
 
   // for getting employee
   employee = {} as any;
@@ -65,12 +59,6 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  //warehouseList: any = new BehaviorSubject<any>([])
-
-  //show toast mesasge of on campus select
-  //showMessage: boolean = false;
-
-
   // Validation Messages
   validationMessages = {
     employeeId: {
@@ -78,16 +66,12 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     },
     requestDate: {
       required: 'Request Date is required.'
-    },
-    // campusId: {
-    //   required: 'Campus is required.'
-    // },
+    }
   }
 
   formErrors = {
     employeeId: '',
-    requestDate: '',
-    //campusId: ''
+    requestDate: ''
   }
 
   // Injecting Dependencies
@@ -118,22 +102,10 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
       ])
     });
 
-    this.requestRequisitionModel = {
-      id: null,
-      employeeId: null,
-      requestDate: '',
-      campusId : null,
-      requestLines: []
-    }
-
-     // get Vendor from state
-     //this.ngxsService.getBusinessPartnerFromState();
+     //Get Data From Store
      this.ngxsService.getEmployeeFromState();
-     // get Accounts of level 4 from state
      this.ngxsService.getAccountLevel4FromState()
-     // get item from state
      this.ngxsService.getProductFromState();
-     // get Campus from state
      this.ngxsService.getCampusFromState();
 
      //get id by using route
@@ -147,73 +119,17 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     })
 
     this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
-
-    //handling dueDate logic
-    // this.requestRequisitionForm.get('PODate').valueChanges.subscribe((value) => {
-    //   this.minDate = new Date(value);
-    //   this.dateCondition = this.requestRequisitionForm.get('dueDate').value < this.requestRequisitionForm.get('PODate').value
-    // })
   }
 
   // Form Reset
   reset() {
-    // const requisitionLineArray = this.requestRequisitionForm.get('requisitionLines') as FormArray;
-    // requisitionLineArray.clear();
     this.formDirective.resetForm();
-    //this.showMessage = false;
     this.table.renderRows();
   }
 
   //for save or submit
   isSubmit(val: number) {
     this.requestRequisitionModel.isSubmit = (val === 0) ? false : true;
-  }
-
-
-  // OnItemSelected
-  onItemSelected(itemId: number, index: number) {
-    // const arrayControl = this.requestRequisitionForm.get('requisitionLines') as FormArray;
-    // if (itemId) {
-    //   const cost = this.salesItem.find(i => i.id === itemId).purchasePrice
-    //   const salesTax = this.salesItem.find(i => i.id === itemId).salesTax
-    //   // set values for price & tax
-    //   arrayControl.at(index).get('cost').setValue(cost);
-    //   arrayControl.at(index).get('tax').setValue(salesTax);
-    //   // Calculating subtotal
-    //   const quantity = arrayControl.at(index).get('quantity').value;
-    //   const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-    //   arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // }
-  }
-
-  // For Calculating subtotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number , element?: HTMLElement) {
-    // const arrayControl = this.requestRequisitionForm.get('requisitionLines') as FormArray;
-    // const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
-    // const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
-    // const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
-
-    // // calculating subTotal
-    // const subTotal = (cost * quantity) + ((cost * quantity) * (salesTax / 100))
-    // arrayControl.at(index).get('subTotal').setValue(subTotal);
-    // this.totalCalculation();
-  }
-
-  // Calculations
-  // Calculate Total Before Tax ,Total Tax , grandTotal
-  totalCalculation() {
-    // this.totalTax = 0;
-    // this.totalBeforeTax = 0;
-    // this.grandTotal = 0;
-    // const arrayControl = this.requestRequisitionForm.get('requisitionLines') as FormArray;
-    // arrayControl.controls.forEach((element, index) => {
-    //   const cost = arrayControl.at(index).get('cost').value;
-    //   const tax = arrayControl.at(index).get('tax').value;
-    //   const quantity = arrayControl.at(index).get('quantity').value;
-    //   this.totalTax += ((cost * quantity) * tax) / 100
-    //   this.totalBeforeTax += cost * quantity;
-    //   this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
-    // });
   }
 
   // Add Requisition line
@@ -264,14 +180,10 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     this.requestRequisitionForm.patchValue({
       employeeId: requestRequisition.employeeId,
       requestDate: requestRequisition.requestDate,
-      //campusId: requisition.campusId
     });
 
-    //this.onCampusSelected(requisition.campusId)
-    //this.showMessage = true;
     this.getEmployee(requestRequisition.employeeId)
     this.requestRequisitionForm.setControl('requestLines', this.editRequisitionLines(requestRequisition.requestLines));
-    this.totalCalculation();
   }
 
   //Edit Requisition Lines
@@ -304,13 +216,6 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
       }
   
       this.mapFormValuesTorequestRequisitionModel();
-  
-      // const isDuplicateLines = this.requestRequisitionModel.requestLines.some((a, index) => this.requestRequisitionModel.requestLines.some((b, i) => (i !== index && (a.itemId === b.itemId))))
-  
-      // if(isDuplicateLines) {
-      //   this.toastService.error("Please Remove Duplicate Items!", "Requisition")
-      //   return;
-      // }
 
       this.isLoading = true;
       console.log(this.requestRequisitionModel)
@@ -395,17 +300,5 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
       this.toastService.info("Please Select Employee!", "Requisition")
     }
   }
-
-  // onCampusSelected(campusId : number) {
-  //   this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
-  //     this.warehouseList.next(res.result || [])
-  //   })
-
-  //    this.requestRequisitionForm.get('requisitionLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-  //    if(this.showMessage) {
-  //     this.toastService.info("Please Reselect Store!" , "Requisition")
-  //    }
-  //    this.cdRef.detectChanges()
-  // }
 }
 

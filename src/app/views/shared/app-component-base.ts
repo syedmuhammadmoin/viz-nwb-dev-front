@@ -20,11 +20,6 @@ export abstract class AppComponentBase {
     this.paginationHelper = injector.get(PaginationHelperService)
     this.dateHelperService = injector.get(DateHelperService)
   }
-
-  // //selector region start
-  // datePipe: DatePipe
-  // toastService: ToastrService
-  // permission: PermissionService
  
   transformDate(date: Date | string, format: string) {
     return this.datePipe.transform(date, format);

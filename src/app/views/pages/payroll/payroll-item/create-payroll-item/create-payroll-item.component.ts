@@ -28,7 +28,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   public permissions = Permissions;
 
-  // For Loading
+  //Loader
   isLoading: boolean;
 
   // Declaring form variable
@@ -49,7 +49,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   @ViewChild('table', { static: true }) table: any;
 
   // Payroll Model
-  payrollItemModel: IPayrollItem;
+  payrollItemModel: IPayrollItem = {} as IPayrollItem;
 
   title: string = 'Create Payroll Item'
 
@@ -64,6 +64,14 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+
+  defaultColDef: ColDef;
+  frameworkComponents: {[p: string]: unknown};
+  gridOptions: GridOptions;
+  components: { loadingCellRenderer (params: any ) : unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Employees Selected !</span>';
 
   // Validation messages..
   validationMessages = {
@@ -86,10 +94,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     },
     accountId: {
       required: 'Account is required.',
-    },
-    // remarks: {
-    //   required: 'Remarks is required.',
-    // }
+    }
   };
 
   // error keys..
@@ -99,20 +104,11 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     payrollType: '',
     payrollItemType: '',
     value: '',
-    accountId: '',
-  //  remarks: '',
+    accountId: ''
   };
 
-  //payrollItemList: IPayrollItem[];
-  defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
-  components: { loadingCellRenderer (params: any ) : unknown };
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  overlayNoRowsTemplate = '<span class="ag-noData">No Employees Selected !</span>';
 
-  // Injecting in dependencies in constructor
+  //Injecting Dependencies
   constructor(private fb: FormBuilder,
     private payrollItemService: PayrollItemService,
     public activatedRoute: ActivatedRoute,
@@ -148,26 +144,10 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       employeeIds: [[]]
     });
 
-    this.payrollItemModel = {
-      id: null,
-      itemCode: '',
-      name: '',
-      payrollType: null,
-      payrollItemType: null,
-      value: null,
-      accountId: null,
-      isActive: false,
-      remarks: null,
-      employeeIds: []
-      
-    }
-
-    //get Accounts from Accounts State
-    //this.ngxsService.getAccountLevel4FromState();
+    //Get Data from Store
     this.ngxsService.getOtherAccountsFromState();
     
     this.activatedRoute.params.subscribe((param) => {
-      console.log(param)
       const id = param.id;
      
       if (id) {
@@ -250,9 +230,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       headerName: 'Name', 
       field: 'name', 
       tooltipField: 'name',
-      // headerCheckboxSelection: true,
-      // headerCheckboxSelectionFilteredOnly: true,
-      // checkboxSelection: true,
       cellRenderer: "loadingCellRenderer",
      },
      { 
@@ -275,11 +252,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       field: 'departmentName',
       tooltipField: 'name',  
      },
-    //  { 
-    //   headerName: 'BPS', 
-    //   field: 'basicPay',
-    //   tooltipField: 'name',  
-    //  },
      { 
       headerName: 'Faculty', 
       field: 'faculty',
@@ -309,43 +281,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     this.payrollItemForm.get('payrollItemType').setValue(1)
     this.payrollItemForm.get('isActive').setValue(true);
     this.onToggle({checked: true})
-    // const invoiceLineArray = this.invoiceForm.get('invoiceLines') as FormArray;
-    // invoiceLineArray.clear();
-    // this.table.renderRows();
   }
-
-  // // OnItemSelected
-  // onItemSelected(itemId: number, index: number) {
-  //   let arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
-  //   if (itemId) {
-  //     let price = this.salesItem.find(i => i.id === itemId).salesPrice
-  //     let tax = this.salesItem.find(i => i.id === itemId).salesTax
-  //     // set values for price & tax
-  //     arrayControl.at(index).get('price').setValue(price);
-  //     arrayControl.at(index).get('tax').setValue(tax);
-  //     // Calculating subtotal
-  //     let quantity = arrayControl.at(index).get('quantity').value;
-  //     let subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
-  //     arrayControl.at(index).get('subTotal').setValue(subTotal);
-  //   }
-  // }
-
-  // // onChangeEvent for calculating subtotal
-  // onChangeEvent(value: unknown, index: number, element?: HTMLElement) {
-
-  //   const arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
-  //   const price = (arrayControl.at(index).get('price').value) !== null ? arrayControl.at(index).get('price').value : null;
-  //   const tax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
-  //   const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
-
-  //   //calculating subTotal
-  //   const subTotal = (price * quantity) + ((price * quantity) * (tax / 100))
-  //   arrayControl.at(index).get('subTotal').setValue(subTotal);
-  //   this.totalCalculation();
-  // }
-
-
-
 
   // get payroll item data from Api
   private getPayrollItem(id: number) {
@@ -379,19 +315,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     this.onToggle({checked: payrollItem.isActive})
     this.onPayrollTypeChange()
     if(!this.showButtons) this.payrollItemForm.disable();
-    // //Clearing Amount Validator Initially
-    // this.payrollItemForm.get('amount').setErrors(null)
-    // this.payrollItemForm.updateValueAndValidity();
   }
-
- 
-  
-
-  
-
-  
-
-  
 
   //Submit Form Function
   onSubmit(): void {
@@ -403,7 +327,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
     this.isLoading = true;
     this.mapFormValuesToPayrollItemModel();
-    console.log(this.payrollItemModel)
     if (this.payrollItemModel.id) {
       this.payrollItemService.updatePayrollItem(this.payrollItemModel)
       .pipe(
@@ -458,7 +381,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     this.payrollItemModel.remarks = this.payrollItemForm.value.remarks;
 
     //empty employeeIds array for new record to avoid duplication
-    
     this.payrollItemModel.employeeIds = []
     this.selectedEmployees?.map((employee) => {
       this.payrollItemModel.employeeIds.push(employee.id)
@@ -472,14 +394,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       this.userStatus = 'Inactive'
     }
   }
-
-  //for save or submit
-  // isSubmit(val: number) {
-  //   this.payrollItemModel.isSubmit = (val === 0) ? false : true;
-  // }
-
-
-  
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
@@ -499,17 +413,12 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       width: '1000px',
       data: id
     });
-    // Recalling getEmployees function on dialog close
+    //Get Updated Employee Data
     dialogRef.afterClosed().subscribe((res) => {
       if(isEmpty(this.selectedEmployees)) {
         this.selectedEmployees = res;
       }
       else if(!isEmpty(res)) {
-      //   res.forEach((employee) => {
-      //  const findDuplicateRecord = this.selectedEmployees.find(x => x.id === employee.id)
-      //  if(!findDuplicateRecord) {
-      //   this.selectedEmployees.push(employee)
-      //  }
       res.map((employee) => {
        if(!(this.selectedEmployees.find(x => x.id === employee.id))) this.selectedEmployees.push(employee)
       })

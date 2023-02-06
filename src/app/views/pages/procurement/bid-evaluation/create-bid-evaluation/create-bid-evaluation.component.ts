@@ -36,7 +36,7 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
   @ViewChild('table', {static: true}) table: any;
 
   // bidEvaluationModel
-  bidEvaluationModel: IBidEvaluation;
+  bidEvaluationModel: IBidEvaluation = {} as IBidEvaluation;
 
   isBidEvaluation: any;
 
@@ -129,22 +129,6 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
         this.addBidEvaluationLines()
       ])
     });
-
-    this.bidEvaluationModel = {
-      id: null,
-      name: '',
-      title: '',
-      refNo: '',
-      methodOfProcurement: '',
-      tendorInquiryNumber: '',
-      numberOfBids: null,
-      dateOfOpeningBid: '',
-      dateOfClosingBid: '',
-      bidEvaluationCriteria: '',
-      lowestEvaluatedBidder: '',
-      bidEvaluationLines: []
-    }
-
 
      //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
@@ -273,7 +257,6 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
   
     this.isLoading = true;
     this.mapFormValuesToBidEvaluationModel();
-    console.log(this.bidEvaluationModel)
       
     if (this.bidEvaluationModel.id) {
         this.bidEvaluationService.updateBidEvaluation(this.bidEvaluationModel)

@@ -2,7 +2,6 @@
     <kt-portlet>
       <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
       <!--begin::Form-->
-  
       <form [formGroup]="callQuotationForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
         <div class="kt-portlet__body">
           <div class="kt-form__section kt-form__section--first">
@@ -55,7 +54,7 @@
                     <ng-container formArrayName="callForQuotationLines">
                       <div class="table-responsive">
                         <mat-table #table [dataSource]="callQuotationForm.get('callForQuotationLines')['controls']">
-                          <!-- Account Column -->
+                          <!-- Item Column -->
                           <ng-container matColumnDef="itemId">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -73,7 +72,7 @@
                               </div>
                             </mat-cell>
                           </ng-container>
-                          <!--Partner Column-->
+                          <!--Description Column-->
                           <ng-container matColumnDef="description">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
@@ -111,7 +110,6 @@
                           <ng-container matColumnDef="action">
                             <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-  
                               <button class="app-remove-btn" type="button" [id]="'call_quotation_remove_' + i"
                                 (click)="removeCallQuotationLineClick(i)">
                                 <i class="fas fa-trash" aria-hidden="true"></i>
@@ -133,7 +131,6 @@
                         </div>
                       </div>
                     </ng-container>
-  
                   </div>
                 </div>
               </div>

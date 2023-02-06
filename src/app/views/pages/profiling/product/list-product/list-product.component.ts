@@ -1,9 +1,9 @@
-import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import {ProductService} from '../service/product.service';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
-import {MatDialog} from '@angular/material/Dialog'
-import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import {AppConst} from "src/app/views/shared/AppConst";
+import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import { ProductService} from '../service/product.service';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
+import { MatDialog} from '@angular/material/Dialog'
+import { CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { AppConst} from "src/app/views/shared/AppConst";
 import { CreateProductComponent } from '../create-product/create-product.component';
 import { IProduct } from '../model/IProduct';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -14,8 +14,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-product',
   templateUrl: './list-product.component.html',
-  styleUrls: ['./list-product.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./list-product.component.scss']
 })
 
 export class ListProductComponent extends AppComponentBase implements OnInit {
@@ -45,6 +44,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     ) as GridOptions);
   }
 
+  //Defining Product Columns
   columnDefs = [
     {
       headerName: 'Name', 
@@ -58,8 +58,6 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    // {headerName: 'purchase or Sold', field: 'purchasedOrSold', sortable: true, filter: true, tooltipField: 'cost',
-    //   cellRenderer: (params: ICellRendererParams) => AppConst.PurchasedOrSold[params.value]},
     {headerName: 'Product Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
     {headerName: 'Category', field: 'categoryName', suppressMenu: true, tooltipField: 'salesTax'},
@@ -67,7 +65,6 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       headerName: 'Sale Price', 
       field: 'salesPrice', 
       suppressMenu: true,
-      //cellStyle: { 'text-align': "right" },
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -76,7 +73,6 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Purchase Price', 
       field: 'purchasePrice', 
-      //cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
@@ -86,7 +82,6 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sales Tax (%)', 
       field: 'salesTax', 
-      //cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
@@ -145,7 +140,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       width: '800px',
       data: id
     });
-    // Recalling getProducts function on dialog close
+    //Getting Update Data
     dialogRef.afterClosed().subscribe(() => {
       this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
@@ -160,7 +155,6 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       } else {
         this.gridApi.hideOverlay();
       }
-      // if (res.result) res.result.map((data: any, i: number) => data.index = i + 1)
       params.successCallback(res.result || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'productPageName');
       this.cdRef.detectChanges();
@@ -177,38 +171,4 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     const result = await this.productService.getRecords(params).toPromise()
     return result
   }
-
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
-  // }
-
-  // async getProducts(params: any): Promise<IPaginationResponse<IProduct[]>> {
-  //   const result = await this.productService.getProducts(params).toPromise()
-  //   return result
-  // }
-
-  // dataSource = {
-  //   getRows: async (params: any) => {
-  //    const res = await this.getProducts(params);
-
-  //    if(isEmpty(res.result)) {  
-  //     this.gridApi.showNoRowsOverlay() 
-  //   } else {
-  //    this.gridApi.hideOverlay();
-  //   }
-  //    //if(res.result) res.result.map((data: any, i: number) => data.index = i + 1)
-  //    params.successCallback(res.result || 0, res.totalRecords);
-  //    this.paginationHelper.goToPage(this.gridApi, 'productPageName')
-  //    this.cdRef.detectChanges();
-  //  },
-  // };
-
-  // getProducts() : void {
-  //   this.productService.getProducts().subscribe((res: IPaginationResponse<IProduct[]>) => {
-  //     this.productList = res.result;
-  //     this.cdRef.detectChanges();
-  //   })
-  // }
 }

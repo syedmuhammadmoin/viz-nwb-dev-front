@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { ActivatedRoute, Params } from '@angular/router';
 import { GridOptions } from 'ag-grid-community';
@@ -12,8 +12,7 @@ import { JournalEntryService } from '../services/journal-entry.service';
 @Component({
   selector: 'kt-print-journal-entry',
   templateUrl: './print-journal-entry.component.html',
-  styleUrls: ['./print-journal-entry.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./print-journal-entry.component.scss']
 })
 
 export class PrintJournalEntryComponent extends AppComponentBase implements OnInit {
@@ -27,6 +26,7 @@ export class PrintJournalEntryComponent extends AppComponentBase implements OnIn
   localsto : any ;
   className : any;
 
+  //Injecting Dependencies
   constructor( private journalEntryService : JournalEntryService,
                private activatedRoute: ActivatedRoute,
                private cDRef: ChangeDetectorRef,
@@ -40,8 +40,6 @@ export class PrintJournalEntryComponent extends AppComponentBase implements OnIn
       const id = +params.get('id');
       if(id){
         this.getJournalEntryMasterData(id);
-      }else{
-        console.log('bong');
       }
     });
 
