@@ -15,60 +15,60 @@ const routes: Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ListCwipComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.CWIP_VIEW },
-        //     { permission: Permissions.CWIP_CREATE },
-        //     { permission: Permissions.CWIP_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard] 
+        data: {
+          array: [
+            { permission: Permissions.CWIP_VIEW },
+            { permission: Permissions.CWIP_CREATE },
+            { permission: Permissions.CWIP_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard] 
       },
       {
         path: CRUD_ROUTES.CREATE,
         component: CreateCwipComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.CWIP_CREATE },
-        //     { permission: Permissions.CWIP_VIEW },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard] 
+        data: {
+          array: [
+            { permission: Permissions.CWIP_CREATE },
+            { permission: Permissions.CWIP_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard] 
       },
       {
         path: CRUD_ROUTES.EDIT,
         component: CreateCwipComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.CWIP_EDIT },
-        //     { permission: Permissions.CWIP_VIEW },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard] 
+        data: {
+          array: [
+            { permission: Permissions.CWIP_EDIT },
+            { permission: Permissions.CWIP_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard] 
       },
       {
         path: CRUD_ROUTES.DETAILS,
         component: CwipDetailsComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.CWIP_VIEW },
-        //     { permission: Permissions.CWIP_CREATE },
-        //     { permission: Permissions.CWIP_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard] 
+        data: {
+          array: [
+            { permission: Permissions.CWIP_VIEW },
+            { permission: Permissions.CWIP_CREATE },
+            { permission: Permissions.CWIP_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard] 
       },
       {
         path: CRUD_ROUTES.PRINT,
         component: PrintCwipComponent,
-        // data: {
-        //   array: [
-        //     { permission: Permissions.CWIP_VIEW },
-        //     { permission: Permissions.CWIP_CREATE },
-        //     { permission: Permissions.CWIP_EDIT },
-        //   ]
-        // },
-        // canActivate: [PermissionGuard] 
+        data: {
+          array: [
+            { permission: Permissions.CWIP_VIEW },
+            { permission: Permissions.CWIP_CREATE },
+            { permission: Permissions.CWIP_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard] 
       },
     ]
   }

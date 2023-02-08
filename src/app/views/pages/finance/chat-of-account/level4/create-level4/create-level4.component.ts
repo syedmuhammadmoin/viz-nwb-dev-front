@@ -13,6 +13,8 @@ import { AccountPayableState } from '../../store/account-payable.state';
 import { AccountReceivableState } from '../../store/account-receivable.state';
 import { OtherAccountState } from '../../store/other-account.state';
 import { AssetAccountState } from '../../store/asset-account.state';
+import { ExpenseAccountState } from '../../store/expense-account.state';
+import { GetLiabilityAccountsState } from '../../store/getLiabilityAccount.state';
 
 @Component({
   selector: 'kt-create-level4',
@@ -126,6 +128,8 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
           this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
           this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
           this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (ExpenseAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (GetLiabilityAccountsState , true))
           this.toastService.success('Updated Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }
@@ -146,6 +150,8 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
           this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
           this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
           this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (ExpenseAccountState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired (GetLiabilityAccountsState , true))
           this.toastService.success('Created Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }

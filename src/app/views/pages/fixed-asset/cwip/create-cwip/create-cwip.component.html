@@ -17,38 +17,49 @@
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
           <div class="col-md-12 col-sm-12 col-lg-12">
-  
             <div class="row">
-  
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Acquisition Date:</label>
-                  <kt-date-input formControlName="dateOfAcquisition" placeholder="Acquisition Date"
+                  <kt-date-input 
+                    id="asset_AcquisitionDate" 
+                    formControlName="dateOfAcquisition" 
+                    placeholder="Acquisition Date"
                     matFormFieldClass="full-width"
-                    (blurEvent)="logValidationErrors(this.cwipForm, formErrors, validationMessages)"
+                    (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
                     [errorMessage]="formErrors.dateOfAcquisition">
-                  </kt-date-input>
+                </kt-date-input>
+
                 </div>
               </div>
-  
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">CWIP A/C:</label>
+                  <label class="col-form-label pt-0">CWIP Account:</label>
                    <kt-simple-dropdown 
                         id="asset_cwipaccount" 
                         formControlName="cwipAccountId" 
                         matFormFieldClass="full-width"
-                        (blurEvent)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)"
+                        (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
                         propertyName="name" 
                         propertyValue="id" 
                         [errorMessage]="formErrors.cwipAccountId"
-                        [optionList]=""
+                        [optionList]="ngxsService.otherAccounts$"
                         placeholder="Select CWIP Account">
                       </kt-simple-dropdown>
                 </div>
               </div>
-
-              <div class="col-lg-4 col-md-4 col-sm-4">
+              <div class="col-lg-4 col-sm-4 col-md-4 my-auto">
+                <div class="form-group kt-form__group mb-0">
+                  <div apperence="outline" class="full-width" >
+                    <mat-slide-toggle id="depreciationApplicability" 
+                      formControlName="depreciationApplicability" (change)="onChangeDepApplicability($event)">Depreciation Applicability</mat-slide-toggle>
+                  </div>
+                </div>
+              </div>
+            </div>
+  
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Cost of Asset:</label>
                   <mat-form-field 
@@ -61,62 +72,30 @@
                       placeholder="Enter Asset Cost" 
                       id="asset_cost" 
                       type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
+                      (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
                     <mat-error *ngIf="formErrors.costOfAsset">
-                      <strong>{{formErrors.name}}</strong>
+                      <strong>{{formErrors.costOfAsset}}</strong>
                     </mat-error>
                     <!-- <mat-hint align="end">Optional</mat-hint> -->
                   </mat-form-field>
                 </div>
               </div>
-            </div>
-  
-            <div class="row">
               <div class="col-lg-6 col-md-6 col-sm-6">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Asset A/C:</label>
-                  <mat-form-field 
-                    appearance="outline" 
-                    class="full-width">
-                    <!-- (keyup)="calculateDepValue()" -->
-                    <input 
-                      matInput 
-                      formControlName="assetAccountId"
-                      placeholder="Enter Asset Cost" 
-                      id="asset_account" 
-                      type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
-                    <mat-error *ngIf="formErrors.assetAccountId">
-                      <strong>{{formErrors.name}}</strong>
-                    </mat-error>
-                    <!-- <mat-hint align="end">Optional</mat-hint> -->
-                  </mat-form-field>
+                  <label class="col-form-label pt-0">Asset Account:</label>
+                   <kt-simple-dropdown 
+                        id="CWIP_assetAccount" 
+                        formControlName="assetAccountId" 
+                        matFormFieldClass="full-width"
+                        (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
+                        propertyName="name" 
+                        propertyValue="id" 
+                        [errorMessage]="formErrors.assetAccountId"
+                        [optionList]="ngxsService.assetAccount$"
+                        placeholder="Select Asset Account">
+                      </kt-simple-dropdown>
                 </div>
               </div>
-
-              <div class="col-lg-6 col-sm-6 col-md-6">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Salvage Value:</label>
-                  <mat-form-field 
-                    appearance="outline" 
-                    class="full-width">
-                    <!-- (keyup)="calculateDepValue()" -->
-                    <input 
-                      matInput 
-                      formControlName="assetAccountId"
-                      placeholder="Enter Salvage Value" 
-                      id="salvage--value" 
-                      type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
-                    <mat-error *ngIf="formErrors.assetAccountId">
-                      <strong>{{formErrors.name}}</strong>
-                    </mat-error>
-                    <!-- <mat-hint align="end">Optional</mat-hint> -->
-                  </mat-form-field>
-                </div>
-              </div>
-
-              
             </div>
   
             <div class="row">
@@ -133,7 +112,7 @@
                       placeholder="Enter Salvage Value" 
                       id="quantinty" 
                       type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
+                      (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
                     <!-- <mat-error *ngIf="formErrors.quantinty">
                       <strong>{{formErrors.name}}</strong>
                     </mat-error> -->
@@ -141,12 +120,25 @@
                   </mat-form-field>
                 </div>
               </div>
-              <div class="col-lg-6 col-sm-6 col-md-6 my-auto">
+              <div class="col-lg-6 col-sm-6 col-md-6">
                 <div class="form-group kt-form__group mb-0">
-                  <div apperence="outline" class="full-width" >
-                    <mat-slide-toggle id="depreciationApplicability_active" 
-                      formControlName="depreciationApplicability" (change)="onChangeDepApplicability($event)">Depreciation Applicability</mat-slide-toggle>
-                  </div>
+                  <label class="col-form-label pt-0">Salvage Value:</label>
+                  <mat-form-field 
+                    appearance="outline" 
+                    class="full-width">
+                    <!-- (keyup)="calculateDepValue()" -->
+                    <input 
+                      matInput 
+                      formControlName="salvageValue"
+                      placeholder="Enter Salvage Value" 
+                      id="salvage-value" 
+                      type="number"
+                      (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
+                    <!-- <mat-error *ngIf="formErrors.salvageValue">
+                      <strong>{{formErrors.name}}</strong>
+                    </mat-error> -->
+                    <mat-hint align="end">Optional</mat-hint>
+                  </mat-form-field>
                 </div>
               </div>
             </div>
@@ -154,7 +146,7 @@
   
             <div *ngIf="depApplicabilityToggle">
               <div class="row">
-              <div [ngClass]="((this.isModelType) ? 'col-lg-4 col-sm-4 col-md-4' : 'col-lg-6 col-md-6 col-sm-6')">
+              <div [ngClass]="((isModelType) ? 'col-lg-4 col-sm-4 col-md-4' : 'col-lg-6 col-md-6 col-sm-6')">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Depreciation Model:</label>
                   <kt-simple-dropdown 
@@ -162,7 +154,7 @@
                     formControlName="depreciationId"
                     matFormFieldClass="full-width" 
                     (selectionChange)="getDepreciationModel($event.value)"
-                    (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                    (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
                     propertyName="modelName" 
                     propertyValue="id" 
                     [errorMessage]="formErrors.depreciationId"
@@ -172,7 +164,7 @@
                 </div>
               </div>
   
-              <div [ngClass]="((this.isModelType) ? 'col-lg-4 col-sm-4 col-md-4' : 'col-lg-6 col-md-6 col-sm-6')">
+              <div [ngClass]="((isModelType) ? 'col-lg-4 col-sm-4 col-md-4' : 'col-lg-6 col-md-6 col-sm-6')">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Useful Life:</label>
                   <mat-form-field appearance="outline" class="full-width">
@@ -182,7 +174,7 @@
                     placeholder="Enter Useful Life" 
                     id="asset_useFullLife"
                     type="number"
-                    (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                    (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
                     <mat-error *ngIf="formErrors.useFullLife">
                       <strong>{{formErrors.useFullLife}}</strong>
                     </mat-error>
@@ -199,9 +191,9 @@
                     placeholder="Enter DecLiningRate Life" 
                     id="asset_decLiningRate"
                     type="number"
-                    (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
-                    <mat-error *ngIf="formErrors.useFullLife">
-                      <strong>{{formErrors.useFullLife}}</strong>
+                    (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
+                    <mat-error *ngIf="formErrors.decLiningRate">
+                      <strong>{{formErrors.decLiningRate}}</strong>
                     </mat-error>
                   </mat-form-field>
                 </div>
@@ -215,14 +207,14 @@
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Model Type</label>
                   <kt-simple-dropdown 
-                    id="id"
+                    id="cwip-model"
                     propertyName="name" 
                     formControlName="modelType"
                     matFormFieldClass="full-width" 
                     (selectionChange)="getModelType($event.value)"
-                    (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                    (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
                     propertyValue="id" 
-                    [errorMessage]="formErrors.accumulatedDepreciationId"
+                    [errorMessage]="formErrors.modelType"
                     [optionList]="method"
                     placeholder="Select Model">
                   </kt-simple-dropdown>
@@ -232,13 +224,13 @@
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Depreciation Exp. A/C</label>
                   <kt-simple-dropdown 
-                    id="id"
-                    propertyName="editableName" 
+                    id="cwip-depreciationExpense"
                     formControlName="depreciationExpenseId"
                     matFormFieldClass="full-width" 
-                    (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                    (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
                     propertyValue="id" 
-                    [errorMessage]="formErrors.accumulatedDepreciationId"
+                    propertyName="editableName" 
+                    [errorMessage]="formErrors.depreciationExpenseId"
                     [optionList]="ngxsService.otherAccounts$"
                     placeholder="Select Depreciation Exp A/C">
                   </kt-simple-dropdown>
@@ -250,10 +242,10 @@
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Accumulated Dep A/C</label>
                   <kt-simple-dropdown 
-                    id="id"
+                    id="cwip-accumulatedDepreciation"
                     formControlName="accumulatedDepreciationId"
                     matFormFieldClass="full-width" 
-                    (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
+                    (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
                     propertyName="editableName" 
                     propertyValue="id" 
                     [errorMessage]="formErrors.accumulatedDepreciationId"
@@ -262,10 +254,7 @@
                   </kt-simple-dropdown>
                 </div>
               </div>
-            </div>
-  
-            <div class="row">
-              <div class="col-lg-3 col-sm-3 col-md-3">
+              <div class="col-lg-3 col-sm-3 col-md-3 my-auto">
                 <div class="form-group kt-form__group mb-0">
                   <div apperence="outline" class="full-width">
                     <mat-slide-toggle id="asset_prorataBasis"
@@ -274,7 +263,7 @@
                 </div>
               </div>
   
-              <div class="col-lg-3 col-sm-3 col-md-3">
+              <div class="col-lg-3 col-sm-3 col-md-3 my-auto">
                 <div class="form-group kt-form__group mb-0">
                   <div apperence="outline" class="full-width">
                     <mat-slide-toggle id="asset_active"
@@ -283,7 +272,6 @@
                 </div>
               </div>
             </div>
-  
             </div>
             
   
@@ -293,264 +281,20 @@
               <div class="kt-form__actions kt-form__actions">
                 <div class="row">
                   <div *ngIf="showButtons" class="col-lg-12 text-right">
-                    <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button
-                      id="asset_reset"><i class="fas fa-undo"></i> Reset</button>
-                    <!-- <button class="app-default-btn  mr-3" mat-raised-button type="submit" id="asset_item_save"
-                    (click)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)">Save</button> -->
-                    <button class="app-default-btn " mat-raised-button type="submit" id="asset_submit"
-                      (click)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)">
-                      <i class="far fa-save"></i> Submit
-                    </button>
-                    <!-- <button class="app-default-btn" mat-raised-button type="submit" id="depreciation_submit"
-                    (click)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit
-                    </button>&nbsp; -->
+                    <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="cwip_reset"><i
+                      class="fas fa-undo"></i> Reset</button>
+                  <button class="app-default-btn  mr-3" mat-raised-button type="submit" id="cwip_item_save"
+                        (click)="logValidationErrors(cwipForm, formErrors, validationMessages); isSubmit(0)">Save</button>
+                  <button class="app-default-btn " mat-raised-button type="submit" id="cwip_submit"
+                    (click)="logValidationErrors(cwipForm, formErrors, validationMessages); isSubmit(1)">
+                    <i class="far fa-save"></i> Submit
+                  </button>
                   </div>
                 </div>
               </div>
             </div>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-            <!-- <div class="row">
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Name:</label>
-                  <kt-input-field id="asset_name" formControlName="name" placeholder="Enter Name"
-                    (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
-                    [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
-                  </kt-input-field>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Acquisition Date:</label>
-                  <kt-date-input formControlName="acquisitionDate" placeholder="Acquisition Date"
-                    matFormFieldClass="full-width"
-                    (blurEvent)="logValidationErrors(this.cwipForm, formErrors, validationMessages)"
-                    [errorMessage]="formErrors.acquisitionDate">
-                  </kt-date-input>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Accounting Date:</label>
-                  <kt-date-input formControlName="accountingDate" placeholder="Accounting Date"
-                    matFormFieldClass="full-width"
-                    (blurEvent)="logValidationErrors(this.cwipForm, formErrors, validationMessages)"
-                    [errorMessage]="formErrors.accountingDate">
-                  </kt-date-input>
-                </div>
-              </div>
-  
-  
-            </div> -->
-  
-            <!-- <div class="row">
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Purchase Price:</label>
-                  <mat-form-field appearance="outline" class="full-width">
-                    <input (keyup)="calculateDepValue()" matInput formControlName="purchasePrice"
-                      placeholder="Enter Purchase Price" id="asset_cost" type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
-                    <mat-error *ngIf="formErrors.purchasePrice">
-                      <strong>{{formErrors.purchasePrice}}</strong>
-                    </mat-error>
-                    <mat-hint align="end">Optional</mat-hint>
-                  </mat-form-field>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Salvage Value:</label>
-                  <mat-form-field appearance="outline" class="full-width">
-                    <input matInput (keyup)="calculateDepValue()" formControlName="salvageValue"
-                      placeholder="Enter Salvage Value" id="asset_salvage" type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
-                    <mat-error *ngIf="formErrors.salvageValue">
-                      <strong>{{formErrors.salvageValue}}</strong>
-                    </mat-error>
-                    <mat-hint align="end">Optional</mat-hint>
-                  </mat-form-field>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Depreciation Model:</label>
-                  <kt-simple-dropdown id="asset_model" formControlName="depreciationModelId"
-                    matFormFieldClass="full-width" (selectionChange)="getDepreciationModel($event.value)"
-                    (blurEvent)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)"
-                    propertyName="name" propertyValue="id" [errorMessage]="formErrors.depreciationModelId"
-                    placeholder="Select Model">
-                  </kt-simple-dropdown>
-                  <kt-simple-dropdown 
-                          id="asset_model" 
-                          formControlName="depreciationModelId" 
-                          matFormFieldClass="full-width"
-                          (selectionChange)="getDepreciationModel($event.value)"
-                          (blurEvent)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)"
-                          propertyName="name" 
-                          propertyValue="id" 
-                          [errorMessage]="formErrors.depreciationModelId"
-                          [optionList]="ngxsService.depreciationModels$"
-                          placeholder="Select Model">
-                        </kt-simple-dropdown>
-                </div>
-              </div>
-            </div> -->
-  
-            <!-- <div class="row">
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Depreciation Method:</label>
-                  <kt-simple-dropdown id="asset_method" formControlName="depreciationMethod"
-                    matFormFieldClass="full-width" propertyName="name" propertyValue="id" [optionList]="method"
-                    placeholder="Select Method"
-                    (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
-                    [errorMessage]="[{ condition : formErrors.depreciationMethod , error : formErrors.depreciationMethod }]">
-                  </kt-simple-dropdown>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Useful Life:</label>
-                  <mat-form-field appearance="outline" class="full-width">
-                    <input matInput formControlName="usefulLife" placeholder="Enter Useful Life" id="asset_usefulLife"
-                      type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
-                    <mat-error *ngIf="formErrors.usefulLife">
-                      <strong>{{formErrors.usefulLife}}</strong>
-                    </mat-error>
-                    <mat-hint align="end">Optional</mat-hint>
-                  </mat-form-field>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Accumulated Depreciation:</label>
-                  <mat-form-field appearance="outline" class="full-width">
-                    <input matInput formControlName="accumulatedDepreciation" placeholder="Enter Accumulated Depreciation"
-                      id="asset_depreciation" type="number"
-                      (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
-                    <mat-error *ngIf="formErrors.accumulatedDepreciation">
-                      <strong>{{formErrors.accumulatedDepreciation}}</strong>
-                    </mat-error>
-                    <mat-hint align="end">Optional</mat-hint>
-                  </mat-form-field>
-                </div>
-              </div>
-            </div> -->
-  
-            <!-- <div class="row">
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Asset Category:</label>
-                  <kt-simple-dropdown 
-                        id="asset_category" 
-                        formControlName="categoryId" 
-                        matFormFieldClass="full-width"
-                        (blurEvent)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)"
-                        propertyName="name" 
-                        propertyValue="id" 
-                        [errorMessage]="formErrors.categoryId"
-                        [optionList]="ngxsService.categories$"
-                        placeholder="Select Category">
-                      </kt-simple-dropdown>
-                  <kt-simple-dropdown id="asset_category" formControlName="categoryId" matFormFieldClass="full-width"
-                    (blurEvent)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)"
-                    propertyName="name" propertyValue="id" [errorMessage]="formErrors.categoryId"
-                    placeholder="Select Category">
-                  </kt-simple-dropdown>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Corresponding Account:</label>
-                  <kt-simple-dropdown 
-                        id="asset_account" 
-                        formControlName="correspondingAccountId" 
-                        matFormFieldClass="full-width"
-                        (blurEvent)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)"
-                        propertyName="name" 
-                        propertyValue="id" 
-                        [errorMessage]="formErrors.correspondingAccountId"
-                        [optionList]="(data.wip) ? ngxsService.assetAccount$ : ngxsService.accountsLevel4$"
-                        placeholder="Select Account">
-                      </kt-simple-dropdown>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-md-4 col-sm-4">
-                    <div class="form-group kt-form__group mb-0">
-                        <label class="col-form-label pt-0">Depreciable Value:</label>
-                        <mat-form-field appearance="outline" class="full-width">
-                          <input matInput readonly formControlName="depreciableValue" placeholder="Enter Depreciable Value" 
-                               id="asset_depreciable" type="number" (blur)="logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)">
-                          <mat-error *ngIf="formErrors.depreciableValue">
-                            <strong>{{formErrors.depreciableValue}}</strong>
-                          </mat-error>
-                         <mat-hint align="end">Optional</mat-hint> 
-                        </mat-form-field>
-                    </div>
-                  </div> 
-            </div> -->
-  
-  
-            <!-- <div class="row">
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <div apperence="outline" class="full-width">
-                    <mat-slide-toggle id="asset_prorata" [checked]="isActiveChecked"
-                      formControlName="prorataBasis">Prorata Basis</mat-slide-toggle>
-                  </div>
-                </div>
-              </div>
-  
-              <div class="col-lg-4 col-sm-4 col-md-4">
-                <div class="form-group kt-form__group mb-0">
-                  <div apperence="outline" class="full-width">
-                    <mat-slide-toggle id="asset_active" [checked]="isActiveChecked"
-                      formControlName="isActive">Active</mat-slide-toggle>
-                  </div>
-                </div>
-              </div>
-            </div> -->
           </div>
         </div>
       </div>
-  
-      <!-- <mat-divider class="mt-10"></mat-divider> -->
-  
-      <!-- <div class="kt-portlet__foot p-5">
-        <div class="kt-form__actions kt-form__actions">
-          <div class="row">
-            <div *ngIf="showButtons" class="col-lg-12 text-right">
-              <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="asset_reset"><i
-                  class="fas fa-undo"></i> Reset</button>
-              <button class="app-default-btn  mr-3" mat-raised-button type="submit" id="asset_item_save"
-                    (click)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)">Save</button>
-              <button class="app-default-btn " type="submit" id="asset_submit"
-                (click)="logValidationErrors(cwipForm, this.formErrors, this.validationMessages)">
-                <i class="far fa-save"></i> Submit
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> -->
     </form>
   </div>

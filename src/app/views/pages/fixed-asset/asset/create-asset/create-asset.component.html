@@ -33,6 +33,17 @@
               </div>
             </div>
 
+            <div class="col-lg-6 col-sm-6 col-md-6 my-auto">
+              <div class="form-group kt-form__group mb-0">
+                <div apperence="outline" class="full-width" >
+                  <mat-slide-toggle id="depreciationApplicability_active" 
+                    formControlName="depreciationApplicability" (change)="onChangeDepApplicability($event)">Depreciation Applicability</mat-slide-toggle>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
             <div class="col-lg-6 col-sm-6 col-md-6">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label pt-0">Name:</label>
@@ -45,27 +56,9 @@
                 </kt-input-field>
               </div>
             </div>
-
-          </div>
-
-          <div class="row">
-
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label pt-0">Purchase Price:</label>
-                <!-- <mat-form-field appearance="outline" class="full-width">
-                  <input 
-                  (keyup)="calculateDepValue()" 
-                  matInput 
-                  formControlName="purchaseCost"
-                  placeholder="Enter Purchase Price" 
-                  id="asset_purchasePrice" 
-                  type="number"
-                  (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
-                  <mat-error *ngIf="formErrors.purchaseCost">
-                  <strong>{{formErrors.purchaseCost}}</strong>
-                  </mat-error>
-                </mat-form-field> -->
+                <label class="col-form-label pt-0">Purchase Cost:</label>
                 <mat-form-field appearance="outline" class="full-width">
                   <input 
                   matInput 
@@ -78,10 +71,12 @@
                   <strong>{{formErrors.purchaseCost}}</strong>
                   </mat-error>
                 </mat-form-field>
-                
               </div>
             </div>
+          </div>
 
+          
+          <div class="row">
             <div class="col-lg-6 col-md-6 col-sm-6">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label pt-0">Salvage Value:</label>
@@ -91,16 +86,10 @@
                   placeholder="Enter Salvage Value" 
                   id="asset_salvageValue" 
                   type="number">
-                  <!-- <mat-error *ngIf="formErrors.salvageValue">
-                    <strong>{{formErrors.salvageValue}}</strong>
-                  </mat-error> -->
                   <mat-hint align="end">Optional</mat-hint>
                 </mat-form-field>
               </div>
             </div>
-          </div>
-
-          <div class="row">
 
             <div class="col-lg-6 col-sm-6 col-md-6">
               <div class="form-group kt-form__group mb-0">
@@ -116,15 +105,6 @@
                       [optionList]="ngxsService.categoriesAsset$"
                       placeholder="Select Category">
                     </kt-simple-dropdown>
-              </div>
-            </div>
-
-            <div class="col-lg-6 col-sm-6 col-md-6 my-auto">
-              <div class="form-group kt-form__group mb-0">
-                <div apperence="outline" class="full-width" >
-                  <mat-slide-toggle id="depreciationApplicability_active" 
-                    formControlName="depreciationApplicability" (change)="onChangeDepApplicability($event)">Depreciation Applicability</mat-slide-toggle>
-                </div>
               </div>
             </div>
           </div>
@@ -178,8 +158,8 @@
                   id="asset_decLiningRate"
                   type="number"
                   (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
-                  <mat-error *ngIf="formErrors.useFullLife">
-                    <strong>{{formErrors.useFullLife}}</strong>
+                  <mat-error *ngIf="formErrors.decLiningRate">
+                    <strong>{{formErrors.decLiningRate}}</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -208,7 +188,7 @@
             </div>
             <div class="col-lg-6 col-sm-6 col-md-6">
               <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label pt-0">Depreciation Exp. A/C</label>
+                <label class="col-form-label pt-0">Depreciation Exp. Account</label>
                 <kt-simple-dropdown 
                   id="id"
                   propertyName="editableName" 
@@ -218,7 +198,7 @@
                   propertyValue="id" 
                   [errorMessage]="formErrors.accumulatedDepreciationId"
                   [optionList]="ngxsService.otherAccounts$"
-                  placeholder="Select Depreciation Exp A/C">
+                  placeholder="Select Depreciation Exp Account">
                 </kt-simple-dropdown>
               </div>
             </div>
@@ -226,7 +206,7 @@
           <div class="row">
             <div class="col-lg-6 col-sm-6 col-md-6">
               <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label pt-0">Accumulated Dep A/C</label>
+                <label class="col-form-label pt-0">Accumulated Dep Account</label>
                 <kt-simple-dropdown 
                   id="id"
                   formControlName="accumulatedDepreciationId"
@@ -236,13 +216,13 @@
                   propertyValue="id" 
                   [errorMessage]="formErrors.accumulatedDepreciationId"
                   [optionList]="ngxsService.otherAccounts$"
-                  placeholder="Select Accumulated Dep A/C">
+                  placeholder="Select Accumulated Dep Account">
                 </kt-simple-dropdown>
               </div>
             </div>
             <div class="col-lg-6 col-sm-6 col-md-6">
               <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label pt-0">Asset A/C</label>
+                <label class="col-form-label pt-0">Asset Account</label>
                 <kt-simple-dropdown 
                   id="id"
                   formControlName="assetAccountId"
@@ -252,7 +232,7 @@
                   propertyValue="id" 
                   [errorMessage]="formErrors.assetAccountId"
                   [optionList]="ngxsService.assetAccount$"
-                  placeholder="Select Asset A/C">
+                  placeholder="Select Asset Account">
                 </kt-simple-dropdown>
               </div>
             </div>

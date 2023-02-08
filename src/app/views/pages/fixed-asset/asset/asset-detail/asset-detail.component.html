@@ -22,11 +22,11 @@
                     [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', assetMaster?.id)" [queryParams]="{q: assetMaster?.id, 'isInvoice': true}"
                     type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit"></i>
                     Edit
-                  </button>
-                  <button [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('print', assetMaster?.id)" type="button" 
-                    class="btn_public" id="invoice_print">
-                    <i class="fa fa-print"></i> Print Invoice
                   </button> -->
+                  <button [routerLink]="'/' + ASSET.ID_BASED_ROUTE('print', assetMaster?.id)" type="button" 
+                    class="btn_public" id="asset_print">
+                    <i class="fa fa-print"></i> Print Asset
+                  </button>
                   <button *ngIf="(assetMaster?.state === docStatus.Draft || assetMaster?.state === docStatus.Rejected)
                   && (permission.isGranted(permissions.ASSET_EDIT))" 
                     type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset()" >
@@ -132,7 +132,15 @@
         </div>
       </kt-portlet-body>
   
-      <mat-divider class="mt-10"></mat-divider>
+      <mat-divider class="mb-10"></mat-divider>
+
+      <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+        <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+      </div>
+
+      <mat-divider class="mt-10 mb-10" *ngIf="remarksList.length > 0"></mat-divider>
+
+      <!-- <mat-divider class="mt-10"></mat-divider> -->
   
       <!-- <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">

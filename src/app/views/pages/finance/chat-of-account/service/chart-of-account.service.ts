@@ -86,5 +86,11 @@ export class ChartOfAccountService {
   getAssetAccounts(): Observable<any> {
     return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/nonCurrentAsset');
   }
+  getLiabilityAccounts(): Observable<any> {
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/nonLibilatyAsset');
+  }
+  getExpenseAccounts(): Observable<any> {
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/nonLibilatyAsset');
+  }
 }
 

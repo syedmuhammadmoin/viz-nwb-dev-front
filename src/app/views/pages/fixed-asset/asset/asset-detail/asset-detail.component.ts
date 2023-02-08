@@ -10,6 +10,7 @@ import { finalize, take } from 'rxjs/operators';
 import { AssetService } from '../service/asset.service';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { ASSET } from 'src/app/views/shared/AppRoutes';
 
 
 //fixed asset table interface
@@ -30,6 +31,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
 
   docType = DocType
   public permissions = Permissions;
+  public ASSET = ASSET;
   action = ActionButton
   docStatus = DocumentStatus
 
@@ -49,6 +51,9 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   assets: any
   assetMaster:  any;
   status: string;
+
+    //Showing Remarks
+    remarksList: string[] = [];
 
   constructor(
     private assetService: AssetService,
@@ -102,7 +107,8 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
      )
     .subscribe((res: IApiResponse<any>) => {
       this.assetMaster = res.result;
-      this.assets = res.result;
+      this.remarksList = this.assetMaster.remarksList ?? [] 
+      // this.assets = res.result;
       this.cdRef.detectChanges();
     })
   }

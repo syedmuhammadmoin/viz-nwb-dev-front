@@ -15,6 +15,7 @@ export interface ICwip {
     quantinty: number,
     decLiningRate: number,
     prorataBasis: boolean,
-    active: boolean
+    active: boolean,
+    isSubmit: boolean
 
 }

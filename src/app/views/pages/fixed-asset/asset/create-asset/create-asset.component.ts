@@ -100,7 +100,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       required: 'UseFull Life is required.',
     },
     decLiningRate: {
-      required: 'Declining Factor is required.',
+      required: 'Declining Rate is required.',
     },
   };
 
@@ -361,11 +361,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   //Submit Form Function
   onSubmit(): void {
-    console.log(this.assetForm.value)
-   
     if (this.assetForm.invalid) {
-      console.log(this.assetForm)
-      //this.toastService.error("Please fill all required fields!", "Asset")
       return;
     }
 
@@ -411,54 +407,19 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     }
   }
 
+ 
+
   onChangeDepApplicability(e){
     this.depApplicabilityToggle = e.checked
-
-    if(e){
-      this.assetForm.get('depreciationId').setValidators([Validators.required])
-      this.assetForm.get('depreciationId').updateValueAndValidity();
-      this.assetForm.get('assetAccountId').setValidators([Validators.required])
-      this.assetForm.get('assetAccountId').updateValueAndValidity();
-      this.assetForm.get('depreciationExpenseId').setValidators([Validators.required])
-      this.assetForm.get('depreciationExpenseId').updateValueAndValidity();
-      this.assetForm.get('accumulatedDepreciationId').setValidators([Validators.required])
-      this.assetForm.get('accumulatedDepreciationId').updateValueAndValidity();
-      this.assetForm.get('useFullLife').setValidators([Validators.required])
-      this.assetForm.get('useFullLife').updateValueAndValidity();
-
-    }else{
-      this.assetForm.get('depreciationId').clearValidators()
-      this.assetForm.get('depreciationId').updateValueAndValidity();
-      this.assetForm.get('assetAccountId').clearValidators()
-      this.assetForm.get('assetAccountId').updateValueAndValidity();
-      this.assetForm.get('depreciationExpenseId').clearValidators()
-      this.assetForm.get('depreciationExpenseId').updateValueAndValidity();
-      this.assetForm.get('accumulatedDepreciationId').clearValidators()
-      this.assetForm.get('accumulatedDepreciationId').updateValueAndValidity();
-      this.assetForm.get('useFullLife').clearValidators()
-      this.assetForm.get('useFullLife').updateValueAndValidity();
-
-
-    }
-
+    this.conditionalValidation(this.assetForm, e.checked ,['depreciationId','assetAccountId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife'])
     this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages)
-    // getModelType(e)
-    
-
   }
 
   getModelType(e){
+    if(e){this.modelType = true;}
+    else{this.modelType = false;}
 
-    if(e){
-      this.modelType = true;
-      this.assetForm.get('decLiningRate').setValidators([Validators.required])
-      this.assetForm.get('decLiningRate').updateValueAndValidity();
-    }else{
-      this.modelType = false;
-      this.assetForm.get('decLiningRate').clearValidators()
-      this.assetForm.get('decLiningRate').updateValueAndValidity();
-    }
-
+    this.conditionalValidation(this.assetForm, e , ['decLiningRate'])
     this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages) 
 
   }

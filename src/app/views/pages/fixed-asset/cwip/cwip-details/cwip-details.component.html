@@ -1,1 +1,156 @@
-<p>cwip-details works!</p>
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+      
+      <kt-portlet-header [sticky]="false" [title]="'Asset Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
+        <ng-container ktPortletTools>
+          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+          <div class="ribbon-target"><span class="ribbon-inner {{docStatus[cwipMaster?.state]}}"></span> {{cwipMaster?.status}}</div>
+          <!-- <h4 class="overall_statuses {{docStatus[requestRequisitionMaster?.state]}}"> Status: {{requestRequisitionMaster?.status}} </h4> -->
+        </ng-container>
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+          <div class="row ">
+            <div class="btn_container">
+              <div class="col-md-6 col-6">
+                <ng-container ktPortletTools>
+                  
+  
+                  <!-- <button *ngIf="(cwipMaster?.state === docStatus.Draft || cwipMaster?.state === docStatus.Rejected)"
+                    [disabled]="!(permission.isGranted(permissions.INVOICE_EDIT))"
+                    [ngClass]="!(permission.isGranted(permissions.INVOICE_EDIT)) ? 'disable' : '' "
+                    [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', cwipMaster?.id)" [queryParams]="{q: cwipMaster?.id, 'isInvoice': true}"
+                    type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit"></i>
+                    Edit
+                  </button> -->
+                  <button [routerLink]="'/' + CWIP.ID_BASED_ROUTE('print', cwipMaster?.id)" type="button" 
+                    class="btn_public" id="asset_print">
+                    <i class="fa fa-print"></i> Print Asset
+                  </button>
+                  <button *ngIf="(cwipMaster?.state === docStatus.Draft || cwipMaster?.state === docStatus.Rejected)
+                  && (permission.isGranted(permissions.ASSET_EDIT))" 
+                    type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset()" >
+                    <i class="fa fa-edit" ></i> Edit
+                 </button>
+  
+                 
+                </ng-container>
+  
+              </div>
+              <div class="col-lg-6 text-right" *ngIf="cwipMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="request_reject" class="mr-2 btn btn-outline-danger">Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="request_approve" class="btn btn-outline-success">Approve</button>
+              </div>
+            </div>
+  
+            <div class="col-md-6 col-lg-6  mt-3">
+              <div class="print-box">
+                <h4 >Name: 
+                  <span class="float-right" >{{cwipMaster?.name}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Acquisition Date: 
+                  <span class="float-right" >{{cwipMaster?.dateofAcquisition | date: 'MMM d, y'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Purchase Cost: 
+                  <span class="float-right" >{{valueFormatter(cwipMaster?.purchaseCost)}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Category: 
+                <span class="float-right" >{{cwipMaster?.categoryName}}</span></h4>
+              </div>
+              <div class="print-box">
+                  <h4 >Salvage Value: 
+                    <span class="float-right" >{{valueFormatter(cwipMaster?.salvageValue)}}</span>
+                  </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Depreciation Applicability: 
+                  <span class="float-right" >{{cwipMaster?.depreciationApplicability ? "Applicable" : 'Not Applicable'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Depreciation: 
+                <span class="float-right" >{{cwipMaster?.depreciation || 'N/A'}}</span></h4>
+              </div>
+              <div class="print-box">
+                <h4 >Model Type: 
+                <span class="float-right" >{{modelType[cwipMaster?.modelType]}}</span></h4>
+              </div>
+            </div>
+  
+            <div class="col-md-6 col-lg-6  mt-3">
+              <div class="print-box">
+                <h4 >
+                  Asset Account: 
+                  <span class="float-right" >{{cwipMaster?.assetAccount || 'N/A'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  Depreciation Expense Account: 
+                  <span class="float-right" >{{cwipMaster?.depreciationExpense || 'N/A'}}</span>
+                  
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  Accumulated Depreciation Account: 
+                  <span class="float-right" >{{cwipMaster?.accumulatedDepreciation || 'N/A'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  UseFull Life: 
+                  <span class="float-right" >{{valueFormatter(cwipMaster?.useFullLife || 'NAN')}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  DecLining Rate: 
+                  <span class="float-right" >{{valueFormatter(cwipMaster?.decLiningRate || 'NAN')}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  Prorata Basis: 
+                  <span class="float-right" >{{cwipMaster?.prorataBasis ? "Applicable" : 'Not Applicable'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  Active: 
+                  <span class="float-right" >{{cwipMaster?.active ? "Applicable" : 'Not Applicable'}}</span>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </kt-portlet-body>
+  
+      <mat-divider class="mb-10"></mat-divider>
+
+      <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+        <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+      </div>
+
+      <mat-divider class="mt-10 mb-10" *ngIf="remarksList.length > 0"></mat-divider>
+
+      <!-- <mat-divider class="mt-10"></mat-divider> -->
+  
+      <!-- <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
+          <div class="row ">
+            <div class="col-lg-12 text-right" *ngIf="cwipMaster?.isAllowedRole">
+              <button (click)="workflow(action.Reject)" id="invoice_reject" class="mr-5 btn btn-outline-danger" mat-raised-button>Reject</button>
+              <button (click)="workflow(action.Approve)" id="invoice_approve" class="btn btn-outline-success" mat-raised-button>Approve</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </kt-portlet>
+  </div>

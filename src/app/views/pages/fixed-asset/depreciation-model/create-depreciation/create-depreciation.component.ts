@@ -149,6 +149,8 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     //get Accounts from Accounts State
     //this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getOtherAccountsFromState();
+    this.ngxsService.getExpenseAccountsFromState();
+    this.ngxsService.getLiabilityAccountsFromState();
     this.ngxsService.getAssetAccountFromState();
 
     if (this._id) {

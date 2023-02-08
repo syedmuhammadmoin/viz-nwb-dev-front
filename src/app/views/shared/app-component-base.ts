@@ -1,4 +1,4 @@
-import {FormControl, FormGroup} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {Injector} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
@@ -19,6 +19,20 @@ export abstract class AppComponentBase {
     this.permission = injector.get(PermissionService);
     this.paginationHelper = injector.get(PaginationHelperService)
     this.dateHelperService = injector.get(DateHelperService)
+  }
+
+  conditionalValidation(formGroup: FormGroup, condition : boolean , data : any[]){
+    data.forEach(x =>{
+      if(condition){
+        formGroup.get(x).setValidators([Validators.required])
+        formGroup.get(x).updateValueAndValidity();
+      }
+      else{
+        formGroup.get(x).clearValidators()
+        formGroup.get(x).updateValueAndValidity();
+      }
+    })
+    
   }
  
   transformDate(date: Date | string, format: string) {

@@ -141,7 +141,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      rowHeight: 40,
+      rowHeight: 30,
       headerHeight: 35,
       context: "double click to view detail",
     };

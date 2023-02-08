@@ -6,6 +6,7 @@ import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
 import { ListAssetComponent } from './list-asset/list-asset.component';
 import { CreateAssetComponent } from './create-asset/create-asset.component';
 import { AssetDetailComponent } from './asset-detail/asset-detail.component';
+import { PrintAssetComponent } from './print-asset/print-asset.component';
 
 const route : Routes = [
   {
@@ -37,6 +38,18 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.DETAILS,
         component: AssetDetailComponent,
+        // data: {
+        //   array: [
+        //     { permission: Permissions.ASSET_VIEW },
+        //     { permission: Permissions.ASSET_CREATE },
+        //     { permission: Permissions.ASSET_EDIT },
+        //   ]
+        // },
+        // canActivate: [PermissionGuard]
+      },
+      {
+        path: CRUD_ROUTES.PRINT,
+        component: PrintAssetComponent,
         // data: {
         //   array: [
         //     { permission: Permissions.ASSET_VIEW },
