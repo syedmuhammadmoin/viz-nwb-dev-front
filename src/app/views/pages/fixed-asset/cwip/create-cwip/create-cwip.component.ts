@@ -290,14 +290,14 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       this.resetFields(this.cwipForm , 'depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
       this.cwipForm.get('prorataBasis').setValue(false);
       this.cwipForm.get('active').setValue(false);
-      this.cwipForm.get('useFullLife').clearValidators();
+      this.cwipForm.get('modelType').setValue(0);
+      this.getModelType(0)
     }
-    this.conditionalValidation(this.cwipForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId'])
+    this.conditionalValidation(this.cwipForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId','useFullLife'])
     this.logValidationErrors(this.cwipForm, this.formErrors , this.validationMessages);
-
   }
 
-  getModelType(e){
+  getModelType(e : any){
 
     if(e){
       this.isModelType = true;

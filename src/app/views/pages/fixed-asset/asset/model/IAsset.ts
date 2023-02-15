@@ -5,6 +5,7 @@ export interface IAsset {
     purchaseCost: number,
     categoryId:number,
     salvageValue:number,
+    warehouseId:number,
     depreciationApplicability: boolean,
     depreciationId:number,
     modelType: string,
