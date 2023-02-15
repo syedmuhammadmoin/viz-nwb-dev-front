@@ -51,7 +51,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   depApplicabilityToggle =  false;
 
 
-  modelType =  false;
+  isModelType =  false;
 
   // switch
   userStatus = 'Active'
@@ -97,7 +97,10 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       required: 'Accumulated Dep A/C is required.',
     },
     useFullLife: {
-      required: 'UseFull Life is required.',
+      required: 'Life is required.',
+      min : 'Minimum value is 1.',
+      max : 'Value is out of range.',
+      pattern : 'Please enter only Digits.'
     },
     decLiningRate: {
       required: 'Declining Rate is required.',
@@ -205,12 +208,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
        
     // } 
 
-    if (this.data?.assetData) {
+    if (this.data?.id) {
       this.title = 'Edit Asset'
-      this.assetModel.id = this.data.assetData.id;
-      this.patchAsset(this.data.assetData);
-      this.depApplicabilityToggle = this.data.assetData.depreciationApplicability;
-      
+      this.assetModel.id = this.data.id;
+      this.isLoading = true;
+      this.getAsset(this.data.id);
     }
     
     // this.activatedRoute.params.subscribe((param) => {
@@ -249,6 +251,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   reset() {
     this.formDirective.resetForm();
     this.depApplicabilityToggle = false;
+    this.isModelType = false;
     //this.assetForm.get('depreciationModelId').setValue(1)
     //this.assetForm.get('isActive').setValue(true);
     //this.onToggle({checked: true})
@@ -303,6 +306,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     .subscribe((res) => {
       this.assetModel = res.result;
       this.patchAsset(res.result);
+      this.depApplicabilityToggle = res.result.depreciationApplicability; 
     });
   }
 
@@ -325,6 +329,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       prorataBasis: asset.prorataBasis,
       active: asset.active
     });
+
+    this.getModelType(asset.modelType)
+    this.onChangeDepApplicability({checked : asset.depreciationApplicability})
 
 
 // accumulatedDepreciation: null
@@ -368,7 +375,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.mapFormValuesToAssetModel();
     console.log(this.assetModel)
-    if (this.data?.assetData) {
+    if (this.data?.id) {
       // this.onChangeDepApplicability(this.data.assetData.depreciationApplicability)
       this.assetService.updateAsset(this.assetModel)
       .pipe(
@@ -407,22 +414,57 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     }
   }
 
- 
 
   onChangeDepApplicability(e){
+
     this.depApplicabilityToggle = e.checked
-    this.conditionalValidation(this.assetForm, e.checked ,['depreciationId','assetAccountId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife'])
-    this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages)
+
+    if(e.checked){
+      this.assetForm.get('useFullLife').setValidators([Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')])
+    }
+    if(!e.checked){
+      this.resetFields(this.assetForm , 'depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
+      this.assetForm.get('prorataBasis').setValue(false);
+      this.assetForm.get('active').setValue(false);
+      this.assetForm.get('useFullLife').clearValidators();
+    }
+    this.conditionalValidation(this.assetForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId'])
+    this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages);
+
   }
 
   getModelType(e){
-    if(e){this.modelType = true;}
-    else{this.modelType = false;}
+
+    if(e){
+      this.isModelType = true;
+    }else{
+      this.isModelType = false;
+    }
 
     this.conditionalValidation(this.assetForm, e , ['decLiningRate'])
     this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages) 
 
   }
+ 
+
+  // onChangeDepApplicability(e){
+  //   this.depApplicabilityToggle = e.checked
+  //   if(!e.checked){
+  //     this.resetFields(this.assetForm , 'depreciationId','assetAccountId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'prorataBasis','active', 'decLiningRate')
+  //   }
+  //   this.conditionalValidation(this.assetForm, e.checked , ['depreciationId','assetAccountId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife'])
+  //   this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages)
+  // }
+
+  // getModelType(e){
+  //   console.log(e)
+  //   if(e){this.modelType = true;}
+  //   else{this.modelType = false;}
+
+  //   this.conditionalValidation(this.assetForm, e , ['decLiningRate'])
+  //   this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages) 
+
+  // }
 
   
 

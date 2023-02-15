@@ -29,7 +29,7 @@
                   </button>
                   <button *ngIf="(assetMaster?.state === docStatus.Draft || assetMaster?.state === docStatus.Rejected)
                   && (permission.isGranted(permissions.ASSET_EDIT))" 
-                    type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset()" >
+                    type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset(assetMaster?.id)" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>
   

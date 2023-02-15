@@ -66,8 +66,6 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-    //Decimal validation
-    numRegex = /^-?\d*[.,]?\d{0,2}$/;
 
   // Validation messages..
   validationMessages = {
@@ -94,7 +92,8 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     useFullLife: {
       required: 'Life is required.',
       min : 'Minimum value is 1.',
-      pattern : 'Decimal Value not Allowed.'
+      max : 'Value is out of range.',
+      pattern : 'Please enter only Digits.'
     },
     // assetCategoryId: {
     //   required: 'Category is required.'
@@ -139,10 +138,8 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       depreciationExpenseId: ['', [Validators.required]],
       accumulatedDepreciationId: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
-      // decliningRate: ['', [Validators.required]],
       decliningRate: [0 , [Validators.max(100), Validators.min(0) , Validators.required]],
-      //assetCategoryId: ['', [Validators.required]],
-      useFullLife: ['', [Validators.required , Validators.min(1)]]
+      useFullLife: ['', [Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')]]
     });
 
 

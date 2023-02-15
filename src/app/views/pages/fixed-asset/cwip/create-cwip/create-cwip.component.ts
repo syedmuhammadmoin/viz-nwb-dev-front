@@ -10,10 +10,11 @@ import { FirstDataRenderedEvent, RowDoubleClickedEvent } from 'ag-grid-community
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ICwip } from '../model/ICwip';
 import { CwipService } from '../service/cwip.service';
-import { ASSET, CWIP } from 'src/app/views/shared/AppRoutes';
+import {  CWIP } from 'src/app/views/shared/AppRoutes';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { AssetType } from 'src/app/views/shared/AppEnum';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { DepreciationMethodService } from '../../depreciation-model/service/depreciation-method.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'kt-create-cwip',
@@ -36,17 +37,23 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   // Payroll Model
   cwipModel: ICwip = {} as ICwip;
 
+  warehouseList: any = new BehaviorSubject<any>([])
+
   title: string = 'Create CWIP'
 
   isActiveChecked = true;
 
   depApplicabilityToggle = false;
+
   // switch
   userStatus = 'Active'
 
   valueTitle: string = 'Value'
 
   isModelType =  false;
+
+   //show toast mesasge of on campus select
+   showMessage: boolean = false;
 
   //show Buttons
   showButtons: boolean = true;
@@ -72,6 +79,12 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     assetAccountId : {
       required: 'Account is required.',
     },
+    campusId: {
+      required: 'Campus is required.',
+    },
+    warehouseId: {
+      required: 'Store is required.',
+    },
     depreciationId : {
       required: 'Depreciation Model is required.',
     },
@@ -85,7 +98,10 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       required: 'Account is required.',
     },
     useFullLife : {
-      required: 'Useful life is required.',
+      required: 'Life is required.',
+      min : 'Minimum value is 1.',
+      max : 'Value is out of range.',
+      pattern : 'Please enter only Digits.'
     },
     decLiningRate : {
       required: 'Declining Rate is required.',
@@ -98,6 +114,8 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     cwipAccountId : '',                        
     costOfAsset : '',
     assetAccountId : '',
+    campusId: '',
+    warehouseId: '',
     depreciationId : '',
     modelType : '',
     depreciationExpenseId : '',
@@ -131,6 +149,8 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       costOfAsset: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
       salvageValue:[0],
+      campusId: ['', [Validators.required]],
+      warehouseId: ['', [Validators.required]],
       depreciationApplicability: [false],
       depreciationId:[null],
       modelType: [0],
@@ -143,13 +163,21 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       active: [false]
     });
 
-    console.log(this.data)
-
     //get Accounts from Accounts State
 
     this.ngxsService.getDepreciationModelFromState()
     this.ngxsService.getOtherAccountsFromState();
     this.ngxsService.getAssetAccountFromState();
+    this.ngxsService.getCampusFromState();
+    this.ngxsService.getWarehouseFromState();
+
+    if (this.data?.id) {
+      this.title = 'Edit Capital Work In progress'
+      this.cwipModel.id = this.data.id;
+      this.isLoading = true;
+      this.getCwip(this.data.id);
+      
+    }
 
   }
 
@@ -172,6 +200,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.cwipModel = res.result;
         this.patchCwip(res.result);
+        this.depApplicabilityToggle = res.result.depreciationApplicability;
       });
   }
 
@@ -183,34 +212,36 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       costOfAsset:cwip.costOfAsset,
       assetAccountId:cwip.assetAccountId,
       salvageValue:cwip.salvageValue,
+      campusId: cwip.campusId,
+      warehouseId: cwip.warehouseId,
       depreciationApplicability:cwip.depreciationApplicability,
       depreciationId:cwip.depreciationId,
       modelType:cwip.modelType,
       depreciationExpenseId:cwip.depreciationExpenseId,
       accumulatedDepreciationId:cwip.accumulatedDepreciationId,
-      useFullLife:cwip.usefulLife,
+      useFullLife:cwip.useFullLife,
       quantinty:cwip.quantinty,
       decLiningRate:cwip.decLiningRate,
       prorataBasis: cwip.prorataBasis,
       active:cwip.active 
     });
-
+    this.onChangeDepApplicability({checked : cwip.depreciationApplicability})
+    this.getModelType(cwip.modelType)
+    this.onCampusSelected(cwip.campusId)
   }
 
 
   //Submit Form Function
   onSubmit(): void {
-    console.log(this.cwipForm.value)
 
     if (this.cwipForm.invalid) {
-      //this.toastService.error("Please fill all required fields!", "Asset")
       return;
     }
 
     this.isLoading = true;
     this.mapFormValuesTocwipModel();
-    console.log(this.cwipModel)
-    if (this.data?.cwipData) {
+
+    if (this.data?.id) {
       console.log("edit")
       this.cwipService.updateCwip(this.cwipModel)
         .pipe(
@@ -229,7 +260,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
 
     } else {
       delete this.cwipModel.id;
-      console.log("create")
+
       this.cwipService.createCwip(this.cwipModel)
         .pipe(
           take(1),
@@ -248,20 +279,31 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     }
   }
 
-
   onChangeDepApplicability(e){
+
     this.depApplicabilityToggle = e.checked
 
-    this.conditionalValidation(this.cwipForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife'])
-    this.logValidationErrors(this.cwipForm, this.formErrors , this.validationMessages)
-    
+    if(e.checked){
+      this.cwipForm.get('useFullLife').setValidators([Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')])
+    }
+    if(!e.checked){
+      this.resetFields(this.cwipForm , 'depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
+      this.cwipForm.get('prorataBasis').setValue(false);
+      this.cwipForm.get('active').setValue(false);
+      this.cwipForm.get('useFullLife').clearValidators();
+    }
+    this.conditionalValidation(this.cwipForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId'])
+    this.logValidationErrors(this.cwipForm, this.formErrors , this.validationMessages);
 
   }
 
   getModelType(e){
 
-    if(e){this.isModelType = true;}
-    else{this.isModelType = false;}
+    if(e){
+      this.isModelType = true;
+    }else{
+      this.isModelType = false;
+    }
 
     this.conditionalValidation(this.cwipForm, e , ['decLiningRate'])
     this.logValidationErrors(this.cwipForm, this.formErrors , this.validationMessages) 
@@ -270,12 +312,14 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
 
   //Mapping Form Value to Model
   mapFormValuesTocwipModel() {
-
     this.cwipModel.dateOfAcquisition =  this.dateHelperService.transformDate(this.cwipForm.value.dateOfAcquisition, 'yyyy-MM-dd');
     this.cwipModel.cwipAccountId = this.cwipForm.value.cwipAccountId
     this.cwipModel.costOfAsset = this.cwipForm.value.costOfAsset
     this.cwipModel.assetAccountId = this.cwipForm.value.assetAccountId,
     this.cwipModel.salvageValue = this.cwipForm.value.salvageValue,
+    this.cwipModel.campusId = this.cwipForm.value.campusId,
+    this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
+    // this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
     this.cwipModel.depreciationApplicability = this.cwipForm.value.depreciationApplicability,
     this.cwipModel.depreciationId = this.cwipForm.value.depreciationId,
     this.cwipModel.modelType = this.cwipForm.value.modelType,
@@ -324,6 +368,29 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
         this.cdRef.detectChanges()
       })
   }
+
+  checkCampus() {
+    this.showMessage = true;
+    if(this.cwipForm.value.campusId === '') {
+      this.toastService.info("Please Select Campus First!", "CWIP")
+    }
+  }
+
+  onCampusSelected(campusId : number){
+      this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res =>{
+        this.warehouseList.next(res.result || [])
+        
+      })
+
+      if((!this.cwipModel.warehouseId) && this.cwipForm.value.warehouseId) {
+        this.toastService.info("Please Reselect Store!" , "CWIP")
+        this.cwipForm.get('warehouseId').setValue(null)
+      }
+
+     
+      this.cwipModel.warehouseId = null;
+  }
+
 
   // Dialogue close function
   onCloseDialog() {

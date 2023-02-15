@@ -53,7 +53,7 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     { 
       headerName: 'Doc No', 
-      field: 'assetCode', 
+      field: 'cwipCode', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
       // filter: 'agTextColumnFilter',
@@ -75,7 +75,10 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
     { 
       headerName: 'Asset Cost', 
       field: 'costOfAsset', 
-      tooltipField: 'name', 
+      tooltipField: 'name',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      } 
       
     },
     {
@@ -93,23 +96,17 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
       headerName: 'Quantinty',
       field: 'quantinty',
       tooltipField: 'name',
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['equals'],
-      //     suppressAndOrCondition: true,
-      //   }
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
     },
     {
       headerName: 'Salvage Value',
       field: 'salvageValue',
       tooltipField: 'name',
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['equals'],
-      //     suppressAndOrCondition: true,
-      //   }
+      valueFormatter: (params : ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
     },
     {
       headerName: 'Dep Applicability',
@@ -160,7 +157,7 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      rowHeight: 40,
+      rowHeight: 30,
       headerHeight: 35,
       context: "double click to view detail",
     };

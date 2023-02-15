@@ -97,7 +97,8 @@
                           <label class="col-form-label pt-0">Useful Life:</label>
                           <mat-form-field appearance="outline" class="full-width">
                             <input matInput formControlName="useFullLife" placeholder="Enter Useful Life" 
-                                 id="depreciation_life" type="number" (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
+                                 id="depreciation_life"
+                                 (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
                             <mat-error *ngIf="formErrors.useFullLife">
                               <strong>{{formErrors.useFullLife}}</strong>
                             </mat-error>

@@ -117,7 +117,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     this.dialog.open(CreateAssetComponent, {
       width: '800px',
       data: {
-        assetData: this.assetMaster
+        id: id
       }
     });
     // //Recalling getAsset function on dialog close

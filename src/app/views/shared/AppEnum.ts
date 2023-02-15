@@ -333,6 +333,12 @@ export class Permissions {
   static CWIP_CREATE = "Permissions.FixedAsset.CWIPClaims.Create";
   static CWIP_EDIT = "Permissions.FixedAsset.CWIPClaims.Edit";
   static CWIP_DELETE = "Permissions.FixedAsset.CWIPClaims.Delete";
+
+  //Disposal
+  // static DISPOSAL_VIEW = "Permissions.FixedAsset.DisposalClaims.View";
+  // static DISPOSAL_CREATE = "Permissions.FixedAsset.DisposalClaims.Create";
+  // static DISPOSAL_EDIT = "Permissions.FixedAsset.DisposalClaims.Edit";
+  // static DISPOSAL_DELETE = "Permissions.FixedAsset.DisposalClaims.Delete";
   
 
   // allowance
@@ -375,7 +381,8 @@ export enum DocType {
   CallForQuotaion,
   QuotationComparative,
   FixedAsset,
-  CWIP
+  CWIP,
+  Disposal 
 }
 
 export enum DocumentStatus {

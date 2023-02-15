@@ -104,11 +104,11 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
     })
   }
 
-  editAsset(id?: number): void {
+  editCwip(id?: number): void {
     this.dialog.open(CreateCwipComponent, {
       width: '800px',
       data: {
-        cwipData: this.cwipMaster
+        id:id
       }
     });
   }

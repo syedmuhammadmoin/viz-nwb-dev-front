@@ -1,7 +1,7 @@
 <div [ktBusy]="isLoading">
     <kt-portlet>
       
-      <kt-portlet-header [sticky]="false" [title]="'Asset Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
+      <kt-portlet-header [sticky]="false" [title]="'Capital Work In Progress Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
         <ng-container ktPortletTools>
           <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
           <div class="ribbon-target"><span class="ribbon-inner {{docStatus[cwipMaster?.state]}}"></span> {{cwipMaster?.status}}</div>
@@ -24,12 +24,12 @@
                     Edit
                   </button> -->
                   <button [routerLink]="'/' + CWIP.ID_BASED_ROUTE('print', cwipMaster?.id)" type="button" 
-                    class="btn_public" id="asset_print">
-                    <i class="fa fa-print"></i> Print Asset
+                    class="btn_public" id="cwip_print">
+                    <i class="fa fa-print"></i> Print Cwip
                   </button>
                   <button *ngIf="(cwipMaster?.state === docStatus.Draft || cwipMaster?.state === docStatus.Rejected)
-                  && (permission.isGranted(permissions.ASSET_EDIT))" 
-                    type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset()" >
+                  && (permission.isGranted(permissions.CWIP_EDIT))" 
+                    type="button" class="mr-2 btn_public" id="cwip_edit" (click)="editCwip(cwipMaster?.id)" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>
   
@@ -45,23 +45,23 @@
   
             <div class="col-md-6 col-lg-6  mt-3">
               <div class="print-box">
-                <h4 >Name: 
-                  <span class="float-right" >{{cwipMaster?.name}}</span>
+                <h4 >Asset Account : 
+                  <span class="float-right" >{{cwipMaster?.assetAccount}}</span>
                 </h4>
               </div>
               <div class="print-box">
                 <h4 >Acquisition Date: 
-                  <span class="float-right" >{{cwipMaster?.dateofAcquisition | date: 'MMM d, y'}}</span>
+                  <span class="float-right" >{{cwipMaster?.dateOfAcquisition | date: 'MMM d, y'}}</span>
                 </h4>
               </div>
               <div class="print-box">
                 <h4 >Purchase Cost: 
-                  <span class="float-right" >{{valueFormatter(cwipMaster?.purchaseCost)}}</span>
+                  <span class="float-right" >{{valueFormatter(cwipMaster?.costOfAsset)}}</span>
                 </h4>
               </div>
               <div class="print-box">
-                <h4 >Category: 
-                <span class="float-right" >{{cwipMaster?.categoryName}}</span></h4>
+                <h4 >Campus: 
+                <span class="float-right" >{{cwipMaster?.campus}}</span></h4>
               </div>
               <div class="print-box">
                   <h4 >Salvage Value: 
@@ -86,8 +86,14 @@
             <div class="col-md-6 col-lg-6  mt-3">
               <div class="print-box">
                 <h4 >
-                  Asset Account: 
-                  <span class="float-right" >{{cwipMaster?.assetAccount || 'N/A'}}</span>
+                  Store: 
+                  <span class="float-right" >{{cwipMaster?.warehouseName || 'N/A'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  CWIP Account: 
+                  <span class="float-right" >{{cwipMaster?.cwipAccount || 'N/A'}}</span>
                 </h4>
               </div>
               <div class="print-box">

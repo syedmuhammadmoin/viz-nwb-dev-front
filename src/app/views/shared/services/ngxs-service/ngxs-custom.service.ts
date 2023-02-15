@@ -409,7 +409,7 @@ export class NgxsCustomService {
       if (!res) {
         this.store.dispatch(new GetList(ExpenseAccountState, {
           serviceClass: this.chartOfAccountService,
-          methodName: 'getNonCurrentLiabilityAccounts',
+          methodName: 'getExpenseAccounts',
           context: this
         }))
       }

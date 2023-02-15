@@ -6,6 +6,8 @@ export interface ICwip {
     costOfAsset: number,
     assetAccountId: string,
     salvageValue: number,
+    campusId: number,
+    warehouseId: number,
     depreciationApplicability: boolean,
     depreciationId: number,
     modelType: number,

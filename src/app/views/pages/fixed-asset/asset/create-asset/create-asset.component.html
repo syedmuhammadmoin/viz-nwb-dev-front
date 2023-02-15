@@ -139,7 +139,6 @@
                   formControlName="useFullLife" 
                   placeholder="Enter Useful Life" 
                   id="asset_useFullLife"
-                  type="number"
                   (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
                   <mat-error *ngIf="formErrors.useFullLife">
                     <strong>{{formErrors.useFullLife}}</strong>
