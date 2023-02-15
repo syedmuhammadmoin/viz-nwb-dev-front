@@ -7,13 +7,15 @@ import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AssetRoutingModule } from './asset-routing.module';
 import { AssetDetailComponent } from './asset-detail/asset-detail.component';
+import { PrintAssetComponent } from './print-asset/print-asset.component';
 
 
 @NgModule({
   declarations: [
     CreateAssetComponent,
     ListAssetComponent,
-    AssetDetailComponent],
+    AssetDetailComponent,
+    PrintAssetComponent],
     
   imports: [
     SharedModule,

@@ -52,13 +52,15 @@
                     <!-- first row ends -->
                     <!-- second row starts -->
                     <div class="row mb-4">
-                        <div [ngClass]="{'col-lg-8 col-md-8 col-sm-8':this.isFixedAsset == true , 'col-lg-6 col-md-6 col-sm-6': this.isFixedAsset != true }"> <!--this row will become 7 when third option is uncomment-->
+                        <div [ngClass]="((this.isFixedAsset) ? 'col-lg-8 col-md-8 col-sm-8' : 'col-lg-6 col-md-6 col-sm-6')">
+                        <!-- [ngClass]="{'col-lg-8 col-md-8 col-sm-8':this.isFixedAsset == true , 'col-lg-6 col-md-6 col-sm-6': this.isFixedAsset != true }">  -->
+                        <!--this row will become 7 when third option is uncomment-->
                             <div class="row" >
                                <div class="col-lg-11"> <!--this row will remove when third option is uncomment-->
                                 <div class="form-group kt-form__group mb-0">
                                     <div class="kt-radio-list">
                                         <mat-radio-group id="product_type" formControlName="productType" [disabled]="this.isFixedAsset">
-                                        <label class="col-form-label pt-0 mr-2">Product Type:</label>
+                                        <label class="col-form-label pt-0">Product Type:</label>
                                             <mat-radio-button [value]="0">Consumable</mat-radio-button>
                                             <mat-radio-button [value]="1">Service</mat-radio-button>
                                             <mat-radio-button [value]="2" *ngIf="this.isFixedAsset">Fixed Asset</mat-radio-button>

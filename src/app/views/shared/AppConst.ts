@@ -410,7 +410,22 @@ export class AppConst {
     'Permissions.AssetClaims.View': 'Asset View',
     'Permissions.AssetClaims.Create': 'Asset Create',
     'Permissions.AssetClaims.Edit': 'Asset Update',
-    'Permissions.AssetClaims.Delete': 'Asset Delete'
+    'Permissions.AssetClaims.Delete': 'Asset Delete',
+
+    // CWIP
+    'Permissions.FixedAsset.CWIPClaims.View': 'CWIP View',
+    'Permissions.FixedAsset.CWIPClaims.Create': 'CWIP Create',
+    'Permissions.FixedAsset.CWIPClaims.Edit': 'CWIP Update',
+    'Permissions.FixedAsset.CWIPClaims.Delete': 'CWIP Delete',
+
+
+    // Disposal
+    // 'Permissions.FixedAsset.DisposalClaims.View': 'Disposal View',
+    // 'Permissions.FixedAsset.DisposalClaims.Create': 'Disposal Create',
+    // 'Permissions.FixedAsset.DisposalClaims.Edit': 'Disposal Update',
+    // 'Permissions.FixedAsset.DisposalClaims.Delete': 'Disposal Delete',
+
+    
   }
   static paymentRegisterType = {
     1: 'Cash Account',
@@ -454,7 +469,14 @@ export class AppConst {
     {value: 'Issuance Return' , id: DocType.IssuanceReturn},
     {value: 'Request Requisition' , id: DocType.Request},
     {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
-    {value: 'Call Quotation' , id: DocType.CallForQuotaion}
+    {value: 'Call Quotation' , id: DocType.CallForQuotaion},
+    {value: 'Fixed Asset' , id: DocType.FixedAsset},
+    {value: 'CWIP ' , id: DocType.CWIP},
+    // {value: 'Disposal' , id: DocType.Disposal}
+
+    //{value: 'sales Order', id: DocType.SalesOrder},
+    //{ value: 'Goods Dispatch Note', id: DocType.GDN },
+    //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
   ]
 
   static DocTypeValue = {

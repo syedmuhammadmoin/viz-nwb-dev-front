@@ -7,6 +7,7 @@ import {
   Validators
 } from '@angular/forms';
 import {Observable, ReplaySubject} from 'rxjs';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 
 @Component({
   selector: 'kt-simple-dropdown',
@@ -70,13 +71,21 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
       this.isLoading = true;
       this.optionList.subscribe((res) => {
         this.options = (res.result) ? res.result : res;
+        //This condition is just for temporary work
+        //Please re-work and correct this...
+        if(typeof(this.options) === 'number') {
+          this.isLoading = false;
+        }
         if (this.options) {
           this.options = this.callBackFunction ? this.options.flatMap(this.callBackFunction) : this.options
-          if (this.options.length > 0 || res?.isSuccess) this.isLoading = false;
+         
+          if (this.options.length > 0 || res?.isSuccess) {
+            this.isLoading = false;
+          }
           // @ts-ignore
           this.filteredOptionList.next(this.options.slice());
         }
-      });
+      })
     } else {
       this.options = this.callBackFunction ? this.optionList.flatMap(this.callBackFunction) : this.optionList;
       // @ts-ignore

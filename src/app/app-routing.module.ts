@@ -481,6 +481,24 @@ const routes: Routes = [
           ),
           canActivateChild: [AuthGuard]
       },
+      // Lazy Load CWIP Module
+      {
+        path: APP_ROUTES.CWIP, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/fixed-asset/cwip/cwip.module').then(
+            (m) => m.CwipModule
+          ),
+          canActivateChild: [AuthGuard]
+      },
+      // Lazy Load DISPOSAL Module
+      // {
+      //   path: APP_ROUTES.DISPOSAL, // <= Page URL
+      //   loadChildren: () =>
+      //     import('./views/pages/fixed-asset/disposal/disposal.module').then(
+      //       (m) => m.DisposalModule
+      //     ),
+      //     canActivateChild: [AuthGuard]
+      // },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
     ],

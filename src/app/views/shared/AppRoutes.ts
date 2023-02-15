@@ -79,7 +79,10 @@ export const APP_ROUTES = {
   //FIXED ASSET
   FIXED_ASSET: 'fixed-asset',
   DEPRECIATION_MODEL: 'depreciation-model',
-  ASSET: 'asset'
+  ASSET_CATEGORY: 'asset-category',
+  ASSET: 'asset',
+  CWIP: 'cwip',
+  // DISPOSAL: 'disposal'
 }
 
 export const CRUD_ROUTES = {
@@ -347,6 +350,22 @@ export const CRUD_ROUTES = {
       return APP_ROUTES.ASSET + '/' + route + '/' + id
     }
   }
+
+  export const CWIP = {
+    LIST: APP_ROUTES.CWIP + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.CWIP + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.CWIP + '/' + route + '/' + id
+    }
+  }
+
+  // export const DISPOSAL = {
+  //   LIST: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.LIST,
+  //   CREATE: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.CREATE,
+  //   ID_BASED_ROUTE (route: string , id: number) {       
+  //     return APP_ROUTES.DISPOSAL + '/' + route + '/' + id
+  //   }
+  // }
 
   //PAYROLL SECTION
   export const PAYROLL_ITEM = {

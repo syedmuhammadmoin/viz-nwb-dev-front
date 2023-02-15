@@ -50,74 +50,86 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   // Declaring AgGrid data
   columnDefs = [
     { 
-      headerName: 'Code', 
+      headerName: 'Doc No', 
       field: 'assetCode', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
+      // filter: 'agTextColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['contains'],
+      //     suppressAndOrCondition: true,
+      //   },
     },
     { 
       headerName: 'Name', 
       field: 'name', 
       tooltipField: 'name', 
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
+      // filter: 'agTextColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['contains'],
+      //     suppressAndOrCondition: true,
+      //   },
     },
     { 
-      headerName: 'Type', 
-      field: 'assetType', 
+      headerName: 'Acquisition Date', 
+      field: 'dateofAcquisition', 
       tooltipField: 'name', 
       suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => { 
-        return AssetType[params.value];
-      }
-    },
-    {
-      headerName: 'Acquisition Date',
-      field: 'acquisitionDate',
-      tooltipField: 'name',
-      filter: 'agDateColumnFilter',
-      menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['equals'],
-          suppressAndOrCondition: true,
-        },
       valueFormatter: (params: ValueFormatterParams) => { 
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    { 
-      headerName: 'Model', 
-      field: 'depreciationModelName', 
-      tooltipField: 'name', 
-      suppressMenu: true
+    {
+      headerName: 'Category',
+      field: 'categoryName',
+      tooltipField: 'name',
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
     },
-    { 
-      headerName: 'Asset Category', 
-      field: 'categoryName', 
-      tooltipField: 'name', 
-      suppressMenu: true
+    {
+      headerName: 'Dep Applicability',
+      field: 'depreciationApplicability',
+      tooltipField: 'name',
+      valueFormatter: (params: ValueFormatterParams) => {
+        if(params.value){
+          return 'Applicable'
+        }
+        else{
+          return 'Not Applicable'
+        }
+        // return params.value ?? 'N/A'
+      }
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
     },
-    { 
-      headerName: 'Useful Life', 
-      field: 'usefulLife', 
-      tooltipField: 'name', 
-      suppressMenu: true
-    },
-    { 
-      headerName: 'Account', 
-      field: 'correspondingAccountName', 
-      tooltipField: 'name', 
-      suppressMenu: true
+    {
+      headerName: 'Status',
+      field: 'status',
+      tooltipField: 'name',
+      // valueFormatter: (params: ValueFormatterParams) => {
+      //   if(params.value){
+      //     return 'Applicable'
+      //   }
+      //   else{
+      //     return 'Not Applicable'
+      //   }
+      // }
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
     }
   ];
 
@@ -129,7 +141,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
-      rowHeight: 40,
+      rowHeight: 30,
       headerHeight: 35,
       context: "double click to view detail",
     };
@@ -182,16 +194,16 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
 
   dataSource = {
     getRows: (params: any) => {
-      // this.assetService.getRecords(params).subscribe((data) => {
-      //   if(isEmpty(data.result)) {  
-      //     this.gridApi.showNoRowsOverlay() 
-      //   } else {
-      //     this.gridApi.hideOverlay();
-      //   }
-      //   params.successCallback(data.result || 0, data.totalRecords);
-      //   this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
-      //   this.cdRef.detectChanges();
-      // });
+      this.assetService.getRecords(params).subscribe((data) => {
+        if(isEmpty(data.result)) {  
+          this.gridApi.showNoRowsOverlay() 
+        } else {
+          this.gridApi.hideOverlay();
+        }
+        params.successCallback(data.result || 0, data.totalRecords);
+        this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
+        this.cdRef.detectChanges();
+      });
     },
   };
 

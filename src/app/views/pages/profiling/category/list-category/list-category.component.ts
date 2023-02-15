@@ -57,8 +57,7 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     { headerName: 'Asset Account', field: 'inventoryAccount', suppressMenu: true, tooltipField: 'name' },
     { headerName: 'Revenue Account', field: 'revenueAccount', suppressMenu: true, tooltipField: 'name' },
     { headerName: 'Cost Account', field: 'costAccount', suppressMenu: true },
-    { headerName: 'Fixed Asset',
-     field: 'isFixedAsset',
+    { headerName: 'Fixed Asset', field: 'isFixedAsset', suppressMenu: true,
      valueFormatter: (params: ValueFormatterParams) => {
       if(params.value){
         return 'Yes'

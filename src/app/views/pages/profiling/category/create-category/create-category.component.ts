@@ -14,6 +14,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { MatRadioButton } from '@angular/material/radio';
 import { BehaviorSubject} from 'rxjs';
 import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service'
+import { CategoryAssetState } from '../store/categoryAsset.state';
 
 
 @Component({
@@ -171,18 +172,22 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       this.chartOfAccountService.getOtherAccounts().subscribe((res : any) =>{
         console.log(res);
         this.assetAccountList.next(res.result || [])
-        this.cdRef.markForCheck();
         this.showDepreciation = false
+        this.categoryForm.get('depreciationId').clearValidators()
+        this.categoryForm.get('depreciationId').updateValueAndValidity();
+        this.cdRef.markForCheck();
       })
     } else{
       this.chartOfAccountService.getAssetAccounts().subscribe((res : any) =>{
         console.log(res);
         this.assetAccountList.next(res.result || [])
         this.showDepreciation = true
+        this.categoryForm.get('depreciationId').setValidators([Validators.required])
+        this.categoryForm.get('depreciationId').updateValueAndValidity();
         this.cdRef.markForCheck();
       })
     }
-    
+    this.logValidationErrors(this.categoryForm, this.formErrors , this.validationMessages) 
 
   }
 
@@ -203,6 +208,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
        )
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(CategoryState, true))
+            this.ngxsService.store.dispatch(new IsReloadRequired(CategoryAssetState, true))
             this.toastService.success('Updated Successfully', 'Category')
             this.onCloseDialog();
           }
@@ -214,11 +220,13 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
         take(1),
          finalize(() => {
           this.isLoading = false;
+          
           this.cdRef.detectChanges();
          })
        )
         .subscribe(() => {        
             this.ngxsService.store.dispatch(new IsReloadRequired(CategoryState, true))
+            this.ngxsService.store.dispatch(new IsReloadRequired(CategoryAssetState, true))
             this.toastService.success('Created Successfully', 'Category')
             this.onCloseDialog();
           }

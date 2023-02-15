@@ -323,10 +323,23 @@ export class Permissions {
   static DEPRECIATION_MODEL_DELETE = "Permissions.FixedAsset.DepreciationClaims.Delete";
 
   //Asset
-  static ASSET_VIEW = "Permissions.AssetClaims.View";
-  static ASSET_CREATE = "Permissions.AssetClaims.Create";
-  static ASSET_EDIT = "Permissions.AssetClaims.Edit";
-  static ASSET_DELETE = "Permissions.AssetClaims.Delete";
+  static ASSET_VIEW = "Permissions.FixedAsset.FixedAssetClaims.View";
+  static ASSET_CREATE = "Permissions.FixedAsset.FixedAssetClaims.Create";
+  static ASSET_EDIT = "Permissions.FixedAsset.FixedAssetClaims.Edit";
+  static ASSET_DELETE = "Permissions.FixedAsset.FixedAssetClaims.Delete";
+
+  //Cwip
+  static CWIP_VIEW = "Permissions.FixedAsset.CWIPClaims.View";
+  static CWIP_CREATE = "Permissions.FixedAsset.CWIPClaims.Create";
+  static CWIP_EDIT = "Permissions.FixedAsset.CWIPClaims.Edit";
+  static CWIP_DELETE = "Permissions.FixedAsset.CWIPClaims.Delete";
+
+  //Disposal
+  // static DISPOSAL_VIEW = "Permissions.FixedAsset.DisposalClaims.View";
+  // static DISPOSAL_CREATE = "Permissions.FixedAsset.DisposalClaims.Create";
+  // static DISPOSAL_EDIT = "Permissions.FixedAsset.DisposalClaims.Edit";
+  // static DISPOSAL_DELETE = "Permissions.FixedAsset.DisposalClaims.Delete";
+  
 
   // allowance
   static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';
@@ -348,7 +361,7 @@ export enum DocType {
   Invoice,
   Bill,
   JournalEntry,
-  BankAccount ,
+  BankAccount,
   CashAccount,
   PurchaseOrder,
   SalesOrder,
@@ -365,7 +378,11 @@ export enum DocType {
   IssuanceReturn,
   Request,
   BidEvaluation,
-  CallForQuotaion
+  CallForQuotaion,
+  QuotationComparative,
+  FixedAsset,
+  CWIP,
+  Disposal 
 }
 
 export enum DocumentStatus {

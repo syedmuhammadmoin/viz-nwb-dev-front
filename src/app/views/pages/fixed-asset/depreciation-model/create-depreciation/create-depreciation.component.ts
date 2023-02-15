@@ -66,6 +66,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
+
   // Validation messages..
   validationMessages = {
     modelName: {
@@ -84,13 +85,15 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       required: 'Account is required.',
     },
     decliningRate: {
-      // required: 'Rate is required.',
+      required: 'Declining Rate is required.',
       min: 'Percentage % range (0 - 100).',
       max: 'Percentage % range (0 - 100).'
     },
     useFullLife: {
       required: 'Life is required.',
-      min : 'Minimum value is 1.'
+      min : 'Minimum value is 1.',
+      max : 'Value is out of range.',
+      pattern : 'Please enter only Digits.'
     },
     // assetCategoryId: {
     //   required: 'Category is required.'
@@ -135,17 +138,17 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       depreciationExpenseId: ['', [Validators.required]],
       accumulatedDepreciationId: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
-      // decliningRate: ['', [Validators.required]],
-      decliningRate: [0 , [Validators.max(100), Validators.min(0)]],
-      //assetCategoryId: ['', [Validators.required]],
-      useFullLife: ['', [Validators.required , Validators.min(1)]]
+      decliningRate: [0 , [Validators.max(100), Validators.min(0) , Validators.required]],
+      useFullLife: ['', [Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')]]
     });
 
 
     //get Accounts from Accounts State
     //this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getOtherAccountsFromState();
-    // this.ngxsService.getAssetCategoryFromState();
+    this.ngxsService.getExpenseAccountsFromState();
+    this.ngxsService.getLiabilityAccountsFromState();
+    this.ngxsService.getAssetAccountFromState();
 
     if (this._id) {
       //this.showButtons = (this.permission.isGranted(this.permissions.CAMPUS_EDIT)) ? true : false;

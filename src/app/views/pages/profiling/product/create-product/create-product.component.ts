@@ -230,6 +230,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   reset() {
       this.formDirective.resetForm();
       this.productForm.get('productType').setValue(0);
+      this.isFixedAsset = false;
   }
 
   //create new category

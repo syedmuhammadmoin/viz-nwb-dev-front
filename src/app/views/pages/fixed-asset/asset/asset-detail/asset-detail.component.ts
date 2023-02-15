@@ -3,12 +3,14 @@ import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
-import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
+import { ActionButton, DocumentStatus, DocType, Permissions, DepreciationMethod } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { finalize, take } from 'rxjs/operators';
 import { AssetService } from '../service/asset.service';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { ASSET } from 'src/app/views/shared/AppRoutes';
 
 
 //fixed asset table interface
@@ -29,8 +31,11 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
 
   docType = DocType
   public permissions = Permissions;
+  public ASSET = ASSET;
   action = ActionButton
   docStatus = DocumentStatus
+
+  modelType: any = DepreciationMethod
 
   //For ag grid
   gridOptions: GridOptions;
@@ -47,6 +52,9 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   assetMaster:  any;
   status: string;
 
+    //Showing Remarks
+    remarksList: string[] = [];
+
   constructor(
     private assetService: AssetService,
     private route: ActivatedRoute,
@@ -60,7 +68,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit() {
-
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
@@ -100,7 +107,8 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
      )
     .subscribe((res: IApiResponse<any>) => {
       this.assetMaster = res.result;
-      this.assets = res.result;
+      this.remarksList = this.assetMaster.remarksList ?? [] 
+      // this.assets = res.result;
       this.cdRef.detectChanges();
     })
   }
@@ -109,7 +117,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     this.dialog.open(CreateAssetComponent, {
       width: '800px',
       data: {
-        assetData: this.assetMaster
+        id: id
       }
     });
     // //Recalling getAsset function on dialog close
@@ -642,6 +650,36 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
        }
 
     return Difference_In_Days
+  }
+
+   //Get Remarks From User
+   remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+      width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      if (res) {
+        this.workflow(action, res.data)
+      }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
+    this.isLoading = true
+    this.assetService.workflow({ action, docId: this.assetMaster.id, remarks})
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+      .subscribe((res) => {
+        this.getAssetData(this.assetId);
+        this.cdRef.detectChanges();
+        this.toastService.success('' + res.message, 'Request Requisition');
+      })
   }
 }
 

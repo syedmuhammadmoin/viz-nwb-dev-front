@@ -51,6 +51,9 @@ import { AllBusinessPartnerState } from 'src/app/views/pages/profiling/business-
 import { PayrollItemState } from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
 import { RequisitionState } from 'src/app/views/pages/procurement/requisition/store/requisition.state';
 import { RequisitionService } from 'src/app/views/pages/procurement/requisition/service/requisition.service';
+import { CategoryAssetState } from 'src/app/views/pages/profiling/category/store/categoryAsset.state';
+import { ExpenseAccountState } from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
+import { GetLiabilityAccountsState } from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
 
 @Injectable({
   providedIn: 'root'
@@ -129,11 +132,26 @@ export class NgxsCustomService {
   @Select(BudgetAccountState.isFetchCompleted) budgetAccountFetchCompleted$: Observable<any>;
   @Select(BudgetAccountState.isLoading) budgetAccountIsLoading$: Observable<any>;
 
+  // Expense Accounts
+  @Select(ExpenseAccountState.entities) expenseAccount$: Observable<any>;
+  @Select(ExpenseAccountState.isFetchCompleted) expenseAccountFetchCompleted$: Observable<any>;
+  @Select(ExpenseAccountState.isLoading) expenseAccountIsLoading$: Observable<any>;
+
+  // Liability Accounts
+  @Select(GetLiabilityAccountsState.entities) getLiabilityAccounts$: Observable<any>;
+  @Select(GetLiabilityAccountsState.isFetchCompleted) getLiabilityAccountsFetchCompleted$: Observable<any>;
+  @Select(GetLiabilityAccountsState.isLoading) getLiabilityAccountsIsLoading$: Observable<any>;
+
 
   // Category
   @Select(CategoryState.entities) categories$: Observable<any>;
   @Select(CategoryState.isFetchCompleted) categoryFetchCompleted$: Observable<any>;
   @Select(CategoryState.isLoading) categoryIsLoading$: Observable<any>;
+  
+  // Category Asset
+  @Select(CategoryAssetState.entities) categoriesAsset$: Observable<any>;
+  @Select(CategoryAssetState.isFetchCompleted) categoriesAssetFetchCompleted$: Observable<any>;
+  @Select(CategoryAssetState.isLoading) categoriesAssetIsLoading$: Observable<any>;
 
   // Product
   @Select(ProductState.entities) products$: Observable<any>;
@@ -329,6 +347,19 @@ export class NgxsCustomService {
     })
   }  
 
+  // Get All Category Assets State From Store if available else fetch from the server and cache.
+  getCategoryAssetFromState() {
+    this.categoriesAssetFetchCompleted$.subscribe((res) => {
+      if (!res) {
+        this.store.dispatch(new GetList(CategoryAssetState, {
+          serviceClass: this.categoryService,
+          methodName: 'getCategoryAssetsDropdown',
+          context: this
+        }))
+      }
+    })
+  }  
+
   // Get All Payable Accounts State From Store if available else fetch from the server and cache.
   getAccountPayableFromState() {
     this.accountPayableFetchCompleted$.subscribe((res) => {
@@ -365,6 +396,34 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(OtherAccountState, {
           serviceClass: this.chartOfAccountService,
           methodName: 'getOtherAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get Expense Accounts State From Store if available else fetch from the server and cache.
+  getExpenseAccountsFromState() {
+    this.expenseAccountFetchCompleted$.subscribe((res) => {
+      //console.log('Other Account FetchCompleted: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(ExpenseAccountState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getExpenseAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get All Other Accounts State From Store if available else fetch from the server and cache.
+  getLiabilityAccountsFromState() {
+    this.getLiabilityAccountsFetchCompleted$.subscribe((res) => {
+      //console.log('Other Account FetchCompleted: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(GetLiabilityAccountsState, {
+          serviceClass: this.chartOfAccountService,
+          methodName: 'getLiabilityAccounts',
           context: this
         }))
       }
