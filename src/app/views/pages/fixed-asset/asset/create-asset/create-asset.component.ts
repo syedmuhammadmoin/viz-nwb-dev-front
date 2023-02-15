@@ -81,6 +81,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     categoryId: {
       required: 'Category is required.',
     },
+    warehouseId: {
+      required: 'Store is required.',
+    },
     depreciationId: {
       required: 'Depreciation Ac is required.',
     },
@@ -114,6 +117,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       name: '',
       purchaseCost: '',
       categoryId:'',
+      warehouseId:'',
       depreciationId:'',
       modelType: '',
       assetAccountId:'',
@@ -150,6 +154,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       purchaseCost: ['', [Validators.required]],
       categoryId:['', [Validators.required]],
       salvageValue:[0],
+      warehouseId:['' , [Validators.required]],
       depreciationApplicability: [false],
       depreciationId:[null],
       modelType: [0],
@@ -170,6 +175,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     purchaseCost: null,
     categoryId:null,
     salvageValue:null,
+    warehouseId:null,
     depreciationApplicability: false,
     depreciationId:null,
     modelType: '',
@@ -196,6 +202,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.ngxsService.getOtherAccountsFromState();
     this.ngxsService.getAssetAccountFromState();
     this.ngxsService.getCategoryAssetFromState();
+    this.ngxsService.getWarehouseFromState();
 
     // getting product data for asset
 
@@ -318,6 +325,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       purchaseCost: asset.purchaseCost,
       categoryId:asset.categoryId,
       salvageValue: asset.salvageValue,
+      warehouseId: asset.warehouseId,
       depreciationApplicability: asset.depreciationApplicability,
       depreciationId:asset.depreciationId,
       modelType: asset.modelType,
@@ -368,6 +376,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   //Submit Form Function
   onSubmit(): void {
+    console.log(this.assetForm)
     if (this.assetForm.invalid) {
       return;
     }
@@ -423,21 +432,25 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       this.assetForm.get('useFullLife').setValidators([Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')])
     }
     if(!e.checked){
-      this.resetFields(this.assetForm , 'depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
+      this.resetFields(this.assetForm , 'depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'assetAccountId', 'useFullLife' , 'decLiningRate')
       this.assetForm.get('prorataBasis').setValue(false);
       this.assetForm.get('active').setValue(false);
-      this.assetForm.get('useFullLife').clearValidators();
+      this.assetForm.get('modelType').setValue(0);
+      this.getModelType(0)
+      // this.assetForm.get('useFullLife').clearValidators();
     }
-    this.conditionalValidation(this.assetForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId'])
+    this.conditionalValidation(this.assetForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId','assetAccountId','useFullLife'])
     this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages);
 
   }
 
   getModelType(e){
-
+    console.log(e)
     if(e){
+      console.log(e + 'true')
       this.isModelType = true;
     }else{
+      console.log(e + 'false')
       this.isModelType = false;
     }
 
@@ -485,6 +498,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetModel.purchaseCost =  this.assetForm.value.purchaseCost,
     this.assetModel.categoryId = this.assetForm.value.categoryId,
     this.assetModel.salvageValue = this.assetForm.value.salvageValue,
+    this.assetModel.warehouseId = this.assetForm.value.warehouseId,
     this.assetModel.depreciationApplicability =  this.assetForm.value.depreciationApplicability,
     this.assetModel.depreciationId = this.assetForm.value.depreciationId,
     this.assetModel.modelType = this.assetForm.value.modelType,
