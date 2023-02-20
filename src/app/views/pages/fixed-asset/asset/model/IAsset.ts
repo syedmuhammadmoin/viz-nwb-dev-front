@@ -1,23 +1,28 @@
 export interface IAsset {
-    id: number,
+    id ?: number,
     dateofAcquisition:string,
     name: string,
-    purchaseCost: number,
-    categoryId:number,
-    salvageValue:number,
+    cost: number,
+    productId:number,
     warehouseId:number,
+    salvageValue:number,
     depreciationApplicability: boolean,
-    depreciationId:number,
-    modelType: string,
+    depreciationModelId:number,
+    useFullLife:number,
     assetAccountId: string,
     depreciationExpenseId: string,
     accumulatedDepreciationId: string,
-    useFullLife:number,
+    modelType: string,
     decLiningRate: number,
-    isSubmit?: boolean,
     prorataBasis: boolean,
-    active: boolean
+    isActive: boolean,
+    docId: number,
+    doctype: number,
+    quantity ?: number,
+    isSubmit?: boolean,
   }
+
+
 
 
   

@@ -76,12 +76,12 @@
                         <div class="col-lg-6 col-md-6 col-sm-6" *ngIf="this.showDepreciation">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Depreciation Model:</label>
-                                <kt-simple-dropdown id="asset_model" formControlName="depreciationId"
+                                <kt-simple-dropdown id="asset_model" formControlName="depreciationModelId"
                                     matFormFieldClass="full-width"
                                     (blurEvent)="logValidationErrors(categoryForm, this.formErrors, this.validationMessages)"
                                     propertyName="modelName" 
                                     propertyValue="id" 
-                                    [errorMessage]="formErrors.depreciationId"
+                                    [errorMessage]="formErrors.depreciationModelId"
                                     [optionList]="ngxsService.depreciationModels$" placeholder="Select Model">
                                 </kt-simple-dropdown>
                             </div>

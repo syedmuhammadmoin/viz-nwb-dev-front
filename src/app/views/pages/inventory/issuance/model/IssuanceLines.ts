@@ -7,4 +7,5 @@ export interface IIssuanceLines {
     tax?: number;
     accountId?: number;
     warehouseId: number;
+    fixedAssetId: number;
 }

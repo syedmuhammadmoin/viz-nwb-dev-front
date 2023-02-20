@@ -44,7 +44,7 @@
           </div>
 
           <div class="row">
-            <div class="col-lg-6 col-sm-6 col-md-6">
+            <div [ngClass]="((this.isQuantity) ? 'col-lg-4 col-md-4 col-sm-4' : 'col-lg-6 col-md-6 col-sm-6')">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label pt-0">Name:</label>
                 <kt-input-field 
@@ -56,19 +56,36 @@
                 </kt-input-field>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6">
+            <div [ngClass]="((this.isQuantity) ? 'col-lg-4 col-md-4 col-sm-4' : 'col-lg-6 col-md-6 col-sm-6')">
               <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label pt-0">Purchase Cost:</label>
+                <label class="col-form-label pt-0">Cost:</label>
                 <mat-form-field appearance="outline" class="full-width">
                   <input 
                   matInput 
-                  formControlName="purchaseCost"
+                  formControlName="cost"
                   placeholder="Enter Purchase Price" 
                   id="asset_purchasePrice" 
                   type="number"
                   (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
-                  <mat-error *ngIf="formErrors.purchaseCost">
-                  <strong>{{formErrors.purchaseCost}}</strong>
+                  <mat-error *ngIf="formErrors.cost">
+                  <strong>{{formErrors.cost}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div *ngIf="this.isQuantity" [ngClass]="((this.isQuantity) ? 'col-lg-4 col-md-4 col-sm-4' : 'col-lg-6 col-md-6 col-sm-6')">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Quantity:</label>
+                <mat-form-field appearance="outline" class="full-width">
+                  <input 
+                  matInput 
+                  formControlName="quantity"
+                  placeholder="Enter Quantity" 
+                  id="asset_quantity" 
+                  type="number"
+                  (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
+                  <mat-error *ngIf="formErrors.quantity">
+                  <strong>{{formErrors.quantity}}</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -93,17 +110,17 @@
 
             <div class="col-lg-4 col-sm-4 col-md-4">
               <div class="form-group kt-form__group mb-0">
-                <label class="col-form-label pt-0">Category:</label>
+                <label class="col-form-label pt-0">products:</label>
                 <kt-simple-dropdown 
-                      id="asset_category" 
-                      formControlName="categoryId" 
+                      id="asset_product" 
+                      formControlName="productId" 
                       matFormFieldClass="full-width"
                       (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
-                      propertyName="name" 
+                      propertyName="productName" 
                       propertyValue="id" 
-                      [errorMessage]="formErrors.categoryId"
-                      [optionList]="ngxsService.categories$"
-                      placeholder="Select Category">
+                      [errorMessage]="formErrors.productId"
+                      [optionList]="ngxsService.products$"
+                      placeholder="Select Product">
                     </kt-simple-dropdown>
               </div>
             </div>
@@ -133,13 +150,13 @@
                 <label class="col-form-label pt-0">Depreciation Model:</label>
                 <kt-simple-dropdown 
                   id="asset_model" 
-                  formControlName="depreciationId"
+                  formControlName="depreciationModelId"
                   matFormFieldClass="full-width" 
                   (selectionChange)="getDepreciationModel($event.value)"
                   (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
                   propertyName="modelName" 
                   propertyValue="id" 
-                  [errorMessage]="formErrors.depreciationId"
+                  [errorMessage]="formErrors.depreciationModelId"
                   [optionList]="ngxsService.depreciationModels$"
                   placeholder="Select Model">
                 </kt-simple-dropdown>
@@ -266,8 +283,8 @@
             <div class="col-lg-3 col-sm-3 col-md-3">
               <div class="form-group kt-form__group mb-0">
                 <div apperence="outline" class="full-width">
-                  <mat-slide-toggle id="asset_active"
-                    formControlName="active">Active</mat-slide-toggle>
+                  <mat-slide-toggle id="asset_isActive"
+                    formControlName="isActive">Active</mat-slide-toggle>
                 </div>
               </div>
             </div>

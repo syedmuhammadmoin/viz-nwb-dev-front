@@ -5,7 +5,7 @@ import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, BANK_ACCOUNT,
          PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, 
          PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, 
          STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET, REQUEST_REQUISITION, BID_EVALUATION,
-          QUOTATION, QUOTATION_COMPARATIVE, CALL_QUOTATION, CWIP } from 'src/app/views/shared/AppRoutes';
+          QUOTATION, QUOTATION_COMPARATIVE, CALL_QUOTATION, CWIP, DISPOSAL } from 'src/app/views/shared/AppRoutes';
 
 
 import { Permissions } from '../../views/shared/AppEnum'
@@ -404,10 +404,10 @@ export class MenuConfig {
             Permissions.ASSET_CREATE,
             Permissions.ASSET_EDIT,
             Permissions.ASSET_DELETE,
-            Permissions.CWIP_VIEW,
-            Permissions.CWIP_CREATE,
-            Permissions.CWIP_EDIT,
-            Permissions.CWIP_DELETE,
+            // Permissions.CWIP_VIEW,
+            // Permissions.CWIP_CREATE,
+            // Permissions.CWIP_EDIT,
+            // Permissions.CWIP_DELETE,
             // Permissions.DISPOSAL_VIEW,
             // Permissions.DISPOSAL_CREATE,
             // Permissions.DISPOSAL_EDIT,
@@ -434,16 +434,16 @@ export class MenuConfig {
                 Permissions.ASSET_DELETE
               ]
             },
-            {
-              title: 'Cwip',
-              page: '/' + CWIP.LIST,
-              permission: [
-                Permissions.CWIP_CREATE,
-                Permissions.CWIP_CREATE,
-                Permissions.CWIP_EDIT,
-                Permissions.CWIP_DELETE
-              ]
-            },
+            // {
+            //   title: 'Cwip',
+            //   page: '/' + CWIP.LIST,
+            //   permission: [
+            //     Permissions.CWIP_CREATE,
+            //     Permissions.CWIP_CREATE,
+            //     Permissions.CWIP_EDIT,
+            //     Permissions.CWIP_DELETE
+            //   ]
+            // },
             // {
             //   title: 'Disposal',
             //   page: '/' + DISPOSAL.LIST,

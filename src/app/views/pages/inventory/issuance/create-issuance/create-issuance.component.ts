@@ -35,7 +35,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   issuanceForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'warehouseId', 'action']
+  displayedColumns = ['itemId', 'fixedAssetId' , 'description', 'quantity', 'warehouseId', 'action']
 
   // Getting Table by id
   @ViewChild('table', { static: true }) table: any;
@@ -60,6 +60,9 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   // for getting employee
   employee = {} as any;
 
+    //selected Fixedasset to assign
+    fixedAssetList: any = new BehaviorSubject<any>([])
+
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
@@ -70,6 +73,9 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
+  //for resetting form
+  disableFixedAsset = false
+
   // Validation messages..
   validationMessages = {
     employeeId: {
@@ -77,14 +83,19 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     },
     issuanceDate: {
       required: 'Issuance Date is required.',
+    },
+    fixedAssetId: {
+      required: 'Asset is required.',
     }
   };
 
   // error keys..
   formErrors = {
     employeeId: '',
-    issuanceDate: ''
+    issuanceDate: '',
+    fixedAssetId: ''
   };
+  isFixedAsset: any;
 
   //Injecting Dependencies
   constructor(private fb: FormBuilder,
@@ -116,6 +127,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       ])
     });
 
+    this.issuanceForm.get('issuanceLines')['controls'][0].controls.fixedAssetId.disable();
+
     this.issuanceModel = {
       id: null,
       employeeId: null,
@@ -129,7 +142,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.ngxsService.getEmployeeFromState();
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getProductFromState();
-    this.ngxsService.getCampusFromState()
+    this.ngxsService.getCampusFromState();
     
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
@@ -155,6 +168,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.formDirective.resetForm();
     this.showMessage = false;
     this.warehouseList.next([])
+    this.fixedAssetList.next([])
     this.table.renderRows();
   }
 
@@ -163,12 +177,14 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     const controls = this.issuanceForm.controls.issuanceLines as FormArray;
     controls.push(this.addIssuanceLines());
     this.table.renderRows();
+    this.issuanceForm.get('issuanceLines')['controls'][(this.issuanceForm.get('issuanceLines')['controls'].length - 1)].controls.fixedAssetId.disable();
   }
 
   // Add Issuance Lines
   addIssuanceLines(): FormGroup {
     return this.fb.group({
       itemId: ['', Validators.required],
+      fixedAssetId: [{value : '' , disable : true}],
       description: ['', Validators.required],
       quantity: ['', [Validators.required,Validators.min(1)]],
       warehouseId: ['', Validators.required]
@@ -198,6 +214,11 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       if (!res) return
       this.issuanceModel = res.result
       this.patchIssuance(this.issuanceModel)
+      res.result.issuanceLines.forEach((x , index) =>{
+        this.onItemSelected(x.itemId , index)
+      })
+      
+      console.log(res.result)
     });
   }
 
@@ -244,6 +265,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
         formArray.push(this.fb.group({
           id: (this.isRequisition) ? 0 : line.id,
           itemId: [line.itemId , Validators.required],
+          fixedAssetId: [line.fixedAssetId],
           description: [line.description , Validators.required],
           quantity: (this.isRequisition) ? [line.pendingQuantity , [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
           [line.quantity , [Validators.required,Validators.min(1)]],
@@ -381,5 +403,28 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     //set warehouse values to null after campus change
      this.issuanceForm.get('issuanceLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
      this.cdRef.detectChanges()
+  }
+
+  onItemSelected(itemId : number , curretIndex ?: number){
+    this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.disable();
+    console.log(curretIndex + ' current index')
+    console.log(itemId);
+    this.ngxsService.products$.subscribe(res => {
+      this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
+    })
+
+    if(this.isFixedAsset){
+      this.ngxsService.assetService.getAssetsProductDropdownById(itemId).subscribe(res =>{
+        this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.enable();
+        this.fixedAssetList.next(res.result || [])
+        console.log(res)
+      })
+    }
+    else{
+      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.setValue(null);
+      console.log(this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.value)
+    }
+
+
   }
 }

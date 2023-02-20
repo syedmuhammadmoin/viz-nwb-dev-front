@@ -70,7 +70,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     costAccount: {
       required: 'Cost Account is required.',
     },
-    depreciationId: {
+    depreciationModelId: {
       required: 'Depreciation Account is required.',
       //incorrect: 'Please select valid Cost Account'
     },
@@ -82,7 +82,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     inventoryAccount: '',
     revenueAccount: '',
     costAccount: '',
-    depreciationId: '',
+    depreciationModelId: '',
   };
 
   constructor(private fb: FormBuilder,
@@ -105,7 +105,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       revenueAccount: ['', [Validators.required]],
       costAccount: ['', [Validators.required]],
       isFixedAsset: [0, [Validators.required]],
-      depreciationId: [null]
+      depreciationModelId: [null]
     });
 
     this.loadAssetList({value: 0});
@@ -149,7 +149,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       revenueAccount: category.revenueAccountId,
       costAccount: category.costAccountId,
       isFixedAsset: (category.isFixedAsset === false) ? 0 : 1,
-      depreciationId: category.depreciationId
+      depreciationModelId: category.depreciationModelId
     });
 
     this.loadAssetList({value: (category.isFixedAsset === false) ? 0 : 1})
@@ -173,8 +173,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
         console.log(res);
         this.assetAccountList.next(res.result || [])
         this.showDepreciation = false
-        this.categoryForm.get('depreciationId').clearValidators()
-        this.categoryForm.get('depreciationId').updateValueAndValidity();
+        this.categoryForm.get('depreciationModelId').clearValidators()
+        this.categoryForm.get('depreciationModelId').updateValueAndValidity();
         this.cdRef.markForCheck();
       })
     } else{
@@ -182,8 +182,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
         console.log(res);
         this.assetAccountList.next(res.result || [])
         this.showDepreciation = true
-        this.categoryForm.get('depreciationId').setValidators([Validators.required])
-        this.categoryForm.get('depreciationId').updateValueAndValidity();
+        this.categoryForm.get('depreciationModelId').setValidators([Validators.required])
+        this.categoryForm.get('depreciationModelId').updateValueAndValidity();
         this.cdRef.markForCheck();
       })
     }
@@ -241,7 +241,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     this.category.revenueAccountId = this.categoryForm.value.revenueAccount;
     this.category.costAccountId = this.categoryForm.value.costAccount;
     this.category.isFixedAsset = (this.categoryForm.value.isFixedAsset === 0) ? false : true;
-    this.category.depreciationId = this.categoryForm.value.depreciationId;
+    this.category.depreciationModelId = this.categoryForm.value.depreciationModelId;
   }
 
   reset() {

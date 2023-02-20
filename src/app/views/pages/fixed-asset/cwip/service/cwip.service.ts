@@ -21,10 +21,6 @@ export class CwipService extends AppServiceBase {
       return this.httpClient.get<IPaginationResponse<ICwip[]>>(this.baseUrl)
   }
 
-//   getCwipDropdown(): Observable<IApiResponse<ICwip[]>> {
-//       return this.httpClient.get<IApiResponse<ICwip[]>>(this.baseUrl + '/dropdown')
-//   }
-
   getCwipById(id: number): Observable<IApiResponse<ICwip>> {
       return this.httpClient.get<IApiResponse<ICwip>>(`${this.baseUrl}/${id}`)
   }

@@ -82,8 +82,8 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       }
     },
     {
-      headerName: 'Category',
-      field: 'categoryName',
+      headerName: 'Product',
+      field: 'product',
       tooltipField: 'name',
       // filter: 'agDateColumnFilter',
       // menuTabs: ['filterMenuTab'],

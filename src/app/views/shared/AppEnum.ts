@@ -317,10 +317,10 @@ export class Permissions {
   static ASSET_CATEGORY_DELETE = "Permissions.AssetCategoryClaims.Delete";
 
   //Depreciation Model
-  static DEPRECIATION_MODEL_VIEW = "Permissions.FixedAsset.DepreciationClaims.View";
-  static DEPRECIATION_MODEL_CREATE = "Permissions.FixedAsset.DepreciationClaims.Create";
-  static DEPRECIATION_MODEL_EDIT = "Permissions.FixedAsset.DepreciationClaims.Edit";
-  static DEPRECIATION_MODEL_DELETE = "Permissions.FixedAsset.DepreciationClaims.Delete";
+  static DEPRECIATION_MODEL_VIEW = "Permissions.FixedAsset.DepreciationModelClaims.View";
+  static DEPRECIATION_MODEL_CREATE = "Permissions.FixedAsset.DepreciationModelClaims.Create";
+  static DEPRECIATION_MODEL_EDIT = "Permissions.FixedAsset.DepreciationModelClaims.Edit";
+  static DEPRECIATION_MODEL_DELETE = "Permissions.FixedAsset.DepreciationModelClaims.Delete";
 
   //Asset
   static ASSET_VIEW = "Permissions.FixedAsset.FixedAssetClaims.View";
@@ -335,10 +335,10 @@ export class Permissions {
   static CWIP_DELETE = "Permissions.FixedAsset.CWIPClaims.Delete";
 
   //Disposal
-  // static DISPOSAL_VIEW = "Permissions.FixedAsset.DisposalClaims.View";
-  // static DISPOSAL_CREATE = "Permissions.FixedAsset.DisposalClaims.Create";
-  // static DISPOSAL_EDIT = "Permissions.FixedAsset.DisposalClaims.Edit";
-  // static DISPOSAL_DELETE = "Permissions.FixedAsset.DisposalClaims.Delete";
+  static DISPOSAL_VIEW = "Permissions.FixedAsset.DisposalClaims.View";
+  static DISPOSAL_CREATE = "Permissions.FixedAsset.DisposalClaims.Create";
+  static DISPOSAL_EDIT = "Permissions.FixedAsset.DisposalClaims.Edit";
+  static DISPOSAL_DELETE = "Permissions.FixedAsset.DisposalClaims.Delete";
   
 
   // allowance

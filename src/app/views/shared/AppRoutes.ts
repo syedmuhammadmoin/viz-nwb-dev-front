@@ -82,7 +82,7 @@ export const APP_ROUTES = {
   ASSET_CATEGORY: 'asset-category',
   ASSET: 'asset',
   CWIP: 'cwip',
-  // DISPOSAL: 'disposal'
+  DISPOSAL: 'disposal'
 }
 
 export const CRUD_ROUTES = {
@@ -359,13 +359,13 @@ export const CRUD_ROUTES = {
     }
   }
 
-  // export const DISPOSAL = {
-  //   LIST: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.LIST,
-  //   CREATE: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.CREATE,
-  //   ID_BASED_ROUTE (route: string , id: number) {       
-  //     return APP_ROUTES.DISPOSAL + '/' + route + '/' + id
-  //   }
-  // }
+  export const DISPOSAL = {
+    LIST: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.LIST,
+    CREATE: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.CREATE,
+    ID_BASED_ROUTE (route: string , id: number) {       
+      return APP_ROUTES.DISPOSAL + '/' + route + '/' + id
+    }
+  }
 
   //PAYROLL SECTION
   export const PAYROLL_ITEM = {

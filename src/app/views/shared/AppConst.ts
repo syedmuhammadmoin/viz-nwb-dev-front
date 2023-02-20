@@ -401,10 +401,10 @@ export class AppConst {
     'Permissions.AssetCategoryClaims.Delete': 'Asset Category Delete',
 
     // Depreciation Model
-    'Permissions.FixedAsset.DepreciationClaims.View': 'Depreciation Model View',
-    'Permissions.FixedAsset.DepreciationClaims.Create': 'Depreciation Model Create',
-    'Permissions.FixedAsset.DepreciationClaims.Edit': 'Depreciation Model Update',
-    'Permissions.FixedAsset.DepreciationClaims.Delete': 'Depreciation Model Delete',
+    'Permissions.FixedAsset.DepreciationModelClaims.View': 'Depreciation Model View',
+    'Permissions.FixedAsset.DepreciationModelClaims.Create': 'Depreciation Model Create',
+    'Permissions.FixedAsset.DepreciationModelClaims.Edit': 'Depreciation Model Update',
+    'Permissions.FixedAsset.DepreciationModelClaims.Delete': 'Depreciation Model Delete',
 
     // Asset
     'Permissions.AssetClaims.View': 'Asset View',
@@ -419,11 +419,11 @@ export class AppConst {
     'Permissions.FixedAsset.CWIPClaims.Delete': 'CWIP Delete',
 
 
-    // Disposal
-    // 'Permissions.FixedAsset.DisposalClaims.View': 'Disposal View',
-    // 'Permissions.FixedAsset.DisposalClaims.Create': 'Disposal Create',
-    // 'Permissions.FixedAsset.DisposalClaims.Edit': 'Disposal Update',
-    // 'Permissions.FixedAsset.DisposalClaims.Delete': 'Disposal Delete',
+    //Disposal
+    'Permissions.FixedAsset.DisposalClaims.View': 'Disposal View',
+    'Permissions.FixedAsset.DisposalClaims.Create': 'Disposal Create',
+    'Permissions.FixedAsset.DisposalClaims.Edit': 'Disposal Update',
+    'Permissions.FixedAsset.DisposalClaims.Delete': 'Disposal Delete',
 
     
   }
@@ -472,7 +472,7 @@ export class AppConst {
     {value: 'Call Quotation' , id: DocType.CallForQuotaion},
     {value: 'Fixed Asset' , id: DocType.FixedAsset},
     {value: 'CWIP ' , id: DocType.CWIP},
-    // {value: 'Disposal' , id: DocType.Disposal}
+    {value: 'Disposal' , id: DocType.Disposal}
 
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

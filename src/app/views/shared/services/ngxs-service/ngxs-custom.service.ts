@@ -54,6 +54,7 @@ import { RequisitionService } from 'src/app/views/pages/procurement/requisition/
 import { CategoryAssetState } from 'src/app/views/pages/profiling/category/store/categoryAsset.state';
 import { ExpenseAccountState } from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
 import { GetLiabilityAccountsState } from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
+import { AssetService } from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
 
 @Injectable({
   providedIn: 'root'
@@ -74,6 +75,7 @@ export class NgxsCustomService {
     public organizationService: OrganizationService,
     public productService: ProductService,
     public warehouseService: WarehouseService,
+    public assetService: AssetService,
     public payrollItemService: PayrollItemService,
     public unitOfMeasurementService: UnitOfMeasurementService,
     public requisitionService: RequisitionService,

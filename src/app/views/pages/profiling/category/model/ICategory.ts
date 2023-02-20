@@ -5,5 +5,5 @@ export interface ICategory {
     revenueAccountId: number;
     costAccountId: number;
     isFixedAsset: boolean;
-    depreciationId: number
+    depreciationModelId: number
 }
