@@ -5,6 +5,7 @@ export interface IIssuanceReturnLines {
     quantity   : number;
     accountId?: number;
     warehouseId : number;
+    fixedAssetId: number;
 }
   
 

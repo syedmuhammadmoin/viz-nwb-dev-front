@@ -360,7 +360,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       useFullLife:asset.useFullLife,
       decLiningRate: asset.decLiningRate,
       prorataBasis: asset.prorataBasis,
-      isActive: asset.active
+      isActive: asset.isActive
+
     });
 
     this.getModelType(asset.modelType)
@@ -479,6 +480,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     }else{
       console.log(e + 'false')
       this.isModelType = false;
+      this.assetForm.get('decLiningRate').setValue(0)
     }
 
     this.conditionalValidation(this.assetForm, e , ['decLiningRate'])

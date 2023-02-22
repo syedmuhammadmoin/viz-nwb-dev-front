@@ -40,7 +40,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   requisitionForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'purchasePrice', 'subTotal', 'warehouseId', 'availableQuantity', 'action'];
+  displayedColumns = ['itemId', 'fixedAssetId' , 'description', 'quantity', 'purchasePrice', 'subTotal', 'warehouseId', 'availableQuantity', 'action'];
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -59,6 +59,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   // switch
   userStatus = 'Workflow is Applied'
+
+  //selected Fixedasset to assign
+  fixedAssetsDropdown = [];
+  isFixedAsset: any;
 
   // For Calculation
   grandTotal = 0 ;
@@ -92,12 +96,16 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     },
     requisitionDate: {
       required: 'Requisition Date is required.'
+    },
+    fixedAssetId: {
+      required: 'Asset is required.',
     }
   }
 
   formErrors = {
     employeeId: '',
-    requisitionDate: ''
+    requisitionDate: '',
+    fixedAssetId : ''
   }
 
   //Injecting Dependencies
@@ -131,6 +139,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       ])
     });
 
+    this.requisitionForm.get('requisitionLines')['controls'][0].controls.fixedAssetId.disable();
+
      //Get Data from Store
      this.ngxsService.getEmployeeFromState();
      this.ngxsService.getAccountLevel4FromState()
@@ -161,6 +171,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionForm.get('isWithoutWorkflow').setValue(false);
     this.onToggle({checked: false})
     this.table.renderRows();
+    this.fixedAssetsDropdown = [];
   }
 
   //for save or submit
@@ -178,6 +189,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       arrayControl.at(index).get('purchasePrice').setValue(price);
       this.onChangeEvent(null, index)
     }
+
+    this.onItemSelectedGetAsset(itemId , index)
+
   }
 
   // For Calculating subTotal and Quantity to Ton and vice versa Conversion
@@ -214,11 +228,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     const controls = this.requisitionForm.controls.requisitionLines as FormArray;
     controls.push(this.addRequisitionLines());
     this.table.renderRows();
+    this.requisitionForm.get('requisitionLines')['controls'][(this.requisitionForm.get('requisitionLines')['controls'].length - 1)].controls.fixedAssetId.disable();
   }
 
   addRequisitionLines(): FormGroup {
     return this.fb.group({
       itemId: [null, [ Validators.required]],
+      fixedAssetId: [''],
       description: ['', Validators.required],
       purchasePrice: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required, Validators.min(1)]],
@@ -272,6 +288,9 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       }
       this.requisitionModel = res.result
       this.editRequisition(this.requisitionModel)
+      res.result.requisitionLines.forEach((x, index) => {
+        this.onItemSelectedGetAsset(x.itemId, index)
+      })
     });
   }
 
@@ -297,6 +316,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       formArray.push(this.fb.group({
         id: (this.isRequestRequisition) ? 0 : line.id,
         itemId: [line.itemId, [ Validators.required]],
+        fixedAssetId: [line.fixedAssetId],
         description: [line.description ?? line.description, Validators.required],
         purchasePrice: [line.purchasePrice, [Validators.required, Validators.min(1)]],
         quantity: [line.quantity ?? line.quantity, [Validators.required, Validators.min(1)]],
@@ -471,5 +491,35 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       this.stockService.getStockByIds({itemId: itemId, warehouseId: warehouseId})
       .subscribe((res) => arrayControl.at(index).get('availableQuantity').setValue((res.result) ? res.result.availableQuantity : 0))
     }
+  }
+
+  onItemSelectedGetAsset(itemId: number, curretIndex?: number) {
+
+    this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.disable();
+
+    this.ngxsService.products$.subscribe(res => {
+      this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
+    })
+
+    if (this.isFixedAsset) {
+      this.ngxsService.assetService.getAssetsProductDropdownById(itemId).subscribe(res => {
+        this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.enable();
+        this.fixedAssetsDropdown[curretIndex] = res.result
+        this.cdRef.detectChanges()
+
+      })
+
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
+      this.cdRef.detectChanges()
+    }
+    else {
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.setValue(null);
+      // this.cdRef.detectChanges()
+    }
+
+    // this.logValidationErrors(this.issuanceForm, this.formErrors , this.validationMessages);
+
   }
 }

@@ -1,23 +1,25 @@
 export interface ICwip {
 
     id: number,
+    name: string,
     dateOfAcquisition: string,
     cwipAccountId: string,
-    costOfAsset: number,
-    assetAccountId: string,
-    salvageValue: number,
-    campusId: number,
+    cost: number,
+    productId: number,
     warehouseId: number,
+    salvageValue: number,
     depreciationApplicability: boolean,
-    depreciationId: number,
-    modelType: number,
+    depreciationModelId: number,
+    useFullLife: number,
+    assetAccountId: string,
     depreciationExpenseId: string,
     accumulatedDepreciationId: string,
-    useFullLife: number,
-    quantinty: number,
+    modelType: number,
     decLiningRate: number,
+    quantity: number,
     prorataBasis: boolean,
-    active: boolean,
+    isActive: boolean,
     isSubmit: boolean
 
 }
+

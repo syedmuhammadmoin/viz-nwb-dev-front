@@ -29,7 +29,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   issuanceReturnForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'description', 'quantity', 'warehouseId', 'action']
+  displayedColumns = ['itemId' , 'fixedAssetId' , 'description', 'quantity', 'warehouseId', 'action']
 
   // Getting Table by id
   @ViewChild('table', {static: true}) table: any;
@@ -56,6 +56,10 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   //For getting employee
   employee = {} as any;
+
+  //selected Fixedasset to assign
+  fixedAssetsDropdown = [];
+  isFixedAsset: any;
 
   // for Edit
   isIssuanceReturn: any;
@@ -85,6 +89,10 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       minlength: 'Minimun 10 digits.',
       maxlength: 'Maximum 15 digits.'
     }
+    ,
+    fixedAssetId: {
+      required: 'Asset is required.',
+    }
   }
 
   // Error Keys
@@ -92,7 +100,8 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     employeeId: '',
     issuanceReturnDate: '',
     contact: '',
-    campusId: ''
+    campusId: '',
+    fixedAssetId: ''
   }
 
   //Injecting Dependencies
@@ -123,6 +132,8 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       ])
     });
 
+    this.issuanceReturnForm.get('issuanceReturnLines')['controls'][0].controls.fixedAssetId.disable();
+
     this.ngxsService.products$.subscribe(res => this.salesItem = res);
 
     //Get Data from Store
@@ -152,6 +163,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
+    this.fixedAssetsDropdown = [];
   }
 
   //for save or submit
@@ -164,11 +176,13 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     const controls = this.issuanceReturnForm.controls.issuanceReturnLines as FormArray;
     controls.push(this.addIssuanceReturnLines());
     this.table.renderRows();
+    this.issuanceReturnForm.get('issuanceReturnLines')['controls'][(this.issuanceReturnForm.get('issuanceReturnLines')['controls'].length - 1)].controls.fixedAssetId.disable();
   }
 
   addIssuanceReturnLines(): FormGroup {
     return this.fb.group({
       itemId: ['', [Validators.required]],
+      fixedAssetId: [''],
       description: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
       warehouseId: ['', [Validators.required]],
@@ -206,6 +220,9 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       if (!res) return
       this.issuanceMaster = res.result
       this.patchIssuanceReturn(this.issuanceMaster);
+      res.result.issuanceLines.forEach((x, index) => {
+        this.onItemSelected(x.itemId, index)
+      })
     });
   }
 
@@ -224,6 +241,9 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       if (!res) return
       this.issuanceReturnModel = res.result
       this.patchIssuanceReturn(this.issuanceReturnModel)
+      res.result.issuanceReturnLines.forEach((x : any, index : any) => {
+        this.onItemSelected(x.itemId, index)
+      })
     });
   }
 
@@ -233,7 +253,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       employeeId: data.employeeId,
       issuanceReturnDate: data.issuanceReturnDate ?? data.issuanceDate,
       campusId : data.campusId,
-      contact: data.contact
+      contact: data.contact,
     });
 
     this.onCampusSelected(data.campusId)
@@ -251,6 +271,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     if(line.pendingQuantity !== 0) {
       formArray.push(this.fb.group({
       itemId: [line.itemId, [Validators.required]],
+      fixedAssetId: [line.fixedAssetId],
       description: [line.description, Validators.required],
       quantity: [(line.pendingQuantity) ? line.pendingQuantity : line.quantity, [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]],
       warehouseId: [line.warehouseId, [Validators.required]]
@@ -373,6 +394,36 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
      this.issuanceReturnForm.get('issuanceReturnLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
      this.cdRef.detectChanges()
+  }
+
+  onItemSelected(itemId: number, curretIndex?: number) {
+
+    this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.disable();
+
+    this.ngxsService.products$.subscribe(res => {
+      this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
+    })
+
+    if (this.isFixedAsset) {
+      this.ngxsService.assetService.getAssetsProductDropdownById(itemId).subscribe(res => {
+        this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.enable();
+        this.fixedAssetsDropdown[curretIndex] = res.result
+        this.cdRef.detectChanges()
+
+      })
+
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
+      this.cdRef.detectChanges()
+    }
+    else {
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValue(null);
+      // this.cdRef.detectChanges()
+    }
+
+    // this.logValidationErrors(this.issuanceForm, this.formErrors , this.validationMessages);
+
   }
 }
 

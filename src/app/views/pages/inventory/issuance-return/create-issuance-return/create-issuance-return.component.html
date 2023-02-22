@@ -119,11 +119,30 @@
                                       [optionList]="ngxsService.products$"
                                       clickEventButtonName="Add New Item"
                                       (clickEvent)="openProductDialog()"
+                                      (selectionChange)="onItemSelected($event.value , i)"
                                       propertyName="productName"
                                       propertyValue="id"
                                       matFormFieldClass="mobile-label full-width"
                                       [errorMessage]="'Item is required.'">
                                     </kt-simple-dropdown>
+                              </div>
+                            </mat-cell>
+                          </ng-container>
+                          <ng-container matColumnDef="fixedAssetId">
+                            <mat-header-cell *matHeaderCellDef class="flex-1"> Fixed Asset</mat-header-cell>
+                            <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                              <div class="col-lg-12 col-sm-12 mt-2" >
+                                <kt-simple-dropdown 
+                                propertyValue="id" 
+                                propertyName="name"                               
+                                [optionList]="fixedAssetsDropdown[i]"
+                                [id]="'issuance_fixedasset_' + i"
+                                formControlName="fixedAssetId"
+                                (blurEvent)="logValidationErrors(issuanceReturnForm, formErrors, validationMessages)"
+                                [errorMessage]="'Fixed Asset is required.'"
+                                clickEventButtonName="Add New Item"
+                                placeholder="Select Fixed Asset" matFormFieldClass="mobile-label full-width">
+                                </kt-simple-dropdown>
                               </div>
                             </mat-cell>
                           </ng-container>

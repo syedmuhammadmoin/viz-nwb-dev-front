@@ -37,7 +37,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   // Payroll Model
   cwipModel: ICwip = {} as ICwip;
 
-  warehouseList: any = new BehaviorSubject<any>([])
+  // warehouseList: any = new BehaviorSubject<any>([])
 
   title: string = 'Create CWIP'
 
@@ -73,19 +73,22 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     cwipAccountId : {
       required: 'Account is required.',
     },                        
-    costOfAsset : {
+    name : {
+      required: 'Account is required.',
+    },                        
+    cost : {
       required: 'Cost is required.',
     },
     assetAccountId : {
       required: 'Account is required.',
     },
-    campusId: {
-      required: 'Campus is required.',
+    productId: {
+      required: 'Product is required.',
     },
     warehouseId: {
       required: 'Store is required.',
     },
-    depreciationId : {
+    depreciationModelId : {
       required: 'Depreciation Model is required.',
     },
     modelType : {
@@ -103,6 +106,11 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       max : 'Value is out of range.',
       pattern : 'Please enter only Digits.'
     },
+    quantity : {
+      required: 'Quantity is required.',
+      min : 'Minimum value is 1.',
+      max : 'Maximum value is 1000.',
+    },
     decLiningRate : {
       required: 'Declining Rate is required.',
     }
@@ -111,16 +119,18 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   // error keys..
   formErrors = {
     dateOfAcquisition : '',
+    name : '',                        
     cwipAccountId : '',                        
-    costOfAsset : '',
+    cost : '',
     assetAccountId : '',
-    campusId: '',
+    productId: '',
     warehouseId: '',
-    depreciationId : '',
+    depreciationModelId : '',
     modelType : '',
     depreciationExpenseId : '',
     accumulatedDepreciationId : '',
     useFullLife : '',
+    quantity : '',
     decLiningRate : ''
   };
 
@@ -145,22 +155,23 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     // Creating Forms
     this.cwipForm = this.fb.group({
       dateOfAcquisition:['', [Validators.required]],
+      name:['', [Validators.required]],
       cwipAccountId: ['', [Validators.required]],
-      costOfAsset: ['', [Validators.required]],
+      cost: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
       salvageValue:[0],
-      campusId: ['', [Validators.required]],
+      productId: ['', [Validators.required]],
       warehouseId: ['', [Validators.required]],
       depreciationApplicability: [false],
-      depreciationId:[null],
+      depreciationModelId:[null],
       modelType: [0],
       depreciationExpenseId:[null],
       accumulatedDepreciationId: [null],
       useFullLife:[0],
-      quantinty :[0],
+      quantity :[0 , [Validators.required , Validators.min(1) , Validators.max(1000)]],
       decLiningRate: [0],
       prorataBasis: [false],
-      active: [false]
+      isActive: [false]
     });
 
     //get Accounts from Accounts State
@@ -168,7 +179,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     this.ngxsService.getDepreciationModelFromState()
     this.ngxsService.getOtherAccountsFromState();
     this.ngxsService.getAssetAccountFromState();
-    this.ngxsService.getCampusFromState();
+    this.ngxsService.getProductFromState();
     this.ngxsService.getWarehouseFromState();
 
     if (this.data?.id) {
@@ -208,26 +219,27 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   public patchCwip(cwip: ICwip | any) {
     this.cwipForm.patchValue({
       dateOfAcquisition: cwip.dateOfAcquisition,
+      name: cwip.name,
       cwipAccountId:cwip.cwipAccountId,
-      costOfAsset:cwip.costOfAsset,
+      cost:cwip.cost,
       assetAccountId:cwip.assetAccountId,
       salvageValue:cwip.salvageValue,
-      campusId: cwip.campusId,
+      productId: cwip.productId,
       warehouseId: cwip.warehouseId,
       depreciationApplicability:cwip.depreciationApplicability,
-      depreciationId:cwip.depreciationId,
+      depreciationModelId:cwip.depreciationModelId,
       modelType:cwip.modelType,
       depreciationExpenseId:cwip.depreciationExpenseId,
       accumulatedDepreciationId:cwip.accumulatedDepreciationId,
       useFullLife:cwip.useFullLife,
-      quantinty:cwip.quantinty,
+      quantity:cwip.quantity,
       decLiningRate:cwip.decLiningRate,
       prorataBasis: cwip.prorataBasis,
-      active:cwip.active 
+      isActive:cwip.isActive 
     });
     this.onChangeDepApplicability({checked : cwip.depreciationApplicability})
     this.getModelType(cwip.modelType)
-    this.onCampusSelected(cwip.campusId)
+    // this.onCampusSelected(cwip.productId)
   }
 
 
@@ -287,13 +299,13 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       this.cwipForm.get('useFullLife').setValidators([Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')])
     }
     if(!e.checked){
-      this.resetFields(this.cwipForm , 'depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
+      this.resetFields(this.cwipForm , 'depreciationModelId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
       this.cwipForm.get('prorataBasis').setValue(false);
-      this.cwipForm.get('active').setValue(false);
+      this.cwipForm.get('isActive').setValue(false);
       this.cwipForm.get('modelType').setValue(0);
       this.getModelType(0)
     }
-    this.conditionalValidation(this.cwipForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId','useFullLife'])
+    this.conditionalValidation(this.cwipForm, e.checked , ['depreciationModelId','depreciationExpenseId', 'accumulatedDepreciationId','useFullLife'])
     this.logValidationErrors(this.cwipForm, this.formErrors , this.validationMessages);
   }
 
@@ -303,6 +315,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       this.isModelType = true;
     }else{
       this.isModelType = false;
+      this.cwipForm.get('decLiningRate').setValue(0)
     }
 
     this.conditionalValidation(this.cwipForm, e , ['decLiningRate'])
@@ -312,24 +325,24 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
 
   //Mapping Form Value to Model
   mapFormValuesTocwipModel() {
-    this.cwipModel.dateOfAcquisition =  this.dateHelperService.transformDate(this.cwipForm.value.dateOfAcquisition, 'yyyy-MM-dd');
+    this.cwipModel.dateOfAcquisition =  this.dateHelperService.transformDate(this.cwipForm.value.dateOfAcquisition, 'yyyy-MM-dd'),
+    this.cwipModel.name = this.cwipForm.value.name,
     this.cwipModel.cwipAccountId = this.cwipForm.value.cwipAccountId
-    this.cwipModel.costOfAsset = this.cwipForm.value.costOfAsset
+    this.cwipModel.cost = this.cwipForm.value.cost,
     this.cwipModel.assetAccountId = this.cwipForm.value.assetAccountId,
     this.cwipModel.salvageValue = this.cwipForm.value.salvageValue,
-    this.cwipModel.campusId = this.cwipForm.value.campusId,
+    this.cwipModel.productId = this.cwipForm.value.productId,
     this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
-    // this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
     this.cwipModel.depreciationApplicability = this.cwipForm.value.depreciationApplicability,
-    this.cwipModel.depreciationId = this.cwipForm.value.depreciationId,
+    this.cwipModel.depreciationModelId = this.cwipForm.value.depreciationModelId,
     this.cwipModel.modelType = this.cwipForm.value.modelType,
     this.cwipModel.depreciationExpenseId = this.cwipForm.value.depreciationExpenseId,
     this.cwipModel.accumulatedDepreciationId = this.cwipForm.value.accumulatedDepreciationId,
     this.cwipModel.useFullLife = this.cwipForm.value.useFullLife,
-    this.cwipModel.quantinty = this.cwipForm.value.quantinty,
+    this.cwipModel.quantity = this.cwipForm.value.quantity,
     this.cwipModel.decLiningRate = this.cwipForm.value.decLiningRate,
     this.cwipModel.prorataBasis =  this.cwipForm.value.prorataBasis,
-    this.cwipModel.active = this.cwipForm.value.active 
+    this.cwipModel.isActive = this.cwipForm.value.isActive 
   }
 
 
@@ -369,27 +382,27 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       })
   }
 
-  checkCampus() {
-    this.showMessage = true;
-    if(this.cwipForm.value.campusId === '') {
-      this.toastService.info("Please Select Campus First!", "CWIP")
-    }
-  }
+  // checkCampus() {
+  //   this.showMessage = true;
+  //   if(this.cwipForm.value.productId === '') {
+  //     this.toastService.info("Please Select Campus First!", "CWIP")
+  //   }
+  // }
 
-  onCampusSelected(campusId : number){
-      this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res =>{
-        this.warehouseList.next(res.result || [])
+  // onCampusSelected(productId : number){
+  //     this.ngxsService.warehouseService.getWarehouseByproductId(productId).subscribe(res =>{
+  //       this.warehouseList.next(res.result || [])
         
-      })
+  //     })
 
-      if((!this.cwipModel.warehouseId) && this.cwipForm.value.warehouseId) {
-        this.toastService.info("Please Reselect Store!" , "CWIP")
-        this.cwipForm.get('warehouseId').setValue(null)
-      }
+  //     if((!this.cwipModel.warehouseId) && this.cwipForm.value.warehouseId) {
+  //       this.toastService.info("Please Reselect Store!" , "CWIP")
+  //       this.cwipForm.get('warehouseId').setValue(null)
+  //     }
 
      
-      this.cwipModel.warehouseId = null;
-  }
+  //     this.cwipModel.warehouseId = null;
+  // }
 
 
   // Dialogue close function

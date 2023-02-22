@@ -7,4 +7,5 @@ export interface IRequisitionLines {
     tax?: number;
     accountId?: number;
     warehouseId: number;
+    fixedAssetId: number;
 }

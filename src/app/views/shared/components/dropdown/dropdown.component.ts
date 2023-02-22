@@ -1,4 +1,4 @@
-import {Component, ElementRef, EventEmitter, Input, OnInit, Output, Self, ViewChild} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Self, SimpleChanges, ViewChild } from '@angular/core';
 import {
   ControlContainer,
   ControlValueAccessor,
@@ -6,22 +6,22 @@ import {
   FormControlDirective, NG_VALUE_ACCESSOR,
   Validators
 } from '@angular/forms';
-import {Observable, ReplaySubject} from 'rxjs';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import { Observable, ReplaySubject } from 'rxjs';
 
 @Component({
   selector: 'kt-simple-dropdown',
   templateUrl: './dropdown.component.html',
   styleUrls: ['./dropdown.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Default,
   providers: [{
     provide: NG_VALUE_ACCESSOR,
     useExisting: DropdownComponent,
     multi: true
   }]
 })
-export class DropdownComponent implements OnInit, ControlValueAccessor, Validators {
+export class DropdownComponent implements OnInit, OnChanges, ControlValueAccessor, Validators {
 
-  @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
+  @ViewChild(FormControlDirective, { static: true }) formControlDirective: FormControlDirective;
   @ViewChild('customSelect') customSelect: ElementRef
 
   @Input() formControl: FormControl;
@@ -63,22 +63,38 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   }
 
   constructor(
-    private controlContainer: ControlContainer) {
+    private controlContainer: ControlContainer,
+    private cdRef: ChangeDetectorRef
+  ) {
+  }
+
+    // For Getting diff Dropdown Data in issuance throug item dropdown
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log({ changes });
+    if (changes && changes.optionList && changes.optionList.currentValue) {
+      this.optionList = changes.optionList.currentValue
+      this.ngOnInit()
+    }
+
   }
 
   ngOnInit(): void {
+    console.log('dropdown init');
+    
     if (this.optionList instanceof Observable) {
+      console.log('if (this.optionList instanceof Observable)');
       this.isLoading = true;
       this.optionList.subscribe((res) => {
         this.options = (res.result) ? res.result : res;
         //This condition is just for temporary work
         //Please re-work and correct this...
-        if(typeof(this.options) === 'number') {
+        if (typeof (this.options) === 'number') {
           this.isLoading = false;
         }
         if (this.options) {
           this.options = this.callBackFunction ? this.options.flatMap(this.callBackFunction) : this.options
-         
+
           if (this.options.length > 0 || res?.isSuccess) {
             this.isLoading = false;
           }
@@ -87,6 +103,8 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
         }
       })
     } else {
+      console.log('else', this.optionList);
+      
       this.options = this.callBackFunction ? this.optionList.flatMap(this.callBackFunction) : this.optionList;
       // @ts-ignore
       this.filteredOptionList.next(this.options?.slice());
@@ -151,4 +169,5 @@ export class DropdownComponent implements OnInit, ControlValueAccessor, Validato
   blur() {
     this.blurEvent.emit()
   }
+
 }

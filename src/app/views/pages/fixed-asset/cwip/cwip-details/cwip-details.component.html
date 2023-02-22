@@ -55,13 +55,13 @@
                 </h4>
               </div>
               <div class="print-box">
-                <h4 >Purchase Cost: 
-                  <span class="float-right" >{{valueFormatter(cwipMaster?.costOfAsset)}}</span>
+                <h4 >Cost: 
+                  <span class="float-right" >{{valueFormatter(cwipMaster?.cost)}}</span>
                 </h4>
               </div>
               <div class="print-box">
-                <h4 >Campus: 
-                <span class="float-right" >{{cwipMaster?.campus}}</span></h4>
+                <h4 >Product: 
+                <span class="float-right" >{{cwipMaster?.product}}</span></h4>
               </div>
               <div class="print-box">
                   <h4 >Salvage Value: 
@@ -75,7 +75,7 @@
               </div>
               <div class="print-box">
                 <h4 >Depreciation: 
-                <span class="float-right" >{{cwipMaster?.depreciation || 'N/A'}}</span></h4>
+                <span class="float-right" >{{cwipMaster?.depreciationModelId || 'N/A'}}</span></h4>
               </div>
               <div class="print-box">
                 <h4 >Model Type: 
@@ -87,7 +87,7 @@
               <div class="print-box">
                 <h4 >
                   Store: 
-                  <span class="float-right" >{{cwipMaster?.warehouseName || 'N/A'}}</span>
+                  <span class="float-right" >{{cwipMaster?.warehouseId || 'N/A'}}</span>
                 </h4>
               </div>
               <div class="print-box">
@@ -112,13 +112,13 @@
               <div class="print-box">
                 <h4 >
                   UseFull Life: 
-                  <span class="float-right" >{{valueFormatter(cwipMaster?.useFullLife || 'NAN')}}</span>
+                  <span class="float-right" >{{valueFormatter(cwipMaster?.useFullLife || 'N/A')}}</span>
                 </h4>
               </div>
               <div class="print-box">
                 <h4 >
                   DecLining Rate: 
-                  <span class="float-right" >{{valueFormatter(cwipMaster?.decLiningRate || 'NAN')}}</span>
+                  <span class="float-right" >{{valueFormatter(cwipMaster?.decLiningRate || 'N/A')}}</span>
                 </h4>
               </div>
               <div class="print-box">
@@ -130,7 +130,7 @@
               <div class="print-box">
                 <h4 >
                   Active: 
-                  <span class="float-right" >{{cwipMaster?.active ? "Applicable" : 'Not Applicable'}}</span>
+                  <span class="float-right" >{{cwipMaster?.isActive ? "Applicable" : 'Not Applicable'}}</span>
                 </h4>
               </div>
             </div>

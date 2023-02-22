@@ -74,7 +74,7 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
     },
     { 
       headerName: 'Asset Cost', 
-      field: 'costOfAsset', 
+      field: 'cost', 
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -93,8 +93,8 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
       //   }
     },
     {
-      headerName: 'Quantinty',
-      field: 'quantinty',
+      headerName: 'Quantity',
+      field: 'quantity',
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
