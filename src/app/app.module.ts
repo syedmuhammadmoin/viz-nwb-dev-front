@@ -109,6 +109,7 @@ import { RequisitionState } from './views/pages/procurement/requisition/store/re
 import { CategoryAssetState } from './views/pages/profiling/category/store/categoryAsset.state';
 import { ExpenseAccountState } from './views/pages/finance/chat-of-account/store/expense-account.state';
 import { GetLiabilityAccountsState } from './views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
+import { AgGridButtonCellRendrerComponent } from './views/shared/components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {

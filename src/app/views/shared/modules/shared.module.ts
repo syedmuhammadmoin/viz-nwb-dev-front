@@ -64,6 +64,7 @@ import { CreateCategoryComponent } from '../../pages/profiling/category/create-c
 import { CreateBankAccountComponent } from '../../pages/finance/bank-account/create-bank-account/create-bank-account.component';
 import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
 import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
+import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
 
 
 // @ts-ignore
@@ -85,7 +86,8 @@ import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
     NonNegativePipe,
     FileSizePipe,
     TreeFilter,
-    DragDropDirective
+    DragDropDirective,
+    AgGridButtonCellRendrerComponent,
   ],
   imports: [
     NgxPrintModule,
@@ -197,14 +199,15 @@ import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
     ShowRemarksComponent,
     CustomUploadFileComponent,
     CustomRemarksComponent,
-    TreeFilter
+    TreeFilter,
+    AgGridButtonCellRendrerComponent
   ],
   providers: [
     FormConfirmationGuard,
     DatePipe
   ],
   entryComponents: [
-    ConfirmationDialogComponent , 
+    ConfirmationDialogComponent ,
     CreateUnitOfMeasurementComponent,
     CustomRemarksComponent,
     CustomUploadFileComponent,

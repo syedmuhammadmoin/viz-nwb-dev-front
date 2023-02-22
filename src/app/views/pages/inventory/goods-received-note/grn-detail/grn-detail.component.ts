@@ -1,20 +1,22 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { GrnService }                                                    from '../service/grn.service';
-import { ActivatedRoute, Router }                                        from '@angular/router';
-import { LayoutUtilsService }                                            from '../../../../../core/_base/crud';
-import { GridOptions, ValueFormatterParams } from 'ag-grid-community';
-import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BILL, GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE, ISSUANCE, PURCHASE_ORDER } from 'src/app/views/shared/AppRoutes';
-import { finalize, take } from 'rxjs/operators';
-import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
-import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
-import { MatDialog } from '@angular/material/dialog';
+import {ChangeDetectorRef, Component, Injector, OnInit, ViewEncapsulation} from '@angular/core';
+import {GrnService} from '../service/grn.service';
+import {ActivatedRoute} from '@angular/router';
+import {GridOptions, ValueFormatterParams} from 'ag-grid-community';
+import {ActionButton, DocType, DocumentStatus, Permissions} from 'src/app/views/shared/AppEnum';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {BILL, GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE, ISSUANCE, PURCHASE_ORDER} from 'src/app/views/shared/AppRoutes';
+import {finalize, take} from 'rxjs/operators';
+import {CustomRemarksComponent} from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import {CustomUploadFileComponent} from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import {MatDialog} from '@angular/material/dialog';
+import {AgGridButtonCellRendrerComponent} from '../../../../shared/components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
+import {CreateAssetComponent} from '../../../fixed-asset/asset/create-asset/create-asset.component';
 
 @Component({
   selector: 'kt-grn-detail',
   templateUrl: './grn-detail.component.html',
-  styleUrls: ['./grn-detail.component.scss']
+  styleUrls: ['./grn-detail.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class GrnDetailComponent extends AppComponentBase implements OnInit {
@@ -30,81 +32,91 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   action = ActionButton
   docStatus = DocumentStatus
 
-  showReference: boolean = false;
+  showReference = false;
 
-  //Loader
+  // Loader
   isLoading: boolean;
 
   gridApi: any
 
-  //need for routing
+  // need for routing
   grnId: number;
 
-   //For ag grid
-   gridOptions = ({} as GridOptions);
-   defaultColDef: any;
-   frameworkComponents : any;
+  // For ag grid
+  gridOptions = ({} as GridOptions);
+  defaultColDef: any;
+  frameworkComponents: any;
 
-   //Variables for Goods Received Note data
-   grnLines: any;
-   grnMaster: any;
+  // Variables for Goods Received Note data
+  grnLines: any;
+  grnMaster: any;
 
-   //Showing Remarks
+  // Showing Remarks
   remarksList: string[] = [];
 
-  //Injecting Dependencies
- constructor( private activatedRoute: ActivatedRoute,
-              private grnService: GrnService,
-              private cdRef: ChangeDetectorRef,
-              private dialog: MatDialog,
-              injector: Injector
-              ) {
-                super(injector)
-                this.gridOptions = ({} as GridOptions);
-              }
+  // Injecting Dependencies
+  constructor(
+    private activatedRoute: ActivatedRoute,
+    private grnService: GrnService,
+    private cdRef: ChangeDetectorRef,
+    private dialog: MatDialog,
+    injector: Injector
+  ) {
+    super(injector)
+    this.gridOptions = ({} as GridOptions);
+  }
 
-  //Defining GRN Columns
+  // Defining GRN Columns
   columnDefs = [
     {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
     {
-      headerName: 'Quantity', 
-      field: 'quantity', 
+      headerName: 'Quantity',
+      field: 'quantity',
       cellStyle: {'font-size': '12px'}
     },
     {
-      headerName: 'Returned', 
-      field: 'receivedQuantity',  
+      headerName: 'Returned',
+      field: 'receivedQuantity',
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 0
       }
     },
     {
-      headerName: 'Cost', 
-      field: 'cost', 
+      headerName: 'Cost',
+      field: 'cost',
       cellStyle: {'font-size': '12px'}
     },
     {
-      headerName: 'Tax%', 
-      field: 'tax', 
-      cellStyle: { 'font-size': '12px' },
+      headerName: 'Tax%',
+      field: 'tax',
+      cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) + '%'
       }
     },
     {
-      headerName: 'Store', 
-      field: 'warehouse', 
-      sortable: true, 
-      filter: true, 
+      headerName: 'Store',
+      field: 'warehouse',
+      sortable: true,
+      filter: true,
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
     },
+    {
+      field: 'action',
+      cellRenderer: 'agGridButtonCellRenderer',
+      cellRendererParams: {
+        btnTitle: 'Create Asset',
+        isVisible: true,
+        clicked: ($event) => this.createAsset($event)
+      },
+    }
   ];
-  
+
 
   ngOnInit(): void {
     this.gridOptions.rowStyle = {color: 'black'};
@@ -119,9 +131,12 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
         this.cdRef.markForCheck();
       }
     });
+    this.frameworkComponents = {
+      agGridButtonCellRenderer: AgGridButtonCellRendrerComponent
+    };
   }
 
-  onFirstDataRendered(params : any) {
+  onFirstDataRendered(params: any) {
     this.gridApi = params.api
     params.api.sizeColumnsToFit();
   }
@@ -129,38 +144,37 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   private getGRNMasterData(id: number) {
     this.isLoading = true;
     this.grnService.getGRNById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      this.grnMaster = res.result;
-      this.grnLines = res.result.grnLines;
-      this.remarksList = this.grnMaster.remarksList ?? [] 
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.grnMaster = res.result;
+        this.grnLines = res.result.grnLines;
+        this.remarksList = this.grnMaster.remarksList ?? []
 
-      //Checking grn status to show purchase order reference
-      this.showReference = (["Draft" , "Rejected"].includes(this.grnMaster.status)) ? false : true;
+        // Checking grn status to show purchase order reference
+        this.showReference = (['Draft', 'Rejected'].includes(this.grnMaster.status)) ? false : true;
 
-      if([DocumentStatus.Draft , DocumentStatus.Rejected , DocumentStatus.Submitted].includes(this.grnMaster.state)) {
-        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
-      }
-      else {
-        this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
-        this.gridApi?.sizeColumnsToFit();
-      }
-      this.cdRef.markForCheck();
-    })
+        if ([DocumentStatus.Draft, DocumentStatus.Rejected, DocumentStatus.Submitted].includes(this.grnMaster.state)) {
+          this.gridOptions.columnApi.setColumnVisible('receivedQuantity', false);
+        } else {
+          this.gridOptions.columnApi.setColumnVisible('receivedQuantity', true);
+          this.gridApi?.sizeColumnsToFit();
+        }
+        this.cdRef.markForCheck();
+      })
   }
 
-  //Get Remarks From User
+  // Get Remarks From User
   remarksDialog(action: any): void {
     const dialogRef = this.dialog.open(CustomRemarksComponent, {
-      width: '740px'
+      width: '740px',
     });
-    //sending remarks data after dialog closed
+    // sending remarks data after dialog closed
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.workflow(action, res.data)
@@ -168,16 +182,34 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     })
   }
 
+  // Create Asset
+  createAsset(grnLine): void {
+    console.log(grnLine)
+    const dialogRef = this.dialog.open(CreateAssetComponent, {
+      width: '740px',
+      data: {
+        grnData: this.grnMaster,
+        grnLine
+      }
+    });
+    // sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      this.getGRNMasterData(this.grnId)
+    })
+  }
+
+
+
   workflow(action: number, remarks: string) {
     this.isLoading = true
     this.grnService.workflow({action, docId: this.grnMaster.id, remarks})
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
       .subscribe((res) => {
         this.getGRNMasterData(this.grnId);
         this.cdRef.detectChanges();
@@ -185,7 +217,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
       })
   }
 
-  //Upload File
+  // Upload File
   openFileUploadDialog() {
     this.dialog.open(CustomUploadFileComponent, {
       width: '740px',

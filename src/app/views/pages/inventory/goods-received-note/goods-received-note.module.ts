@@ -9,6 +9,8 @@ import { PrintGrnComponent } from './print-grn/print-grn.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { GoodsReceivedNoteRoutingModule } from './goods-received-note-routing.module';
 import { CreateGrnComponent } from './create-grn/create-grn.component';
+import {AgGridButtonCellRendrerComponent} from '../../../shared/components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
+import {CreateAssetComponent} from '../../fixed-asset/asset/create-asset/create-asset.component';
 
 
 @NgModule({
@@ -23,7 +25,10 @@ import { CreateGrnComponent } from './create-grn/create-grn.component';
     PartialsModule,
     SharedModule,
     GoodsReceivedNoteRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule.withComponents([CustomTooltipComponent, AgGridButtonCellRendrerComponent])
+  ],
+  entryComponents: [
+    CreateAssetComponent
   ]
 })
 export class GoodsReceivedNoteModule { }

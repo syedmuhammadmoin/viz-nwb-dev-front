@@ -14,6 +14,8 @@ import { ASSET } from 'src/app/views/shared/AppRoutes';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { AssetType, DocType } from 'src/app/views/shared/AppEnum';
 import { DepreciationMethodService } from '../../depreciation-model/service/depreciation-method.service';
+import {IGRN} from '../../../inventory/goods-received-note/model/IGRN';
+import {IGRNLines} from '../../../inventory/goods-received-note/model/IGRNLines';
 
 @Component({
   selector: 'kt-create-asset',
@@ -62,7 +64,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   showButtons: boolean = true;
 
   //show hide quantity button
-  isQuantity: boolean = false; 
+  isQuantity: boolean = false;
 
   //depreciation method
   method = AppConst.depreciationMethod;
@@ -209,8 +211,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.onChangeDepApplicability(this.assetForm.value.depreciationApplicability)
     this.assetForm.get('quantity').setValidators([Validators.required , Validators.min(1) , Validators.max(1000)])
     this.isQuantity = true
-    
-    
+
+
 
     //get Accounts from Accounts State
 
@@ -229,9 +231,13 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     //   // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
     //    this.title = 'Create Asset'
     //    this.patchAsset(this.data.productData);
-       
-       
-    // } 
+
+
+    // }
+
+    if (this.data?.grnData) {
+      this.patchGrnData(this.data?.grnData, this.data?.grnLine);
+    }
 
     if (this.data?.id) {
       this.title = 'Edit Asset'
@@ -243,11 +249,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       this.assetForm.get('quantity').updateValueAndValidity();
       this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages);
     }
-    
+
     // this.activatedRoute.params.subscribe((param) => {
     //   console.log(param)
     //   const id = param.id;
-     
+
     //   if (id) {
     //     this.isLoading = true;
     //    // this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
@@ -335,10 +341,10 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     .subscribe((res) => {
       this.assetModel = res.result;
       this.patchAsset(res.result);
-      this.depApplicabilityToggle = res.result.depreciationApplicability; 
+      this.depApplicabilityToggle = res.result.depreciationApplicability;
       console.log(res.result)
     });
-    
+
   }
 
   //Edit Asset Method
@@ -390,7 +396,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 // purchaseCost: 6000
 // salvageValue: 12
 // useFullLife: 0
-   
+
     // this.onToggle({checked: asset.isActive})
     // this.onacquisitionDateChange()
     //if(!this.showButtons) this.assetForm.disable();
@@ -408,6 +414,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     }
 
     this.isLoading = true;
+    this.enableControls();
     this.mapFormValuesToAssetModel();
     if (this.data?.id) {
       // this.onChangeDepApplicability(this.data.assetData.depreciationApplicability)
@@ -428,8 +435,6 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
     } else {
       delete this.assetModel.id;
-      this.assetModel.doctype = DocType.FixedAsset
-      this.assetModel.docId = DocType.FixedAsset
       console.log("create")
       this.assetService.createAsset(this.assetModel)
       .pipe(
@@ -484,10 +489,10 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     }
 
     this.conditionalValidation(this.assetForm, e , ['decLiningRate'])
-    this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages) 
+    this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages)
 
   }
- 
+
 
   // onChangeDepApplicability(e){
   //   this.depApplicabilityToggle = e.checked
@@ -504,11 +509,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   //   else{this.modelType = false;}
 
   //   this.conditionalValidation(this.assetForm, e , ['decLiningRate'])
-  //   this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages) 
+  //   this.logValidationErrors(this.assetForm, this.formErrors , this.validationMessages)
 
   // }
 
-  
+
 
   // onacquisitionDateChange() {
   //   if (this.assetForm.value.acquisitionDate === 0 || this.assetForm.value.acquisitionDate === 1) {
@@ -540,7 +545,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetModel.prorataBasis =  this.assetForm.value.prorataBasis,
     this.assetModel.isActive =  this.assetForm.value.isActive
 
-    
+
   }
 
   // onToggle(event) {
@@ -585,7 +590,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       this.getModelType(res.result.modelType)
       this.cdRef.detectChanges()
     })
-    
+
   }
 
   calculateDepValue() {
@@ -595,17 +600,53 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   }
 
   // calculateCost(event){
-    
+
   //   const purchaseCost = this.assetForm.get('purchaseCost').value
   //   // const quantinty = this.assetForm.get('quantinty').value
   //   console.log(purchaseCost)
   //   console.log(event)
   // }
-  
+
 
    // Dialogue close function
    onCloseDialog() {
     this.dialogRef.close();
+  }
+
+  private patchGrnData(grnData: IGRN, grnLine: any) {
+    this.assetForm.patchValue({
+      dateofAcquisition: grnData.grnDate,
+      name: grnLine.item ,
+      cost: grnLine.cost,
+      quantity: grnLine.quantity,
+      productId: grnLine.itemId,
+      warehouseId: grnLine.warehouseId,
+      depreciationApplicability: true,
+    })
+
+    this.onChangeDepApplicability({checked: true});
+
+    this.assetForm.get('dateofAcquisition').disable();
+    this.assetForm.get('name').disable();
+    this.assetForm.get('cost').disable();
+    this.assetForm.get('quantity').disable();
+    this.assetForm.get('productId').disable();
+    this.assetForm.get('warehouseId').disable();
+    this.assetForm.get('depreciationApplicability').disable();
+
+    this.assetModel.docId = grnData.id
+    this.assetModel.doctype = DocType.GRN
+    this.cdRef.detectChanges()
+  }
+
+  private enableControls() {
+    this.assetForm.get('dateofAcquisition').enable();
+    this.assetForm.get('name').enable();
+    this.assetForm.get('cost').enable();
+    this.assetForm.get('quantity').enable();
+    this.assetForm.get('productId').enable();
+    this.assetForm.get('warehouseId').enable();
+    this.assetForm.get('depreciationApplicability').enable();
   }
 }
 

@@ -1,0 +1,11 @@
+<button
+  (click)="handleButtonClick($event)"
+  [disabled]="!params?.data?.isFixedAsset || params?.data?.isFixedAssetCreated"
+  [ngClass]="{ 'disable':!params?.data?.isFixedAsset || params?.data?.isFixedAssetCreated }"
+  class="app-default-btn"
+  id="add_asset"
+  mat-raised-button
+  matTooltip="{{params?.btnTitle || 'tooltip'}}"
+  style="height: 30px; font-size: 10px; line-height: 30px; padding: 0 10px; vertical-align: middle">
+  {{params?.btnTitle || 'Give me some name'}}
+</button>

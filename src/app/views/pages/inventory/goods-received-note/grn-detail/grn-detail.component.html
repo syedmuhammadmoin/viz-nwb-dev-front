@@ -1,8 +1,9 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false" [title]="'Goods Received Note Detail'">
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"
+                       [title]="'Goods Received Note Detail'">
       <ng-container class="" ktPortletTools>
-        <div class="ribbon-target " ><span class="ribbon-inner {{grnMaster?.status}}"></span> {{grnMaster?.status}}</div>
+        <div class="ribbon-target "><span class="ribbon-inner {{grnMaster?.status}}"></span> {{grnMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -10,81 +11,96 @@
         <div class="row">
           <div class="btn_container">
             <div class="col-md-6 col-6">
-              <ng-container ktPortletTools >
-                <button *ngIf="(grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GRN_EDIT))" id="grn_edit"
+              <ng-container ktPortletTools>
+                <button
+                  *ngIf="(grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GRN_EDIT))"
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}"
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
-                  <i class="fa fa-edit icon-e-p-a"></i>  Edit
+                  class="btn_public mr-3" id="grn_edit" type="button">
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
-                <button *ngIf="(grnMaster?.state === docStatus.Unpaid) && !(grnMaster?.billReference) && (permission.isGranted(permissions.BILL_CREATE))" id="grn_edit"
+                <button
+                  *ngIf="(grnMaster?.state === docStatus.Unpaid) && !(grnMaster?.billReference) && (permission.isGranted(permissions.BILL_CREATE))"
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  class="btn_public mr-3" id="grn_edit" type="button">
                   <i class="fa fa-edit icon-e-p-a"></i> Bill
                 </button>
 
-                <button *ngIf="(grnMaster?.state === docStatus.Unpaid || grnMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.GRN_CREATE))" id="grn_edit"
+                <button
+                  *ngIf="(grnMaster?.state === docStatus.Unpaid || grnMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.GRN_CREATE))"
+                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}"
                   [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  [queryParams]="{q: grnMaster?.id, 'isGRN': true}" type="button" class="btn_public mr-3">
+                  class="btn_public mr-3" id="grn_edit" type="button">
                   <i class="fa fa-edit icon-e-p-a"></i> Goods Return Note
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.GRN_EDIT))" class="btn_public mr-2"
-                  (click)="openFileUploadDialog()" type="button"><i class="fa fa-paperclip" ></i> Attachment
+                <button (click)="openFileUploadDialog()" *ngIf="(permission.isGranted(permissions.GRN_EDIT))"
+                        class="btn_public mr-2" type="button"><i class="fa fa-paperclip"></i> Attachment
                 </button>
 
-                <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)" id="grn_print" type="button"  class="btn_public">
+                <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)"
+                        class="btn_public"
+                        id="grn_print" type="button">
                   <i class="fa fa-print icon-e-p-a"></i> Print GRN
                 </button>
               </ng-container>
 
             </div>
-            <div class="col-lg-6 text-right" *ngIf="grnMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" id="grn_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
-              <button (click)="remarksDialog(action.Approve)" id="grn_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
+            <div *ngIf="grnMaster?.isAllowedRole" class="col-lg-6 text-right">
+              <button (click)="remarksDialog(action.Reject)" class="btn btn-outline-danger font-weight-bold mr-2 "
+                      id="grn_reject">Reject
+              </button>
+              <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success font-weight-bold "
+                      id="grn_approve">Approve
+              </button>
             </div>
           </div>
 
           <div class="col-md-5 col-lg-5  mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1">Document No:
-                    <span class="float-right" style="font-weight: 400;">{{grnMaster?.docNo}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
+              <h4 class="print-box-detail-1">Document No:
+                <span class="float-right" style="font-weight: 400;">{{grnMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-2">Vendor Name:
-                    <span class="float-right" style="font-weight: 400;">{{grnMaster?.vendorName}}</span></h4>
+              <h4 class="print-box-detail-2">Vendor Name:
+                <span class="float-right" style="font-weight: 400;">{{grnMaster?.vendorName}}</span></h4>
             </div>
             <div class="print-box">
               <h4 class="print-box-detail-2">GRN Date:
-              <span class="float-right" style="font-weight: 400;">{{grnMaster?.grnDate | date: 'MMM d, y'}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{grnMaster?.grnDate | date: 'MMM d, y'}}</span>
+              </h4>
             </div>
             <div class="print-box">
               <h4 class="print-box-detail-2">Campus:
-              <span class="float-right" style="font-weight: 400;">{{grnMaster?.campusName}}</span></h4>
+                <span class="float-right" style="font-weight: 400;">{{grnMaster?.campusName}}</span></h4>
             </div>
           </div>
         </div>
 
         <div class="row mt-10">
           <div class="col-md-12 col-12">
-              <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;" class="ag-theme-alpine"
-                [rowData]="grnLines"
-                [columnDefs]="columnDefs"
-                [gridOptions]="gridOptions"
-                (firstDataRendered)="onFirstDataRendered($event)">
-              </ag-grid-angular>
+            <ag-grid-angular #rowClass (firstDataRendered)="onFirstDataRendered($event)"
+                             [columnDefs]="columnDefs"
+                             [frameworkComponents]="frameworkComponents"
+                             [gridOptions]="gridOptions"
+                             [rowData]="grnLines"
+                             class="ag-theme-alpine grid-btn"
+                             style="width: 100%; height: 200px; font-size: 14px;">
+            </ag-grid-angular>
           </div>
         </div>
 
         <div class="row mt-5">
 
-          <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+          <div *ngIf="remarksList.length > 0" class="col-md-7 col-7">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
           <div class="col-lg-4 ml-auto">
-            <table class="table  small_table_box" >
+            <table class="table  small_table_box">
               <tr *ngIf="showReference || grnMaster?.billReference">
                 <td colspan="2">
                   <mat-accordion>
@@ -100,21 +116,22 @@
                         </tr>
                         <tr *ngIf="grnMaster?.issuanceId">
                           <td><a [routerLink]="('/' + ISSUANCE.ID_BASED_ROUTE('details', grnMaster?.issuanceId))"
-                              class="all-text-primary">{{grnMaster?.issuanceDocNo}}</a></td>
+                                 class="all-text-primary">{{grnMaster?.issuanceDocNo}}</a></td>
                         </tr>
                         <tr *ngIf="grnMaster?.purchaseOrderId">
-                          <td><a [routerLink]="('/' + PURCHASE_ORDER.ID_BASED_ROUTE('details', grnMaster?.purchaseOrderId))"
+                          <td><a
+                            [routerLink]="('/' + PURCHASE_ORDER.ID_BASED_ROUTE('details', grnMaster?.purchaseOrderId))"
                             class="all-text-primary">{{grnMaster?.poDocNo}}</a></td>
                         </tr>
-                        <ng-container *ngIf="grnMaster?.references" >
+                        <ng-container *ngIf="grnMaster?.references">
                           <tr *ngFor="let grtn of grnMaster?.references">
                             <td><a [routerLink]="('/' + GOODS_RETURN_NOTE.ID_BASED_ROUTE('details', grtn?.docId))"
-                              class="all-text-primary">{{grtn?.docNo}}</a></td>
+                                   class="all-text-primary">{{grtn?.docNo}}</a></td>
                           </tr>
                         </ng-container>
                         <tr *ngIf="grnMaster?.billReference">
                           <td><a [routerLink]="('/' + BILL.ID_BASED_ROUTE('details', grnMaster?.billReference?.docId))"
-                            class="all-text-primary">{{grnMaster?.billReference?.docNo}}</a></td>
+                                 class="all-text-primary">{{grnMaster?.billReference?.docNo}}</a></td>
                         </tr>
                       </table>
                     </mat-expansion-panel>
@@ -129,4 +146,4 @@
 
     <mat-divider class="mt-10"></mat-divider>
   </kt-portlet>
- </div>
+</div>
