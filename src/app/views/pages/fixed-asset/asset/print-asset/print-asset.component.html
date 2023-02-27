@@ -40,70 +40,74 @@
   
   
           <div class="print_body_area p-s-2">
-            <div class="print-col-6 p-s-2-one">
+            <div class="print-col-6 p-10">
               <div class="print-box-one">
-                <h4 class="font-14"><b>Customer Name: </b><span class="float-right"
-                    style="font-weight: 400;">{{assetMaster?.customerName}}</span></h4>
+                <h4 class="font-14"><b>Name: </b><span class="float-right"
+                    style="font-weight: 400;">{{assetMaster?.name}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
-                <h4 class="font-14"><b>NTN:</b> <span class="float-right"
-                    style="font-weight: 400;">{{assetMaster?.incomeTaxId || 'N/A'}}</span></h4>
+                <h4 class="font-14"><b>Acquisition Date:</b> <span class="float-right"
+                    style="font-weight: 400;">{{assetMaster?.dateofAcquisition | date: 'MMM d, y'}}</span></h4>
               </div>
               <div class="print-box-two">
-                <h4 class="font-14"><b>STRN: </b><span class="float-right"
+                <h4 class="font-14"><b>Cost:</b><span class="float-right"
+                    style="font-weight: 400;">{{valueFormatter(assetMaster?.cost)}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Product:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.product}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Salvage Value:</b><span class="float-right"
+                  style="font-weight: 400;">{{valueFormatter(assetMaster?.salvageValue)}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Depreciation Applicability:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.depreciationApplicability ? "Applicable" : 'Not Applicable'}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Depreciation Model:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.depreciationModel|| 'N/A'}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Model Type:</b><span class="float-right"
+                  style="font-weight: 400;">{{modelType[assetMaster?.modelType]}}</span></h4>
+              </div>
+            </div>
+            <div class="print-col-6 p-10">
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Asset Account:</b><span class="float-right"
+                    style="font-weight: 400;">{{assetMaster?.assetAccount || 'N/A'}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Depreciation Expense Account:</b> <span class="float-right"
+                    style="font-weight: 400;">{{assetMaster?.accumulatedDepreciation || 'N/A'}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Accumulated Depreciation Account:</b><span class="float-right"
                     style="font-weight: 400;">{{assetMaster?.salesTaxId || 'N/A'}}</span></h4>
               </div>
               <div class="print-box-two">
-                <h4 class="font-14"><b>Address:</b> </h4>
-                <p> {{assetMaster?.customerAddress || 'N/A'}}</p>
+                <h4 class="font-14"><b>UseFull Life: </b><span class="float-right"
+                  style="font-weight: 400;">{{valueFormatter(assetMaster?.useFullLife || 'NAN')}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="font-14"><b>DecLining Rate:</b><span class="float-right"
+                  style="font-weight: 400;">{{valueFormatter(assetMaster?.decLiningRate || 'NAN')}}</span></h4>
+              </div>
+
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Salvage Value:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.prorataBasis ? "Applicable" : 'Not Applicable'}}</span></h4>
+              </div>
+
+              <div class="print-box-two">
+                <h4 class="font-14"><b>Active:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.isActive ? "Applicable" : 'Not Applicable'}}</span></h4>
               </div>
             </div>
-  
-            <div class="print-col-12 p-s-2-two">
-              <div class="table-responsive">
-                <table class="table ">
-                  <thead class="thead-dark_color">
-                    <tr class="b-s-2-b-c">
-                      <th>S.No</th>
-                      <th>Item</th>
-                      <th>Description</th>
-                      <th>Quantity</th>
-                      <th>Price</th>
-                      <th>Tax %</th>
-                      <th class="text-right">SubTotal</th>
-                    </tr>
-                    <!-- <tr *ngFor="let line of invoiceLines; index as i">
-                      <td>{{i + 1}}</td>
-                      <td>{{line?.itemName || '---'}}</td>
-                      <td>{{line?.description}}</td>
-                      <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
-                      <td>{{valueFormatter(line?.price)}}</td>
-                      <td>{{line?.tax + '%'}}</td>
-                      <td class="text-right"><b>{{valueFormatter(line?.subTotal)}}</b></td>
-                    </tr> -->
-                  </thead>
-                </table>
-              </div>
-            </div>
-  
-            <!-- <div class="print-col-5  ml-auto p-s-3">
-              <div class="print-box p-s-3-one">
-                <h4>Total Before Tax:
-                  <span class="float-right">{{valueFormatter(assetMaster?.totalBeforeTax)}}</span>
-                </h4>
-              </div>
-              <div class="print-box p-s-3-one">
-                <h4>Total Tax:
-                  <span class="float-right">{{valueFormatter(assetMaster?.totalTax)}}</span>
-                </h4>
-              </div>
-              <div class="print-box p-s-3-two">
-                <h4>Grand Total:
-                  <span class="float-right">{{valueFormatter(assetMaster?.totalAmount)}}</span>
-                </h4>
-              </div>
-            </div> -->
           </div>
   
           <div class="row mt-10 ms-10">

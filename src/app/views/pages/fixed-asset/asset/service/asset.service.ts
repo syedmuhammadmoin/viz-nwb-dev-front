@@ -28,6 +28,10 @@ export class AssetService extends AppServiceBase {
   getAssetsProductDropdownById(id: number): Observable<IApiResponse<IAsset[]>> {
       return this.httpClient.get<IApiResponse<IAsset[]>>(`${this.baseUrl}/Product/${id}`)
   }
+  
+  getAssetsDisposalDropdown(): Observable<IApiResponse<IAsset[]>> {
+      return this.httpClient.get<IApiResponse<IAsset[]>>(this.baseUrl + '/Disposable/Dropdown')
+  }
 
   getAssetById(id: number): Observable<IApiResponse<IAsset>> {
       return this.httpClient.get<IApiResponse<IAsset>>(`${this.baseUrl}/${id}`)

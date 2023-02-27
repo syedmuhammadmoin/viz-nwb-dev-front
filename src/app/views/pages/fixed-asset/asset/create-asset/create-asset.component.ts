@@ -16,6 +16,8 @@ import { AssetType, DocType } from 'src/app/views/shared/AppEnum';
 import { DepreciationMethodService } from '../../depreciation-model/service/depreciation-method.service';
 import {IGRN} from '../../../inventory/goods-received-note/model/IGRN';
 import {IGRNLines} from '../../../inventory/goods-received-note/model/IGRNLines';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { DisposalDropdownState } from '../store/disposal-dropdown.state';
 
 @Component({
   selector: 'kt-create-asset',
@@ -60,6 +62,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   valueTitle: string = 'Value'
 
+  // per product cost
+  perProductCost : number;
+
   //show Buttons
   showButtons: boolean = true;
 
@@ -81,7 +86,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       required: 'Name is required.',
     },
     cost: {
-      required: 'Purchase Price is required.',
+      required: 'Cost is required.',
+      min: 'Minimum value is 0.',
     },
     quantity: {
       required: 'Quantinty is required.',
@@ -101,13 +107,13 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       required: 'Method is required.',
     },
     assetAccountId: {
-      required: 'Asset A/C is required.',
+      required: 'Account is required.',
     },
     depreciationExpenseId: {
-      required: 'Depreciation Exp A/C is required.',
+      required: 'Account is required.',
     },
     accumulatedDepreciationId: {
-      required: 'Accumulated Dep A/C is required.',
+      required: 'Account is required.',
     },
     useFullLife: {
       required: 'Life is required.',
@@ -162,7 +168,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
       dateofAcquisition:['', [Validators.required]],
       name: ['', [Validators.required]],
-      cost: ['', [Validators.required]],
+      cost: ['', [Validators.required , Validators.min(0)]],
       quantity: [''],
       productId:['', [Validators.required]],
       salvageValue:[0],
@@ -427,6 +433,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
          })
        )
         .subscribe((res: IApiResponse<IAsset>) => {
+          this.ngxsService.store.dispatch(new IsReloadRequired (DisposalDropdownState , true))
           this.toastService.success('Updated Successfully', 'Asset')
           this.onCloseDialog();
           this.cdRef.detectChanges();
@@ -445,7 +452,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
          })
        )
         .subscribe((res: IApiResponse<IAsset>) => {
-
+          this.ngxsService.store.dispatch(new IsReloadRequired (DisposalDropdownState , true))
             this.toastService.success('Created Successfully', 'Asset')
             this.onCloseDialog();
             this.router.navigate(['/' + ASSET.LIST])
@@ -532,7 +539,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetModel.cost =  this.assetForm.value.cost,
     this.assetModel.quantity =  this.assetForm.value.quantity,
     this.assetModel.productId = this.assetForm.value.productId,
-    this.assetModel.salvageValue = this.assetForm.value.salvageValue,
+    this.assetModel.salvageValue = (this.assetForm.value.salvageValue) ? this.assetForm.value.salvageValue : 0,
     this.assetModel.warehouseId = this.assetForm.value.warehouseId,
     this.assetModel.depreciationApplicability =  this.assetForm.value.depreciationApplicability,
     this.assetModel.depreciationModelId = this.assetForm.value.depreciationModelId,
@@ -647,6 +654,15 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetForm.get('productId').enable();
     this.assetForm.get('warehouseId').enable();
     this.assetForm.get('depreciationApplicability').enable();
+  }
+
+  getCost(e){
+    
+    if((this.assetForm.get('cost').value)  && (this.assetForm.get('quantity').value)){
+      this.perProductCost = (this.assetForm.get('cost').value) / (this.assetForm.get('quantity').value)
+      console.log(this.perProductCost);
+      
+    }
   }
 }
 

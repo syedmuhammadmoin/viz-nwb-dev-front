@@ -71,6 +71,8 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   validationMessages = {
     modelName: {
       required: 'Name is required.',
+      minLength: "Name can't be less than 3 characters.",
+      maxLength: "Name can't be more than 50 characters.",
     },
     modelType: {
       required: 'Method is required.',
@@ -86,18 +88,15 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     },
     decliningRate: {
       required: 'Declining Rate is required.',
-      min: 'Percentage % range (0 - 100).',
-      max: 'Percentage % range (0 - 100).'
+      min: 'Percentage % range (1 - 100).',
+      max: 'Percentage % range (1 - 100).'
     },
     useFullLife: {
-      required: 'Life is required.',
+      required: 'Usefull Life is required.',
       min : 'Minimum value is 1.',
       max : 'Value is out of range.',
       pattern : 'Please enter only Digits.'
-    },
-    // assetCategoryId: {
-    //   required: 'Category is required.'
-    // }
+    }
   };
 
   // error keys..
@@ -107,8 +106,6 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     depreciationExpenseId: '',
     accumulatedDepreciationId: '',
     assetAccountId: '',
-    //decliningRate: '',
-    //assetCategoryId: '',
     useFullLife: '',
   };
 
@@ -133,25 +130,23 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
     // Creating Forms
     this.depreciationForm = this.fb.group({
-      modelName: ['', [Validators.required]],
+      modelName: ['', [Validators.required , Validators.minLength(3) , Validators.maxLength(50)]],
       modelType: [0, [Validators.required]],
       depreciationExpenseId: ['', [Validators.required]],
       accumulatedDepreciationId: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
-      decliningRate: [0 , [Validators.max(100), Validators.min(0) , Validators.required]],
+      decliningRate: [0 , [Validators.max(100), Validators.min(1) , Validators.required]],
       useFullLife: ['', [Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')]]
     });
 
 
     //get Accounts from Accounts State
-    //this.ngxsService.getAccountLevel4FromState();
     this.ngxsService.getOtherAccountsFromState();
     this.ngxsService.getExpenseAccountsFromState();
     this.ngxsService.getLiabilityAccountsFromState();
     this.ngxsService.getAssetAccountFromState();
 
     if (this._id) {
-      //this.showButtons = (this.permission.isGranted(this.permissions.CAMPUS_EDIT)) ? true : false;
       this.title = 'Edit Depreciation Model'
       this.isLoading = true
       this.depreciationModel = {} as IDepreciation
@@ -167,40 +162,11 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
         assetAccountId: null,
         decliningRate: null,
         useFullLife: null,
-        //assetCategoryId: null
       }
     }
     
-
-    // this.methods = [
-    //   {id: 0 , assetAccountId: 'Basic Pay'},
-    //   {id: 1 , assetAccountId: 'Increment'},
-    //   {id: 2 , assetAccountId: 'Deduction'},
-    //   {id: 3 , assetAccountId: 'Allowances'},
-    //   {id: 4 , assetAccountId: 'Assignment Allowance'},
-    //   {id: 5 , assetAccountId: 'Tax Deduction'}
-    // ]
-
-
-     //update FornControl 'assetAccountId' Validator on checkbox changed
-    //  this.depreciationForm.get('accumulatedDepreciationId').assetAccountIdChanges.subscribe((assetAccountId: number) => {
-    //     this.updateassetAccountIdValidators(assetAccountId);
-    //   })
   }
 
-  // updateassetAccountIdValidators(assetAccountId: number) {
-  //   if(assetAccountId === 0) {
-  //     this.assetAccountIdTitle = 'assetAccountId (%) '
-  //     this.depreciationForm.get('assetAccountId').setValidators([Validators.required, Validators.min(0) , Validators.max(100)])
-  //     this.depreciationForm.get('assetAccountId').updateassetAccountIdAndValidity();
-  //   }
-  //   else if (assetAccountId === 1) {
-  //     this.assetAccountIdTitle = 'assetAccountId'
-  //     this.depreciationForm.get('assetAccountId').setValidators([Validators.required])
-  //     this.depreciationForm.get('assetAccountId').updateassetAccountIdAndValidity();
-  //   }
-  //   this.logValidationErrors(this.depreciationForm, this.formErrors , this.validationMessages)
-  // }
 
   
 
@@ -238,16 +204,12 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       depreciationExpenseId: depreciation.depreciationExpenseId,
       assetAccountId: depreciation.assetAccountId,
       decliningRate: depreciation.decliningRate,
-      //assetCategoryId: depreciation.assetCategoryId,
       useFullLife: depreciation.useFullLife,
     });
 
     this.onToggle({checked: depreciation.useFullLife})
     this.methodChange({source : {} as MatRadioButton , value: depreciation.modelType})
     if(!this.showButtons) this.depreciationForm.disable();
-    // //Clearing Amount Validator Initially
-    // this.depreciationForm.get('amount').setErrors(null)
-    // this.depreciationForm.updateassetAccountIdAndValidity();
   }
 
  
@@ -276,7 +238,6 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
           this.toastService.success('Updated Successfully', 'Depreciation Model')
           this.cdRef.detectChanges();
           this.onCloseDialog();
-          //this.router.navigate(['/' + Depreciation_ITEM.LIST])
         })
 
     } else {
@@ -293,20 +254,10 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
           this.ngxsService.store.dispatch(new IsReloadRequired (DepreciationModelState , true))
             this.toastService.success('Created Successfully', 'Depreciation Model');
             this.onCloseDialog();
-            //this.router.navigate(['/' + Depreciation_ITEM.LIST])
           }
         );
     }
   }
-
-  // onValueChange() {
-  //   if (this.depreciationForm.assetAccountId.method === 0 || this.depreciationForm.assetAccountId.method === 1) {
-  //     this.depreciationForm.get('accumulatedDepreciationId').setassetAccountId(1);
-  //     this.disablePercentage = true;
-  //   } else {
-  //     this.disablePercentage = false;
-  //   }
-  // }
 
   //Mapping assetAccountId to model
   mapFormValuesToDepreciationModel() {
@@ -317,7 +268,6 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
     this.depreciationModel.depreciationExpenseId = this.depreciationForm.value.depreciationExpenseId;
     this.depreciationModel.assetAccountId = this.depreciationForm.value.assetAccountId;
     this.depreciationModel.decliningRate = this.depreciationForm.value.decliningRate;
-    //this.depreciationModel.assetCategoryId = this.depreciationForm.value.assetCategoryId;
     this.depreciationModel.useFullLife = this.depreciationForm.value.useFullLife; 
   }
 
@@ -333,39 +283,6 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   onCloseDialog() {
     this.dialogRef.close();
   }
-
-  //for save or submit
-  // isSubmit(val: number) {
-  //   this.depreciationModel.isSubmit = (val === 0) ? false : true;
-  // }
-
-
-
-// open modal funtion
-  // openDialog(id?: number): void {
-  //   const dialogRef = this.dialog.open(AssignEmployeeComponent, {
-  //     width: '1000px',
-  //     data: id
-  //   });
-  //   // Recalling getEmployees function on dialog close
-  //   dialogRef.afterClosed().subscribe((res) => {
-  //     if(isEmpty(this.selectedEmployees)) {
-  //       this.selectedEmployees = res;
-  //     }
-  //     else if(!isEmpty(res)) {
-  //     //   res.forEach((employee) => {
-  //     //  const findDuplicateRecord = this.selectedEmployees.find(x => x.id === employee.id)
-  //     //  if(!findDuplicateRecord) {
-  //     //   this.selectedEmployees.push(employee)
-  //     //  }
-  //     res.map((employee) => {
-  //      if(!(this.selectedEmployees.find(x => x.id === employee.id))) this.selectedEmployees.push(employee)
-  //     })
-  //     }
-  //     this.gridOptions.api.setRowData(this.selectedEmployees)
-  //     this.cdRef.detectChanges();
-  //   });
-  // }
 
   methodChange(event : MatRadioChange) {
     if(event.value) {

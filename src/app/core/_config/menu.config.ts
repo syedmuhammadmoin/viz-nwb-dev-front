@@ -434,26 +434,26 @@ export class MenuConfig {
                 Permissions.ASSET_DELETE
               ]
             },
-            // {
-            //   title: 'Cwip',
-            //   page: '/' + CWIP.LIST,
-            //   permission: [
-            //     Permissions.CWIP_CREATE,
-            //     Permissions.CWIP_CREATE,
-            //     Permissions.CWIP_EDIT,
-            //     Permissions.CWIP_DELETE
-            //   ]
-            // },
-            // {
-            //   title: 'Disposal',
-            //   page: '/' + DISPOSAL.LIST,
-            //   permission: [
-            //     Permissions.DISPOSAL_CREATE,
-            //     Permissions.DISPOSAL_CREATE,
-            //     Permissions.DISPOSAL_EDIT,
-            //     Permissions.DISPOSAL_DELETE
-            //   ]
-            // }
+            {
+              title: 'Cwip',
+              page: '/' + CWIP.LIST,
+              permission: [
+                Permissions.CWIP_CREATE,
+                Permissions.CWIP_CREATE,
+                Permissions.CWIP_EDIT,
+                Permissions.CWIP_DELETE
+              ]
+            },
+            {
+              title: 'Disposal',
+              page: '/' + DISPOSAL.LIST,
+              permission: [
+                Permissions.DISPOSAL_CREATE,
+                Permissions.DISPOSAL_CREATE,
+                Permissions.DISPOSAL_EDIT,
+                Permissions.DISPOSAL_DELETE
+              ]
+            }
           ]
         },
 

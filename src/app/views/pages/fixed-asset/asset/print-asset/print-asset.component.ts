@@ -7,6 +7,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IAsset } from '../model/IAsset';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
+import { DepreciationMethod } from 'src/app/views/shared/AppEnum';
 
 @Component({
   selector: 'kt-print-asset',
@@ -22,6 +23,7 @@ export class PrintAssetComponent extends AppComponentBase implements OnInit {
   vizalys : boolean;
   localsto : any ;
   className : any;
+  modelType: any = DepreciationMethod
 
   constructor( private assetService: AssetService,
                private activatedRoute: ActivatedRoute,
@@ -35,7 +37,7 @@ export class PrintAssetComponent extends AppComponentBase implements OnInit {
     this.activatedRoute.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if(id){
-        this.getInvoiceData(id);
+        this.getAssetData(id);
       }
     });
 
@@ -76,7 +78,7 @@ export class PrintAssetComponent extends AppComponentBase implements OnInit {
     window.document.close();
   }
 
-  getInvoiceData(id: number){
+  getAssetData(id: number){
     this.assetService.getAssetById(id).subscribe((res: IApiResponse<IAsset>) => {
         this.assetMaster = res.result;
         this.cdRef.markForCheck();

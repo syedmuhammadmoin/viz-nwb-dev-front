@@ -55,6 +55,9 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
    //show toast mesasge of on campus select
    showMessage: boolean = false;
 
+   // per product cost
+  perProductCost : number;
+
   //show Buttons
   showButtons: boolean = true;
 
@@ -78,6 +81,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     },                        
     cost : {
       required: 'Cost is required.',
+      min: 'Minimum value is 0.',
     },
     assetAccountId : {
       required: 'Account is required.',
@@ -157,7 +161,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       dateOfAcquisition:['', [Validators.required]],
       name:['', [Validators.required]],
       cwipAccountId: ['', [Validators.required]],
-      cost: ['', [Validators.required]],
+      cost: ['', [Validators.required , Validators.min(0)]],
       assetAccountId: ['', [Validators.required]],
       salvageValue:[0],
       productId: ['', [Validators.required]],
@@ -187,7 +191,6 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       this.cwipModel.id = this.data.id;
       this.isLoading = true;
       this.getCwip(this.data.id);
-      
     }
 
   }
@@ -211,6 +214,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.cwipModel = res.result;
         this.patchCwip(res.result);
+      this.getCost(this.data.id)
         this.depApplicabilityToggle = res.result.depreciationApplicability;
       });
   }
@@ -330,7 +334,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     this.cwipModel.cwipAccountId = this.cwipForm.value.cwipAccountId
     this.cwipModel.cost = this.cwipForm.value.cost,
     this.cwipModel.assetAccountId = this.cwipForm.value.assetAccountId,
-    this.cwipModel.salvageValue = this.cwipForm.value.salvageValue,
+    this.cwipModel.salvageValue = (this.cwipForm.value.salvageValue) ? this.cwipForm.value.salvageValue : 0,
     this.cwipModel.productId = this.cwipForm.value.productId,
     this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
     this.cwipModel.depreciationApplicability = this.cwipForm.value.depreciationApplicability,
@@ -382,28 +386,14 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       })
   }
 
-  // checkCampus() {
-  //   this.showMessage = true;
-  //   if(this.cwipForm.value.productId === '') {
-  //     this.toastService.info("Please Select Campus First!", "CWIP")
-  //   }
-  // }
-
-  // onCampusSelected(productId : number){
-  //     this.ngxsService.warehouseService.getWarehouseByproductId(productId).subscribe(res =>{
-  //       this.warehouseList.next(res.result || [])
-        
-  //     })
-
-  //     if((!this.cwipModel.warehouseId) && this.cwipForm.value.warehouseId) {
-  //       this.toastService.info("Please Reselect Store!" , "CWIP")
-  //       this.cwipForm.get('warehouseId').setValue(null)
-  //     }
-
-     
-  //     this.cwipModel.warehouseId = null;
-  // }
-
+  getCost(e){
+    
+    if((this.cwipForm.get('cost').value)  && (this.cwipForm.get('quantity').value)){
+      this.perProductCost = (this.cwipForm.get('cost').value) / (this.cwipForm.get('quantity').value)
+      console.log(this.perProductCost);
+      
+    }
+  }
 
   // Dialogue close function
   onCloseDialog() {

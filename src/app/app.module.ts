@@ -81,6 +81,7 @@ import typescript from 'highlight.js/lib/languages/typescript';
 import { SharedModule } from './views/shared/modules/shared.module';
 import { BusinessPartnerState } from './views/pages/profiling/business-partner/store/business-partner.state';
 import { ProductState } from './views/pages/profiling/product/store/product.state.state';
+import { DisposalDropdownState } from './views/pages/fixed-asset/asset/store/disposal-dropdown.state';
 import { BankAccountState } from './views/pages/finance/bank-account/store/bank-account.state';
 import { CampusState } from './views/pages/profiling/campus/store/campus.state';
 import { BudgetState } from './views/pages/budget/current-budget/store/budget.state';
@@ -191,7 +192,8 @@ export function getHighlightLanguages() {
       BudgetState,
       StatusState,
       PayrollItemState,
-      RequisitionState
+      RequisitionState,
+      DisposalDropdownState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),

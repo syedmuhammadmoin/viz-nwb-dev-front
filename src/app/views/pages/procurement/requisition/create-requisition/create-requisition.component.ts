@@ -1,11 +1,11 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { REQUISITION } from '../../../../shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { finalize, take } from 'rxjs/operators';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import {  Permissions } from 'src/app/views/shared/AppEnum';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -32,7 +32,7 @@ import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 export class CreateRequisitionComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
 
   public permissions = Permissions;
-  
+
   //Loader
   isLoading: boolean;
 
@@ -40,10 +40,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   requisitionForm: FormGroup;
 
   // For Table Columns
-  displayedColumns = ['itemId', 'fixedAssetId' , 'description', 'quantity', 'purchasePrice', 'subTotal', 'warehouseId', 'availableQuantity', 'action'];
+  displayedColumns = ['itemId', 'fixedAssetId', 'description', 'quantity', 'purchasePrice', 'subTotal', 'warehouseId', 'availableQuantity', 'action'];
 
   // Getting Table by id
-  @ViewChild('table', {static: true}) table: any;
+  @ViewChild('table', { static: true }) table: any;
 
   // requisitionModel
   requisitionModel: IRequisition = {} as IRequisition;
@@ -65,8 +65,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   isFixedAsset: any;
 
   // For Calculation
-  grandTotal = 0 ;
-  totalBeforeTax = 0 ;
+  grandTotal = 0;
+  totalBeforeTax = 0;
   totalTax = 0;
 
   // for getting employee
@@ -75,12 +75,12 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   /* handle warehouses gets empty for edit route 
      on first render by onCampusSelected() function
   */
-  emptyWarehouses : boolean = true;
+  emptyWarehouses: boolean = true;
 
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
-  dateCondition : boolean
+  dateCondition: boolean
 
   title: string = 'Create Requisition'
 
@@ -105,25 +105,25 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   formErrors = {
     employeeId: '',
     requisitionDate: '',
-    fixedAssetId : ''
+    fixedAssetId: ''
   }
 
   //Injecting Dependencies
-  constructor( private fb: FormBuilder,
-               private router: Router,
-               private cdRef: ChangeDetectorRef,
-               private requisitionService: RequisitionService,
-               private requestService: RequestRequisitionService,
-               public activatedRoute: ActivatedRoute,
-               private employeeService: EmployeeService,
-               private stockService: StockService,
-               public productService: ProductService,
-               public addButtonService: AddModalButtonService,
-               public ngxsService: NgxsCustomService,
-               public injector : Injector
-             ) {
-                super(injector);
-               }
+  constructor(private fb: FormBuilder,
+    private router: Router,
+    private cdRef: ChangeDetectorRef,
+    private requisitionService: RequisitionService,
+    private requestService: RequestRequisitionService,
+    public activatedRoute: ActivatedRoute,
+    private employeeService: EmployeeService,
+    private stockService: StockService,
+    public productService: ProductService,
+    public addButtonService: AddModalButtonService,
+    public ngxsService: NgxsCustomService,
+    public injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit() {
 
@@ -133,7 +133,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       department: [''],
       isWithoutWorkflow: [false],
       requisitionDate: ['', [Validators.required]],
-      campusId: [{value: null , disabled: true}],
+      campusId: [{ value: null, disabled: true }],
       requisitionLines: this.fb.array([
         this.addRequisitionLines()
       ])
@@ -141,13 +141,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
     this.requisitionForm.get('requisitionLines')['controls'][0].controls.fixedAssetId.disable();
 
-     //Get Data from Store
-     this.ngxsService.getEmployeeFromState();
-     this.ngxsService.getAccountLevel4FromState()
-     this.ngxsService.getProductFromState();
-     this.ngxsService.getCampusFromState();
+    //Get Data from Store
+    this.ngxsService.getEmployeeFromState();
+    this.ngxsService.getAccountLevel4FromState()
+    this.ngxsService.getProductFromState();
+    this.ngxsService.getCampusFromState();
 
-     //get id by using route
+    //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isRequisition = param.isRequisition;
@@ -169,7 +169,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   reset() {
     this.formDirective.resetForm();
     this.requisitionForm.get('isWithoutWorkflow').setValue(false);
-    this.onToggle({checked: false})
+    this.onToggle({ checked: false })
     this.table.renderRows();
     this.fixedAssetsDropdown = [];
   }
@@ -190,12 +190,12 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       this.onChangeEvent(null, index)
     }
 
-    this.onItemSelectedGetAsset(itemId , index)
+    this.onItemSelectedGetAsset(itemId, index)
 
   }
 
   // For Calculating subTotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number , element?: HTMLElement) {
+  onChangeEvent(value: any, index: number, element?: HTMLElement) {
     const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
     const price = (arrayControl.at(index).get('purchasePrice').value) !== null ? arrayControl.at(index).get('purchasePrice').value : null;
     const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
@@ -233,14 +233,14 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   addRequisitionLines(): FormGroup {
     return this.fb.group({
-      itemId: [null, [ Validators.required]],
+      itemId: [null, [Validators.required]],
       fixedAssetId: [''],
       description: ['', Validators.required],
       purchasePrice: ['', [Validators.required, Validators.min(1)]],
       quantity: ['', [Validators.required, Validators.min(1)]],
       subTotal: [{ value: '0', disabled: true }],
       availableQuantity: [{ value: '0', disabled: true }],
-      warehouseId: [null, [ Validators.required]]
+      warehouseId: [null, [Validators.required]]
     });
   }
 
@@ -257,45 +257,45 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   private getRequestRequisition(id: number) {
     this.isLoading = true;
     this.requestService.getRequestRequisitionById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      if (!res) return
-      this.requestRequisitionMaster = res.result
-      this.editRequisition(this.requestRequisitionMaster);
-    });
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        if (!res) return
+        this.requestRequisitionMaster = res.result
+        this.editRequisition(this.requestRequisitionMaster);
+      });
   }
 
   //Get Requisition Data for Edit
   private getRequisition(id: number) {
     this.isLoading = true;
-   this.requisitionService.getRequisitionById(id)
-   .pipe(
-    take(1),
-     finalize(() => {
-      this.isLoading = false;
-      this.cdRef.detectChanges();
-     })
-   )
-   .subscribe((res: IApiResponse<IRequisition>) => {
-      if (!res) {
-        return
-      }
-      this.requisitionModel = res.result
-      this.editRequisition(this.requisitionModel)
-      res.result.requisitionLines.forEach((x, index) => {
-        this.onItemSelectedGetAsset(x.itemId, index)
-      })
-    });
+    this.requisitionService.getRequisitionById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<IRequisition>) => {
+        if (!res) {
+          return
+        }
+        this.requisitionModel = res.result
+        this.editRequisition(this.requisitionModel)
+        res.result.requisitionLines.forEach((x, index) => {
+          this.onItemSelectedGetAsset(x.itemId, index)
+        })
+      });
   }
 
   //Edit Requisition
-  editRequisition(data : IRequisition | IRequestRequisition | any) {
+  editRequisition(data: IRequisition | IRequestRequisition | any) {
     this.requisitionForm.patchValue({
       employeeId: data.employeeId,
       requisitionDate: data.requisitionDate ?? data.requestDate,
@@ -303,7 +303,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     });
 
     this.emptyWarehouses = false;
-    this.onToggle({checked: data.isWithoutWorkflow})
+    this.onToggle({ checked: data.isWithoutWorkflow })
     this.getEmployee(data.employeeId)
 
     this.requisitionForm.setControl('requisitionLines', this.editRequisitionLines(data.requisitionLines ?? data.requestLines));
@@ -312,10 +312,10 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   //Edit Requisition Lines
   editRequisitionLines(requisitionLines: IRequisitionLines[]): FormArray {
     const formArray = new FormArray([]);
-    requisitionLines.forEach((line : IRequisitionLines | any) => {
+    requisitionLines.forEach((line: IRequisitionLines | any) => {
       formArray.push(this.fb.group({
         id: (this.isRequestRequisition) ? 0 : line.id,
-        itemId: [line.itemId, [ Validators.required]],
+        itemId: [line.itemId, [Validators.required]],
         fixedAssetId: [line.fixedAssetId],
         description: [line.description ?? line.description, Validators.required],
         purchasePrice: [line.purchasePrice, [Validators.required, Validators.min(1)]],
@@ -340,63 +340,63 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   // Submit Form Function
   onSubmit(): void {
-      if (this.requisitionForm.get('requisitionLines').invalid) {
-          this.requisitionForm.get('requisitionLines').markAllAsTouched();
-      }
-      const controls = <FormArray>this.requisitionForm.controls['requisitionLines'];
-      if (controls.length == 0) {
-        this.toastService.error('Please add Requisition lines', 'Error')
-        return;
-      }
-    
-      if (this.requisitionForm.invalid) {
-        this.toastService.error("Please fill all required fields!", "Requisition")
-          return;
-      }
-  
-      this.mapFormValuesTorequisitionModel();
-  
-      const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))));
-  
-      if(isDuplicateLines) {
-        this.toastService.error("Please Remove Duplicate Items!", "Requisition")
-        return;
-      }
+    if (this.requisitionForm.get('requisitionLines').invalid) {
+      this.requisitionForm.get('requisitionLines').markAllAsTouched();
+    }
+    const controls = <FormArray>this.requisitionForm.controls['requisitionLines'];
+    if (controls.length == 0) {
+      this.toastService.error('Please add Requisition lines', 'Error')
+      return;
+    }
 
-      this.isLoading = true;
-      console.log(this.requisitionModel)
+    if (this.requisitionForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Requisition")
+      return;
+    }
+
+    this.mapFormValuesTorequisitionModel();
+
+    const isDuplicateLines = this.requisitionModel.requisitionLines.some((a, index) => this.requisitionModel.requisitionLines.some((b, i) => (i !== index && (a.itemId === b.itemId && a.warehouseId === b.warehouseId))));
+
+    if (isDuplicateLines) {
+      this.toastService.error("Please Remove Duplicate Items!", "Requisition")
+      return;
+    }
+
+    this.isLoading = true;
+    console.log(this.requisitionModel)
     if (this.requisitionModel.id) {
-        this.requisitionService.updateRequisition(this.requisitionModel)
+      this.requisitionService.updateRequisition(this.requisitionModel)
         .pipe(
           take(1),
-           finalize(() => {
+          finalize(() => {
             this.isLoading = false;
             this.cdRef.detectChanges();
-           })
-         )
-          .subscribe((res) => {
-            this.toastService.success('Updated Successfully', 'Requisition')
-            this.ngxsService.store.dispatch(new IsReloadRequired(RequisitionState, true));
-            this.cdRef.detectChanges();
-            this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details',this.requisitionModel.id ) ]);
           })
-      } else {
-        delete this.requisitionModel.id;
-        this.requisitionService.createRequisition(this.requisitionModel)
+        )
+        .subscribe((res) => {
+          this.toastService.success('Updated Successfully', 'Requisition')
+          this.ngxsService.store.dispatch(new IsReloadRequired(RequisitionState, true));
+          this.cdRef.detectChanges();
+          this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details', this.requisitionModel.id)]);
+        })
+    } else {
+      delete this.requisitionModel.id;
+      this.requisitionService.createRequisition(this.requisitionModel)
         .pipe(
           take(1),
-           finalize(() => {
+          finalize(() => {
             this.isLoading = false;
             this.cdRef.detectChanges();
-           })
-         )
-          .subscribe(
-            (res) => {
-              this.toastService.success('Created Successfully', 'Requisition')
-              this.ngxsService.store.dispatch(new IsReloadRequired(RequisitionState, true));
-              this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details',res.result.id ) ]);
-            });
-      }
+          })
+        )
+        .subscribe(
+          (res) => {
+            this.toastService.success('Created Successfully', 'Requisition')
+            this.ngxsService.store.dispatch(new IsReloadRequired(RequisitionState, true));
+            this.router.navigate(['/' + REQUISITION.ID_BASED_ROUTE('details', res.result.id)]);
+          });
+    }
   }
 
   // Mapping value to model
@@ -409,13 +409,13 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionModel.requisitionLines = this.requisitionForm.value.requisitionLines;
   };
 
-   // open business partner dialog
-   openBusinessPartnerDialog() {
+  // open business partner dialog
+  openBusinessPartnerDialog() {
     if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
       this.addButtonService.openBusinessPartnerDialog();
     }
   }
- // open product dialog
+  // open product dialog
   openProductDialog() {
     if (this.permission.isGranted(this.permissions.PRODUCT_CREATE)) {
       this.addButtonService.openProductDialog();
@@ -425,18 +425,18 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // getting employee data by id
   getEmployee(id: number) {
     this.employeeService.getEmployeeById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      this.employee = res.result
-      this.checkSelected(this.employee)
-      this.cdRef.detectChanges()
-    })
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.employee = res.result
+        this.checkSelected(this.employee)
+        this.cdRef.detectChanges()
+      })
   }
 
   checkSelected(employee) {
@@ -446,7 +446,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       campusId: employee.campusId
     })
 
-    this.onCampusSelected(employee.campusId) 
+    this.onCampusSelected(employee.campusId)
   }
 
   canDeactivate(): boolean | Observable<boolean> {
@@ -454,30 +454,30 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   }
 
   checkEmployee() {
-    if(this.requisitionForm.value.employeeId === null) {
+    if (this.requisitionForm.value.employeeId === null) {
       this.toastService.info("Please Select Employee!", "Requisition")
     }
   }
 
-  onCampusSelected(campusId : number) {
+  onCampusSelected(campusId: number) {
 
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
     })
 
-    if(this.emptyWarehouses){
-      if(this.requisitionForm.value.requisitionLines.some(line => line.warehouseId)){
-        this.toastService.info("Please Reselect Store!" , "Requisition")
+    if (this.emptyWarehouses) {
+      if (this.requisitionForm.value.requisitionLines.some(line => line.warehouseId)) {
+        this.toastService.info("Please Reselect Store!", "Requisition")
       }
-  
-       this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => {
-          line.controls.warehouseId.setValue(null);
-          line.controls.availableQuantity.setValue(0);
-          return line
-       })
+
+      this.requisitionForm.get('requisitionLines')['controls'].map((line: any) => {
+        line.controls.warehouseId.setValue(null);
+        line.controls.availableQuantity.setValue(0);
+        return line
+      })
     }
-     this.emptyWarehouses = true;
-     this.cdRef.detectChanges()
+    this.emptyWarehouses = true;
+    this.cdRef.detectChanges()
   }
 
   //get Item Stock by item and warehouse Id
@@ -486,37 +486,37 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     const itemId = arrayControl.at(index).get('itemId').value
     const warehouseId = arrayControl.at(index).get('warehouseId').value
 
-  
-    if(itemId && warehouseId) {
-      this.stockService.getStockByIds({itemId: itemId, warehouseId: warehouseId})
-      .subscribe((res) => arrayControl.at(index).get('availableQuantity').setValue((res.result) ? res.result.availableQuantity : 0))
+
+    if (itemId && warehouseId) {
+      this.stockService.getStockByIds({ itemId: itemId, warehouseId: warehouseId })
+        .subscribe((res) => arrayControl.at(index).get('availableQuantity').setValue((res.result) ? res.result.availableQuantity : 0))
     }
   }
 
-  onItemSelectedGetAsset(itemId: number, curretIndex?: number) {
+  async onItemSelectedGetAsset(itemId: number, curretIndex?: number) {
 
     this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.disable();
 
-    this.ngxsService.products$.subscribe(res => {
-      this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
-    })
-
-    if (this.isFixedAsset) {
-      this.ngxsService.assetService.getAssetsProductDropdownById(itemId).subscribe(res => {
-        this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.enable();
-        this.fixedAssetsDropdown[curretIndex] = res.result
-        this.cdRef.detectChanges()
-
+    this.ngxsService.products$
+      .subscribe((res) => {
+        console.log(res);
+        this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
       })
 
+
+
+    if (this.isFixedAsset) {
+      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise()
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.enable();
       this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
+      this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : []
       this.cdRef.detectChanges()
     }
     else {
+      this.fixedAssetsDropdown[curretIndex] = [];
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.setValue('');
       this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
       this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
-      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.setValue(null);
-      // this.cdRef.detectChanges()
     }
 
     // this.logValidationErrors(this.issuanceForm, this.formErrors , this.validationMessages);

@@ -94,9 +94,9 @@
                       </div>
                       <div class="col-lg-6 col-sm-6 col-md-6">
                         <div class="form-group kt-form__group mb-0">
-                          <label class="col-form-label pt-0">Useful Life:</label>
+                          <label class="col-form-label pt-0">Useful Life (Months):</label>
                           <mat-form-field appearance="outline" class="full-width">
-                            <input matInput formControlName="useFullLife" placeholder="Enter Useful Life" 
+                            <input matInput formControlName="useFullLife" placeholder="Enter Useful Life " 
                                  id="depreciation_life"
                                  (blur)="logValidationErrors(depreciationForm, this.formErrors, this.validationMessages)">
                             <mat-error *ngIf="formErrors.useFullLife">

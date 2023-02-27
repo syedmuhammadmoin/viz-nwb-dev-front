@@ -68,13 +68,19 @@
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label pt-0">Cost:</label>
                 <mat-form-field appearance="outline" class="full-width">
-                  <!-- (keyup)="calculateDepValue()" -->
-                  <input matInput formControlName="cost" placeholder="Enter Asset Cost" id="asset_cost"
-                    type="number" (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
+                  <input 
+                  matInput 
+                  formControlName="cost" 
+                  placeholder="Enter Asset Cost" 
+                  id="asset_cost"
+                  type="number" 
+                  (keyup)="getCost($event)"
+                  (change)="getCost($event)"
+                  (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
                   <mat-error *ngIf="formErrors.cost">
                     <strong>{{formErrors.cost}}</strong>
                   </mat-error>
-                  <!-- <mat-hint align="end">Optional</mat-hint> -->
+                  <mat-hint align="end" *ngIf="this.perProductCost">Cost Per Product {{this.perProductCost | number : '1.2-2'}}</mat-hint>
                 </mat-form-field>
               </div>
             </div>
@@ -116,6 +122,8 @@
                 <mat-form-field appearance="outline" class="full-width">
                   <!-- (keyup)="calculateDepValue()" -->
                   <input matInput formControlName="quantity" placeholder="Enter Salvage Value" id="quantity"
+                  (keyup)="getCost($event)"
+                  (change)="getCost($event)"
                     type="number" (blur)="logValidationErrors(cwipForm, formErrors, validationMessages)">
                   <mat-error *ngIf="formErrors.quantity">
                       <strong>{{formErrors.quantity}}</strong>

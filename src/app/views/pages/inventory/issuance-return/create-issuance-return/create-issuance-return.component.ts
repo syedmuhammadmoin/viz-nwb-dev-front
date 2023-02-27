@@ -396,33 +396,29 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
      this.cdRef.detectChanges()
   }
 
-  onItemSelected(itemId: number, curretIndex?: number) {
-
+  async onItemSelected(itemId: number, curretIndex?: number) {
+    
     this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.disable();
 
-    this.ngxsService.products$.subscribe(res => {
-      this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
-    })
-
-    if (this.isFixedAsset) {
-      this.ngxsService.assetService.getAssetsProductDropdownById(itemId).subscribe(res => {
-        this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.enable();
-        this.fixedAssetsDropdown[curretIndex] = res.result
-        this.cdRef.detectChanges()
-
+    this.ngxsService.products$
+      .subscribe((res) => {
+        console.log(res);
+        this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
       })
 
+    if (this.isFixedAsset) {
+      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise()
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.enable();
       this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
+      this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : []
       this.cdRef.detectChanges()
     }
     else {
+      this.fixedAssetsDropdown[curretIndex] = [];
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValue('');
       this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
       this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
-      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValue(null);
-      // this.cdRef.detectChanges()
     }
-
-    // this.logValidationErrors(this.issuanceForm, this.formErrors , this.validationMessages);
 
   }
 }

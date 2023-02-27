@@ -66,10 +66,13 @@
                   placeholder="Enter Purchase Price" 
                   id="asset_purchasePrice" 
                   type="number"
+                  (keyup)="getCost($event)"
+                  (change)="getCost($event)"
                   (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
                   <mat-error *ngIf="formErrors.cost">
                   <strong>{{formErrors.cost}}</strong>
                   </mat-error>
+                  <mat-hint align="end" *ngIf="this.perProductCost">Cost Per Product {{this.perProductCost | number : '1.2-2'}}</mat-hint>
                 </mat-form-field>
               </div>
             </div>
@@ -83,6 +86,8 @@
                   placeholder="Enter Quantity" 
                   id="asset_quantity" 
                   type="number"
+                  (keyup)="getCost($event)"
+                  (change)="getCost($event)"
                   (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)">
                   <mat-error *ngIf="formErrors.quantity">
                   <strong>{{formErrors.quantity}}</strong>
@@ -228,7 +233,7 @@
                   matFormFieldClass="full-width" 
                   (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
                   propertyValue="id" 
-                  [errorMessage]="formErrors.accumulatedDepreciationId"
+                  [errorMessage]="formErrors.depreciationExpenseId"
                   [optionList]="ngxsService.otherAccounts$"
                   placeholder="Select Depreciation Exp Account">
                 </kt-simple-dropdown>

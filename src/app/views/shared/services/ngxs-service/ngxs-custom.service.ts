@@ -55,6 +55,7 @@ import { CategoryAssetState } from 'src/app/views/pages/profiling/category/store
 import { ExpenseAccountState } from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
 import { GetLiabilityAccountsState } from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
 import { AssetService } from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
+import { DisposalDropdownState } from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
 
 @Injectable({
   providedIn: 'root'
@@ -124,7 +125,12 @@ export class NgxsCustomService {
   @Select(AssetAccountState.isFetchCompleted) assetAccountFetchCompleted$: Observable<any>;
   @Select(AssetAccountState.isLoading) assetAccountIsLoading$: Observable<any>;
 
-  // Other Accounts
+  // Disposal Dropdown
+  @Select(DisposalDropdownState.entities) disposalDropdown$: Observable<any>;
+  @Select(DisposalDropdownState.isFetchCompleted) disposalDropdownFetchCompleted$: Observable<any>;
+  @Select(DisposalDropdownState.isLoading) disposalDropdownIsLoading$: Observable<any>;
+ 
+// Other Accounts
   @Select(OtherAccountState.entities) otherAccounts$: Observable<any>;
   @Select(OtherAccountState.isFetchCompleted) otherAccountsFetchCompleted$: Observable<any>;
   @Select(OtherAccountState.isLoading) otherAccountsIsLoading$: Observable<any>;
@@ -343,6 +349,19 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(AssetAccountState, {
           serviceClass: this.chartOfAccountService,
           methodName: 'getAssetAccounts',
+          context: this
+        }))
+      }
+    })
+  }  
+
+  // Get All Asset Accounts State From Store if available else fetch from the server and cache.
+  getDisposaldropdownFromState() {
+    this.disposalDropdownFetchCompleted$.subscribe((res) => {
+      if (!res) {
+        this.store.dispatch(new GetList(AssetAccountState, {
+          serviceClass: this.assetService,
+          methodName: 'getAssetsDisposalDropdown',
           context: this
         }))
       }

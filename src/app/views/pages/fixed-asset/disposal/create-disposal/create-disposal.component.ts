@@ -66,13 +66,13 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
 
   // Validation messages..
   validationMessages = {
-    assetId: {
+    fixedAssetId: {
       required: 'Account is required.',
     },
-    categoryId: {
-      required: 'Category is required.',
+    productId: {
+      required: 'Product is required.',
     },
-    purchaseCost: {
+    cost: {
       required: 'Cost is required.',
     },
     salvageValue: {
@@ -87,9 +87,6 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     accumulatedDepreciationId: {
       required: 'Account is required.',
     },
-    bookValue: {
-      required: 'Book Value is required.',
-    },
     disposalDate: {
       required: 'Disposal Date is required.',
     },
@@ -103,16 +100,15 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
 
   // error keys..
   formErrors = {
-    assetId:  '',
-    categoryId:  '',
-    purchaseCost:  '',
+    fixedAssetId: '',
+    productId: '',
+    cost: '',
     salvageValue: '',
     usefulLife: '',
     accumulatedDepreciationId: '',
-    bookValue: '',
     disposalDate: '',
     disposalValue: '',
-    warehouseId: '',
+    warehouseId: ''
   };
 
   // Injecting in dependencies in constructor
@@ -133,37 +129,18 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
 
   ngOnInit() {
 
-    // Creating Forms
-    // this.disposalForm = this.fb.group({
-    //   dateOfAcquisition:['', [Validators.required]],
-    //   cwipAccountId: ['', [Validators.required]],
-    //   costOfAsset: ['', [Validators.required]],
-    //   assetAccountId: ['', [Validators.required]],
-    //   salvageValue:[0],
-    //   campusId: ['', [Validators.required]],
-    //   warehouseId: ['', [Validators.required]],
-    //   depreciationApplicability: [false],
-    //   depreciationId:[null],
-    //   modelType: [0],
-    //   depreciationExpenseId:[null],
-    //   accumulatedDepreciationId: [null],
-    //   useFullLife:[0],
-    //   quantinty :[0],
-    //   decLiningRate: [0],
-    //   prorataBasis: [false],
-    //   active: [false]
-    // });
     this.disposalForm = this.fb.group({
-    assetId: ['' , [Validators.required]],
-    categoryId: ['' , [Validators.required]],
-    purchaseCost: ['' , [Validators.required]],
-    salvageValue: [0 , [Validators.required]],
-    usefulLife:[0 , [Validators.required]],
-    accumulatedDepreciationId: [null , [Validators.required]],
-    bookValue: [0 , [Validators.required]],
-    disposalDate: ['' , [Validators.required]],
-    disposalValue:  [0 , [Validators.required]],
-    warehouseId: ['' , [Validators.required]],
+
+    fixedAssetId: ['' , [Validators.required]],
+    productId: ['' , [Validators.required]],
+    cost: ['' , [Validators.required]],
+    salvageValue: ['' , [Validators.required]],
+    usefulLife: ['' , [Validators.required]],
+    accumulatedDepreciationId:['' , [Validators.required]],
+    disposalDate:['' , [Validators.required]],
+    disposalValue: ['' , [Validators.required]],
+    warehouseId: ['' , [Validators.required]]
+
     });
 
     //get Accounts from Accounts State
@@ -172,7 +149,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     this.ngxsService.getOtherAccountsFromState();
     this.ngxsService.getAssetAccountFromState();
     this.ngxsService.getCampusFromState();
-    this.ngxsService.getWarehouseFromState();
+    this.ngxsService.getDisposaldropdownFromState();
 
     if (this.data?.id) {
       this.title = 'Edit Disposal'
@@ -203,7 +180,6 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
       .subscribe((res) => {
         this.disposalModel = res.result;
         this.patchDisposal(res.result);
-        // this.depApplicabilityToggle = res.result.depreciationApplicability;
       });
   }
 
@@ -211,21 +187,17 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   public patchDisposal(disposal: IDisposal | any) {
     this.disposalForm.patchValue({
 
-    assetId: disposal.assetId,
-    categoryId: disposal,
-    purchaseCost: disposal.categoryId,
+    fixedAssetId: disposal.fixedAssetId,
+    productId: disposal.productId,
+    cost: disposal.cost,
     salvageValue: disposal.salvageValue,
-    usefulLife:disposal.usefulLife,
-    accumulatedDepreciationId:disposal.accumulatedDepreciationId,
-    bookValue: disposal.bookValue,
+    usefulLife: disposal.usefulLife,
+    accumulatedDepreciationId: disposal.accumulatedDepreciationId,
     disposalDate: disposal.disposalDate,
-    disposalValue:  disposal.disposalValue,
+    disposalValue: disposal.disposalValue,
     warehouseId: disposal.warehouseId,
 
     });
-    // this.onChangeDepApplicability({checked : disposal.depreciationApplicability})
-    // this.getModelType(disposal.modelType)
-    // this.onCampusSelected(disposal.campusId)
   }
 
 
@@ -276,50 +248,19 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     }
   }
 
-  // onChangeDepApplicability(e){
-
-  //   this.depApplicabilityToggle = e.checked
-
-  //   if(e.checked){
-  //     this.disposalForm.get('useFullLife').setValidators([Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')])
-  //   }
-  //   if(!e.checked){
-  //     this.resetFields(this.disposalForm , 'depreciationId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
-  //     this.disposalForm.get('prorataBasis').setValue(false);
-  //     this.disposalForm.get('active').setValue(false);
-  //     this.disposalForm.get('modelType').setValue(0);
-  //     this.getModelType(0)
-  //   }
-  //   this.conditionalValidation(this.disposalForm, e.checked , ['depreciationId','depreciationExpenseId', 'accumulatedDepreciationId','useFullLife'])
-  //   this.logValidationErrors(this.disposalForm, this.formErrors , this.validationMessages);
-  // }
-
-  // getModelType(e : any){
-
-  //   if(e){
-  //     this.isModelType = true;
-  //   }else{
-  //     this.isModelType = false;
-  //   }
-
-  //   this.conditionalValidation(this.disposalForm, e , ['decLiningRate'])
-  //   this.logValidationErrors(this.disposalForm, this.formErrors , this.validationMessages) 
-
-  // }
 
   //Mapping Form Value to Model
   mapFormValuesTodisposalModel() {
 
-    this.disposalModel.assetId = this.disposalForm.value.assetId;
-    this.disposalModel.categoryId = this.disposalForm.value.categoryId;
-    this.disposalModel.purchaseCost = this.disposalForm.value.purchaseCost;
-    this.disposalModel.salvageValue = this.disposalForm.value.salvageValue;
-    this.disposalModel.usefulLife =this.disposalForm.value.useFullLife;
-    this.disposalModel.accumulatedDepreciationId = this.disposalForm.value.accumulatedDepreciationId;
-    this.disposalModel.bookValue = this.disposalForm.value.bookValue;
-    this.disposalModel.disposalDate = this.dateHelperService.transformDate(this.disposalForm.value.disposalDate, 'yyyy-MM-dd');;
-    this.disposalModel.disposalValue =  this.disposalForm.value.disposalValue;
-    this.disposalModel.warehouseId = this.disposalForm.value.warehouseId;
+    this.disposalModel.fixedAssetId = this.disposalForm.value.fixedAssetId,
+    this.disposalModel.productId = this.disposalForm.value.productId,
+    this.disposalModel.cost = this.disposalForm.value.cost,
+    this.disposalModel.salvageValue = this.disposalForm.value.salvageValue,
+    this.disposalModel.usefulLife = this.disposalForm.value.usefulLife,
+    this.disposalModel.accumulatedDepreciationId = this.disposalForm.value.accumulatedDepreciationId,
+    this.disposalModel.disposalDate = this.dateHelperService.transformDate(this.disposalForm.value.disposalDate, 'yyyy-MM-dd'),
+    this.disposalModel.disposalValue = this.disposalForm.value.disposalValue,
+    this.disposalModel.warehouseId = this.disposalForm.value.warehouseId
   }
 
 
@@ -334,53 +275,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    //this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
   }
-
-  // getDepreciationModel(id: number) {
-  //   this.depreciationService.getDepreciationById(id)
-  //     .pipe(
-  //       take(1),
-  //       finalize(() => {
-  //         this.isLoading = false;
-  //         this.cdRef.detectChanges();
-  //       })
-  //     )
-  //     .subscribe((res) => {
-  //       this.disposalForm.patchValue({
-  //         modelType: res.result.modelType,
-  //         useFullLife: res.result.useFullLife,
-  //         decLiningRate: res.result.decliningRate,
-  //         depreciationExpenseId: res.result.depreciationExpenseId,
-  //         accumulatedDepreciationId: res.result.accumulatedDepreciationId,
-  //       })
-  //       this.getModelType(res.result.modelType)
-  //       this.cdRef.detectChanges()
-  //     })
-  // }
-
-  // checkCampus() {
-  //   this.showMessage = true;
-  //   if(this.disposalForm.value.campusId === '') {
-  //     this.toastService.info("Please Select Campus First!", "Disposal")
-  //   }
-  // }
-
-  // onCampusSelected(campusId : number){
-  //     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res =>{
-  //       this.warehouseList.next(res.result || [])
-        
-  //     })
-
-  //     if((!this.disposalModel.warehouseId) && this.disposalForm.value.warehouseId) {
-  //       this.toastService.info("Please Reselect Store!" , "Disposal")
-  //       this.disposalForm.get('warehouseId').setValue(null)
-  //     }
-
-     
-  //     this.disposalModel.warehouseId = null;
-  // }
-
 
   // Dialogue close function
   onCloseDialog() {
