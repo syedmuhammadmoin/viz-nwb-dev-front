@@ -22,7 +22,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 export class JouralEntryDetailsComponent extends AppComponentBase implements OnInit {
 
-  //Loader
+  // Loader
   isLoading: boolean;
 
   docType = DocType
@@ -30,21 +30,21 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   action = ActionButton
   docStatus = DocumentStatus
 
-  //need for routing
+  // need for routing
   journalEntryId: number;
 
   public journalEntryRoute = JOURNAL_ENTRY
 
-  //For ag grid
+  // For ag grid
   gridOptions: GridOptions = ({} as GridOptions);
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
 
-  //Detail Data
+  // Detail Data
   journalEntryMaster: any;
   journalEntryLines: IJournalEntryLines[];
 
-  //Showing Remarks
+  // Showing Remarks
   remarksList: string[] = [];
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -58,11 +58,11 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     super(injector)
   }
 
-  //Defining AG Grid Columns
+  // Defining AG Grid Columns
   columnDefs = [
     { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     { headerName: 'Partner', field: 'businessPartnerName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { 
+    {
       headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
       headerName: 'Debit', field: 'debit', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
@@ -76,11 +76,11 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Store', 
-      field: 'warehouseName', 
-      sortable: true, 
-      filter: true, 
+    {
+      headerName: 'Store',
+      field: 'warehouseName',
+      sortable: true,
+      filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return params.value || 'N/A'
@@ -124,17 +124,17 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     .subscribe((res: IApiResponse<IJournalEntry>) => {
       this.journalEntryMaster = res.result;
       this.journalEntryLines = res.result.journalEntryLines;
-      this.remarksList = this.journalEntryMaster.remarksList ?? [] 
+      this.remarksList = this.journalEntryMaster.remarksList ?? []
       this.cdRef.markForCheck();
     })
   }
 
-  //Get Remarks From User
+  // Get Remarks From User
   remarksDialog(action: any): void {
     const dialogRef = this.dialog.open(CustomRemarksComponent, {
       width: '740px'
     });
-    //Getting Updated Journal Entry Data
+    // Getting Updated Journal Entry Data
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.workflow(action, res.data)
@@ -159,7 +159,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
       })
   }
 
-  //Upload File
+  // Upload File
   openFileUploadDialog() {
     this.dialog.open(CustomUploadFileComponent, {
       width: '740px',
@@ -175,5 +175,3 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     })
   }
 }
-
-

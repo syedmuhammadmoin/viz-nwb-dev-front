@@ -1,0 +1,269 @@
+<div [ktBusy]="isLoading">
+  <kt-portlet>
+    <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" [title]="title"></kt-portlet-header>
+    <!--begin::Form-->
+    <form #formDirective="ngForm" (ngSubmit)="onSubmit()" [formGroup]="depreciationAdjustmentForm"
+          class="kt-form kt-form--label-align-right">
+      <div class="kt-portlet__body">
+        <div class="kt-form__section kt-form__section--first">
+          <div class="col-lg-12 col-md-12 col-sm-12">
+            <div class="row mt-1 mb-0">
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Date:</label>
+                  <kt-date-input
+                    (blurEvent)="logValidationErrors(this.depreciationAdjustmentForm, this.formErrors, this.validationMessages)"
+                    [errorMessage]="formErrors.date" [maxDate]="dateLimit"
+                    formControlName="date"
+                    matFormFieldClass="full-width" placeholder="Date">
+                  </kt-date-input>
+                </div>
+              </div>
+
+              <!--<div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Campus:</label>
+                  <kt-simple-dropdown
+                    id="journal_campus"
+                    placeholder="Select Campus"
+                    propertyValue="id"
+                    propertyName="name"
+                    formControlName="campusId"
+                    (selectionChange)="onCampusSelected($event.value)"
+                    (blurEvent)="logValidationErrors(depreciationAdjustmentForm, formErrors, validationMessages)"
+                    matFormFieldClass="full-width"
+                    [errorMessage]="'Campus is required.'"
+                    [optionList]="ngxsService.campuses$">
+                  </kt-simple-dropdown>
+                </div>
+              </div>-->
+
+              <div class="col-lg-5 col-sm-5 col-md-5">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Description:</label>
+                  <kt-input-field
+                    (blurEvent)="logValidationErrors(depreciationAdjustmentForm, this.formErrors, this.validationMessages)"
+                    [errorMessage]="[{ condition : formErrors.description , error : formErrors.description }]"
+                    formControlName="description"
+                    id="journal_description"
+                    placeholder="Enter Description">
+                  </kt-input-field>
+                </div>
+              </div>
+            </div>
+
+            <div class="row mt-5">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div>
+                  <ng-container formArrayName="depreciationAdjustmentLines">
+                    <mat-table #table
+                               [dataSource]="depreciationAdjustmentForm.get('depreciationAdjustmentLines')['controls']">
+
+                      <ng-container matColumnDef="fixedAssetId">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Fixed Asset</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <kt-simple-dropdown [errorMessage]="'Fixed Asset is required.'" [id]="'journal_coa_' + i"
+                                                [optionList]="ngxsService.assets$"
+                                                formControlName="fixedAssetId" matFormFieldClass="full-width"
+                                                placeholder="Select Fixed Asset"
+                                                propertyName="name" propertyValue="id">
+                            </kt-simple-dropdown>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+
+
+                      <!-- Account Column -->
+                      <ng-container matColumnDef="level4Id">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Account</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <kt-simple-dropdown [errorMessage]="'Account is required.'" [id]="'journal_coa_' + i"
+                                                [optionList]="ngxsService.accountsLevel4$"
+                                                formControlName="level4Id" matFormFieldClass="full-width"
+                                                placeholder="Select Account"
+                                                propertyName="name"
+                                                propertyValue="id">
+                            </kt-simple-dropdown>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <!--Partner Column-->
+                      <!--<ng-container matColumnDef="businessPartnerId">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Partner</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <kt-simple-dropdown placeholder="Select Partner" propertyValue="id" propertyName="name"
+                                                formControlName="businessPartnerId" matFormFieldClass="full-width"
+                                                errorMessage="Partner is required." [id]="'journal_partner_' + i"
+                                                [optionList]="ngxsService.businessPartners$"
+                                                [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                                                clickEventButtonName="Add New Business Partner"
+                                                (clickEvent)="addButtonService.openBusinessPartnerDialog()">
+                            </kt-simple-dropdown>
+                          </div>
+                        </mat-cell>
+                      </ng-container>-->
+                      <!-- Description Column -->
+                      <ng-container matColumnDef="description">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <kt-input-field
+                              (blurEvent)="logValidationErrors(this.depreciationAdjustmentForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : depreciationAdjustmentForm.get('depreciationAdjustmentLines')['controls'][i].controls.description.errors?.required &&
+                                                                depreciationAdjustmentForm.get('depreciationAdjustmentLines')['controls'][i].controls.description.touched ,
+                                                    error : 'Description is required.' }]"
+                              [id]="'journal_description_' + i" formControlName="description"
+                              matFormFieldClass="full-width"
+                              placeholder="Enter Description">
+                            </kt-input-field>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <!-- Debit Column -->
+                      <ng-container matColumnDef="debit">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Debit</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <mat-form-field appearance="outline" class="full-width">
+                              <input
+                                (blur)="logValidationErrors(this.depreciationAdjustmentForm, this.formErrors, this.validationMessages)"
+                                (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"
+                                [id]="'journal_debit_' + i" formControlName="debit"
+                                matInput placeholder="Enter Debit"
+                                type="number">
+                              <mat-error
+                                *ngIf="element.controls.debit.errors?.required && element.controls.debit.touched">
+                                <strong>Debit is required.</strong>
+                              </mat-error>
+                              <mat-error *ngIf="element.controls.debit.errors?.min && element.controls.debit.touched">
+                                <strong>Minimum value is 0.</strong>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <!-- Credit Column -->
+                      <ng-container matColumnDef="credit">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Credit</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <mat-form-field appearance="outline" class="full-width">
+                              <input
+                                (blur)="logValidationErrors(this.depreciationAdjustmentForm, this.formErrors, this.validationMessages)"
+                                (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"
+                                [id]="'journal_credit_' + i" formControlName="credit"
+                                matInput placeholder="Enter Credit"
+                                type="number">
+                              <mat-error
+                                *ngIf="element.controls.credit.errors?.required && element.controls.credit.touched">
+                                <strong>Credit is required.</strong>
+                              </mat-error>
+                              <mat-error *ngIf="element.controls.credit.errors?.min && element.controls.credit.touched">
+                                <strong>Minimum value is 0.</strong>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <!-- Warehouse Column -->
+                      <!--<ng-container matColumnDef="warehouseId">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Store</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <kt-simple-dropdown
+                              [id]="'journal_store_' + i"
+                              placeholder="Select Store"
+                              propertyValue="id"
+                              propertyName="name"
+                              isDisabledNone="true"
+                              (click)="checkCampus()"
+                              [hintText]="'Optional'"
+                              formControlName="warehouseId"
+                              matFormFieldClass="full-width"
+                              [optionList]="warehouseList"
+                              [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                              clickEventButtonName="Add New Store"
+                              (clickEvent)="addButtonService.openWarehouseDialog()">
+                            </kt-simple-dropdown>
+                          </div>
+                        </mat-cell>
+                      </ng-container>-->
+                      <!-- Action Column -->
+                      <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <button (click)="removeDepreciationAdjustmentLineClick(i);" [id]="'journal_remove_' + i"
+                                  class=" app-remove-btn"
+                                  type="button">
+                            <i aria-hidden="true" class="fas fa-trash"></i>
+                          </button>
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </ng-container>
+                  <ng-container>
+                    <div class="row">
+                      <div class="col-md-8 col-sm-8">
+                        <button (click)="addDepreciationAdjustmentLineClick()" class=" app-add-new-line-btn"
+                                id="journal_add_line"
+                                type="button">
+                          <i aria-hidden="true" class="fas fa-plus"> </i> Add New Line
+                        </button>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-4 col-lg-4  ml-auto mt-3">
+                <div class="print-box">
+                  <h4>Total Debit: <span class="float-right">{{debitTotal.toLocaleString(undefined,
+                    {maximumFractionDigits: 2})}}</span></h4>
+                </div>
+                <div class="print-box">
+                  <h4>Total Credit: <span class="float-right">
+                    {{creditTotal.toLocaleString(undefined, {maximumFractionDigits: 2})}}</span></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <mat-divider class="mt-10"></mat-divider>
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
+          <div class="row ">
+            <div class="col-lg-12 text-right">
+              <button (click)="reset()" class="mr-2 app-reset-btn" id="journal_reset" mat-raised-button type="button"><i
+                class="fas fa-undo"></i> Reset
+              </button>
+              <button
+                (click)="logValidationErrors(this.depreciationAdjustmentForm, this.formErrors, this.validationMessages); isSubmit(0)"
+                class=" mr-2 app-save-btn" id="journal_save" mat-raised-button
+                type="submit">
+                <i class="far fa-save"></i>
+                Save
+              </button>
+              <button
+                (click)="logValidationErrors(this.depreciationAdjustmentForm, this.formErrors, this.validationMessages); isSubmit(1)"
+                class="app-default-btn" id="journal_submit" mat-raised-button
+                type="submit">
+                <i class="far fa-save"></i>
+                Submit
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!--end::Form-->
+  </kt-portlet>
+</div>

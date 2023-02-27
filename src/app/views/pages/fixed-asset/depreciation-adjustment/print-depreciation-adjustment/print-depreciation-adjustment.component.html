@@ -1,0 +1,112 @@
+<div class="container " >
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button
+        id="journal_print"
+        printSectionId="main"
+        printTitle="Invoice"
+        ngxPrint
+        type="button"
+        mat-raised-button
+        class="app-default-btn"
+        [useExistingCss]="true" style="margin-bottom: 20px;"
+      ><i class="fas fa-print"></i> Print
+      </button>
+    </div>
+  </div>
+
+
+  <div class="col-lg-10 mx-auto" id="main">
+    <div [class]="className">
+      <div class="bg-whitee">
+        <div class="print_header_area p-s-1">
+          <div class="print-col-6 p-s-1-one">
+            <div class="logo_and_title">
+              <div class="print-logo"></div>
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+            </div>
+
+          </div>
+          <div class="print-col-5 ml-auto p-s-1-two">
+            <div class="id_num">
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+              margin-bottom: 10px;
+              text-align: center;">
+                <h4>JOURNAL ENTRY</h4>
+              </div>
+              <div class="print-box-one">
+                <h4 class="print-page-items">Document No: <span class="float-right" style="font-weight: 400;">{{depreciationAdjustmentMaster?.docNo}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-two">
+                <h4 class="mt-1">Adjustment Date: <span class="float-right" style="font-weight: 400;">
+                  {{depreciationAdjustmentMaster?.dateOfDepreciationAdjustment | date: 'MMM d, y'}}</span></h4>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="print_body_area p-s-2">
+          <div class="print-col-5 p-s-2-one">
+            <!--<div class="print-box-one">
+              <h4 class="font-14"><b>Campus:</b> <span class="float-right" style="font-weight: 400;">{{depreciationAdjustmentMaster?.campusName}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>-->
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Description:</b> </h4>
+              <p style="font-weight: 400;">{{depreciationAdjustmentMaster?.description || 'N/A'}}</p>
+            </div>
+          </div>
+
+          <div class="print-col-12 p-s-2-two">
+            <div class="table-responsive">
+              <table class="table">
+                <thead class="thead-dark_color">
+                <tr>
+                  <th>S.No</th>
+                  <th>Description</th>
+                  <th>Fixed Asset</th>
+                  <th>Account</th>
+                  <th class="text-right">Debit</th>
+                  <th class="text-right">Credit</th>
+                </tr>
+                <tr *ngFor="let line of depreciationAdjustmentLines ; index as i">
+                  <td>{{i + 1}}</td>
+                  <td  class="description text-left">{{line?.description}}</td>
+                  <td> {{line?.fixedAsset}}</td>
+                  <td> {{line?.level4}}</td>
+                  <td class="text-right"><b>{{valueFormatter(line?.debit)}}</b></td>
+                  <td class="text-right"><b>{{valueFormatter(line?.credit)}}</b></td>
+                </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+
+
+          <!--<div class="print-col-5  ml-auto p-s-3">
+            <div class="print-box p-s-3-one">
+              <h4>Total Debit:
+                <span class="float-right" style="font-weight: 500;">{{valueFormatter(depreciationAdjustmentMaster?.totalDebit)}}</span>
+              </h4>
+            </div>
+            <div class="print-box p-s-3-one">
+              <h4>Total Credit:
+                <span class="float-right" style="font-weight: 500;">{{valueFormatter(depreciationAdjustmentMaster?.totalCredit)}}</span>
+              </h4>
+            </div>
+          </div>-->
+        </div>
+
+        <div class="row mt-10 ms-10">
+          <div class="print-col-4 p-s-5 text-center">
+            ______________________
+            <p class="text-center">Authorized Sign</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

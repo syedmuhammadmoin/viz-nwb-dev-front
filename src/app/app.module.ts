@@ -111,6 +111,7 @@ import { CategoryAssetState } from './views/pages/profiling/category/store/categ
 import { ExpenseAccountState } from './views/pages/finance/chat-of-account/store/expense-account.state';
 import { GetLiabilityAccountsState } from './views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
 import { AgGridButtonCellRendrerComponent } from './views/shared/components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
+import {AssetState} from './views/pages/fixed-asset/store/asset.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -193,6 +194,7 @@ export function getHighlightLanguages() {
       StatusState,
       PayrollItemState,
       RequisitionState,
+      AssetState,
       DisposalDropdownState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),

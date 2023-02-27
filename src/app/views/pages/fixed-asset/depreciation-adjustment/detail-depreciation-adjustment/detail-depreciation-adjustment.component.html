@@ -1,0 +1,87 @@
+<div [ktBusy]="isLoading">
+  <kt-portlet>
+    <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Depreciation Adjustment Detail'">
+      <ng-container class="" ktPortletTools>
+        <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[depreciationAdjustmentMaster?.state]}}"></span> {{depreciationAdjustmentMaster?.status}}</div>
+      </ng-container>
+    </kt-portlet-header>
+    <kt-portlet-body>
+      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="row">
+
+          <div class="btn_container">
+            <div class="col-md-6 col-6">
+              <ng-container ktPortletTools >
+                <button  *ngIf="(depreciationAdjustmentMaster?.state === docStatus.Draft || depreciationAdjustmentMaster?.state === docStatus.Rejected) &&
+                  (permission.isGranted(permissions.DEPRECIATION_ADJUSTMENT_EDIT))" id="journal_edit"
+                         [routerLink]="'/' + depreciationAdjustmentRoute.ID_BASED_ROUTE('edit' , depreciationAdjustmentMaster?.id)"
+                         [queryParams]="{q: depreciationAdjustmentMaster?.id, 'isdepreciationAdjustment': true}" type="button"  class="btn_public mr-3">
+                  <i class="fa fa-edit icon-e-p-a"></i> Edit
+                </button>
+                <!--<button *ngIf="(permission.isGranted(permissions.DEPRECIATION_ADJUSTMENT_EDIT))"  class="btn_public mr-3"
+                        (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
+                </button>-->
+                <button  id="journal_print" [routerLink]="'/' + depreciationAdjustmentRoute.ID_BASED_ROUTE('print' , depreciationAdjustmentMaster?.id)" class="btn_public"
+                         matTooltip="Print Depreciation Adjustment"><i class="fa fa-print icon-e-p-a"></i>Print</button>
+              </ng-container>
+            </div>
+
+            <div class="col-lg-6 text-right" *ngIf="depreciationAdjustmentMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="journal_reject" class="btn btn-outline-danger font-weight-bold mr-2 " >Reject</button>
+              <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success font-weight-bold " id="journal_approve" >Approve</button>
+            </div>
+          </div>
+
+          <div class="col-lg-5 mt-3">
+            <div class="print-box">
+              <h4 class="print-box-detail-1"><b>Document No:</b>
+                <span class="float-right" style="font-weight: 400;">{{depreciationAdjustmentMaster?.docNo}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2"><b>Adjustment Date: </b>
+                <span class="float-right" style="font-weight: 400;">{{depreciationAdjustmentMaster?.dateOfDepreciationAdjustment | date: 'MMM d, y'}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2"><b>Description: </b>
+                <span class="float-right" ></span></h4>
+              <p style="font-weight: 400;">{{depreciationAdjustmentMaster?.description || 'N/A'}}</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-12 col-12 mt-10">
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;" class="ag-theme-alpine"
+                             [rowData]="depreciationAdjustmentLines"
+                             [columnDefs]="columnDefs"
+                             [gridOptions]="gridOptions"
+                             (firstDataRendered)="onFirstDataRendered($event)">
+            </ag-grid-angular>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-7 col-7 mt-10"  *ngIf="remarksList.length > 0">
+            <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+          </div>
+
+          <!--<div class="col-md-4 col-lg-4  ml-auto mt-3" >
+            <div class="print-box">
+              <h4 class="net-payment"><b>Total Debit:</b>
+                <span class="float-right" style="font-weight: 400;">{{valueFormatter(depreciationAdjustmentMaster?.totalDebit || 0)}}</span>
+              </h4>
+            </div>
+            <div class="print-box">
+              <h4><b>Total Credit:</b>
+                <span class="float-right" style="font-weight: 400;">{{valueFormatter(depreciationAdjustmentMaster?.totalCredit || 0)}}</span>
+              </h4>
+            </div>
+          </div>-->
+        </div>
+      </div>
+    </kt-portlet-body>
+  </kt-portlet>
+</div>

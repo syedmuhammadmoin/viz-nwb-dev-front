@@ -1,12 +1,12 @@
 // Angular
-import { NgModule} from '@angular/core';
-import { CommonModule} from '@angular/common';
-import { RouterModule, Routes} from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {RouterModule, Routes} from '@angular/router';
 // Components
-import { BaseComponent} from './views/theme/base/base.component';
+import {BaseComponent} from './views/theme/base/base.component';
 // Auth
-import { AuthGuard} from './core/auth';
-import { APP_ROUTES } from './views/shared/AppRoutes';
+import {AuthGuard} from './core/auth';
+import {APP_ROUTES} from './views/shared/AppRoutes';
 
 const routes: Routes = [
   {
@@ -15,10 +15,11 @@ const routes: Routes = [
       import('./views/pages/auth/auth.module').then(
         (m) => m.AuthModule
       ),
-      canActivateChild: [AuthGuard]
+    canActivateChild: [AuthGuard]
   },
-  { path: 'error', 
-    loadChildren: () => 
+  {
+    path: 'error',
+    loadChildren: () =>
       import('./views/pages/error/error.module').then(
         (m) => m.ErrorModule)
   },
@@ -34,17 +35,17 @@ const routes: Routes = [
             (m) => m.BuilderModule
           ),
       },
-       // Lazy Load DASHBOARD Module
-       {
+      // Lazy Load DASHBOARD Module
+      {
         path: APP_ROUTES.DASHBOARD,
         loadChildren: () =>
           import('./views/pages/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //Access Management Section
+      // Access Management Section
       // Lazy Load ACCESS MANAGEMENT Module
       {
         path: APP_ROUTES.ACCESS_MANAGEMENT,
@@ -52,10 +53,10 @@ const routes: Routes = [
           import('./views/pages/access-management/access-management.module').then(
             (m) => m.AccessManagementModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //profiling Section
+      // profiling Section
       // Lazy Load BUSINESS PARTNER Module
       {
         path: APP_ROUTES.BUSINESS_PARTNER,
@@ -63,7 +64,7 @@ const routes: Routes = [
           import('./views/pages/profiling/business-partner/business-partner.module').then(
             (m) => m.BusinessPartnerModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       {
         path: APP_ROUTES.CAMPUS,
@@ -71,43 +72,43 @@ const routes: Routes = [
           import('./views/pages/profiling/campus/campus.module').then(
             (m) => m.CampusModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-       // Lazy Load CATEGORY Module
-       {
+      // Lazy Load CATEGORY Module
+      {
         path: APP_ROUTES.CATEGORY,
         loadChildren: () =>
           import('./views/pages/profiling/category/category.module').then(
             (m) => m.CategoryModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-       // Lazy Load ORGANIZATION Module
-       {
+      // Lazy Load ORGANIZATION Module
+      {
         path: APP_ROUTES.ORGANIZATION,
         loadChildren: () =>
           import('./views/pages/profiling/organization/organization.module').then(
             (m) => m.OrganizationModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-       // Lazy Load PRODUCT Module
-       {
+      // Lazy Load PRODUCT Module
+      {
         path: APP_ROUTES.PRODUCT, // <= Page URL
         loadChildren: () =>
           import('./views/pages/profiling/product/product.module').then(
             (m) => m.ProductModule
           ),
-          canActivateChild: [AuthGuard] // <= Page component registration
+        canActivateChild: [AuthGuard] // <= Page component registration
       },
-       // Lazy Load WAREHOUSE Module
-       {
+      // Lazy Load WAREHOUSE Module
+      {
         path: APP_ROUTES.WAREHOUSE, // <= Page URL
         loadChildren: () =>
           import('./views/pages/profiling/warehouse/warehouse.module').then(
             (m) => m.WarehouseModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load TAX Module
       {
@@ -116,7 +117,7 @@ const routes: Routes = [
           import('./views/pages/profiling/tax/tax.module').then(
             (m) => m.TaxModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load Unit Of Measurement Module
       {
@@ -125,9 +126,9 @@ const routes: Routes = [
           import('./views/pages/profiling/unit-of-measurement/unit-of-measurement.module').then(
             (m) => m.UnitOfMeasurementModule
           ),
-         canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-      //Budget Section
+      // Budget Section
       // Lazy Load BUDGET Module
       {
         path: APP_ROUTES.BUDGET,
@@ -135,7 +136,7 @@ const routes: Routes = [
           import('./views/pages/budget/current-budget/budget.module').then(
             (m) => m.BudgetModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load ESTIMATED BUDGET Module
       {
@@ -144,18 +145,18 @@ const routes: Routes = [
           import('./views/pages/budget/estimated-budget/estimated-budget.module').then(
             (m) => m.EstimatedBudgetModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //finance Section
-       // Lazy Load BANK ACCOUNT Module
-       {
+      // finance Section
+      // Lazy Load BANK ACCOUNT Module
+      {
         path: APP_ROUTES.BANK_ACCOUNT,
         loadChildren: () =>
           import('./views/pages/finance/bank-account/bank-account.module').then(
             (m) => m.BankAccountModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load BANK RECONCILIATION Module
       {
@@ -164,7 +165,7 @@ const routes: Routes = [
           import('./views/pages/finance/bank-reconciliation/bank-reconciliation.module').then(
             (m) => m.BankReconciliationModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load BANK STATEMENT Module
       {
@@ -173,7 +174,7 @@ const routes: Routes = [
           import('./views/pages/finance/bank-statement/bank-statement.module').then(
             (m) => m.BankStatementModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
       // Lazy Load CASH ACCOUNT Module
@@ -183,16 +184,16 @@ const routes: Routes = [
           import('./views/pages/finance/cash-account/cash-account.module').then(
             (m) => m.CashAccountModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-       // Lazy Load JOURNAL ENTRY Module
-       {
+      // Lazy Load JOURNAL ENTRY Module
+      {
         path: APP_ROUTES.JOURNAL_ENTRY, // <= Page URL
         loadChildren: () =>
           import('./views/pages/finance/journalEntry/journal-entry.module').then(
             (m) => m.JournalEntryModule
           ),
-          canActivateChild: [AuthGuard] // <= Page component registration
+        canActivateChild: [AuthGuard] // <= Page component registration
       },
       // Lazy Load PAYMENT Module
       {
@@ -201,27 +202,27 @@ const routes: Routes = [
           import('./views/pages/finance/payment/payment.module').then(
             (m) => m.PaymentModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-       // Lazy Load VENDOR BILL Module
-       {
+      // Lazy Load VENDOR BILL Module
+      {
         path: APP_ROUTES.CHART_OF_ACCOUNT, // <= Page URL
         loadChildren: () =>
           import('./views/pages/finance/chat-of-account/chat-of-account.module').then(
             (m) => m.ChatOfAccountModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //Procurement Section
-       // Lazy Load REQUISITION Module
-       {
+      // Procurement Section
+      // Lazy Load REQUISITION Module
+      {
         path: APP_ROUTES.REQUISITION,
         loadChildren: () =>
           import('./views/pages/procurement/requisition/requisition.module').then(
             (m) => m.RequisitionModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
       // Lazy Load Quotation Module
@@ -231,7 +232,7 @@ const routes: Routes = [
           import('./views/pages/procurement/quotation/quotation.module').then(
             (m) => m.QuotationModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load Call Quotation Module
       {
@@ -240,7 +241,7 @@ const routes: Routes = [
           import('./views/pages/procurement/call-quotation/call-quotation.module').then(
             (m) => m.CallQuotationModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
       // Lazy Load Quotation Comparative Module
@@ -250,7 +251,7 @@ const routes: Routes = [
           import('./views/pages/procurement/quotation-comparative/quotation-comparative.module').then(
             (m) => m.QuotationComparativeModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
       // Lazy Load REQUEST REQUISITION Module
@@ -260,7 +261,7 @@ const routes: Routes = [
           import('./views/pages/procurement/request-requisition/request-requisition.module').then(
             (m) => m.RequestRequisitionModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
       // Lazy Load BID EVALUATION Module
@@ -270,18 +271,18 @@ const routes: Routes = [
           import('./views/pages/procurement/bid-evaluation/bid-evaluation.module').then(
             (m) => m.BidEvaluationModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //sales Section
-       // Lazy Load CREDIT NOTE Module
-       {
+      // sales Section
+      // Lazy Load CREDIT NOTE Module
+      {
         path: APP_ROUTES.CREDIT_NOTE,
         loadChildren: () =>
           import('./views/pages/sales/credit-note/credit-note.module').then(
             (m) => m.CreditNoteModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load INVOICE Module
       {
@@ -290,9 +291,9 @@ const routes: Routes = [
           import('./views/pages/sales/invoice/invoice.module').then(
             (m) => m.InvoiceModule
           ),
-          canActivateChild: [AuthGuard] // <= Page component registration
+        canActivateChild: [AuthGuard] // <= Page component registration
       },
-      //purchase Section
+      // purchase Section
       // Lazy Load DEBIT NOTE Module
       {
         path: APP_ROUTES.DEBIT_NOTE,
@@ -300,7 +301,7 @@ const routes: Routes = [
           import('./views/pages/purchase/debit-note/debit-note.module').then(
             (m) => m.DebitNoteModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load PURCHASE ORDER Module
       {
@@ -309,30 +310,30 @@ const routes: Routes = [
           import('./views/pages/purchase/purchase-order/purchase-order.module').then(
             (m) => m.PurchaseOrderModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-       // Lazy Load VENDOR BILL Module
-       {
+      // Lazy Load VENDOR BILL Module
+      {
         path: APP_ROUTES.BILL, // <= Page URL
         loadChildren: () =>
           import('./views/pages/purchase/vendorBill/vendor-bill.module').then(
             (m) => m.VendorBillModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //Reports Section
+      // Reports Section
       {
         path: APP_ROUTES.REPORT,
         loadChildren: () =>
           import('./views/pages/report/report.module').then(
             (m) => m.ReportModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //Payroll Section
-      //Payroll Item
+      // Payroll Section
+      // Payroll Item
       // Lazy Load Payroll Item Module
       {
         path: APP_ROUTES.PAYROLL_ITEM,
@@ -340,9 +341,9 @@ const routes: Routes = [
           import('./views/pages/payroll/payroll-item/payroll-item.module').then(
             (m) => m.PayrollItemModule
           ),
-         canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-      //Payroll Transaction
+      // Payroll Transaction
       // Lazy Load Payroll Transaction Module
       {
         path: APP_ROUTES.PAYROLL_TRANSACTION,
@@ -350,7 +351,7 @@ const routes: Routes = [
           import('./views/pages/payroll/payroll-transaction/payroll-transaction.module').then(
             (m) => m.PayrollTransactionModule
           ),
-         canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       {
         path: APP_ROUTES.PAYROLL_PROCESS,
@@ -358,7 +359,7 @@ const routes: Routes = [
           import('./views/pages/payroll/payroll-process/payroll-process.module').then(
             (m) => m.PayrollProcessModule
           ),
-         canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       {
         path: APP_ROUTES.PAYROLL_REPORTS,
@@ -384,7 +385,7 @@ const routes: Routes = [
           import('./views/pages/payroll/designation/designation.module').then(
             (m) => m.DesignationModule
           ),
-         canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load Employee Module
       {
@@ -393,10 +394,10 @@ const routes: Routes = [
           import('./views/pages/payroll/employee/employee.module').then(
             (m) => m.EmployeeModule
           ),
-         canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //Inventory Section
+      // Inventory Section
       // Lazy Load STOCK Module
       {
         path: APP_ROUTES.STOCK,
@@ -404,7 +405,7 @@ const routes: Routes = [
           import('./views/pages/inventory/stock/stock.module').then(
             (m) => m.StockModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load GOODS RECEIVED NOTE Module
       {
@@ -413,7 +414,7 @@ const routes: Routes = [
           import('./views/pages/inventory/goods-received-note/goods-received-note.module').then(
             (m) => m.GoodsReceivedNoteModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load ISSUANCE Module
       {
@@ -422,7 +423,7 @@ const routes: Routes = [
           import('./views/pages/inventory/issuance/issuance.module').then(
             (m) => m.IssuanceModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load ISSUANCE RETURN Module
       {
@@ -431,7 +432,7 @@ const routes: Routes = [
           import('./views/pages/inventory/issuance-return/issuance-return.module').then(
             (m) => m.IssuanceReturnModule
           ),
-        //canActivateChild: [AuthGuard]
+        // canActivateChild: [AuthGuard]
       },
       // Lazy Load GOODS RETURN NOTE Module
       {
@@ -440,10 +441,10 @@ const routes: Routes = [
           import('./views/pages/inventory/goods-return-note/goods-return-note.module').then(
             (m) => m.GoodsReturnNoteModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
 
-      //Workflow Section
+      // Workflow Section
       // Lazy Load WORKFLOW Module
       {
         path: APP_ROUTES.WORKFLOW, // <= Page URL
@@ -451,7 +452,7 @@ const routes: Routes = [
           import('./views/pages/workflows/workflow/workflow.module').then(
             (m) => m.WorkflowModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load STATUS Module
       {
@@ -460,7 +461,7 @@ const routes: Routes = [
           import('./views/pages/workflows/status/status.module').then(
             (m) => m.StatusModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // FIXED ASSET
       // Lazy Load DEPRECIATION MODEL Module
@@ -470,7 +471,17 @@ const routes: Routes = [
           import('./views/pages/fixed-asset/depreciation-model/depreciation-method.module').then(
             (m) => m.DepreciationMethodModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
+      },
+
+      // Lazy Load DEPRECIATION MODEL Module
+      {
+        path: APP_ROUTES.DEPRECIATION_ADJUSTMENT, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/fixed-asset/depreciation-adjustment/depreciation-adjustment.module').then(
+            (m) => m.DepreciationAdjustmentModule
+          ),
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load ASSET Module
       {
@@ -479,7 +490,7 @@ const routes: Routes = [
           import('./views/pages/fixed-asset/asset/asset.module').then(
             (m) => m.AssetModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       // Lazy Load CWIP Module
       {
@@ -488,16 +499,16 @@ const routes: Routes = [
           import('./views/pages/fixed-asset/cwip/cwip.module').then(
             (m) => m.CwipModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
-      //Lazy Load DISPOSAL Module
+      // Lazy Load DISPOSAL Module
       {
         path: APP_ROUTES.DISPOSAL, // <= Page URL
         loadChildren: () =>
           import('./views/pages/fixed-asset/disposal/disposal.module').then(
             (m) => m.DisposalModule
           ),
-          canActivateChild: [AuthGuard]
+        canActivateChild: [AuthGuard]
       },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
@@ -511,4 +522,5 @@ const routes: Routes = [
   exports: [RouterModule],
 })
 
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

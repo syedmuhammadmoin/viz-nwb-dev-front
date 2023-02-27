@@ -169,7 +169,7 @@ export class Permissions {
   static QUOTATION_COMPARATIVE_CREATE = 'Permissions.Procurement.QuotationComparativeClaims.Create';
   static QUOTATION_COMPARATIVE_EDIT = 'Permissions.Procurement.QuotationComparativeClaims.Edit';
   static QUOTATION_COMPARATIVE_DELETE = 'Permissions.Procurement.QuotationComparativeClaims.Delete';
- 
+
   //Call Quotation
   static CALL_QUOTATION_VIEW = 'Permissions.Procurement.CallForQuotationClaims.View'
   static CALL_QUOTATION_CREATE = 'Permissions.Procurement.CallForQuotationClaims.Create';
@@ -322,6 +322,12 @@ export class Permissions {
   static DEPRECIATION_MODEL_EDIT = "Permissions.FixedAsset.DepreciationModelClaims.Edit";
   static DEPRECIATION_MODEL_DELETE = "Permissions.FixedAsset.DepreciationModelClaims.Delete";
 
+  //Depreciation Adjustment
+  static DEPRECIATION_ADJUSTMENT_VIEW = "Permissions.FixedAsset.DepreciationAdjustmentClaims.View";
+  static DEPRECIATION_ADJUSTMENT_CREATE = "Permissions.FixedAsset.DepreciationAdjustmentClaims.Create";
+  static DEPRECIATION_ADJUSTMENT_EDIT = "Permissions.FixedAsset.DepreciationAdjustmentClaims.Edit";
+  static DEPRECIATION_ADJUSTMENT_DELETE = "Permissions.FixedAsset.DepreciationAdjustmentClaims.Delete";
+
   //Asset
   static ASSET_VIEW = "Permissions.FixedAsset.FixedAssetClaims.View";
   static ASSET_CREATE = "Permissions.FixedAsset.FixedAssetClaims.Create";
@@ -339,7 +345,7 @@ export class Permissions {
   static DISPOSAL_CREATE = "Permissions.FixedAsset.DisposalClaims.Create";
   static DISPOSAL_EDIT = "Permissions.FixedAsset.DisposalClaims.Edit";
   static DISPOSAL_DELETE = "Permissions.FixedAsset.DisposalClaims.Delete";
-  
+
 
   // allowance
   static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';
@@ -382,7 +388,9 @@ export enum DocType {
   QuotationComparative,
   FixedAsset,
   CWIP,
-  Disposal 
+  Disposal,
+  BudgetReappropriation,
+  DepreciationAdjustment
 }
 
 export enum DocumentStatus {
@@ -433,8 +441,8 @@ export enum BusinessPartnerType {
   Customer,
   Vendor,
   Employee,
-  Supplier, 
-  Consultant, 
+  Supplier,
+  Consultant,
   Contractor
 }
 
@@ -457,4 +465,3 @@ export enum TaxType {
     Percentage,
     FixedAmount
   }
-

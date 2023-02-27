@@ -37,11 +37,11 @@ export class AppConst {
     1: 'Partial',
     2: 'Paid'
   }
-  
+
   static depreciationMethod = [
     { id: 0, name: 'Straight Line'},
     { id: 1, name: 'Declining Rate'},
-   
+
   ]
 
   static paymentType = {
@@ -342,7 +342,7 @@ export class AppConst {
     'Permissions.Procurement.QuotationComparativeClaims.Create': 'Quotation Comparative Create',
     'Permissions.Procurement.QuotationComparativeClaims.Edit': 'Quotation Comparative Update',
     'Permissions.Procurement.QuotationComparativeClaims.Delete': 'Quotation Comparative Delete',
-    
+
     // Call Quatation
     'Permissions.Procurement.CallForQuotationClaims.View': 'Call Quotation View',
     'Permissions.Procurement.CallForQuotationClaims.Create': 'Call Quotation Create',
@@ -425,7 +425,12 @@ export class AppConst {
     'Permissions.FixedAsset.DisposalClaims.Edit': 'Disposal Update',
     'Permissions.FixedAsset.DisposalClaims.Delete': 'Disposal Delete',
 
-    
+    // Depreciation Adjustment
+    'Permissions.FixedAsset.DepreciationAdjustmentClaims.View': 'Depreciation Adjustment View',
+    'Permissions.FixedAsset.DepreciationAdjustmentClaims.Create': 'Depreciation Adjustment Create',
+    'Permissions.FixedAsset.DepreciationAdjustmentClaims.Edit': 'Depreciation Adjustment Update',
+    'Permissions.FixedAsset.DepreciationAdjustmentClaims.Delete': 'Depreciation Adjustment Delete'
+
   }
   static paymentRegisterType = {
     1: 'Cash Account',
@@ -472,7 +477,9 @@ export class AppConst {
     {value: 'Call Quotation' , id: DocType.CallForQuotaion},
     {value: 'Fixed Asset' , id: DocType.FixedAsset},
     {value: 'CWIP ' , id: DocType.CWIP},
-    {value: 'Disposal' , id: DocType.Disposal}
+    {value: 'Disposal' , id: DocType.Disposal},
+    {value: 'Budget Reappropriation' , id: DocType.BudgetReappropriation},
+    {value: 'Depreciation Adjustment' , id: DocType.DepreciationAdjustment}
 
     //{value: 'sales Order', id: DocType.SalesOrder},
     //{ value: 'Goods Dispatch Note', id: DocType.GDN },

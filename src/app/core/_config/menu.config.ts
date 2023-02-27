@@ -1,14 +1,59 @@
-import { BUSINESS_PARTNER, CATEGORY, PRODUCT, WAREHOUSE, BANK_ACCOUNT,
-         PAYMENT, JOURNAL_ENTRY, BANK_STATEMENT, BANK_RECONCILIATION, CHART_OF_ACCOUNT, INVOICE, CREDIT_NOTE,
-         PURCHASE_ORDER, BILL, DEBIT_NOTE, GOODS_RECEIVED_NOTE, APP_ROUTES, REPORT,
-         WORKFLOW, STATUS, ACCESS_MANAGEMENT, BUDGET, CAMPUS, REQUISITION, ESTIMATED_BUDGET, 
-         PAYROLL_ITEM, DESIGNATION, DEPARTMENT, EMPLOYEE, PAYROLL_TRANSACTION , PAYROLL_PROCESS, 
-         PAYROLL_REPORTS, RECEIPT, PAYROLL_PAYMENT, TAX, UNIT_OF_MEASUREMENT, ISSUANCE, GOODS_RETURN_NOTE, 
-         STOCK, ISSUANCE_RETURN, DEPRECIATION_MODEL, ASSET, REQUEST_REQUISITION, BID_EVALUATION,
-          QUOTATION, QUOTATION_COMPARATIVE, CALL_QUOTATION, CWIP, DISPOSAL } from 'src/app/views/shared/AppRoutes';
+import {
+  ACCESS_MANAGEMENT,
+  APP_ROUTES,
+  ASSET,
+  BANK_ACCOUNT,
+  BANK_RECONCILIATION,
+  BANK_STATEMENT,
+  BID_EVALUATION,
+  BILL,
+  BUDGET,
+  BUSINESS_PARTNER,
+  CALL_QUOTATION,
+  CAMPUS,
+  CATEGORY,
+  CHART_OF_ACCOUNT,
+  CREDIT_NOTE,
+  CWIP,
+  DEBIT_NOTE,
+  DEPARTMENT,
+  DEPRECIATION_ADJUSTMENT,
+  DEPRECIATION_MODEL,
+  DESIGNATION,
+  DISPOSAL,
+  EMPLOYEE,
+  ESTIMATED_BUDGET,
+  GOODS_RECEIVED_NOTE,
+  GOODS_RETURN_NOTE,
+  INVOICE,
+  ISSUANCE,
+  ISSUANCE_RETURN,
+  JOURNAL_ENTRY,
+  PAYMENT,
+  PAYROLL_ITEM,
+  PAYROLL_PAYMENT,
+  PAYROLL_PROCESS,
+  PAYROLL_REPORTS,
+  PAYROLL_TRANSACTION,
+  PRODUCT,
+  PURCHASE_ORDER,
+  QUOTATION,
+  QUOTATION_COMPARATIVE,
+  RECEIPT,
+  REPORT,
+  REQUEST_REQUISITION,
+  REQUISITION,
+  STATUS,
+  STOCK,
+  TAX,
+  UNIT_OF_MEASUREMENT,
+  WAREHOUSE,
+  WORKFLOW
+} from 'src/app/views/shared/AppRoutes';
 
 
-import { Permissions } from '../../views/shared/AppEnum'
+import {Permissions} from '../../views/shared/AppEnum'
+
 export class MenuConfig {
   public defaults: any = {
     header: {
@@ -352,7 +397,7 @@ export class MenuConfig {
                 Permissions.DEBITNOTE_REVIEW,
                 Permissions.DEBITNOTE_APPROVE,
               ]
-            },  
+            },
             {
               title: 'Bank Statement',
               page: '/' + BANK_STATEMENT.LIST,
@@ -404,14 +449,18 @@ export class MenuConfig {
             Permissions.ASSET_CREATE,
             Permissions.ASSET_EDIT,
             Permissions.ASSET_DELETE,
-            // Permissions.CWIP_VIEW,
-            // Permissions.CWIP_CREATE,
-            // Permissions.CWIP_EDIT,
-            // Permissions.CWIP_DELETE,
-            // Permissions.DISPOSAL_VIEW,
-            // Permissions.DISPOSAL_CREATE,
-            // Permissions.DISPOSAL_EDIT,
-            // Permissions.DISPOSAL_DELETE
+            Permissions.CWIP_VIEW,
+            Permissions.CWIP_CREATE,
+            Permissions.CWIP_EDIT,
+            Permissions.CWIP_DELETE,
+            Permissions.DISPOSAL_VIEW,
+            Permissions.DISPOSAL_CREATE,
+            Permissions.DISPOSAL_EDIT,
+            Permissions.DISPOSAL_DELETE,
+            /*Permissions.DEPRECIATION_ADJUSTMENT_VIEW,
+            Permissions.DEPRECIATION_ADJUSTMENT_CREATE,
+            Permissions.DEPRECIATION_ADJUSTMENT_EDIT,
+            Permissions.DEPRECIATION_ADJUSTMENT_DELETE*/
           ],
           submenu: [
             {
@@ -442,6 +491,16 @@ export class MenuConfig {
                 Permissions.CWIP_CREATE,
                 Permissions.CWIP_EDIT,
                 Permissions.CWIP_DELETE
+              ]
+            },
+            {
+              title: 'Depreciation Adjustment',
+              page: '/' + DEPRECIATION_ADJUSTMENT.LIST,
+              permission: [
+                Permissions.DEPRECIATION_ADJUSTMENT_VIEW,
+                Permissions.DEPRECIATION_ADJUSTMENT_CREATE,
+                Permissions.DEPRECIATION_ADJUSTMENT_EDIT,
+                Permissions.DEPRECIATION_ADJUSTMENT_DELETE
               ]
             },
             {
@@ -719,9 +778,9 @@ export class MenuConfig {
             Permissions.DEPARTMENTS_EDIT,
             Permissions.DEPARTMENTS_DELETE,
             Permissions.EMPLOYEE_VIEW,
-            Permissions.EMPLOYEE_CREATE ,
-            Permissions.EMPLOYEE_EDIT ,
-            Permissions.EMPLOYEE_DELETE  
+            Permissions.EMPLOYEE_CREATE,
+            Permissions.EMPLOYEE_EDIT,
+            Permissions.EMPLOYEE_DELETE
           ],
           submenu: [
             {
@@ -749,8 +808,8 @@ export class MenuConfig {
               page: '/' + EMPLOYEE.LIST,
               permission: [
                 Permissions.EMPLOYEE_VIEW,
-                Permissions.EMPLOYEE_CREATE ,
-                Permissions.EMPLOYEE_EDIT ,
+                Permissions.EMPLOYEE_CREATE,
+                Permissions.EMPLOYEE_EDIT,
                 Permissions.EMPLOYEE_DELETE
               ]
             },
@@ -761,7 +820,7 @@ export class MenuConfig {
                 Permissions.PAYROLL_ITEM_VIEW,
                 Permissions.PAYROLL_ITEM_CREATE,
                 Permissions.PAYROLL_ITEM_EDIT,
-                Permissions.PAYROLL_ITEM_DELETE 
+                Permissions.PAYROLL_ITEM_DELETE
               ]
             },
             {
@@ -966,7 +1025,7 @@ export class MenuConfig {
             }
           ]
         },
-      //endregion
+        //endregion
       ]
     },
   };

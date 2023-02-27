@@ -107,7 +107,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
      )
     .subscribe((res: IApiResponse<any>) => {
       this.assetMaster = res.result;
-      this.remarksList = this.assetMaster.remarksList ?? [] 
+      this.remarksList = this.assetMaster.remarksList ?? []
       // this.assets = res.result;
       this.cdRef.detectChanges();
     })
@@ -140,7 +140,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   organiationEndDate: Date = new Date('12/31/2017');
   year: number = 2021;
   day = this.activeDate.getDate() ;
-  month = this.activeDate.getMonth() + 1; 
+  month = this.activeDate.getMonth() + 1;
   isActive : boolean = true;
   //method: string = 'decliningBalance'
   method: string = 'straightLine'
@@ -159,7 +159,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
    fixedAssetList : IFixedAssetTable[] = []
 
 
-                                            
+
 
 //get Fisacal Year from organization
 // organization end date
@@ -200,10 +200,10 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     // console.log(this.getTotalDays(this.organizationStartDate , this.organiationEndDate , true))
 
     let firstYearCharge = 0;
-    
+
 
     if(this.isActive) {
-      if(this.method === 'straightLine' && (this.sameYear === false)) { 
+      if(this.method === 'straightLine' && (this.sameYear === false)) {
         console.log("entered in prorata")
         for(var i = 0 ; i <= this.usefulLife ; i++) {
 
@@ -211,35 +211,35 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
            this.numOfDays = this.getTotalDays(this.activeDate , this.organiationEndDate , true)
            this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays/this.totalDaysInYear);
            firstYearCharge = this.chargeForTheYear
-         } 
-   
+         }
+
          else if(i > 0 && i < this.usefulLife) {
              this.chargeForTheYear = (this.depreciableValue / this.usefulLife);
          }
-   
+
          else if(i === this.usefulLife) {
-            
+
             // this.numOfDays = this.getTotalDays(this.activeDate , this.organizationStartDate, false)
             // this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays / this.totalDaysInYear)
             this.chargeForTheYear = ((this.depreciableValue) - this.accumulatedDepreciation)
          }
-   
+
           if(i === 0) {
              this.beginingBookValue = this.purchasePrice;
              this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
              this.accumulatedDepreciation = this.chargeForTheYear;
            }
-   
+
           else {
              this.beginingBookValue = this.endingBookValue;
              this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
              this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
           }
-       
+
           //storing values in fixed asset table
-          this.valuesInFixedAssetTable()     
+          this.valuesInFixedAssetTable()
           this.year++
-        }          
+        }
      }
     }
   }
@@ -248,28 +248,28 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   //STRAIGHT LINE METHOD WITHOUT PRORATA
   straightLine() {
     if(this.isActive) {
-      if(this.method === 'straightLine') { 
+      if(this.method === 'straightLine') {
         for(var i = 0 ; i < this.usefulLife ; i++) {
 
           if(i < this.usefulLife) {
             this.chargeForTheYear = (this.depreciableValue / this.usefulLife);
           }
-        
+
           if(i === 0) {
              this.beginingBookValue = this.purchasePrice;
              this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
              this.accumulatedDepreciation = this.chargeForTheYear;
            }
-   
+
           else {
              this.beginingBookValue = this.endingBookValue;
              this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
              this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
           }
-       
+
           //storing values in fixed asset table
           this.valuesInFixedAssetTable()
-          this.year++                        
+          this.year++
         }
      }
     }
@@ -313,13 +313,13 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
      if(this.isActive) {
       //if Prorata Basis ON
       if(this.isProrataBasis) {
-        if(this.method === 'decliningBalance' && (this.sameYear === false)) { 
+        if(this.method === 'decliningBalance' && (this.sameYear === false)) {
           console.log("entered in prorata")
           //consoling
           console.log('Year','beginingBookValue  this.chargeForTheYear     AccumulatedDepreciation     endingBookValue')
           //looping according to functionality
           for(var i = 0 ; i <= this.usefulLife ; i++) {
-  
+
             //depreciate all remaning bookvalue after useful life ends
             if(i === this.usefulLife) {
               this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
@@ -330,19 +330,19 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
               console.log(this.numOfDays)
               console.log(this.totalDaysInYear)
               this.chargeForTheYear = (this.depreciableValue) * this.decliningFactor * (this.numOfDays / this.totalDaysInYear);
-            } 
+            }
             //depreciate values according to declining percentage
             else if(this.decliningPercentage <= 1.0 ){
               this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation) * this.decliningFactor;
             }
-          
-          
+
+
           //  else if(i < this.usefulLife) {
           //      this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation) * this.decliningFactor;
           //  }
-     
-           
-     
+
+
+
             //table values for the first year
             if(i === 0) {
               this.beginingBookValue = this.purchasePrice;
@@ -351,7 +351,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
               //storing values in fixed asset table
               this.valuesInFixedAssetTable()
             }
-    
+
            //table values below 100%
            else if(this.decliningPercentage <= 1.0) {
               this.beginingBookValue = this.endingBookValue;
@@ -385,11 +385,11 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
           this.decliningPercentage += this.decliningFactor;
           //increment year
           this.year++;
-          }      
-          
+          }
+
           //consoling fixed asset table
           console.log('list')
-          console.log(this.fixedAssetList)   
+          console.log(this.fixedAssetList)
        }
       }
     }
@@ -400,10 +400,10 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   decliningBalance() {
    //if Asset is Active
     if(this.isActive) {
-        if(this.method === 'decliningBalance') { 
+        if(this.method === 'decliningBalance') {
           //looping according to functionality
           for(var i = 0 ; i < this.usefulLife ; i++) {
-  
+
             //depreciate all remaning bookvalue after useful life ends
             if(i === this.usefulLife - 1) {
               this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
@@ -412,7 +412,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
             else if(this.decliningPercentage <= 1.0 ){
               this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation) * this.decliningFactor;
             }
-           
+
             //table values for the first year
             if(i === 0) {
                this.beginingBookValue = this.purchasePrice;
@@ -421,7 +421,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
                //storing values in fixed asset table
                this.valuesInFixedAssetTable()
              }
-     
+
             //table values below 100%
             else if(this.decliningPercentage <= 1.0) {
                this.beginingBookValue = this.endingBookValue;
@@ -430,36 +430,36 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
                //storing values in fixed asset table
                this.valuesInFixedAssetTable()
             }
-  
+
             //checking if declinig Percentage exceeding 100%
             if(this.decliningPercentage > 1.0) {
               //charge for the year
               this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
-  
+
               this.beginingBookValue = this.endingBookValue;
               this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
               this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
-  
+
               //checking if charge for the year in not zero
               if(this.chargeForTheYear != 0) {
                 //storing values in fixed asset table
                 this.valuesInFixedAssetTable()
               }
-  
+
               //consoling fixed asset table
               console.log(this.fixedAssetList)
               return //end operation after 100% charge
             }
-  
+
             //increment given declining percentage
             this.decliningPercentage += this.decliningFactor;
             //increment year
             this.year++;
-          }              
+          }
 
           //consoling fixed asset table
           console.log('list')
-          console.log(this.fixedAssetList)    
+          console.log(this.fixedAssetList)
        }
     }
   }
@@ -518,7 +518,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   //   let firstYearCharge = 0;
 
   //   if(this.isActive) {
-  //     if(this.method === 'straightLine' && (this.sameYear === false)) { 
+  //     if(this.method === 'straightLine' && (this.sameYear === false)) {
   //       console.log("entered in prorata")
   //       for(var i = 0 ; i <= this.usefulLife ; i++) {
   //         if(i === 0) {
@@ -558,36 +558,36 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   //          this.numOfDays = this.getTotalDays(this.activeDate , this.organiationEndDate , true)
   //          this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays/this.totalDaysInYear);
   //          firstYearCharge = this.chargeForTheYear
-  //        } 
-   
+  //        }
+
   //        else if(i > 0 && i < this.usefulLife) {
   //         console.log(i)
   //            this.chargeForTheYear = (this.depreciableValue / this.usefulLife);
   //        }
-   
+
   //        else if(i === this.usefulLife) {
-            
+
   //           // this.numOfDays = this.getTotalDays(this.activeDate , this.organizationStartDate, false)
   //           // this.chargeForTheYear = (this.depreciableValue / this.usefulLife) * (this.numOfDays / this.totalDaysInYear)
   //           this.chargeForTheYear = ((this.depreciableValue) - this.accumulatedDepreciation) //((this.depreciableValue / this.usefulLife) - firstYearCharge)
   //        }
-   
+
   //         if(i === 0) {
   //            this.beginingBookValue = this.purchasePrice;
   //            this.endingBookValue = this.purchasePrice - this.chargeForTheYear;
   //            this.accumulatedDepreciation = this.chargeForTheYear;
   //          }
-   
+
   //         else {
   //            this.beginingBookValue = this.endingBookValue;
   //            this.endingBookValue = this.endingBookValue - this.chargeForTheYear;
   //            this.accumulatedDepreciation = this.accumulatedDepreciation + this.chargeForTheYear;
   //         }
-       
+
   //         //storing values in fixed asset table
-  //         this.valuesInFixedAssetTable()     
+  //         this.valuesInFixedAssetTable()
   //         this.year++
-  //       }          
+  //       }
 
   //       console.log(this.fixedAssetList)
   //    }
@@ -627,7 +627,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
 
   //check leap year
   daysInYear(year: number) {
-    return ((year % 4 === 0 && year % 100 > 0) || year % 400 == 0) ? 366 : 365; 
+    return ((year % 4 === 0 && year % 100 > 0) || year % 400 == 0) ? 366 : 365;
   }
 
 
@@ -639,7 +639,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
         Difference_In_Days = (organizationDate.getTime() - activeDate.getTime()) / (1000 * 3600 * 24);
         if(Difference_In_Days === 0) {
           Difference_In_Days = 1
-        } 
+        }
         console.log(organizationDate)
         console.log(activeDate)
         console.log(Difference_In_Days)
@@ -678,55 +678,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.getAssetData(this.assetId);
         this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'Request Requisition');
+        this.toastService.success('' + res.message, 'Asset');
       })
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

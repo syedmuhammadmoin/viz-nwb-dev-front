@@ -1,4 +1,3 @@
-
 export const APP_ROUTES = {
 
   //AUTH
@@ -36,8 +35,8 @@ export const APP_ROUTES = {
   CALL_QUOTATION: 'call-quotation',
 
   //PROFILING
-  CAMPUS : 'campus',
-  BUSINESS_PARTNER : 'business-partner',
+  CAMPUS: 'campus',
+  BUSINESS_PARTNER: 'business-partner',
   CATEGORY: 'category',
   ORGANIZATION: 'organization',
   PRODUCT: 'product',
@@ -82,403 +81,411 @@ export const APP_ROUTES = {
   ASSET_CATEGORY: 'asset-category',
   ASSET: 'asset',
   CWIP: 'cwip',
-  DISPOSAL: 'disposal'
+  DISPOSAL: 'disposal',
+  DEPRECIATION_ADJUSTMENT: 'depreciation-adjustment'
 }
 
 export const CRUD_ROUTES = {
-  CREATE : 'create',
-  LIST : 'list',
-  EDIT : 'edit/:id',
-  DETAILS : 'details/:id',
+  CREATE: 'create',
+  LIST: 'list',
+  EDIT: 'edit/:id',
+  DETAILS: 'details/:id',
   PRINT: 'print/:id',
-  AGING_REPORT:'aging-report',
+  AGING_REPORT: 'aging-report',
   APPROVE_PROCESS: 'approve-process',
   CREATE_PROCESS: 'create-process',
   APPROVE_PAYMENT: 'approve-payment',
   CREATE_PAYMENT: 'create-payment',
   REGISTER_PAYMENT: 'register-payment'
-} 
+}
 
-  //AUTH SECTION
-  export const AUTH = {
-    LOGIN: 'login',
-    REGISTER: 'register',
-    FORGOT_PASSWORD: 'forgot-password',
+//AUTH SECTION
+export const AUTH = {
+  LOGIN: 'login',
+  REGISTER: 'register',
+  FORGOT_PASSWORD: 'forgot-password',
+}
+
+//REPORT SECTION
+export const REPORT = {
+  GENERAL_LEDGER: 'ledger',
+  TRIAL_BALANCE: 'trial-balance',
+  BALANCE_SHEET: 'balance-sheet',
+  PROFIT_N_LOSS: 'income-n-expenditure',
+  BUDGET_REPORT: 'report',
+  PRINT: 'print'
+}
+
+//PAYROLL REPORTS SECTION
+export const PAYROLL_REPORT = {
+  TRANSACTION: 'transaction',
+  ALLOWANCE: 'allowance',
+  EXECUTIVE: 'executive',
+  BANK_ADVICE: 'bank-advice'
+}
+
+//ACCESS_MANAGEMENT SECTION
+export const ACCESS_MANAGEMENT = {
+  USER_LIST: 'users',
+  CREATE_USER: 'users/create',
+  ROLE_LIST: 'roles',
+  CREATE_ROLE: 'roles/create',
+  CHANGE_PASSWORD: 'users/change-password',
+  ROLE_PERMISSIONS: 'roles/permissions/print'
+}
+
+//FINANCE SECTION
+export const BANK_ACCOUNT = {
+  LIST: APP_ROUTES.BANK_ACCOUNT + '/' + CRUD_ROUTES.LIST
+}
+
+export const BANK_RECONCILIATION = {
+  LIST: APP_ROUTES.BANK_RECONCILIATION + '/' + CRUD_ROUTES.LIST
+}
+
+export const BANK_STATEMENT = {
+  LIST: APP_ROUTES.BANK_STATEMENT + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.BANK_STATEMENT + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
   }
+}
 
-  //REPORT SECTION
-  export const REPORT = {
-    GENERAL_LEDGER: 'ledger',
-    TRIAL_BALANCE: 'trial-balance' ,
-    BALANCE_SHEET: 'balance-sheet',
-    PROFIT_N_LOSS: 'income-n-expenditure',
-    BUDGET_REPORT: 'report',
-    PRINT: 'print'
+export const BUDGET = {
+  LIST: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.CREATE,
+  REPORT: APP_ROUTES.BUDGET + '/' + REPORT.BUDGET_REPORT,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.BUDGET + '/' + route + '/' + id
   }
+}
 
-  //PAYROLL REPORTS SECTION
-  export const PAYROLL_REPORT = {
-    TRANSACTION: 'transaction',
-    ALLOWANCE: 'allowance',
-    EXECUTIVE: 'executive',
-    BANK_ADVICE: 'bank-advice'
+export const ESTIMATED_BUDGET = {
+  LIST: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.ESTIMATED_BUDGET + '/' + route + '/' + id
   }
+}
 
-  //ACCESS_MANAGEMENT SECTION
-  export const ACCESS_MANAGEMENT = {
-      USER_LIST: 'users',
-      CREATE_USER: 'users/create',
-      ROLE_LIST: 'roles',
-      CREATE_ROLE: 'roles/create',
-      CHANGE_PASSWORD: 'users/change-password',
-      ROLE_PERMISSIONS: 'roles/permissions/print'
+export const CASH_ACCOUNT = {
+  LIST: APP_ROUTES.CASH_ACCOUNT + '/' + CRUD_ROUTES.LIST
+}
+
+export const CHART_OF_ACCOUNT = {
+  LIST: APP_ROUTES.CHART_OF_ACCOUNT + '/' + CRUD_ROUTES.LIST,
+}
+
+export const JOURNAL_ENTRY = {
+  LIST: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.JOURNAL_ENTRY + '/edit/',          //
+  DETAIL: APP_ROUTES.JOURNAL_ENTRY + '/detail/',      //  JOURNAL_ENTRY.EDIT + this.journalEntry.id
+  PRINT: APP_ROUTES.JOURNAL_ENTRY + '/print/',        //
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {               //JOURNAL_ENTRY.ID_BASED_ROUTE('edit' , this.journalEntry.id)
+    return APP_ROUTES.JOURNAL_ENTRY + '/' + route + '/' + id
   }
-    
-  //FINANCE SECTION
-  export const BANK_ACCOUNT = {
-    LIST: APP_ROUTES.BANK_ACCOUNT + '/' + CRUD_ROUTES.LIST
-  }    
+}
 
-  export const BANK_RECONCILIATION = {
-    LIST: APP_ROUTES.BANK_RECONCILIATION + '/' + CRUD_ROUTES.LIST
-  } 
-
-  export const BANK_STATEMENT = {
-    LIST: APP_ROUTES.BANK_STATEMENT + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.BANK_STATEMENT + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {         
-      return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
-    }
-  } 
-
-  export const BUDGET = {
-    LIST: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.CREATE,
-    REPORT: APP_ROUTES.BUDGET + '/' + REPORT.BUDGET_REPORT,
-    ID_BASED_ROUTE (route: string , id: number) {         
-      return APP_ROUTES.BUDGET + '/' + route + '/' + id
-    }
-  } 
-
-  export const ESTIMATED_BUDGET = {
-    LIST: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {         
-      return APP_ROUTES.ESTIMATED_BUDGET + '/' + route + '/' + id
-    }
-  } 
-
-  export const CASH_ACCOUNT = {
-    LIST: APP_ROUTES.CASH_ACCOUNT + '/' + CRUD_ROUTES.LIST
-  } 
-
-  export const CHART_OF_ACCOUNT = {
-    LIST: APP_ROUTES.CHART_OF_ACCOUNT + '/' + CRUD_ROUTES.LIST,
-  } 
-
-  export const JOURNAL_ENTRY = {
-    LIST: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.CREATE,
-
-    EDIT: APP_ROUTES.JOURNAL_ENTRY + '/edit/',          //
-    DETAIL: APP_ROUTES.JOURNAL_ENTRY + '/detail/',      //  JOURNAL_ENTRY.EDIT + this.journalEntry.id
-    PRINT: APP_ROUTES.JOURNAL_ENTRY + '/print/',        //
-
-    //OR
-    ID_BASED_ROUTE (route: string , id: number) {               //JOURNAL_ENTRY.ID_BASED_ROUTE('edit' , this.journalEntry.id)
-      return APP_ROUTES.JOURNAL_ENTRY + '/' + route + '/' + id
-    }
+export const PAYMENT = {
+  LIST: APP_ROUTES.PAYMENT + '/voucher/' + CRUD_ROUTES.LIST,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PAYMENT + '/voucher/' + route + '/' + id
   }
+}
 
-  export const PAYMENT = {
-    LIST: APP_ROUTES.PAYMENT + '/voucher/' + CRUD_ROUTES.LIST,
-    ID_BASED_ROUTE (route: string , id: number) { 
-      return APP_ROUTES.PAYMENT + '/voucher/' + route + '/' + id
-    }
+export const RECEIPT = {
+  LIST: APP_ROUTES.PAYMENT + '/receipt/' + CRUD_ROUTES.LIST,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PAYMENT + '/receipt/' + route + '/' + id
   }
+}
 
-  export const RECEIPT = {
-    LIST: APP_ROUTES.PAYMENT + '/receipt/' + CRUD_ROUTES.LIST,
-    ID_BASED_ROUTE (route: string , id: number) { 
-      return APP_ROUTES.PAYMENT + '/receipt/' + route + '/' + id
-    }
+export const PAYROLL_PAYMENT = {
+  LIST: APP_ROUTES.PAYMENT + '/payroll-payment/' + CRUD_ROUTES.LIST,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PAYMENT + '/payroll-payment/' + route + '/' + id
   }
+}
 
-  export const PAYROLL_PAYMENT = {
-    LIST: APP_ROUTES.PAYMENT + '/payroll-payment/' + CRUD_ROUTES.LIST,
-    ID_BASED_ROUTE (route: string , id: number) { 
-      return APP_ROUTES.PAYMENT + '/payroll-payment/' + route + '/' + id
-    }
+
+//INVENTORY SECTION
+export const GOODS_RECEIVED_NOTE = {
+  LIST: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + route + '/' + id
   }
+}
 
-
-  //INVENTORY SECTION
-  export const GOODS_RECEIVED_NOTE = {
-    LIST: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + route + '/' + id
-    }
+export const GOODS_RETURN_NOTE = {
+  LIST: APP_ROUTES.GOODS_RETURN_NOTE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.GOODS_RETURN_NOTE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.GOODS_RETURN_NOTE + '/' + route + '/' + id
   }
+}
 
-  export const GOODS_RETURN_NOTE = {
-    LIST: APP_ROUTES.GOODS_RETURN_NOTE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.GOODS_RETURN_NOTE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.GOODS_RETURN_NOTE + '/' + route + '/' + id
-    }
+export const ISSUANCE = {
+  LIST: APP_ROUTES.ISSUANCE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ISSUANCE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.ISSUANCE + '/' + route + '/' + id
   }
+}
 
-  export const ISSUANCE = {
-    LIST: APP_ROUTES.ISSUANCE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.ISSUANCE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.ISSUANCE + '/' + route + '/' + id
-    }
+export const ISSUANCE_RETURN = {
+  LIST: APP_ROUTES.ISSUANCE_RETURN + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ISSUANCE_RETURN + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.ISSUANCE_RETURN + '/' + route + '/' + id
   }
+}
 
-  export const ISSUANCE_RETURN = {
-    LIST: APP_ROUTES.ISSUANCE_RETURN + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.ISSUANCE_RETURN + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.ISSUANCE_RETURN + '/' + route + '/' + id
-    }
+export const STOCK = {
+  LIST: APP_ROUTES.STOCK + '/' + CRUD_ROUTES.LIST,
+}
+
+
+//PROCUREMENT SECTION
+export const REQUISITION = {
+  LIST: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.REQUISITION + '/' + route + '/' + id
   }
+}
 
-  export const STOCK = {
-    LIST: APP_ROUTES.STOCK + '/' + CRUD_ROUTES.LIST,
+//PROCUREMENT SECTION
+export const REQUEST_REQUISITION = {
+  LIST: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.REQUEST_REQUISITION + '/' + route + '/' + id
   }
+}
 
-
-  //PROCUREMENT SECTION
-  export const REQUISITION = {
-    LIST: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.REQUISITION + '/' + route + '/' + id
-    }
+//PROCUREMENT SECTION
+export const BID_EVALUATION = {
+  LIST: APP_ROUTES.BID_EVALUATION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.BID_EVALUATION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.BID_EVALUATION + '/' + route + '/' + id
   }
+}
 
-  //PROCUREMENT SECTION
-  export const REQUEST_REQUISITION = {
-    LIST: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.REQUEST_REQUISITION + '/' + route + '/' + id
-    }
+export const QUOTATION = {
+  LIST: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.QUOTATION + '/' + route + '/' + id
   }
+}
 
-  //PROCUREMENT SECTION
-  export const BID_EVALUATION = {
-    LIST: APP_ROUTES.BID_EVALUATION + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.BID_EVALUATION + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.BID_EVALUATION + '/' + route + '/' + id
-    }
+export const QUOTATION_COMPARATIVE = {
+  LIST: APP_ROUTES.QUOTATION_COMPARATIVE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.QUOTATION_COMPARATIVE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.QUOTATION_COMPARATIVE + '/' + route + '/' + id
   }
+}
 
-  export const QUOTATION = {
-    LIST: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.QUOTATION + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.QUOTATION + '/' + route + '/' + id
-    }
+export const CALL_QUOTATION = {
+  LIST: APP_ROUTES.CALL_QUOTATION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.CALL_QUOTATION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.CALL_QUOTATION + '/' + route + '/' + id
   }
-
-  export const QUOTATION_COMPARATIVE = {
-    LIST: APP_ROUTES.QUOTATION_COMPARATIVE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.QUOTATION_COMPARATIVE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.QUOTATION_COMPARATIVE + '/' + route + '/' + id
-    }
-  }
-  
-  export const CALL_QUOTATION = {
-    LIST: APP_ROUTES.CALL_QUOTATION + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.CALL_QUOTATION + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.CALL_QUOTATION + '/' + route + '/' + id
-    }
-  }
+}
 
 
-  //PROFILING SECTION
-  export const CAMPUS = {
-    LIST: APP_ROUTES.CAMPUS + '/' + CRUD_ROUTES.LIST,
-  }
+//PROFILING SECTION
+export const CAMPUS = {
+  LIST: APP_ROUTES.CAMPUS + '/' + CRUD_ROUTES.LIST,
+}
 
-  export const BUSINESS_PARTNER = {
-    LIST: APP_ROUTES.BUSINESS_PARTNER + '/' + CRUD_ROUTES.LIST,
-  }
+export const BUSINESS_PARTNER = {
+  LIST: APP_ROUTES.BUSINESS_PARTNER + '/' + CRUD_ROUTES.LIST,
+}
 
-  export const CATEGORY = {
-    LIST: APP_ROUTES.CATEGORY + '/' + CRUD_ROUTES.LIST,
-  }
+export const CATEGORY = {
+  LIST: APP_ROUTES.CATEGORY + '/' + CRUD_ROUTES.LIST,
+}
 
-  export const ORGANIZATION = {
-    LIST: APP_ROUTES.ORGANIZATION + '/' + CRUD_ROUTES.LIST
-  }
+export const ORGANIZATION = {
+  LIST: APP_ROUTES.ORGANIZATION + '/' + CRUD_ROUTES.LIST
+}
 
-  export const PRODUCT = {
-    LIST: APP_ROUTES.PRODUCT + '/' + CRUD_ROUTES.LIST,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.PRODUCT + '/' + route + '/' + id
-    }
+export const PRODUCT = {
+  LIST: APP_ROUTES.PRODUCT + '/' + CRUD_ROUTES.LIST,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PRODUCT + '/' + route + '/' + id
   }
+}
 
-  export const WAREHOUSE = {
-    LIST: APP_ROUTES.WAREHOUSE + '/' + CRUD_ROUTES.LIST
-  }
+export const WAREHOUSE = {
+  LIST: APP_ROUTES.WAREHOUSE + '/' + CRUD_ROUTES.LIST
+}
 
-  export const TAX = {
-    LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST
-  }
+export const TAX = {
+  LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST
+}
 
-  export const UNIT_OF_MEASUREMENT = {
-    LIST: APP_ROUTES.UNIT_OF_MEASUREMENT + '/' + CRUD_ROUTES.LIST
-  }
+export const UNIT_OF_MEASUREMENT = {
+  LIST: APP_ROUTES.UNIT_OF_MEASUREMENT + '/' + CRUD_ROUTES.LIST
+}
 
-  //FIXED ASSET SECTION
-  export const DEPRECIATION_MODEL = {
-    LIST: APP_ROUTES.DEPRECIATION_MODEL + '/' + CRUD_ROUTES.LIST
-  }
+//FIXED ASSET SECTION
+export const DEPRECIATION_MODEL = {
+  LIST: APP_ROUTES.DEPRECIATION_MODEL + '/' + CRUD_ROUTES.LIST
+}
 
-  export const ASSET = {
-    LIST: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.ASSET + '/' + route + '/' + id
-    }
+export const DEPRECIATION_ADJUSTMENT = {
+  LIST: APP_ROUTES.DEPRECIATION_ADJUSTMENT + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.DEPRECIATION_ADJUSTMENT + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.DEPRECIATION_ADJUSTMENT + '/' + route + '/' + id
   }
+}
 
-  export const CWIP = {
-    LIST: APP_ROUTES.CWIP + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.CWIP + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.CWIP + '/' + route + '/' + id
-    }
+export const ASSET = {
+  LIST: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ASSET + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.ASSET + '/' + route + '/' + id
   }
+}
 
-  export const DISPOSAL = {
-    LIST: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.DISPOSAL + '/' + route + '/' + id
-    }
+export const CWIP = {
+  LIST: APP_ROUTES.CWIP + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.CWIP + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.CWIP + '/' + route + '/' + id
   }
+}
 
-  //PAYROLL SECTION
-  export const PAYROLL_ITEM = {
-    LIST: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.PAYROLL_ITEM + '/' + route + '/' + id
-    }
+export const DISPOSAL = {
+  LIST: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.DISPOSAL + '/' + route + '/' + id
   }
+}
 
-  export const PAYROLL_TRANSACTION = {
-    LIST: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.PAYROLL_TRANSACTION + '/' + route + '/' + id
-    }
+//PAYROLL SECTION
+export const PAYROLL_ITEM = {
+  LIST: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PAYROLL_ITEM + '/' + route + '/' + id
   }
-  
-  export const PAYROLL_PROCESS = {
-    APPROVE_PROCESS: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.APPROVE_PROCESS,
-    CREATE_PROCESS: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.CREATE_PROCESS,
-    APPROVE_PAYMENT: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.REGISTER_PAYMENT + '/' + CRUD_ROUTES.APPROVE_PAYMENT,
-    CREATE_PAYMENT: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.REGISTER_PAYMENT + '/' + CRUD_ROUTES.CREATE_PAYMENT
-  }
+}
 
-  export const PAYROLL_REPORTS = {
-    TRANSACTION: {
-      LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.TRANSACTION + '/' + CRUD_ROUTES.LIST
-    },
-    ALLOWANCE: {
-      LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.ALLOWANCE + '/' + CRUD_ROUTES.LIST
-    },
-    EXECUTIVE: {
-      LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + CRUD_ROUTES.LIST
-    },
-    BANK_ADVICE: {
-      LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.BANK_ADVICE + '/' + CRUD_ROUTES.LIST
-    }
-    // CREATE: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.CREATE,
-    // ID_BASED_ROUTE (route: string , id: number) {       
-    //   return APP_ROUTES.PAYROLL_TRANSACTION + '/' + route + '/' + id
-    // }
+export const PAYROLL_TRANSACTION = {
+  LIST: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PAYROLL_TRANSACTION + '/' + route + '/' + id
   }
+}
 
-  export const EMPLOYEE = {
-    LIST: APP_ROUTES.EMPLOYEE + '/' + CRUD_ROUTES.LIST,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.EMPLOYEE + '/' + route + '/' + id
-    }
+export const PAYROLL_PROCESS = {
+  APPROVE_PROCESS: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.APPROVE_PROCESS,
+  CREATE_PROCESS: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.CREATE_PROCESS,
+  APPROVE_PAYMENT: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.REGISTER_PAYMENT + '/' + CRUD_ROUTES.APPROVE_PAYMENT,
+  CREATE_PAYMENT: APP_ROUTES.PAYROLL_PROCESS + '/' + CRUD_ROUTES.REGISTER_PAYMENT + '/' + CRUD_ROUTES.CREATE_PAYMENT
+}
+
+export const PAYROLL_REPORTS = {
+  TRANSACTION: {
+    LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.TRANSACTION + '/' + CRUD_ROUTES.LIST
+  },
+  ALLOWANCE: {
+    LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.ALLOWANCE + '/' + CRUD_ROUTES.LIST
+  },
+  EXECUTIVE: {
+    LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.EXECUTIVE + '/' + CRUD_ROUTES.LIST
+  },
+  BANK_ADVICE: {
+    LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.BANK_ADVICE + '/' + CRUD_ROUTES.LIST
   }
+  // CREATE: APP_ROUTES.PAYROLL_TRANSACTION + '/' + CRUD_ROUTES.CREATE,
+  // ID_BASED_ROUTE (route: string , id: number) {
+  //   return APP_ROUTES.PAYROLL_TRANSACTION + '/' + route + '/' + id
+  // }
+}
 
-  export const DEPARTMENT = {
-    LIST: APP_ROUTES.DEPARTMENT + '/' + CRUD_ROUTES.LIST,
+export const EMPLOYEE = {
+  LIST: APP_ROUTES.EMPLOYEE + '/' + CRUD_ROUTES.LIST,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.EMPLOYEE + '/' + route + '/' + id
   }
+}
 
-  export const DESIGNATION = {
-    LIST: APP_ROUTES.DESIGNATION + '/' + CRUD_ROUTES.LIST,
+export const DEPARTMENT = {
+  LIST: APP_ROUTES.DEPARTMENT + '/' + CRUD_ROUTES.LIST,
+}
+
+export const DESIGNATION = {
+  LIST: APP_ROUTES.DESIGNATION + '/' + CRUD_ROUTES.LIST,
+}
+
+//PURCHASE SECTION
+export const DEBIT_NOTE = {
+  LIST: APP_ROUTES.DEBIT_NOTE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.DEBIT_NOTE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.DEBIT_NOTE + '/' + route + '/' + id
   }
+}
 
-  //PURCHASE SECTION
-  export const DEBIT_NOTE = {
-    LIST: APP_ROUTES.DEBIT_NOTE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.DEBIT_NOTE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.DEBIT_NOTE + '/' + route + '/' + id
-    }
+export const PURCHASE_ORDER = {
+  LIST: APP_ROUTES.PURCHASE_ORDER + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.PURCHASE_ORDER + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PURCHASE_ORDER + '/' + route + '/' + id
   }
+}
 
-  export const PURCHASE_ORDER = {
-    LIST: APP_ROUTES.PURCHASE_ORDER + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.PURCHASE_ORDER + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.PURCHASE_ORDER + '/' + route + '/' + id
-    }
+export const BILL = {
+  LIST: APP_ROUTES.BILL + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.BILL + '/' + CRUD_ROUTES.CREATE,
+  AGING_REPORT: APP_ROUTES.BILL + '/aging-report',
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.BILL + '/' + route + '/' + id
   }
+}
 
-  export const BILL = {
-    LIST: APP_ROUTES.BILL + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.BILL + '/' + CRUD_ROUTES.CREATE,
-    AGING_REPORT: APP_ROUTES.BILL + '/aging-report',
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.BILL + '/' + route + '/' + id
-    }
+//SALES SECTION
+export const CREDIT_NOTE = {
+  LIST: APP_ROUTES.CREDIT_NOTE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.CREDIT_NOTE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.CREDIT_NOTE + '/' + route + '/' + id
   }
+}
 
-  //SALES SECTION
-  export const CREDIT_NOTE = {
-    LIST: APP_ROUTES.CREDIT_NOTE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.CREDIT_NOTE + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.CREDIT_NOTE + '/' + route + '/' + id
-    }
+export const INVOICE = {
+  LIST: APP_ROUTES.INVOICE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.INVOICE + '/' + CRUD_ROUTES.CREATE,
+  AGING_REPORT: APP_ROUTES.INVOICE + '/aging-report',
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.INVOICE + '/' + route + '/' + id
   }
+}
 
-  export const INVOICE = {
-    LIST: APP_ROUTES.INVOICE + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.INVOICE + '/' + CRUD_ROUTES.CREATE,
-    AGING_REPORT: APP_ROUTES.INVOICE + '/aging-report',
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.INVOICE + '/' + route + '/' + id
-    }
+//WORKFLOW SECTION
+export const WORKFLOW = {
+  LIST: APP_ROUTES.WORKFLOW + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.WORKFLOW + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.WORKFLOW + '/' + route + '/' + id
   }
+}
 
-  //WORKFLOW SECTION
-  export const WORKFLOW = {
-    LIST: APP_ROUTES.WORKFLOW + '/' + CRUD_ROUTES.LIST,
-    CREATE: APP_ROUTES.WORKFLOW + '/' + CRUD_ROUTES.CREATE,
-    ID_BASED_ROUTE (route: string , id: number) {       
-      return APP_ROUTES.WORKFLOW + '/' + route + '/' + id
-    }
-  }
-
-  export const STATUS = {
-    LIST: APP_ROUTES.STATUS + '/' + CRUD_ROUTES.LIST,
-  }
-
+export const STATUS = {
+  LIST: APP_ROUTES.STATUS + '/' + CRUD_ROUTES.LIST,
+}

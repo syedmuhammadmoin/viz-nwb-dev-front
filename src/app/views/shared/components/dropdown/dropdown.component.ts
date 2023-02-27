@@ -1,12 +1,18 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, Self, SimpleChanges, ViewChild } from '@angular/core';
 import {
-  ControlContainer,
-  ControlValueAccessor,
-  FormControl,
-  FormControlDirective, NG_VALUE_ACCESSOR,
-  Validators
-} from '@angular/forms';
-import { Observable, ReplaySubject } from 'rxjs';
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
+import {ControlContainer, ControlValueAccessor, FormControl, FormControlDirective, NG_VALUE_ACCESSOR, Validators} from '@angular/forms';
+import {Observable, ReplaySubject} from 'rxjs';
 
 @Component({
   selector: 'kt-simple-dropdown',
@@ -21,7 +27,7 @@ import { Observable, ReplaySubject } from 'rxjs';
 })
 export class DropdownComponent implements OnInit, OnChanges, ControlValueAccessor, Validators {
 
-  @ViewChild(FormControlDirective, { static: true }) formControlDirective: FormControlDirective;
+  @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
   @ViewChild('customSelect') customSelect: ElementRef
 
   @Input() formControl: FormControl;
@@ -68,11 +74,11 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   ) {
   }
 
-    // For Getting diff Dropdown Data in issuance throug item dropdown
-  
+  // For Getting diff Dropdown Data in issuance throug item dropdown
+
   ngOnChanges(changes: SimpleChanges): void {
-    console.log({ changes });
-    if (changes && changes.optionList && changes.optionList.currentValue) {
+    console.log({changes});
+    if (changes && changes.optionList && changes.optionList.currentValue && !changes.optionList.previousValue) {
       this.optionList = changes.optionList.currentValue
       this.ngOnInit()
     }
@@ -81,7 +87,7 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
 
   ngOnInit(): void {
     console.log('dropdown init');
-    
+
     if (this.optionList instanceof Observable) {
       console.log('if (this.optionList instanceof Observable)');
       this.isLoading = true;
@@ -104,7 +110,7 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
       })
     } else {
       console.log('else', this.optionList);
-      
+
       this.options = this.callBackFunction ? this.optionList.flatMap(this.callBackFunction) : this.optionList;
       // @ts-ignore
       this.filteredOptionList.next(this.options?.slice());

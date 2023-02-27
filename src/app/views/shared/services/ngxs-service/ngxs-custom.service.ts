@@ -55,6 +55,7 @@ import { CategoryAssetState } from 'src/app/views/pages/profiling/category/store
 import { ExpenseAccountState } from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
 import { GetLiabilityAccountsState } from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
 import { AssetService } from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
+import {AssetState} from '../../../pages/fixed-asset/store/asset.state';
 import { DisposalDropdownState } from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
 
 @Injectable({
@@ -95,6 +96,11 @@ export class NgxsCustomService {
   @Select(BusinessPartnerState.isFetchCompleted) businessPartnerFetchCompleted$: Observable<any>;
   @Select(BusinessPartnerState.isLoading) businessPartnerIsLoading$: Observable<any>;
 
+  // Business Partner
+  @Select(AssetState.entities) assets$: Observable<any>;
+  @Select(AssetState.isFetchCompleted) assetsFetchCompleted$: Observable<any>;
+  @Select(AssetState.isLoading) assetsIsLoading$: Observable<any>;
+
   //All Business Partner with Employees
   @Select(AllBusinessPartnerState.entities) allBusinessPartners$: Observable<any>;
   @Select(AllBusinessPartnerState.isFetchCompleted) allBusinessPartnerFetchCompleted$: Observable<any>;
@@ -129,7 +135,7 @@ export class NgxsCustomService {
   @Select(DisposalDropdownState.entities) disposalDropdown$: Observable<any>;
   @Select(DisposalDropdownState.isFetchCompleted) disposalDropdownFetchCompleted$: Observable<any>;
   @Select(DisposalDropdownState.isLoading) disposalDropdownIsLoading$: Observable<any>;
- 
+
 // Other Accounts
   @Select(OtherAccountState.entities) otherAccounts$: Observable<any>;
   @Select(OtherAccountState.isFetchCompleted) otherAccountsFetchCompleted$: Observable<any>;
@@ -155,7 +161,7 @@ export class NgxsCustomService {
   @Select(CategoryState.entities) categories$: Observable<any>;
   @Select(CategoryState.isFetchCompleted) categoryFetchCompleted$: Observable<any>;
   @Select(CategoryState.isLoading) categoryIsLoading$: Observable<any>;
-  
+
   // Category Asset
   @Select(CategoryAssetState.entities) categoriesAsset$: Observable<any>;
   @Select(CategoryAssetState.isFetchCompleted) categoriesAssetFetchCompleted$: Observable<any>;
@@ -340,7 +346,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Asset Accounts State From Store if available else fetch from the server and cache.
   getAssetAccountFromState() {
@@ -353,7 +359,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Asset Accounts State From Store if available else fetch from the server and cache.
   getDisposaldropdownFromState() {
@@ -366,7 +372,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Category Assets State From Store if available else fetch from the server and cache.
   getCategoryAssetFromState() {
@@ -379,7 +385,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Payable Accounts State From Store if available else fetch from the server and cache.
   getAccountPayableFromState() {
@@ -393,7 +399,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Receivable Accounts State From Store if available else fetch from the server and cache.
   getAccountReceivableFromState() {
@@ -407,7 +413,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Other Accounts State From Store if available else fetch from the server and cache.
   getOtherAccountsFromState() {
@@ -421,7 +427,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get Expense Accounts State From Store if available else fetch from the server and cache.
   getExpenseAccountsFromState() {
@@ -435,7 +441,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Other Accounts State From Store if available else fetch from the server and cache.
   getLiabilityAccountsFromState() {
@@ -449,7 +455,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get All Budget Accounts State From Store if available else fetch from the server and cache.
   getBudgetAccountsFromState() {
@@ -463,7 +469,7 @@ export class NgxsCustomService {
         }))
       }
     })
-  }  
+  }
 
   // Get Category From Store if available else fetch from the server and cache.
   getCategoryFromState() {
@@ -658,6 +664,20 @@ export class NgxsCustomService {
     })
   }
 
+  // Get Bank Account State From Store if available else fetch from the server and cache.
+  getAssetsFromState() {
+    this.assetsFetchCompleted$.subscribe((res) => {
+      //console.log('Bank Account State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(AssetState, {
+          serviceClass: this.assetService,
+          methodName: 'getAssetsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
   // Get Cash Account State From Store if available else fetch from the server and cache.
   getCashAccountFromState() {
     this.cashAccountFetchCompleted$.subscribe((res) => {
@@ -699,7 +719,5 @@ export class NgxsCustomService {
       }
     })
   }
-  //end state region 
+  //end state region
 }
-
-
