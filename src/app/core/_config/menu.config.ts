@@ -484,7 +484,7 @@ export class MenuConfig {
               ]
             },
             {
-              title: 'Cwip',
+              title: 'CWIP',
               page: '/' + CWIP.LIST,
               permission: [
                 Permissions.CWIP_CREATE,

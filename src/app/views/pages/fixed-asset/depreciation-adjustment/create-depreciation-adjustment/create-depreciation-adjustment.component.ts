@@ -128,17 +128,27 @@ export class CreateDepreciationAdjustmentComponent extends AppComponentBase impl
     const debit = (debitControl.value) !== null ? debitControl.value : null;
     const credit = (creditControl.value) !== null ? creditControl.value : null;
 
+    console.log(`credit: ${credit}, debit: ${debit}`)
     if (debit) {
       creditControl.setValue(0);
+      creditControl.clearValidators();
+      creditControl.updateValueAndValidity({emitEvent: true, onlySelf: true})
       creditControl.disable();
     }
     else if (credit) {
       debitControl.setValue(0);
+      debitControl.clearValidators();
+      debitControl.updateValueAndValidity({emitEvent: true, onlySelf: true})
       debitControl.disable();
     }
     else if (!debit || !credit) {
       creditControl.enable();
+      creditControl.setValidators([Validators.required, Validators.min(1)])
+      creditControl.updateValueAndValidity({emitEvent: true, onlySelf: true})
+
       debitControl.enable();
+      debitControl.setValidators([Validators.required, Validators.min(1)])
+      debitControl.updateValueAndValidity({emitEvent: true, onlySelf: true})
     }
     this.totalCalculation();
   }
@@ -175,8 +185,8 @@ export class CreateDepreciationAdjustmentComponent extends AppComponentBase impl
       fixedAssetId: ['',  Validators.required],
       level4Id: ['',  Validators.required],
       description: ['', Validators.required],
-      debit: [0, [Validators.required, Validators.min(0)]],
-      credit: [0, [Validators.required, Validators.min(0)]],
+      debit: [0, [Validators.required, Validators.min(1)]],
+      credit: [0, [Validators.required, Validators.min(1)]],
     });
   }
 
@@ -262,6 +272,11 @@ export class CreateDepreciationAdjustmentComponent extends AppComponentBase impl
 
     if (this.debitTotal !== this.creditTotal) {
       this.toastService.error('Sum of Debit and Credit is not Equal', 'Depreciation Adjustment')
+      return
+    }
+
+    if (this.debitTotal === 0 && this.creditTotal === 0) {
+      this.toastService.error('Sum of Debit and Credit should be greater than 0', 'Depreciation Adjustment')
       return
     }
 

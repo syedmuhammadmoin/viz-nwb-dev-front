@@ -11,6 +11,7 @@ import { AssetService } from '../service/asset.service';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 import { ASSET } from 'src/app/views/shared/AppRoutes';
+import {IAsset} from '../model/IAsset';
 
 
 //fixed asset table interface

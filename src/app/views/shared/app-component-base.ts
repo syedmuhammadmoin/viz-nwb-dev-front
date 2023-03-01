@@ -1,10 +1,10 @@
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup, Validators} from '@angular/forms';
 import {DatePipe} from '@angular/common';
 import {Injector} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
-import { PermissionService } from '../pages/auth/service/permission.service';
-import { DateHelperService } from './helpers/date-helper';
-import { PaginationHelperService } from './pagination/pagination-helper.service';
+import {PermissionService} from '../pages/auth/service/permission.service';
+import {DateHelperService} from './helpers/date-helper';
+import {PaginationHelperService} from './pagination/pagination-helper.service';
 
 export abstract class AppComponentBase {
   datePipe: DatePipe
@@ -12,7 +12,7 @@ export abstract class AppComponentBase {
   permission: PermissionService
   paginationHelper: PaginationHelperService
   dateHelperService: DateHelperService
- 
+
   protected constructor(injector: Injector) {
     this.datePipe = injector.get(DatePipe);
     this.toastService = injector.get(ToastrService);
@@ -21,20 +21,27 @@ export abstract class AppComponentBase {
     this.dateHelperService = injector.get(DateHelperService)
   }
 
-  conditionalValidation(formGroup: FormGroup, condition : boolean , data : any[]){
-    data.forEach(x =>{
-      if(condition){
-        formGroup.get(x).setValidators([Validators.required])
+  conditionalValidation(formGroup: FormGroup, condition: boolean, data: any[], ...validations: { validation: string, value: any }[]) {
+    data.forEach(x => {
+      if (condition) {
+        const validators = []
+        validators.push(Validators.required);
+
+        if (validations) {
+          validations.forEach((y) => {
+            validators.push(Validators[y.validation](y.value))
+          })
+        }
+        formGroup.get(x).setValidators([...validators])
         formGroup.get(x).updateValueAndValidity();
-      }
-      else{
+      } else {
         formGroup.get(x).clearValidators()
         formGroup.get(x).updateValueAndValidity();
       }
     })
-    
+
   }
- 
+
   transformDate(date: Date | string, format: string) {
     return this.datePipe.transform(date, format);
   }
@@ -66,12 +73,15 @@ export abstract class AppComponentBase {
       convertedValue = Number(value);
       if (!sign) {
         formattedValue = Math.sign(convertedValue) === -1
-          ? '(' + Math.abs(convertedValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ')'
-          : convertedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+          ? '(' + Math.abs(convertedValue).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ')'
+          : convertedValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
       } else if (sign === '+ve') {
-        formattedValue = convertedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+        formattedValue = convertedValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
       } else if (sign === '-ve') {
-        formattedValue = '(' + Math.abs(convertedValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ')'
+        formattedValue = '(' + Math.abs(convertedValue).toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        }) + ')'
       }
     } catch (error) {
       formattedValue = '' + error
@@ -105,22 +115,22 @@ export abstract class AppComponentBase {
   }
 
   //disable provided fields
-  public disableFields (form : FormGroup , ...args: string[] ) {
+  public disableFields(form: FormGroup, ...args: string[]) {
     (args).forEach((key: string) => form.get(key).disable())
   }
 
   //disable provided lines fields
-  public disableLinesFields(formLines : any , ...args: string[]) {
+  public disableLinesFields(formLines: any, ...args: string[]) {
     formLines
-    .forEach((control) => { 
-      (args).forEach((key: string) => {
-        control.controls[key].disable()
+      .forEach((control) => {
+        (args).forEach((key: string) => {
+          control.controls[key].disable()
+        })
       })
-    })
   }
 
   //Reset provided field
-  resetFields(form : FormGroup , ...args: string[]) {
+  resetFields(form: FormGroup, ...args: string[]) {
     args.forEach((key: string) => form.get(key).reset())
   }
 
