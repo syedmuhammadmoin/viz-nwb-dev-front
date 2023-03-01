@@ -84,6 +84,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     },
     name: {
       required: 'Name is required.',
+      minlength : 'Minimum character is 3',
+      maxlength : 'Maximum character is 50.'
     },
     cost: {
       required: 'Cost is required.',
@@ -167,7 +169,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetForm = this.fb.group({
 
       dateofAcquisition:['', [Validators.required]],
-      name: ['', [Validators.required]],
+      name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
       cost: ['', [Validators.required , Validators.min(0)]],
       quantity: [''],
       productId:['', [Validators.required]],
