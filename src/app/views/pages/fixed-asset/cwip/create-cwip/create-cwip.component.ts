@@ -201,7 +201,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     this.depApplicabilityToggle = false
   }
 
-  //Get Asset data from Api
+  //Get CWIP data from Api
   private getCwip(id: number) {
     this.cwipService.getCwipById(id)
       .pipe(
@@ -219,7 +219,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       });
   }
 
-  //Edit Asset Method
+  //Edit CWIP Method
   public patchCwip(cwip: ICwip | any) {
     this.cwipForm.patchValue({
       dateOfAcquisition: cwip.dateOfAcquisition,
@@ -268,7 +268,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
           })
         )
         .subscribe((res: IApiResponse<ICwip>) => {
-          this.toastService.success('Updated Successfully', 'Asset')
+          this.toastService.success('Updated Successfully', 'CWIP')
           this.onCloseDialog();
           this.cdRef.detectChanges();
           this.router.navigate(['/' + CWIP.LIST])

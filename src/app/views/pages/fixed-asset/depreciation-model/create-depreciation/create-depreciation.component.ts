@@ -58,7 +58,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
   // switch
   userStatus = 'Active'
 
-  assetAccountIdTitle: string = 'assetAccountId'
+  // assetAccountIdTitle: string = 'assetAccountId'
 
    //show Buttons
    showButtons: boolean = true; 
@@ -286,9 +286,12 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
   methodChange(event : MatRadioChange) {
     if(event.value) {
+      this.depreciationForm.get('decliningRate').setValidators([Validators.max(100), Validators.min(1) , Validators.required])
       this.isDeclining = true;
     }
     else {
+      this.depreciationForm.get('decliningRate').clearValidators();
+      this.depreciationForm.get('decliningRate').updateValueAndValidity();
       this.depreciationForm.get('decliningRate').setValue(0)
       this.isDeclining = false;
     }

@@ -74,11 +74,11 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   ) {
   }
 
-  // For Getting diff Dropdown Data in issuance throug item dropdown
+  // For Getting diff Dropdown Data in issuance throug item dropdown && !changes.optionList.previousValue
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log({changes});
-    if (changes && changes.optionList && changes.optionList.currentValue && !changes.optionList.previousValue) {
+    if (changes && changes.optionList && changes.optionList.currentValue) {
       this.optionList = changes.optionList.currentValue
       this.ngOnInit()
     }

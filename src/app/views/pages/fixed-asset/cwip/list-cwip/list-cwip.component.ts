@@ -203,9 +203,6 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
     });
   }
 
-  // addAsset() {
-  //   this.router.navigate(['/' + INVOICE.CREATE])
-  // }
 
 
   dataSource = {
@@ -217,7 +214,7 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
           this.gridApi.hideOverlay();
         }
         params.successCallback(data.result || 0, data.totalRecords);
-        this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
+        this.paginationHelper.goToPage(this.gridApi, 'CWIPPageName')
         this.cdRef.detectChanges();
       });
     },

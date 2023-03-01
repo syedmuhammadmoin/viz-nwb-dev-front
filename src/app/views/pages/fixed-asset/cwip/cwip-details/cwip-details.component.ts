@@ -38,7 +38,7 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
   //need for routing
   cwipId: number;
 
-  //Variables for asset data
+  //Variables for CWIP data
   cwip: any
   cwipMaster:  any;
   status: string;
@@ -86,7 +86,7 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
     params.api.sizeColumnsToFit();
   }
 
-  //Getting Asset Master Data
+  //Getting CWIP Master Data
   getCwipData(id: number) {
     this.cwipService.getCwipById(id)
     .pipe(
@@ -99,7 +99,6 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
     .subscribe((res: IApiResponse<any>) => {
       this.cwipMaster = res.result;
       this.remarksList = this.cwipMaster.remarksList ?? [] 
-      // this.assets = res.result;
       this.cdRef.detectChanges();
     })
   }

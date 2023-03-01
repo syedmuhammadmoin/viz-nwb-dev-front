@@ -14,18 +14,22 @@
           <div class="btn_container">
             <div class="col-md-6 col-6">
               <ng-container ktPortletTools >
+
+                <button  id="journal_print" [routerLink]="'/' + depreciationAdjustmentRoute.ID_BASED_ROUTE('print' , depreciationAdjustmentMaster?.id)" class="btn_public"
+                         matTooltip="Print Depreciation Adjustment"><i class="fa fa-print icon-e-p-a pr-2"></i>Print</button>
+              </ng-container>
+                
+                <!--<button *ngIf="(permission.isGranted(permissions.DEPRECIATION_ADJUSTMENT_EDIT))"  class="btn_public mr-3"
+                        (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
+                </button>-->
+
                 <button  *ngIf="(depreciationAdjustmentMaster?.state === docStatus.Draft || depreciationAdjustmentMaster?.state === docStatus.Rejected) &&
                   (permission.isGranted(permissions.DEPRECIATION_ADJUSTMENT_EDIT))" id="journal_edit"
                          [routerLink]="'/' + depreciationAdjustmentRoute.ID_BASED_ROUTE('edit' , depreciationAdjustmentMaster?.id)"
                          [queryParams]="{q: depreciationAdjustmentMaster?.id, 'isdepreciationAdjustment': true}" type="button"  class="btn_public mr-3">
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
-                <!--<button *ngIf="(permission.isGranted(permissions.DEPRECIATION_ADJUSTMENT_EDIT))"  class="btn_public mr-3"
-                        (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
-                </button>-->
-                <button  id="journal_print" [routerLink]="'/' + depreciationAdjustmentRoute.ID_BASED_ROUTE('print' , depreciationAdjustmentMaster?.id)" class="btn_public"
-                         matTooltip="Print Depreciation Adjustment"><i class="fa fa-print icon-e-p-a"></i>Print</button>
-              </ng-container>
+                
             </div>
 
             <div class="col-lg-6 text-right" *ngIf="depreciationAdjustmentMaster?.isAllowedRole">

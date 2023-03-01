@@ -417,6 +417,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       .subscribe((res) => {
         console.log(res);
         this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
+
+        
       })
 
     if (this.isFixedAsset) {

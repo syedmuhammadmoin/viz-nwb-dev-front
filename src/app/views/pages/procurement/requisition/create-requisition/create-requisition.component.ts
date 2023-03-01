@@ -481,17 +481,17 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   }
 
   //get Item Stock by item and warehouse Id
-  getStock(index) {
-    const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
-    const itemId = arrayControl.at(index).get('itemId').value
-    const warehouseId = arrayControl.at(index).get('warehouseId').value
+  // getStock(index) {
+  //   const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
+  //   const itemId = arrayControl.at(index).get('itemId').value
+  //   const warehouseId = arrayControl.at(index).get('warehouseId').value
 
 
-    if (itemId && warehouseId) {
-      this.stockService.getStockByIds({ itemId: itemId, warehouseId: warehouseId })
-        .subscribe((res) => arrayControl.at(index).get('availableQuantity').setValue((res.result) ? res.result.availableQuantity : 0))
-    }
-  }
+  //   if (itemId && warehouseId) {
+  //     this.stockService.getStockByIds({ itemId: itemId, warehouseId: warehouseId })
+  //       .subscribe((res) => arrayControl.at(index).get('availableQuantity').setValue((res.result) ? res.result.availableQuantity : 0))
+  //   }
+  // }
 
   async onItemSelectedGetAsset(itemId: number, curretIndex?: number) {
 
