@@ -117,7 +117,11 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     },
     decLiningRate : {
       required: 'Declining Rate is required.',
-    }
+    },
+    salvageValue: {
+      min: 'Minimum value is 0.',
+      max: 'Value should be less than cost per product.'
+    },
   };
 
   // error keys..
@@ -135,7 +139,9 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     accumulatedDepreciationId : '',
     useFullLife : '',
     quantity : '',
-    decLiningRate : ''
+    decLiningRate : '',
+    salvageValue : ''
+    
   };
 
   // Injecting in dependencies in constructor
@@ -163,7 +169,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       cwipAccountId: ['', [Validators.required]],
       cost: ['', [Validators.required , Validators.min(0)]],
       assetAccountId: ['', [Validators.required]],
-      salvageValue:[0],
+      salvageValue:[0 , [Validators.min(0)]],
       productId: ['', [Validators.required]],
       warehouseId: ['', [Validators.required]],
       depreciationApplicability: [false],
@@ -214,7 +220,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.cwipModel = res.result;
         this.patchCwip(res.result);
-      this.getCost(this.data.id)
+        this.getCost(res.result.cost)
         this.depApplicabilityToggle = res.result.depreciationApplicability;
       });
   }
@@ -388,10 +394,22 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
 
   getCost(e){
     
-    if((this.cwipForm.get('cost').value)  && (this.cwipForm.get('quantity').value)){
+    if((this.cwipForm.get('cost').value)  && (this.cwipForm.get('quantity').value) && (this.cwipForm.get('cost').value > 0)){
       this.perProductCost = (this.cwipForm.get('cost').value) / (this.cwipForm.get('quantity').value)
-      console.log(this.perProductCost);
-      
+      this.cwipForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
+      this.cwipForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
+      console.log('first')
+    }
+
+    else if((this.cwipForm.get('cost').value)){
+      this.perProductCost = (this.cwipForm.get('cost').value)
+      this.cwipForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
+      this.cwipForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
+      console.log('second')
+    }
+    else{
+      this.perProductCost = 0;
+      console.log('third')
     }
   }
 

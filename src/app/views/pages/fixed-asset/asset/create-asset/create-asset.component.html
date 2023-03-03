@@ -169,7 +169,7 @@
                     formControlName="depreciationModelId"
                     id="asset_model"
                     matFormFieldClass="full-width"
-                    placeholder="Select Model"
+                    placeholder="Select Depreciation Model"
                     propertyName="modelName"
                     propertyValue="id">
                   </kt-simple-dropdown>
@@ -178,7 +178,7 @@
 
               <div [ngClass]="((this.isModelType) ? 'col-lg-4 col-sm-4 col-md-4' : 'col-lg-6 col-md-6 col-sm-6')">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Useful Life:</label>
+                  <label class="col-form-label pt-0">Useful Life (Months):</label>
                   <mat-form-field appearance="outline" class="full-width">
                     <input
                       (blur)="logValidationErrors(this.assetForm, this.formErrors, this.validationMessages)"
@@ -201,7 +201,7 @@
                       formControlName="decLiningRate"
                       id="asset_decLiningRate"
                       matInput
-                      placeholder="Enter DecLiningRate Life"
+                      placeholder="Enter DecLining Rate"
                       type="number">
                     <mat-error *ngIf="formErrors.decLiningRate">
                       <strong>{{formErrors.decLiningRate}}</strong>
@@ -225,7 +225,7 @@
                     formControlName="modelType"
                     id="id"
                     matFormFieldClass="full-width"
-                    placeholder="Select Model"
+                    placeholder="Select Model Type"
                     propertyName="name"
                     propertyValue="id">
                   </kt-simple-dropdown>
@@ -317,12 +317,8 @@
                   <button (click)="reset()" class="mr-2 app-reset-btn" id="asset_reset" mat-raised-button
                           type="button"><i class="fas fa-undo"></i> Reset
                   </button>
-                  <button
-                    (click)="logValidationErrors(assetForm, this.formErrors, this.validationMessages); isSubmit(0)"
-                    class="app-default-btn  mr-3" id="asset_item_save" mat-raised-button
-                    type="submit">
-                    Save
-                  </button>
+                  <button class="mr-2 app-save-btn" type="submit" id="asset_item_save" mat-raised-button
+                  (click)="logValidationErrors(assetForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i>Save</button>
                   <button
                     (click)="logValidationErrors(assetForm, this.formErrors, this.validationMessages); isSubmit(1)"
                     class="app-default-btn " id="asset_submit" mat-raised-button

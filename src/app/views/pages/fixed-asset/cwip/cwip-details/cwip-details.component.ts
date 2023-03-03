@@ -139,7 +139,8 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.getCwipData(this.cwipId);
         this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'Request Cwip');
+        this.toastService.success('' + res.message, 'CWIP');
+        
       })
   }
 }

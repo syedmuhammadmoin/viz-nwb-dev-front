@@ -1828,6 +1828,19 @@ mat-tree-node div[id^='child'] {
     background-color: $primary-color !important;
   }
 
+  .header-mobile-fixed .wrapper {
+    padding-top: 10px !important; 
+}
+
+kt-base {
+  margin-top: 55px;
+}
+
+.subheader.subheader-solid {
+  border-top: 0px solid #EBEDF3;
+  background-color: #ffffff;
+}
+
 }
 
 @media (min-width: 992px) {

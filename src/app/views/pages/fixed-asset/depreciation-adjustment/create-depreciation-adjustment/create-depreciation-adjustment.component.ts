@@ -309,7 +309,7 @@ export class CreateDepreciationAdjustmentComponent extends AppComponentBase impl
         )
         .subscribe(
           (res: IApiResponse<IDepreciationAdjustment>) => {
-            this.toastService.success('Created Successfully', 'Journal Entry')
+            this.toastService.success('Created Successfully', 'Depreciation Adjustment')
             this.router.navigate(['/' + DEPRECIATION_ADJUSTMENT.ID_BASED_ROUTE('details' , res.result.id)]);
           });
     }

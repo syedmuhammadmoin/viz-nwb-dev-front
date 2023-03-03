@@ -128,7 +128,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       pattern: 'Please enter only Digits.',
     },
     salvageValue: {
-      max: 'Value should be less than cost per product.',
+      max: `Value should be less than cost per product.`,
     },
   };
 
@@ -351,6 +351,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.assetModel = res.result;
         this.patchAsset(res.result);
+        this.getCost(res.result.cost)
         this.depApplicabilityToggle = res.result.depreciationApplicability;
         console.log(res.result)
       });
@@ -663,15 +664,33 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   }
 
   getCost(e) {
-    /*if (this.assetForm.get('cost').value) {
-      this.assetForm.get('salvageValue').setValidators(Validators.max(this.assetForm.get('cost').value))
-    }*/
 
-    if ((this.assetForm.get('cost').value) && (this.assetForm.get('quantity').value)) {
+    if((this.assetForm.get('cost').value)  && (this.assetForm.get('quantity').value) && (this.assetForm.get('cost').value > 0)){
       this.perProductCost = (this.assetForm.get('cost').value) / (this.assetForm.get('quantity').value)
-      console.log(this.perProductCost);
       this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
+      console.log('first')
+    }
+
+    else if((this.assetForm.get('cost').value)){
+      this.perProductCost = (this.assetForm.get('cost').value)
+      this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
+      this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
+      console.log('second')
+    }
+    else{
+      this.perProductCost = 0;
+      console.log('third')
     }
   }
+
+    
+
+  //   if ((this.assetForm.get('cost').value) && (this.assetForm.get('quantity').value)) {
+  //     this.perProductCost = (this.assetForm.get('cost').value) / (this.assetForm.get('quantity').value)
+  //     console.log(this.perProductCost);
+  //     this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
+  //     this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
+  //   }
+  // }
 }
