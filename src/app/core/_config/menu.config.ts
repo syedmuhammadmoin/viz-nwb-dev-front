@@ -8,6 +8,7 @@ import {
   BID_EVALUATION,
   BILL,
   BUDGET,
+  BUDGET_REAPPROPIATION,
   BUSINESS_PARTNER,
   CALL_QUOTATION,
   CAMPUS,
@@ -739,14 +740,24 @@ export class MenuConfig {
                 Permissions.ESTIMATED_BUDGET_EDIT,
                 Permissions.ESTIMATED_BUDGET_DELETE
               ]
-            },
+            }, 
             {
               title: 'Budget Report',
               page: '/' + BUDGET.REPORT,
               permission: [
                 Permissions.BUDGET_REPORT_VIEW,
               ]
-            }
+            },
+            {
+              title: 'Budget Reappropriation',
+              page: '/' + BUDGET_REAPPROPIATION.LIST,
+              permission: [
+                Permissions.ESTIMATED_BUDGET_VIEW,
+                Permissions.ESTIMATED_BUDGET_CREATE,
+                Permissions.ESTIMATED_BUDGET_EDIT,
+                Permissions.ESTIMATED_BUDGET_DELETE
+              ]
+            }, 
           ]
         },
         //Payroll Portion

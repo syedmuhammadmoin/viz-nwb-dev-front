@@ -52,7 +52,7 @@ export class PaymentService extends AppServiceBase {
   }
 
   uploadFile(id: number , file: File, docType: string): Observable<any> {
-    const formData = new FormData();
+    const formData = new FormData(); 
     const url = AppConst.remoteServiceBaseUrl + docType.replace(/ /g, '')
     formData.append('file', file, file.name);
     return this.httpClient.post<any>(`${url}/DocUpload/${id}`, formData)
@@ -60,6 +60,6 @@ export class PaymentService extends AppServiceBase {
 
   getRecords(params: any, paymentType: string): Observable<any> {
     const url = AppConst.remoteServiceBaseUrl + paymentType.replace(/ /g, '');
-    return this.httpClient.get(url, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.paymentDate?.dateFrom, 'MM/d/y'))})
+    return this.httpClient.get(url, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.budgetReappropriationDate?.dateFrom, 'MM/d/y'))})
   }
 }

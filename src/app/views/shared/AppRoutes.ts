@@ -47,6 +47,7 @@ export const APP_ROUTES = {
   //BUDGET
   BUDGET: 'budget',
   ESTIMATED_BUDGET: 'estimated-budget',
+  BUDGET_REAPPROPIATION: 'budget-reappropiation',
 
   //PURCHASE
   DEBIT_NOTE: 'debit-note',
@@ -165,6 +166,14 @@ export const ESTIMATED_BUDGET = {
   CREATE: APP_ROUTES.ESTIMATED_BUDGET + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.ESTIMATED_BUDGET + '/' + route + '/' + id
+  }
+}
+
+export const BUDGET_REAPPROPIATION = {
+  LIST: APP_ROUTES.BUDGET_REAPPROPIATION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.BUDGET_REAPPROPIATION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.BUDGET_REAPPROPIATION + '/' + route + '/' + id
   }
 }
 

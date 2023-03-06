@@ -54,23 +54,11 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       field: 'assetCode', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['contains'],
-      //     suppressAndOrCondition: true,
-      //   },
     },
     { 
       headerName: 'Name', 
       field: 'name', 
       tooltipField: 'name', 
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['contains'],
-      //     suppressAndOrCondition: true,
-      //   },
     },
     { 
       headerName: 'Acquisition Date', 
@@ -85,12 +73,6 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Product',
       field: 'product',
       tooltipField: 'name',
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['equals'],
-      //     suppressAndOrCondition: true,
-      //   }
     },
     {
       headerName: 'Dep Applicability',

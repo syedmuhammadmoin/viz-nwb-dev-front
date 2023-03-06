@@ -148,7 +148,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
 
   // Form Reset
   reset() {
-    this.formDirective.resetForm();
+    this.formDirective.resetForm(); 
     this.table.renderRows();
   }
 
@@ -175,7 +175,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.totalAmountCalculation()
     this.cdRef.detectChanges()
   }
-
 
   totalAmountCalculation() {
     this.totalAmount = 0;
@@ -236,7 +235,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     }
   }
 
-  //Mapping form values to Budget Model
+  //Mapping form values to BudgetReappropriation Model
   mapFormValuesToBudgetModel() {
     this.budgetModel.budgetName = this.budgetForm.value.budgetName;
     this.budgetModel.from = this.transformDate(this.budgetForm.value.from, 'yyyy-MM-dd');

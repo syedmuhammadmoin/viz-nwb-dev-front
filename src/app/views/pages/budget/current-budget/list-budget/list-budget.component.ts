@@ -14,7 +14,7 @@ import { isEmpty } from 'lodash';
 @Component({
   selector: 'kt-list-budget',
   templateUrl: './list-budget.component.html',
-  styleUrls: ['./list-budget.component.scss'],
+  styleUrls: ['./list-budget.component.scss'], 
 })
 
 export class ListBudgetComponent extends AppComponentBase implements OnInit {

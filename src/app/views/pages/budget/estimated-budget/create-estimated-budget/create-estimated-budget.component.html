@@ -9,7 +9,7 @@
   
             <div class="col-md-12 col-sm-12 col-lg-12">
               <div class="row mt-1 mb-0">
-                <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="col-lg-3 col-sm-3 col-md-3"> 
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Estimated Budget:</label>
                     <kt-simple-dropdown 
@@ -44,7 +44,7 @@
   
               <div *ngIf="showLines" class="row mt-5">
                 <div class="col-lg-12 col-md-12 col-sm-12">
-                  <div class="">
+                  <div class=""> 
                     <ng-container formArrayName="estimatedBudgetLines">
                       <div class="table-responsive">
                         <mat-table #table [dataSource]="estimatedBudgetForm.get('estimatedBudgetLines')['controls']">
@@ -55,7 +55,7 @@
                               <div class="col-lg-12 col-sm-12 mt-2">
                                 <kt-simple-dropdown 
                                 [id]="'estimated_account_' + i"
-                                 [optionList]="ngxsService.accountsLevel4$" 
+                                 [optionList]="ngxsService.accountsLevel4$"  
                                  formControlName="accountId" 
                                  matFormFieldClass="mobile-label full-width"
                                  propertyName="name"
@@ -109,7 +109,7 @@
                                  matFormFieldClass="mobile-label full-width" 
                                  placeholder="Enter Value"
                                  (change)="onChangeEvent(i)"
-                                 (keyup)="onChangeEvent(i)"
+                                 (keyup)="onChangeEvent(i)" 
                                  (blurEvent)="logValidationErrors(estimatedBudgetForm, formErrors, validationMessages)"
                                  [errorMessage]="[{ condition : estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.value.errors?.required &&
                                                                 estimatedBudgetForm.get('estimatedBudgetLines')['controls'][i].controls.value.touched , 
@@ -145,6 +145,7 @@
                   </div>
                 </div>
               </div>
+
             </div>
             <!--End Estimated Budget Lines-->
           </div>
@@ -162,6 +163,7 @@
             </div>
           </div>
         </div>
+        
       </form>
       <!--end::Form-->
     </kt-portlet>

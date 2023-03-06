@@ -138,6 +138,14 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+      {
+        path: APP_ROUTES.BUDGET_REAPPROPIATION,
+        loadChildren: () =>
+          import('./views/pages/budget/budget-reappropiation/budget-reappropiation.module').then(
+            (m) => m.BudgetReappropiationModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       // Lazy Load ESTIMATED BUDGET Module
       {
         path: APP_ROUTES.ESTIMATED_BUDGET,

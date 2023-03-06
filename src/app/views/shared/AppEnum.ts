@@ -103,8 +103,13 @@ export class Permissions {
 
   static ESTIMATED_BUDGET_VIEW = 'Permissions.Budget.EstimatedBudgetClaims.View';
   static ESTIMATED_BUDGET_CREATE = 'Permissions.Budget.EstimatedBudgetClaims.Create';
-  static ESTIMATED_BUDGET_EDIT = 'Permissions.Budget.EstimatedBudgetClaims.Edit';
+  static ESTIMATED_BUDGET_EDIT = 'Permissions.Budget.EstimatedBudgetClaims.Edit'; 
   static ESTIMATED_BUDGET_DELETE = 'Permissions.Budget.EstimatedBudgetClaims.Delete';
+
+  static BUDGET_REAPPROPIATION_VIEW = 'Permissions.Budget.BudgetReappropiationClaims.View';
+  static BUDGET_REAPPROPIATION_CREATE= 'Permissions.Budget.BudgetReappropiationClaims.Create';
+  static BUDGET_REAPPROPIATION_EDIT = 'Permissions.Budget.BudgetReappropiationClaims.Edit'; 
+
 
   // Level 3
   static LEVEL3_VIEW = 'Permissions.Finance.Level3Claims.View';

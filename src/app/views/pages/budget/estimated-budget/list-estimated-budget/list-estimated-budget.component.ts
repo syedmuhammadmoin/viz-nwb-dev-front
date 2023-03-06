@@ -31,26 +31,27 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   //Injecting Dependencies
-  constructor( private _estimatedBudgetService: EstimatedBudgetService,
-               public  dialog: MatDialog,
-               private router: Router,
-               private cdRef: ChangeDetectorRef,
-               injector: Injector
-             ) {
-               super(injector)
-                this.gridOptions = <GridOptions>(
-                 { 
-                  context : { componentParent : this } 
-                 }
-                );
-               } 
+  constructor( 
+    private _estimatedBudgetService: EstimatedBudgetService,
+    public  dialog: MatDialog,
+    private router: Router,
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector)
+    this.gridOptions = <GridOptions>(
+      { 
+      context : { componentParent : this } 
+      }
+    );
+    } 
 
     columnDefs = [
       {
         headerName: 'Estimated Budget Name', 
         field: 'estimatedBudgetName', 
         tooltipField: 'to', 
-        cellRenderer: "loadingCellRenderer",
+        cellRenderer: "loadingCellRenderer", 
         filter: 'agTextColumnFilter',
         menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -90,7 +91,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
       paginationPageSize: 10,
       pagination: true,
       rowHeight: 30,
-      headerHeight: 35,
+      headerHeight: 35, 
       context: "double click to view detail",
     };
 
@@ -130,7 +131,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getEstimatedBudgets(params);
-     if(isEmpty(res.result)) {  
+     if(isEmpty(res.result)) {   
       this.gridApi.showNoRowsOverlay() 
     } else {
       this.gridApi.hideOverlay();
@@ -153,7 +154,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   }
 }
 
- 
+  
  
 
 

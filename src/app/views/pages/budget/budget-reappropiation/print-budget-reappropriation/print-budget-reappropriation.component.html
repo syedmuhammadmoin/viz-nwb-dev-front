@@ -1,0 +1,88 @@
+<div class="container ">
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button printSectionId="main" printTitle="Anticipated Budget" id="anticipated_print" ngxPrint type="button"
+        [useExistingCss]="true" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+          class="fas fa-print"></i> Print
+      </button>
+    </div>
+  </div>
+  <div class="col-lg-10 mx-auto" id="main">
+    <div [class]="className">
+      <div class="bg-whitee">
+
+        <div class="print_header_area p-s-1">
+          <div class="print-col-6 p-s-1-one">
+            <div class="logo_and_title">
+              <div class="print-logo"></div>
+              <span class="top-heading">BUDGET REAPPROPRIATION</span>
+            </div>
+
+          </div>
+          <div class="print-col-5 ml-auto p-s-1-two">
+            <div class="id_num">
+              <div class="print-box-two">
+                <h4 class="print-page-items">Date: <span class="float-right"
+                    style="font-weight: 400;">{{budgetReappropriationMaster?.budgetReappropriationDate | date: 'MMM d,y'}}</span></h4>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="print_body_area p-s-2">
+          <div class="print-col-5 p-s-2-one">
+            <div class="print-box">
+              <h4>{{budgetReappropriationMaster?.budget}}</h4>
+              <p>24 Dummy Street Area, Location, Lorem Ipsum, 570xx59x</p>
+            </div>
+          </div>
+
+          <div class="print-col-12 p-s-2-two">
+            <div class="table-responsive">
+              <table class="table ">
+                <thead class="thead-dark_color">
+                  <tr>
+                    <th>S.No</th>
+                    <th>COA</th>
+                    <th>Campus</th>
+                    <th>Description</th>
+                    <th>AdditionAmount</th>
+                    <th class="text-center">DeletionAmount</th>
+                  </tr>
+                  <tr *ngFor="let line of budgetReapprolines; index as i">
+                    <td>{{i + 1}}</td>
+                    <td>{{line?.level4}}</td>
+                    <td><b> {{line?.campus}}</b></td>
+                    <td>{{line?.description}}</td>
+                    <td class="text-right"><b>{{line?.additionAmount}}</b></td>
+                    <td class="text-right"><b>{{line?.deletionAmount}}</b> </td>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+          </div>
+
+
+          <div class="print-col-12 p-s-4">
+            <div class="print-box p-s-4-one">
+              <p>Terms and conditions:</p>
+            </div>
+            <div class="print-box p-s-4-two">
+              <h4>Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+              </h4>
+            </div>
+            <div class="print-box p-s-4-three">
+              <p>Thankyou for your Business</p>
+            </div>
+          </div>
+
+          <div class="print-col-4 p-s-5">
+            _________________________________
+            <p class="text-center">Authorized Sign</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

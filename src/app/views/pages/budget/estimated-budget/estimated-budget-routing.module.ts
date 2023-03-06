@@ -10,7 +10,7 @@ import { PrintEstimatedBudgetComponent } from './print-estimated-budget/print-es
 
 const routes : Routes = [
   {
-    path: '',
+    path: '', 
     children: [
       {
         path: CRUD_ROUTES.LIST,

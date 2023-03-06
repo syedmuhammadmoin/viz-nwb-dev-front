@@ -81,7 +81,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
         this.title = 'Edit Anticipated Budget'
         this.getEstimatedBudgetMaster(res.id);
         this.showLines = true;
-        this.cdRef.markForCheck();
+        this.cdRef.markForCheck(); 
       }
     })
 
@@ -128,7 +128,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
       this.estimatedBudgetForm.setControl('estimatedBudgetLines', this.patchEstimatedBudgetLines(res.result.budgetLines));
     })
   }
-
+ 
   onChangeEvent(index: number) {
     const arrayControl = this.estimatedBudgetForm.get('estimatedBudgetLines') as FormArray;
     const amount = (arrayControl.at(index).get('amount').value) !== null ? +arrayControl.at(index).get('amount').value : null;
@@ -209,7 +209,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
           this.toastService.success('Created Successfully', 'Anticipated Budget')
           this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
         }
-      );
+      ); 
     }
   }
 
