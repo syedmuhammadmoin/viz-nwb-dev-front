@@ -351,6 +351,11 @@ export class Permissions {
   static DISPOSAL_EDIT = "Permissions.FixedAsset.DisposalClaims.Edit";
   static DISPOSAL_DELETE = "Permissions.FixedAsset.DisposalClaims.Delete";
 
+  //asset report
+  static ASSET_REPORT_VIEW = "Permissions.FixedAsset.AssetReportClaims.View";
+  static ASSET_REPORT_CREATE = "Permissions.FixedAsset.AssetReportClaims.Create";
+  static ASSET_REPORT_EDIT = "Permissions.FixedAsset.AssetReportClaims.Edit";
+  static ASSET_REPORT_DELETE = "Permissions.FixedAsset.AssetReportClaims.Delete";
 
   // allowance
   static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';

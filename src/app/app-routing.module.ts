@@ -509,6 +509,16 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+      
+      // Lazy Load asset Report Module
+      {
+        path: APP_ROUTES.ASSET_REPORT, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/fixed-asset/asset-report/report.module').then(
+            (m) => m.ReportModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       // Lazy Load DISPOSAL Module
       {
         path: APP_ROUTES.DISPOSAL, // <= Page URL

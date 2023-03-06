@@ -2,6 +2,7 @@ import {
   ACCESS_MANAGEMENT,
   APP_ROUTES,
   ASSET,
+  ASSET_REPORT,
   BANK_ACCOUNT,
   BANK_RECONCILIATION,
   BANK_STATEMENT,
@@ -513,6 +514,14 @@ export class MenuConfig {
                 Permissions.DISPOSAL_EDIT,
                 Permissions.DISPOSAL_DELETE
               ]
+            },
+            {
+              title: 'Fixed Asset Report',
+              page: '/' + ASSET_REPORT.LIST,
+              // permission: [
+              //   Permissions.ASSET_REPORT_VIEW,
+              //   Permissions.ASSET_REPORT_CREATE,
+              // ]
             }
           ]
         },

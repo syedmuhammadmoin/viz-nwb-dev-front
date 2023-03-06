@@ -15,7 +15,7 @@ import { PrintGeneralLedgerComponent } from './general-ledger/print-general-ledg
 import { PrintTrialBalanceComponent } from './trial-balance/print-trial-balance/print-trial-balance.component';
 
 @NgModule({
-  declarations: [
+  declarations: [ 
     GeneralLedgerComponent,
     TrialBalanceComponent,
     BalanceSheetComponent,

@@ -83,7 +83,8 @@ export const APP_ROUTES = {
   ASSET: 'asset',
   CWIP: 'cwip',
   DISPOSAL: 'disposal',
-  DEPRECIATION_ADJUSTMENT: 'depreciation-adjustment'
+  DEPRECIATION_ADJUSTMENT: 'depreciation-adjustment',
+  ASSET_REPORT: 'assets-report'
 }
 
 export const CRUD_ROUTES = {
@@ -379,6 +380,14 @@ export const CWIP = {
 export const DISPOSAL = {
   LIST: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.DISPOSAL + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.DISPOSAL + '/' + route + '/' + id
+  }
+}
+
+export const ASSET_REPORT = {
+  LIST: APP_ROUTES.ASSET_REPORT + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ASSET_REPORT + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.DISPOSAL + '/' + route + '/' + id
   }
