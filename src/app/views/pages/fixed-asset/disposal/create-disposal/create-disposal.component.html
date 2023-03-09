@@ -25,10 +25,11 @@
                                 <kt-simple-dropdown id="disposal_asset" formControlName="fixedAssetId"
                                     matFormFieldClass="full-width"
                                     (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                                    (selectionChange)="getAssetData($event.value)"
                                     propertyName="name" 
                                     propertyValue="id" 
                                     [errorMessage]="formErrors.fixedAssetId"
-                                    [optionList]="" 
+                                    [optionList]="ngxsService.disposalDropdown$" 
                                     placeholder="Select Asset">
                                 </kt-simple-dropdown>
 

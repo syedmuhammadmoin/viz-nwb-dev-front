@@ -82,7 +82,6 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
       this.optionList = changes.optionList.currentValue
       this.ngOnInit()
     }
-
   }
 
   ngOnInit(): void {

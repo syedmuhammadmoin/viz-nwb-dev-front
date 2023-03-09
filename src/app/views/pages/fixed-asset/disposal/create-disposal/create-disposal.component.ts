@@ -14,6 +14,7 @@ import {  DISPOSAL } from 'src/app/views/shared/AppRoutes';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { DepreciationMethodService } from '../../depreciation-model/service/depreciation-method.service';
+import { AssetService } from '../../../fixed-asset/asset/service/asset.service';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -118,7 +119,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     public dialogRef: MatDialogRef<CreateDisposalComponent>,
     public dialog: MatDialog,
     public addButtonService: AddModalButtonService,
-    private depreciationService: DepreciationMethodService,
+    private assetService: AssetService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
     private router: Router,
@@ -150,6 +151,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     this.ngxsService.getAssetAccountFromState();
     this.ngxsService.getCampusFromState();
     this.ngxsService.getDisposaldropdownFromState();
+    this.ngxsService.getWarehouseFromState();
 
     if (this.data?.id) {
       this.title = 'Edit Disposal'
@@ -191,7 +193,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     productId: disposal.productId,
     cost: disposal.cost,
     salvageValue: disposal.salvageValue,
-    usefulLife: disposal.usefulLife,
+    usefulLife: disposal.useFullLife,
     accumulatedDepreciationId: disposal.accumulatedDepreciationId,
     disposalDate: disposal.disposalDate,
     disposalValue: disposal.disposalValue,
@@ -248,6 +250,30 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     }
   }
 
+  getAssetData(id : number){
+    this.assetService.getAssetById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.disposalForm.patchValue({
+          modelType: res.result.modelType,
+          productId: res.result.productId,
+          cost: res.result.cost,
+          salvageValue: res.result.salvageValue,
+          usefulLife: res.result.useFullLife,
+          accumulatedDepreciationId: res.result.accumulatedDepreciationId,
+          warehouseId: res.result.warehouseId,
+        })
+        // this.getModelType(res.result.modelType)
+        this.cdRef.detectChanges()
+      })
+  }
+
 
   //Mapping Form Value to Model
   mapFormValuesTodisposalModel() {
@@ -281,6 +307,8 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   onCloseDialog() {
     this.dialogRef.close();
   }
+
+
 }
 
 

@@ -1,1 +1,120 @@
-<p>disposal-details works!</p>
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+
+      <kt-portlet-header [sticky]="false" [title]="'Disposal Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
+        <ng-container ktPortletTools>
+          <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+          <div class="ribbon-target"><span class="ribbon-inner {{docStatus[disposalMaster?.state]}}"></span> {{disposalMaster?.status}}</div>
+          <!-- <h4 class="overall_statuses {{docStatus[requestRequisitionMaster?.state]}}"> Status: {{requestRequisitionMaster?.status}} </h4> -->
+        </ng-container>
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+          <div class="row ">
+            <div class="btn_container">
+              <div class="col-md-6 col-6">
+                <ng-container ktPortletTools>
+                  <button [routerLink]="'/' + DISPOSAL.ID_BASED_ROUTE('print', disposalMaster?.id)" type="button"
+                    class="btn_public" id="disposal_print">
+                    <i class="fa fa-print"></i> Print Disposal
+                  </button>
+                  <button *ngIf="(disposalMaster?.state === docStatus.Draft || disposalMaster?.state === docStatus.Rejected)
+                  && (permission.isGranted(permissions.DISPOSAL_EDIT))"
+                    type="button" class="mr-2 btn_public" id="disposal_edit" (click)="editDisposal(disposalMaster?.id)" >
+                    <i class="fa fa-edit" ></i> Edit
+                 </button>
+                </ng-container>
+              </div>
+              <div class="col-lg-6 text-right" *ngIf="disposalMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="request_reject" class="mr-2 btn btn-outline-danger">Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="request_approve" class="btn btn-outline-success">Approve</button>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6  mt-3">
+              <div class="print-box">
+                <h4 >Asset:
+                  <span class="float-right" >{{disposalMaster?.fixedAsset}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Disposal Date:
+                  <span class="float-right" >{{disposalMaster?.disposalDate | date: 'MMM d, y'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Cost:
+                  <span class="float-right" >{{valueFormatter(disposalMaster?.cost)}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >Product:
+                <span class="float-right" >{{disposalMaster?.product}}</span></h4>
+              </div>
+              <div class="print-box">
+                  <h4 >Salvage Value:
+                    <span class="float-right" >{{valueFormatter(disposalMaster?.salvageValue)}}</span>
+                  </h4>
+              </div>
+               
+            </div>
+
+            <div class="col-md-6 col-lg-6  mt-3">
+              <div class="print-box">
+                <h4 >
+                  Store:
+                  <span class="float-right" >{{disposalMaster?.warehouse || 'N/A'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                    Book Value:
+                  <span class="float-right" >{{disposalMaster?.bookValue || 'N/A'}}</span>
+
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  Accumulated Depreciation Account:
+                  <span class="float-right" >{{disposalMaster?.accumulatedDepreciation || 'N/A'}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                  UseFull Life:
+                  <span class="float-right" >{{valueFormatter(disposalMaster?.useFullLife || 0)}}</span>
+                </h4>
+              </div>
+              <div class="print-box">
+                <h4 >
+                    Disposal Value:
+                  <span class="float-right" >{{valueFormatter(disposalMaster?.disposalValue || 0)}}</span>
+                </h4>
+              </div>
+            </div>
+          </div>
+        </div>
+      </kt-portlet-body>
+
+      <mat-divider class="mb-10"></mat-divider>
+
+      <div class="col-md-7 col-7"  *ngIf="remarksList.length > 0">
+        <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
+      </div>
+
+      <mat-divider class="mt-10 mb-10" *ngIf="remarksList.length > 0"></mat-divider>
+
+      <!-- <mat-divider class="mt-10"></mat-divider> -->
+
+      <!-- <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
+          <div class="row ">
+            <div class="col-lg-12 text-right" *ngIf="disposalMaster?.isAllowedRole">
+              <button (click)="workflow(action.Reject)" id="invoice_reject" class="mr-5 btn btn-outline-danger" mat-raised-button>Reject</button>
+              <button (click)="workflow(action.Approve)" id="invoice_approve" class="btn btn-outline-success" mat-raised-button>Approve</button>
+            </div>
+          </div>
+        </div>
+      </div> -->
+    </kt-portlet>
+  </div>

@@ -96,7 +96,7 @@ export class NgxsCustomService {
   @Select(BusinessPartnerState.isFetchCompleted) businessPartnerFetchCompleted$: Observable<any>;
   @Select(BusinessPartnerState.isLoading) businessPartnerIsLoading$: Observable<any>;
 
-  // Business Partner
+  // Fixed Asset
   @Select(AssetState.entities) assets$: Observable<any>;
   @Select(AssetState.isFetchCompleted) assetsFetchCompleted$: Observable<any>;
   @Select(AssetState.isLoading) assetsIsLoading$: Observable<any>;
@@ -365,7 +365,7 @@ export class NgxsCustomService {
   getDisposaldropdownFromState() {
     this.disposalDropdownFetchCompleted$.subscribe((res) => {
       if (!res) {
-        this.store.dispatch(new GetList(AssetAccountState, {
+        this.store.dispatch(new GetList(DisposalDropdownState, {
           serviceClass: this.assetService,
           methodName: 'getAssetsDisposalDropdown',
           context: this

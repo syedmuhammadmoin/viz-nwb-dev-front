@@ -10,7 +10,9 @@ export interface IDisposal {
     disposalDate: string,
     disposalValue: number,
     warehouseId: number,
-    isSubmit: boolean
+    isSubmit?: boolean
+
+    
 
 }
 

@@ -54,17 +54,35 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       field: 'assetCode', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer", 
+      // filter: 'agTextColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['contains'],
+      //     suppressAndOrCondition: true,
+      //   },
     },
     { 
       headerName: 'Name', 
       field: 'name', 
       tooltipField: 'name', 
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
     },
     { 
       headerName: 'Acquisition Date', 
       field: 'dateofAcquisition', 
-      tooltipField: 'name', 
-      suppressMenu: true,
+      tooltipField: 'dateofAcquisition', 
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['equals'],
+          suppressAndOrCondition: true,
+        },
       valueFormatter: (params: ValueFormatterParams) => { 
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
@@ -72,12 +90,31 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Product',
       field: 'product',
-      tooltipField: 'name',
+      tooltipField: 'product',
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+    },
+    {
+      headerName: 'Store',
+      field: 'warehouse',
+      tooltipField: 'warehouse',
+      cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
     },
     {
       headerName: 'Dep Applicability',
       field: 'depreciationApplicability',
-      tooltipField: 'name',
+      tooltipField: 'depreciationApplicability',
       valueFormatter: (params: ValueFormatterParams) => {
         if(params.value){
           return 'Applicable'
@@ -85,14 +122,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
         else{
           return 'Not Applicable'
         }
-        // return params.value ?? 'N/A'
-      }
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['equals'],
-      //     suppressAndOrCondition: true,
-      //   }
+      },
     },
     {
       headerName: 'Status',
@@ -112,7 +142,83 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       //     filterOptions: ['equals'],
       //     suppressAndOrCondition: true,
       //   }
-    }
+    },
+    {
+      headerName: 'Disposed',
+      field: 'isDisposed',
+      tooltipField: 'name',
+      valueFormatter: (params: ValueFormatterParams) => {
+        if(params.value){
+          return 'Yes'
+        }
+        else{
+          return 'No'
+        }
+      },
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
+    },
+    {
+      headerName: 'Held For Disposal',
+      field: 'isHeldforSaleOrDisposal',
+      tooltipField: 'name',
+      valueFormatter: (params: ValueFormatterParams) => {
+        if(params.value){
+          return 'Yes'
+        }
+        else{
+          return 'No'
+        }
+      },
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
+    },
+    {
+      headerName: 'Issued',
+      field: 'isIssued',
+      tooltipField: 'name',
+      valueFormatter: (params: ValueFormatterParams) => {
+        if(params.value){
+          return 'Yes'
+        }
+        else{
+          return 'No'
+        }
+      },
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
+    },,
+    {
+      headerName: 'Reserved',
+      field: 'isReserved',
+      tooltipField: 'name',
+      valueFormatter: (params: ValueFormatterParams) => {
+        if(params.value){
+          return 'Yes'
+        }
+        else{
+          return 'No'
+        }
+      },
+      // filter: 'agDateColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['equals'],
+      //     suppressAndOrCondition: true,
+      //   }
+    },
   ];
 
 

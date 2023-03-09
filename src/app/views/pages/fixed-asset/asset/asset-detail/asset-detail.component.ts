@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions, DepreciationMethod } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -12,6 +12,10 @@ import { CreateAssetComponent } from '../create-asset/create-asset.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 import { ASSET } from 'src/app/views/shared/AppRoutes';
 import {IAsset} from '../model/IAsset';
+import { ConfirmationDialogComponent } from 'src/app/views/shared/components/confirmation-dialog/confirmation-dialog.component';
+import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import { DisposalDropdownState } from '../store/disposal-dropdown.state';
 
 
 //fixed asset table interface
@@ -61,7 +65,9 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
-    injector: Injector
+    public ngxsService: NgxsCustomService,
+    injector: Injector,
+    private router: Router,
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
@@ -654,6 +660,21 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   }
 
    //Get Remarks From User
+   conformationDailog(action: any): void {
+    const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+      width: '740px'
+    });
+
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+      console.log(res);
+      
+      if (res) {
+        this.heldForDisposal()
+      }
+    })
+  }
+   //Get Remarks From User
    remarksDialog(action: any): void {
     const dialogRef = this.dialog.open(CustomRemarksComponent, {
       width: '740px'
@@ -664,6 +685,24 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
         this.workflow(action, res.data)
       }
     })
+  }
+
+  heldForDisposal(){
+    this.isLoading = true;
+    this.assetService.heldForDisposal(this.assetMaster.id)
+    .pipe(
+      take(1),
+       finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+       })
+     )
+     .subscribe((res) => {
+      this.ngxsService.store.dispatch(new IsReloadRequired(DisposalDropdownState, true))
+      this.cdRef.detectChanges();
+      this.router.navigate(['/' + ASSET.LIST])
+    })
+    console.log(this.assetMaster.id)
   }
 
   workflow(action: number, remarks: string) {
@@ -682,4 +721,5 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
         this.toastService.success('' + res.message, 'Asset');
       })
   }
+
 }

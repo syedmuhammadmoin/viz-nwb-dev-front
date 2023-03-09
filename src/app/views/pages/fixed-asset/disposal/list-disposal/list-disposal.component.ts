@@ -54,66 +54,32 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     { 
       headerName: 'Doc No', 
-      field: 'cwipCode', 
+      field: 'docNo', 
       tooltipField: 'name', 
       cellRenderer: "loadingCellRenderer",
     },
     { 
-      headerName: 'Acquisition Date', 
-      field: 'dateOfAcquisition', 
+      headerName: 'Disposal Date', 
+      field: 'disposalDate', 
       tooltipField: 'name', 
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => { 
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
+    {
+      headerName: 'Asset Account',
+      field: 'fixedAsset',
+      tooltipField: 'name',
+    },
     { 
-      headerName: 'Asset Cost', 
-      field: 'costOfAsset', 
+      headerName: 'Book Value', 
+      field: 'bookValue', 
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       } 
       
-    },
-    {
-      headerName: 'Asset Account',
-      field: 'assetAccount',
-      tooltipField: 'name',
-    },
-    {
-      headerName: 'Quantinty',
-      field: 'quantinty',
-      tooltipField: 'name',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
-    {
-      headerName: 'Salvage Value',
-      field: 'salvageValue',
-      tooltipField: 'name',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-    },
-    {
-      headerName: 'Dep Applicability',
-      field: 'depreciationApplicability',
-      tooltipField: 'name',
-      valueFormatter: (params: ValueFormatterParams) => {
-        if(params.value){
-          return 'Applicable'
-        }
-        else{
-          return 'Not Applicable'
-        }
-      }
-    },
-    {
-      headerName: 'Status',
-      field: 'status',
-      tooltipField: 'name',
     }
   ];
 
@@ -174,16 +140,16 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
 
   dataSource = {
     getRows: (params: any) => {
-      // this.disposalService.getRecords(params).subscribe((data) => {
-      //   if(isEmpty(data.result)) {  
-      //     this.gridApi.showNoRowsOverlay() 
-      //   } else {
-      //     this.gridApi.hideOverlay();
-      //   }
-      //   params.successCallback(data.result || 0, data.totalRecords);
-      //   this.paginationHelper.goToPage(this.gridApi, 'disposalPageName')
-      //   this.cdRef.detectChanges();
-      // });
+      this.disposalService.getRecords(params).subscribe((data) => {
+        if(isEmpty(data.result)) {  
+          this.gridApi.showNoRowsOverlay() 
+        } else {
+          this.gridApi.hideOverlay();
+        }
+        params.successCallback(data.result || 0, data.totalRecords);
+        this.paginationHelper.goToPage(this.gridApi, 'disposalPageName')
+        this.cdRef.detectChanges();
+      });
     },
   };
 

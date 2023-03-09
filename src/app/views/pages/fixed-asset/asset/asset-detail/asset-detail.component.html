@@ -14,15 +14,6 @@
             <div class="btn_container">
               <div class="col-md-6 col-6">
                 <ng-container ktPortletTools>
-
-
-                  <!-- <button *ngIf="(assetMaster?.state === docStatus.Draft || assetMaster?.state === docStatus.Rejected)"
-                    [disabled]="!(permission.isGranted(permissions.INVOICE_EDIT))"
-                    [ngClass]="!(permission.isGranted(permissions.INVOICE_EDIT)) ? 'disable' : '' "
-                    [routerLink]="'/' + INVOICE.ID_BASED_ROUTE('edit', assetMaster?.id)" [queryParams]="{q: assetMaster?.id, 'isInvoice': true}"
-                    type="button"  class="mr-3 btn_public" id="invoice_edit"> <i class="fa fa-edit"></i>
-                    Edit
-                  </button> -->
                   <button [routerLink]="'/' + ASSET.ID_BASED_ROUTE('print', assetMaster?.id)" type="button"
                     class="btn_public" id="asset_print">
                     <i class="fa fa-print"></i> Print Asset
@@ -32,10 +23,11 @@
                     type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset(assetMaster?.id)" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>
-
-
                 </ng-container>
-
+              </div>
+              <div class="col-md-6 col-6 text-right">
+                  <button 
+                  *ngIf="(!assetMaster?.isIssued && !assetMaster?.isReserved && !assetMaster?.isHeldforSaleOrDisposal &&  !assetMaster?.isDisposed && assetMaster?.state !== docStatus.Draft)" (click)="conformationDailog()" class="app-default-btn" mat-raised-button id="asset_disposed" mat-raised-buttontype="submit"> Held For Disposed</button>
               </div>
               <div class="col-lg-6 text-right" *ngIf="assetMaster?.isAllowedRole">
                 <button (click)="remarksDialog(action.Reject)" id="request_reject" class="mr-2 btn btn-outline-danger">Reject</button>
@@ -84,6 +76,12 @@
             </div>
 
             <div class="col-md-6 col-lg-6  mt-3">
+              <div class="print-box">
+                <h4 >
+                  Store:
+                  <span class="float-right" >{{assetMaster?.warehouse || 'N/A'}}</span>
+                </h4>
+              </div>
               <div class="print-box">
                 <h4 >
                   Asset Account:
