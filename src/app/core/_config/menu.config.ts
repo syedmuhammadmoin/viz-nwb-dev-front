@@ -1,11 +1,14 @@
 import {
   ACCESS_MANAGEMENT,
+  ADDMISION_DEPARTMENT,
   APP_ROUTES,
   ASSET,
   ASSET_REPORT,
   BANK_ACCOUNT,
   BANK_RECONCILIATION,
   BANK_STATEMENT,
+  BATCH,
+  BATCH_TYPE,
   BID_EVALUATION,
   BILL,
   BUDGET,
@@ -15,6 +18,7 @@ import {
   CAMPUS,
   CATEGORY,
   CHART_OF_ACCOUNT,
+  COURSE,
   CREDIT_NOTE,
   CWIP,
   DEBIT_NOTE,
@@ -25,6 +29,8 @@ import {
   DISPOSAL,
   EMPLOYEE,
   ESTIMATED_BUDGET,
+  FACULTY,
+  FEE_TYPE,
   GOODS_RECEIVED_NOTE,
   GOODS_RETURN_NOTE,
   INVOICE,
@@ -45,6 +51,7 @@ import {
   REPORT,
   REQUEST_REQUISITION,
   REQUISITION,
+  SHIFT,
   STATUS,
   STOCK,
   TAX,
@@ -437,6 +444,115 @@ export class MenuConfig {
             },
           ]
         },
+        //Budget Portion
+        {
+          title: 'Admission',
+          bullet: 'dot',
+          icon: 'flaticon2-analytics',
+          permission: [
+            // Permissions.FACULTY_VIEW,
+            // Permissions.FACULTY_CREATE,
+            // Permissions.FACULTY_EDIT,
+            // Permissions.FACULTY_DELETE,
+            // Permissions.ADMISSION_DEPARTMENT_VIEW,
+            // Permissions.ADMISSION_DEPARTMENT_CREATE,
+            // Permissions.ADMISSION_DEPARTMENT_EDIT,
+            // Permissions.ADMISSION_DEPARTMENT_DELETE,
+            // Permissions.SHIFT_VIEW,
+            // Permissions.SHIFT_CREATE,
+            // Permissions.SHIFT_EDIT,
+            // Permissions.SHIFT_DELETE,
+            // Permissions.FEE_TYPE_VIEW,
+            // Permissions.FEE_TYPE_CREATE,
+            // Permissions.FEE_TYPE_EDIT,
+            // Permissions.FEE_TYPE_DELETE,
+            // Permissions.BATCH_VIEW,
+            // Permissions.BATCH_CREATE,
+            // Permissions.BATCH_EDIT,
+            // Permissions.BATCH_DELETE,
+            // Permissions.BATCH_TYPE_VIEW,
+            // Permissions.BATCH_TYPE_CREATE,
+            // Permissions.BATCH_TYPE_EDIT,
+            // Permissions.BATCH_TYPE_DELETE,
+            // Permissions.COURSE_VIEW,
+            // Permissions.COURSE_CREATE,
+            // Permissions.COURSE_EDIT,
+            // Permissions.COURSE_DELETE
+
+          ],
+          submenu: [
+            {
+              title: 'Faculty',
+              page: '/' + FACULTY.LIST,
+              // permission: [
+              //   Permissions.FACULTY_VIEW,
+              //   Permissions.FACULTY_CREATE,
+              //   Permissions.FACULTY_EDIT,
+              //   Permissions.FACULTY_DELETE
+              // ]
+            },
+            {
+              title: 'Department',
+              page: '/' + ADDMISION_DEPARTMENT.LIST,
+              // permission: [
+              //   Permissions.ADMISSION_DEPARTMENT_VIEW,
+              //   Permissions.ADMISSION_DEPARTMENT_CREATE,
+              //   Permissions.ADMISSION_DEPARTMENT_EDIT,
+              //   Permissions.ADMISSION_DEPARTMENT_DELETE
+              // ]
+            }, 
+            {
+              title: 'Shift',
+              page: '/' + SHIFT.LIST,
+              // permission: [
+              //   Permissions.SHIFT_VIEW,
+              //   Permissions.SHIFT_CREATE,
+              //   Permissions.SHIFT_EDIT,
+              //   Permissions.SHIFT_DELETE
+              // ]
+            },
+            {
+              title: 'Fee Type',
+              page: '/' + FEE_TYPE.LIST,
+              // permission: [
+              //   Permissions.FEE_TYPE_VIEW,
+              //   Permissions.FEE_TYPE_CREATE,
+              //   Permissions.FEE_TYPE_EDIT,
+              //   Permissions.FEE_TYPE_DELETE
+              // ]
+            }, 
+            {
+              title: 'Batch',
+              page: '/' + BATCH.LIST,
+              // permission: [
+              //   Permissions.BATCH_VIEW,
+              //   Permissions.BATCH_CREATE,
+              //   Permissions.BATCH_EDIT,
+              //   Permissions.BATCH_DELETE
+              // ]
+            }, 
+            {
+              title: 'Batch Type',
+              page: '/' + BATCH_TYPE.LIST,
+              // permission: [
+              //   Permissions.BATCH_TYPE_VIEW,
+              //   Permissions.BATCH_TYPE_CREATE,
+              //   Permissions.BATCH_TYPE_EDIT,
+              //   Permissions.BATCH_TYPE_DELETE
+              // ]
+            }, 
+            {
+              title: 'Course',
+              page: '/' + COURSE.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            }, 
+          ]
+        },
         //Fixed Asset Section
         {
           title: 'Fixed Asset',
@@ -727,7 +843,12 @@ export class MenuConfig {
             Permissions.ESTIMATED_BUDGET_VIEW,
             Permissions.ESTIMATED_BUDGET_CREATE,
             Permissions.ESTIMATED_BUDGET_EDIT,
-            Permissions.ESTIMATED_BUDGET_DELETE
+            Permissions.ESTIMATED_BUDGET_DELETE,
+            Permissions.ESTIMATED_BUDGET_VIEW,
+            Permissions.ESTIMATED_BUDGET_CREATE,
+            Permissions.ESTIMATED_BUDGET_EDIT,
+            Permissions.ESTIMATED_BUDGET_DELETE,
+            Permissions.BUDGET_REPORT_VIEW,
           ],
           submenu: [
             {

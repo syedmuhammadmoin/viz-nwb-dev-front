@@ -471,6 +471,70 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+        // Admission Section
+      // Lazy Load FACULTY Module
+      {
+        path: APP_ROUTES.FACULTY,
+        loadChildren: () =>
+          import('./views/pages/admission/faculty/faculty.module').then(
+            (m) => m.FacultyModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load DEPARMENT Module
+      {
+        path: APP_ROUTES.ADDMISION_DEPARTMENT,
+        loadChildren: () =>
+          import('./views/pages/admission/department/department.module').then(
+            (m) => m.DepartmentModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load FEE_TYPE Module
+      {
+        path: APP_ROUTES.FEE_TYPE,
+        loadChildren: () =>
+          import('./views/pages/admission/fee-type/fee-type.module').then(
+            (m) => m.FeeTypeModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load SHIFT Module
+      {
+        path: APP_ROUTES.SHIFT,
+        loadChildren: () =>
+          import('./views/pages/admission/shift/shift.module').then(
+            (m) => m.ShiftModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load BATCH Module
+      {
+        path: APP_ROUTES.BATCH,
+        loadChildren: () =>
+          import('./views/pages/admission/batch/batch.module').then(
+            (m) => m.BatchModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load BATCH_TYPE Module
+      {
+      path: APP_ROUTES.BATCH_TYPE,
+      loadChildren: () =>
+        import('./views/pages/admission/batch-type/batch-type.module').then(
+          (m) => m.BatchTypeModule
+        ),
+      canActivateChild: [AuthGuard]
+       },
+      // Lazy Load BATCH_TYPE Module
+      {
+      path: APP_ROUTES.COURSE,
+      loadChildren: () =>
+        import('./views/pages/admission/course/course.module').then(
+          (m) => m.CourseModule
+        ),
+      canActivateChild: [AuthGuard]
+        },
       // FIXED ASSET
       // Lazy Load DEPRECIATION MODEL Module
       {

@@ -110,6 +110,42 @@ export class Permissions {
   static BUDGET_REAPPROPIATION_CREATE= 'Permissions.Budget.BudgetReappropiationClaims.Create';
   static BUDGET_REAPPROPIATION_EDIT = 'Permissions.Budget.BudgetReappropiationClaims.Edit'; 
 
+  // ADMISSION
+  static FACULTY_VIEW = 'Permissions.Faculty.FacultyClaims.View';
+  static FACULTY_CREATE = 'Permissions.Faculty.FacultyClaims.Create';
+  static FACULTY_EDIT = 'Permissions.Faculty.FacultyClaims.edit';
+  static FACULTY_DELETE = 'Permissions.Faculty.FacultyClaims.delete';
+
+  static ADMISSION_DEPARTMENT_VIEW = 'Permissions.Department.DepartmentClaims.View';
+  static ADMISSION_DEPARTMENT_CREATE = 'Permissions.Department.DepartmentClaims.Create';
+  static ADMISSION_DEPARTMENT_EDIT = 'Permissions.Department.DepartmentClaims.edit';
+  static ADMISSION_DEPARTMENT_DELETE = 'Permissions.Department.DepartmentClaims.delete';
+
+  static SHIFT_VIEW = 'Permissions.Shift.ShiftClaims.View';
+  static SHIFT_CREATE = 'Permissions.Shift.ShiftClaims.Create';
+  static SHIFT_EDIT = 'Permissions.Shift.ShiftClaims.edit';
+  static SHIFT_DELETE = 'Permissions.Shift.ShiftClaims.delete';
+
+  static FEE_TYPE_VIEW = 'Permissions.FeeType.FeeTypeClaims.View';
+  static FEE_TYPE_CREATE = 'Permissions.FeeType.FeeTypeClaims.Create';
+  static FEE_TYPE_EDIT = 'Permissions.FeeType.FeeTypeClaims.edit';
+  static FEE_TYPE_DELETE = 'Permissions.FeeType.FeeTypeClaims.delete';
+
+  static BATCH_VIEW = 'Permissions.Batch.BatchClaims.View';
+  static BATCH_CREATE = 'Permissions.Batch.BatchClaims.Create';
+  static BATCH_EDIT = 'Permissions.Batch.BatchClaims.edit';
+  static BATCH_DELETE = 'Permissions.Batch.BatchClaims.delete';
+
+  static BATCH_TYPE_VIEW = 'Permissions.BatchType.BatchTypeClaims.View';
+  static BATCH_TYPE_CREATE = 'Permissions.BatchType.BatchTypeClaims.Create';
+  static BATCH_TYPE_EDIT = 'Permissions.BatchType.BatchTypeClaims.edit';
+  static BATCH_TYPE_DELETE = 'Permissions.BatchType.BatchTypeClaims.delete';
+
+  static COURSE_VIEW = 'Permissions.Course.CourseClaims.View';
+  static COURSE_CREATE = 'Permissions.Course.CourseClaims.Create';
+  static COURSE_EDIT = 'Permissions.Course.CourseClaims.edit';
+  static COURSE_DELETE = 'Permissions.Course.CourseClaims.delete';
+
 
   // Level 3
   static LEVEL3_VIEW = 'Permissions.Finance.Level3Claims.View';
