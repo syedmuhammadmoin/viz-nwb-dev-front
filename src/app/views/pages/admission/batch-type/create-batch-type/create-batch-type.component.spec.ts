@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ListDeparmentComponent } from './list-deparment.component';
+import { CreateBatchTypeComponent } from './create-batch-type.component';
 
-describe('ListDeparmentComponent', () => {
-  let component: ListDeparmentComponent;
-  let fixture: ComponentFixture<ListDeparmentComponent>;
+describe('CreateBatchTypeComponent', () => {
+  let component: CreateBatchTypeComponent;
+  let fixture: ComponentFixture<CreateBatchTypeComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ListDeparmentComponent ]
+      declarations: [ CreateBatchTypeComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ListDeparmentComponent);
+    fixture = TestBed.createComponent(CreateBatchTypeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

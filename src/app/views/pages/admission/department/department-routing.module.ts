@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
-import { ListDepartmentComponent } from '../../payroll/department/list-department/list-department.component';
-import { DepartmentModule } from './department.module';
-import { ListDeparmentComponent } from './list-deparment/list-deparment.component';
+import { CreateAddmissionDepartmentComponent } from './create-addmission-department/create-addmission-department.component';
+import { ListAdmisionDepartmentComponent } from './list-admision-department/list-admision-department.component';
 
 
 const routes: Routes = [
@@ -12,7 +11,23 @@ const routes: Routes = [
     children: [
       {
         path: CRUD_ROUTES.LIST,
-        component: ListDeparmentComponent,
+        component: ListAdmisionDepartmentComponent,
+        // data: {
+        //   array: [
+        //     { permission: Permissions.FACULTY_VIEW },
+        //     { permission: Permissions.FACULTY_CREATE },
+        //   ]
+        // },
+        // canActivate: [PermissionGuard]
+      },
+    ]
+  },
+  {
+    path: '',
+    children: [
+      {
+        path: CRUD_ROUTES.CREATE,
+        component: CreateAddmissionDepartmentComponent,
         // data: {
         //   array: [
         //     { permission: Permissions.FACULTY_VIEW },

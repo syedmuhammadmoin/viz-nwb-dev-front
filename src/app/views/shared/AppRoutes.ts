@@ -78,7 +78,7 @@ export const APP_ROUTES = {
 
   //ADMISSION
   FACULTY: 'faculty',
-  ADDMISION_DEPARTMENT: 'department',
+  ADDMISION_DEPARTMENT: 'Admission-department',
   FEE_TYPE: 'fee-type',
   SHIFT: 'shift',
   BATCH: 'batch',

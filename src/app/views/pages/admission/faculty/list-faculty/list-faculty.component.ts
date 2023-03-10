@@ -7,6 +7,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { FACULTY } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { CreateFacultyComponent } from '../create-faculty/create-faculty.component';
 import { IFaculty } from '../model/IFaculty';
 
 @Component({
@@ -20,7 +21,7 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
 isLoading: boolean;
 
 // For AG Grid..
-budgetList: IFaculty[];
+FacultyList: IFaculty[];
 gridOptions: GridOptions;
 defaultColDef: ColDef;
 public permissions = Permissions;
@@ -103,11 +104,19 @@ onFirstDataRendered(params: FirstDataRenderedEvent) {
 }
 
 onRowDoubleClicked(event: RowDoubleClickedEvent) {
-  this.router.navigate(['/' + FACULTY.ID_BASED_ROUTE('details', event.data.id)]);
+  this.openDialog(event.data.id)
 }
 
-addFaculty() {
-  this.router.navigate(['/' + FACULTY.CREATE])
+openDialog(id?: number): void {
+  const dialogRef = this.dialog.open(CreateFacultyComponent, {
+    width: '800px',
+    data: id
+  });
+  //Getting Updated Warehouse
+  // dialogRef.afterClosed().subscribe(() => {
+  //   this.gridApi.setDatasource(this.dataSource)
+  //   this.cdRef.detectChanges();
+  // });
 }
 
 // dataSource = {
