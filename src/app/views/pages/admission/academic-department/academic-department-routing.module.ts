@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
-import { CreateAddmissionDepartmentComponent } from './create-addmission-department/create-addmission-department.component';
-import { ListAdmisionDepartmentComponent } from './list-admision-department/list-admision-department.component';
+import { CreateAcademicDepartmentComponent } from './create-academic-department/create-academic-department.component';
+import { ListAcademicDepartmentComponent } from './list-academic-department/list-academic-department.component';
 
 
 const routes: Routes = [
@@ -11,7 +11,7 @@ const routes: Routes = [
     children: [
       {
         path: CRUD_ROUTES.LIST,
-        component: ListAdmisionDepartmentComponent,
+        component: ListAcademicDepartmentComponent,
         // data: {
         //   array: [
         //     { permission: Permissions.FACULTY_VIEW },
@@ -27,7 +27,7 @@ const routes: Routes = [
     children: [
       {
         path: CRUD_ROUTES.CREATE,
-        component: CreateAddmissionDepartmentComponent,
+        component: CreateAcademicDepartmentComponent,
         // data: {
         //   array: [
         //     { permission: Permissions.FACULTY_VIEW },
@@ -44,4 +44,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DepartmentRoutingModule { }
+export class AcademicDepartmentRoutingModule { }

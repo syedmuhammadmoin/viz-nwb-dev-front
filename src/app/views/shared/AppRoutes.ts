@@ -78,7 +78,7 @@ export const APP_ROUTES = {
 
   //ADMISSION
   FACULTY: 'faculty',
-  ADDMISION_DEPARTMENT: 'Admission-department',
+  ACADEMIC_DEPARTMENT: 'academic-department',
   FEE_TYPE: 'fee-type',
   SHIFT: 'shift',
   BATCH: 'batch',
@@ -171,11 +171,11 @@ export const FACULTY = {
   }
 }
 
-export const ADDMISION_DEPARTMENT = {
-  LIST: APP_ROUTES.ADDMISION_DEPARTMENT + '/' + CRUD_ROUTES.LIST,
-  CREATE: APP_ROUTES.ADDMISION_DEPARTMENT + '/' + CRUD_ROUTES.CREATE,
+export const ACADEMIC_DEPARTMENT = {
+  LIST: APP_ROUTES.ACADEMIC_DEPARTMENT + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ACADEMIC_DEPARTMENT + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
+    return APP_ROUTES.ACADEMIC_DEPARTMENT + '/' + route + '/' + id
   }
 }
 

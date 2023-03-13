@@ -509,7 +509,7 @@ export class AppConst {
     19: 'GoodsReturnNote',
     20: 'IssuanceReturn'
   }
-
+ 
   static taxType = [
     {id: 0 , type: 'Sales Tax Asset'},
     {id: 1 , type: 'Sales Tax Liability'},

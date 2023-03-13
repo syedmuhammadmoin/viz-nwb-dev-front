@@ -1,27 +1,25 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
-import { isEmpty } from 'lodash';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { FACULTY } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { CreateFacultyComponent } from '../create-faculty/create-faculty.component';
-import { IFaculty } from '../model/IFaculty';
+import { CreateAcademicDepartmentComponent } from '../create-academic-department/create-academic-department.component';
+import { IAcademicDepartment } from '../model/IAcademicDepartment';
 
 @Component({
-  selector: 'kt-list-faculty',
-  templateUrl: './list-faculty.component.html',
-  styleUrls: ['./list-faculty.component.scss']
+  selector: 'kt-list-academic-department',
+  templateUrl: './list-academic-department.component.html',
+  styleUrls: ['./list-academic-department.component.scss']
 })
-export class ListFacultyComponent extends AppComponentBase implements OnInit {
+export class ListAcademicDepartmentComponent extends AppComponentBase implements OnInit {
+
 
 //Loader
 isLoading: boolean;
 
 // For AG Grid..
-FacultyList: IFaculty[];
+DepartmentList: IAcademicDepartment[];
 gridOptions: GridOptions;
 defaultColDef: ColDef;
 public permissions = Permissions;
@@ -52,18 +50,6 @@ constructor(
 
 columnDefs = [
   {
-    headerName: 'Sno',
-    field: 'id',
-    tooltipField: 'faculty',
-    cellRenderer: "loadingCellRenderer",
-    filter: 'agTextColumnFilter',
-    menuTabs: ['filterMenuTab'],
-    filterParams: {
-      filterOptions: ['contains'],
-      suppressAndOrCondition: true,
-    },
-  }, 
-  {
     headerName: 'Faculty',
     field: 'faculty',
     tooltipField: 'faculty',
@@ -74,7 +60,19 @@ columnDefs = [
       filterOptions: ['contains'],
       suppressAndOrCondition: true,
     },
-  } 
+  },
+  {
+    headerName: 'Academic Department',
+    field: 'AcademicDepartment',
+    tooltipField: 'faculty',
+    cellRenderer: "loadingCellRenderer",
+    filter: 'agTextColumnFilter',
+    menuTabs: ['filterMenuTab'],
+    filterParams: {
+      filterOptions: ['contains'],
+      suppressAndOrCondition: true,
+    },
+  }
 ];
 
 ngOnInit() {
@@ -120,7 +118,7 @@ onRowDoubleClicked(event: RowDoubleClickedEvent) {
 }
 
 openDialog(id?: number): void {
-  const dialogRef = this.dialog.open(CreateFacultyComponent, {
+  const dialogRef = this.dialog.open(CreateAcademicDepartmentComponent, {
     width: '800px',
     data: id
   });
@@ -157,4 +155,6 @@ openDialog(id?: number): void {
 // }
 
 }
+
+
 

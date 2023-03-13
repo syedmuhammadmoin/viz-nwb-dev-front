@@ -1,6 +1,6 @@
 import {
   ACCESS_MANAGEMENT,
-  ADDMISION_DEPARTMENT,
+  ACADEMIC_DEPARTMENT,
   APP_ROUTES,
   ASSET,
   ASSET_REPORT,
@@ -492,8 +492,8 @@ export class MenuConfig {
               // ]
             },
             {
-              title: 'Department',
-              page: '/' + ADDMISION_DEPARTMENT.LIST,
+              title: 'Academic Department',
+              page: '/' + ACADEMIC_DEPARTMENT.LIST,
               // permission: [
               //   Permissions.ADMISSION_DEPARTMENT_VIEW,
               //   Permissions.ADMISSION_DEPARTMENT_CREATE,

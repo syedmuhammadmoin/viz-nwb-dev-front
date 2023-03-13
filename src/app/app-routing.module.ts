@@ -483,10 +483,10 @@ const routes: Routes = [
       },
       // Lazy Load DEPARMENT Module
       {
-        path: APP_ROUTES.ADDMISION_DEPARTMENT,
+        path: APP_ROUTES.ACADEMIC_DEPARTMENT,
         loadChildren: () =>
-          import('./views/pages/admission/department/department.module').then(
-            (m) => m.DepartmentModule
+          import('./views/pages/admission/academic-department/academic-department.module').then(
+            (m) => m.AcademicDepartmentModule
           ),
         canActivateChild: [AuthGuard]
       },
