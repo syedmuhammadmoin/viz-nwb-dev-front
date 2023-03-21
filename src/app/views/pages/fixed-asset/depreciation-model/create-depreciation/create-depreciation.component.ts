@@ -135,7 +135,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       depreciationExpenseId: ['', [Validators.required]],
       accumulatedDepreciationId: ['', [Validators.required]],
       assetAccountId: ['', [Validators.required]],
-      decliningRate: [0 , [Validators.max(100), Validators.min(1) , Validators.required]],
+      decliningRate: [1 , [Validators.max(100), Validators.min(1) , Validators.required]],
       useFullLife: ['', [Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')]]
     });
 
@@ -152,6 +152,7 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
       this.depreciationModel = {} as IDepreciation
       console.log(this._id)
       this.getDepreciation(this._id);
+
     } else {
       this.depreciationModel = {
         id: null,
@@ -163,6 +164,9 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
         decliningRate: null,
         useFullLife: null,
       }
+      // console.log(this.depreciationForm.get('modelType').value);
+      this.methodChange({source : {} as MatRadioButton , value: this.depreciationForm.get('modelType').value})
+      
     }
     
   }
@@ -216,6 +220,8 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
   //Submit Form Function
   onSubmit(): void {
+    console.log(this.depreciationForm);
+    
    
     if (this.depreciationForm.invalid) {
       return;
@@ -286,10 +292,12 @@ export class CreateDepreciationComponent extends AppComponentBase  implements On
 
   methodChange(event : MatRadioChange) {
     if(event.value) {
+      console.log('decliningRate' + event.value);   
       this.depreciationForm.get('decliningRate').setValidators([Validators.max(100), Validators.min(1) , Validators.required])
       this.isDeclining = true;
     }
     else {
+      console.log('decliningRate' + event.value); 
       this.depreciationForm.get('decliningRate').clearValidators();
       this.depreciationForm.get('decliningRate').updateValueAndValidity();
       this.depreciationForm.get('decliningRate').setValue(0)

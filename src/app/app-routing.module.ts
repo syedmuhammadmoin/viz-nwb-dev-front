@@ -471,13 +471,22 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
-        // Admission Section
+      // Admission Section
       // Lazy Load FACULTY Module
       {
         path: APP_ROUTES.FACULTY,
         loadChildren: () =>
           import('./views/pages/admission/faculty/faculty.module').then(
             (m) => m.FacultyModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load Admission Criteria Module
+      {
+        path: APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA,
+        loadChildren: () =>
+          import('./views/pages/admission/applicant-assessment-criteria/assessment-criteria.module').then(
+            (m) => m.AssessmentCriteriaModule
           ),
         canActivateChild: [AuthGuard]
       },
@@ -519,24 +528,37 @@ const routes: Routes = [
       },
       // Lazy Load BATCH_TYPE Module
       {
-      path: APP_ROUTES.BATCH_TYPE,
-      loadChildren: () =>
-        import('./views/pages/admission/batch-type/batch-type.module').then(
-          (m) => m.BatchTypeModule
-        ),
-      canActivateChild: [AuthGuard]
-       },
+        path: APP_ROUTES.BATCH_TYPE,
+        loadChildren: () =>
+          import('./views/pages/admission/batch-type/batch-type.module').then(
+            (m) => m.BatchTypeModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+
       // Lazy Load BATCH_TYPE Module
+
       {
-      path: APP_ROUTES.COURSE,
-      loadChildren: () =>
-        import('./views/pages/admission/course/course.module').then(
-          (m) => m.CourseModule
-        ),
-      canActivateChild: [AuthGuard]
-        },
+        path: APP_ROUTES.COURSE,
+        loadChildren: () =>
+          import('./views/pages/admission/course/course.module').then(
+            (m) => m.CourseModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+
+      {
+        path: APP_ROUTES.PROGRAM,
+        loadChildren: () =>
+          import('./views/pages/admission/program/program.module').then(
+            (m) => m.ProgramModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+
       // FIXED ASSET
       // Lazy Load DEPRECIATION MODEL Module
+
       {
         path: APP_ROUTES.DEPRECIATION_MODEL, // <= Page URL
         loadChildren: () =>
@@ -573,7 +595,7 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
-      
+
       // Lazy Load asset Report Module
       {
         path: APP_ROUTES.ASSET_REPORT, // <= Page URL

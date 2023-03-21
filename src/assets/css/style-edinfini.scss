@@ -1821,6 +1821,24 @@ mat-tree-node div[id^='child'] {
   background-color: #b2dffa !important;
 }
 
+.mat-select-trigger {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.mat-select-value {
+  display: inline-block !important;
+  max-width: none !important;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 
 @media (max-width: 991.98px) {
 

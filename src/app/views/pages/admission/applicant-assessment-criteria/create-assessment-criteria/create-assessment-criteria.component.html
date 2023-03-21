@@ -1,0 +1,208 @@
+<div [ktBusy]="isLoading">
+    <kt-portlet>
+        <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+        <!--begin::Form-->
+
+        <form [formGroup]="ApplicantAssessmentCriteriaForm" (ngSubmit)="onSubmit()"
+            class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+            <div class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+
+                        <!-- 1st row  -->
+                        <div class="row mt-8">
+                            <div class="col-lg-4 col-sm-4 col-md-4">
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label">Program:</label>
+                                    <kt-simple-dropdown id="Program" formControlName="program"
+                                        matFormFieldClass="full-width" placeholder="Select Program" [optionList]=""
+                                        (blurEvent)="logValidationErrors(ApplicantAssessmentCriteriaForm, formErrors, validationMessages)"
+                                        [errorMessage]="formErrors.program" propertyName="value" propertyValue="id">
+                                    </kt-simple-dropdown>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12">
+                                <ng-container formArrayName="addApplicantLines">
+                                    <mat-table style="display: block;" #table
+                                        [dataSource]="ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls']">
+
+                                        <!-- 2nd row  -->
+                                        <!-- description Column -->
+                                        <div class="row">
+                                            <div class="col-lg-12 col-md-12 p-0 col-sm-12">
+                                                <ng-container matColumnDef="description">
+                                                    <mat-cell *matCellDef="let element;  let i = index"
+                                                        [formGroup]="element">
+                                                        <div class="col-lg-12 p-0 col-sm-12">
+                                                            <label class="col-form-label">Description:</label>
+                                                            <kt-input-field [id]="'Description' + i" [errorMessage]="[{ condition : ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].controls.description.errors?.required &&
+                                                            ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].controls.description.touched , 
+                                                            error : 'Description is required.' }]"
+                                                                formControlName="description"
+                                                                matFormFieldClass="mobile-label full-width"
+                                                                placeholder="Enter description">
+                                                            </kt-input-field>
+                                                        </div>
+                                                    </mat-cell>
+                                                </ng-container>
+                                            </div>
+                                        </div>
+
+                                        <!-- 3rd row  -->
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 p-0 col-sm-12">
+                                                <!-- criteria Column -->
+                                                <ng-container matColumnDef="criteria">
+                                                    <mat-cell *matCellDef="let element;  let i = index"
+                                                        [formGroup]="element"
+                                                        class="col-md-4 col-sm-12 criteria float-left d-block">
+                                                        <label class="col-form-label">Criteria:{{binding}}</label>
+                                                        <kt-simple-dropdown [id]="'criteria' + i"
+                                                            [errorMessage]="'Criteria is required.'"
+                                                            formControlName="criteria"
+                                                            matFormFieldClass="mobile-label full-width"
+                                                            placeholder="Select Criteria" [optionList]="CriteriaFld"
+                                                            propertyName="value" propertyValue="id"
+                                                            class="col-lg-12 pl-0 col-sm-12 mt-2">
+                                                        </kt-simple-dropdown>
+                                                    </mat-cell>
+                                                </ng-container>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 p-0 col-sm-12">
+                                                <!-- nature Column -->
+                                                <ng-container matColumnDef="nature">
+                                                    <mat-cell *matCellDef="let element;  let i = index"
+                                                        [formGroup]="element"
+                                                        class="col-md-4 col-sm-12 nature float-left d-block">
+                                                        <label class="col-form-label">Nature:</label>
+                                                        <kt-simple-dropdown [id]="'nature' + i"
+                                                            [errorMessage]="'Nature is required.'"
+                                                            formControlName="nature"
+                                                            matFormFieldClass="mobile-label full-width"
+                                                            (selectionChange)="selectionChangeEvent($event, i)"
+                                                            placeholder="Select Nature" [optionList]="Naturefld"
+                                                            propertyName="value" propertyValue="id"
+                                                            class="col-lg-12 p-0 col-sm-12 mt-2">
+                                                        </kt-simple-dropdown>
+                                                    </mat-cell>
+                                                </ng-container>
+                                            </div>
+
+                                            <div class="col-lg-4 col-md-4 p-0 col-sm-12">
+                                                <!-- default Column -->
+                                                <ng-container matColumnDef="default">
+                                                    <mat-cell *matCellDef="let element;  let i = index"
+                                                        [formGroup]="element" class="col-md-4 col-sm-12 p-0 d-block">
+                                                        <label class="col-form-label"
+                                                            style="color:white !important;">.</label>
+                                                        <kt-input-field formControlName="default" [id]="'default' + i"
+                                                            type="number" matFormFieldClass="mobile-label full-width"
+                                                            [placeholder]="this.ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].value.nature != '' && this.ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].value.nature != null ? ('Enter' + ' ' + (this.ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].value.nature | titlecase) ) : 'Enter value'"
+                                                            [type]="this.ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].value.nature + ''"
+                                                            (blurEvent)="logValidationErrors(ApplicantAssessmentCriteriaForm, formErrors, validationMessages)"
+                                                            [errorMessage]="[{ condition : ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].controls.default.errors?.required &&
+                                                            ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].controls.default.touched , 
+                                                            error : this.ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].value.nature != '' && this.ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].value.nature != null ? ((this.ApplicantAssessmentCriteriaForm.get('addApplicantLines')['controls'][i].value.nature | titlecase)
+                                                            + ' ' + 'is required' ) : 'Required'}]">
+                                                        </kt-input-field>
+
+                                                    </mat-cell>
+                                                </ng-container>
+                                            </div>
+
+                                        </div>
+
+                                        <!-- 4th row  -->
+                                        <!-- and Column -->
+                                        <div class="col-lg-4 col-md-4 p-0 col-sm-2">
+                                            <ng-container matColumnDef="radio">
+                                                <mat-cell *matCellDef="let element;  let i = index"
+                                                    [formGroup]="element"
+                                                    class="col-md-4 col-sm-12 pt-3 criteria float-left d-block">
+                                                    <!-- <mat-radio-button
+                                                     [id]="'radio' + i"
+                                                     class="d-contents"
+                                                     [value]="'and'"
+                                                     (change)="selectionRadioEvent($event, i)">and</mat-radio-button> -->
+
+                                                    <mat-radio-group aria-label="Select an option" (change)="methodChange($event)" formControlName="radio">
+                                                        <mat-radio-button [id]="'and' + i" [value]="'and'" class="ml-5">and</mat-radio-button>
+                                                        <mat-radio-button [id]="'or' + i" [value]="'or'">or</mat-radio-button>
+                                                    </mat-radio-group>
+
+                                                </mat-cell>
+                                            </ng-container>
+                                        </div>
+
+                                        <!-- or Column -->
+                                        <!-- <div class="col-lg-4 col-md-4 p-0 col-sm-2">
+                                            <ng-container matColumnDef="radio1">
+                                                <mat-cell *matCellDef="let element;  let i = index"
+                                                    [formGroup]="element"
+                                                    class="col-md-4 pt-3 col-sm-12 nature float-left d-block">
+                                                    <mat-radio-button  
+                                                    [id]="'radio1' + i"
+                                                    class="d-contents"
+                                                    [value]="'or'"
+                                                    (change)="selectionRadioEvent($event, i)">or</mat-radio-button>
+                                                </mat-cell>
+                                            </ng-container>
+                                        </div> -->
+
+                                        <div class="col-lg-4 col-md-4 p-0 col-sm-2">
+                                            <!-- action Column -->
+                                            <ng-container matColumnDef="action">
+                                                <mat-cell *matCellDef="let element;  let i = index"
+                                                    [formGroup]="element" class="col-md-4 pt-3 col-sm-12 p-0 d-block">
+                                                    <button class=" app-remove-btn" type="button" [id]="'action' + i"
+                                                        (click)="removeLineClick(i)">
+                                                        <i class="fas fa-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </mat-cell>
+                                            </ng-container>
+                                        </div>
+
+                                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                                    </mat-table>
+                                </ng-container>
+
+                                <ng-container>
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-12">
+                                            <button class=" app-add-new-line-btn" type="button" id="budget_add_line"
+                                                (click)="addLineClick()">
+                                                <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
+                                            </button>
+                                        </div>
+                                    </div>
+                                </ng-container>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End Budget Lines-->
+                </div>
+            </div>
+
+            <!-- <mat-divider class="mt-10"></mat-divider> -->
+
+            <div class="kt-portlet__foot p-5">
+                <div class="kt-form__actions kt-form__actions mb-0">
+                    <div class="row">
+                        <div class="col-lg-12 text-right">
+                            <button class="mr-2 app-reset-btn" id="budget_reset" type="button" (click)="reset()"
+                                mat-raised-button><i class="fas fa-undo"></i> Reset</button>
+                            <button class="app-default-btn" mat-raised-button type="submit" id="budget_submit"
+                                (click)="logValidationErrors(ApplicantAssessmentCriteriaForm, formErrors, validationMessages)"><i
+                                    class="far fa-save"></i> Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!--end::Form-->
+    </kt-portlet>
+</div>

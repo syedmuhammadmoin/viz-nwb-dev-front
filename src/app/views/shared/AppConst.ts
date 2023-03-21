@@ -1,4 +1,4 @@
-import {DocType} from './AppEnum';
+import {Criteria, DocType, Nature} from './AppEnum';
 
 export class AppConst {
 
@@ -429,7 +429,14 @@ export class AppConst {
     'Permissions.FixedAsset.DepreciationAdjustmentClaims.View': 'Depreciation Adjustment View',
     'Permissions.FixedAsset.DepreciationAdjustmentClaims.Create': 'Depreciation Adjustment Create',
     'Permissions.FixedAsset.DepreciationAdjustmentClaims.Edit': 'Depreciation Adjustment Update',
-    'Permissions.FixedAsset.DepreciationAdjustmentClaims.Delete': 'Depreciation Adjustment Delete'
+    'Permissions.FixedAsset.DepreciationAdjustmentClaims.Delete': 'Depreciation Adjustment Delete',
+
+
+    // Program
+    'Permissions.Admission.ProgramClaims.View': 'Program View',
+    'Permissions.Admission.ProgramClaims.Create': 'Program Create',
+    'Permissions.Admission.ProgramClaims.Edit': 'Program Update',
+    'Permissions.Admission.ProgramClaims.Delete': 'Program Delete',
 
   }
   static paymentRegisterType = {
@@ -486,6 +493,22 @@ export class AppConst {
     //{ value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
   ]
 
+  static CriteriaField = [
+    {value: 'Absolute', id: Criteria.Absolute},
+    {value: 'Range', id: Criteria.Range },
+    {value: 'Comparative', id: Criteria.Comparative},
+    {value: 'Less than', id: Criteria.LessThan},
+    {value: 'Less than & equals to', id: Criteria.LessThanEqualsTo},
+    {value: 'Greater than', id: Criteria.GreaterThan},
+    {value: 'Greater than & equals to', id: Criteria.GreaterThanEqualsTo},
+  ]
+
+  static NatureField = [
+    {value: 'Text', id: Nature.text},
+    {value: 'Number', id: Nature.Number},
+    {value: 'Date', id: Nature.Date },
+  ]
+
   static DocTypeValue = {
     0: 'Payment',
     1: 'CreditNote',
@@ -508,6 +531,22 @@ export class AppConst {
     18: 'Issuance',
     19: 'GoodsReturnNote',
     20: 'IssuanceReturn'
+  }
+
+  static Criteria = {
+    0: 'Absolute',
+    1: 'Range',
+    2: 'Comparative',
+    3: 'Less than',
+    4: 'Less than & equals to',
+    5: 'Greater than',
+    6: 'Greater than & equals to'
+  }
+
+  static Nature = {
+    0: 'Text',
+    1: 'Number',
+    2: 'Date'
   }
  
   static taxType = [

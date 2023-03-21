@@ -78,12 +78,14 @@ export const APP_ROUTES = {
 
   //ADMISSION
   FACULTY: 'faculty',
+  APPLICANT_ASSESSMENT_CRITERIA: 'applicant-assessment-criteria',
   ACADEMIC_DEPARTMENT: 'academic-department',
   FEE_TYPE: 'fee-type',
   SHIFT: 'shift',
   BATCH: 'batch',
   BATCH_TYPE: 'batch-type',
   COURSE: 'course',
+  PROGRAM: 'program',
 
   //FIXED ASSET
   FIXED_ASSET: 'fixed-asset',
@@ -167,7 +169,15 @@ export const FACULTY = {
   LIST: APP_ROUTES.FACULTY + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.FACULTY + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
+    return APP_ROUTES.FACULTY + '/' + route + '/' + id
+  }
+}
+
+export const APPLICANT_ASSESSMENT_CRITERIA = {
+  LIST: APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA + '/' + route + '/' + id
   }
 }
 
@@ -179,11 +189,19 @@ export const ACADEMIC_DEPARTMENT = {
   }
 }
 
+export const PROGRAM = {
+  LIST: APP_ROUTES.PROGRAM + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.PROGRAM + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.PROGRAM + '/' + route + '/' + id
+  }
+}
+
 export const SHIFT = {
   LIST: APP_ROUTES.SHIFT + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.SHIFT + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
+    return APP_ROUTES.SHIFT + '/' + route + '/' + id
   }
 }
 
@@ -191,7 +209,7 @@ export const FEE_TYPE = {
   LIST: APP_ROUTES.FEE_TYPE + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.FEE_TYPE + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
+    return APP_ROUTES.FEE_TYPE + '/' + route + '/' + id
   }
 }
 
@@ -199,7 +217,7 @@ export const BATCH = {
   LIST: APP_ROUTES.BATCH + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.BATCH + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
+    return APP_ROUTES.BATCH + '/' + route + '/' + id
   }
 }
 
@@ -207,7 +225,7 @@ export const BATCH_TYPE = {
   LIST: APP_ROUTES.BATCH_TYPE + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.BATCH_TYPE + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
+    return APP_ROUTES.BATCH_TYPE + '/' + route + '/' + id
   }
 }
 
@@ -215,11 +233,11 @@ export const COURSE = {
   LIST: APP_ROUTES.COURSE + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.COURSE + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BANK_STATEMENT + '/' + route + '/' + id
+    return APP_ROUTES.COURSE + '/' + route + '/' + id
   }
 }
 
-// BUDGET SECTION 
+// BUDGET SECTION
 export const BUDGET = {
   LIST: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.CREATE,

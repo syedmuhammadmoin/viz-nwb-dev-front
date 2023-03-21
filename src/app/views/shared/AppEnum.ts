@@ -147,6 +147,12 @@ export class Permissions {
   static COURSE_DELETE = 'Permissions.Course.CourseClaims.delete';
 
 
+  static PROGRAM_VIEW = 'Permissions.Program.ProgramClaims.View';
+  static PROGRAM_CREATE = 'Permissions.Program.ProgramClaims.Create';
+  static PROGRAM_EDIT = 'Permissions.Program.ProgramClaims.edit';
+  static PROGRAM_DELETE = 'Permissions.Program.ProgramClaims.delete';
+
+
   // Level 3
   static LEVEL3_VIEW = 'Permissions.Finance.Level3Claims.View';
   static LEVEL3_CREATE = 'Permissions.Finance.Level3Claims.Create';
@@ -437,6 +443,22 @@ export enum DocType {
   Disposal,
   BudgetReappropriation,
   DepreciationAdjustment
+}
+
+export enum Criteria{
+  Absolute,
+  Range,
+  Comparative,
+  LessThan, 
+  LessThanEqualsTo,
+  GreaterThan,
+  GreaterThanEqualsTo,
+}
+
+export enum Nature{
+  text = 'text',
+  Number = 'number',
+  Date = 'date'
 }
 
 export enum DocumentStatus {

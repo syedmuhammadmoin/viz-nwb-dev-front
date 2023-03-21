@@ -1,7 +1,8 @@
 import {
-  ACCESS_MANAGEMENT,
   ACADEMIC_DEPARTMENT,
+  ACCESS_MANAGEMENT,
   APP_ROUTES,
+  APPLICANT_ASSESSMENT_CRITERIA,
   ASSET,
   ASSET_REPORT,
   BANK_ACCOUNT,
@@ -43,7 +44,7 @@ import {
   PAYROLL_PROCESS,
   PAYROLL_REPORTS,
   PAYROLL_TRANSACTION,
-  PRODUCT,
+  PRODUCT, PROGRAM,
   PURCHASE_ORDER,
   QUOTATION,
   QUOTATION_COMPARATIVE,
@@ -478,12 +479,26 @@ export class MenuConfig {
             // Permissions.COURSE_CREATE,
             // Permissions.COURSE_EDIT,
             // Permissions.COURSE_DELETE
+            // Permissions.PROGRAM_VIEW,
+            // Permissions.PROGRAM_CREATE,
+            // Permissions.PROGRAM_EDIT,
+            // Permissions.PROGRAM_DELETE
 
           ],
           submenu: [
             {
               title: 'Faculty',
               page: '/' + FACULTY.LIST,
+              // permission: [
+              //   Permissions.FACULTY_VIEW,
+              //   Permissions.FACULTY_CREATE,
+              //   Permissions.FACULTY_EDIT,
+              //   Permissions.FACULTY_DELETE
+              // ]
+            },
+            {
+              title: 'Applicant Assessment Criteria',
+              page: '/' + APPLICANT_ASSESSMENT_CRITERIA.CREATE,
               // permission: [
               //   Permissions.FACULTY_VIEW,
               //   Permissions.FACULTY_CREATE,
@@ -500,7 +515,7 @@ export class MenuConfig {
               //   Permissions.ADMISSION_DEPARTMENT_EDIT,
               //   Permissions.ADMISSION_DEPARTMENT_DELETE
               // ]
-            }, 
+            },
             {
               title: 'Shift',
               page: '/' + SHIFT.LIST,
@@ -520,7 +535,7 @@ export class MenuConfig {
               //   Permissions.FEE_TYPE_EDIT,
               //   Permissions.FEE_TYPE_DELETE
               // ]
-            }, 
+            },
             {
               title: 'Batch',
               page: '/' + BATCH.LIST,
@@ -530,7 +545,7 @@ export class MenuConfig {
               //   Permissions.BATCH_EDIT,
               //   Permissions.BATCH_DELETE
               // ]
-            }, 
+            },
             {
               title: 'Batch Type',
               page: '/' + BATCH_TYPE.LIST,
@@ -540,7 +555,7 @@ export class MenuConfig {
               //   Permissions.BATCH_TYPE_EDIT,
               //   Permissions.BATCH_TYPE_DELETE
               // ]
-            }, 
+            },
             {
               title: 'Course',
               page: '/' + COURSE.LIST,
@@ -550,7 +565,17 @@ export class MenuConfig {
               //   Permissions.COURSE_EDIT,
               //   Permissions.COURSE_DELETE
               // ]
-            }, 
+            },
+            {
+              title: 'Program',
+              page: '/' + PROGRAM.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            },
           ]
         },
         //Fixed Asset Section
@@ -870,7 +895,7 @@ export class MenuConfig {
                 Permissions.ESTIMATED_BUDGET_EDIT,
                 Permissions.ESTIMATED_BUDGET_DELETE
               ]
-            }, 
+            },
             {
               title: 'Budget Report',
               page: '/' + BUDGET.REPORT,
@@ -887,7 +912,7 @@ export class MenuConfig {
                 Permissions.ESTIMATED_BUDGET_EDIT,
                 Permissions.ESTIMATED_BUDGET_DELETE
               ]
-            }, 
+            },
           ]
         },
         //Payroll Portion
