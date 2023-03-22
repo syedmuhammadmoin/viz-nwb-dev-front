@@ -39,7 +39,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   public ASSET = ASSET;
   action = ActionButton
   docStatus = DocumentStatus
-
+ 
   modelType: any = DepreciationMethod
 
   //For ag grid
@@ -124,7 +124,8 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     this.dialog.open(CreateAssetComponent, {
       width: '800px',
       data: {
-        id: id
+        id: id,
+        status:this.assetMaster?.state 
       }
     });
     // //Recalling getAsset function on dialog close

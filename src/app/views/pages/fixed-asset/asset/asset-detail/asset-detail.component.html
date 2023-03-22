@@ -7,7 +7,7 @@
           <div class="ribbon-target"><span class="ribbon-inner {{docStatus[assetMaster?.state]}}"></span> {{assetMaster?.status}}</div>
           <!-- <h4 class="overall_statuses {{docStatus[requestRequisitionMaster?.state]}}"> Status: {{requestRequisitionMaster?.status}} </h4> -->
         </ng-container>
-      </kt-portlet-header>
+      </kt-portlet-header> 
       <kt-portlet-body>
         <div class="col-md-12 col-lg-12 mx-auto  mb-5">
           <div class="row ">
@@ -20,6 +20,10 @@
                   </button>
                   <button *ngIf="(assetMaster?.state === docStatus.Draft || assetMaster?.state === docStatus.Rejected)
                   && (permission.isGranted(permissions.ASSET_EDIT))"
+                    type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset(assetMaster?.id)" >
+                    <i class="fa fa-edit" ></i> Edit
+                 </button>
+                  <button *ngIf="assetMaster?.state === docStatus.Unpaid && permission.isGranted(permissions.ASSET_EDIT)"
                     type="button" class="mr-2 btn_public" id="asset_edit" (click)="editAsset(assetMaster?.id)" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>

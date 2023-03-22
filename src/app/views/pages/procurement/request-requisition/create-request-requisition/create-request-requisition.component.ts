@@ -171,6 +171,7 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
         return
       }
       this.requestRequisitionModel = res.result
+      console.log(this.requestRequisitionModel);
       this.editRequestRequisition(this.requestRequisitionModel)
     });
   }
