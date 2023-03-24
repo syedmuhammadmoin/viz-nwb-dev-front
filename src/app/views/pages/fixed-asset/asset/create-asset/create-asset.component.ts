@@ -17,7 +17,7 @@ import {DepreciationMethodService} from '../../depreciation-model/service/deprec
 import {IGRN} from '../../../inventory/goods-received-note/model/IGRN';
 import {IsReloadRequired} from '../../../profiling/store/profiling.action';
 import {DisposalDropdownState} from '../store/disposal-dropdown.state';
-import { IUpdateAsset } from '../model/IUpdateAsset';
+import {IUpdateAsset} from '../model/IUpdateAsset';
 
 @Component({
   selector: 'kt-create-asset',
@@ -48,7 +48,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   // Payroll Model
   assetModel: IAsset;
 
-  // assetApproveModel model 
+  // assetApproveModel model
   assetApproveModel: IUpdateAsset;
 
   title: string = 'Create Asset'
@@ -82,8 +82,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   method = AppConst.depreciationMethod;
 
   disabledName = false;
-  
-  
+
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -95,8 +94,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     },
     name: {
       required: 'Name is required.',
-      minlength : 'Minimum character is 3',
-      maxlength : 'Maximum character is 50.'
+      minlength: 'Minimum character is 3',
+      maxlength: 'Maximum character is 50.'
     },
     cost: {
       required: 'Cost is required.',
@@ -207,7 +206,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
 
     this.assetApproveModel = {
-      id:null,
+      id: null,
       salvageValue: null,
       useFullLife: null,
       isActive: false
@@ -268,18 +267,17 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     if (this.data?.grnData) {
       this.patchGrnData(this.data?.grnData, this.data?.grnLine);
     }
-    
+
     // console.log(this.data, "this is data");
-    // for status is equal to Draft 
-    if (this.data?.id) 
-    {
+    // for status is equal to Draft
+    if (this.data?.id) {
       this.title = 'Edit Asset'
       this.assetModel.id = this.data.id;
       this.assetApproveModel.id = this.data.id;
       this.isLoading = true;
-      this.getAsset(this.data.id); 
+      this.getAsset(this.data.id);
       this.isQuantity = false;
-      if(this.data.status === 2){    
+      if (this.data.status === 2) {
         this.resetBtn = false;
         this.assetForm.get('dateofAcquisition').disable();
         this.assetForm.get('depreciationApplicability').disable();
@@ -287,7 +285,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
         this.assetForm.get('cost').disable();
         this.assetForm.get('quantity').disable();
         this.assetForm.get('productId').disable();
-        this.assetForm.get('warehouseId').disable();         
+        this.assetForm.get('warehouseId').disable();
         this.assetForm.get('depreciationModelId').disable();
         this.assetForm.get('decLiningRate').disable();
         this.assetForm.get('modelType').disable();
@@ -390,7 +388,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.assetModel = res.result;
         this.assetApproveModel = res.result;
-        console.log(res.result,"this is result");
+        console.log(res.result, 'this is result');
         this.patchAsset(res.result);
         this.getCost(res.result.cost)
         this.depApplicabilityToggle = res.result.depreciationApplicability;
@@ -472,24 +470,23 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.mapFormValuesToApprovalAssetModel();
 
 
-    if(this.data?.id && this.data.status === 2)
-    {
+    if (this.data?.id && this.data.status === 2) {
       console.log('If Condition Working')
       this.assetService.updateApprovalAsset(this.assetApproveModel)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.isLoading = false;
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res: IApiResponse<IUpdateAsset>) => {
+          this.toastService.success('Updated Successfully', 'AUpdateAsset')
+          this.onCloseDialog();
           this.cdRef.detectChanges();
+          this.router.navigate(['/' + ASSET.LIST])
         })
-      )
-      .subscribe((res: IApiResponse<IUpdateAsset>) => {
-        this.toastService.success('Updated Successfully', 'AUpdateAsset')
-        this.onCloseDialog();
-        this.cdRef.detectChanges();
-        this.router.navigate(['/' + ASSET.LIST])
-      }) 
-    }else if (this.data?.id) {
+    } else if (this.data?.id) {
       console.log('else If Condition Working')
       // this.onChangeDepApplicability(this.data.assetData.depreciationApplicability)
       this.assetService.updateAsset(this.assetModel)
@@ -508,8 +505,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
           this.router.navigate(['/' + ASSET.LIST])
         })
 
-    } 
-      else {
+    } else {
       console.log('else Condition Working')
       delete this.assetModel.id;
       console.log('create')
@@ -606,8 +602,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   //Mapping Form Value to Model
   mapFormValuesToApprovalAssetModel() {
     this.assetApproveModel.useFullLife = this.assetForm.value.useFullLife,
-    this.assetApproveModel.salvageValue = (this.assetForm.value.salvageValue) ? this.assetForm.value.salvageValue : 0,
-    this.assetApproveModel.isActive = this.assetForm.value.isActive
+      this.assetApproveModel.salvageValue = (this.assetForm.value.salvageValue) ? this.assetForm.value.salvageValue : 0,
+      this.assetApproveModel.isActive = this.assetForm.value.isActive
   }
 
   mapFormValuesToAssetModel() {
@@ -736,26 +732,22 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   getCost(e) {
 
-    if((this.assetForm.get('cost').value)  && (this.assetForm.get('quantity').value) && (this.assetForm.get('cost').value > 0)){
+    if ((this.assetForm.get('cost').value) && (this.assetForm.get('quantity').value) && (this.assetForm.get('cost').value > 0)) {
       this.perProductCost = (this.assetForm.get('cost').value) / (this.assetForm.get('quantity').value)
       this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
       console.log('first')
-    }
-
-    else if((this.assetForm.get('cost').value)){
+    } else if ((this.assetForm.get('cost').value)) {
       this.perProductCost = (this.assetForm.get('cost').value)
       this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
       console.log('second')
-    }
-    else{
+    } else {
       this.perProductCost = 0;
       console.log('third')
     }
   }
 
-    
 
   //   if ((this.assetForm.get('cost').value) && (this.assetForm.get('quantity').value)) {
   //     this.perProductCost = (this.assetForm.get('cost').value) / (this.assetForm.get('quantity').value)

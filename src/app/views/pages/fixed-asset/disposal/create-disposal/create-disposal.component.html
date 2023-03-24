@@ -1,187 +1,204 @@
 <div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
-    <div class="kt-portlet__head">
-        <div class="kt-portlet__head-caption">
-            <div class="kt-portlet__head-title">
-                <h3 class="kt-portlet__head-text modal-header"> {{title}}
-                    <span (click)="onCloseDialog()" id="asset_close" class="dialog-cross"><i
-                            class="fa fa-times float-right"></i></span>
-                </h3>
-            </div>
-        </div>
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-caption">
+      <div class="kt-portlet__head-title">
+        <h3 class="kt-portlet__head-text modal-header"> {{title}}
+          <span (click)="onCloseDialog()" class="dialog-cross" id="asset_close"><i
+            class="fa fa-times float-right"></i></span>
+        </h3>
+      </div>
     </div>
+  </div>
 
 
-    <!--begin::Form-->
-    <form [formGroup]="disposalForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right"
-        #formDirective="ngForm">
-        <div class="kt-portlet__body">
-            <div class="kt-form__section kt-form__section--first">
-                <div class="col-md-12 col-sm-12 col-lg-12">
+  <!--begin::Form-->
+  <form #formDirective="ngForm" (ngSubmit)="onSubmit()" [formGroup]="disposalForm"
+        class="kt-form kt-form--label-align-right">
+    <div class="kt-portlet__body">
+      <div class="kt-form__section kt-form__section--first">
+        <div class="col-md-12 col-sm-12 col-lg-12">
 
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Asset:</label>
-                                <kt-simple-dropdown id="disposal_asset" formControlName="fixedAssetId"
-                                    matFormFieldClass="full-width"
-                                    (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+          <div class="row">
+
+
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Asset:</label>
+                <kt-simple-dropdown (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
                                     (selectionChange)="getAssetData($event.value)"
-                                    propertyName="name" 
-                                    propertyValue="id" 
                                     [errorMessage]="formErrors.fixedAssetId"
-                                    [optionList]="ngxsService.disposalDropdown$" 
-                                    placeholder="Select Asset">
-                                </kt-simple-dropdown>
-
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Product:</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <input matInput 
-                                        formControlName="productId" 
-                                        placeholder="Enter Product"
-                                        id="disposal_product"
-                                        (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)">
-                                    <mat-error *ngIf="formErrors.productId">
-                                        <strong>{{formErrors.productId}}</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-6 col-md-6 my-auto">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Cost:</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <input matInput formControlName="cost" placeholder="Enter Cost"
-                                        id="disposal_cost" type="number"
-                                        (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)">
-                                    <mat-error *ngIf="formErrors.cost">
-                                        <strong>{{formErrors.cost}}</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Salvage Value:</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <input matInput formControlName="salvageValue" placeholder="Enter Salvage Value"
-                                        id="disposal_salvageValue" type="number"
-                                        (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)">
-                                    <mat-error *ngIf="formErrors.salvageValue">
-                                        <strong>{{formErrors.salvageValue}}</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-lg-6 col-md-6 col-sm-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Useful Life (Months):</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <input matInput formControlName="usefulLife" placeholder="Enter Useful Life:"
-                                        id="disposal_usefulLife" type="number"
-                                        (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)">
-                                    <mat-error *ngIf="formErrors.usefulLife">
-                                        <strong>{{formErrors.usefulLife}}</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Accumulated Dep Account:</label>
-                                <kt-simple-dropdown id="disposal_accumulatedDepAccount" placeholder="Select Account"
-                                    propertyValue="id" propertyName="name" formControlName="accumulatedDepreciationId"
-                                    (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
-                                    matFormFieldClass="full-width" [errorMessage]="'Account is required.'"
-                                    [optionList]="ngxsService.otherAccounts$">
-                                </kt-simple-dropdown>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Disposal Date:</label>
-                                <kt-date-input id="asset_disposalDate" formControlName="disposalDate"
-                                    placeholder="Disposal Date" matFormFieldClass="full-width"
-                                    (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
-                                    [errorMessage]="formErrors.disposalDate">
-                                </kt-date-input>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Disposal Value:</label>
-                                <mat-form-field appearance="outline" class="full-width">
-                                    <input matInput formControlName="disposalValue" placeholder="Enter Disposal Value"
-                                        id="disposal_disposalValue" type="number"
-                                        (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)">
-                                    <mat-error *ngIf="formErrors.disposalValue">
-                                        <strong>{{formErrors.disposalValue}}</strong>
-                                    </mat-error>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div class="row">
-                        <div class="col-lg-6 col-sm-6 col-md-6">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Store:</label>
-                                <kt-simple-dropdown id="invoice_store" placeholder="Select Store" propertyValue="id"
-                                    propertyName="name" 
-                                    formControlName="warehouseId" 
+                                    [optionList]="ngxsService.disposalDropdown$"
+                                    formControlName="fixedAssetId"
+                                    id="disposal_asset"
                                     matFormFieldClass="full-width"
-                                    [optionList]="ngxsService.warehouses$"
-                                    (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
-                                    [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
-                                    clickEventButtonName="Add New Store" [errorMessage]="'Store is required.'"
-                                    (clickEvent)="addButtonService.openWarehouseDialog()">
-                                </kt-simple-dropdown>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-                
-
-
-
-
-
-                <mat-divider class="mt-10"></mat-divider>
-
-                <div class="kt-portlet__foot p-5">
-                    <div class="kt-form__actions kt-form__actions">
-                        <div class="row">
-                            <div *ngIf="showButtons" class="col-lg-12 text-right">
-                                <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button
-                                    id="cwip_reset"><i class="fas fa-undo"></i> Reset</button>
-                                <button class="app-default-btn  mr-3" mat-raised-button type="submit"
-                                    id="cwip_item_save"
-                                    (click)="logValidationErrors(disposalForm, formErrors, validationMessages); isSubmit(0)">Save</button>
-                                <button class="app-default-btn " mat-raised-button type="submit" id="cwip_submit"
-                                    (click)="logValidationErrors(disposalForm, formErrors, validationMessages); isSubmit(1)">
-                                    <i class="far fa-save"></i> Submit
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                                    placeholder="Select Asset"
+                                    propertyName="name"
+                                    propertyValue="id">
+                </kt-simple-dropdown>
+              </div>
             </div>
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Product:</label>
+                <mat-form-field appearance="outline" class="full-width">
+                  <input (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                         formControlName="productId"
+                         id="disposal_product"
+                         matInput
+                         placeholder="Enter Product">
+                  <mat-error *ngIf="formErrors.productId">
+                    <strong>{{formErrors.productId}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-md-6 my-auto">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Cost:</label>
+                <mat-form-field appearance="outline" class="full-width">
+                  <input (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                         formControlName="cost" id="disposal_cost"
+                         matInput placeholder="Enter Cost"
+                         type="number">
+                  <mat-error *ngIf="formErrors.cost">
+                    <strong>{{formErrors.cost}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Salvage Value:</label>
+                <mat-form-field appearance="outline" class="full-width">
+                  <input (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                         formControlName="salvageValue" id="disposal_salvageValue"
+                         matInput placeholder="Enter Salvage Value"
+                         type="number">
+                  <mat-error *ngIf="formErrors.salvageValue">
+                    <strong>{{formErrors.salvageValue}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Useful Life (Months):</label>
+                <mat-form-field appearance="outline" class="full-width">
+                  <input (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                         formControlName="usefulLife" id="disposal_usefulLife"
+                         matInput placeholder="Enter Useful Life:"
+                         type="number">
+                  <mat-error *ngIf="formErrors.usefulLife">
+                    <strong>{{formErrors.usefulLife}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Accumulated Dep Account:</label>
+                <kt-simple-dropdown (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                                    [errorMessage]="'Account is required.'"
+                                    [optionList]="ngxsService.otherAccounts$"
+                                    formControlName="accumulatedDepreciationId" id="disposal_accumulatedDepAccount"
+                                    matFormFieldClass="full-width"
+                                    placeholder="Select Account" propertyName="name"
+                                    propertyValue="id">
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Store:</label>
+                <kt-simple-dropdown (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                                    (clickEvent)="addButtonService.openWarehouseDialog()"
+                                    [buttonPermission]="permission.isGranted(this.permissions.WAREHOUSE_CREATE)"
+                                    [errorMessage]="'Store is required.'"
+                                    [optionList]="ngxsService.warehouses$"
+                                    clickEventButtonName="Add New Store"
+                                    formControlName="warehouseId"
+                                    id="invoice_store"
+                                    matFormFieldClass="full-width"
+                                    placeholder="Select Store" propertyName="name"
+                                    propertyValue="id">
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Disposal Date:</label>
+                <kt-date-input (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                               [errorMessage]="formErrors.disposalDate"
+                               formControlName="disposalDate" id="asset_disposalDate"
+                               matFormFieldClass="full-width"
+                               placeholder="Disposal Date">
+                </kt-date-input>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Disposal Value:</label>
+                <mat-form-field appearance="outline" class="full-width">
+                  <input (blur)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                         (change)="updateBPValidity($event)"
+                         formControlName="disposalValue"
+                         id="disposal_disposalValue"
+                         matInput
+                         placeholder="Enter Disposal Value"
+                         type="number">
+                  <mat-error *ngIf="formErrors.disposalValue">
+                    <strong>{{formErrors.disposalValue}}</strong>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="col-lg-6 col-sm-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Business Partner:</label>
+                <kt-simple-dropdown (blurEvent)="logValidationErrors(disposalForm, formErrors, validationMessages)"
+                                    [errorMessage]="formErrors.businessPartnerId"
+                                    [isRequired]="isBPRequired"
+                                    [optionList]="ngxsService.businessPartners$"
+                                    formControlName="businessPartnerId"
+                                    id="business_partner"
+                                    matFormFieldClass="full-width"
+                                    placeholder="Select Business Partner"
+                                    propertyName="name"
+                                    propertyValue="id">
+                </kt-simple-dropdown>
+              </div>
+            </div>
+          </div>
         </div>
-    </form>
+        <mat-divider class="mt-10"></mat-divider>
+
+        <div class="kt-portlet__foot p-5">
+          <div class="kt-form__actions kt-form__actions">
+            <div class="row">
+              <div *ngIf="showButtons" class="col-lg-12 text-right">
+                <button (click)="reset()" class="mr-2 app-reset-btn" id="cwip_reset" mat-raised-button
+                        type="button"><i class="fas fa-undo"></i> Reset
+                </button>
+                <button (click)="logValidationErrors(disposalForm, formErrors, validationMessages); isSubmit(0)"
+                        class="app-default-btn  mr-3" id="cwip_item_save"
+                        mat-raised-button
+                        type="submit">Save
+                </button>
+                <button (click)="logValidationErrors(disposalForm, formErrors, validationMessages); isSubmit(1)"
+                        class="app-default-btn " id="cwip_submit" mat-raised-button
+                        type="submit">
+                  <i class="far fa-save"></i> Submit
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
 </div>

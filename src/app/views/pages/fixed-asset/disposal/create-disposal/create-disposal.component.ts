@@ -1,21 +1,20 @@
-import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, Inject, Optional, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, take } from 'rxjs/operators';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { FirstDataRenderedEvent, RowDoubleClickedEvent } from 'ag-grid-community';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IDisposal } from '../model/IDisposal';
-import { DisposalService } from '../service/disposal.service';
-import {  DISPOSAL } from 'src/app/views/shared/AppRoutes';
-import { AppConst } from 'src/app/views/shared/AppConst';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { DepreciationMethodService } from '../../depreciation-model/service/depreciation-method.service';
-import { AssetService } from '../../../fixed-asset/asset/service/asset.service';
-import { BehaviorSubject } from 'rxjs';
+import {NgxsCustomService} from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import {ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {finalize, take} from 'rxjs/operators';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {AddModalButtonService} from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import {IApiResponse} from 'src/app/views/shared/IApiResponse';
+import {FirstDataRenderedEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {IDisposal} from '../model/IDisposal';
+import {DisposalService} from '../service/disposal.service';
+import {DISPOSAL} from 'src/app/views/shared/AppRoutes';
+import {AppConst} from 'src/app/views/shared/AppConst';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {AssetService} from '../../../fixed-asset/asset/service/asset.service';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'kt-create-disposal',
@@ -33,14 +32,14 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   disposalForm: FormGroup;
 
   // Getting Table by id
-  @ViewChild('table', { static: true }) table: any;
+  @ViewChild('table', {static: true}) table: any;
 
   // Payroll Model
   disposalModel: IDisposal = {} as IDisposal;
 
   warehouseList: any = new BehaviorSubject<any>([])
 
-  title: string = 'Create Disposal'
+  title = 'Create Disposal'
 
   isActiveChecked = true;
 
@@ -49,20 +48,21 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   // switch
   userStatus = 'Active'
 
-  valueTitle: string = 'Value'
+  valueTitle = 'Value'
 
-  isModelType =  false;
+  isModelType = false;
+  isBPRequired = false;
 
-   //show toast mesasge of on campus select
-   showMessage: boolean = false;
+  // show toast mesasge of on campus select
+  showMessage = false;
 
-  //show Buttons
-  showButtons: boolean = true;
+  // show Buttons
+  showButtons = true;
 
-  //depreciation method
+  // depreciation method
   method = AppConst.depreciationMethod;
 
-  //for resetting form
+  // for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
   // Validation messages..
@@ -81,9 +81,9 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     },
     usefulLife: {
       required: 'Usefull Life is required.',
-      min : 'Minimum value is 1.',
-      max : 'Value is out of range.',
-      pattern : 'Please enter only Digits.'
+      min: 'Minimum value is 1.',
+      max: 'Value is out of range.',
+      pattern: 'Please enter only Digits.'
     },
     accumulatedDepreciationId: {
       required: 'Account is required.',
@@ -97,11 +97,15 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     warehouseId: {
       required: 'Store is required.',
     },
+    businessPartnerId: {
+      required: 'Business Partner is required.',
+    },
   };
 
   // error keys..
   formErrors = {
     fixedAssetId: '',
+    businessPartnerId: '',
     productId: '',
     cost: '',
     salvageValue: '',
@@ -113,7 +117,8 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   };
 
   // Injecting in dependencies in constructor
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private disposalService: DisposalService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreateDisposalComponent>,
@@ -131,20 +136,19 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   ngOnInit() {
 
     this.disposalForm = this.fb.group({
-
-    fixedAssetId: ['' , [Validators.required]],
-    productId: ['' , [Validators.required]],
-    cost: ['' , [Validators.required]],
-    salvageValue: ['' , [Validators.required]],
-    usefulLife: ['' , [Validators.required]],
-    accumulatedDepreciationId:['' , [Validators.required]],
-    disposalDate:['' , [Validators.required]],
-    disposalValue: ['' , [Validators.required]],
-    warehouseId: ['' , [Validators.required]]
-
+      fixedAssetId: ['', [Validators.required]],
+      businessPartnerId: [''],
+      productId: [''],
+      cost: [''],
+      salvageValue: [''],
+      usefulLife: [''],
+      accumulatedDepreciationId: [''],
+      disposalDate: ['', [Validators.required]],
+      disposalValue: ['', [Validators.required]],
+      warehouseId: ['']
     });
 
-    //get Accounts from Accounts State
+    // get Accounts from Accounts State
 
     this.ngxsService.getDepreciationModelFromState()
     this.ngxsService.getOtherAccountsFromState();
@@ -152,15 +156,14 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     this.ngxsService.getCampusFromState();
     this.ngxsService.getDisposaldropdownFromState();
     this.ngxsService.getWarehouseFromState();
+    this.ngxsService.getBusinessPartnerFromState();
 
     if (this.data?.id) {
       this.title = 'Edit Disposal'
       this.disposalModel.id = this.data.id;
       this.isLoading = true;
       this.getDisposal(this.data.id);
-      
     }
-
   }
 
   // Form Reset
@@ -169,7 +172,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     this.depApplicabilityToggle = false
   }
 
-  //Get Disposal data from Api
+  // Get Disposal data from Api
   private getDisposal(id: number) {
     this.disposalService.getDisposalById(id)
       .pipe(
@@ -185,25 +188,25 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
       });
   }
 
-  //Edit disposal Method
+  // Edit disposal Method
   public patchDisposal(disposal: IDisposal | any) {
     this.disposalForm.patchValue({
 
-    fixedAssetId: disposal.fixedAssetId,
-    productId: disposal.productId,
-    cost: disposal.cost,
-    salvageValue: disposal.salvageValue,
-    usefulLife: disposal.useFullLife,
-    accumulatedDepreciationId: disposal.accumulatedDepreciationId,
-    disposalDate: disposal.disposalDate,
-    disposalValue: disposal.disposalValue,
-    warehouseId: disposal.warehouseId,
+      fixedAssetId: disposal.fixedAssetId,
+      productId: disposal.productId,
+      cost: disposal.cost,
+      salvageValue: disposal.salvageValue,
+      usefulLife: disposal.useFullLife,
+      accumulatedDepreciationId: disposal.accumulatedDepreciationId,
+      disposalDate: disposal.disposalDate,
+      disposalValue: disposal.disposalValue,
+      warehouseId: disposal.warehouseId,
 
     });
   }
 
 
-  //Submit Form Function
+  // Submit Form Function
   onSubmit(): void {
 
     if (this.disposalForm.invalid) {
@@ -214,7 +217,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     this.mapFormValuesTodisposalModel();
 
     if (this.data?.id) {
-      console.log("edit")
+      console.log('edit')
       this.disposalService.updateDisposal(this.disposalModel)
         .pipe(
           take(1),
@@ -242,15 +245,15 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
           })
         )
         .subscribe((res: IApiResponse<IDisposal>) => {
-          this.toastService.success('Created Successfully', 'Disposal')
-          this.onCloseDialog();
-          this.router.navigate(['/' + DISPOSAL.LIST])
-        }
+            this.toastService.success('Created Successfully', 'Disposal')
+            this.onCloseDialog();
+            this.router.navigate(['/' + DISPOSAL.LIST])
+          }
         );
     }
   }
 
-  getAssetData(id : number){
+  getAssetData(id: number) {
     this.assetService.getAssetById(id)
       .pipe(
         take(1),
@@ -269,31 +272,39 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
           accumulatedDepreciationId: res.result.accumulatedDepreciationId,
           warehouseId: res.result.warehouseId,
         })
+        // this.disposalForm.get('modelType').disable();
+        this.disposalForm.get('productId').disable();
+        this.disposalForm.get('cost').disable();
+        this.disposalForm.get('salvageValue').disable();
+        this.disposalForm.get('usefulLife').disable();
+        this.disposalForm.get('accumulatedDepreciationId').disable();
+        this.disposalForm.get('warehouseId').disable();
+
         // this.getModelType(res.result.modelType)
         this.cdRef.detectChanges()
       })
   }
 
 
-  //Mapping Form Value to Model
+  // Mapping Form Value to Model
   mapFormValuesTodisposalModel() {
 
-    this.disposalModel.fixedAssetId = this.disposalForm.value.fixedAssetId,
-    this.disposalModel.productId = this.disposalForm.value.productId,
-    this.disposalModel.cost = this.disposalForm.value.cost,
-    this.disposalModel.salvageValue = this.disposalForm.value.salvageValue,
-    this.disposalModel.usefulLife = this.disposalForm.value.usefulLife,
-    this.disposalModel.accumulatedDepreciationId = this.disposalForm.value.accumulatedDepreciationId,
-    this.disposalModel.disposalDate = this.dateHelperService.transformDate(this.disposalForm.value.disposalDate, 'yyyy-MM-dd'),
-    this.disposalModel.disposalValue = this.disposalForm.value.disposalValue,
+    this.disposalModel.fixedAssetId = this.disposalForm.value.fixedAssetId
+    this.disposalModel.businessPartnerId = this.disposalForm.value.businessPartnerId
+    this.disposalModel.productId = this.disposalForm.value.productId
+    this.disposalModel.cost = this.disposalForm.value.cost
+    this.disposalModel.salvageValue = this.disposalForm.value.salvageValue
+    this.disposalModel.usefulLife = this.disposalForm.value.usefulLife
+    this.disposalModel.accumulatedDepreciationId = this.disposalForm.value.accumulatedDepreciationId
+    this.disposalModel.disposalDate = this.dateHelperService.transformDate(this.disposalForm.value.disposalDate, 'yyyy-MM-dd')
+    this.disposalModel.disposalValue = this.disposalForm.value.disposalValue
     this.disposalModel.warehouseId = this.disposalForm.value.warehouseId
   }
 
 
-
-  //for save or submit
+  // for save or submit
   isSubmit(val: number) {
-    this.disposalModel.isSubmit = (val === 0) ? false : true;
+    this.disposalModel.isSubmit = (val !== 0);
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -308,13 +319,19 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     this.dialogRef.close();
   }
 
-
+  updateBPValidity($event: any) {
+    console.log('updateBPValidity')
+    if (this.disposalForm.get('disposalValue').value > 0) {
+      console.log('If')
+      console.log(this.disposalForm.get('disposalValue').value)
+      this.isBPRequired = true
+      this.disposalForm.get('businessPartnerId').setValidators([Validators.required])
+    } else {
+      console.log('Else')
+      this.disposalForm.get('businessPartnerId').clearValidators();
+      this.disposalForm.updateValueAndValidity();
+      this.formErrors.businessPartnerId = ''
+      this.isBPRequired = false
+    }
+  }
 }
-
-
-
-
-
-
-
-
