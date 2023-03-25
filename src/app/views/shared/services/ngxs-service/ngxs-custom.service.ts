@@ -1,62 +1,62 @@
-import { Injectable, } from '@angular/core';
-import { Select, Store } from '@ngxs/store';
-import { Observable } from 'rxjs';
-import { AccountLevel4State } from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
-import { BudgetAccountState } from 'src/app/core/shared-state/account-state/store/budget-account.state';
+import {Injectable,} from '@angular/core';
+import {Select, Store} from '@ngxs/store';
+import {Observable} from 'rxjs';
+import {AccountLevel4State} from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
+import {BudgetAccountState} from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
-import { BudgetService } from 'src/app/views/pages/budget/current-budget/service/budget.service';
-import { BudgetState } from 'src/app/views/pages/budget/current-budget/store/budget.state';
-import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
-import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
-import { CashAccountService } from 'src/app/views/pages/finance/cash-account/service/cashAccount.service';
-import { CashAccountState } from 'src/app/views/pages/finance/cash-account/store/cash-account.state';
-import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
-import { DepartmentService } from 'src/app/views/pages/payroll/department/service/department.service';
-import { DepartmentState } from 'src/app/views/pages/payroll/department/store/department.store';
-import { DesignationService } from 'src/app/views/pages/payroll/designation/service/designation.service';
-import { DesignationState } from 'src/app/views/pages/payroll/designation/store/designation.store';
-import { EmployeeService } from 'src/app/views/pages/payroll/employee/service/employee.service';
-import { EmployeeState } from 'src/app/views/pages/payroll/employee/store/employee.state';
-import { BusinessPartnerService } from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
+import {BudgetService} from 'src/app/views/pages/budget/current-budget/service/budget.service';
+import {BudgetState} from 'src/app/views/pages/budget/current-budget/store/budget.state';
+import {BankAccountService} from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
+import {BankAccountState} from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
+import {CashAccountService} from 'src/app/views/pages/finance/cash-account/service/cashAccount.service';
+import {CashAccountState} from 'src/app/views/pages/finance/cash-account/store/cash-account.state';
+import {ChartOfAccountService} from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
+import {DepartmentService} from 'src/app/views/pages/payroll/department/service/department.service';
+import {DepartmentState} from 'src/app/views/pages/payroll/department/store/department.store';
+import {DesignationService} from 'src/app/views/pages/payroll/designation/service/designation.service';
+import {DesignationState} from 'src/app/views/pages/payroll/designation/store/designation.store';
+import {EmployeeService} from 'src/app/views/pages/payroll/employee/service/employee.service';
+import {EmployeeState} from 'src/app/views/pages/payroll/employee/store/employee.state';
+import {BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 
-import { BusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/business-partner.state';
-import { CampusService } from 'src/app/views/pages/profiling/campus/service/campus.service';
-import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
-import { CategoryService } from 'src/app/views/pages/profiling/category/service/category.service';
-import { CategoryState } from 'src/app/views/pages/profiling/category/store/category.state';
-import { OrganizationService } from 'src/app/views/pages/profiling/organization/services/organization.service';
-import { ProductService } from 'src/app/views/pages/profiling/product/service/product.service';
-import { ProductState } from 'src/app/views/pages/profiling/product/store/product.state.state';
-import { GetList } from 'src/app/views/pages/profiling/store/profiling.action';
-import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
-import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
-import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
-import { AccountPayableState } from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
-import { StatusService } from 'src/app/views/pages/workflows/status/service/status.service';
-import { BasicPayState } from 'src/app/views/pages/payroll/payroll-item/store/basic-pay.state';
-import { IncrementState } from 'src/app/views/pages/payroll/payroll-item/store/increment.state';
-import { DeductionState } from 'src/app/views/pages/payroll/payroll-item/store/deduction.state';
-import { PayrollItemService } from 'src/app/views/pages/payroll/payroll-item/service/payroll-item.service';
-import { OtherAccountState } from 'src/app/views/pages/finance/chat-of-account/store/other-account.state';
-import { AccountReceivableState } from 'src/app/views/pages/finance/chat-of-account/store/account-receivable.state';
-import { RoleState } from 'src/app/views/pages/access-management/store/role.state';
-import { AccessManagementService } from 'src/app/views/pages/access-management/service/access-management.service';
-import { UnitOfMeasurementState } from 'src/app/views/pages/profiling/unit-of-measurement/store/unit.state';
-import { UnitOfMeasurementService } from 'src/app/views/pages/profiling/unit-of-measurement/service/unit-of-measurement.service';
-import { DepreciationModelState } from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
-import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
-import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
-import { EmployeePaymentState } from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
-import { AllBusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/All-business-partner.state';
-import { PayrollItemState } from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
-import { RequisitionState } from 'src/app/views/pages/procurement/requisition/store/requisition.state';
-import { RequisitionService } from 'src/app/views/pages/procurement/requisition/service/requisition.service';
-import { CategoryAssetState } from 'src/app/views/pages/profiling/category/store/categoryAsset.state';
-import { ExpenseAccountState } from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
-import { GetLiabilityAccountsState } from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
-import { AssetService } from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
+import {BusinessPartnerState} from 'src/app/views/pages/profiling/business-partner/store/business-partner.state';
+import {CampusService} from 'src/app/views/pages/profiling/campus/service/campus.service';
+import {CampusState} from 'src/app/views/pages/profiling/campus/store/campus.state';
+import {CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
+import {CategoryState} from 'src/app/views/pages/profiling/category/store/category.state';
+import {OrganizationService} from 'src/app/views/pages/profiling/organization/services/organization.service';
+import {ProductService} from 'src/app/views/pages/profiling/product/service/product.service';
+import {ProductState} from 'src/app/views/pages/profiling/product/store/product.state.state';
+import {GetList} from 'src/app/views/pages/profiling/store/profiling.action';
+import {WarehouseService} from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
+import {WarehouseState} from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
+import {StatusState} from 'src/app/views/pages/workflows/status/store/status.state';
+import {AccountPayableState} from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
+import {StatusService} from 'src/app/views/pages/workflows/status/service/status.service';
+import {BasicPayState} from 'src/app/views/pages/payroll/payroll-item/store/basic-pay.state';
+import {IncrementState} from 'src/app/views/pages/payroll/payroll-item/store/increment.state';
+import {DeductionState} from 'src/app/views/pages/payroll/payroll-item/store/deduction.state';
+import {PayrollItemService} from 'src/app/views/pages/payroll/payroll-item/service/payroll-item.service';
+import {OtherAccountState} from 'src/app/views/pages/finance/chat-of-account/store/other-account.state';
+import {AccountReceivableState} from 'src/app/views/pages/finance/chat-of-account/store/account-receivable.state';
+import {RoleState} from 'src/app/views/pages/access-management/store/role.state';
+import {AccessManagementService} from 'src/app/views/pages/access-management/service/access-management.service';
+import {UnitOfMeasurementState} from 'src/app/views/pages/profiling/unit-of-measurement/store/unit.state';
+import {UnitOfMeasurementService} from 'src/app/views/pages/profiling/unit-of-measurement/service/unit-of-measurement.service';
+import {DepreciationModelState} from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
+import {DepreciationMethodService} from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
+import {AssetAccountState} from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
+import {EmployeePaymentState} from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
+import {AllBusinessPartnerState} from 'src/app/views/pages/profiling/business-partner/store/All-business-partner.state';
+import {PayrollItemState} from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
+import {RequisitionState} from 'src/app/views/pages/procurement/requisition/store/requisition.state';
+import {RequisitionService} from 'src/app/views/pages/procurement/requisition/service/requisition.service';
+import {CategoryAssetState} from 'src/app/views/pages/profiling/category/store/categoryAsset.state';
+import {ExpenseAccountState} from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
+import {GetLiabilityAccountsState} from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
+import {AssetService} from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
 import {AssetState} from '../../../pages/fixed-asset/store/asset.state';
-import { DisposalDropdownState } from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
+import {DisposalDropdownState} from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
 
 @Injectable({
   providedIn: 'root'
@@ -88,9 +88,10 @@ export class NgxsCustomService {
     public depreciationModelService: DepreciationMethodService,
     public budgetService: BudgetService,
     public store: Store,
-  ) { }
+  ) {
+  }
 
-  //selector region start
+  // selector region start
   // Business Partner
   @Select(BusinessPartnerState.entities) businessPartners$: Observable<any>;
   @Select(BusinessPartnerState.isFetchCompleted) businessPartnerFetchCompleted$: Observable<any>;
@@ -101,7 +102,7 @@ export class NgxsCustomService {
   @Select(AssetState.isFetchCompleted) assetsFetchCompleted$: Observable<any>;
   @Select(AssetState.isLoading) assetsIsLoading$: Observable<any>;
 
-  //All Business Partner with Employees
+  // All Business Partner with Employees
   @Select(AllBusinessPartnerState.entities) allBusinessPartners$: Observable<any>;
   @Select(AllBusinessPartnerState.isFetchCompleted) allBusinessPartnerFetchCompleted$: Observable<any>;
   @Select(AllBusinessPartnerState.isLoading) allBusinessPartnerIsLoading$: Observable<any>;
@@ -181,86 +182,83 @@ export class NgxsCustomService {
   @Select(WarehouseState.entities) warehouses$: Observable<any>;
   @Select(WarehouseState.isFetchCompleted) warehouseFetchCompleted$: Observable<any>;
   @Select(WarehouseState.isLoading) warehouseIsLoading$: Observable<any>;
-  //selector region end
+  // selector region end
 
-  //finance module selectors
-   // Bank Account
-   @Select(BankAccountState.entities) bankAccounts$: Observable<any>;
-   @Select(BankAccountState.isFetchCompleted) bankAccountFetchCompleted$: Observable<any>;
-   @Select(BankAccountState.isLoading) bankAccountIsLoading$: Observable<any>;
+  // finance module selectors
+  // Bank Account
+  @Select(BankAccountState.entities) bankAccounts$: Observable<any>;
+  @Select(BankAccountState.isFetchCompleted) bankAccountFetchCompleted$: Observable<any>;
+  @Select(BankAccountState.isLoading) bankAccountIsLoading$: Observable<any>;
 
-   //Cash Account
-   @Select(CashAccountState.entities) cashAccounts$: Observable<any>;
-   @Select(CashAccountState.isFetchCompleted) cashAccountFetchCompleted$: Observable<any>;
-   @Select(CashAccountState.isLoading) cashAccountIsLoading$: Observable<any>;
+  // Cash Account
+  @Select(CashAccountState.entities) cashAccounts$: Observable<any>;
+  @Select(CashAccountState.isFetchCompleted) cashAccountFetchCompleted$: Observable<any>;
+  @Select(CashAccountState.isLoading) cashAccountIsLoading$: Observable<any>;
 
+  // Department
+  @Select(DepartmentState.entities) departments$: Observable<any>;
+  @Select(DepartmentState.isFetchCompleted) departmentFetchCompleted$: Observable<any>;
+  @Select(DepartmentState.isLoading) departmentIsLoading$: Observable<any>;
 
-   //Department
-   @Select(DepartmentState.entities) departments$: Observable<any>;
-   @Select(DepartmentState.isFetchCompleted) departmentFetchCompleted$: Observable<any>;
-   @Select(DepartmentState.isLoading) departmentIsLoading$: Observable<any>;
+  // Designation
+  @Select(DesignationState.entities) designations$: Observable<any>;
+  @Select(DesignationState.isFetchCompleted) designationFetchCompleted$: Observable<any>;
+  @Select(DesignationState.isLoading) designationIsLoading$: Observable<any>;
 
+  // Employee
+  @Select(EmployeeState.entities) employees$: Observable<any>;
+  @Select(EmployeeState.isFetchCompleted) employeeFetchCompleted$: Observable<any>;
+  @Select(EmployeeState.isLoading) employeeIsLoading$: Observable<any>;
 
-  //Designation
-   @Select(DesignationState.entities) designations$: Observable<any>;
-   @Select(DesignationState.isFetchCompleted) designationFetchCompleted$: Observable<any>;
-   @Select(DesignationState.isLoading) designationIsLoading$: Observable<any>;
+  // Employee Payments
+  @Select(EmployeePaymentState.entities) employeePayments$: Observable<any>;
+  @Select(EmployeePaymentState.isFetchCompleted) employeePaymentsFetchCompleted$: Observable<any>;
+  @Select(EmployeePaymentState.isLoading) employeePaymentsIsLoading$: Observable<any>;
 
+  // Status
+  @Select(StatusState.entities) statuses$: Observable<any>;
+  @Select(StatusState.isFetchCompleted) statusFetchCompleted$: Observable<any>;
+  @Select(StatusState.isLoading) statusIsLoading$: Observable<any>;
 
-  //Employee
-   @Select(EmployeeState.entities) employees$: Observable<any>;
-   @Select(EmployeeState.isFetchCompleted) employeeFetchCompleted$: Observable<any>;
-   @Select(EmployeeState.isLoading) employeeIsLoading$: Observable<any>;
+  // Payroll Items
+  @Select(PayrollItemState.entities) payrollItems$: Observable<any>;
+  @Select(PayrollItemState.isFetchCompleted) payrollItemsFetchCompleted$: Observable<any>;
+  @Select(PayrollItemState.isLoading) payrollItemsIsLoading$: Observable<any>;
 
-   //Employee Payments
-   @Select(EmployeePaymentState.entities) employeePayments$: Observable<any>;
-   @Select(EmployeePaymentState.isFetchCompleted) employeePaymentsFetchCompleted$: Observable<any>;
-   @Select(EmployeePaymentState.isLoading) employeePaymentsIsLoading$: Observable<any>;
+  // Basic Payroll Items
+  @Select(BasicPayState.entities) basicPayrollItems$: Observable<any>;
+  @Select(BasicPayState.isFetchCompleted) basicPayrollItemsFetchCompleted$: Observable<any>;
+  @Select(BasicPayState.isLoading) basicPayrollItemsIsLoading$: Observable<any>;
 
-   //Status
-   @Select(StatusState.entities) statuses$: Observable<any>;
-   @Select(StatusState.isFetchCompleted) statusFetchCompleted$: Observable<any>;
-   @Select(StatusState.isLoading) statusIsLoading$: Observable<any>;
+  // Increments Payroll Items
+  @Select(IncrementState.entities) incrementPayrollItems$: Observable<any>;
+  @Select(IncrementState.isFetchCompleted) incrementPayrollItemsFetchCompleted$: Observable<any>;
+  @Select(IncrementState.isLoading) incrementPayrollItemsIsLoading$: Observable<any>;
 
-   // Payroll Items
-   @Select(PayrollItemState.entities) payrollItems$: Observable<any>;
-   @Select(PayrollItemState.isFetchCompleted) payrollItemsFetchCompleted$: Observable<any>;
-   @Select(PayrollItemState.isLoading) payrollItemsIsLoading$: Observable<any>;
+  // Deduction Payroll Items
+  @Select(DeductionState.entities) deductionPayrollItems$: Observable<any>;
+  @Select(DeductionState.isFetchCompleted) deductionPayrollItemsFetchCompleted$: Observable<any>;
+  @Select(DeductionState.isLoading) deductionPayrollItemsIsLoading$: Observable<any>;
 
-   // Basic Payroll Items
-   @Select(BasicPayState.entities) basicPayrollItems$: Observable<any>;
-   @Select(BasicPayState.isFetchCompleted) basicPayrollItemsFetchCompleted$: Observable<any>;
-   @Select(BasicPayState.isLoading) basicPayrollItemsIsLoading$: Observable<any>;
+  // Roles
+  @Select(RoleState.entities) roles$: Observable<any>;
+  @Select(RoleState.isFetchCompleted) rolesFetchCompleted$: Observable<any>;
+  @Select(RoleState.isLoading) rolesIsLoading$: Observable<any>;
 
-   // Increments Payroll Items
-   @Select(IncrementState.entities) incrementPayrollItems$: Observable<any>;
-   @Select(IncrementState.isFetchCompleted) incrementPayrollItemsFetchCompleted$: Observable<any>;
-   @Select(IncrementState.isLoading) incrementPayrollItemsIsLoading$: Observable<any>;
+  // Roles
+  @Select(UnitOfMeasurementState.entities) units$: Observable<any>;
+  @Select(UnitOfMeasurementState.isFetchCompleted) unitsFetchCompleted$: Observable<any>;
+  @Select(UnitOfMeasurementState.isLoading) unitsIsLoading$: Observable<any>;
 
-    // Deduction Payroll Items
-   @Select(DeductionState.entities) deductionPayrollItems$: Observable<any>;
-   @Select(DeductionState.isFetchCompleted) deductionPayrollItemsFetchCompleted$: Observable<any>;
-   @Select(DeductionState.isLoading) deductionPayrollItemsIsLoading$: Observable<any>;
+  // Depreciation Model
+  @Select(DepreciationModelState.entities) depreciationModels$: Observable<any>;
+  @Select(DepreciationModelState.isFetchCompleted) depreciationModelsFetchCompleted$: Observable<any>;
+  @Select(DepreciationModelState.isLoading) depreciationModelsIsLoading$: Observable<any>;
 
-   // Roles
-   @Select(RoleState.entities) roles$: Observable<any>;
-   @Select(RoleState.isFetchCompleted) rolesFetchCompleted$: Observable<any>;
-   @Select(RoleState.isLoading) rolesIsLoading$: Observable<any>;
-
-   // Roles
-   @Select(UnitOfMeasurementState.entities) units$: Observable<any>;
-   @Select(UnitOfMeasurementState.isFetchCompleted) unitsFetchCompleted$: Observable<any>;
-   @Select(UnitOfMeasurementState.isLoading) unitsIsLoading$: Observable<any>;
-
-    // Depreciation Model
-    @Select(DepreciationModelState.entities) depreciationModels$: Observable<any>;
-    @Select(DepreciationModelState.isFetchCompleted) depreciationModelsFetchCompleted$: Observable<any>;
-    @Select(DepreciationModelState.isLoading) depreciationModelsIsLoading$: Observable<any>;
-
-    // Requisition
-    @Select(RequisitionState.entities) requisitions$: Observable<any>;
-    @Select(RequisitionState.isFetchCompleted) requisitionsFetchCompleted$: Observable<any>;
-    @Select(RequisitionState.isLoading) requisitionsIsLoading$: Observable<any>;
+  // Requisition
+  @Select(RequisitionState.entities) requisitions$: Observable<any>;
+  @Select(RequisitionState.isFetchCompleted) requisitionsFetchCompleted$: Observable<any>;
+  @Select(RequisitionState.isLoading) requisitionsIsLoading$: Observable<any>;
 
 
   //region State Management
@@ -268,7 +266,7 @@ export class NgxsCustomService {
   // Get Business Partner From Store if available else fetch from the server and cache.
   getBusinessPartnerFromState() {
     this.businessPartnerFetchCompleted$.subscribe((res) => {
-      //console.log('Business Partner State fetch completed: ', res);
+      // console.log('Business Partner State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BusinessPartnerState, {
           serviceClass: this.businessPartnerService,
@@ -295,7 +293,7 @@ export class NgxsCustomService {
   // Get Campus From Store if available else fetch from the server and cache.
   getCampusFromState() {
     this.campusFetchCompleted$.subscribe((res) => {
-      //console.log('Campus State fetch completed: ', res);
+      // console.log('Campus State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CampusState, {
           serviceClass: this.campusService,
@@ -309,7 +307,7 @@ export class NgxsCustomService {
   // Get Budgets From Store if available else fetch from the server and cache.
   getBudgetsFromState() {
     this.budgetFetchCompleted$.subscribe((res) => {
-      //console.log('Budget State fetch completed: ', res);
+      // console.log('Budget State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BudgetState, {
           serviceClass: this.budgetService,
@@ -323,7 +321,7 @@ export class NgxsCustomService {
   // Get Status From Store if available else fetch from the server and cache.
   getStatusesFromState() {
     this.statusFetchCompleted$.subscribe((res) => {
-      //console.log('Status State fetch completed: ', res);
+      // console.log('Status State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(StatusState, {
           serviceClass: this.statusService,
@@ -334,10 +332,10 @@ export class NgxsCustomService {
     })
   }
 
-   // Get All Level 4 Accounts State From Store if available else fetch from the server and cache.
+  // Get All Level 4 Accounts State From Store if available else fetch from the server and cache.
   getAccountLevel4FromState() {
     this.accountLevel4FetchCompleted$.subscribe((res) => {
-      //console.log('Account level 4 FetchCompleted: ', res);
+      // console.log('Account level 4 FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AccountLevel4State, {
           serviceClass: this.chartOfAccountService,
@@ -390,7 +388,7 @@ export class NgxsCustomService {
   // Get All Payable Accounts State From Store if available else fetch from the server and cache.
   getAccountPayableFromState() {
     this.accountPayableFetchCompleted$.subscribe((res) => {
-      //console.log('Account Payable FetchCompleted: ', res);
+      // console.log('Account Payable FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AccountPayableState, {
           serviceClass: this.chartOfAccountService,
@@ -404,7 +402,7 @@ export class NgxsCustomService {
   // Get All Receivable Accounts State From Store if available else fetch from the server and cache.
   getAccountReceivableFromState() {
     this.accountReceivableFetchCompleted$.subscribe((res) => {
-      //console.log('Account Receivable FetchCompleted: ', res);
+      // console.log('Account Receivable FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AccountReceivableState, {
           serviceClass: this.chartOfAccountService,
@@ -418,7 +416,7 @@ export class NgxsCustomService {
   // Get All Other Accounts State From Store if available else fetch from the server and cache.
   getOtherAccountsFromState() {
     this.otherAccountsFetchCompleted$.subscribe((res) => {
-      //console.log('Other Account FetchCompleted: ', res);
+      // console.log('Other Account FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(OtherAccountState, {
           serviceClass: this.chartOfAccountService,
@@ -432,7 +430,7 @@ export class NgxsCustomService {
   // Get Expense Accounts State From Store if available else fetch from the server and cache.
   getExpenseAccountsFromState() {
     this.expenseAccountFetchCompleted$.subscribe((res) => {
-      //console.log('Other Account FetchCompleted: ', res);
+      // console.log('Other Account FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(ExpenseAccountState, {
           serviceClass: this.chartOfAccountService,
@@ -446,7 +444,7 @@ export class NgxsCustomService {
   // Get All Other Accounts State From Store if available else fetch from the server and cache.
   getLiabilityAccountsFromState() {
     this.getLiabilityAccountsFetchCompleted$.subscribe((res) => {
-      //console.log('Other Account FetchCompleted: ', res);
+      // console.log('Other Account FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(GetLiabilityAccountsState, {
           serviceClass: this.chartOfAccountService,
@@ -460,7 +458,7 @@ export class NgxsCustomService {
   // Get All Budget Accounts State From Store if available else fetch from the server and cache.
   getBudgetAccountsFromState() {
     this.budgetAccountFetchCompleted$.subscribe((res) => {
-      //console.log('Budget Accounts FetchCompleted: ', res);
+      // console.log('Budget Accounts FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BudgetAccountState, {
           serviceClass: this.chartOfAccountService,
@@ -474,7 +472,7 @@ export class NgxsCustomService {
   // Get Category From Store if available else fetch from the server and cache.
   getCategoryFromState() {
     this.categoryFetchCompleted$.subscribe((res) => {
-      //console.log('Category State fetch completed: ', res);
+      // console.log('Category State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CategoryState, {
           serviceClass: this.categoryService,
@@ -485,7 +483,7 @@ export class NgxsCustomService {
     })
   }
 
-  //Get Department From Store if available else fetch from the server and cache.
+  // Get Department From Store if available else fetch from the server and cache.
   getDepartmentFromState() {
     this.departmentFetchCompleted$.subscribe((res) => {
       console.log('Department State fetch completed: ', res);
@@ -513,7 +511,7 @@ export class NgxsCustomService {
     })
   }
 
-  //Get Employee From Store if available else fetch from the server and cache.
+  // Get Employee From Store if available else fetch from the server and cache.
   getEmployeeFromState() {
     this.employeeFetchCompleted$.subscribe((res) => {
       console.log('Employee State fetch completed: ', res);
@@ -527,7 +525,7 @@ export class NgxsCustomService {
     })
   }
 
-  //Get Employee Payments From Store if available else fetch from the server and cache.
+  // Get Employee Payments From Store if available else fetch from the server and cache.
   getEmployeePaymentsFromState() {
     this.employeePaymentsFetchCompleted$.subscribe((res) => {
       console.log('Employee Payment State fetch completed: ', res);
@@ -543,7 +541,7 @@ export class NgxsCustomService {
 
   getPayrollItemsFromState() {
     this.payrollItemsFetchCompleted$.subscribe((res) => {
-     // console.log('payrollItemsFetchCompleted$: ', res);
+      // console.log('payrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(PayrollItemState, {
           serviceClass: this.payrollItemService,
@@ -556,7 +554,7 @@ export class NgxsCustomService {
 
   getBasicPayFromState() {
     this.basicPayrollItemsFetchCompleted$.subscribe((res) => {
-     // console.log('basicPayrollItemsFetchCompleted$: ', res);
+      // console.log('basicPayrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BasicPayState, {
           serviceClass: this.payrollItemService,
@@ -569,7 +567,7 @@ export class NgxsCustomService {
 
   getIncrementsFromState() {
     this.incrementPayrollItemsFetchCompleted$.subscribe((res) => {
-     // console.log('incrementPayrollItemsFetchCompleted$: ', res);
+      // console.log('incrementPayrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(IncrementState, {
           serviceClass: this.payrollItemService,
@@ -582,7 +580,7 @@ export class NgxsCustomService {
 
   getDeductionFromState() {
     this.deductionPayrollItemsFetchCompleted$.subscribe((res) => {
-    //  console.log('otherPayrollItemsFetchCompleted$: ', res);
+      //  console.log('otherPayrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DeductionState, {
           serviceClass: this.payrollItemService,
@@ -597,7 +595,7 @@ export class NgxsCustomService {
   // Get Product From Store if available else fetch from the server and cache.
   getProductFromState() {
     this.productFetchCompleted$.subscribe((res) => {
-      //console.log('Product State fetch completed: ', res);
+      // console.log('Product State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(ProductState, {
           serviceClass: this.productService,
@@ -607,10 +605,11 @@ export class NgxsCustomService {
       }
     })
   }
+
   // Get Warehouse From Store if available else fetch from the server and cache.
   getWarehouseFromState() {
     this.warehouseFetchCompleted$.subscribe((res) => {
-      //console.log('Warehouse State fetch completed: ', res);
+      // console.log('Warehouse State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(WarehouseState, {
           serviceClass: this.warehouseService,
@@ -624,7 +623,7 @@ export class NgxsCustomService {
   // Get roles From Store if available else fetch from the server and cache.
   getUnitsFromState() {
     this.unitsFetchCompleted$.subscribe((res) => {
-      //console.log('Role State fetch completed: ', res);
+      // console.log('Role State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(UnitOfMeasurementState, {
           serviceClass: this.unitOfMeasurementService,
@@ -638,7 +637,7 @@ export class NgxsCustomService {
   // Get Units From Store if available else fetch from the server and cache.
   getRolesFromState() {
     this.unitsFetchCompleted$.subscribe((res) => {
-      //console.log('Unit State fetch completed: ', res);
+      // console.log('Unit State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(RoleState, {
           serviceClass: this.accessManagementService,
@@ -649,11 +648,11 @@ export class NgxsCustomService {
     })
   }
 
-  //finance module selector methods
-   // Get Bank Account State From Store if available else fetch from the server and cache.
-   getBankAccountFromState() {
+  // finance module selector methods
+  // Get Bank Account State From Store if available else fetch from the server and cache.
+  getBankAccountFromState() {
     this.bankAccountFetchCompleted$.subscribe((res) => {
-      //console.log('Bank Account State fetch completed: ', res);
+      // console.log('Bank Account State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BankAccountState, {
           serviceClass: this.bankAccountService,
@@ -667,7 +666,7 @@ export class NgxsCustomService {
   // Get Bank Account State From Store if available else fetch from the server and cache.
   getAssetsFromState() {
     this.assetsFetchCompleted$.subscribe((res) => {
-      //console.log('Bank Account State fetch completed: ', res);
+      // console.log('Bank Account State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AssetState, {
           serviceClass: this.assetService,
@@ -681,7 +680,7 @@ export class NgxsCustomService {
   // Get Cash Account State From Store if available else fetch from the server and cache.
   getCashAccountFromState() {
     this.cashAccountFetchCompleted$.subscribe((res) => {
-      //console.log('Cash Account State fetch completed: ', res);
+      // console.log('Cash Account State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CashAccountState, {
           serviceClass: this.bankAccountService,
@@ -695,7 +694,7 @@ export class NgxsCustomService {
   // Get Depreciation Model State From Store if available else fetch from the server and cache.
   getDepreciationModelFromState() {
     this.depreciationModelsFetchCompleted$.subscribe((res) => {
-      //console.log('Depreciation Model State fetch completed: ', res);
+      // console.log('Depreciation Model State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DepreciationModelState, {
           serviceClass: this.depreciationModelService,
@@ -709,7 +708,7 @@ export class NgxsCustomService {
   // Get Requisition From Store if available else fetch from the server and cache.
   getRequisitionFromState() {
     this.requisitionsFetchCompleted$.subscribe((res) => {
-      //console.log('Requisition State fetch completed: ', res);
+      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(RequisitionState, {
           serviceClass: this.requisitionService,
@@ -719,5 +718,6 @@ export class NgxsCustomService {
       }
     })
   }
-  //end state region
+
+  // end state region
 }

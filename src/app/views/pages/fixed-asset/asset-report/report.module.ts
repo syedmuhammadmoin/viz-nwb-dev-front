@@ -6,10 +6,11 @@ import { ReportRoutingModule } from './report-routing.module';
 import { ReportListComponent } from './report-list/report-list.component';
 import { PortletModule } from "../../../partials/content/general/portlet/portlet.module";
 import { SharedModule } from "../../../shared/modules/shared.module";
+import { PrintAssetReportComponent } from './print-asset-report/print-asset-report.component';
 
 
 @NgModule({
-    declarations: [ReportListComponent],
+    declarations: [ReportListComponent, PrintAssetReportComponent],
     imports: [
         CommonModule,
         ReportRoutingModule,

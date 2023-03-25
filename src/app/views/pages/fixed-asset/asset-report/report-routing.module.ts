@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
 import { ReportListComponent } from './report-list/report-list.component';
+import {PrintAssetReportComponent} from './print-asset-report/print-asset-report.component';
 
 
 const routes: Routes = [
@@ -18,7 +19,19 @@ const routes: Routes = [
         //     { permission: Permissions.CWIP_EDIT },
         //   ]
         // },
-        // canActivate: [PermissionGuard] 
+        // canActivate: [PermissionGuard]
+      },
+      {
+        path: 'print',
+        component: PrintAssetReportComponent,
+        // data: {
+        //   array: [
+        //     { permission: Permissions.CWIP_VIEW },
+        //     { permission: Permissions.CWIP_CREATE },
+        //     { permission: Permissions.CWIP_EDIT },
+        //   ]
+        // },
+        // canActivate: [PermissionGuard]
       },
     ]
   }

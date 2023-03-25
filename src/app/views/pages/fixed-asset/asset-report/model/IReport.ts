@@ -1,4 +1,6 @@
-export interface IReport{
-    docDate: string,
-    docDate2: string,
+export interface IReport {
+   fromDate?: string;
+   toDate?: string;
+   fixedAssetId?: number;
+   storeId?: number;
 }
