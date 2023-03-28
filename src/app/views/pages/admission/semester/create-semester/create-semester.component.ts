@@ -73,7 +73,8 @@ export class CreateSemesterComponent extends AppComponentBase implements OnInit 
     public ngxsService: NgxsCustomService,
     public addButtonService: AddModalButtonService,
     private cdRef: ChangeDetectorRef,
-    injector: Injector) {
+    injector: Injector
+  ) {
     super(injector);
   }
 
