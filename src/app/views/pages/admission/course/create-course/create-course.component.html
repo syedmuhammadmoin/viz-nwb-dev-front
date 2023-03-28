@@ -1,92 +1,96 @@
 <div [ktBusy]="isLoading" class="kt-portlet" style="overflow : hidden;">
-    <div class="kt-portlet__head">
-      <div class="kt-portlet__head-caption">
-        <div class="kt-portlet__head-title">
-          <h3 class="kt-portlet__head-text modal-header"> {{title}} <span id="store_close" (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
-        </div>
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-caption">
+      <div class="kt-portlet__head-title">
+        <h3 class="kt-portlet__head-text modal-header"> {{title}} <span (click)="onCloseDialog()" class="dialog-cross"
+                                                                        id="store_close"><i
+          class="fa fa-times float-right"></i></span></h3>
       </div>
     </div>
-    <!-- form start -->
-    <form [formGroup]="CourseForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
-      <!-- portlet body starts -->
-      <div class="kt-portlet__body" >
-        <div class="kt-form__section kt-form__section--first">
-            <div class="col-md-12 col-lg-12 col-sm-12">
-            <!-- first row starts -->
-            <div class="row mt-1 mb-0">
-            <div class="col-lg-6 col-md-6">
-                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
-                <label class="col-form-label pt-0">Course:</label>
+  </div>
+  <!-- form start -->
+  <form #formDirective="ngForm" (ngSubmit)="onSubmit()" [formGroup]="CourseForm"
+        class="kt-form kt-form--label-align-right">
+    <!-- portlet body starts -->
+    <div class="kt-portlet__body">
+      <div class="kt-form__section kt-form__section--first">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <!-- first row starts -->
+          <div class="row mt-1 mb-0">
+            <div class="col-lg col-md">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Name:</label>
                 <kt-input-field
-                    id="Course_name"
-                    formControlName="course"
-                    placeholder="Enter Course Name"
-                    (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
-                    [errorMessage]="[{ condition : formErrors.course , error : formErrors.course }]">
+                  (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]"
+                  formControlName="name"
+                  id="Course_name"
+                  placeholder="Enter Course Name">
                 </kt-input-field>
-                </div>
+              </div>
             </div>
-            <div class="col-lg-6 col-md-6">
-                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+            <!--<div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
                 <label class="col-form-label pt-0">Course Code:</label>
                 <kt-input-field
-                    id="CourseCode"
-                    formControlName="courseCode"
-                    placeholder="Enter Course Code"
-                    (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
-                    [errorMessage]="[{ condition : formErrors.courseCode , error : formErrors.courseCode }]">
+                  (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.courseCode , error : formErrors.courseCode }]"
+                  formControlName="courseCode"
+                  id="CourseCode"
+                  placeholder="Enter Course Code">
                 </kt-input-field>
-                </div>
+              </div>
             </div>
             <div class="col-lg-6 col-md-6">
-            <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
                 <label class="col-form-label pt-0">Credit Hour:</label>
                 <kt-input-field
-                    id="CreditHour"
-                    type="number"
-                    formControlName="creditHour"
-                    placeholder="Enter Credit Hour"
-                    (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
-                    [errorMessage]="[{ condition : formErrors.creditHour , error : formErrors.creditHour }]">
+                  (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.creditHour , error : formErrors.creditHour }]"
+                  formControlName="creditHour"
+                  id="CreditHour"
+                  placeholder="Enter Credit Hour"
+                  type="number">
                 </kt-input-field>
+              </div>
             </div>
-            </div>
-                  <div class="col-lg-6 col-md-6">
-                    <div class="form-group kt-form__group mb-0 pt-2 pb-0">
-                        <label class="col-form-label pt-0">Total Marks:</label>
-                        <kt-input-field
-                          id="TotalMaeks"
-                          type="number"
-                          formControlName="totalMarks"
-                          placeholder="Enter Total Marks"
-                          (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.totalMarks , error : formErrors.totalMarks }]">
-                        </kt-input-field>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
-        <!-- form first section ends -->
-      </div>
-      <!-- portlet body ends -->
-      <mat-divider></mat-divider>
-    
-      <div class="kt-portlet__foot p-5">
-    
-        <div class="kt-form__actions row">
-          <div class="col-lg-12 text-right">
-            <div *ngIf="showButtons" >
-              <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="store_reset"><i class="fas fa-undo"></i> Reset</button>
-              <button class="app-default-btn" mat-raised-button type="submit" id="store_submit"
-                      (click)="logValidationErrors(this.CourseForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit</button>&nbsp;
-            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Total Marks:</label>
+                <kt-input-field
+                  (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.totalMarks , error : formErrors.totalMarks }]"
+                  formControlName="totalMarks"
+                  id="TotalMaeks"
+                  placeholder="Enter Total Marks"
+                  type="number">
+                </kt-input-field>
+              </div>
+            </div>-->
           </div>
         </div>
       </div>
-    </form>
-    <!-- form ends -->
-  </div>
-  
+      <!-- form first section ends -->
+    </div>
+    <!-- portlet body ends -->
+    <mat-divider></mat-divider>
 
-  
+    <div class="kt-portlet__foot p-5">
+
+      <div class="kt-form__actions row">
+        <div class="col-lg-12 text-right">
+          <div *ngIf="showButtons">
+            <button (click)="reset()" class="mr-2 app-reset-btn" id="store_reset" mat-raised-button type="button"><i
+              class="fas fa-undo"></i> Reset
+            </button>
+            <button (click)="logValidationErrors(this.CourseForm, this.formErrors, this.validationMessages)" class="app-default-btn" id="store_submit" mat-raised-button
+                    type="submit"><i
+              class="far fa-save"></i> Submit
+            </button>&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- form ends -->
+</div>

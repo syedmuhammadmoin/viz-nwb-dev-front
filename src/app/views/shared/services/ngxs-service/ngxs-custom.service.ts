@@ -57,6 +57,8 @@ import {GetLiabilityAccountsState} from 'src/app/views/pages/finance/chat-of-acc
 import {AssetService} from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
 import {AssetState} from '../../../pages/fixed-asset/store/asset.state';
 import {DisposalDropdownState} from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
+import {CourseService} from '../../../pages/admission/course/service/course.service';
+import {CourseState} from '../../../pages/admission/course/store/course.state';
 
 @Injectable({
   providedIn: 'root'
@@ -87,11 +89,20 @@ export class NgxsCustomService {
     public bankAccountService: BankAccountService,
     public depreciationModelService: DepreciationMethodService,
     public budgetService: BudgetService,
+    public courseService: CourseService,
     public store: Store,
   ) {
   }
 
   // selector region start
+
+  // Admission
+  // Course
+  @Select(CourseState.entities) courses$: Observable<any>;
+  @Select(CourseState.isFetchCompleted) courseFetchCompleted$: Observable<any>;
+  @Select(CourseState.isLoading) courseIsLoading$: Observable<any>;
+
+
   // Business Partner
   @Select(BusinessPartnerState.entities) businessPartners$: Observable<any>;
   @Select(BusinessPartnerState.isFetchCompleted) businessPartnerFetchCompleted$: Observable<any>;

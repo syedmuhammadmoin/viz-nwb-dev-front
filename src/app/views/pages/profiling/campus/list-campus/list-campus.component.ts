@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/Dialog'
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
-import { ICampus } from '../model/ICampus';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { CampusService } from '../service/campus.service';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { isEmpty } from 'lodash';
+import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/Dialog'
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams} from 'ag-grid-community';
+import {ICampus} from '../model/ICampus';
+import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';
+import {CampusService} from '../service/campus.service';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {isEmpty} from 'lodash';
 
 @Component({
   selector: 'kt-list-campus',
@@ -16,66 +16,67 @@ import { isEmpty } from 'lodash';
 
 export class ListCampusComponent extends AppComponentBase implements OnInit {
 
-  campusList : ICampus[]
-  gridOptions : GridOptions;
-  defaultColDef : ColDef;
+  campusList: ICampus[]
+  gridOptions: GridOptions;
+  defaultColDef: ColDef;
   components: any;
   gridApi: GridApi;
   gridColumnApi: any;
   public permissions = Permissions
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-   
+
   // constructor
   constructor(
     public dialog: MatDialog,
     public campusService: CampusService,
     private cdRef: ChangeDetectorRef,
     injector: Injector
-  ) { super(injector);
-      this.gridOptions = <GridOptions>(
-        {
-          context : { componentParent : this }
-        }
-      );
-    }
+  ) {
+    super(injector);
+    this.gridOptions = <GridOptions>(
+      {
+        context: {componentParent: this}
+      }
+    );
+  }
 
   //Defining Campus Columns
   columnDefs = [
     {
-      headerName: "Sr.No",
+      headerName: 'Sr.No',
       field: 'index',
-      cellRenderer: "loadingCellRenderer",
+      cellRenderer: 'loadingCellRenderer',
       suppressMenu: true,
     },
-    { 
-      headerName: 'Name', 
-      field: 'name', 
+    {
+      headerName: 'Name',
+      field: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
-        filterParams: {
-          filterOptions: ['contains'],
-          suppressAndOrCondition: true,
-        },
-     },
-     {
-      headerName: 'Active', 
-      field: 'isActive', 
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    },
+    {
+      headerName: 'Active',
+      field: 'isActive',
       suppressMenu: true,
-      valueFormatter: (params : ValueFormatterParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) ? 'Yes' : 'No';
       }
-     },
+    },
   ];
 
-  ngOnInit() { 
+  ngOnInit() {
     this.gridOptions = {
       cacheBlockSize: 20,
-      rowModelType: "infinite",
+      rowModelType: 'infinite',
       paginationPageSize: 10,
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: "double click to edit",
+      context: 'double click to edit',
     };
 
     this.defaultColDef = {
@@ -96,10 +97,11 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       },
     };
 
-    if(!this.permission.isGranted(this.permissions.CAMPUS_EDIT)) {
+    if (!this.permission.isGranted(this.permissions.CAMPUS_EDIT)) {
       this.gridOptions.context = 'double click to view detail'
     }
   }
+
 // data rendering on first
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
@@ -108,8 +110,8 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   dataSource = {
     getRows: async (params: any) => {
       const res = await this.getCampuses(params);
-      if(isEmpty(res.result)) {  
-        this.gridApi.showNoRowsOverlay() 
+      if (isEmpty(res.result)) {
+        this.gridApi.showNoRowsOverlay()
       } else {
         this.gridApi.hideOverlay();
       }
@@ -131,5 +133,3 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     return result
   }
 }
-
-
