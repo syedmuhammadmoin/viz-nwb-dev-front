@@ -86,6 +86,7 @@ export const APP_ROUTES = {
   BATCH_TYPE: 'batch-type',
   COURSE: 'course',
   PROGRAM: 'program',
+  SEMESTER: 'semester',
 
   //FIXED ASSET
   FIXED_ASSET: 'fixed-asset',
@@ -234,6 +235,14 @@ export const COURSE = {
   CREATE: APP_ROUTES.COURSE + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.COURSE + '/' + route + '/' + id
+  }
+}
+
+export const SEMESTER = {
+  LIST: APP_ROUTES.SEMESTER + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.SEMESTER + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.SEMESTER + '/' + route + '/' + id
   }
 }
 

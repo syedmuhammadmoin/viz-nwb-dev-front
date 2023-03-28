@@ -546,7 +546,14 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
-
+      {
+        path: APP_ROUTES.SEMESTER,
+        loadChildren: () =>
+          import('./views/pages/admission/semester/semester.module').then(
+            (m) => m.SemesterModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       {
         path: APP_ROUTES.PROGRAM,
         loadChildren: () =>

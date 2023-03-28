@@ -59,6 +59,8 @@ import {AssetState} from '../../../pages/fixed-asset/store/asset.state';
 import {DisposalDropdownState} from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
 import {CourseService} from '../../../pages/admission/course/service/course.service';
 import {CourseState} from '../../../pages/admission/course/store/course.state';
+import {SemesterService} from '../../../pages/admission/semester/services/semester.service';
+import {SemesterState} from '../../../pages/admission/semester/store/semester.state';
 
 @Injectable({
   providedIn: 'root'
@@ -90,6 +92,7 @@ export class NgxsCustomService {
     public depreciationModelService: DepreciationMethodService,
     public budgetService: BudgetService,
     public courseService: CourseService,
+    public semesterService: SemesterService,
     public store: Store,
   ) {
   }
@@ -97,6 +100,12 @@ export class NgxsCustomService {
   // selector region start
 
   // Admission
+
+  // Semester
+  @Select(SemesterState.entities) semesters$: Observable<any>;
+  @Select(SemesterState.isFetchCompleted) semesterFetchCompleted$: Observable<any>;
+  @Select(SemesterState.isLoading) semesterIsLoading$: Observable<any>;
+
   // Course
   @Select(CourseState.entities) courses$: Observable<any>;
   @Select(CourseState.isFetchCompleted) courseFetchCompleted$: Observable<any>;

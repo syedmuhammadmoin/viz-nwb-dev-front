@@ -9,19 +9,21 @@ import { PartialsModule } from '../partials/partials.module';
 import { CoreModule } from '../../core/core.module';
 import {AgGridModule} from "ag-grid-angular";
 import { MatButtonModule } from '@angular/material/button';
+import { ListSemesterComponent } from './admission/semester/list-semester/list-semester.component';
+import { CreateSemesterComponent } from './admission/semester/create-semester/create-semester.component';
+import {SharedModule} from '../shared/modules/shared.module';
 
 
 @NgModule({
-  imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    CoreModule,
-    AgGridModule,
-    MatButtonModule,
-    PartialsModule
-  ],
-  declarations: [],
+    imports: [
+        CommonModule,
+        HttpClientModule,
+        FormsModule,
+        CoreModule,
+        AgGridModule,
+        MatButtonModule,
+        PartialsModule,
+    ],
 })
 
 export class PagesModule { }

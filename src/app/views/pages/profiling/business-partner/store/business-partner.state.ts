@@ -10,4 +10,3 @@ export class BusinessPartnerState extends ProfilingState<any> {
     super(BusinessPartnerState, 'businessPartner');
   }
 }
-

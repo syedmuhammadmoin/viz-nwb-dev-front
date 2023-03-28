@@ -51,7 +51,7 @@ import {
   RECEIPT,
   REPORT,
   REQUEST_REQUISITION,
-  REQUISITION,
+  REQUISITION, SEMESTER,
   SHIFT,
   STATUS,
   STOCK,
@@ -559,6 +559,16 @@ export class MenuConfig {
             {
               title: 'Course',
               page: '/' + COURSE.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            },
+            {
+              title: 'Semester',
+              page: '/' + SEMESTER.LIST,
               // permission: [
               //   Permissions.COURSE_VIEW,
               //   Permissions.COURSE_CREATE,

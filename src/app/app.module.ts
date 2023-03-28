@@ -113,6 +113,7 @@ import { GetLiabilityAccountsState } from './views/pages/finance/chat-of-account
 import { AgGridButtonCellRendrerComponent } from './views/shared/components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
 import {AssetState} from './views/pages/fixed-asset/store/asset.state';
 import {CourseState} from './views/pages/admission/course/store/course.state';
+import {SemesterState} from './views/pages/admission/semester/store/semester.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -197,7 +198,8 @@ export function getHighlightLanguages() {
       RequisitionState,
       AssetState,
       DisposalDropdownState,
-      CourseState
+      CourseState,
+      SemesterState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
