@@ -28,7 +28,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
-  constructor(private router: Router,
+  constructor(
     private vendorBillService: VendorBillService,
     private cdRef: ChangeDetectorRef,
     injector: Injector
@@ -189,5 +189,3 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
     params.api.setDatasource(dataSource)
   }
 }
-
-

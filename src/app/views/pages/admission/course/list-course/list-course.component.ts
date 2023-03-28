@@ -31,7 +31,6 @@ overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 //Injecting Dependencies
 constructor(
-  private router: Router,
   public dialog: MatDialog,
   private cdRef: ChangeDetectorRef,
   injector: Injector

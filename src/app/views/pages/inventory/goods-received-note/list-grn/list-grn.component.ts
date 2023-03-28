@@ -28,7 +28,6 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
 
   constructor(
     private _grnService: GrnService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     injector: Injector
@@ -43,21 +42,21 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
 
   //Defining GRN Columns
   columnDefs = [
-    { 
-      headerName: 'GRN #', 
-      field: 'docNo', 
-      tooltipField: 'status', 
+    {
+      headerName: 'GRN #',
+      field: 'docNo',
+      tooltipField: 'status',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
-        }, 
+        },
     },
-    { 
-      headerName: 'Vendor', 
-      field: 'vendorName', 
+    {
+      headerName: 'Vendor',
+      field: 'vendorName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -81,8 +80,8 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
       }
     },
     {
-      headerName: 'Total', 
-      field: 'totalAmount', 
+      headerName: 'Total',
+      field: 'totalAmount',
       cellStyle: { 'text-align': "right" },
       tooltipField: 'status',
       suppressMenu: true,
@@ -90,9 +89,9 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       tooltipField: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -154,8 +153,8 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     var dataSource = {
       getRows: (params: any) => {
         this._grnService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }

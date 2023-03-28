@@ -30,12 +30,11 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-  
+
   // Injecting dependencies
   constructor(
     private assetService: AssetService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public dialog: MatDialog,
     injector: Injector
   ) {
@@ -49,11 +48,11 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
 
   // Declaring AgGrid data
   columnDefs = [
-    { 
-      headerName: 'Doc No', 
-      field: 'assetCode', 
-      tooltipField: 'name', 
-      cellRenderer: "loadingCellRenderer", 
+    {
+      headerName: 'Doc No',
+      field: 'assetCode',
+      tooltipField: 'name',
+      cellRenderer: "loadingCellRenderer",
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       //   filterParams: {
@@ -61,10 +60,10 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       //     suppressAndOrCondition: true,
       //   },
     },
-    { 
-      headerName: 'Name', 
-      field: 'name', 
-      tooltipField: 'name', 
+    {
+      headerName: 'Name',
+      field: 'name',
+      tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -73,17 +72,17 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Acquisition Date', 
-      field: 'dateofAcquisition', 
-      tooltipField: 'dateofAcquisition', 
+    {
+      headerName: 'Acquisition Date',
+      field: 'dateofAcquisition',
+      tooltipField: 'dateofAcquisition',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['equals'],
           suppressAndOrCondition: true,
         },
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
@@ -283,8 +282,8 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   dataSource = {
     getRows: (params: any) => {
       this.assetService.getRecords(params).subscribe((data) => {
-        if(isEmpty(data.result)) {  
-          this.gridApi.showNoRowsOverlay() 
+        if(isEmpty(data.result)) {
+          this.gridApi.showNoRowsOverlay()
         } else {
           this.gridApi.hideOverlay();
         }
@@ -295,7 +294,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
     },
   };
 
-  
+
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
@@ -303,7 +302,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
     params.api.setDatasource(this.dataSource);
   }
 
- 
+
 
   // onGridReady(params: GridReadyEvent) {
   //   this.gridApi = params.api;
@@ -320,8 +319,8 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   //   getRows: async (params: any) => {
   //    const res = await this.getJournalEntries(params)
 
-  //    if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }
@@ -331,20 +330,5 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   //    this.cdRef.detectChanges();
   //  },
   // };
-  
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

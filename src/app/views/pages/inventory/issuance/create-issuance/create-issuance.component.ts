@@ -98,7 +98,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     issuanceDate: '',
     fixedAssetId: ''
   };
-  
+
 
   //Injecting Dependencies
   constructor(private fb: FormBuilder,
@@ -110,7 +110,6 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     public addButtonService: AddModalButtonService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -418,7 +417,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
         console.log(res);
         this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
 
-        
+
       })
 
     if (this.isFixedAsset) {

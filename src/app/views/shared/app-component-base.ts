@@ -5,6 +5,21 @@ import {ToastrService} from 'ngx-toastr';
 import {PermissionService} from '../pages/auth/service/permission.service';
 import {DateHelperService} from './helpers/date-helper';
 import {PaginationHelperService} from './pagination/pagination-helper.service';
+import {DocType} from './AppEnum';
+import {
+  BILL,
+  CREDIT_NOTE,
+  DEBIT_NOTE, DISPOSAL,
+  GOODS_RECEIVED_NOTE,
+  GOODS_RETURN_NOTE,
+  INVOICE,
+  JOURNAL_ENTRY,
+  PAYMENT,
+  PAYROLL_TRANSACTION,
+  PURCHASE_ORDER,
+  RECEIPT
+} from './AppRoutes';
+import {Router} from '@angular/router';
 
 export abstract class AppComponentBase {
   datePipe: DatePipe
@@ -12,6 +27,7 @@ export abstract class AppComponentBase {
   permission: PermissionService
   paginationHelper: PaginationHelperService
   dateHelperService: DateHelperService
+  protected router: Router
 
   protected constructor(injector: Injector) {
     this.datePipe = injector.get(DatePipe);
@@ -19,6 +35,7 @@ export abstract class AppComponentBase {
     this.permission = injector.get(PermissionService);
     this.paginationHelper = injector.get(PaginationHelperService)
     this.dateHelperService = injector.get(DateHelperService)
+    this.router = injector.get(Router)
   }
 
   conditionalValidation(formGroup: FormGroup, condition: boolean, data: any[], ...validations: { validation: string, value: any }[]) {
@@ -161,4 +178,51 @@ export abstract class AppComponentBase {
     })
     return objectToReturn
   }
+
+  createNavigationUrl(docType: DocType, documentId): string {
+    switch (docType) {
+      case DocType.PayrollTransaction:
+        return `/payroll/transaction/detail/${documentId}`;
+      case DocType.Invoice:
+        return '/' + INVOICE.ID_BASED_ROUTE('details', documentId);
+      case DocType.Bill:
+        return BILL.ID_BASED_ROUTE('details', documentId);
+      case DocType.JournalEntry:
+        return JOURNAL_ENTRY.ID_BASED_ROUTE('details', documentId);
+      /*case DocType.EmployeeBill:
+          return `/bill/employee/detail/${documentId}`;*/
+      case DocType.Payment:
+        return PAYMENT.ID_BASED_ROUTE('details', documentId);
+      case DocType.Receipt:
+        return RECEIPT.ID_BASED_ROUTE('details', documentId);
+      case DocType.PayrollPayment:
+        return PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', documentId);
+      /*case DocType.ExternalReceipt:
+          return `/payment/external/detail/${documentId}`;
+      case DocType.InternalReceipt:
+          return `/payment/internal/detail/${documentId}`;*/
+      case DocType.DebitNote:
+        return DEBIT_NOTE.ID_BASED_ROUTE('details', documentId);
+      case DocType.CreditNote:
+        return CREDIT_NOTE.ID_BASED_ROUTE('details', documentId);
+      case DocType.PurchaseOrder:
+        return PURCHASE_ORDER.ID_BASED_ROUTE('details', documentId);
+      /*case DocType.SalesOrder:
+        return  SALES_ORDER.ID_BASED_ROUTE('details', documentId);*/
+      case DocType.GRN:
+        return GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('details', documentId);
+      case DocType.GoodsReturnNote:
+        return GOODS_RETURN_NOTE.ID_BASED_ROUTE('details', documentId);
+      case DocType.Disposal:
+        return DISPOSAL.ID_BASED_ROUTE('details', documentId);
+      /*case DocType.Loan:
+          return `/payroll/loan/issuance/detail/${documentId}`;*/
+    }
+  }
+
+  async redirectToDocumentDetail(docType: DocType, documentId) {
+    console.log(this.createNavigationUrl(docType, documentId));
+    await this.router.navigateByUrl(this.createNavigationUrl(docType, documentId));
+  }
+
 }

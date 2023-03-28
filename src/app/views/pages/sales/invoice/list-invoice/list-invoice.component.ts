@@ -31,7 +31,6 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
 
   constructor(
     private invoiceService: InvoiceService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -192,6 +191,3 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     params.api.setDatasource(dataSource);
   }
 }
-
-
-

@@ -110,7 +110,6 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
     private issuanceReturnService: IssuanceReturnService,
     private issuanceService: IssuanceService,
     public ngxsService: NgxsCustomService,
-    private router: Router,
     private employeeService: EmployeeService,
     public activatedRoute: ActivatedRoute,
     public cdRef: ChangeDetectorRef,
@@ -397,7 +396,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   }
 
   async onItemSelected(itemId: number, curretIndex?: number) {
-    
+
     this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.disable();
 
     this.ngxsService.products$
@@ -422,18 +421,3 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

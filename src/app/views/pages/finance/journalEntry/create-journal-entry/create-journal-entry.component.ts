@@ -84,7 +84,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   constructor(
     private fb: FormBuilder,
     private journalEntryService: JournalEntryService,
-    private router: Router,
     public activatedRoute: ActivatedRoute,
     public addButtonService: AddModalButtonService,
     public categoryService: CategoryService,
@@ -284,7 +283,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
           (res: IApiResponse<IJournalEntry>) => {
           this.toastService.success('Updated Successfully', 'Journal Entry')
           this.cdRef.detectChanges();
-          this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , this.journalEntryModel.id)]); 
+          this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , this.journalEntryModel.id)]);
         })
     } else {
       delete this.journalEntryModel.id;
@@ -299,7 +298,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
         .subscribe(
           (res: IApiResponse<IJournalEntry>) => {
             this.toastService.success('Created Successfully', 'Journal Entry')
-            this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , res.result.id)]); 
+            this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details' , res.result.id)]);
           });
     }
   }

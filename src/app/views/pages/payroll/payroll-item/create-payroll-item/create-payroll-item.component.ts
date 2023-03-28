@@ -60,7 +60,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   valueTitle: string = 'Value'
 
    //show Buttons
-   showButtons: boolean = true; 
+   showButtons: boolean = true;
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -118,7 +118,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -146,10 +145,10 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
     //Get Data from Store
     this.ngxsService.getOtherAccountsFromState();
-    
+
     this.activatedRoute.params.subscribe((param) => {
       const id = param.id;
-     
+
       if (id) {
         this.isLoading = true;
         this.showButtons = (this.permission.isGranted(this.permissions.PAYROLL_ITEM_EDIT)) ? true : false;
@@ -174,14 +173,14 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     };
 
     this.frameworkComponents = {
-      customTooltip: CustomTooltipComponent,  
+      customTooltip: CustomTooltipComponent,
       buttonRenderer: ActionButtonComponent
     };
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
-      sortable: true, 
-      filter: true, 
+      sortable: true,
+      filter: true,
       filterParams: {
         suppressAndOrCondition: true
       }
@@ -197,8 +196,8 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       },
     };
 
-     if (!this.selectedEmployees) { 
-        this.gridApi.showNoRowsOverlay() 
+     if (!this.selectedEmployees) {
+        this.gridApi.showNoRowsOverlay()
      } else {
         this.gridApi?.hideOverlay();
      }
@@ -226,43 +225,43 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   }
 
   columnDefs = [
-    { 
-      headerName: 'Name', 
-      field: 'name', 
+    {
+      headerName: 'Name',
+      field: 'name',
       tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
      },
-     { 
-      headerName: 'Father Name', 
+     {
+      headerName: 'Father Name',
       field: 'fatherName',
-      tooltipField: 'name', 
-     },
-     { 
-      headerName: 'Cnic', 
-      field: 'cnic',
-      tooltipField: 'name', 
-     },
-     { 
-      headerName: 'Designation', 
-      field: 'designationName',
-      tooltipField: 'name', 
-     },
-     { 
-      headerName: 'Department', 
-      field: 'departmentName',
-      tooltipField: 'name',  
-     },
-     { 
-      headerName: 'Faculty', 
-      field: 'faculty',
-      tooltipField: 'name', 
-     },
-     { 
-      headerName: 'Shift', 
-      field: 'dutyShift', 
+      tooltipField: 'name',
      },
      {
-       headerName: 'Action', 
+      headerName: 'Cnic',
+      field: 'cnic',
+      tooltipField: 'name',
+     },
+     {
+      headerName: 'Designation',
+      field: 'designationName',
+      tooltipField: 'name',
+     },
+     {
+      headerName: 'Department',
+      field: 'departmentName',
+      tooltipField: 'name',
+     },
+     {
+      headerName: 'Faculty',
+      field: 'faculty',
+      tooltipField: 'name',
+     },
+     {
+      headerName: 'Shift',
+      field: 'dutyShift',
+     },
+     {
+       headerName: 'Action',
        cellRenderer: 'buttonRenderer',
        suppressMenu: true,
        sortable: false,
@@ -319,7 +318,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
 
   //Submit Form Function
   onSubmit(): void {
-   
+
     if (this.payrollItemForm.invalid) {
       this.toastService.error("Please fill all required fields!", "Payroll Item")
       return;
@@ -434,6 +433,3 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     return this.selectedEmployees;
   }
 }
-
-
-

@@ -105,7 +105,6 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   constructor(
     private fb: FormBuilder,
     private billService: VendorBillService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     public productService: ProductService,
     public grnService: GrnService,
@@ -188,7 +187,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       arrayControl.at(index).get('cost').setValue(cost);
       arrayControl.at(index).get('tax').setValue(tax);
       arrayControl.at(index).get('accountId').setValue(account);
-    
+
       // Calculating subtotal
       // const quantity = arrayControl.at(index).get('quantity').value;
       // const subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
@@ -452,7 +451,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
       this.addButtonService.openProductDialog();
     }
   }
- 
+
   checkCampus() {
     this.showMessage = true;
     if(this.vendorBillForm.value.campusId === '') {

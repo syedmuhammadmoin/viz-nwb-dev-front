@@ -39,7 +39,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   public ASSET = ASSET;
   action = ActionButton
   docStatus = DocumentStatus
- 
+
   modelType: any = DepreciationMethod
 
   //For ag grid
@@ -67,7 +67,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
     injector: Injector,
-    private router: Router,
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
@@ -125,7 +124,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
       width: '800px',
       data: {
         id: id,
-        status:this.assetMaster?.state 
+        status:this.assetMaster?.state
       }
     });
     // //Recalling getAsset function on dialog close
@@ -669,7 +668,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     //sending remarks data after dialog closed
     dialogRef.afterClosed().subscribe((res) => {
       console.log(res);
-      
+
       if (res) {
         this.heldForDisposal()
       }

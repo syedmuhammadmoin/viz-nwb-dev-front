@@ -20,8 +20,8 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 })
 
 export class ProfitNLossComponent extends AppComponentBase implements OnInit {
-  
- // for permissions 
+
+ // for permissions
  public permissions = Permissions;
   rowData: any[] = [];
   columnDefs: any;
@@ -40,7 +40,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   //data for PDF
   recordsData: any = []
   disability: boolean = true
-  
+
   //Busy Loading
   isLoading: boolean;
 
@@ -66,13 +66,12 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   constructor(
-    private fb: FormBuilder,  
+    private fb: FormBuilder,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public addButtonService: AddModalButtonService,
     private profitLossService: ProfitLossService,
     public ngxsService:NgxsCustomService,
-    injector: Injector,   
+    injector: Injector,
   ) {
     super(injector);
     this.columnDefs = [
@@ -86,7 +85,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         headerName: 'Transactional',
         field: 'transactional',
         cellStyle: {textAlign : 'left'}
-       
+
       },
       {
         headerName: 'Total',
@@ -110,19 +109,19 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       warehouseId: [null],
       campusId: [null]
     });
-    
+
     //Get Data from Store
-    this.ngxsService.getWarehouseFromState();    
+    this.ngxsService.getWarehouseFromState();
     this.ngxsService.getAccountLevel4FromState()
     this.ngxsService.getCampusFromState()
     this.ngxsService.getBusinessPartnerFromState()
-  
+
     this.defaultColDef = {
       filter: true,
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
-   
+
     this.autoGroupColumnDef = {
       headerName: 'Nature',
       menuTabs: ["filterMenuTab"],
@@ -223,5 +222,3 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       })
   }
 };
-
-  

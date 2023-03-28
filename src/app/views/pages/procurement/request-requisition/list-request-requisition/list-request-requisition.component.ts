@@ -31,7 +31,6 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
 
   constructor(
     private requestRequisitionService: RequestRequisitionService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -45,10 +44,10 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
 
   //Injecting Request Columns
   columnDefs = [
-    { 
-      headerName: 'Request #', 
-      field: 'docNo', 
-      tooltipField: 'docNo', 
+    {
+      headerName: 'Request #',
+      field: 'docNo',
+      tooltipField: 'docNo',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -57,9 +56,9 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
           suppressAndOrCondition: true,
         }
     },
-    { 
-      headerName: 'Employee', 
-      field: 'employeeName', 
+    {
+      headerName: 'Employee',
+      field: 'employeeName',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -78,13 +77,13 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
           filterOptions: ['equals'],
           suppressAndOrCondition: true,
         },
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -98,7 +97,7 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
   ];
 
   ngOnInit() {
-    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -149,8 +148,8 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
     var dataSource = {
       getRows: (params: any) => {
         this.requestRequisitionService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -163,9 +162,3 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
     params.api.setDatasource(dataSource);
   }
 }
-
-
-
-
-
-

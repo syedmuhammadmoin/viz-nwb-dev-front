@@ -41,7 +41,6 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
   constructor(
     private depreciationAdjustmentService: DepreciationAdjustmentService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public dialog: MatDialog,
     injector: Injector
   ) {

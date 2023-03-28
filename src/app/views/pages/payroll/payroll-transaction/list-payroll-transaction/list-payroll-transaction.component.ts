@@ -32,7 +32,6 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
 
   constructor(
     private payrollTransactionService: PayrollTransactionService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -178,7 +177,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
   ];
 
   ngOnInit() {
-    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -225,8 +224,8 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getPayrollTransactions(params);
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
+     if(isEmpty(res.result)) {
+      this.gridApi.showNoRowsOverlay()
     } else {
       this.gridApi.hideOverlay();
     }
@@ -247,12 +246,3 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     return result
   }
 }
-
-
-
-
-
-
-
-
-

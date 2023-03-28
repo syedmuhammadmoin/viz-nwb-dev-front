@@ -48,10 +48,10 @@ export class CreateProgramComponent extends AppComponentBase implements OnInit{
     ]
 },
 
-    
+
 ]
 
-semester  = [ 
+semester  = [
   { id : 1,
     name : 'One',
   },
@@ -121,10 +121,10 @@ totalSemester = 1;
     },
     department : {
       required: 'Department is required.',
-    },                        
+    },
     semester : {
       required: 'Semester is required.',
-    },                        
+    },
     cources : {
       required: 'cources is required.',
     }
@@ -133,10 +133,10 @@ totalSemester = 1;
   // error keys..
   formErrors = {
     name : '',
-    department : '',                        
-    semester : '',                        
+    department : '',
+    semester : '',
     cources : '',
-    
+
   };
 
   // Injecting in dependencies in constructor
@@ -148,7 +148,6 @@ totalSemester = 1;
     public addButtonService: AddModalButtonService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -166,7 +165,7 @@ totalSemester = 1;
       ])
     });
 
-    
+
 
     //get Accounts from Accounts State
 
@@ -229,7 +228,7 @@ totalSemester = 1;
       quantity:Program.quantity,
       decLiningRate:Program.decLiningRate,
       prorataBasis: Program.prorataBasis,
-      isActive:Program.isActive 
+      isActive:Program.isActive
     });
     // this.onChangeDepApplicability({checked : cwip.depreciationApplicability})
     // this.getModelType(cwip.modelType)
@@ -308,23 +307,23 @@ totalSemester = 1;
     // this.cwipModel.quantity = this.cwipForm.value.quantity,
     // this.cwipModel.decLiningRate = this.cwipForm.value.decLiningRate,
     // this.cwipModel.prorataBasis =  this.cwipForm.value.prorataBasis,
-    // this.cwipModel.isActive = this.cwipForm.value.isActive 
+    // this.cwipModel.isActive = this.cwipForm.value.isActive
   }
 
   getSemesters(count : any){
     // console.log(count.value);
     // this.totalSemester = count.value
-    this.addGRNLineClick(count.value)  
+    this.addGRNLineClick(count.value)
 }
 
 
 
   onRoleChange(FirstIndes: number, $event: MatCheckboxChange , secondIndex : number ) {
-    
+
     // console.log(this.allCources[FirstIndes].courses[secondIndex].selected = $event.checked + ' value ');
-    
-    
-    
+
+
+
     this.allCources[FirstIndes].courses[secondIndex].selected = $event.checked
     console.log(this.allCources);
   }
@@ -335,7 +334,7 @@ totalSemester = 1;
     // this.cwipModel.isSubmit = (val === 0) ? false : true;
   }
 
-  
+
   //Add Grn Line
   addGRNLineClick(semester : number): void {
     let count = 0;
@@ -355,11 +354,11 @@ totalSemester = 1;
         this.allCources.pop()
         controls.removeAt(i);
       }
-      
+
     }
     // controls.clear()
     console.log(this.allCources);
-   
+
     this.table.renderRows();
   }
 

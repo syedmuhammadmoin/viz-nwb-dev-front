@@ -18,7 +18,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
   styleUrls: ['./bank-advice-report.component.scss']
 })
 export class BankAdviceReportComponent extends AppComponentBase implements OnInit {
-  // for permissions 
+  // for permissions
   public permissions = Permissions;
 
   // app const for month
@@ -29,29 +29,28 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
 
   constructor(
     // Injecting services in constructor
-    private fb: FormBuilder,   
+    private fb: FormBuilder,
     private payrollReportService: PayrollReportsService,
-    private cdRef: ChangeDetectorRef,   
+    private cdRef: ChangeDetectorRef,
     public addButtonService: AddModalButtonService,
-    private router: Router,
     public ngxsService: NgxsCustomService,
     injector: Injector
   ) {
     super(injector);
     this.columnDefs = [
       {
-        headerName: 'Employee Name', 
-        field: 'employeeName',  
+        headerName: 'Employee Name',
+        field: 'employeeName',
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Bank', 
-        field: 'bankName',  
+        headerName: 'Bank',
+        field: 'bankName',
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Branch', 
-        field: 'branchName',  
+        headerName: 'Branch',
+        field: 'branchName',
         cellStyle: {textAlign : 'left'},
       },
       {
@@ -59,7 +58,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
         field: 'accountNumber',
         cellStyle: {textAlign : 'left'},
         suppressMenu: true
-      },   
+      },
       {
         headerName: 'Amount',
         field: 'amount',
@@ -68,7 +67,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
         }
-      }   
+      }
     ];
   }
 
@@ -89,7 +88,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
 
   //Limit Date
   maxDate : Date = new Date()
-  
+
   // Declaring FormGroup
   bankAdviceReportForm: FormGroup;
 
@@ -160,18 +159,18 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
       finalize(() => {
         this.columnDefs = [
           {
-            headerName: 'Employee Name', 
-            field: 'employeeName',  
+            headerName: 'Employee Name',
+            field: 'employeeName',
             cellStyle: {textAlign : 'left'}
           },
           {
-            headerName: 'Bank', 
-            field: 'bankName',  
+            headerName: 'Bank',
+            field: 'bankName',
             cellStyle: {textAlign : 'left'}
           },
           {
-            headerName: 'Branch', 
-            field: 'branchName',  
+            headerName: 'Branch',
+            field: 'branchName',
             cellStyle: {textAlign : 'left'},
           },
           {
@@ -179,7 +178,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
             field: 'accountNumber',
             cellStyle: {textAlign : 'left'},
             suppressMenu: true
-          },   
+          },
           {
             headerName: 'Amount',
             field: 'amount',
@@ -188,7 +187,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
             valueFormatter: (params: any) => {
               return this.valueFormatter(params.value)
             }
-          }   
+          }
         ];
         this.isLoading = false;
         this.cdRef.detectChanges();
@@ -233,9 +232,3 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
       })
   }
 }
-
-
-
-
-
-

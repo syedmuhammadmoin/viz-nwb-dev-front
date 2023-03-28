@@ -166,7 +166,6 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
   constructor(
     injector: Injector,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     private fb: FormBuilder,
     public employeeService: EmployeeService,
     public departmentService: DepartmentService,
@@ -291,9 +290,3 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState , true))
   }
 }
-
-
-
-
-
-

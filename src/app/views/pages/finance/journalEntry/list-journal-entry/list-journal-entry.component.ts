@@ -33,7 +33,6 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   constructor(
     private journalEntryService: JournalEntryService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public dialog: MatDialog,
     injector: Injector
   ) {

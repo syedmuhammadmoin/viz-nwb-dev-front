@@ -1,23 +1,23 @@
 import {
-	AfterViewInit,
-	ChangeDetectionStrategy,
-	ChangeDetectorRef,
-	Component,
+  AfterViewInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
   ElementRef,
   Injector,
-	OnInit,
-	Renderer2,
-	ViewChild
+  OnInit,
+  Renderer2,
+  ViewChild
 } from '@angular/core';
-import { filter } from 'rxjs/operators';
-import { NavigationEnd, Router } from '@angular/router';
+import {filter} from 'rxjs/operators';
+import {NavigationEnd} from '@angular/router';
 import * as objectPath from 'object-path';
 // Layout
-import { LayoutConfigService, MenuAsideService, MenuOptions, OffcanvasOptions } from '../../../core/_base/layout';
-import { HtmlClassService } from '../html-class.service';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { NgxPermissionsService } from 'ngx-permissions';
-import { AuthSingletonService } from '../../pages/auth/service/auth-singleton.service';
+import {LayoutConfigService, MenuAsideService, MenuOptions, OffcanvasOptions} from '../../../core/_base/layout';
+import {HtmlClassService} from '../html-class.service';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {NgxPermissionsService} from 'ngx-permissions';
+import {AuthSingletonService} from '../../pages/auth/service/auth-singleton.service';
 
 @Component({
   selector: 'kt-aside-left',
@@ -78,7 +78,6 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     public htmlClassService: HtmlClassService,
     public menuAsideService: MenuAsideService,
     public layoutConfigService: LayoutConfigService,
-    private router: Router,
     private render: Renderer2,
     private cdr: ChangeDetectorRef,
     private permissionsService: NgxPermissionsService,
@@ -88,8 +87,8 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     super(injector)
     this.permissionsService.loadPermissions(this.authSingleton.getCurrentUserPermission() ?? []);
   }
-  
-  ngAfterViewInit(): void {    
+
+  ngAfterViewInit(): void {
   }
 
   ngOnInit() {
@@ -99,10 +98,9 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
       .pipe(filter(event => event instanceof NavigationEnd))
       .subscribe(event => {
         this.currentRouteUrl = this.router.url.split(/[?#]/)[0];
-      //  this.mobileMenuClose();
+        //  this.mobileMenuClose();
         this.cdr.markForCheck();
       });
-
 
 
     const config = this.layoutConfigService.getConfig();
@@ -114,7 +112,7 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     }
 
     this.asideClasses = this.htmlClassService.getClasses('aside', true).toString();
-    this.asideLogo = this.getAsideLogo();    
+    this.asideLogo = this.getAsideLogo();
     setTimeout(() => {
       this.offcanvas = new KTOffcanvas(this.asideMenuOffcanvas.nativeElement, this.menuCanvasOptions);
     });
@@ -144,7 +142,7 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
 
     return this.currentRouteUrl.indexOf(item.page) !== -1;
     // return false
-  
+
   }
 
   /**
@@ -263,7 +261,7 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
 
   showMenuItem(permissions: any): boolean {
     console.log('aside permission :', permissions);
-    if(permissions) {
+    if (permissions) {
       return permissions.filter(item => this.permission.isGranted(item)).length > 0 ? true : false;
     }
     return true

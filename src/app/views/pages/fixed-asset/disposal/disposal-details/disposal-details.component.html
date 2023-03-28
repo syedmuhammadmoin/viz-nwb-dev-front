@@ -23,6 +23,11 @@
                     type="button" class="mr-2 btn_public" id="disposal_edit" (click)="editDisposal(disposalMaster?.id)" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>
+                  <button *ngIf="(disposalMaster?.state === docStatus.Unpaid)
+                  && (permission.isGranted(permissions.RECEIPT_CREATE))"
+                          type="button" class="mr-2 btn_public" id="register_payment" (click)="registerPayment(disposalMaster?.id)" >
+                    <i class="fa fa-edit" ></i> Register Payment
+                  </button>
                 </ng-container>
               </div>
               <div class="col-lg-6 text-right" *ngIf="disposalMaster?.isAllowedRole">
@@ -56,7 +61,7 @@
                     <span class="float-right" >{{valueFormatter(disposalMaster?.salvageValue)}}</span>
                   </h4>
               </div>
-               
+
             </div>
 
             <div class="col-md-6 col-lg-6  mt-3">

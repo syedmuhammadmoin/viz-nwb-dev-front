@@ -34,8 +34,8 @@
                     placeholder="Select Fixed Asset"
                     propertyName="name"
                     formControlName="fixedAssetId"
-                    (blurEvent)="logValidationErrors(assetReportForm, formErrors, validationMessages)"
-                    [errorMessage]="'Fixed Asset is required.'"
+                    isRequired="false"
+                    hintText="Optional"
                     matFormFieldClass="full-width"
                     [optionList]="ngxService.assets$">
                   </kt-simple-dropdown>
@@ -49,8 +49,8 @@
                     placeholder="Select Warehouse"
                     propertyName="name"
                     formControlName="storeId"
-                    [errorMessage]="'Warehouse is required.'"
-                    (blurEvent)="logValidationErrors(assetReportForm, formErrors, validationMessages)"
+                    isRequired="false"
+                    hintText="Optional"
                     matFormFieldClass="full-width"
                     [optionList]="ngxService.warehouses$">
                   </kt-simple-dropdown>

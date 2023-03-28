@@ -33,7 +33,6 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
 
   constructor(
     private quotationService: QuotationService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -172,6 +171,3 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
     params.api.setDatasource(dataSource);
   }
 }
-
-
-

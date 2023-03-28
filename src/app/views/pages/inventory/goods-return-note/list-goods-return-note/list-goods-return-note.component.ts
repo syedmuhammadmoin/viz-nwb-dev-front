@@ -28,7 +28,6 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
 
   constructor(
     private goodsReturnNoteService: GoodsReturnNoteService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     injector: Injector
@@ -43,21 +42,21 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
 
   //Defining Goods Return Note Columns
   columnDefs = [
-    { 
-      headerName: 'GRTRN #', 
-      field: 'docNo', 
-      tooltipField: 'status', 
+    {
+      headerName: 'GRTRN #',
+      field: 'docNo',
+      tooltipField: 'status',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
-        }, 
+        },
     },
-    { 
-      headerName: 'Vendor', 
-      field: 'vendorName', 
+    {
+      headerName: 'Vendor',
+      field: 'vendorName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -81,18 +80,18 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
       }
     },
     {
-      headerName: 'Total', 
-      field: 'totalAmount', 
-      cellStyle: { 'text-align': "right" }, 
+      headerName: 'Total',
+      field: 'totalAmount',
+      cellStyle: { 'text-align': "right" },
       tooltipField: 'status',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       tooltipField: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -154,8 +153,8 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
     var dataSource = {
       getRows: (params: any) => {
         this.goodsReturnNoteService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -168,6 +167,3 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
     params.api.setDatasource(dataSource);
   }
 }
-
-
-

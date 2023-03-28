@@ -32,7 +32,6 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
 
   constructor(
     private bidEvaluationService: BidEvaluationService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -46,10 +45,10 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
 
   //Defining Bid Evaluation Columns
   columnDefs = [
-    { 
-      headerName: 'Bid Evaluation #', 
-      field: 'docNo', 
-      tooltipField: 'docNo', 
+    {
+      headerName: 'Bid Evaluation #',
+      field: 'docNo',
+      tooltipField: 'docNo',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -58,9 +57,9 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
           suppressAndOrCondition: true,
         }
     },
-    { 
-      headerName: 'Agency Name', 
-      field: 'name', 
+    {
+      headerName: 'Agency Name',
+      field: 'name',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -69,9 +68,9 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Method', 
-      field: 'name', 
+    {
+      headerName: 'Method',
+      field: 'name',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -80,9 +79,9 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Procurement Title', 
-      field: 'title', 
+    {
+      headerName: 'Procurement Title',
+      field: 'title',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -91,9 +90,9 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Tendor Inquiry Number', 
-      field: 'tendorInquiryNumber', 
+    {
+      headerName: 'Tendor Inquiry Number',
+      field: 'tendorInquiryNumber',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -118,7 +117,7 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
   ];
 
   ngOnInit() {
-    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -169,8 +168,8 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
     var dataSource = {
       getRows: (params: any) => {
         this.bidEvaluationService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -183,12 +182,3 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
     params.api.setDatasource(dataSource);
   }
 }
-
-
-
-
-
-
-
-
-

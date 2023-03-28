@@ -19,39 +19,38 @@ import { isEmpty } from 'lodash';
 
 export class ListEstimatedBudgetComponent extends AppComponentBase implements OnInit {
 
+  // Injecting Dependencies
+  constructor(
+    private _estimatedBudgetService: EstimatedBudgetService,
+    public  dialog: MatDialog,
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector)
+    this.gridOptions = ((
+      {
+      context : { componentParent : this }
+      }
+    ) as GridOptions);
+    }
+
   estimatedBudgetList: IEstimatedBudget[];
   gridOptions : GridOptions;
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
-  tooltipData : string = "double click to view detail"
+  tooltipData = 'double click to view detail'
   public permissions = Permissions
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
-  //Injecting Dependencies
-  constructor( 
-    private _estimatedBudgetService: EstimatedBudgetService,
-    public  dialog: MatDialog,
-    private router: Router,
-    private cdRef: ChangeDetectorRef,
-    injector: Injector
-  ) {
-    super(injector)
-    this.gridOptions = <GridOptions>(
-      { 
-      context : { componentParent : this } 
-      }
-    );
-    } 
-
     columnDefs = [
       {
-        headerName: 'Estimated Budget Name', 
-        field: 'estimatedBudgetName', 
-        tooltipField: 'to', 
-        cellRenderer: "loadingCellRenderer", 
+        headerName: 'Estimated Budget Name',
+        field: 'estimatedBudgetName',
+        tooltipField: 'to',
+        cellRenderer: 'loadingCellRenderer',
         filter: 'agTextColumnFilter',
         menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -60,10 +59,10 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
         },
       },
       {
-        headerName: 'From', 
-        field: 'from',  
-        menuTabs: ["filterMenuTab"], 
-        suppressMenu: true, 
+        headerName: 'From',
+        field: 'from',
+        menuTabs: ['filterMenuTab'],
+        suppressMenu: true,
         tooltipField: 'to',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
@@ -71,10 +70,10 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
         }
       },
       {
-        headerName: 'To', 
-        field: 'to',  
-        menuTabs: ["filterMenuTab"], 
-        suppressMenu: true, 
+        headerName: 'To',
+        field: 'to',
+        menuTabs: ['filterMenuTab'],
+        suppressMenu: true,
         tooltipField: 'to',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
@@ -82,17 +81,31 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
         }
       },
     ];
- 
+
+  dataSource = {
+    getRows: async (params: any) => {
+     const res = await this.getEstimatedBudgets(params);
+     if(isEmpty(res.result)) {
+      this.gridApi.showNoRowsOverlay()
+    } else {
+      this.gridApi.hideOverlay();
+    }
+     params.successCallback(res.result || 0, res.totalRecords);
+     this.paginationHelper.goToPage(this.gridApi, 'anticipatedBudgetPageName');
+     this.cdRef.detectChanges();
+   },
+  };
+
   ngOnInit() {
 
     this.gridOptions = {
       cacheBlockSize: 20,
-      rowModelType: "infinite",
+      rowModelType: 'infinite',
       paginationPageSize: 10,
       pagination: true,
       rowHeight: 30,
-      headerHeight: 35, 
-      context: "double click to view detail",
+      headerHeight: 35,
+      context: 'double click to view detail',
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
@@ -106,7 +119,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
     }
 
     this.components = {
-      loadingCellRenderer: function (params: any) {
+      loadingCellRenderer (params: any) {
         if (params.value !== undefined) {
           return params.value;
         } else {
@@ -128,20 +141,6 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
     this.router.navigate(['/' + ESTIMATED_BUDGET.CREATE])
   }
 
-  dataSource = {
-    getRows: async (params: any) => {
-     const res = await this.getEstimatedBudgets(params);
-     if(isEmpty(res.result)) {   
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-      this.gridApi.hideOverlay();
-    }
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'anticipatedBudgetPageName');
-     this.cdRef.detectChanges();
-   },
-  };
-
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
@@ -153,23 +152,3 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
     return result
   }
 }
-
-  
- 
-
-
-  
- 
- 
-
-
-
-
-
-
-
-
-
-
-
-

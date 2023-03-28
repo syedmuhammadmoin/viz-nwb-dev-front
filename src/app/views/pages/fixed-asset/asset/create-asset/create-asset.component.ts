@@ -174,7 +174,6 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     private depreciationService: DepreciationMethodService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);

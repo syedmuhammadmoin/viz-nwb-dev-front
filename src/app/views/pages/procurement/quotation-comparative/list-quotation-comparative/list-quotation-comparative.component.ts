@@ -30,7 +30,6 @@ export class ListQuotationComparativeComponent extends AppComponentBase implemen
 
   constructor(
     private quotationComparativeService: QuotationComparativeService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {

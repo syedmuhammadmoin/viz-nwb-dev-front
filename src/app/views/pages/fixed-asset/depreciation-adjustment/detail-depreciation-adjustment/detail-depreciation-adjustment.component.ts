@@ -52,7 +52,6 @@ export class DetailDepreciationAdjustmentComponent extends AppComponentBase impl
     private activatedRoute: ActivatedRoute,
     private depreciationAdjustmentService: DepreciationAdjustmentService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     private dialog: MatDialog,
     private layoutUtilService: LayoutUtilsService,
     injector: Injector

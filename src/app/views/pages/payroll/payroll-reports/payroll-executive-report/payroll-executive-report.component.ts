@@ -29,7 +29,7 @@ function sumFunc(params) {
 })
 
 export class PayrollExecutiveReportComponent extends AppComponentBase implements OnInit {
-  // for permissions 
+  // for permissions
   public permissions = Permissions;
 
   // app const for month
@@ -40,24 +40,23 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   constructor(
     // Injecting services in constructor
-    private fb: FormBuilder,   
+    private fb: FormBuilder,
     private payrollReportService: PayrollReportsService,
-    private cdRef: ChangeDetectorRef,   
+    private cdRef: ChangeDetectorRef,
     public addButtonService: AddModalButtonService,
-    private router: Router,
     public ngxsService: NgxsCustomService,
     private injector: Injector
   ) {
     super(injector);
     this.columnDefs = [
       {
-        headerName: 'COA', 
-        field: 'accountName', 
+        headerName: 'COA',
+        field: 'accountName',
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Payroll Item Type', 
-        field: 'payrollType',  
+        headerName: 'Payroll Item Type',
+        field: 'payrollType',
         cellStyle: {textAlign : 'left'},
         valueFormatter: (params: any) => {
           return AppConst.PayrollType[params.value].value
@@ -71,7 +70,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
         }
-      }   
+      }
     ];
   }
 
@@ -92,7 +91,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
   //Limit Date
   maxDate : Date = new Date()
-  
+
   // Declaring FormGroup
   payrollExecutiveForm: FormGroup;
 
@@ -156,13 +155,13 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       finalize(() => {
         this.columnDefs = [
           {
-            headerName: 'COA', 
-            field: 'accountName',  
+            headerName: 'COA',
+            field: 'accountName',
             cellStyle: {textAlign : 'left'}
           },
           {
-            headerName: 'Payroll Item Type', 
-            field: 'payrollType',  
+            headerName: 'Payroll Item Type',
+            field: 'payrollType',
             cellStyle: {textAlign : 'left'},
             valueFormatter: (params: any) => {
               return AppConst.PayrollType[params.value].value
@@ -176,7 +175,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
             valueFormatter: (params: any) => {
               return this.valueFormatter(params.value)
             }
-          }   
+          }
         ];
         this.isLoading = false;
         this.cdRef.detectChanges();
@@ -221,6 +220,3 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       })
   }
 }
-
-
-

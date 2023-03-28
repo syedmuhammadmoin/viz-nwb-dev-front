@@ -29,12 +29,11 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-  
+
   // Injecting dependencies
   constructor(
     private depreciationService: DepreciationMethodService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public dialog: MatDialog,
     injector: Injector
   ) {
@@ -48,11 +47,11 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
 
   // Declaring AgGrid data
   columnDefs = [
-    { 
-      headerName: 'Model Name', 
-      field: 'modelName', 
-      tooltipField: 'name', 
-      cellRenderer: "loadingCellRenderer", 
+    {
+      headerName: 'Model Name',
+      field: 'modelName',
+      tooltipField: 'name',
+      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -60,24 +59,24 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'UseFull Life', 
-      field: 'useFullLife', 
-      tooltipField: 'name', 
+    {
+      headerName: 'UseFull Life',
+      field: 'useFullLife',
+      tooltipField: 'name',
       suppressMenu: true,
     },
-    { 
-      headerName: 'Model Type', 
-      field: 'modelType', 
-      tooltipField: 'name', 
-      suppressMenu: true, 
+    {
+      headerName: 'Model Type',
+      field: 'modelType',
+      tooltipField: 'name',
+      suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return DepreciationMethod[params.value];
       }
     },
-    { 
-      headerName: 'Declining Rate (%)', 
-      field: 'decliningRate', 
+    {
+      headerName: 'Declining Rate (%)',
+      field: 'decliningRate',
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value ?? 'N/A'
@@ -146,8 +145,8 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getAssetCategories(params);
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
+     if(isEmpty(res.result)) {
+      this.gridApi.showNoRowsOverlay()
     } else {
       this.gridApi.hideOverlay();
     }
@@ -176,8 +175,8 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   //   // var dataSource = {
   //   //   getRows: (params: any) => {
   //   //     this.depreciationService.getRecords(params).subscribe((data) => {
-  //   //       if(isEmpty(data.result)) {  
-  //   //         this.gridApi.showNoRowsOverlay() 
+  //   //       if(isEmpty(data.result)) {
+  //   //         this.gridApi.showNoRowsOverlay()
   //   //       } else {
   //   //         this.gridApi.hideOverlay();
   //   //       }
@@ -205,8 +204,8 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   //   getRows: async (params: any) => {
   //    const res = await this.getJournalEntries(params)
 
-  //    if(isEmpty(res.result)) { 
-  //     this.gridApi.showNoRowsOverlay() 
+  //    if(isEmpty(res.result)) {
+  //     this.gridApi.showNoRowsOverlay()
   //   } else {
   //    this.gridApi.hideOverlay();
   //   }
@@ -216,14 +215,5 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   //    this.cdRef.detectChanges();
   //  },
   // };
-  
+
 }
-
-
-
-
-
-
-
-
-

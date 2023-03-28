@@ -1,96 +1,104 @@
-import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { Router } from '@angular/router';
-import { BUDGET } from 'src/app/views/shared/AppRoutes';
-import { IBudgetResponse } from '../model/IBudgetResponse';
-import { BudgetService } from '../service/budget.service';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { isEmpty } from 'lodash';
+import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {
+  ColDef,
+  ColumnApi,
+  FirstDataRenderedEvent,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+  RowDoubleClickedEvent,
+  ValueFormatterParams
+} from 'ag-grid-community';
+import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';
+import {BUDGET} from 'src/app/views/shared/AppRoutes';
+import {IBudgetResponse} from '../model/IBudgetResponse';
+import {BudgetService} from '../service/budget.service';
+import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {isEmpty} from 'lodash';
 
 @Component({
   selector: 'kt-list-budget',
   templateUrl: './list-budget.component.html',
-  styleUrls: ['./list-budget.component.scss'], 
+  styleUrls: ['./list-budget.component.scss'],
 })
 
 export class ListBudgetComponent extends AppComponentBase implements OnInit {
 
   budgetList: IBudgetResponse[];
-  gridOptions : GridOptions;
+  gridOptions: GridOptions;
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  tooltipData : string = "double click to view detail"
+  frameworkComponents: { [p: string]: unknown };
+  tooltipData: string = 'double click to view detail'
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: { loadingCellRenderer(params: any): unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
-  constructor( private _budgetService: BudgetService,
-               public  dialog: MatDialog,
-               private router: Router,
-               private cdRef: ChangeDetectorRef,
-               injector: Injector
-             ) {
-               super(injector)
-                this.gridOptions = <GridOptions>(
-                 { 
-                  context : { componentParent : this } 
-                 }
-                );
-               } 
+  constructor(
+    private _budgetService: BudgetService,
+    public dialog: MatDialog,
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector)
+    this.gridOptions = <GridOptions>(
+      {
+        context: {componentParent: this}
+      }
+    );
+  }
 
-    columnDefs = [
-      {
-        headerName: 'Budget', 
-        field: 'budgetName', 
-        tooltipField: 'to', 
-        cellRenderer: "loadingCellRenderer",
-        filter: 'agTextColumnFilter',
-        menuTabs: ['filterMenuTab'],
-            filterParams: {
-              filterOptions: ['contains'],
-              suppressAndOrCondition: true,
-        },
+  columnDefs = [
+    {
+      headerName: 'Budget',
+      field: 'budgetName',
+      tooltipField: 'to',
+      cellRenderer: 'loadingCellRenderer',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
       },
-      {
-        headerName: 'From', 
-        field: 'from',  
-        menuTabs: ["filterMenuTab"], 
-        suppressMenu: true, 
-        tooltipField: 'to',
-        valueFormatter: (params: ValueFormatterParams) => {
-          const date = params.value != null ? params.value : null;
-          return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
-        }
-      },
-      {
-        headerName: 'To', 
-        field: 'to',  
-        menuTabs: ["filterMenuTab"], 
-        suppressMenu: true, 
-        tooltipField: 'to',
-        valueFormatter: (params: ValueFormatterParams) => {
-          const date = params.value != null ? params.value : null;
-          return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
-        }
-      },
-    ];
- 
+    },
+    {
+      headerName: 'From',
+      field: 'from',
+      menuTabs: ['filterMenuTab'],
+      suppressMenu: true,
+      tooltipField: 'to',
+      valueFormatter: (params: ValueFormatterParams) => {
+        const date = params.value != null ? params.value : null;
+        return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
+      }
+    },
+    {
+      headerName: 'To',
+      field: 'to',
+      menuTabs: ['filterMenuTab'],
+      suppressMenu: true,
+      tooltipField: 'to',
+      valueFormatter: (params: ValueFormatterParams) => {
+        const date = params.value != null ? params.value : null;
+        return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
+      }
+    },
+  ];
+
   ngOnInit() {
 
     this.gridOptions = {
       cacheBlockSize: 20,
-      rowModelType: "infinite",
+      rowModelType: 'infinite',
       paginationPageSize: 10,
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: "double click to view detail",
+      context: 'double click to view detail',
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
@@ -114,11 +122,11 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
     };
   }
 
-  onFirstDataRendered(params : FirstDataRenderedEvent) {
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
-  onRowDoubleClicked(event : RowDoubleClickedEvent){
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
     this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
@@ -128,16 +136,16 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
 
   dataSource = {
     getRows: async (params: any) => {
-     const res = await this.getBudgets(params);
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
-    } else {
-      this.gridApi.hideOverlay();
-    }
-     params.successCallback(res.result || 0, res.totalRecords);
-     this.paginationHelper.goToPage(this.gridApi, 'budgetPageName');
-     this.cdRef.detectChanges();
-   },
+      const res = await this.getBudgets(params);
+      if (isEmpty(res.result)) {
+        this.gridApi.showNoRowsOverlay()
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'budgetPageName');
+      this.cdRef.detectChanges();
+    },
   };
 
   onGridReady(params: GridReadyEvent) {
@@ -151,20 +159,3 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
     return result
   }
 }
-
- 
- 
-
-
-  
- 
- 
-
-
-
-
-
-
-
-
-

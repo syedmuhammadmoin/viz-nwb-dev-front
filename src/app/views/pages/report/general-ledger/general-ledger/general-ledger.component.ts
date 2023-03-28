@@ -55,7 +55,7 @@ function creditSum(params) {
   styleUrls: ['./general-ledger.component.scss']
 })
 export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
-  // for permissions 
+  // for permissions
   public permissions = Permissions;
 
   //for resetting form
@@ -81,7 +81,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
   //Busy Loading
   isLoading: boolean;
-  
+
   // Declaring FormGroup
   generalLedgerForm: FormGroup;
 
@@ -111,30 +111,29 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
   constructor(
     // Injecting services in constructor
-    private fb: FormBuilder,   
+    private fb: FormBuilder,
     private generalLedgerService: GeneralLedgerService,
-    private cdRef: ChangeDetectorRef,   
+    private cdRef: ChangeDetectorRef,
     public addButtonService: AddModalButtonService,
-    private router: Router,
     public ngxsService: NgxsCustomService,
     private injector: Injector
   ) {
     super(injector);
     this.columnDefs = [
-      { 
-        headerName: 'Account Name', 
-        field: 'accountName', 
-        rowGroup: true, 
+      {
+        headerName: 'Account Name',
+        field: 'accountName',
+        rowGroup: true,
         hide: true,
       },
       {
-        headerName: 'Business Partner', 
-        field: 'businessPartnerName', 
+        headerName: 'Business Partner',
+        field: 'businessPartnerName',
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Date', 
-        field: 'docDate', 
+        headerName: 'Date',
+        field: 'docDate',
         cellStyle: {textAlign : 'left'},
         cellRenderer: (params: any) => {
           const date = params?.data?.docDate != null ? params?.data?.docDate : null;
@@ -142,22 +141,22 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         }
       },
       {
-        headerName: 'Document No', 
-        field: 'docNo', 
+        headerName: 'Document No',
+        field: 'docNo',
         cellStyle: {textAlign : 'left'}
       },
       {
-        headerName: 'Document Type', 
-        field: 'docType', 
+        headerName: 'Document Type',
+        field: 'docType',
         suppressMenu: true,
         cellStyle: {textAlign : 'left'},
         valueFormatter: (params: ValueFormatterParams) => {
           return DocType[params.value]
-        } 
+        }
       },
       {
-        headerName: 'Description', 
-        field: 'description', 
+        headerName: 'Description',
+        field: 'description',
         cellStyle: {textAlign : 'left'},
         suppressMenu: true,
       },
@@ -188,7 +187,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         valueFormatter: (params) => {
           return this.valueFormatter(params.value)
         }
-      }   
+      }
     ];
   }
 
@@ -207,7 +206,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
-   
+
     this.autoGroupColumnDef = {
       headerName: 'Account',
       menuTabs: ["filterMenuTab"],
@@ -231,7 +230,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
     //Get Data From Store
     this.ngxsService.getAllBusinessPartnerFromState();
-    this.ngxsService.getWarehouseFromState();    
+    this.ngxsService.getWarehouseFromState();
     this.ngxsService.getAccountLevel4FromState()
     this.ngxsService.getCampusFromState()
 
@@ -253,14 +252,14 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       finalize(() => {
         this.columnDefs = [
           {
-            headerName: 'Account Name', 
-            field: 'accountName', 
-            rowGroup: true, 
+            headerName: 'Account Name',
+            field: 'accountName',
+            rowGroup: true,
             hide: true
           },
           {
-            headerName: 'Business Partner', 
-            field: 'businessPartnerName', 
+            headerName: 'Business Partner',
+            field: 'businessPartnerName',
             cellStyle: {textAlign : 'left'}
           },
           {
@@ -271,18 +270,18 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             }
           },
           {
-            headerName: 'Document No', 
-            field: 'docNo', 
+            headerName: 'Document No',
+            field: 'docNo',
             cellStyle: {textAlign : 'left'}
           },
           {
-            headerName: 'Document Type', 
-            field: 'docType',  
+            headerName: 'Document Type',
+            field: 'docType',
             suppressMenu: true,
             cellStyle: {textAlign : 'left'},
             valueFormatter: (params: ValueFormatterParams) => {
               return DocType[params.value]
-            } 
+            }
           },
 
           // },

@@ -32,7 +32,6 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   constructor(
     private creditNoteService: CreditNoteService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector)

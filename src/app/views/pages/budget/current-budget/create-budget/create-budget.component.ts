@@ -70,7 +70,6 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   constructor(
     private fb: FormBuilder,
     public addNewButtonService: AddModalButtonService,
-    private router: Router,
     private budgetService: BudgetService,
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
@@ -148,7 +147,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
 
   // Form Reset
   reset() {
-    this.formDirective.resetForm(); 
+    this.formDirective.resetForm();
     this.table.renderRows();
   }
 
@@ -194,7 +193,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
       this.toastService.error('Please add Estimated Budget lines', 'Estimated Budget')
       return;
     }
-    
+
     if (this.budgetForm.invalid) {
       this.toastService.error("Please fill all required fields!", "Estimated Budget")
       return;
@@ -244,4 +243,3 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     this.budgetModel.budgetLines = this.budgetForm.value.budgetLines;
   }
 }
-

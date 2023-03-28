@@ -83,7 +83,6 @@ export class CreateDepreciationAdjustmentComponent extends AppComponentBase impl
     private fb: FormBuilder,
     private depreciationAdjustmentService: DepreciationAdjustmentService,
     private assetService: AssetService,
-    private router: Router,
     public activatedRoute: ActivatedRoute,
     public addButtonService: AddModalButtonService,
     public categoryService: CategoryService,

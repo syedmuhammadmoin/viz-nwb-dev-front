@@ -81,7 +81,6 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
     private injector: Injector,
     public ngxService: NgxsCustomService,
     private fixedReportService: FixedAssetReportService,
-    private router: Router
   ) {
     super(injector);
     this.columnDefs = [
@@ -193,8 +192,8 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
     this.assetReportForm = this.fb.group({
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],
-      fixedAssetId: ['', [Validators.required]],
-      storeId: ['', [Validators.required]],
+      fixedAssetId: [''],
+      storeId: [''],
     });
 
     // Get Data From Store

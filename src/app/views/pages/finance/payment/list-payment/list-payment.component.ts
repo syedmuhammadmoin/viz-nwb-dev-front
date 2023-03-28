@@ -17,7 +17,7 @@ import { isEmpty } from 'lodash';
   selector: 'kt-list-payment',
   templateUrl: './list-payment.component.html',
   styleUrls: ['./list-payment.component.scss']
-}) 
+})
 
 export class ListPaymentComponent extends AppComponentBase implements OnInit, OnDestroy {
 
@@ -42,7 +42,6 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   subscription$: Subscription
 
   constructor(private paymentService: PaymentService,
-    private router: Router,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
@@ -199,7 +198,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
      this.cdRef.detectChanges();
    },
   };
- 
+
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;

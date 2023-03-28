@@ -31,7 +31,6 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
 
   constructor(
     private _purchaseOrderService: PurchaseOrderService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     injector: Injector
@@ -46,11 +45,11 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
 
   //Defining Purchase Order Columns
   columnDefs = [
-    { 
-      headerName: 'PO #', 
-      field: 'docNo', 
-      tooltipField: 'status', 
-      cellRenderer: "loadingCellRenderer", 
+    {
+      headerName: 'PO #',
+      field: 'docNo',
+      tooltipField: 'status',
+      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -58,9 +57,9 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Vendor', 
-      field: 'vendorName', 
+    {
+      headerName: 'Vendor',
+      field: 'vendorName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -98,18 +97,18 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
       }
     },
     {
-      headerName: 'Total', 
-      field: 'totalAmount', 
+      headerName: 'Total',
+      field: 'totalAmount',
       tooltipField: 'status',
-      cellStyle: { 'text-align': "right" }, 
+      cellStyle: { 'text-align': "right" },
       suppressMenu: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -118,7 +117,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
           suppressSorting:true,
           suppressSelectAll: true,
           suppressAndOrCondition: true,
-        }, 
+        },
     },
   ];
 
@@ -174,8 +173,8 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     var dataSource = {
       getRows: (params: any) => {
         this._purchaseOrderService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -188,6 +187,3 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     params.api.setDatasource(dataSource);
   }
 }
-
-
-

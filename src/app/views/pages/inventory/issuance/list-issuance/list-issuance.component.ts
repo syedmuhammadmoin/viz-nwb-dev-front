@@ -31,7 +31,6 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
 
   constructor(
     private issuanceService: IssuanceService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -45,10 +44,10 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
 
   //Defining Issuance Columns
   columnDefs = [
-    { 
-      headerName: 'Issuance #', 
-      field: 'docNo', 
-      tooltipField: 'docNo', 
+    {
+      headerName: 'Issuance #',
+      field: 'docNo',
+      tooltipField: 'docNo',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -57,9 +56,9 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Employee', 
-      field: 'employeeName', 
+    {
+      headerName: 'Employee',
+      field: 'employeeName',
       tooltipField: 'docNo',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -78,15 +77,15 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
           filterOptions: ['equals'],
           suppressAndOrCondition: true,
         },
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       filter: 'agSetColumnFilter',
-      
+
       menuTabs: ['filterMenuTab'],
         filterParams: {
           values: ['Rejected', 'Approved', 'Submitted', 'Reviewed'],
@@ -99,7 +98,7 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
   ];
 
   ngOnInit() {
-    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -150,8 +149,8 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
     var dataSource = {
       getRows: (params: any) => {
         this.issuanceService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -164,9 +163,3 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
     params.api.setDatasource(dataSource);
   }
 }
-
-
-
-
-
-

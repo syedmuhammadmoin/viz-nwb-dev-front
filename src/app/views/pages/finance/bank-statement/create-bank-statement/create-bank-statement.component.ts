@@ -1,19 +1,19 @@
-import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component,  ElementRef,  Injector, OnInit, ViewChild } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { IBankStatement } from '../model/IBankStatement';
-import { BankStatementService } from '../service/bank-statement.service';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { finalize, take } from 'rxjs/operators';
-import { IBankStatementLines } from '../model/IBankStatementLines';
-import { Observable } from 'rxjs';
-import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { BANK_STATEMENT } from 'src/app/views/shared/AppRoutes';
-import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { AppConst } from 'src/app/views/shared/AppConst';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import {NgxsCustomService} from '../../../../shared/services/ngxs-service/ngxs-custom.service';
+import {ChangeDetectorRef, Component, ElementRef, Injector, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
+import {IBankStatement} from '../model/IBankStatement';
+import {BankStatementService} from '../service/bank-statement.service';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {finalize, take} from 'rxjs/operators';
+import {IBankStatementLines} from '../model/IBankStatementLines';
+import {Observable} from 'rxjs';
+import {FormsCanDeactivate} from 'src/app/views/shared/route-guards/form-confirmation.guard';
+import {BANK_STATEMENT} from 'src/app/views/shared/AppRoutes';
+import {IApiResponse} from 'src/app/views/shared/IApiResponse';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {AppConst} from 'src/app/views/shared/AppConst';
+import {AddModalButtonService} from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 
 @Component({
   selector: 'kt-create-bank-statement',
@@ -23,12 +23,12 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 
 export class CreateBankStatementComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
 
-  body: { data: IBankStatement, files: File } = { data: null, files: null }
+  body: { data: IBankStatement, files: File } = {data: null, files: null}
   fileName: string;
   showFileName: boolean = false;
   showLines: boolean = true;
   math = Math;
-  isEdit : boolean = false;
+  isEdit: boolean = false;
   isLoading: boolean;
   baseUrl = AppConst.remoteServiceBaseUrl;
   cumulativeBalance: number = 0;
@@ -42,13 +42,13 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   displayedColumns = ['reference', 'stmtDate', 'label', 'debit', 'credit', 'cumulativeBalance', 'action']
 
   // Getting Table by id
-  @ViewChild('table', { static: false }) table: any;
+  @ViewChild('table', {static: false}) table: any;
 
   // bank Statment Form variable
   bankStatementForm: FormGroup;
 
   // bank Statement Model
-  bankStatementModel: IBankStatement; 
+  bankStatementModel: IBankStatement;
 
   title: string = 'Create Bank Statement'
 
@@ -61,7 +61,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   @ViewChild('uploadFileInput') uploadFileInput: ElementRef;
 
   //show Buttons
-  showButtons: boolean = true; 
+  showButtons: boolean = true;
 
   // validation messages
   validationMessages = {
@@ -88,15 +88,14 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   constructor(
     private fb: FormBuilder,
     private bankStatementService: BankStatementService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     public activatedRoute: ActivatedRoute,
     public addButtonService: AddModalButtonService,
-    public ngxsService:NgxsCustomService,   
+    public ngxsService: NgxsCustomService,
     injector: Injector) {
     super(injector)
   }
- 
+
   ngOnInit() {
     // Initializing bank Statement Form
     this.bankStatementForm = this.fb.group({
@@ -131,27 +130,27 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   //Get Bank Statement
   getBankStatement(id: number) {
     this.bankStatementService.getBankStatement(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe(
-      (bankStatement: IApiResponse<IBankStatement>) => {
-        this.editBankStatement(bankStatement.result)
-        this.bankStatementModel = bankStatement.result
-      });
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe(
+        (bankStatement: IApiResponse<IBankStatement>) => {
+          this.editBankStatement(bankStatement.result)
+          this.bankStatementModel = bankStatement.result
+        });
   }
 
   //Edit Bank Statement
   editBankStatement(bankStatement: IBankStatement) {
-    this.bankStatementForm.patchValue({ ...bankStatement });
+    this.bankStatementForm.patchValue({...bankStatement});
     this.bankStatementForm.setControl('bankStmtLines', this.patchStatementLines(bankStatement.bankStmtLines))
     this.openingBalance = bankStatement.openingBalance
     this.calculateRunningTotal(bankStatement.openingBalance);
-    if(!this.showButtons) this.bankStatementForm.disable();
+    if (!this.showButtons) this.bankStatementForm.disable();
   }
 
   patchStatementLines(statementLines: IBankStatementLines[]): FormArray {
@@ -181,7 +180,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
 
     if (this.bankStatementForm.invalid) {
-      this.toastService.error("Please fill all required fields!", "Bank Statement")
+      this.toastService.error('Please fill all required fields!', 'Bank Statement')
       return;
     }
 
@@ -189,13 +188,13 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     this.mapFormValueToBankStatementModel();
     if (this.bankStatementModel.id) {
       this.bankStatementService.updateBankStatement(this.bankStatementModel)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-       )
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
         .subscribe(() => {
             this.toastService.success('Updated Successfully', 'Bank Statement')
             this.router.navigate(['/' + BANK_STATEMENT.LIST])
@@ -204,29 +203,29 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     } else {
       delete this.bankStatementModel.id;
       this.bankStatementService.addBankStatement(this.body)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          //empty file because it throws general processing error after error form backend
-          this.uploadFileInput.nativeElement.value = '';
-          this.body.files = null;
-          this.fileName = '';
-          this.showFileName = false;
-          this.cdRef.detectChanges();
-         })
-       )
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            //empty file because it throws general processing error after error form backend
+            this.uploadFileInput.nativeElement.value = '';
+            this.body.files = null;
+            this.fileName = '';
+            this.showFileName = false;
+            this.cdRef.detectChanges();
+          })
+        )
         .subscribe(() => {
-          this.toastService.success('Created Successfully', 'Bank Statement')
-          this.router.navigate(['/' + BANK_STATEMENT.LIST])
-        }
+            this.toastService.success('Created Successfully', 'Bank Statement')
+            this.router.navigate(['/' + BANK_STATEMENT.LIST])
+          }
         );
     }
   }
 
 
   mapFormValueToBankStatementModel() {
-    this.bankStatementModel = { ...this.bankStatementModel, ...this.bankStatementForm.value } as IBankStatement
+    this.bankStatementModel = {...this.bankStatementModel, ...this.bankStatementForm.value} as IBankStatement
     this.bankStatementModel.bankAccountId = this.bankStatementForm.value.bankAccountId;
     this.bankStatementModel.description = this.bankStatementForm.value.description;
     this.bankStatementModel.openingBalance = Number(this.bankStatementForm.value.openingBalance);
@@ -274,17 +273,17 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   removeBankStatementLine(bankStatementLineIndex: number): void {
     const BankStatementLineArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
     if (BankStatementLineArray.length > 1) {
-    BankStatementLineArray.removeAt(bankStatementLineIndex);
-    this.cumulativeBalances.splice(bankStatementLineIndex, 1);
-    this.calculateRunningTotal(this.cumulativeBalance);
-    BankStatementLineArray.markAsDirty();
-    BankStatementLineArray.markAsTouched();
-    this.table?.renderRows();
+      BankStatementLineArray.removeAt(bankStatementLineIndex);
+      this.cumulativeBalances.splice(bankStatementLineIndex, 1);
+      this.calculateRunningTotal(this.cumulativeBalance);
+      BankStatementLineArray.markAsDirty();
+      BankStatementLineArray.markAsTouched();
+      this.table?.renderRows();
     }
   }
 
   // OnChangeEvent to set debit or credit zero '0'
-  onChangeEvent(_:unknown, index: number) {
+  onChangeEvent(_: unknown, index: number) {
     const arrayControl = this.bankStatementForm.get('bankStmtLines') as FormArray;
     const debitControl = arrayControl.at(index).get('debit');
     const creditControl = arrayControl.at(index).get('credit');
@@ -307,10 +306,10 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   reset() {
     const bankStatementArray = this.bankStatementForm.get('bankStmtLines') as FormArray;
     this.formDirective.resetForm();
-    if(bankStatementArray.length < 1) {
+    if (bankStatementArray.length < 1) {
       this.addBankStatementLineClick()
     }
-    if(!this.isEdit) {
+    if (!this.isEdit) {
       this.uploadFileInput.nativeElement.value = '';
       this.body.files = null;
       this.fileName = '';
@@ -322,22 +321,22 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
 
   calculateRunningTotal(openingBalance?: number) {
     const arrayControl = this.bankStatementForm.get('bankStmtLines') as FormArray;
-      this.openingBalance = this.openingBalance == null ? openingBalance : this.openingBalance;
-      if (this.cumulativeBalances[0] !== this.openingBalance) {
-        this.cumulativeBalances[0] = this.openingBalance;
+    this.openingBalance = this.openingBalance == null ? openingBalance : this.openingBalance;
+    if (this.cumulativeBalances[0] !== this.openingBalance) {
+      this.cumulativeBalances[0] = this.openingBalance;
+    }
+    for (let i = 0; i < arrayControl.length; i++) {
+      const debitControl = arrayControl.at(i).get('debit');
+      const creditControl = arrayControl.at(i).get('credit');
+      const cumulativeControl = arrayControl.at(i).get('cumulativeBalance');
+      const sum = +creditControl.value - +debitControl.value
+      this.cumulativeBalance = sum !== 0 ? +this.cumulativeBalances[i] + sum : 0;
+      cumulativeControl.setValue(this.cumulativeBalance);
+      if (this.cumulativeBalances[i + 1] !== null) {
+        this.cumulativeBalances[i + 1] = this.cumulativeBalance;
       }
-      for (let i = 0; i < arrayControl.length; i++) {
-        const debitControl = arrayControl.at(i).get('debit');
-        const creditControl = arrayControl.at(i).get('credit');
-        const cumulativeControl = arrayControl.at(i).get('cumulativeBalance');
-        const sum = +creditControl.value - +debitControl.value
-        this.cumulativeBalance = sum !== 0 ? +this.cumulativeBalances[i] + sum : 0;
-        cumulativeControl.setValue(this.cumulativeBalance);
-        if (this.cumulativeBalances[i + 1] !== null) {
-          this.cumulativeBalances[i + 1] = this.cumulativeBalance;
-        }
-      }
-      this.calculateClosingBalance()
+    }
+    this.calculateClosingBalance()
   }
 
   calculateClosingBalance() {

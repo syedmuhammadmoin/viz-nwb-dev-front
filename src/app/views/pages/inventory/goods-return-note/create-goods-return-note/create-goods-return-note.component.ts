@@ -105,7 +105,6 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
     public productService: ProductService,
     public categoryService: CategoryService,
     public warehouseService: WarehouseService,
-    private router: Router,
     public activatedRoute: ActivatedRoute,
     public cdRef: ChangeDetectorRef,
     injector: Injector
@@ -321,7 +320,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
       this.toastService.error('Please add goods received note lines', 'Error')
       return;
     }
-    
+
     if (this.goodsReturnNoteForm.invalid) {
       this.toastService.error("Please fill all required fields!", "Goods Return Note")
       return;
@@ -395,18 +394,3 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
      this.cdRef.detectChanges()
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

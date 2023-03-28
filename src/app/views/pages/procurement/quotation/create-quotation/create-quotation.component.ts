@@ -59,7 +59,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   maxDate: Date = new Date();
   minDate: Date
   dateCondition: boolean
- 
+
   warehouseList: any = new BehaviorSubject<any>([])
 
   //show toast mesasge of on campus select
@@ -99,7 +99,6 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -125,7 +124,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
     this.ngxsService.getCampusFromState()
 
     this.ngxsService.products$.subscribe(res => this.salesItem = res)
-    
+
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isQuotation = param.isQuotation;
@@ -261,7 +260,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
       this.toastService.error('Please add quotation lines', 'Quotation')
       return;
     }
-    
+
     if (this.quotationForm.invalid) {
       return;
     }

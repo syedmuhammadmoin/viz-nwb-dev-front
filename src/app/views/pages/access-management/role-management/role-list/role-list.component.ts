@@ -1,20 +1,19 @@
-import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { FirstDataRenderedEvent, GridOptions, RowDoubleClickedEvent } from 'ag-grid-community';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { ACCESS_MANAGEMENT, APP_ROUTES } from 'src/app/views/shared/AppRoutes';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { AccessManagementService } from '../../service/access-management.service';
-import { CreateRoleComponent } from '../create-role/create-role.component';
+import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {FirstDataRenderedEvent, GridOptions, RowDoubleClickedEvent} from 'ag-grid-community';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {ACCESS_MANAGEMENT, APP_ROUTES} from 'src/app/views/shared/AppRoutes';
+import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import {AccessManagementService} from '../../service/access-management.service';
+import {CreateRoleComponent} from '../create-role/create-role.component';
 
 @Component({
   selector: 'kt-role-list',
   templateUrl: './role-list.component.html',
   styleUrls: ['./role-list.component.scss']
 })
-  
+
 export class RoleListComponent extends AppComponentBase implements OnInit {
 
   gridOptions: any;
@@ -22,25 +21,25 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
   defaultColDef: any;
   permissions = Permissions
   roleList: any;
-  tooltipData: string = "double click to edit"
+  tooltipData: string = 'double click to edit'
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
   //Defining Ag Grid Columns
   columnDefs = [
-    { 
-      headerName: 'S.No', 
+    {
+      headerName: 'S.No',
       field: 'index',
       tooltipField: 'name',
       suppressMenu: true,
     },
-    { 
-      headerName: 'Role Name', 
-      field: 'name', 
+    {
+      headerName: 'Role Name',
+      field: 'name',
       tooltipField: 'name',
       menuTabs: ['filterMenuTab'],
       filter: 'agTextColumnFilter',
-      filterParams : {
+      filterParams: {
         filterOptions: ['contains'],
         suppressAndOrCondition: true
       }
@@ -52,13 +51,12 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
     private accessManagementService: AccessManagementService,
     private cdRef: ChangeDetectorRef,
     public dialog: MatDialog,
-    private router : Router,
     injector: Injector
   ) {
     super(injector)
     this.gridOptions = <GridOptions>(
       {
-        context: { componentParent: this }
+        context: {componentParent: this}
       }
     );
   }
@@ -66,16 +64,16 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
   ngOnInit() {
     //Get Roles Data
     this.getRoles();
-  
+
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       resizable: true,
-      filter: 'agSetColumnFilter' 
+      filter: 'agSetColumnFilter'
     }
 
-    this.frameworkComponents = { customTooltip: CustomTooltipComponent };
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
-    if(!this.permission.isGranted(this.permissions.AUTH_EDIT)) {
+    if (!this.permission.isGranted(this.permissions.AUTH_EDIT)) {
       this.gridOptions.context = 'double click to view detail'
     }
 
@@ -94,7 +92,7 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
       width: '840px',
       data: id
     });
-     //Get Updated Roles Data on dialog close
+    //Get Updated Roles Data on dialog close
     dialogRef.afterClosed().subscribe(() => {
       this.getRoles();
     });
@@ -113,6 +111,3 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
     this.router.navigate(['/' + APP_ROUTES.ACCESS_MANAGEMENT + '/' + ACCESS_MANAGEMENT.ROLE_PERMISSIONS])
   }
 }
-
-
-

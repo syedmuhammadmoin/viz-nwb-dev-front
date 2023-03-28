@@ -1,20 +1,18 @@
-import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, Inject, Optional, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { finalize, take } from 'rxjs/operators';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { FirstDataRenderedEvent, RowDoubleClickedEvent } from 'ag-grid-community';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { ICwip } from '../model/ICwip';
-import { CwipService } from '../service/cwip.service';
-import {  CWIP } from 'src/app/views/shared/AppRoutes';
-import { AppConst } from 'src/app/views/shared/AppConst';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { DepreciationMethodService } from '../../depreciation-model/service/depreciation-method.service';
-import { BehaviorSubject } from 'rxjs';
+import {NgxsCustomService} from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import {ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
+import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {finalize, take} from 'rxjs/operators';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {AddModalButtonService} from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import {IApiResponse} from 'src/app/views/shared/IApiResponse';
+import {FirstDataRenderedEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {MAT_DIALOG_DATA, MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {ICwip} from '../model/ICwip';
+import {CwipService} from '../service/cwip.service';
+import {CWIP} from 'src/app/views/shared/AppRoutes';
+import {AppConst} from 'src/app/views/shared/AppConst';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {DepreciationMethodService} from '../../depreciation-model/service/depreciation-method.service';
 
 @Component({
   selector: 'kt-create-cwip',
@@ -32,7 +30,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   cwipForm: FormGroup;
 
   // Getting Table by id
-  @ViewChild('table', { static: true }) table: any;
+  @ViewChild('table', {static: true}) table: any;
 
   // Payroll Model
   cwipModel: ICwip = {} as ICwip;
@@ -50,13 +48,13 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
 
   valueTitle: string = 'Value'
 
-  isModelType =  false;
+  isModelType = false;
 
-   //show toast mesasge of on campus select
-   showMessage: boolean = false;
+  //show toast mesasge of on campus select
+  showMessage: boolean = false;
 
-   // per product cost
-  perProductCost : number;
+  // per product cost
+  perProductCost: number;
 
   //show Buttons
   showButtons: boolean = true;
@@ -70,20 +68,20 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   // Validation messages..
   validationMessages = {
 
-    dateOfAcquisition : {
+    dateOfAcquisition: {
       required: 'Acquisition Date is required.',
     },
-    cwipAccountId : {
+    cwipAccountId: {
       required: 'Account is required.',
-    },                        
-    name : {
+    },
+    name: {
       required: 'Account is required.',
-    },                        
-    cost : {
+    },
+    cost: {
       required: 'Cost is required.',
       min: 'Minimum value is 0.',
     },
-    assetAccountId : {
+    assetAccountId: {
       required: 'Account is required.',
     },
     productId: {
@@ -92,30 +90,30 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     warehouseId: {
       required: 'Store is required.',
     },
-    depreciationModelId : {
+    depreciationModelId: {
       required: 'Depreciation Model is required.',
     },
-    modelType : {
+    modelType: {
       required: 'Model Type is required.',
     },
-    depreciationExpenseId : {
+    depreciationExpenseId: {
       required: 'Account is required.',
     },
-    accumulatedDepreciationId : {
+    accumulatedDepreciationId: {
       required: 'Account is required.',
     },
-    useFullLife : {
+    useFullLife: {
       required: 'Life is required.',
-      min : 'Minimum value is 1.',
-      max : 'Value is out of range.',
-      pattern : 'Please enter only Digits.'
+      min: 'Minimum value is 1.',
+      max: 'Value is out of range.',
+      pattern: 'Please enter only Digits.'
     },
-    quantity : {
+    quantity: {
       required: 'Quantity is required.',
-      min : 'Minimum value is 1.',
-      max : 'Maximum value is 1000.',
+      min: 'Minimum value is 1.',
+      max: 'Maximum value is 1000.',
     },
-    decLiningRate : {
+    decLiningRate: {
       required: 'Declining Rate is required.',
     },
     salvageValue: {
@@ -126,26 +124,27 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
 
   // error keys..
   formErrors = {
-    dateOfAcquisition : '',
-    name : '',                        
-    cwipAccountId : '',                        
-    cost : '',
-    assetAccountId : '',
+    dateOfAcquisition: '',
+    name: '',
+    cwipAccountId: '',
+    cost: '',
+    assetAccountId: '',
     productId: '',
     warehouseId: '',
-    depreciationModelId : '',
-    modelType : '',
-    depreciationExpenseId : '',
-    accumulatedDepreciationId : '',
-    useFullLife : '',
-    quantity : '',
-    decLiningRate : '',
-    salvageValue : ''
-    
+    depreciationModelId: '',
+    modelType: '',
+    depreciationExpenseId: '',
+    accumulatedDepreciationId: '',
+    useFullLife: '',
+    quantity: '',
+    decLiningRate: '',
+    salvageValue: ''
+
   };
 
   // Injecting in dependencies in constructor
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private cwipService: CwipService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreateCwipComponent>,
@@ -154,7 +153,6 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     private depreciationService: DepreciationMethodService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -164,21 +162,21 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
 
     // Creating Forms
     this.cwipForm = this.fb.group({
-      dateOfAcquisition:['', [Validators.required]],
-      name:['', [Validators.required]],
+      dateOfAcquisition: ['', [Validators.required]],
+      name: ['', [Validators.required]],
       cwipAccountId: ['', [Validators.required]],
-      cost: ['', [Validators.required , Validators.min(0)]],
+      cost: ['', [Validators.required, Validators.min(0)]],
       assetAccountId: ['', [Validators.required]],
-      salvageValue:[0 , [Validators.min(0)]],
+      salvageValue: [0, [Validators.min(0)]],
       productId: ['', [Validators.required]],
       warehouseId: ['', [Validators.required]],
       depreciationApplicability: [false],
-      depreciationModelId:[null],
+      depreciationModelId: [null],
       modelType: [0],
-      depreciationExpenseId:[null],
+      depreciationExpenseId: [null],
       accumulatedDepreciationId: [null],
-      useFullLife:[0],
-      quantity :[0 , [Validators.required , Validators.min(1) , Validators.max(1000)]],
+      useFullLife: [0],
+      quantity: [0, [Validators.required, Validators.min(1), Validators.max(1000)]],
       decLiningRate: [0],
       prorataBasis: [false],
       isActive: [false]
@@ -230,24 +228,24 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     this.cwipForm.patchValue({
       dateOfAcquisition: cwip.dateOfAcquisition,
       name: cwip.name,
-      cwipAccountId:cwip.cwipAccountId,
-      cost:cwip.cost,
-      assetAccountId:cwip.assetAccountId,
-      salvageValue:cwip.salvageValue,
+      cwipAccountId: cwip.cwipAccountId,
+      cost: cwip.cost,
+      assetAccountId: cwip.assetAccountId,
+      salvageValue: cwip.salvageValue,
       productId: cwip.productId,
       warehouseId: cwip.warehouseId,
-      depreciationApplicability:cwip.depreciationApplicability,
-      depreciationModelId:cwip.depreciationModelId,
-      modelType:cwip.modelType,
-      depreciationExpenseId:cwip.depreciationExpenseId,
-      accumulatedDepreciationId:cwip.accumulatedDepreciationId,
-      useFullLife:cwip.useFullLife,
-      quantity:cwip.quantity,
-      decLiningRate:cwip.decLiningRate,
+      depreciationApplicability: cwip.depreciationApplicability,
+      depreciationModelId: cwip.depreciationModelId,
+      modelType: cwip.modelType,
+      depreciationExpenseId: cwip.depreciationExpenseId,
+      accumulatedDepreciationId: cwip.accumulatedDepreciationId,
+      useFullLife: cwip.useFullLife,
+      quantity: cwip.quantity,
+      decLiningRate: cwip.decLiningRate,
       prorataBasis: cwip.prorataBasis,
-      isActive:cwip.isActive 
+      isActive: cwip.isActive
     });
-    this.onChangeDepApplicability({checked : cwip.depreciationApplicability})
+    this.onChangeDepApplicability({checked: cwip.depreciationApplicability})
     this.getModelType(cwip.modelType)
     // this.onCampusSelected(cwip.productId)
   }
@@ -264,7 +262,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     this.mapFormValuesTocwipModel();
 
     if (this.data?.id) {
-      console.log("edit")
+      console.log('edit')
       this.cwipService.updateCwip(this.cwipModel)
         .pipe(
           take(1),
@@ -292,69 +290,68 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
           })
         )
         .subscribe((res: IApiResponse<ICwip>) => {
-          this.toastService.success('Created Successfully', 'CWIP')
-          this.onCloseDialog();
-          this.router.navigate(['/' + CWIP.LIST])
-          //this.router.navigate(['/' + PAYROLL_ITEM.LIST])
-        }
+            this.toastService.success('Created Successfully', 'CWIP')
+            this.onCloseDialog();
+            this.router.navigate(['/' + CWIP.LIST])
+            //this.router.navigate(['/' + PAYROLL_ITEM.LIST])
+          }
         );
     }
   }
 
-  onChangeDepApplicability(e){
+  onChangeDepApplicability(e) {
 
     this.depApplicabilityToggle = e.checked
 
-    if(e.checked){
-      this.cwipForm.get('useFullLife').setValidators([Validators.required , Validators.min(1) , Validators.max(2147483647) , Validators.pattern('[0-9]*$')])
+    if (e.checked) {
+      this.cwipForm.get('useFullLife').setValidators([Validators.required, Validators.min(1), Validators.max(2147483647), Validators.pattern('[0-9]*$')])
     }
-    if(!e.checked){
-      this.resetFields(this.cwipForm , 'depreciationModelId','depreciationExpenseId', 'accumulatedDepreciationId' , 'useFullLife' , 'decLiningRate')
+    if (!e.checked) {
+      this.resetFields(this.cwipForm, 'depreciationModelId', 'depreciationExpenseId', 'accumulatedDepreciationId', 'useFullLife', 'decLiningRate')
       this.cwipForm.get('prorataBasis').setValue(false);
       this.cwipForm.get('isActive').setValue(false);
       this.cwipForm.get('modelType').setValue(0);
       this.getModelType(0)
     }
-    this.conditionalValidation(this.cwipForm, e.checked , ['depreciationModelId','depreciationExpenseId', 'accumulatedDepreciationId','useFullLife'])
-    this.logValidationErrors(this.cwipForm, this.formErrors , this.validationMessages);
+    this.conditionalValidation(this.cwipForm, e.checked, ['depreciationModelId', 'depreciationExpenseId', 'accumulatedDepreciationId', 'useFullLife'])
+    this.logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages);
   }
 
-  getModelType(e : any){
+  getModelType(e: any) {
 
-    if(e){
+    if (e) {
       this.isModelType = true;
-    }else{
+    } else {
       this.isModelType = false;
       this.cwipForm.get('decLiningRate').setValue(0)
     }
 
-    this.conditionalValidation(this.cwipForm, e , ['decLiningRate'])
-    this.logValidationErrors(this.cwipForm, this.formErrors , this.validationMessages) 
+    this.conditionalValidation(this.cwipForm, e, ['decLiningRate'])
+    this.logValidationErrors(this.cwipForm, this.formErrors, this.validationMessages)
 
   }
 
   //Mapping Form Value to Model
   mapFormValuesTocwipModel() {
-    this.cwipModel.dateOfAcquisition =  this.dateHelperService.transformDate(this.cwipForm.value.dateOfAcquisition, 'yyyy-MM-dd'),
-    this.cwipModel.name = this.cwipForm.value.name,
-    this.cwipModel.cwipAccountId = this.cwipForm.value.cwipAccountId
+    this.cwipModel.dateOfAcquisition = this.dateHelperService.transformDate(this.cwipForm.value.dateOfAcquisition, 'yyyy-MM-dd'),
+      this.cwipModel.name = this.cwipForm.value.name,
+      this.cwipModel.cwipAccountId = this.cwipForm.value.cwipAccountId
     this.cwipModel.cost = this.cwipForm.value.cost,
-    this.cwipModel.assetAccountId = this.cwipForm.value.assetAccountId,
-    this.cwipModel.salvageValue = (this.cwipForm.value.salvageValue) ? this.cwipForm.value.salvageValue : 0,
-    this.cwipModel.productId = this.cwipForm.value.productId,
-    this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
-    this.cwipModel.depreciationApplicability = this.cwipForm.value.depreciationApplicability,
-    this.cwipModel.depreciationModelId = this.cwipForm.value.depreciationModelId,
-    this.cwipModel.modelType = this.cwipForm.value.modelType,
-    this.cwipModel.depreciationExpenseId = this.cwipForm.value.depreciationExpenseId,
-    this.cwipModel.accumulatedDepreciationId = this.cwipForm.value.accumulatedDepreciationId,
-    this.cwipModel.useFullLife = this.cwipForm.value.useFullLife,
-    this.cwipModel.quantity = this.cwipForm.value.quantity,
-    this.cwipModel.decLiningRate = this.cwipForm.value.decLiningRate,
-    this.cwipModel.prorataBasis =  this.cwipForm.value.prorataBasis,
-    this.cwipModel.isActive = this.cwipForm.value.isActive 
+      this.cwipModel.assetAccountId = this.cwipForm.value.assetAccountId,
+      this.cwipModel.salvageValue = (this.cwipForm.value.salvageValue) ? this.cwipForm.value.salvageValue : 0,
+      this.cwipModel.productId = this.cwipForm.value.productId,
+      this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
+      this.cwipModel.depreciationApplicability = this.cwipForm.value.depreciationApplicability,
+      this.cwipModel.depreciationModelId = this.cwipForm.value.depreciationModelId,
+      this.cwipModel.modelType = this.cwipForm.value.modelType,
+      this.cwipModel.depreciationExpenseId = this.cwipForm.value.depreciationExpenseId,
+      this.cwipModel.accumulatedDepreciationId = this.cwipForm.value.accumulatedDepreciationId,
+      this.cwipModel.useFullLife = this.cwipForm.value.useFullLife,
+      this.cwipModel.quantity = this.cwipForm.value.quantity,
+      this.cwipModel.decLiningRate = this.cwipForm.value.decLiningRate,
+      this.cwipModel.prorataBasis = this.cwipForm.value.prorataBasis,
+      this.cwipModel.isActive = this.cwipForm.value.isActive
   }
-
 
 
   //for save or submit
@@ -392,22 +389,19 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       })
   }
 
-  getCost(e){
-    
-    if((this.cwipForm.get('cost').value)  && (this.cwipForm.get('quantity').value) && (this.cwipForm.get('cost').value > 0)){
+  getCost(e) {
+
+    if ((this.cwipForm.get('cost').value) && (this.cwipForm.get('quantity').value) && (this.cwipForm.get('cost').value > 0)) {
       this.perProductCost = (this.cwipForm.get('cost').value) / (this.cwipForm.get('quantity').value)
       this.cwipForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.cwipForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
       console.log('first')
-    }
-
-    else if((this.cwipForm.get('cost').value)){
+    } else if ((this.cwipForm.get('cost').value)) {
       this.perProductCost = (this.cwipForm.get('cost').value)
       this.cwipForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.cwipForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
       console.log('second')
-    }
-    else{
+    } else {
       this.perProductCost = 0;
       console.log('third')
     }
@@ -418,10 +412,3 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     this.dialogRef.close();
   }
 }
-
-
-
-
-
-
-

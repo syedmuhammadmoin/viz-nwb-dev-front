@@ -38,7 +38,6 @@ export class ListBudgetReappropiationComponent extends AppComponentBase implemen
 
   //Injecting Dependencies
   constructor(
-    private router: Router,
     private budgetReappropriation: BudgetReappropriationService,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
@@ -171,5 +170,3 @@ export class ListBudgetReappropiationComponent extends AppComponentBase implemen
   }
 
 }
-
- 

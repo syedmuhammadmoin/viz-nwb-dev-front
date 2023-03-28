@@ -15,6 +15,7 @@ import {IDisposal} from '../model/IDisposal';
 import { ConfirmationDialogComponent } from 'src/app/views/shared/components/confirmation-dialog/confirmation-dialog.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
+import {RegisterPaymentComponent} from '../../../sales/invoice/register-payment/register-payment.component';
 
 
 
@@ -32,23 +33,23 @@ export class DisposalDetailsComponent extends AppComponentBase implements OnInit
   action = ActionButton
   docStatus = DocumentStatus
 
-  //For ag grid
+  // For ag grid
   gridOptions: GridOptions;
   defaultColDef: ColDef;
 
-  //kt busy loading
+  // kt busy loading
   isLoading: boolean;
 
-  //need for routing
+  // need for routing
   disposalId: number;
 
-  //Variables for asset data
+  // Variables for asset data
   disposal: any
-  disposalMaster:  any;
+  disposalMaster:  IDisposal = {} as IDisposal;
   status: string;
 
-    //Showing Remarks
-    remarksList: string[] = [];
+    // Showing Remarks
+    remarksList: any[] = [];
 
   constructor(
     private disposalService: DisposalService,
@@ -57,7 +58,6 @@ export class DisposalDetailsComponent extends AppComponentBase implements OnInit
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
     injector: Injector,
-    private router: Router,
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
@@ -85,7 +85,7 @@ export class DisposalDetailsComponent extends AppComponentBase implements OnInit
     params.api.sizeColumnsToFit();
   }
 
-  //Getting Asset Master Data
+  // Getting Asset Master Data
   getDisposalData(id: number) {
     this.disposalService.getDisposalById(id)
     .pipe(
@@ -107,18 +107,18 @@ export class DisposalDetailsComponent extends AppComponentBase implements OnInit
     this.dialog.open(CreateDisposalComponent, {
       width: '800px',
       data: {
-        id: id
+        id
       }
     });
   }
 
 
-   //Get Remarks From User
+   // Get Remarks From User
    remarksDialog(action: any): void {
     const dialogRef = this.dialog.open(CustomRemarksComponent, {
       width: '740px'
     });
-    //sending remarks data after dialog closed
+    // sending remarks data after dialog closed
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.workflow(action, res.data)
@@ -126,7 +126,7 @@ export class DisposalDetailsComponent extends AppComponentBase implements OnInit
     })
   }
 
- 
+
 
   workflow(action: number, remarks: string) {
     this.isLoading = true
@@ -145,5 +145,25 @@ export class DisposalDetailsComponent extends AppComponentBase implements OnInit
       })
   }
 
+  registerPayment(id: any) {
+    const dialogRef = this.dialog.open(RegisterPaymentComponent, {
+      width: '900px',
+      data: {
+        accountId: this.disposalMaster.accountReceivableId,
+        paymentType: 1,
+        campusId: this.disposalMaster.campusId,
+        documentLedgerId: this.disposalMaster.ledgerId,
+        businessPartnerId: this.disposalMaster.businessPartnerId,
+        pendingAmount: this.disposalMaster.disposalValue,
+        formName: 'Disposal',
+        docType: DocType.Receipt
+      }
+    });
+    // Getting Updated Invoice Data
+    dialogRef.afterClosed().subscribe(() => {
+      this.getDisposalData(this.disposalId);
+      this.cdRef.markForCheck();
+      this.cdRef.detectChanges();
+    });
+  }
 }
-

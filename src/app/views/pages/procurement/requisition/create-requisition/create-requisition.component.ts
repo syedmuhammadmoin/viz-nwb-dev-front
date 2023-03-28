@@ -72,7 +72,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   // for getting employee
   employee = {} as any;
 
-  /* handle warehouses gets empty for edit route 
+  /* handle warehouses gets empty for edit route
      on first render by onCampusSelected() function
   */
   emptyWarehouses: boolean = true;
@@ -110,7 +110,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   //Injecting Dependencies
   constructor(private fb: FormBuilder,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     private requisitionService: RequisitionService,
     private requestService: RequestRequisitionService,

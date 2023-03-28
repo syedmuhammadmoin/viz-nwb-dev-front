@@ -31,7 +31,6 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
 
   constructor(
     private payrollItemService: PayrollItemService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -45,10 +44,10 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
 
   //Defining Payroll Item Columns
   columnDefs = [
-    { 
-      headerName: 'Item Code', 
-      field: 'itemCode', 
-      tooltipField: 'name', 
+    {
+      headerName: 'Item Code',
+      field: 'itemCode',
+      tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -57,9 +56,9 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Item Name', 
-      field: 'name', 
+    {
+      headerName: 'Item Name',
+      field: 'name',
       tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -68,21 +67,21 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Payroll Type', 
-      field: 'payrollType', 
+    {
+      headerName: 'Payroll Type',
+      field: 'payrollType',
       tooltipField: 'name',
       suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return PayrollType[params.value];
       }
      },
-    { 
-      headerName: 'Item Type', 
-      field: 'payrollItemType',  
+    {
+      headerName: 'Item Type',
+      field: 'payrollItemType',
       tooltipField: 'name',
       suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return PayrollItemType[params.value];
       }
      },
@@ -98,13 +97,13 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       tooltipField: 'name',
       cellStyle: { 'text-align': "right" },
       suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value);
       }
     },
-    { 
-      headerName: 'Active', 
-      field: 'isActive', 
+    {
+      headerName: 'Active',
+      field: 'isActive',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -119,7 +118,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
   ];
 
   ngOnInit() {
-    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -170,8 +169,8 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getPayrollItems(params);
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
+     if(isEmpty(res.result)) {
+      this.gridApi.showNoRowsOverlay()
     } else {
       this.gridApi.hideOverlay();
     }
@@ -192,9 +191,3 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
     return result
   }
 }
-
-
-
-
-
-

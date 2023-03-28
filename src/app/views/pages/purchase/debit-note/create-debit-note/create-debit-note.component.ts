@@ -96,7 +96,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     public productService: ProductService,
     private billService: VendorBillService,
     public addButtonService: AddModalButtonService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     public activatedRoute: ActivatedRoute,
     public ngxsService:NgxsCustomService,
@@ -324,7 +323,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       this.toastService.error("Amount can't be greater than Bill Pending Amount", "Debit Note Lines")
       return;
     }
-    
+
     if (this.debitNoteForm.invalid) {
       this.toastService.error("Please fill all required fields!", "Debit Note")
       return;
@@ -411,5 +410,3 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
      this.cdRef.detectChanges()
   }
 }
-
-

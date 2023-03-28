@@ -96,7 +96,6 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
     public productService: ProductService,
     public addButtonService: AddModalButtonService,
     private invoiceService: InvoiceService,
-    private router: Router,
     public activatedRoute: ActivatedRoute,
     public ngxsService: NgxsCustomService,
     injector: Injector
@@ -402,4 +401,3 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
      this.cdRef.detectChanges()
   }
 }
-

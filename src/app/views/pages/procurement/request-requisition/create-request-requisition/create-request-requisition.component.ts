@@ -1,20 +1,20 @@
-import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { REQUEST_REQUISITION } from '../../../../shared/AppRoutes';
-import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { finalize, take } from 'rxjs/operators';
-import { ActivatedRoute, Router} from '@angular/router';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { Observable } from 'rxjs';
-import { IProduct } from '../../../profiling/product/model/IProduct';
-import { ProductService } from '../../../profiling/product/service/product.service';
-import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { EmployeeService } from '../../../payroll/employee/service/employee.service';
-import { IRequestRequisition } from '../model/IRequestRequisition';
-import { IRequestRequisitionLines } from '../model/IRequestRequisitionLine';
-import { RequestRequisitionService } from '../service/request-requisition.service';
+import {ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {REQUEST_REQUISITION} from '../../../../shared/AppRoutes';
+import {NgxsCustomService} from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import {finalize, take} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {AddModalButtonService} from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import {Observable} from 'rxjs';
+import {IProduct} from '../../../profiling/product/model/IProduct';
+import {ProductService} from '../../../profiling/product/service/product.service';
+import {IApiResponse} from 'src/app/views/shared/IApiResponse';
+import {EmployeeService} from '../../../payroll/employee/service/employee.service';
+import {IRequestRequisition} from '../model/IRequestRequisition';
+import {IRequestRequisitionLines} from '../model/IRequestRequisitionLine';
+import {RequestRequisitionService} from '../service/request-requisition.service';
 
 @Component({
   selector: 'kt-create-request-requisition',
@@ -25,7 +25,7 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 export class CreateRequestRequisitionComponent extends AppComponentBase implements OnInit {
 
   public permissions = Permissions;
-  
+
   //Loader
   isLoading: boolean;
 
@@ -52,7 +52,7 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   //Limit Date
   maxDate: Date = new Date();
   minDate: Date
-  dateCondition : boolean
+  dateCondition: boolean
 
   title: string = 'Create Request Requisition'
 
@@ -75,19 +75,19 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   }
 
   // Injecting Dependencies
-  constructor( private fb: FormBuilder,
-               private router: Router,
-               private cdRef: ChangeDetectorRef,
-               private requestRequisitionService: RequestRequisitionService,
-               public activatedRoute: ActivatedRoute,
-               private employeeService: EmployeeService,
-               public productService: ProductService,
-               public addButtonService: AddModalButtonService,
-               public ngxsService: NgxsCustomService,
-               public injector : Injector
-             ) {
-                super(injector);
-               }
+  constructor(
+    private fb: FormBuilder,
+    private cdRef: ChangeDetectorRef,
+    private requestRequisitionService: RequestRequisitionService,
+    public activatedRoute: ActivatedRoute,
+    private employeeService: EmployeeService,
+    public productService: ProductService,
+    public addButtonService: AddModalButtonService,
+    public ngxsService: NgxsCustomService,
+    public injector: Injector
+  ) {
+    super(injector);
+  }
 
   ngOnInit() {
 
@@ -96,19 +96,19 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
       designation: [''],
       department: [''],
       requestDate: ['', [Validators.required]],
-      campusId: [{value: null , disabled: true}],
+      campusId: [{value: null, disabled: true}],
       requestLines: this.fb.array([
         this.addRequestRequisitionLines()
       ])
     });
 
-     //Get Data From Store
-     this.ngxsService.getEmployeeFromState();
-     this.ngxsService.getAccountLevel4FromState()
-     this.ngxsService.getProductFromState();
-     this.ngxsService.getCampusFromState();
+    //Get Data From Store
+    this.ngxsService.getEmployeeFromState();
+    this.ngxsService.getAccountLevel4FromState()
+    this.ngxsService.getProductFromState();
+    this.ngxsService.getCampusFromState();
 
-     //get id by using route
+    //get id by using route
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       this.isRequestRequisition = param.isRequestRequisition;
@@ -158,26 +158,26 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   //Get Requisition Data for Edit
   private getRequisition(id: number) {
     this.isLoading = true;
-   this.requestRequisitionService.getRequestRequisitionById(id)
-   .pipe(
-    take(1),
-     finalize(() => {
-      this.isLoading = false;
-      this.cdRef.detectChanges();
-     })
-   )
-   .subscribe((res: IApiResponse<IRequestRequisition>) => {
-      if (!res) {
-        return
-      }
-      this.requestRequisitionModel = res.result
-      console.log(this.requestRequisitionModel);
-      this.editRequestRequisition(this.requestRequisitionModel)
-    });
+    this.requestRequisitionService.getRequestRequisitionById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<IRequestRequisition>) => {
+        if (!res) {
+          return
+        }
+        this.requestRequisitionModel = res.result
+        console.log(this.requestRequisitionModel);
+        this.editRequestRequisition(this.requestRequisitionModel)
+      });
   }
 
   //Edit Request Requisition
-  editRequestRequisition(requestRequisition : IRequestRequisition) {
+  editRequestRequisition(requestRequisition: IRequestRequisition) {
     this.requestRequisitionForm.patchValue({
       employeeId: requestRequisition.employeeId,
       requestDate: requestRequisition.requestDate,
@@ -190,7 +190,7 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   //Edit Requisition Lines
   editRequisitionLines(requisitionLines: IRequestRequisitionLines[]): FormArray {
     const formArray = new FormArray([]);
-    requisitionLines.forEach((line : IRequestRequisitionLines | any) => {
+    requisitionLines.forEach((line: IRequestRequisitionLines | any) => {
       formArray.push(this.fb.group({
         id: line.id,
         description: [line.description, Validators.required],
@@ -202,54 +202,54 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
 
   // Submit Form Function
   onSubmit(): void {
-      if (this.requestRequisitionForm.get('requestLines').invalid) {
-          this.requestRequisitionForm.get('requestLines').markAllAsTouched();
-      }
-      const controls = <FormArray>this.requestRequisitionForm.controls['requestLines'];
-      if (controls.length == 0) {
-        this.toastService.error('Please add Request Requisition lines', 'Error')
-        return;
-      }
-    
-      if (this.requestRequisitionForm.invalid) {
-        this.toastService.error("Please fill all required fields!", "Request Requisition")
-          return;
-      }
-  
-      this.mapFormValuesTorequestRequisitionModel();
+    if (this.requestRequisitionForm.get('requestLines').invalid) {
+      this.requestRequisitionForm.get('requestLines').markAllAsTouched();
+    }
+    const controls = <FormArray>this.requestRequisitionForm.controls['requestLines'];
+    if (controls.length == 0) {
+      this.toastService.error('Please add Request Requisition lines', 'Error')
+      return;
+    }
 
-      this.isLoading = true;
-      console.log(this.requestRequisitionModel)
+    if (this.requestRequisitionForm.invalid) {
+      this.toastService.error('Please fill all required fields!', 'Request Requisition')
+      return;
+    }
+
+    this.mapFormValuesTorequestRequisitionModel();
+
+    this.isLoading = true;
+    console.log(this.requestRequisitionModel)
     if (this.requestRequisitionModel.id) {
-        this.requestRequisitionService.updateRequestRequisition(this.requestRequisitionModel)
+      this.requestRequisitionService.updateRequestRequisition(this.requestRequisitionModel)
         .pipe(
           take(1),
-           finalize(() => {
+          finalize(() => {
             this.isLoading = false;
             this.cdRef.detectChanges();
-           })
-         )
-          .subscribe((res) => {
-            this.toastService.success('Updated Successfully', 'Request Requisition')
-            this.cdRef.detectChanges();
-            this.router.navigate(['/' + REQUEST_REQUISITION.ID_BASED_ROUTE('details',this.requestRequisitionModel.id ) ]);
           })
-      } else {
-        delete this.requestRequisitionModel.id;
-        this.requestRequisitionService.createRequestRequisition(this.requestRequisitionModel)
+        )
+        .subscribe((res) => {
+          this.toastService.success('Updated Successfully', 'Request Requisition')
+          this.cdRef.detectChanges();
+          this.router.navigate(['/' + REQUEST_REQUISITION.ID_BASED_ROUTE('details', this.requestRequisitionModel.id)]);
+        })
+    } else {
+      delete this.requestRequisitionModel.id;
+      this.requestRequisitionService.createRequestRequisition(this.requestRequisitionModel)
         .pipe(
           take(1),
-           finalize(() => {
+          finalize(() => {
             this.isLoading = false;
             this.cdRef.detectChanges();
-           })
-         )
-          .subscribe(
-            (res) => {
-              this.toastService.success('Created Successfully', 'Request Requisition')
-              this.router.navigate(['/' + REQUEST_REQUISITION.ID_BASED_ROUTE('details',res.result.id ) ]);
-            });
-      }
+          })
+        )
+        .subscribe(
+          (res) => {
+            this.toastService.success('Created Successfully', 'Request Requisition')
+            this.router.navigate(['/' + REQUEST_REQUISITION.ID_BASED_ROUTE('details', res.result.id)]);
+          });
+    }
   }
 
   // Mapping value to model
@@ -260,8 +260,8 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     this.requestRequisitionModel.requestLines = this.requestRequisitionForm.value.requestLines;
   };
 
-   // open business partner dialog
-   openBusinessPartnerDialog() {
+  // open business partner dialog
+  openBusinessPartnerDialog() {
     if (this.permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)) {
       this.addButtonService.openBusinessPartnerDialog();
     }
@@ -270,18 +270,18 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   // getting employee data by id
   getEmployee(id: number) {
     this.employeeService.getEmployeeById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res) => {
-      this.employee = res.result
-      this.checkSelected(this.employee)
-      this.cdRef.detectChanges()
-    })
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.employee = res.result
+        this.checkSelected(this.employee)
+        this.cdRef.detectChanges()
+      })
   }
 
   checkSelected(employee) {
@@ -297,9 +297,8 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
   }
 
   checkEmployee() {
-    if(this.requestRequisitionForm.value.employeeId === null) {
-      this.toastService.info("Please Select Employee!", "Requisition")
+    if (this.requestRequisitionForm.value.employeeId === null) {
+      this.toastService.info('Please Select Employee!', 'Requisition')
     }
   }
 }
-

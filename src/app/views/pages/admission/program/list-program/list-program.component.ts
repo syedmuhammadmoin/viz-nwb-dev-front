@@ -29,12 +29,11 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-  
+
   // Injecting dependencies
   constructor(
     private programService: ProgramService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public dialog: MatDialog,
     injector: Injector
   ) {
@@ -48,11 +47,11 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
 
   // Declaring AgGrid data
   columnDefs = [
-    { 
-      headerName: 'Doc No', 
-      field: 'cwipCode', 
-      tooltipField: 'name', 
-      cellRenderer: "loadingCellRenderer", 
+    {
+      headerName: 'Doc No',
+      field: 'cwipCode',
+      tooltipField: 'name',
+      cellRenderer: "loadingCellRenderer",
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       //   filterParams: {
@@ -60,23 +59,23 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
       //     suppressAndOrCondition: true,
       //   },
     },
-    { 
-      headerName: 'Acquisition Date', 
-      field: 'dateOfAcquisition', 
-      tooltipField: 'name', 
+    {
+      headerName: 'Acquisition Date',
+      field: 'dateOfAcquisition',
+      tooltipField: 'name',
       suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    { 
-      headerName: 'Asset Cost', 
-      field: 'cost', 
+    {
+      headerName: 'Asset Cost',
+      field: 'cost',
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
-      } 
-      
+      }
+
     },
     {
       headerName: 'Asset Account',
@@ -205,8 +204,8 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
   dataSource = {
     // getRows: (params: any) => {
     //   this.programService.getRecords(params).subscribe((data) => {
-    //     if(isEmpty(data.result)) {  
-    //       this.gridApi.showNoRowsOverlay() 
+    //     if(isEmpty(data.result)) {
+    //       this.gridApi.showNoRowsOverlay()
     //     } else {
     //       this.gridApi.hideOverlay();
     //     }
@@ -217,7 +216,7 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
     // },
   };
 
-  
+
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;

@@ -21,7 +21,7 @@ import { Router } from '@angular/router';
 })
 export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 
- // for permissions 
+ // for permissions
   public permissions = Permissions;
 
   rowData: any[] = [];
@@ -47,20 +47,19 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   validationMessages = {
     docDate: {
       required: 'Date is required.'
-    },   
+    },
   }
 
   // Error keys for validation messages
   formErrors = {
-    docDate: '',    
+    docDate: '',
   }
 
   constructor(
     injector: Injector,
-    private fb: FormBuilder,    
-    private balanceSheetService: BalanceSheetService,   
+    private fb: FormBuilder,
+    private balanceSheetService: BalanceSheetService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public ngxsService:NgxsCustomService
   ) {
     super(injector);
@@ -86,16 +85,16 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       },
     ];
   }
-// ng oninit 
+// ng oninit
   ngOnInit() {
     //creating balance sheet form
     this.balanceSheetForm = this.fb.group({
       docDate: ['', [Validators.required]],
       campusId: [null],
     });
-  
+
     //Get Data From Store
-    this.ngxsService.getWarehouseFromState();    
+    this.ngxsService.getWarehouseFromState();
     this.ngxsService.getAccountLevel4FromState()
     this.ngxsService.getCampusFromState()
 
@@ -108,7 +107,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
-   
+
     this.autoGroupColumnDef = {
       menuTabs: ["filterMenuTab"],
       filterValueGetter: (params) => params.data.nature
@@ -129,7 +128,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
       this.logValidationErrors(this.balanceSheetForm, this.formErrors, this.validationMessages);
       return;
     }
-   
+
     this.isLoading = true;
     this.mapFormValueToModel()
     this.balanceSheetService.getBalanceSheetReport(this.balanceSheetModel)

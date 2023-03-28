@@ -61,7 +61,6 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
   //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     private budgetReappropriation: BudgetReappropriationService,
     public ngxsService: NgxsCustomService,
@@ -253,4 +252,3 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
   }
 
 }
-

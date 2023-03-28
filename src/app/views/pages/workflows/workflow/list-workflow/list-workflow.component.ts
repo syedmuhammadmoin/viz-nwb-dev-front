@@ -17,7 +17,7 @@ import { isEmpty } from 'lodash';
   templateUrl: './list-workflow.component.html',
   styleUrls: ['./list-workflow.component.scss']
 })
-  
+
 export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
   workflowList: any;
@@ -32,10 +32,10 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   columnDefs = [
-    { 
-      headerName: 'Name', 
+    {
+      headerName: 'Name',
       field: 'name',
-      tooltipField: 'name', 
+      tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -64,7 +64,6 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
   constructor(
     private workflowService: WorkflowService,
-    private router: Router,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
     injector: Injector
@@ -129,8 +128,8 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   dataSource = {
     getRows: async (params: any) => {
       const res = await this.getWorkflows(params);
-      if(isEmpty(res.result)) {  
-        this.gridApi.showNoRowsOverlay() 
+      if(isEmpty(res.result)) {
+        this.gridApi.showNoRowsOverlay()
       } else {
         this.gridApi.hideOverlay();
       }

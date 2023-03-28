@@ -111,7 +111,6 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
     public productService: ProductService,
     public categoryService: CategoryService,
     public warehouseService: WarehouseService,
-    private router: Router,
     public activatedRoute: ActivatedRoute,
     public cdRef: ChangeDetectorRef,
     injector: Injector
@@ -417,15 +416,3 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
      this.cdRef.detectChanges()
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-

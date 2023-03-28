@@ -41,7 +41,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   maxDate: Date = new Date();
   minDate: Date
   dateCondition: boolean
- 
+
   quotationList: any = []
 
   title: string = 'Create Quotation Comparative'
@@ -77,7 +77,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -91,17 +90,17 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   public columnDefs: ColDef[] = [
 
     // group cell renderer needed for expand / collapse icons
-    { headerName: 'Quotation #', 
-      field: 'docNo', 
-      cellRenderer: 'agGroupCellRenderer', 
+    { headerName: 'Quotation #',
+      field: 'docNo',
+      cellRenderer: 'agGroupCellRenderer',
       headerCheckboxSelection: true,
       checkboxSelection: true,
       suppressMenu: true
     },
     { headerName: 'Vendor', field: 'vendorName' , suppressMenu: true},
-    { 
-      headerName: 'Quotation Date', 
-      field: 'quotationDate' , 
+    {
+      headerName: 'Quotation Date',
+      field: 'quotationDate' ,
       suppressMenu: true,
       valueFormatter: (params: ICellRendererParams) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y')
@@ -119,14 +118,14 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
         { headerName: 'Item', field: 'itemName', suppressMenu: true },
         { headerName: 'Description', field: 'description', suppressMenu: true },
         { headerName: 'Quantity', field: 'quantity', minWidth: 150 , suppressMenu: true},
-        { headerName: 'Price', 
-        field: 'price', 
+        { headerName: 'Price',
+        field: 'price',
         suppressMenu: true,
         valueFormatter: (params: ICellRendererParams) => {
           return this.valueFormatter(params.value)
         }
       },
-       
+
       ],
       angularCompileRows: false,
       defaultColDef: {
@@ -159,7 +158,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       //remarks: '',
       quotationComparativeLines: []
     }
-    
+
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isQuotationComparative = param.isQuotationComparative;
@@ -224,12 +223,12 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
 
   //Submit Form Function
   onSubmit(): void {
-   
+
     if(this.gridApi?.getSelectedRows().length < 3) {
       this.toastService.error('Select at least 3 Quotations.', 'Quotation Comparative')
       return;
     }
-    
+
     if (this.quotationComparativeForm.invalid) {
       return;
     }
@@ -294,7 +293,3 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     this.quotationComparativeModel.isSubmit = (val === 0) ? false : true;
   }
 }
-
-
-
-

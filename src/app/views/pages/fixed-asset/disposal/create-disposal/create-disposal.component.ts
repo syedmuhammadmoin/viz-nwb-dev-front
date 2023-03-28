@@ -127,7 +127,6 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     private assetService: AssetService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -291,14 +290,14 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
 
     this.disposalModel.fixedAssetId = this.disposalForm.value.fixedAssetId
     this.disposalModel.businessPartnerId = this.disposalForm.value.businessPartnerId
-    this.disposalModel.productId = this.disposalForm.value.productId
-    this.disposalModel.cost = this.disposalForm.value.cost
-    this.disposalModel.salvageValue = this.disposalForm.value.salvageValue
-    this.disposalModel.usefulLife = this.disposalForm.value.usefulLife
-    this.disposalModel.accumulatedDepreciationId = this.disposalForm.value.accumulatedDepreciationId
+    // this.disposalModel.productId = this.disposalForm.value.productId
+    // this.disposalModel.cost = this.disposalForm.value.cost
+    // this.disposalModel.salvageValue = this.disposalForm.value.salvageValue
+    // this.disposalModel.useFullLife = this.disposalForm.value.usefulLife
+    // this.disposalModel.accumulatedDepreciationId = this.disposalForm.value.accumulatedDepreciationId
     this.disposalModel.disposalDate = this.dateHelperService.transformDate(this.disposalForm.value.disposalDate, 'yyyy-MM-dd')
     this.disposalModel.disposalValue = this.disposalForm.value.disposalValue
-    this.disposalModel.warehouseId = this.disposalForm.value.warehouseId
+    // this.disposalModel.warehouseId = this.disposalForm.value.warehouseId
   }
 
 

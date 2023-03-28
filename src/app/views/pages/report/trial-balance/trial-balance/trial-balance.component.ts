@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./trial-balance.component.scss']
 })
 export class TrialBalanceComponent extends AppComponentBase implements OnInit {
-  // for permissions 
+  // for permissions
   public permissions = Permissions;
 
   rowData: any = [];
@@ -71,10 +71,9 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    injector: Injector,   
+    injector: Injector,
     private trialBalanceService: TrialBalanceService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public ngxsService:NgxsCustomService
   ) {
     super(injector);
@@ -171,9 +170,9 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       accountId: [null],
       campusId: [null]
     });
-    
+
     //Get Data from Store
-    this.ngxsService.getWarehouseFromState();    
+    this.ngxsService.getWarehouseFromState();
     this.ngxsService.getAccountLevel4FromState()
     this.ngxsService.getCampusFromState()
 
@@ -182,7 +181,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
-   
+
      //handling dueDate logic
      this.trialBalanceForm.get('docDate').valueChanges.subscribe((value) => {
       this.minDate = new Date(value);
@@ -196,7 +195,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;    
+    this.gridColumnApi = params.columnApi;
   }
 
   onSubmit() {
@@ -220,7 +219,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     })).subscribe((result: ITrialBalance[]) => {
       this.rowData = result;
       this.recordsData = result;
-    
+
       //for PDF
       this.disability = (!isEmpty(result)) ? false : true;
       if (isEmpty(result)) {
@@ -311,4 +310,3 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       })
   }
 }
-   

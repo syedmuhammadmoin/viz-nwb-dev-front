@@ -104,7 +104,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
 
   // Injecting Dependencies
   constructor( private fb: FormBuilder,
-               private router: Router,
                private cdRef: ChangeDetectorRef,
                private poService: PurchaseOrderService,
                private requisitionService: RequisitionService,
@@ -448,10 +447,3 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
      this.cdRef.detectChanges()
   }
 }
-
-
-
-
-
-
-

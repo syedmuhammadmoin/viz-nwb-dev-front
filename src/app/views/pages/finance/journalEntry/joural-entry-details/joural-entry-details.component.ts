@@ -50,7 +50,6 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   constructor(private activatedRoute: ActivatedRoute,
     private journalEntryService: JournalEntryService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     private dialog: MatDialog,
     private layoutUtilService: LayoutUtilsService,
     injector: Injector

@@ -85,7 +85,6 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -108,7 +107,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     this.ngxsService.getProductFromState();
 
     this.ngxsService.products$.subscribe(res => this.salesItem = res)
-    
+
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isCallQuotation = param.isCallQuotation;
@@ -173,7 +172,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     });
   }
 
-  
+
   //Get Quotation Data for Edit
   private getCallQuotation(id: number) {
     this.callQuotationService.getCallQuotationById(id)
@@ -227,7 +226,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
       this.toastService.error('Please add call quotation lines', 'Error')
       return;
     }
-    
+
     if (this.callQuotationForm.invalid) {
       this.toastService.error("Please fill all required fields!", "Call Quotation")
       return;
@@ -292,4 +291,3 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
     }
   }
 }
-

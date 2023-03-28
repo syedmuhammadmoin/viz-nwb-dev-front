@@ -121,7 +121,6 @@ export class CreateDepreciationComponent extends AppComponentBase implements OnI
     public addButtonService: AddModalButtonService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);

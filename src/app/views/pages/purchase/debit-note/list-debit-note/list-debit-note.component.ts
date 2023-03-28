@@ -32,7 +32,6 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   constructor(
     private debitNoteService: DebitNoteService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector)
@@ -175,8 +174,3 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
     params.api.setDatasource(dataSource)
   }
 }
-
-
-
-
-

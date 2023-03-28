@@ -106,7 +106,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 // constructor
   constructor(
     private fb: FormBuilder,
-    private router: Router,
     private activatedRoute: ActivatedRoute,
     private payrollTransactionService: PayrollTransactionService,
     private employeeService: EmployeeService,
@@ -189,7 +188,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
     this.checkSelected(payrollTransaction)
 
-    this.disableFields(this.payrollTransactionForm , 
+    this.disableFields(this.payrollTransactionForm ,
       "employeeId", "month", "year", "workingDays", "presentDays",
        "leaveDays", "transDate", "designation" ,"department" ,"basicPay")
   }
@@ -239,7 +238,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // submit method called on submit button
   onSubmit() {
-  
+
     if (this.payrollTransactionForm.invalid) {
       return;
     }
@@ -265,7 +264,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
               this.dialogRef.close();
             }
           })
-    } 
+    }
   }
 
   mapPayrollTransactionValuesToPayrollModel() {
@@ -321,8 +320,3 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState , true))
   }
 }
-
-
-
-
-

@@ -53,7 +53,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   maxDate: Date = new Date();
   minDate: Date
   dateCondition: boolean
- 
+
   warehouseList: any = new BehaviorSubject<any>([])
 
   //show toast mesasge of on campus select
@@ -101,7 +101,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     injector: Injector
   ) {
     super(injector);
@@ -121,14 +120,14 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     });
 
     //Get Data From Store
-    this.ngxsService.getBusinessPartnerFromState(); 
+    this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getOtherAccountsFromState()
     this.ngxsService.getWarehouseFromState();
     this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState()
 
     this.ngxsService.products$.subscribe(res => this.salesItem = res)
-    
+
     this.activatedRoute.queryParams.subscribe((param) => {
       const id = param.q;
       const isInvoice = param.isInvoice;
@@ -312,7 +311,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       this.toastService.error('Please add invoice lines', 'Error')
       return;
     }
-    
+
     if (this.invoiceForm.invalid) {
       this.toastService.error("Please fill all required fields!", "Invoice")
       return;
@@ -378,7 +377,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
       this.addButtonService.openProductDialog();
     }
   }
- 
+
   canDeactivate(): boolean | Observable<boolean> {
     return !this.invoiceForm.dirty;
   }

@@ -33,12 +33,11 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-  
+
   // Injecting dependencies
   constructor(
     private disposalService: DisposalService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     public dialog: MatDialog,
     injector: Injector
   ) {
@@ -52,18 +51,18 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
 
   // Declaring AgGrid data
   columnDefs = [
-    { 
-      headerName: 'Doc No', 
-      field: 'docNo', 
-      tooltipField: 'name', 
+    {
+      headerName: 'Doc No',
+      field: 'docNo',
+      tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
     },
-    { 
-      headerName: 'Disposal Date', 
-      field: 'disposalDate', 
-      tooltipField: 'name', 
+    {
+      headerName: 'Disposal Date',
+      field: 'disposalDate',
+      tooltipField: 'name',
       suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
@@ -72,14 +71,14 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
       field: 'fixedAsset',
       tooltipField: 'name',
     },
-    { 
-      headerName: 'Book Value', 
-      field: 'bookValue', 
+    {
+      headerName: 'Book Value',
+      field: 'bookValue',
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
-      } 
-      
+      }
+
     }
   ];
 
@@ -141,8 +140,8 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
   dataSource = {
     getRows: (params: any) => {
       this.disposalService.getRecords(params).subscribe((data) => {
-        if(isEmpty(data.result)) {  
-          this.gridApi.showNoRowsOverlay() 
+        if(isEmpty(data.result)) {
+          this.gridApi.showNoRowsOverlay()
         } else {
           this.gridApi.hideOverlay();
         }
@@ -153,28 +152,12 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
     },
   };
 
-  
+
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
     params.api.setDatasource(this.dataSource);
   }
-  
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -16,12 +16,12 @@ import { finalize, take } from 'rxjs/operators';
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss']
 })
-  
+
 export class ChangePasswordComponent extends AppComponentBase implements OnInit {
 
   isLoading: any;
   changePassForm: FormGroup;
-  
+
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
@@ -57,7 +57,6 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
     private cdRef: ChangeDetectorRef,
     private authSingletonService: AuthSingletonService,
     private authService: AuthenticationService,
-    private router: Router,
   ) {
     super(injector);
   }
@@ -95,7 +94,7 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
     this.isLoading = true
     const body = { ...this.changePassForm.value } as IResetPassword
     body.loginUserId = this.authSingletonService.getCurrentUser().id.toString()
- 
+
     this.accessManagementService.changePassword(body)
     .pipe(
       take(1),
@@ -118,4 +117,3 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
     this.formDirective.resetForm();
   }
 }
-

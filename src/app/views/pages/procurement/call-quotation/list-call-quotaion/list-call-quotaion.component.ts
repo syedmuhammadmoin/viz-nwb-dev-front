@@ -31,7 +31,6 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
 
   constructor(
     private callQuotationService: CallQuotationService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -164,6 +163,3 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
     params.api.setDatasource(dataSource);
   }
 }
-
-
-

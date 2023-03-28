@@ -28,7 +28,6 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
 
   constructor(
     private _issuanceReturnService: IssuanceReturnService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     private activatedRoute: ActivatedRoute,
     injector: Injector
@@ -43,21 +42,21 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
 
   //Defining Issuance Return Columns
   columnDefs = [
-    { 
-      headerName: 'Issuance Return #', 
-      field: 'docNo', 
-      tooltipField: 'status', 
+    {
+      headerName: 'Issuance Return #',
+      field: 'docNo',
+      tooltipField: 'status',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
-        }, 
+        },
     },
-    { 
-      headerName: 'Employee', 
-      field: 'employeeName', 
+    {
+      headerName: 'Employee',
+      field: 'employeeName',
       tooltipField: 'status',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -80,9 +79,9 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
-    { 
-      headerName: 'Status', 
-      field: 'status', 
+    {
+      headerName: 'Status',
+      field: 'status',
       tooltipField: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -144,8 +143,8 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
     var dataSource = {
       getRows: (params: any) => {
         this._issuanceReturnService.getRecords(params).subscribe((data) => {
-          if(isEmpty(data.result)) {  
-            this.gridApi.showNoRowsOverlay() 
+          if(isEmpty(data.result)) {
+            this.gridApi.showNoRowsOverlay()
           } else {
             this.gridApi.hideOverlay();
           }
@@ -158,6 +157,3 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
     params.api.setDatasource(dataSource);
   }
 }
-
-
-

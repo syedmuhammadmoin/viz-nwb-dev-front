@@ -52,7 +52,6 @@ export class PrintDepreciationAdjustmentComponent extends AppComponentBase imple
     private activatedRoute: ActivatedRoute,
     private depreciationAdjustmentService: DepreciationAdjustmentService,
     private cdRef: ChangeDetectorRef,
-    private router: Router,
     private layoutUtilService: LayoutUtilsService,
     public dynamicColorChanging : DynamicColorChangeService,
     public  sanitizer: DomSanitizer,

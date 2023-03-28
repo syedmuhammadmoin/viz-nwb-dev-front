@@ -29,7 +29,6 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
 
   constructor(
     private employeeService: EmployeeService,
-    private router: Router,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -43,10 +42,10 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
 
   //Defining Employee Columns
   columnDefs = [
-    { 
-      headerName: 'Name', 
-      field: 'name', 
-      cellRenderer: "loadingCellRenderer", 
+    {
+      headerName: 'Name',
+      field: 'name',
+      cellRenderer: "loadingCellRenderer",
       tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -55,9 +54,9 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Cnic', 
-      field: 'cnic', 
+    {
+      headerName: 'Cnic',
+      field: 'cnic',
       tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -66,9 +65,9 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
      },
-    { 
-      headerName: 'Designation', 
-      field: 'designationName', 
+    {
+      headerName: 'Designation',
+      field: 'designationName',
       tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -77,8 +76,8 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Department', 
+    {
+      headerName: 'Department',
       field: 'departmentName',
       tooltipField: 'name',
       filter: 'agTextColumnFilter',
@@ -88,8 +87,8 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    { 
-      headerName: 'Bank Name', 
+    {
+      headerName: 'Bank Name',
       field: 'bankName',
       tooltipField: 'name',
       filter: 'agTextColumnFilter',
@@ -98,7 +97,7 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
-        valueFormatter: (params: ValueFormatterParams) => { 
+        valueFormatter: (params: ValueFormatterParams) => {
           return (params.value) ?? "N/A"
         }
     },
@@ -115,14 +114,14 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           defaultToNothingSelected: true,
           suppressAndOrCondition: true,
         },
-      valueFormatter: (params: ValueFormatterParams) => { 
+      valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) ? "Yes" : "No"
       }
     }
   ];
 
   ngOnInit() {
-    
+
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",
@@ -165,8 +164,8 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   dataSource = {
     getRows: async (params: any) => {
      const res = await this.getEmployees(params);
-     if(isEmpty(res.result)) {  
-      this.gridApi.showNoRowsOverlay() 
+     if(isEmpty(res.result)) {
+      this.gridApi.showNoRowsOverlay()
     } else {
       this.gridApi.hideOverlay();
     }
@@ -187,9 +186,3 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
     return result
   }
 }
-
-
-
-
-
-

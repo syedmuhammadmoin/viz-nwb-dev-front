@@ -1,11 +1,10 @@
-import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent } from 'ag-grid-community';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { CreateShiftComponent } from '../create-shift/create-shift.component';
-import { IShift } from '../model/IShift';
+import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import {MatDialog} from '@angular/material/dialog';
+import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent} from 'ag-grid-community';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import {CreateShiftComponent} from '../create-shift/create-shift.component';
+import {IShift} from '../model/IShift';
 
 @Component({
   selector: 'kt-list-shift',
@@ -15,106 +14,105 @@ import { IShift } from '../model/IShift';
 export class ListShiftComponent extends AppComponentBase implements OnInit {
 
 //Loader
-isLoading: boolean;
+  isLoading: boolean;
 
 // For AG Grid..
-FacultyList: IShift[];
-gridOptions: GridOptions;
-defaultColDef: ColDef;
-public permissions = Permissions;
-frameworkComponents: { [p: string]: unknown };
-tooltipData: string = "double click to view detail"
-components: { loadingCellRenderer(params: any): unknown };
-gridApi: GridApi;
-gridColumnApi: ColumnApi;
-overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+  FacultyList: IShift[];
+  gridOptions: GridOptions;
+  defaultColDef: ColDef;
+  public permissions = Permissions;
+  frameworkComponents: { [p: string]: unknown };
+  tooltipData: string = 'double click to view detail'
+  components: { loadingCellRenderer(params: any): unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 //Injecting Dependencies
-constructor(
-  private router: Router,
-  public dialog: MatDialog,
-  private cdRef: ChangeDetectorRef,
-  injector: Injector
-) {
-  super(injector)
-  this.gridOptions = <GridOptions>(
-    {
-      context: { componentParent: this }
-    }
-  );
-}
+  constructor(
+    public dialog: MatDialog,
+    private cdRef: ChangeDetectorRef,
+    injector: Injector
+  ) {
+    super(injector)
+    this.gridOptions = <GridOptions>(
+      {
+        context: {componentParent: this}
+      }
+    );
+  }
 
 
 //Defining AG Grid Columns
 
-columnDefs = [
-  {
-    headerName: 'Shift',
-    field: 'shift',
-    tooltipField: 'shift',
-    cellRenderer: "loadingCellRenderer",
-    filter: 'agTextColumnFilter',
-    menuTabs: ['filterMenuTab'],
-    filterParams: {
-      filterOptions: ['contains'],
-      suppressAndOrCondition: true,
-    },
+  columnDefs = [
+    {
+      headerName: 'Shift',
+      field: 'shift',
+      tooltipField: 'shift',
+      cellRenderer: 'loadingCellRenderer',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    }
+  ];
+
+  ngOnInit() {
+
+    this.gridOptions = {
+      cacheBlockSize: 20,
+      rowModelType: 'infinite',
+      paginationPageSize: 10,
+      pagination: true,
+      rowHeight: 30,
+      headerHeight: 35,
+      context: 'double click to view detail',
+    };
+
+    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+
+    this.defaultColDef = {
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      resizable: true,
+    }
+
+    this.components = {
+      loadingCellRenderer: function (params: any) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
+
   }
-];
 
-ngOnInit() {
-
-  this.gridOptions = {
-    cacheBlockSize: 20,
-    rowModelType: "infinite",
-    paginationPageSize: 10,
-    pagination: true,
-    rowHeight: 30,
-    headerHeight: 35,
-    context: "double click to view detail",
-  };
-
-  this.frameworkComponents = { customTooltip: CustomTooltipComponent };
-
-  this.defaultColDef = {
-    tooltipComponent: 'customTooltip',
-    flex: 1,
-    minWidth: 150,
-    filter: 'agSetColumnFilter',
-    resizable: true,
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    params.api.sizeColumnsToFit();
   }
 
-  this.components = {
-    loadingCellRenderer: function (params: any) {
-      if (params.value !== undefined) {
-        return params.value;
-      } else {
-        return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
-      }
-    },
-  };
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
+    this.openDialog(event.data.id)
+  }
 
-}
-
-onFirstDataRendered(params: FirstDataRenderedEvent) {
-  params.api.sizeColumnsToFit();
-}
-
-onRowDoubleClicked(event: RowDoubleClickedEvent) {
-  this.openDialog(event.data.id)
-}
-
-openDialog(id?: number): void {
-  const dialogRef = this.dialog.open(CreateShiftComponent, {
-    width: '800px',
-    data: id
-  });
-  //Getting Updated Warehouse
-  // dialogRef.afterClosed().subscribe(() => {
-  //   this.gridApi.setDatasource(this.dataSource)
-  //   this.cdRef.detectChanges();
-  // });
-}
+  openDialog(id?: number): void {
+    const dialogRef = this.dialog.open(CreateShiftComponent, {
+      width: '800px',
+      data: id
+    });
+    //Getting Updated Warehouse
+    // dialogRef.afterClosed().subscribe(() => {
+    //   this.gridApi.setDatasource(this.dataSource)
+    //   this.cdRef.detectChanges();
+    // });
+  }
 
 // dataSource = {
 //   getRows: async (params: any) => {
