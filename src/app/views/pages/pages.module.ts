@@ -12,6 +12,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { ListSemesterComponent } from './admission/semester/list-semester/list-semester.component';
 import { CreateSemesterComponent } from './admission/semester/create-semester/create-semester.component';
 import {SharedModule} from '../shared/modules/shared.module';
+import { ListCountryComponent } from './admission/country/list-country/list-country.component';
+import { CreateCountryComponent } from './admission/country/create-country/create-country.component';
 
 
 @NgModule({
@@ -24,6 +26,7 @@ import {SharedModule} from '../shared/modules/shared.module';
         MatButtonModule,
         PartialsModule,
     ],
+    declarations: [],
 })
 
 export class PagesModule { }

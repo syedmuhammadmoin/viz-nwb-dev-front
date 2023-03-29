@@ -61,6 +61,8 @@ import {CourseService} from '../../../pages/admission/course/service/course.serv
 import {CourseState} from '../../../pages/admission/course/store/course.state';
 import {SemesterService} from '../../../pages/admission/semester/services/semester.service';
 import {SemesterState} from '../../../pages/admission/semester/store/semester.state';
+import {CountryService} from '../../../pages/admission/country/service/country.service';
+import {CountryState} from '../../../pages/admission/country/store/country.state';
 
 @Injectable({
   providedIn: 'root'
@@ -93,6 +95,7 @@ export class NgxsCustomService {
     public budgetService: BudgetService,
     public courseService: CourseService,
     public semesterService: SemesterService,
+    public countryService: CountryService,
     public store: Store,
   ) {
   }
@@ -100,6 +103,10 @@ export class NgxsCustomService {
   // selector region start
 
   // Admission
+  // Country
+  @Select(CountryState.entities) countries$: Observable<any>;
+  @Select(CountryState.isFetchCompleted) countriesFetchCompleted$: Observable<any>;
+  @Select(CountryState.isLoading) countryIsLoading$: Observable<any>;
 
   // Semester
   @Select(SemesterState.entities) semesters$: Observable<any>;

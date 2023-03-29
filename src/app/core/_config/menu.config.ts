@@ -18,7 +18,7 @@ import {
   CALL_QUOTATION,
   CAMPUS,
   CATEGORY,
-  CHART_OF_ACCOUNT,
+  CHART_OF_ACCOUNT, CITY, COUNTRY,
   COURSE,
   CREDIT_NOTE,
   CWIP,
@@ -52,7 +52,7 @@ import {
   REPORT,
   REQUEST_REQUISITION,
   REQUISITION, SEMESTER,
-  SHIFT,
+  SHIFT, STATE,
   STATUS,
   STOCK,
   TAX,
@@ -569,6 +569,36 @@ export class MenuConfig {
             {
               title: 'Semester',
               page: '/' + SEMESTER.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            },
+            {
+              title: 'Country',
+              page: '/' + COUNTRY.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            },
+            {
+              title: 'State',
+              page: '/' + STATE.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            },
+            {
+              title: 'City',
+              page: '/' + CITY.LIST,
               // permission: [
               //   Permissions.COURSE_VIEW,
               //   Permissions.COURSE_CREATE,

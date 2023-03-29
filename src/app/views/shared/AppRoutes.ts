@@ -87,6 +87,9 @@ export const APP_ROUTES = {
   COURSE: 'course',
   PROGRAM: 'program',
   SEMESTER: 'semester',
+  COUNTRY: 'country',
+  STATE: 'state',
+  CITY: 'city',
 
   //FIXED ASSET
   FIXED_ASSET: 'fixed-asset',
@@ -243,6 +246,30 @@ export const SEMESTER = {
   CREATE: APP_ROUTES.SEMESTER + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.SEMESTER + '/' + route + '/' + id
+  }
+}
+
+export const COUNTRY = {
+  LIST: APP_ROUTES.COUNTRY + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.COUNTRY + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.COUNTRY + '/' + route + '/' + id
+  }
+}
+
+export const STATE = {
+  LIST: APP_ROUTES.STATE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.STATE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.STATE + '/' + route + '/' + id
+  }
+}
+
+export const CITY = {
+  LIST: APP_ROUTES.CITY + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.CITY + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.CITY + '/' + route + '/' + id
   }
 }
 

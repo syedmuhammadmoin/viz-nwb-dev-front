@@ -555,6 +555,30 @@ const routes: Routes = [
         canActivateChild: [AuthGuard]
       },
       {
+        path: APP_ROUTES.COUNTRY,
+        loadChildren: () =>
+          import('./views/pages/admission/country/country.module').then(
+            (m) => m.CountryModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      {
+        path: APP_ROUTES.STATE,
+        loadChildren: () =>
+          import('./views/pages/admission/state/state.module').then(
+            (m) => m.StateModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      {
+        path: APP_ROUTES.CITY,
+        loadChildren: () =>
+          import('./views/pages/admission/city/city.module').then(
+            (m) => m.CityModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      {
         path: APP_ROUTES.PROGRAM,
         loadChildren: () =>
           import('./views/pages/admission/program/program.module').then(

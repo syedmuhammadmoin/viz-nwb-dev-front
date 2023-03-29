@@ -199,7 +199,8 @@ export function getHighlightLanguages() {
       AssetState,
       DisposalDropdownState,
       CourseState,
-      SemesterState
+      SemesterState,
+      CountryState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
