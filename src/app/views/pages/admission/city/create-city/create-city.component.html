@@ -9,7 +9,7 @@
     </div>
   </div>
   <!-- form start -->
-  <form #formDirective="ngForm" (ngSubmit)="onSubmit()" [formGroup]="countryForm"
+  <form #formDirective="ngForm" (ngSubmit)="onSubmit()" [formGroup]="cityForm"
         class="kt-form kt-form--label-align-right">
     <!-- portlet body starts -->
     <div class="kt-portlet__body">
@@ -17,16 +17,32 @@
         <div class="col-md-12 col-lg-12 col-sm-12">
           <!-- first row starts -->
           <div class="row mt-1 mb-0">
-            <div class="col-lg col-md">
+            <div class="col-lg-6 col-md-6">
               <div class="form-group kt-form__group mb-0 pt-2 pb-0">
                 <label class="col-form-label pt-0">Name:</label>
                 <kt-input-field
-                  (blurEvent)="logValidationErrors(this.countryForm, formErrors, validationMessages)"
+                  (blurEvent)="logValidationErrors(this.cityForm, formErrors, validationMessages)"
                   [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]"
                   formControlName="name"
                   id="Course_name"
-                  placeholder="Enter Country Name">
+                  placeholder="Enter City Name">
                 </kt-input-field>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">State:</label>
+                <kt-simple-dropdown
+                  formControlName="stateId"
+                  id="country_Id"
+                  (blurEvent)="logValidationErrors(this.cityForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.stateId"
+                  propertyName="name"
+                  propertyValue="id"
+                  [optionList]="ngxsService.countryStates$"
+                  placeholder="Select State"
+                >
+                </kt-simple-dropdown>
               </div>
             </div>
           </div>
@@ -45,7 +61,7 @@
             <button (click)="reset()" class="mr-2 app-reset-btn" id="store_reset" mat-raised-button type="button"><i
               class="fas fa-undo"></i> Reset
             </button>
-            <button (click)="logValidationErrors(this.countryForm, this.formErrors, this.validationMessages)" class="app-default-btn" id="store_submit" mat-raised-button
+            <button (click)="logValidationErrors(this.cityForm, this.formErrors, this.validationMessages)" class="app-default-btn" id="store_submit" mat-raised-button
                     type="submit"><i
               class="far fa-save"></i> Submit
             </button>&nbsp;

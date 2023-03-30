@@ -63,6 +63,10 @@ import {SemesterService} from '../../../pages/admission/semester/services/semest
 import {SemesterState} from '../../../pages/admission/semester/store/semester.state';
 import {CountryService} from '../../../pages/admission/country/service/country.service';
 import {CountryState} from '../../../pages/admission/country/store/country.state';
+import {StateService} from '../../../pages/admission/state/services/state.service';
+import {CountryStateState} from '../../../pages/admission/state/store/country-state.state';
+import {CityService} from '../../../pages/admission/city/services/city.service';
+import {CityState} from '../../../pages/admission/city/store/city.state';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +100,8 @@ export class NgxsCustomService {
     public courseService: CourseService,
     public semesterService: SemesterService,
     public countryService: CountryService,
+    public stateService: StateService,
+    public cityService: CityService,
     public store: Store,
   ) {
   }
@@ -103,6 +109,17 @@ export class NgxsCustomService {
   // selector region start
 
   // Admission
+
+  // State
+  @Select(CityState.entities) cities$: Observable<any>;
+  @Select(CityState.isFetchCompleted) citiesFetchCompleted$: Observable<any>;
+  @Select(CityState.isLoading) citiesIsLoading$: Observable<any>;
+
+  // State
+  @Select(CountryStateState.entities) countryStates$: Observable<any>;
+  @Select(CountryStateState.isFetchCompleted) countryStateFetchCompleted$: Observable<any>;
+  @Select(CountryStateState.isLoading) countryStateIsLoading$: Observable<any>;
+
   // Country
   @Select(CountryState.entities) countries$: Observable<any>;
   @Select(CountryState.isFetchCompleted) countriesFetchCompleted$: Observable<any>;
@@ -740,6 +757,48 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(RequisitionState, {
           serviceClass: this.requisitionService,
           methodName: 'getRequisitionDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get Country From Store if available else fetch from the server and cache.
+  getCountryFromState() {
+    this.countriesFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(CountryState, {
+          serviceClass: this.countryService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get City From Store if available else fetch from the server and cache.
+  getCityFromState() {
+    this.citiesFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(CityState, {
+          serviceClass: this.cityService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // Get City From Store if available else fetch from the server and cache.
+  getCountryStateFromState() {
+    this.countryStateFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(CountryStateState, {
+          serviceClass: this.stateService,
+          methodName: 'getForDropdown',
           context: this
         }))
       }

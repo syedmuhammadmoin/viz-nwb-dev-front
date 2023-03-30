@@ -1,56 +1,50 @@
-import { CityState } from './core/shared-state/account-state/store/city.state';
-import { StateState } from './core/shared-state/account-state/store/state.state';
-import { CountryState } from './core/shared-state/account-state/store/country.state';
-import { WarehouseState } from './views/pages/profiling/warehouse/store/warehouse.state';
-import { OrganizationState } from './views/pages/profiling/organization/store/organization.state';
-import { CategoryState } from './views/pages/profiling/category/store/category.state';
-import { CommonModule } from '@angular/common';
+import {WarehouseState} from './views/pages/profiling/warehouse/store/warehouse.state';
+import {OrganizationState} from './views/pages/profiling/organization/store/organization.state';
+import {CategoryState} from './views/pages/profiling/category/store/category.state';
+import {CommonModule} from '@angular/common';
 // Angular
-import { BrowserModule, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
-import { APP_INITIALIZER, NgModule } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { GestureConfig } from '@angular/material/core';
-import { OverlayModule } from '@angular/cdk/overlay';
+import {BrowserModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
+import {APP_INITIALIZER, NgModule} from '@angular/core';
+import {TranslateModule} from '@ngx-translate/core';
+import {HttpClientModule} from '@angular/common/http';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {GestureConfig} from '@angular/material/core';
+import {OverlayModule} from '@angular/cdk/overlay';
 
 // Angular in memory
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // Perfect Scroll bar
-import { PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface} from 'ngx-perfect-scrollbar';
 // SVG inline
-import { InlineSVGModule } from 'ng-inline-svg';
+import {InlineSVGModule} from 'ng-inline-svg';
 // Env
-import { environment } from '../environments/environment';
 // Hammer JS
 import 'hammerjs';
 // NGX Permissions
-import { NgxPermissionsModule } from 'ngx-permissions';
+import {NgxPermissionsModule} from 'ngx-permissions';
 // NGRX
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import {StoreModule} from '@ngrx/store';
+import {EffectsModule} from '@ngrx/effects';
+import {StoreRouterConnectingModule} from '@ngrx/router-store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
 // State
-import { metaReducers, reducers } from './core/reducers';
+import {metaReducers, reducers} from './core/reducers';
 // NGXS state management
-import { NgxsModule } from '@ngxs/store';
-import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
-import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import {NgxsModule} from '@ngxs/store';
+import {NgxsReduxDevtoolsPluginModule} from '@ngxs/devtools-plugin';
+import {NgxsLoggerPluginModule} from '@ngxs/logger-plugin';
 
 // Components
-import { AppComponent } from './app.component';
+import {AppComponent} from './app.component';
 // Modules
-import { AppRoutingModule } from './app-routing.module';
-import { CoreModule } from './core/core.module';
-import { ThemeModule } from './views/theme/theme.module';
+import {AppRoutingModule} from './app-routing.module';
+import {CoreModule} from './core/core.module';
+import {ThemeModule} from './views/theme/theme.module';
 // Partials
-import { PartialsModule } from './views/partials/partials.module';
+import {PartialsModule} from './views/partials/partials.module';
 // Layout Services
 import {
   DataTableService,
-  FakeApiService,
   KtDialogService,
   LayoutConfigService,
   LayoutRefService,
@@ -62,58 +56,56 @@ import {
   SubheaderService
 } from './core/_base/layout';
 // Auth
-import { AuthModule } from './views/pages/auth/auth.module';
-import { AuthService } from './core/auth';
+import {AuthModule} from './views/pages/auth/auth.module';
+import {AuthService} from './core/auth';
 // CRUD
-import {
-  HttpUtilsService,
-  LayoutUtilsService,
-  TypesUtilsService
-} from './core/_base/crud';
+import {HttpUtilsService, LayoutUtilsService, TypesUtilsService} from './core/_base/crud';
 // Config
-import { LayoutConfig } from './core/_config/layout.config';
+import {LayoutConfig} from './core/_config/layout.config';
 // Highlight JS
-import { HighlightModule, HIGHLIGHT_OPTIONS } from 'ngx-highlightjs';
+import {HIGHLIGHT_OPTIONS, HighlightModule} from 'ngx-highlightjs';
 import xml from 'highlight.js/lib/languages/xml';
 import json from 'highlight.js/lib/languages/json';
 import scss from 'highlight.js/lib/languages/scss';
 import typescript from 'highlight.js/lib/languages/typescript';
-import { SharedModule } from './views/shared/modules/shared.module';
-import { BusinessPartnerState } from './views/pages/profiling/business-partner/store/business-partner.state';
-import { ProductState } from './views/pages/profiling/product/store/product.state.state';
-import { DisposalDropdownState } from './views/pages/fixed-asset/asset/store/disposal-dropdown.state';
-import { BankAccountState } from './views/pages/finance/bank-account/store/bank-account.state';
-import { CampusState } from './views/pages/profiling/campus/store/campus.state';
-import { BudgetState } from './views/pages/budget/current-budget/store/budget.state';
-import { StatusState } from './views/pages/workflows/status/store/status.state';
-import { BudgetAccountState } from './core/shared-state/account-state/store/budget-account.state';
-import { DesignationState } from './views/pages/payroll/designation/store/designation.store';
-import { EmployeeState } from './views/pages/payroll/employee/store/employee.state';
-import { DepartmentState } from './views/pages/payroll/department/store/department.store';
-import { CashAccountState } from './views/pages/finance/cash-account/store/cash-account.state';
-import { AccountPayableState } from './views/pages/finance/chat-of-account/store/account-payable.state';
-import { AccountLevel4State } from './views/pages/finance/chat-of-account/store/account-level4.state';
-import { BasicPayState } from './views/pages/payroll/payroll-item/store/basic-pay.state';
-import { IncrementState } from './views/pages/payroll/payroll-item/store/increment.state';
-import { DeductionState } from './views/pages/payroll/payroll-item/store/deduction.state';
-import { AccountReceivableState } from './views/pages/finance/chat-of-account/store/account-receivable.state';
-import { OtherAccountState } from './views/pages/finance/chat-of-account/store/other-account.state';
-import { RoleState } from './views/pages/access-management/store/role.state';
-import { UnitOfMeasurementState } from './views/pages/profiling/unit-of-measurement/store/unit.state';
-import { DepreciationModelState } from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
-import { AssetAccountState } from './views/pages/finance/chat-of-account/store/asset-account.state';
-import { AppInitializer } from 'AppInitializer';
-import { EmployeePaymentState } from './views/pages/payroll/employee/store/employeePayment.state';
-import { AllBusinessPartnerState } from './views/pages/profiling/business-partner/store/All-business-partner.state';
-import { PayrollItemState } from './views/pages/payroll/payroll-item/store/payroll-item.state';
-import { RequisitionState } from './views/pages/procurement/requisition/store/requisition.state';
-import { CategoryAssetState } from './views/pages/profiling/category/store/categoryAsset.state';
-import { ExpenseAccountState } from './views/pages/finance/chat-of-account/store/expense-account.state';
-import { GetLiabilityAccountsState } from './views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
-import { AgGridButtonCellRendrerComponent } from './views/shared/components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
+import {SharedModule} from './views/shared/modules/shared.module';
+import {BusinessPartnerState} from './views/pages/profiling/business-partner/store/business-partner.state';
+import {ProductState} from './views/pages/profiling/product/store/product.state.state';
+import {DisposalDropdownState} from './views/pages/fixed-asset/asset/store/disposal-dropdown.state';
+import {BankAccountState} from './views/pages/finance/bank-account/store/bank-account.state';
+import {CampusState} from './views/pages/profiling/campus/store/campus.state';
+import {BudgetState} from './views/pages/budget/current-budget/store/budget.state';
+import {StatusState} from './views/pages/workflows/status/store/status.state';
+import {BudgetAccountState} from './core/shared-state/account-state/store/budget-account.state';
+import {DesignationState} from './views/pages/payroll/designation/store/designation.store';
+import {EmployeeState} from './views/pages/payroll/employee/store/employee.state';
+import {DepartmentState} from './views/pages/payroll/department/store/department.store';
+import {CashAccountState} from './views/pages/finance/cash-account/store/cash-account.state';
+import {AccountPayableState} from './views/pages/finance/chat-of-account/store/account-payable.state';
+import {AccountLevel4State} from './views/pages/finance/chat-of-account/store/account-level4.state';
+import {BasicPayState} from './views/pages/payroll/payroll-item/store/basic-pay.state';
+import {IncrementState} from './views/pages/payroll/payroll-item/store/increment.state';
+import {DeductionState} from './views/pages/payroll/payroll-item/store/deduction.state';
+import {AccountReceivableState} from './views/pages/finance/chat-of-account/store/account-receivable.state';
+import {OtherAccountState} from './views/pages/finance/chat-of-account/store/other-account.state';
+import {RoleState} from './views/pages/access-management/store/role.state';
+import {UnitOfMeasurementState} from './views/pages/profiling/unit-of-measurement/store/unit.state';
+import {DepreciationModelState} from './views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
+import {AssetAccountState} from './views/pages/finance/chat-of-account/store/asset-account.state';
+import {AppInitializer} from 'AppInitializer';
+import {EmployeePaymentState} from './views/pages/payroll/employee/store/employeePayment.state';
+import {AllBusinessPartnerState} from './views/pages/profiling/business-partner/store/All-business-partner.state';
+import {PayrollItemState} from './views/pages/payroll/payroll-item/store/payroll-item.state';
+import {RequisitionState} from './views/pages/procurement/requisition/store/requisition.state';
+import {CategoryAssetState} from './views/pages/profiling/category/store/categoryAsset.state';
+import {ExpenseAccountState} from './views/pages/finance/chat-of-account/store/expense-account.state';
+import {GetLiabilityAccountsState} from './views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
 import {AssetState} from './views/pages/fixed-asset/store/asset.state';
 import {CourseState} from './views/pages/admission/course/store/course.state';
 import {SemesterState} from './views/pages/admission/semester/store/semester.state';
+import {CountryStateState} from './views/pages/admission/state/store/country-state.state';
+import {CountryState} from './views/pages/admission/country/store/country.state';
+import {CityState} from './views/pages/admission/city/store/city.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -138,10 +130,10 @@ export function initializeLayoutConfig(appConfig: LayoutConfigService) {
  */
 export function getHighlightLanguages() {
   return [
-    { name: 'typescript', func: typescript },
-    { name: 'scss', func: scss },
-    { name: 'xml', func: xml },
-    { name: 'json', func: json }
+    {name: 'typescript', func: typescript},
+    {name: 'scss', func: scss},
+    {name: 'xml', func: xml},
+    {name: 'json', func: json}
   ];
 }
 
@@ -181,8 +173,6 @@ export function getHighlightLanguages() {
       BudgetAccountState,
       CountryState,
       RoleState,
-      StateState,
-      CityState,
       UnitOfMeasurementState,
       BasicPayState,
       IncrementState,
@@ -200,7 +190,9 @@ export function getHighlightLanguages() {
       DisposalDropdownState,
       CourseState,
       SemesterState,
-      CountryState
+      CountryStateState,
+      CountryState,
+      CityState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
@@ -208,9 +200,9 @@ export function getHighlightLanguages() {
     PartialsModule,
     CoreModule,
     OverlayModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot(reducers, {metaReducers}),
     EffectsModule.forRoot([]),
-    StoreRouterConnectingModule.forRoot({ stateKey: 'router' }),
+    StoreRouterConnectingModule.forRoot({stateKey: 'router'}),
     StoreDevtoolsModule.instrument(),
     AuthModule.forRoot(),
     TranslateModule.forRoot(),

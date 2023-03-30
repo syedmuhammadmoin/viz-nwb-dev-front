@@ -2,25 +2,25 @@ import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {MatDialog} from '@angular/material/dialog';
 import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
-import {ISemester} from '../../semester/model/ISemester';
 import {isEmpty} from 'lodash';
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
-import {CountryService} from '../service/country.service';
-import {CreateCountryComponent} from '../create-country/create-country.component';
+import {CityService} from '../services/city.service';
+import {CreateCityComponent} from '../create-city/create-city.component';
+import {ICity} from '../models/ICity';
 
 @Component({
-  selector: 'kt-list-country',
-  templateUrl: './list-country.component.html',
-  styleUrls: ['./list-country.component.scss']
+  selector: 'kt-list-city',
+  templateUrl: './list-city.component.html',
+  styleUrls: ['./list-city.component.scss']
 })
-export class ListCountryComponent extends AppComponentBase implements OnInit {
+export class ListCityComponent extends AppComponentBase implements OnInit {
 
 // Injecting Dependencies
   constructor(
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
-    private countryService: CountryService,
+    private cityService: CityService,
     injector: Injector
   ) {
     super(injector)
@@ -35,7 +35,7 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
 
 // For AG Grid..
-  FacultyList: ISemester[];
+  FacultyList: ICity[];
   gridOptions: GridOptions;
   defaultColDef: ColDef;
   public permissions = Permissions;
@@ -57,8 +57,30 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
       suppressMenu: true,
     },
     {
-      headerName: 'Country',
+      headerName: 'City',
       field: 'name',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    },
+    {
+      headerName: 'State',
+      field: 'state',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    },
+    {
+      headerName: 'Country',
+      field: 'country',
       tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -71,7 +93,7 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
 
   dataSource = {
     getRows: async (params: any) => {
-      const res = await this.getCountry(params);
+      const res = await this.getCity(params);
       if (isEmpty(res.result)) {
         this.gridApi.showNoRowsOverlay()
       } else {
@@ -79,7 +101,7 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
       }
       if (res.result) res.result.map((data: any, i: number) => data.index = i + 1);
       params.successCallback(res.result || 0, res.totalRecords);
-      this.paginationHelper.goToPage(this.gridApi, 'CountryPageName');
+      this.paginationHelper.goToPage(this.gridApi, 'CityPageName');
       this.cdRef.detectChanges();
     },
   };
@@ -127,7 +149,7 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
   }
 
   openDialog(id?: number): void {
-    const dialogRef = this.dialog.open(CreateCountryComponent, {
+    const dialogRef = this.dialog.open(CreateCityComponent, {
       width: '800px',
       data: id
     });
@@ -144,8 +166,8 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
     params.api.setDatasource(this.dataSource);
   }
 
-  async getCountry(params: any): Promise<IPaginationResponse<ISemester[]>> {
-    const result = await this.countryService.getRecords(params).toPromise()
+  async getCity(params: any): Promise<IPaginationResponse<ICity[]>> {
+    const result = await this.cityService.getRecords(params).toPromise()
     return result
   }
 

@@ -1,14 +1,12 @@
-
 import {State} from '@ngxs/store';
-import { defaultEntityState, ProfilingState, ProfilingStateModel } from 'src/app/views/pages/profiling/store/profiling.state';
+import {defaultEntityState, ProfilingState, ProfilingStateModel} from '../../../profiling/store/profiling.state';
 
 @State<ProfilingStateModel<any>>({
-  name: 'City',
+  name: 'city',
   defaults: defaultEntityState()
 })
 export class CityState extends ProfilingState<any> {
   constructor() {
-    super(CityState, 'City');
+    super(CityState, 'city');
   }
 }
-
