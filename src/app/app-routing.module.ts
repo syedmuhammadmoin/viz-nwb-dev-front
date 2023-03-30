@@ -481,6 +481,15 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+      // Lazy Load DEGREE Module
+      {
+        path: APP_ROUTES.DEGREE,
+        loadChildren: () =>
+          import('./views/pages/admission/degree/degree.module').then(
+            (m) => m.DegreeModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       // Lazy Load Admission Criteria Module
       {
         path: APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA,
@@ -514,6 +523,24 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/admission/shift/shift.module').then(
             (m) => m.ShiftModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      // Lazy Load qualification Module
+      {
+        path: APP_ROUTES.QUALIFICATION,
+        loadChildren: () =>
+          import('./views/pages/admission/qualification/qualification.module').then(
+            (m) => m.QualificationModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+        // Lazy Load subject Module
+        {
+        path: APP_ROUTES.SUBJECT,
+        loadChildren: () =>
+          import('./views/pages/admission/subject/subject.module').then(
+            (m) => m.SubjectModule
           ),
         canActivateChild: [AuthGuard]
       },

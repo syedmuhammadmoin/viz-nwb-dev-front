@@ -1,10 +1,13 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import { isEmpty } from 'lodash';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import {CreateFacultyComponent} from '../create-faculty/create-faculty.component';
 import {IFaculty} from '../model/IFaculty';
+import { FacultyService } from '../service/faculty.service';
 
 @Component({
   selector: 'kt-list-faculty',
@@ -30,6 +33,7 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
 
 // Injecting Dependencies
   constructor(
+    private facultyService:FacultyService,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
     injector: Injector
@@ -48,8 +52,8 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     {
       headerName: 'Sno',
-      field: 'id',
-      tooltipField: 'faculty',
+      valueGetter: 'node.rowIndex + 1',
+      tooltipField: 'name',
       cellRenderer: 'loadingCellRenderer',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -60,8 +64,8 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
     },
     {
       headerName: 'Faculty',
-      field: 'faculty',
-      tooltipField: 'faculty',
+      field: 'name',
+      tooltipField: 'name',
       cellRenderer: 'loadingCellRenderer',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -106,49 +110,60 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
 
   }
 
+  getAllFaculty() {
+    this.facultyService.getFacultyDropdown().subscribe((res) => {
+      this.FacultyList = res.result;
+      this.cdRef.detectChanges()
+    });
+  }
+
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.openDialog(event.data.id)
+    if(event.data.state !== 1 && event.data.state !== 5){
+      this.openDialog(event.data.id)
+    }
   }
 
   openDialog(id?: number): void {
     const dialogRef = this.dialog.open(CreateFacultyComponent, {
-      width: '800px',
+      width: '740px',
       data: id
     });
-    // Getting Updated Warehouse
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.gridApi.setDatasource(this.dataSource)
-    //   this.cdRef.detectChanges();
-    // });
-  }
 
-// dataSource = {
-//   getRows: async (params: any) => {
-//     const res = await this.getBudgetReappropriation(params);
-//     if (isEmpty(res.result)) {
-//       this.gridApi.showNoRowsOverlay()
-//     } else {
-//       this.gridApi.hideOverlay();
-//     }
-//     params.successCallback(res.result || 0, res.totalRecords);
-//     this.paginationHelper.goToPage(this.gridApi, 'BudgetReappropriationPageName');
-//     this.cdRef.detectChanges();
-//   },
-// };
+    //Getting Updated Data
+    dialogRef.afterClosed().subscribe(() => {
+      this.gridApi.setDatasource(this.dataSource)
+      this.cdRef.detectChanges();
+    })
+  };
 
-// onGridReady(params: GridReadyEvent) {
-//   this.gridApi = params.api;
-//   this.gridColumnApi = params.columnApi;
-//   params.api.setDatasource(this.dataSource);
-// }
+dataSource = {
+  getRows: async (params: any) => {
+    const res = await this.getFaculty(params);
+    if (isEmpty(res.result)) {
+      this.gridApi.showNoRowsOverlay()
+    } else {
+      this.gridApi.hideOverlay();
+    }
+    params.successCallback(res.result || 0, res.totalRecords);
+    this.paginationHelper.goToPage(this.gridApi, 'FacultyPageName');
+    this.cdRef.detectChanges();
+  },
+};
 
-// async getFaculty(params: any): Promise<IPaginationResponse<IBudget[]>> {
-//   const result = await this.Faculty.getRecords(params).toPromise()
-//   return result
-// }
+onGridReady(params: GridReadyEvent) {
+  this.gridApi = params.api;
+  this.gridColumnApi = params.columnApi;
+  params.api.setDatasource(this.dataSource);
+}
+
+async getFaculty(params: any): Promise<IPaginationResponse<IFaculty[]>> {
+  const result = await this.facultyService.getRecords(params).toPromise()
+  // console.log(result, 'this is getFeculty Result');
+  return result
+}
 
 }

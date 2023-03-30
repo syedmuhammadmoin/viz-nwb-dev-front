@@ -31,6 +31,9 @@ import {
   EMPLOYEE,
   ESTIMATED_BUDGET,
   FACULTY,
+  DEGREE,
+  QUALIFICATION,
+  SUBJECT,
   FEE_TYPE,
   GOODS_RECEIVED_NOTE,
   GOODS_RETURN_NOTE,
@@ -445,7 +448,7 @@ export class MenuConfig {
             },
           ]
         },
-        //Budget Portion
+        // ADMISSION Portion
         {
           title: 'Admission',
           bullet: 'dot',
@@ -487,16 +490,6 @@ export class MenuConfig {
           ],
           submenu: [
             {
-              title: 'Faculty',
-              page: '/' + FACULTY.LIST,
-              // permission: [
-              //   Permissions.FACULTY_VIEW,
-              //   Permissions.FACULTY_CREATE,
-              //   Permissions.FACULTY_EDIT,
-              //   Permissions.FACULTY_DELETE
-              // ]
-            },
-            {
               title: 'Applicant Assessment Criteria',
               page: '/' + APPLICANT_ASSESSMENT_CRITERIA.CREATE,
               // permission: [
@@ -514,6 +507,16 @@ export class MenuConfig {
               //   Permissions.ADMISSION_DEPARTMENT_CREATE,
               //   Permissions.ADMISSION_DEPARTMENT_EDIT,
               //   Permissions.ADMISSION_DEPARTMENT_DELETE
+              // ]
+            },
+            {
+              title: 'Faculty',
+              page: '/' + FACULTY.LIST,
+              // permission: [
+              //   Permissions.FACULTY_VIEW,
+              //   Permissions.FACULTY_CREATE,
+              //   Permissions.FACULTY_EDIT,
+              //   Permissions.FACULTY_DELETE
               // ]
             },
             {
@@ -607,6 +610,16 @@ export class MenuConfig {
               // ]
             },
             {
+              title: 'Degree',
+              page: '/' + DEGREE.LIST,
+              // permission: [
+              //   Permissions.FACULTY_VIEW,
+              //   Permissions.FACULTY_CREATE,
+              //   Permissions.FACULTY_EDIT,
+              //   Permissions.FACULTY_DELETE
+              // ]
+            },
+            {
               title: 'Program',
               page: '/' + PROGRAM.LIST,
               // permission: [
@@ -615,6 +628,14 @@ export class MenuConfig {
               //   Permissions.COURSE_EDIT,
               //   Permissions.COURSE_DELETE
               // ]
+            },
+            {
+              title: 'Qualification',
+              page: '/' + QUALIFICATION.LIST,
+            },
+            {
+              title: 'Subject',
+              page: '/' + SUBJECT.LIST,
             },
           ]
         },

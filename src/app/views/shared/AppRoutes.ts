@@ -78,6 +78,7 @@ export const APP_ROUTES = {
 
   //ADMISSION
   FACULTY: 'faculty',
+  DEGREE: 'degree',
   APPLICANT_ASSESSMENT_CRITERIA: 'applicant-assessment-criteria',
   ACADEMIC_DEPARTMENT: 'academic-department',
   FEE_TYPE: 'fee-type',
@@ -86,6 +87,8 @@ export const APP_ROUTES = {
   BATCH_TYPE: 'batch-type',
   COURSE: 'course',
   PROGRAM: 'program',
+  QUALIFICATION: 'qualification',
+  SUBJECT: 'subject',
   SEMESTER: 'semester',
   COUNTRY: 'country',
   STATE: 'state',
@@ -174,6 +177,30 @@ export const FACULTY = {
   CREATE: APP_ROUTES.FACULTY + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.FACULTY + '/' + route + '/' + id
+  }
+}
+
+export const DEGREE = {
+  LIST: APP_ROUTES.DEGREE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.DEGREE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.DEGREE + '/' + route + '/' + id
+  }
+}
+
+export const QUALIFICATION = {
+  LIST: APP_ROUTES.QUALIFICATION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.QUALIFICATION + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.QUALIFICATION + '/' + route + '/' + id
+  }
+}
+
+export const SUBJECT = {
+  LIST: APP_ROUTES.SUBJECT + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.SUBJECT + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.SUBJECT + '/' + route + '/' + id
   }
 }
 

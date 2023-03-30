@@ -106,6 +106,9 @@ import {SemesterState} from './views/pages/admission/semester/store/semester.sta
 import {CountryStateState} from './views/pages/admission/state/store/country-state.state';
 import {CountryState} from './views/pages/admission/country/store/country.state';
 import {CityState} from './views/pages/admission/city/store/city.state';
+import { FacultyState } from './views/pages/admission/faculty/store/faculty.state';
+import { DegreeState } from './views/pages/admission/degree/store/degree.state';
+import { QualificationState } from './views/pages/admission/qualification/store/qualification.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -156,6 +159,9 @@ export function getHighlightLanguages() {
       BusinessPartnerState,
       AllBusinessPartnerState,
       CampusState,
+      FacultyState,
+      DegreeState,
+      QualificationState,
       CategoryState,
       OrganizationState,
       DepartmentState,

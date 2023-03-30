@@ -7,7 +7,7 @@
       </div>
     </div>
     <!-- form start -->
-    <form [formGroup]="FacultyForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+    <form [formGroup]="QualificationForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
       <!-- portlet body starts -->
       <div class="kt-portlet__body" >
         <div class="kt-form__section kt-form__section--first">
@@ -17,13 +17,13 @@
 
                   <div class="col-lg-6 col-md-6 m-auto">
                     <div class="form-group kt-form__group mb-0 pt-2 pb-0">
-                        <label class="col-form-label pt-0">Faculty Name:</label>
+                        <label class="col-form-label pt-0">Qualification Name:</label>
                         <kt-input-field
-                          id="faculty_name"
-                          formControlName="faculty"
-                          placeholder="Enter Faculty Name"
-                          (blurEvent)="logValidationErrors(this.FacultyForm, formErrors, validationMessages)"
-                          [errorMessage]="[{ condition : formErrors.faculty , error : formErrors.faculty }]">
+                          id="qualification_name"
+                          formControlName="qualification"
+                          placeholder="Enter Qualification Name"
+                          (blurEvent)="logValidationErrors(this.QualificationForm, formErrors, validationMessages)"
+                          [errorMessage]="[{ condition : formErrors.qualification , error : formErrors.qualification }]">
                         </kt-input-field>
                     </div>
                   </div>
@@ -42,7 +42,7 @@
           <div class="col-lg-12 text-right">
                 <button *ngIf="!isEditButtonShow" class="mr-2 app-reset-btn" id="status_reset" type="button" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
                 <button *ngIf="!isEditButtonShow" class="mr-2 app-default-btn" mat-raised-button type="submit" id="status_submit"
-                  (click)="logValidationErrors(this.FacultyForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit</button>
+                  (click)="logValidationErrors(this.QualificationForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit</button>
                 <button *ngIf="isEditButtonShow" class="app-edit-btn" id="status_edit" mat-raised-button type="button" (click)="toggleEdit()"><i
                     class="fas fa-edit"></i> Edit
                 </button>

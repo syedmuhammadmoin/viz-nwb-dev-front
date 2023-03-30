@@ -22,7 +22,8 @@
               [frameworkComponents]="frameworkComponents" 
               [defaultColDef]="defaultColDef"
               [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
-              [tooltipShowDelay]="5" >
+              [tooltipShowDelay]="5"
+              (gridReady)="onGridReady($event)" >
             </ag-grid-angular>
           </div>
         </kt-portlet-body>

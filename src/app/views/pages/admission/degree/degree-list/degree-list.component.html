@@ -1,14 +1,14 @@
 <div class="row mb-4">
     <div class="col-md-12 text-right">
-      <button (click)="openDialog()" id="add__Academic_Department" class="app-default-btn" mat-raised-button
-        matTooltip="Add Academic Department">Add Academic Department</button>
+      <button (click)="openDialog()" id="add__Degree" class="app-default-btn" mat-raised-button
+        matTooltip="Add Degree">Add Degree</button>
     </div>
   </div>
   
   <div class="row">
     <div class="col-md-12 ">
       <kt-portlet>
-        <kt-portlet-header [sticky]="false" [title]="'Academic Department'" [class]="'card-head-lg'">
+        <kt-portlet-header [sticky]="false" [title]="'Degree'" [class]="'card-head-lg'">
         </kt-portlet-header>
         <kt-portlet-body>
           <div class="col-lg-12 col-md-12 my-5">
@@ -17,13 +17,13 @@
               [columnDefs]="columnDefs"
               (rowDoubleClicked)="onRowDoubleClicked($event)"
               (firstDataRendered)="onFirstDataRendered($event)"
-              (paginationChanged)="paginationHelper.onPaginationChanged('AcademicDepartmentPageName', gridApi, $event)"
+              (paginationChanged)="paginationHelper.onPaginationChanged('DegreePageName', gridApi, $event)"
               [gridOptions]="gridOptions" 
               [frameworkComponents]="frameworkComponents" 
               [defaultColDef]="defaultColDef"
               [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
-              [tooltipShowDelay]="5" 
-              (gridReady)="onGridReady($event)">
+              [tooltipShowDelay]="5"
+              (gridReady)="onGridReady($event)" >
             </ag-grid-angular>
           </div>
         </kt-portlet-body>

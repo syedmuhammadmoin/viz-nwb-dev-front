@@ -1,5 +1,6 @@
 export interface IAcademicDepartment{
-    id?: number
-    AcademicDepartment: string
-    facultyId: number
+    id: number,
+    name: string,
+    facultyId: number,
+    faculty: string
 }

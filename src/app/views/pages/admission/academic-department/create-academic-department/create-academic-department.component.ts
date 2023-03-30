@@ -5,6 +5,10 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IAcademicDepartment } from '../model/IAcademicDepartment';
+import { AcademicDepartmentService } from '../service/academic-department.service';
+import { finalize, take } from 'rxjs/operators';
+import { ICreateAcademicDepartment } from '../model/ICreateAcademicDepartment';
+import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Component({
   selector: 'kt-create-academic-department',
@@ -21,16 +25,16 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
  //Loader
  isLoading: boolean;
 
- //variable for warehouse Form
+ //variable for SubjectForm 
  AcademicDepartmentForm: FormGroup;
 
  //Department Model
- AcademicDepartment: IAcademicDepartment= {} as IAcademicDepartment;
+ AcademicDepartment: ICreateAcademicDepartment= {} as ICreateAcademicDepartment;
 
  title: string = 'Create Academic Department'
 
  //show Buttons
- showButtons: boolean = true; 
+ isEditButtonShow: boolean = false; 
 
  //for resetting form
  @ViewChild('formDirective') private formDirective: NgForm;
@@ -57,6 +61,7 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
    public dialogRef: MatDialogRef<CreateAcademicDepartmentComponent>,
    private fb: FormBuilder,    
    public ngxsService:NgxsCustomService,
+   private academicDepartmentService:AcademicDepartmentService,
    public addButtonService:AddModalButtonService,
    private cdRef : ChangeDetectorRef,
    injector: Injector) {
@@ -69,91 +74,110 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
     AcademicDepartment: ['', [Validators.required]],
    });
 
-  //  if (this._id) {
-  //    this.showButtons = (this.permission.isGranted(this.permissions.FACULTY_EDIT)) ? true : false;
-  //    this.title = 'Edit Faculty'
-  //    this.isLoading = true
-  //    this.getFaculty(this._id);
-  //  } 
+   console.log(this.editAcademicDepartment);
 
+ 
+   if (this._id) {
+    this.isEditButtonShow = true;
+    this.title = 'Academic Department Detail';
+
+    //disable all fields
+    this.isLoading = true;
+    this.AcademicDepartmentForm.disable();
+    this.getAcademicDepartment(this._id);
+  } else {
+    this.AcademicDepartment = {
+      id: null,
+      name: '',
+      facultyId: null
+    };
+  }
    //Get Data from Store
-  //  this.ngxsService.getCampusFromState();
+   this.ngxsService.getFacultyFromState();
  }
 
-//  getFaculty(id: number) {
-//    this.ngxsService.warehouseService.getWarehouse(id)
-//    .pipe(
-//      take(1),
-//       finalize(() => {
-//        this.isLoading = false;
-//        this.cdRef.detectChanges();
-//       })
-//     )
-//      .subscribe(
-//        (warehouse: IApiResponse<IWarehouse>) => {
-//          this.editWarehouse(warehouse.result);
-//          this.warehouse = warehouse.result;
-//        }
-//      );
-//  }
+   //Edit Form
+  toggleEdit() {
+    this.isEditButtonShow = false;
+    this.title = 'Edit Academic Department'
+    this.AcademicDepartmentForm.enable()
+  }
+
+ getAcademicDepartment(id: number) {
+  this.academicDepartmentService.getAcademicDepartmentById(id)
+  .pipe(
+    take(1),
+     finalize(() => {
+      this.isLoading = false;
+      this.cdRef.detectChanges();
+     })
+   )
+   .subscribe(
+    (res) => {
+      this.editAcademicDepartment(res.result),
+        this.AcademicDepartment = res.result;
+      console.log(res, 'this is getDrpartment');
+    }
+    );
+ }
 
 //  Edit AcademicDepartment form
- editAcademicDepartment(ADepartment: IAcademicDepartment) {
+ editAcademicDepartment(ADepartment: ICreateAcademicDepartment) {
    this.AcademicDepartmentForm.patchValue({
-     id: ADepartment.id,
-     facultyId: ADepartment.facultyId,
-     AcademicDepartment: ADepartment.AcademicDepartment
+    id:ADepartment.id,
+    facultyId:ADepartment.facultyId,
+    AcademicDepartment: ADepartment.name
    });
 
-   //if user have no permission to edit, so disable all fields
-   if(!this.showButtons) {
-     this.AcademicDepartmentForm.disable();
-   }
- }
+ };
 
  onSubmit() {
+
    if (this.AcademicDepartmentForm.invalid) {
      return;
    }
-   this.isLoading = true;
+
+   this.isLoading = true
    this.mapFormValueToClientModel();
-  //  if (this.warehouse.id) {
-  //    this.ngxsService.warehouseService.updateWarehouse(this.warehouse)
-  //    .pipe(
-  //      take(1),
-  //       finalize(() => {
-  //        this.isLoading = false;
-  //        this.cdRef.detectChanges();
-  //       })
-  //     )
-  //      .subscribe(() => {            
-  //          this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
-  //          this.toastService.success('Updated Successfully', 'Store')
-  //          this.onCloseDialog();
-  //        }
-  //      );
-  //  } else {
-  //    delete this.warehouse.id;
-  //    this.ngxsService.warehouseService.addWarehouse(this.warehouse)
-  //    .pipe(
-  //      take(1),
-  //       finalize(() => {
-  //        this.isLoading = false;
-  //        this.cdRef.detectChanges();
-  //       })
-  //     )
-  //      .subscribe(() => {          
-  //          this.ngxsService.store.dispatch(new IsReloadRequired(WarehouseState, true))
-  //          this.toastService.success('Created Successfully', 'Store')
-  //          this.onCloseDialog();
-  //        }
-  //      );
-  //  }
+
+    if (this.AcademicDepartment.id) {
+      this.isLoading = true;
+      this.academicDepartmentService.updateAcademicDepartment(this.AcademicDepartment)
+      .pipe(
+        take(1),
+         finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+         })
+       )
+        .subscribe(() => {
+           this.toastService.success('Update Successfully', 'Academic Department')
+           this.onCloseDialog();
+         }
+        );
+    } else {
+      delete this.AcademicDepartment['id'];
+      this.isLoading = true;
+      this.academicDepartmentService.createAcademicDepartment(this.AcademicDepartment)
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res) => {
+          this.toastService.success('Created Successfully', 'Academic Department');
+          this.onCloseDialog();
+        });
+
+    }
  }
-// map form values to the warehouse model
+
+// map form values to the academivDepartment model
  mapFormValueToClientModel() {
-   this.AcademicDepartment.facultyId = this.AcademicDepartmentForm.value.faculty;
-   this.AcademicDepartment.AcademicDepartment = this.AcademicDepartmentForm.value.AcademicDepartment;
+   this.AcademicDepartment.name = this.AcademicDepartmentForm.value.AcademicDepartment;
+   this.AcademicDepartment.facultyId = this.AcademicDepartmentForm.value.facultyId;
  }
 
  reset() {

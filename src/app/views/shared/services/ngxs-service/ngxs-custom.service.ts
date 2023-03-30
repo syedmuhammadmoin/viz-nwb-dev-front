@@ -57,6 +57,12 @@ import {GetLiabilityAccountsState} from 'src/app/views/pages/finance/chat-of-acc
 import {AssetService} from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
 import {AssetState} from '../../../pages/fixed-asset/store/asset.state';
 import {DisposalDropdownState} from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
+import { FacultyState } from 'src/app/views/pages/admission/faculty/store/faculty.state';
+import { FacultyService } from 'src/app/views/pages/admission/faculty/service/faculty.service';
+import { DegreeService } from 'src/app/views/pages/admission/degree/service/degree.service';
+import { DegreeState } from 'src/app/views/pages/admission/degree/store/degree.state';
+import { QualificationState } from 'src/app/views/pages/admission/qualification/store/qualification.state';
+import { QualificationService } from 'src/app/views/pages/admission/qualification/service/qualification.service';
 import {CourseService} from '../../../pages/admission/course/service/course.service';
 import {CourseState} from '../../../pages/admission/course/store/course.state';
 import {SemesterService} from '../../../pages/admission/semester/services/semester.service';
@@ -88,6 +94,9 @@ export class NgxsCustomService {
     public productService: ProductService,
     public warehouseService: WarehouseService,
     public assetService: AssetService,
+    public facultyService: FacultyService,
+    public degreeService: DegreeService,
+    public qualificationService: QualificationService,
     public payrollItemService: PayrollItemService,
     public unitOfMeasurementService: UnitOfMeasurementService,
     public requisitionService: RequisitionService,
@@ -145,6 +154,21 @@ export class NgxsCustomService {
   @Select(AssetState.entities) assets$: Observable<any>;
   @Select(AssetState.isFetchCompleted) assetsFetchCompleted$: Observable<any>;
   @Select(AssetState.isLoading) assetsIsLoading$: Observable<any>;
+
+  // Faculty
+  @Select(FacultyState.entities) faculty$: Observable<any>;
+  @Select(FacultyState.isFetchCompleted) facultyFetchCompleted$: Observable<any>;
+  @Select(FacultyState.isLoading) facultyIsLoading$: Observable<any>;
+
+  // Degree
+  @Select(DegreeState.entities) degree$: Observable<any>;
+  @Select(DegreeState.isFetchCompleted) degreeFetchCompleted$: Observable<any>;
+  @Select(DegreeState.isLoading) degreeIsLoading$: Observable<any>;
+
+  // Qualification
+  @Select(QualificationState.entities) qualification$: Observable<any>;
+  @Select(QualificationState.isFetchCompleted) qualificationFetchCompleted$: Observable<any>;
+  @Select(QualificationState.isLoading) qualificationIsLoading$: Observable<any>;
 
   // All Business Partner with Employees
   @Select(AllBusinessPartnerState.entities) allBusinessPartners$: Observable<any>;
@@ -720,6 +744,48 @@ export class NgxsCustomService {
       }
     })
   }
+
+    // getFacultyFromState State From Store if available else fetch from the server and cache.
+    getFacultyFromState() {
+      this.facultyFetchCompleted$.subscribe((res) => {
+        // console.log('Faculty State fetch completed: ', res);
+        if (!res) {
+          this.store.dispatch(new GetList(FacultyState, {
+            serviceClass: this.facultyService,
+            methodName: 'getFacultyDropdown',
+            context: this
+          }))
+        }
+      })
+    }
+
+    // getDegreeFromState From Store if available else fetch from the server and cache.
+    getDegreeFromState() {
+    this.degreeFetchCompleted$.subscribe((res) => {
+      console.log('Degree State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DegreeState, {
+          serviceClass: this.degreeService,
+          methodName: 'getDegreeDropdown',
+          context: this
+        }))
+      }
+      })
+    }
+
+    // Get QualificationFromState From Store if available else fetch from the server and cache.
+    getQualificationFromState() {
+    this.qualificationFetchCompleted$.subscribe((res) => {
+      console.log('Qualification State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(QualificationState, {
+          serviceClass: this.qualificationService,
+          methodName: 'getQualificationDropdown',
+          context: this
+        }))
+      }
+      })
+    }
 
   // Get Cash Account State From Store if available else fetch from the server and cache.
   getCashAccountFromState() {
