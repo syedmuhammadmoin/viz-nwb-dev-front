@@ -606,6 +606,14 @@ const routes: Routes = [
         canActivateChild: [AuthGuard]
       },
       {
+        path: APP_ROUTES.FEE_ITEM,
+        loadChildren: () =>
+          import('./views/pages/admission/fee-item/fee-item.module').then(
+            (m) => m.FeeItemModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      {
         path: APP_ROUTES.PROGRAM,
         loadChildren: () =>
           import('./views/pages/admission/program/program.module').then(

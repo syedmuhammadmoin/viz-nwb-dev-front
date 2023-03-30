@@ -73,6 +73,8 @@ import {StateService} from '../../../pages/admission/state/services/state.servic
 import {CountryStateState} from '../../../pages/admission/state/store/country-state.state';
 import {CityService} from '../../../pages/admission/city/services/city.service';
 import {CityState} from '../../../pages/admission/city/store/city.state';
+import {FeeItemService} from '../../../pages/admission/fee-item/services/fee-item.service';
+import {FeeItemState} from '../../../pages/admission/fee-item/store/fee-item.state';
 
 @Injectable({
   providedIn: 'root'
@@ -111,6 +113,7 @@ export class NgxsCustomService {
     public countryService: CountryService,
     public stateService: StateService,
     public cityService: CityService,
+    public feeItemService: FeeItemService,
     public store: Store,
   ) {
   }
@@ -118,6 +121,11 @@ export class NgxsCustomService {
   // selector region start
 
   // Admission
+
+  // State
+  @Select(FeeItemState.entities) feeItems$: Observable<any>;
+  @Select(FeeItemState.isFetchCompleted) feeItemsFetchCompleted$: Observable<any>;
+  @Select(FeeItemState.isLoading) feeItemsIsLoading$: Observable<any>;
 
   // State
   @Select(CityState.entities) cities$: Observable<any>;
@@ -864,6 +872,19 @@ export class NgxsCustomService {
       if (!res) {
         this.store.dispatch(new GetList(CountryStateState, {
           serviceClass: this.stateService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+  // Get City From Store if available else fetch from the server and cache.
+  getFeeItemsFromState() {
+    this.feeItemsFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(FeeItemState, {
+          serviceClass: this.feeItemService,
           methodName: 'getForDropdown',
           context: this
         }))

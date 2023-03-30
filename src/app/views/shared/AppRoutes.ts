@@ -1,16 +1,16 @@
 export const APP_ROUTES = {
 
-  //AUTH
+  // AUTH
   AUTH: 'auth',
 
-  //DASHBOARD
+  // DASHBOARD
   BUILDER: 'builder',
   DASHBOARD: 'dashboard',
 
-  //ACCESS MANAGEMENT
+  // ACCESS MANAGEMENT
   ACCESS_MANAGEMENT: 'access-management',
 
-  //FINANCE
+  // FINANCE
   BANK_ACCOUNT: 'bank-account',
   BANK_RECONCILIATION: 'bank-reconciliation',
   BANK_STATEMENT: 'bank-statement',
@@ -19,14 +19,14 @@ export const APP_ROUTES = {
   JOURNAL_ENTRY: 'journal-entry',
   PAYMENT: 'payment',
 
-  //INVENTORY
+  // INVENTORY
   GOODS_RECEIVED_NOTE: 'goods-received-note',
   GOODS_RETURN_NOTE: 'goods-return-note',
   STOCK: 'stock',
   ISSUANCE: 'issuance',
   ISSUANCE_RETURN: 'issuance-return',
 
-  //PROCUREMENT
+  // PROCUREMENT
   REQUISITION: 'requisition',
   REQUEST_REQUISITION: 'request-requisition',
   BID_EVALUATION: 'bid-evaluation',
@@ -34,7 +34,7 @@ export const APP_ROUTES = {
   QUOTATION_COMPARATIVE: 'quotation-comparative',
   CALL_QUOTATION: 'call-quotation',
 
-  //PROFILING
+  // PROFILING
   CAMPUS: 'campus',
   BUSINESS_PARTNER: 'business-partner',
   CATEGORY: 'category',
@@ -44,17 +44,17 @@ export const APP_ROUTES = {
   TAX: 'tax',
   UNIT_OF_MEASUREMENT: 'unit-of-measurement',
 
-  //BUDGET
+  // BUDGET
   BUDGET: 'budget',
   ESTIMATED_BUDGET: 'estimated-budget',
   BUDGET_REAPPROPIATION: 'budget-reappropiation',
 
-  //PURCHASE
+  // PURCHASE
   DEBIT_NOTE: 'debit-note',
   BILL: 'vendor-bill',
   PURCHASE_ORDER: 'purchase-order',
 
-  //PAYROLL
+  // PAYROLL
   PAYROLL_ITEM: 'payroll-item',
   PAYROLL_TRANSACTION: 'payroll-transaction',
   PAYROLL_PROCESS: 'payroll-process',
@@ -63,20 +63,20 @@ export const APP_ROUTES = {
   DESIGNATION: 'designation',
   PAYROLL_REPORTS: 'payroll-reports',
 
-  //REPORT
+  // REPORT
   REPORT: 'report',
 
-  //SALES
+  // SALES
   CREDIT_NOTE: 'credit-note',
   INVOICE: 'invoice',
 
-  //WORKFLOW
+  // WORKFLOW
   WORKFLOW: 'workflow',
 
-  //STATUS
+  // STATUS
   STATUS: 'status',
 
-  //ADMISSION
+  // ADMISSION
   FACULTY: 'faculty',
   DEGREE: 'degree',
   APPLICANT_ASSESSMENT_CRITERIA: 'applicant-assessment-criteria',
@@ -93,8 +93,9 @@ export const APP_ROUTES = {
   COUNTRY: 'country',
   STATE: 'state',
   CITY: 'city',
+  FEE_ITEM: 'fee-item',
 
-  //FIXED ASSET
+  // FIXED ASSET
   FIXED_ASSET: 'fixed-asset',
   DEPRECIATION_MODEL: 'depreciation-model',
   ASSET_CATEGORY: 'asset-category',
@@ -119,14 +120,14 @@ export const CRUD_ROUTES = {
   REGISTER_PAYMENT: 'register-payment'
 }
 
-//AUTH SECTION
+// AUTH SECTION
 export const AUTH = {
   LOGIN: 'login',
   REGISTER: 'register',
   FORGOT_PASSWORD: 'forgot-password',
 }
 
-//REPORT SECTION
+// REPORT SECTION
 export const REPORT = {
   GENERAL_LEDGER: 'ledger',
   TRIAL_BALANCE: 'trial-balance',
@@ -136,7 +137,7 @@ export const REPORT = {
   PRINT: 'print'
 }
 
-//PAYROLL REPORTS SECTION
+// PAYROLL REPORTS SECTION
 export const PAYROLL_REPORT = {
   TRANSACTION: 'transaction',
   ALLOWANCE: 'allowance',
@@ -144,7 +145,7 @@ export const PAYROLL_REPORT = {
   BANK_ADVICE: 'bank-advice'
 }
 
-//ACCESS_MANAGEMENT SECTION
+// ACCESS_MANAGEMENT SECTION
 export const ACCESS_MANAGEMENT = {
   USER_LIST: 'users',
   CREATE_USER: 'users/create',
@@ -154,7 +155,7 @@ export const ACCESS_MANAGEMENT = {
   ROLE_PERMISSIONS: 'roles/permissions/print'
 }
 
-//FINANCE SECTION
+// FINANCE SECTION
 export const BANK_ACCOUNT = {
   LIST: APP_ROUTES.BANK_ACCOUNT + '/' + CRUD_ROUTES.LIST
 }
@@ -300,6 +301,14 @@ export const CITY = {
   }
 }
 
+export const FEE_ITEM = {
+  LIST: APP_ROUTES.FEE_ITEM + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.FEE_ITEM + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.FEE_ITEM + '/' + route + '/' + id
+  }
+}
+
 // BUDGET SECTION
 export const BUDGET = {
   LIST: APP_ROUTES.BUDGET + '/' + CRUD_ROUTES.LIST,
@@ -342,8 +351,8 @@ export const JOURNAL_ENTRY = {
   DETAIL: APP_ROUTES.JOURNAL_ENTRY + '/detail/',      //  JOURNAL_ENTRY.EDIT + this.journalEntry.id
   PRINT: APP_ROUTES.JOURNAL_ENTRY + '/print/',        //
 
-  //OR
-  ID_BASED_ROUTE(route: string, id: number) {               //JOURNAL_ENTRY.ID_BASED_ROUTE('edit' , this.journalEntry.id)
+  // OR
+  ID_BASED_ROUTE(route: string, id: number) {               // JOURNAL_ENTRY.ID_BASED_ROUTE('edit' , this.journalEntry.id)
     return APP_ROUTES.JOURNAL_ENTRY + '/' + route + '/' + id
   }
 }
@@ -370,7 +379,7 @@ export const PAYROLL_PAYMENT = {
 }
 
 
-//INVENTORY SECTION
+// INVENTORY SECTION
 export const GOODS_RECEIVED_NOTE = {
   LIST: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.GOODS_RECEIVED_NOTE + '/' + CRUD_ROUTES.CREATE,
@@ -408,7 +417,7 @@ export const STOCK = {
 }
 
 
-//PROCUREMENT SECTION
+// PROCUREMENT SECTION
 export const REQUISITION = {
   LIST: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.REQUISITION + '/' + CRUD_ROUTES.CREATE,
@@ -417,7 +426,7 @@ export const REQUISITION = {
   }
 }
 
-//PROCUREMENT SECTION
+// PROCUREMENT SECTION
 export const REQUEST_REQUISITION = {
   LIST: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.REQUEST_REQUISITION + '/' + CRUD_ROUTES.CREATE,
@@ -426,7 +435,7 @@ export const REQUEST_REQUISITION = {
   }
 }
 
-//PROCUREMENT SECTION
+// PROCUREMENT SECTION
 export const BID_EVALUATION = {
   LIST: APP_ROUTES.BID_EVALUATION + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.BID_EVALUATION + '/' + CRUD_ROUTES.CREATE,
@@ -460,7 +469,7 @@ export const CALL_QUOTATION = {
 }
 
 
-//PROFILING SECTION
+// PROFILING SECTION
 export const CAMPUS = {
   LIST: APP_ROUTES.CAMPUS + '/' + CRUD_ROUTES.LIST,
 }
@@ -496,7 +505,7 @@ export const UNIT_OF_MEASUREMENT = {
   LIST: APP_ROUTES.UNIT_OF_MEASUREMENT + '/' + CRUD_ROUTES.LIST
 }
 
-//FIXED ASSET SECTION
+// FIXED ASSET SECTION
 export const DEPRECIATION_MODEL = {
   LIST: APP_ROUTES.DEPRECIATION_MODEL + '/' + CRUD_ROUTES.LIST
 }
@@ -542,7 +551,7 @@ export const ASSET_REPORT = {
   }
 }
 
-//PAYROLL SECTION
+// PAYROLL SECTION
 export const PAYROLL_ITEM = {
   LIST: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.PAYROLL_ITEM + '/' + CRUD_ROUTES.CREATE,
@@ -600,7 +609,7 @@ export const DESIGNATION = {
   LIST: APP_ROUTES.DESIGNATION + '/' + CRUD_ROUTES.LIST,
 }
 
-//PURCHASE SECTION
+// PURCHASE SECTION
 export const DEBIT_NOTE = {
   LIST: APP_ROUTES.DEBIT_NOTE + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.DEBIT_NOTE + '/' + CRUD_ROUTES.CREATE,
@@ -626,7 +635,7 @@ export const BILL = {
   }
 }
 
-//SALES SECTION
+// SALES SECTION
 export const CREDIT_NOTE = {
   LIST: APP_ROUTES.CREDIT_NOTE + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.CREDIT_NOTE + '/' + CRUD_ROUTES.CREATE,
@@ -644,7 +653,7 @@ export const INVOICE = {
   }
 }
 
-//WORKFLOW SECTION
+// WORKFLOW SECTION
 export const WORKFLOW = {
   LIST: APP_ROUTES.WORKFLOW + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.WORKFLOW + '/' + CRUD_ROUTES.CREATE,
