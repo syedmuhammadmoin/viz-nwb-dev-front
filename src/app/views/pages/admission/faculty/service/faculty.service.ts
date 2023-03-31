@@ -16,8 +16,8 @@ export class FacultyService extends AppServiceBase{
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-  getFacultyDropdown(): Observable<any> {
-    return this.httpClient.get(this.baseUrl + '/dropdown');
+  getFacultyDropdown(): Observable<IApiResponse<IFaculty[]>> {
+    return this.httpClient.get<IApiResponse<IFaculty[]>>(this.baseUrl + '/dropdown')
   }
 
   updateFaculty(body: IFaculty): Observable<any> {

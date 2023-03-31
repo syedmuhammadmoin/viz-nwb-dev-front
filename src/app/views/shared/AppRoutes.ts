@@ -93,6 +93,8 @@ export const APP_ROUTES = {
   COUNTRY: 'country',
   STATE: 'state',
   CITY: 'city',
+  DISTRICT: 'district',
+  DOMICILE: 'domicile',
 
   //FIXED ASSET
   FIXED_ASSET: 'fixed-asset',
@@ -297,6 +299,22 @@ export const CITY = {
   CREATE: APP_ROUTES.CITY + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.CITY + '/' + route + '/' + id
+  }
+}
+
+export const DISTRICT = {
+  LIST: APP_ROUTES.DISTRICT + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.DISTRICT + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.DISTRICT + '/' + route + '/' + id
+  }
+}
+
+export const DOMICILE = {
+  LIST: APP_ROUTES.DOMICILE + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.DOMICILE + '/' + CRUD_ROUTES.CREATE,
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.DOMICILE + '/' + route + '/' + id
   }
 }
 

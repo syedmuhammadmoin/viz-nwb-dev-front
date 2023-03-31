@@ -606,6 +606,22 @@ const routes: Routes = [
         canActivateChild: [AuthGuard]
       },
       {
+        path: APP_ROUTES.DISTRICT,
+        loadChildren: () =>
+          import('./views/pages/admission/district/district.module').then(
+            (m) => m.DistrictModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      {
+        path: APP_ROUTES.DOMICILE,
+        loadChildren: () =>
+          import('./views/pages/admission/domicile/domicile.module').then(
+            (m) => m.DomicileModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+      {
         path: APP_ROUTES.PROGRAM,
         loadChildren: () =>
           import('./views/pages/admission/program/program.module').then(

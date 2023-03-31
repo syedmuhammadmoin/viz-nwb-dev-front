@@ -61,7 +61,9 @@ import {
   TAX,
   UNIT_OF_MEASUREMENT,
   WAREHOUSE,
-  WORKFLOW
+  WORKFLOW,
+  DISTRICT,
+  DOMICILE
 } from 'src/app/views/shared/AppRoutes';
 
 
@@ -602,6 +604,26 @@ export class MenuConfig {
             {
               title: 'City',
               page: '/' + CITY.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            },
+            {
+              title: 'District',
+              page: '/' + DISTRICT.LIST,
+              // permission: [
+              //   Permissions.COURSE_VIEW,
+              //   Permissions.COURSE_CREATE,
+              //   Permissions.COURSE_EDIT,
+              //   Permissions.COURSE_DELETE
+              // ]
+            },
+            {
+              title: 'Domicile',
+              page: '/' + DOMICILE.LIST,
               // permission: [
               //   Permissions.COURSE_VIEW,
               //   Permissions.COURSE_CREATE,

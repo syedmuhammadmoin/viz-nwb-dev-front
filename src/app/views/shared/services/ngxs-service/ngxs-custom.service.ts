@@ -1,78 +1,82 @@
-import {Injectable,} from '@angular/core';
-import {Select, Store} from '@ngxs/store';
-import {Observable} from 'rxjs';
-import {AccountLevel4State} from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
-import {BudgetAccountState} from 'src/app/core/shared-state/account-state/store/budget-account.state';
+import { Injectable, } from '@angular/core';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs';
+import { AccountLevel4State } from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
+import { BudgetAccountState } from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
-import {BudgetService} from 'src/app/views/pages/budget/current-budget/service/budget.service';
-import {BudgetState} from 'src/app/views/pages/budget/current-budget/store/budget.state';
-import {BankAccountService} from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
-import {BankAccountState} from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
-import {CashAccountService} from 'src/app/views/pages/finance/cash-account/service/cashAccount.service';
-import {CashAccountState} from 'src/app/views/pages/finance/cash-account/store/cash-account.state';
-import {ChartOfAccountService} from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
-import {DepartmentService} from 'src/app/views/pages/payroll/department/service/department.service';
-import {DepartmentState} from 'src/app/views/pages/payroll/department/store/department.store';
-import {DesignationService} from 'src/app/views/pages/payroll/designation/service/designation.service';
-import {DesignationState} from 'src/app/views/pages/payroll/designation/store/designation.store';
-import {EmployeeService} from 'src/app/views/pages/payroll/employee/service/employee.service';
-import {EmployeeState} from 'src/app/views/pages/payroll/employee/store/employee.state';
-import {BusinessPartnerService} from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
+import { BudgetService } from 'src/app/views/pages/budget/current-budget/service/budget.service';
+import { BudgetState } from 'src/app/views/pages/budget/current-budget/store/budget.state';
+import { BankAccountService } from 'src/app/views/pages/finance/bank-account/service/bankAccount.service';
+import { BankAccountState } from 'src/app/views/pages/finance/bank-account/store/bank-account.state';
+import { CashAccountService } from 'src/app/views/pages/finance/cash-account/service/cashAccount.service';
+import { CashAccountState } from 'src/app/views/pages/finance/cash-account/store/cash-account.state';
+import { ChartOfAccountService } from 'src/app/views/pages/finance/chat-of-account/service/chart-of-account.service';
+import { DepartmentService } from 'src/app/views/pages/payroll/department/service/department.service';
+import { DepartmentState } from 'src/app/views/pages/payroll/department/store/department.store';
+import { DesignationService } from 'src/app/views/pages/payroll/designation/service/designation.service';
+import { DesignationState } from 'src/app/views/pages/payroll/designation/store/designation.store';
+import { EmployeeService } from 'src/app/views/pages/payroll/employee/service/employee.service';
+import { EmployeeState } from 'src/app/views/pages/payroll/employee/store/employee.state';
+import { BusinessPartnerService } from 'src/app/views/pages/profiling/business-partner/service/businessPartner.service';
 
-import {BusinessPartnerState} from 'src/app/views/pages/profiling/business-partner/store/business-partner.state';
-import {CampusService} from 'src/app/views/pages/profiling/campus/service/campus.service';
-import {CampusState} from 'src/app/views/pages/profiling/campus/store/campus.state';
-import {CategoryService} from 'src/app/views/pages/profiling/category/service/category.service';
-import {CategoryState} from 'src/app/views/pages/profiling/category/store/category.state';
-import {OrganizationService} from 'src/app/views/pages/profiling/organization/services/organization.service';
-import {ProductService} from 'src/app/views/pages/profiling/product/service/product.service';
-import {ProductState} from 'src/app/views/pages/profiling/product/store/product.state.state';
-import {GetList} from 'src/app/views/pages/profiling/store/profiling.action';
-import {WarehouseService} from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
-import {WarehouseState} from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
-import {StatusState} from 'src/app/views/pages/workflows/status/store/status.state';
-import {AccountPayableState} from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
-import {StatusService} from 'src/app/views/pages/workflows/status/service/status.service';
-import {BasicPayState} from 'src/app/views/pages/payroll/payroll-item/store/basic-pay.state';
-import {IncrementState} from 'src/app/views/pages/payroll/payroll-item/store/increment.state';
-import {DeductionState} from 'src/app/views/pages/payroll/payroll-item/store/deduction.state';
-import {PayrollItemService} from 'src/app/views/pages/payroll/payroll-item/service/payroll-item.service';
-import {OtherAccountState} from 'src/app/views/pages/finance/chat-of-account/store/other-account.state';
-import {AccountReceivableState} from 'src/app/views/pages/finance/chat-of-account/store/account-receivable.state';
-import {RoleState} from 'src/app/views/pages/access-management/store/role.state';
-import {AccessManagementService} from 'src/app/views/pages/access-management/service/access-management.service';
-import {UnitOfMeasurementState} from 'src/app/views/pages/profiling/unit-of-measurement/store/unit.state';
-import {UnitOfMeasurementService} from 'src/app/views/pages/profiling/unit-of-measurement/service/unit-of-measurement.service';
-import {DepreciationModelState} from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
-import {DepreciationMethodService} from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
-import {AssetAccountState} from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
-import {EmployeePaymentState} from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
-import {AllBusinessPartnerState} from 'src/app/views/pages/profiling/business-partner/store/All-business-partner.state';
-import {PayrollItemState} from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
-import {RequisitionState} from 'src/app/views/pages/procurement/requisition/store/requisition.state';
-import {RequisitionService} from 'src/app/views/pages/procurement/requisition/service/requisition.service';
-import {CategoryAssetState} from 'src/app/views/pages/profiling/category/store/categoryAsset.state';
-import {ExpenseAccountState} from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
-import {GetLiabilityAccountsState} from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
-import {AssetService} from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
-import {AssetState} from '../../../pages/fixed-asset/store/asset.state';
-import {DisposalDropdownState} from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
+import { BusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/business-partner.state';
+import { CampusService } from 'src/app/views/pages/profiling/campus/service/campus.service';
+import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
+import { CategoryService } from 'src/app/views/pages/profiling/category/service/category.service';
+import { CategoryState } from 'src/app/views/pages/profiling/category/store/category.state';
+import { OrganizationService } from 'src/app/views/pages/profiling/organization/services/organization.service';
+import { ProductService } from 'src/app/views/pages/profiling/product/service/product.service';
+import { ProductState } from 'src/app/views/pages/profiling/product/store/product.state.state';
+import { GetList } from 'src/app/views/pages/profiling/store/profiling.action';
+import { WarehouseService } from 'src/app/views/pages/profiling/warehouse/services/warehouse.service';
+import { WarehouseState } from 'src/app/views/pages/profiling/warehouse/store/warehouse.state';
+import { StatusState } from 'src/app/views/pages/workflows/status/store/status.state';
+import { AccountPayableState } from 'src/app/views/pages/finance/chat-of-account/store/account-payable.state';
+import { StatusService } from 'src/app/views/pages/workflows/status/service/status.service';
+import { BasicPayState } from 'src/app/views/pages/payroll/payroll-item/store/basic-pay.state';
+import { IncrementState } from 'src/app/views/pages/payroll/payroll-item/store/increment.state';
+import { DeductionState } from 'src/app/views/pages/payroll/payroll-item/store/deduction.state';
+import { PayrollItemService } from 'src/app/views/pages/payroll/payroll-item/service/payroll-item.service';
+import { OtherAccountState } from 'src/app/views/pages/finance/chat-of-account/store/other-account.state';
+import { AccountReceivableState } from 'src/app/views/pages/finance/chat-of-account/store/account-receivable.state';
+import { RoleState } from 'src/app/views/pages/access-management/store/role.state';
+import { AccessManagementService } from 'src/app/views/pages/access-management/service/access-management.service';
+import { UnitOfMeasurementState } from 'src/app/views/pages/profiling/unit-of-measurement/store/unit.state';
+import { UnitOfMeasurementService } from 'src/app/views/pages/profiling/unit-of-measurement/service/unit-of-measurement.service';
+import { DepreciationModelState } from 'src/app/views/pages/fixed-asset/depreciation-model/store/depreciation-model.state';
+import { DepreciationMethodService } from 'src/app/views/pages/fixed-asset/depreciation-model/service/depreciation-method.service';
+import { AssetAccountState } from 'src/app/views/pages/finance/chat-of-account/store/asset-account.state';
+import { EmployeePaymentState } from 'src/app/views/pages/payroll/employee/store/employeePayment.state';
+import { AllBusinessPartnerState } from 'src/app/views/pages/profiling/business-partner/store/All-business-partner.state';
+import { PayrollItemState } from 'src/app/views/pages/payroll/payroll-item/store/payroll-item.state';
+import { RequisitionState } from 'src/app/views/pages/procurement/requisition/store/requisition.state';
+import { RequisitionService } from 'src/app/views/pages/procurement/requisition/service/requisition.service';
+import { CategoryAssetState } from 'src/app/views/pages/profiling/category/store/categoryAsset.state';
+import { ExpenseAccountState } from 'src/app/views/pages/finance/chat-of-account/store/expense-account.state';
+import { GetLiabilityAccountsState } from 'src/app/views/pages/finance/chat-of-account/store/getLiabilityAccount.state';
+import { AssetService } from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
+import { AssetState } from '../../../pages/fixed-asset/store/asset.state';
+import { DisposalDropdownState } from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
 import { FacultyState } from 'src/app/views/pages/admission/faculty/store/faculty.state';
 import { FacultyService } from 'src/app/views/pages/admission/faculty/service/faculty.service';
 import { DegreeService } from 'src/app/views/pages/admission/degree/service/degree.service';
 import { DegreeState } from 'src/app/views/pages/admission/degree/store/degree.state';
 import { QualificationState } from 'src/app/views/pages/admission/qualification/store/qualification.state';
 import { QualificationService } from 'src/app/views/pages/admission/qualification/service/qualification.service';
-import {CourseService} from '../../../pages/admission/course/service/course.service';
-import {CourseState} from '../../../pages/admission/course/store/course.state';
-import {SemesterService} from '../../../pages/admission/semester/services/semester.service';
-import {SemesterState} from '../../../pages/admission/semester/store/semester.state';
-import {CountryService} from '../../../pages/admission/country/service/country.service';
-import {CountryState} from '../../../pages/admission/country/store/country.state';
-import {StateService} from '../../../pages/admission/state/services/state.service';
-import {CountryStateState} from '../../../pages/admission/state/store/country-state.state';
-import {CityService} from '../../../pages/admission/city/services/city.service';
-import {CityState} from '../../../pages/admission/city/store/city.state';
+import { CourseService } from '../../../pages/admission/course/service/course.service';
+import { CourseState } from '../../../pages/admission/course/store/course.state';
+import { SemesterService } from '../../../pages/admission/semester/services/semester.service';
+import { SemesterState } from '../../../pages/admission/semester/store/semester.state';
+import { CountryService } from '../../../pages/admission/country/service/country.service';
+import { CountryState } from '../../../pages/admission/country/store/country.state';
+import { StateService } from '../../../pages/admission/state/services/state.service';
+import { CountryStateState } from '../../../pages/admission/state/store/country-state.state';
+import { CityService } from '../../../pages/admission/city/services/city.service';
+import { CityState } from '../../../pages/admission/city/store/city.state';
+import { DistrictState } from 'src/app/views/pages/admission/district/store/district.state';
+import { DomicileState } from 'src/app/views/pages/admission/domicile/store/domicile.state';
+import { DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
+import { DomicileService } from 'src/app/views/pages/admission/domicile/service/domicile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -95,6 +99,8 @@ export class NgxsCustomService {
     public warehouseService: WarehouseService,
     public assetService: AssetService,
     public facultyService: FacultyService,
+    public districtService: DistrictService,
+    public domicileService: DomicileService,
     public degreeService: DegreeService,
     public qualificationService: QualificationService,
     public payrollItemService: PayrollItemService,
@@ -160,6 +166,16 @@ export class NgxsCustomService {
   @Select(FacultyState.isFetchCompleted) facultyFetchCompleted$: Observable<any>;
   @Select(FacultyState.isLoading) facultyIsLoading$: Observable<any>;
 
+  // District 
+  @Select(DistrictState.entities) district$: Observable<any>;
+  @Select(DistrictState.isFetchCompleted) districtFetchCompleted$: Observable<any>;
+  @Select(DistrictState.isLoading) districtIsLoading$: Observable<any>;
+
+  // Faculty
+  @Select(DomicileState.entities) domicile$: Observable<any>;
+  @Select(DomicileState.isFetchCompleted) domicileFetchCompleted$: Observable<any>;
+  @Select(DomicileState.isLoading) domicileIsLoading$: Observable<any>;
+
   // Degree
   @Select(DegreeState.entities) degree$: Observable<any>;
   @Select(DegreeState.isFetchCompleted) degreeFetchCompleted$: Observable<any>;
@@ -205,7 +221,7 @@ export class NgxsCustomService {
   @Select(DisposalDropdownState.isFetchCompleted) disposalDropdownFetchCompleted$: Observable<any>;
   @Select(DisposalDropdownState.isLoading) disposalDropdownIsLoading$: Observable<any>;
 
-// Other Accounts
+  // Other Accounts
   @Select(OtherAccountState.entities) otherAccounts$: Observable<any>;
   @Select(OtherAccountState.isFetchCompleted) otherAccountsFetchCompleted$: Observable<any>;
   @Select(OtherAccountState.isLoading) otherAccountsIsLoading$: Observable<any>;
@@ -745,22 +761,51 @@ export class NgxsCustomService {
     })
   }
 
-    // getFacultyFromState State From Store if available else fetch from the server and cache.
-    getFacultyFromState() {
-      this.facultyFetchCompleted$.subscribe((res) => {
-        // console.log('Faculty State fetch completed: ', res);
-        if (!res) {
-          this.store.dispatch(new GetList(FacultyState, {
-            serviceClass: this.facultyService,
-            methodName: 'getFacultyDropdown',
-            context: this
-          }))
-        }
-      })
-    }
+  // getFacultyFromState State From Store if available else fetch from the server and cache.
+  getFacultyFromState() {
+    this.facultyFetchCompleted$.subscribe((res) => {
+      // console.log('Faculty State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(FacultyState, {
+          serviceClass: this.facultyService,
+          methodName: 'getFacultyDropdown',
+          context: this
+        }))
+      }
+    })
+  }
 
-    // getDegreeFromState From Store if available else fetch from the server and cache.
-    getDegreeFromState() {
+  // getDistrictFromState State From Store if available else fetch from the server and cache.
+  getDistrictFromState() {
+    this.districtFetchCompleted$.subscribe((res) => {
+      console.log('district State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DistrictState, {
+          serviceClass: this.districtService,
+          methodName: 'getdistrictDropdown',
+          context: this
+        }))
+        console.log(res);
+      }
+    })
+  }
+
+  // getFacultyFromState State From Store if available else fetch from the server and cache.
+  getDomicileFromState() {
+    this.domicileFetchCompleted$.subscribe((res) => {
+      console.log('Domicile State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DomicileState, {
+          serviceClass: this.domicileService,
+          methodName: 'getDomicileDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  // getDegreeFromState From Store if available else fetch from the server and cache.
+  getDegreeFromState() {
     this.degreeFetchCompleted$.subscribe((res) => {
       console.log('Degree State fetch completed: ', res);
       if (!res) {
@@ -770,11 +815,11 @@ export class NgxsCustomService {
           context: this
         }))
       }
-      })
-    }
+    })
+  }
 
-    // Get QualificationFromState From Store if available else fetch from the server and cache.
-    getQualificationFromState() {
+  // Get QualificationFromState From Store if available else fetch from the server and cache.
+  getQualificationFromState() {
     this.qualificationFetchCompleted$.subscribe((res) => {
       console.log('Qualification State fetch completed: ', res);
       if (!res) {
@@ -784,8 +829,8 @@ export class NgxsCustomService {
           context: this
         }))
       }
-      })
-    }
+    })
+  }
 
   // Get Cash Account State From Store if available else fetch from the server and cache.
   getCashAccountFromState() {
