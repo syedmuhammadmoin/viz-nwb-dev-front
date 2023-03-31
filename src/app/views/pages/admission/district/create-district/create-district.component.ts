@@ -93,7 +93,7 @@ export class CreateDistrictComponent extends AppComponentBase implements OnInit 
     //Get Data from Store
     this.ngxsService.getDistrictFromState();
     this.ngxsService.getDomicileFromState();
-    this.ngxsService.getFacultyFromState();
+    this.ngxsService.getCityFromState();
   }
 
   //Edit Form

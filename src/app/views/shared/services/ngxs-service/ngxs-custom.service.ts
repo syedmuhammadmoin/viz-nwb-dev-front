@@ -73,10 +73,10 @@ import { StateService } from '../../../pages/admission/state/services/state.serv
 import { CountryStateState } from '../../../pages/admission/state/store/country-state.state';
 import { CityService } from '../../../pages/admission/city/services/city.service';
 import { CityState } from '../../../pages/admission/city/store/city.state';
-import { DistrictState } from 'src/app/views/pages/admission/district/store/district.state';
 import { DomicileState } from 'src/app/views/pages/admission/domicile/store/domicile.state';
-import { DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
 import { DomicileService } from 'src/app/views/pages/admission/domicile/service/domicile.service';
+import { DistrictState } from 'src/app/views/pages/admission/district/store/district.state';
+import { DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
 
 @Injectable({
   providedIn: 'root'
@@ -99,8 +99,8 @@ export class NgxsCustomService {
     public warehouseService: WarehouseService,
     public assetService: AssetService,
     public facultyService: FacultyService,
-    public districtService: DistrictService,
     public domicileService: DomicileService,
+    public districtService: DistrictService,
     public degreeService: DegreeService,
     public qualificationService: QualificationService,
     public payrollItemService: PayrollItemService,
@@ -166,15 +166,16 @@ export class NgxsCustomService {
   @Select(FacultyState.isFetchCompleted) facultyFetchCompleted$: Observable<any>;
   @Select(FacultyState.isLoading) facultyIsLoading$: Observable<any>;
 
-  // District 
-  @Select(DistrictState.entities) district$: Observable<any>;
-  @Select(DistrictState.isFetchCompleted) districtFetchCompleted$: Observable<any>;
-  @Select(DistrictState.isLoading) districtIsLoading$: Observable<any>;
 
-  // Faculty
+  // domicile
   @Select(DomicileState.entities) domicile$: Observable<any>;
   @Select(DomicileState.isFetchCompleted) domicileFetchCompleted$: Observable<any>;
   @Select(DomicileState.isLoading) domicileIsLoading$: Observable<any>;
+
+  // district
+  @Select(DistrictState.entities) district$: Observable<any>;
+  @Select(DistrictState.isFetchCompleted) districtFetchCompleted$: Observable<any>;
+  @Select(DistrictState.isLoading) districtIsLoading$: Observable<any>;
 
   // Degree
   @Select(DegreeState.entities) degree$: Observable<any>;
@@ -775,20 +776,6 @@ export class NgxsCustomService {
     })
   }
 
-  // getDistrictFromState State From Store if available else fetch from the server and cache.
-  getDistrictFromState() {
-    this.districtFetchCompleted$.subscribe((res) => {
-      console.log('district State fetch completed: ', res);
-      if (!res) {
-        this.store.dispatch(new GetList(DistrictState, {
-          serviceClass: this.districtService,
-          methodName: 'getdistrictDropdown',
-          context: this
-        }))
-        console.log(res);
-      }
-    })
-  }
 
   // getFacultyFromState State From Store if available else fetch from the server and cache.
   getDomicileFromState() {
@@ -803,6 +790,23 @@ export class NgxsCustomService {
       }
     })
   }
+
+
+  // getDistrictFromState State From Store if available else fetch from the server and cache.
+
+  getDistrictFromState() {
+    this.districtFetchCompleted$.subscribe((res) => {
+      console.log('District State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DistrictState, {
+          serviceClass: this.districtService,
+          methodName: 'getDistrictDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
 
   // getDegreeFromState From Store if available else fetch from the server and cache.
   getDegreeFromState() {

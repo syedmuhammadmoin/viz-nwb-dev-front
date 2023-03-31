@@ -44,7 +44,7 @@ export class CreateDomicileComponent extends AppComponentBase implements OnInit 
     name: {
       required: 'Domicile is required.'
     },
-    districtId: {
+    district: {
       required: 'District is required.'
     }
   }
@@ -52,7 +52,7 @@ export class CreateDomicileComponent extends AppComponentBase implements OnInit 
   //error keys
   formErrors = {
     name: '',
-    districtId: ''
+    district: ''
   }
 
   //Injecting dependencies
@@ -71,7 +71,7 @@ export class CreateDomicileComponent extends AppComponentBase implements OnInit 
   ngOnInit() {
     this.DomicileForm = this.fb.group({
       name: ['', [Validators.required]],
-      districtId: ['', [Validators.required]],
+      district: ['', [Validators.required]],
     });
 
 
