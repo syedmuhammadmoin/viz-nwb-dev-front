@@ -7,7 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { PartialsModule } from '../partials/partials.module';
 // Pages
 import { CoreModule } from '../../core/core.module';
-import {AgGridModule} from "ag-grid-angular";
+import {AgGridModule} from 'ag-grid-angular';
 import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({

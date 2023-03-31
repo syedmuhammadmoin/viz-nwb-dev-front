@@ -36,7 +36,7 @@ export class TodoItemFlatNode {
   templateUrl: './create-role.component.html',
   styleUrls: ['./create-role.component.scss']
 })
-  
+
 export class CreateRoleComponent extends AppComponentBase implements OnInit{
 
   searchText: string
@@ -97,7 +97,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
   }
 
   initialize() {
-   
+
     //Excluding Delete permissions from claims
     this.roleClaims.map((claim: IRoleClaim, i: number) => {
       if(claim.value.toLowerCase().includes('delete')){
@@ -108,7 +108,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
 
     /**Spliting every permissions in permissions array to get module name and group permissions module wise */
 
-    let groupByPerms = this.groupBy(this.roleClaims, value => value.value.split('.')[1])
+    let groupByPerms = this.groupBy(this.roleClaims, value => value.value.split('.')[0])
 
     //Passing Group data in buildFileTree function to get tree view
     const data = this.buildFileTree(Object.fromEntries(groupByPerms), 0);
@@ -317,7 +317,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
     this.roleClaims[this.roleClaims.indexOf(permission)].selected = $event.checked
   }
 
-  
+
   //Manage Grouping
   /** Whether all the descendants of the node are selected. */
   descendantsAllSelected(node: TodoItemFlatNode): boolean {
@@ -410,8 +410,8 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
     return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
 
       const value = obj[key];
-      const node = new TodoItemNode(); 
-      
+      const node = new TodoItemNode();
+
       node.value = (key === 'AccessManagement') ? 'Access Management': key;
 
       if (value != null) {
@@ -437,52 +437,3 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
    }
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

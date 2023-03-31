@@ -61,7 +61,7 @@ import {
   TAX,
   UNIT_OF_MEASUREMENT,
   WAREHOUSE,
-  WORKFLOW
+  WORKFLOW, FEE_ITEM
 } from 'src/app/views/shared/AppRoutes';
 
 
@@ -519,7 +519,7 @@ export class MenuConfig {
               //   Permissions.FACULTY_DELETE
               // ]
             },
-            {
+            /*{
               title: 'Shift',
               page: '/' + SHIFT.LIST,
               // permission: [
@@ -528,8 +528,8 @@ export class MenuConfig {
               //   Permissions.SHIFT_EDIT,
               //   Permissions.SHIFT_DELETE
               // ]
-            },
-            {
+            },*/
+            /*{
               title: 'Fee Type',
               page: '/' + FEE_TYPE.LIST,
               // permission: [
@@ -538,8 +538,8 @@ export class MenuConfig {
               //   Permissions.FEE_TYPE_EDIT,
               //   Permissions.FEE_TYPE_DELETE
               // ]
-            },
-            {
+            },*/
+            /*{
               title: 'Batch',
               page: '/' + BATCH.LIST,
               // permission: [
@@ -548,8 +548,8 @@ export class MenuConfig {
               //   Permissions.BATCH_EDIT,
               //   Permissions.BATCH_DELETE
               // ]
-            },
-            {
+            },*/
+            /*{
               title: 'Batch Type',
               page: '/' + BATCH_TYPE.LIST,
               // permission: [
@@ -558,7 +558,7 @@ export class MenuConfig {
               //   Permissions.BATCH_TYPE_EDIT,
               //   Permissions.BATCH_TYPE_DELETE
               // ]
-            },
+            },*/
             {
               title: 'Course',
               page: '/' + COURSE.LIST,
@@ -612,6 +612,16 @@ export class MenuConfig {
             {
               title: 'Degree',
               page: '/' + DEGREE.LIST,
+              // permission: [
+              //   Permissions.FACULTY_VIEW,
+              //   Permissions.FACULTY_CREATE,
+              //   Permissions.FACULTY_EDIT,
+              //   Permissions.FACULTY_DELETE
+              // ]
+            },
+            {
+              title: 'Fee Item',
+              page: '/' + FEE_ITEM.LIST,
               // permission: [
               //   Permissions.FACULTY_VIEW,
               //   Permissions.FACULTY_CREATE,

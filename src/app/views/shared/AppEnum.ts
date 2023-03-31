@@ -1,409 +1,409 @@
 export class Permissions {
 
   // Business Partner
-  static BUSINESSPARTNER_CREATE = 'Permissions.Profiling.BusinessPartnerClaims.Create'
-  static BUSINESSPARTNER_VIEW = 'Permissions.Profiling.BusinessPartnerClaims.View'
-  static BUSINESSPARTNER_EDIT = 'Permissions.Profiling.BusinessPartnerClaims.Edit'
-  static BUSINESSPARTNER_DELETE = 'Permissions.Profiling.BusinessPartnerClaims.Delete'
+  static BUSINESSPARTNER_CREATE = 'Profiling.BusinessPartner.Create'
+  static BUSINESSPARTNER_VIEW = 'Profiling.BusinessPartner.View'
+  static BUSINESSPARTNER_EDIT = 'Profiling.BusinessPartner.Edit'
+  static BUSINESSPARTNER_DELETE = 'Profiling.BusinessPartner.Delete'
 
   // Campus
-  static CAMPUS_CREATE = 'Permissions.Profiling.CampusClaims.Create'
-  static CAMPUS_VIEW = 'Permissions.Profiling.CampusClaims.View'
-  static CAMPUS_EDIT = 'Permissions.Profiling.CampusClaims.Edit'
-  static CAMPUS_DELETE = 'Permissions.Profiling.CampusClaims.Delete'
+  static CAMPUS_CREATE = 'Profiling.Campus.Create'
+  static CAMPUS_VIEW = 'Profiling.Campus.View'
+  static CAMPUS_EDIT = 'Profiling.Campus.Edit'
+  static CAMPUS_DELETE = 'Profiling.Campus.Delete'
 
   // Bank Account
-  static BANKACCOUNT_VIEW = 'Permissions.Finance.BankAccountClaims.View';
-  static BANKACCOUNT_CREATE = 'Permissions.Finance.BankAccountClaims.Create';
-  static BANKACCOUNT_EDIT = 'Permissions.Finance.BankAccountClaims.Edit';
-  static BANKACCOUNT_DELETE = 'Permissions.Finance.BankAccountClaims.Delete';
+  static BANKACCOUNT_VIEW = 'Finance.BankAccount.View';
+  static BANKACCOUNT_CREATE = 'Finance.BankAccount.Create';
+  static BANKACCOUNT_EDIT = 'Finance.BankAccount.Edit';
+  static BANKACCOUNT_DELETE = 'Finance.BankAccount.Delete';
 
   // Bank Statement
-  static BANKSTATEMENT_VIEW = 'Permissions.Finance.BankStatementClaims.View';
-  static BANKSTATEMENT_CREATE = 'Permissions.Finance.BankStatementClaims.Create';
-  static BANKSTATEMENT_EDIT = 'Permissions.Finance.BankStatementClaims.Edit';
-  static BANKSTATEMENT_DELETE = 'Permissions.Finance.BankStatementClaims.Delete';
+  static BANKSTATEMENT_VIEW = 'Finance.BankStatement.View';
+  static BANKSTATEMENT_CREATE = 'Finance.BankStatement.Create';
+  static BANKSTATEMENT_EDIT = 'Finance.BankStatement.Edit';
+  static BANKSTATEMENT_DELETE = 'Finance.BankStatement.Delete';
 
   // Warehouse
-  static WAREHOUSE_VIEW = 'Permissions.Profiling.WarehouseClaims.View';
-  static WAREHOUSE_CREATE = 'Permissions.Profiling.WarehouseClaims.Create';
-  static WAREHOUSE_EDIT = 'Permissions.Profiling.WarehouseClaims.Edit';
-  static WAREHOUSE_DELETE = 'Permissions.Profiling.WarehouseClaims.Delete';
+  static WAREHOUSE_VIEW = 'Profiling.Warehouse.View';
+  static WAREHOUSE_CREATE = 'Profiling.Warehouse.Create';
+  static WAREHOUSE_EDIT = 'Profiling.Warehouse.Edit';
+  static WAREHOUSE_DELETE = 'Profiling.Warehouse.Delete';
 
   // Location
-  static LOCATION_VIEW = 'Permissions.Profiling.LocationClaims.View';
-  static LOCATION_CREATE = 'Permissions.Profiling.LocationClaims.Create';
-  static LOCATION_EDIT = 'Permissions.Profiling.LocationClaims.Edit';
-  static LOCATION_DELETE = 'Permissions.Profiling.LocationClaims.Delete';
+  static LOCATION_VIEW = 'Profiling.Location.View';
+  static LOCATION_CREATE = 'Profiling.Location.Create';
+  static LOCATION_EDIT = 'Profiling.Location.Edit';
+  static LOCATION_DELETE = 'Profiling.Location.Delete';
 
   // Cash Account
-  static CASHACCOUNT_VIEW = 'Permissions.Finance.CashAccountClaims.View';
-  static CASHACCOUNT_CREATE = 'Permissions.Finance.CashAccountClaims.Create';
-  static CASHACCOUNT_EDIT = 'Permissions.Finance.CashAccountClaims.Edit';
-  static CASHACCOUNT_DELETE = 'Permissions.Finance.CashAccountClaims.Delete';
+  static CASHACCOUNT_VIEW = 'Finance.CashAccount.View';
+  static CASHACCOUNT_CREATE = 'Finance.CashAccount.Create';
+  static CASHACCOUNT_EDIT = 'Finance.CashAccount.Edit';
+  static CASHACCOUNT_DELETE = 'Finance.CashAccount.Delete';
 
   // Category
-  static CATEGORIES_VIEW = 'Permissions.Profiling.CategoriesClaims.View';
-  static CATEGORIES_CREATE = 'Permissions.Profiling.CategoriesClaims.Create';
-  static CATEGORIES_EDIT = 'Permissions.Profiling.CategoriesClaims.Edit';
-  static CATEGORIES_DELETE = 'Permissions.Profiling.CategoriesClaims.Delete';
+  static CATEGORIES_VIEW = 'Profiling.Categories.View';
+  static CATEGORIES_CREATE = 'Profiling.Categories.Create';
+  static CATEGORIES_EDIT = 'Profiling.Categories.Edit';
+  static CATEGORIES_DELETE = 'Profiling.Categories.Delete';
 
-  //Chart of Account
-  static CHARTOFACCOUNT_VIEW = 'Permissions.Finance.ChartOfAccountClaims.View';
+  // Chart of Account
+  static CHARTOFACCOUNT_VIEW = 'Finance.ChartOfAccount.View';
 
   // Department
-  static DEPARTMENTS_VIEW = 'Permissions.Payroll.DepartmentClaims.View';
-  static DEPARTMENTS_CREATE = 'Permissions.Payroll.DepartmentClaims.Create';
-  static DEPARTMENTS_EDIT = 'Permissions.Payroll.DepartmentClaims.Edit';
-  static DEPARTMENTS_DELETE = 'Permissions.Payroll.DepartmentClaims.Delete';
+  static DEPARTMENTS_VIEW = 'Payroll.Department.View';
+  static DEPARTMENTS_CREATE = 'Payroll.Department.Create';
+  static DEPARTMENTS_EDIT = 'Payroll.Department.Edit';
+  static DEPARTMENTS_DELETE = 'Payroll.Department.Delete';
 
   // tax
-  static TAXES_VIEW = 'Permissions.Profiling.TaxesClaims.View';
-  static TAXES_CREATE = 'Permissions.Profiling.TaxesClaims.Create';
-  static TAXES_EDIT = 'Permissions.Profiling.TaxesClaims.Edit';
-  static TAXES_DELETE = 'Permissions.Profiling.TaxesClaims.Delete';
+  static TAXES_VIEW = 'Profiling.Taxes.View';
+  static TAXES_CREATE = 'Profiling.Taxes.Create';
+  static TAXES_EDIT = 'Profiling.Taxes.Edit';
+  static TAXES_DELETE = 'Profiling.Taxes.Delete';
 
   // unit of measurement
-  static UNIT_OF_MEASUREMENT_VIEW = 'Permissions.Profiling.UnitOfMeasurementClaims.View';
-  static UNIT_OF_MEASUREMENT_CREATE = 'Permissions.Profiling.UnitOfMeasurementClaims.Create';
-  static UNIT_OF_MEASUREMENT_EDIT = 'Permissions.Profiling.UnitOfMeasurementClaims.Edit';
-  static UNIT_OF_MEASUREMENT_DELETE = 'Permissions.Profiling.UnitOfMeasurementClaims.Delete';
+  static UNIT_OF_MEASUREMENT_VIEW = 'Profiling.UnitOfMeasurement.View';
+  static UNIT_OF_MEASUREMENT_CREATE = 'Profiling.UnitOfMeasurement.Create';
+  static UNIT_OF_MEASUREMENT_EDIT = 'Profiling.UnitOfMeasurement.Edit';
+  static UNIT_OF_MEASUREMENT_DELETE = 'Profiling.UnitOfMeasurement.Delete';
 
-  //Designation
-  static DESIGNATIONS_VIEW = 'Permissions.Payroll.DesignationClaims.View';
-  static DESIGNATIONS_CREATE = 'Permissions.Payroll.DesignationClaims.Create';
-  static DESIGNATIONS_EDIT = 'Permissions.Payroll.DesignationClaims.Edit';
-  static DESIGNATIONS_DELETE = 'Permissions.Payroll.DesignationsClaims.Delete';
+  // Designation
+  static DESIGNATIONS_VIEW = 'Payroll.Designation.View';
+  static DESIGNATIONS_CREATE = 'Payroll.Designation.Create';
+  static DESIGNATIONS_EDIT = 'Payroll.Designation.Edit';
+  static DESIGNATIONS_DELETE = 'Payroll.Designations.Delete';
 
   // Employee
-  static EMPLOYEE_VIEW = "Permissions.Payroll.EmployeeClaims.View";
-  static EMPLOYEE_CREATE = "Permissions.Payroll.EmployeeClaims.Create";
-  static EMPLOYEE_EDIT = "Permissions.Payroll.EmployeeClaims.Edit";
-  static EMPLOYEE_DELETE = "Permissions.Payroll.EmployeeClaims.Delete";
+  static EMPLOYEE_VIEW = 'Payroll.Employee.View';
+  static EMPLOYEE_CREATE = 'Payroll.Employee.Create';
+  static EMPLOYEE_EDIT = 'Payroll.Employee.Edit';
+  static EMPLOYEE_DELETE = 'Payroll.Employee.Delete';
 
   // Organization
-  static ORGANIZATION_VIEW = 'Permissions.Profiling.OrganizationClaims.View';
-  static ORGANIZATION_CREATE = 'Permissions.Profiling.OrganizationClaims.Create';
-  static ORGANIZATION_EDIT = 'Permissions.Profiling.OrganizationClaims.Edit';
-  static ORGANIZATION_DELETE = 'Permissions.Profiling.OrganizationClaims.Delete';
+  static ORGANIZATION_VIEW = 'Profiling.Organization.View';
+  static ORGANIZATION_CREATE = 'Profiling.Organization.Create';
+  static ORGANIZATION_EDIT = 'Profiling.Organization.Edit';
+  static ORGANIZATION_DELETE = 'Profiling.Organization.Delete';
 
   // Product
-  static PRODUCT_VIEW = 'Permissions.Profiling.ProductsClaims.View';
-  static PRODUCT_CREATE = 'Permissions.Profiling.ProductsClaims.Create';
-  static PRODUCT_EDIT = 'Permissions.Profiling.ProductsClaims.Edit';
-  static PRODUCT_DELETE = 'Permissions.Profiling.ProductsClaims.Delete';
+  static PRODUCT_VIEW = 'Profiling.Products.View';
+  static PRODUCT_CREATE = 'Profiling.Products.Create';
+  static PRODUCT_EDIT = 'Profiling.Products.Edit';
+  static PRODUCT_DELETE = 'Profiling.Products.Delete';
 
   // Budget
-  static BUDGET_VIEW = 'Permissions.Budget.BudgetClaims.View';
-  static BUDGET_CREATE = 'Permissions.Budget.BudgetClaims.Create';
-  static BUDGET_EDIT = 'Permissions.Budget.BudgetClaims.Edit';
-  static BUDGET_DELETE = 'Permissions.Budget.BudgetClaims.Delete';
-  static BUDGET_REPORT_VIEW = 'Permissions.Budget.BudgetReportClaims.View';
-  static BUDGET_COMPARISON_REPORT_VIEW = 'Permissions.Budget.BudgetComparisonReportClaims.View';
+  static BUDGET_VIEW = 'Budget.Budget.View';
+  static BUDGET_CREATE = 'Budget.Budget.Create';
+  static BUDGET_EDIT = 'Budget.Budget.Edit';
+  static BUDGET_DELETE = 'Budget.Budget.Delete';
+  static BUDGET_REPORT_VIEW = 'Budget.BudgetReport.View';
+  static BUDGET_COMPARISON_REPORT_VIEW = 'Budget.BudgetComparisonReport.View';
 
-  static ESTIMATED_BUDGET_VIEW = 'Permissions.Budget.EstimatedBudgetClaims.View';
-  static ESTIMATED_BUDGET_CREATE = 'Permissions.Budget.EstimatedBudgetClaims.Create';
-  static ESTIMATED_BUDGET_EDIT = 'Permissions.Budget.EstimatedBudgetClaims.Edit'; 
-  static ESTIMATED_BUDGET_DELETE = 'Permissions.Budget.EstimatedBudgetClaims.Delete';
+  static ESTIMATED_BUDGET_VIEW = 'Budget.EstimatedBudget.View';
+  static ESTIMATED_BUDGET_CREATE = 'Budget.EstimatedBudget.Create';
+  static ESTIMATED_BUDGET_EDIT = 'Budget.EstimatedBudget.Edit';
+  static ESTIMATED_BUDGET_DELETE = 'Budget.EstimatedBudget.Delete';
 
-  static BUDGET_REAPPROPIATION_VIEW = 'Permissions.Budget.BudgetReappropiationClaims.View';
-  static BUDGET_REAPPROPIATION_CREATE= 'Permissions.Budget.BudgetReappropiationClaims.Create';
-  static BUDGET_REAPPROPIATION_EDIT = 'Permissions.Budget.BudgetReappropiationClaims.Edit'; 
+  static BUDGET_REAPPROPIATION_VIEW = 'Budget.BudgetReappropiation.View';
+  static BUDGET_REAPPROPIATION_CREATE= 'Budget.BudgetReappropiation.Create';
+  static BUDGET_REAPPROPIATION_EDIT = 'Budget.BudgetReappropiation.Edit';
 
   // ADMISSION
-  static FACULTY_VIEW = 'Permissions.Faculty.FacultyClaims.View';
-  static FACULTY_CREATE = 'Permissions.Faculty.FacultyClaims.Create';
-  static FACULTY_EDIT = 'Permissions.Faculty.FacultyClaims.edit';
-  static FACULTY_DELETE = 'Permissions.Faculty.FacultyClaims.delete';
+  static FACULTY_VIEW = 'Faculty.Faculty.View';
+  static FACULTY_CREATE = 'Faculty.Faculty.Create';
+  static FACULTY_EDIT = 'Faculty.Faculty.edit';
+  static FACULTY_DELETE = 'Faculty.Faculty.delete';
 
-  static ADMISSION_DEPARTMENT_VIEW = 'Permissions.Department.DepartmentClaims.View';
-  static ADMISSION_DEPARTMENT_CREATE = 'Permissions.Department.DepartmentClaims.Create';
-  static ADMISSION_DEPARTMENT_EDIT = 'Permissions.Department.DepartmentClaims.edit';
-  static ADMISSION_DEPARTMENT_DELETE = 'Permissions.Department.DepartmentClaims.delete';
+  static ADMISSION_DEPARTMENT_VIEW = 'Department.Department.View';
+  static ADMISSION_DEPARTMENT_CREATE = 'Department.Department.Create';
+  static ADMISSION_DEPARTMENT_EDIT = 'Department.Department.edit';
+  static ADMISSION_DEPARTMENT_DELETE = 'Department.Department.delete';
 
-  static SHIFT_VIEW = 'Permissions.Shift.ShiftClaims.View';
-  static SHIFT_CREATE = 'Permissions.Shift.ShiftClaims.Create';
-  static SHIFT_EDIT = 'Permissions.Shift.ShiftClaims.edit';
-  static SHIFT_DELETE = 'Permissions.Shift.ShiftClaims.delete';
+  static SHIFT_VIEW = 'Shift.Shift.View';
+  static SHIFT_CREATE = 'Shift.Shift.Create';
+  static SHIFT_EDIT = 'Shift.Shift.edit';
+  static SHIFT_DELETE = 'Shift.Shift.delete';
 
-  static FEE_TYPE_VIEW = 'Permissions.FeeType.FeeTypeClaims.View';
-  static FEE_TYPE_CREATE = 'Permissions.FeeType.FeeTypeClaims.Create';
-  static FEE_TYPE_EDIT = 'Permissions.FeeType.FeeTypeClaims.edit';
-  static FEE_TYPE_DELETE = 'Permissions.FeeType.FeeTypeClaims.delete';
+  static FEE_TYPE_VIEW = 'FeeType.FeeType.View';
+  static FEE_TYPE_CREATE = 'FeeType.FeeType.Create';
+  static FEE_TYPE_EDIT = 'FeeType.FeeType.edit';
+  static FEE_TYPE_DELETE = 'FeeType.FeeType.delete';
 
-  static BATCH_VIEW = 'Permissions.Batch.BatchClaims.View';
-  static BATCH_CREATE = 'Permissions.Batch.BatchClaims.Create';
-  static BATCH_EDIT = 'Permissions.Batch.BatchClaims.edit';
-  static BATCH_DELETE = 'Permissions.Batch.BatchClaims.delete';
+  static BATCH_VIEW = 'Batch.Batch.View';
+  static BATCH_CREATE = 'Batch.Batch.Create';
+  static BATCH_EDIT = 'Batch.Batch.edit';
+  static BATCH_DELETE = 'Batch.Batch.delete';
 
-  static BATCH_TYPE_VIEW = 'Permissions.BatchType.BatchTypeClaims.View';
-  static BATCH_TYPE_CREATE = 'Permissions.BatchType.BatchTypeClaims.Create';
-  static BATCH_TYPE_EDIT = 'Permissions.BatchType.BatchTypeClaims.edit';
-  static BATCH_TYPE_DELETE = 'Permissions.BatchType.BatchTypeClaims.delete';
+  static BATCH_TYPE_VIEW = 'BatchType.BatchType.View';
+  static BATCH_TYPE_CREATE = 'BatchType.BatchType.Create';
+  static BATCH_TYPE_EDIT = 'BatchType.BatchType.edit';
+  static BATCH_TYPE_DELETE = 'BatchType.BatchType.delete';
 
-  static COURSE_VIEW = 'Permissions.Course.CourseClaims.View';
-  static COURSE_CREATE = 'Permissions.Course.CourseClaims.Create';
-  static COURSE_EDIT = 'Permissions.Course.CourseClaims.edit';
-  static COURSE_DELETE = 'Permissions.Course.CourseClaims.delete';
+  static COURSE_VIEW = 'Course.Course.View';
+  static COURSE_CREATE = 'Course.Course.Create';
+  static COURSE_EDIT = 'Course.Course.edit';
+  static COURSE_DELETE = 'Course.Course.delete';
 
 
-  static PROGRAM_VIEW = 'Permissions.Program.ProgramClaims.View';
-  static PROGRAM_CREATE = 'Permissions.Program.ProgramClaims.Create';
-  static PROGRAM_EDIT = 'Permissions.Program.ProgramClaims.edit';
-  static PROGRAM_DELETE = 'Permissions.Program.ProgramClaims.delete';
+  static PROGRAM_VIEW = 'Program.Program.View';
+  static PROGRAM_CREATE = 'Program.Program.Create';
+  static PROGRAM_EDIT = 'Program.Program.edit';
+  static PROGRAM_DELETE = 'Program.Program.delete';
 
 
   // Level 3
-  static LEVEL3_VIEW = 'Permissions.Finance.Level3Claims.View';
-  static LEVEL3_CREATE = 'Permissions.Finance.Level3Claims.Create';
-  static LEVEL3_EDIT = 'Permissions.Finance.Level3Claims.Edit';
-  static LEVEL3_DELETE = 'Permissions.Finance.Level3Claims.Delete';
+  static LEVEL3_VIEW = 'Finance.Level3.View';
+  static LEVEL3_CREATE = 'Finance.Level3.Create';
+  static LEVEL3_EDIT = 'Finance.Level3.Edit';
+  static LEVEL3_DELETE = 'Finance.Level3.Delete';
 
   // Level 4
-  static LEVEL4_VIEW = 'Permissions.Finance.Level4Claims.View';
-  static LEVEL4_CREATE = 'Permissions.Finance.Level4Claims.Create';
-  static LEVEL4_EDIT = 'Permissions.Finance.Level4Claims.Edit';
-  static LEVEL4_DELETE = 'Permissions.Finance.Level4Claims.Delete';
+  static LEVEL4_VIEW = 'Finance.Level4.View';
+  static LEVEL4_CREATE = 'Finance.Level4.Create';
+  static LEVEL4_EDIT = 'Finance.Level4.Edit';
+  static LEVEL4_DELETE = 'Finance.Level4.Delete';
 
   // Report
-  static BALANCESHEET_VIEW = 'Permissions.Report.BalanceSheetClaims.View';
-  static GENERALLEDGER_VIEW = 'Permissions.Report.GeneralLedgerClaims.View';
-  static PROFITLOSS_VIEW = 'Permissions.Report.ProfitLossClaims.View';
-  static TRIALBALANCE_VIEW = 'Permissions.Report.TrialBalanceClaims.View';
+  static BALANCESHEET_VIEW = 'Report.BalanceSheet.View';
+  static GENERALLEDGER_VIEW = 'Report.GeneralLedger.View';
+  static PROFITLOSS_VIEW = 'Report.ProfitLoss.View';
+  static TRIALBALANCE_VIEW = 'Report.TrialBalance.View';
 
   // Invoice
-  static INVOICE_VIEW = 'Permissions.Finance.InvoiceClaims.View';
-  static INVOICE_CREATE = 'Permissions.Finance.InvoiceClaims.Create';
-  static INVOICE_EDIT = 'Permissions.Finance.InvoiceClaims.Edit';
-  static INVOICE_DELETE = 'Permissions.Finance.InvoiceClaims.Delete';
-  static INVOICE_REVIEW = 'Permissions.Finance.InvoiceClaims.Review';
-  static INVOICE_APPROVE = 'Permissions.Finance.InvoiceClaims.Approve';
+  static INVOICE_VIEW = 'Finance.Invoice.View';
+  static INVOICE_CREATE = 'Finance.Invoice.Create';
+  static INVOICE_EDIT = 'Finance.Invoice.Edit';
+  static INVOICE_DELETE = 'Finance.Invoice.Delete';
+  static INVOICE_REVIEW = 'Finance.Invoice.Review';
+  static INVOICE_APPROVE = 'Finance.Invoice.Approve';
 
   // Bill
-  static BILL_VIEW = 'Permissions.Finance.BillClaims.View';
-  static BILL_CREATE = 'Permissions.Finance.BillClaims.Create';
-  static BILL_EDIT = 'Permissions.Finance.BillClaims.Edit';
-  static BILL_DELETE = 'Permissions.Finance.BillClaims.Delete';
-  static BILL_REVIEW = 'Permissions.Finance.BillClaims.Review';
-  static BILL_APPROVE = 'Permissions.Finance.BillClaims.Approve';
+  static BILL_VIEW = 'Finance.Bill.View';
+  static BILL_CREATE = 'Finance.Bill.Create';
+  static BILL_EDIT = 'Finance.Bill.Edit';
+  static BILL_DELETE = 'Finance.Bill.Delete';
+  static BILL_REVIEW = 'Finance.Bill.Review';
+  static BILL_APPROVE = 'Finance.Bill.Approve';
 
   // purchase Order
-  static PURCHASEORDER_VIEW = 'Permissions.Procurement.PurchaseOrderClaims.View';
-  static PURCHASEORDER_CREATE = 'Permissions.Procurement.PurchaseOrderClaims.Create';
-  static PURCHASEORDER_EDIT = 'Permissions.Procurement.PurchaseOrderClaims.Edit';
-  static PURCHASEORDER_DELETE = 'Permissions.Procurement.PurchaseOrderClaims.Delete';
-  static PURCHASEORDER_REVIEW = 'Permissions.Procurement.PurchaseOrderClaims.Review';
-  static PURCHASEORDER_APPROVE = 'Permissions.Procurement.PurchaseOrderClaims.Approve';
+  static PURCHASEORDER_VIEW = 'Procurement.PurchaseOrder.View';
+  static PURCHASEORDER_CREATE = 'Procurement.PurchaseOrder.Create';
+  static PURCHASEORDER_EDIT = 'Procurement.PurchaseOrder.Edit';
+  static PURCHASEORDER_DELETE = 'Procurement.PurchaseOrder.Delete';
+  static PURCHASEORDER_REVIEW = 'Procurement.PurchaseOrder.Review';
+  static PURCHASEORDER_APPROVE = 'Procurement.PurchaseOrder.Approve';
 
   // Requisition
-  static REQUISITION_VIEW = 'Permissions.Procurement.RequisitionClaims.View';
-  static REQUISITION_CREATE = 'Permissions.Procurement.RequisitionClaims.Create';
-  static REQUISITION_EDIT = 'Permissions.Procurement.RequisitionClaims.Edit';
-  static REQUISITION_DELETE = 'Permissions.Procurement.RequisitionClaims.Delete';
-  static REQUISITION_REVIEW = 'Permissions.Procurement.RequisitionClaims.Review';
-  static REQUISITION_APPROVE = 'Permissions.Procurement.RequisitionClaims.Approve';
+  static REQUISITION_VIEW = 'Procurement.Requisition.View';
+  static REQUISITION_CREATE = 'Procurement.Requisition.Create';
+  static REQUISITION_EDIT = 'Procurement.Requisition.Edit';
+  static REQUISITION_DELETE = 'Procurement.Requisition.Delete';
+  static REQUISITION_REVIEW = 'Procurement.Requisition.Review';
+  static REQUISITION_APPROVE = 'Procurement.Requisition.Approve';
 
-  //Quotation
-  static QUOTATION_VIEW = 'Permissions.Procurement.QuotationClaims.View'
-  static QUOTATION_CREATE = 'Permissions.Procurement.QuotationClaims.Create';
-  static QUOTATION_EDIT = 'Permissions.Procurement.QuotationClaims.Edit';
-  static QUOTATION_DELETE = 'Permissions.Procurement.QuotationClaims.Delete';
-  static QUOTATION_REVIEW = 'Permissions.Procurement.QuotationClaims.Review';
-  static QUOTATION_APPROVE = 'Permissions.Procurement.QuotationClaims.Approve';
+  // Quotation
+  static QUOTATION_VIEW = 'Procurement.Quotation.View'
+  static QUOTATION_CREATE = 'Procurement.Quotation.Create';
+  static QUOTATION_EDIT = 'Procurement.Quotation.Edit';
+  static QUOTATION_DELETE = 'Procurement.Quotation.Delete';
+  static QUOTATION_REVIEW = 'Procurement.Quotation.Review';
+  static QUOTATION_APPROVE = 'Procurement.Quotation.Approve';
 
-  //Quotation Comparative
-  static QUOTATION_COMPARATIVE_VIEW = 'Permissions.Procurement.QuotationComparativeClaims.View'
-  static QUOTATION_COMPARATIVE_CREATE = 'Permissions.Procurement.QuotationComparativeClaims.Create';
-  static QUOTATION_COMPARATIVE_EDIT = 'Permissions.Procurement.QuotationComparativeClaims.Edit';
-  static QUOTATION_COMPARATIVE_DELETE = 'Permissions.Procurement.QuotationComparativeClaims.Delete';
+  // Quotation Comparative
+  static QUOTATION_COMPARATIVE_VIEW = 'Procurement.QuotationComparative.View'
+  static QUOTATION_COMPARATIVE_CREATE = 'Procurement.QuotationComparative.Create';
+  static QUOTATION_COMPARATIVE_EDIT = 'Procurement.QuotationComparative.Edit';
+  static QUOTATION_COMPARATIVE_DELETE = 'Procurement.QuotationComparative.Delete';
 
-  //Call Quotation
-  static CALL_QUOTATION_VIEW = 'Permissions.Procurement.CallForQuotationClaims.View'
-  static CALL_QUOTATION_CREATE = 'Permissions.Procurement.CallForQuotationClaims.Create';
-  static CALL_QUOTATION_EDIT = 'Permissions.Procurement.CallForQuotationClaims.Edit';
-  static CALL_QUOTATION_DELETE = 'Permissions.Procurement.CallForQuotationClaims.Delete';
+  // Call Quotation
+  static CALL_QUOTATION_VIEW = 'Procurement.CallForQuotation.View'
+  static CALL_QUOTATION_CREATE = 'Procurement.CallForQuotation.Create';
+  static CALL_QUOTATION_EDIT = 'Procurement.CallForQuotation.Edit';
+  static CALL_QUOTATION_DELETE = 'Procurement.CallForQuotation.Delete';
 
   // Request Requisition
-  static REQUEST_VIEW = 'Permissions.Procurement.RequestClaims.View';
-  static REQUEST_CREATE = 'Permissions.Procurement.RequestClaims.Create';
-  static REQUEST_EDIT = 'Permissions.Procurement.RequestClaims.Edit';
-  static REQUEST_DELETE = 'Permissions.Procurement.RequestClaims.Delete';
-  static REQUEST_REVIEW = 'Permissions.Procurement.RequestClaims.Review';
-  static REQUEST_APPROVE = 'Permissions.Procurement.RequestClaims.Approve';
+  static REQUEST_VIEW = 'Procurement.Request.View';
+  static REQUEST_CREATE = 'Procurement.Request.Create';
+  static REQUEST_EDIT = 'Procurement.Request.Edit';
+  static REQUEST_DELETE = 'Procurement.Request.Delete';
+  static REQUEST_REVIEW = 'Procurement.Request.Review';
+  static REQUEST_APPROVE = 'Procurement.Request.Approve';
 
   // Bid Evaluation
-  static BIDEVALUATION_VIEW = 'Permissions.Procurement.BidEvaluationClaims.View';
-  static BIDEVALUATION_CREATE = 'Permissions.Procurement.BidEvaluationClaims.Create';
-  static BIDEVALUATION_EDIT = 'Permissions.Procurement.BidEvaluationClaims.Edit';
-  static BIDEVALUATION_DELETE = 'Permissions.Procurement.BidEvaluationClaims.Delete';
+  static BIDEVALUATION_VIEW = 'Procurement.BidEvaluation.View';
+  static BIDEVALUATION_CREATE = 'Procurement.BidEvaluation.Create';
+  static BIDEVALUATION_EDIT = 'Procurement.BidEvaluation.Edit';
+  static BIDEVALUATION_DELETE = 'Procurement.BidEvaluation.Delete';
 
   // Payment
-  static PAYMENT_VIEW = 'Permissions.Finance.PaymentClaims.View';
-  static PAYMENT_CREATE = 'Permissions.Finance.PaymentClaims.Create';
-  static PAYMENT_EDIT = 'Permissions.Finance.PaymentClaims.Edit';
-  static PAYMENT_DELETE = 'Permissions.Finance.PaymentClaims.Delete';
-  static PAYMENT_REVIEW = 'Permissions.Finance.PaymentClaims.Review';
-  static PAYMENT_APPROVE = 'Permissions.Finance.PaymentClaims.Approve';
+  static PAYMENT_VIEW = 'Finance.Payment.View';
+  static PAYMENT_CREATE = 'Finance.Payment.Create';
+  static PAYMENT_EDIT = 'Finance.Payment.Edit';
+  static PAYMENT_DELETE = 'Finance.Payment.Delete';
+  static PAYMENT_REVIEW = 'Finance.Payment.Review';
+  static PAYMENT_APPROVE = 'Finance.Payment.Approve';
 
   // Internal Recipt
-  static RECEIPT_VIEW = 'Permissions.Finance.ReceiptClaims.View';
-  static RECEIPT_CREATE = 'Permissions.Finance.ReceiptClaims.Create';
-  static RECEIPT_EDIT = 'Permissions.Finance.ReceiptClaims.Edit';
-  static RECEIPT_DELETE = 'Permissions.Finance.ReceiptClaims.Delete';
-  static RECEIPT_REVIEW = 'Permissions.Finance.ReceiptClaims.Review';
-  static RECEIPT_APPROVE = 'Permissions.Finance.ReceiptClaims.Approve';
+  static RECEIPT_VIEW = 'Finance.Receipt.View';
+  static RECEIPT_CREATE = 'Finance.Receipt.Create';
+  static RECEIPT_EDIT = 'Finance.Receipt.Edit';
+  static RECEIPT_DELETE = 'Finance.Receipt.Delete';
+  static RECEIPT_REVIEW = 'Finance.Receipt.Review';
+  static RECEIPT_APPROVE = 'Finance.Receipt.Approve';
 
-  static PAYROLL_PAYMENT_VIEW = 'Permissions.Payroll.PayrollPaymentClaims.View';
-  static PAYROLL_PAYMENT_CREATE = 'Permissions.Payroll.PayrollPaymentClaims.Create';
-  static PAYROLL_PAYMENT_EDIT = 'Permissions.Payroll.PayrollPaymentClaims.Edit';
-  static PAYROLL_PAYMENT_DELETE = 'Permissions.Payroll.PayrollPaymentClaims.Delete';
+  static PAYROLL_PAYMENT_VIEW = 'Payroll.PayrollPayment.View';
+  static PAYROLL_PAYMENT_CREATE = 'Payroll.PayrollPayment.Create';
+  static PAYROLL_PAYMENT_EDIT = 'Payroll.PayrollPayment.Edit';
+  static PAYROLL_PAYMENT_DELETE = 'Payroll.PayrollPayment.Delete';
 
   // Credit Note
-  static CREDITNOTE_VIEW = 'Permissions.Finance.CreditNoteClaims.View';
-  static CREDITNOTE_CREATE = 'Permissions.Finance.CreditNoteClaims.Create';
-  static CREDITNOTE_EDIT = 'Permissions.Finance.CreditNoteClaims.Edit';
-  static CREDITNOTE_DELETE = 'Permissions.Finance.CreditNoteClaims.Delete';
-  static CREDITNOTE_REVIEW = 'Permissions.Finance.CreditNoteClaims.Review';
-  static CREDITNOTE_APPROVE = 'Permissions.Finance.CreditNoteClaims.Approve';
+  static CREDITNOTE_VIEW = 'Finance.CreditNote.View';
+  static CREDITNOTE_CREATE = 'Finance.CreditNote.Create';
+  static CREDITNOTE_EDIT = 'Finance.CreditNote.Edit';
+  static CREDITNOTE_DELETE = 'Finance.CreditNote.Delete';
+  static CREDITNOTE_REVIEW = 'Finance.CreditNote.Review';
+  static CREDITNOTE_APPROVE = 'Finance.CreditNote.Approve';
 
   // Debit Note
-  static DEBITNOTE_VIEW = 'Permissions.Finance.DebitNoteClaims.View';
-  static DEBITNOTE_CREATE = 'Permissions.Finance.DebitNoteClaims.Create';
-  static DEBITNOTE_EDIT = 'Permissions.Finance.DebitNoteClaims.Edit';
-  static DEBITNOTE_DELETE = 'Permissions.Finance.DebitNoteClaims.Delete';
-  static DEBITNOTE_REVIEW = 'Permissions.Finance.DebitNoteClaims.Review';
-  static DEBITNOTE_APPROVE = 'Permissions.Finance.DebitNoteClaims.Approve';
+  static DEBITNOTE_VIEW = 'Finance.DebitNote.View';
+  static DEBITNOTE_CREATE = 'Finance.DebitNote.Create';
+  static DEBITNOTE_EDIT = 'Finance.DebitNote.Edit';
+  static DEBITNOTE_DELETE = 'Finance.DebitNote.Delete';
+  static DEBITNOTE_REVIEW = 'Finance.DebitNote.Review';
+  static DEBITNOTE_APPROVE = 'Finance.DebitNote.Approve';
 
   // Journal Entry Permissions
-  static JOURNALENTRY_VIEW = 'Permissions.Finance.JournalEntryClaims.View';
-  static JOURNALENTRY_CREATE = 'Permissions.Finance.JournalEntryClaims.Create';
-  static JOURNALENTRY_EDIT = 'Permissions.Finance.JournalEntryClaims.Edit';
-  static JOURNALENTRY_DELETE = 'Permissions.Finance.JournalEntryClaims.Delete';
-  static JOURNALENTRY_REVIEW = 'Permissions.Finance.JournalEntryClaims.Review';
-  static JOURNALENTRY_APPROVE = 'Permissions.Finance.JournalEntryClaims.Approve';
+  static JOURNALENTRY_VIEW = 'Finance.JournalEntry.View';
+  static JOURNALENTRY_CREATE = 'Finance.JournalEntry.Create';
+  static JOURNALENTRY_EDIT = 'Finance.JournalEntry.Edit';
+  static JOURNALENTRY_DELETE = 'Finance.JournalEntry.Delete';
+  static JOURNALENTRY_REVIEW = 'Finance.JournalEntry.Review';
+  static JOURNALENTRY_APPROVE = 'Finance.JournalEntry.Approve';
 
   // Auth Permissions
-  static AUTH_VIEW = 'Permissions.AccessManagement.AuthClaims.View';
-  static AUTH_CREATE = 'Permissions.AccessManagement.AuthClaims.Create';
-  static AUTH_EDIT = 'Permissions.AccessManagement.AuthClaims.Edit';
-  static AUTH_DELETE = 'Permissions.AccessManagement.AuthClaims.Delete';
+  static AUTH_VIEW = 'AccessManagement.Auth.View';
+  static AUTH_CREATE = 'AccessManagement.Auth.Create';
+  static AUTH_EDIT = 'AccessManagement.Auth.Edit';
+  static AUTH_DELETE = 'AccessManagement.Auth.Delete';
 
   // WORKFLOW Permissions
-  static WORKFLOW_VIEW = 'Permissions.Workflow.WorkflowClaims.View';
-  static WORKFLOW_CREATE = 'Permissions.Workflow.WorkflowClaims.Create';
-  static WORKFLOW_EDIT = 'Permissions.Workflow.WorkflowClaims.Edit';
-  static WORKFLOW_DELETE = 'Permissions.Workflow.WorkflowClaims.Delete';
+  static WORKFLOW_VIEW = 'Workflow.Workflow.View';
+  static WORKFLOW_CREATE = 'Workflow.Workflow.Create';
+  static WORKFLOW_EDIT = 'Workflow.Workflow.Edit';
+  static WORKFLOW_DELETE = 'Workflow.Workflow.Delete';
 
   // STATUS Permissions
-  static STATUS_VIEW = 'Permissions.Workflow.WorkflowStatusClaims.View';
-  static STATUS_CREATE = 'Permissions.Workflow.WorkflowStatusClaims.Create';
-  static STATUS_EDIT = 'Permissions.Workflow.WorkflowStatusClaims.Edit';
-  static STATUS_DELETE = 'Permissions.Workflow.WorkflowStatusClaims.Delete';
+  static STATUS_VIEW = 'Workflow.WorkflowStatus.View';
+  static STATUS_CREATE = 'Workflow.WorkflowStatus.Create';
+  static STATUS_EDIT = 'Workflow.WorkflowStatus.Edit';
+  static STATUS_DELETE = 'Workflow.WorkflowStatus.Delete';
 
   // Transaction Recon
-  static TRANSACTION_RECON_VIEW = 'Permissions.Finance.TransactionReconClaims.View';
-  static TRANSACTION_RECON_CREATE = 'Permissions.Finance.TransactionReconClaims.Create';
-  static TRANSACTION_RECON_EDIT = 'Permissions.Finance.TransactionReconClaims.Edit';
-  static TRANSACTION_RECON_DELETE = 'Permissions.Finance.TransactionReconClaims.Delete';
+  static TRANSACTION_RECON_VIEW = 'Finance.TransactionRecon.View';
+  static TRANSACTION_RECON_CREATE = 'Finance.TransactionRecon.Create';
+  static TRANSACTION_RECON_EDIT = 'Finance.TransactionRecon.Edit';
+  static TRANSACTION_RECON_DELETE = 'Finance.TransactionRecon.Delete';
 
   // Bank Recon
-  static BANK_RECON_VIEW = 'Permissions.Finance.BankReconClaims.View';
-  static BANK_RECON_CREATE = 'Permissions.Finance.BankReconClaims.Create';
-  static BANK_RECON_EDIT = 'Permissions.Finance.BankReconClaims.Edit';
-  static BANK_RECON_DELETE = 'Permissions.Finance.BankReconClaims.Delete';
+  static BANK_RECON_VIEW = 'Finance.BankRecon.View';
+  static BANK_RECON_CREATE = 'Finance.BankRecon.Create';
+  static BANK_RECON_EDIT = 'Finance.BankRecon.Edit';
+  static BANK_RECON_DELETE = 'Finance.BankRecon.Delete';
 
   // GRN
-  static GRN_VIEW = 'Permissions.Procurement.GRNClaims.View';
-  static GRN_CREATE = 'Permissions.Procurement.GRNClaims.Create';
-  static GRN_EDIT = 'Permissions.Procurement.GRNClaims.Edit';
-  static GRN_DELETE = 'Permissions.Procurement.GRNClaims.Delete';
+  static GRN_VIEW = 'Procurement.GRN.View';
+  static GRN_CREATE = 'Procurement.GRN.Create';
+  static GRN_EDIT = 'Procurement.GRN.Edit';
+  static GRN_DELETE = 'Procurement.GRN.Delete';
 
   // GRN
-  static GOODS_RETURN_NOTE_VIEW = 'Permissions.Procurement.GoodsReturnNoteClaims.View';
-  static GOODS_RETURN_NOTE_CREATE = 'Permissions.Procurement.GoodsReturnNoteClaims.Create';
-  static GOODS_RETURN_NOTE_EDIT = 'Permissions.Procurement.GoodsReturnNoteClaims.Edit';
-  static GOODS_RETURN_NOTE_DELETE = 'Permissions.Procurement.GoodsReturnNoteClaims.Delete';
+  static GOODS_RETURN_NOTE_VIEW = 'Procurement.GoodsReturnNote.View';
+  static GOODS_RETURN_NOTE_CREATE = 'Procurement.GoodsReturnNote.Create';
+  static GOODS_RETURN_NOTE_EDIT = 'Procurement.GoodsReturnNote.Edit';
+  static GOODS_RETURN_NOTE_DELETE = 'Procurement.GoodsReturnNote.Delete';
 
   // Issuance
-  static ISSUANCE_VIEW = 'Permissions.Procurement.IssuanceClaims.View';
-  static ISSUANCE_CREATE = 'Permissions.Procurement.IssuanceClaims.Create';
-  static ISSUANCE_EDIT = 'Permissions.Procurement.IssuanceClaims.Edit';
-  static ISSUANCE_DELETE = 'Permissions.Procurement.IssuanceClaims.Delete'
+  static ISSUANCE_VIEW = 'Procurement.Issuance.View';
+  static ISSUANCE_CREATE = 'Procurement.Issuance.Create';
+  static ISSUANCE_EDIT = 'Procurement.Issuance.Edit';
+  static ISSUANCE_DELETE = 'Procurement.Issuance.Delete'
 
   // Issuance Return
-  static ISSUANCE_RETURN_VIEW = 'Permissions.Procurement.IssuanceReturnClaims.View';
-  static ISSUANCE_RETURN_CREATE = 'Permissions.Procurement.IssuanceReturnClaims.Create';
-  static ISSUANCE_RETURN_EDIT = 'Permissions.Procurement.IssuanceReturnClaims.Edit';
-  static ISSUANCE_RETURN_DELETE = 'Permissions.Procurement.IssuanceReturnClaims.Delete'
+  static ISSUANCE_RETURN_VIEW = 'Procurement.IssuanceReturn.View';
+  static ISSUANCE_RETURN_CREATE = 'Procurement.IssuanceReturn.Create';
+  static ISSUANCE_RETURN_EDIT = 'Procurement.IssuanceReturn.Edit';
+  static ISSUANCE_RETURN_DELETE = 'Procurement.IssuanceReturn.Delete'
 
   // Inventory Adjustment
-  static INVENTORYADJUSTMENT_VIEW = 'Permissions.Procurement.InventoryAdjustmentClaims.View';
-  static INVENTORYADJUSTMENT_CREATE = 'Permissions.Procurement.InventoryAdjustmentClaims.Create';
-  static INVENTORYADJUSTMENT_EDIT = 'Permissions.Procurement.InventoryAdjustmentClaims.Edit';
-  static INVENTORYADJUSTMENT_DELETE = 'Permissions.Procurement.InventoryAdjustmentClaims.Delete';
+  static INVENTORYADJUSTMENT_VIEW = 'Procurement.InventoryAdjustment.View';
+  static INVENTORYADJUSTMENT_CREATE = 'Procurement.InventoryAdjustment.Create';
+  static INVENTORYADJUSTMENT_EDIT = 'Procurement.InventoryAdjustment.Edit';
+  static INVENTORYADJUSTMENT_DELETE = 'Procurement.InventoryAdjustment.Delete';
 
-  //Payroll Item
-  static PAYROLL_ITEM_VIEW = 'Permissions.Payroll.PayrollItemClaims.View';
-  static PAYROLL_ITEM_CREATE = 'Permissions.Payroll.PayrollItemClaims.Create';
-  static PAYROLL_ITEM_EDIT = 'Permissions.Payroll.PayrollItemClaims.Edit';
-  static PAYROLL_ITEM_DELETE = 'Permissions.Payroll.PayrollItemClaims.Delete';
+  // Payroll Item
+  static PAYROLL_ITEM_VIEW = 'Payroll.PayrollItem.View';
+  static PAYROLL_ITEM_CREATE = 'Payroll.PayrollItem.Create';
+  static PAYROLL_ITEM_EDIT = 'Payroll.PayrollItem.Edit';
+  static PAYROLL_ITEM_DELETE = 'Payroll.PayrollItem.Delete';
 
   // Payroll Transaction
-  static PAYROLL_TRANSACTION_VIEW = 'Permissions.Payroll.PayrollTransactionClaims.View';
-  static PAYROLL_TRANSACTION_CREATE = 'Permissions.Payroll.PayrollTransactionClaims.Create';
-  static PAYROLL_TRANSACTION_EDIT = 'Permissions.Payroll.PayrollTransactionClaims.Edit';
-  static PAYROLL_TRANSACTION_DELETE = 'Permissions.Payroll.PayrollTransactionClaims.Delete';
-  static PAYROLL_TRANSACTION_REVIEW = 'Permissions.Payroll.PayrollTransactionClaims.Review';
-  static PAYROLL_TRANSACTION_APPROVE = 'Permissions.Payroll.PayrollTransactionClaims.Approve';
+  static PAYROLL_TRANSACTION_VIEW = 'Payroll.PayrollTransaction.View';
+  static PAYROLL_TRANSACTION_CREATE = 'Payroll.PayrollTransaction.Create';
+  static PAYROLL_TRANSACTION_EDIT = 'Payroll.PayrollTransaction.Edit';
+  static PAYROLL_TRANSACTION_DELETE = 'Payroll.PayrollTransaction.Delete';
+  static PAYROLL_TRANSACTION_REVIEW = 'Payroll.PayrollTransaction.Review';
+  static PAYROLL_TRANSACTION_APPROVE = 'Payroll.PayrollTransaction.Approve';
 
 
-  //Asset Category
-  static ASSET_CATEGORY_VIEW = "Permissions.AssetCategoryClaims.View";
-  static ASSET_CATEGORY_CREATE = "Permissions.AssetCategoryClaims.Create";
-  static ASSET_CATEGORY_EDIT = "Permissions.AssetCategoryClaims.Edit";
-  static ASSET_CATEGORY_DELETE = "Permissions.AssetCategoryClaims.Delete";
+  // Asset Category
+  static ASSET_CATEGORY_VIEW = 'AssetCategory.View';
+  static ASSET_CATEGORY_CREATE = 'AssetCategory.Create';
+  static ASSET_CATEGORY_EDIT = 'AssetCategory.Edit';
+  static ASSET_CATEGORY_DELETE = 'AssetCategory.Delete';
 
-  //Depreciation Model
-  static DEPRECIATION_MODEL_VIEW = "Permissions.FixedAsset.DepreciationModelClaims.View";
-  static DEPRECIATION_MODEL_CREATE = "Permissions.FixedAsset.DepreciationModelClaims.Create";
-  static DEPRECIATION_MODEL_EDIT = "Permissions.FixedAsset.DepreciationModelClaims.Edit";
-  static DEPRECIATION_MODEL_DELETE = "Permissions.FixedAsset.DepreciationModelClaims.Delete";
+  // Depreciation Model
+  static DEPRECIATION_MODEL_VIEW = 'FixedAsset.DepreciationModel.View';
+  static DEPRECIATION_MODEL_CREATE = 'FixedAsset.DepreciationModel.Create';
+  static DEPRECIATION_MODEL_EDIT = 'FixedAsset.DepreciationModel.Edit';
+  static DEPRECIATION_MODEL_DELETE = 'FixedAsset.DepreciationModel.Delete';
 
-  //Depreciation Adjustment
-  static DEPRECIATION_ADJUSTMENT_VIEW = "Permissions.FixedAsset.DepreciationAdjustmentClaims.View";
-  static DEPRECIATION_ADJUSTMENT_CREATE = "Permissions.FixedAsset.DepreciationAdjustmentClaims.Create";
-  static DEPRECIATION_ADJUSTMENT_EDIT = "Permissions.FixedAsset.DepreciationAdjustmentClaims.Edit";
-  static DEPRECIATION_ADJUSTMENT_DELETE = "Permissions.FixedAsset.DepreciationAdjustmentClaims.Delete";
+  // Depreciation Adjustment
+  static DEPRECIATION_ADJUSTMENT_VIEW = 'FixedAsset.DepreciationAdjustment.View';
+  static DEPRECIATION_ADJUSTMENT_CREATE = 'FixedAsset.DepreciationAdjustment.Create';
+  static DEPRECIATION_ADJUSTMENT_EDIT = 'FixedAsset.DepreciationAdjustment.Edit';
+  static DEPRECIATION_ADJUSTMENT_DELETE = 'FixedAsset.DepreciationAdjustment.Delete';
 
-  //Asset
-  static ASSET_VIEW = "Permissions.FixedAsset.FixedAssetClaims.View";
-  static ASSET_CREATE = "Permissions.FixedAsset.FixedAssetClaims.Create";
-  static ASSET_EDIT = "Permissions.FixedAsset.FixedAssetClaims.Edit";
-  static ASSET_DELETE = "Permissions.FixedAsset.FixedAssetClaims.Delete";
+  // Asset
+  static ASSET_VIEW = 'FixedAsset.FixedAsset.View';
+  static ASSET_CREATE = 'FixedAsset.FixedAsset.Create';
+  static ASSET_EDIT = 'FixedAsset.FixedAsset.Edit';
+  static ASSET_DELETE = 'FixedAsset.FixedAsset.Delete';
 
-  //Cwip
-  static CWIP_VIEW = "Permissions.FixedAsset.CWIPClaims.View";
-  static CWIP_CREATE = "Permissions.FixedAsset.CWIPClaims.Create";
-  static CWIP_EDIT = "Permissions.FixedAsset.CWIPClaims.Edit";
-  static CWIP_DELETE = "Permissions.FixedAsset.CWIPClaims.Delete";
+  // Cwip
+  static CWIP_VIEW = 'FixedAsset.CWIP.View';
+  static CWIP_CREATE = 'FixedAsset.CWIP.Create';
+  static CWIP_EDIT = 'FixedAsset.CWIP.Edit';
+  static CWIP_DELETE = 'FixedAsset.CWIP.Delete';
 
-  //Disposal
-  static DISPOSAL_VIEW = "Permissions.FixedAsset.DisposalClaims.View";
-  static DISPOSAL_CREATE = "Permissions.FixedAsset.DisposalClaims.Create";
-  static DISPOSAL_EDIT = "Permissions.FixedAsset.DisposalClaims.Edit";
-  static DISPOSAL_DELETE = "Permissions.FixedAsset.DisposalClaims.Delete";
+  // Disposal
+  static DISPOSAL_VIEW = 'FixedAsset.Disposal.View';
+  static DISPOSAL_CREATE = 'FixedAsset.Disposal.Create';
+  static DISPOSAL_EDIT = 'FixedAsset.Disposal.Edit';
+  static DISPOSAL_DELETE = 'FixedAsset.Disposal.Delete';
 
-  //asset report
-  static ASSET_REPORT_VIEW = "Permissions.FixedAsset.AssetReportClaims.View";
-  static ASSET_REPORT_CREATE = "Permissions.FixedAsset.AssetReportClaims.Create";
-  static ASSET_REPORT_EDIT = "Permissions.FixedAsset.AssetReportClaims.Edit";
-  static ASSET_REPORT_DELETE = "Permissions.FixedAsset.AssetReportClaims.Delete";
+  // asset report
+  static ASSET_REPORT_VIEW = 'FixedAsset.AssetReport.View';
+  static ASSET_REPORT_CREATE = 'FixedAsset.AssetReport.Create';
+  static ASSET_REPORT_EDIT = 'FixedAsset.AssetReport.Edit';
+  static ASSET_REPORT_DELETE = 'FixedAsset.AssetReport.Delete';
 
   // allowance
-  static ALLOWANCE_VIEW = 'Permissions.AllowanceReportClaims.View';
+  static ALLOWANCE_VIEW = 'AllowanceReport.View';
 
   // Stock
-  static STOCK_VIEW = 'Permissions.Procurement.StockClaims.View';
+  static STOCK_VIEW = 'Procurement.Stock.View';
 
 }
 
@@ -449,7 +449,7 @@ export enum Criteria{
   Absolute,
   Range,
   Comparative,
-  LessThan, 
+  LessThan,
   LessThanEqualsTo,
   GreaterThan,
   GreaterThanEqualsTo,
