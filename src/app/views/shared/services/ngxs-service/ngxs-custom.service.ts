@@ -75,6 +75,10 @@ import {CityService} from '../../../pages/admission/city/services/city.service';
 import {CityState} from '../../../pages/admission/city/store/city.state';
 import {FeeItemService} from '../../../pages/admission/fee-item/services/fee-item.service';
 import {FeeItemState} from '../../../pages/admission/fee-item/store/fee-item.state';
+import { DomicileState } from 'src/app/views/pages/admission/domicile/store/domicile.state';
+import { DomicileService } from 'src/app/views/pages/admission/domicile/service/domicile.service';
+import { DistrictState } from 'src/app/views/pages/admission/district/store/district.state';
+import { DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +101,8 @@ export class NgxsCustomService {
     public warehouseService: WarehouseService,
     public assetService: AssetService,
     public facultyService: FacultyService,
+    public domicileService: DomicileService,
+    public districtService: DistrictService,
     public degreeService: DegreeService,
     public qualificationService: QualificationService,
     public payrollItemService: PayrollItemService,
@@ -168,6 +174,17 @@ export class NgxsCustomService {
   @Select(FacultyState.isFetchCompleted) facultyFetchCompleted$: Observable<any>;
   @Select(FacultyState.isLoading) facultyIsLoading$: Observable<any>;
 
+
+  // domicile
+  @Select(DomicileState.entities) domicile$: Observable<any>;
+  @Select(DomicileState.isFetchCompleted) domicileFetchCompleted$: Observable<any>;
+  @Select(DomicileState.isLoading) domicileIsLoading$: Observable<any>;
+
+  // district
+  @Select(DistrictState.entities) district$: Observable<any>;
+  @Select(DistrictState.isFetchCompleted) districtFetchCompleted$: Observable<any>;
+  @Select(DistrictState.isLoading) districtIsLoading$: Observable<any>;
+
   // Degree
   @Select(DegreeState.entities) degree$: Observable<any>;
   @Select(DegreeState.isFetchCompleted) degreeFetchCompleted$: Observable<any>;
@@ -213,7 +230,7 @@ export class NgxsCustomService {
   @Select(DisposalDropdownState.isFetchCompleted) disposalDropdownFetchCompleted$: Observable<any>;
   @Select(DisposalDropdownState.isLoading) disposalDropdownIsLoading$: Observable<any>;
 
-// Other Accounts
+  // Other Accounts
   @Select(OtherAccountState.entities) otherAccounts$: Observable<any>;
   @Select(OtherAccountState.isFetchCompleted) otherAccountsFetchCompleted$: Observable<any>;
   @Select(OtherAccountState.isLoading) otherAccountsIsLoading$: Observable<any>;
@@ -753,22 +770,54 @@ export class NgxsCustomService {
     })
   }
 
-    // getFacultyFromState State From Store if available else fetch from the server and cache.
-    getFacultyFromState() {
-      this.facultyFetchCompleted$.subscribe((res) => {
-        // console.log('Faculty State fetch completed: ', res);
-        if (!res) {
-          this.store.dispatch(new GetList(FacultyState, {
-            serviceClass: this.facultyService,
-            methodName: 'getFacultyDropdown',
-            context: this
-          }))
-        }
-      })
-    }
+  // getFacultyFromState State From Store if available else fetch from the server and cache.
+  getFacultyFromState() {
+    this.facultyFetchCompleted$.subscribe((res) => {
+      // console.log('Faculty State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(FacultyState, {
+          serviceClass: this.facultyService,
+          methodName: 'getFacultyDropdown',
+          context: this
+        }))
+      }
+    })
+  }
 
-    // getDegreeFromState From Store if available else fetch from the server and cache.
-    getDegreeFromState() {
+
+  // getFacultyFromState State From Store if available else fetch from the server and cache.
+  getDomicileFromState() {
+    this.domicileFetchCompleted$.subscribe((res) => {
+      console.log('Domicile State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DomicileState, {
+          serviceClass: this.domicileService,
+          methodName: 'getDomicileDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+
+  // getDistrictFromState State From Store if available else fetch from the server and cache.
+
+  getDistrictFromState() {
+    this.districtFetchCompleted$.subscribe((res) => {
+      console.log('District State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(DistrictState, {
+          serviceClass: this.districtService,
+          methodName: 'getDistrictDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+
+  // getDegreeFromState From Store if available else fetch from the server and cache.
+  getDegreeFromState() {
     this.degreeFetchCompleted$.subscribe((res) => {
       console.log('Degree State fetch completed: ', res);
       if (!res) {
@@ -778,11 +827,11 @@ export class NgxsCustomService {
           context: this
         }))
       }
-      })
-    }
+    })
+  }
 
-    // Get QualificationFromState From Store if available else fetch from the server and cache.
-    getQualificationFromState() {
+  // Get QualificationFromState From Store if available else fetch from the server and cache.
+  getQualificationFromState() {
     this.qualificationFetchCompleted$.subscribe((res) => {
       console.log('Qualification State fetch completed: ', res);
       if (!res) {
@@ -792,8 +841,8 @@ export class NgxsCustomService {
           context: this
         }))
       }
-      })
-    }
+    })
+  }
 
   // Get Cash Account State From Store if available else fetch from the server and cache.
   getCashAccountFromState() {
