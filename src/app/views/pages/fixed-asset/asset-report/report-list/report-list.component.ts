@@ -93,30 +93,20 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
         headerName: 'Store',
         field: 'store',
         suppressMenu: true,
+        cellStyle: {textAlign: 'left'}
       },
-      /*{
-        headerName: 'Date', field: 'docDate', cellStyle: {textAlign: 'left'},
-        cellRenderer: (params: any) => {
-          const date = params?.data?.docDate != null ? params?.data?.docDate : null;
-          return date == null ? null : this.transformDate(date, 'MMM d, y');
-        }
-      },*/
+      {
+        headerName: 'Category',
+        field: 'category',
+        colId: 'balance',
+        suppressMenu: true,
+        cellStyle: {textAlign: 'left'}
+      },
       {
         headerName: 'Usefull Life',
         field: 'usefullLife',
         cellStyle: {textAlign: 'left'}
       },
-      /*{
-        headerName: 'Quantity',
-        field: 'quantity',
-        suppressMenu: true,
-        cellStyle: {textAlign: 'left'},
-        valueFormatter: (params: ValueFormatterParams) => {
-          return DocType[params.value]
-        }
-      },*/
-
-      // },
       {
         headerName: 'Unit Cost',
         field: 'unitCost',
@@ -133,12 +123,6 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
       {
         headerName: 'Opening Accumulated Dep.',
         field: 'openingAccDep',
-        suppressMenu: true,
-      },
-      {
-        headerName: 'Category',
-        field: 'category',
-        colId: 'balance',
         suppressMenu: true,
       },
       {
