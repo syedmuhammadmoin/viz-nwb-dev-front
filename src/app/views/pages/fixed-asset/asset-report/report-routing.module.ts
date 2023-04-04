@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
 import { ReportListComponent } from './report-list/report-list.component';
 import {PrintAssetReportComponent} from './print-asset-report/print-asset-report.component';
+import {AssetMonthlyReportComponent} from './asset-monthly-report/asset-monthly-report/asset-monthly-report.component';
+import {PrintAssetMonthlyReportComponent} from './asset-monthly-report/print-asset-monthly-report/print-asset-monthly-report.component';
 
 
 const routes: Routes = [
@@ -33,6 +35,19 @@ const routes: Routes = [
         // },
         // canActivate: [PermissionGuard]
       },
+      {
+        path: 'monthly',
+        children: [
+          {
+            path: '',
+            component: AssetMonthlyReportComponent
+          },
+          {
+            path: 'print',
+            component: PrintAssetMonthlyReportComponent
+          }
+        ]
+      }
     ]
   }
 ];

@@ -7,10 +7,12 @@ import { ReportListComponent } from './report-list/report-list.component';
 import { PortletModule } from "../../../partials/content/general/portlet/portlet.module";
 import { SharedModule } from "../../../shared/modules/shared.module";
 import { PrintAssetReportComponent } from './print-asset-report/print-asset-report.component';
+import { AssetMonthlyReportComponent } from './asset-monthly-report/asset-monthly-report/asset-monthly-report.component';
+import { PrintAssetMonthlyReportComponent } from './asset-monthly-report/print-asset-monthly-report/print-asset-monthly-report.component';
 
 
 @NgModule({
-    declarations: [ReportListComponent, PrintAssetReportComponent],
+    declarations: [ReportListComponent, PrintAssetReportComponent, AssetMonthlyReportComponent, PrintAssetMonthlyReportComponent],
     imports: [
         CommonModule,
         ReportRoutingModule,

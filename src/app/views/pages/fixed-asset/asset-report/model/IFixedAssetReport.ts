@@ -1,4 +1,5 @@
 export interface IFixedAssetReport {
+   month?: string;
    fixedAssetId?: number;
    fixedAsset?: string;
    storeId?: number;

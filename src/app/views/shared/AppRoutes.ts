@@ -563,7 +563,8 @@ export const DISPOSAL = {
 export const ASSET_REPORT = {
   LIST: APP_ROUTES.ASSET_REPORT + '/' + CRUD_ROUTES.LIST,
   PRINT: APP_ROUTES.ASSET_REPORT + '/print',
-  CREATE: APP_ROUTES.ASSET_REPORT + '/' + CRUD_ROUTES.CREATE,
+  MONTHLY: APP_ROUTES.ASSET_REPORT + '/monthly',
+  MONTHLY_PRINT: APP_ROUTES.ASSET_REPORT + '/monthly/print',
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.ASSET_REPORT + '/' + route + '/' + id
   }

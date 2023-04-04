@@ -394,10 +394,10 @@ export class Permissions {
   static DISPOSAL_DELETE = 'FixedAsset.Disposal.Delete';
 
   // asset report
-  static ASSET_REPORT_VIEW = 'FixedAsset.AssetReport.View';
-  static ASSET_REPORT_CREATE = 'FixedAsset.AssetReport.Create';
-  static ASSET_REPORT_EDIT = 'FixedAsset.AssetReport.Edit';
-  static ASSET_REPORT_DELETE = 'FixedAsset.AssetReport.Delete';
+  static ASSET_REPORT_VIEW = 'FixedAsset.FixedAssetReport.View';
+  static ASSET_REPORT_CREATE = 'FixedAsset.FixedAssetReport.Create';
+  static ASSET_REPORT_EDIT = 'FixedAsset.FixedAssetReport.Edit';
+  static ASSET_REPORT_DELETE = 'FixedAsset.FixedAssetReport.DELETE';
 
   // allowance
   static ALLOWANCE_VIEW = 'AllowanceReport.View';

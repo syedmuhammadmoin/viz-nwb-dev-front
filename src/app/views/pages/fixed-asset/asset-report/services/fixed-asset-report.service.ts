@@ -18,14 +18,25 @@ export class FixedAssetReportService {
   fixedAssetPrintData = new BehaviorSubject<any>([]);
   currentFixedAssetPrintData = this.fixedAssetPrintData.asObservable();
 
-  baseUrl = AppConst.remoteServiceBaseUrl + 'FixedAsset/Report';
+  fixedAssetMonthlyPrintData = new BehaviorSubject<any>([]);
+  currentFixedAssetMonthlyPrintData = this.fixedAssetMonthlyPrintData.asObservable();
+
+  baseUrl = AppConst.remoteServiceBaseUrl + 'FixedAsset';
 
   getFixedAssetReport(reportModel: IReport): Observable<IApiResponse<IFixedAssetReport[]>> {
-    return this.httpClient.post<IApiResponse<IFixedAssetReport[]>>(this.baseUrl, reportModel)
+    return this.httpClient.post<IApiResponse<IFixedAssetReport[]>>(this.baseUrl + '/report', reportModel)
+  }
+
+  getFixedAssetMonthlyReport(reportModel: IReport): Observable<IApiResponse<IFixedAssetReport[]>> {
+    return this.httpClient.post<IApiResponse<IFixedAssetReport[]>>(this.baseUrl + '/MonthlyReport', reportModel)
   }
 
   setFixedAssetDataForPrintComponent(data) {
     this.fixedAssetPrintData.next(data);
+  }
+
+  setFixedAssetMonthlyDataForPrintComponent(data) {
+    this.fixedAssetMonthlyPrintData.next(data);
   }
 
 }

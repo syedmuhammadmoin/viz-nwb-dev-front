@@ -701,16 +701,6 @@ export class MenuConfig {
           ],
           submenu: [
             {
-              title: 'Depreciation Model',
-              page: '/' + DEPRECIATION_MODEL.LIST,
-              permission: [
-                Permissions.DEPRECIATION_MODEL_VIEW,
-                Permissions.DEPRECIATION_MODEL_CREATE,
-                Permissions.DEPRECIATION_MODEL_EDIT,
-                Permissions.DEPRECIATION_MODEL_DELETE
-              ]
-            },
-            {
               title: 'Asset',
               page: '/' + ASSET.LIST,
               permission: [
@@ -731,13 +721,40 @@ export class MenuConfig {
               ]
             },
             {
-              title: 'Depreciation Adjustment',
-              page: '/' + DEPRECIATION_ADJUSTMENT.LIST,
+              title: 'Depreciation',
+              bullet: 'dot',
               permission: [
+                Permissions.DEPRECIATION_MODEL_VIEW,
+                Permissions.DEPRECIATION_MODEL_CREATE,
+                Permissions.DEPRECIATION_MODEL_EDIT,
+                Permissions.DEPRECIATION_MODEL_DELETE,
                 Permissions.DEPRECIATION_ADJUSTMENT_VIEW,
                 Permissions.DEPRECIATION_ADJUSTMENT_CREATE,
                 Permissions.DEPRECIATION_ADJUSTMENT_EDIT,
                 Permissions.DEPRECIATION_ADJUSTMENT_DELETE
+              ],
+              submenu: [
+                {
+                  title: 'Model',
+                  page: '/' + DEPRECIATION_MODEL.LIST,
+                  permission: [
+                    Permissions.DEPRECIATION_MODEL_VIEW,
+                    Permissions.DEPRECIATION_MODEL_CREATE,
+                    Permissions.DEPRECIATION_MODEL_EDIT,
+                    Permissions.DEPRECIATION_MODEL_DELETE
+                  ]
+                },
+                {
+                  title: 'Adjustment',
+                  page: '/' + DEPRECIATION_ADJUSTMENT.LIST,
+                  permission: [
+                    Permissions.DEPRECIATION_ADJUSTMENT_VIEW,
+                    Permissions.DEPRECIATION_ADJUSTMENT_CREATE,
+                    Permissions.DEPRECIATION_ADJUSTMENT_EDIT,
+                    Permissions.DEPRECIATION_ADJUSTMENT_DELETE
+                  ]
+                },
+
               ]
             },
             {
@@ -751,13 +768,28 @@ export class MenuConfig {
               ]
             },
             {
-              title: 'Fixed Asset Report',
-              page: '/' + ASSET_REPORT.LIST,
-              // permission: [
-              //   Permissions.ASSET_REPORT_VIEW,
-              //   Permissions.ASSET_REPORT_CREATE,
-              // ]
-            }
+              title: 'Report',
+              bullet: 'dot',
+              permission: [
+                Permissions.ASSET_REPORT_VIEW,
+              ],
+              submenu: [
+                {
+                  title: 'Asset Report',
+                  page: '/' + ASSET_REPORT.LIST,
+                  permission: [
+                    Permissions.ASSET_REPORT_VIEW,
+                  ]
+                },
+                {
+                  title: 'Monthly Report',
+                  page: '/' + ASSET_REPORT.MONTHLY,
+                  permission: [
+                    Permissions.ASSET_REPORT_VIEW,
+                  ]
+                }
+              ]
+            },
           ]
         },
 
