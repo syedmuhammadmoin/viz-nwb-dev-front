@@ -74,8 +74,9 @@
                   <td class="text-right"><b>{{valueFormatter(record?.unitCost)}}</b></td>
                   <td>{{record?.depRate || 'N/A'}}</td>
                   <td>{{record?.openingAccDep || 'N/A'}}</td>
+                  <td>{{valueFormatter(record?.depChargedForThePeriod || 0) || 'N/A'}}</td>
                   <td>{{record?.closingAccDep || 'N/A'}}</td>
-                  <td>{{record?.nbv || 'N/A'}}</td>
+                  <td>{{valueFormatter(record?.nbv || 0) || 'N/A'}}</td>
                 </tr>
                 <!--<tr>
                   <td colspan="4"><strong>Total:</strong></td>

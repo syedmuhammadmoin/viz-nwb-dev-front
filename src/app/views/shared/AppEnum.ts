@@ -405,6 +405,90 @@ export class Permissions {
   // Stock
   static STOCK_VIEW = 'Procurement.Stock.View';
 
+  // Domicile
+  static ADMISSION_DOMICILE_VIEW = 'Admission.Domicile.View';
+  static ADMISSION_DOMICILE_CREATE = 'Admission.Domicile.Create';
+  static ADMISSION_DOMICILE_EDIT = 'Admission.Domicile.Edit';
+  static ADMISSION_DOMICILE_DELETE = 'Admission.Domicile.Delete';
+
+  // District
+  static ADMISSION_DISTRICT_VIEW = 'Admission.District.View';
+  static ADMISSION_DISTRICT_CREATE = 'Admission.District.Create';
+  static ADMISSION_DISTRICT_EDIT = 'Admission.District.Edit';
+  static ADMISSION_DISTRICT_DELETE = 'Admission.District.Delete';
+
+  // City
+  static ADMISSION_CITY_VIEW = 'Admission.City.View';
+  static ADMISSION_CITY_CREATE = 'Admission.City.Create';
+  static ADMISSION_CITY_EDIT = 'Admission.City.Edit';
+  static ADMISSION_CITY_DELETE = 'Admission.City.Delete';
+
+  // State
+  static ADMISSION_STATE_VIEW = 'Admission.State.View';
+  static ADMISSION_STATE_CREATE = 'Admission.State.Create';
+  static ADMISSION_STATE_EDIT = 'Admission.State.Edit';
+  static ADMISSION_STATE_DELETE = 'Admission.State.Delete';
+
+  // Country
+  static ADMISSION_COUNTRY_VIEW = 'Admission.Country.View';
+  static ADMISSION_COUNTRY_CREATE = 'Admission.Country.Create';
+  static ADMISSION_COUNTRY_EDIT = 'Admission.Country.Edit';
+  static ADMISSION_COUNTRY_DELETE = 'Admission.Country.Delete';
+
+  // FeeItem
+  static ADMISSION_FEEITEM_VIEW = 'Admission.FeeItem.View';
+  static ADMISSION_FEEITEM_CREATE = 'Admission.FeeItem.Create';
+  static ADMISSION_FEEITEM_EDIT = 'Admission.FeeItem.Edit';
+  static ADMISSION_FEEITEM_DELETE = 'Admission.FeeItem.Delete';
+
+  // Subject
+  static ADMISSION_SUBJECT_VIEW = 'Admission.Subject.View';
+  static ADMISSION_SUBJECT_CREATE = 'Admission.Subject.Create';
+  static ADMISSION_SUBJECT_EDIT = 'Admission.Subject.Edit';
+  static ADMISSION_SUBJECT_DELETE = 'Admission.Subject.Delete';
+
+  // Qualification
+  static ADMISSION_QUALIFICATION_VIEW = 'Admission.Qualification.View';
+  static ADMISSION_QUALIFICATION_CREATE = 'Admission.Qualification.Create';
+  static ADMISSION_QUALIFICATION_EDIT = 'Admission.Qualification.Edit';
+  static ADMISSION_QUALIFICATION_DELETE = 'Admission.Qualification.Delete';
+
+  // Course
+  static ADMISSION_COURSE_VIEW = 'Admission.Course.View';
+  static ADMISSION_COURSE_CREATE = 'Admission.Course.Create';
+  static ADMISSION_COURSE_EDIT = 'Admission.Course.Edit';
+  static ADMISSION_COURSE_DELETE = 'Admission.Course.Delete';
+
+  // Semester
+  static ADMISSION_SEMESTER_VIEW = 'Admission.Semester.View';
+  static ADMISSION_SEMESTER_CREATE = 'Admission.Semester.Create';
+  static ADMISSION_SEMESTER_EDIT = 'Admission.Semester.Edit';
+  static ADMISSION_SEMESTER_DELETE = 'Admission.Semester.Delete';
+
+  // Degree
+  static ADMISSION_DEGREE_VIEW = 'Admission.Degree.View';
+  static ADMISSION_DEGREE_CREATE = 'Admission.Degree.Create';
+  static ADMISSION_DEGREE_EDIT = 'Admission.Degree.Edit';
+  static ADMISSION_DEGREE_DELETE = 'Admission.Degree.Delete';
+
+  // Program
+  static ADMISSION_PROGRAM_VIEW = 'Admission.Program.View';
+  static ADMISSION_PROGRAM_CREATE = 'Admission.Program.Create';
+  static ADMISSION_PROGRAM_EDIT = 'Admission.Program.Edit';
+  static ADMISSION_PROGRAM_DELETE = 'Admission.Program.Delete';
+
+  // Faculty
+  static ADMISSION_FACULTY_VIEW = 'Admission.Faculty.View';
+  static ADMISSION_FACULTY_CREATE = 'Admission.Faculty.Create';
+  static ADMISSION_FACULTY_EDIT = 'Admission.Faculty.Edit';
+  static ADMISSION_FACULTY_DELETE = 'Admission.Faculty.Delete';
+
+  // Academic Department
+  static ADMISSION_ACADEMIC_DEPARTMENT_VIEW = 'Admission.AcademicDepartment.View';
+  static ADMISSION_ACADEMIC_DEPARTMENT_CREATE = 'Admission.AcademicDepartment.Create';
+  static ADMISSION_ACADEMIC_DEPARTMENT_EDIT = 'Admission.AcademicDepartment.Edit';
+  static ADMISSION_ACADEMIC_DEPARTMENT_DELETE = 'Admission.AcademicDepartment.Delete';
+
 }
 
 export enum ActionButton {

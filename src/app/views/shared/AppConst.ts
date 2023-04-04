@@ -307,6 +307,12 @@ export class AppConst {
     'Budget.EstimatedBudget.Delete': 'Anticipated Budget Delete',
     'Budget.EstimatedBudgetReport.View': 'Anticipated Budget Report View',
 
+    'Budget.BudgetReappropriation.View': 'Re-Appropriation Budget View',
+    'Budget.BudgetReappropriation.Create': 'Re-Appropriation Budget Create',
+    'Budget.BudgetReappropriation.Edit': 'Re-Appropriation Budget Update',
+    'Budget.BudgetReappropriation.Delete': 'Re-Appropriation Budget Delete',
+    'Budget.BudgetReappropriationReport.View': 'Re-Appropriation Budget Report View',
+
     // Location
     'Profiling.Location.View': 'Location View',
     'Profiling.Location.Create': 'Location Create',
@@ -407,10 +413,11 @@ export class AppConst {
     'FixedAsset.DepreciationModel.Delete': 'Depreciation Model Delete',
 
     // Asset
-    'Asset.View': 'Asset View',
-    'Asset.Create': 'Asset Create',
-    'Asset.Edit': 'Asset Update',
-    'Asset.Delete': 'Asset Delete',
+    'FixedAsset.FixedAsset.View': 'Fixed Asset View',
+    'FixedAsset.FixedAsset.Create': 'Fixed Asset Create',
+    'FixedAsset.FixedAsset.Edit': 'Fixed Asset Update',
+    'FixedAsset.FixedAsset.Delete': 'Fixed Asset Delete',
+    'FixedAsset.FixedAssetReport.View': 'Fixed Asset Report',
 
     // CWIP
     'FixedAsset.CWIP.View': 'CWIP View',
@@ -438,7 +445,72 @@ export class AppConst {
     'Admission.Program.Edit': 'Program Update',
     'Admission.Program.Delete': 'Program Delete',
 
+    'Admission.Faculty.View': 'Faculty View',
+    'Admission.Faculty.Create': 'Faculty Create',
+    'Admission.Faculty.Edit': 'Faculty Edit',
+    'Admission.Faculty.Delete': 'Faculty Delete',
+
+    'Admission.AcademicDepartment.View': 'Academic Department View',
+    'Admission.AcademicDepartment.Create': 'Academic Department Create',
+    'Admission.AcademicDepartment.Edit': 'Academic Department Edit',
+    'Admission.AcademicDepartment.Delete': 'Academic Department Delete',
+
+    'Admission.Degree.View': 'Degree View',
+    'Admission.Degree.Create': 'Degree Create',
+    'Admission.Degree.Edit': 'Degree Edit',
+    'Admission.Degree.Delete': 'Degree Delete',
+
+    'Admission.Semester.View': 'Semester View',
+    'Admission.Semester.Create': 'Semester Create',
+    'Admission.Semester.Edit': 'Semester Edit',
+    'Admission.Semester.Delete': 'Semester Delete',
+
+    'Admission.Course.View': 'Course View',
+    'Admission.Course.Create': 'Course Create',
+    'Admission.Course.Edit': 'Course Edit',
+    'Admission.Course.Delete': 'Course Delete',
+
+    'Admission.Qualification.View': 'Qualification View',
+    'Admission.Qualification.Create': 'Qualification Create',
+    'Admission.Qualification.Edit': 'Qualification Edit',
+    'Admission.Qualification.Delete': 'Qualification Delete',
+
+    'Admission.Subject.View': 'Subject View',
+    'Admission.Subject.Create': 'Subject Create',
+    'Admission.Subject.Edit': 'Subject Edit',
+    'Admission.Subject.Delete': 'Subject Delete',
+
+    'Admission.FeeItem.View': 'Fee Item View',
+    'Admission.FeeItem.Create': 'Fee Item Create',
+    'Admission.FeeItem.Edit': 'Fee Item Edit',
+    'Admission.FeeItem.Delete': 'Fee Item Delete',
+
+    'Admission.Country.View': 'Country View',
+    'Admission.Country.Create': 'Country Create',
+    'Admission.Country.Edit': 'Country Edit',
+    'Admission.Country.Delete': 'Country Delete',
+
+    'Admission.State.View': 'State View',
+    'Admission.State.Create': 'State Create',
+    'Admission.State.Edit': 'State Edit',
+    'Admission.State.Delete': 'State Delete',
+
+    'Admission.City.View': 'City View',
+    'Admission.City.Create': 'City Create',
+    'Admission.City.Edit': 'City Edit',
+    'Admission.City.Delete': 'City Delete',
+
+    'Admission.District.View': 'District View',
+    'Admission.District.Create': 'District Create',
+    'Admission.District.Edit': 'District Edit',
+    'Admission.District.Delete': 'District Delete',
+
+    'Admission.Domicile.View': 'Domicile View',
+    'Admission.Domicile.Create': 'Domicile Create',
+    'Admission.Domicile.Edit': 'Domicile Edit',
+    'Admission.Domicile.Delete': 'Domicile Delete',
   }
+
   static paymentRegisterType = {
     1: 'Cash Account',
     2: 'Bank Account'

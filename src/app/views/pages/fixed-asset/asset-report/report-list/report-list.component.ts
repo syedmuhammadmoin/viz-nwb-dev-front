@@ -220,6 +220,9 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
     this.fixedReportService.getFixedAssetReport(this.reportModel)
       .subscribe((res) => {
         this.rowData = res.result;
+        if (this.rowData.length > 0) {
+          this.disability = false
+        }
         this.isLoading = false;
         this.cdRef.detectChanges();
       })
