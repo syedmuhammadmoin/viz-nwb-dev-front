@@ -79,7 +79,7 @@ export const APP_ROUTES = {
   //ADMISSION
   FACULTY: 'faculty',
   DEGREE: 'degree',
-  APPLICANT_ASSESSMENT_CRITERIA: 'applicant-assessment-criteria',
+  APPLICANT_ASSESSMENT_CRITERIA: 'admission-criteria',
   ACADEMIC_DEPARTMENT: 'academic-department',
   FEE_TYPE: 'fee-type',
   SHIFT: 'shift',

@@ -29,7 +29,7 @@ export class CourseService extends AppServiceBase {
     return this.httpClient.get<IPaginationResponse<ICourse[]>>(this.baseUrl)
   }
 
-  getCoursesForDropdown(): Observable<IApiResponse<ICourse[]>> {
+  getForDropdown(): Observable<IApiResponse<ICourse[]>> {
     return this.httpClient.get<IApiResponse<ICourse[]>>(this.baseUrl + '/dropdown')
   }
 

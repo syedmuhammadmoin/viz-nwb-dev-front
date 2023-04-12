@@ -1,15 +1,14 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
-import { MatDialog } from '@angular/material/Dialog'
-import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
-import { Router } from '@angular/router';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { AssetType, Permissions } from 'src/app/views/shared/AppEnum';
-import { IProgram } from '../model/Iprogram';
-import { ProgramService } from '../service/program.service';
-import { CWIP } from 'src/app/views/shared/AppRoutes';
-import { isEmpty } from 'lodash';
-import { CreateProgramComponent } from '../create-program/create-program.component';
+import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
+import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {MatDialog} from '@angular/material/Dialog'
+import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {ProgramService} from '../service/program.service';
+import {CWIP, INVOICE, PROGRAM} from 'src/app/views/shared/AppRoutes';
+import {CreateProgramComponent} from '../create-program/create-program.component';
+import {IProgram} from '../models/IProgram';
+import {isEmpty} from 'lodash';
 
 @Component({
   selector: 'kt-list-program',
@@ -17,18 +16,7 @@ import { CreateProgramComponent } from '../create-program/create-program.compone
   styleUrls: ['./list-program.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListProgramComponent extends AppComponentBase implements OnInit{
-
-  defaultColDef: ColDef;
-  gridOptions: GridOptions;
-  ProgramList: IProgram[];
-  frameworkComponents: {[p: string]: unknown};
-  tooltipData: string = "double click to view detail"
-  public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+export class ListProgramComponent extends AppComponentBase implements OnInit {
 
   // Injecting dependencies
   constructor(
@@ -38,124 +26,100 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
     injector: Injector
   ) {
     super(injector);
-    this.gridOptions = <GridOptions>(
+    this.gridOptions = ((
       {
-        context: { componentParent: this }
+        context: {componentParent: this}
       }
-    );
+    ) as GridOptions);
   }
+
+  defaultColDef: ColDef;
+  gridOptions: GridOptions;
+  ProgramList: IProgram[];
+  frameworkComponents: { [p: string]: unknown };
+  tooltipData = 'double click to view detail'
+  public permissions = Permissions
+  components: { loadingCellRenderer(params: any): unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   // Declaring AgGrid data
   columnDefs = [
     {
-      headerName: 'Doc No',
-      field: 'cwipCode',
-      tooltipField: 'name',
+      headerName: 'Program',
       cellRenderer: "loadingCellRenderer",
-      // filter: 'agTextColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['contains'],
-      //     suppressAndOrCondition: true,
-      //   },
-    },
-    {
-      headerName: 'Acquisition Date',
-      field: 'dateOfAcquisition',
+      field: 'name',
       tooltipField: 'name',
-      suppressMenu: true,
-      valueFormatter: (params: ValueFormatterParams) => {
-        return this.transformDate(params.value, 'MMM d, y') || null;
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['equals'],
+        suppressAndOrCondition: true,
       }
     },
     {
-      headerName: 'Asset Cost',
-      field: 'cost',
+      headerName: 'Degree',
+      field: 'degree',
       tooltipField: 'name',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
-      }
-
-    },
-    {
-      headerName: 'Asset Account',
-      field: 'assetAccount',
-      tooltipField: 'name',
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['equals'],
-      //     suppressAndOrCondition: true,
-      //   }
-    },
-    {
-      headerName: 'Quantity',
-      field: 'quantity',
-      tooltipField: 'name',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['equals'],
+        suppressAndOrCondition: true,
       }
     },
     {
-      headerName: 'Salvage Value',
-      field: 'salvageValue',
+      headerName: 'Academic Department',
+      field: 'academicDepartment',
       tooltipField: 'name',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return this.valueFormatter(params.value)
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['equals'],
+        suppressAndOrCondition: true,
       }
     },
     {
-      headerName: 'Dep Applicability',
-      field: 'depreciationApplicability',
+      headerName: 'Total Semesters',
+      field: 'totalSemesters',
       tooltipField: 'name',
-      valueFormatter: (params: ValueFormatterParams) => {
-        if(params.value){
-          return 'Applicable'
-        }
-        else{
-          return 'Not Applicable'
-        }
-        // return params.value ?? 'N/A'
+      filter: 'agNumberColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['equals'],
+        suppressAndOrCondition: true,
       }
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['equals'],
-      //     suppressAndOrCondition: true,
-      //   }
     },
-    {
-      headerName: 'Status',
-      field: 'status',
-      tooltipField: 'name',
-      // valueFormatter: (params: ValueFormatterParams) => {
-      //   if(params.value){
-      //     return 'Applicable'
-      //   }
-      //   else{
-      //     return 'Not Applicable'
-      //   }
-      // }
-      // filter: 'agDateColumnFilter',
-      // menuTabs: ['filterMenuTab'],
-      //   filterParams: {
-      //     filterOptions: ['equals'],
-      //     suppressAndOrCondition: true,
-      //   }
-    }
   ];
+
+
+  dataSource = {
+    getRows: (params: any) => {
+      this.programService.getRecords(params).subscribe((data) => {
+        if(isEmpty(data.result)) {
+          this.gridApi.showNoRowsOverlay()
+        } else {
+          this.gridApi.hideOverlay();
+        }
+        params.successCallback(data.result || 0, data.totalRecords);
+        this.paginationHelper.goToPage(this.gridApi, 'ProgramPageName')
+        this.cdRef.detectChanges();
+      });
+    },
+  };
 
 
   ngOnInit() {
 
     this.gridOptions = {
       cacheBlockSize: 20,
-      rowModelType: "infinite",
+      rowModelType: 'infinite',
       paginationPageSize: 10,
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: "double click to view detail",
+      context: 'double click to view detail',
     };
 
     this.frameworkComponents = {customTooltip: CustomTooltipComponent};
@@ -169,7 +133,7 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
     }
 
     this.components = {
-      loadingCellRenderer: function (params: any) {
+      loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
         } else {
@@ -183,44 +147,18 @@ export class ListProgramComponent extends AppComponentBase implements OnInit{
     params.api.sizeColumnsToFit();
   }
 
-  onRowDoubleClicked(event : RowDoubleClickedEvent){
-    this.router.navigate(['/' + CWIP.ID_BASED_ROUTE('details' , event.data.id)])
+  onRowDoubleClicked(event: RowDoubleClickedEvent) {
+    this.router.navigate(['/' + PROGRAM.ID_BASED_ROUTE('details', event.data.id)])
   }
 
   openDialog(id?: number): void {
-    const dialogRef = this.dialog.open(CreateProgramComponent, {
-      width: '800px',
-      data: id
-    });
-    // Recalling getBusinessPartners function on dialog close
-    dialogRef.afterClosed().subscribe(() => {
-      // this.gridApi.setDatasource(this.dataSource)
-      this.cdRef.detectChanges();
-    });
+    this.router.navigate(['/' + PROGRAM.CREATE]);
   }
-
-
-
-  dataSource = {
-    // getRows: (params: any) => {
-    //   this.programService.getRecords(params).subscribe((data) => {
-    //     if(isEmpty(data.result)) {
-    //       this.gridApi.showNoRowsOverlay()
-    //     } else {
-    //       this.gridApi.hideOverlay();
-    //     }
-    //     params.successCallback(data.result || 0, data.totalRecords);
-    //     this.paginationHelper.goToPage(this.gridApi, 'CWIPPageName')
-    //     this.cdRef.detectChanges();
-    //   });
-    // },
-  };
-
 
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
     this.gridColumnApi = params.columnApi;
-    // params.api.setDatasource(this.dataSource);
+    params.api.setDatasource(this.dataSource);
   }
 }

@@ -79,6 +79,8 @@ import { DomicileState } from 'src/app/views/pages/admission/domicile/store/domi
 import { DomicileService } from 'src/app/views/pages/admission/domicile/service/domicile.service';
 import { DistrictState } from 'src/app/views/pages/admission/district/store/district.state';
 import { DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
+import {AcademicDepartmentState} from '../../../pages/admission/academic-department/store/academic-department.state';
+import {AcademicDepartmentService} from '../../../pages/admission/academic-department/service/academic-department.service';
 
 @Injectable({
   providedIn: 'root'
@@ -120,6 +122,7 @@ export class NgxsCustomService {
     public stateService: StateService,
     public cityService: CityService,
     public feeItemService: FeeItemService,
+    public academicDepartmentService: AcademicDepartmentService,
     public store: Store,
   ) {
   }
@@ -128,7 +131,12 @@ export class NgxsCustomService {
 
   // Admission
 
-  // State
+  // Academic Department
+  @Select(AcademicDepartmentState.entities) academicDepartments$: Observable<any>;
+  @Select(AcademicDepartmentState.isFetchCompleted) academicDepartmentsFetchCompleted$: Observable<any>;
+  @Select(AcademicDepartmentState.isLoading) academicDepartmentsIsLoading$: Observable<any>;
+
+  // Fee Item
   @Select(FeeItemState.entities) feeItems$: Observable<any>;
   @Select(FeeItemState.isFetchCompleted) feeItemsFetchCompleted$: Observable<any>;
   @Select(FeeItemState.isLoading) feeItemsIsLoading$: Observable<any>;
@@ -934,6 +942,32 @@ export class NgxsCustomService {
       if (!res) {
         this.store.dispatch(new GetList(FeeItemState, {
           serviceClass: this.feeItemService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getAcademicDepartmentsFromState() {
+    this.academicDepartmentsFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(AcademicDepartmentState, {
+          serviceClass: this.academicDepartmentService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getCoursesFromState() {
+    this.courseFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(CourseState, {
+          serviceClass: this.courseService,
           methodName: 'getForDropdown',
           context: this
         }))

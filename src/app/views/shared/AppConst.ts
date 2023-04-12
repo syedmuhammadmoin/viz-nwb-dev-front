@@ -27,10 +27,10 @@ export class AppConst {
     2: 'Reconciled'
   }
   static EmployeeType = [
-    { id: 1, name: 'Permanent'},
-    { id: 2, name: 'Contractual'},
-    { id: 3, name: 'Daily wages'},
-    { id: 4, name: 'Adhoc'}
+    {id: 1, name: 'Permanent'},
+    {id: 2, name: 'Contractual'},
+    {id: 3, name: 'Daily wages'},
+    {id: 4, name: 'Adhoc'}
   ];
   static status = {
     0: 'Pending',
@@ -39,8 +39,8 @@ export class AppConst {
   }
 
   static depreciationMethod = [
-    { id: 0, name: 'Straight Line'},
-    { id: 1, name: 'Declining Rate'},
+    {id: 0, name: 'Straight Line'},
+    {id: 1, name: 'Declining Rate'},
 
   ]
 
@@ -509,6 +509,26 @@ export class AppConst {
     'Admission.Domicile.Create': 'Domicile Create',
     'Admission.Domicile.Edit': 'Domicile Edit',
     'Admission.Domicile.Delete': 'Domicile Delete',
+
+    'Admission.Applicant.Create': 'Applicant View',
+    'Admission.Applicant.View': 'Applicant Create',
+    'Admission.Applicant.Edit': 'Applicant Edit',
+    'Admission.Applicant.Delete': 'Applicant Delete',
+
+    'Admission.Shift.Create': 'Shift Create',
+    'Admission.Shift.View': 'Shift View',
+    'Admission.Shift.Edit': 'Shift Edit',
+    'Admission.Shift.Delete': 'Shift Delete',
+
+    'Admission.Batch.Create': 'Batch Create',
+    'Admission.Batch.View': 'Batch View',
+    'Admission.Batch.Edit': 'Batch Edit',
+    'Admission.Batch.Delete': 'Batch Delete',
+
+    'Admission.AdmissionCriteria.Create': 'Admission Criteria Create',
+    'Admission.AdmissionCriteria.View': 'Admission Criteria View',
+    'Admission.AdmissionCriteria.Edit': 'Admission Criteria Edit',
+    'Admission.AdmissionCriteria.Delete': 'Admission Criteria Delete',
   }
 
   static paymentRegisterType = {
@@ -539,26 +559,26 @@ export class AppConst {
     {value: 'Invoice', id: DocType.Invoice},
     {value: 'Bill', id: DocType.Bill},
     {value: 'Journal Entry', id: DocType.JournalEntry},
-    {value: 'Bank Account' , id: DocType.BankAccount},
-    {value: 'Cash Account' , id: DocType.CashAccount},
-    {value: 'Purchase Order' , id: DocType.PurchaseOrder},
-    {value: 'Goods Received Note' , id: DocType.GRN},
-    {value: 'Quotation' , id: DocType.Quotation},
-    {value: 'Requisition' , id: DocType.Requisition},
-    {value: 'Receipt' , id: DocType.Receipt, route: 'receipt'},
+    {value: 'Bank Account', id: DocType.BankAccount},
+    {value: 'Cash Account', id: DocType.CashAccount},
+    {value: 'Purchase Order', id: DocType.PurchaseOrder},
+    {value: 'Goods Received Note', id: DocType.GRN},
+    {value: 'Quotation', id: DocType.Quotation},
+    {value: 'Requisition', id: DocType.Requisition},
+    {value: 'Receipt', id: DocType.Receipt, route: 'receipt'},
     {value: 'Payroll Transaction', id: DocType.PayrollTransaction},
-    {value: 'Payroll Payment' , id: DocType.PayrollPayment, route: 'payroll-payment'},
-    {value: 'Issuance' , id: DocType.Issuance},
-    {value: 'Goods Return Note' , id: DocType.GoodsReturnNote},
-    {value: 'Issuance Return' , id: DocType.IssuanceReturn},
-    {value: 'Request Requisition' , id: DocType.Request},
-    {value: 'Bid Evaluation' , id: DocType.BidEvaluation},
-    {value: 'Call Quotation' , id: DocType.CallForQuotaion},
-    {value: 'Fixed Asset' , id: DocType.FixedAsset},
-    {value: 'CWIP ' , id: DocType.CWIP},
-    {value: 'Disposal' , id: DocType.Disposal},
-    {value: 'Budget Reappropriation' , id: DocType.BudgetReappropriation},
-    {value: 'Depreciation Adjustment' , id: DocType.DepreciationAdjustment}
+    {value: 'Payroll Payment', id: DocType.PayrollPayment, route: 'payroll-payment'},
+    {value: 'Issuance', id: DocType.Issuance},
+    {value: 'Goods Return Note', id: DocType.GoodsReturnNote},
+    {value: 'Issuance Return', id: DocType.IssuanceReturn},
+    {value: 'Request Requisition', id: DocType.Request},
+    {value: 'Bid Evaluation', id: DocType.BidEvaluation},
+    {value: 'Call Quotation', id: DocType.CallForQuotaion},
+    {value: 'Fixed Asset', id: DocType.FixedAsset},
+    {value: 'CWIP ', id: DocType.CWIP},
+    {value: 'Disposal', id: DocType.Disposal},
+    {value: 'Budget Reappropriation', id: DocType.BudgetReappropriation},
+    {value: 'Depreciation Adjustment', id: DocType.DepreciationAdjustment}
 
     // {value: 'sales Order', id: DocType.SalesOrder},
     // { value: 'Goods Dispatch Note', id: DocType.GDN },
@@ -567,7 +587,7 @@ export class AppConst {
 
   static CriteriaField = [
     {value: 'Absolute', id: Criteria.Absolute},
-    {value: 'Range', id: Criteria.Range },
+    {value: 'Range', id: Criteria.Range},
     {value: 'Comparative', id: Criteria.Comparative},
     {value: 'Less than', id: Criteria.LessThan},
     {value: 'Less than & equals to', id: Criteria.LessThanEqualsTo},
@@ -578,7 +598,7 @@ export class AppConst {
   static NatureField = [
     {value: 'Text', id: Nature.text},
     {value: 'Number', id: Nature.Number},
-    {value: 'Date', id: Nature.Date },
+    {value: 'Date', id: Nature.Date},
   ]
 
   static DocTypeValue = {
@@ -622,12 +642,12 @@ export class AppConst {
   }
 
   static taxType = [
-    {id: 0 , type: 'Sales Tax Asset'},
-    {id: 1 , type: 'Sales Tax Liability'},
-    {id: 2 , type: 'Income Tax Asset'},
-    {id: 3 , type: 'Income Tax Liability'},
-    {id: 4 , type: 'SRBTaxAsset'},
-    {id: 5 , type: 'SRBTaxLiability'}
+    {id: 0, type: 'Sales Tax Asset'},
+    {id: 1, type: 'Sales Tax Liability'},
+    {id: 2, type: 'Income Tax Asset'},
+    {id: 3, type: 'Income Tax Liability'},
+    {id: 4, type: 'SRBTaxAsset'},
+    {id: 5, type: 'SRBTaxLiability'}
   ]
 
   static PayrollType = [
@@ -640,30 +660,30 @@ export class AppConst {
   ]
 
   static Months = [
-    { name: 'Jan', value: 1 },
-    { name: 'Feb', value: 2 },
-    { name: 'Mar', value: 3 },
-    { name: 'Apr', value: 4 },
-    { name: 'May', value: 5 },
-    { name: 'June', value: 6 },
-    { name: 'July', value: 7 },
-    { name: 'Aug', value: 8 },
-    { name: 'Sep', value: 9 },
-    { name: 'Oct', value: 10 },
-    { name: 'Nov', value: 11 },
-    { name: 'Dec', value: 12 },
+    {name: 'Jan', value: 1},
+    {name: 'Feb', value: 2},
+    {name: 'Mar', value: 3},
+    {name: 'Apr', value: 4},
+    {name: 'May', value: 5},
+    {name: 'June', value: 6},
+    {name: 'July', value: 7},
+    {name: 'Aug', value: 8},
+    {name: 'Sep', value: 9},
+    {name: 'Oct', value: 10},
+    {name: 'Nov', value: 11},
+    {name: 'Dec', value: 12},
   ];
 
   static filterStatus = [
-    { value: 'Draft', id: 0 },
-    { value: 'Rejected', id: 1 },
-    { value: 'Unpaid', id: 2 },
-    { value: 'Approved', id: 2 },
-    { value: 'Partial', id: 3 },
-    { value: 'Paid', id: 4 },
-    { value: 'Open', id: 2 },
-    { value: 'Closed', id: 4 },
-    { value: 'Submitted', id: 5 },
-    { value: 'Reviewed', id: 6 },
+    {value: 'Draft', id: 0},
+    {value: 'Rejected', id: 1},
+    {value: 'Unpaid', id: 2},
+    {value: 'Approved', id: 2},
+    {value: 'Partial', id: 3},
+    {value: 'Paid', id: 4},
+    {value: 'Open', id: 2},
+    {value: 'Closed', id: 4},
+    {value: 'Submitted', id: 5},
+    {value: 'Reviewed', id: 6},
   ];
 }

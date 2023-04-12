@@ -110,47 +110,7 @@ export class Permissions {
   static BUDGET_REAPPROPIATION_CREATE= 'Budget.BudgetReappropiation.Create';
   static BUDGET_REAPPROPIATION_EDIT = 'Budget.BudgetReappropiation.Edit';
 
-  // ADMISSION
-  static FACULTY_VIEW = 'Faculty.Faculty.View';
-  static FACULTY_CREATE = 'Faculty.Faculty.Create';
-  static FACULTY_EDIT = 'Faculty.Faculty.edit';
-  static FACULTY_DELETE = 'Faculty.Faculty.delete';
 
-  static ADMISSION_DEPARTMENT_VIEW = 'Department.Department.View';
-  static ADMISSION_DEPARTMENT_CREATE = 'Department.Department.Create';
-  static ADMISSION_DEPARTMENT_EDIT = 'Department.Department.edit';
-  static ADMISSION_DEPARTMENT_DELETE = 'Department.Department.delete';
-
-  static SHIFT_VIEW = 'Shift.Shift.View';
-  static SHIFT_CREATE = 'Shift.Shift.Create';
-  static SHIFT_EDIT = 'Shift.Shift.edit';
-  static SHIFT_DELETE = 'Shift.Shift.delete';
-
-  static FEE_TYPE_VIEW = 'FeeType.FeeType.View';
-  static FEE_TYPE_CREATE = 'FeeType.FeeType.Create';
-  static FEE_TYPE_EDIT = 'FeeType.FeeType.edit';
-  static FEE_TYPE_DELETE = 'FeeType.FeeType.delete';
-
-  static BATCH_VIEW = 'Batch.Batch.View';
-  static BATCH_CREATE = 'Batch.Batch.Create';
-  static BATCH_EDIT = 'Batch.Batch.edit';
-  static BATCH_DELETE = 'Batch.Batch.delete';
-
-  static BATCH_TYPE_VIEW = 'BatchType.BatchType.View';
-  static BATCH_TYPE_CREATE = 'BatchType.BatchType.Create';
-  static BATCH_TYPE_EDIT = 'BatchType.BatchType.edit';
-  static BATCH_TYPE_DELETE = 'BatchType.BatchType.delete';
-
-  static COURSE_VIEW = 'Course.Course.View';
-  static COURSE_CREATE = 'Course.Course.Create';
-  static COURSE_EDIT = 'Course.Course.edit';
-  static COURSE_DELETE = 'Course.Course.delete';
-
-
-  static PROGRAM_VIEW = 'Program.Program.View';
-  static PROGRAM_CREATE = 'Program.Program.Create';
-  static PROGRAM_EDIT = 'Program.Program.edit';
-  static PROGRAM_DELETE = 'Program.Program.delete';
 
 
   // Level 3
@@ -405,6 +365,21 @@ export class Permissions {
   // Stock
   static STOCK_VIEW = 'Procurement.Stock.View';
 
+
+  // ADMISSION
+
+  // Shift
+  static ADMISSION_SHIFT_VIEW = 'Admission.Shift.View';
+  static ADMISSION_SHIFT_CREATE = 'Admission.Shift.Create';
+  static ADMISSION_SHIFT_EDIT = 'Admission.Shift.Edit';
+  static ADMISSION_SHIFT_DELETE = 'Admission.Shift.Delete';
+
+  // Batch
+  static ADMISSION_BATCH_VIEW = 'Admission.Batch.View';
+  static ADMISSION_BATCH_CREATE = 'Admission.Batch.Create';
+  static ADMISSION_BATCH_EDIT = 'Admission.Batch.Edit';
+  static ADMISSION_BATCH_DELETE = 'Admission.Batch.Delete';
+
   // Domicile
   static ADMISSION_DOMICILE_VIEW = 'Admission.Domicile.View';
   static ADMISSION_DOMICILE_CREATE = 'Admission.Domicile.Create';
@@ -483,11 +458,23 @@ export class Permissions {
   static ADMISSION_FACULTY_EDIT = 'Admission.Faculty.Edit';
   static ADMISSION_FACULTY_DELETE = 'Admission.Faculty.Delete';
 
+  // Applicant
+  static ADMISSION_APPLICANT_VIEW = 'Admission.Applicant.View';
+  static ADMISSION_APPLICANT_CREATE = 'Admission.Applicant.Create';
+  static ADMISSION_APPLICANT_EDIT = 'Admission.Applicant.Edit';
+  static ADMISSION_APPLICANT_DELETE = 'Admission.Applicant.Delete';
+
   // Academic Department
   static ADMISSION_ACADEMIC_DEPARTMENT_VIEW = 'Admission.AcademicDepartment.View';
   static ADMISSION_ACADEMIC_DEPARTMENT_CREATE = 'Admission.AcademicDepartment.Create';
   static ADMISSION_ACADEMIC_DEPARTMENT_EDIT = 'Admission.AcademicDepartment.Edit';
   static ADMISSION_ACADEMIC_DEPARTMENT_DELETE = 'Admission.AcademicDepartment.Delete';
+
+  // Admission Criteria
+  static ADMISSION_CRITERIA_VIEW = 'Admission.AdmissionCriteria.View';
+  static ADMISSION_CRITERIA_CREATE = 'Admission.AdmissionCriteria.Create';
+  static ADMISSION_CRITERIA_EDIT = 'Admission.AdmissionCriteria.Edit';
+  static ADMISSION_CRITERIA_DELETE = 'Admission.AdmissionCriteria.Delete';
 
 }
 

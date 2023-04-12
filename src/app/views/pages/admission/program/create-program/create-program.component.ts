@@ -1,25 +1,23 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { AppConst } from 'src/app/views/shared/AppConst';
-import { Permissions } from 'src/app/views/shared/AppEnum';
-import { IProgram} from '../model/Iprogram';
-import { ICourses} from '../model/ICourses';
-import { ProgramService } from '../service/program.service';
-import { SelectionModel } from '@angular/cdk/collections';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { Router } from '@angular/router';
-import { FirstDataRenderedEvent, RowDoubleClickedEvent } from 'ag-grid-community';
-import { MatCheckboxChange } from '@angular/material/checkbox';
+import {ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import {AppComponentBase} from 'src/app/views/shared/app-component-base';
+import {AppConst} from 'src/app/views/shared/AppConst';
+import {Permissions} from 'src/app/views/shared/AppEnum';
+import {ProgramService} from '../service/program.service';
+import {AddModalButtonService} from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import {NgxsCustomService} from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
+import {FirstDataRenderedEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {IProgram, ISemesterCoursesList} from '../models/IProgram';
+import {finalize, take} from 'rxjs/operators';
+import {PROGRAM} from '../../../../shared/AppRoutes';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'kt-create-program',
   templateUrl: './create-program.component.html',
   styleUrls: ['./create-program.component.scss']
 })
-export class CreateProgramComponent extends AppComponentBase implements OnInit{
+export class CreateProgramComponent extends AppComponentBase implements OnInit {
 
   public permissions = Permissions;
 
@@ -31,58 +29,76 @@ export class CreateProgramComponent extends AppComponentBase implements OnInit{
   searchText: string;
 
   allCources: any = [
-    { name : "Semester 1",
-    courses : [
-      {
-        coursesName: 'Math',
-        selected: false
-      },
-      {
-        coursesName: 'English',
-        selected: false
-    },
+    {
+      name: 'Semester 1',
+      courses: [
         {
-        coursesName: 'PakStudy',
-        selected: false
-    }
-    ]
-},
+          coursesName: 'Math',
+          selected: false
+        },
+        {
+          coursesName: 'English',
+          selected: false
+        },
+        {
+          coursesName: 'PakStudy',
+          selected: false
+        }
+      ]
+    },
 
 
-]
+  ]
 
-semester  = [
-  { id : 1,
-    name : 'One',
-  },
-  { id : 2,
-    name : 'Two',
-  },
-  { id : 3,
-    name : 'Three',
-  },
-  { id : 4,
-    name : 'Four',
-  },
-]
+  semesters = [
+    {
+      id: 1,
+      name: 'One',
+    },
+    {
+      id: 2,
+      name: 'Two',
+    },
+    {
+      id: 3,
+      name: 'Three',
+    },
+    {
+      id: 4,
+      name: 'Four',
+    },
+    {
+      id: 5,
+      name: 'Five',
+    },
+    {
+      id: 6,
+      name: 'Six',
+    },
+    {
+      id: 7,
+      name: 'Seven',
+    },
+    {
+      id: 8,
+      name: 'Eight',
+    },
+  ]
 
-totalSemester = 1;
+  totalSemester = 1;
 
   // Declaring form variable
   programForm: FormGroup;
 
-    /** The selection for checklist */
-    checklistSelection = new SelectionModel<any>(true /* multiple */);
-
   // Getting Table by id
-  @ViewChild('table', { static: true }) table: any;
+  @ViewChild('table', {static: true}) table: any;
 
   // Payroll Model
   programModel: IProgram = {} as IProgram;
 
   // warehouseList: any = new BehaviorSubject<any>([])
 
-  title: string = 'Create Program'
+  title = 'Create Program'
 
   isActiveChecked = true;
 
@@ -91,63 +107,61 @@ totalSemester = 1;
   // switch
   userStatus = 'Active'
 
-  valueTitle: string = 'Value'
+  valueTitle = 'Value'
 
   // isModelType =  false;
 
-   //show toast mesasge of on campus select
-   showMessage: boolean = false;
+  // show toast mesasge of on campus select
+  showMessage = false;
 
-   // per product cost
+  // per product cost
   // perProductCost : number;
 
-  //show Buttons
-  showButtons: boolean = true;
+  // show Buttons
+  showButtons = true;
 
-  //depreciation method
+  // depreciation method
   method = AppConst.depreciationMethod;
 
-  //for resetting form
+  // for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-    // For Table Columns
-    displayedColumns = ['courcesList']
+  // For Table Columns
+  displayedColumns = ['semesterNumber', 'courseId', 'action']
 
   // Validation messages..
   validationMessages = {
-
-    name : {
+    name: {
       required: 'Name is required.',
     },
-    department : {
+    academicDepartmentId: {
       required: 'Department is required.',
     },
-    semester : {
+    totalSemesters: {
       required: 'Semester is required.',
     },
-    cources : {
-      required: 'cources is required.',
+    degreeId: {
+      required: 'courses is required.',
     }
   };
 
   // error keys..
   formErrors = {
-    name : '',
-    department : '',
-    semester : '',
-    cources : '',
+    name: '',
+    academicDepartmentId: '',
+    totalSemesters: '',
+    degreeId: '',
 
   };
 
   // Injecting in dependencies in constructor
-  constructor(private fb: FormBuilder,
+  constructor(
+    private fb: FormBuilder,
     private programService: ProgramService,
-    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
-    public dialogRef: MatDialogRef<CreateProgramComponent>,
-    public dialog: MatDialog,
     public addButtonService: AddModalButtonService,
     public ngxsService: NgxsCustomService,
     private cdRef: ChangeDetectorRef,
+    private activatedRoute: ActivatedRoute,
     injector: Injector
   ) {
     super(injector);
@@ -157,31 +171,31 @@ totalSemester = 1;
 
     // Creating Forms
     this.programForm = this.fb.group({
-      name:['', [Validators.required]],
-      department: ['', [Validators.required]],
-      semester: ['', [Validators.required]],
-      cources: this.fb.array([
-        this.addCourcesLines()
+      name: ['', [Validators.required]],
+      degreeId: ['', [Validators.required]],
+      academicDepartmentId: ['', [Validators.required]],
+      totalSemesters: ['', [Validators.required]],
+      semesterCoursesList: this.fb.array([
+        this.addCoursesLines()
       ])
     });
 
 
+    // get Accounts from Accounts State
 
-    //get Accounts from Accounts State
+    this.ngxsService.getDegreeFromState();
+    this.ngxsService.getAcademicDepartmentsFromState();
+    this.ngxsService.getCoursesFromState();
+    this.ngxsService.getDegreeFromState();
 
-    this.ngxsService.getDepreciationModelFromState()
-    this.ngxsService.getOtherAccountsFromState();
-    this.ngxsService.getAssetAccountFromState();
-    this.ngxsService.getProductFromState();
-    this.ngxsService.getWarehouseFromState();
 
-    if (this.data?.id) {
-      this.title = 'Edit Capital Work In progress'
-      this.programModel.id = this.data.id;
+    this.activatedRoute.queryParams.subscribe((res) => {
+      const isProgram = res.isProgram
+      this.programModel.id = res.q;
+      this.title = 'Edit Program'
       this.isLoading = true;
-      this.getCwip(this.data.id);
-    }
-
+      this.getProgram(this.programModel.id);
+    })
   }
 
   // Form Reset
@@ -190,205 +204,132 @@ totalSemester = 1;
     // this.depApplicabilityToggle = false
   }
 
-  //Get CWIP data from Api
-  private getCwip(id: number) {
-    // this.cwipService.getCwipById(id)
-    //   .pipe(
-    //     take(1),
-    //     finalize(() => {
-    //       this.isLoading = false;
-    //       this.cdRef.detectChanges();
-    //     })
-    //   )
-    //   .subscribe((res) => {
-    //     this.cwipModel = res.result;
-    //     this.patchCwip(res.result);
-    //     this.getCost(res.result.cost)
-    //     this.depApplicabilityToggle = res.result.depreciationApplicability;
-    //   });
+  // Get CWIP data from Api
+  private getProgram(id: number) {
+    this.programService.getById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.programModel = res.result;
+        this.patchProgram(res.result);
+      });
   }
 
-  //Edit CWIP Method
-  public patchProgram(Program: IProgram | any) {
+  // Edit Program Method
+  public patchProgram(Program: IProgram) {
     this.programForm.patchValue({
-      dateOfAcquisition: Program.dateOfAcquisition,
       name: Program.name,
-      cwipAccountId:Program.cwipAccountId,
-      cost:Program.cost,
-      assetAccountId:Program.assetAccountId,
-      salvageValue:Program.salvageValue,
-      productId: Program.productId,
-      warehouseId: Program.warehouseId,
-      depreciationApplicability:Program.depreciationApplicability,
-      depreciationModelId:Program.depreciationModelId,
-      modelType:Program.modelType,
-      depreciationExpenseId:Program.depreciationExpenseId,
-      accumulatedDepreciationId:Program.accumulatedDepreciationId,
-      useFullLife:Program.useFullLife,
-      quantity:Program.quantity,
-      decLiningRate:Program.decLiningRate,
-      prorataBasis: Program.prorataBasis,
-      isActive:Program.isActive
+      degreeId: Program.degreeId,
+      academicDepartmentId: Program.academicDepartmentId,
+      totalSemesters: Program.totalSemesters,
     });
-    // this.onChangeDepApplicability({checked : cwip.depreciationApplicability})
-    // this.getModelType(cwip.modelType)
-    // this.onCampusSelected(cwip.productId)
+    this.programForm.setControl('semesterCoursesList', this.patchProgramLines(Program.semesterCoursesList))
+  }
+
+  patchProgramLines(lines: ISemesterCoursesList[]): FormArray {
+    const formArray = new FormArray([]);
+    lines.forEach((line: ISemesterCoursesList) => {
+      formArray.push(this.fb.group({
+        id: line.id,
+        semesterNumber: line.semesterNumber,
+        courseId: line.courseId,
+      }))
+    })
+    return formArray
   }
 
 
-  //Submit Form Function
+  // Submit Form Function
   onSubmit(): void {
+    if (this.programForm.invalid) {
+      return;
+    }
+    this.isLoading = true;
+    this.mapFormValuesToProgramModel();
 
-    // if (this.cwipForm.invalid) {
-    //   return;
-    // }
+    if (this.programModel?.id) {
+      this.programService.update(this.programModel)
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res) => {
+          this.toastService.success('Updated Successfully', 'Program')
+          this.cdRef.detectChanges();
+          this.router.navigate(['/' + PROGRAM.LIST])
+        })
 
-    // this.isLoading = true;
-    // this.mapFormValuesTocwipModel();
+    } else {
+      delete this.programModel.id;
 
-    // if (this.data?.id) {
-    //   console.log("edit")
-    //   this.cwipService.updateCwip(this.cwipModel)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => {
-    //         this.isLoading = false;
-    //         this.cdRef.detectChanges();
-    //       })
-    //     )
-    //     .subscribe((res: IApiResponse<ICwip>) => {
-    //       this.toastService.success('Updated Successfully', 'CWIP')
-    //       this.onCloseDialog();
-    //       this.cdRef.detectChanges();
-    //       this.router.navigate(['/' + CWIP.LIST])
-    //     })
-
-    // } else {
-    //   delete this.cwipModel.id;
-
-    //   this.cwipService.createCwip(this.cwipModel)
-    //     .pipe(
-    //       take(1),
-    //       finalize(() => {
-    //         this.isLoading = false;
-    //         this.cdRef.detectChanges();
-    //       })
-    //     )
-    //     .subscribe((res: IApiResponse<ICwip>) => {
-    //       this.toastService.success('Created Successfully', 'CWIP')
-    //       this.onCloseDialog();
-    //       this.router.navigate(['/' + CWIP.LIST])
-    //       //this.router.navigate(['/' + PAYROLL_ITEM.LIST])
-    //     }
-    //     );
-    // }
+      this.programService.create(this.programModel)
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res) => {
+            this.toastService.success('Created Successfully', 'Program')
+            this.router.navigate(['/' + PROGRAM.LIST])
+          }
+        );
+    }
   }
 
 
-
-
-
-  //Mapping Form Value to Model
-  mapFormValuesTocwipModel() {
-    // this.cwipModel.dateOfAcquisition =  this.dateHelperService.transformDate(this.cwipForm.value.dateOfAcquisition, 'yyyy-MM-dd'),
-    // this.cwipModel.name = this.cwipForm.value.name,
-    // this.cwipModel.cwipAccountId = this.cwipForm.value.cwipAccountId
-    // this.cwipModel.cost = this.cwipForm.value.cost,
-    // this.cwipModel.assetAccountId = this.cwipForm.value.assetAccountId,
-    // this.cwipModel.salvageValue = (this.cwipForm.value.salvageValue) ? this.cwipForm.value.salvageValue : 0,
-    // this.cwipModel.productId = this.cwipForm.value.productId,
-    // this.cwipModel.warehouseId = this.cwipForm.value.warehouseId,
-    // this.cwipModel.depreciationApplicability = this.cwipForm.value.depreciationApplicability,
-    // this.cwipModel.depreciationModelId = this.cwipForm.value.depreciationModelId,
-    // this.cwipModel.modelType = this.cwipForm.value.modelType,
-    // this.cwipModel.depreciationExpenseId = this.cwipForm.value.depreciationExpenseId,
-    // this.cwipModel.accumulatedDepreciationId = this.cwipForm.value.accumulatedDepreciationId,
-    // this.cwipModel.useFullLife = this.cwipForm.value.useFullLife,
-    // this.cwipModel.quantity = this.cwipForm.value.quantity,
-    // this.cwipModel.decLiningRate = this.cwipForm.value.decLiningRate,
-    // this.cwipModel.prorataBasis =  this.cwipForm.value.prorataBasis,
-    // this.cwipModel.isActive = this.cwipForm.value.isActive
+  // Mapping Form Value to Model
+  mapFormValuesToProgramModel() {
+    this.programModel.name = this.programForm.value.name;
+    this.programModel.degreeId = this.programForm.value.degreeId;
+    this.programModel.academicDepartmentId = this.programForm.value.academicDepartmentId;
+    this.programModel.totalSemesters = this.programForm.value.totalSemesters;
+    this.programModel.semesterCoursesList = this.programForm.value.semesterCoursesList;
   }
 
-  getSemesters(count : any){
-    // console.log(count.value);
-    // this.totalSemester = count.value
-    this.addGRNLineClick(count.value)
-}
-
-
-
-  onRoleChange(FirstIndes: number, $event: MatCheckboxChange , secondIndex : number ) {
-
-    // console.log(this.allCources[FirstIndes].courses[secondIndex].selected = $event.checked + ' value ');
-
-
-
-    this.allCources[FirstIndes].courses[secondIndex].selected = $event.checked
-    console.log(this.allCources);
-  }
-
-
-  //for save or submit
+  // for save or submit
   isSubmit(val: number) {
     // this.cwipModel.isSubmit = (val === 0) ? false : true;
   }
 
 
-  //Add Grn Line
-  addGRNLineClick(semester : number): void {
-    let count = 0;
-    let arr = ''
-
-    const controls = this.programForm.controls.cources as FormArray;
-    if(semester > controls.length){
-      count = semester - controls.length
-      for (let i = 0; i < count; i++) {
-        this.allCources.push(this.allCources[0])
-        controls.push(this.addCourcesLines());
-      }
-    }
-    if(semester < controls.length){
-      count = controls.length - semester;
-      for (let i = controls.length -1; i >= semester; i--) {
-        this.allCources.pop()
-        controls.removeAt(i);
-      }
-
-    }
-    // controls.clear()
-    console.log(this.allCources);
-
+  // Add Grn Line
+  addProgramLineClick(): void {
+    const controls = this.programForm.controls.semesterCoursesList as FormArray;
+    controls.push(this.addCoursesLines());
     this.table.renderRows();
   }
 
 
-
-  addCourcesLines(): FormGroup {
+  addCoursesLines(): FormGroup {
     return this.fb.group({
-      listofCources: [[], [Validators.required]],
+      semesterNumber: ['', [Validators.required]],
+      courseId: ['', [Validators.required]],
     });
   }
-
-    /** Toggle a leaf to-do item selection. Check all the parents to see if they changed */
-    todoLeafItemSelectionToggle(node : any): void {
-      this.checklistSelection.toggle(node);
-    }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    //this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
+    // this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
-
-
-
-  // Dialogue close function
-  onCloseDialog() {
-    this.dialogRef.close();
+  removeProgramLineClick(i) {
+    const semesterCoursesList = this.programForm.get('semesterCoursesList') as FormArray;
+    semesterCoursesList.removeAt(i);
+    semesterCoursesList.markAsDirty();
+    semesterCoursesList.markAsTouched();
+    this.table.renderRows();
   }
-
 }

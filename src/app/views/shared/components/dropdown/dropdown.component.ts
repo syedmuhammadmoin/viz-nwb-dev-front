@@ -91,7 +91,7 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
       console.log('if (this.optionList instanceof Observable)');
       this.isLoading = true;
       this.optionList.subscribe((res) => {
-        this.options = (res.result) ? res.result : res;
+        this.options = (res && res.result) ? res.result : res;
         //This condition is just for temporary work
         //Please re-work and correct this...
         if (typeof (this.options) === 'number') {

@@ -9,10 +9,11 @@ import { ListProgramComponent } from './list-program/list-program.component';
 import { CreateProgramComponent } from './create-program/create-program.component';
 import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { DetailProgramComponent } from './detail-program/detail-program.component';
 
 
 @NgModule({
-  declarations: [ListProgramComponent, CreateProgramComponent],
+  declarations: [ListProgramComponent, CreateProgramComponent, DetailProgramComponent],
   imports: [
     CommonModule,
     ProgramRoutingModule,
