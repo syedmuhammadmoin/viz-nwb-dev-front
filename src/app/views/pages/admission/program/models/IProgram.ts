@@ -6,7 +6,7 @@ export interface IProgram {
    academicDepartmentId?: number;
    academicDepartment?: string;
    totalSemesters?: number;
-   semesterCoursesList?: ISemesterCoursesList[];
+   semesterCourseList?: ISemesterCoursesList[];
 }
 
 export interface ISemesterCoursesList {

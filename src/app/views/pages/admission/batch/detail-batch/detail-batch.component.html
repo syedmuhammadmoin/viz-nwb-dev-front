@@ -1,8 +1,9 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Program Detail'">
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"
+                       [title]="'Batch Detail'">
       <ng-container class="" ktPortletTools>
-        <!--<div class="ribbon-target " ><span class="ribbon-inner {{docStatus[programMaster?.state]}}"></span> {{programMaster?.status}}</div>-->
+        <!--<div class="ribbon-target " ><span class="ribbon-inner {{docStatus[batchMaster?.state]}}"></span> {{batchMaster?.status}}</div>-->
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
@@ -10,25 +11,26 @@
         <div class="row ">
           <div class="btn_container">
             <div class="col-md-6 col-6">
-              <ng-container ktPortletTools >
-                <!--<button *ngIf="(programMaster?.state === docStatus.Partial || programMaster?.state === docStatus.Unpaid)
-                      && (programMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
+              <ng-container ktPortletTools>
+                <!--<button *ngIf="(batchMaster?.state === docStatus.Partial || batchMaster?.state === docStatus.Unpaid)
+                      && (batchMaster?.ledgerId) && (permission.isGranted(permissions.RECEIPT_CREATE))"
                         type="button" class="mr-3 btn_public" (click)="openDialog()" >
                   <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>-->
 
-                <!--<button *ngIf="(programMaster?.state === docStatus.Partial || programMaster?.state === docStatus.Unpaid)
-                      && (programMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
-                        [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: programMaster?.id, isProgram: true}"
+                <!--<button *ngIf="(batchMaster?.state === docStatus.Partial || batchMaster?.state === docStatus.Unpaid)
+                      && (batchMaster?.ledgerId) && (permission.isGranted(permissions.CREDITNOTE_CREATE))"
+                        [routerLink]="'/' + CREDIT_NOTE.CREATE" [queryParams]="{q: batchMaster?.id, isProgram: true}"
                         type="button" class="mr-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Credit Note
                 </button>-->
 
-                <!--(programMaster?.state === docStatus.Draft || programMaster?.state === docStatus.Rejected)
+                <!--(batchMaster?.state === docStatus.Draft || batchMaster?.state === docStatus.Rejected)
                       && -->
                 <button *ngIf="(permission.isGranted(permissions.INVOICE_EDIT))"
-                        [routerLink]="'/' + PROGRAM.ID_BASED_ROUTE('edit', programMaster?.id)" [queryParams]="{q: programMaster?.id, 'isProgram': true}"
-                        type="button"  class="mr-3 btn_public" id="program_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                        [queryParams]="{q: batchMaster?.id, 'isProgram': true}"
+                        [routerLink]="'/' + BATCH.ID_BASED_ROUTE('edit', batchMaster?.id)"
+                        class="mr-3 btn_public" id="program_edit" type="button"><i class="fa fa-edit icon-e-p-a"></i>
                   Edit
                 </button>
 
@@ -36,14 +38,14 @@
                         (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>-->
 
-                <!--<button [routerLink]="'/' + PROGRAM.ID_BASED_ROUTE('print', programMaster?.id)" type="button"
+                <!--<button [routerLink]="'/' + BATCH.ID_BASED_ROUTE('print', batchMaster?.id)" type="button"
                         class="btn_public" id="program_print">
                   <i class="fa fa-print icon-e-p-a"></i> Print Program
                 </button>-->
               </ng-container>
 
             </div>
-            <!--<div class="col-lg-6 text-right" *ngIf="programMaster?.isAllowedRole">
+            <!--<div class="col-lg-6 text-right" *ngIf="batchMaster?.isAllowedRole">
               <button (click)="remarksDialog(action.Reject)" id="program_reject" class="btn btn-outline-danger font-weight-bold mr-2" >Reject</button>
               <button (click)="remarksDialog(action.Approve)" id="program_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
             </div>-->
@@ -51,36 +53,44 @@
 
           <div class="col-md-8 col-lg-8 mt-3">
             <div class="print-box">
-              <h4 class="print-box-detail-1"><b>Program:</b>
-                <span class="float-right" style="font-weight: 400;">{{programMaster?.name}}</span></h4>
+              <h4 class="print-box-detail-1"><b>Batch Name:</b>
+                <span class="float-right" style="font-weight: 400;">{{batchMaster?.name}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Degree: </b>
-                <span class="float-right" style="font-weight: 400;">{{programMaster?.degree}}</span></h4>
+              <h4 class="print-box-detail-2"><b>Start Date: </b>
+                <span class="float-right" style="font-weight: 400;">{{batchMaster?.startDate | date: 'MMM d, yyy'}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Academic Department: </b>
-                <span class="float-right" style="font-weight: 400;">{{programMaster?.academicDepartment}}</span></h4>
+              <h4 class="print-box-detail-2"><b>Semester: </b>
+                <span class="float-right" style="font-weight: 400;">{{batchMaster?.semester}}</span></h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2"><b>Total Semesters: </b>
-                <span class="float-right" style="font-weight: 400;">{{programMaster?.totalSemesters}}</span></h4>
+              <h4 class="print-box-detail-2"><b>Campus: </b>
+                <span class="float-right" style="font-weight: 400;">{{batchMaster?.campus}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2"><b>Shift: </b>
+                <span class="float-right" style="font-weight: 400;">{{batchMaster?.shift}}</span></h4>
+            </div>
+            <div class="print-box">
+              <h4 class="print-box-detail-2"><b>Admission Open: </b>
+                <span class="float-right" style="font-weight: 400;">{{batchMaster?.isAdmissionOpen ? 'Yes' : 'NO'}}</span></h4>
             </div>
           </div>
         </div>
 
         <div class="row mt-10">
           <div class="col-md-12 col-12">
-            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
-                             class="ag-theme-alpine" [rowData]="semesterCoursesList" [columnDefs]="columnDefs"
-                             (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
+            <ag-grid-angular #rowClass (firstDataRendered)="onFirstDataRendered($event)"
+                             [columnDefs]="columnDefs" [gridOptions]="gridOptions" [rowData]="batchLines"
+                             class="ag-theme-alpine" style="width: 100%; height: 200px; font-size: 14px;">
             </ag-grid-angular>
           </div>
         </div>
 
         <div class="row mt-5">
-          <div class="col-md-7 col-7"  *ngIf="remarksList && remarksList.length > 0">
+          <div *ngIf="remarksList && remarksList.length > 0" class="col-md-7 col-7">
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 

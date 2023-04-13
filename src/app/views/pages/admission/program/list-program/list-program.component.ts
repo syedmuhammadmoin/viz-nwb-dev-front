@@ -5,8 +5,7 @@ import {CustomTooltipComponent} from '../../../../shared/components/custom-toolt
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {Permissions} from 'src/app/views/shared/AppEnum';
 import {ProgramService} from '../service/program.service';
-import {CWIP, INVOICE, PROGRAM} from 'src/app/views/shared/AppRoutes';
-import {CreateProgramComponent} from '../create-program/create-program.component';
+import {PROGRAM} from 'src/app/views/shared/AppRoutes';
 import {IProgram} from '../models/IProgram';
 import {isEmpty} from 'lodash';
 

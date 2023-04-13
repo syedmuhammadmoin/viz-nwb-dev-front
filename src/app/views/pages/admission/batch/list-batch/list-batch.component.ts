@@ -1,10 +1,25 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent} from 'ag-grid-community';
+import {
+  ColDef,
+  ColumnApi,
+  FirstDataRenderedEvent,
+  GridApi,
+  GridOptions,
+  GridReadyEvent,
+  RowDoubleClickedEvent,
+  ValueFormatterParams
+} from 'ag-grid-community';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {IBatch} from '../../batch-type/model/IBatch';
 import {CreateBatchComponent} from '../create-batch/create-batch.component';
+import {Permissions} from '../../../../shared/AppEnum';
+import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
+import {IShift} from '../../shift/model/IShift';
+import {isEmpty} from 'lodash';
+import {BatchService} from '../service/batch.service';
+import {BATCH, INVOICE} from '../../../../shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-batch',
@@ -13,26 +28,11 @@ import {CreateBatchComponent} from '../create-batch/create-batch.component';
 })
 export class ListBatchComponent extends AppComponentBase implements OnInit {
 
-
-// Loader
-  isLoading: boolean;
-
-// For AG Grid..
-  FacultyList: IBatch[];
-  gridOptions: GridOptions;
-  defaultColDef: ColDef;
-  public permissions = Permissions;
-  frameworkComponents: { [p: string]: unknown };
-  tooltipData = 'double click to view detail'
-  components: { loadingCellRenderer(params: any): unknown };
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
-  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-
 // Injecting Dependencies
   constructor(
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
+    private batchService: BatchService,
     injector: Injector
   ) {
     super(injector)
@@ -44,13 +44,29 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
   }
 
 
+// Loader
+  isLoading: boolean;
+
+// For AG Grid..
+  batchList: IBatch[];
+  gridOptions: GridOptions;
+  defaultColDef: ColDef;
+  public permissions = Permissions;
+  frameworkComponents: { [p: string]: unknown };
+  tooltipData = 'double click to view detail'
+  components: { loadingCellRenderer(params: any): unknown };
+  gridApi: GridApi;
+  gridColumnApi: ColumnApi;
+  overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+
+
 // Defining AG Grid Columns
 
   columnDefs = [
     {
       headerName: 'Batch',
-      field: 'batch',
-      tooltipField: 'batch',
+      field: 'name',
+      tooltipField: 'name',
       cellRenderer: 'loadingCellRenderer',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -60,18 +76,79 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
       },
     },
     {
-      headerName: 'BatchType',
-      field: 'batchType',
-      tooltipField: 'batchType',
-      cellRenderer: 'loadingCellRenderer',
+      headerName: 'Start Date',
+      field: 'startDate',
+      tooltipField: 'name',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['equals'],
+        suppressAndOrCondition: true,
+      },
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.transformDate(params.value, 'MMM d, y') || null;
+      }
+    },
+    {
+      headerName: 'Semester',
+      field: 'semester',
+      tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       },
-    }
+    },
+    {
+      headerName: 'Campus',
+      field: 'campus',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    },
+    {
+      headerName: 'Shift',
+      field: 'shift',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    },
+    {
+      headerName: 'Admission Open',
+      field: 'isAdmissionOpen',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+      valueFormatter: (params) => params.value === true ? 'Yes' : 'No'
+    },
   ];
+
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getBatch(params);
+      if (isEmpty(res.result)) {
+        this.gridApi.showNoRowsOverlay()
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'BatchPageName');
+      this.cdRef.detectChanges();
+    },
+  };
 
   ngOnInit() {
 
@@ -112,44 +189,23 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.openDialog(event.data.id)
+    console.log({event})
+    // this.router.navigate(['/' + BATCH.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
   openDialog(id?: number): void {
-    const dialogRef = this.dialog.open(CreateBatchComponent, {
-      width: '800px',
-      data: id
-    });
-    // Getting Updated Warehouse
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.gridApi.setDatasource(this.dataSource)
-    //   this.cdRef.detectChanges();
-    // });
+    this.router.navigate(['/' + BATCH.CREATE]);
   }
 
-// dataSource = {
-//   getRows: async (params: any) => {
-//     const res = await this.getBudgetReappropriation(params);
-//     if (isEmpty(res.result)) {
-//       this.gridApi.showNoRowsOverlay()
-//     } else {
-//       this.gridApi.hideOverlay();
-//     }
-//     params.successCallback(res.result || 0, res.totalRecords);
-//     this.paginationHelper.goToPage(this.gridApi, 'BudgetReappropriationPageName');
-//     this.cdRef.detectChanges();
-//   },
-// };
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
+  }
 
-// onGridReady(params: GridReadyEvent) {
-//   this.gridApi = params.api;
-//   this.gridColumnApi = params.columnApi;
-//   params.api.setDatasource(this.dataSource);
-// }
-
-// async getFaculty(params: any): Promise<IPaginationResponse<IBudget[]>> {
-//   const result = await this.Faculty.getRecords(params).toPromise()
-//   return result
-// }
+  async getBatch(params: any): Promise<IPaginationResponse<IShift[]>> {
+    const result = await this.batchService.getRecords(params).toPromise()
+    return result
+  }
 
 }

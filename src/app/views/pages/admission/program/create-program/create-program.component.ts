@@ -192,9 +192,11 @@ export class CreateProgramComponent extends AppComponentBase implements OnInit {
     this.activatedRoute.queryParams.subscribe((res) => {
       const isProgram = res.isProgram
       this.programModel.id = res.q;
-      this.title = 'Edit Program'
-      this.isLoading = true;
-      this.getProgram(this.programModel.id);
+      if (this.programModel.id) {
+        this.title = 'Edit Program'
+        this.isLoading = true;
+        this.getProgram(this.programModel.id);
+      }
     })
   }
 
@@ -228,7 +230,7 @@ export class CreateProgramComponent extends AppComponentBase implements OnInit {
       academicDepartmentId: Program.academicDepartmentId,
       totalSemesters: Program.totalSemesters,
     });
-    this.programForm.setControl('semesterCoursesList', this.patchProgramLines(Program.semesterCoursesList))
+    this.programForm.setControl('semesterCoursesList', this.patchProgramLines(Program.semesterCourseList))
   }
 
   patchProgramLines(lines: ISemesterCoursesList[]): FormArray {
@@ -293,7 +295,7 @@ export class CreateProgramComponent extends AppComponentBase implements OnInit {
     this.programModel.degreeId = this.programForm.value.degreeId;
     this.programModel.academicDepartmentId = this.programForm.value.academicDepartmentId;
     this.programModel.totalSemesters = this.programForm.value.totalSemesters;
-    this.programModel.semesterCoursesList = this.programForm.value.semesterCoursesList;
+    this.programModel.semesterCourseList = this.programForm.value.semesterCoursesList;
   }
 
   // for save or submit

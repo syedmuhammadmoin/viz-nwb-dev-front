@@ -6,21 +6,20 @@ import {ITransactionRecon} from '../../../purchase/vendorBill/model/ITransaction
 import {ActivatedRoute, Params} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
 import {finalize, take} from 'rxjs/operators';
-import {IApiResponse} from '../../../../shared/IApiResponse';
 import {CustomRemarksComponent} from '../../../../shared/components/custom-remarks/custom-remarks.component';
 import {CustomUploadFileComponent} from '../../../../shared/components/custom-upload-file/custom-upload-file.component';
-import {IProgram, ISemesterCoursesList} from '../models/IProgram';
-import {ProgramService} from '../service/program.service';
-import {PROGRAM} from '../../../../shared/AppRoutes';
+import {BATCH} from '../../../../shared/AppRoutes';
+import {IBatch, IBatchLines} from '../model/IBatch';
+import {BatchService} from '../service/batch.service';
 
 @Component({
-  selector: 'kt-detail-program',
-  templateUrl: './detail-program.component.html',
-  styleUrls: ['./detail-program.component.scss']
+  selector: 'kt-detail-batch',
+  templateUrl: './detail-batch.component.html',
+  styleUrls: ['./detail-batch.component.scss']
 })
-export class DetailProgramComponent extends AppComponentBase implements OnInit {
+export class DetailBatchComponent extends AppComponentBase implements OnInit {
 
-  PROGRAM = PROGRAM
+  BATCH = BATCH
 
   docType = DocType
   public permissions = Permissions;
@@ -37,20 +36,20 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
   isLoading: boolean;
 
   // need for routing
-  programId: number;
+  batchId: number;
 
   loader = true;
 
   // Variables for Invoice data
-  semesterCoursesList: ISemesterCoursesList | any
-  programMaster: IProgram = {} as IProgram;
+  batchLines: IBatchLines | any
+  batchMaster: IBatch = {} as IBatch;
   status: string;
 
   // Showing Remarks
   remarksList: string[] = [];
 
   constructor(
-    private programService: ProgramService,
+    private batchService: BatchService,
     private route: ActivatedRoute,
     public dialog: MatDialog,
     private cdRef: ChangeDetectorRef,
@@ -64,8 +63,8 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
   // Defining Invoice Columns
   columnDefs = [
     {
-      headerName: 'Semester',
-      field: 'semesterNumber',
+      headerName: 'Program',
+      field: 'program',
       sortable: true,
       filter: true,
       cellStyle: { 'font-size': '12px' },
@@ -73,7 +72,6 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
         return params.value || 'N/A'
       }
     },
-    { headerName: 'Course', field: 'course', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
   ];
 
   ngOnInit() {
@@ -81,9 +79,9 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {
-        this.programId = id;
+        this.batchId = id;
         this.isLoading = true;
-        this.getProgramData(id);
+        this.getBatchData(id);
         this.cdRef.markForCheck();
       }
     });
@@ -98,8 +96,8 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
   }
 
   // Getting invoice master data
-  getProgramData(id: number) {
-    this.programService.getById(id)
+  getBatchData(id: number) {
+    this.batchService.getById(id)
       .pipe(
         take(1),
         finalize(() => {
@@ -107,11 +105,11 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
           this.cdRef.detectChanges();
         })
       )
-      .subscribe((res: IApiResponse<IProgram>) => {
-        this.programMaster = res.result;
-        this.semesterCoursesList = res.result.semesterCourseList;
-        // this.status = this.programMaster.status;
-        // this.remarksList = this.programMaster.remarksList ?? []
+      .subscribe((res) => {
+        this.batchMaster = res.result;
+        this.batchLines = res.result.batchLines;
+        // this.status = this.batchMaster.status;
+        // this.remarksList = this.batchMaster.remarksList ?? []
 
         this.cdRef.markForCheck();
         this.cdRef.detectChanges();
@@ -123,10 +121,10 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
     const dialogRef = this.dialog.open(RegisterPaymentComponent, {
       width: '900px',
       data: {
-        accountId: this.programMaster.receivableAccountId,
+        accountId: this.batchMaster.receivableAccountId,
         paymentType: 1,
         documentLedgerId: this.ledgerId,
-        campusId: this.programMaster.campusId,
+        campusId: this.batchMaster.campusId,
         businessPartnerId: this.businessPartnerId,
         pendingAmount: this.pendingAmount,
         formName: 'Invoice',
@@ -135,7 +133,7 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
     });
     // Getting Updated Invoice Data
     dialogRef.afterClosed().subscribe(() => {
-      this.getProgramData(this.programId);
+      this.getBatchData(this.programId);
       this.cdRef.markForCheck();
       this.cdRef.detectChanges();
     });
@@ -153,7 +151,7 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
       )
       .subscribe(() => {
         this.toastService.success('Reconciled Successfully', 'Invoice')
-        this.getProgramData(this.programId);
+        this.getBatchData(this.programId);
         this.cdRef.detectChanges();
         this.cdRef.markForCheck();
       });
@@ -183,7 +181,7 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
 
   workflow(action: number , remarks: string) {
     /*this.isLoading = true
-    this.programService.workflow({ action, docId: this.programMaster.id , remarks })
+    this.programService.workflow({ action, docId: this.batchMaster.id , remarks })
       .pipe(
         take(1),
         finalize(() => {
@@ -192,7 +190,7 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
         })
       )
       .subscribe((res) => {
-        this.getProgramData(this.programId);
+        this.getBatchData(this.programId);
         this.cdRef.detectChanges();
         this.toastService.success('' + res.message, 'Invoice');
       })*/
@@ -203,13 +201,13 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
     this.dialog.open(CustomUploadFileComponent, {
       width: '740px',
       data: {
-        response: this.programMaster,
-        serviceClass: this.programService,
+        response: this.batchMaster,
+        serviceClass: this.batchService,
         functionName: 'uploadFile',
         name: 'Invoice'
       },
     }).afterClosed().subscribe(() => {
-      this.getProgramData(this.programId)
+      this.getBatchData(this.batchId)
       this.cdRef.detectChanges()
     })
   }

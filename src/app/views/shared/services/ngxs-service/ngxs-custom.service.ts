@@ -85,6 +85,8 @@ import {ShiftService} from '../../../pages/admission/shift/service/shift.service
 import {ShiftState} from '../../../pages/admission/shift/store/shift.state';
 import {ProgramState} from '../../../pages/admission/program/store/program.state';
 import {ProgramService} from '../../../pages/admission/program/service/program.service';
+import {BatchService} from '../../../pages/admission/batch/service/batch.service';
+import {BatchState} from '../../../pages/admission/batch/store/batch.state';
 
 @Injectable({
   providedIn: 'root'
@@ -129,6 +131,7 @@ export class NgxsCustomService {
     public academicDepartmentService: AcademicDepartmentService,
     public shiftService: ShiftService,
     public programService: ProgramService,
+    public batchService: BatchService,
     public store: Store,
   ) {
   }
@@ -136,6 +139,11 @@ export class NgxsCustomService {
   // selector region start
 
   // Admission
+
+  // Batch
+  @Select(BatchState.entities) batches$: Observable<any>;
+  @Select(BatchState.isFetchCompleted) batchFetchCompleted$: Observable<any>;
+  @Select(BatchState.isLoading) batchIsLoading$: Observable<any>;
 
   // Program
   @Select(ProgramState.entities) programs$: Observable<any>;
@@ -1009,6 +1017,31 @@ export class NgxsCustomService {
       if (!res) {
         this.store.dispatch(new GetList(ShiftState, {
           serviceClass: this.shiftService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+  getSemestersFromState() {
+    this.semesterFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(SemesterState, {
+          serviceClass: this.semesterService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getBatchFromState() {
+    this.batchFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(BatchState, {
+          serviceClass: this.batchService,
           methodName: 'getForDropdown',
           context: this
         }))

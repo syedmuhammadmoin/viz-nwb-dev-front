@@ -29,7 +29,7 @@ export class SemesterService extends AppServiceBase {
     return this.httpClient.get<IPaginationResponse<ISemester[]>>(this.baseUrl)
   }
 
-  getCoursesForDropdown(): Observable<IApiResponse<ISemester[]>> {
+  getForDropdown(): Observable<IApiResponse<ISemester[]>> {
     return this.httpClient.get<IApiResponse<ISemester[]>>(this.baseUrl + '/dropdown')
   }
 
