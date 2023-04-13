@@ -2,12 +2,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/Dialog'
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
-import { Router } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { AssetType, Permissions } from 'src/app/views/shared/AppEnum';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { IAsset } from '../model/IAsset';
 import { AssetService } from '../service/asset.service';
-import { ASSET, INVOICE } from 'src/app/views/shared/AppRoutes';
+import { ASSET } from 'src/app/views/shared/AppRoutes';
 import { isEmpty } from 'lodash';
 import { CreateAssetComponent } from '../create-asset/create-asset.component';
 
@@ -111,6 +110,17 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
         },
     },
     {
+      headerName: 'Total Active Days',
+      field: 'totalActiveDays',
+      tooltipField: 'warehouse',
+      filter: 'agNumberColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    },
+    {
       headerName: 'Dep Applicability',
       field: 'depreciationApplicability',
       tooltipField: 'depreciationApplicability',
@@ -198,7 +208,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       //     filterOptions: ['equals'],
       //     suppressAndOrCondition: true,
       //   }
-    },,
+    },
     {
       headerName: 'Reserved',
       field: 'isReserved',

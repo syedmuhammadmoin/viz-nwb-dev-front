@@ -30,13 +30,13 @@
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
                                 <label class="col-form-label pt-0">Asset Account:</label>
-                                <kt-simple-dropdown 
-                                    id="category_assets" 
+                                <kt-simple-dropdown
+                                    id="category_assets"
                                     propertyValue="id"
                                     propertyName="name"
-                                    placeholder="Select Asset Account" 
+                                    placeholder="Select Asset Account"
                                     formControlName="inventoryAccount"
-                                    matFormFieldClass="full-width" 
+                                    matFormFieldClass="full-width"
                                     [optionList]="assetAccountList"
                                     [errorMessage]="formErrors.inventoryAccount"
                                     (blurEvent)="logValidationErrors(this.categoryForm, this.formErrors, this.validationMessages)">
@@ -49,11 +49,11 @@
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Revenue Account:</label>
+                                <label class="col-form-label pt-0">{{showDepreciation ? 'Gain on Disposal' : 'Revenue Account:'}}</label>
                                 <kt-simple-dropdown id="category_revenue" propertyValue="id" propertyName="name"
-                                    matFormFieldClass="full-width" placeholder="Select Revenue Account"
+                                    matFormFieldClass="full-width" [placeholder]="showDepreciation ? 'Select Gain on Disposal' : 'Select Revenue Account'"
                                     formControlName="revenueAccount" [optionList]="ngxsService.otherAccounts$"
-                                    [errorMessage]="formErrors.revenueAccount"
+                                    [errorMessage]="showDepreciation ? 'Gain on Disposal is required' : formErrors.revenueAccount"
                                     (blurEvent)="logValidationErrors(this.categoryForm, this.formErrors, this.validationMessages)">
                                 </kt-simple-dropdown>
                             </div>
@@ -61,11 +61,11 @@
 
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Cost Account:</label>
+                                <label class="col-form-label pt-0">{{showDepreciation ? 'Loss on Disposal:' : 'Cost Account:'}}</label>
                                 <kt-simple-dropdown id="category_cost" propertyValue="id" propertyName="name"
-                                    matFormFieldClass="full-width" placeholder="Select Cost Account"
+                                    matFormFieldClass="full-width" [placeholder]="showDepreciation ? 'Select Loss on Disposal' : 'Select Cost Account'"
                                     formControlName="costAccount" [optionList]="ngxsService.otherAccounts$"
-                                    [errorMessage]="formErrors.costAccount"
+                                    [errorMessage]="showDepreciation ? 'Loss on Disposal is required' : formErrors.costAccount"
                                     (blurEvent)="logValidationErrors(this.categoryForm, this.formErrors, this.validationMessages)">
                                 </kt-simple-dropdown>
                             </div>
@@ -79,14 +79,14 @@
                                 <kt-simple-dropdown id="asset_model" formControlName="depreciationModelId"
                                     matFormFieldClass="full-width"
                                     (blurEvent)="logValidationErrors(categoryForm, this.formErrors, this.validationMessages)"
-                                    propertyName="modelName" 
-                                    propertyValue="id" 
+                                    propertyName="modelName"
+                                    propertyValue="id"
                                     [errorMessage]="formErrors.depreciationModelId"
                                     [optionList]="ngxsService.depreciationModels$" placeholder="Select Model">
                                 </kt-simple-dropdown>
                             </div>
                         </div>
-                        <div class="col-lg-6 col-md-6 col-sm-6 my-auto"> 
+                        <div class="col-lg-6 col-md-6 col-sm-6 my-auto">
                             <div class="form-group kt-form__group mb-0">
                                 <div class="kt-radio-list">
                                     <mat-radio-group id="fixedAssetType" (change)="loadAssetList($event)" formControlName="isFixedAsset">
@@ -101,9 +101,9 @@
             </div>
             <!-- form first section ends -->
         </div>
-    
+
         <mat-divider></mat-divider>
-      
+
         <div class="kt-portlet__foot p-5">
             <div class="kt-form__actions kt-form__actions mb-0">
                 <div class="row">

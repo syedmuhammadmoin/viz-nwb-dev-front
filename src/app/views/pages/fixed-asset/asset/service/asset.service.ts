@@ -48,7 +48,7 @@ export class AssetService extends AppServiceBase {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json'
             })
-        })                   
+        })
     }
 
 
@@ -61,11 +61,7 @@ export class AssetService extends AppServiceBase {
     }
 
     heldForDisposal(id: number): Observable<any> {
-        return this.httpClient.post<any>(`${this.baseUrl}/HeldForDisposal/${id}`, {
-            headers: new HttpHeaders({
-                'Content-Type': 'application/json'
-            })
-        })
+        return this.httpClient.post<any>(`${this.baseUrl}/HeldForDisposal`, {id})
     }
 
     getAssetsDisposalDropdown(): Observable<IApiResponse<IAsset[]>> {
