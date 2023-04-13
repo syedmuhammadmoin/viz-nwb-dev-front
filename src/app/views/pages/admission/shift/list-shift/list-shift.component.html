@@ -1,31 +1,34 @@
 <div class="row mb-4">
-    <div class="col-md-12 text-right">
-      <button (click)="openDialog()" id="add__Shift" class="app-default-btn" mat-raised-button
-        matTooltip="Add Shift">Add Shift</button>
-    </div>
+  <div class="col-md-12 text-right">
+    <button (click)="openDialog()" class="app-default-btn" id="add__Shift" mat-raised-button
+            matTooltip="Add Shift">Add Shift
+    </button>
   </div>
-  
-  <div class="row">
-    <div class="col-md-12 ">
-      <kt-portlet>
-        <kt-portlet-header [sticky]="false" [title]="'Shift'" [class]="'card-head-lg'">
-        </kt-portlet-header>
-        <kt-portlet-body>
-          <div class="col-lg-12 col-md-12 my-5">
-            <ag-grid-angular style="width: 100%; height: 400px; margin-top: 10px;" class="ag-theme-alpine"
-              [components]="components"
-              [columnDefs]="columnDefs"
-              (rowDoubleClicked)="onRowDoubleClicked($event)"
-              (firstDataRendered)="onFirstDataRendered($event)"
-              (paginationChanged)="paginationHelper.onPaginationChanged('ShiftPageName', gridApi, $event)"
-              [gridOptions]="gridOptions" 
-              [frameworkComponents]="frameworkComponents" 
-              [defaultColDef]="defaultColDef"
-              [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
-              [tooltipShowDelay]="5" >
-            </ag-grid-angular>
-          </div>
-        </kt-portlet-body>
-      </kt-portlet>
-    </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12 ">
+    <kt-portlet>
+      <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" [title]="'Shift'">
+      </kt-portlet-header>
+      <kt-portlet-body>
+        <div class="col-lg-12 col-md-12 my-5">
+          <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)"
+                           (gridReady)="onGridReady($event)"
+                           (paginationChanged)="paginationHelper.onPaginationChanged('ShiftPageName', gridApi, $event)"
+                           (rowDoubleClicked)="onRowDoubleClicked($event)"
+                           [columnDefs]="columnDefs"
+                           [components]="components"
+                           [defaultColDef]="defaultColDef"
+                           [frameworkComponents]="frameworkComponents"
+                           [gridOptions]="gridOptions"
+                           [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                           [tooltipShowDelay]="5"
+                           class="ag-theme-alpine"
+                           style="width: 100%; height: 400px; margin-top: 10px;">
+          </ag-grid-angular>
+        </div>
+      </kt-portlet-body>
+    </kt-portlet>
   </div>
+</div>

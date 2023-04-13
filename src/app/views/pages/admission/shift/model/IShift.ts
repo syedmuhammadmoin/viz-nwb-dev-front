@@ -1,4 +1,4 @@
 export interface IShift{
-    id: number
-    shift: string
+    id?: number
+    name?: string
 }

@@ -1,10 +1,14 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {CreateShiftComponent} from '../create-shift/create-shift.component';
 import {IShift} from '../model/IShift';
+import {Permissions} from '../../../../shared/AppEnum';
+import {isEmpty} from 'lodash';
+import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
+import {ShiftService} from '../service/shift.service';
 
 @Component({
   selector: 'kt-list-shift',
@@ -13,44 +17,50 @@ import {IShift} from '../model/IShift';
 })
 export class ListShiftComponent extends AppComponentBase implements OnInit {
 
-//Loader
+// Injecting Dependencies
+  constructor(
+    public dialog: MatDialog,
+    private cdRef: ChangeDetectorRef,
+    private shiftService: ShiftService,
+    injector: Injector
+  ) {
+    super(injector)
+    this.gridOptions = ((
+      {
+        context: {componentParent: this}
+      }
+    ) as GridOptions);
+  }
+
+// Loader
   isLoading: boolean;
 
 // For AG Grid..
-  FacultyList: IShift[];
+  shiftList: IShift[];
   gridOptions: GridOptions;
   defaultColDef: ColDef;
   public permissions = Permissions;
   frameworkComponents: { [p: string]: unknown };
-  tooltipData: string = 'double click to view detail'
+  tooltipData = 'double click to view detail'
   components: { loadingCellRenderer(params: any): unknown };
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
-//Injecting Dependencies
-  constructor(
-    public dialog: MatDialog,
-    private cdRef: ChangeDetectorRef,
-    injector: Injector
-  ) {
-    super(injector)
-    this.gridOptions = <GridOptions>(
-      {
-        context: {componentParent: this}
-      }
-    );
-  }
 
-
-//Defining AG Grid Columns
+// Defining AG Grid Columns
 
   columnDefs = [
     {
-      headerName: 'Shift',
-      field: 'shift',
-      tooltipField: 'shift',
+      headerName: 'Sr.No',
+      field: 'index',
       cellRenderer: 'loadingCellRenderer',
+      suppressMenu: true,
+    },
+    {
+      headerName: 'Shift',
+      field: 'name',
+      tooltipField: 'shift',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -59,6 +69,21 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
       },
     }
   ];
+
+  dataSource = {
+    getRows: async (params: any) => {
+      const res = await this.getShift(params);
+      if (isEmpty(res.result)) {
+        this.gridApi.showNoRowsOverlay()
+      } else {
+        this.gridApi.hideOverlay();
+      }
+      if (res.result) res.result.map((data: any, i: number) => data.index = i + 1);
+      params.successCallback(res.result || 0, res.totalRecords);
+      this.paginationHelper.goToPage(this.gridApi, 'ShiftPageName');
+      this.cdRef.detectChanges();
+    },
+  };
 
   ngOnInit() {
 
@@ -83,7 +108,7 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
-      loadingCellRenderer: function (params: any) {
+      loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
         } else {
@@ -107,36 +132,21 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
       width: '800px',
       data: id
     });
-    //Getting Updated Warehouse
-    // dialogRef.afterClosed().subscribe(() => {
-    //   this.gridApi.setDatasource(this.dataSource)
-    //   this.cdRef.detectChanges();
-    // });
+    // Getting Updated Warehouse
+    dialogRef.afterClosed().subscribe(() => {
+      this.gridApi.setDatasource(this.dataSource)
+      this.cdRef.detectChanges();
+    });
   }
 
-// dataSource = {
-//   getRows: async (params: any) => {
-//     const res = await this.getBudgetReappropriation(params);
-//     if (isEmpty(res.result)) {
-//       this.gridApi.showNoRowsOverlay()
-//     } else {
-//       this.gridApi.hideOverlay();
-//     }
-//     params.successCallback(res.result || 0, res.totalRecords);
-//     this.paginationHelper.goToPage(this.gridApi, 'BudgetReappropriationPageName');
-//     this.cdRef.detectChanges();
-//   },
-// };
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
+    params.api.setDatasource(this.dataSource);
+  }
 
-// onGridReady(params: GridReadyEvent) {
-//   this.gridApi = params.api;
-//   this.gridColumnApi = params.columnApi;
-//   params.api.setDatasource(this.dataSource);
-// }
-
-// async getFaculty(params: any): Promise<IPaginationResponse<IBudget[]>> {
-//   const result = await this.Faculty.getRecords(params).toPromise()
-//   return result
-// }
-
+  async getShift(params: any): Promise<IPaginationResponse<IShift[]>> {
+    const result = await this.shiftService.getRecords(params).toPromise()
+    return result
+  }
 }

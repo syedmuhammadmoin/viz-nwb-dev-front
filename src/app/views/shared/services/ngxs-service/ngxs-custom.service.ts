@@ -81,6 +81,10 @@ import { DistrictState } from 'src/app/views/pages/admission/district/store/dist
 import { DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
 import {AcademicDepartmentState} from '../../../pages/admission/academic-department/store/academic-department.state';
 import {AcademicDepartmentService} from '../../../pages/admission/academic-department/service/academic-department.service';
+import {ShiftService} from '../../../pages/admission/shift/service/shift.service';
+import {ShiftState} from '../../../pages/admission/shift/store/shift.state';
+import {ProgramState} from '../../../pages/admission/program/store/program.state';
+import {ProgramService} from '../../../pages/admission/program/service/program.service';
 
 @Injectable({
   providedIn: 'root'
@@ -123,6 +127,8 @@ export class NgxsCustomService {
     public cityService: CityService,
     public feeItemService: FeeItemService,
     public academicDepartmentService: AcademicDepartmentService,
+    public shiftService: ShiftService,
+    public programService: ProgramService,
     public store: Store,
   ) {
   }
@@ -130,6 +136,16 @@ export class NgxsCustomService {
   // selector region start
 
   // Admission
+
+  // Program
+  @Select(ProgramState.entities) programs$: Observable<any>;
+  @Select(ProgramState.isFetchCompleted) programsFetchCompleted$: Observable<any>;
+  @Select(ProgramState.isLoading) programsIsLoading$: Observable<any>;
+
+  // Shift
+  @Select(ShiftState.entities) shifts$: Observable<any>;
+  @Select(ShiftState.isFetchCompleted) shiftsFetchCompleted$: Observable<any>;
+  @Select(ShiftState.isLoading) shiftsIsLoading$: Observable<any>;
 
   // Academic Department
   @Select(AcademicDepartmentState.entities) academicDepartments$: Observable<any>;
@@ -968,6 +984,31 @@ export class NgxsCustomService {
       if (!res) {
         this.store.dispatch(new GetList(CourseState, {
           serviceClass: this.courseService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getProgramsFromState() {
+    this.programsFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(ProgramState, {
+          serviceClass: this.programService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+  getShiftsFromState() {
+    this.shiftsFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(ShiftState, {
+          serviceClass: this.shiftService,
           methodName: 'getForDropdown',
           context: this
         }))

@@ -112,6 +112,8 @@ import { QualificationState } from './views/pages/admission/qualification/store/
 import { DistrictState } from './views/pages/admission/district/store/district.state';
 import { DomicileState } from './views/pages/admission/domicile/store/domicile.state';
 import {AcademicDepartmentState} from './views/pages/admission/academic-department/store/academic-department.state';
+import {ShiftState} from './views/pages/admission/shift/store/shift.state';
+import {ProgramState} from './views/pages/admission/program/store/program.state';
 
 // tslint:disable-next-line:class-name
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -204,7 +206,9 @@ export function getHighlightLanguages() {
       CountryStateState,
       CountryState,
       CityState,
-      AcademicDepartmentState
+      AcademicDepartmentState,
+      ShiftState,
+      ProgramState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
