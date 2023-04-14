@@ -492,10 +492,10 @@ const routes: Routes = [
       },
       // Lazy Load Admission Criteria Module
       {
-        path: APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA,
+        path: APP_ROUTES.ADMISSION_CRITERIA,
         loadChildren: () =>
-          import('./views/pages/admission/applicant-assessment-criteria/assessment-criteria.module').then(
-            (m) => m.AssessmentCriteriaModule
+          import('./views/pages/admission/admission-criteria/admission-criteria.module').then(
+            (m) => m.AdmissionCriteriaModule
           ),
         canActivateChild: [AuthGuard]
       },

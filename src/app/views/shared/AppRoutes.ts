@@ -79,7 +79,7 @@ export const APP_ROUTES = {
   //ADMISSION
   FACULTY: 'faculty',
   DEGREE: 'degree',
-  APPLICANT_ASSESSMENT_CRITERIA: 'admission-criteria',
+  ADMISSION_CRITERIA: 'admission-criteria',
   ACADEMIC_DEPARTMENT: 'academic-department',
   FEE_TYPE: 'fee-type',
   SHIFT: 'shift',
@@ -207,11 +207,11 @@ export const SUBJECT = {
   }
 }
 
-export const APPLICANT_ASSESSMENT_CRITERIA = {
-  LIST: APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA + '/' + CRUD_ROUTES.LIST,
-  CREATE: APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA + '/' + CRUD_ROUTES.CREATE,
+export const ADMISSION_CRITERIA = {
+  LIST: APP_ROUTES.ADMISSION_CRITERIA + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ADMISSION_CRITERIA + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.APPLICANT_ASSESSMENT_CRITERIA + '/' + route + '/' + id
+    return APP_ROUTES.ADMISSION_CRITERIA + '/' + route + '/' + id
   }
 }
 

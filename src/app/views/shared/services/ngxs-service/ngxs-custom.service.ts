@@ -87,6 +87,9 @@ import {ProgramState} from '../../../pages/admission/program/store/program.state
 import {ProgramService} from '../../../pages/admission/program/service/program.service';
 import {BatchService} from '../../../pages/admission/batch/service/batch.service';
 import {BatchState} from '../../../pages/admission/batch/store/batch.state';
+import {AdmissionCriteriaService} from '../../../pages/admission/admission-criteria/services/admission-criteria.service';
+import {SubjectService} from '../../../pages/admission/subject/service/subject.service';
+import {SubjectState} from '../../../pages/admission/subject/store/subject.state';
 
 @Injectable({
   providedIn: 'root'
@@ -132,6 +135,8 @@ export class NgxsCustomService {
     public shiftService: ShiftService,
     public programService: ProgramService,
     public batchService: BatchService,
+    public admissionCriteriaService: AdmissionCriteriaService,
+    public subjectService: SubjectService,
     public store: Store,
   ) {
   }
@@ -139,6 +144,11 @@ export class NgxsCustomService {
   // selector region start
 
   // Admission
+
+  // Subject
+  @Select(SubjectState.entities) subjects$: Observable<any>;
+  @Select(SubjectState.isFetchCompleted) subjectFetchCompleted$: Observable<any>;
+  @Select(SubjectState.isLoading) subjectIsLoading$: Observable<any>;
 
   // Batch
   @Select(BatchState.entities) batches$: Observable<any>;
@@ -1042,6 +1052,19 @@ export class NgxsCustomService {
       if (!res) {
         this.store.dispatch(new GetList(BatchState, {
           serviceClass: this.batchService,
+          methodName: 'getForDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  getSubjectFromState() {
+    this.subjectFetchCompleted$.subscribe((res) => {
+      // console.log('Requisition State fetch completed: ', res);
+      if (!res) {
+        this.store.dispatch(new GetList(SubjectState, {
+          serviceClass: this.subjectService,
           methodName: 'getForDropdown',
           context: this
         }))

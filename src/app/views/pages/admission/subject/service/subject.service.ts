@@ -15,7 +15,7 @@ export class SubjectService extends AppServiceBase{
 
   constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
-  getSubjectDropdown(): Observable<any> {
+  getForDropdown(): Observable<any> {
     return this.httpClient.get(this.baseUrl + '/dropdown');
   }
 

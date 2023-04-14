@@ -1,0 +1,195 @@
+<div [ktBusy]="isLoading" class="kt-portlet" style="overflow : hidden;">
+  <div class="kt-portlet__head">
+    <div class="kt-portlet__head-caption">
+      <div class="kt-portlet__head-title">
+        <h3 class="kt-portlet__head-text modal-header"> {{title}} <span (click)="onCloseDialog()" class="dialog-cross"
+                                                                        id="store_close"><i
+          class="fa fa-times float-right"></i></span></h3>
+      </div>
+    </div>
+  </div>
+  <!-- form start -->
+  <form #formDirective="ngForm" (ngSubmit)="onSubmit()" [formGroup]="admissionCriteriaForm"
+        class="kt-form kt-form--label-align-right">
+    <!-- portlet body starts -->
+    <div class="kt-portlet__body">
+      <div class="kt-form__section kt-form__section--first">
+        <div class="col-md-12 col-lg-12 col-sm-12">
+          <!-- first row starts -->
+          <div class="row mt-1 mb-0">
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Program:</label>
+                <kt-simple-dropdown
+                  formControlName="programId"
+                  id="programId"
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.programId"
+                  propertyName="name"
+                  propertyValue="id"
+                  [optionList]="ngxsService.programs$"
+                  placeholder="Select Program"
+                >
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Description:</label>
+                <kt-input-field
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.description , error : formErrors.description }]"
+                  formControlName="description"
+                  id="description"
+                  placeholder="Enter Description">
+                </kt-input-field>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Qualification:</label>
+                <kt-simple-dropdown
+                  formControlName="qualificationId"
+                  id="qualificationId"
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.qualificationId"
+                  propertyName="name"
+                  propertyValue="id"
+                  [optionList]="ngxsService.qualification$"
+                  placeholder="Select Qualification"
+                >
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Qualification Required Marks:</label>
+                <kt-input-field
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.qualificationRequriedMarks , error : formErrors.qualificationRequriedMarks }]"
+                  formControlName="qualificationRequriedMarks"
+                  id="qualificationRequriedMarks"
+                  placeholder="Enter Qualification Required Marks">
+                </kt-input-field>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Subject:</label>
+                <kt-simple-dropdown
+                  formControlName="subjectId"
+                  id="subjectId"
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.subjectId"
+                  propertyName="name"
+                  propertyValue="id"
+                  [optionList]="ngxsService.subjects$"
+                  placeholder="Select Subject"
+                >
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Entry Test Required:</label>
+                <kt-simple-dropdown
+                  formControlName="isEntryTestRequired"
+                  id="isEntryTestRequired"
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.isEntryTestRequired"
+                  propertyName="name"
+                  propertyValue="id"
+                  [optionList]="[{id: true, name: 'Yes'}, {id: false, name: 'No'}]"
+                  placeholder="Select Entry Test Required"
+                >
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Entry Test Date:</label>
+                <kt-date-input
+                  formControlName="entryTestDate"
+                  placeholder="Select Entry Test Date" matFormFieldClass="full-width"
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.entryTestDate">
+                </kt-date-input>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Entry Test Required Marks:</label>
+                <kt-input-field
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.entryTestRequriedMarks , error : formErrors.entryTestRequriedMarks }]"
+                  formControlName="entryTestRequriedMarks"
+                  id="entryTestRequriedMarks"
+                  placeholder="Enter Entry Test Required Marks">
+                </kt-input-field>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                <label class="col-form-label pt-0">Interview Required:</label>
+                <kt-simple-dropdown
+                  formControlName="isInterviewRequired"
+                  id="isInterviewRequired"
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.isInterviewRequired"
+                  propertyName="name"
+                  propertyValue="id"
+                  [optionList]="[{id: true, name: 'Yes'}, {id: false, name: 'No'}]"
+                  placeholder="Select Interview Required"
+                >
+                </kt-simple-dropdown>
+              </div>
+            </div>
+
+            <div class="col-lg-6 col-md-6">
+              <div class="form-group kt-form__group mb-0">
+                <label class="col-form-label pt-0">Interview Date:</label>
+                <kt-date-input
+                  formControlName="interviewDate"
+                  placeholder="Select Interview Date" matFormFieldClass="full-width"
+                  (blurEvent)="logValidationErrors(this.admissionCriteriaForm, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.interviewDate">
+                </kt-date-input>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      <!-- form first section ends -->
+    </div>
+    <!-- portlet body ends -->
+    <mat-divider></mat-divider>
+
+    <div class="kt-portlet__foot p-5">
+
+      <div class="kt-form__actions row">
+        <div class="col-lg-12 text-right">
+          <div *ngIf="showButtons">
+            <button (click)="reset()" class="mr-2 app-reset-btn" id="store_reset" mat-raised-button type="button"><i
+              class="fas fa-undo"></i> Reset
+            </button>
+            <button (click)="logValidationErrors(this.admissionCriteriaForm, this.formErrors, this.validationMessages)" class="app-default-btn" id="store_submit" mat-raised-button
+                    type="submit"><i
+              class="far fa-save"></i> Submit
+            </button>&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <!-- form ends -->
+</div>

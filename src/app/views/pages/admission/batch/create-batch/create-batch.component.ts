@@ -3,13 +3,14 @@ import {FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/fo
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {AddModalButtonService} from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import {NgxsCustomService} from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import {IBatch} from '../model/IBatch';
+import {IBatch, IBatchLines} from '../model/IBatch';
 import {ActivatedRoute} from '@angular/router';
 import {Permissions} from '../../../../shared/AppEnum';
 import {finalize, take} from 'rxjs/operators';
 import {IsReloadRequired} from '../../../profiling/store/profiling.action';
 import {BatchState} from '../store/batch.state';
 import {BATCH, INVOICE} from '../../../../shared/AppRoutes';
+import {ISemesterCoursesList} from '../../program/models/IProgram';
 
 @Component({
   selector: 'kt-create-batch',
@@ -135,7 +136,7 @@ export class CreateBatchComponent extends AppComponentBase implements OnInit {
 
   //Add Invoice Lines
   addBatchLineClick(): void {
-    const controls = this.batchForm.controls.invoiceLines as FormArray;
+    const controls = this.batchForm.controls.batchLines as FormArray;
     controls.push(this.addBatchLines());
     this.table.renderRows();
   }
@@ -175,8 +176,19 @@ export class CreateBatchComponent extends AppComponentBase implements OnInit {
     if (!this.showButtons) {
       this.batchForm.disable();
     }
+    this.batchForm.setControl('batchLines', this.patchBatchLines(batch.batchLines))
   }
 
+  patchBatchLines(lines: ISemesterCoursesList[]): FormArray {
+    const formArray = new FormArray([]);
+    lines.forEach((line: IBatchLines) => {
+      formArray.push(this.fb.group({
+        id: line.id,
+        programId: line.programId,
+      }))
+    })
+    return formArray
+  }
   onSubmit() {
     if (this.batchForm.invalid) {
       return;

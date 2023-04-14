@@ -1,3 +1,5 @@
+import {IAdmissionCriteria} from '../../admission-criteria/model/IAdmissionCriteria';
+
 export interface IBatch {
   id?: any;
   name?: string;
@@ -18,21 +20,4 @@ export interface IBatchLines {
   programId?: number;
   program?: string;
   masterId?: number;
-}
-
-export interface IAdmissionCriteria {
-  id?: number;
-  programId?: number;
-  program?: string;
-  description?: string;
-  qualificationId?: number;
-  qualification?: string;
-  subjectId?: number;
-  subject?: string;
-  qualificationRequriedMarks?: number;
-  isEntryTestRequired?: boolean;
-  entryTestDate?: string;
-  entryTestRequriedMarks?: number;
-  interviewDate?: string;
-  isInterviewRequired?: boolean;
 }

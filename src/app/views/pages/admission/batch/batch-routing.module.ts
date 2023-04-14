@@ -5,6 +5,7 @@ import { CreateBatchComponent } from './create-batch/create-batch.component';
 import { ListBatchComponent } from './list-batch/list-batch.component';
 import {PermissionGuard} from '../../../../core/auth/_guards/permission.guard';
 import {Permissions} from '../../../shared/AppEnum';
+import {DetailBatchComponent} from './detail-batch/detail-batch.component';
 
 
 const routes: Routes = [
@@ -45,7 +46,7 @@ const routes: Routes = [
       },
       {
         path: CRUD_ROUTES.DETAILS,
-        component: CreateBatchComponent,
+        component: DetailBatchComponent,
         data: {
           array: [
             { permission: Permissions.ADMISSION_BATCH_VIEW },

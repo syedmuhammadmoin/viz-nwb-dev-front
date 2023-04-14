@@ -2,7 +2,7 @@ import {
   ACADEMIC_DEPARTMENT,
   ACCESS_MANAGEMENT,
   APP_ROUTES,
-  APPLICANT_ASSESSMENT_CRITERIA,
+  ADMISSION_CRITERIA,
   ASSET,
   ASSET_REPORT,
   BANK_ACCOUNT,
@@ -529,7 +529,7 @@ export class MenuConfig {
           submenu: [
             {
               title: 'Admission Criteria',
-              page: '/' + APPLICANT_ASSESSMENT_CRITERIA.CREATE,
+              page: '/' + ADMISSION_CRITERIA.LIST,
               permission: [
                 Permissions.ADMISSION_CRITERIA_VIEW,
                 Permissions.ADMISSION_CRITERIA_CREATE,
