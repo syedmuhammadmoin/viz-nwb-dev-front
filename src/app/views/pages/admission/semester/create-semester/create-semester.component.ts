@@ -18,6 +18,10 @@ import {SemesterState} from '../store/semester.state';
 })
 export class CreateSemesterComponent extends AppComponentBase implements OnInit {
 
+  //Limit Date
+  maxDate: Date = new Date();
+  minDate: Date
+  dateCondition: boolean
 
   // for permissions
   public permissions = Permissions;
@@ -44,25 +48,31 @@ export class CreateSemesterComponent extends AppComponentBase implements OnInit 
     name: {
       required: 'semester is required.'
     },
-    courseCode: {
-      required: 'semester Code is required.'
+    season: {
+      required: 'Season is required.'
     },
-    creditHour: {
-      required: 'Credit Hour is required.',
-      min: 'Minimum Value 1'
+    startDate: {
+      required: 'Start Date is required.'
     },
-    totalMarks: {
-      required: 'TotalMarks is required.',
-      min: 'Minimum Value 1'
+    endDate: {
+      required: 'End Date is required.'
+    },
+    isOpenForEnrollment: {
+      required: 'Open for Enrollment is required.',
+    },
+    isActive: {
+      required: 'Active is required.',
     },
   }
 
   // error keys
   formErrors = {
     name: '',
-    courseCode: '',
-    creditHour: '',
-    totalMarks: ''
+    season: '',
+    startDate: '',
+    endDate: '',
+    isOpenForEnrollment: '',
+    isActive: '',
   }
 
   // Injecting dependencies
@@ -81,14 +91,16 @@ export class CreateSemesterComponent extends AppComponentBase implements OnInit 
   ngOnInit() {
     this.semesterForm = this.fb.group({
       name: ['', [Validators.required]],
-      // courseCode: ['', [Validators.required]],
-      // creditHour: ['', [Validators.required, Validators.min(0)]],
-      // totalMarks: ['', [Validators.required, Validators.min(0)]]
+      season: ['', [Validators.required]],
+      startDate: ['', [Validators.required]],
+      endDate: ['', [Validators.required]],
+      isOpenForEnrollment: ['', [Validators.required]],
+      isActive: ['', [Validators.required]],
     });
 
     if (this._id) {
       // TODO: check semester edit permission
-      // this.showButtons = (this.permission.isGranted(this.permissions.FACULTY_EDIT));
+      this.showButtons = (this.permission.isGranted(this.permissions.ADMISSION_SEMESTER_EDIT));
       this.title = 'Edit Semester'
       this.isLoading = true
       this.getCourse(this._id);
@@ -96,6 +108,11 @@ export class CreateSemesterComponent extends AppComponentBase implements OnInit 
 
     // Get Data from Store
     // this.ngxsService.getCampusFromState();
+
+    this.semesterForm.get('startDate').valueChanges.subscribe((value) => {
+      this.minDate = new Date(value);
+      this.dateCondition = this.semesterForm.get('endDate').value < this.semesterForm.get('startDate').value
+    })
   }
 
   getCourse(id: number) {
@@ -120,9 +137,11 @@ export class CreateSemesterComponent extends AppComponentBase implements OnInit 
     this.semesterForm.patchValue({
       id: semester.id,
       name: semester.name,
-      // courseCode: semester.courseCode,
-      // creditHour: semester.creditHour,
-      // totalMarks: semester.totalMarks,
+      season: semester.season,
+      endDate: semester.endDate,
+      startDate: semester.startDate,
+      isOpenForEnrollment: semester.isOpenForEnrollment,
+      isActive: semester.isActive,
     });
 
     // if user have no permission to edit, so disable all fields
@@ -174,9 +193,11 @@ export class CreateSemesterComponent extends AppComponentBase implements OnInit 
 // map form values to the semester model
   mapFormValueToClientModel() {
     this.semester.name = this.semesterForm.value.name;
-    // this.semester.courseCode = this.CourseForm.value.courseCode;
-    // this.semester.creditHour = this.CourseForm.value.creditHour;
-    // this.semester.totalMarks = this.CourseForm.value.totalMarks;
+    this.semester.season = this.semesterForm.value.season;
+    this.semester.startDate = this.transformDate(this.semesterForm.value.startDate, 'yyyy-MM-dd');
+    this.semester.endDate = this.transformDate(this.semesterForm.value.endDate, 'yyyy-MM-dd');
+    this.semester.isOpenForEnrollment = this.semesterForm.value.isOpenForEnrollment;
+    this.semester.isActive = this.semesterForm.value.isActive;
   }
 
   reset() {

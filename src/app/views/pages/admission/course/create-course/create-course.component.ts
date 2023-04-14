@@ -51,8 +51,8 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
       required: 'Credit Hour is required.',
       min: 'Minimum Value 1'
     },
-    totalMarks: {
-      required: 'TotalMarks is required.',
+    passingMarks: {
+      required: 'Passing Marks is required.',
       min: 'Minimum Value 1'
     },
   }
@@ -62,7 +62,7 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
     name: '',
     courseCode: '',
     creditHour: '',
-    totalMarks: ''
+    passingMarks: ''
   }
 
   // Injecting dependencies
@@ -82,12 +82,12 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
       name: ['', [Validators.required]],
       // courseCode: ['', [Validators.required]],
       // creditHour: ['', [Validators.required, Validators.min(0)]],
-      // totalMarks: ['', [Validators.required, Validators.min(0)]]
+      passingMarks: ['', [Validators.required, Validators.min(0)]]
     });
 
     if (this._id) {
       // TODO: check course edit permission
-      // this.showButtons = (this.permission.isGranted(this.permissions.FACULTY_EDIT));
+      this.showButtons = (this.permission.isGranted(this.permissions.ADMISSION_COURSE_EDIT));
       this.title = 'Edit Course'
       this.isLoading = true
       this.getCourse(this._id);
@@ -97,22 +97,22 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
     this.ngxsService.getCampusFromState();
   }
 
- getCourse(id: number) {
-   this.ngxsService.courseService.getById(id)
-   .pipe(
-     take(1),
-      finalize(() => {
-       this.isLoading = false;
-       this.cdRef.detectChanges();
-      })
-    )
-     .subscribe(
-       (course: IApiResponse<ICourse>) => {
-         this.editCourse(course.result);
-         this.course = course.result;
-       }
-     );
- }
+  getCourse(id: number) {
+    this.ngxsService.courseService.getById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe(
+        (course: IApiResponse<ICourse>) => {
+          this.editCourse(course.result);
+          this.course = course.result;
+        }
+      );
+  }
 
 //  Edit course form
   editCourse(course: ICourse) {
@@ -121,7 +121,7 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
       name: course.name,
       // courseCode: course.courseCode,
       // creditHour: course.creditHour,
-      // totalMarks: course.totalMarks,
+      passingMarks: course.passingMarks,
     });
 
     // if user have no permission to edit, so disable all fields
@@ -136,38 +136,38 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.mapFormValueToClientModel();
-     if (this.course.id) {
-       this.ngxsService.courseService.update(this.course)
-       .pipe(
-         take(1),
+    if (this.course.id) {
+      this.ngxsService.courseService.update(this.course)
+        .pipe(
+          take(1),
           finalize(() => {
-           this.isLoading = false;
-           this.cdRef.detectChanges();
+            this.isLoading = false;
+            this.cdRef.detectChanges();
           })
         )
-         .subscribe(() => {
-             this.ngxsService.store.dispatch(new IsReloadRequired(CourseState, true))
-             this.toastService.success('Updated Successfully', 'Course')
-             this.onCloseDialog();
-           }
-         );
-     } else {
-       delete this.course.id;
-       this.ngxsService.courseService.create(this.course)
-       .pipe(
-         take(1),
+        .subscribe(() => {
+            this.ngxsService.store.dispatch(new IsReloadRequired(CourseState, true))
+            this.toastService.success('Updated Successfully', 'Course')
+            this.onCloseDialog();
+          }
+        );
+    } else {
+      delete this.course.id;
+      this.ngxsService.courseService.create(this.course)
+        .pipe(
+          take(1),
           finalize(() => {
-           this.isLoading = false;
-           this.cdRef.detectChanges();
+            this.isLoading = false;
+            this.cdRef.detectChanges();
           })
         )
-         .subscribe(() => {
-             this.ngxsService.store.dispatch(new IsReloadRequired(CourseState, true))
-             this.toastService.success('Created Successfully', 'Course')
-             this.onCloseDialog();
-           }
-         );
-     }
+        .subscribe(() => {
+            this.ngxsService.store.dispatch(new IsReloadRequired(CourseState, true))
+            this.toastService.success('Created Successfully', 'Course')
+            this.onCloseDialog();
+          }
+        );
+    }
   }
 
 // map form values to the course model
@@ -175,7 +175,7 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
     this.course.name = this.CourseForm.value.name;
     // this.course.courseCode = this.CourseForm.value.courseCode;
     // this.course.creditHour = this.CourseForm.value.creditHour;
-    // this.course.totalMarks = this.CourseForm.value.totalMarks;
+    this.course.passingMarks = this.CourseForm.value.passingMarks;
   }
 
   reset() {

@@ -604,3 +604,10 @@ export enum TaxType {
     Percentage,
     FixedAmount
   }
+
+export enum Season
+{
+  Fall,
+  Spring,
+  Summer,
+}

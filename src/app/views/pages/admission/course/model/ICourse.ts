@@ -1,7 +1,7 @@
-export interface ICourse{
-    id?: number
-    name?: string
-    courseCode?: string
-    creditHour?: number
-    totalMarks?: number
+export interface ICourse {
+  id?: number
+  name?: string
+  courseCode?: string
+  creditHour?: number
+  passingMarks?: number
 }

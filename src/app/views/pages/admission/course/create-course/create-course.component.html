@@ -17,7 +17,7 @@
         <div class="col-md-12 col-lg-12 col-sm-12">
           <!-- first row starts -->
           <div class="row mt-1 mb-0">
-            <div class="col-lg col-md">
+            <div class="col-lg-6 col-md-6">
               <div class="form-group kt-form__group mb-0 pt-2 pb-0">
                 <label class="col-form-label pt-0">Name:</label>
                 <kt-input-field
@@ -40,8 +40,8 @@
                   placeholder="Enter Course Code">
                 </kt-input-field>
               </div>
-            </div>
-            <div class="col-lg-6 col-md-6">
+            </div>-->
+            <!--<div class="col-lg-6 col-md-6">
               <div class="form-group kt-form__group mb-0 pt-2 pb-0">
                 <label class="col-form-label pt-0">Credit Hour:</label>
                 <kt-input-field
@@ -53,20 +53,20 @@
                   type="number">
                 </kt-input-field>
               </div>
-            </div>
+            </div>-->
             <div class="col-lg-6 col-md-6">
               <div class="form-group kt-form__group mb-0 pt-2 pb-0">
-                <label class="col-form-label pt-0">Total Marks:</label>
+                <label class="col-form-label pt-0">Passing Marks Marks:</label>
                 <kt-input-field
                   (blurEvent)="logValidationErrors(this.CourseForm, formErrors, validationMessages)"
-                  [errorMessage]="[{ condition : formErrors.totalMarks , error : formErrors.totalMarks }]"
-                  formControlName="totalMarks"
-                  id="TotalMaeks"
-                  placeholder="Enter Total Marks"
+                  [errorMessage]="[{ condition : formErrors.passingMarks , error : formErrors.passingMarks }]"
+                  formControlName="passingMarks"
+                  id="passingMarks"
+                  placeholder="Enter Passing Marks"
                   type="number">
                 </kt-input-field>
               </div>
-            </div>-->
+            </div>
           </div>
         </div>
       </div>

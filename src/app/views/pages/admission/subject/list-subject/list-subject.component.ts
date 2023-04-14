@@ -67,7 +67,6 @@ export class ListSubjectComponent extends AppComponentBase implements OnInit {
       headerName: 'Qualification',
       field: 'qualification',
       tooltipField: 'name',
-      cellRenderer: 'loadingCellRenderer',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {

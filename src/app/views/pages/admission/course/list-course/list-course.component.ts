@@ -67,42 +67,17 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
         suppressAndOrCondition: true,
       },
     },
-    /*{
-      headerName: 'Course Code',
-      field: 'courseCode',
+    {
+      headerName: 'Passing Marks',
+      field: 'passingMarks',
       tooltipField: 'course',
-      cellRenderer: 'loadingCellRenderer',
-      filter: 'agTextColumnFilter',
+      filter: 'agNumberColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       },
-    },*/
-    /*{
-      headerName: 'Credit Hour',
-      field: 'creditHour',
-      tooltipField: 'course',
-      cellRenderer: 'loadingCellRenderer',
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-      filterParams: {
-        filterOptions: ['contains'],
-        suppressAndOrCondition: true,
-      },
-    },*/
-    /*{
-      headerName: 'Total Marks',
-      field: 'totalMarks',
-      tooltipField: 'course',
-      cellRenderer: 'loadingCellRenderer',
-      filter: 'agTextColumnFilter',
-      menuTabs: ['filterMenuTab'],
-      filterParams: {
-        filterOptions: ['contains'],
-        suppressAndOrCondition: true,
-      },
-    }*/
+    }
   ];
 
   dataSource = {

@@ -1,16 +1,14 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {MatDialog} from '@angular/material/dialog';
-import {CourseService} from '../../course/service/course.service';
 import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
-import {ICourse} from '../../course/model/ICourse';
 import {isEmpty} from 'lodash';
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
-import {CreateCourseComponent} from '../../course/create-course/create-course.component';
 import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {ISemester} from '../model/ISemester';
 import {SemesterService} from '../services/semester.service';
 import {CreateSemesterComponent} from '../create-semester/create-semester.component';
+import {Season} from '../../../../shared/AppEnum';
 
 @Component({
   selector: 'kt-list-semester',
@@ -69,6 +67,66 @@ export class ListSemesterComponent extends AppComponentBase implements OnInit {
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       },
+    },
+    {
+      headerName: 'Season',
+      field: 'season',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+      valueFormatter: (params) => Season[params.value]
+    },
+    {
+      headerName: 'Start Date',
+      field: 'startDate',
+      tooltipField: 'name',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+      valueFormatter: (params) => this.transformDate(params.value, 'MMM d, yyy')
+    },
+    {
+      headerName: 'End Date',
+      field: 'endDate',
+      tooltipField: 'name',
+      filter: 'agDateColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+      valueFormatter: (params) => this.transformDate(params.value, 'MMM d, yyy')
+    },
+    {
+      headerName: 'Open for Enrollment',
+      field: 'isOpenForEnrollment',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+      valueFormatter: (params) => params.value === true ? 'Yes' : 'No'
+    },
+    {
+      headerName: 'Active',
+      field: 'isActive',
+      tooltipField: 'name',
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+      valueFormatter: (params) => params.value === true ? 'Yes' : 'No'
     },
   ];
 
