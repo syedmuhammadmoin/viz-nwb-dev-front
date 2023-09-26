@@ -176,7 +176,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   addJournalEntryLines(): FormGroup {
     return this.fb.group({
       accountId: ['',  Validators.required],
-      businessPartnerId: ['', Validators.required],
+      businessPartnerId: [],
       description: ['', Validators.required],
       debit: [0, [Validators.required, Validators.min(0)]],
       credit: [0, [Validators.required, Validators.min(0)]],
@@ -236,7 +236,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
       formArray.push(this.fb.group({
         id: [line.id, [Validators.required]],
         description: [line.description, [Validators.required]],
-        businessPartnerId: [line.businessPartnerId, [Validators.required]],
+        businessPartnerId: [line.businessPartnerId],
         debit: [line.debit, [Validators.required, Validators.min(0)]],
         credit: [line.credit, [Validators.required, Validators.min(0)]],
         accountId: [line.accountId, [Validators.required]],

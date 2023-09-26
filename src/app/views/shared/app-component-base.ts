@@ -108,7 +108,7 @@ export abstract class AppComponentBase {
 
   generateArrayOfYears(): any[] {
     const min = new Date().getFullYear() - 10
-    const max = min + 100
+    const max = min + 10
     const years = []
 
     for (let i = min; i <= max; i++) {
