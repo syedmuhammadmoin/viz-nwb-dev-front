@@ -40,6 +40,8 @@
   background-size: contain;
   width: 100px;
   height: 100px;
+  -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 
   .sbbu .top-heading{

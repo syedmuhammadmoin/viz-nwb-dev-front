@@ -38,7 +38,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   // For ag grid
   gridOptions: GridOptions = ({} as GridOptions);
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
+  frameworkComponents: { [p: string]: unknown };
 
   // Detail Data
   journalEntryMaster: any;
@@ -59,18 +59,48 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
 
   // Defining AG Grid Columns
   columnDefs = [
-    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Partner', field: 'businessPartnerName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
     {
-      headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+      headerName: 'COA', field: 'accountName', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
     {
-      headerName: 'Debit', field: 'debit', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Partner', field: 'businessPartnerName', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
+    {
+      headerName: 'Description', field: 'description', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
+    {
+      headerName: 'Debit', field: 'debit', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Credit', field: 'credit', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Credit', field: 'credit', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
@@ -113,19 +143,19 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
 
   private getJournalEntryData(id: number) {
     this.journalEntryService.getJournalEntryById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res: IApiResponse<IJournalEntry>) => {
-      this.journalEntryMaster = res.result;
-      this.journalEntryLines = res.result.journalEntryLines;
-      this.remarksList = this.journalEntryMaster.remarksList ?? []
-      this.cdRef.markForCheck();
-    })
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<IJournalEntry>) => {
+        this.journalEntryMaster = res.result;
+        this.journalEntryLines = res.result.journalEntryLines;
+        this.remarksList = this.journalEntryMaster.remarksList ?? []
+        this.cdRef.markForCheck();
+      })
   }
 
   // Get Remarks From User
@@ -143,14 +173,14 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
 
   workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.journalEntryService.workflow({ action, docId: this.journalEntryMaster.id, remarks})
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
+    this.journalEntryService.workflow({ action, docId: this.journalEntryMaster.id, remarks })
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
       .subscribe((res) => {
         this.getJournalEntryData(this.journalEntryId);
         this.cdRef.detectChanges();

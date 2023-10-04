@@ -89,29 +89,64 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
         return params.value || 'N/A'
       }
      },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Description', field: 'description',  filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'COA', field: 'accountName',  filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Quantity', field: 'quantity',  filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, cellStyle: { 'font-size': '12px' } },
     {
-      headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Cost', field: 'cost',  filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Tax %', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Tax %', field: 'tax',  filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
         return params.data.tax + '%';
       }
     },
     {
-      headerName: 'Other Taxes/FET', field: 'anyOthertax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Other Taxes/FET', field: 'anyOthertax',  filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
         return this.valueFormatter(params.data.anyOtherTax);
       }
     },
     {
-      headerName: 'Subtotal', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Subtotal', field: 'subTotal',  filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        }, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }

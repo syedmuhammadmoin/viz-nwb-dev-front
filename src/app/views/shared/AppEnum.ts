@@ -582,7 +582,8 @@ export enum BusinessPartnerType {
   Employee,
   Supplier,
   Consultant,
-  Contractor
+  Contractor,
+  ServiceProvider =7,
 }
 
 export enum TaxType {

@@ -1,126 +1,134 @@
 <div class="container ">
-    <div class="col-lg-10 mx-auto text-right">
-      <div class="row">
-        <button printSectionId="main" id="invoice_print" printTitle="Invoice" ngxPrint [useExistingCss]="true"
-          type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
-            class="fas fa-print"></i> Print
-        </button>
-      </div>
+  <div class="col-lg-10 mx-auto text-right">
+    <div class="row">
+      <button printSectionId="main" id="invoice_print" printTitle="Invoice" ngxPrint [useExistingCss]="true"
+        type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+          class="fas fa-print"></i> Print
+      </button>
     </div>
-    <div class="col-lg-10 mx-auto" id="main">
-      <div [class]="className">
-        <div class="bg-whitee">
-          <div class="print_header_area p-s-1">
-            <div class="print-col-6 p-s-1-one">
-              <div class="logo_and_title">
-                <div class="print-logo"></div>
-                <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
-              </div>
-  
+  </div>
+  <div class="col-lg-10 mx-auto" id="main">
+    <div [class]="className">
+      <div class="bg-whitee">
+        <div class="print_header_area p-s-1">
+          <div class="print-col-6 p-s-1-one">
+            <div class="logo_and_title">
+              <div class="print-logo"></div>
+              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
-            <div class="print-col-5 ml-auto p-s-1-two">
-              <div class="id_num">
-                <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
+
+          </div>
+          <div class="print-col-5 ml-auto p-s-1-two">
+            <div class="id_num">
+              <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
                 margin-bottom: 10px;
                 text-align: center;">
-                  <h4>Asset</h4>
-                </div>
-                <div class="print-box-one">
-                  <h4>Document No: <span class="float-right" style="font-weight: 400;">{{assetMaster?.assetCode}}</span>
-                  </h4>
-                  <p></p>
-                </div>
-                <div class="print-box-two">
-                  <h4 class="mt-1">Asset Date: <span class="float-right"
-                      style="font-weight: 400;">{{assetMaster?.dateofAcquisition | date: 'MMM d, y'}}</span></h4>
-                </div>
+                <h4>Asset</h4>
               </div>
-            </div>
-          </div>
-  
-  
-          <div class="print_body_area p-s-2">
-            <div class="print-col-6 p-10">
               <div class="print-box-one">
-                <h4 class="font-14"><b>Name: </b><span class="float-right"
-                    style="font-weight: 400;">{{assetMaster?.name}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{assetMaster?.assetCode}}</span>
+                </h4>
+                <p></p>
               </div>
               <div class="print-box-two">
-                <h4 class="font-14"><b>Acquisition Date:</b> <span class="float-right"
+                <h4 class="mt-1">Asset Date: <span class="float-right"
                     style="font-weight: 400;">{{assetMaster?.dateofAcquisition | date: 'MMM d, y'}}</span></h4>
               </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Cost:</b><span class="float-right"
-                    style="font-weight: 400;">{{valueFormatter(assetMaster?.cost)}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Product:</b><span class="float-right"
-                  style="font-weight: 400;">{{assetMaster?.product}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Salvage Value:</b><span class="float-right"
-                  style="font-weight: 400;">{{valueFormatter(assetMaster?.salvageValue)}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Depreciation Applicability:</b><span class="float-right"
-                  style="font-weight: 400;">{{assetMaster?.depreciationApplicability ? "Applicable" : 'Not Applicable'}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Depreciation Model:</b><span class="float-right"
-                  style="font-weight: 400;">{{assetMaster?.depreciationModel|| 'N/A'}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Model Type:</b><span class="float-right"
-                  style="font-weight: 400;">{{modelType[assetMaster?.modelType]}}</span></h4>
-              </div>
-            </div>
-            <div class="print-col-6 p-10">
               <div class="print-box-one">
-                <h4 class="font-14"><b>Store:</b><span class="float-right"
-                    style="font-weight: 400;">{{assetMaster?.warehouse || 'N/A'}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
-              </div>
-              <div class="print-box-one">
-                <h4 class="font-14"><b>Asset Account:</b><span class="float-right"
-                    style="font-weight: 400;">{{assetMaster?.assetAccount || 'N/A'}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
+                <h4>Status: <span class="float-right" style="font-weight: 400;">{{assetMaster?.status}}</span></h4>
               </div>
               <div class="print-box-two">
-                <h4 class="font-14"><b>Depreciation Expense Account:</b> <span class="float-right"
-                    style="font-weight: 400;">{{assetMaster?.accumulatedDepreciation || 'N/A'}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Accumulated Depreciation Account:</b><span class="float-right"
-                    style="font-weight: 400;">{{assetMaster?.salesTaxId || 'N/A'}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>UseFull Life: </b><span class="float-right"
-                  style="font-weight: 400;">{{valueFormatter(assetMaster?.useFullLife || 'NAN')}}</span></h4>
-              </div>
-              <div class="print-box-two">
-                <h4 class="font-14"><b>DecLining Rate:</b><span class="float-right"
-                  style="font-weight: 400;">{{valueFormatter(assetMaster?.decLiningRate || 'NAN')}}</span></h4>
-              </div>
-
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Salvage Value:</b><span class="float-right"
-                  style="font-weight: 400;">{{assetMaster?.prorataBasis ? "Applicable" : 'Not Applicable'}}</span></h4>
-              </div>
-
-              <div class="print-box-two">
-                <h4 class="font-14"><b>Active:</b><span class="float-right"
-                  style="font-weight: 400;">{{assetMaster?.isActive ? "Applicable" : 'Not Applicable'}}</span></h4>
+                <h4 class="mt-1">Last User: <span class="float-right"
+                    style="font-weight: 400;">{{assetMaster?.lastUser}}</span></h4>
               </div>
             </div>
           </div>
-  
-          <div class="row mt-10 ms-10">
-            <div class="print-col-4 p-s-5 text-center">
-              ______________________
-              <p class="text-center">Authorized Sign</p>
+        </div>
+
+
+        <div class="print_body_area p-s-2">
+          <div class="print-col-6 p-10">
+            <div class="print-box-one">
+              <h4 class="font-14"><b>Name: </b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.name}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
             </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Acquisition Date:</b> <span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.dateofAcquisition | date: 'MMM d, y'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Cost:</b><span class="float-right"
+                  style="font-weight: 400;">{{valueFormatter(assetMaster?.cost)}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Product:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.product}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Salvage Value:</b><span class="float-right"
+                  style="font-weight: 400;">{{valueFormatter(assetMaster?.salvageValue)}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Depreciation Applicability:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.depreciationApplicability ? "Applicable" : 'Not
+                  Applicable'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Depreciation Model:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.depreciationModel|| 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Model Type:</b><span class="float-right"
+                  style="font-weight: 400;">{{modelType[assetMaster?.modelType]}}</span></h4>
+            </div>
+          </div>
+          <div class="print-col-6 p-10">
+            <div class="print-box-one">
+              <h4 class="font-14"><b>Store:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.warehouse || 'N/A'}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-one">
+              <h4 class="font-14"><b>Asset Account:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.assetAccount || 'N/A'}}</span></h4>
+              <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Depreciation Expense Account:</b> <span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.accumulatedDepreciation || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Accumulated Depreciation Account:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.salesTaxId || 'N/A'}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>UseFull Life: </b><span class="float-right"
+                  style="font-weight: 400;">{{valueFormatter(assetMaster?.useFullLife || 'NAN')}}</span></h4>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>DecLining Rate:</b><span class="float-right"
+                  style="font-weight: 400;">{{valueFormatter(assetMaster?.decLiningRate || 'NAN')}}</span></h4>
+            </div>
+
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Salvage Value:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.prorataBasis ? "Applicable" : 'Not Applicable'}}</span></h4>
+            </div>
+
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Active:</b><span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.isActive ? "Applicable" : 'Not Applicable'}}</span></h4>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-10 ms-10">
+          <div class="print-col-4 p-s-5 text-center">
+            ______________________
+            <p class="text-center">Authorized Sign</p>
           </div>
         </div>
       </div>
     </div>
+  </div>

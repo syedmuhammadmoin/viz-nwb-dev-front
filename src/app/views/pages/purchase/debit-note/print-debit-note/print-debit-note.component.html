@@ -1,15 +1,9 @@
-<div class="container " >
+<div class="container ">
   <div class="col-lg-10 mx-auto text-right">
     <div class="row">
-      <button
-        printSectionId="main"
-        printTitle="Debit Note"
-        id="debit_note_print"
-        ngxPrint
-        type="button"
-        [useExistingCss]="true"
-        class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+      <button printSectionId="main" printTitle="Debit Note" id="debit_note_print" ngxPrint type="button"
+        [useExistingCss]="true" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+          class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
@@ -32,11 +26,20 @@
                 <h4>Debit Note</h4>
               </div>
               <div class="print-box-one">
-                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.docNo}}</span></h4>
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.docNo}}</span>
+                </h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-one">
-                <h4>Debit Note Date: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.noteDate | date: 'MMM d, y'}}</span></h4>
+                <h4>Debit Note Date: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.noteDate |
+                    date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box-one">
+                <h4>Status: <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.status}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="mt-1">Last User: <span class="float-right"
+                    style="font-weight: 400;">{{debitNoteMaster?.lastUser}}</span></h4>
               </div>
             </div>
           </div>
@@ -45,18 +48,21 @@
         <div class="print_body_area p-s-2">
           <div class="print-col-5 p-s-2-one">
             <div class="print-box-one">
-              <h4 class="font-14"><b>Vendor Name: </b><span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.vendorName}}</span></h4>
+              <h4 class="font-14"><b>Vendor Name: </b><span class="float-right"
+                  style="font-weight: 400;">{{debitNoteMaster?.vendorName}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14"><b>NTN:</b> <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.incomeTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>NTN:</b> <span class="float-right"
+                  style="font-weight: 400;">{{debitNoteMaster?.incomeTaxId || 'N/A'}}</span></h4>
             </div>
             <div class="print-box-two">
-              <h4 class="font-14"><b>STRN:</b> <span class="float-right" style="font-weight: 400;">{{debitNoteMaster?.salesTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>STRN:</b> <span class="float-right"
+                  style="font-weight: 400;">{{debitNoteMaster?.salesTaxId || 'N/A'}}</span></h4>
             </div>
             <div class="print-box-two">
               <h4 class="font-14"><b>Address:</b> </h4>
-              <p>{{debitNoteMaster?.vendorAddress  || 'N/A'}}</p>
+              <p>{{debitNoteMaster?.vendorAddress || 'N/A'}}</p>
             </div>
           </div>
 
@@ -68,11 +74,11 @@
                     <th>S.No</th>
                     <th>Item</th>
                     <th>Description</th>
-                    <th >Quantity</th>
-                    <th >Cost</th>
-                    <th >Tax %</th>
-                    <th >Other Taxes/FET</th>
-                    <th  class="text-right">SubTotal</th>
+                    <th>Quantity</th>
+                    <th>Cost</th>
+                    <th>Tax %</th>
+                    <th>Other Taxes/FET</th>
+                    <th class="text-right">SubTotal</th>
                   </tr>
                   <tr *ngFor="let line of debitNoteLines; index as i">
                     <td>{{i + 1}}</td>
@@ -82,7 +88,8 @@
                     <td>{{line?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td>{{line?.tax + '%'}}</td>
                     <td>{{valueFormatter(line?.anyOtherTax) || 0}}</td>
-                    <td class="text-right"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
+                    <td class="text-right"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2
+                        })}}</b></td>
                   </tr>
                 </thead>
               </table>
