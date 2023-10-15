@@ -8,10 +8,12 @@ import { PayrollExecutiveReportComponent } from './payroll-executive-report/payr
 import { PrintExecutiveReportComponent } from './print-executive-report/print-executive-report.component';
 import { BankAdviceReportComponent } from './bank-advice-report/bank-advice-report.component';
 import { PrintBankAdviceComponent } from './print-bank-advice/print-bank-advice.component';
+import { PayrollTransDetailReportComponent } from './payroll-trans-detail-report/payroll-trans-detail-report.component';
 
 
 @NgModule({
   declarations: [
+    PayrollTransDetailReportComponent,
     PayrollTransReportComponent, 
     PayrollExecutiveReportComponent, 
     PrintExecutiveReportComponent, 

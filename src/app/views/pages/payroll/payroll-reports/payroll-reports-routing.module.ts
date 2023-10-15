@@ -8,6 +8,7 @@ import { PayrollExecutiveReportComponent } from './payroll-executive-report/payr
 import { PayrollTransReportComponent } from './payroll-trans-report/payroll-trans-report.component';
 import { PrintBankAdviceComponent } from './print-bank-advice/print-bank-advice.component';
 import { PrintExecutiveReportComponent } from './print-executive-report/print-executive-report.component';
+import { PayrollTransDetailReportComponent } from './payroll-trans-detail-report/payroll-trans-detail-report.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,19 @@ const routes: Routes = [
             },
             canActivate: [PermissionGuard]
           },
+        ]
+      },
+      {
+        path: PAYROLL_REPORT.TRANS_DETAIL,
+        children: [
+          {
+            path: CRUD_ROUTES.LIST,
+            component: PayrollTransDetailReportComponent
+          },
+          // {
+          //   path: 'print',
+          //   component: PrintExecutiveReportComponent
+          // },
         ]
       },
       {

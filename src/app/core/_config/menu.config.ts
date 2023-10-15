@@ -1238,6 +1238,10 @@ export class MenuConfig {
                   ],
                 },
                 {
+                  title: 'Transaction Detail Report',
+                  page: '/' + PAYROLL_REPORTS.TRANS_DETAIL.LIST
+                },
+                {
                   title: 'Payroll Executive Summary',
                   page: '/' + PAYROLL_REPORTS.EXECUTIVE.LIST,
                   // permission: [
