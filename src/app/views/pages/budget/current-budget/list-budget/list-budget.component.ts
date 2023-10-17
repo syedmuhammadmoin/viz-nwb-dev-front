@@ -87,6 +87,18 @@ export class ListBudgetComponent extends AppComponentBase implements OnInit {
         return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
       }
     },
+    ,
+    {
+      headerName: 'Status',
+      field: 'status',
+      menuTabs: ['filterMenuTab'],
+      suppressMenu: true,
+      tooltipField: 'status',
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
+    },
   ];
 
   ngOnInit() {

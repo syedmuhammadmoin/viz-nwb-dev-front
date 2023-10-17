@@ -1,52 +1,78 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <kt-portlet-header [sticky]="false" [title]="'Anticipated Budget Detail'" [class]="'card-head-lg'">
+    <kt-portlet-header [sticky]="false" [title]="'Anticipated Budget Detail'"
+      [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
       <ng-container ktPortletTools>
-        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
+        <div class="ribbon-target "><span class="ribbon-inner {{docStatus[estimatedBudgetMaster?.state]}}"></span>
+          {{estimatedBudgetMaster?.status}}</div>
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
         <div class="row">
           <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools >
+            <div class="btn_container">
+              <div class="col-md-6 col-6">
 
-                <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
-                  [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)" [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}"
-                  type="button" class="btn_public">
-                  <i class="fa fa-edit icon-e-p-a"></i> Edit
-                </button>
+                <ng-container ktPortletTools>
 
-                <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)" id="estimated_print" type="button" 
-                  class="btn_public mr-3">
-                  <i class="fa fa-print icon-e-p-a"></i> Print Anticipated Budget
-                </button>
+                  <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
+                    [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('edit', estimatedBudgetMaster?.id)"
+                    [queryParams]="{q: estimatedBudgetMaster?.id, 'isEstimatedBudget': true}" type="button"
+                    class="btn_public">
+                    <i class="fa fa-edit icon-e-p-a"></i> Edit
+                  </button>
 
-                <mat-divider class="mt-5"></mat-divider>
-            </ng-container>
+                  <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)"
+                    id="estimated_print" type="button" class="btn_public mr-3">
+                    <i class="fa fa-print icon-e-p-a"></i> Print Anticipated Budget
+                  </button>
+                  <button *ngIf="(estimatedBudgetMaster?.state === docStatus.Partial || estimatedBudgetMaster?.state === docStatus.Unpaid)
+                   && (permission.isGranted(permissions.BUDGET_CREATE))"
+                    [routerLink]="'/' + BUDGET.CREATE" [queryParams]="{q: estimatedBudgetMaster?.id, isFromEstimatedBudget: true}"
+                    type="button" class="mr-3 btn_public">
+                    <i class="fa fa-edit icon-e-p-a"></i> Create Budget
+                  </button>
+
+                </ng-container>
+              </div>
+              <div class="col-lg-6 text-right" *ngIf="estimatedBudgetMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="estimatedBudget_reject"
+                  class="btn btn-outline-danger font-weight-bold mr-2">Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="estimatedBudget_approve"
+                  class="btn btn-outline-success font-weight-bold ">Approve</button>
+              </div>
+
+            </div>
           </div>
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">
-                <h4 class="print-box-detail-1">From Date:
-                    <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.from | date: 'MMM d, y'}}</span></h4>
-                <p style="margin-bottom: 0px;"></p>
+              <h4 class="print-box-detail-1">From Date:
+                <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.from | date: 'MMM d,
+                  y'}}</span>
+              </h4>
+              <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box">
-                <h4 class="print-box-detail-2">To Date:
-                    <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.to | date: 'MMM d, y'}}</span></h4>
+              <h4 class="print-box-detail-2">To Date:
+                <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.to | date: 'MMM d,
+                  y'}}</span>
+              </h4>
             </div>
             <div class="print-box">
-              <h4 class="print-box-detail-2">Estimated <br> Budget Name:
-              <span class="float-right" style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span></h4>
+              <h4 class="print-box-detail-2"> <br> Budget Name:
+                <span class="float-right"
+                  style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span>
+              </h4>
             </div>
           </div>
         </div>
 
         <div class="row mt-10">
           <div class="col-md-12 col-12">
-            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;"
-              class="ag-theme-alpine" [rowData]="estimatedBudgetLines" [columnDefs]="columnDefs"
+            <ag-grid-angular #rowClass style="width: 100%; height: 200px; font-size: 14px;" class="ag-theme-alpine"
+              [rowData]="estimatedBudgetLines" [columnDefs]="columnDefs"
               (firstDataRendered)="onFirstDataRendered($event)" [gridOptions]="gridOptions">
             </ag-grid-angular>
           </div>

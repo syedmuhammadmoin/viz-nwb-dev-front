@@ -5,4 +5,5 @@ export interface IEstimatedBudgetLines {
     calculationType: number;
     value: number;
     estimatedValue?: number;
+    incurredAmount:number;
 }

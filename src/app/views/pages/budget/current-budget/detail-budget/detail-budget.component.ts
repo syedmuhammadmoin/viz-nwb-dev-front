@@ -11,6 +11,7 @@ import { IBudgetLines } from '../model/IBudgetLines';
 import { BudgetService } from '../service/budget.service';
 import { IBudgetResponse } from '../model/IBudgetResponse';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 @Component({
   selector: 'kt-detail-budget',
@@ -41,6 +42,8 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   budgetMaster: IBudgetResponse | any;
   totalAmount = 0
   
+  
+
   //Injecting Dependencies
   constructor(
     private _budgetService: BudgetService,
@@ -67,7 +70,34 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
       }
     },
   ];
-
+//Get Remarks From User
+remarksDialog(action: any): void {
+  const dialogRef = this.dialog.open(CustomRemarksComponent, {
+    width: '740px'
+  });
+  //sending remarks data after dialog closed
+  dialogRef.afterClosed().subscribe((res) => {
+    if (res) {
+      this.workflow(action, res.data)
+    }
+  })
+}
+workflow(action: number, remarks: string) {
+  this.isLoading = true
+  this._budgetService.workflow({ action, docId: this.budgetMaster.id, remarks })
+    .pipe(
+      take(1),
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+      })
+    )
+    .subscribe((res) => {
+      this.getBudgetData(this.budgetId);
+      this.cdRef.detectChanges();
+      this.toastService.success('' + res.message, 'Invoice');
+    })
+}
   ngOnInit() {
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');

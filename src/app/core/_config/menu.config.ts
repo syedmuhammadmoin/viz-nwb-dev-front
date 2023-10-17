@@ -1030,7 +1030,7 @@ export class MenuConfig {
           ],
           submenu: [
             {
-              title: 'Estimated Budget',
+              title: 'Budget',
               page: '/' + BUDGET.LIST,
               permission: [
                 Permissions.BUDGET_VIEW,

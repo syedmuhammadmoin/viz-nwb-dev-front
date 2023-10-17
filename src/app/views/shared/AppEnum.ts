@@ -513,7 +513,9 @@ export enum DocType {
   CWIP,
   Disposal,
   BudgetReappropriation,
-  DepreciationAdjustment
+  DepreciationAdjustment,
+  EstimatedBudget,
+  Budget
 }
 
 export enum Criteria{

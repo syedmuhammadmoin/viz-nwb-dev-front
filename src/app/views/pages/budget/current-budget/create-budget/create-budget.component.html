@@ -11,7 +11,7 @@
             <div class="row mt-8 mb-5 ">
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label">Estimated Budget:</label>
+                  <label class="col-form-label">Budget:</label>
                   <kt-input-field 
                      id="budget_name"
                      formControlName="budgetName" 
@@ -156,13 +156,15 @@
           <div class="row">
             <div class="col-lg-12 text-right">
               <button class="mr-2 app-reset-btn" id="budget_reset" type="button" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
+              <button class="mr-2 app-reset-btn" mat-raised-button type="submit" id="invoice_save"
+                (click)="logValidationErrors(this.budgetForm, this.formErrors, this.validationMessages); isSubmit(0)"><i  class="far fa-save"></i> Save</button>
               <button class="app-default-btn" mat-raised-button type="submit" id="budget_submit"
-                (click)="logValidationErrors(budgetForm, formErrors, validationMessages)"><i class="far fa-save"></i> Submit</button>
+                (click)="logValidationErrors(budgetForm, formErrors, validationMessages); isSubmit(1)"><i class="far fa-save"></i> Submit</button>
             </div>
             </div>
           </div>
         </div>
-    </form>
+    </form>                                                 
     <!--end::Form-->
   </kt-portlet>
 </div>

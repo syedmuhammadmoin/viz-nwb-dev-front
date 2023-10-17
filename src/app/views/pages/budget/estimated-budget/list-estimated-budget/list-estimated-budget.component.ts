@@ -47,9 +47,9 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
 
     columnDefs = [
       {
-        headerName: 'Estimated Budget Name',
+        headerName: 'Anticipated Budget Name',
         field: 'estimatedBudgetName',
-        tooltipField: 'to',
+        tooltipField: 'estimatedBudgetName',
         cellRenderer: 'loadingCellRenderer',
         filter: 'agTextColumnFilter',
         menuTabs: ['filterMenuTab'],
@@ -63,7 +63,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
         field: 'from',
         menuTabs: ['filterMenuTab'],
         suppressMenu: true,
-        tooltipField: 'to',
+        tooltipField: 'from',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
@@ -79,6 +79,17 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
           const date = params.value != null ? params.value : null;
           return date == null || this.dateHelperService.transformDate(date, 'MMM d, y');
         }
+      },
+      {
+        headerName: 'Status',
+        field: 'status',
+        tooltipField: 'status',
+        filter: 'agTextColumnFilter',
+        menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
       },
     ];
 

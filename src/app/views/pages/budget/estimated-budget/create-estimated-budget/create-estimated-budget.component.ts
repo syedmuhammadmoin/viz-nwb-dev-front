@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ActivatedRoute, Params, Router} from '@angular/router';
-import { finalize, take} from 'rxjs/operators';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -22,8 +22,11 @@ import { EstimatedBudgetService } from '../service/estimated-budget.service';
 export class CreateEstimatedBudgetComponent extends AppComponentBase implements OnInit {
 
   isLoading: boolean;
+  totalAmount: number;
   // Declaring form variable
   estimatedBudgetForm: FormGroup;
+
+  
 
   //Title Name
   title: string = 'Create Anticipated Budget'
@@ -35,13 +38,13 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
 
 
   // For Table Columns
-  displayedColumns = ['accountId', 'amount', 'calculationType', 'value', 'estimatedValue']
+  displayedColumns = ['accountId', 'amount', 'calculationType', 'value', 'estimatedValue', 'action']
   // Getting Table by id
-  @ViewChild('table', {static: false}) table: any;
+  @ViewChild('table', { static: false }) table: any;
   // Validation messages..
   validationMessages = {
     budgetId: {
-      required: 'Estimated Budget is required.',
+      required: 'Budget is required.',
     },
     estimatedBudgetName: {
       required: 'Budget Name is required.',
@@ -91,41 +94,78 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
 
   //For Dropdown
   calculationType = [
-    {id: 0 , value: 'Percentage'},
-    {id: 1 , value: 'FixedAmount'}
+    { id: 0, value: 'Percentage' },
+    { id: 1, value: 'FixedAmount' }
   ]
 
   public getEstimatedBudgetMaster(id: any) {
-     this.estimatedBudgetService.getEstimatedBudgetById(id)
-     .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-     .subscribe((res: IApiResponse<IEstimatedBudget>) => {
-      // for mapping, getting values from estimatedBudgetMaster because of fields disablility
-      this.estimatedBudgetMaster = res.result;
-      this.patchBudget(this.estimatedBudgetMaster);
-      this.estimatedBudgetModel = res.result;
+    this.estimatedBudgetService.getEstimatedBudgetById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<IEstimatedBudget>) => {
+        // for mapping, getting values from estimatedBudgetMaster because of fields disablility
+        this.estimatedBudgetMaster = res.result;
+        this.patchBudget(this.estimatedBudgetMaster);
+        this.estimatedBudgetModel = res.result;
+      });
+  }
+  //for save or submit
+  isSubmit(val: number) {
+    this.estimatedBudgetModel.isSubmit = (val === 0) ? false : true;
+  }
+  addNewLineClick(): void {
+    const controls = this.estimatedBudgetForm.controls.estimatedBudgetLines as FormArray;
+    controls.push(this.addBudgetLines());
+    this.table.renderRows();
+    this.cdRef.detectChanges()
+  }
+  addBudgetLines(): FormGroup {
+    return this.fb.group({
+      accountId: ['', [Validators.required]],
+      amount: ['', [Validators.required]],
+      calculationType: ['', [Validators.required]],
+      value: ['', [Validators.required, Validators.min(0)]],
+      estimatedValue: ['']
+
     });
+  }
+  removeLineClick(budgetLineIndex: number): void {
+    const budgetArray = this.estimatedBudgetForm.get('estimatedBudgetLines') as FormArray;
+    budgetArray.removeAt(budgetLineIndex);
+    budgetArray.markAsDirty();
+    budgetArray.markAsTouched();
+    this.table.renderRows();
+    this.totalAmountCalculation()
+    this.cdRef.detectChanges()
+  }
+
+  totalAmountCalculation() {
+    this.totalAmount = 0;
+    const controls = this.estimatedBudgetForm.controls.estimatedBudgetLines as FormArray;
+    for (let index = 0; index < controls.length; index++) {
+      this.totalAmount += Number(controls.at(index).get('amount').value);
+    }
   }
 
   onItemSelected(budgetId: number) {
     this.isLoading = true;
     this.budgetService.getBudgetById(budgetId)
-    .pipe(
-      take(1),
-      finalize(() => {
-        this.isLoading = false;
-        this.showLines = true;
-        this.cdRef.detectChanges();
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.showLines = true;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.estimatedBudgetForm.setControl('estimatedBudgetLines', this.patchEstimatedBudgetLines(res.result.budgetLines));
       })
-    )
-    .subscribe((res) => {
-      this.estimatedBudgetForm.setControl('estimatedBudgetLines', this.patchEstimatedBudgetLines(res.result.budgetLines));
-    })
   }
 
   onChangeEvent(index: number) {
@@ -151,8 +191,8 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     const formArray = new FormArray([]);
     estimatedBudgetLines.forEach((line: IEstimatedBudgetLines | any) => {
       formArray.push(this.fb.group({
-        accountId: [{value: line.accountId , disabled: true} , [Validators.required]],
-        amount: [{value: line.amount , disabled: true}, [Validators.required]],
+        accountId: [{ value: line.accountId, disabled: true }, [Validators.required]],
+        amount: [{ value: line.incurredAmount, disabled: true }, [Validators.required]],
         calculationType: [line.calculationType, [Validators.required]],
         value: [line.value, [Validators.required, Validators.min(0)]],
         estimatedValue: [line.estimatedValue]
@@ -182,33 +222,33 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
 
     if (this.estimatedBudgetModel.id) {
       this.estimatedBudgetService.updateEstimatedBudget(this.estimatedBudgetModel)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-       )
-       .subscribe(() => {
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe(() => {
           this.toastService.success('Updated Successfully', 'Anticipated Budget')
-          this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , this.estimatedBudgetModel.id)])
+          this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details', this.estimatedBudgetModel.id)])
         }
-      );
+        );
     } else {
       delete this.estimatedBudgetModel.id;
       this.estimatedBudgetService.createEstimatedBudget(this.estimatedBudgetModel)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-       )
-       .subscribe((res) => {
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res) => {
           this.toastService.success('Created Successfully', 'Anticipated Budget')
-          this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
+          this.router.navigate(['/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('details', res.result.id)])
         }
-      );
+        );
     }
   }
 

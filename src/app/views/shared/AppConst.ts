@@ -295,11 +295,11 @@ export class AppConst {
     'Finance.BankRecon.DL': 'Bank Reconciliation Delete',
 
     // Budget
-    'Budget.Budget.VW': 'Estimated Budget View',
-    'Budget.Budget.CR': 'Estimated Budget Create',
-    'Budget.Budget.ED': 'Estimated Budget Update',
-    'Budget.Budget.DL': 'Estimated Budget Delete',
-    'Budget.BudgetReport.VW': 'Estimated Budget Report View',
+    'Budget.Budget.VW': 'Budget View',
+    'Budget.Budget.CR': 'Budget Create',
+    'Budget.Budget.ED': 'Budget Update',
+    'Budget.Budget.DL': 'Budget Delete',
+    'Budget.BudgetReport.VW': 'Budget Report View',
 
     'Budget.EstimatedBudget.VW': 'Anticipated Budget View',
     'Budget.EstimatedBudget.CR': 'Anticipated Budget Create',
@@ -578,8 +578,11 @@ export class AppConst {
     {value: 'CWIP ', id: DocType.CWIP},
     {value: 'Disposal', id: DocType.Disposal},
     {value: 'Budget Reappropriation', id: DocType.BudgetReappropriation},
-    {value: 'Depreciation Adjustment', id: DocType.DepreciationAdjustment}
+    {value: 'Depreciation Adjustment', id: DocType.DepreciationAdjustment},
+    {value: 'Anticipated Budget', id: DocType.EstimatedBudget},
+    {value: 'Budget', id: DocType.Budget}
 
+    
     // {value: 'sales Order', id: DocType.SalesOrder},
     // { value: 'Goods Dispatch Note', id: DocType.GDN },
     // { value: 'Inventory Adjustment', id: DocType.InventoryAdjustment }
