@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BUDGET_REAPPROPIATION } from 'src/app/views/shared/AppRoutes';
+import { BUDGET_REAPPROPRIATION } from 'src/app/views/shared/AppRoutes';
 import { IBudget } from '../model/Ibudget';
 import { IBudgetLines } from '../model/IbudgetLines';
 import { BudgetReappropriationService } from '../service/budget-reappropriation.service';
@@ -12,11 +12,11 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ActionButton, DocType, DocumentStatus, Permissions } from 'src/app/views/shared/AppEnum';
 
 @Component({
-  selector: 'kt-detail-budget-reapprpriation',
-  templateUrl: './detail-budget-reapprpriation.component.html',
-  styleUrls: ['./detail-budget-reapprpriation.component.scss']
+  selector: 'kt-detail-budget-reappropriation',
+  templateUrl: './detail-budget-reappropriation.component.html',
+  styleUrls: ['./detail-budget-reappropriation.component.scss']
 })
-export class DetailBudgetReapprpriationComponent extends AppComponentBase implements OnInit {
+export class DetailBudgetReappropriationComponent extends AppComponentBase implements OnInit {
 
   docType = DocType
   public permissions = Permissions;
@@ -33,7 +33,7 @@ export class DetailBudgetReapprpriationComponent extends AppComponentBase implem
 
   //need for routing
   budgetId: number;
-  public BUDGET_REAPPROPRIATION = BUDGET_REAPPROPIATION;
+  public BUDGET_REAPPROPRIATION = BUDGET_REAPPROPRIATION;
 
   //Variables for Budget data
   budgetLines: IBudgetLines | any

@@ -3,7 +3,7 @@ import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridRe
 import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 import { IBudgetReport } from '../../current-budget/model/IBudgetReport';
 import { AppComponentBase } from '../../../../shared/app-component-base';
-import { BUDGET_REAPPROPIATION } from 'src/app/views/shared/AppRoutes';
+import { BUDGET_REAPPROPRIATION } from 'src/app/views/shared/AppRoutes';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { Router } from '@angular/router';
 import { isEmpty } from 'lodash';
@@ -14,12 +14,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 @Component({
-  selector: 'kt-list-budget-reappropiation',
-  templateUrl: './list-budget-reappropiation.component.html',
-  styleUrls: ['./list-budget-reappropiation.component.scss']
+  selector: 'kt-list-budget-reappropriation',
+  templateUrl: './list-budget-reappropriation.component.html',
+  styleUrls: ['./list-budget-reappropriation.component.scss']
 })
 
-export class ListBudgetReappropiationComponent extends AppComponentBase implements OnInit {
+export class ListBudgetReappropriationComponent extends AppComponentBase implements OnInit {
 
   //Loader
   isLoading: boolean;
@@ -137,11 +137,11 @@ export class ListBudgetReappropiationComponent extends AppComponentBase implemen
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.router.navigate(['/' + BUDGET_REAPPROPIATION.ID_BASED_ROUTE('details', event.data.id)]);
+    this.router.navigate(['/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('details', event.data.id)]);
   }
 
   addBudget() {
-    this.router.navigate(['/' + BUDGET_REAPPROPIATION.CREATE])
+    this.router.navigate(['/' + BUDGET_REAPPROPRIATION.CREATE])
   }
 
   dataSource = {

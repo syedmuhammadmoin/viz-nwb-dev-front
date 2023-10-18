@@ -13,7 +13,7 @@ import {
   BID_EVALUATION,
   BILL,
   BUDGET,
-  BUDGET_REAPPROPIATION,
+  BUDGET_REAPPROPRIATION,
   BUSINESS_PARTNER,
   CALL_QUOTATION,
   CAMPUS,
@@ -1058,7 +1058,7 @@ export class MenuConfig {
             },
             {
               title: 'Budget Reappropriation',
-              page: '/' + BUDGET_REAPPROPIATION.LIST,
+              page: '/' + BUDGET_REAPPROPRIATION.LIST,
               permission: [
                 Permissions.ESTIMATED_BUDGET_VIEW,
                 Permissions.ESTIMATED_BUDGET_CREATE,

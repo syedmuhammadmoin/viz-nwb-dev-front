@@ -3,10 +3,10 @@ import { Routes, RouterModule } from '@angular/router';
 import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
-import { CreateBudgetReappropiationComponent } from './create-budget-reappropiation/create-budget-reappropiation.component';
-import { DetailBudgetReapprpriationComponent } from './detail-budget-reapprpriation/detail-budget-reapprpriation.component';
-import { ListBudgetReappropiationComponent } from './list-budget-reappropiation/list-budget-reappropiation.component';
+import { CreateBudgetReappropriationComponent } from './create-budget-reappropriation/create-budget-reappropriation.component';
 import { PrintBudgetReappropriationComponent } from './print-budget-reappropriation/print-budget-reappropriation.component';
+import { ListBudgetReappropriationComponent } from './list-budget-reappropriation/list-budget-reappropriation.component';
+import { DetailBudgetReappropriationComponent } from './detail-budget-reappropriation/detail-budget-reappropriation.component';
 
 
 const routes: Routes = [
@@ -15,7 +15,7 @@ const routes: Routes = [
     children: [
       {
         path: CRUD_ROUTES.LIST,
-        component: ListBudgetReappropiationComponent,
+        component: ListBudgetReappropriationComponent,
         // data: {
         //   array: [
         //     { permission: Permissions.BUDGET_REAPPROPIATION_VIEW },
@@ -28,7 +28,7 @@ const routes: Routes = [
   },
   {
     path: CRUD_ROUTES.CREATE,
-    component: CreateBudgetReappropiationComponent,
+    component: CreateBudgetReappropriationComponent,
     // data: {
     //   array: [
     //     { permission: Permissions.BUDGET_CREATE },
@@ -39,7 +39,7 @@ const routes: Routes = [
   },
   {
     path: CRUD_ROUTES.EDIT,
-    component: CreateBudgetReappropiationComponent,
+    component: CreateBudgetReappropriationComponent,
     // data: {
     //   array: [
     //     { permission: Permissions.BUDGET_REAPPROPIATION_CREATE },
@@ -50,7 +50,7 @@ const routes: Routes = [
   },
   {
     path: CRUD_ROUTES.DETAILS,
-    component: DetailBudgetReapprpriationComponent,
+    component: DetailBudgetReappropriationComponent,
     // data: {
     //   array: [
     //     { permission: Permissions.BUDGET_REAPPROPIATION_VIEW },
@@ -78,4 +78,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class BudgetReappropiationRoutingModule { }
+export class BudgetReappropriationRoutingModule { }

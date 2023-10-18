@@ -110,7 +110,8 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
     {id : 3 , viewValue: 'Supplier'},
     {id : 4 , viewValue: 'Consultant'},
     {id : 5 , viewValue: 'Contractor'},
-    {id : 7 , viewValue: 'Service Provider'}
+    {id : 7 , viewValue: 'Service Provider'},
+    {id : 8 , viewValue: 'Student'}
   ];
 
   ngOnInit() {

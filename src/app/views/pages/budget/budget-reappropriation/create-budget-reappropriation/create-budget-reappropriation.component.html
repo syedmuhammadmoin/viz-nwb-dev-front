@@ -35,16 +35,14 @@
 
             <div class="row mt-5">
               <div class="col-lg-12 col-md-12 col-sm-12">
-                <div class="">
+                <div>
                   <ng-container formArrayName="budgetReappropriationLines">
-                    <div class="table-responsive">
-                      <mat-table #table
-                        [dataSource]="budgetReappropriationForm.get('budgetReappropriationLines')['controls']">
+                      <mat-table #table [dataSource]="budgetReappropriationForm.get('budgetReappropriationLines')['controls']">
 
                         <!-- COA Column -->
                         <ng-container matColumnDef="level4Id">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> COA</mat-header-cell>
-                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> COA</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown [id]="'budget_account_' + i" [optionList]="ngxsService.budgetAccount$"
                                 [errorMessage]="'Head is required.'" formControlName="level4Id"
@@ -57,8 +55,8 @@
 
                         <!-- campus Column -->
                         <ng-container matColumnDef="campusId">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> Campus</mat-header-cell>
-                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> Campus</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-simple-dropdown [id]="'budget_account_' + i" [optionList]="ngxsService.campuses$"
                                 [errorMessage]="'Campus is required.'" formControlName="campusId"
@@ -71,8 +69,8 @@
 
                         <!-- Description Column -->
                         <ng-container matColumnDef="description">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
-                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
                               <kt-input-field type="text" matFormFieldClass="mobile-label full-width"
                                 formControlName="description" [errorMessage]="[{ condition : budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.description.errors?.required &&
@@ -85,44 +83,46 @@
 
                         <!-- Addition Column -->
                         <ng-container matColumnDef="additionAmount">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> Addition</mat-header-cell>
-                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> Addition</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <kt-input-field type="number" matFormFieldClass="mobile-label full-width"
-                                (blurEvent)="logValidationErrors(budgetReappropriationForm, formErrors, validationMessages)"
-                                [errorMessage]="[{ condition : budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.additionAmount.errors?.required &&
-                                budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.additionAmount.touched , 
-                                error : 'Amount is required.' }, { condition : budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.additionAmount.errors?.min &&
-                                budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.additionAmount.touched , 
-                                error : 'Please insert correct value.' }]" formControlName="additionAmount"
-                                placeholder="Addition">
-                              </kt-input-field>
+                              <mat-form-field appearance="outline" class="full-width">
+                                <input matInput formControlName="additionAmount" placeholder="Addition" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"   
+                                [id]="'reappro_addition_' + i" type="number" (blurEvent)="logValidationErrors(budgetReappropriationForm, formErrors, validationMessages)">
+                                <mat-error *ngIf="element.controls.additionAmount.errors?.required && element.controls.additionAmount.touched">
+                                  <strong>Amount is required.</strong>
+                                </mat-error>
+                                <mat-error *ngIf="element.controls.additionAmount.errors?.min && element.controls.additionAmount.touched">
+                                  <strong>Minimum value is 0.</strong>
+                                </mat-error>
+                              </mat-form-field>
                             </div>
                           </mat-cell>
                         </ng-container>
 
                         <!-- deletion Column -->
                         <ng-container matColumnDef="deletionAmount">
-                          <mat-header-cell *matHeaderCellDef class="flex-1"> Deletion</mat-header-cell>
-                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <mat-header-cell *matHeaderCellDef class="flex-2"> Deletion</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                             <div class="col-lg-12 col-sm-12 mt-2">
-                              <kt-input-field type="number" matFormFieldClass="mobile-label full-width"
-                                formControlName="deletionAmount"
-                                (blurEvent)="logValidationErrors(this.budgetReappropriationForm, this.formErrors, this.validationMessages)"
-                                [errorMessage]="[{ condition : budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.deletionAmount.errors?.required &&
-                                budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.deletionAmount.touched , 
-                                error : 'Amount is required.' }, { condition : budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.deletionAmount.errors?.min &&
-                                budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.deletionAmount.touched , 
-                                error : 'Please insert correct value.' }]" placeholder="Deletion">
-                              </kt-input-field>
+                              <mat-form-field appearance="outline" class="full-width">
+                                <input matInput formControlName="deletionAmount" placeholder="Deletion" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"   
+                                [id]="'reappro_deletion_' + i" type="number" (blurEvent)="logValidationErrors(budgetReappropriationForm, formErrors, validationMessages)">
+                                <mat-error *ngIf="element.controls.deletionAmount.errors?.required && element.controls.deletionAmount.touched">
+                                  <strong>Amount is required.</strong>
+                                </mat-error>
+                                <mat-error *ngIf="element.controls.deletionAmount.errors?.min && element.controls.deletionAmount.touched">
+                                  <strong>Minimum value is 0.</strong>
+                                </mat-error>
+                              </mat-form-field>
                             </div>
                           </mat-cell>
                         </ng-container>
 
                         <!-- Action Column -->
                         <ng-container matColumnDef="action">
-                          <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
-                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <mat-header-cell *matHeaderCellDef class="flex-2">Action</mat-header-cell>
+                          <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
 
                             <button class=" app-remove-btn" type="button" [id]="'budget_remove_' + i"
                               (click)="removeBudgetLineClick(i)">
@@ -134,7 +134,6 @@
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                       </mat-table>
-                    </div>
                   </ng-container>
 
                   <ng-container>
@@ -147,6 +146,18 @@
                       </div>
                     </div>
                   </ng-container>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-4 col-lg-4  ml-auto mt-3">
+                <div class="print-box">
+                  <h4>Total Addition: <span class="float-right" >{{totalAddition.toLocaleString(undefined,
+                    { maximumFractionDigits: 2 })}}</span></h4>
+                </div>
+                <div class="print-box">
+                  <h4>Total Deletion: <span  class="float-right" >
+                    {{totalDeletion.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></h4>
                 </div>
               </div>
             </div>

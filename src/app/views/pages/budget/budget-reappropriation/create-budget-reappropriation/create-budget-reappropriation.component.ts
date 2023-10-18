@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angu
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
-import { BUDGET_REAPPROPIATION } from 'src/app/views/shared/AppRoutes';
+import { BUDGET_REAPPROPRIATION } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { AppComponentBase } from '../../../../shared/app-component-base';
@@ -13,10 +13,10 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Component({
   selector: 'kt-create-budget-Reappropriation',
-  templateUrl: './create-budget-Reappropiation.component.html',
-  styleUrls: ['./create-budget-Reappropiation.component.scss']
+  templateUrl: './create-budget-Reappropriation.component.html',
+  styleUrls: ['./create-budget-Reappropriation.component.scss']
 })
-export class CreateBudgetReappropiationComponent extends AppComponentBase implements OnInit {
+export class CreateBudgetReappropriationComponent extends AppComponentBase implements OnInit {
 
   isLoading: boolean;
 
@@ -30,11 +30,14 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  budgetReapprpriationModel: IBudget = {} as IBudget;
+  budgetReappropriationModel: IBudget = {} as IBudget;
   BudgetReapproMaster: IBudget;
 
   totalAmount: number;
   budgetMaster: any;
+
+  totalAddition: number = 0;
+  totalDeletion: number = 0;
 
   // For Table Columns
   displayedColumns = ['level4Id', 'campusId', 'description', 'additionAmount', 'deletionAmount', 'action']
@@ -111,7 +114,7 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
         // for mapping, getting values from BudgetReapproMaster because of fields disablility
         this.BudgetReapproMaster = res.result;
         this.patchBudget(this.BudgetReapproMaster);
-        this.budgetReapprpriationModel = res.result;
+        this.budgetReappropriationModel = res.result;
       });
   }
 
@@ -137,6 +140,7 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
       budgetReappropriationDate: BudgetReapproMaster.budgetReappropriationDate
     });
     this.budgetReappropriationForm.setControl('budgetReappropriationLines', this.patchEstimatedBudgetLines(BudgetReapproMaster.budgetReappropriationLines));
+    this.totalCalculation();
   }
 
   private patchEstimatedBudgetLines(budgetReappropriationLines: IBudgetLines[] | any): FormArray {
@@ -187,14 +191,51 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
     budgetLineArray.markAsDirty();
     budgetLineArray.markAsTouched();
     this.table.renderRows();
+    this.totalCalculation();
     this.cdRef.detectChanges();
   }
 
+  //onChangeEvent to set debit or credit zero '0'
+  onChangeEvent(_:unknown, index: number) {
+    const arrayControl = this.budgetReappropriationForm.get('budgetReappropriationLines') as FormArray;
+    const additionControl = arrayControl.at(index).get('additionAmount');
+    const deletionControl = arrayControl.at(index).get('deletionAmount');
+    const addition = (additionControl.value) !== null ? additionControl.value : null;
+    const deletion = (deletionControl.value) !== null ? deletionControl.value : null;
+
+    if (addition) {
+      deletionControl.setValue(0);
+      deletionControl.disable();
+    }
+    else if (deletion) {
+      additionControl.setValue(0);
+      additionControl.disable();
+    }
+      else if (!addition || !deletion) {
+      deletionControl.enable();
+      additionControl.enable();
+    }
+    this.totalCalculation();
+  }
+
+  totalCalculation() {
+    this.totalAddition = 0;
+    this.totalDeletion = 0;
+    const arrayControl = this.budgetReappropriationForm.get('budgetReappropriationLines') as FormArray;
+    arrayControl.controls.forEach((_:unknown, index: number) => {
+      const addition = arrayControl.at(index).get('additionAmount').value;
+      const deletion = arrayControl.at(index).get('deletionAmount').value;
+      this.totalAddition += Number(addition);
+      this.totalDeletion += Number(deletion);
+    });
+  }
+
+
   //Mapping form values to Budget Model
   mapFormValuesToBudgetReapproModel() {
-    this.budgetReapprpriationModel.budgetId = this.budgetReappropriationForm.value.budgetId;
-    this.budgetReapprpriationModel.budgetReappropriationDate = this.transformDate(this.budgetReappropriationForm.value.budgetReappropriationDate, 'yyyy-MM-dd');
-    this.budgetReapprpriationModel.budgetReappropriationLines = this.budgetReappropriationForm.value.budgetReappropriationLines;
+    this.budgetReappropriationModel.budgetId = this.budgetReappropriationForm.value.budgetId;
+    this.budgetReappropriationModel.budgetReappropriationDate = this.transformDate(this.budgetReappropriationForm.value.budgetReappropriationDate, 'yyyy-MM-dd');
+    this.budgetReappropriationModel.budgetReappropriationLines = this.budgetReappropriationForm.value.budgetReappropriationLines;
   }
 
 
@@ -206,19 +247,25 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
 
     const controls = this.budgetReappropriationForm.controls.budgetReappropriationLines as FormArray;
     if (controls.length === 0) {
-      this.toastService.error('Please add Budget Reapprpiation lines', 'Budget Reapprpiation')
+      this.toastService.error('Please add Budget Reapprpiation lines', 'Budget Reappropriation')
       return;
     }
 
     if (this.budgetReappropriationForm.invalid) {
+      this.toastService.error("Please fill all required fields!", "Budget Reappropriation")
       return;
+    }
+
+    if (this.totalAddition !== this.totalDeletion) {
+      this.toastService.error('Sum of Addition and Deletion is not Equal', 'Budget Reappropriation')
+      return
     }
 
     this.mapFormValuesToBudgetReapproModel();
     this.isLoading = true
 
-    if (this.budgetReapprpriationModel.id) {
-      this.budgetReappropriation.updateBudgetReappropriation(this.budgetReapprpriationModel)
+    if (this.budgetReappropriationModel.id) {
+      this.budgetReappropriation.updateBudgetReappropriation(this.budgetReappropriationModel)
         .pipe(
           take(1),
           finalize(() => {
@@ -228,12 +275,12 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
         )
         .subscribe(() => {
           this.toastService.success('Updated Successfully', 'Budget Reappropriation')
-          this.router.navigate(['/' + BUDGET_REAPPROPIATION.ID_BASED_ROUTE('details', this.budgetReapprpriationModel.id)])
+          this.router.navigate(['/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('details', this.budgetReappropriationModel.id)])
         }
         );
     } else {
-      delete this.budgetReapprpriationModel.id;
-      this.budgetReappropriation.createBudgetReappropriation(this.budgetReapprpriationModel)
+      delete this.budgetReappropriationModel.id;
+      this.budgetReappropriation.createBudgetReappropriation(this.budgetReappropriationModel)
         .pipe(
           take(1),
           finalize(() => {
@@ -243,7 +290,7 @@ export class CreateBudgetReappropiationComponent extends AppComponentBase implem
         )
         .subscribe((res) => {
           this.toastService.success('Created Successfully', 'Budget Reappropriation')
-          this.router.navigate(['/' + BUDGET_REAPPROPIATION.ID_BASED_ROUTE('details', res.result.id)])
+          this.router.navigate(['/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('details', res.result.id)])
         });
 
     }
