@@ -106,9 +106,9 @@ export class Permissions {
   static ESTIMATED_BUDGET_EDIT = 'Budget.EstimatedBudget.ED';
   static ESTIMATED_BUDGET_DELETE = 'Budget.EstimatedBudget.DL';
 
-  static BUDGET_REAPPROPIATION_VIEW = 'Budget.BudgetReappropiation.VW';
-  static BUDGET_REAPPROPIATION_CREATE= 'Budget.BudgetReappropiation.CR';
-  static BUDGET_REAPPROPIATION_EDIT = 'Budget.BudgetReappropiation.ED';
+  static BUDGET_REAPPROPRIATION_VIEW = 'Budget.BudgetReappropriation.VW';
+  static BUDGET_REAPPROPRIATION_CREATE= 'Budget.BudgetReappropriation.CR';
+  static BUDGET_REAPPROPRIATION_EDIT = 'Budget.BudgetReappropriation.ED';
 
 
 
@@ -585,6 +585,7 @@ export enum BusinessPartnerType {
   Supplier,
   Consultant,
   Contractor,
+  Student,
   ServiceProvider =7,
 }
 

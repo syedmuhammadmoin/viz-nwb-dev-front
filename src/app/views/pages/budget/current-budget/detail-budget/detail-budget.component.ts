@@ -40,7 +40,8 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   //Variables for Budget data
   budgetLines: IBudgetLines | any
   budgetMaster: IBudgetResponse | any;
-  totalAmount = 0
+  totalAmount: number = 0;
+  totalRevisedAmount: number = 0;
   
   
 
@@ -63,6 +64,15 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Amount',
       field: 'amount',
+      filter: true,
+      cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ICellRendererParams) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Revised Budget',
+      field: 'revisedAmount',
       filter: true,
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ICellRendererParams) => {
@@ -95,7 +105,7 @@ workflow(action: number, remarks: string) {
     .subscribe((res) => {
       this.getBudgetData(this.budgetId);
       this.cdRef.detectChanges();
-      this.toastService.success('' + res.message, 'Invoice');
+      this.toastService.success('' + res.message, 'Budget');
     })
 }
   ngOnInit() {
@@ -133,6 +143,7 @@ workflow(action: number, remarks: string) {
       this.budgetLines = res.result.budgetLines;
       this.budgetLines.forEach((line: any) => {
         this.totalAmount += line.amount;
+        this.totalRevisedAmount += line.revisedAmount;
       })
       this.cdRef.markForCheck();
     });

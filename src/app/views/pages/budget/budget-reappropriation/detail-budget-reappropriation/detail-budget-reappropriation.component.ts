@@ -10,6 +10,7 @@ import { BudgetReappropriationService } from '../service/budget-reappropriation.
 import { finalize, take } from 'rxjs/operators';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ActionButton, DocType, DocumentStatus, Permissions } from 'src/app/views/shared/AppEnum';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 @Component({
   selector: 'kt-detail-budget-reappropriation',
@@ -55,13 +56,13 @@ export class DetailBudgetReappropriationComponent extends AppComponentBase imple
   //Defining columns of AG Grid
   columnDefs = [
     { headerName: 'COA', field: 'level4', filter: true, cellStyle: { 'font-size': '12px' } },
-    {
-      headerName: 'Campus',
-      field: 'campus',
-      filter: true,
-      tooltipField: 'campus',
-      cellStyle: { 'font-size': '12px' }
-    },
+    // {
+    //   headerName: 'Campus',
+    //   field: 'campus',
+    //   filter: true,
+    //   tooltipField: 'campus',
+    //   cellStyle: { 'font-size': '12px' }
+    // },
     {
       headerName: 'Description',
       field: 'description',
@@ -121,5 +122,35 @@ export class DetailBudgetReappropriationComponent extends AppComponentBase imple
         this.budgetLines = res.result.budgetReappropriationLines;
         this.cdRef.markForCheck();
       });
+  }
+
+  //Get Remarks From User
+  remarksDialog(action: any): void {
+    const dialogRef = this.dialog.open(CustomRemarksComponent, {
+     width: '740px'
+    });
+    //sending remarks data after dialog closed
+    dialogRef.afterClosed().subscribe((res) => {
+     if (res) {
+       this.workflow(action, res.data)
+     }
+    })
+  }
+
+  workflow(action: number, remarks: string) {
+  this.isLoading = true
+  this.budgetReappropriationService.workflow({ action, docId: this.budgetMaster.id, remarks })
+    .pipe(
+      take(1),
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+      })
+    )
+    .subscribe((res) => {
+      this.getBudgetData(this.budgetId);
+      this.cdRef.detectChanges();
+      this.toastService.success('' + res.message, 'Budget Re-Appropriation');
+    })
   }
 }

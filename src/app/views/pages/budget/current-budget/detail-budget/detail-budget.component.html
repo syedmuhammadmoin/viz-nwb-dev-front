@@ -32,7 +32,6 @@
                 <button (click)="remarksDialog(action.Approve)" id="budget_approve"
                   class="btn btn-outline-success font-weight-bold ">Approve</button>
               </div>
-
             </div>
           </div>
 
@@ -71,6 +70,10 @@
               <tr class="grand-total">
                 <th class="text-left">Total Amount :</th>
                 <th class="text-right">{{valueFormatter(totalAmount || 0)}}</th>
+              </tr>
+              <tr>
+                <th class="text-left">Total Revised Budget :</th>
+                <th class="text-right">{{valueFormatter(totalRevisedAmount || 0)}}</th>
               </tr>
             </table>
           </div>

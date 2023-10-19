@@ -40,7 +40,7 @@ export class CreateBudgetReappropriationComponent extends AppComponentBase imple
   totalDeletion: number = 0;
 
   // For Table Columns
-  displayedColumns = ['level4Id', 'campusId', 'description', 'additionAmount', 'deletionAmount', 'action']
+  displayedColumns = ['level4Id', 'description', 'additionAmount', 'deletionAmount', 'action']
 
   // Getting Table by id
   @ViewChild('table', { static: false }) table: any;
@@ -149,7 +149,7 @@ export class CreateBudgetReappropriationComponent extends AppComponentBase imple
       formArray.push(this.fb.group({
         level4Id: [line.level4Id, [Validators.required]],
         // campusId: [{value: line.campus , disabled: true}, [Validators.required]],
-        campusId: [line.campusId, [Validators.required]],
+        //campusId: [line.campusId, [Validators.required]],
         description: [line.description, [Validators.required]],
         additionAmount: [line.additionAmount, [Validators.required, Validators.min(0)]],
         deletionAmount: [line.deletionAmount, [Validators.required, Validators.min(0)]]
@@ -169,7 +169,7 @@ export class CreateBudgetReappropriationComponent extends AppComponentBase imple
   addBudgetLines(): FormGroup {
     return this.fb.group({
       level4Id: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      //campusId: ['', [Validators.required]],
       description: ['', [Validators.required]],
       additionAmount: ['', [Validators.required, Validators.min(0)]],
       deletionAmount: ['', [Validators.required, Validators.min(0)]]
@@ -230,14 +230,10 @@ export class CreateBudgetReappropriationComponent extends AppComponentBase imple
     });
   }
 
-
-  //Mapping form values to Budget Model
-  mapFormValuesToBudgetReapproModel() {
-    this.budgetReappropriationModel.budgetId = this.budgetReappropriationForm.value.budgetId;
-    this.budgetReappropriationModel.budgetReappropriationDate = this.transformDate(this.budgetReappropriationForm.value.budgetReappropriationDate, 'yyyy-MM-dd');
-    this.budgetReappropriationModel.budgetReappropriationLines = this.budgetReappropriationForm.value.budgetReappropriationLines;
+  //for save or submit
+  isSubmit(val: number) {
+    this.budgetReappropriationModel.isSubmit = (val === 0) ? false : true;
   }
-
 
   onSubmit(): void {
 
@@ -292,10 +288,14 @@ export class CreateBudgetReappropriationComponent extends AppComponentBase imple
           this.toastService.success('Created Successfully', 'Budget Reappropriation')
           this.router.navigate(['/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('details', res.result.id)])
         });
-
     }
+  }
 
-
+  //Mapping form values to Budget Model
+  mapFormValuesToBudgetReapproModel() {
+    this.budgetReappropriationModel.budgetId = this.budgetReappropriationForm.value.budgetId;
+    this.budgetReappropriationModel.budgetReappropriationDate = this.transformDate(this.budgetReappropriationForm.value.budgetReappropriationDate, 'yyyy-MM-dd');
+    this.budgetReappropriationModel.budgetReappropriationLines = this.budgetReappropriationForm.value.budgetReappropriationLines;
   }
 
 }

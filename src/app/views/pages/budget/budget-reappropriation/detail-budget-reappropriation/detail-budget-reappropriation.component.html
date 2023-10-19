@@ -1,31 +1,38 @@
 <div [ktBusy]="isLoading">
   <kt-portlet>
-    <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
-    <kt-portlet-header [sticky]="false" [title]="'Budget Reappropriation Detail'"
-      [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
+    <kt-portlet-header [sticky]="false" [title]="'Budget Reappropriation Detail'" [class]="'card-head-lg ribbon ribbon-clip ribbon-right'">
       <ng-container ktPortletTools>
+        <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
         <div class="ribbon-target "><span class="ribbon-inner {{docStatus[budgetMaster?.state]}}"></span>
           {{budgetMaster?.status}}</div>
       </ng-container>
-
     </kt-portlet-header>
     <kt-portlet-body>
       <div class="col-md-12 col-lg-12 mx-auto  mb-5">
         <div class="row">
           <div class="col-md-12 col-12 pb-3">
-            <ng-container ktPortletTools>
-              <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
-                [routerLink]="'/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('edit', budgetMaster?.id)"
-                [queryParams]="{q: budgetMaster?.id, 'isBudgetReappropriation': true}" type="button" class="btn_public">
-                <i class="fa fa-edit icon-e-p-a"></i> Edit
-              </button>
-              <button [routerLink]="'/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('print', budgetMaster?.id)"
-                id="budget_print" type="button" class="btn_public">
-                <i class="fa fa-print icon-e-p-a"></i> Print Budget Reappropriation
-              </button>
-              <mat-divider class="mt-5"></mat-divider>
-            </ng-container>
-          </div>
+            <div class="btn_container">
+              <div class="col-md-6 col-6">
+                <ng-container ktPortletTools>
+                  <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
+                    [routerLink]="'/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('edit', budgetMaster?.id)"
+                    [queryParams]="{q: budgetMaster?.id, 'isBudgetReappropriation': true}" type="button" class="btn_public">
+                    <i class="fa fa-edit icon-e-p-a"></i> Edit
+                  </button>
+                  <button [routerLink]="'/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('print', budgetMaster?.id)"
+                    id="budget_print" type="button" class="btn_public">
+                    <i class="fa fa-print icon-e-p-a"></i> Print Budget Reappropriation
+                  </button>
+                  <mat-divider class="mt-5"></mat-divider>
+                </ng-container>
+              </div>
+              <div class="col-lg-6 text-right" *ngIf="budgetMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="budget_reapp_reject" class="btn btn-outline-danger font-weight-bold mr-2">Reject</button>
+                <button (click)="remarksDialog(action.Approve)" id="budget_reapp_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
+              </div>
+            </div>
+           </div>
+          
 
           <div class="col-md-4 col-lg-4  mt-3">
             <div class="print-box">

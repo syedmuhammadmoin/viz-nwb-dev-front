@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { GridApi, GridOptions } from 'ag-grid-community';
+import { GridApi, GridOptions, RowNode } from 'ag-grid-community';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { DesignationService } from '../../designation/service/designation.service';
 import { PayrollItemService } from '../../payroll-item/service/payroll-item.service';
@@ -33,6 +33,8 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
   disability = true
   totals = {};
   gridApi: GridApi
+  gridColumnApi: any;
+  columnsWithAggregation: any = [];
 
   // Limit Date
   maxDate = new Date();
@@ -92,6 +94,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
 
   onGridReady(params) {
     this.gridApi = params.api;
+    this.gridColumnApi = params.columnApi;
   }
 
   ngOnInit(): void {
@@ -174,7 +177,8 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
       let newColumnDef = [];
       this.rowData = res.result || [];
 
-      Object.keys(this.rowData[0])
+      if(this.rowData[0]) {
+        Object.keys(this.rowData[0])
         .forEach((x) => {
           if (["employee", "department", "campus", "designation"].includes(x) == false) {
             newColumnDef.push(
@@ -189,23 +193,61 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
                 }
               }
             )
+
+            //for total sum of columns for pinned Bottom Data
+            this.columnsWithAggregation.push(x);
           }
         })
       newColumnDef = [...this.columnDefs, ...newColumnDef];
       this.gridApi.setColumnDefs(newColumnDef);
+      }
+
       if (isEmpty(res.result)) {
-        this.toastService.info('No Records Found !' , 'Payroll Transaction')
+        this.toastService.info('No Records Found !' , 'Payroll Transaction Detail');
+        return
       }
 
       // for PDF
       this.disability = (!isEmpty(res.result)) ? false : true;
       this.cdRef.detectChanges()
+
+      setTimeout(() => {
+        const pinnedBottomData = this.generatePinnedBottomData();
+        this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+      }, 500)
     });
+  }
+
+  generatePinnedBottomData() {
+    // generate a row-data with null values
+    const result = {};
+
+    this.gridColumnApi.getAllGridColumns().forEach(item => {
+      if (["employee", "department", "campus", "designation"].includes(item.colId) == false) {
+        result[item.colId] = null;
+      }
+    });
+    return this.calculatePinnedBottomData(result);
+  }
+
+  calculatePinnedBottomData(target: any) {
+    // list of columns fo aggregation
+    this.columnsWithAggregation.forEach(element => {
+      this.gridApi.forEachNodeAfterFilter((rowNode: RowNode) => {
+        if (rowNode.data[element]){
+          target[element] += parseInt(rowNode.data[element]);
+        }
+      });
+      if (target[element]) {
+        target[element] = target[element]
+      }
+    })
+    target.employee = 'Total'
+    return target;
   }
 
   // Mapping value from form to model
   mapFormValueToModel() {
-    console.log(this.transactionDetailReportForm.value.campus)
     this.transactionDetailModel.fromDate = this.dateHelperService.transformDate(new Date(this.transactionDetailReportForm.value.fromDate), 'MMM d, y') || '';
     this.transactionDetailModel.toDate = this.dateHelperService.transformDate(new Date(this.transactionDetailReportForm.value.toDate), 'MMM d, y') || '';
     this.transactionDetailModel.employeeId = this.transactionDetailReportForm.value.employeeId || '';

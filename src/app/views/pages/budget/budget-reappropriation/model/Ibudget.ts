@@ -5,5 +5,5 @@ export interface IBudget {
     budgetId: string
     budgetReappropriationDate: string
     budgetReappropriationLines: IBudgetLines[];
-    isSubmit?: true
+    isSubmit?: any;
 } 

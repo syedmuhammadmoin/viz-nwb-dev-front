@@ -6,6 +6,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IBudget } from '../model/Ibudget';
+import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,10 @@ export class BudgetReappropriationService extends AppServiceBase {
  
   getBudgetReapproById(id: number): Observable<IApiResponse<IBudget>> {
     return this.httpClient.get<IApiResponse<IBudget>>(this.baseUrl + '/' + id)
+  }
+
+  workflow(workflow: IWorkflow): Observable<any> {
+    return this.httpClient.post(this.baseUrl + '/workflow', workflow);
   }
 
   getRecords(params: any): Observable<any> {
