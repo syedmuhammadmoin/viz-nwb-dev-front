@@ -68,47 +68,83 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
 
   // Defining columns for ag grid
   columnDefs = [
-    { 
-      headerName: 'Item', 
-      field: 'itemName', 
-      sortable: true, 
-      filter: true, 
+    {
+      headerName: 'Item',
+      field: 'itemName',
+      sortable: true,
+      filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return params.value || 'N/A'
       }
-     },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    },
     {
-      headerName: 'Price', field: 'price', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Description', field: 'description', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
+    {
+      headerName: 'COA', field: 'accountName', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
+    {
+      headerName: 'Quantity', field: 'quantity', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
+    {
+      headerName: 'Price', field: 'price', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Tax %', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Tax %', field: 'tax', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
         return params.data.tax + '%';
       }
     },
     {
-      headerName: 'Sub total', field: 'subTotal', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Sub total', field: 'subTotal', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Store', 
-      field: 'warehouseName', 
-      sortable: true, 
-      filter: true, 
+    {
+      headerName: 'Store',
+      field: 'warehouseName',
+      sortable: true,
+      filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return params.value || 'N/A'
       }
-     }
+    }
   ];
 
   ngOnInit() {
@@ -132,20 +168,20 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
 
   getCreditNoteData(id: number) {
     this.creditNoteService.getCreditNoteById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<ICreditNote>) => {
+        this.creditNoteMaster = res.result;
+        this.creditNoteLines = res.result.creditNoteLines;
+        this.paidAmountList = this.creditNoteMaster.paidAmountList == null ? [] : this.creditNoteMaster.paidAmountList;
+        this.remarksList = this.creditNoteMaster.remarksList ?? []
         this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res: IApiResponse<ICreditNote>) => {
-      this.creditNoteMaster = res.result;
-      this.creditNoteLines = res.result.creditNoteLines;
-      this.paidAmountList = this.creditNoteMaster.paidAmountList == null ? [] : this.creditNoteMaster.paidAmountList;
-      this.remarksList = this.creditNoteMaster.remarksList ?? [] 
-      this.cdRef.detectChanges();
-    })
+      })
   }
 
   //Get Remarks From User
@@ -163,14 +199,14 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
 
   workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.creditNoteService.workflow({ action, docId: this.creditNoteMaster.id, remarks})
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
+    this.creditNoteService.workflow({ action, docId: this.creditNoteMaster.id, remarks })
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
       .subscribe((res) => {
         this.getCreditNoteData(this.creditNoteId);
         this.cdRef.detectChanges();

@@ -5,12 +5,13 @@ import { ActivatedRoute, Params } from '@angular/router';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions, CalculationType } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
+import { BUDGET, ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IEstimatedBudgetLines } from '../model/IEstimatedBudgetLines';
 import { EstimatedBudgetService } from '../service/estimated-budget.service';
 import { IEstimatedBudget } from '../model/IEstimatedBudget';
 import { finalize, take } from 'rxjs/operators';
+import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 
 @Component({
   selector: 'kt-detail-estimated-budget',
@@ -35,6 +36,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
   //Need For Routing
   estimatedBudgetId: number;
   public ESTIMATED_BUDGET = ESTIMATED_BUDGET;
+  public BUDGET = BUDGET;
 
   estimatedBudgetLines: IEstimatedBudgetLines | any
   estimatedBudgetMaster: IEstimatedBudgetLines | any;
@@ -92,6 +94,35 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
       }
     },
   ];
+
+  //Get Remarks From User
+remarksDialog(action: any): void {
+  const dialogRef = this.dialog.open(CustomRemarksComponent, {
+    width: '740px'
+  });
+  //sending remarks data after dialog closed
+  dialogRef.afterClosed().subscribe((res) => {
+    if (res) {
+      this.workflow(action, res.data)
+    }
+  })
+}
+workflow(action: number, remarks: string) {
+  this.isLoading = true
+  this._estimatedBudgetService.workflow({ action, docId: this.estimatedBudgetMaster.id, remarks })
+    .pipe(
+      take(1),
+      finalize(() => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
+      })
+    )
+    .subscribe((res) => {
+      this.getBudgetData(this.estimatedBudgetId);
+      this.cdRef.detectChanges();
+      this.toastService.success('' + res.message, 'Invoice');
+    })
+}
 
   ngOnInit() {
     this.route.paramMap.subscribe((params: Params) => {

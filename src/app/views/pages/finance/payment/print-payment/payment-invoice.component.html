@@ -1,15 +1,9 @@
-<div class="container " >
+<div class="container ">
   <div class="col-lg-10  mx-auto text-right">
     <div class="row">
-      <button
-      id="payment_print"
-        printSectionId="main"
-        printTitle="Payment"
-        ngxPrint
-        type="button"
-        [useExistingCss]="true"
-        class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+      <button id="payment_print" printSectionId="main" printTitle="Payment" ngxPrint type="button"
+        [useExistingCss]="true" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+          class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
@@ -20,8 +14,8 @@
           <div class="print-col-7 p-s-1-one">
             <div class="logo_and_title">
               <div class="logo_and_title">
-                <div class="print-logo" ></div>
-                <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+                <div class="print-logo"></div>
+                <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY. </span>
               </div>
             </div>
 
@@ -34,11 +28,21 @@
                 <h4>{{formName}}</h4>
               </div>
               <div class="print-box-one">
-                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span></h4>
+                <h4>Document No: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span>
+                </h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
-                <h4 class="mt-1">Date: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.paymentDate | date: 'MMM d, y'}}</span></h4>
+                <h4 class="mt-1">Date: <span class="float-right" style="font-weight: 400;">{{paymentMaster?.paymentDate
+                    | date: 'MMM d, y'}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="mt-1">Status: <span class="float-right"
+                    style="font-weight: 400;">{{paymentMaster?.status}}</span></h4>
+              </div>
+              <div class="print-box-two">
+                <h4 class="mt-1">Last User: <span class="float-right"
+                    style="font-weight: 400;">{{paymentMaster?.lastUser}}</span></h4>
               </div>
             </div>
 
@@ -49,42 +53,51 @@
 
           <div class="print-col-6 p-s-2-one" style="margin-top: 3%;">
             <div class="print-box-one">
-              <h4 class="font-14"><b>Business Partner:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.businessPartnerName}}</span></h4>
+              <h4 class="font-14"><b>Business Partner:</b> <span class="float-right"
+                  style="font-weight: 400;">{{paymentMaster?.businessPartnerName}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <h4 class="font-14"><b>NTN:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.incomeTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>NTN:</b> <span class="float-right"
+                  style="font-weight: 400;">{{paymentMaster?.incomeTaxId || 'N/A'}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <h4 class="font-14"><b>STRN:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.salesTaxId || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>STRN:</b> <span class="float-right"
+                  style="font-weight: 400;">{{paymentMaster?.salesTaxId || 'N/A'}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <h4 class="font-14"><b>Contact:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.businessPartnerMobile || 'N/A' }}</span></h4>
+              <h4 class="font-14"><b>Contact:</b> <span class="float-right"
+                  style="font-weight: 400;">{{paymentMaster?.businessPartnerMobile || 'N/A' }}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <h4 class="font-14"><b>Address:</b> <span class="text-left d-block mt-2 " style="font-weight: 400;">{{paymentMaster?.businessPartnerAddress || 'N/A' }}</span></h4>
+              <h4 class="font-14"><b>Address:</b> <span class="text-left d-block mt-2 "
+                  style="font-weight: 400;">{{paymentMaster?.businessPartnerAddress || 'N/A' }}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
           </div>
 
           <div class="print-col-6 p-s-2-one ml-auto" style="margin-top: 3%;">
             <div class="print-box-one">
-              <h4 class="font-14"><b>Bank Name:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.bankName || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>Bank Name:</b> <span class="float-right"
+                  style="font-weight: 400;">{{paymentMaster?.bankName || 'N/A'}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <h4 class="font-14"><b>Account Title:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.accountTitle || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>Account Title:</b> <span class="float-right"
+                  style="font-weight: 400;">{{paymentMaster?.accountTitle || 'N/A'}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <h4 class="font-14"><b>Account Number:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.accountNumber || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>Account Number:</b> <span class="float-right"
+                  style="font-weight: 400;">{{paymentMaster?.accountNumber || 'N/A'}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
             <div class="print-box-one">
-              <h4 class="font-14"><b>{{(this.selectedDocumented === 'Receipt') ? 'Instrument No' : 'Cheque No'}}:</b> <span class="float-right" style="font-weight: 400;">{{paymentMaster?.chequeNo || 'N/A'}}</span></h4>
+              <h4 class="font-14"><b>{{(this.selectedDocumented === 'Receipt') ? 'Instrument No' : 'Cheque No'}}:</b>
+                <span class="float-right" style="font-weight: 400;">{{paymentMaster?.chequeNo || 'N/A'}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
             </div>
           </div>
@@ -100,8 +113,9 @@
                   </tr>
                   <tr>
                     <td>{{paymentMaster?.accountName}}</td>
-                    <td  class="description text-left">{{paymentMaster?.description}}</td>
-                    <td class="text-right"><b>{{paymentMaster?.grossPayment.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</b></td>
+                    <td class="description text-left">{{paymentMaster?.description}}</td>
+                    <td class="text-right"><b>{{paymentMaster?.grossPayment.toLocaleString(undefined, {
+                        maximumFractionDigits: 2 })}}</b></td>
                   </tr>
                 </thead>
               </table>
@@ -111,27 +125,37 @@
           <div class="print-col-5  ml-auto p-s-3">
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">Sales Tax:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.salesTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right"
+                  style="font-weight: 500;">{{paymentMaster?.salesTaxInAmount?.toLocaleString(undefined, {
+                  maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">Income Tax:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.incomeTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right"
+                  style="font-weight: 500;">{{paymentMaster?.incomeTaxInAmount?.toLocaleString(undefined, {
+                  maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">SRB Tax:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.srbTaxInAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right"
+                  style="font-weight: 500;">{{paymentMaster?.srbTaxInAmount?.toLocaleString(undefined, {
+                  maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-one">
               <h4 class="net-payment">Deduction:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.deduction?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right"
+                  style="font-weight: 500;">{{paymentMaster?.deduction?.toLocaleString(undefined, {
+                  maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-two">
               <h4 class="net-payment-las">Net Payment:
-                <span class="float-right" style="font-weight: 500;">{{paymentMaster?.netPayment?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>
+                <span class="float-right"
+                  style="font-weight: 500;">{{paymentMaster?.netPayment?.toLocaleString(undefined, {
+                  maximumFractionDigits: 2 })}}</span>
               </h4>
             </div>
           </div>
@@ -151,7 +175,9 @@
             <p class="text-center">Deputy Director Finance</p>
           </div>
         </div>
-        <div class="row mt-10 ms-10 justify-content-center">
+
+
+        <div class="row mt-10 ms-10">
           <div class="print-col-4 p-s-5 text-center" style="overflow: hidden;">
             ______________________
             <p class="text-center">Resident Auditor</p>
@@ -160,7 +186,15 @@
             ______________________
             <p class="text-center">Director Finance</p>
           </div>
+          <div class="print-col-4 p-s-5 text-center" style="overflow: hidden;">
+            ______________________
+            <p class="text-center">Vice Chancellor</p>
+          </div>
         </div>
+
+
+
+
       </div>
     </div>
   </div>

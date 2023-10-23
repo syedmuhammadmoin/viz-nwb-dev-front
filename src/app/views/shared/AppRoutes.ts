@@ -47,7 +47,7 @@ export const APP_ROUTES = {
   //BUDGET
   BUDGET: 'budget',
   ESTIMATED_BUDGET: 'estimated-budget',
-  BUDGET_REAPPROPIATION: 'budget-reappropiation',
+  BUDGET_REAPPROPRIATION: 'budget-reappropriation',
 
   //PURCHASE
   DEBIT_NOTE: 'debit-note',
@@ -144,7 +144,8 @@ export const PAYROLL_REPORT = {
   TRANSACTION: 'transaction',
   ALLOWANCE: 'allowance',
   EXECUTIVE: 'executive',
-  BANK_ADVICE: 'bank-advice'
+  BANK_ADVICE: 'bank-advice',
+  TRANS_DETAIL: 'transaction-detail'
 }
 
 //ACCESS_MANAGEMENT SECTION
@@ -345,11 +346,11 @@ export const ESTIMATED_BUDGET = {
   }
 }
 
-export const BUDGET_REAPPROPIATION = {
-  LIST: APP_ROUTES.BUDGET_REAPPROPIATION + '/' + CRUD_ROUTES.LIST,
-  CREATE: APP_ROUTES.BUDGET_REAPPROPIATION + '/' + CRUD_ROUTES.CREATE,
+export const BUDGET_REAPPROPRIATION = {
+  LIST: APP_ROUTES.BUDGET_REAPPROPRIATION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.BUDGET_REAPPROPRIATION + '/' + CRUD_ROUTES.CREATE,
   ID_BASED_ROUTE(route: string, id: number) {
-    return APP_ROUTES.BUDGET_REAPPROPIATION + '/' + route + '/' + id
+    return APP_ROUTES.BUDGET_REAPPROPRIATION + '/' + route + '/' + id
   }
 }
 
@@ -597,6 +598,9 @@ export const PAYROLL_PROCESS = {
 export const PAYROLL_REPORTS = {
   TRANSACTION: {
     LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.TRANSACTION + '/' + CRUD_ROUTES.LIST
+  },
+  TRANS_DETAIL: {
+    LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.TRANS_DETAIL + '/' + CRUD_ROUTES.LIST
   },
   ALLOWANCE: {
     LIST: APP_ROUTES.PAYROLL_REPORTS + '/' + PAYROLL_REPORT.ALLOWANCE + '/' + CRUD_ROUTES.LIST

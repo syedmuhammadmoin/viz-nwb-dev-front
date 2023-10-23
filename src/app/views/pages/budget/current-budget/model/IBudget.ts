@@ -6,6 +6,7 @@ export interface IBudget {
     from: string;
     to: string;
     campusId: number;
+    isSubmit?: any;
     budgetLines: IBudgetLines[]
 }
 

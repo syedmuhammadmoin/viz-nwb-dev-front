@@ -139,10 +139,10 @@ const routes: Routes = [
         canActivateChild: [AuthGuard]
       },
       {
-        path: APP_ROUTES.BUDGET_REAPPROPIATION,
+        path: APP_ROUTES.BUDGET_REAPPROPRIATION,
         loadChildren: () =>
-          import('./views/pages/budget/budget-reappropiation/budget-reappropiation.module').then(
-            (m) => m.BudgetReappropiationModule
+          import('./views/pages/budget/budget-reappropriation/budget-reappropriation.module').then(
+            (m) => m.BudgetReappropriationModule
           ),
         canActivateChild: [AuthGuard]
       },

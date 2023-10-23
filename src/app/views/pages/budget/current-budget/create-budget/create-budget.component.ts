@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { ActivatedRoute, Params, Router} from '@angular/router';
-import { finalize, take} from 'rxjs/operators';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BUDGET } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -13,6 +13,9 @@ import { IBudgetLines } from '../model/IBudgetLines';
 import { IBudgetResponse } from '../model/IBudgetResponse';
 import { BudgetService } from '../service/budget.service';
 import { BudgetState } from '../store/budget.state';
+import { EstimatedBudgetService } from '../../estimated-budget/service/estimated-budget.service';
+import { IEstimatedBudget } from '../../estimated-budget/model/IEstimatedBudget';
+import { IEstimatedBudgetLines } from '../../estimated-budget/model/IEstimatedBudgetLines';
 
 @Component({
   selector: 'kt-create-budget',
@@ -26,6 +29,11 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   // Declaring form variable
   budgetForm: FormGroup;
 
+
+
+  //param to get from EstimatedBudget
+  isFromEstimatedBudget: boolean;
+  isBudget: boolean;
   //Title Name
   title: string = 'Create Estimated Budget'
 
@@ -33,6 +41,8 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   @ViewChild('formDirective') private formDirective: NgForm;
 
   budgetModel: IBudget;
+  estimatedBudgetModel: IEstimatedBudget = {} as IEstimatedBudget;
+
   totalAmount: number;
   budgetMaster: any;
 
@@ -40,7 +50,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   displayedColumns = ['accountId', 'amount', 'action']
 
   // Getting Table by id
-  @ViewChild('table', {static: false}) table: any;
+  @ViewChild('table', { static: false }) table: any;
 
   // Validation messages..
   validationMessages = {
@@ -71,12 +81,17 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
     private fb: FormBuilder,
     public addNewButtonService: AddModalButtonService,
     private budgetService: BudgetService,
+    private estimatedBudgetService: EstimatedBudgetService,
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
     public activatedRoute: ActivatedRoute,
     injector: Injector
   ) {
     super(injector)
+  }
+  //for save or submit
+  isSubmit(val: number) {
+    this.budgetModel.isSubmit = (val === 0) ? false : true;
   }
 
   ngOnInit(): void {
@@ -89,13 +104,20 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
         this.addBudgetLines()
       ])
     });
-    this.activatedRoute.params.subscribe((res: Params) => {
-      if (res && res.id) {
+    this.activatedRoute.queryParams.subscribe((res: Params) => {
+      const id = res.q;
+      const isBudget = res.isBudget;
+      const isFromEstimatedBudget = res.isFromEstimatedBudget;
+      if (res && id && isBudget) {
         this.isLoading = true;
-        this.title = 'Edit Estimated Budget'
-        this.getBudgetMaster(res.id);
+        this.title = 'Edit Budget'
+        this.getBudgetMaster(id);
         this.cdRef.markForCheck();
-      } else {
+      } else if (id && isFromEstimatedBudget) {
+        this.isLoading = true;
+        this.getEstimatedBudgetMaster(id);
+      }
+      else {
         this.budgetModel = ({} as IBudget)
       }
     })
@@ -107,21 +129,51 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   }
 
   public getBudgetMaster(id: any) {
-     this.budgetService.getBudgetById(id)
-     .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-     .subscribe((res: IApiResponse<IBudgetResponse>) => {
-      // for mapping, getting values from budgetMaster because of fields disablility
-      this.budgetMaster = res.result;
-      this.patchBudget(this.budgetMaster);
-      this.budgetModel = res.result;
-      this.totalAmountCalculation()
-    });
+    this.budgetService.getBudgetById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<IBudgetResponse>) => {
+        // for mapping, getting values from budgetMaster because of fields disablility
+        this.budgetMaster = res.result;
+        this.patchBudget(this.budgetMaster);
+        this.budgetModel = res.result;
+        this.totalAmountCalculation()
+      });
+  }
+
+  private MapIEstimatedBudgetToIBudget(source: IEstimatedBudget): IBudget {
+
+    const  target: IBudget = {} as IBudget;
+    target.budgetName = source.estimatedBudgetName;
+    target.campusId = source.campusId
+    target.from = source.from;
+    target.to = source.to;
+    target.budgetLines = source.estimatedBudgetLines;
+    return target;
+
+  }
+  public getEstimatedBudgetMaster(id: any) {
+    this.estimatedBudgetService.getEstimatedBudgetById(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<IEstimatedBudget>) => {
+        // for mapping, getting values from budgetMaster because of fields disablility
+        this.budgetMaster = res.result;
+        this.patchBudgetfromEstimatedBudget(this.budgetMaster);
+        this.estimatedBudgetModel = res.result;
+        this.budgetModel = this.MapIEstimatedBudgetToIBudget(res.result);
+        this.totalAmountCalculation()
+      });
   }
 
   public patchBudget(budgetMaster: IBudgetResponse) {
@@ -137,6 +189,26 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   private patchBudgetLines(budgetLines: IBudgetLines[]): FormArray {
     const formArray = new FormArray([]);
     budgetLines.forEach((line: IBudgetLines) => {
+      formArray.push(this.fb.group({
+        accountId: [line.accountId, [Validators.required]],
+        amount: [line.amount, [Validators.required, Validators.min(0)]],
+      }))
+    })
+    return formArray
+  }
+  public patchBudgetfromEstimatedBudget(estimatedBudgetMaster: IEstimatedBudget) {
+    this.budgetForm.patchValue({
+      budgetName: estimatedBudgetMaster.estimatedBudgetName,
+      from: estimatedBudgetMaster.from,
+      to: estimatedBudgetMaster.to,
+      campusId: estimatedBudgetMaster.campusId
+    });
+    this.budgetForm.setControl('budgetLines', this.patchBudgetLinesfromEstimatedBudget(estimatedBudgetMaster.estimatedBudgetLines));
+  }
+
+  private patchBudgetLinesfromEstimatedBudget(budgetLines: IEstimatedBudgetLines[]): FormArray {
+    const formArray = new FormArray([]);
+    budgetLines.forEach((line: IEstimatedBudgetLines) => {
       formArray.push(this.fb.group({
         accountId: [line.accountId, [Validators.required]],
         amount: [line.amount, [Validators.required, Validators.min(0)]],
@@ -204,32 +276,32 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
 
     if (this.budgetModel.id) {
       this.budgetService.updateBudget(this.budgetModel)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-       )
-       .subscribe(() => {
-        this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
-        this.toastService.success('Updated Successfully', 'Estimated Budget')
-        this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , this.budgetModel.id)])
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe(() => {
+          this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
+          this.toastService.success('Updated Successfully', 'Estimated Budget')
+          this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details', this.budgetModel.id)])
         });
     } else {
       delete this.budgetModel.id;
       this.budgetService.createBudget(this.budgetModel)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-       )
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
         .subscribe((res) => {
           this.ngxsService.store.dispatch(new IsReloadRequired(BudgetState, true));
           this.toastService.success('Created Successfully', 'Estimated Budget')
-          this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details' , res.result.id)])
+          this.router.navigate(['/' + BUDGET.ID_BASED_ROUTE('details', res.result.id)])
         });
     }
   }

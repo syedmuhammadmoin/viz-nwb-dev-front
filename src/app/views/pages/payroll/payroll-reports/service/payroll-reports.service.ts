@@ -31,6 +31,10 @@ export class PayrollReportsService {
     return this.httpClient.get<IPaginationResponse<any>>(AppConst.remoteServiceBaseUrl + 'payrollTransaction/Report', {params: data});
   }
 
+  getTransDetailReport(data: any): Observable<IPaginationResponse<any>> {
+    return this.httpClient.get<IPaginationResponse<any>>(AppConst.remoteServiceBaseUrl + 'payrollTransaction/DetailReport', {params: data});
+  }
+
   getExecutiveSummary(data: any): Observable<IPaginationResponse<any>> {
     return this.httpClient.post<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/PayrollExecutiveReport', data, {
       headers: new HttpHeaders({

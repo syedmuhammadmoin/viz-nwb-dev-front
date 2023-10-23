@@ -6,6 +6,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IEstimatedBudget } from '../model/IEstimatedBudget';
+import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,9 @@ export class EstimatedBudgetService extends AppServiceBase{
 
   getEstimatedBudgetById(id: number): Observable<IApiResponse<IEstimatedBudget>> {
     return this.httpClient.get<IApiResponse<IEstimatedBudget>>(this.baseUrl + '/' + id)
+  }
+  workflow(workflow: IWorkflow): Observable<any> {
+    return this.httpClient.post(this.baseUrl + '/workflow', workflow);
   }
 
   createEstimatedBudget(estimatedBudget: IEstimatedBudget): Observable<IApiResponse<IEstimatedBudget>> {

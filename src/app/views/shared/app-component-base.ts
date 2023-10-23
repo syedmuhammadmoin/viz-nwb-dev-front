@@ -1,11 +1,11 @@
-import {FormGroup, Validators} from '@angular/forms';
-import {DatePipe} from '@angular/common';
-import {Injector} from '@angular/core';
-import {ToastrService} from 'ngx-toastr';
-import {PermissionService} from '../pages/auth/service/permission.service';
-import {DateHelperService} from './helpers/date-helper';
-import {PaginationHelperService} from './pagination/pagination-helper.service';
-import {DocType} from './AppEnum';
+import { FormGroup, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+import { Injector } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { PermissionService } from '../pages/auth/service/permission.service';
+import { DateHelperService } from './helpers/date-helper';
+import { PaginationHelperService } from './pagination/pagination-helper.service';
+import { DocType } from './AppEnum';
 import {
   BILL,
   CREDIT_NOTE,
@@ -19,7 +19,7 @@ import {
   PURCHASE_ORDER,
   RECEIPT
 } from './AppRoutes';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 export abstract class AppComponentBase {
   datePipe: DatePipe
@@ -90,10 +90,10 @@ export abstract class AppComponentBase {
       convertedValue = Number(value);
       if (!sign) {
         formattedValue = Math.sign(convertedValue) === -1
-          ? '(' + Math.abs(convertedValue).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + ')'
-          : convertedValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+          ? '(' + Math.abs(convertedValue).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + ')'
+          : convertedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
       } else if (sign === '+ve') {
-        formattedValue = convertedValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})
+        formattedValue = convertedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })
       } else if (sign === '-ve') {
         formattedValue = '(' + Math.abs(convertedValue).toLocaleString(undefined, {
           minimumFractionDigits: 2,
@@ -108,7 +108,7 @@ export abstract class AppComponentBase {
 
   generateArrayOfYears(): any[] {
     const min = new Date().getFullYear() - 10
-    const max = min + 100
+    const max = min + 10
     const years = []
 
     for (let i = min; i <= max; i++) {

@@ -8,6 +8,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IBudgetReport } from '../model/IBudgetReport';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { IWorkflow } from '../../../purchase/vendorBill/model/IWorkflow';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,12 @@ export class BudgetService extends AppServiceBase {
   getBudgetById(id: number): Observable<IApiResponse<IBudgetResponse>> {
     return this.httpClient.get<IApiResponse<IBudgetResponse>>(this.baseUrl + '/' + id)
   }
+  workflow(workflow: IWorkflow): Observable<any> {
+    return this.httpClient.post(this.baseUrl + '/workflow', workflow);
+  }
 
   createBudget(budget: IBudget): Observable<IApiResponse<IBudgetResponse>> {
-    return this.httpClient.post<IApiResponse<IBudgetResponse>>(this.baseUrl , budget , {
+    return this.httpClient.post<IApiResponse<IBudgetResponse>>(this.baseUrl, budget, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
@@ -40,7 +44,7 @@ export class BudgetService extends AppServiceBase {
   }
 
   updateBudget(budget: IBudget): Observable<void> {
-    return this.httpClient.put<void>(this.baseUrl + '/' + budget.id , budget , {
+    return this.httpClient.put<void>(this.baseUrl + '/' + budget.id, budget, {
       headers: new HttpHeaders({
         'Content-Type': 'application/json'
       })
@@ -52,6 +56,6 @@ export class BudgetService extends AppServiceBase {
   }
 
   getRecords(params: any): Observable<any> {
-    return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.budgetName?.filter )});
+    return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, null, params?.filterModel?.budgetName?.filter) });
   }
 }

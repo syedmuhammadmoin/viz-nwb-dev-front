@@ -109,7 +109,9 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   typeList = [
     {id : 3 , viewValue: 'Supplier'},
     {id : 4 , viewValue: 'Consultant'},
-    {id : 5 , viewValue: 'Contractor'}
+    {id : 5 , viewValue: 'Contractor'},
+    {id : 6 , viewValue: 'Student'},
+    {id : 7 , viewValue: 'Service Provider'}
   ];
 
   ngOnInit() {

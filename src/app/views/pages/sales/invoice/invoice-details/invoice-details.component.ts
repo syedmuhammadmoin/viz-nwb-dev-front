@@ -83,30 +83,61 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
 
   //Defining Invoice Columns
   columnDefs = [
-    { 
-      headerName: 'Item', 
-      field: 'itemName', 
-      sortable: true, 
-      filter: true, 
+    {
+      headerName: 'Item',
+      field: 'itemName',
+      sortable: true,
+      filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return params.value || 'N/A'
       }
-     },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'COA', field: 'accountName', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    },
+    {
+      headerName: 'Description', field: 'description', sortable: false, filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
+    {
+      headerName: 'COA', field: 'accountName', sortable: false, filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
+    {
+      headerName: 'Quantity', field: 'quantity', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' }
+    },
     {
       headerName: 'Price',
       field: 'price',
-      filter: true,
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Tax %', field: 'tax', sortable: true, filter: true, cellStyle: { 'font-size': '12px' },
+      headerName: 'Tax %', field: 'tax', filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      }, cellStyle: { 'font-size': '12px' },
       cellRenderer: (params: ICellRendererParams) => {
         return params.data.tax + '%';
       }
@@ -114,18 +145,27 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     {
       headerName: 'Subtotal',
       field: 'subTotal',
-      filter: true,
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
         return this.valueFormatter(params.value)
       }
     },
-    { 
-      headerName: 'Store', 
-      field: 'warehouseName', 
-      sortable: true, 
-      filter: true, 
+    {
+      headerName: 'Store',
+      field: 'warehouseName',
       cellStyle: { 'font-size': '12px' },
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      filterParams: {
+        filterOptions: ['contains'],
+        suppressAndOrCondition: true,
+      },
       valueFormatter: (params: ICellRendererParams) => {
         return params.value || 'N/A'
       }
@@ -156,31 +196,31 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   //Getting invoice master data
   getInvoiceData(id: number) {
     this.invoiceService.getInvoiceById(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-    .subscribe((res: IApiResponse<IInvoice>) => {
-      this.invoiceMaster = res.result;
-      this.invoiceLines = res.result.invoiceLines;
-      this.totalBeforeTax = this.invoiceMaster.totalBeforeTax;
-      this.totalTax = this.invoiceMaster.totalTax;
-      this.totalInvoiceAmount = this.invoiceMaster.totalAmount;
-      this.status = this.invoiceMaster.status;
-      this.businessPartnerId = this.invoiceMaster.customerId;
-      this.ledgerId = this.invoiceMaster.ledgerId;
-      this.paidAmount = this.invoiceMaster.totalPaid;
-      this.pendingAmount = this.invoiceMaster.pendingAmount;
-      this.paidAmountList = this.invoiceMaster.paidAmountList == null ? [] : this.invoiceMaster.paidAmountList;
-      this.bpUnReconPaymentList = this.invoiceMaster.bpUnreconPaymentList == null ? [] : this.invoiceMaster.bpUnreconPaymentList;
-      this.remarksList = this.invoiceMaster.remarksList ?? [] 
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res: IApiResponse<IInvoice>) => {
+        this.invoiceMaster = res.result;
+        this.invoiceLines = res.result.invoiceLines;
+        this.totalBeforeTax = this.invoiceMaster.totalBeforeTax;
+        this.totalTax = this.invoiceMaster.totalTax;
+        this.totalInvoiceAmount = this.invoiceMaster.totalAmount;
+        this.status = this.invoiceMaster.status;
+        this.businessPartnerId = this.invoiceMaster.customerId;
+        this.ledgerId = this.invoiceMaster.ledgerId;
+        this.paidAmount = this.invoiceMaster.totalPaid;
+        this.pendingAmount = this.invoiceMaster.pendingAmount;
+        this.paidAmountList = this.invoiceMaster.paidAmountList == null ? [] : this.invoiceMaster.paidAmountList;
+        this.bpUnReconPaymentList = this.invoiceMaster.bpUnreconPaymentList == null ? [] : this.invoiceMaster.bpUnreconPaymentList;
+        this.remarksList = this.invoiceMaster.remarksList ?? []
 
-      this.cdRef.markForCheck();
-      this.cdRef.detectChanges();
-    });
+        this.cdRef.markForCheck();
+        this.cdRef.detectChanges();
+      });
   }
 
   //on dialogue open funtions
@@ -209,19 +249,19 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   reconcile(index: number) {
     this.mapTransactionReconModel(index);
     this.invoiceService.reconcilePayment(this.transactionReconModel)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
-      .subscribe(() => {
-          this.toastService.success('Reconciled Successfully', 'Invoice')
-          this.getInvoiceData(this.invoiceId);
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
           this.cdRef.detectChanges();
-          this.cdRef.markForCheck();
-        });
+        })
+      )
+      .subscribe(() => {
+        this.toastService.success('Reconciled Successfully', 'Invoice')
+        this.getInvoiceData(this.invoiceId);
+        this.cdRef.detectChanges();
+        this.cdRef.markForCheck();
+      });
   }
 
   mapTransactionReconModel(index: number) {
@@ -246,16 +286,16 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     })
   }
 
-  workflow(action: number , remarks: string) {
+  workflow(action: number, remarks: string) {
     this.isLoading = true
-    this.invoiceService.workflow({ action, docId: this.invoiceMaster.id , remarks })
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
+    this.invoiceService.workflow({ action, docId: this.invoiceMaster.id, remarks })
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
       .subscribe((res) => {
         this.getInvoiceData(this.invoiceId);
         this.cdRef.detectChanges();
