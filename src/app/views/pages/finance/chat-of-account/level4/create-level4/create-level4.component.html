@@ -47,7 +47,7 @@
                   (blurEvent)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)"
                   [errorMessage]="formErrors.level3"
                   placeholder="Select Head Account"
-                  [optionList]="chartOfAccountService.getLevel3AccountsDropdown()"
+                  [optionList]="level3List"
                   propertyValue="id"
                   matFormFieldClass="full-width"
                   propertyName="name">

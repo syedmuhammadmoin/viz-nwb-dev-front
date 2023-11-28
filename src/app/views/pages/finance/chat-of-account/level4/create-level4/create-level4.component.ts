@@ -1,9 +1,9 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit} from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { ILevel4} from '../model/ILevel4';
-import { Optional} from 'ag-grid-community';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { AppComponentBase} from '../../../../../shared/app-component-base';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ILevel4 } from '../model/ILevel4';
+import { Optional } from 'ag-grid-community';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { AppComponentBase } from '../../../../../shared/app-component-base';
 import { ChartOfAccountService } from '../../service/chart-of-account.service';
 import { finalize, take } from 'rxjs/operators';
 import { AccountLevel4State } from '../../store/account-level4.state';
@@ -15,13 +15,14 @@ import { OtherAccountState } from '../../store/other-account.state';
 import { AssetAccountState } from '../../store/asset-account.state';
 import { ExpenseAccountState } from '../../store/expense-account.state';
 import { GetLiabilityAccountsState } from '../../store/getLiabilityAccount.state';
+import { ILevel3 } from '../../level3/model/ILevel3';
 
 @Component({
   selector: 'kt-create-level4',
   templateUrl: './create-level4.component.html',
   styleUrls: ['./create-level4.component.scss']
 })
-  
+
 export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
   isLoading: boolean;
@@ -30,6 +31,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
   // Level4 Model
   level4Model: ILevel4;
+  level3List:ILevel3;
 
   // Validation messages..
   validationMessages = {
@@ -55,7 +57,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     private fb: FormBuilder,
     @Optional() @Inject(MAT_DIALOG_DATA) private data: any,
     public dialogRef: MatDialogRef<CreateLevel4Component>,
-    private cdRef : ChangeDetectorRef,
+    private cdRef: ChangeDetectorRef,
     private ngxsService: NgxsCustomService,
     public chartOfAccountService: ChartOfAccountService,
     injector: Injector
@@ -75,25 +77,28 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
       id: null,
       name: '',
       code: '',
-      editableName : null,
+      editableName: null,
       level3_id: null,
     }
-
+    this.chartOfAccountService.getLevel3AccountsDropdown()
+      .subscribe((res: any) => {
+        this.level3List = res.result;
+      })
     // getting data
     if (this.data.modelId) {
       this.isLoading = true;
       this.chartOfAccountService.getLevel4AccountById(this.data.modelId)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-       )
-      .subscribe((res: any) => {
-        this.level4Model = res.result;
-        this.patchLevel4Form(this.level4Model);
-      })
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res: any) => {
+          this.level4Model = res.result;
+          this.patchLevel4Form(this.level4Model);
+        })
     }
     if (this.data.parentId) {
       this.isLoading = true;
@@ -117,19 +122,19 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
       this.chartOfAccountService.updateLevel4Account(this.level4Model)
         .pipe(
           take(1),
-           finalize(() => {
+          finalize(() => {
             this.isLoading = false;
             this.cdRef.detectChanges();
-           })
-         )
+          })
+        )
         .subscribe(() => {
-          this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (AccountPayableState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (ExpenseAccountState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (GetLiabilityAccountsState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AccountLevel4State, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AccountPayableState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AccountReceivableState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(OtherAccountState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AssetAccountState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(ExpenseAccountState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(GetLiabilityAccountsState, true))
           this.toastService.success('Updated Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }
@@ -139,23 +144,23 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
       this.chartOfAccountService.createLevel4Account(this.level4Model)
         .pipe(
           take(1),
-           finalize(() => {
+          finalize(() => {
             this.isLoading = false;
             this.cdRef.detectChanges();
-           })
-         )
+          })
+        )
         .subscribe(() => {
-          this.ngxsService.store.dispatch(new IsReloadRequired (AccountLevel4State , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (AccountPayableState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (AccountReceivableState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (OtherAccountState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (AssetAccountState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (ExpenseAccountState , true))
-          this.ngxsService.store.dispatch(new IsReloadRequired (GetLiabilityAccountsState , true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AccountLevel4State, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AccountPayableState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AccountReceivableState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(OtherAccountState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(AssetAccountState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(ExpenseAccountState, true))
+          this.ngxsService.store.dispatch(new IsReloadRequired(GetLiabilityAccountsState, true))
           this.toastService.success('Created Successfully', 'Transactional Account');
           this.onCloseLevel4Dialog();
         }
-      );
+        );
     }
   }
 
