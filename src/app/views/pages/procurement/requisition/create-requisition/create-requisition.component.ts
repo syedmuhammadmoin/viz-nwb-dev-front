@@ -423,6 +423,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   // getting employee data by id
   getEmployee(id: number) {
+    this.isLoading = true;
     this.employeeService.getEmployeeById(id)
       .pipe(
         take(1),
@@ -508,17 +509,25 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
       const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise()
       this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.enable();
       this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
-      this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : []
+      this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : [];
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.quantity.setValue('');
       this.cdRef.detectChanges()
     }
     else {
       this.fixedAssetsDropdown[curretIndex] = [];
-      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.setValue('');
-      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
-      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
+      const fixedAsset = this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.fixedAssetId
+      if(fixedAsset.value !== '') {
+        this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.quantity.setValue('');
+      }
+      fixedAsset.setValue('');
+      fixedAsset.clearValidators();
+      fixedAsset.updateValueAndValidity();
+      this.requisitionForm.get('requisitionLines')['controls'][curretIndex].controls.quantity.enable();
     }
+  }
 
-    // this.logValidationErrors(this.issuanceForm, this.formErrors , this.validationMessages);
-
+  onAssetSelected(i: number) {
+    this.requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.disable();
+    this.requisitionForm.get('requisitionLines')['controls'][i].controls.quantity.setValue(1);
   }
 }

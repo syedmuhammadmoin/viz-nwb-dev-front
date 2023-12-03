@@ -14,7 +14,7 @@
             <div class="btn_container">
               <div class="col-md-6 col-6">
                 <ng-container ktPortletTools>
-                  <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT))"
+                  <button *ngIf="(permission.isGranted(permissions.ESTIMATED_BUDGET_EDIT) && (budgetMaster?.state === docStatus.Draft || budgetMaster?.state === docStatus.Rejected))"
                     [routerLink]="'/' + BUDGET_REAPPROPRIATION.ID_BASED_ROUTE('edit', budgetMaster?.id)"
                     [queryParams]="{q: budgetMaster?.id, 'isBudgetReappropriation': true}" type="button" class="btn_public">
                     <i class="fa fa-edit icon-e-p-a"></i> Edit
