@@ -45,7 +45,6 @@
                   <tr>
                     <th>S.No</th>
                     <th>COA</th>
-                    <th>Campus</th>
                     <th>Description</th>
                     <th>AdditionAmount</th>
                     <th class="text-center">DeletionAmount</th>
@@ -53,7 +52,6 @@
                   <tr *ngFor="let line of budgetReapprolines; index as i">
                     <td>{{i + 1}}</td>
                     <td>{{line?.level4}}</td>
-                    <td><b> {{line?.campus}}</b></td>
                     <td>{{line?.description}}</td>
                     <td class="text-right"><b>{{line?.additionAmount}}</b></td>
                     <td class="text-right"><b>{{line?.deletionAmount}}</b> </td>
