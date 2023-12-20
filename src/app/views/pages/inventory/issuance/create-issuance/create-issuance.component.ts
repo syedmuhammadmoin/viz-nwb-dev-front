@@ -351,6 +351,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   // getting employee data by id
   // using isEdit here to avoid onCampusSelected(...) method, which sets all stores values to null
   getEmployee(id: number, isEdit: boolean = false) {
+    this.isLoading = true;
     this.employeeService.getEmployeeById(id)
       .pipe(
         take(1),
@@ -414,10 +415,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
     this.ngxsService.products$
       .subscribe((res) => {
-        console.log(res);
         this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
-
-
       })
 
     if (this.isFixedAsset) {
@@ -425,16 +423,24 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.enable();
       this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
       this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : []
+      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.quantity.setValue('');
       this.cdRef.detectChanges()
     }
     else {
       this.fixedAssetsDropdown[curretIndex] = [];
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.setValue('');
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
+      const fixedAsset = this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId;
+      if(fixedAsset.value !== '') {
+        this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.quantity.setValue('');
+      }
+      fixedAsset.setValue('');
+      fixedAsset.clearValidators();
+      fixedAsset.updateValueAndValidity();
+      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.quantity.enable();
     }
-
-
   }
 
+  onAssetSelected(i: number) {
+    this.issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.disable();
+    this.issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.setValue(1);
+  }
 }

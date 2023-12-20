@@ -269,6 +269,7 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
 
   // getting employee data by id
   getEmployee(id: number) {
+    this.isLoading = true;
     this.employeeService.getEmployeeById(id)
       .pipe(
         take(1),
