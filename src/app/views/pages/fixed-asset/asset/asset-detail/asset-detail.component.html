@@ -29,6 +29,9 @@
                         *ngIf="assetMaster?.state === docStatus.Unpaid && permission.isGranted(permissions.ASSET_EDIT)" class="mr-2 btn_public" id="asset_edit" type="button">
                   <i class="fa fa-edit"></i> Edit
                 </button>
+                <button (click)="depreciationSchedule()" class="mr-2 btn_public" id="asset_disposed" type="button">
+                  Depreciation Schedule
+                </button>
                 <button (click)="conformationDailog()"
                         *ngIf="(!assetMaster?.isIssued && !assetMaster?.isReserved && !assetMaster?.isHeldforSaleOrDisposal &&  !assetMaster?.isDisposed && assetMaster?.state !== docStatus.Draft)"
                         class="mr-2 btn_public" id="asset_disposed" type="button">

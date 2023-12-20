@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
-import { MatDialog } from '@angular/material/Dialog'
+import { MatDialog} from '@angular/material/dialog';
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';

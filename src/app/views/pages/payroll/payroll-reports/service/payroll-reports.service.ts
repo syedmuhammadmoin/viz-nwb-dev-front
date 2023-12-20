@@ -46,4 +46,24 @@ export class PayrollReportsService {
   getBankAdviceReport(data: any): Observable<IPaginationResponse<any>> {
     return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/BankAdviceReport', {params: data});
   }
+
+  downloadTransactionDetailReport(model: any):  Observable<IPaginationResponse<any>> {
+    // let url = AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}FromDate=${model.fromDate}&ToDate=${model.toDate}`;
+    // if (model.employeeId) {
+    //   url = url + `&EmployeeId=${model.EmployeeId}`;
+    // }
+    // if (model.designation) {
+    //   url = url + `&Designation=${model.designation}`;
+    // }
+    // if (model.department) {
+    //   url = url + `&Department=${model.department}`;
+    // }
+    // if (model.campus) {
+    //   url = url + `&Campus=${model.campus}`;
+    // }
+    // return url;
+    // return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/ExportPayrollDetailedReport', {params: model});
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}&FromDate=${model.fromDate}&
+    ToDate=${model.toDate}`);
+  }
 }

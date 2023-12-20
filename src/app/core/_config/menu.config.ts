@@ -814,6 +814,13 @@ export class MenuConfig {
                   permission: [
                     Permissions.ASSET_REPORT_VIEW,
                   ]
+                },
+                {
+                  title: 'Register Asset Report',
+                  page: '/' + ASSET_REPORT.REGISTER_ASSET,
+                  permission: [
+                    Permissions.ASSET_REPORT_VIEW,
+                  ]
                 }
               ]
             },
