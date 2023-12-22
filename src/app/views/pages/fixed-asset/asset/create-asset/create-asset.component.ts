@@ -101,11 +101,11 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       required: 'Cost is required.',
       min: 'Minimum value is 0.',
     },
-    quantity: {
-      required: 'Quantinty is required.',
-      min: 'Minimum value is 1.',
-      max: 'Maximum value is 1000.',
-    },
+    // quantity: {
+    //   required: 'Quantinty is required.',
+    //   min: 'Minimum value is 1.',
+    //   max: 'Maximum value is 1000.',
+    // },
     productId: {
       required: 'Product is required.',
     },
@@ -149,7 +149,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     dateofAcquisition: '',
     name: '',
     cost: '',
-    quantity: '',
+    //quantity: '',
     productId: '',
     warehouseId: '',
     depreciationModelId: '',
@@ -187,7 +187,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       dateofAcquisition: ['', [Validators.required]],
       name: ['', Validators.compose([Validators.required, Validators.minLength(3), Validators.maxLength(50)])],
       cost: ['', [Validators.required, Validators.min(0)]],
-      quantity: [''],
+      //quantity: [''],
       productId: ['', [Validators.required]],
       salvageValue: [0],
       warehouseId: ['', [Validators.required]],
@@ -232,13 +232,13 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       isActive: false,
       docId: null,
       doctype: null,
-      quantity: null,
+      //quantity: null,
       isSubmit: false,
 
     }
 
     this.onChangeDepApplicability(this.assetForm.value.depreciationApplicability)
-    this.assetForm.get('quantity').setValidators([Validators.required, Validators.min(1), Validators.max(1000)])
+    //this.assetForm.get('quantity').setValidators([Validators.required, Validators.min(1), Validators.max(1000)])
     this.isQuantity = true
 
 
@@ -282,7 +282,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
         this.assetForm.get('depreciationApplicability').disable();
         this.assetForm.get('name').disable();
         this.assetForm.get('cost').disable();
-        this.assetForm.get('quantity').disable();
+        //this.assetForm.get('quantity').disable();
         this.assetForm.get('productId').disable();
         this.assetForm.get('warehouseId').disable();
         this.assetForm.get('depreciationModelId').disable();
@@ -293,8 +293,8 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
         this.assetForm.get('assetAccountId').disable();
         this.assetForm.get('prorataBasis').disable();
       }
-      this.assetForm.get('quantity').clearValidators();
-      this.assetForm.get('quantity').updateValueAndValidity();
+      //this.assetForm.get('quantity').clearValidators();
+      //this.assetForm.get('quantity').updateValueAndValidity();
       this.logValidationErrors(this.assetForm, this.formErrors, this.validationMessages);
     }
 
@@ -402,7 +402,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       dateofAcquisition: asset.dateofAcquisition,
       name: asset.name,
       cost: asset.cost,
-      quantity: asset.quantity,
+      //quantity: asset.quantity,
       productId: asset.productId,
       salvageValue: asset.salvageValue,
       warehouseId: asset.warehouseId,
@@ -610,7 +610,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetModel.dateofAcquisition = this.dateHelperService.transformDate(this.assetForm.value.dateofAcquisition, 'yyyy-MM-dd'),
       this.assetModel.name = this.assetForm.value.name,
       this.assetModel.cost = this.assetForm.value.cost,
-      this.assetModel.quantity = this.assetForm.value.quantity,
+      this.assetModel.quantity = 1,
       this.assetModel.productId = this.assetForm.value.productId,
       this.assetModel.salvageValue = (this.assetForm.value.salvageValue) ? this.assetForm.value.salvageValue : 0,
       this.assetModel.warehouseId = this.assetForm.value.warehouseId,
@@ -698,7 +698,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       dateofAcquisition: grnData.grnDate,
       name: grnLine.item,
       cost: grnLine.cost,
-      quantity: grnLine.quantity,
+      //quantity: grnLine.quantity,
       productId: grnLine.itemId,
       warehouseId: grnLine.warehouseId,
       depreciationApplicability: true,
@@ -709,7 +709,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetForm.get('dateofAcquisition').disable();
     this.assetForm.get('name').disable();
     this.assetForm.get('cost').disable();
-    this.assetForm.get('quantity').disable();
+    //this.assetForm.get('quantity').disable();
     this.assetForm.get('productId').disable();
     this.assetForm.get('warehouseId').disable();
     this.assetForm.get('depreciationApplicability').disable();
@@ -723,7 +723,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     this.assetForm.get('dateofAcquisition').enable();
     this.assetForm.get('name').enable();
     this.assetForm.get('cost').enable();
-    this.assetForm.get('quantity').enable();
+    //this.assetForm.get('quantity').enable();
     this.assetForm.get('productId').enable();
     this.assetForm.get('warehouseId').enable();
     this.assetForm.get('depreciationApplicability').enable();
@@ -731,8 +731,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   getCost(e) {
 
-    if ((this.assetForm.get('cost').value) && (this.assetForm.get('quantity').value) && (this.assetForm.get('cost').value > 0)) {
-      this.perProductCost = (this.assetForm.get('cost').value) / (this.assetForm.get('quantity').value)
+    // if ((this.assetForm.get('cost').value) && (this.assetForm.get('quantity').value) && (this.assetForm.get('cost').value > 0)) {
+      if ((this.assetForm.get('cost').value) && (this.assetForm.get('cost').value > 0)) {
+      this.perProductCost = (this.assetForm.get('cost').value);
       this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
       console.log('first')

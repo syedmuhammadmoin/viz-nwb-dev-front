@@ -8,6 +8,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { AssetRoutingModule } from './asset-routing.module';
 import { AssetDetailComponent } from './asset-detail/asset-detail.component';
 import { PrintAssetComponent } from './print-asset/print-asset.component';
+import { ScheduleDepreciationComponent } from './schedule-depreciation/schedule-depreciation.component';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { PrintAssetComponent } from './print-asset/print-asset.component';
     CreateAssetComponent,
     ListAssetComponent,
     AssetDetailComponent,
-    PrintAssetComponent],
+    PrintAssetComponent,
+    ScheduleDepreciationComponent
+  ],
     
   imports: [
     SharedModule,
@@ -23,6 +26,6 @@ import { PrintAssetComponent } from './print-asset/print-asset.component';
     AssetRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
-  entryComponents : [CreateAssetComponent]
+  entryComponents : [CreateAssetComponent, ScheduleDepreciationComponent]
 })
 export class AssetModule { }

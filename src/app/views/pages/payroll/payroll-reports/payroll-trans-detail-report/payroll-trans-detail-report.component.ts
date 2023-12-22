@@ -261,4 +261,29 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
   getLatestEmployeeData() {
     this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState , true))
   }
+
+  downloadTransactionReport() {
+    if (this.transactionDetailReportForm.invalid) {
+      this.logValidationErrors(this.transactionDetailReportForm, this.formErrors, this.validationMessages)
+      this.transactionDetailReportForm.markAllAsTouched();
+      return;
+    }
+    this.mapFormValueToModel()
+    this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel).subscribe((data: any) => {
+      let downloadedFile: Blob
+    if (data instanceof Blob) {
+      downloadedFile = data
+    } else {
+      downloadedFile = new Blob([data.body], { type: data.type });
+    }
+    const a = document.createElement('a');
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    a.download = 'file.name' + '.xlsx';
+    a.href = URL.createObjectURL(downloadedFile);
+    a.target = '_blank';
+    a.click();
+    document.body.removeChild(a);
+    });
+  }
 }
