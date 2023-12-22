@@ -96,7 +96,7 @@
                               <kt-simple-dropdown 
                               propertyValue="id" 
                               propertyName="productName"                               
-                              [optionList]="ngxsService.products$"
+                              [optionList]="productList"
                               [id]="'issuance_item_' + i"
                               formControlName="itemId"
                               (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"

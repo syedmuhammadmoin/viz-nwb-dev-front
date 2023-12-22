@@ -68,16 +68,11 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
     return this.formControl || this.controlContainer.control.get(this.formControlName);
   }
 
-  constructor(
-    private controlContainer: ControlContainer,
-    private cdRef: ChangeDetectorRef
-  ) {
-  }
+  constructor(private controlContainer: ControlContainer) { }
 
   // For Getting diff Dropdown Data in issuance throug item dropdown && !changes.optionList.previousValue
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log({changes});
     if (changes && changes.optionList && changes.optionList.currentValue) {
       this.optionList = changes.optionList.currentValue
       this.ngOnInit()
@@ -85,10 +80,8 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   }
 
   ngOnInit(): void {
-    console.log('dropdown init');
 
     if (this.optionList instanceof Observable) {
-      console.log('if (this.optionList instanceof Observable)');
       this.isLoading = true;
       this.optionList.subscribe((res) => {
         this.options = (res && res.result) ? res.result : res;
@@ -108,8 +101,6 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
         }
       })
     } else {
-      console.log('else', this.optionList);
-
       this.options = this.callBackFunction ? this.optionList.flatMap(this.callBackFunction) : this.optionList;
       // @ts-ignore
       this.filteredOptionList.next(this.options?.slice());
