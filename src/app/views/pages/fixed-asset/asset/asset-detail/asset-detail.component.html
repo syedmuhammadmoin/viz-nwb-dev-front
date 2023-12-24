@@ -29,7 +29,7 @@
                         *ngIf="assetMaster?.state === docStatus.Unpaid && permission.isGranted(permissions.ASSET_EDIT)" class="mr-2 btn_public" id="asset_edit" type="button">
                   <i class="fa fa-edit"></i> Edit
                 </button>
-                <button (click)="depreciationSchedule()" class="mr-2 btn_public" id="asset_disposed" type="button">
+                <button *ngIf="shouldShowDepreciationButton()" (click)="depreciationSchedule()" class="mr-2 btn_public" id="asset_disposed" type="button">
                   Depreciation Schedule
                 </button>
                 <button (click)="conformationDailog()"
@@ -59,7 +59,7 @@
           <div class="col-md-6 col-lg-6  mt-3">
             <div class="print-box">
               <h4>Name:
-                <span class="float-right">{{assetMaster?.name}}</span>
+                <span class="float-right">{{assetMaster?.id}} - {{assetMaster?.name}}</span>
               </h4>
             </div>
             <div class="print-box">

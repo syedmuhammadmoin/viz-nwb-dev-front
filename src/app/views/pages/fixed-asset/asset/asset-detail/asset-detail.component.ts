@@ -147,7 +147,9 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
         this.cdRef.detectChanges();
       })
   }
-
+  shouldShowDepreciationButton(): boolean {
+    return this.assetMaster?.depreciationApplicability === true;
+  }
   editAsset(id?: number): void {
     this.dialog.open(CreateAssetComponent, {
       width: '800px',
