@@ -64,7 +64,8 @@ import {
   WORKFLOW,
   DISTRICT,
   DOMICILE,
-  FEE_ITEM
+  FEE_ITEM,
+  PETTY_CASH
 } from 'src/app/views/shared/AppRoutes';
 
 
@@ -364,6 +365,18 @@ export class MenuConfig {
                 Permissions.JOURNALENTRY_DELETE,
                 Permissions.JOURNALENTRY_REVIEW,
                 Permissions.JOURNALENTRY_APPROVE,
+              ]
+            },
+            {
+              title: 'Petty Cash',
+              page: '/' + PETTY_CASH.LIST,
+              permission: [
+                Permissions.PETTYCASH_VIEW,
+                Permissions.PETTYCASH_CREATE,
+                Permissions.PETTYCASH_EDIT,
+                Permissions.PETTYCASH_DELETE,
+                Permissions.PETTYCASH_REVIEW,
+                Permissions.PETTYCASH_APPROVE,
               ]
             },
             {
