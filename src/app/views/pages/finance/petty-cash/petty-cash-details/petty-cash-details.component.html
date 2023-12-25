@@ -15,9 +15,9 @@
               <div class="col-md-6 col-6">
                 <ng-container ktPortletTools >
                   <button  *ngIf="(pettyEntryMaster?.state === docStatus.Draft || pettyEntryMaster?.state === docStatus.Rejected) &&
-                    (permission.isGranted(permissions.PETTYCASH_EDIT))" id="journal_edit"
+                    (permission.isGranted(permissions.PETTYCASH_EDIT))" id="pettycash_edit"
                     [routerLink]="'/' + pettyEntryRoute.ID_BASED_ROUTE('edit' , pettyEntryMaster?.id)"
-                    [queryParams]="{q: pettyEntryMaster?.id, 'isPettyEntry': true}" type="button"  class="btn_public mr-3">
+                    [queryParams]="{q: pettyEntryMaster?.id, 'isPettyCash': true}" type="button"  class="btn_public mr-3">
                     <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
                   <button *ngIf="(permission.isGranted(permissions.PETTYCASH_EDIT))"  class="btn_public mr-3"

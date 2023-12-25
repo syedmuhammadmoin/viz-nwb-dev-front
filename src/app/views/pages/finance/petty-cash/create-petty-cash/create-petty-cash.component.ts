@@ -67,7 +67,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     campusId: {
       required: 'Campus is required.',
     },
-    account: {
+    accountId: {
       required: ' COA is required',
     }
 
@@ -77,7 +77,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   formErrors = {
     date: '',   
     campusId: '',
-    account: '',
+    accountId: '',
   }
 
   //Injecting Dependencies
@@ -100,8 +100,11 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   ngOnInit() {
     this.pettyCashForm = this.fb.group({
       date: ['', [Validators.required]],
-      account: ['',[Validators.required]],
+      accountId: ['',[Validators.required]],
       campusId: ['',[Validators.required]],
+      description: [''],
+      openingBalance:[''],
+      closingBalance:[''],
       pettycashLines: this.fb.array([ 
         this.addPettyCashEntryLines()
       ])
@@ -194,7 +197,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     this.totalCalculation();
   }
 
-  //Get Petty Cash Entry Data for Edit  getPettyCashEntry
+  //Get Petty Cash Entry Data for Edit  
   private getPettyCashEntry(id: number) {
     this.isLoading = true;
     this.pettyCashService.getPettyCashEntryById(id)
@@ -219,7 +222,11 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     this.pettyCashForm.patchValue({
       date: pettyEntry.date,
       description: pettyEntry.description,
-      campusId: pettyEntry.campusId
+      campusId: pettyEntry.campusId,
+      openingBalance: pettyEntry.openingBalance,
+      closingBalance: pettyEntry.closingBalance,
+      accountId: pettyEntry.accountId
+      
     });
 
     this.onCampusSelected(pettyEntry.campusId)
@@ -309,6 +316,9 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     this.pettyCashModel.date = this.transformDate(this.pettyCashForm.value.date, 'yyyy-MM-dd');
     this.pettyCashModel.description = this.pettyCashForm.value.description;
     this.pettyCashModel.campusId = this.pettyCashForm.value.campusId;
+    this.pettyCashModel.openingBalance = this.pettyCashForm.value.openingBalance;
+    this.pettyCashModel.closingBalance = this.pettyCashForm.value.closingBalance;
+    this.pettyCashModel.accountId = this.pettyCashForm.value.accountId;
     this.pettyCashModel.pettyCashLines = this.pettyCashForm.getRawValue().pettycashLines;
   }
 

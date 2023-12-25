@@ -105,13 +105,13 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
       }
     },
     {
-      headerName: 'Store',
-      field: 'warehouseName',
+      headerName: 'Date',
+      field: 'date',
       sortable: true,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ICellRendererParams) => {
-        return params.value || 'N/A'
+        return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },
   ];

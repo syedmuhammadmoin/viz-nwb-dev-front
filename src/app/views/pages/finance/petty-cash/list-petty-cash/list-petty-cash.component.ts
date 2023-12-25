@@ -78,6 +78,18 @@ export class ListPettyCashComponent extends AppComponentBase implements OnInit {
       suppressMenu: true,
     },
     {
+      headerName: 'Opening Balance',
+      field: 'openingBalance',
+      tooltipField: 'docNo',
+      suppressMenu: true,
+    },
+    {
+      headerName: 'Closing Balance',
+      field: 'closingBalance',
+      tooltipField: 'docNo',
+      suppressMenu: true,
+    },
+    {
       headerName: 'Debit',
       field: 'totalDebit',
       headerClass: 'custom_left',

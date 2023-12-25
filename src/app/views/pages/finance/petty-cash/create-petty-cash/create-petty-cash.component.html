@@ -9,8 +9,8 @@
             <div class="row mt-1 mb-0">
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">JV Date:</label>
-                  <kt-date-input formControlName="date" placeholder="JV Date" [maxDate]="dateLimit"
+                  <label class="col-form-label pt-0">PC Date:</label>
+                  <kt-date-input formControlName="date" placeholder="Petty Cash Date" [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="formErrors.date" matFormFieldClass="full-width">
                   </kt-date-input>
@@ -56,9 +56,9 @@
                       placeholder="Select Detailed Head"
                       propertyValue="id"
                       propertyName="name"
-                      formControlName="account"
+                      formControlName="accountId"
                       matFormFieldClass="full-width"
-                      [errorMessage]="formErrors.account"
+                      [errorMessage]="formErrors.accountId"
                       (blurEvent)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)"
                       [optionList]="ngxsService.accountsLevel4$">
                     </kt-simple-dropdown>
