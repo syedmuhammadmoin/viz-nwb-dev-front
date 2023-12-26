@@ -46,7 +46,7 @@ export class ListPettyCashComponent extends AppComponentBase implements OnInit {
   //Defining AG Grid Columns
   columnDefs = [
     {
-      headerName: 'JV #',
+      headerName: 'Doc #',
       field: 'docNo',
       tooltipField: 'docNo',
       cellRenderer: "loadingCellRenderer",
@@ -82,12 +82,18 @@ export class ListPettyCashComponent extends AppComponentBase implements OnInit {
       field: 'openingBalance',
       tooltipField: 'docNo',
       suppressMenu: true,
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
     },
     {
       headerName: 'Closing Balance',
       field: 'closingBalance',
       tooltipField: 'docNo',
       suppressMenu: true,
+      valueFormatter: (params: ValueFormatterParams) => {
+        return this.valueFormatter(params.value)
+      }
     },
     {
       headerName: 'Debit',

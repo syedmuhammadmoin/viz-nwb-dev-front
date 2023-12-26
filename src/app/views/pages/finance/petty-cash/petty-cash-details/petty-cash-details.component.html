@@ -2,7 +2,7 @@
     <kt-portlet>
       <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
   
-      <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Petty Cash Entry Detail'">
+      <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Petty Cash Detail'">
         <ng-container class="" ktPortletTools>
           <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[pettyEntryMaster?.state]}}"></span> {{pettyEntryMaster?.status}}</div>
         </ng-container>
@@ -41,12 +41,20 @@
                     <p style="margin-bottom: 0px;"></p>
                 </div>
                 <div class="print-box">
-                    <h4 class="print-box-detail-2"><b>JV Date: </b>
+                    <h4 class="print-box-detail-2"><b>Document Date: </b>
                         <span class="float-right" style="font-weight: 400;">{{pettyEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
                 </div>
                 <div class="print-box">
                   <h4 class="print-box-detail-2"><b>Campus: </b>
                       <span class="float-right" style="font-weight: 400;">{{pettyEntryMaster?.campusName || 'N/A'}}</span></h4>
+                </div>
+                <div class="print-box">
+                  <h4 class="print-box-detail-2"><b>Opening Balance: </b>
+                      <span class="float-right" style="font-weight: 400;">{{valueFormatter(pettyEntryMaster?.openingBalance || 0)}}</span></h4>
+                </div>
+                <div class="print-box">
+                  <h4 class="print-box-detail-2"><b>Closing Balance: </b>
+                      <span class="float-right" style="font-weight: 400;">{{valueFormatter(pettyEntryMaster?.closingBalance || 0)}}</span></h4>
                 </div>
                 <div class="print-box">
                   <h4 class="print-box-detail-2"><b>Description: </b>

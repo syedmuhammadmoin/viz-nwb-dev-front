@@ -62,7 +62,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   // Validation messages
   validationMessages = {
     date: {
-      required: 'JV Date is required.',
+      required: 'Petty Cash Date is required.',
     },
     campusId: {
       required: 'Campus is required.',
@@ -343,11 +343,6 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
       this.warehouseList.next(res.result || [])
     })
 
-    if(this.pettyCashForm.value.pettycashLines.some(line => line.warehouseId)){
-      this.toastService.info("Please Reselect Store!" , "Petty Cash Entry")
-    }
-
-     this.pettyCashForm.get('pettycashLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-     this.cdRef.detectChanges()
+    
   }
 }

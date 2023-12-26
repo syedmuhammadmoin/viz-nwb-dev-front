@@ -32,14 +32,14 @@
                 <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
                 margin-bottom: 10px;
                 text-align: center;">
-                  <h4>JOURNAL ENTRY</h4>
+                  <h4>PETTY CASH</h4>
                 </div>
                 <div class="print-box-one">
                   <h4 class="print-page-items">Document No: <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.docNo}}</span></h4>
                   <p style="margin-bottom: 0px;"></p>
                 </div>
                 <div class="print-box-two">
-                  <h4 class="mt-1">JV Date: <span class="float-right" style="font-weight: 400;">
+                  <h4 class="mt-1">Document Date: <span class="float-right" style="font-weight: 400;">
                     {{journalEntryMaster?.date | date: 'MMM d, y'}}</span></h4>
                 </div>
                 <div class="print-box-two">
@@ -60,6 +60,15 @@
             <div class="print-col-5 p-s-2-one">
               <div class="print-box-one">
                 <h4 class="font-14"><b>Campus:</b> <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.campusName}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Opening Balance:</b> <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.openingBalance)}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Closing Balance:</b> <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.closingBalance)}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
               <div class="print-box-two">
