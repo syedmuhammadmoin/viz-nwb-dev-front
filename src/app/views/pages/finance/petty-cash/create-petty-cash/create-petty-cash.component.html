@@ -10,7 +10,7 @@
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Document Date:</label>
-                  <kt-date-input formControlName="date" placeholder="Petty Cash Date" [maxDate]="dateLimit"
+                  <kt-date-input formControlName="date" placeholder="Document Date" [maxDate]="dateLimit"
                     (blurEvent)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="formErrors.date" matFormFieldClass="full-width">
                   </kt-date-input>
@@ -40,7 +40,7 @@
                   <label class="col-form-label pt-0">Description:</label>
                   <kt-input-field formControlName="description" placeholder="Enter Description" id="journal_description"
                   (blurEvent)="logValidationErrors(pettyCashForm, this.formErrors, this.validationMessages)"
-                    >
+                  [errorMessage]="[{ condition : formErrors.description , error : formErrors.description }]" >
                   </kt-input-field>
                 </div>
               </div>
@@ -50,7 +50,7 @@
                
               <div class="col-lg-4 col-md-4 col-sm-4">
                 <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">COA:</label>
+                    <label class="col-form-label pt-0">Petty Cash Account:</label>
                     <kt-simple-dropdown
                     id="payment_coa"
                       placeholder="Select Detailed Head"

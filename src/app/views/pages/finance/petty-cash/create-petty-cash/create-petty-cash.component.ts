@@ -49,7 +49,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   debitTotal: number = 0;
   creditTotal: number = 0;
 
-  title: string = 'Create Petty Cash'
+  title: string = 'Create Petty Cash Entries'
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -69,6 +69,9 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     },
     accountId: {
       required: ' COA is required',
+    },
+    description: {
+      required: ' Description is required',
     }
 
   }
@@ -78,6 +81,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     date: '',   
     campusId: '',
     accountId: '',
+    description: '',
   }
 
   //Injecting Dependencies
@@ -102,7 +106,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
       date: ['', [Validators.required]],
       accountId: ['',[Validators.required]],
       campusId: ['',[Validators.required]],
-      description: [''],
+      description: ['',[Validators.required]],
       openingBalance:[''],
       closingBalance:[''],
       pettycashLines: this.fb.array([ 
@@ -270,11 +274,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
       this.toastService.error("Please fill all required fields!", "Petty Cash Entry")
       return;
     }
-
-    if (this.debitTotal !== this.creditTotal) {
-      this.toastService.error('Sum of Debit and Credit is not Equal', 'Petty Cash Entry')
-      return
-    }
+  
 
     this.isLoading = true;
     this.mapFormValuesToPettyCashEntryModel();
