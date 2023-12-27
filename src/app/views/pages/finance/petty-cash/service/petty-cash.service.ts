@@ -24,6 +24,10 @@ export class PettyCashService extends AppServiceBase {
   getPettyCashEntryById(id: number): Observable<IApiResponse<IPettyCashEntry>> {
     return this.httpClient.get<IApiResponse<IPettyCashEntry>>(this.baseUrl + '/' + id)
   }
+  
+  getOpeningBalance(id: number): Observable<IApiResponse<[]>> {
+    return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + "/" + id)
+  }
 
   addPettyCashEntry(pettycashEntry: IPettyCashEntry): Observable<IApiResponse<IPettyCashEntry>> {
     return this.httpClient.post<IApiResponse<IPettyCashEntry>>(this.baseUrl, pettycashEntry, {

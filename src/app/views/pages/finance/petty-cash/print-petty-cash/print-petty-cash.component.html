@@ -71,6 +71,10 @@
                 <h4 class="font-14"><b>Closing Balance:</b> <span class="float-right" style="font-weight: 400;">{{valueFormatter(journalEntryMaster?.closingBalance)}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
               </div>
+              <div class="print-box-one">
+                <h4 class="font-14"><b>Petty Cash Account:</b> <span class="float-right" style="font-weight: 400;">{{journalEntryMaster?.account || 'N/A'}}</span></h4>
+                <p style="margin-bottom: 0px;"></p>
+              </div>
               <div class="print-box-two">
                 <h4 class="font-14"><b>Description:</b> </h4>
                 <p style="font-weight: 400;">{{journalEntryMaster?.description || 'N/A'}}</p>
