@@ -29,6 +29,9 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   //Loader
   isLoading: boolean;
 
+  //for getting account
+  account = {} as any;
+
   // Declaring form variable
   pettyCashForm: FormGroup;
 
@@ -345,4 +348,41 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
 
     
   }
+
+
+
+
+  getOpeningBalance(id: number, isEdit: boolean = false) {
+    this.isLoading = true;
+    this.pettyCashService.getOpeningBalance(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.account = res.result
+        this.checkSelected(this.account, isEdit)
+        this.cdRef.detectChanges()
+      })
+  }
+
+  checkSelected(account: IPettyCashEntry | any, isEdit: boolean = false) {
+    this.pettyCashForm.patchValue({
+      openingBalance: account.openingBalance,        
+    })
+    if (!isEdit) {
+      this.onCampusSelected(account.campusId)
+    }
+  }
+
+  checkAccount() {
+    if (this.pettyCashForm.value.accountId === null) {
+      this.toastService.info("Please Select Account!", "Petty Cash")
+      console.log("Select account");
+    }
+  }
+
 }
