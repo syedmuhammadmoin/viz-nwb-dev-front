@@ -203,6 +203,15 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard] // <= Page component registration
       },
+      // Lazy Load PETTY CASH ENTRY Module
+      {
+        path: APP_ROUTES.PETTY_CASH, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/finance/petty-cash/petty-cash.module').then(
+            (m) => m.PettyCashModule
+          ),
+        canActivateChild: [AuthGuard] // <= Page component registration
+      },
       // Lazy Load PAYMENT Module
       {
         path: APP_ROUTES.PAYMENT, // <= Page URL

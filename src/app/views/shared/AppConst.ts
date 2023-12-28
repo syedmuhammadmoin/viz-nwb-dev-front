@@ -270,6 +270,14 @@ export class AppConst {
     'Finance.JournalEntry.Review': 'Journal Voucher Review',
     'Finance.JournalEntry.Approve': 'Journal Voucher Approve',
 
+    // Journal Voucher
+    'Finance.PettyCash.VW': 'Petty Cash View',
+    'Finance.PettyCash.CR': 'Petty Cash Create',
+    'Finance.PettyCash.ED': 'Petty Cash Update',
+    'Finance.PettyCash.DL': 'Petty Cash Delete',
+    'Finance.PettyCash.Review': 'Petty Cash Review',
+    'Finance.PettyCash.Approve': 'Petty Cash Approve',
+
     // Access Management
     'AccessManagement.Auth.CR': 'Access Management Create',
     'AccessManagement.Auth.VW': 'Access Management View',
@@ -580,7 +588,8 @@ export class AppConst {
     {value: 'Budget Reappropriation', id: DocType.BudgetReappropriation},
     {value: 'Depreciation Adjustment', id: DocType.DepreciationAdjustment},
     {value: 'Anticipated Budget', id: DocType.EstimatedBudget},
-    {value: 'Budget', id: DocType.Budget}
+    {value: 'Budget', id: DocType.Budget},
+    {value: 'Petty Cash', id:DocType.PettyCash},
 
     
     // {value: 'sales Order', id: DocType.SalesOrder},

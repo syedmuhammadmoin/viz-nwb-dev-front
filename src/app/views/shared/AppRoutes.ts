@@ -18,6 +18,7 @@ export const APP_ROUTES = {
   CHART_OF_ACCOUNT: 'chart-of-account',
   JOURNAL_ENTRY: 'journal-entry',
   PAYMENT: 'payment',
+  PETTY_CASH:'petty-cash',
 
   //INVENTORY
   GOODS_RECEIVED_NOTE: 'goods-received-note',
@@ -373,6 +374,20 @@ export const JOURNAL_ENTRY = {
   //OR
   ID_BASED_ROUTE(route: string, id: number) {               //JOURNAL_ENTRY.ID_BASED_ROUTE('edit' , this.journalEntry.id)
     return APP_ROUTES.JOURNAL_ENTRY + '/' + route + '/' + id
+  }
+}
+
+export const PETTY_CASH = {
+  LIST: APP_ROUTES.PETTY_CASH + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.PETTY_CASH + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.PETTY_CASH + '/edit/',          //
+  DETAIL: APP_ROUTES.PETTY_CASH + '/detail/',      //  PETTY_CASH_ENTRY.EDIT + this.pettyEntry.id
+  PRINT: APP_ROUTES.PETTY_CASH + '/print/',        //
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {               //PETTY_CASH_ENTRY.ID_BASED_ROUTE('edit' , this.pettyEntry.id)
+    return APP_ROUTES.PETTY_CASH + '/' + route + '/' + id
   }
 }
 
