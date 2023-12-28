@@ -10,10 +10,11 @@ import { PrintAssetReportComponent } from './print-asset-report/print-asset-repo
 import { AssetMonthlyReportComponent } from './asset-monthly-report/asset-monthly-report/asset-monthly-report.component';
 import { PrintAssetMonthlyReportComponent } from './asset-monthly-report/print-asset-monthly-report/print-asset-monthly-report.component';
 import { RegisterAssetComponent } from './register-asset/register-asset.component';
+import { PrintRegisterAssetComponent } from './print-register-asset/print-register-asset.component';
 
 
 @NgModule({
-    declarations: [ReportListComponent, PrintAssetReportComponent, AssetMonthlyReportComponent, PrintAssetMonthlyReportComponent, RegisterAssetComponent],
+    declarations: [ReportListComponent, PrintAssetReportComponent, AssetMonthlyReportComponent, PrintAssetMonthlyReportComponent, RegisterAssetComponent, PrintRegisterAssetComponent],
     imports: [
         CommonModule,
         ReportRoutingModule,

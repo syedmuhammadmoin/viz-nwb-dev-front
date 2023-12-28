@@ -5,28 +5,8 @@
         <div class="kt-form__section kt-form__section--first">
           <div class="col-md-12 col-sm-12 col-lg-12">
             <!-- region First Row -->
-            <!-- <div class="row mt-1 mb-0">
+            <div class="row mt-1 mb-0">
               <div class="col-lg-3">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label">Start Date:</label>
-                  <kt-date-input (blurEvent)="logValidationErrors(this.registerAssetForm, formErrors, validationMessages)"
-                                 [errorMessage]="formErrors.docDate" formControlName="docDate" matFormFieldClass="full-width"
-                                 placeholder="Select Start Date" [maxDate]="maxDate">
-                  </kt-date-input>
-                </div>
-              </div>
-              <div class="col-lg-3">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label">End Date:</label>
-                  <kt-date-input (blurEvent)="logValidationErrors(this.registerAssetForm, formErrors, validationMessages)"
-                                 [errorMessage]="formErrors.docDate2" formControlName="docDate2" matFormFieldClass="full-width"
-                                 placeholder="Select End Date" [minDate]="minDate"
-                                 dateCondition="dateCondition"
-                                 dateMessage="Start">
-                  </kt-date-input>
-                </div>
-              </div> -->
-              <!-- <div class="col-lg-3">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label">Fixed Asset:</label>
                   <kt-simple-dropdown
@@ -34,28 +14,13 @@
                     placeholder="Select Fixed Asset"
                     propertyName="name"
                     formControlName="fixedAssetId"
-                    isRequired="false"
-                    hintText="Optional"
+                    (blurEvent)="logValidationErrors(registerAssetForm, formErrors, validationMessages)"
+                    errorMessage="Asset is Required."
                     matFormFieldClass="full-width"
                     [optionList]="ngxService.assets$">
                   </kt-simple-dropdown>
                 </div>
-              </div> -->
-              <!-- <div class="col-lg-3">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label">Store:</label>
-                  <kt-simple-dropdown
-                    id="store"
-                    placeholder="Select Warehouse"
-                    propertyName="name"
-                    formControlName="storeId"
-                    isRequired="false"
-                    hintText="Optional"
-                    matFormFieldClass="full-width"
-                    [optionList]="ngxService.warehouses$">
-                  </kt-simple-dropdown>
-                </div>
-              </div> -->
+              </div>
             </div>
             <!-- endregion -->
             <!-- region Action Row -->
@@ -63,12 +28,12 @@
               <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mt-5 mb-3">
                 <div class="form-group kt-form__group mb-0">
                   <!-- <button class="mr-2 app-reset-btn" (click)="reset()" mat-raised-button id="ledger_reset"  type="button"><i class="fas fa-undo"></i> Reset
-                  </button>
-                  <button *ngIf="!disability" class="mr-2 app-default-btn" mat-raised-button (click)="printFixedAssetReport()"
+                  </button> -->
+                  <button *ngIf="!disability" class="mr-2 app-default-btn" mat-raised-button (click)="printRegisterAssetReport()"
                           id="ledger_print" type="button"><i class="fa fa-print"></i> Print
                   </button>
                   <button class="app-default-btn" mat-raised-button  id="ledger_fetch" type="submit">Fetch Records
-                  </button> -->
+                  </button>
                 </div>
               </div>
             </div>
@@ -76,7 +41,7 @@
             <div class="row" style="padding-top: 10px;">
               <div class="col-lg-12 text-right">
                 <div [ktBusy]="isLoading">
-                  <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)" [animateRows]="true"
+                  <ag-grid-angular [animateRows]="true"
                                    [autoGroupColumnDef]="autoGroupColumnDef" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
                                    [gridOptions]="gridOptions"  class="ag-theme-alpine"  [rowData]="rowData"
                                    style="width: 100%; height: 500px;">
@@ -86,7 +51,7 @@
             </div>
           </div>
         </div>
-      <!-- </div> -->
+      </div>
     </form>
   </kt-portlet>
   

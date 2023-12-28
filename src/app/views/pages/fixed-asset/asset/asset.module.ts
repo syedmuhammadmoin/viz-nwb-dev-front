@@ -9,6 +9,7 @@ import { AssetRoutingModule } from './asset-routing.module';
 import { AssetDetailComponent } from './asset-detail/asset-detail.component';
 import { PrintAssetComponent } from './print-asset/print-asset.component';
 import { ScheduleDepreciationComponent } from './schedule-depreciation/schedule-depreciation.component';
+import { ActivationDetailComponent } from './activation-detail/activation-detail.component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ScheduleDepreciationComponent } from './schedule-depreciation/schedule-
     ListAssetComponent,
     AssetDetailComponent,
     PrintAssetComponent,
-    ScheduleDepreciationComponent
+    ScheduleDepreciationComponent,
+    ActivationDetailComponent
   ],
     
   imports: [
