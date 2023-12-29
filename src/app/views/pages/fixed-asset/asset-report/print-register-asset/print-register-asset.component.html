@@ -1,0 +1,106 @@
+<div class="container " >
+    <div class="col-lg-10 mx-auto text-right">
+      <div class="row">
+        <button
+          printSectionId="main"
+          printTitle="Bank Advice Report"
+          ngxPrint
+          id="advice_print"
+          type="button"
+          [useExistingCss]="true"
+          class="app-default-btn" mat-raised-button
+          style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        </button>
+      </div>
+    </div>
+    <div class="col-lg-10 mx-auto" id="main">
+      <div [ktBusy]="isLoading" [class]="className">
+        <div class="bg-whitee">
+  
+          <div class="print_header_area p-s-1 align-items-center">
+            <div class="print-col-7 p-s-1-one">
+              <div class="logo_and_title">
+                <div class="print-logo"></div>
+                <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+              </div>
+  
+            </div>
+            <div class="print-col-4 ml-auto p-s-1-two">
+              <div class="id_num">
+                <div class="print-box-one border-bottom-1px"
+                     style="border-bottom: 1px solid; margin-bottom: 10px; text-align: center;">
+                  <h4>Fixed Asset Report</h4>
+                </div>
+                <div class="print-box-one">
+                  <h4>From Date: <span class="float-right" style="font-weight: 400;">{{fromDate}}</span></h4>
+                  <p style="margin-bottom: 0px;"></p>
+                </div>
+                <div class="print-box-two">
+                  <h4 class="mt-1">To Date: <span class="float-right" style="font-weight: 400;">{{toDate}}</span></h4>
+                </div>
+                <div class="print-box-two">
+                  <h4 class="mt-1">Fixed Asset: <span class="float-right" style="font-weight: 400;">{{fixedAsset}}</span></h4>
+                </div>
+                <div class="print-box-two">
+                  <h4 class="mt-1">Warehouse: <span class="float-right" style="font-weight: 400;">{{warehouse}}</span></h4>
+                </div>
+              </div>
+            </div>
+          </div>
+  
+  
+          <div class="print_body_area p-s-2">
+            <div class="print-col-12 p-s-2-two">
+              <div class="table-responsive">
+                <table class="table ">
+                  <thead class="thead-dark_color">
+                  <tr>
+                    <th>Asset</th>
+                    <th>Store</th>
+                    <th>Category</th>
+                    <th>Life</th>
+                    <th class="text-right">Cost</th>
+                    <th>Dep Rate</th>
+                    <th>Opening Acc Dep</th>
+                    <th>Dep of the Period</th>
+                    <th>Closing Acc Dep</th>
+                    <th>NBV</th>
+                  </tr>
+                  <tr *ngFor="let record of masterData; index as i">
+                    <td>{{record?.fixedAsset || 'N/A'}}</td>
+                    <td>{{record?.store || 'N/A'}}</td>
+                    <td>{{record?.category || 'N/A'}}</td>
+                    <td>{{record?.usefullLife || 'N/A'}}</td>
+                    <td class="text-right"><b>{{valueFormatter(record?.unitCost)}}</b></td>
+                    <td>{{valueFormatter(record?.depRate || 0) || 'N/A'}}</td>
+                    <td>{{valueFormatter(record?.openingAccDep || 0) || 'N/A'}}</td>
+                    <td>{{valueFormatter(record?.depChargedForThePeriod || 0) || 'N/A'}}</td>
+                    <td>{{valueFormatter(record?.closingAccDep || 0) || 'N/A'}}</td>
+                    <td>{{valueFormatter(record?.nbv || 0) || 'N/A'}}</td>
+                  </tr>
+                  <!--<tr>
+                    <td colspan="4"><strong>Total:</strong></td>
+                    <td class="text-right"><b>{{valueFormatter(totalAmount)}}</b></td>
+                  </tr>-->
+                  </thead>
+                </table>
+              </div>
+            </div>
+          </div>
+  
+          <div class="row mt-10 ms-10">
+            <div class="print-col-4 p-s-5 text-center" style="overflow: hidden;">
+              ______________________
+              <p class="text-center">Ass. Director Accounts</p>
+            </div>
+            <div class="print-col-4 p-s-5 text-center" style="overflow: hidden;"></div>
+            <div class="print-col-4 p-s-5 text-center" style="overflow: hidden;">
+              ______________________
+              <p class="text-center">Deputy Director Finance</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

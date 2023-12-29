@@ -21,11 +21,6 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   // for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  // Limit Date
-  maxDate: Date = new Date();
-  minDate: Date
-  dateCondition: boolean
-
   // gridOptions: GridOptions;
 
   autoGroupColumnDef;
@@ -47,33 +42,16 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   rowData: IAsset[] = [];
   reportModel: IReport = {} as IReport;
 
-  // Declaring Model
-  // Initializing generalLedger model...
-
-  // generalLedgerModel: IGeneralLedger = {} as IGeneralLedger
-
   // Validation Messages
   validationMessages = {
-    docDate: {
-      required: 'Start Date is required.'
-    },
-    docDate2: {
-      required: 'End Date is required.'
-    },
     fixedAssetId: {
       required: 'Fixed Asset is required.'
-    },
-    storeId: {
-      required: 'Store is required.'
     }
   }
 
   // Error keys for validation messages
   formErrors = {
-    docDate: '',
-    docDate2: '',
-    fixedAssetId: '',
-    storeId: ''
+    fixedAssetId: ''
   }
 
   constructor(
@@ -82,7 +60,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
     injector: Injector,
     public ngxService: NgxsCustomService,
     private assetService: AssetService,
-    private fixedReportService: FixedAssetReportService,
+    private fixedAssetReportService: FixedAssetReportService,
   ) {
     super(injector);
     this.columnDefs = [
@@ -129,9 +107,6 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
     ];
   }
 
-  onRowDoubleClicked($event: any) {
-  }
-
   ngOnInit(): void {
 
     // AG Grid Options
@@ -146,47 +121,13 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
       menuTabs: ['filterMenuTab'],
     };
 
-    this.assetService.getDepreciationSchedule(1)
-      .subscribe((res: any) => {
-        this.rowData = res.result.depreciationRegisterList;
-        if (this.rowData.length > 0) {
-          this.disability = false
-        }
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-      })
-
-    /*this.autoGroupColumnDef = {
-      headerName: 'Account',
-      menuTabs: ['filterMenuTab'],
-      minWidth: 300,
-      filterValueGetter: (params) => params.data.accountName,
-      cellRendererParams: {
-        suppressCount: true,
-        checkbox: false,
-      },
-    }*/
-
     // initializing formGroup
     this.registerAssetForm = this.fb.group({
-      docDate: ['', [Validators.required]],
-      docDate2: ['', [Validators.required]],
-      fixedAssetId: [''],
-      storeId: [''],
+      fixedAssetId: ['', [Validators.required]]
     });
 
     // Get Data From Store
-    // this.ngxsService.getAllBusinessPartnerFromState();
-    this.ngxService.getWarehouseFromState();
     this.ngxService.getAssetsFromState();
-    // this.ngxsService.getAccountLevel4FromState()
-    // this.ngxsService.getCampusFromState()
-
-    // handling dueDate logic
-    this.registerAssetForm.get('docDate').valueChanges.subscribe((value) => {
-      this.minDate = new Date(value);
-      this.dateCondition = this.registerAssetForm.get('docDate2').value < this.registerAssetForm.get('docDate').value
-    })
   }
 
   onSubmit() {
@@ -194,14 +135,14 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
       this.logValidationErrors(this.registerAssetForm, this.formErrors, this.validationMessages);
       return;
     }
-    this.mapFormValueToModel();
+
     this.isLoading = true;
-    this.assetService.getDepreciationSchedule(1)
+    this.assetService.getAssetById(this.registerAssetForm.value.fixedAssetId.id)
       .subscribe((res: any) => {
         this.rowData = res.result.depreciationRegisterList;
-        if (this.rowData.length > 0) {
-          this.disability = false
-        }
+        // if (this.rowData.length > 0) {
+        //   this.disability = false
+        // }
         this.isLoading = false;
         this.cdRef.detectChanges();
       })
@@ -209,33 +150,21 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
 
   reset() {
     this.formDirective.resetForm();
-    // this.formSubmitAttempt = false;
-    // this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;
     // for PDF
-    this.disability = true;
+    //this.disability = true;
   }
 
   onFirstDataRendered(params: any) {
     // params.api.sizeColumnsToFit();
   }
 
-  private mapFormValueToModel() {
-    this.reportModel.fromDate = this.transformDate(this.registerAssetForm.value.docDate, 'yyyy-MM-dd');
-    this.reportModel.toDate = this.transformDate(this.registerAssetForm.value.docDate2, 'yyyy-MM-dd');
-    this.reportModel.fixedAssetId = this.registerAssetForm.value.fixedAssetId.id;
-    this.reportModel.storeId = this.registerAssetForm.value.storeId.id;
-  }
-
-  printFixedAssetReport() {
-    this.fixedReportService.setFixedAssetMonthlyDataForPrintComponent(this.rowData);
+  printRegisterAssetReport() {
+    this.fixedAssetReportService.setFixedAssetMonthlyDataForPrintComponent(this.rowData);
     this.router.navigate(['/' + ASSET_REPORT.MONTHLY_PRINT], {
       queryParams: {
-        fromDate: this.dateHelperService.transformDate(this.registerAssetForm.value.docDate, 'MMM d, y'),
-        toDate: this.dateHelperService.transformDate(this.registerAssetForm.value.docDate2, 'MMM d, y'),
-        fixedAsset: (this.registerAssetForm.value.fixedAssetId?.name || 'All'),
-        warehouse: (this.registerAssetForm.value.storeId?.name || 'All'),
+        fixedAssetId: (this.registerAssetForm.value.fixedAssetId),
       }
     })
   }

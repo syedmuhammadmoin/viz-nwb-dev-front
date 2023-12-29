@@ -63,13 +63,24 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Name',
       field: 'name',
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
+    },
+    {
+      headerName: 'Employee',
+      field: 'employee',
+      tooltipField: 'name',
+      suppressMenu: true
+      // filter: 'agTextColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['contains'],
+      //     suppressAndOrCondition: true,
+      //   },
     },
     {
       headerName: 'Acquisition Date',
@@ -89,7 +100,6 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Product',
       field: 'product',
       tooltipField: 'product',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -101,7 +111,6 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Store',
       field: 'warehouse',
       tooltipField: 'warehouse',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {

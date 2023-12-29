@@ -32,6 +32,9 @@
                 <button *ngIf="shouldShowDepreciationButton()" (click)="depreciationSchedule()" class="mr-2 btn_public" id="asset_disposed" type="button">
                   Depreciation Schedule
                 </button>
+                <button (click)="activationDetail()" class="mr-2 btn_public" id="asset_disposed" type="button">
+                  Activation Detail
+                </button>
                 <button (click)="conformationDailog()"
                         *ngIf="(!assetMaster?.isIssued && !assetMaster?.isReserved && !assetMaster?.isHeldforSaleOrDisposal &&  !assetMaster?.isDisposed && assetMaster?.state !== docStatus.Draft)"
                         class="mr-2 btn_public" id="asset_disposed" type="button">
@@ -60,6 +63,11 @@
             <div class="print-box">
               <h4>Name:
                 <span class="float-right">{{assetMaster?.id}} - {{assetMaster?.name}}</span>
+              </h4>
+            </div>
+            <div class="print-box">
+              <h4>Employee:
+                <span class="float-right">{{assetMaster?.employee}}</span>
               </h4>
             </div>
             <div class="print-box">

@@ -12,16 +12,16 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 
 @Component({
-  selector: 'kt-schedule-depreciation',
-  templateUrl: './schedule-depreciation.component.html',
-  styleUrls: ['./schedule-depreciation.component.scss']
+  selector: 'kt-activation-detail',
+  templateUrl: './activation-detail.component.html',
+  styleUrls: ['./activation-detail.component.scss']
 })
-export class ScheduleDepreciationComponent extends AppComponentBase implements OnInit {
+export class ActivationDetailComponent extends AppComponentBase implements OnInit {
 
   //Loader
   isLoading: boolean
 
-  title: string = 'Depreciation Schedule'
+  title: string = 'Activation Detail'
   rowData: any = [];
 
   // frameworkComponents: { [p: string]: unknown };
@@ -36,7 +36,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
     public assetService: AssetService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
-    @Optional() public dialogRef: MatDialogRef<ScheduleDepreciationComponent>,
+    @Optional() public dialogRef: MatDialogRef<ActivationDetailComponent>,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     injector: Injector
   ) {
