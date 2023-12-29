@@ -59,7 +59,7 @@
                       formControlName="accountId"
                       matFormFieldClass="full-width"
                       [errorMessage]="formErrors.accountId"
-                      (selectionChange)="getEmployee($event.value)"
+                      (selectionChange)="getOpeningBalance($event.value,false)"
                       (blurEvent)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)"
                       [optionList]="ngxsService.accountsLevel4$">
                     </kt-simple-dropdown>
@@ -73,7 +73,7 @@
                   <kt-input-field 
                   formControlName="openingBalance" 
                   placeholder="Add Opening Balance" 
-                  (click)="getOpeningBalance()"
+                  (click)="checkAccount()"
                   id="petty_openingbalance"
                   (blurEvent)="logValidationErrors(pettyCashForm, this.formErrors, this.validationMessages)">
                   </kt-input-field>
