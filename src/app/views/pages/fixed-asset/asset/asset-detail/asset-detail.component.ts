@@ -178,7 +178,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   activationDetail(): void {
     this.dialog.open(ActivationDetailComponent, {
       width: '1000px',
-      data: this.assetMaster?.id
+      data: this.assetMaster?.fixedAssetlines
     });
   }
 

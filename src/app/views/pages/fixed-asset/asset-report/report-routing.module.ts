@@ -6,6 +6,7 @@ import {PrintAssetReportComponent} from './print-asset-report/print-asset-report
 import {AssetMonthlyReportComponent} from './asset-monthly-report/asset-monthly-report/asset-monthly-report.component';
 import {PrintAssetMonthlyReportComponent} from './asset-monthly-report/print-asset-monthly-report/print-asset-monthly-report.component';
 import { RegisterAssetComponent } from './register-asset/register-asset.component';
+import { PrintRegisterAssetComponent } from './print-register-asset/print-register-asset.component';
 
 
 
@@ -57,10 +58,10 @@ const routes: Routes = [
             path: '',
             component: RegisterAssetComponent
           },
-          // {
-          //   path: 'print',
-          //   component: PrintAssetMonthlyReportComponent
-          // }
+          {
+            path: 'print',
+            component: PrintRegisterAssetComponent
+          }
         ]
       }
     ]

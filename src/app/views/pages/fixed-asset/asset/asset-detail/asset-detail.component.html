@@ -30,15 +30,15 @@
                   <i class="fa fa-edit"></i> Edit
                 </button>
                 <button *ngIf="shouldShowDepreciationButton()" (click)="depreciationSchedule()" class="mr-2 btn_public" id="asset_disposed" type="button">
-                  Depreciation Schedule
+                  <i class="fa fa-edit"></i> Depreciation Schedule
                 </button>
                 <button (click)="activationDetail()" class="mr-2 btn_public" id="asset_disposed" type="button">
-                  Activation Detail
+                  <i class="fa fa-edit"></i> Activation Detail
                 </button>
                 <button (click)="conformationDailog()"
                         *ngIf="(!assetMaster?.isIssued && !assetMaster?.isReserved && !assetMaster?.isHeldforSaleOrDisposal &&  !assetMaster?.isDisposed && assetMaster?.state !== docStatus.Draft)"
                         class="mr-2 btn_public" id="asset_disposed" type="button">
-                  Held for Disposal
+                        <i class="fa fa-edit"></i> Held for Disposal
                 </button>
               </ng-container>
             </div>

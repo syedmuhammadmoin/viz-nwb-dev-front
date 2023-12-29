@@ -28,6 +28,10 @@ import { ActivationDetailComponent } from './activation-detail/activation-detail
     AssetRoutingModule,
     AgGridModule.withComponents([CustomTooltipComponent])
   ],
-  entryComponents : [CreateAssetComponent, ScheduleDepreciationComponent]
+  entryComponents : [
+    CreateAssetComponent, 
+    ScheduleDepreciationComponent, 
+    ActivationDetailComponent
+  ]
 })
 export class AssetModule { }

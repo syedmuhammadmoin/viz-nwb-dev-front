@@ -87,19 +87,20 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
       field: 'endingBookValue',
       suppressMenu: true,
       valueFormatter: (params) => this.valueFormatter(params.value),
-
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Description',
       field: 'description',
       suppressMenu: true,
+      cellStyle: { textAlign: 'left' },
       width: 300,
     }
   ];
 
   async ngOnInit() {
 
+    this.isLoading = true;
     var res = await this.getDepSchedule();
     if (!isEmpty(res.result?.["depriecaitonRegisterList"])) {
       this.rowData = res.result?.["depriecaitonRegisterList"];
@@ -109,6 +110,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
     else {
       this.gridApi?.showNoRowsOverlay()
     }
+    this.isLoading = false;
     this.cdRef.detectChanges();
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',

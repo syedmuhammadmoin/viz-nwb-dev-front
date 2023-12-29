@@ -1,7 +1,6 @@
-import {ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import {GridOptions} from 'ag-grid-community';
-import { IFixedAssetReport } from '../model/IFixedAssetReport';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import { GridOptions} from 'ag-grid-community';
 import { IReport } from '../model/IReport';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { FixedAssetReportService } from '../services/fixed-asset-report.service';
@@ -9,6 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ASSET_REPORT } from 'src/app/views/shared/AppRoutes';
 import { AssetService } from '../../asset/service/asset.service';
 import { IAsset } from '../../asset/model/IAsset';
+import { isEmpty } from 'lodash';
 
 
 @Component({
@@ -32,14 +32,14 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   // Busy Loading
   isLoading: boolean;
 
-  disability = true
+  disability = false;
 
   // Declaring FormGroup
   registerAssetForm: FormGroup;
 
   // For AG Grid..
   gridOptions: GridOptions;
-  rowData: IAsset[] = [];
+  rowData: IAsset[] | any = [];
   reportModel: IReport = {} as IReport;
 
   // Validation Messages
@@ -63,48 +63,48 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
     private fixedAssetReportService: FixedAssetReportService,
   ) {
     super(injector);
-    this.columnDefs = [
-      {
-        headerName: 'Asset Name',
-        field: 'fixedAssetId',
-        cellStyle: {textAlign: 'left'}
-      },
-      {
-        headerName: 'Begining Book Value',
-        field: 'beginingBookValue',
-        valueFormatter: (params) => this.valueFormatter(params.value),
-        cellStyle: {textAlign: 'left'},
-        suppressMenu: true,
-      },
-      {
-        headerName: 'Ending Book Value',
-        field: 'endingBookValue',
-        valueFormatter: (params) => this.valueFormatter(params.value),
-      
-        cellStyle: {textAlign: 'left'}
-      },
-       {
-        headerName: 'Transaction Date', 
-        field: 'transectionDate', 
-        cellStyle: {textAlign: 'left'},
-        cellRenderer: (params: any) => {
-          const date = params?.data?.transectionDate != null ? params?.data?.transectionDate : null;
-          return date == null ? null : this.transformDate(date, 'MMM d, y');
-        }
-      },
-      {
-        headerName: 'Depreciation Amount',
-        field: 'depreciationAmount',
-        suppressMenu: true,
-        valueFormatter: (params) => this.valueFormatter(params.value),
-        cellStyle: {textAlign: 'left'}
-      },
-      {
-        headerName: 'Description',
-        field: 'description',
-        suppressMenu: true
+    //Defining Employee Columns
+  this.columnDefs = [
+    {
+      headerName: 'Transaction Date',
+      field: 'transectionDate',
+      cellStyle: { textAlign: 'left' },
+      suppressMenu: true,
+      cellRenderer: (params: any) => {
+        const date = params?.data?.transectionDate != null ? params?.data?.transectionDate : null;
+        return date == null ? null : this.transformDate(date, 'MMM d, y');
       }
-    ];
+    },
+
+    {
+      headerName: 'Begining Book Value',
+      field: 'beginingBookValue',
+      valueFormatter: (params) => this.valueFormatter(params.value),
+      cellStyle: { textAlign: 'left' },
+      suppressMenu: true,
+    },
+    {
+      headerName: 'Depreciation Amount',
+      field: 'depreciationAmount',
+      suppressMenu: true,
+      valueFormatter: (params) => this.valueFormatter(params.value),
+      cellStyle: { textAlign: 'left' }
+    },
+    {
+      headerName: 'Ending Book Value',
+      field: 'endingBookValue',
+      suppressMenu: true,
+      valueFormatter: (params) => this.valueFormatter(params.value),
+      cellStyle: { textAlign: 'left' }
+    },
+    {
+      headerName: 'Description',
+      field: 'description',
+      suppressMenu: true,
+      width: 300,
+      cellStyle: { textAlign: 'left' }
+    }
+  ];
   }
 
   ngOnInit(): void {
@@ -139,10 +139,15 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
     this.isLoading = true;
     this.assetService.getAssetById(this.registerAssetForm.value.fixedAssetId.id)
       .subscribe((res: any) => {
-        this.rowData = res.result.depreciationRegisterList;
-        // if (this.rowData.length > 0) {
-        //   this.disability = false
-        // }
+        const depRegisterList = res.result?.depreciationRegisterList;
+
+        if (!isEmpty(depRegisterList)) {
+          this.rowData = depRegisterList;
+          this.disability = true;
+        }
+        else {
+          this.disability = false;
+        }
         this.isLoading = false;
         this.cdRef.detectChanges();
       })
@@ -157,18 +162,16 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   }
 
   onFirstDataRendered(params: any) {
-    // params.api.sizeColumnsToFit();
+    params.api.sizeColumnsToFit();
   }
 
   printRegisterAssetReport() {
-    this.fixedAssetReportService.setFixedAssetMonthlyDataForPrintComponent(this.rowData);
-    this.router.navigate(['/' + ASSET_REPORT.MONTHLY_PRINT], {
+    this.router.navigate(['/' + ASSET_REPORT.REGISTER_ASSET_PRINT], {
       queryParams: {
-        fixedAssetId: (this.registerAssetForm.value.fixedAssetId),
+        fixedAssetId: (this.registerAssetForm.value.fixedAssetId.id),
       }
     })
   }
-
 }
 
 

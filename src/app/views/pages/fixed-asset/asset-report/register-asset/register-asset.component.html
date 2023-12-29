@@ -29,7 +29,7 @@
                 <div class="form-group kt-form__group mb-0">
                   <!-- <button class="mr-2 app-reset-btn" (click)="reset()" mat-raised-button id="ledger_reset"  type="button"><i class="fas fa-undo"></i> Reset
                   </button> -->
-                  <button *ngIf="!disability" class="mr-2 app-default-btn" mat-raised-button (click)="printRegisterAssetReport()"
+                  <button [disabled]="!disability" class="mr-2 app-default-btn" mat-raised-button (click)="printRegisterAssetReport()"
                           id="ledger_print" type="button"><i class="fa fa-print"></i> Print
                   </button>
                   <button class="app-default-btn" mat-raised-button  id="ledger_fetch" type="submit">Fetch Records
@@ -41,7 +41,7 @@
             <div class="row" style="padding-top: 10px;">
               <div class="col-lg-12 text-right">
                 <div [ktBusy]="isLoading">
-                  <ag-grid-angular [animateRows]="true"
+                  <ag-grid-angular [animateRows]="true" (firstDataRendered)="onFirstDataRendered($event)"
                                    [autoGroupColumnDef]="autoGroupColumnDef" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
                                    [gridOptions]="gridOptions"  class="ag-theme-alpine"  [rowData]="rowData"
                                    style="width: 100%; height: 500px;">

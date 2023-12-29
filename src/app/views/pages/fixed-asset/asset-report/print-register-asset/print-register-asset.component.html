@@ -31,52 +31,32 @@
                      style="border-bottom: 1px solid; margin-bottom: 10px; text-align: center;">
                   <h4>Fixed Asset Report</h4>
                 </div>
-                <div class="print-box-one">
-                  <h4>From Date: <span class="float-right" style="font-weight: 400;">{{fromDate}}</span></h4>
-                  <p style="margin-bottom: 0px;"></p>
-                </div>
                 <div class="print-box-two">
-                  <h4 class="mt-1">To Date: <span class="float-right" style="font-weight: 400;">{{toDate}}</span></h4>
-                </div>
-                <div class="print-box-two">
-                  <h4 class="mt-1">Fixed Asset: <span class="float-right" style="font-weight: 400;">{{fixedAsset}}</span></h4>
-                </div>
-                <div class="print-box-two">
-                  <h4 class="mt-1">Warehouse: <span class="float-right" style="font-weight: 400;">{{warehouse}}</span></h4>
+                  <h4 class="mt-1">Fixed Asset: <span class="float-right" style="font-weight: 400;">{{fixedAssetName}}</span></h4>
                 </div>
               </div>
             </div>
           </div>
-  
-  
+
           <div class="print_body_area p-s-2">
             <div class="print-col-12 p-s-2-two">
               <div class="table-responsive">
                 <table class="table ">
                   <thead class="thead-dark_color">
                   <tr>
-                    <th>Asset</th>
-                    <th>Store</th>
-                    <th>Category</th>
-                    <th>Life</th>
-                    <th class="text-right">Cost</th>
-                    <th>Dep Rate</th>
-                    <th>Opening Acc Dep</th>
-                    <th>Dep of the Period</th>
-                    <th>Closing Acc Dep</th>
-                    <th>NBV</th>
+                    <th>Transaction Date</th>
+                    <th>Begining Book Value</th>
+                    <th>Depreciation Amount</th>
+                    <th>Ending Book Value</th>
+                    <th>Description</th>
                   </tr>
+
                   <tr *ngFor="let record of masterData; index as i">
-                    <td>{{record?.fixedAsset || 'N/A'}}</td>
-                    <td>{{record?.store || 'N/A'}}</td>
-                    <td>{{record?.category || 'N/A'}}</td>
-                    <td>{{record?.usefullLife || 'N/A'}}</td>
-                    <td class="text-right"><b>{{valueFormatter(record?.unitCost)}}</b></td>
-                    <td>{{valueFormatter(record?.depRate || 0) || 'N/A'}}</td>
-                    <td>{{valueFormatter(record?.openingAccDep || 0) || 'N/A'}}</td>
-                    <td>{{valueFormatter(record?.depChargedForThePeriod || 0) || 'N/A'}}</td>
-                    <td>{{valueFormatter(record?.closingAccDep || 0) || 'N/A'}}</td>
-                    <td>{{valueFormatter(record?.nbv || 0) || 'N/A'}}</td>
+                    <td>{{record?.transectionDate | date: 'MMM d, y'}}</td>
+                    <td>{{valueFormatter(record?.beginingBookValue)}}</td>
+                    <td>{{valueFormatter(record?.depreciationAmount)}}</td>
+                    <td>{{valueFormatter(record?.endingBookValue)}}</td>
+                    <td>{{record?.description || 'N/A'}}</td>
                   </tr>
                   <!--<tr>
                     <td colspan="4"><strong>Total:</strong></td>
