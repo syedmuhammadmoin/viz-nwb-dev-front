@@ -353,20 +353,20 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
 
 
   getOpeningBalance(id: number, isEdit: boolean = false) {
-    this.isLoading = true;
-    this.pettyCashService.getOpeningBalance(id)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-        })
-      )
-      .subscribe((res) => {
-        this.account = res.result
-        this.checkSelected(this.account, isEdit)
-        this.cdRef.detectChanges()
-      })
+    // this.isLoading = true;
+    // this.pettyCashService.getOpeningBalance(id)
+    //   .pipe(
+    //     take(1),
+    //     finalize(() => {
+    //       this.isLoading = false;
+    //       this.cdRef.detectChanges();
+    //     })
+    //   )
+    //   .subscribe((res) => {
+    //     this.account = res.result
+    //     this.checkSelected(this.account, isEdit)
+    //     this.cdRef.detectChanges()
+    //   })
   }
 
   checkSelected(account: IPettyCashEntry | any, isEdit: boolean = false) {

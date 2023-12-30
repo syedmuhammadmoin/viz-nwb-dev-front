@@ -59,7 +59,7 @@ export class InterceptService implements HttpInterceptor {
               message = error?.error?.message ?? 'Requested resource not found.'
               title = 'Resource Not Found'
              // window.location.href = '/error/404'
-              this.route.navigateByUrl('/error/404')
+              //this.route.navigateByUrl('/error/404')
               break;
             case 408:
               message = error?.error?.message ?? 'Requested resource timed out.'
