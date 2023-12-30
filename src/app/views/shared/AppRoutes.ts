@@ -582,6 +582,7 @@ export const ASSET_REPORT = {
   MONTHLY: APP_ROUTES.ASSET_REPORT + '/monthly',
   MONTHLY_PRINT: APP_ROUTES.ASSET_REPORT + '/monthly/print',
   REGISTER_ASSET: APP_ROUTES.ASSET_REPORT + '/register',
+  REGISTER_ASSET_PRINT: APP_ROUTES.ASSET_REPORT + '/register/print',
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.ASSET_REPORT + '/' + route + '/' + id
   }

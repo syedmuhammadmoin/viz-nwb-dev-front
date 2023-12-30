@@ -1,14 +1,10 @@
 import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, GridApi, GridOptions } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { isEmpty } from 'lodash';
 import { AssetService } from '../service/asset.service';
-import { IAsset } from '../model/IAsset';
-import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 
 @Component({
@@ -37,7 +33,7 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     @Optional() public dialogRef: MatDialogRef<ActivationDetailComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
+    @Optional() @Inject(MAT_DIALOG_DATA) private fixedAssetLines: any,
     injector: Injector
   ) {
     super(injector);
@@ -58,51 +54,37 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
       cellRenderer: "loadingCellRenderer",
     },
     {
-      headerName: 'Transaction Date',
-      field: 'transectionDate',
+      headerName: 'Active Date',
+      field: 'activeDate',
       cellStyle: { textAlign: 'left' },
       suppressMenu: true,
       cellRenderer: (params: any) => {
-        const date = params?.data?.transectionDate != null ? params?.data?.transectionDate : null;
-        return date == null ? null : this.transformDate(date, 'MMM d, y');
+        const date = params?.data?.activeDate != null ? params?.data?.activeDate : null;
+        return date == null ? 'N/A' : this.transformDate(date, 'MMM d, y');
       }
     },
-
     {
-      headerName: 'Begining Book Value',
-      field: 'beginingBookValue',
-      valueFormatter: (params) => this.valueFormatter(params.value),
+      headerName: 'In Active Date',
+      field: 'inactiveDate',
       cellStyle: { textAlign: 'left' },
       suppressMenu: true,
+      cellRenderer: (params: any) => {
+        const date = params?.data?.inactiveDate != null ? params?.data?.inactiveDate : null;
+        return date == null ? 'N/A' : this.transformDate(date, 'MMM d, y');
+      }
     },
     {
-      headerName: 'Depreciation Amount',
-      field: 'depreciationAmount',
+      headerName: 'Active Days',
+      field: 'activeDays',
       suppressMenu: true,
-      valueFormatter: (params) => this.valueFormatter(params.value),
       cellStyle: { textAlign: 'left' }
-    },
-    {
-      headerName: 'Ending Book Value',
-      field: 'endingBookValue',
-      suppressMenu: true,
-      valueFormatter: (params) => this.valueFormatter(params.value),
-
-      cellStyle: { textAlign: 'left' }
-    },
-    {
-      headerName: 'Description',
-      field: 'description',
-      suppressMenu: true,
-      width: 300,
     }
   ];
 
-  async ngOnInit() {
+  ngOnInit() {
 
-    var res = await this.getDepSchedule();
-    if (!isEmpty(res.result?.["depriecaitonRegisterList"])) {
-      this.rowData = res.result?.["depriecaitonRegisterList"];
+    if (!isEmpty(this.fixedAssetLines)) {
+      this.rowData = this.fixedAssetLines;
       this.gridApi?.sizeColumnsToFit();
       this.gridApi?.hideOverlay();
     }
@@ -133,10 +115,5 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
   
   onFirstDataRendered(params: any) {
     params.api.sizeColumnsToFit();
-  }
-
-  async getDepSchedule(): Promise<IApiResponse<any[]>> {
-    const result = await this.assetService.getDepreciationSchedule(this._id).toPromise()
-    return result
   }
 }
