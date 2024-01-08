@@ -10,6 +10,7 @@ import { isEmpty } from 'lodash';
 import { finalize, map } from 'rxjs/operators';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { Router } from '@angular/router';
+import appConfig from 'src/assets/appconfig.json';
 
 @Component({
   selector: 'kt-trial-balance',
@@ -68,6 +69,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     docDate: '',
     docDate2: ''
   }
+
+  public config:any = appConfig;
 
   constructor(
     private fb: FormBuilder,

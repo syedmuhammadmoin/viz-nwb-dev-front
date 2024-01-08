@@ -9,15 +9,16 @@ import {
   Renderer2,
   ViewChild
 } from '@angular/core';
-import {filter} from 'rxjs/operators';
-import {NavigationEnd} from '@angular/router';
+import { filter } from 'rxjs/operators';
+import { NavigationEnd } from '@angular/router';
 import * as objectPath from 'object-path';
 // Layout
-import {LayoutConfigService, MenuAsideService, MenuOptions, OffcanvasOptions} from '../../../core/_base/layout';
-import {HtmlClassService} from '../html-class.service';
-import {AppComponentBase} from 'src/app/views/shared/app-component-base';
-import {NgxPermissionsService} from 'ngx-permissions';
-import {AuthSingletonService} from '../../pages/auth/service/auth-singleton.service';
+import { LayoutConfigService, MenuAsideService, MenuOptions, OffcanvasOptions } from '../../../core/_base/layout';
+import { HtmlClassService } from '../html-class.service';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { NgxPermissionsService } from 'ngx-permissions';
+import { AuthSingletonService } from '../../pages/auth/service/auth-singleton.service';
+import appConfig from 'src/assets/appconfig.json';
 
 @Component({
   selector: 'kt-aside-left',
@@ -28,8 +29,8 @@ import {AuthSingletonService} from '../../pages/auth/service/auth-singleton.serv
 export class AsideLeftComponent extends AppComponentBase implements OnInit, AfterViewInit {
   private offcanvas: any;
 
-  @ViewChild('asideMenuOffcanvas', {static: true}) asideMenuOffcanvas: ElementRef;
-  @ViewChild('asideMenu', {static: true}) asideMenu: ElementRef;
+  @ViewChild('asideMenuOffcanvas', { static: true }) asideMenuOffcanvas: ElementRef;
+  @ViewChild('asideMenu', { static: true }) asideMenu: ElementRef;
 
   asideLogo = '';
   asideClasses = '';
@@ -64,6 +65,8 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     }
   };
 
+  public config: any = appConfig;
+  public menuItems: [] = [];
   /**
    * Component Constructor
    *
@@ -85,6 +88,29 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     injector: Injector
   ) {
     super(injector)
+
+    if (this.config.options.isCampus == false) {
+      removeItemByTitle(this.menuAsideService.menuList$.value, 'Campus');
+    }
+
+    function removeItemByTitle(arr, titleToRemove) {
+      for (let i = 0; i < arr.length; i++) {
+        const item = arr[i];
+
+        if (item.title && item.title === titleToRemove) {
+          // Remove the object with the specified title
+          arr.splice(i, 1);
+          i--; // Decrement i to adjust for the removed element
+        }
+
+        if (item.submenu && Array.isArray(item.submenu)) {
+          // Recursively check and remove from submenu
+          removeItemByTitle(item.submenu, titleToRemove);
+        }
+      }
+    }
+
+
     this.permissionsService.loadPermissions(this.authSingleton.getCurrentUserPermission() ?? []);
   }
 
@@ -92,6 +118,8 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
   }
 
   ngOnInit() {
+    console.log(this.menuAsideService.menuList$, 'Menue Items');
+
     this.currentRouteUrl = this.router.url.split(/[?#]/)[0];
 
     this.router.events

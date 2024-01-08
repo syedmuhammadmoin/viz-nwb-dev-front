@@ -12,7 +12,7 @@ import { IBalanceSheet} from "../model/IBalanceSheet";
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { Router } from '@angular/router';
-
+import appConfig from 'src/assets/appconfig.json';
 
 @Component({
   selector: 'app-balance-sheet',
@@ -54,6 +54,8 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   formErrors = {
     docDate: '',
   }
+
+  public config:any = appConfig;
 
   constructor(
     injector: Injector,

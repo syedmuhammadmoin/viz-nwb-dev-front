@@ -49,7 +49,7 @@
                 </kt-simple-dropdown>
               </div>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4" *ngIf="this.config.options.isCampus">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="profit_campus" formControlName="campusId" matFormFieldClass="full-width" hintText="Optional"

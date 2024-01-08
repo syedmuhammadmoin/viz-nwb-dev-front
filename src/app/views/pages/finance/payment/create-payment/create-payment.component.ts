@@ -17,6 +17,8 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICashAccount } from '../../cash-account/model/ICashAccount';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
 import { MatRadioChange } from '@angular/material/radio';
+import { BankAccountConfig } from 'src/webvalidationconfig';
+import appConfig from 'src/assets/appconfig.json';
 
 @Component({
   selector: 'kt-create-payment',
@@ -127,6 +129,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     SRBTax: ''
   }
 
+  public config:any = appConfig;
+
   //Injecting dependencies
   constructor(
     private cashAccountService: CashAccountService,
@@ -140,6 +144,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     private cdRef: ChangeDetectorRef,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreatePaymentComponent>,
+    public validationConfig : BankAccountConfig,
+
     injector: Injector
   ) {
     super(injector)
@@ -160,12 +166,12 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       description: ['', [Validators.required]],
       businessPartner: ['', [Validators.required]],
       account: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      campusId: (this.config?.options?.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       bankAccount: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(1)]],
       deduction: [0,[Validators.min(0)]],
       deductionAccountId: [''],
-      chequeNo: [''],
+      chequeNo: ['', [Validators.nullValidator]],
       salesTax: [0,[Validators.min(0) , Validators.max(100)]],
       incomeTax: [0,[Validators.min(0) , Validators.max(100)]],
       SRBTax: [0,[Validators.min(0) , Validators.max(100)]],

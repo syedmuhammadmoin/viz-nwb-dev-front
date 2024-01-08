@@ -10,6 +10,8 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { BankAccountState } from '../store/bank-account.state';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { BankAccountConfig } from 'src/webvalidationconfig';
+import appConfig from 'src/assets/appconfig.json';
 
 
 @Component({
@@ -83,6 +85,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     accountCode: ''
   }
 
+  public config:any = appConfig;
+
   //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
@@ -90,12 +94,14 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     public dialogRef: MatDialogRef<CreateBankAccountComponent>,
     public ngxsService: NgxsCustomService,
     private bankAccountService: BankAccountService,
-    injector: Injector
+    injector: Injector,
   ) {
     super(injector)
   }
 
-  ngOnInit() {
+  ngOnInit() {    
+    console.log(this.config?.options.isCampus);
+    
     this.bankAccountForm = this.fb.group({
       accountNumber: ['', [Validators.required, Validators.min(1)]],
       bankName: ['', [Validators.required]],
@@ -107,7 +113,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       bankAccountType: ['', [Validators.required]],
       openingBalance: ['', [Validators.required, Validators.min(0)]],
       OBDate: ['', [Validators.required]],
-      campusId: ['', [Validators.required]]
+      campusId: (this.config?.options?.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]]
     });
 
 
@@ -164,7 +170,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
   //submit Bank Account Form
   onSubmit() {
-    if (this.bankAccountForm.invalid) {
+   if (this.bankAccountForm.invalid) {
       return
     }
     this.isLoading = true;

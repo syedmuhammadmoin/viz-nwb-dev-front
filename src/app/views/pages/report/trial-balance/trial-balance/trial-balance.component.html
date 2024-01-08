@@ -37,7 +37,7 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-lg-4">
+            <div class="col-lg-4" *ngIf="this.config.options.isCampus">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
                 <kt-simple-dropdown id="trial_campus" formControlName="campusId" matFormFieldClass="full-width" isDisabledNone="true"
