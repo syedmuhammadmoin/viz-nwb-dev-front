@@ -11,7 +11,7 @@ import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { Router } from '@angular/router';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import appConfig from 'src/assets/appconfig.json';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'app-profit-N-loss',
@@ -20,7 +20,7 @@ import appConfig from 'src/assets/appconfig.json';
 })
 
 export class ProfitNLossComponent extends AppComponentBase implements OnInit {
-
+  public currentClient : any ={}
  // for permissions
  public permissions = Permissions;
   rowData: any[] = [];
@@ -65,7 +65,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     docDate2: ''
   }
 
-  public config:any = appConfig;
 
   constructor(
     private fb: FormBuilder,
@@ -102,7 +101,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.profitNLossForm = this.fb.group({
       docDate: ['', [Validators.required]],
       docDate2: ['', [Validators.required]],

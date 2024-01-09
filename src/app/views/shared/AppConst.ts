@@ -1,11 +1,28 @@
 import {Criteria, DocType, Nature} from './AppEnum';
 
+
+
+interface Config {
+  readonly title: string;
+  readonly isCampus: boolean;
+  readonly descriptionMessage: string;
+  readonly logo: string;
+  readonly bgImage: string;
+}
+
+interface Client {
+  readonly clientId: number;
+  readonly config: Config;
+}
+
 export class AppConst {
 
   static appBaseUrl: string;
   static remoteServiceBaseUrl: string;
   static appBaseHref: string;
   static apiKey: string;
+  static clientId: number;
+  static ClientConfig: Client;
 
   static ProductType = {
     0: 'Consumable',
@@ -698,4 +715,5 @@ export class AppConst {
     {value: 'Submitted', id: 5},
     {value: 'Reviewed', id: 6},
   ];
+  
 }

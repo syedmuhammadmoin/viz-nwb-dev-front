@@ -16,7 +16,7 @@ import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confi
 import { JOURNAL_ENTRY } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IJournalEntryLines } from '../model/IJournalEntryLines';
-import appConfig from 'src/assets/appconfig.json';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-create-journal-entry',
@@ -81,7 +81,6 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     campusId: ''
   }
 
-  public config:any = appConfig;
 
 
   //Injecting Dependencies
@@ -101,12 +100,14 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
     super(injector)
   }
 
-
+  public currentClient : any ={}
   ngOnInit() {
+    this.currentClient = AppConst.ClientConfig.config
+
     this.journalEntryForm = this.fb.group({
       date: ['', [Validators.required]],
       description: ['',[Validators.required]],
-      campusId: (this.config?.options?.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       journalEntryLines: this.fb.array([
         this.addJournalEntryLines()
       ])

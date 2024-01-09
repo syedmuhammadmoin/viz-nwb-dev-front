@@ -2,27 +2,27 @@
     "remoteServiceBaseUrl": "https://localhost:44378/api/",
     "apiKey": "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~",
     "appBaseUrl": "http://localhost:4200",
-    "options":{
-        "isCampus" : false,
-        "Clients": [
-            {
+    "clientId": 22,
+    "clients": [
+        {
+            "clientId": 32,
+            "config": {
                 "title": "SBBU",
-                "clientId" : 32,
-                "config":{
-                    "isCampus" : false
-                }
-            },
-            {
-                "title": "RLCC",
-                "clientId" : 22,
-                "config":{
-                    "isCampus" : true
-                }
+                "isCampus": false,
+                "descriptionMessage": "Main Campus SBBU Shaheed benazirabad.",
+                "logo": "./assets/media/logos/logo-wr.png",
+                "bgImage": "./assets/media/logos/bg_login.jpg"
             }
-        ]
-    }
-
-
-}
-
-
+        },
+        {
+            "clientId": 22,
+            "config": {
+                "title": "RLCC",
+                "isCampus": false,
+                "descriptionMessage": "Random Liquied Communication Center",
+                "logo": "./assets/media/logos/LOGO-EDINFINI-HEADER.png",
+                "bgImage": "./assets/media/logos/edinfini-login-image.jpg"
+            }
+        }
+    ]
+} 

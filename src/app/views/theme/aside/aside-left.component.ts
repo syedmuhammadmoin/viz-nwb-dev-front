@@ -18,7 +18,7 @@ import { HtmlClassService } from '../html-class.service';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { AuthSingletonService } from '../../pages/auth/service/auth-singleton.service';
-import appConfig from 'src/assets/appconfig.json';
+import { AppConst } from '../../shared/AppConst';
 
 @Component({
   selector: 'kt-aside-left',
@@ -65,7 +65,6 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     }
   };
 
-  public config: any = appConfig;
   public menuItems: [] = [];
   /**
    * Component Constructor
@@ -89,7 +88,7 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
   ) {
     super(injector)
 
-    if (this.config.options.isCampus == false) {
+    if (AppConst.ClientConfig.config.isCampus == false) {
       removeItemByTitle(this.menuAsideService.menuList$.value, 'Campus');
     }
 

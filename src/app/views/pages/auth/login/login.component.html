@@ -3,19 +3,21 @@
           <div class=" col-sm-8 col-md-8 col-lg-8 form-left-div-bg d-flex  ">
                 <div class="row ">
                   <div class="col-sm-12 col-md-12 col-lg-12 ">
-                     <p class="login-image-title" *ngIf="vizalys"></p>
-                     <p class="login-image-title" *ngIf="sbbu">Main Campus SBBU Shaheed benazirabad.</p>
-                     <p class="login-image-title" *ngIf="edinfini"></p>
+                     <!-- <p class="login-image-title" *ngIf="vizalys"></p> -->
+                     <p class="login-image-title" >{{(this.currentClient?.descriptionMessage) ? this.currentClient?.descriptionMessage  : ''}}</p>
+                     <!-- <p class="login-image-title" *ngIf="edinfini"></p> -->
                   </div>
                 </div>
           </div>
           <div class="col-sm-4 col-md-4 col-lg-4 form-right-div-bg bg-white">
-              
               <form [formGroup]="loginForm" autocomplete="off" novalidate="novalidate">
                     <kt-auth-notice></kt-auth-notice>
                     <div class="row mb-4">
                       <div class="col-md-12 col-lg-12">
-                        <div class="login-image"></div>
+                        <img [src]="'/'+ currentClient.logo" alt="img" class="login-image" >
+                        <!-- <div class="login-image" [src]="currentClient.logo"> -->
+
+                        <!-- </div> -->
                         <h1 class="heading__text">Sign in</h1>
                       </div>
                     </div>

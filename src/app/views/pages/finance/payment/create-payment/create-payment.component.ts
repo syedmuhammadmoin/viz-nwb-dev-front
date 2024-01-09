@@ -18,7 +18,6 @@ import { ICashAccount } from '../../cash-account/model/ICashAccount';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
 import { MatRadioChange } from '@angular/material/radio';
 import { BankAccountConfig } from 'src/webvalidationconfig';
-import appConfig from 'src/assets/appconfig.json';
 
 @Component({
   selector: 'kt-create-payment',
@@ -129,7 +128,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     SRBTax: ''
   }
 
-  public config:any = appConfig;
 
   //Injecting dependencies
   constructor(
@@ -160,13 +158,15 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {id: 1, viewValue: 'Outflow'}
   ];
 
+  public currentClient : any ={}
   ngOnInit() {
+    this.currentClient = AppConst.ClientConfig.config
     this.paymentForm = this.fb.group({
       date: ['', [Validators.required]],
       description: ['', [Validators.required]],
       businessPartner: ['', [Validators.required]],
       account: ['', [Validators.required]],
-      campusId: (this.config?.options?.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       bankAccount: ['', [Validators.required]],
       grossPayment: ['',[Validators.required , Validators.min(1)]],
       deduction: [0,[Validators.min(0)]],

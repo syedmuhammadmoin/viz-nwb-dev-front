@@ -19,7 +19,7 @@ import { AuthNoticeService, AuthService, Login, User, UserLoaded } from '../../.
 import { DecodeTokenService } from "../../../shared/decode-token.service";
 import { LayoutUtilsService } from "../../../../core/_base/crud";
 import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
-
+import { AppConst } from 'src/app/views/shared/AppConst';
 /**
  * ! Just example => Should be removed in development
  */
@@ -57,6 +57,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 	private unsubscribe: Subject<any>;
 
 	private returnUrl: any;
+
+	public onlineClient :any =[];
+
 
 	// Read more: => https://brianflove.com/2016/12/11/anguar-2-unsubscribe-observables/
 
@@ -97,7 +100,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 	/**
 	 * On init
 	 */
+	public currentClient : any ={}
 	ngOnInit(): void {
+		this.currentClient = AppConst.ClientConfig.config
+
 		this.initLoginForm();
 
 		// redirect back to the returnUrl before login

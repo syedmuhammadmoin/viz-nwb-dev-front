@@ -15,8 +15,7 @@ import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confi
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
 import { IInvoiceLines } from '../model/IInvoiceLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { BankAccountConfig } from 'src/webvalidationconfig';
-import appConfig from 'src/assets/appconfig.json';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
  
@@ -97,7 +96,6 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     dueDate: '',
   };
 
-  public config:any = appConfig;
 
   // Injecting in dependencies in constructor
   constructor(private fb: FormBuilder,
@@ -112,13 +110,14 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   ) {
     super(injector);
   }
-
+  public currentClient : any ={}
   ngOnInit() {
+    this.currentClient = AppConst.ClientConfig.config
     // Creating Forms
     this.invoiceForm = this.fb.group({
       customerName: ['', [Validators.required]],
       invoiceDate: ['', [Validators.required]],
-      campusId: (this.config?.options?.isCampus) ?  ['',  [Validators.required]] : ['',[Validators.nullValidator]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       dueDate: ['',[Validators.required]],
       //contact: [''],
       invoiceLines: this.fb.array([
