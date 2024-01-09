@@ -25,8 +25,7 @@
                    placeholder="Select Campus" 
                    propertyValue="id" 
                    propertyName="name"
-                   formControlName="campusId" 
-                   (selectionChange)="onCampusSelected($event.value)"
+                   formControlName="campusId"                   
                    (blurEvent)="logValidationErrors(pettyCashForm, formErrors, validationMessages)"
                    matFormFieldClass="full-width"
                    [errorMessage]="'Campus is required.'" 
@@ -59,7 +58,7 @@
                       formControlName="accountId"
                       matFormFieldClass="full-width"
                       [errorMessage]="formErrors.accountId"
-                      (selectionChange)="getOpeningBalance($event.value,false)"
+                      (selectionChange)="getOpeningBalance($event.value)"
                       (blurEvent)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)"
                       [optionList]="ngxsService.accountsLevel4$">
                     </kt-simple-dropdown>
@@ -85,7 +84,8 @@
                   <label class="col-form-label pt-0">Closing Balance:</label>
                   <kt-input-field formControlName="closingBalance" placeholder="Add Closing Balance" id="petty_closingbalance"
                   (blurEvent)="logValidationErrors(pettyCashForm, this.formErrors, this.validationMessages)"
-                    >
+                  [hintText]="'Optional'"
+                  >
                   </kt-input-field>
                 </div>
               </div>
