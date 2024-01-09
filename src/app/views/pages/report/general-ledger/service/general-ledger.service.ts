@@ -27,4 +27,11 @@ export class GeneralLedgerService {
       })
     });
   }
+  getOpeningBalance(id: number): Observable<any>{
+    return this.httpClient.get<any>(`${this.baseUrl}/Account/${id}/Balance`, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    });
+  }
 }
