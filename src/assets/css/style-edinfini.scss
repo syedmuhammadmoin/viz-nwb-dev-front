@@ -1,4 +1,5 @@
 
+
 $bg-gradient-color: linear-gradient(to right, var(--bg_gradient_color_one), var(--bg_gradient_color_two));
 $bg-white: var(--bg_white);
 $primary-color: var(--primary_color);
@@ -924,10 +925,10 @@ div.search_sticky {
 }
 
 .login-image {
-  // background-image: $site-logo;
-  // background-repeat: no-repeat, repeat;
-  // background-position: center;
-  // background-size: contain;
+  background-image: $site-logo;
+  background-repeat: no-repeat, repeat;
+  background-position: center;
+  background-size: contain;
   width: 130px;
   height: 130px;
   margin-inline: auto;

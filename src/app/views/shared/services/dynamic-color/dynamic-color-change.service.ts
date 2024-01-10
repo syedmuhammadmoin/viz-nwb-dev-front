@@ -37,6 +37,8 @@ export class DynamicColorChangeService {
         edinfini_true :false,
         nawabshah_true :true,
         vizalys_true :false,
+        print_logo : "url('assets/media/logos/logo-wr.png')"
+
   })
 
   constructor() {
