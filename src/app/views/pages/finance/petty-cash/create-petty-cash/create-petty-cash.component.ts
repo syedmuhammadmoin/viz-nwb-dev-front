@@ -17,6 +17,7 @@ import { IPettyCashEntry } from '../model/IPettyCashEntry';
 import { PettyCashService } from '../service/petty-cash.service';
 import { IPettyCashEntryLines } from '../model/IPettyCashEntryLines';
 import { GeneralLedgerService } from '../../../report/general-ledger/service/general-ledger.service';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -105,12 +106,15 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     super(injector)
   }
 
-
+public currentClient : any ={};
   ngOnInit() {
+
+    this.currentClient = AppConst.ClientConfig.config
+
     this.pettyCashForm = this.fb.group({
       date: ['', [Validators.required]],
       accountId: ['',[Validators.required]],
-      campusId: ['',[Validators.required]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       description: ['',[Validators.required]],
       openingBalance:[''],
       closingBalance:[''],

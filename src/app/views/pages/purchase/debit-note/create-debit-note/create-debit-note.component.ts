@@ -108,7 +108,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
 
   public currentClient : any ={}
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     //Creating Forms
     this.debitNoteForm = this.fb.group({
       vendorName: ['', [Validators.required]],
