@@ -2,14 +2,14 @@
     "remoteServiceBaseUrl": "https://localhost:44378/api/",
     "apiKey": "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~",
     "appBaseUrl": "http://localhost:4200",
-    "clientId": 34,
+    "clientId": 32,
     "clients": [
         {
             "clientId": 32,
             "config": {
                 "title": "SBBU",
-                "print_logo": "url('assets/media/logos/vizalys-login-logo.png')",
-                "isCampus": false,
+                "print_logo": "url('assets/media/logos/logo-wr.png')",
+                "isCampus": true,
                 "descriptionMessage": "Main Campus SBBU Shaheed benazirabad.",
                 "logo": "url('assets/media/logos/logo-wr.png')",
                 "bgImage": "url('assets/media/logos/bg_login.jpg')",
@@ -41,7 +41,7 @@
                     "#5390a3"
                 ],
                 "site_title": "SBBU",
-                "fav_icon": "url('assets/media/logos/logo-wr.png')",
+                "fav_icon": "url('assets/media/logos/sbbu-logo.png')",
                 "edinfini_true": false,
                 "nawabshah_true": true,
                 "vizalys_true": false
@@ -51,7 +51,7 @@
             "clientId": 33,
             "config": {
                 "title": "EDINFINI",
-                "isCampus": true,
+                "isCampus": false,
                 "bg_gradient_color_one": "rgba(0, 0, 0, 0.6)",
                 "bg_gradient_color_two": "#65c18c",
                 "bg_white": "#ffffff",
@@ -84,7 +84,7 @@
                 "edinfini_true": true,
                 "nawabshah_true": false,
                 "vizalys_true": false,
-                "print_logo": "url('assets/media/logos/logo-wr.png')"
+                "print_logo": "url('assets/media/logos/sbbu-logo.png')"
             }
         },
         {
