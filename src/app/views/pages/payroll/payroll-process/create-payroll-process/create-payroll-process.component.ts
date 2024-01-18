@@ -37,14 +37,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       suppressMenu: true,
     },
     {
-      headerName: 'Transaction Date',
-      field: 'transDate',
-      suppressMenu: true,
-      cellRenderer: (params) => {
-        return this.dateHelperService.transformDate(params.value, 'MMM d, y');
-      }
-    },
-    {
       headerName: 'CNIC', field: 'cnic',
       suppressMenu: true,
     },
@@ -62,35 +54,111 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       field: 'department',
       suppressMenu: true
     },
-
     {
-      headerName: 'Working Days',
-      field: 'workingDays',
-      suppressMenu: true,
-    },
-    {
-      headerName: 'Present Days',
-      field: 'presentDays',
-      suppressMenu: true,
-    },
-    {
-      headerName: 'Absent Days',
-      field: 'absentDays',
-      suppressMenu: true,
-    },
-    {
-      headerName: 'Net Salary',
-      field: 'netSalary',
+      headerName: 'Differential Allowance',
+      field: 'differential Allowance',
       suppressMenu: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Status',
-      field: 'status',
+      headerName: 'Income from Transport / Buses ',
+      field: 'income from Transport / Buses',
       suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
     },
+    {
+      headerName: 'Employee Income Tax',
+      field: 'employee Income Tax',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Adhoc Relief Allowance 2022',
+      field: 'adhoc Relief Allowance 2022',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Computer Allowance',
+      field: 'computer Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Telecommunication Allowance',
+      field: 'telecommunication (Telephone) Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'House Rent Allowance',
+      field: 'house Rent Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Conveyance Allowance',
+      field: 'conveyance Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Medical Allowance',
+      field: 'medical Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Qualification/PHD/Special S&T Allowance',
+      field: 'qualification/PhD/Special S&T Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Entertainment Allowance',
+      field: 'entertainment Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Charge - Deanship/Chairmanship Allowance',
+      field: 'charge Allowance  - Deanship / Chairmanship/Headship Allowance',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Transportation Income From Employees',
+      field: 'transportation Income from Employees ',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    
   ];
 
   formErrors = {
