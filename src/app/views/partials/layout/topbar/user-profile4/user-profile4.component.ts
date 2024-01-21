@@ -176,8 +176,8 @@ export class UserProfile4Component extends AppComponentBase implements OnInit {
         chart_color : ['#1a6b85', '#1a6b85', '#5390a3', '#5390a3'],
         site_title : 'SBBU',
         fav_icon : 'assets/media/logos/logo-wr.png',
-        edinfini_true :false,
-        nawabshah_true :true,
+        edinfini_true :true,
+        nawabshah_true :false,
         vizalys_true :false,
       }
 
@@ -322,7 +322,7 @@ export class UserProfile4Component extends AppComponentBase implements OnInit {
       // this.dynamicColorChanging.dashboard_logo_hight.next('70px')
     }
  
-    }
+  }
 
   
 }

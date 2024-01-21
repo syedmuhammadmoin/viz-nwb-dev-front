@@ -17,16 +17,15 @@
                 </div>
               </div>
 
-              <div class="col-lg-3 col-sm-3 col-md-3">
+              <div class="col-lg-3 col-sm-3 col-md-3" *ngIf="this.currentClient?.isCampus">
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Campus:</label>
-                  <kt-simple-dropdown 
+                  <kt-simple-dropdown  
                   id="journal_campus"
                    placeholder="Select Campus" 
                    propertyValue="id" 
                    propertyName="name"
-                   formControlName="campusId" 
-                   (selectionChange)="onCampusSelected($event.value)"
+                   formControlName="campusId"                   
                    (blurEvent)="logValidationErrors(pettyCashForm, formErrors, validationMessages)"
                    matFormFieldClass="full-width"
                    [errorMessage]="'Campus is required.'" 
@@ -59,7 +58,7 @@
                       formControlName="accountId"
                       matFormFieldClass="full-width"
                       [errorMessage]="formErrors.accountId"
-                      (selectionChange)="getOpeningBalance($event.value,false)"
+                      (selectionChange)="getOpeningBalance($event.value)"
                       (blurEvent)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)"
                       [optionList]="ngxsService.accountsLevel4$">
                     </kt-simple-dropdown>
@@ -85,7 +84,8 @@
                   <label class="col-form-label pt-0">Closing Balance:</label>
                   <kt-input-field formControlName="closingBalance" placeholder="Add Closing Balance" id="petty_closingbalance"
                   (blurEvent)="logValidationErrors(pettyCashForm, this.formErrors, this.validationMessages)"
-                    >
+                  [hintText]="'Optional'"
+                  >
                   </kt-input-field>
                 </div>
               </div>

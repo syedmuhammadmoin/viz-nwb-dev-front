@@ -15,7 +15,10 @@ import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confi
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
 import { IInvoiceLines } from '../model/IInvoiceLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
+
+ 
 
 @Component({
   selector: 'kt-create-invoice',
@@ -93,6 +96,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     dueDate: '',
   };
 
+
   // Injecting in dependencies in constructor
   constructor(private fb: FormBuilder,
     private invoiceService: InvoiceService,
@@ -101,17 +105,19 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    injector: Injector
+    injector: Injector,
+
   ) {
     super(injector);
   }
-
+  public currentClient : any ={}
   ngOnInit() {
+    this.currentClient = AppConst.ClientConfig.config
     // Creating Forms
     this.invoiceForm = this.fb.group({
       customerName: ['', [Validators.required]],
       invoiceDate: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       dueDate: ['',[Validators.required]],
       //contact: [''],
       invoiceLines: this.fb.array([

@@ -8,6 +8,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 import { IPettyCashEntryLines } from '../model/IPettyCashEntryLines';
 import { PettyCashService } from '../service/petty-cash.service';
 import { IPettyCashEntry } from '../model/IPettyCashEntry';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-print-petty-cash',
@@ -24,6 +25,7 @@ export class PrintPettyCashComponent extends AppComponentBase implements OnInit 
   vizalys : boolean;
   localsto : any ;
   className : any;
+  currentClient : any = {};
 
   //Injecting Dependencies
   constructor( private journalEntryService : PettyCashService,
@@ -35,6 +37,7 @@ export class PrintPettyCashComponent extends AppComponentBase implements OnInit 
              ) { super(injector) }
 
   ngOnInit(): void {
+    this.currentClient = AppConst.ClientConfig.config
     this.activatedRoute.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if(id){

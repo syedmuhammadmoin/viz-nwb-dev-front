@@ -14,6 +14,7 @@ import {locale as jpLang} from './core/_config/i18n/jp';
 import {locale as deLang} from './core/_config/i18n/de';
 import {locale as frLang} from './core/_config/i18n/fr';
 import { DynamicColorChangeService } from './views/shared/services/dynamic-color/dynamic-color-change.service';
+import { AppConst } from './views/shared/AppConst';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -71,8 +72,12 @@ export class AppComponent implements OnInit, OnDestroy {
   /**
    * On init
    */
+  public currentClient: any = {}
   ngOnInit(): void {
-
+    debugger;
+    this.currentClient = AppConst.ClientConfig.config
+		console.log("Ooper",this.currentClient);
+    this.changeColor();
     // this.globalStyle.textcolor;
     // enable/disable loader
 
@@ -164,7 +169,7 @@ export class AppComponent implements OnInit, OnDestroy {
         document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_localStorage.nawabshah_true)
 
         document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_localStorage.vizalys_true)
-
+        document.documentElement.style.setProperty('--print_logo' ,this.globalcolor_localStorage.print_logo)
 
         this.title.setTitle(this.globalcolor_localStorage.site_title)
         this.favIcon.href =(this.globalcolor_localStorage.fav_icon)
@@ -231,6 +236,7 @@ export class AppComponent implements OnInit, OnDestroy {
         document.documentElement.style.setProperty('--edinfini_true' ,this.globalcolor_localStorage.edinfini_true)
         document.documentElement.style.setProperty('--nawabshah_true' ,this.globalcolor_localStorage.nawabshah_true)
         document.documentElement.style.setProperty('--vizalys_true' ,this.globalcolor_localStorage.vizalys_true)
+        document.documentElement.style.setProperty('--print_logo' ,this.globalcolor_localStorage.print_logo)
 
         this.title.setTitle(this.globalcolor_localStorage.site_title)
         this.favIcon.href =(this.globalcolor_localStorage.fav_icon)
@@ -239,6 +245,13 @@ export class AppComponent implements OnInit, OnDestroy {
     })
 
   }
+
+  changeColor() {
+		debugger;
+		console.log("Neechay",this.currentClient);
+		localStorage.setItem('global_color', JSON.stringify(this.currentClient));
+		this.dynamicColorChanging.global_color.next(this.currentClient);
+	}
 
 
   /**

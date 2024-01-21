@@ -10,6 +10,9 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { BankAccountState } from '../store/bank-account.state';
 import { Permissions } from 'src/app/views/shared/AppEnum';
+import { BankAccountConfig } from 'src/webvalidationconfig';
+import { AppConst } from 'src/app/views/shared/AppConst';
+import { Config } from 'protractor';
 
 
 @Component({
@@ -21,7 +24,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 export class CreateBankAccountComponent extends AppComponentBase implements OnInit {
 
   isLoading: boolean;
-
+  public currentClient : any ={}
   //Bank account Form variable
   bankAccountForm: FormGroup;
 
@@ -90,12 +93,14 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
     public dialogRef: MatDialogRef<CreateBankAccountComponent>,
     public ngxsService: NgxsCustomService,
     private bankAccountService: BankAccountService,
-    injector: Injector
+    injector: Injector,
   ) {
     super(injector)
   }
 
-  ngOnInit() {
+  ngOnInit() {  
+    
+    this.currentClient = AppConst.ClientConfig.config
     this.bankAccountForm = this.fb.group({
       accountNumber: ['', [Validators.required, Validators.min(1)]],
       bankName: ['', [Validators.required]],
@@ -107,7 +112,8 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
       bankAccountType: ['', [Validators.required]],
       openingBalance: ['', [Validators.required, Validators.min(0)]],
       OBDate: ['', [Validators.required]],
-      campusId: ['', [Validators.required]]
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]]
+      
     });
 
 
@@ -164,7 +170,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
 
   //submit Bank Account Form
   onSubmit() {
-    if (this.bankAccountForm.invalid) {
+   if (this.bankAccountForm.invalid) {
       return
     }
     this.isLoading = true;

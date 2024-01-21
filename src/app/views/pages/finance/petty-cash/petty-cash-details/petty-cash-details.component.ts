@@ -13,6 +13,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { PettyCashService } from '../service/petty-cash.service';
 import { IPettyCashEntry } from '../model/IPettyCashEntry';
 import { IPettyCashEntryLines } from '../model/IPettyCashEntryLines';
+import { AppConst } from 'src/app/views/shared/AppConst';
+
 
 @Component({
   selector: 'kt-petty-cash-details',
@@ -33,7 +35,7 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
   pettycashEntryId: number;
 
   public pettyEntryRoute = PETTY_CASH  
-
+  currentClient : any = {};
   // For ag grid
   gridOptions: GridOptions = ({} as GridOptions);
   defaultColDef: ColDef;
@@ -117,7 +119,7 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
   ];
 
   ngOnInit(): void {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.gridOptions.rowStyle = { color: 'black' };
     this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;

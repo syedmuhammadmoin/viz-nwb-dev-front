@@ -15,6 +15,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { PurchaseOrderService } from '../../purchase-order/service/purchase-order.service';
 import { GrnService } from '../../../inventory/goods-received-note/service/grn.service';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-create-vendor-bill',
@@ -112,18 +113,19 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
     public  activatedRoute: ActivatedRoute,
     private purchaseOrderService: PurchaseOrderService,
     public ngxsService:NgxsCustomService,
-    injector: Injector
+    injector: Injector,
   ) {
     super(injector);
   }
-
+  public currentClient : any ={}
   ngOnInit() {
+    this.currentClient = AppConst.ClientConfig.config
 
     // Creating Forms
     this.vendorBillForm = this.fb.group({
       vendorName: ['', [Validators.required]],
       billDate: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       dueDate: ['', [Validators.required]],
       vendorBillLines: this.fb.array([
         this.addVendorBillLines()

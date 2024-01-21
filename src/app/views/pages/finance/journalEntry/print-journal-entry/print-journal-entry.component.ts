@@ -8,6 +8,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 import { IJournalEntry } from '../model/IJournalEntry';
 import { IJournalEntryLines } from '../model/IJournalEntryLines';
 import { JournalEntryService } from '../services/journal-entry.service';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-print-journal-entry',
@@ -16,7 +17,7 @@ import { JournalEntryService } from '../services/journal-entry.service';
 })
 
 export class PrintJournalEntryComponent extends AppComponentBase implements OnInit {
-
+  currentClient : any = {};
   gridOptions: GridOptions;
   journalEntryMaster: any;
   journalEntryLines: IJournalEntryLines[];
@@ -36,6 +37,7 @@ export class PrintJournalEntryComponent extends AppComponentBase implements OnIn
              ) { super(injector) }
 
   ngOnInit(): void {
+    this.currentClient = AppConst.ClientConfig.config
     this.activatedRoute.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if(id){

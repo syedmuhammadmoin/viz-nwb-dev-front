@@ -1,11 +1,57 @@
 import {Criteria, DocType, Nature} from './AppEnum';
 
+
+
+interface Config {
+  readonly title: string;
+  readonly isCampus: boolean
+  readonly isAdmission: boolean
+  readonly descriptionMessage: string
+  readonly logo: string
+  readonly bgImage: string
+  readonly bg_gradient_color_one: string
+  readonly bg_gradient_color_two: string
+  readonly bg_white: string
+  readonly primary_color: string
+  readonly secondary_color: string
+  readonly input_filed_primary_color: string
+  readonly input_filed_background_color: string
+  readonly input_filed_border_color: string
+  readonly form_border_color: string
+  readonly test_shadow_color: string
+  readonly button_background_color: string
+  readonly light_gray_color: string
+  readonly toggler_arrow_color: string
+  readonly home_logo_bg: string
+  readonly db_dd_t_c: string
+  readonly login_title: string
+  readonly login_cover_image: string
+  readonly site_logo: string
+  readonly dashboard_hight: string
+  readonly dashboard_logo_width: string
+  readonly dashboard_logo_hight: string
+  readonly chart_color: string[]
+  readonly site_title: string
+  readonly fav_icon: string
+  readonly edinfini_true: boolean
+  readonly nawabshah_true: boolean
+  readonly vizalys_true: boolean
+  readonly print_logo : string
+} 
+ 
+interface Client {
+  readonly clientId: number;
+  readonly config: Config;
+}
+
 export class AppConst {
 
   static appBaseUrl: string;
   static remoteServiceBaseUrl: string;
   static appBaseHref: string;
   static apiKey: string;
+  static clientId: number;
+  static ClientConfig: Client;
 
   static ProductType = {
     0: 'Consumable',
@@ -698,4 +744,5 @@ export class AppConst {
     {value: 'Submitted', id: 5},
     {value: 'Reviewed', id: 6},
   ];
+  
 }
