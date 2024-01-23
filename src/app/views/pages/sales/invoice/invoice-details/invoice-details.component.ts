@@ -15,6 +15,7 @@ import { IInvoice } from '../model/IInvoice';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -68,7 +69,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
 
   //Showing Remarks
   remarksList: string[] = [];
-
+  currentClient : any = {};
   constructor(
     private invoiceService: InvoiceService,
     private route: ActivatedRoute,
@@ -173,7 +174,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   ];
 
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {

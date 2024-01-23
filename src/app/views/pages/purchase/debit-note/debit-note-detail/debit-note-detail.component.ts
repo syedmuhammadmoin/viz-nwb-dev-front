@@ -11,6 +11,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { finalize, take } from 'rxjs/operators';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -39,6 +40,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
 
   //need for routing
   debitNoteId: number;
+  currentClient : any = {};
 
   paidAmountList: any = []
 
@@ -150,7 +152,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
   ];
 
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.activatedRoute.paramMap.subscribe(params => {
       const id = +params.get('id');
       if (id) {

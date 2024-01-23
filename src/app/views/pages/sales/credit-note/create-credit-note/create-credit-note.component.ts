@@ -18,6 +18,8 @@ import { IInvoice } from '../../invoice/model/IInvoice';
 import { ICreditNoteLines } from '../model/ICreditNoteLines';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IInvoiceLines } from '../../invoice/model/IInvoiceLines';
+import { AppConst } from 'src/app/views/shared/AppConst';
+
 
 @Component({
   selector: 'kt-create-credit-note',
@@ -56,7 +58,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   //param to get invoice
   isInvoice: boolean;
   invoiceMaster: any;
-
+  currentClient:any = {};
   //variables for calculation
   grandTotal: number = 0;
   totalBeforeTax: number = 0;
@@ -104,7 +106,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   }
 
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     //Creating Forms
     this.creditNoteForm = this.fb.group({
       customerName: ['', [Validators.required]],

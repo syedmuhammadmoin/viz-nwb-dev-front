@@ -1,7 +1,132 @@
 {
     "remoteServiceBaseUrl": "https://localhost:44378/api/",
     "apiKey": "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~",
-    "appBaseUrl": "http://localhost:4200"
+    "appBaseUrl": "http://localhost:4200",
+    "clientId": 32,
+    "clients": [
+        {
+            "clientId": 32,
+            "config": {
+                "title": "SBBU",
+                "print_logo": "url('assets/media/logos/logo-wr.png')",
+                "isCampus": true,
+                "isAdmission":false,
+                "descriptionMessage": "Main Campus SBBU Shaheed benazirabad.",
+                "logo": "url('assets/media/logos/logo-wr.png')",
+                "bgImage": "url('assets/media/logos/bg_login.jpg')",
+                "bg_gradient_color_one": "#1a6b85",
+                "bg_gradient_color_two": "#4a8a9e",
+                "bg_white": "#ffffff",
+                "primary_color": "#1a6b85",
+                "secondary_color": "#cba058",
+                "input_filed_primary_color": "#808080",
+                "input_filed_background_color": "#f2f2f2",
+                "input_filed_border_color": "#d0d0d0",
+                "form_border_color": "#aad7e6",
+                "test_shadow_color": "#9195a9",
+                "button_background_color": "#e9f5f9",
+                "light_gray_color": "#B5B5C3",
+                "toggler_arrow_color": "#1a6b85",
+                "home_logo_bg": "#fff",
+                "db_dd_t_c": "#fff",
+                "login_title": "Main Campus SBBU Shaheed benazirabad.",
+                "login_cover_image": "url('assets/media/logos/bg_login.jpg')",
+                "site_logo": "url('assets/media/logos/logo-wr.png')",
+                "dashboard_hight": "90px",
+                "dashboard_logo_width": "70px",
+                "dashboard_logo_hight": "70px",
+                "chart_color": [
+                    "#1a6b85",
+                    "#1a6b85",
+                    "#5390a3",
+                    "#5390a3"
+                ],
+                "site_title": "SBBU",
+                "fav_icon": "url('assets/media/logos/sbbu-logo.png')",
+                "edinfini_true": false,
+                "nawabshah_true": true,
+                "vizalys_true": false
+            }
+        },
+        {
+            "clientId": 33,
+            "config": {
+                "title": "EDINFINI",
+                "isCampus": false,
+                "bg_gradient_color_one": "rgba(0, 0, 0, 0.6)",
+                "bg_gradient_color_two": "#65c18c",
+                "bg_white": "#ffffff",
+                "primary_color": "#65c18c",
+                "secondary_color": "#141e27",
+                "input_filed_primary_color": "#808080",
+                "input_filed_background_color": "#f2f2f2",
+                "input_filed_border_color": "#d0d0d0",
+                "form_border_color": "rgba(101, 193, 140, 0.1)",
+                "test_shadow_color": "#9195a9",
+                "button_background_color": "rgba(101, 193, 140, 0.1)",
+                "light_gray_color": "#B5B5C3",
+                "toggler_arrow_color": "#65c18c",
+                "home_logo_bg": "#fff",
+                "db_dd_t_c": "#fff",
+                "login_title": "",
+                "login_cover_image": "url('assets/media/logos/edinfini-login-image.jpg')",
+                "site_logo": "url('assets/media/logos/LOGO-EDINFINI-HEADER.png')",
+                "dashboard_hight": "65px",
+                "dashboard_logo_width": "110px",
+                "dashboard_logo_hight": "80px",
+                "chart_color": [
+                    "#65c18c",
+                    "#65c18c",
+                    "#69a381",
+                    "#69a381"
+                ],
+                "site_title": "EDINFINI",
+                "fav_icon": "assets/media/logos/EDINFINI-FAV-ICON.png",
+                "edinfini_true": true,
+                "nawabshah_true": false,
+                "vizalys_true": false,
+                "print_logo": "url('assets/media/logos/sbbu-logo.png')"
+            }
+        },
+        {
+            "clientId": 34,
+            "config": {
+                "isCampus": false,
+                "bg_gradient_color_one": "#2988bc",
+                "bg_gradient_color_two": "#2988bc",
+                "bg_white": "#ffffff",
+                "primary_color": "#2988bc",
+                "secondary_color": "#fff",
+                "input_filed_primary_color": "#808080",
+                "input_filed_background_color": "#f2f2f2",
+                "input_filed_border_color": "#d0d0d0",
+                "form_border_color": "#aad7e6",
+                "test_shadow_color": "#9195a9",
+                "button_background_color": "#e4edf3",
+                "light_gray_color": "#B5B5C3",
+                "toggler_arrow_color": "#fff",
+                "home_logo_bg": "#2988bc",
+                "db_dd_t_c": "#2988bc",
+                "title": "",
+                "login_title": "Main Campus SBBU Shaheed benazirabad.",
+                "login_cover_image": "url('assets/media/logos/vizalys-login.jpg')",
+                "site_logo": "url('assets/media/logos/vizalys-logo.png')",
+                "dashboard_hight": "65px",
+                "dashboard_logo_width": "175px",
+                "dashboard_logo_hight": "40px",
+                "chart_color": [
+                    "#1a6b85",
+                    "#1a6b85",
+                    "#5390a3",
+                    "#5390a3"
+                ],
+                "site_title": "Vizalys",
+                "fav_icon": "assets/media/logos/vizalys-favicon.png",
+                "edinfini_true": false,
+                "nawabshah_true": false,
+                "vizalys_true": true,
+                "print_logo": "url('assets/media/logos/logo-wr.png')"
+            }
+        }
+    ]
 }
-
-

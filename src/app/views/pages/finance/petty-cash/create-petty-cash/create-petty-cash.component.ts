@@ -16,6 +16,8 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IPettyCashEntry } from '../model/IPettyCashEntry';
 import { PettyCashService } from '../service/petty-cash.service';
 import { IPettyCashEntryLines } from '../model/IPettyCashEntryLines';
+import { GeneralLedgerService } from '../../../report/general-ledger/service/general-ledger.service';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -91,6 +93,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   constructor(
     private fb: FormBuilder,
     private pettyCashService: PettyCashService, 
+    private legderService: GeneralLedgerService,
     public activatedRoute: ActivatedRoute,
     public addButtonService: AddModalButtonService,
     public categoryService: CategoryService,
@@ -103,12 +106,15 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     super(injector)
   }
 
-
+public currentClient : any ={};
   ngOnInit() {
+
+    this.currentClient = AppConst.ClientConfig.config
+
     this.pettyCashForm = this.fb.group({
       date: ['', [Validators.required]],
       accountId: ['',[Validators.required]],
-      campusId: ['',[Validators.required]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       description: ['',[Validators.required]],
       openingBalance:[''],
       closingBalance:[''],
@@ -236,7 +242,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
       
     });
 
-    this.onCampusSelected(pettyEntry.campusId)
+   // this.onCampusSelected(pettyEntry.campusId)
     this.showMessage = true;
 
     this.pettyCashForm.setControl('pettycashLines', this.editPettyCashEntryLines(pettyEntry.pettyCashLines));
@@ -334,48 +340,55 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
     return !this.pettyCashForm.dirty;
   }
 
-  checkCampus() {
-    this.showMessage = true;
-    if(this.pettyCashForm.value.campusId === '') {
-      this.toastService.info("Please Select Campus First!", "Petty Cash Entry")
-    }
-  }
+  // checkCampus() {
+  //   this.showMessage = true;
+  //   if(this.pettyCashForm.value.campusId === '') {
+  //     this.toastService.info("Please Select Campus First!", "Petty Cash Entry")
+  //   }
+  // }
 
-  onCampusSelected(campusId : number) {
-    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
-      this.warehouseList.next(res.result || [])
-    })
+  // onCampusSelected(campusId : number) {
+  //   this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
+  //     this.warehouseList.next(res.result || [])
+  //   })
 
     
-  }
+  // }
 
 
 
 
   getOpeningBalance(id: number, isEdit: boolean = false) {
-    // this.isLoading = true;
-    // this.pettyCashService.getOpeningBalance(id)
-    //   .pipe(
-    //     take(1),
-    //     finalize(() => {
-    //       this.isLoading = false;
-    //       this.cdRef.detectChanges();
-    //     })
-    //   )
-    //   .subscribe((res) => {
-    //     this.account = res.result
-    //     this.checkSelected(this.account, isEdit)
-    //     this.cdRef.detectChanges()
-    //   })
+    this.isLoading = true;
+    this.legderService.getOpeningBalance(id)
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((res) => {
+        this.account = res.result
+        console.log(this.account);
+        this.checkSelected(this.account, isEdit)
+        this.cdRef.detectChanges()
+      })
   }
 
-  checkSelected(account: IPettyCashEntry | any, isEdit: boolean = false) {
+  checkSelected(account: any, isEdit: boolean = false) {
+
+    console.log(account,'yahan aya ');
+    
     this.pettyCashForm.patchValue({
-      openingBalance: account.openingBalance,        
+      openingBalance: account[0]?.balance,        
     })
-    if (!isEdit) {
-      this.onCampusSelected(account.campusId)
-    }
+
+    console.log(this.pettyCashForm);
+    
+    // if (!isEdit) {
+    //   this.onCampusSelected(account.campusId)
+    // }
   }
 
   checkAccount() {

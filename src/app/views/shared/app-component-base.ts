@@ -66,6 +66,7 @@ export abstract class AppComponentBase {
 
   // For checking validation message
   logValidationErrors(formGroup: FormGroup, formErrors: any, validationMessages?: any): void {
+    debugger;
     Object.keys(formGroup.controls).forEach((Key: string) => {
       const abstractControl = formGroup.get(Key);
       formErrors[Key] = '';
