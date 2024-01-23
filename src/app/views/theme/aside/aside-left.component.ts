@@ -89,7 +89,11 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     super(injector)
 
     if (AppConst.ClientConfig.config.isCampus == false) {
-      removeItemByTitle(this.menuAsideService.menuList$.value, 'Campus');
+      removeItemByTitle(this.menuAsideService.menuList$.value, 'Campus');      
+    }
+
+    if (AppConst.ClientConfig.config.isAdmission == false) {
+      removeItemByTitle(this.menuAsideService.menuList$.value, 'Admission');      
     }
 
     function removeItemByTitle(arr, titleToRemove) {

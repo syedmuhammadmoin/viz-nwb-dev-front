@@ -5,6 +5,7 @@ import {Criteria, DocType, Nature} from './AppEnum';
 interface Config {
   readonly title: string;
   readonly isCampus: boolean
+  readonly isAdmission: boolean
   readonly descriptionMessage: string
   readonly logo: string
   readonly bgImage: string
