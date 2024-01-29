@@ -5,6 +5,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { IdepartmentInterface } from '../model/idepartment-interface';
 
 @Injectable({
   providedIn: 'root'
@@ -33,8 +34,24 @@ export class DepartmentService extends AppServiceBase {
     getRecords(params: any): Observable<any> {
       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null) , headers: this.header});
     }
+
+    addDepartment(department : IdepartmentInterface[]): Observable<IdepartmentInterface>{
+      return this.httpClient.post<IdepartmentInterface>(`${this.baseUrl}`, department, {headers: this.header})
 }
 
+getdepartmentById(id: number): Observable<IApiResponse<[]>> {
+  return this.httpClient.get<IApiResponse<[]>>(this.baseUrl + "/" + id)
+}
+
+
+updateDepartment(deparment: IdepartmentInterface): Observable<void> {
+  return this.httpClient.put<void>(`${this.baseUrl}/${deparment.id}`, deparment, {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json'
+      })
+  })
+}
+}
 
 
 

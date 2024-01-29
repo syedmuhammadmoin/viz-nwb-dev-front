@@ -53,6 +53,8 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   //variable for debit and credit sum
   debitTotal: number = 0;
   creditTotal: number = 0;
+  closingBalance: number = 0;
+  openingBalance: number = 0
 
   title: string = 'Create Petty Cash Entries'
 
@@ -165,12 +167,15 @@ public currentClient : any ={};
   totalCalculation() {
     this.debitTotal = 0;
     this.creditTotal = 0;
+    this.closingBalance = 0;
     const arrayControl = this.pettyCashForm.get('pettycashLines') as FormArray;
     arrayControl.controls.forEach((_:unknown, index: number) => {
       const debit = arrayControl.at(index).get('debit').value;
       const credit = arrayControl.at(index).get('credit').value;
       this.debitTotal += Number(debit);
       this.creditTotal += Number(credit);
+      this.closingBalance = this.account[0].balance - this.debitTotal + this.creditTotal;     
+      console.log(this.closingBalance);
     });
   }
 
@@ -194,8 +199,8 @@ public currentClient : any ={};
       accountId: ['',  Validators.required],
       businessPartnerId: [],
       description: ['', Validators.required],
-      debit: [0, [Validators.required, Validators.min(0)]],
-      credit: [0, [Validators.required, Validators.min(0)]],
+      debit: [0, [Validators.required, Validators.min(1)]],
+      credit: [0, [Validators.required, Validators.min(1)]],
       date:['',[Validators.required]],
     });
   }
@@ -369,7 +374,7 @@ public currentClient : any ={};
         })
       )
       .subscribe((res) => {
-        this.account = res.result
+        this.account = res.result               
         console.log(this.account);
         this.checkSelected(this.account, isEdit)
         this.cdRef.detectChanges()
@@ -381,7 +386,8 @@ public currentClient : any ={};
     console.log(account,'yahan aya ');
     
     this.pettyCashForm.patchValue({
-      openingBalance: account[0]?.balance,        
+      openingBalance: account[0]?.balance,       
+
     })
 
     console.log(this.pettyCashForm);

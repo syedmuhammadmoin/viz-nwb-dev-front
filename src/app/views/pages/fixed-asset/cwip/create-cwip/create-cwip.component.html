@@ -244,7 +244,7 @@
                     matFormFieldClass="full-width"
                     (blurEvent)="logValidationErrors(cwipForm, formErrors, validationMessages)"
                     propertyName="editableName" propertyValue="id" [errorMessage]="formErrors.accumulatedDepreciationId"
-                    [optionList]="ngxsService.otherAccounts$" placeholder="Select Accumulated Dep A/C">
+                    [optionList]="ngxsService.assetAccount$" placeholder="Select Accumulated Dep A/C">
                   </kt-simple-dropdown>
                 </div>
               </div>

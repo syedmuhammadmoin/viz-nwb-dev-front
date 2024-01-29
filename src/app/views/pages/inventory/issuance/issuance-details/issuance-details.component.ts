@@ -12,6 +12,8 @@ import { IIssuanceLines } from '../model/IssuanceLines';
 import { IIssuance } from '../model/IIssuance';
 import { IssuanceService } from '../service/issuance.service';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { AppConst } from 'src/app/views/shared/AppConst';
+
 
 
 @Component({
@@ -98,9 +100,9 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
       }
     }
   ];
-
+  public currentClient : any ={};
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {

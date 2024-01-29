@@ -73,6 +73,8 @@ export class DashboardComponent implements OnInit {
 
   title: string;
   primarycolor: string;
+  secondarycolor:string = "#00e295";
+
   chartcolor: any;
   localsto: any;
   toastService: any;
@@ -132,7 +134,8 @@ export class DashboardComponent implements OnInit {
 
         if (localStorage.getItem('global_color')) {
           this.localsto = JSON.parse(localStorage.getItem('global_color'));
-          this.primarycolor = this.localsto.primary_color;
+          console.log(this.localsto);
+          this.primarycolor = this.localsto.primary_color;          
           this.chartcolor = this.localsto.chart_color;
 
           this.chartOptions = {
@@ -160,7 +163,7 @@ export class DashboardComponent implements OnInit {
             },
             stroke: {
               curve: 'straight',
-              colors: [this.primarycolor]
+              colors: [this.primarycolor,this.secondarycolor]
             },
             title: {
               text: 'sales Trends by Month',

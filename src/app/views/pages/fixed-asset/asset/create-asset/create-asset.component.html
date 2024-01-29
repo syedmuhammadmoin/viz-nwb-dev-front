@@ -255,7 +255,7 @@
                   <kt-simple-dropdown
                     (blurEvent)="logValidationErrors(assetForm, this.formErrors, this.validationMessages)"
                     [errorMessage]="formErrors.accumulatedDepreciationId"
-                    [optionList]="ngxsService.otherAccounts$"
+                    [optionList]="ngxsService.assetAccount$"
                     formControlName="accumulatedDepreciationId"
                     id="id"
                     matFormFieldClass="full-width"

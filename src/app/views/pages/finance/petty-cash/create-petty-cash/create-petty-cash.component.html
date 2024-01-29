@@ -98,7 +98,7 @@
                     <mat-table #table [dataSource]="pettyCashForm.get('pettycashLines')['controls']">
                       <!-- Account Column -->
                       <ng-container matColumnDef="accountId">
-                        <mat-header-cell *matHeaderCellDef class="flex-2"> COA</mat-header-cell>
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Account Head</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
                           <div class="col-lg-12 col-sm-12 mt-2">
                             <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
@@ -151,7 +151,7 @@
                                 <strong>Debit is required.</strong>
                               </mat-error>
                               <mat-error *ngIf="element.controls.debit.errors?.min && element.controls.debit.touched">
-                                <strong>Minimum value is 0.</strong>
+                                <strong>Minimum value should be greater then 0.</strong>
                               </mat-error>
                             </mat-form-field>
                           </div>
@@ -169,7 +169,7 @@
                                 <strong>Credit is required.</strong>
                               </mat-error>
                               <mat-error *ngIf="element.controls.credit.errors?.min && element.controls.credit.touched">
-                                <strong>Minimum value is 0.</strong>
+                                <strong>Minimum should be greater then value is 0.</strong>
                               </mat-error>
                             </mat-form-field>
                           </div>
@@ -228,6 +228,10 @@
                 <div class="print-box">
                   <h4>Total Credit: <span  class="float-right" >
                     {{creditTotal.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></h4>
+                </div>
+                <div class="print-box">
+                  <h4>Closing Balance: <span  class="float-right" >
+                    {{closingBalance.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span></h4>
                 </div>
               </div>
             </div>

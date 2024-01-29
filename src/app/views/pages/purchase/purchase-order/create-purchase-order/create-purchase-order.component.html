@@ -77,7 +77,7 @@
               <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Campus:</label>
+                    <label class="col-form-label pt-0">Branch:</label>
                       <kt-simple-dropdown
                         formControlName="campusId"
                         propertyName="name"
@@ -88,7 +88,7 @@
                         [errorMessage]="formErrors.campusId"
                         (blurEvent)="logValidationErrors(this.purchaseOrderForm, this.formErrors, this.validationMessages)"
                         [optionList]="ngxsService.campuses$"
-                        placeholder="Select Campus">
+                        placeholder="Select Branch">
                       </kt-simple-dropdown>
                   </div>
                 </div>

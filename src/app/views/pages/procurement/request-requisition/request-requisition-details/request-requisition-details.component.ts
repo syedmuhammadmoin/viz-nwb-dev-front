@@ -12,6 +12,7 @@ import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-r
 import { IRequestRequisitionLines } from '../model/IRequestRequisitionLine';
 import { IRequestRequisition } from '../model/IRequestRequisition';
 import { RequestRequisitionService } from '../service/request-requisition.service';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -73,9 +74,9 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
       cellStyle: { 'font-size': '12px' }
     }
   ];
-
+  public currentClient : any ={};
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {

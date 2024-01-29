@@ -86,7 +86,7 @@
                             placeholder="Select Depreciation Account"
                             formControlName="accumulatedDepreciationId"
                             matFormFieldClass="full-width"
-                            [optionList]="ngxsService.getLiabilityAccounts$"                                      
+                            [optionList]="ngxsService.assetAccount$"                                      
                             [errorMessage]="formErrors.accumulatedDepreciationId"
                             (blurEvent)="logValidationErrors(this.depreciationForm, this.formErrors, this.validationMessages)">
                           </kt-simple-dropdown>

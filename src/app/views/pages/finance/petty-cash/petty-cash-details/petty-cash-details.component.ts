@@ -61,7 +61,7 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
   // Defining AG Grid Columns
   columnDefs = [
     {
-      headerName: 'COA', field: 'accountName', filter: 'agTextColumnFilter',
+      headerName: 'Account Head', field: 'accountName', filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
         filterOptions: ['contains'],

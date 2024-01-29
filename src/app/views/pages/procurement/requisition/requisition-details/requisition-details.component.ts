@@ -12,6 +12,7 @@ import { IRequisition } from '../model/IRequisition';
 import { RequisitionService } from '../service/requisition.service';
 import { finalize, take } from 'rxjs/operators';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -115,9 +116,9 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
       cellStyle: {'font-size': '12px'}
     }
   ];
-
+  public currentClient : any ={};
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {

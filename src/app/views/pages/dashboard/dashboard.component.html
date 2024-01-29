@@ -65,7 +65,7 @@
     </div>
     <!--endregion-->
     <!--region Graphs-->
-    <div class="col-md-6 mb-5">
+    <div class="col-md-12 mb-5">
       <div id="chart" class="card" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <ng-container *ngIf="showChart[1]">
           <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
@@ -74,7 +74,7 @@
         </ng-container>
       </div>
     </div>
-    <div class="col-md-6 mb-5">
+    <!-- <div class="col-md-6 mb-5">
       <div id="pie-chart" class="card" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <ng-container *ngIf="showChart[1]">
           <apx-chart [series]="pieChartOptions.series" [chart]="pieChartOptions.chart" [labels]="pieChartOptions.labels"
@@ -83,7 +83,7 @@
             [colors]="pieChartOptions.colors"></apx-chart>
         </ng-container>
       </div>
-    </div>
+    </div> -->
   </div>
 
   <div class="row mt-2">

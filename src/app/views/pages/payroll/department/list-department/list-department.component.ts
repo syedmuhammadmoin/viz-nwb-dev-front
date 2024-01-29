@@ -1,9 +1,12 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { DepartmentService } from '../service/department.service';
+import { CreateDepartmentComponent } from '../create-department/create-department.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'kt-list-department',
@@ -11,7 +14,8 @@ import { DepartmentService } from '../service/department.service';
   styleUrls: ['./list-department.component.scss']
 })
 export class ListDepartmentComponent extends AppComponentBase implements OnInit {
-
+  
+  public permissions = Permissions;
   departmentList: [];
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
@@ -24,6 +28,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
   constructor(
     private departmentService: DepartmentService,
     private cdRef: ChangeDetectorRef,
+    public dialog: MatDialog,
     injector: Injector
   ) {
     super(injector)
@@ -110,6 +115,23 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
   async getDepartments(params: any): Promise<IPaginationResponse<[]>> {
     const result = await this.departmentService.getRecords(params).toPromise()
     return result
+  }
+
+
+  onRowDoubleClicked(event : RowDoubleClickedEvent) {
+    this.openDialog(event.data.id)
+  }
+
+  openDialog(id?: number): void {
+    const dialogRef = this.dialog.open(CreateDepartmentComponent, {
+      width: '800px',
+      data: id ? id : 0
+    });
+    //Getting Updated Department
+    dialogRef.afterClosed().subscribe(() => {
+      this.gridApi.setDatasource(this.dataSource)
+      this.cdRef.detectChanges();
+    });
   }
 }
 
