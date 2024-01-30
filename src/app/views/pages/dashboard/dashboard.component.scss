@@ -49,7 +49,7 @@
 
 }
 
-.card {
+.custom-card {
   // position: relative;
   display: flex;
   flex-direction: column;
@@ -59,5 +59,6 @@
   background-clip: border-box;
   border: 1px solid #EBEDF3;
   border-radius: 0.42rem;
-  height: 400px;
+  min-height: 200px;
+  height: auto;
 }

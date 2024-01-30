@@ -89,8 +89,8 @@
   <div class="row mt-2">
     <div class="container">
       <div class="row">
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-md-3" *ngIf="level3Curent?.length > 0">
+          <div class="custom-card">
             <div class="card-body">
               <div class="">
                 <h5 class="card-title">Current Assets</h5>
@@ -113,8 +113,8 @@
           </div>
         </div>
 
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-md-3" *ngIf="level3NonCurent?.length > 0">
+          <div class="custom-card">
             <div class="card-body">
               <div class="">
                 <h5 class="card-title">Non-Current Assets</h5>
@@ -138,8 +138,8 @@
         </div>
 
 
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-md-3" *ngIf="level3Currentlibilities?.length > 0">
+          <div class="custom-card">
             <div class="card-body">
               <div class="">
                 <h5 class="card-title">Current Liability</h5>
@@ -162,8 +162,8 @@
           </div>
         </div>
 
-        <div class="col-md-3">
-          <div class="card">
+        <div class="col-md-3"  *ngIf="level3NonCurrentlibilities?.length > 0">
+          <div class="custom-card">
             <div class="card-body">
               <div class="">
                 <h5 class="card-title">Non-Current Liability </h5>
