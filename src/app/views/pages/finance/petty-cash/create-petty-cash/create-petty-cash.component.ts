@@ -169,19 +169,19 @@ public currentClient : any ={};
     this.creditTotal = 0;
     this.closingBalance = 0;
     const arrayControl = this.pettyCashForm.get('pettycashLines') as FormArray;
+    const OpeningBalance = this.pettyCashForm.get('openingBalance').value;
     arrayControl.controls.forEach((_:unknown, index: number) => {
       const debit = arrayControl.at(index).get('debit').value;
       const credit = arrayControl.at(index).get('credit').value;
       this.debitTotal += Number(debit);
-      this.creditTotal += Number(credit);
-      this.closingBalance = this.account[0].balance - this.debitTotal + this.creditTotal;     
-      console.log(this.closingBalance);
+      this.creditTotal += Number(credit);            
+      this.closingBalance = (this.account.length != 0 ? this.account[0].balance : OpeningBalance) - this.debitTotal + this.creditTotal;           
     });
   }
 
 
   // Form Reset
-  reset() {
+  reset() {  
     this.formDirective.resetForm();
     this.showMessage = false;
     this.table.renderRows();
