@@ -7,7 +7,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { DepartmentService } from '../service/department.service';
 import { CreateDepartmentComponent } from '../create-department/create-department.component';
 import { MatDialog } from '@angular/material/dialog';
-
+import { AppConst } from 'src/app/views/shared/AppConst';
 @Component({
   selector: 'kt-list-department',
   templateUrl: './list-department.component.html',
@@ -58,9 +58,9 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
       suppressMenu: true
      }
   ];
-
+  public currentClient : any ={};
   ngOnInit() {
-    
+    this.currentClient = AppConst.ClientConfig.config   
     this.gridOptions = {
       cacheBlockSize: 20,
       rowModelType: "infinite",

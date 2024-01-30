@@ -53,7 +53,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   //variable for debit and credit sum
   debitTotal: number = 0;
   creditTotal: number = 0;
-  closingBalance: number = 0;
+  closingBalanceDisplay: number = 0;
   openingBalance: number = 0
 
   title: string = 'Create Petty Cash Entries'
@@ -120,6 +120,7 @@ public currentClient : any ={};
       description: ['',[Validators.required]],
       openingBalance:[''],
       closingBalance:[''],
+      closingBalanceDisplay:[''],
       pettycashLines: this.fb.array([ 
         this.addPettyCashEntryLines()
       ])
@@ -164,10 +165,9 @@ public currentClient : any ={};
     this.totalCalculation();
   }
 
-  totalCalculation() {
+  totalCalculation() {   
     this.debitTotal = 0;
-    this.creditTotal = 0;
-    this.closingBalance = 0;
+    this.creditTotal = 0;    
     const arrayControl = this.pettyCashForm.get('pettycashLines') as FormArray;
     const OpeningBalance = this.pettyCashForm.get('openingBalance').value;
     arrayControl.controls.forEach((_:unknown, index: number) => {
@@ -175,7 +175,7 @@ public currentClient : any ={};
       const credit = arrayControl.at(index).get('credit').value;
       this.debitTotal += Number(debit);
       this.creditTotal += Number(credit);            
-      this.closingBalance = (this.account.length != 0 ? this.account[0].balance : OpeningBalance) - this.debitTotal + this.creditTotal;           
+      this.closingBalanceDisplay = (this.account.length != 0 ? this.account[0]?.balance : OpeningBalance) - this.debitTotal + this.creditTotal;           
     });
   }
 
@@ -243,10 +243,11 @@ public currentClient : any ={};
       campusId: pettyEntry.campusId,
       openingBalance: pettyEntry.openingBalance,
       closingBalance: pettyEntry.closingBalance,
-      accountId: pettyEntry.accountId
-      
+      accountId: pettyEntry.accountId,
+      closingBalanceDisplay : pettyEntry.closingBalance
     });
-
+    console.log(this.pettyCashForm);
+ 
    // this.onCampusSelected(pettyEntry.campusId)
     this.showMessage = true;
 

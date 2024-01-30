@@ -7,6 +7,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { DesignationService } from '../service/designation.service';
 import { CreateDesignationComponent } from '../create-designation/create-designation.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AppConst } from 'src/app/views/shared/AppConst';
   
 @Component({
   selector: 'kt-list-designation',
@@ -40,7 +41,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
         }
       );
     }
-  
+    public currentClient : any ={};
     columnDefs = [
       { 
         headerName: 'Name', 
@@ -56,7 +57,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     ];
   
     ngOnInit() {
-      
+      this.currentClient = AppConst.ClientConfig.config     
       this.gridOptions = {
         cacheBlockSize: 20,
         rowModelType: "infinite",
