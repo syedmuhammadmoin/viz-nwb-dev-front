@@ -8,6 +8,7 @@
             "clientId": 32,
             "config": {
                 "title": "SBBU",
+                "isFormShow":false,
                 "print_logo": "url('assets/media/logos/logo-wr.png')",
                 "isCampus": true,
                 "isAdmission":false,
@@ -92,6 +93,7 @@
             "clientId": 34,
             "config": {
                 "isCampus": false,
+                "isFormShow":true,
                 "bg_gradient_color_one": "#2988bc",
                 "bg_gradient_color_two": "#2988bc",
                 "bg_white": "#ffffff",

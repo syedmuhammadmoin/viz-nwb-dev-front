@@ -1,4 +1,4 @@
-<div class="row mb-4">
+<div class="row mb-4" *ngIf="this.currentClient?.isFormShow">
   <div class="col-md-12 text-right">
     <button (click)="openDialog()" id="add_designation" *ngIf="(permission.isGranted(permissions.DESIGNATIONS_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Designation">Add Designation</button>
   </div>
