@@ -231,7 +231,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
   }
 
   calculatePinnedBottomData(target: any) {
-    // list of columns fo aggregation
+        // list of columns fo aggregation
     this.columnsWithAggregation.forEach(element => {
       this.gridApi.forEachNodeAfterFilter((rowNode: RowNode) => {
         if (rowNode.data[element]){
@@ -269,21 +269,22 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
       return;
     }
     this.mapFormValueToModel()
-    this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel).subscribe((data: any) => {
-      let downloadedFile: Blob
-    if (data instanceof Blob) {
-      downloadedFile = data
-    } else {
-      downloadedFile = new Blob([data.body], { type: data.type });
-    }
-    const a = document.createElement('a');
-    a.setAttribute('style', 'display:none;');
-    document.body.appendChild(a);
-    a.download = 'file.name' + '.xlsx';
-    a.href = URL.createObjectURL(downloadedFile);
-    a.target = '_blank';
-    a.click();
-    document.body.removeChild(a);
-    });
+    // this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel).subscribe((data: any) => {
+    //   let downloadedFile: Blob
+    // if (data instanceof Blob) {
+    //   downloadedFile = data
+    // } else {
+    //   downloadedFile = new Blob([data.body], { type: data.type });
+    // }
+    // const a = document.createElement('a');
+    // a.setAttribute('style', 'display:none;');
+    // document.body.appendChild(a);
+    // a.download = 'file.name' + '.xlsx';
+    // a.href = URL.createObjectURL(downloadedFile);
+    // a.target = '_blank';
+    // a.click();
+    // document.body.removeChild(a);
+    // });
+    window.open(this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel));
   }
 }

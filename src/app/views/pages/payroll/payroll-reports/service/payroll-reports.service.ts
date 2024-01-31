@@ -47,7 +47,7 @@ export class PayrollReportsService {
     return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/BankAdviceReport', {params: data});
   }
 
-  downloadTransactionDetailReport(model: any):  Observable<IPaginationResponse<any>> {
+  downloadTransactionDetailReport(model: any):  string {
     // let url = AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}FromDate=${model.fromDate}&ToDate=${model.toDate}`;
     // if (model.employeeId) {
     //   url = url + `&EmployeeId=${model.EmployeeId}`;
@@ -63,7 +63,8 @@ export class PayrollReportsService {
     // }
     // return url;
     // return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/ExportPayrollDetailedReport', {params: model});
-    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}&FromDate=${model.fromDate}&
-    ToDate=${model.toDate}`);
+    // return this.httpClient.get<string>(AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}&FromDate=${model.fromDate}&ToDate=${model.toDate}`);
+
+    return AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}&FromDate=${model.fromDate}&ToDate=${model.toDate}`;
   }
 }
