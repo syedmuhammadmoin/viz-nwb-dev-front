@@ -74,7 +74,6 @@ export class AppComponent implements OnInit, OnDestroy {
    */
   public currentClient: any = {}
   ngOnInit(): void {
-    debugger;
     this.currentClient = AppConst.ClientConfig.config
 		console.log("Ooper",this.currentClient);
     this.changeColor();
@@ -247,7 +246,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   changeColor() {
-		debugger;
 		console.log("Neechay",this.currentClient);
 		localStorage.setItem('global_color', JSON.stringify(this.currentClient));
 		this.dynamicColorChanging.global_color.next(this.currentClient);

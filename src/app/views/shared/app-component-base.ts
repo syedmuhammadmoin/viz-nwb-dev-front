@@ -66,7 +66,6 @@ export abstract class AppComponentBase {
 
   // For checking validation message
   logValidationErrors(formGroup: FormGroup, formErrors: any, validationMessages?: any): void {
-    debugger;
     Object.keys(formGroup.controls).forEach((Key: string) => {
       const abstractControl = formGroup.get(Key);
       formErrors[Key] = '';
@@ -229,4 +228,17 @@ export abstract class AppComponentBase {
     await this.router.navigateByUrl(this.createNavigationUrl(docType, documentId));
   }
 
+  createExcelFile(data: any, fileName: string) {
+    const blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+    
+    // Create a link for downloading
+    const a = document.createElement('a');
+    a.setAttribute('style', 'display:none;');
+    document.body.appendChild(a);
+    a.download = fileName;
+    a.href = URL.createObjectURL(blob);
+    a.click();
+
+    document.body.removeChild(a);
+  }
 }

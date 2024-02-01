@@ -35,6 +35,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
   gridApi: GridApi
   gridColumnApi: any;
   columnsWithAggregation: any = [];
+  allowExport: boolean = false;
 
   // Limit Date
   maxDate = new Date();
@@ -153,6 +154,8 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
 
   reset() {
     this.rowData = [];
+    this.allowExport = false;
+    this.gridApi.setPinnedBottomRowData([]);
     // for PDF
     this.disability = true;
   }
@@ -177,6 +180,13 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
       let newColumnDef = [];
       this.rowData = res.result || [];
 
+      if (isEmpty(res.result)) {
+        this.allowExport = false;
+        this.toastService.info('No Records Found !' , 'Payroll Transaction Detail');
+        return
+      }
+
+      this.allowExport = true;
       if(this.rowData[0]) {
         Object.keys(this.rowData[0])
         .forEach((x) => {
@@ -200,11 +210,6 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
         })
       newColumnDef = [...this.columnDefs, ...newColumnDef];
       this.gridApi.setColumnDefs(newColumnDef);
-      }
-
-      if (isEmpty(res.result)) {
-        this.toastService.info('No Records Found !' , 'Payroll Transaction Detail');
-        return
       }
 
       // for PDF
@@ -269,22 +274,10 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
       return;
     }
     this.mapFormValueToModel()
-    // this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel).subscribe((data: any) => {
-    //   let downloadedFile: Blob
-    // if (data instanceof Blob) {
-    //   downloadedFile = data
-    // } else {
-    //   downloadedFile = new Blob([data.body], { type: data.type });
-    // }
-    // const a = document.createElement('a');
-    // a.setAttribute('style', 'display:none;');
-    // document.body.appendChild(a);
-    // a.download = 'file.name' + '.xlsx';
-    // a.href = URL.createObjectURL(downloadedFile);
-    // a.target = '_blank';
-    // a.click();
-    // document.body.removeChild(a);
-    // });
-    window.open(this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel));
+
+    this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel).subscribe((data: any) => {
+      let fileName = `Payroll Transaction Detail ${this.transactionDetailModel.fromDate} till ${this.transactionDetailModel.toDate}.xlsx`;
+      this.createExcelFile(data, fileName)
+    });
   }
 }
