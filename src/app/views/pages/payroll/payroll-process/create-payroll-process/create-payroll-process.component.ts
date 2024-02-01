@@ -158,6 +158,22 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
         return this.valueFormatter(params.value)
       }
     },
+    {
+      headerName: 'Gross Salary',
+      field: 'grossPay',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
+    {
+      headerName: 'Net Salary',
+      field: 'netSalary',
+      suppressMenu: true,
+      valueFormatter: (params) => {
+        return this.valueFormatter(params.value)
+      }
+    },
     
   ];
 

@@ -390,9 +390,15 @@ export class DashboardComponent implements OnInit {
       ///// Filter On Level3 to show on grid on dashboard
       this.level3Curent = columns.filter(x => x.level2Name === "Current Assets");
       this.level3NonCurent = columns.filter(x => x.level2Name === "Non - Current Assets");
-      this.level3Currentlibilities = columns.filter(x => x.level2Name === "Current Liabilities");
-      this.level3NonCurrentlibilities = columns.filter(x => x.level2Name === "Non - Current Liabilities");
+      Math.abs(this.level3Currentlibilities = columns.filter(x => x.level2Name === "Current Liabilities"));
+      Math.abs(this.level3NonCurrentlibilities = columns.filter(x => x.level2Name === "Non - Current Liabilities"));
       ///// Filter On Level3 to show on grid on dashboard
+             
+      this.level3Currentlibilities.forEach(x => {
+          x.balance = Math.abs(x.balance)
+         });
+
+console.log(this.level3Currentlibilities + "loging balance");
 
       this.ref.detectChanges();
     });
