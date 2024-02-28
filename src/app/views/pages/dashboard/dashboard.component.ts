@@ -1,5 +1,5 @@
 // Angular
-import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 // Chart
 import {
@@ -21,6 +21,9 @@ import { IsReloadRequired } from '../profiling/store/profiling.action';
 import { NgxsCustomService } from '../../shared/services/ngxs-service/ngxs-custom.service';
 import { EmployeeState } from '../payroll/employee/store/employee.state';
 import { IApiResponse } from '../../shared/IApiResponse';
+import { Permissions } from 'src/app/views/shared/AppEnum';
+import { AppComponentBase } from 'src/app/views/shared/app-component-base';
+import { AuthSingletonService } from '../auth/service/auth-singleton.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -61,7 +64,7 @@ export type BarChartOptions = {
   templateUrl: './dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent extends AppComponentBase implements OnInit {
   @ViewChild('pie-chart') pieChart: ChartComponent;
   public pieChartOptions: Partial<PieChartOptions>;
 
@@ -72,7 +75,13 @@ export class DashboardComponent implements OnInit {
   public barchartOptions: Partial<BarChartOptions>;
 
   title: string;
-  primarycolor: string;
+  public permissions = Permissions;
+  public userPermission :any;
+
+  
+  
+
+  primarycolor: string;  
   secondarycolor:string = "#00e295";
 
   chartcolor: any;
@@ -92,6 +101,7 @@ export class DashboardComponent implements OnInit {
   public level3NonCurent: any;
   public level3Currentlibilities: any;
   public level3NonCurrentlibilities: any;
+  LocalPermission:any;
 
 
 
@@ -103,8 +113,11 @@ export class DashboardComponent implements OnInit {
     private ref: ChangeDetectorRef,
     private dashboardService: DashboardService,
     public ngxsService: NgxsCustomService,
+    private singletonService: AuthSingletonService,
+    injector: Injector
 
   ) {
+    super(injector);
     this.title = this.titleService.getTitle();
     console.log("Title is " + this.title);
 
@@ -116,12 +129,17 @@ export class DashboardComponent implements OnInit {
   showChart:boolean[] =[ false,false];
 
   ngOnInit(): void {
+    this.LocalPermission = this.singletonService.getCurrentUserPermission();    
+ console.log(this.LocalPermission,"local permission check ");
+ 
     this.getballanceSheetSummary();
+console.log(this.permission,"Check");
 
     /// Bar Chart Show Grid 
 
-
     
+    
+
     
 
     /// Line or Pie Chart ////
@@ -402,5 +420,10 @@ console.log(this.level3Currentlibilities + "loging balance");
 
       this.ref.detectChanges();
     });
+  }
+
+  checkPermission(permission: string): boolean {
+    return this.LocalPermission?.includes(permission);    
+    
   }
 }

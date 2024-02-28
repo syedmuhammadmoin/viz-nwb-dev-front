@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" *ngIf="checkPermission(permissions.DASHBOARD_PROFITLOSSSUMMARY_VIEW)">
 
   
-  <div class="row">
+  <div class="row" >
     <!--region Widgets-->
     <div class="col-md-3 col-sm-6 mb-5">
       <div class="card" style="height: 150px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
@@ -86,7 +86,7 @@
     </div> -->
   </div>
 
-  <div class="row mt-2">
+  <div class="row mt-2" >
     <div class="container">
       <div class="row">
         <div class="col-md-3" *ngIf="level3Curent?.length > 0">
