@@ -85,6 +85,10 @@ export class PrintPayrollTransactionComponent extends AppComponentBase implement
         this.cdRef.markForCheck();
       })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

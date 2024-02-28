@@ -80,5 +80,7 @@ export class PrintRegisterAssetComponent extends AppComponentBase implements OnI
     })
 
   }
-
+  printForm(){
+    window.print();
+  }
 }

@@ -85,6 +85,10 @@ export class PrintBidEvaluationComponent extends AppComponentBase implements OnI
         this.cdRef.markForCheck();
       })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

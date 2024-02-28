@@ -87,6 +87,10 @@ export class PrintGrnComponent extends AppComponentBase implements OnInit {
           this.cDRef.markForCheck();
         })
     }
+
+    printForm(){
+      window.print();
+    }
   }
 
  

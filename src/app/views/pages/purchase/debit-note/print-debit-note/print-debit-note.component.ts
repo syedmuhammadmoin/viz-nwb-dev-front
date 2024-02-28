@@ -90,6 +90,10 @@ export class PrintDebitNoteComponent extends AppComponentBase implements OnInit 
         this.cdRef.markForCheck();
         })
     }
+
+    printForm(){
+      window.print();
+    }
   }
   
   

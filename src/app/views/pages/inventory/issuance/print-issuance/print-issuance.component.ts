@@ -86,6 +86,10 @@ export class PrintIssuanceComponent extends AppComponentBase implements OnInit {
         this.cdRef.markForCheck();
       })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

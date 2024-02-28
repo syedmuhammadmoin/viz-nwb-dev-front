@@ -75,5 +75,7 @@ export class PrintAssetMonthlyReportComponent extends AppComponentBase implement
     })
 
   }
-
+printForm(){
+  window.print();
+}
 }

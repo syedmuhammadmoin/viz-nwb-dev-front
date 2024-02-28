@@ -3,12 +3,9 @@
     <div class="row">
       <button
         printSectionId="main"
-        printTitle="Vendor Bill"
-        ngxPrint
-        id="bill_print"
-        type="button"
-        [useExistingCss]="true"
+        printTitle="Vendor Bill"       
         class="app-default-btn" mat-raised-button
+        (click)="printForm()"
         style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>

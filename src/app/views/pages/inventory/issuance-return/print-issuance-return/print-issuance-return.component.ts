@@ -86,6 +86,10 @@ export class PrintIssuanceReturnComponent extends AppComponentBase  implements O
           this.cDRef.markForCheck();
         })
     }
+
+    printForm(){
+      window.print();
+    }
   }
 
  

@@ -89,4 +89,7 @@ export class PrintPettyCashComponent extends AppComponentBase implements OnInit 
         this.cDRef.markForCheck();
       })
   }
+  printForm(){
+    window.print();
+  }
 }

@@ -486,7 +486,7 @@ export class Permissions {
   static ADMISSION_CRITERIA_DELETE = 'Admission.AdmissionCriteria.DL';
 
   static DASHBOARD_PROFITLOSSSUMMARY_VIEW = 'Dashboard.ProfitLossSummary.VW';
-  static DASHBOARD_BALANCESHEETSUMMARY_VIEW = 'Dashboard.ProfitLossSummary.VW';
+  static DASHBOARD_BALANCESHEETSUMMARY_VIEW = 'Dashboard.BalanceSheetSummary.VW';
 
 }
 

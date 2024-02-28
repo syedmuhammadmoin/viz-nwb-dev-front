@@ -106,6 +106,9 @@ export class PaymentInvoiceComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     if (this.subscription$) this.subscription$.unsubscribe()
   }
+  printForm(){
+    window.print();
+  }
 }
 
 

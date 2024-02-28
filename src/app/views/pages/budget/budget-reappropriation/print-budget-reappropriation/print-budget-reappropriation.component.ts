@@ -87,5 +87,8 @@ export class PrintBudgetReappropriationComponent implements OnInit {
       this.cdRef.markForCheck();
     })
   }
+  printForm(){
+    window.print();
+  }
 }
 

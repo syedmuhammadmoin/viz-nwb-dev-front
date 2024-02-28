@@ -583,6 +583,11 @@ export class AppConst {
     'Admission.AdmissionCriteria.VW': 'Admission Criteria View',
     'Admission.AdmissionCriteria.ED': 'Admission Criteria Edit',
     'Admission.AdmissionCriteria.DL': 'Admission Criteria Delete',
+
+
+    'Dashboard.ProfitLossSummary.VW': 'Dashboard Profit Loss Summary View',
+    'Dashboard.BalanceSheetSummary.VW': 'Dashboard Balance Sheet View',
+
   }
 
   static paymentRegisterType = {

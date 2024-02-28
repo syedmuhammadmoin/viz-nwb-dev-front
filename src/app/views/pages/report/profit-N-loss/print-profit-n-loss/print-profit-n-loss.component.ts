@@ -95,6 +95,10 @@ export class PrintProfitNLossComponent extends AppComponentBase implements OnIni
     
     this.netProfit = ((income) - (expense));
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

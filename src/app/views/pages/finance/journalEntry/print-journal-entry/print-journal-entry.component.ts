@@ -89,4 +89,7 @@ export class PrintJournalEntryComponent extends AppComponentBase implements OnIn
         this.cDRef.markForCheck();
       })
   }
+  printForm(){
+    window.print();
+  }
 }

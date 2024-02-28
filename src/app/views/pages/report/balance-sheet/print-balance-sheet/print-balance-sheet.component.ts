@@ -91,4 +91,8 @@ export class PrintBalanceSheetComponent extends AppComponentBase implements OnIn
     // Deficit / Surplus
     this.equityNLiability = this.valueFormatter((equity) + (liablity))
   }
+
+  printForm(){
+    window.print();
+  }
 }

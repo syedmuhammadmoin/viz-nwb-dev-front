@@ -1,8 +1,8 @@
 <div class="container">
   <div class="col-lg-10 mx-auto text-right">
     <div class="row">
-      <button printSectionId="main" id="permissions_print" printTitle="Role Permissions" ngxPrint
-        [useExistingCss]="true" type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+      <button printSectionId="main" id="permissions_print" printTitle="Role Permissions" 
+      (click)="printForm()" type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
           class="fas fa-print"></i> Print
       </button>
     </div>

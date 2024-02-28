@@ -84,6 +84,10 @@ export class PrintGeneralLedgerComponent extends AppComponentBase implements OnI
       this.cdRef.detectChanges()
     })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

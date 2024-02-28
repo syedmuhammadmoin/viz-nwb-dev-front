@@ -93,5 +93,9 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
       console.log(this.filterData);
     })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 

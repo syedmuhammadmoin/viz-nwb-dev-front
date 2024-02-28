@@ -1,13 +1,13 @@
-import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
-import { MatCheckboxChange} from '@angular/material/checkbox';
-import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { MatCheckboxChange } from '@angular/material/checkbox';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { IRoleClaim} from '../../model/IRoleClaim';
-import { IRoleModel} from '../../model/IRoleModel';
+import { IRoleClaim } from '../../model/IRoleClaim';
+import { IRoleModel } from '../../model/IRoleModel';
 import { AccessManagementService } from '../../service/access-management.service';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FlatTreeControl } from '@angular/cdk/tree';
@@ -37,7 +37,7 @@ export class TodoItemFlatNode {
   styleUrls: ['./create-role.component.scss']
 })
 
-export class CreateRoleComponent extends AppComponentBase implements OnInit{
+export class CreateRoleComponent extends AppComponentBase implements OnInit {
 
   searchText: string
   currentIndex = 0
@@ -100,8 +100,8 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
 
     //Excluding Delete permissions from claims
     this.roleClaims.map((claim: IRoleClaim, i: number) => {
-      if(claim.value.toLowerCase().includes('delete')){
-         this.roleClaims.splice(i , 1)
+      if (claim.value.toLowerCase().includes('delete')) {
+        this.roleClaims.splice(i, 1)
       }
       return claim
     })
@@ -117,7 +117,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
     this.dataChange.next(data);
 
     //check all selected items in roles
-    if(this._id) {
+    if (this._id) {
       this.checkAll()
     }
   }
@@ -194,17 +194,17 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
 
   getRoleById(id: any) {
     this.accessManagementService.getRole(id)
-    .pipe(
-      take(1),
-      finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-      })
-    )
-    .subscribe((arg) => {
-      this.roleModel = arg.result;
-      this.patchRole(this.roleModel);
-    });
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
+      .subscribe((arg) => {
+        this.roleModel = arg.result;
+        this.patchRole(this.roleModel);
+      });
   }
 
   patchRole(roleModel: IRoleModel) {
@@ -221,7 +221,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
     //Calling Grouping Functionality Module Wise
     this.initialize()
 
-    if(!this.showButtons) this.roleForm.disable()
+    if (!this.showButtons) this.roleForm.disable()
   }
 
 
@@ -234,15 +234,15 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
 
     let roles = [];
     this.treeControl.dataNodes.map((res) => {
-     if(res.level === 1) {
-       if(this.checklistSelection.isSelected(res)){
-         res.value['selected'] = true;
-       }
-       else{
-         res.value['selected'] = false;
-       }
-       roles.push(res.value)
-     }
+      if (res.level === 1) {
+        if (this.checklistSelection.isSelected(res)) {
+          res.value['selected'] = true;
+        }
+        else {
+          res.value['selected'] = false;
+        }
+        roles.push(res.value)
+      }
     })
 
     if (roles.filter(x => x.selected === true).length < 2) {
@@ -252,35 +252,35 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
     }
 
     this.isLoading = true;
-    this.roleModel = {...this.roleForm.value, id: this._id};
+    this.roleModel = { ...this.roleForm.value, id: this._id };
     this.roleModel.roleClaims = roles;
 
     if (this.roleModel.id) {
       this.accessManagementService.updateRole(this.roleModel)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res) => {
+          this.toastService.success('Updated Successfully', this.roleModel.roleName + '');
+          this.onRoleDialogClose();
         })
-      )
-      .subscribe((res) => {
-        this.toastService.success('Updated Successfully', this.roleModel.roleName + '');
-        this.onRoleDialogClose();
-      })
     } else {
       this.accessManagementService.createRole(this.roleModel)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe((res) => {
+          this.toastService.success('Created Successfully', 'New Role');
+          this.onRoleDialogClose();
         })
-      )
-      .subscribe((res) => {
-        this.toastService.success('Created Successfully', 'New Role');
-        this.onRoleDialogClose();
-      })
     }
   }
 
@@ -290,9 +290,9 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
 
   getClaims() {
     this.accessManagementService.getClaims().subscribe((res) => {
+      console.log(res)
       res.result.forEach(element => {
-        console.log(element)
-        console.log(this.appConsts.PermissionsDisplayName[element])
+        // console.log(element)
         this.roleClaims.push(
           {
             type: 'permission',
@@ -384,7 +384,8 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
   /* Get the parent node of a node */
   getParentNode(node: TodoItemFlatNode): TodoItemFlatNode | null {
     const currentLevel = this.getLevel(node);
-
+  console.log(node,"Waleed get parent node");
+  
     if (currentLevel < 1) {
       return null;
     }
@@ -405,14 +406,14 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
    * Build the file structure tree. The `value` is the Json object, or a sub-tree of a Json object.
    * The return value is the list of `TodoItemNode`.
    */
-   buildFileTree(obj: any, level: number): TodoItemNode[] {
+  buildFileTree(obj: any, level: number): TodoItemNode[] {
 
     return Object.keys(obj).reduce<TodoItemNode[]>((accumulator, key) => {
 
       const value = obj[key];
       const node = new TodoItemNode();
 
-      node.value = (key === 'AccessManagement') ? 'Access Management': key;
+      node.value = (key === 'AccessManagement') ? 'Access Management' : key;
 
       if (value != null) {
         if (typeof value === 'object' && value.type?.toLowerCase() !== 'permission') {
@@ -427,13 +428,13 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit{
   }
 
   //check all permissions
-  checkAll(){
+  checkAll() {
     for (let i = 0; i < this.treeControl.dataNodes.length; i++) {
-    if(this.treeControl.dataNodes[i].value['selected']) {
+      if (this.treeControl.dataNodes[i].value['selected']) {
         this.checklistSelection.toggle(this.treeControl.dataNodes[i]);
         this.checkAllParentsSelection(this.treeControl.dataNodes[i])
-      //this.treeControl.expand(this.treeControl.dataNodes[i])
+        //this.treeControl.expand(this.treeControl.dataNodes[i])
+      }
     }
-   }
   }
 }

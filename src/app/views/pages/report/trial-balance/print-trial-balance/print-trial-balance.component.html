@@ -5,10 +5,9 @@
         printSectionId="main"
         id="trial_print"
         printTitle="Trial Balance"
-        ngxPrint
+        (click)="printForm()"
         type="button"
-        mat-raised-button
-        [useExistingCss]="true"
+        mat-raised-button       
         class="app-default-btn" mat-raised-button
         style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>

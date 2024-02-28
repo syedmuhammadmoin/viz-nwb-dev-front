@@ -88,6 +88,21 @@
   @import "./assets/sass/themes/layout/brand/light.scss";
 }
 
+@media print {
+  .header-menu-mobile, .header-mobile,.btn{
+    display: none;
+  }  
+  .btn-light{
+display: none;
+  } 
+  .app-default-btn{
+    visibility: hidden;
+  }
+  // .subheader {
+  //   display: none;
+  // }
+}
+
 // Aside themes
 // .aside-dark {
 //   @import "./assets/sass/themes/layout/aside/dark.scss";

@@ -90,4 +90,7 @@ export class PrintBudgetComponent extends AppComponentBase implements OnInit {
         this.cdRef.markForCheck();
       })
   }
+  printForm(){
+    window.print();
+  }
 }
