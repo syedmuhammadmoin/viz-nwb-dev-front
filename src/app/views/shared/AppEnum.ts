@@ -487,6 +487,7 @@ export class Permissions {
 
   static DASHBOARD_PROFITLOSSSUMMARY_VIEW = 'Dashboard.ProfitLossSummary.VW';
   static DASHBOARD_BALANCESHEETSUMMARY_VIEW = 'Dashboard.BalanceSheetSummary.VW';
+  static DASHBOARD_BANKBALANCESUMMARY_VIEW = 'Dashboard.BankBalance.VW'
 
 }
 

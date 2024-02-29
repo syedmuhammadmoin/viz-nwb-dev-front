@@ -587,6 +587,7 @@ export class AppConst {
 
     'Dashboard.ProfitLossSummary.VW': 'Dashboard Profit Loss Summary View',
     'Dashboard.BalanceSheetSummary.VW': 'Dashboard Balance Sheet View',
+    'Dashboard.BankBalance.VW' : 'Dashboard Bank Balance View',
 
   }
 
