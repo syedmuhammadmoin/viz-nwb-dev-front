@@ -102,6 +102,7 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
   public level3Currentlibilities: any;
   public level3NonCurrentlibilities: any;
   LocalPermission:any;
+  checkingPermission:any;
 
 
 
@@ -131,17 +132,14 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
   ngOnInit(): void {
     this.LocalPermission = this.singletonService.getCurrentUserPermission();    
  console.log(this.LocalPermission,"local permission check ");
+
+ this.checkingPermission = (this.permission.isGranted(this.permissions.DASHBOARD_BALANCESHEETSUMMARY_VIEW && this.permissions.DASHBOARD_PROFITLOSSSUMMARY_VIEW)) ? true : false;
+ console.log(this.checkingPermission ,"Permission Check Kar");
  
-    this.getballanceSheetSummary();
-console.log(this.permission,"Check");
-
-    /// Bar Chart Show Grid 
-
-    
-    
-
-    
-
+ if(this.checkingPermission){
+  
+   this.getballanceSheetSummary(); 
+    /// Bar Chart Show Grid             
     /// Line or Pie Chart ////
     this.dashboardService.getSummaryforLast12Month().toPromise().then((res: IApiResponse<any>) => {
       this.expense = res.result.filter(x => x.nature === "Expenses").map(i => i.balance);
@@ -386,7 +384,7 @@ console.log(this.permission,"Check");
         this.ref.detectChanges()
       })
     });
-
+  }
     /// Line or Pie Chart ////
   }
 
