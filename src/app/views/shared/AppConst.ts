@@ -738,6 +738,21 @@ export class AppConst {
     {name: 'Dec', value: 12},
   ];
 
+  static Religion = [
+    {name : 'Islam', value : 1},
+    {name : 'Hindu', value : 2},
+    {name : 'Christian', value : 3}
+  ];
+  
+  static PayrollTypes = [
+    {name : 'BasicPay' , value : 0},
+    {name : 'Increment' , value : 1},
+    {name : 'Deduction' , value : 2},
+    {name : 'Allowance' , value : 3},
+    {name : 'AssignmentAllowance' , value : 4},
+    {name : 'TaxDeduction' , value : 5}   
+  ];
+
   static filterStatus = [
     {value: 'Draft', id: 0},
     {value: 'Rejected', id: 1},

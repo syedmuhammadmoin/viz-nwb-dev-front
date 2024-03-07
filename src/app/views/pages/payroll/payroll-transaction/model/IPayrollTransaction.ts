@@ -1,3 +1,5 @@
+import { IPayrollTransactionLines } from "./IPayrollTransactionLines";
+
 export class IPayrollTransaction {
     id: number;
     month: number;
@@ -9,4 +11,18 @@ export class IPayrollTransaction {
     transDate: string;
     accountPayableId: string;
     isSubmit: boolean;
+    designationId:number;
+    campusId:number;
+    departmentId:number;
+    bpsName:string;
+    totalAllowances:number;
+    totalDeductions:number;
+    netIncrement:number;
+    taxDeduction:number;
+    grossPay:number;
+    netSalary:number;
+    basicSalary:number;
+    religion : string;
+    employeeType : string;
+    payrollTransactionLines: IPayrollTransactionLines[];
   }

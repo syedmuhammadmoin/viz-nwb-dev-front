@@ -37,7 +37,7 @@ const routes: Routes = [
         canActivate: [PermissionGuard],
       },
       {
-        path: CRUD_ROUTES.EDIT,
+        path: 'edit/:id',
         component: CreatePayrollTransactionComponent,
         data: {
           array: [
