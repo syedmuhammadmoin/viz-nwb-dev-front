@@ -24,5 +24,6 @@ export class IPayrollTransaction {
     basicSalary:number;
     religion : string;
     employeeType : string;
+    EmployeeCNIC:string;
     payrollTransactionLines: IPayrollTransactionLines[];
   }

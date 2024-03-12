@@ -3,6 +3,6 @@ export class IPayrollTransactionLines {
     payrollItemId: number;    
     payrollType:number;
     amount:number;
-    accountId:number;
+    accountId:number;   
     
 }
