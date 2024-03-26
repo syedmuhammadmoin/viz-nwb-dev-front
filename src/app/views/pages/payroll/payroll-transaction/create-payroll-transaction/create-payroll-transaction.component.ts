@@ -418,8 +418,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // submit method called on submit button
   Transactions :any[] = [];
-  onSubmit() {
-    debugger;
+  onSubmit() {    
     console.log(this.payrollTransactionForm, "Payroll form submit pr");
 
     if (this.payrollTransactionForm.get('payrollTransactionLines').invalid) {
