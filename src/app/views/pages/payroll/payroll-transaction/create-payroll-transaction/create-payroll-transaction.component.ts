@@ -452,7 +452,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         )
         .subscribe(
           (res) => {
-            this.toastService.success('Submitted Successfully', "Payroll")
+            this.toastService.success('Updated Successfully', "Payroll")
 
             if (!this._id) {
               this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', this.payrollTransaction.id)])
