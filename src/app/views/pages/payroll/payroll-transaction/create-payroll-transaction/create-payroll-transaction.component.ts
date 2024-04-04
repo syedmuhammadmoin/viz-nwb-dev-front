@@ -26,7 +26,9 @@ import { PayrollItemService } from '../../payroll-item/service/payroll-item.serv
 
 export class CreatePayrollTransactionComponent extends AppComponentBase implements OnInit {
 
-
+ basicSal : number;
+ totalDeductions : number;
+ totalAllowances : number;
   // For Table Columns
   displayedColumns = ['accountId', 'payrollItemId', 'payrollType', 'amount', 'action']
   // for bisic salary
@@ -223,8 +225,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       this.payrollId = this._id;
       this.title = 'Edit Payroll';
       this.getPayroll(this._id);
-    }
-
+    }   
     // this.getLatestEmployeeData();
 
 
@@ -257,6 +258,9 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // patch paroll transition
   patchPayroll(payrollTransaction) {
+    this.basicSal =  payrollTransaction.basicSalary
+    console.log(this.grossSalary);
+    
     this.payrollTransactionForm.patchValue({
       employeeId: payrollTransaction.employeeId,
       month: payrollTransaction.month,
@@ -286,7 +290,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
     this.disableFields(this.payrollTransactionForm,
       "employeeId", "month", "year", "workingDays", "presentDays",
-      "leaveDays", "transDate", "basicPay")
+      "leaveDays", "transDate", "basicPay","grossPay","netSalary","totalAllowances","totalDeductions")
   }
 
   checkSelected(employee) {
@@ -463,13 +467,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   mapPayrollTransactionValuesToPayrollModel() {
-    this.payrollTransaction.id = this.payrollId;
-    this.payrollTransaction.month = this.payrollTransactionForm.getRawValue().month;
-    this.payrollTransaction.year = this.payrollTransactionForm.getRawValue().year;
-    this.payrollTransaction.employeeId = this.payrollTransactionForm.getRawValue().employeeId;
-    this.payrollTransaction.workingDays = this.payrollTransactionForm.getRawValue().workingDays;
-    this.payrollTransaction.presentDays = this.payrollTransactionForm.getRawValue().presentDays;
-    this.payrollTransaction.leaveDays = this.payrollTransactionForm.getRawValue().leaveDays;
+    this.payrollTransaction.id = this.payrollId;   
+    this.payrollTransaction.employeeId = this.payrollTransactionForm.getRawValue().employeeId;    
     this.payrollTransaction.transDate = this.dateHelperService.transformDate(this.payrollTransactionForm.getRawValue().transDate, 'yyyy-MM-dd');
     this.payrollTransaction.isSubmit = this.payrollTransaction.isSubmit;
     this.payrollTransaction.designationId = this.payrollTransactionForm.value.designationId;
@@ -480,8 +479,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.payrollTransaction.totalDeductions = this.payrollTransactionForm.value.totalDeductions;
     this.payrollTransaction.netIncrement = this.payrollTransactionForm.value.netIncrement;
     this.payrollTransaction.taxDeduction = this.payrollTransactionForm.value.taxDeduction;
-    this.payrollTransaction.grossPay = this.payrollTransactionForm.value.grossPay;
-    this.payrollTransaction.netSalary = this.payrollTransactionForm.value.netSalary;
     this.payrollTransaction.basicSalary = this.payrollTransactionForm.value.basicSalary;
     this.payrollTransaction.religion = this.payrollTransactionForm.value.religion;
     this.payrollTransaction.employeeType = this.payrollTransactionForm.value.employeeType;
@@ -511,4 +508,45 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       
     })
   }
+
+  onChange(l:any){
+    // var pay = this.payrollTransactionForm.get('basicSalary').value;
+    // console.log(pay,"baiscasjasfbkj");
+    // console.log(l.target.value,"basic pay");    
+    this.CalculateBasicPay()
+  }
+  //onChangeEvent to set debit or credit zero '0'
+  onChangeEvent(_:unknown, index: number) {
+    const arrayControl = this.payrollTransactionForm.get('payrollTransactionLines') as FormArray;
+    const debitControl = arrayControl.at(index).get('payrollType');
+    const creditControl = arrayControl.at(index).get('amount');
+    //console.log(debitControl,"type control",creditControl,"amount control"); 
+    this.CalculateBasicPay();
+  }
+
+  CalculateBasicPay() {           
+    this.totalAllowances = 0;  
+    this.totalDeductions = 0;    
+    const arrayControl = this.payrollTransactionForm.get('payrollTransactionLines') as FormArray;   
+    arrayControl.controls.forEach((_:unknown, index: number) => {
+      const amount = arrayControl.at(index).get('amount').value;
+      const type = arrayControl.at(index).get('payrollType').value;    
+      if(type === 3){
+        this.totalAllowances += amount;                
+      }
+      else if(type === 2 || type === 5 ){
+        this.totalDeductions += amount;
+      }                               
+    });  
+    console.log(this.totalDeductions , "Total deductions");
+    
+    var pay = this.payrollTransactionForm.get('basicSalary').value;
+    this.grossSalary = this.totalAllowances + Number(pay)    
+    this.netSalary = this.grossSalary - this.totalDeductions;
+    console.log(this.netSalary,"Net Salary");
+    
+     console.log(this.totalAllowances,"totalAllowances"); 
+    console.log(this.grossSalary,"Grosssalary");
+    
+  }  
 }
