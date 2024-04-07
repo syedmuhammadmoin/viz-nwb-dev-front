@@ -9,7 +9,6 @@ import { TrialBalanceService } from '../service/trial-balance.service';
 import { isEmpty } from 'lodash';
 import { finalize, map } from 'rxjs/operators';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
-import { Router } from '@angular/router';
 import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
@@ -65,7 +64,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     docDate: '',
     docDate2: ''
   }

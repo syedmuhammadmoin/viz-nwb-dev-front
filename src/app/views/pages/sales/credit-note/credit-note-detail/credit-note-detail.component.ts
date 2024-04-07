@@ -1,8 +1,8 @@
 import { Component, Injector, OnInit } from '@angular/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -75,7 +75,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
       sortable: true,
       filter: true,
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
     },
@@ -110,7 +110,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -132,7 +132,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -142,7 +142,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
       sortable: true,
       filter: true,
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
     }

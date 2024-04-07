@@ -9,7 +9,6 @@ import { AgingReportComponent } from './aging-report/aging-report.component';
 import { InvoiceRoutingModule } from './invoice-routing.module';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
 @NgModule({
@@ -25,8 +24,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SharedModule,
     PartialsModule,
     InvoiceRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [RegisterPaymentComponent]
+    AgGridModule
+  ]
 })
 export class InvoiceModule { }

@@ -28,7 +28,7 @@ import { PrintTrialBalanceComponent } from './trial-balance/print-trial-balance/
   imports: [
     CommonModule,
     ReportRoutingModule,
-    AgGridModule.withComponents([]),
+    AgGridModule,
     SharedModule,
     PartialsModule
   ],

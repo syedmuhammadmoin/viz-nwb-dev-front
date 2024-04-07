@@ -8,7 +8,6 @@ import { IGeneralLedger} from '../model/IGeneralLedger';
 import { finalize} from 'rxjs/operators';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
-import { Router } from '@angular/router';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -105,7 +104,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     docDate: '',
     docDate2: ''
   }

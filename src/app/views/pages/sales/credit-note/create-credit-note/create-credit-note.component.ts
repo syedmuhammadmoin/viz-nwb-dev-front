@@ -5,7 +5,7 @@ import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ICreditNote } from '../model/ICreditNote';
 import { CreditNoteService } from '../service/credit-note.service';
 import { finalize, take } from 'rxjs/operators';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { InvoiceService } from '../../invoice/services/invoice.service';
@@ -85,7 +85,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     customerName: '',
     noteDate: '',
     campusId:''
@@ -168,7 +168,7 @@ export class CreateCreditNoteComponent extends AppComponentBase implements OnIni
   }
 
   //For Calculating subtotal
-  onChangeEvent(value: unknown, index: number, element?: HTMLElement) {
+  onChangeEvent(value: unknown, index: number, element?: HTMLElement | any) {
 
     const arrayControl = this.creditNoteForm.get('creditNoteLines') as FormArray;
     const price = (arrayControl.at(index).get('price').value) !== null ? arrayControl.at(index).get('price').value : null;

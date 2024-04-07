@@ -108,7 +108,7 @@
                         <label class="col-form-label pt-0">Deduction:</label>
                         <mat-form-field appearance="outline" class="full-width">
                           <input matInput formControlName="deduction" placeholder="Enter Deduction" 
-                               id="deduction" type="number" (change)="updateValueValidators($event.target.value)"
+                               id="deduction" type="number" (change)="updateValueValidators($event)"
                                (blur)="logValidationErrors(this.registerPaymentForm, this.formErrors, this.validationMessages)">
                           <mat-error *ngIf="formErrors.deduction">
                             <strong>{{formErrors.deduction}}</strong>

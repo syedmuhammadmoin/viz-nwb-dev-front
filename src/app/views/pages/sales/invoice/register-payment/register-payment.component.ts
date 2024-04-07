@@ -57,40 +57,10 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   public netPayment: any;
 
   // validation messages
-  validationMessages = {
-    paymentDate: {
-      required: 'Date is required.'
-    },
-    description: {
-      required: 'Description is required.'
-    },
-    bankAccount: {
-      required: 'Bank Account is required.'
-    },
-    grossPayment: {
-      required: 'Gross Payment is required.',
-      min: 'Minimun value is 1.',
-      max: 'Value must be less than total ' + this.data.formName + ' amount.'
-    },
-    deduction: {
-      min: 'Please insert correct amount.',
-    },
-    deductionAccountId: {
-      required: 'Account is required.',
-    },
-    salesTax: {
-      min: 'Please insert correct value.'
-    },
-    incomeTax: {
-      min: 'Please insert correct value.'
-    },
-    SRBTax: {
-      min: 'Please insert correct value.'
-    },
-  }
+  validationMessages: any;
 
   // keys for validation
-  formErrors = {
+  formErrors: any = {
     paymentDate: '',
     description: '',
     bankAccount: '',
@@ -137,6 +107,38 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
       SRBTax: [0,[Validators.min(0)]],
     })
 
+    this.validationMessages = {
+      paymentDate: {
+        required: 'Date is required.'
+      },
+      description: {
+        required: 'Description is required.'
+      },
+      bankAccount: {
+        required: 'Bank Account is required.'
+      },
+      grossPayment: {
+        required: 'Gross Payment is required.',
+        min: 'Minimun value is 1.',
+        max: 'Value must be less than total ' + this.data.formName + ' amount.'
+      },
+      deduction: {
+        min: 'Please insert correct amount.',
+      },
+      deductionAccountId: {
+        required: 'Account is required.',
+      },
+      salesTax: {
+        min: 'Please insert correct value.'
+      },
+      incomeTax: {
+        min: 'Please insert correct value.'
+      },
+      SRBTax: {
+        min: 'Please insert correct value.'
+      },
+    }
+
     this.loadAccountList({value: 2})
 
     // Setting net payment amount
@@ -152,7 +154,8 @@ export class RegisterPaymentComponent extends AppComponentBase implements OnInit
   }
 
   //update deduction account validation
-  updateValueValidators(value: number) {
+  updateValueValidators(event: any) {
+    const value: number = event?.target?.value;
     if(value > 0) {
       this.registerPaymentForm.get('deductionAccountId').setValidators([Validators.required])
       this.registerPaymentForm.get('deductionAccountId').updateValueAndValidity();

@@ -9,7 +9,6 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { finalize, map } from 'rxjs/operators';
 import { FirstDataRenderedEvent, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
-import { Router } from '@angular/router';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
 
@@ -60,7 +59,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     docDate: '',
     docDate2: ''
   }
@@ -72,7 +71,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     public addButtonService: AddModalButtonService,
     private profitLossService: ProfitLossService,
     public ngxsService:NgxsCustomService,
-    injector: Injector,
+    injector: Injector
   ) {
     super(injector);
     this.columnDefs = [

@@ -54,7 +54,7 @@
                     (blurEvent)="logValidationErrors(this.invoiceForm, formErrors, validationMessages)"
                     [errorMessage]="formErrors.dueDate"
                     [minDate]="minDate"
-                    dateCondition="dateCondition" 
+                    [dateCondition]="dateCondition" 
                     dateMessage="Invoice">
                   </kt-date-input>
                 </div>
@@ -97,7 +97,7 @@
                               clickEventButtonName="Add New Item"
                               (clickEvent)="addButtonService.openProductDialog()"
                               formControlName="itemId"
-                              isDisabledNone="true"
+                              [isDisabledNone]="true"
                               hintText="Optional"
                               placeholder="Select Item" matFormFieldClass="mobile-label full-width"
                               (selectionChange)="onItemSelected($event.value, i)">
@@ -250,7 +250,7 @@
                                 placeholder="Select Store" 
                                 propertyValue="id" 
                                 propertyName="name"
-                                isDisabledNone="true"
+                                [isDisabledNone]="true"
                                 [hintText]="'Optional'"
                                 (click)="checkCampus()"
                                 formControlName="warehouseId" 

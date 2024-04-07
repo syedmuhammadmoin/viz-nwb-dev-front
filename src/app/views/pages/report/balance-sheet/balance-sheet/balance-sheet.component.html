@@ -21,7 +21,7 @@
             <div class="col-lg-4" *ngIf="this.currentClient?.isCampus">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
-                <kt-simple-dropdown id="sheet_campus" [optionList]="ngxsService.campuses$" formControlName="campusId" isDisabledNone="true"
+                <kt-simple-dropdown id="sheet_campus" [optionList]="ngxsService.campuses$" formControlName="campusId" [isDisabledNone]="true"
                   placeholder="Select Campus" propertyName="name" matFormFieldClass="full-width"
                   hintText="Optional">
                 </kt-simple-dropdown>

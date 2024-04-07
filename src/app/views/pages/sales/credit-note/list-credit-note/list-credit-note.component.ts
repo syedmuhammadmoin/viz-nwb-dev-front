@@ -104,7 +104,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
           suppressSelectAll: true,
           suppressAndOrCondition: true,
         },
-    },,
+    }
   ];
 
 

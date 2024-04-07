@@ -22,7 +22,7 @@
                 <kt-date-input formControlName="docDate2" placeholder="Select End Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.trialBalanceForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate2" [minDate]="minDate"
-                  dateCondition="dateCondition" 
+                  [dateCondition]="dateCondition" 
                   dateMessage="Start">
                 </kt-date-input>
               </div>
@@ -30,7 +30,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
-                <kt-simple-dropdown id="trial_account" formControlName="accountId" matFormFieldClass="full-width" isDisabledNone="true"
+                <kt-simple-dropdown id="trial_account" formControlName="accountId" matFormFieldClass="full-width" [isDisabledNone]="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
                   propertyName="name"></kt-simple-dropdown>
               </div>
@@ -40,7 +40,7 @@
             <div class="col-lg-4" *ngIf="this.currentClient?.isCampus">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
-                <kt-simple-dropdown id="trial_campus" formControlName="campusId" matFormFieldClass="full-width" isDisabledNone="true"
+                <kt-simple-dropdown id="trial_campus" formControlName="campusId" matFormFieldClass="full-width" [isDisabledNone]="true"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" hintText="Optional"
                   propertyName="name"></kt-simple-dropdown>
               </div>
