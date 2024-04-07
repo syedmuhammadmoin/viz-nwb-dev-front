@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { mergeMap, map, tap } from 'rxjs/operators';
 import { Observable, defer, of, forkJoin } from 'rxjs';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Actions, ofType } from '@ngrx/effects';
 import { Store, select, Action } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel, QueryParamsModel } from '../../_base/crud';

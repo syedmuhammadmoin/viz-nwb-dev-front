@@ -121,7 +121,6 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
   }
 
   ngOnInit() {
-    console.log(this.menuAsideService.menuList$, 'Menue Items');
 
     this.currentRouteUrl = this.router.url.split(/[?#]/)[0];
 
@@ -291,7 +290,6 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
   }
 
   showMenuItem(permissions: any): boolean {
-    console.log('aside permission :', permissions);
     if (permissions) {
       return permissions.filter(item => this.permission.isGranted(item)).length > 0 ? true : false;
     }

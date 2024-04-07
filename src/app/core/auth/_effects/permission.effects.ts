@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { mergeMap, map, tap } from 'rxjs/operators';
 import { defer, Observable, of } from 'rxjs';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { createEffect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 // Services
 import { AuthService } from '../_services';
@@ -31,11 +31,12 @@ export class PermissionEffects {
   //     })
   //   );
 
-  @Effect()
-  init$: Observable<Action> = defer(() => {
-    return of(new AllPermissionsRequested());
-  });
 
-  constructor(private actions$: Actions, private auth: AuthService) {
-  }
+  init$ = createEffect(() =>
+    defer(() => {
+      return of(new AllPermissionsRequested());
+    })
+  );
+
+  constructor(private actions$: Actions, private auth: AuthService) { }
 }

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { of, Observable, defer, forkJoin } from 'rxjs';
 import { mergeMap, map, withLatestFrom, filter, tap } from 'rxjs/operators';
 // NGRX
-import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Store, select, Action } from '@ngrx/store';
 // CRUD
 import { QueryResultsModel, QueryParamsModel } from '../../_base/crud';
@@ -117,10 +117,11 @@ export class RoleEffects {
   //     }),
   //   );
 
-  @Effect()
-  init$: Observable<Action> = defer(() => {
-    return of(new AllRolesRequested());
-  });
+  init$ = createEffect(() =>
+    defer(() => {
+      return of(new AllRolesRequested());
+    })
+  );
 
   constructor(
     //private actions$: Actions, private auth: AuthService, private store: Store<AppState>
