@@ -101,7 +101,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     }
   }
 
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     requisitionDate: '',
     fixedAssetId: ''
@@ -203,7 +203,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   }
 
   // For Calculating subTotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number, element?: HTMLElement) {
+  onChangeEvent(value: any, index: number, element?: HTMLElement | any) {
     const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
     const price = (arrayControl.at(index).get('purchasePrice').value) !== null ? arrayControl.at(index).get('purchasePrice').value : null;
     const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;

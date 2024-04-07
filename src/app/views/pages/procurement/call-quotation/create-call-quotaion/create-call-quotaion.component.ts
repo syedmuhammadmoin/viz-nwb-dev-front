@@ -70,7 +70,7 @@ export class CreateCallQuotaionComponent extends AppComponentBase implements OnI
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     vendorId: '',
     callForQuotationDate: '',
     description: '',

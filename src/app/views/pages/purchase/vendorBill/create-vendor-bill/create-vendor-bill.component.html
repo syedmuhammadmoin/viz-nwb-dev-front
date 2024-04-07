@@ -54,7 +54,7 @@
                       (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.dueDate"
                       [minDate]="minDate"
-                      dateCondition="dateCondition" 
+                      [dateCondition]="dateCondition" 
                       dateMessage="Bill">
                     </kt-date-input>
                 </div>
@@ -98,7 +98,7 @@
                                     [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
                                     clickEventButtonName="Add New Item"
                                     (clickEvent)="addButtonService.openProductDialog()"
-                                    isDisabledNone="true"
+                                    [isDisabledNone]="true"
                                     formControlName="itemId"
                                     placeholder="Select Item"
                                     matFormFieldClass="mobile-label full-width"
@@ -263,7 +263,7 @@
                                     placeholder="Select Store" 
                                     propertyValue="id" 
                                     propertyName="name"
-                                    isDisabledNone="true"
+                                    [isDisabledNone]="true"
                                     [hintText]="'Optional'"
                                     (click)="checkCampus()"
                                     formControlName="warehouseId" 

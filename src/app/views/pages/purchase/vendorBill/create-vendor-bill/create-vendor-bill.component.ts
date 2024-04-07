@@ -96,7 +96,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     vendorName: '',
     billDate: '',
     campusId: null,
@@ -199,7 +199,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
   }
 
   // onChangeEvent for calculating subtotal
-  onChangeEvent(value: any, index: number ,element?: HTMLElement) {
+  onChangeEvent(value: any, index: number ,element?: HTMLElement | any) {
     const arrayControl = this.vendorBillForm.get('vendorBillLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;

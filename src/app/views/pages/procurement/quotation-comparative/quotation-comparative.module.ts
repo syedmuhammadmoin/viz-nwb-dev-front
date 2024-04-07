@@ -6,7 +6,6 @@ import { AgGridModule } from 'ag-grid-angular';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { QuotationComparativeRoutingModule } from './quotation-comparative-routing.module';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AwardVendorComponent } from './award-vendor/award-vendor.component';
 import { PrintQuotationComparativeComponent } from './print-quotation-comparative/print-quotation-comparative.component';
 
@@ -21,8 +20,7 @@ import { PrintQuotationComparativeComponent } from './print-quotation-comparativ
     PartialsModule,
     SharedModule,
     QuotationComparativeRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [ AwardVendorComponent ]
+    AgGridModule
+  ]
 })
 export class QuotationComparativeModule { }

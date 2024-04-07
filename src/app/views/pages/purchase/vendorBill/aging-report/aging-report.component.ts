@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, GridOptions, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BILL } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -32,7 +32,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
     injector: Injector
   ) { super(injector) }
 
-  columnDefs = [
+  columnDefs: any = [
     {
       field: 'vendorName',
       rowGroup: true,
@@ -104,7 +104,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Outstanding Amount',
       field: 'pendingAmount',
-      valueFormatter: (params: ICellRendererParams) => { return this.valueFormatter(params.value) },
+      valueFormatter: (params: ValueFormatterParams) => { return this.valueFormatter(params.value) },
       aggFunc: 'sum',
     },
   ];

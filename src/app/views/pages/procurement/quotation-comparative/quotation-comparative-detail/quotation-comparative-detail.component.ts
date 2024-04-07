@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, IsRowMaster } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, IsRowMaster, ValueFormatterParams } from 'ag-grid-community';
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -80,7 +80,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       headerName: 'Quotation Date', 
       field: 'quotationDate' , 
       suppressMenu: true,
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y')
       }
     },
@@ -99,7 +99,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
         { headerName: 'Price', 
         field: 'price', 
         suppressMenu: true,
-        valueFormatter: (params: ICellRendererParams) => {
+        valueFormatter: (params: ValueFormatterParams) => {
           return this.valueFormatter(params.value)
         }
       },

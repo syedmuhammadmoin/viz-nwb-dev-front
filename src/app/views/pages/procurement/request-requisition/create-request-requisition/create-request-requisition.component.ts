@@ -69,7 +69,7 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     }
   }
 
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     requestDate: ''
   }

@@ -17,7 +17,7 @@ export class PrintRequestRequisitionComponent implements OnInit {
 
   gridOptions: GridOptions;
   requestRequisitionMaster: IRequestRequisition | any;
-  requestRequisitionLines: IRequestRequisitionLines[];
+  requestRequisitionLines: IRequestRequisitionLines[] | any;
   edinfini : boolean;
   sbbu : boolean;
   vizalys : boolean;

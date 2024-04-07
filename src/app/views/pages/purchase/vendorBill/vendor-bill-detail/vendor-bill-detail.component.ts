@@ -3,7 +3,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, } from '@angular/router';
-import { FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { VendorBillService } from '../services/vendor-bill.service';
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
@@ -86,7 +86,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       sortable: true, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
      },
@@ -115,7 +115,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -148,7 +148,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -158,7 +158,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
       sortable: true, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
      },

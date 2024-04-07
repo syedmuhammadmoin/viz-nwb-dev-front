@@ -11,7 +11,7 @@ import { QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IQuotationComparative } from '../model/IQuotationComparative';
 import { QuotationComparativeService } from '../service/quotation-comparative.service';
-import { ColDef, GridApi, GridReadyEvent, IsRowMaster , ICellRendererParams} from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent, IsRowMaster , ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import { QuotationService } from '../../quotation/service/quotation.service';
 
 
@@ -62,7 +62,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     requisitionId: '',
     quotationComparativeDate: ''
   };
@@ -102,7 +102,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       headerName: 'Quotation Date',
       field: 'quotationDate' ,
       suppressMenu: true,
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y')
       }
     },
@@ -121,7 +121,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
         { headerName: 'Price',
         field: 'price',
         suppressMenu: true,
-        valueFormatter: (params: ICellRendererParams) => {
+        valueFormatter: (params: ValueFormatterParams) => {
           return this.valueFormatter(params.value)
         }
       },

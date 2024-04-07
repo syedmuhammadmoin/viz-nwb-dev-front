@@ -6,7 +6,6 @@ import { RequestRequisitionDetailsComponent } from './request-requisition-detail
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { RequestRequisitionRoutingModule } from './request-requisition-routing.module';
 
 
@@ -21,7 +20,7 @@ import { RequestRequisitionRoutingModule } from './request-requisition-routing.m
     SharedModule,
     PartialsModule,
     RequestRequisitionRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 
