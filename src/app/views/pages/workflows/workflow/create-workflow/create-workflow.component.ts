@@ -61,7 +61,7 @@ export class CreateWorkflowComponent extends AppComponentBase implements OnInit 
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     name: '',
     docType: '',
   };
