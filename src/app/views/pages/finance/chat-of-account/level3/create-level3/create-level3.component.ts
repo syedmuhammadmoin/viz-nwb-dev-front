@@ -33,7 +33,7 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
     }
   };
   //Kyes for Validation messages
-  formErrors = {
+  formErrors: any = {
     name: '',
     level2: '',
   };

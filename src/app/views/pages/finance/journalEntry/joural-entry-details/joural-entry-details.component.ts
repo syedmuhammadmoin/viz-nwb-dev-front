@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { JournalEntryService } from '../services/journal-entry.service';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { LayoutUtilsService } from 'src/app/core/_base/crud';
@@ -43,7 +43,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
 
   // Detail Data
   journalEntryMaster: any;
-  journalEntryLines: IJournalEntryLines[];
+  journalEntryLines: IJournalEntryLines[] | any;
 
   // Showing Remarks
   remarksList: string[] = [];
@@ -91,7 +91,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -102,7 +102,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -112,7 +112,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
       sortable: true,
       filter: true,
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
     },

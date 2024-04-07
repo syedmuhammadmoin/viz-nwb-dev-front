@@ -19,7 +19,7 @@ export class PrintPettyCashComponent extends AppComponentBase implements OnInit 
 
   gridOptions: GridOptions;
   journalEntryMaster: any;
-  journalEntryLines: IPettyCashEntryLines[];
+  journalEntryLines: IPettyCashEntryLines[] | any;
   edinfini : boolean;
   sbbu : boolean;
   vizalys : boolean;

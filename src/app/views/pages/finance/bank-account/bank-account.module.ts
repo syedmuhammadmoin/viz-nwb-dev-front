@@ -4,7 +4,6 @@ import { RouterModule} from '@angular/router';
 import { PartialsModule} from 'src/app/views/partials/partials.module';
 import { ListBankAccountComponent} from './list-bank-account/list-bank-account.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateBankAccountComponent } from './create-bank-account/create-bank-account.component';
 import { BankAccountRoutingModule } from './bank-account-routing.module';
 
@@ -18,8 +17,7 @@ import { BankAccountRoutingModule } from './bank-account-routing.module';
     RouterModule,
     PartialsModule,
     BankAccountRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-  ],
-  entryComponents: [CreateBankAccountComponent]
+    AgGridModule
+  ]
 })
 export class BankAccountModule { }

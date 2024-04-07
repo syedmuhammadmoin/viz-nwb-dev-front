@@ -184,7 +184,6 @@
                             <kt-date-input
                               formControlName="date"
                               matFormFieldClass="full-width"
-                              [maxDate]="maxDate"
                               placeholder="Select Date"
                               (blur)="logValidationErrors(this.pettyCashForm, formErrors, validationMessages)"
                               [errorMessage]="element.controls.date.errors?.required &&

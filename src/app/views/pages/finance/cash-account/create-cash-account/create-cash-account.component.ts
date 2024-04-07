@@ -50,7 +50,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
     }
   
     //Keys for Validation Messages
-    formErrors = {
+    formErrors: any = {
       cashAccountName: '',
       openingBalance: '',
       OBDate: '',

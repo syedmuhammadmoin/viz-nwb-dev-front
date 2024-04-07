@@ -20,7 +20,7 @@ export class PrintJournalEntryComponent extends AppComponentBase implements OnIn
   currentClient : any = {};
   gridOptions: GridOptions;
   journalEntryMaster: any;
-  journalEntryLines: IJournalEntryLines[];
+  journalEntryLines: IJournalEntryLines[] | any;
   edinfini : boolean;
   sbbu : boolean;
   vizalys : boolean;

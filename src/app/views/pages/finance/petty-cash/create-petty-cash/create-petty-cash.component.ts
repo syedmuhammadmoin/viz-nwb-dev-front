@@ -84,7 +84,7 @@ export class CreatePettyCashComponent extends AppComponentBase implements OnInit
   }
 
   // Error keys..
-  formErrors = {
+  formErrors: any = {
     date: '',   
     campusId: '',
     accountId: '',

@@ -6,7 +6,6 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { ListPaymentComponent } from './list-payment/list-payment.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { DetailPaymentComponent } from './detail-payment/detail-payment.component';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CommonModule } from '@angular/common';
 import { PaymentRoutingModule } from './payment-routing.module';
 
@@ -23,8 +22,7 @@ import { PaymentRoutingModule } from './payment-routing.module';
     SharedModule,
     PartialsModule,
     PaymentRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [CreatePaymentComponent],
+    AgGridModule
+  ]
 })
 export class PaymentModule { }

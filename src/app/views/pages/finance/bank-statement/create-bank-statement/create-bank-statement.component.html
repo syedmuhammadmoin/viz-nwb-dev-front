@@ -57,7 +57,7 @@
                         placeholder="Enter Opening Balance"
                         (blurEvent)="logValidationErrors(this.bankStatementForm, this.formErrors, this.validationMessages); calculateRunningTotal()"
                         [errorMessage]="[{ condition : formErrors.openingBalance , error : formErrors.openingBalance}]"
-                        (change)="this.cumulativeBalances[0] = this.openingBalance = $event.target.value">
+                        (change)="setOpeningBalance($event)">
                       </kt-input-field> 
                   </div>
                 </div>
@@ -70,7 +70,7 @@
                     <div class="col-lg-12 col-12" ktDragDrop (fileDropped)="uploadFile($event)">
                       <label for="et_pb_contact_brand_file_request_0" class="et_pb_contact_form_label">Enter</label>
                       <input  #uploadFileInput type="file" id="et_pb_contact_brand_file_request_0"
-                        (change)="uploadFile($event.target?.files)" class="file-upload" accept=".xlsx, .xls">
+                        (change)="uploadFile($event)" class="file-upload" accept=".xlsx, .xls">
                     </div>
                     <div class="col-lg-12 col-12" *ngIf="showFileName">
                       <div
@@ -197,7 +197,7 @@
                                     formControlName="cumulativeBalance"
                                     matFormFieldClass="full-width"
                                     placeholder="Cumulative Balance"
-                                    readonly="true">
+                                    [readonly]="true">
                                   </kt-input-field>
                                 </div>
                               </mat-cell>

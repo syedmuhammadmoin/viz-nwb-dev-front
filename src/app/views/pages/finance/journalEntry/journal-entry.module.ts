@@ -7,7 +7,6 @@ import { ListJournalEntryComponent } from './list-journal-entry/list-journal-ent
 import { CreateJournalEntryComponent } from './create-journal-entry/create-journal-entry.component';
 import { JouralEntryDetailsComponent} from './joural-entry-details/joural-entry-details.component';
 import { PrintJournalEntryComponent } from './print-journal-entry/print-journal-entry.component';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { JournalEntryRoutingModule } from './journal-entry-routing.module';
 
 
@@ -23,7 +22,7 @@ import { JournalEntryRoutingModule } from './journal-entry-routing.module';
     SharedModule,
     PartialsModule,
     JournalEntryRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class JournalEntryModule { }

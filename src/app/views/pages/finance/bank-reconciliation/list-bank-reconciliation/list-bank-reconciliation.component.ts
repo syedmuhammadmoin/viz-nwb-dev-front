@@ -29,8 +29,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   bankStatementList = [];
   paymentList = [];
   overlayLoadingTemplate: any;
-  rowSelectionPayment = 'multiple';
-  rowSelectionBankStatement = 'multiple';
+  rowSelectionPayment: string | any = 'multiple';
+  rowSelectionBankStatement: string | any = 'multiple';
   private paymentColumnApi: any;
   private statementColumnApi: any;
 
@@ -45,7 +45,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   }
 
   //Keys for validations messages
-  formErrors = {
+  formErrors: any = {
     bankName: '',
   }
 
