@@ -44,7 +44,7 @@
                   </mat-tree-node>
 
                   <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-                    <mat-checkbox [checked]="descendantsAllSelected(node)" class="col-11"
+                    <mat-checkbox [checked]="descendantsAllSelected(node)" class="col-11 parent-checkbox"
                       [indeterminate]="descendantsPartiallySelected(node)"
                       (change)="todoItemSelectionToggle(node)">{{node.value}}</mat-checkbox>
                     <button type="button" mat-icon-button matTreeNodeToggle

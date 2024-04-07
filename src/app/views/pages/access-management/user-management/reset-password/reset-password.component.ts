@@ -27,7 +27,7 @@ export class ResetPasswordComponent extends AppComponentBase implements OnInit {
     },
   };
 
-  formErrors = {
+  formErrors: any = {
     adminPassword: ''
   };
 

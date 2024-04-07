@@ -43,7 +43,7 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
   };
 
   //Keys for validation messages
-  formErrors = {
+  formErrors: any = {
     password: '',
     confirmPassword: '',
     currentPassword: ''

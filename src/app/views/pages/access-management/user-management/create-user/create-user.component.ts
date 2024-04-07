@@ -66,7 +66,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   };
 
   //keys for validation
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     email: '',
     password: '',
