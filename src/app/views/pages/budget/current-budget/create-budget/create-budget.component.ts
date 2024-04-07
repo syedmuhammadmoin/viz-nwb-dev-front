@@ -69,7 +69,7 @@ export class CreateBudgetComponent extends AppComponentBase implements OnInit {
   };
 
   //Keys for validation messages
-  formErrors = {
+  formErrors: any = {
     budgetName: '',
     from: '',
     to: '',

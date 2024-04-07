@@ -4,13 +4,13 @@ import {State} from '@ngxs/store';
 import { defaultEntityState, ProfilingState, ProfilingStateModel } from 'src/app/views/pages/profiling/store/profiling.state';
 
 @State<ProfilingStateModel<any>>({
-  name: 'Budget',
+  name: 'BudgetAccount',
   defaults: defaultEntityState()
 })
 @Injectable()
-export class BudgetState extends ProfilingState<any> {
+export class BudgetAccountState extends ProfilingState<any> {
   constructor() {
-    super(BudgetState, 'Budget');
+    super(BudgetAccountState, 'BudgetAccount');
   }
 }
 

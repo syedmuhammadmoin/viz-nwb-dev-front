@@ -4,7 +4,6 @@ import { SharedModule } from '../../../shared/modules/shared.module';
 import { PartialsModule } from '../../../partials/partials.module';
 import { BudgetRoutingModule } from './budget-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from '../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { ListBudgetComponent } from './list-budget/list-budget.component';
 import { DetailBudgetComponent } from './detail-budget/detail-budget.component';
 import { PrintBudgetComponent } from './print-budget/print-budget.component';
@@ -23,7 +22,7 @@ import { BudgetReportComponent } from './budget-report/budget-report.component';
     SharedModule,
     PartialsModule,
     BudgetRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 

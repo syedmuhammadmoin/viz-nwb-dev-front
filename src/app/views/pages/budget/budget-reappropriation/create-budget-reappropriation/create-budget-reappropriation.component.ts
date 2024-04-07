@@ -56,7 +56,7 @@ export class CreateBudgetReappropriationComponent extends AppComponentBase imple
   };
 
   //Keys for validation messages
-  formErrors = {
+  formErrors: any = {
     budgetId: '',
     budgetReappropriationDate: ''
   };

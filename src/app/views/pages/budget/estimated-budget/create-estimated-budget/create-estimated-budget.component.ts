@@ -51,7 +51,7 @@ export class CreateEstimatedBudgetComponent extends AppComponentBase implements 
     },
   };
   // error keys..
-  formErrors = {
+  formErrors: any = {
     budgetId: '',
     estimatedBudgetName: ''
   };

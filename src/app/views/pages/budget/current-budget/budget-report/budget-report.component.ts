@@ -48,7 +48,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
   }
 
   //Keys for validation messages
-  formErrors = {
+  formErrors: any = {
     budgetName: '',
     to: ''
   }

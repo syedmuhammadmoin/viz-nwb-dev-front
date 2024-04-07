@@ -19,7 +19,7 @@ export class PrintBudgetComponent extends AppComponentBase implements OnInit {
  
   gridOptions: GridOptions;
   budgetMaster: IBudgetResponse;
-  budgetLines: IBudgetLines[];
+  budgetLines: IBudgetLines[] | any;
   totalAmount: number = 0;
   edinfini : boolean;
   sbbu : boolean;

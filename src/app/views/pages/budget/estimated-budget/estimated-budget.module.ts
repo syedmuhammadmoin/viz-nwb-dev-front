@@ -5,7 +5,6 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { EstimatedBudgetRoutingModule } from './estimated-budget-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { DetailEstimatedBudgetComponent } from './detail-estimated-budget/detail-estimated-budget.component';
 import { PrintEstimatedBudgetComponent } from './print-estimated-budget/print-estimated-budget.component';
 
@@ -19,7 +18,7 @@ import { PrintEstimatedBudgetComponent } from './print-estimated-budget/print-es
     SharedModule,
     PartialsModule,
     EstimatedBudgetRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class EstimatedBudgetModule { }

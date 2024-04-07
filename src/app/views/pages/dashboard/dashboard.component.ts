@@ -24,6 +24,7 @@ import { IApiResponse } from '../../shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AuthSingletonService } from '../auth/service/auth-singleton.service';
+import { PermissionService } from '../auth/service/permission.service';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -64,7 +65,7 @@ export type BarChartOptions = {
   templateUrl: './dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
 })
-export class DashboardComponent extends AppComponentBase implements OnInit {
+export class DashboardComponent implements OnInit {
   @ViewChild('pie-chart') pieChart: ChartComponent;
   public pieChartOptions: Partial<PieChartOptions>;
 
@@ -115,30 +116,22 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
     private dashboardService: DashboardService,
     public ngxsService: NgxsCustomService,
     private singletonService: AuthSingletonService,
-    injector: Injector
-
-  ) {
-    super(injector);
-    this.title = this.titleService.getTitle();
-    console.log("Title is " + this.title);
-
-
-
-  }
+    private permission: PermissionService) 
+    {
+      this.title = this.titleService.getTitle();
+    }
 
 
   showChart:boolean[] =[ false,false];
 
   ngOnInit(): void {
     this.LocalPermission = this.singletonService.getCurrentUserPermission();    
- console.log(this.LocalPermission,"local permission check ");
 
- this.checkingPermission = (this.permission.isGranted(this.permissions.DASHBOARD_BALANCESHEETSUMMARY_VIEW && this.permissions.DASHBOARD_PROFITLOSSSUMMARY_VIEW)) ? true : false;
- console.log(this.checkingPermission ,"Permission Check Kar");
+    this.checkingPermission = (this.permission.isGranted(this.permissions.DASHBOARD_BALANCESHEETSUMMARY_VIEW && this.permissions.DASHBOARD_PROFITLOSSSUMMARY_VIEW)) ? true : false;
  
- if(this.checkingPermission){
+    if(this.checkingPermission){
   
-   this.getballanceSheetSummary(); 
+    this.getballanceSheetSummary(); 
     /// Bar Chart Show Grid             
     /// Line or Pie Chart ////
     this.dashboardService.getSummaryforLast12Month().toPromise().then((res: IApiResponse<any>) => {
@@ -150,7 +143,6 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
 
         if (localStorage.getItem('global_color')) {
           this.localsto = JSON.parse(localStorage.getItem('global_color'));
-          console.log(this.localsto);
           this.primarycolor = this.localsto.primary_color;          
           this.chartcolor = this.localsto.chart_color;
 
@@ -413,8 +405,6 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
       this.level3Currentlibilities.forEach(x => {
           x.balance = Math.abs(x.balance)
          });
-
-console.log(this.level3Currentlibilities + "loging balance");
 
       this.ref.detectChanges();
     });
