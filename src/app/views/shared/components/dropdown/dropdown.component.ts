@@ -30,9 +30,10 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
   @ViewChild('customSelect') customSelect: ElementRef
 
-  @Input() formControl: FormControl;
+  @Input() formControl: FormControl<any> | any;
   @Input() formControlName: string;
   @Input() optionList: Observable<any> | any;
+  @Input() readonly: boolean;
   @Input() propertyName: string;
   @Input() propertyValue: string;
   @Input() isRequired = false;
@@ -40,7 +41,7 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   @Input() placeholder: string;
   @Input() searchPlaceholder: string;
   @Input() hintText: string;
-  @Input() errorMessage: string;
+  @Input() errorMessage: string | any;
   @Input() clickEventButtonName: string;
   @Input() buttonPermission: boolean;
   @Input() matFormFieldClass: any | [] | string;

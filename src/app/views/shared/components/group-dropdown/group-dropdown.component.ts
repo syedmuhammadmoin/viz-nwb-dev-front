@@ -17,7 +17,7 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
   @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
   @ViewChild('customGroupSelect') customSelect: ElementRef
 
-  @Input() formControl: FormControl;
+  @Input() formControl: FormControl<any> | any;
   @Input() formControlName: string;
   @Input() optionList: Observable<any> | [];
   @Input() propertyName: string;
@@ -28,13 +28,14 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder: string;
   @Input() searchPlaceholder: string;
   @Input() hintText: string;
-  @Input() errorMessage: string;
+  @Input() errorMessage: string | any;
   @Input() groupPropertyName: string;
   @Input() groupChildrenName: string;
   @Input() clickEventButtonName: string;
   @Input() matSelectClass: any | [] | string
   @Input() matFormFieldClass: any | [] | string
-  @Input() isDisabled: boolean
+  @Input() isDisabled: boolean;
+  @Input() isDisabledNone: boolean = false;
 
   @Output() selectionChangeEvent = new EventEmitter<any>()
   @Output() clickEvent = new EventEmitter<any>();

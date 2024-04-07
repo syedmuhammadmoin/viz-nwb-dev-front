@@ -16,7 +16,7 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
 
   @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
 
-  @Input() formControl: FormControl;
+  @Input() formControl: FormControl<any> | any;
   @Input() formControlName: string;
   @Input() placeholder: string;
   @Input() readonly: boolean;

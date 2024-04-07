@@ -17,7 +17,7 @@
       ></ngx-mat-select-search>
     </mat-option>
     <mat-option style="padding: 0" *ngIf="isLoading" [ktBusy]="isLoading" type="SINGLE_CONTENT"></mat-option>
-    <mat-option>-- None --</mat-option>
+    <mat-option *ngIf="isDisabledNone">-- None --</mat-option>
     <ng-container *ngFor="let group of filteredOptionList | async">
       <mat-optgroup [label]="group[groupPropertyName]">
         <ng-container *ngFor="let options of group[groupChildrenName]">

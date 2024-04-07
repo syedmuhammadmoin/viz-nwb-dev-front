@@ -56,15 +56,11 @@ import { FileSizePipe } from '../pipes/non-negative/file-size/file-size.pipe';
 import { ShowRemarksComponent } from '../components/show-remarks/show-remarks.component';
 import { CustomUploadFileComponent } from '../components/custom-upload-file/custom-upload-file.component';
 import { CustomRemarksComponent } from '../components/custom-remarks/custom-remarks.component';
-import { CreateUnitOfMeasurementComponent } from '../../pages/profiling/unit-of-measurement/create-unit-of-measurement/create-unit-of-measurement.component';
-import { CreateBusinessPartnerComponent } from '../../pages/profiling/business-partner/create-business-partner/create-business-partner.component';
-import { CreateWarehouseComponent } from '../../pages/profiling/warehouse/create-warehouse/create-warehouse.component';
-import { CreateProductComponent } from '../../pages/profiling/product/create-product/create-product.component';
-import { CreateCategoryComponent } from '../../pages/profiling/category/create-category/create-category.component';
-import { CreateBankAccountComponent } from '../../pages/finance/bank-account/create-bank-account/create-bank-account.component';
 import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
 import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
 import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { SearchPipe } from '../pipes/search/search.pipe';
 
 
 // @ts-ignore
@@ -88,6 +84,7 @@ import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cel
     TreeFilter,
     DragDropDirective,
     AgGridButtonCellRendrerComponent,
+    SearchPipe
   ],
   imports: [
     NgxPrintModule,
@@ -134,6 +131,7 @@ import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cel
     MatTreeModule,
     MatButtonToggleModule,
     CdkTreeModule,
+    NgbModule,
     ToastrModule.forRoot({
       closeButton: true,
       positionClass: 'toast-bottom-right',
@@ -200,22 +198,13 @@ import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cel
     CustomUploadFileComponent,
     CustomRemarksComponent,
     TreeFilter,
+    NgbModule,
+    SearchPipe,
     AgGridButtonCellRendrerComponent
   ],
   providers: [
-    FormConfirmationGuard,
+    //FormConfirmationGuard,
     DatePipe
-  ],
-  entryComponents: [
-    ConfirmationDialogComponent ,
-    CreateUnitOfMeasurementComponent,
-    CustomRemarksComponent,
-    CustomUploadFileComponent,
-    CreateBusinessPartnerComponent,
-    CreateWarehouseComponent,
-    CreateProductComponent,
-    CreateCategoryComponent,
-    CreateBankAccountComponent
-  ],
+  ]
 })
 export class SharedModule { }

@@ -48,7 +48,8 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
   }
 
   // upload file
-  uploadFile(files: File[]) {
+  uploadFile(event: any) {
+    const files = event?.target?.files;
     if (files) {
       this.file = files[0] as File;
       const size = Number(this.fileSizePipe.transform(this.file.size))
