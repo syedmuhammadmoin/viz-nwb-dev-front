@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { CategoryService } from '../service/category.service';
-import { MatDialog } from '@angular/material/Dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IServerSideDatasource, IServerSideGetRowsParams, IServerSideGetRowsRequest, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateCategoryComponent } from '../create-category/create-category.component';

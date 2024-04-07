@@ -58,7 +58,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     taxType: '',
     accountId: '',

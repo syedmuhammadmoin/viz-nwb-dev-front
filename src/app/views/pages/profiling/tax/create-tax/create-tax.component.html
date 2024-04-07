@@ -22,7 +22,7 @@
                                 id="tax_name"
                                     formControlName="name"
                                     placeholder="Enter Tax Name"
-                                    readonly="true"
+                                    [readonly]="true"
                                     (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
                                     [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
                                 </kt-input-field>

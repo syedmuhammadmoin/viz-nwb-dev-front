@@ -10,7 +10,7 @@ import {
   ICellRendererParams,
   RowDoubleClickedEvent
 } from 'ag-grid-community';
-import {MatDialog} from '@angular/material/Dialog'
+import {MatDialog} from '@angular/material/dialog'
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {CreateBusinessPartnerComponent} from '../create-business-partner/create-business-partner.component';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';

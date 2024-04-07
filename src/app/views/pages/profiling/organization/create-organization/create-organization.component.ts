@@ -41,7 +41,7 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
     },
   };
 
-  formErrors = {
+  formErrors: any = {
     'name': '',
     'website': '',
     'startDate': '',

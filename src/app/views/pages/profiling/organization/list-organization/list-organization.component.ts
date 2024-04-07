@@ -1,7 +1,7 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
-import { MatDialog } from '@angular/material/Dialog'
+import { MatDialog } from '@angular/material/dialog'
 import { CreateOrganizationComponent } from '../create-organization/create-organization.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';

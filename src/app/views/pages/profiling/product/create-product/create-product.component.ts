@@ -69,7 +69,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
   }
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     unit: '',    
     category: '',
@@ -129,8 +129,8 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
      )
       .subscribe(
         (product: IApiResponse<IProduct>) => {
-          this.editProduct(product.result);
           this.product = product.result;
+          this.editProduct(product.result);
         },
         (err) => console.log(err)
       );
@@ -166,11 +166,14 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     if(this.isFixedAsset){
       this.productForm.get('productType').setValue(2);
     }
-    else{
-      this.productForm.get('productType').setValue(0);
+    
+    else if(this.product?.productType === 1) {
+      this.productForm.get('productType').setValue(1);
     }
 
-
+    else {
+      this.productForm.get('productType').setValue(0);
+    }
   }
 
   onSubmit() {

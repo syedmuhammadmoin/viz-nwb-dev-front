@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ProductService} from '../service/product.service';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
-import { MatDialog} from '@angular/material/Dialog'
+import { MatDialog} from '@angular/material/dialog'
 import { CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppConst} from "src/app/views/shared/AppConst";
 import { CreateProductComponent } from '../create-product/create-product.component';

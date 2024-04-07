@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/Dialog'
+import {MatDialog} from '@angular/material/dialog'
 import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams} from 'ag-grid-community';
 import {ICampus} from '../model/ICampus';
 import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';

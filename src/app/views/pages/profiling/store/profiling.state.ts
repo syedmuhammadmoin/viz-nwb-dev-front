@@ -38,19 +38,19 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   static get entities(): StateSelector<any> {
-    return createSelector([this], state => {
+    return createSelector([this as any], state => {
       return state.modelList;
     });
   }
 
   static get isFetchCompleted(): StateSelector<any> {
-    return createSelector([this], state => {
+    return createSelector([this as any], state => {
       return state.isFetchCompleted;
     });
   }
 
   static get isLoading(): StateSelector<any> {
-    return createSelector([this], state => {
+    return createSelector([this as any], state => {
       return state.isLoading;
     })
   }

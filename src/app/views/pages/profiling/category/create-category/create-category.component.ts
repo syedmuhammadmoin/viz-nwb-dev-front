@@ -77,7 +77,7 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     inventoryAccount: '',
     revenueAccount: '',
@@ -246,6 +246,8 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
 
   reset() {
     this.formDirective.resetForm();
+    this.categoryForm.get('isFixedAsset')?.setValue(0);
+    this.loadAssetList({value: 0});
   }
 
   // Dialogue close function
