@@ -27,7 +27,7 @@
                         <div class="form-group group__sty" >
                           <input type="email" formControlName="email" class="form-control input-filed-color" placeholder="Email" />
                         
-                          <mat-error *ngIf="isControlHasError('email', 'required')">
+                          <!-- <mat-error *ngIf="isControlHasError('email', 'required')">
                             <p class="text-left error_msg" >
                               <strong>{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
                             </p>
@@ -35,6 +35,11 @@
                           <mat-error *ngIf="isControlHasError('email', 'email')">
                             <p class="text-left error_msg" >
                               <strong>{{ "AUTH.VALIDATION.INVALID_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
+                            </p>
+                          </mat-error> -->
+                          <mat-error *ngIf="isControlHasError('email', 'required')">
+                            <p class="text-left error_msg" >
+                              <strong style="color: #f64e60;">{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
                             </p>
                           </mat-error>
                         </div>
@@ -45,7 +50,7 @@
                       <div class="col-md-12 col-lg-12 col-sm-12">
                         <div class="form-group group__sty">
                           <input type="password" formControlName="password" class="form-control input-filed-color" autocomplete="off" placeholder="Password"  />
-                            <mat-error *ngIf="isControlHasError('password', 'required')">
+                            <!-- <mat-error *ngIf="isControlHasError('password', 'required')">
                               <p class="text-left error_msg_pass" >
                                 <strong>{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
                               </p>
@@ -59,6 +64,11 @@
                                 <p class="text-left error_msg_pass" >
                                   <strong>{{ "AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate }} 50 <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
                                 </p>
+                            </mat-error> -->
+                            <mat-error *ngIf="isControlHasError('password', 'required')">
+                              <p class="text-left error_msg_pass">
+                                <strong style="color: #f64e60;">{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
+                              </p>
                             </mat-error>
                         </div>
                       </div>

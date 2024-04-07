@@ -23,9 +23,8 @@ import { RegisterComponent } from './register/register.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { AuthNoticeComponent } from './auth-notice/auth-notice.component';
 // Auth
-import { AuthEffects, AuthGuard, authReducer, AuthService } from '../../../core/auth';
+import { AuthEffects, AuthGuard, authReducer } from '../../../core/auth';
 import { AUTH } from '../../shared/AppRoutes';
-import { ActionNotificationComponent } from '../../partials/content/crud';
 
 const routes: Routes = [
 	{
@@ -84,12 +83,11 @@ const routes: Routes = [
 		RegisterComponent,
 		ForgotPasswordComponent,
 		AuthNoticeComponent
-	],
-	entryComponents: [ActionNotificationComponent]
+	]
 })
 
 export class AuthModule {
-	static forRoot(): ModuleWithProviders {
+	static forRoot(): ModuleWithProviders<AuthModule> {
 		return {
 			ngModule: AuthModule,
 			providers: [
