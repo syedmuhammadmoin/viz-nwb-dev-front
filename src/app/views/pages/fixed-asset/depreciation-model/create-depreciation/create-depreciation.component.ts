@@ -100,7 +100,7 @@ export class CreateDepreciationComponent extends AppComponentBase implements OnI
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     modelName: '',
     modelType: '',
     depreciationExpenseId: '',

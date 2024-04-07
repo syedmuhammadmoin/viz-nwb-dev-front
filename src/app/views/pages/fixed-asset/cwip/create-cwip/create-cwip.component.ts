@@ -123,7 +123,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     dateOfAcquisition: '',
     name: '',
     cwipAccountId: '',

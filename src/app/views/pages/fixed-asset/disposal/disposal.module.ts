@@ -7,8 +7,6 @@ import {SharedModule} from 'src/app/views/shared/modules/shared.module';
 import {PartialsModule} from 'src/app/views/partials/partials.module';
 import {AgGridModule} from 'ag-grid-angular';
 import {DisposalRoutingModule} from './disposal-routing.module';
-import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import {RegisterPaymentComponent} from '../../sales/invoice/register-payment/register-payment.component';
 
 
 @NgModule({
@@ -17,11 +15,7 @@ import {RegisterPaymentComponent} from '../../sales/invoice/register-payment/reg
     SharedModule,
     PartialsModule,
     DisposalRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [
-    CreateDisposalComponent,
-    RegisterPaymentComponent
+    AgGridModule
   ]
 })
 export class DisposalModule {

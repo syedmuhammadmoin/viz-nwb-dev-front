@@ -1,120 +1,18 @@
+/**Switch Css*/
+:host ::ng-deep #payroll_item_isActive .mdc-switch {
+  margin-right: 8px;
+}
 
-::ng-deep .mat-table {
-    
-    mat-cell, mat-header-cell, mat-footer-cell
-    {
-        justify-content: center;
-    }
-    mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type
-    {
-        padding-left: 0px !important;
-    }
-    mat-row
-    {
-        padding-top: 20px;
-        // align-items: end;
-    }
-    .mat-header-cell {
-      color: #1a6b85;
-      font-weight: bold;
-      font-size: 15px;
-      border-right: 2px solid #88a9d733;
-    }
-    mat-header-row
-    {
-      // background-color: #8aacdb85;
-      background-color: #e9f5f9;
-      min-height: 46px;
-    }
-  }
+/** Toggle track */ 
+/** Toggle head ripple shadow in selected state */
+:host ::ng-deep .mdc-switch:enabled .mdc-switch__track::after,
+:host ::ng-deep .mdc-switch.mdc-switch--selected:enabled .mdc-switch__ripple::after {
+  background: #1a6b85 !important;
+}
 
-  ::ng-deep .input_d_1{
-    
-    margin-top: 2px;
-    
-    // .mat-form-field-flex
-    // {
-    //     border-radius: 0px !important;
-  
-    // }
-    // .mat-form-field-outline
-    // {
-    //     border-radius: 0px !important;
-        
-    // }
-
-    // .mat-form-field-infix input
-    // {
-    //     text-align: center !important;
-    // }
-
-    
-    // .mat-focused > .mat-form-field-outline
-    // {
-    //     border-bottom: 2px solid #424e63 !important;
-    // }
-    
-  }
-
-
-  ::ng-deep .mat-radio-group {
-    display: flex;
-    padding-top: 10px;
-  }
-  ::ng-deep .mat-slide-toggle-thumb{
-    background-color: white !important;
-  }
-
-
-  ::ng-deep .mat-slide-toggle-bar{
-    background-color: #1594a5 !important;
-  }
-  ::ng-deep .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-bar {
-    background-color: rgb(181, 179, 184) !important; /* set your color here */
-  }
-  ::ng-deep .mat-slide-toggle:not(.mat-checked):not(.mat-disabled) .mat-slide-toggle-thumb {
-    background-color:white !important; /* setolo your cr here */
-  }
-  
-  
-  :host ::ng-deep .mat-radio-outer-circle{
-    border-radius:2px;
-    border-color: #1594a5 !important ;
-  }
-
-  :host ::ng-deep .mat-radio-inner-circle{
-      border-radius:2px;
-      background-color: transparent!important;
-      border-bottom: 4px solid white;
-      border-right:4px solid white;
-      height:30px;  
-      width:15px;
-      margin-top: -8px;
-     margin-left: 3px;
-  }
-
-  :host ::ng-deep .mat-radio-disabled .mat-radio-outer-circle{
-    border-color: lightgray !important ;
-  }
-
-  :host ::ng-deep .mat-radio-checked .mat-radio-outer-circle{
-     background-color: #1594a5;
-    background-image: linear-gradient(to right, #1594a5, #1594a5);
-  }
-  :host ::ng-deep .mat-radio-checked .mat-radio-inner-circle{
-     transform: rotate(45deg) scale(0.5);
-  }
-
-  :host ::ng-deep  .mat-checkbox-checked .mat-checkbox-inner-container{
-    background-color: #1594a5;
-  }
-  
-  :host ::ng-deep .mat-radio-button .mat-radio-ripple{
-    height: 20px; /*double of your required circle radius*/
-    width: 20px;  /*double of your required circle radius*/
-    left: calc(50% - 10px); /*'10px'-same as your required circle radius*/
-    top: calc(50% - 10px); /*'10px'-same as your required circle radius */
-  }
-
-
-
+/** Toggle head */
+/** Toggle head ripple shadow in un-selected state */
+:host ::ng-deep .mdc-switch.mdc-switch--selected:enabled .mdc-switch__handle::after,
+:host ::ng-deep .mdc-switch.mdc-switch--unselected:enabled .mdc-switch__handle::after {
+  background: white !important;
+}

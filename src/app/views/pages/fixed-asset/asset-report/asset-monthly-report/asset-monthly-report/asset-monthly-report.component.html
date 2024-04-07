@@ -21,7 +21,7 @@
                 <kt-date-input (blurEvent)="logValidationErrors(this.assetReportForm, formErrors, validationMessages)"
                                [errorMessage]="formErrors.docDate2" formControlName="docDate2" matFormFieldClass="full-width"
                                placeholder="Select End Date" [minDate]="minDate"
-                               dateCondition="dateCondition"
+                               [dateCondition]="dateCondition"
                                dateMessage="Start">
                 </kt-date-input>
               </div>
@@ -34,7 +34,7 @@
                   placeholder="Select Fixed Asset"
                   propertyName="name"
                   formControlName="fixedAssetId"
-                  isRequired="false"
+                  [isRequired]="false"
                   hintText="Optional"
                   matFormFieldClass="full-width"
                   [optionList]="ngxService.assets$">
@@ -49,7 +49,7 @@
                   placeholder="Select Warehouse"
                   propertyName="name"
                   formControlName="storeId"
-                  isRequired="false"
+                  [isRequired]="false"
                   hintText="Optional"
                   matFormFieldClass="full-width"
                   [optionList]="ngxService.warehouses$">

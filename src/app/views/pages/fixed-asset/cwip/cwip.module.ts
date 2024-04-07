@@ -7,7 +7,6 @@ import {SharedModule} from 'src/app/views/shared/modules/shared.module';
 import {PartialsModule} from 'src/app/views/partials/partials.module';
 import {AgGridModule} from 'ag-grid-angular';
 import { CwipRoutingModule } from './cwip-routing.module';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
 
@@ -19,10 +18,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SharedModule,
     PartialsModule,
     CwipRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ], 
-  entryComponents: [
-    CreateCwipComponent
-   ]
+    AgGridModule
+  ]
 })
 export class CwipModule { }

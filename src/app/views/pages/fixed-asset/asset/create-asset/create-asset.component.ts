@@ -144,7 +144,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
 
     dateofAcquisition: '',
     name: '',

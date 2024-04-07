@@ -68,7 +68,7 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     docDate: '',
     docDate2: '',
     fixedAssetId: '',

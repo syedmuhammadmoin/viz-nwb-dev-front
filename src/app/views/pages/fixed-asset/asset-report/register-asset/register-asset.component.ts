@@ -50,7 +50,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     fixedAssetId: ''
   }
 
@@ -59,8 +59,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
     private cdRef: ChangeDetectorRef,
     injector: Injector,
     public ngxService: NgxsCustomService,
-    private assetService: AssetService,
-    private fixedAssetReportService: FixedAssetReportService,
+    private assetService: AssetService
   ) {
     super(injector);
     //Defining Employee Columns

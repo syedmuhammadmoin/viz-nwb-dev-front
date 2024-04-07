@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {ActionButton, DocType, DocumentStatus, Permissions} from '../../../../shared/AppEnum';
 import {DEPRECIATION_ADJUSTMENT, JOURNAL_ENTRY} from '../../../../shared/AppRoutes';
-import {ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import {IJournalEntryLines} from '../../../finance/journalEntry/model/IJournalEntryLines';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {JournalEntryService} from '../../../finance/journalEntry/services/journal-entry.service';
@@ -43,7 +43,7 @@ export class DetailDepreciationAdjustmentComponent extends AppComponentBase impl
 
   // Detail Data
   depreciationAdjustmentMaster: IDepreciationAdjustment = {} as IDepreciationAdjustment;
-  depreciationAdjustmentLines: IDepreciationAdjustmentLines[];
+  depreciationAdjustmentLines: IDepreciationAdjustmentLines[] | any;
 
   // Showing Remarks
   remarksList: IRemarksList[] = [];
@@ -68,13 +68,13 @@ export class DetailDepreciationAdjustmentComponent extends AppComponentBase impl
     },
     {
       headerName: 'Debit', field: 'debit', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
       headerName: 'Credit', field: 'credit', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },

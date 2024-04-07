@@ -72,7 +72,7 @@ export class CreateDepreciationAdjustmentComponent extends AppComponentBase impl
   }
 
   // Error keys..
-  formErrors = {
+  formErrors: any = {
     date: '',
     description: '',
     campusId: ''

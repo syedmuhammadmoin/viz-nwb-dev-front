@@ -66,7 +66,7 @@ export class AssetMonthlyReportComponent extends AppComponentBase implements OnI
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     docDate: '',
     docDate2: '',
     fixedAssetId: '',

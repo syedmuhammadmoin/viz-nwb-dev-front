@@ -103,7 +103,7 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     fixedAssetId: '',
     businessPartnerId: '',
     productId: '',

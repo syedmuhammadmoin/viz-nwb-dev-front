@@ -20,7 +20,7 @@ import { PrintRegisterAssetComponent } from './print-register-asset/print-regist
         ReportRoutingModule,
         PortletModule,
         SharedModule,
-        AgGridModule.withComponents([]),
+        AgGridModule
     ]
 })
 export class ReportModule { }
