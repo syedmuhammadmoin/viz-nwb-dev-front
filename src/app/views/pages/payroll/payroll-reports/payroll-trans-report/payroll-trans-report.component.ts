@@ -55,7 +55,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     }
 };
  // error keys..
-  formErrors = {
+  formErrors: any = {
     fromDate: '',
     toDate: '',
     year: '',

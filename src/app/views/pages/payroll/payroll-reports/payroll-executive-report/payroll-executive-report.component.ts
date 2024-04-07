@@ -6,7 +6,6 @@ import { GridOptions } from 'ag-grid-community';
 import { finalize} from 'rxjs/operators';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
-import { Router } from '@angular/router';
 import { APP_ROUTES, PAYROLL_REPORT, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { PayrollReportsService } from '../service/payroll-reports.service';
@@ -110,7 +109,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     year: ''
   }
 

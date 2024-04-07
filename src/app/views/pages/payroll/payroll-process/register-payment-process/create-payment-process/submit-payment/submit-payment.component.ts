@@ -106,7 +106,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     },
   };
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     campusId: '',
     month: '',

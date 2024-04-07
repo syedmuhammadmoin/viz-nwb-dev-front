@@ -18,7 +18,7 @@
                       formControlName="employeeId" matFormFieldClass="full-width"
                       (click)="getLatestEmployeeData()"
                       placeholder="Select Employee"
-                      isDisabledNone="true"
+                      [isDisabledNone]="true"
                       hintText="Optional"
                       propertyName="name"
                       propertyValue="id">
@@ -35,7 +35,7 @@
                         formControlName="designation" matFormFieldClass="full-width"
                         placeholder="Select Designation"
                         propertyName="name"
-                        isDisabledNone="true"
+                        [isDisabledNone]="true"
                         hintText="Optional"
                         propertyValue="name">
                       </kt-simple-dropdown>
@@ -51,7 +51,7 @@
                         formControlName="department" matFormFieldClass="full-width"
                         placeholder="Select Department"
                         propertyName="name"
-                        isDisabledNone="true"
+                        [isDisabledNone]="true"
                         hintText="Optional"
                         propertyValue="name">
                       </kt-simple-dropdown>
@@ -66,7 +66,7 @@
                      placeholder="Select Basic Pay" 
                      propertyValue="name" 
                      propertyName="name"
-                     isDisabledNone="true"
+                     [isDisabledNone]="true"
                      hintText="Optional"
                      formControlName="bps" 
                      matFormFieldClass="full-width"
@@ -84,7 +84,7 @@
                     id="trans_report_month"
                     [optionList]="months"
                     formControlName="month"
-                    isDisabledNone="true"
+                    [isDisabledNone]="true"
                     hintText="Optional"
                     matFormFieldClass="full-width"
                     placeholder="Select Month" propertyName="name"

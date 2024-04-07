@@ -55,7 +55,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
     }
 };
  // error keys..
-  formErrors = {
+  formErrors: any = {
     fromDate: '',
     toDate: '',
     year: '',

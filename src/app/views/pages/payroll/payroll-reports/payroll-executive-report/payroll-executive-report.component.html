@@ -11,7 +11,7 @@
                       <label class="col-form-label">Campus:</label>
                       <kt-simple-dropdown id="executive_campus" 
                         [optionList]="ngxsService.campuses$" 
-                        isDisabledNone="true"
+                        [isDisabledNone]="true"
                         formControlName="campusId" 
                         matFormFieldClass="full-width" 
                         placeholder="Select Campus" 
@@ -28,7 +28,7 @@
                         placeholder="Select Detailed Head"
                         propertyValue="id"
                         propertyName="name"
-                        isDisabledNone="true"
+                        [isDisabledNone]="true"
                         hintText="Optional"
                         formControlName="accountId"
                         matFormFieldClass="full-width"
@@ -104,4 +104,4 @@
         </div>
       </div>
     </form>
-  </kt-portlet>
+</kt-portlet>

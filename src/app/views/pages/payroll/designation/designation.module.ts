@@ -4,7 +4,6 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { ListDesignationComponent } from './list-designation/list-designation.component';
 import { DesignationRoutingModule } from './designation-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateDesignationComponent } from './create-designation/create-designation.component';
 import { DesignationDetailComponent } from './designation-detail/designation-detail.component';
 
@@ -19,10 +18,7 @@ import { DesignationDetailComponent } from './designation-detail/designation-det
     SharedModule,
     PartialsModule,
     DesignationRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-  ],
-  entryComponents: [
-    CreateDesignationComponent
-  ],
+    AgGridModule
+  ]
 })
 export class DesignationModule { }

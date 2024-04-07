@@ -86,7 +86,7 @@ export class CreateBidEvaluationComponent extends AppComponentBase implements On
     }
   }
 
-  formErrors = {
+  formErrors: any = {
     name: '',
     title: '',
     refNo: '',

@@ -13,12 +13,11 @@ import { IBankAccount } from 'src/app/views/pages/finance/bank-account/model/IBa
 import { MatRadioChange } from '@angular/material/radio';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
-import { DepartmentState } from '../../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
-import { IPayment } from 'src/app/views/pages/finance/payment/model/IPayment';
 import { IPaymentProcess } from '../../../model/IPaymentProcess';
 import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'kt-create-payment',
@@ -111,7 +110,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     },
   ];
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     month: '',
     year: '',

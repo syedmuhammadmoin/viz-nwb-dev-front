@@ -98,7 +98,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     itemCode: '',
     name: '',
     payrollType: '',

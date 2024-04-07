@@ -120,7 +120,7 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     }
   };
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     campusId: '',
     month: '',

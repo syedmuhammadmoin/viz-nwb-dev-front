@@ -47,7 +47,7 @@ export class CreateEmployeeComponent extends AppComponentBase implements OnInit 
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     noOfIncrements: '',
     accountPayableId: '',
   };

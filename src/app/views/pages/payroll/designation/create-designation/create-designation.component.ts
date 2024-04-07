@@ -45,7 +45,7 @@ export class CreateDesignationComponent extends AppComponentBase implements OnIn
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     Name: '',
   };
 

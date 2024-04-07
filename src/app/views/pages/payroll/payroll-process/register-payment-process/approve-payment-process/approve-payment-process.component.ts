@@ -9,7 +9,6 @@ import { PayrollProcessService } from '../../service/payroll-process.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
-import { DepartmentState } from '../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { finalize, take } from 'rxjs/operators';
@@ -87,7 +86,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     },
   ];
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     campusId: '',
     month: '',

@@ -18,7 +18,7 @@
                     matFormFieldClass="full-width"
                     (click)="getLatestEmployeeData()"
                     placeholder="Select Employee"
-                    isDisabledNone="true"
+                    [isDisabledNone]="true"
                     hintText="Optional"
                     propertyName="name"
                     propertyValue="id">
@@ -36,7 +36,7 @@
                       matFormFieldClass="full-width"
                       placeholder="Select Designation"
                       propertyName="name"
-                      isDisabledNone="true"
+                      [isDisabledNone]="true"
                       hintText="Optional"
                       propertyValue="name">
                     </kt-simple-dropdown>
@@ -53,7 +53,7 @@
                       matFormFieldClass="full-width"
                       placeholder="Select Department"
                       propertyName="name"
-                      isDisabledNone="true"
+                      [isDisabledNone]="true"
                       hintText="Optional"
                       propertyValue="name">
                     </kt-simple-dropdown>
@@ -70,7 +70,7 @@
                     propertyName="name"
                     formControlName="campus" 
                     matFormFieldClass="full-width"
-                    isDisabledNone="true"
+                    [isDisabledNone]="true"
                     hintText="Optional"
                     [optionList]="ngxsService.campuses$">
                   </kt-simple-dropdown>
@@ -86,7 +86,7 @@
                   id="trans_detail_month"
                   [optionList]="months"
                   formControlName="month"
-                  isDisabledNone="true"
+                  [isDisabledNone]="true"
                   hintText="Optional"
                   matFormFieldClass="full-width"
                   placeholder="Select Month" 

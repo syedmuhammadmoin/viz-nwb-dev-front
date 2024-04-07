@@ -177,7 +177,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     
   ];
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     campusId: '',
     accountPayableId: '',
