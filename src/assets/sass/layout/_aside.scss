@@ -4,11 +4,6 @@
 
 .aside {
 	width: get($aside-config, base, width);
-
-	// Aside Menu
-	.aside-menu {
-		@include perfect-scrollbar-ver-offset(4px);
-	}
 }
 
 // Desktop Mode
@@ -38,9 +33,6 @@
 		.aside-minimize & {
 			width: get($aside-config, base, minimized-width);
 		}
-
-		// Scrollbar Width
-		@include perfect-scrollbar-ver-size(get($aside-config, base, scrollbar-width));
 	}
 
 	// Fixed Aside & Minimize Aside Hover Modes

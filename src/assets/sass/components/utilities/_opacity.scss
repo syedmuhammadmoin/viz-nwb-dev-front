@@ -1,6 +1,7 @@
 //
 // Custom opacity helpers
 //
+@use 'sass:math' as math;
 
 // Responsive opacity
 @each $breakpoint in map-keys($grid-breakpoints) {
@@ -9,7 +10,7 @@
 
 		@for $opacity from 1 through 100 {
 			.opacity#{$infix}-#{$opacity} {
-				opacity: $opacity / 100 !important;
+				opacity: math.div($opacity, 100) !important;
 			}
 
 			.hover-opacity#{$infix}-#{$opacity} {
@@ -18,7 +19,7 @@
 				&.active,
 				&:hover {
 					transition: $transition;
-					opacity: $opacity / 100 !important;
+					opacity: math.div($opacity, 100) !important;
 				}
 			}
 		}

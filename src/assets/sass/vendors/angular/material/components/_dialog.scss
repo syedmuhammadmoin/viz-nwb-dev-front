@@ -1,6 +1,6 @@
 // Dialog
-.mat-dialog-container-wrapper {
-	.mat-dialog-container {
+.mat-mdc-dialog-container-wrapper {
+	.mat-mdc-dialog-container {
 	   	padding: 0;
 	   	overflow-x: hidden;
 
@@ -15,7 +15,7 @@
 	}
 }
 
-.mat-dialog-container-wrapper .mat-dialog-container {
+.mat-mdc-dialog-container-wrapper .mat-mdc-dialog-container {
 	padding: 0;
 	overflow-x: hidden;
 
@@ -29,16 +29,16 @@
 	}
 }
 
-.mat-dialog-actions {
+.mat-mdc-dialog-actions {
 	margin-bottom: 0 !important;
 }
 
 // @include tablet-and-mobile {
 // 	// Dialog
-// 	.mat-dialog-container-wrapper {
+// 	.mat-mdc-dialog-container-wrapper {
 // 		max-width: 90%;
 		
-// 		.mat-dialog-container {
+// 		.mat-mdc-dialog-container {
 // 		   	.card {
 // 		       	.card-body {
 // 		       		overflow: auto;

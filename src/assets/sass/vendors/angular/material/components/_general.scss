@@ -1,12 +1,12 @@
 // Form controls
-.mat-column-select {
+.mat-mdc-column-select {
     overflow: initial;
 }
-.mat-column-checkbox {
+.mat-mdc-column-checkbox {
     flex: 0 0 70px;
 }
 
-.mat-column-vinCode {
+.mat-mdc-column-vinCode {
     flex: 1 0 60px;
 }
 
@@ -30,13 +30,13 @@
 
 // Panels
 .example-panel-Suspended {
-    .mat-select-content {
+    .mat-mdc-select-content {
         background: rgba(255, 0, 0, 0.5);
     }
 }
   
 .example-panel-Active {
-    .mat-select-content {
+    .mat-mdc-select-content {
         background:  rgba(0, 255, 0, 0.5);
     }
 }
@@ -46,21 +46,21 @@
 }
 
 // Form fields
-.mat-form-field-fluid {
+.mat-mdc-form-field-fluid {
     display: block !important;
 }
 
 // Tabs
-.mat-tab-body-content {
+.mat-mdc-tab-body-content {
     overflow: visible !important;
     padding-top: 20px !important;
 }
 
-.mat-tab-label-icon {
+.mat-mdc-tab-label-icon {
 	margin-right: 5px;
 }
 
-.mat-form-field-infix {
+.mat-mdc-form-field-infix {
 	    input:-webkit-autofill,
 	    input:-webkit-autofill:hover,
 	    input:-webkit-autofill:focus,

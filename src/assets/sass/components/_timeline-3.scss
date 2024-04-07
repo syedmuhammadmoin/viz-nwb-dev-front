@@ -1,7 +1,7 @@
 //
 // Notes
 //
-
+@use 'sass:math' as math;
 
 // Variables
 $timeline-3-media-size: 50px;
@@ -13,7 +13,7 @@ $timeline-3-border-width: 2px;
         padding: 0;
 
         .timeline-item {
-            margin-left: $timeline-3-media-size/2;
+            margin-left: math.div($timeline-3-media-size, 2);
             border-left: $timeline-3-border-width solid $border-color;
             padding: 0 0 20px $timeline-3-media-size;
             position:relative;
@@ -21,7 +21,7 @@ $timeline-3-border-width: 2px;
             .timeline-media {
                 position: absolute;
                 top: 0;
-                left: -(($timeline-3-media-size + $timeline-3-border-width)/2);
+                left: -(math.div(($timeline-3-media-size + $timeline-3-border-width), 2));
                 border: 2px solid $border-color;
                 border-radius: 100%;
                 width: $timeline-3-media-size;
@@ -59,7 +59,7 @@ $timeline-3-border-width: 2px;
 					width: 0;
 					height: 0;
 					top: 10px;
-					left: -($timeline-3-media-size/2);
+					left: -(math.div($timeline-3-media-size, 2));
 					border-right: solid 10px $gray-100;
 					border-bottom: solid 17px transparent;
 					border-left: solid 17px transparent;
@@ -72,13 +72,5 @@ $timeline-3-border-width: 2px;
                 padding-bottom: 0;
             }
         }
-    }
-}
-
-
-// Tablet & Mobile Modes
-@include media-breakpoint-down(md) {
-    .timeline.timeline-3 {
-
     }
 }

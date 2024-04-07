@@ -11,7 +11,7 @@
 @import "init";
 
 // 2: Bootstrap framework includes
-@import "~bootstrap/scss/bootstrap";
+@import "bootstrap/scss/bootstrap";
 
 // 3: Components
 @import
@@ -78,9 +78,7 @@
 
 // 4: Plugins
 @import
-    "vendors/plugins/formvalidation",
     "vendors/plugins/dropzone",
-    "vendors/plugins/perfect-scrollbar",
     "vendors/plugins/prismjs",
     "vendors/plugins/apexcharts";
 

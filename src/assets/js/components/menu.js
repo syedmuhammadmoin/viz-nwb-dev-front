@@ -16,7 +16,6 @@ var KTMenu = function(elementId, options) {
 
     // Default options
     var defaultOptions = {
-        // scrollable area with Perfect Scroll
         scroll: {
             rememberPosition: false
         },

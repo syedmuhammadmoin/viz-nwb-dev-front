@@ -8,13 +8,6 @@
 
 .aside {
 	background-color: get($layout-themes, dark);
-
-	// Aside Menu
-	.aside-menu {
-		// Scrollbar
-		// @include perfect-scrollbar-theme(#637099);
-		@include perfect-scrollbar-theme(#cba058);
-	}
 }
 
 // Build aside menu theme

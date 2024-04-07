@@ -12,7 +12,7 @@
 @import "vendors/plugins/mixins";
 
 // Bootstrap mixins
-@import "~bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/mixins";
 
 // Global variables
 @import "components/variables.demo";

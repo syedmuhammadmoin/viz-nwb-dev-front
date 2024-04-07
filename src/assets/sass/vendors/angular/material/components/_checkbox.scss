@@ -1,15 +1,15 @@
-.mat-checkbox {
+.mat-mdc-checkbox {
   > label {
     margin-bottom: 0
   }
 }
 
-.mat-pseudo-checkbox {
+.mat-mdc-pseudo-checkbox {
   width: 18px !important;
   height: 18px !important;
 }
 
-.mat-pseudo-checkbox-checked::after {
+.mat-mdc-pseudo-checkbox-checked::after {
   top: 4.4px !important;
   left: 2px !important;
 }

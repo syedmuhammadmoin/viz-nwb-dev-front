@@ -1,22 +1,22 @@
-.mat-snackbar {
+.mat-mdc-snackbar {
 	display: flex;
     //flex-wrap: wrap;
     align-items: center;
     padding: 5px 10px;
     border-radius: 3px;
 
-	.mat-snackbar-message {
+	.mat-mdc-snackbar-message {
 		display: flex;
         align-items: center;
 	}
 
-	.mat-snackbar-btn {
+	.mat-mdc-snackbar-btn {
 		padding: 0 0 0 15px;
 		display: flex;
         align-items: center;
 	}
 
-	.mat-snackbar-close {
+	.mat-mdc-snackbar-close {
 		padding: 0 0 0 5px;
         display: flex;
         align-items: center;

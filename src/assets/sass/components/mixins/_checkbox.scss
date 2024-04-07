@@ -1,6 +1,7 @@
 //
 // Checkbox
 //
+@use 'sass:math' as math;
 
 
 @mixin checkbox-solid-theme($bg-color, $checked-bg-color, $checked-tick-color) {
@@ -55,7 +56,7 @@
         width: $base;
 
 		&:after {
-            width: $tick / 2;
+            width: (math.div($tick, 2));
             height: $tick;
 		}
 	}

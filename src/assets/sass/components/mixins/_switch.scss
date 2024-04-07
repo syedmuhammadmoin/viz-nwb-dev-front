@@ -1,6 +1,7 @@
 //
 // Switch
 //
+@use 'sass:math' as math;
 
 
 @mixin switch-size($margin, $width, $height, $line-height, $space, $checked-tick-pos, $icon-font-size) {
@@ -9,13 +10,13 @@
         margin: $margin;
         height: $height;
         width: $width + $space;
-        border-radius: ($height/2);
+        border-radius: math.div($height,2);
     }
 
     input:empty ~ span:before,
     input:empty ~ span:after {
         width: $width;
-        border-radius: ($height/2);
+        border-radius: math.div($height,2);
     }
 
     input:empty ~ span:after {

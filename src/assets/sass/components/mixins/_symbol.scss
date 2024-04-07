@@ -1,6 +1,7 @@
 //
 // Symbol
 //
+@use 'sass:math' as math;
 
 
 @mixin symbol-size($size) {
@@ -20,17 +21,17 @@
     .symbol-badge {
         width: $badge-size;
         height: $badge-size;
-        top: -($badge-size/2);
-        right: -($badge-size/2);
+        top: -(math.div($badge-size, 2));
+        right: -(math.div($badge-size, 2));
 
         &.symbol-badge-bottom {
             top: auto;
-            bottom: -($badge-size/2);
+            bottom: -(math.div($badge-size, 2));
         }
     }
 
     &.symbol-circle {
-        $distance: ($size / 2) * (1.41 - 1) - $badge-size;
+        $distance: (math.div($size, 2)) * (1.41 - 1) - $badge-size;
 
         .symbol-badge {
             top: $distance;
@@ -60,12 +61,12 @@
     &.symbol-2by3 {
         .symbol-label {
             height: $size;
-            width:  $size * 3/2;
+            width:  $size * (math.div(3,2));
         }
 
         > img {
             height: $size;
-            width:  $size * 3/2;
+            width:  $size * (math.div(3,2));
             max-width: auto;
         }
     }
