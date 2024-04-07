@@ -28,13 +28,6 @@ const routes: Routes = [
     component: BaseComponent,
     canActivate: [AuthGuard],
     children: [
-      {
-        path: APP_ROUTES.BUILDER,
-        loadChildren: () =>
-          import('./views/theme/content/builder/builder.module').then(
-            (m) => m.BuilderModule
-          ),
-      },
       // Lazy Load DASHBOARD Module
       {
         path: APP_ROUTES.DASHBOARD,

@@ -3,25 +3,19 @@ import {OrganizationState} from './views/pages/profiling/organization/store/orga
 import {CategoryState} from './views/pages/profiling/category/store/category.state';
 import {CommonModule} from '@angular/common';
 // Angular
-import {BrowserModule, HAMMER_GESTURE_CONFIG} from '@angular/platform-browser';
+import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {GestureConfig} from '@angular/material/core';
 import {OverlayModule} from '@angular/cdk/overlay';
 
-// Angular in memory
-// Perfect Scroll bar
-import {PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface} from 'ngx-perfect-scrollbar';
-// SVG inline
-import {InlineSVGModule} from 'ng-inline-svg';
 // Env
 // Hammer JS
 import 'hammerjs';
 // NGX Permissions
-import {NgxPermissionsModule} from 'ngx-permissions';
+import {NgxPermissionsModule, NgxPermissionsModuleConfig} from 'ngx-permissions';
 // NGRX
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
@@ -76,7 +70,6 @@ import {BankAccountState} from './views/pages/finance/bank-account/store/bank-ac
 import {CampusState} from './views/pages/profiling/campus/store/campus.state';
 import {BudgetState} from './views/pages/budget/current-budget/store/budget.state';
 import {StatusState} from './views/pages/workflows/status/store/status.state';
-import {BudgetAccountState} from './core/shared-state/account-state/store/budget-account.state';
 import {DesignationState} from './views/pages/payroll/designation/store/designation.store';
 import {EmployeeState} from './views/pages/payroll/employee/store/employee.state';
 import {DepartmentState} from './views/pages/payroll/department/store/department.store';
@@ -116,14 +109,8 @@ import {ShiftState} from './views/pages/admission/shift/store/shift.state';
 import {ProgramState} from './views/pages/admission/program/store/program.state';
 import {BatchState} from './views/pages/admission/batch/store/batch.state';
 import {SubjectState} from './views/pages/admission/subject/store/subject.state';
-
-// tslint:disable-next-line:class-name
-const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
-  wheelSpeed: 0.5,
-  swipeEasing: true,
-  minScrollbarLength: 40,
-  maxScrollbarLength: 300
-};
+import { MatCommonModule } from '@angular/material/core';
+import { BudgetAccountState } from './views/pages/budget/current-budget/store/budget-account.state';
 
 export function initializeLayoutConfig(appConfig: LayoutConfigService) {
   // initialize app by loading default demo layout config
@@ -155,12 +142,8 @@ export function getHighlightLanguages() {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    // environment.isMockEnabled
-    //   ? HttpClientInMemoryWebApiModule.forRoot(FakeApiService, {
-    //     passThruUnknownUrl: true,
-    //     dataEncapsulation: false
-    //   })
-    //   : [],
+    HammerModule,
+    MatCommonModule,
     NgxPermissionsModule.forRoot(),
     NgxsModule.forRoot([
       BusinessPartnerState,
@@ -215,7 +198,7 @@ export function getHighlightLanguages() {
       SubjectState
     ]),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    NgxsLoggerPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot({ disabled: true }),
     HighlightModule,
     PartialsModule,
     CoreModule,
@@ -227,7 +210,6 @@ export function getHighlightLanguages() {
     AuthModule.forRoot(),
     TranslateModule.forRoot(),
     MatProgressSpinnerModule,
-    InlineSVGModule.forRoot(),
     ThemeModule,
     SharedModule
   ],
@@ -241,14 +223,10 @@ export function getHighlightLanguages() {
     KtDialogService,
     DataTableService,
     SplashScreenService,
-    {
-      provide: PERFECT_SCROLLBAR_CONFIG,
-      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    },
-    {
-      provide: HAMMER_GESTURE_CONFIG,
-      useClass: GestureConfig
-    },
+    // {
+    //   provide: HAMMER_GESTURE_CONFIG,
+    //   useClass: GestureConfig
+    // },
     {
       provide: APP_INITIALIZER,
       useFactory: (appInitializer: AppInitializer) => appInitializer.init(),
