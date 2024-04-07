@@ -41,7 +41,7 @@ export class CreateFeeTypeComponent extends AppComponentBase implements OnInit {
  }
 
  //error keys
- formErrors = {
+ formErrors: any = {
   feeType: '',
  }
 

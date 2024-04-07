@@ -68,7 +68,7 @@ export class CreateBatchComponent extends AppComponentBase implements OnInit {
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     startDate: '',
     semesterId: '',

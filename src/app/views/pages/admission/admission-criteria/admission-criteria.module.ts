@@ -9,7 +9,6 @@ import {ListAdmissionCriteriaComponent} from './list-admission-criteria/list-adm
 import {CreateAdmissionCriteriaComponent} from './create-admission-criteria/create-admission-criteria.component';
 import {DetailAdmissionCriteriaComponent} from './detail-admission-criteria/detail-admission-criteria.component';
 import {AgGridModule} from 'ag-grid-angular';
-import {CustomTooltipComponent} from '../../../shared/components/custom-tooltip/custom-tooltip.component';
 
 
 @NgModule({
@@ -25,7 +24,7 @@ import {CustomTooltipComponent} from '../../../shared/components/custom-tooltip/
     PartialsModule,
     FormsModule,
     ReactiveFormsModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class AdmissionCriteriaModule {

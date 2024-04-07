@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {ActionButton, DocType, DocumentStatus, Permissions} from '../../../../shared/AppEnum';
-import {ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import {ITransactionRecon} from '../../../purchase/vendorBill/model/ITransactionRecon';
 import {ActivatedRoute, Params} from '@angular/router';
 import {MatDialog} from '@angular/material/dialog';
@@ -69,7 +69,7 @@ export class DetailProgramComponent extends AppComponentBase implements OnInit {
       sortable: true,
       filter: true,
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
     },

@@ -41,7 +41,7 @@ export class CreateBatchTypeComponent extends AppComponentBase implements OnInit
  }
 
  //error keys
- formErrors = {
+ formErrors: any = {
   batchType: '',
  }
 

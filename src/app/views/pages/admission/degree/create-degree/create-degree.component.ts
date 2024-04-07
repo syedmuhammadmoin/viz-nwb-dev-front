@@ -45,7 +45,7 @@ export class CreateDegreeComponent extends AppComponentBase implements OnInit {
   }
  
   //error keys
-  formErrors = {
+  formErrors: any = {
     degreeName: '',
   }
  

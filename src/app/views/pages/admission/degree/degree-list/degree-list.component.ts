@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { CellStyle, ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -96,7 +96,7 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
         minWidth: 150,
         filter: 'agSetColumnFilter',
         resizable: true,
-        cellStyle: (params: ICellRendererParams) => {
+        cellStyle: (params: ValueFormatterParams) => {
           return (params?.data?.state === 1 || params?.data?.state === 5) ? {'pointer-events': 'none', 'color': '#87837e'} : null;
         }
       }

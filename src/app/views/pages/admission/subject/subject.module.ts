@@ -7,7 +7,6 @@ import { CreateSubjectComponent } from './create-subject/create-subject.componen
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PortletModule } from 'src/app/views/partials/content/general/portlet/portlet.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
 
@@ -18,7 +17,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SubjectRoutingModule,
     SharedModule,
     PortletModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class SubjectModule { }

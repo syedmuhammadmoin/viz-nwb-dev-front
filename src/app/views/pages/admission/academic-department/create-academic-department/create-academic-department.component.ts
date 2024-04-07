@@ -50,7 +50,7 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
   }
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     facultyId: '',
     AcademicDepartment: ''
   }

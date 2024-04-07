@@ -7,8 +7,6 @@ import { PortletModule } from 'src/app/views/partials/content/general/portlet/po
 import { AgGridModule } from 'ag-grid-angular';
 import { ListProgramComponent } from './list-program/list-program.component';
 import { CreateProgramComponent } from './create-program/create-program.component';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { DetailProgramComponent } from './detail-program/detail-program.component';
 
 
@@ -19,10 +17,8 @@ import { DetailProgramComponent } from './detail-program/detail-program.componen
     ProgramRoutingModule,
     SharedModule,
     PortletModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-    Ng2SearchPipeModule
-  ],
-  entryComponents: [CreateProgramComponent]
+    AgGridModule
+  ]
 })
 export class ProgramModule { }
 

@@ -146,7 +146,7 @@ export class CreateProgramComponent extends AppComponentBase implements OnInit {
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     name: '',
     academicDepartmentId: '',
     totalSemesters: '',

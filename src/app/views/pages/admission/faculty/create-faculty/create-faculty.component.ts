@@ -45,7 +45,7 @@ export class CreateFacultyComponent extends AppComponentBase implements OnInit {
  }
 
  //error keys
- formErrors = {
+ formErrors: any = {
   faculty: '',
  }
 

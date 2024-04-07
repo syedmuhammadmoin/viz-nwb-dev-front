@@ -70,7 +70,7 @@ export class CreateFeeItemComponent extends AppComponentBase implements OnInit {
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     accountId: '',
     amount: '',

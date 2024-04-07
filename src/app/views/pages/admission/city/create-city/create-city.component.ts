@@ -64,7 +64,7 @@ export class CreateCityComponent extends AppComponentBase implements OnInit {
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     stateId: '',
     courseCode: '',
