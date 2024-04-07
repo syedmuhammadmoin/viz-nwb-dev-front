@@ -18,7 +18,7 @@ export class PrintGoodsReturnNoteComponent extends AppComponentBase implements O
 
     gridOptions: GridOptions;
     goodsReturnNoteMaster: IGoodsReturnNote | any;
-    goodsReturnNoteLines: IGoodsReturnNoteLines;
+    goodsReturnNoteLines: IGoodsReturnNoteLines[] | any;
     edinfini : boolean;
     sbbu : boolean;
     vizalys : boolean;

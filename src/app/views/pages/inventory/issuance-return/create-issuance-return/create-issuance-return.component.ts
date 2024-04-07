@@ -96,7 +96,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   }
 
   // Error Keys
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     issuanceReturnDate: '',
     contact: '',

@@ -18,7 +18,7 @@ export class PrintGrnComponent extends AppComponentBase implements OnInit {
 
     gridOptions: GridOptions;
     grnMaster: IGRN | any;
-    grnLines: IGRNLines;
+    grnLines: IGRNLines[] | any;
     edinfini : boolean;
     sbbu : boolean;
     vizalys : boolean;

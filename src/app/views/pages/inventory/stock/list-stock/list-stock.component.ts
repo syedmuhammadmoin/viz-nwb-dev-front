@@ -38,7 +38,7 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
   }
 
   //Defining Stock Columns
-  columnDefs = [
+  columnDefs: any = [
     { 
       headerName: 'Item', 
       field: 'itemName', 

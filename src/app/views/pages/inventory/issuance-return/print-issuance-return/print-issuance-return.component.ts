@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute} from "@angular/router";
 import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from '@angular/platform-browser';
-import { IIssuanceReturn } from '../model/IissuanceReturn';
-import { IIssuanceReturnLines } from '../model/IissuanceReturnLines';
+import { IIssuanceReturn } from '../model/IIssuanceReturn';
+import { IIssuanceReturnLines } from '../model/IIssuanceReturnLines';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IssuanceReturnService } from '../service/issuance-return.service';
 import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic-color/dynamic-color-change.service';
@@ -18,7 +18,7 @@ export class PrintIssuanceReturnComponent extends AppComponentBase  implements O
 
     gridOptions: GridOptions;
     issuanceReturnMaster: IIssuanceReturn | any;
-    issuanceReturnLines: IIssuanceReturnLines;
+    issuanceReturnLines: IIssuanceReturnLines[] | any;
     edinfini : boolean;
     sbbu : boolean;
     vizalys : boolean;

@@ -92,7 +92,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     issuanceDate: '',
     fixedAssetId: ''

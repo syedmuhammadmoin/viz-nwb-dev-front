@@ -33,7 +33,7 @@
                       formControlName="designation" 
                       matFormFieldClass="full-width" 
                       placeholder="Designation"
-                      readonly="true">
+                      [readonly]="true">
                     </kt-input-field>
                   </div>
                 </div>
@@ -46,7 +46,7 @@
                       formControlName="department" 
                       matFormFieldClass="full-width" 
                       placeholder="Department"
-                      readonly="true">
+                      [readonly]="true">
                     </kt-input-field>
                   </div>
                 </div>
@@ -115,10 +115,8 @@
                                       placeholder="Select Item"
                                       [id]="'issuance_return_item_' + i"
                                       formControlName="itemId"
-                                      isDisabled="true"
+                                      [isDisabled]="true"
                                       [optionList]="ngxsService.products$"
-                                      clickEventButtonName="Add New Item"
-                                      (clickEvent)="openProductDialog()"
                                       (selectionChange)="onItemSelected($event.value , i)"
                                       propertyName="productName"
                                       propertyValue="id"
@@ -202,7 +200,7 @@
                                       placeholder="Select Store" 
                                       propertyValue="id" 
                                       propertyName="name"
-                                      isDisabled="true"
+                                      [isDisabled]="true"
                                       (click)="checkCampus()"
                                       formControlName="warehouseId" 
                                       [errorMessage]="'Store is required.'"
