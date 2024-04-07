@@ -2,7 +2,6 @@ import {Injectable,} from '@angular/core';
 import {Select, Store} from '@ngxs/store';
 import {Observable} from 'rxjs';
 import {AccountLevel4State} from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
-import {BudgetAccountState} from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
 import {BudgetService} from 'src/app/views/pages/budget/current-budget/service/budget.service';
 import {BudgetState} from 'src/app/views/pages/budget/current-budget/store/budget.state';
@@ -90,6 +89,7 @@ import {BatchState} from '../../../pages/admission/batch/store/batch.state';
 import {AdmissionCriteriaService} from '../../../pages/admission/admission-criteria/services/admission-criteria.service';
 import {SubjectService} from '../../../pages/admission/subject/service/subject.service';
 import {SubjectState} from '../../../pages/admission/subject/store/subject.state';
+import { BudgetAccountState } from 'src/app/views/pages/budget/current-budget/store/budget-account.state';
 
 @Injectable({
   providedIn: 'root'
@@ -428,7 +428,6 @@ export class NgxsCustomService {
   // Get Campus From Store if available else fetch from the server and cache.
   getCampusFromState() {
     this.campusFetchCompleted$.subscribe((res) => {
-      // console.log('Campus State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CampusState, {
           serviceClass: this.campusService,
@@ -621,7 +620,6 @@ export class NgxsCustomService {
   // Get Department From Store if available else fetch from the server and cache.
   getDepartmentFromState() {
     this.departmentFetchCompleted$.subscribe((res) => {
-      console.log('Department State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DepartmentState, {
           serviceClass: this.departmentService,
@@ -635,7 +633,6 @@ export class NgxsCustomService {
   // Get Designation From Store if available else fetch from the server and cache.
   getDesignationFromState() {
     this.designationFetchCompleted$.subscribe((res) => {
-      console.log('Designation State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DesignationState, {
           serviceClass: this.designationService,
@@ -649,7 +646,6 @@ export class NgxsCustomService {
   // Get Employee From Store if available else fetch from the server and cache.
   getEmployeeFromState() {
     this.employeeFetchCompleted$.subscribe((res) => {
-      console.log('Employee State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(EmployeeState, {
           serviceClass: this.employeeService,
@@ -663,7 +659,6 @@ export class NgxsCustomService {
   // Get Employee Payments From Store if available else fetch from the server and cache.
   getEmployeePaymentsFromState() {
     this.employeePaymentsFetchCompleted$.subscribe((res) => {
-      console.log('Employee Payment State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(EmployeePaymentState, {
           serviceClass: this.employeeService,
@@ -830,7 +825,6 @@ export class NgxsCustomService {
   // getFacultyFromState State From Store if available else fetch from the server and cache.
   getDomicileFromState() {
     this.domicileFetchCompleted$.subscribe((res) => {
-      console.log('Domicile State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DomicileState, {
           serviceClass: this.domicileService,
@@ -846,7 +840,6 @@ export class NgxsCustomService {
 
   getDistrictFromState() {
     this.districtFetchCompleted$.subscribe((res) => {
-      console.log('District State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DistrictState, {
           serviceClass: this.districtService,
@@ -861,7 +854,6 @@ export class NgxsCustomService {
   // getDegreeFromState From Store if available else fetch from the server and cache.
   getDegreeFromState() {
     this.degreeFetchCompleted$.subscribe((res) => {
-      console.log('Degree State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DegreeState, {
           serviceClass: this.degreeService,
@@ -875,7 +867,6 @@ export class NgxsCustomService {
   // Get QualificationFromState From Store if available else fetch from the server and cache.
   getQualificationFromState() {
     this.qualificationFetchCompleted$.subscribe((res) => {
-      console.log('Qualification State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(QualificationState, {
           serviceClass: this.qualificationService,
