@@ -3,7 +3,7 @@ import {OrganizationState} from './views/pages/profiling/organization/store/orga
 import {CategoryState} from './views/pages/profiling/category/store/category.state';
 import {CommonModule} from '@angular/common';
 // Angular
-import {BrowserModule, HAMMER_GESTURE_CONFIG, HammerModule} from '@angular/platform-browser';
+import {BrowserModule} from '@angular/platform-browser';
 import {APP_INITIALIZER, NgModule} from '@angular/core';
 import {TranslateModule} from '@ngx-translate/core';
 import {HttpClientModule} from '@angular/common/http';
@@ -11,11 +11,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {OverlayModule} from '@angular/cdk/overlay';
 
-// Env
-// Hammer JS
-import 'hammerjs';
 // NGX Permissions
-import {NgxPermissionsModule, NgxPermissionsModuleConfig} from 'ngx-permissions';
+import {NgxPermissionsModule} from 'ngx-permissions';
 // NGRX
 import {StoreModule} from '@ngrx/store';
 import {EffectsModule} from '@ngrx/effects';
@@ -142,7 +139,6 @@ export function getHighlightLanguages() {
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    HammerModule,
     MatCommonModule,
     NgxPermissionsModule.forRoot(),
     NgxsModule.forRoot([
@@ -223,10 +219,6 @@ export function getHighlightLanguages() {
     KtDialogService,
     DataTableService,
     SplashScreenService,
-    // {
-    //   provide: HAMMER_GESTURE_CONFIG,
-    //   useClass: GestureConfig
-    // },
     {
       provide: APP_INITIALIZER,
       useFactory: (appInitializer: AppInitializer) => appInitializer.init(),

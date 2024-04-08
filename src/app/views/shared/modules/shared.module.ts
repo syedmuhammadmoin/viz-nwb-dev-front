@@ -49,7 +49,6 @@ import {ShortNumberPipe} from "../pipes/short-number.pipe";
 import {CdkTreeModule} from "@angular/cdk/tree";
 import { InputFieldComponent } from '../components/input-field/input-field.component';
 import { DateInputComponent } from '../components/date-input/date-input.component';
-import { PdfComponent } from '../pdf/pdf.component';
 import { ActionButtonComponent } from '../components/action-button/action-button.component';
 import { NonNegativePipe } from '../pipes/non-negative/non-negative.pipe';
 import { FileSizePipe } from '../pipes/non-negative/file-size/file-size.pipe';
@@ -74,7 +73,6 @@ import { SearchPipe } from '../pipes/search/search.pipe';
     ConfirmationDialogComponent,
     BusyDirective,
     ShortNumberPipe,
-    PdfComponent,
     ActionButtonComponent,
     ShowRemarksComponent,
     CustomUploadFileComponent,
@@ -143,7 +141,6 @@ import { SearchPipe } from '../pipes/search/search.pipe';
     ShortNumberPipe,
     ToastrModule,
     NgxPrintModule,
-    PdfComponent,
     ConfirmationDialogComponent,
     NgxMatSelectSearchModule,
     CommonModule,
