@@ -559,11 +559,6 @@ div.search_sticky {
   background-color: $bg-white;
 }
 
-// .ag-header
-// {
-//   min-height: 35px !important;
-// }
-
 .ag-header-row {
   height: 30px !important;
 }
@@ -1173,7 +1168,7 @@ table, table a {
 
 .ag-theme-alpine .ag-checkbox-input-wrapper.ag-checked::after {
   content: "\f106";
-  color: $primary-color;
+  color: $primary-color !important;;
   color: var(--ag-checkbox-checked-color, var(--ag-alpine-active-color, $primary-color));
   position: absolute;
   top: 0;
@@ -1186,11 +1181,12 @@ table, table a {
   box-shadow: 0 0 2px 0.1rem rgb(26 107 133 / 40%);
 }
 
-.tree_arrow {
-  background-color: $primary-color !important;
-  color: $bg-white !important;
-  margin-right: 15px;
-  border-radius: 25px;
+.ag-theme-alpine {
+  --ag-row-hover-color: $button-background-color;
+}
+
+.ag-row-selected::before {
+  background-color: $button-background-color;
 }
 
 .circle-dropdown {
@@ -1408,17 +1404,18 @@ mat-footer-row {
 
 
 // chart of account light css
-// .mat-mdc-tree-node
-// {
-//     background-color: aliceblue;
-//     margin-bottom: 10px;
-//     border-radius: 20px 0px 20px 20px;
-// }
 .tree_arrow {
-  background-color: $primary-color;
-  color: #ffffff;
+  background-color: $primary-color !important;
+  color: $bg-white !important;
   margin-right: 15px;
   border-radius: 25px;
+  width: 40px !important;
+  height: 40px !important;
+  padding: 0px !important;
+}
+
+.tree_arrow .mat-icon {
+  height: 16px !important;
 }
 
 
