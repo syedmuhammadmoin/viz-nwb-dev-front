@@ -35,7 +35,6 @@
             ],
             "scripts": [
               "node_modules/popper.js/dist/umd/popper.js",
-              "node_modules/tooltip.js/dist/umd/tooltip.min.js",
               "node_modules/clipboard/dist/clipboard.js",
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "src/assets/js/layout/extended/examples.js",
