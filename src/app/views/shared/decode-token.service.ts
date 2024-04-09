@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import jwt_decode from 'jwt-decode'
+import { jwtDecode } from "jwt-decode";
 import { User } from "../../core/auth";
 import { environment } from 'src/environments/environment';
 
@@ -16,7 +16,7 @@ export class DecodeTokenService {
 
   decode(token: string): any {
     try{
-      this.decodedToken = jwt_decode(token);
+      this.decodedToken = jwtDecode(token);
       if (this.decodedToken) {
         this.tokenToReturn.email = this.decodedToken?.Email;
         this.tokenToReturn.tokenExpiration = this.decodedToken?.exp
