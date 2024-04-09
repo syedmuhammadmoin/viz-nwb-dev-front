@@ -26,7 +26,7 @@ export class DetailBudgetReappropriationComponent extends AppComponentBase imple
   statusMaster: any;
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   //Loader
@@ -50,7 +50,7 @@ export class DetailBudgetReappropriationComponent extends AppComponentBase imple
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining columns of AG Grid

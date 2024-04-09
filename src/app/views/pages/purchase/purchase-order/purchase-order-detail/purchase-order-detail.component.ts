@@ -34,7 +34,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
 
   purchaseOrderMaster: any;
   purchaseOrderLines: any ;
-  gridOptions: GridOptions;
+  gridOptions: any;;
 
   totalBeforeTax: number;
   totalTax: number;
@@ -101,7 +101,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       headerName: 'Sub Total', 
       field: 'subTotal', 
       cellStyle: { 'font-size': '12px' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }

@@ -20,11 +20,11 @@ import { isEmpty } from 'lodash';
 export class ListProductComponent extends AppComponentBase implements OnInit {
 
   productList: IProduct[];
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   defaultColDef: ColDef;
   tooltipData: string = "double click to edit"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -58,13 +58,13 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    {headerName: 'Product Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
+    {headerName: 'Product Type', field: 'productType', suppressHeaderMenuButton: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
-    {headerName: 'Category', field: 'categoryName', suppressMenu: true, tooltipField: 'salesTax'},
+    {headerName: 'Category', field: 'categoryName', suppressHeaderMenuButton: true, tooltipField: 'salesTax'},
     {
       headerName: 'Sale Price', 
       field: 'salesPrice', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -73,7 +73,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Purchase Price', 
       field: 'purchasePrice', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -82,7 +82,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sales Tax (%)', 
       field: 'salesTax', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value) + ' %'
@@ -99,20 +99,23 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

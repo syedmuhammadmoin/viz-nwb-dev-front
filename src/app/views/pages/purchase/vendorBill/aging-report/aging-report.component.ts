@@ -21,8 +21,8 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   public defaultColDef: ColDef;
   public autoGroupColumnDef: ColDef;
   public agingReportList: IVendorBill[];
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   tooltipData: string = "double click to view detail"
 
   constructor(
@@ -115,11 +115,11 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
-      sortable: true,
+      sortable: false,
       resizable: true,
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.gridOptions = {
       context: "double click to view detail",

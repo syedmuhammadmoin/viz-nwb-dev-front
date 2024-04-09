@@ -15,7 +15,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintBusinessPartnerComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;;
   data: any;
   edinfini : boolean;
   sbbu : boolean;

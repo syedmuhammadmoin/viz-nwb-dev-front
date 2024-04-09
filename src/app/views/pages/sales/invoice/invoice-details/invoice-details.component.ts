@@ -32,7 +32,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   public INVOICE = INVOICE;
@@ -79,7 +79,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining Invoice Columns
@@ -87,7 +87,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
     {
       headerName: 'Item',
       field: 'itemName',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

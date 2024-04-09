@@ -66,10 +66,10 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
 
   // ag grid
   columnDefs = [
-    { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'CNIC ', field: 'cnic', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
+    { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'CNIC ', field: 'cnic', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
     {
-      headerName: 'Transaction Date', field: 'transDate', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee',
+      headerName: 'Transaction Date', field: 'transDate', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee',
       cellRenderer: (params: any) => {
         const date = params?.data?.transDate != null ? params?.data?.transDate : null;
         return date == null ? null : this.dateHelperService.transformDate(date, 'MMM d, y');
@@ -79,21 +79,21 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       headerName: 'Month ',
       field: 'month',
       menuTabs: ["filterMenuTab"],
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (parmas) => {
         console.log({parmas});
         return this.months.find(x => x.value === parmas.value).name
       }
     },
-    {headerName: 'Year ', field: 'year', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee'},
-    { headerName: 'BPS ', field: 'bpsName', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
+    {headerName: 'Year ', field: 'year', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee'},
+    { headerName: 'BPS ', field: 'bpsName', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
     {
       headerName: 'Basic Pay ',
       field: 'basicSalary',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
@@ -102,7 +102,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     {
       headerName: 'Allowance',
       field: 'totalAllowances',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
@@ -111,7 +111,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     {
       headerName: 'Gross Pay',
       field: 'grossPay',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
@@ -120,7 +120,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     {
       headerName: 'Deductions',
       field: 'totalDeductions',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
@@ -129,7 +129,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     {
       headerName: 'Tax Deduction',
       field: 'taxDeduction',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (params) => {
         return params.value ? this.valueFormatter(params.value) : null;
@@ -138,7 +138,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     {
       headerName: 'Net Pay',
       field: 'netSalary',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
@@ -158,8 +158,8 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
   ];
 
   rowData: any = [];
-  frameworkComponents: any;
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   tooltipData = 'double click to view details'
   defaultColDef: any
 
@@ -188,6 +188,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
     this.gridOptions.headerHeight = 35;
 
     this.defaultColDef = {
+      sortable: false,
       resizable: true,
     }
 

@@ -19,11 +19,10 @@ import { isEmpty } from 'lodash';
 export class ListWarehouseComponent extends AppComponentBase implements OnInit {
 
   warehouseList : IWarehouse[];
-  frameworkComponents : {[p: string]: unknown};
   gridOptions : GridOptions;
   defaultColDef : ColDef;
   tooltipData : string = "double click to edit"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -60,12 +59,12 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
       headerName: 'Store Officer/Incharge', 
       field: 'storeManager',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
     },
-    {headerName: 'Campus', field: 'campusName', suppressMenu: true, tooltipField: 'name'},
+    {headerName: 'Campus', field: 'campusName', suppressHeaderMenuButton: true, tooltipField: 'name'},
   ];
 
   ngOnInit() {
@@ -77,20 +76,23 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

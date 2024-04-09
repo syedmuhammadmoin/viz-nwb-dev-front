@@ -30,7 +30,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   public ISSUANCE = ISSUANCE;
@@ -63,7 +63,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining columns for ag grid
@@ -71,14 +71,14 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
     { 
       headerName: 'Item', 
       field: 'itemName', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
      },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Description', field: 'description', sortable: false, filter: true, cellStyle: { 'font-size': '12px' } },
     { 
       headerName: 'Quantity', 
       field: 'quantity', 
@@ -92,7 +92,7 @@ export class IssuanceDetailsComponent extends AppComponentBase implements OnInit
     { 
       headerName: 'Store', 
       field: 'warehouseName', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

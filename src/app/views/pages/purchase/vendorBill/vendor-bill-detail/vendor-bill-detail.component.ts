@@ -45,7 +45,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   isLoading: boolean;
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: any;
 
   //need for routing
@@ -75,7 +75,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining Bill Columns
@@ -83,7 +83,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     { 
       headerName: 'Item', 
       field: 'itemName', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
@@ -155,7 +155,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     { 
       headerName: 'Store', 
       field: 'warehouseName', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

@@ -21,7 +21,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   // for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -38,7 +38,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   registerAssetForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;;
   rowData: IAsset[] | any = [];
   reportModel: IReport = {} as IReport;
 
@@ -68,7 +68,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Transaction Date',
       field: 'transectionDate',
       cellStyle: { textAlign: 'left' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: any) => {
         const date = params?.data?.transectionDate != null ? params?.data?.transectionDate : null;
         return date == null ? null : this.transformDate(date, 'MMM d, y');
@@ -80,26 +80,26 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
       field: 'beginingBookValue',
       valueFormatter: (params) => this.valueFormatter(params.value),
       cellStyle: { textAlign: 'left' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Depreciation Amount',
       field: 'depreciationAmount',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => this.valueFormatter(params.value),
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Ending Book Value',
       field: 'endingBookValue',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => this.valueFormatter(params.value),
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Description',
       field: 'description',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       width: 300,
       cellStyle: { textAlign: 'left' }
     }
@@ -116,6 +116,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
 
     this.defaultColDef = {
       filter: true,
+      sortable: false,
       resizable: true,
       menuTabs: ['filterMenuTab'],
     };

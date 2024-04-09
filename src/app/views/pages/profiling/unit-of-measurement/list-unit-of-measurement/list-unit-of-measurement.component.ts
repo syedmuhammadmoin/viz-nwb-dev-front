@@ -18,12 +18,11 @@ import { CreateUnitOfMeasurementComponent } from '../create-unit-of-measurement/
 
 export class ListUnitOfMeasurementComponent extends AppComponentBase implements OnInit {
 
-  unitOfMeasurementList : IUnitOfMeasurement[]
-  frameworkComponents : {[p: string]: unknown};
+  unitOfMeasurementList : IUnitOfMeasurement[];
   gridOptions : GridOptions;
   defaultColDef : ColDef;
   tooltipData : string = "double click to edit"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -66,20 +65,23 @@ export class ListUnitOfMeasurementComponent extends AppComponentBase implements 
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

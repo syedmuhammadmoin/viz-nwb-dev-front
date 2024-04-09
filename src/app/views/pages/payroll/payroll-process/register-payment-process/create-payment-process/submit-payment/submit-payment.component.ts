@@ -28,7 +28,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
   submitPayrollPaymentForm: FormGroup;
   tooltipData = 'double click to edit'
   employeeGridApi: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   paymentList: any[] = [];
@@ -49,27 +49,27 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true, 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Doc #', 
       field: 'docNo', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Account Payable',
       field: 'accountName', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Register',
       field: 'paymentRegisterName', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Date',
       field: 'paymentDate', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         console.log(params.value);
         console.log(new Date(params.value))
@@ -79,7 +79,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Net Payment',
       field: 'netPayment', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -87,7 +87,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Status',
       field: 'status', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
@@ -140,10 +140,15 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
       bankId: [''],
     });
 
+    this.gridOptions = {
+      paginationPageSizeSelector: false
+    }
+
     this.defaultColDef = {
+      sortable: false,
       tooltipComponent: 'customTooltip'
     }
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
     
     this.getLatestCampuses();
 

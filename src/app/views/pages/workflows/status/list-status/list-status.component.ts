@@ -23,8 +23,8 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   defaultColDef: any;
   tooltipData: string = "double click to edit"
   statusList: IStatus[] = [];
-  frameworkComponents: any;
-  components: { loadingCellRenderer (params: any ) : unknown };
+  
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -46,7 +46,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'State',
       field: 'state',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'status',
       valueFormatter: (params: ValueFormatterParams) => { 
         return (params.value) ? AppConst.DocStatus[params.value].viewValue : null
@@ -77,16 +77,18 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
       cellStyle: (params: ICellRendererParams) => {
         return (params?.data?.state === 1 || params?.data?.state === 5) ? {'pointer-events': 'none', 'color': '#87837e'} : null;
@@ -94,6 +96,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

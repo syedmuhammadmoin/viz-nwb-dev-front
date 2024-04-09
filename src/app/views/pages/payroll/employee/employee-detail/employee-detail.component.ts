@@ -25,7 +25,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   //Loader
@@ -47,16 +47,16 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining Employee Columns
   columnDefs = [
-    { headerName: 'Item Name', field: 'name', sortable: true, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
+    { headerName: 'Item Name', field: 'name', sortable: false, filter: true, tooltipField: 'name', cellRenderer: "loadingCellRenderer" },
     { 
       headerName: 'Payroll Type', 
       field: 'payrollType', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       tooltipField: 'name',
       valueFormatter: (params: ValueFormatterParams) => { 
@@ -66,7 +66,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
     { 
       headerName: 'Item Type', 
       field: 'payrollItemType', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       tooltipField: 'name',
       valueFormatter: (params: ValueFormatterParams) => { 
@@ -76,14 +76,14 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
     {
       headerName: 'Account',
       field: 'accountName',
-      sortable: true,
+      sortable: false,
       filter: true,
       tooltipField: 'name'
     },
     {
       headerName: 'Value',
       field: 'value',
-      sortable: true,
+      sortable: false,
       filter: true,
       tooltipField: 'name',
       valueFormatter: (params: ValueFormatterParams) => { 
@@ -93,7 +93,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
     { 
       headerName: 'Active', 
       field: 'isActive', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       valueFormatter: (params: ValueFormatterParams) => {
          return (params.value === true) ? 'Yes' : "No"

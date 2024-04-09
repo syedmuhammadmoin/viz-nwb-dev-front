@@ -15,7 +15,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 
 export class PrintRolePermissionsComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;;
   isLoading: boolean = true;
   edinfini : boolean;
   sbbu : boolean;

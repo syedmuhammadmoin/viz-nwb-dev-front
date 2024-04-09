@@ -27,7 +27,7 @@ export class DetailBatchComponent extends AppComponentBase implements OnInit {
   docStatus = DocumentStatus
 
   // For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   transactionReconModel: ITransactionRecon = {} as ITransactionRecon;
@@ -57,7 +57,7 @@ export class DetailBatchComponent extends AppComponentBase implements OnInit {
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   // Defining Invoice Columns
@@ -65,7 +65,7 @@ export class DetailBatchComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Program',
       field: 'program',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

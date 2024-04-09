@@ -16,7 +16,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintPurchaseOrderComponent extends AppComponentBase implements OnInit {
 
-    gridOptions: GridOptions;
+    gridOptions: any;;
     purchaseOrderMaster: IPurchaseOrder | any;
     purchaseOrderLines: any;
     showReceived: boolean = false;

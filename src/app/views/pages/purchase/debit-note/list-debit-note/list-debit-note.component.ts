@@ -20,10 +20,10 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
 
   debitNoteList: any;
   defaultColDef: any;
-  frameworkComponents: any;
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -87,7 +87,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
       headerClass: 'custom_left',
       tooltipField: 'status',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'
       }
@@ -116,20 +116,23 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

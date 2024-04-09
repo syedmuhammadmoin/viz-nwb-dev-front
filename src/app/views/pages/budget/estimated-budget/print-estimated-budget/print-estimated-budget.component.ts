@@ -16,7 +16,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 })
 export class PrintEstimatedBudgetComponent implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;;
   estimatedBudgetMaster: IEstimatedBudget | any;
   estimatedBudgetLines: IEstimatedBudgetLines[] | any;
   calculationType = CalculationType;

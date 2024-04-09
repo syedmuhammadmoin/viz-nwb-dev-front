@@ -65,7 +65,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         headerName: 'Amount',
         field: 'amount',
         headerClass: 'custom_left',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
         }
@@ -73,7 +73,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     ];
   }
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -95,7 +95,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   payrollExecutiveForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;;
   rowData: any[] = [];
 
   // Declaring Model
@@ -121,6 +121,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
     this.defaultColDef = {
       filter: true,
+      sortable: false,
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
@@ -169,7 +170,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
           {
             headerName: 'Amount',
             field: 'amount',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             headerClass: 'custom_left',
             valueFormatter: (params: any) => {
               return this.valueFormatter(params.value)

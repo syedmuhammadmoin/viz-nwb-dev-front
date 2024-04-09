@@ -16,7 +16,7 @@ import { CreateUserComponent } from '../create-user/create-user.component';
 export class UserListComponent extends AppComponentBase implements OnInit {
 
   gridOptions: any;
-  frameworkComponents: any;
+  components: any;
   defaultColDef: any;
   userList: any;
   permissions = Permissions
@@ -30,7 +30,7 @@ export class UserListComponent extends AppComponentBase implements OnInit {
       headerName: 'S.No', 
       field: 'index', 
       tooltipField: 'email', 
-      suppressMenu: true
+      suppressHeaderMenuButton: true
     },
     { 
       headerName: 'User Name', 
@@ -43,7 +43,7 @@ export class UserListComponent extends AppComponentBase implements OnInit {
         suppressAndOrCondition: true
       }
      },
-    { headerName: 'Email', field: 'email', suppressMenu: true, },
+    { headerName: 'Email', field: 'email', suppressHeaderMenuButton: true, },
   ];
 
   //Injecting Dependencies
@@ -68,10 +68,11 @@ export class UserListComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       resizable: true,
+      sortable: false,
       filter: 'agSetColumnFilter'
     }
 
-    this.frameworkComponents = { customTooltip: CustomTooltipComponent };
+    this.components = { customTooltip: CustomTooltipComponent };
 
     //Change content On Behave of Permissions
     if(!this.permission.isGranted(this.permissions.AUTH_EDIT)) {

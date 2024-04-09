@@ -32,7 +32,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   createPayrollPaymentForm: FormGroup;
   tooltipData = 'click to select employee'
   employeeGridApi: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   transactionList: any[] = [];
@@ -56,49 +56,49 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'CNIC', field: 'cnic',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Designation', field: 'designation',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Campus',
       field: 'campus',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Department',
       field: 'department',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Working Days',
       // editable: true,
       field: 'workingDays',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Present Days',
       // editable: true,
       field: 'presentDays',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Net Salary',
       field: 'netSalary',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -106,7 +106,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Status',
       field: 'status',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
@@ -175,10 +175,15 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       description: ['', Validators.required],
     });
 
+    this.gridOptions = {
+      paginationPageSizeSelector: false
+    }
+
     this.defaultColDef = {
+      sortable: false,
       tooltipComponent: 'customTooltip',
     }
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.loadAccountList({value: 2})
 

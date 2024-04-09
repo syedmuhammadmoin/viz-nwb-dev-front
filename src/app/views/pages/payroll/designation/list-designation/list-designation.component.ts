@@ -20,9 +20,9 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     designationList: [];
     public permissions = Permissions;
     defaultColDef: ColDef;
-    frameworkComponents: {[p: string]: unknown};
-    gridOptions: GridOptions;
-    components: { loadingCellRenderer (params: any ) : unknown };
+    
+    gridOptions: any;;
+    components: any;
     gridApi: GridApi;
     gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -62,6 +62,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
         cacheBlockSize: 20,
         rowModelType: "infinite",
         paginationPageSize: 10,
+        paginationPageSizeSelector: false,
         pagination: true,
         rowHeight: 30,
         headerHeight: 35,
@@ -72,6 +73,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
         flex: 1,
         minWidth: 150,
         filter: 'agSetColumnFilter',
+        sortable: false,
         resizable: true,
       }
   

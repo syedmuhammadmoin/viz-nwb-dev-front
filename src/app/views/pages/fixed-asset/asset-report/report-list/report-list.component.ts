@@ -25,7 +25,7 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
   minDate: Date
   dateCondition: boolean
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -42,7 +42,7 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
   assetReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;;
   rowData: IFixedAssetReport[] = [];
   reportModel: IReport = {} as IReport;
 
@@ -92,14 +92,14 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
       {
         headerName: 'Store',
         field: 'store',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         cellStyle: {textAlign: 'left'}
       },
       {
         headerName: 'Category',
         field: 'category',
         colId: 'balance',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         cellStyle: {textAlign: 'left'}
       },
       {
@@ -110,36 +110,36 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
       {
         headerName: 'Unit Cost',
         field: 'unitCost',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params) => this.valueFormatter(params.value),
         cellStyle: {textAlign: 'left'}
       },
       {
         headerName: 'Dep Charged For The Period',
         field: 'depChargedForThePeriod',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params) => this.valueFormatter(params.value)
       },
       {
         headerName: 'Opening Accumulated Dep.',
         field: 'openingAccDep',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
       {
         headerName: 'Dep. Rate',
         field: 'depRate',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
       {
         headerName: 'Closing Accumulated Depreciation',
         field: 'closingAccDep',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
 
       {
         headerName: 'NBV',
         field: 'nbv',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       }
     ];
   }
@@ -158,6 +158,7 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       filter: true,
       resizable: true,
+      sortable: false,
       menuTabs: ['filterMenuTab'],
     };
 

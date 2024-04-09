@@ -138,12 +138,11 @@
                   [rowData]="selectedEmployees"
                   [columnDefs]="columnDefs"
                   [animateRows]="true"
-                  (rowDoubleClicked)="onRowDoubleClicked($event)"
                   (firstDataRendered)="onFirstDataRendered($event)"
                   [gridOptions]="gridOptions"
-                  [frameworkComponents]="frameworkComponents"
                   [defaultColDef]="defaultColDef"
                   [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                  (gridReady)="onGridReady($event)"
                   [tooltipShowDelay]="5">
                 </ag-grid-angular>
               </div>

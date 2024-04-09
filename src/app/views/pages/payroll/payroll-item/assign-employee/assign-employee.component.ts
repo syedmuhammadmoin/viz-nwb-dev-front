@@ -55,25 +55,25 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
       checkboxSelection: function(params) {
-        const displayedColumns = params.columnApi.getAllDisplayedColumns();
+        const displayedColumns = params.api.getAllDisplayedColumns();
         return displayedColumns[0] === params.column;
     },
     }
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
-
     this.gridOptions = {
-      getRowNodeId: (data) => data.id,
       cacheBlockSize: 20,
       rowModelType: "infinite",
       paginationPageSize: 10,
       pagination: true,
       context: "click to select employee",
+      paginationPageSizeSelector: false
     };
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params) {
         if (params.value !== undefined) {
           return params.value;
@@ -98,12 +98,10 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
     this.dialogRef.close();
   }
 
-  frameworkComponents : {[p: string]: unknown};
-  gridOptions : GridOptions;
+  gridOptions: any;
   defaultColDef : ColDef;
   components: any;
   gridApi: GridApi;
-  gridColumnApi: any;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
    
 
@@ -124,7 +122,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
      { 
       headerName: 'Father Name', 
       field: 'fatherName', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'name',
      },
      { 
@@ -163,12 +161,12 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
      { 
       headerName: 'Faculty', 
       field: 'faculty',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
      },
      { 
       headerName: 'Shift', 
       field: 'dutyShift', 
-      suppressMenu: true
+      suppressHeaderMenuButton: true
      }
   ];
 
@@ -193,8 +191,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getEmployees(params: any): Promise<IPaginationResponse<[]>> {

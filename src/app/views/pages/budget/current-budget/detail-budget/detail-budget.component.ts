@@ -27,7 +27,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   //Loader
@@ -55,7 +55,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining columns of AG Grid

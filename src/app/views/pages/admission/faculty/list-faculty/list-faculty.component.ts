@@ -21,12 +21,12 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: IFaculty[];
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
   public permissions = Permissions;
-  frameworkComponents: { [p: string]: unknown };
+  
   tooltipData = 'double click to view detail'
-  components: { loadingCellRenderer(params: any): unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -85,16 +85,18 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: 'double click to view detail',
+      paginationPageSizeSelector: false,
+      context: 'double click to view detail'
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 

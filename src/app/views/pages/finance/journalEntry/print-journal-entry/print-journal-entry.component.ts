@@ -18,7 +18,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 
 export class PrintJournalEntryComponent extends AppComponentBase implements OnInit {
   currentClient : any = {};
-  gridOptions: GridOptions;
+  gridOptions: any;;
   journalEntryMaster: any;
   journalEntryLines: IJournalEntryLines[] | any;
   edinfini : boolean;

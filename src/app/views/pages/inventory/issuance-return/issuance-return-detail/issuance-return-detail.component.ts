@@ -39,7 +39,6 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
    //For ag grid
    gridOptions = ({} as GridOptions);
    defaultColDef: any;
-   frameworkComponents : any;
 
    // Variables for Issuance Return data
    issuanceReturnLines: any;
@@ -60,8 +59,8 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
 
   //Defining Issuance Return Columns
   columnDefs = [
-    {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Item', field: 'item', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Description', field: 'description', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
     {
       headerName: 'Quantity', 
       field: 'quantity', 
@@ -70,7 +69,7 @@ export class IssuanceReturnDetailComponent extends AppComponentBase implements O
     {
       headerName: 'Store', 
       field: 'warehouse', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {

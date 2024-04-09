@@ -28,7 +28,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   public REQUEST_REQUISITION = REQUEST_REQUISITION;
@@ -58,7 +58,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining Request Columns

@@ -27,7 +27,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
   budgetReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef
   rowData: IBudgetReport[] = [];
 
@@ -67,21 +67,21 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
   //Defining AG Grid Columns
   columnDefs = [
-    {headerName: 'Budget Name', field: 'budgetName', suppressMenu: true,  cellStyle: {textAlign : 'left'},},
+    {headerName: 'Budget Name', field: 'budgetName', suppressHeaderMenuButton: true,  cellStyle: {textAlign : 'left'},},
     {
       headerName: 'Date', 
       field: 'to',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellStyle: {textAlign : 'left'},
       cellRenderer: (params: ICellRendererParams) => {
         return this.dateHelperService.transformDate(params.data.to, 'MMM d, y')
       }
     },
-    {headerName: 'Account', field: 'account', suppressMenu: true,  cellStyle: {textAlign : 'left'},},
+    {headerName: 'Account', field: 'account', suppressHeaderMenuButton: true,  cellStyle: {textAlign : 'left'},},
     {
       headerName: 'Budget Amount', 
       field: 'budgetAmount',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams ) => {
         return this.valueFormatter(params.value)
       }
@@ -89,7 +89,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Incurred Amount', 
       field: 'incurredAmount',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams ) => {
         return this.valueFormatter(params.value)
       }
@@ -97,7 +97,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Balance', 
       field: 'balanceRemaining',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams ) => {
         return this.valueFormatter(params.value)
       }
@@ -113,6 +113,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
 
     this.defaultColDef = {
       resizable: true,
+      sortable: false
     }
 
     //Initializing formGroup

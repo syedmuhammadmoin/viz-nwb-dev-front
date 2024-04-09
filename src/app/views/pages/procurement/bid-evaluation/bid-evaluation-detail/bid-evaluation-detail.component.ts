@@ -26,7 +26,7 @@ export class BidEvaluationDetailComponent extends AppComponentBase implements On
   public BID_EVALUATION = BID_EVALUATION;
 
   docStatus = DocumentStatus
-  gridOptions: GridOptions;
+  gridOptions: any;;
 
   //for busy loading
   isLoading: boolean

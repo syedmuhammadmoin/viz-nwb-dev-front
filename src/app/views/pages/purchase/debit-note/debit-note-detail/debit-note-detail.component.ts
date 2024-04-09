@@ -35,7 +35,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
   isLoading: boolean;
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: any;
 
   //need for routing
@@ -64,7 +64,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     {
       headerName: 'Item',
       field: 'itemName',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
@@ -142,7 +142,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
     {
       headerName: 'Store',
       field: 'warehouseName',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

@@ -37,9 +37,9 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   public journalEntryRoute = JOURNAL_ENTRY
 
   // For ag grid
-  gridOptions: GridOptions = ({} as GridOptions);
+  gridOptions: any = ({} as GridOptions);
   defaultColDef: ColDef;
-  frameworkComponents: { [p: string]: unknown };
+  
 
   // Detail Data
   journalEntryMaster: any;
@@ -109,7 +109,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
     {
       headerName: 'Store',
       field: 'warehouseName',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

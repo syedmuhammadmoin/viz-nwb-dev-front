@@ -23,12 +23,12 @@ import { CreateCwipComponent } from '../create-cwip/create-cwip.component';
 export class ListCwipComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: GridOptions;
+  gridOptions: any;;
   cwipList: ICwip[];
-  frameworkComponents: {[p: string]: unknown};
+  
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -66,7 +66,7 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
       headerName: 'Acquisition Date',
       field: 'dateOfAcquisition',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
@@ -158,20 +158,23 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

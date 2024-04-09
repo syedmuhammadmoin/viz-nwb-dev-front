@@ -20,12 +20,12 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 export class ListDepreciationComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: GridOptions;
+  gridOptions: any;;
   depreciationList: IDepreciation[];
-  frameworkComponents: {[p: string]: unknown};
+  
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -50,7 +50,7 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Model Name',
       field: 'modelName',
-      tooltipField: 'name',
+      tooltipField: 'modelName',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -62,14 +62,14 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
     {
       headerName: 'UseFull Life',
       field: 'useFullLife',
-      tooltipField: 'name',
-      suppressMenu: true,
+      tooltipField: 'modelName',
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Model Type',
       field: 'modelType',
-      tooltipField: 'name',
-      suppressMenu: true,
+      tooltipField: 'modelName',
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return DepreciationMethod[params.value];
       }
@@ -77,7 +77,7 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Declining Rate (%)',
       field: 'decliningRate',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return params.value ?? 'N/A'
       }
@@ -94,20 +94,23 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

@@ -28,7 +28,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
   approvePayrollPaymentForm: FormGroup;
   tooltipData = 'double click to edit'
   employeeGridApi: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   paymentList: any[] = [];
@@ -48,25 +48,25 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
-      headerName: 'Doc #', field: 'docNo', suppressMenu: true,
+      headerName: 'Doc #', field: 'docNo', suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Account Payable',
       field: 'accountName',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Register',
       field: 'paymentRegisterName',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Date',
       field: 'paymentDate',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.dateHelperService.transformDate(new Date(params.value), 'dd MMM, yyyy')
       }
@@ -74,7 +74,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Net Payment',
       field: 'netPayment',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -82,7 +82,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Status',
       field: 'status',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
@@ -135,10 +135,15 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
      // bankId: [''],
     });
 
+    this.gridOptions = {
+      paginationPageSizeSelector: false
+    }
+
     this.defaultColDef = {
+      sortable: false,
       tooltipComponent: 'customTooltip'
     }
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.getLatestCampuses();
 

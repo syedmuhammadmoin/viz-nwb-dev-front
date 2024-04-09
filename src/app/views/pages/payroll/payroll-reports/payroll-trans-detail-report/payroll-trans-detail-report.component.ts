@@ -66,15 +66,15 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
 
   // ag grid
   columnDefs = [
-    { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Campus ', field: 'campus', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
+    { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Campus ', field: 'campus', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
   ];
 
   rowData: any = [];
-  frameworkComponents: any;
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   tooltipData = 'double click to view details'
   defaultColDef: any
 
@@ -104,6 +104,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
     this.gridOptions.headerHeight = 35;
 
     this.defaultColDef = {
+      sortable: false,
       resizable: true,
     }
 

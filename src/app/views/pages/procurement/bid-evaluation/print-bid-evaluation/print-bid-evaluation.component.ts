@@ -16,7 +16,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 
 export class PrintBidEvaluationComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;;
   bidEvaluationMaster: any;
   bidEvaluationLines: any;
   edinfini : boolean;

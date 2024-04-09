@@ -21,11 +21,11 @@ import { isEmpty } from 'lodash';
 export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
   workflowList: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   tooltipData: string = "double click to view details"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -48,7 +48,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       headerName: 'Document Type',
       field: 'docType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
       return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
       }
@@ -57,7 +57,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       headerName: 'Active',
       field: 'isActive',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => { return params.value ? 'Yes' : 'No' }
     },
   ];
@@ -71,7 +71,6 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
     super(injector)
 
-    this.defaultColDef = { resizable: true };
     //for tooltip dynamic massage
     this.gridOptions = <GridOptions>(
       {
@@ -88,20 +87,23 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

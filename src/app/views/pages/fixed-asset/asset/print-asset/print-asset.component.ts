@@ -16,7 +16,7 @@ import { DepreciationMethod } from 'src/app/views/shared/AppEnum';
 })
 export class PrintAssetComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;;
   assetMaster: any;
   edinfini : boolean;
   sbbu : boolean;

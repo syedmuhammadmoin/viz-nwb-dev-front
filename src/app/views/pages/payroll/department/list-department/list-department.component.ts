@@ -18,7 +18,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
   public permissions = Permissions;
   departmentList: [];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
+  
   gridOptions: GridOptions;
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
@@ -55,7 +55,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
      { 
       headerName: 'Campus', 
       field: 'campusName',
-      suppressMenu: true
+      suppressHeaderMenuButton: true
      }
   ];
   public currentClient : any ={};
@@ -65,6 +65,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
       cacheBlockSize: 20,
       rowModelType: "infinite",
       paginationPageSize: 10,
+      paginationPageSizeSelector: false,
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
@@ -74,6 +75,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 

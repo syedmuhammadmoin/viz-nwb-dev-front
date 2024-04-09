@@ -17,7 +17,7 @@ import {isEmpty} from 'lodash';
 export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   campusList: ICampus[]
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
   components: any;
   gridApi: GridApi;
@@ -46,7 +46,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       headerName: 'Sr.No',
       field: 'index',
       cellRenderer: 'loadingCellRenderer',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Name',
@@ -61,7 +61,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Active',
       field: 'isActive',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) ? 'Yes' : 'No';
       }
@@ -76,6 +76,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: 'double click to edit',
     };
 
@@ -84,6 +85,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 

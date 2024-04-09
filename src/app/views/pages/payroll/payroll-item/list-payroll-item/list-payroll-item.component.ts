@@ -20,10 +20,10 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
 
   payrollItemList: IPayrollItem[];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   tooltipData: string = "double click to edit"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -71,7 +71,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       headerName: 'Payroll Type',
       field: 'payrollType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return PayrollType[params.value];
       }
@@ -80,7 +80,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       headerName: 'Item Type',
       field: 'payrollItemType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return PayrollItemType[params.value];
       }
@@ -89,14 +89,14 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       headerName: 'Account',
       field: 'accountName',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Value',
       field: 'value',
       tooltipField: 'name',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value);
       }
@@ -126,20 +126,23 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

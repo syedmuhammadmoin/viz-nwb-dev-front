@@ -96,7 +96,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debitOB',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             },
@@ -105,7 +105,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'creditOB',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
@@ -119,7 +119,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debit',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             }
@@ -127,7 +127,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'credit',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
@@ -140,7 +140,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Debit',
             field: 'debitCB',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '+ve')
             }
@@ -148,7 +148,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'creditCB',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             valueFormatter: (params: ValueFormatterParams) => {
               return this.valueFormatter(params.value, '-ve')
             }
@@ -181,6 +181,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       filter: true,
       resizable: true,
+      sortable: false,
       menuTabs: ["filterMenuTab"],
     };
 

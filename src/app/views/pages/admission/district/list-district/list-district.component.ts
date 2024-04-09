@@ -22,8 +22,8 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
   defaultColDef: any;
   tooltipData: string = "double click to edit"
   districtList: IDistrict[] = [];
-  frameworkComponents: any;
-  components: { loadingCellRenderer(params: any): unknown };
+  
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -82,13 +82,14 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
       context: "double click to edit",
     };
 
-    this.frameworkComponents = { customTooltip: CustomTooltipComponent };
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
       cellStyle: (params: ICellRendererParams) => {
         return (params?.data?.state === 1 || params?.data?.state === 5) ? { 'pointer-events': 'none', 'color': '#87837e' } : null;
@@ -96,6 +97,7 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

@@ -37,10 +37,10 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
   estimatedBudgetList: IEstimatedBudget[];
   gridOptions : GridOptions;
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
+  
   tooltipData = 'double click to view detail'
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -62,7 +62,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
         headerName: 'From',
         field: 'from',
         menuTabs: ['filterMenuTab'],
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         tooltipField: 'from',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
@@ -73,7 +73,7 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
         headerName: 'To',
         field: 'to',
         menuTabs: ['filterMenuTab'],
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         tooltipField: 'to',
         valueFormatter: (params: ValueFormatterParams) => {
           const date = params.value != null ? params.value : null;
@@ -116,16 +116,18 @@ export class ListEstimatedBudgetComponent extends AppComponentBase implements On
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: 'double click to view detail',
+      paginationPageSizeSelector: false,
+      context: 'double click to view detail'
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 

@@ -25,12 +25,13 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   public currentClient : any ={}
   rowData: any[] = [];
   columnDefs: any;
-  gridOptions: GridOptions;
+  gridOptions: any;;
   gridApi: any;
   gridColumnApi: any;
   defaultColDef;
   autoGroupColumnDef: any;
   balanceSheetForm: FormGroup;
+  groupDisplayType: any = 'multipleColumns';
   equityNLiability = '0';
   asset = '0';
 
@@ -78,7 +79,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         headerName: 'Total',
         field: 'balance',
         aggFunc: 'sum',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (param) => {
           return this.valueFormatter(param.value)
         }
@@ -106,6 +107,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       filter: true,
       resizable: true,
+      sortable: false,
       menuTabs: ["filterMenuTab"],
     };
 

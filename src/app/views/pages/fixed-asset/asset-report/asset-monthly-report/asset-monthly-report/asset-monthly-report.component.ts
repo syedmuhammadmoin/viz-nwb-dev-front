@@ -23,7 +23,7 @@ export class AssetMonthlyReportComponent extends AppComponentBase implements OnI
   minDate: Date
   dateCondition: boolean
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -40,7 +40,7 @@ export class AssetMonthlyReportComponent extends AppComponentBase implements OnI
   assetReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;;
   rowData: IFixedAssetReport[] = [];
   reportModel: IReport = {} as IReport;
 
@@ -90,7 +90,7 @@ export class AssetMonthlyReportComponent extends AppComponentBase implements OnI
       {
         headerName: 'Store',
         field: 'store',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
       /*{
         headerName: 'Date', field: 'docDate', cellStyle: {textAlign: 'left'},
@@ -107,7 +107,7 @@ export class AssetMonthlyReportComponent extends AppComponentBase implements OnI
       /*{
         headerName: 'Quantity',
         field: 'quantity',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         cellStyle: {textAlign: 'left'},
         valueFormatter: (params: ValueFormatterParams) => {
           return DocType[params.value]
@@ -118,48 +118,48 @@ export class AssetMonthlyReportComponent extends AppComponentBase implements OnI
       {
         headerName: 'Unit Cost',
         field: 'unitCost',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params) => this.valueFormatter(params.value),
         cellStyle: {textAlign: 'left'}
       },
       {
         headerName: 'Month',
         field: 'month',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         cellStyle: {textAlign: 'left'}
       },
       {
         headerName: 'Dep Charged For The Period',
         field: 'depChargedForThePeriod',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params) => this.valueFormatter(params.value)
       },
       {
         headerName: 'Opening Accumulated Dep.',
         field: 'openingAccDep',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
       {
         headerName: 'Category',
         field: 'category',
         colId: 'balance',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
       {
         headerName: 'Dep. Rate',
         field: 'depRate',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
       {
         headerName: 'Closing Accumulated Depreciation',
         field: 'closingAccDep',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
 
       {
         headerName: 'NBV',
         field: 'nbv',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       }
     ];
   }
@@ -177,6 +177,7 @@ export class AssetMonthlyReportComponent extends AppComponentBase implements OnI
 
     this.defaultColDef = {
       filter: true,
+      sortable: false,
       resizable: true,
       menuTabs: ['filterMenuTab'],
     };

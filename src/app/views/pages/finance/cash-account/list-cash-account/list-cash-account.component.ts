@@ -23,10 +23,9 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
   cashAccountList: ICashAccount[];
   gridOptions : GridOptions;
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string] : unknown};
   tooltipData : string = "double click to edit"
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -64,7 +63,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Manager / Handler', 
       field: 'handler', 
       tooltipField: 'handler',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) || 'N/A'
       }
@@ -73,7 +72,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Opening Balance', 
       field: 'openingBalance' , 
       tooltipField: 'handler',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'
       }
@@ -82,7 +81,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Campus',
       field: 'campusName',
       tooltipField: 'handler',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
@@ -98,17 +97,19 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

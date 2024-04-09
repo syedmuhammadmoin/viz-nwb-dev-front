@@ -16,7 +16,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintGoodsReturnNoteComponent extends AppComponentBase implements OnInit {
 
-    gridOptions: GridOptions;
+    gridOptions: any;;
     goodsReturnNoteMaster: IGoodsReturnNote | any;
     goodsReturnNoteLines: IGoodsReturnNoteLines[] | any;
     edinfini : boolean;

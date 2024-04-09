@@ -21,12 +21,12 @@ export class ListQualificationComponent extends AppComponentBase implements OnIn
   
   // For AG Grid..
     QualificationList: IQualification[];
-    gridOptions: GridOptions;
+    gridOptions: any;;
     defaultColDef: ColDef;
     public permissions = Permissions;
-    frameworkComponents: { [p: string]: unknown };
+    
     tooltipData = 'double click to view detail'
-    components: { loadingCellRenderer(params: any): unknown };
+    components: any;
     gridApi: GridApi;
     gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -88,13 +88,14 @@ export class ListQualificationComponent extends AppComponentBase implements OnIn
         context: 'double click to view detail',
       };
   
-      this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+      
   
       this.defaultColDef = {
         tooltipComponent: 'customTooltip',
         flex: 1,
         minWidth: 150,
         filter: 'agSetColumnFilter',
+        sortable: false,
         resizable: true,
       }
   

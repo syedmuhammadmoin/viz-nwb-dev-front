@@ -28,7 +28,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
 
   public QUOTATION_COMP = QUOTATION_COMPARATIVE;
 
@@ -57,7 +57,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
 
@@ -73,18 +73,18 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
       field: 'docNo', 
       cellRenderer: 'agGroupCellRenderer', 
       checkboxSelection: () => (this.checkBoxSelection),
-      suppressMenu: true
+      suppressHeaderMenuButton: true
     },
-    { headerName: 'Vendor', field: 'vendorName' , suppressMenu: true},
+    { headerName: 'Vendor', field: 'vendorName' , suppressHeaderMenuButton: true},
     { 
       headerName: 'Quotation Date', 
       field: 'quotationDate' , 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y')
       }
     },
-    { headerName: 'Time Frame', field: 'timeframe', suppressMenu: true}
+    { headerName: 'Time Frame', field: 'timeframe', suppressHeaderMenuButton: true}
   ];
 
   public defaultColDef: ColDef = {
@@ -93,12 +93,12 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   public detailCellRendererParams: any = {
     detailGridOptions: {
       columnDefs: [
-        { headerName: 'Item', field: 'itemName', suppressMenu: true },
-        { headerName: 'Description', field: 'description', suppressMenu: true },
-        { headerName: 'Quantity', field: 'quantity', minWidth: 150 , suppressMenu: true},
+        { headerName: 'Item', field: 'itemName', suppressHeaderMenuButton: true },
+        { headerName: 'Description', field: 'description', suppressHeaderMenuButton: true },
+        { headerName: 'Quantity', field: 'quantity', minWidth: 150 , suppressHeaderMenuButton: true},
         { headerName: 'Price', 
         field: 'price', 
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params: ValueFormatterParams) => {
           return this.valueFormatter(params.value)
         }

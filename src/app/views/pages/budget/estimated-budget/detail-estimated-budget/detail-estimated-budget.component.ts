@@ -27,7 +27,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
   docStatus = DocumentStatus
 
   //For AG Grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   //Loader
@@ -51,7 +51,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining AG Grid Columns

@@ -17,7 +17,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 })
 export class PrintPettyCashComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;;
   journalEntryMaster: any;
   journalEntryLines: IPettyCashEntryLines[] | any;
   edinfini : boolean;

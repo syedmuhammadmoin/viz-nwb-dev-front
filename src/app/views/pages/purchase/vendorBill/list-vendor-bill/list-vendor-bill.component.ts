@@ -18,11 +18,11 @@ import { isEmpty } from 'lodash';
 export class ListVendorBillComponent extends AppComponentBase implements OnInit {
 
   vendorBillList: any;
-  gridOptions: GridOptions;
-  frameworkComponents: any;
+  gridOptions: any;;
+  
   defaultColDef: any;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
@@ -99,7 +99,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
       headerClass: 'custom_left',
       cellStyle: { 'text-align': "right" },
       tooltipField: 'status',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -127,20 +127,23 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

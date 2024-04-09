@@ -21,12 +21,12 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
   
   // For AG Grid..
     DegreeList: IDegree[];
-    gridOptions: GridOptions;
+    gridOptions: any;;
     defaultColDef: ColDef;
     public permissions = Permissions;
-    frameworkComponents: { [p: string]: unknown };
+    
     tooltipData = 'double click to view detail'
-    components: { loadingCellRenderer(params: any): unknown };
+    components: any;
     gridApi: GridApi;
     gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -88,7 +88,7 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
         context: 'double click to view detail',
       };
   
-      this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+      
   
       this.defaultColDef = {
         tooltipComponent: 'customTooltip',
@@ -96,6 +96,7 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
         minWidth: 150,
         filter: 'agSetColumnFilter',
         resizable: true,
+        sortable: false,
         cellStyle: (params: ValueFormatterParams) => {
           return (params?.data?.state === 1 || params?.data?.state === 5) ? {'pointer-events': 'none', 'color': '#87837e'} : null;
         }

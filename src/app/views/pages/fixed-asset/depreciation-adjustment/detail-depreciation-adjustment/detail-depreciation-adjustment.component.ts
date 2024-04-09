@@ -37,9 +37,9 @@ export class DetailDepreciationAdjustmentComponent extends AppComponentBase impl
   public depreciationAdjustmentRoute = DEPRECIATION_ADJUSTMENT
 
   // For ag grid
-  gridOptions: GridOptions = ({} as GridOptions);
+  gridOptions: any = ({} as GridOptions);
   defaultColDef: ColDef;
-  frameworkComponents: { [p: string]: unknown };
+  
 
   // Detail Data
   depreciationAdjustmentMaster: IDepreciationAdjustment = {} as IDepreciationAdjustment;
@@ -61,19 +61,19 @@ export class DetailDepreciationAdjustmentComponent extends AppComponentBase impl
 
   // Defining AG Grid Columns
   columnDefs = [
-    {headerName: 'Fixed Asset', field: 'fixedAsset', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Account', field: 'level4', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Fixed Asset', field: 'fixedAsset', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Account', field: 'level4', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
     {
-      headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}
+      headerName: 'Description', field: 'description', sortable: false, filter: true, cellStyle: {'font-size': '12px'}
     },
     {
-      headerName: 'Debit', field: 'debit', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
+      headerName: 'Debit', field: 'debit', sortable: false, filter: true, cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Credit', field: 'credit', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
+      headerName: 'Credit', field: 'credit', sortable: false, filter: true, cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }

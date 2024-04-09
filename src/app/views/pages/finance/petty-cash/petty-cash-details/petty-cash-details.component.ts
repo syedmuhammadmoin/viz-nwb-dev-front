@@ -37,9 +37,9 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
   public pettyEntryRoute = PETTY_CASH  
   currentClient : any = {};
   // For ag grid
-  gridOptions: GridOptions = ({} as GridOptions);
+  gridOptions: any = ({} as GridOptions);
   defaultColDef: ColDef;
-  frameworkComponents: { [p: string]: unknown };
+  
 
   // Detail Data  
   pettyEntryMaster: any; 
@@ -109,7 +109,7 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Date',
       field: 'date',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

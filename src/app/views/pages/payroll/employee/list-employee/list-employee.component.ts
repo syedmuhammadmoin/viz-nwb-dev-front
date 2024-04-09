@@ -19,10 +19,10 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
 
   employeeList: [];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -101,8 +101,8 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           return (params.value) ?? "N/A"
         }
     },
-    { headerName: 'Faculty', field: 'faculty', suppressMenu: true, tooltipField: 'name' },
-    { headerName: 'Shift', field: 'dutyShift', suppressMenu: true, tooltipField: 'name' },
+    { headerName: 'Faculty', field: 'faculty', suppressHeaderMenuButton: true, tooltipField: 'name' },
+    { headerName: 'Shift', field: 'dutyShift', suppressHeaderMenuButton: true, tooltipField: 'name' },
     {
       headerName: 'Active',
       field: 'isActive',
@@ -130,19 +130,22 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
       rowHeight: 30,
       headerHeight: 35,
       context: "double click to view detail",
+      paginationPageSizeSelector: false
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
-      resizable: true,
+      sortable: false,
+      resizable: true
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

@@ -22,10 +22,10 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
   bankAccountList: IBankAccount[];
   gridOptions : GridOptions;
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
+  
   tooltipData : string = "double click to edit"
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi!: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -58,7 +58,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
           suppressAndOrCondition: true,
         },
     },
-    {headerName: 'Account Number', suppressMenu: true, field: 'accountNumber', tooltipField: 'accountNumber'},
+    {headerName: 'Account Number', suppressHeaderMenuButton: true, field: 'accountNumber', tooltipField: 'accountNumber'},
     {
       headerName: 'Bank Name', 
       field: 'bankName',
@@ -74,7 +74,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Branch Name', 
       field: 'branch', 
       tooltipField: 'accountNumber',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params : ValueFormatterParams) => {
         return params.value || 'N/A'
       }
@@ -84,7 +84,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       field: 'openingBalance',
       tooltipField: 'accountNumber',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -93,7 +93,7 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Campus', 
       field: 'campusName', 
       tooltipField: 'accountNumber',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
  
@@ -106,20 +106,23 @@ export class ListBankAccountComponent extends AppComponentBase implements OnInit
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

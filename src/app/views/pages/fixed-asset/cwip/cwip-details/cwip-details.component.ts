@@ -29,7 +29,7 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
   modelType: any = DepreciationMethod
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   //kt busy loading
@@ -55,7 +55,7 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   ngOnInit() {

@@ -91,7 +91,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         headerName: 'Total',
         field: 'balance',
         aggFunc: 'sum',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (param: ValueFormatterParams) => {
           return this.valueFormatter(param.value)
         }
@@ -119,6 +119,7 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       filter: true,
       resizable: true,
+      sortable: false,
       menuTabs: ["filterMenuTab"],
     };
 

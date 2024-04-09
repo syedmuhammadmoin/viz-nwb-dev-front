@@ -34,11 +34,11 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   // For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;;
   defaultColDef: ColDef;
 
   docType = DocType
@@ -72,7 +72,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Item',
       field: 'itemName',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {
@@ -139,7 +139,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Store',
       field: 'warehouseName',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
       valueFormatter: (params: ValueFormatterParams) => {

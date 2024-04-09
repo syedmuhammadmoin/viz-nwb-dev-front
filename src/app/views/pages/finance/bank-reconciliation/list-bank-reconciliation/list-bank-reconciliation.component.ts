@@ -28,6 +28,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   defaultColDef: any
   bankStatementList = [];
   paymentList = [];
+  gridOptions: any;
   overlayLoadingTemplate: any;
   rowSelectionPayment: string | any = 'multiple';
   rowSelectionBankStatement: string | any = 'multiple';
@@ -128,9 +129,14 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       bankName: ['', [Validators.required]],
     });
 
+    this.gridOptions = {
+      paginationPageSizeSelector: false,
+    }
+
     this.defaultColDef = {
       filter: true,
-      resizable: true,
+      sortable: false,
+      resizable: true
     };
 
     //Get Data from Store

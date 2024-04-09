@@ -19,12 +19,12 @@ import { isEmpty } from 'lodash';
 export class ListJournalEntryComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: GridOptions;
+  gridOptions: any;;
   journalEntryList: IJournalEntry[];
-  frameworkComponents: {[p: string]: unknown};
+  
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -76,7 +76,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       headerName: 'Description',
       field: 'description',
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Debit',
@@ -84,7 +84,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       headerClass: 'custom_left',
       cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -95,7 +95,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       headerClass: 'custom_left',
       cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -125,20 +125,23 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

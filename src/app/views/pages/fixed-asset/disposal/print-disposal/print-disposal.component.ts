@@ -16,7 +16,7 @@ import { DepreciationMethod } from 'src/app/views/shared/AppEnum';
 })
 export class PrintDisposalComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;;
   disposalMaster: any;
   edinfini : boolean;
   sbbu : boolean;

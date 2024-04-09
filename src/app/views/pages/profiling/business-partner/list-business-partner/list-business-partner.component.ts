@@ -29,11 +29,11 @@ import {APP_ROUTES} from 'src/app/views/shared/AppRoutes';
 export class ListBusinessPartnerComponent extends AppComponentBase implements OnInit {
 
   businessPartnerList: IBusinessPartner[];
-  frameworkComponents: { [p: string]: unknown };
-  gridOptions: GridOptions;
+  
+  gridOptions: any;;
   defaultColDef: ColDef;
   public permissions = Permissions
-  components: { loadingCellRenderer(params: any): unknown };
+  components: any;
   gridApi: GridApi;
   gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -70,7 +70,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Business Partner Type',
       field: 'businessPartnerType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return BusinessPartnerType[params.value]
       }
@@ -79,7 +79,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Phone Number',
       field: 'phone',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value : 'N/A'
       }
@@ -89,7 +89,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Bank Account Title',
       field: 'bankAccountTitle',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value : 'N/A'
       }
@@ -98,7 +98,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Bank Account Number',
       field: 'bankAccountNumber',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value : 'N/A'
       }
@@ -114,20 +114,23 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: 'double click to edit',
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;

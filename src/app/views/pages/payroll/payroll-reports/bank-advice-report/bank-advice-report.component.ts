@@ -56,12 +56,12 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
         headerName: 'Account No',
         field: 'accountNumber',
         cellStyle: {textAlign : 'left'},
-        suppressMenu: true
+        suppressHeaderMenuButton: true
       },
       {
         headerName: 'Amount',
         field: 'amount',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         headerClass: 'custom_left',
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
@@ -70,7 +70,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
     ];
   }
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -92,7 +92,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
   bankAdviceReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;;
   rowData: any[] = [];
 
   // Declaring Model
@@ -128,6 +128,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
 
     this.defaultColDef = {
       filter: true,
+      sortable: false,
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
@@ -176,12 +177,12 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
             headerName: 'Account No',
             field: 'accountNumber',
             cellStyle: {textAlign : 'left'},
-            suppressMenu: true
+            suppressHeaderMenuButton: true
           },
           {
             headerName: 'Amount',
             field: 'amount',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             headerClass: 'custom_left',
             valueFormatter: (params: any) => {
               return this.valueFormatter(params.value)
