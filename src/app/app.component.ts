@@ -17,7 +17,6 @@ import { DynamicColorChangeService } from './views/shared/services/dynamic-color
 import { AppConst } from './views/shared/AppConst';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'body[kt-root]',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],

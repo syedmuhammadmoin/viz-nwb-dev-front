@@ -1,6 +1,6 @@
 // Angular
-import { Injectable, Injector } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse, HttpErrorResponse } from '@angular/common/http';
 // RxJS
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -16,13 +16,12 @@ export class InterceptService implements HttpInterceptor {
 
   router: Router;
 
-  constructor(private toastService: ToastrService, injector: Injector , private route : Router) { }
+  constructor(private toastService: ToastrService, private route : Router) { }
   // intercept request and add token
   intercept(
     request: HttpRequest<any>,
     next: HttpHandler
   ): Observable<HttpEvent<any>> {
-    // tslint:disable-next-line:no-debugger
     // modify request
     request = request.clone({
       setHeaders: {
@@ -34,55 +33,47 @@ export class InterceptService implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) { }
-        },
-        error => {
-          let message = 'Something went wrong, Please try again later.'
+          if (event instanceof HttpResponse) {
+            // Do something with successful response (optional)
+          } else if (event instanceof HttpErrorResponse) {
+            let message = 'Something went wrong, Please try again later.'
           let title = 'Internal Server Error';
-          switch (error.status) {
+          switch (event?.error.status) {
             case 400:
-              message = error?.error?.message ?? 'Please verify form fields are correct, if issue presists please contact System Administrator'
+              message = event?.error?.message ?? 'Please verify form fields are correct, if issue presists please contact System Administrator'
               title = 'Bad Request'
               break;
             case 401:
-              message = error?.error?.message ?? 'Unauhtorised access, Please login again.'
+              message = event?.error?.message ?? 'Unauhtorised access, Please login again.'
               title = 'Unauthorised'
-              //window.location.href = '/login'
               this.route.navigateByUrl('/login')
               break;
             case 403:
-              message = error?.error?.message ?? 'You don\'\t have permission to access this resource'
+              message = event?.error?.message ?? 'You don\'\t have permission to access this resource'
               title = 'Forbidden'
-              //window.location.href = '/error/unauthorized'
               this.route.navigateByUrl('/error/unauthorized')
               break;
             case 404:
-              message = error?.error?.message ?? 'Requested resource not found.'
+              message = event?.error?.message ?? 'Requested resource not found.'
               title = 'Resource Not Found'
-             // window.location.href = '/error/404'
-              //this.route.navigateByUrl('/error/404')
               break;
             case 408:
-              message = error?.error?.message ?? 'Requested resource timed out.'
+              message = event?.error?.message ?? 'Requested resource timed out.'
               title = 'Request Timeout'
               break;
             case 500:
-              message = error?.error?.message ?? 'Something went wrong, Please try again later.'
+              message = event?.error?.message ?? 'Something went wrong, Please try again later.'
               title = 'Internal Server Error'
               this.route.navigateByUrl('/error/500')
               break;
             default:
-              message = error?.error?.message ?? 'Please try again later, If issue presists please contact System Administrator';
+              message = event?.error?.message ?? 'Please try again later, If issue presists please contact System Administrator';
               title = 'General Processing Error'
               break;
           }
+
           this.toastService.error(message, title);
-          // http response status code
-          // console.log('----response----');
-          // console.error('status code:');
-          // tslint:disable-next-line:no-debugger
-          console.error(error.status);
-          console.error(error.message);
-          // console.log('--- end of response---');
+          }
         }
       )
     );

@@ -4,7 +4,7 @@ import {Observable, of} from 'rxjs';
 import {User} from '../_models/user.model';
 import {Permission} from '../_models/permission.model';
 import {Role} from '../_models/role.model';
-import {catchError, map} from 'rxjs/operators';
+import {catchError} from 'rxjs/operators';
 import {QueryParamsModel, QueryResultsModel} from '../../_base/crud';
 import {environment} from '../../../../environments/environment';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -59,7 +59,7 @@ export class AuthService {
    */
   public requestPassword(email: string): Observable<any> {
     return this.http.get(API_USERS_URL + '/forgot?=' + email)
-      .pipe(catchError(this.handleError('forgot-password', []))
+      .pipe(catchError(this.handleError([]))
       );
   }
 
@@ -160,10 +160,8 @@ export class AuthService {
   * @param operation - name of the operation that failed
    * @param result - optional value to return as the observable result
    */
-  private handleError<T>(operation = 'operation', result?: any) {
-    return (error: any): Observable<any> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
+  private handleError<T>(result?: any) {
+    return (): Observable<any> => {
 
       // Let the app keep running by returning an empty result.
       return of(result);

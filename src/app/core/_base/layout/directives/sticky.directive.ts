@@ -12,8 +12,8 @@ import {
   PLATFORM_ID
 } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { BehaviorSubject, combineLatest, Observable, Subject } from 'rxjs';
-import { animationFrame } from 'rxjs/internal/scheduler/animationFrame';
+import { BehaviorSubject, Observable, Subject, zip } from 'rxjs';
+import { animationFrameScheduler } from 'rxjs/internal/scheduler/animationFrame';
 import { filter, map, share, startWith, takeUntil, throttleTime } from 'rxjs/operators';
 
 /**
@@ -67,20 +67,20 @@ export class StickyDirective implements OnInit, AfterViewInit, OnDestroy {
     /** Throttle the scroll to animation frame (around 16.67ms) */
     this.scrollThrottled$ = this.scroll$
       .pipe(
-        throttleTime(0, animationFrame),
+        throttleTime(0, animationFrameScheduler),
         share()
       );
 
     /** Throttle the resize to animation frame (around 16.67ms) */
     this.resizeThrottled$ = this.resize$
       .pipe(
-        throttleTime(0, animationFrame),
+        throttleTime(0, animationFrameScheduler),
         // emit once since we are currently using combineLatest
         startWith(null),
         share()
       );
 
-    this.status$ = combineLatest(
+    this.status$ = zip(
       this.enable$,
       this.scrollThrottled$,
       this.marginTop$,
@@ -178,12 +178,11 @@ export class StickyDirective implements OnInit, AfterViewInit, OnDestroy {
   }
 
   listener = (e: Event) => {
-    const upperScreenEdgeAt = (e.target as HTMLElement).scrollTop || window.pageYOffset;
+    const upperScreenEdgeAt = (e.target as HTMLElement).scrollTop || window.scrollY;
     this.scroll$.next(upperScreenEdgeAt);
   }
 
   ngOnInit(): void {
-    // this.checkSetup();
     this.setupListener();
   }
 
@@ -192,7 +191,7 @@ export class StickyDirective implements OnInit, AfterViewInit, OnDestroy {
     this.removeListener();
   }
 
-  getComputedStyle(el: HTMLElement): ClientRect | DOMRect {
+  getComputedStyle(el: HTMLElement): any | DOMRect {
     return el.getBoundingClientRect();
   }
 
@@ -270,24 +269,6 @@ private determineStatus(originalVals: StickyPositions,
       this.spacerElement.style.height = `${spacerHeight}px`;
     }
   }
-
-  private checkSetup() {
-    if (isDevMode() && !this.spacerElement) {
-      console.warn(`******There might be an issue with your sticky directive!******
-
-You haven't specified a spacer element. This will cause the page to jump.
-
-Best practise is to provide a spacer element (e.g. a div) right before/after the sticky element.
-Then pass the spacer element as input:
-
-<div #spacer></div>
-
-<div stickyThing="" [spacer]="spacer">
-    I am sticky!
-</div>`);
-    }
-  }
-
 
   private setSticky(status: StickyStatus): void {
     if (status.isSticky) {

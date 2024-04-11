@@ -6,7 +6,7 @@ import { TranslateService } from '@ngx-translate/core';
 export interface Locale {
   lang: string;
   // tslint:disable-next-line:ban-types
-  data: Object;
+  data: object;
 }
 
 @Injectable({

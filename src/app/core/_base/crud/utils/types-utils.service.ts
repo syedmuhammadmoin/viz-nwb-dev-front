@@ -105,7 +105,7 @@ export class TypesUtilsService {
       const month = this.toInteger(dateParts[0]);
       const day = this.toInteger(dateParts[1]);
       // tslint:disable-next-line:prefer-const
-      let result = new Date();
+      const result = new Date();
       result.setDate(day);
       result.setMonth(month - 1);
       result.setFullYear(year);

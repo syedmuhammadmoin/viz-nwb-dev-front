@@ -1,5 +1,5 @@
 // Angular
-import { Injectable, inject } from '@angular/core';
+import { Injectable, OnInit, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // RxJS
 import { tap } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { AuthActionTypes } from '../_actions/auth.actions';
 import { environment } from '../../../../environments/environment';
 
 @Injectable()
-export class AuthEffects {
+export class AuthEffects implements OnInit {
 
   login$ = createEffect(() => 
     inject(Actions).pipe( 

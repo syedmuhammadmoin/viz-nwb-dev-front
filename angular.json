@@ -34,7 +34,6 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-             
               "node_modules/clipboard/dist/clipboard.js",
               "node_modules/apexcharts/dist/apexcharts.min.js",
               "src/assets/js/layout/extended/examples.js",
@@ -139,11 +138,23 @@
               "src/assets"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
   "cli": {
-    "analytics": "b1dfc39d-aa30-4e3a-8d5a-d646228c4f05"
+    "analytics": "b1dfc39d-aa30-4e3a-8d5a-d646228c4f05",
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
