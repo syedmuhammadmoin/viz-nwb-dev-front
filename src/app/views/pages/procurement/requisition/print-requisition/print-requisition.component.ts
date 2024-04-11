@@ -16,7 +16,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintRequisitionComponent implements OnInit {
 
-  gridOptions: any;;
+  gridOptions: any;
   requisitionMaster: IRequisition | any;
   requisitionLines: IRequisitionLines[] | any;
   edinfini : boolean;

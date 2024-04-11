@@ -16,7 +16,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintPayrollTransactionComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: any;;
+  gridOptions: any;
   payrollTransactionMaster: IPayrollTransaction | any;
   payrollTransactionLines: any;
   edinfini : boolean;

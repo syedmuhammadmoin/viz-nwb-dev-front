@@ -1,7 +1,7 @@
 // Angular
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControlOptions, FormGroup, Validators } from '@angular/forms';
 // RxJS
 import { finalize, takeUntil, tap } from 'rxjs/operators';
 // Translate
@@ -97,7 +97,7 @@ export class RegisterComponent implements OnInit, OnDestroy {
 			agree: [false, Validators.compose([Validators.required])]
 		}, {
 			validator: ConfirmPasswordValidator.MatchPassword
-		});
+		} as FormControlOptions);
 	}
 
 	/**

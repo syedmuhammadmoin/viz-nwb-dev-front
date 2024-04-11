@@ -169,7 +169,6 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       //Calculating subtotal
       var quantity = arrayControl.at(index).get('quantity').value;
       var subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
-      //console.log('Subtotal', subTotal);
       arrayControl.at(index).get('subTotal').setValue(subTotal);
     }
   }

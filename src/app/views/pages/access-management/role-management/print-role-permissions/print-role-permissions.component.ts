@@ -15,7 +15,7 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 
 export class PrintRolePermissionsComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: any;;
+  gridOptions: any;
   isLoading: boolean = true;
   edinfini : boolean;
   sbbu : boolean;
@@ -90,7 +90,6 @@ export class PrintRolePermissionsComponent extends AppComponentBase implements O
    
       this.cdRef.markForCheck();
       this.isLoading = false;
-      console.log(this.filterData);
     })
   }
 

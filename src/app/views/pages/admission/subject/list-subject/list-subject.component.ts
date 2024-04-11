@@ -30,14 +30,13 @@ export class ListSubjectComponent extends AppComponentBase implements OnInit {
       }
     ) as GridOptions);
   }
-;
 
   // Loader
   isLoading: boolean;
 
   // For AG Grid..
   SubjectList: ISubject[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   
@@ -79,7 +78,6 @@ export class ListSubjectComponent extends AppComponentBase implements OnInit {
   dataSource = {
     getRows: async (params: any) => {
       const res = await this.getSubject(params);
-      console.log(res, 'this is datasource');
       if (isEmpty(res.result)) {
         this.gridApi.showNoRowsOverlay()
       } else {
@@ -157,7 +155,6 @@ export class ListSubjectComponent extends AppComponentBase implements OnInit {
 
   async getSubject(params: any): Promise<IPaginationResponse<ISubject[]>> {
     const result = await this.subjectService.getRecords(params).toPromise()
-    console.log(result, 'this is geREcord result');
     return result
   }
 

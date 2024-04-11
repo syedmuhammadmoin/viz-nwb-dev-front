@@ -186,7 +186,6 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
 
   // Create Asset
   createAsset(grnLine): void {
-    console.log(grnLine)
     const dialogRef = this.dialog.open(CreateAssetComponent, {
       width: '740px',
       data: {

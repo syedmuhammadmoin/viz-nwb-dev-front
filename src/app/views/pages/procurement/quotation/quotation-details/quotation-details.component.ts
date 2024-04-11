@@ -29,7 +29,7 @@ export class QuotationDetailsComponent extends AppComponentBase implements OnIni
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public QUOTATION = QUOTATION;

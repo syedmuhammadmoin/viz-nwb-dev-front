@@ -246,7 +246,6 @@ public currentClient : any ={};
       accountId: pettyEntry.accountId,
       closingBalanceDisplay : pettyEntry.closingBalance
     });
-    console.log(this.pettyCashForm);
  
    // this.onCampusSelected(pettyEntry.campusId)
     this.showMessage = true;
@@ -376,22 +375,17 @@ public currentClient : any ={};
       )
       .subscribe((res) => {
         this.account = res.result               
-        console.log(this.account);
         this.checkSelected(this.account, isEdit)
         this.cdRef.detectChanges()
       })
   }
 
   checkSelected(account: any, isEdit: boolean = false) {
-
-    console.log(account,'yahan aya ');
     
     this.pettyCashForm.patchValue({
       openingBalance: account[0]?.balance,       
 
     })
-
-    console.log(this.pettyCashForm);
     
     // if (!isEdit) {
     //   this.onCampusSelected(account.campusId)
@@ -401,7 +395,6 @@ public currentClient : any ={};
   checkAccount() {
     if (this.pettyCashForm.value.accountId === null) {
       this.toastService.info("Please Select Account!", "Petty Cash")
-      console.log("Select account");
     }
   }
 

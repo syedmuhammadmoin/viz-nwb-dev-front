@@ -123,7 +123,7 @@ export class CreateSubjectComponent extends AppComponentBase implements OnInit {
      qualification: subject.qualificationId,
     });
  
-  };
+  }
  
   onSubmit() {
  
@@ -161,7 +161,6 @@ export class CreateSubjectComponent extends AppComponentBase implements OnInit {
            })
          )
          .subscribe((res) => {
-          console.log(res);
            this.toastService.success('Created Successfully', 'Subject');
            this.onCloseDialog();
          });

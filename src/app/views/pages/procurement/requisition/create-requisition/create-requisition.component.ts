@@ -137,7 +137,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     });
 
     //get id by using route
-    this.productService.getProductsDropdown().subscribe((res: any) => {
+    this.productService.getProductsDropdown().subscribe({
+      next: (res: any) => {
       this.productList = res.result;
       this.activatedRoute.queryParams.subscribe((param) => {
        const id = param.q;
@@ -156,10 +157,12 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         this.cdRef.detectChanges()
        }
        })
-     },
-     () => {
-      this.isLoading = false;
-     })
+      },
+      error: () => {},
+      complete: () => {
+       this.isLoading = false;
+      }
+    })
 
      this.cdRef.detectChanges()
 
@@ -341,7 +344,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   //handle isWithoutWorkflow slide
   onToggle(event) {
-    console.log(event)
     if (event.checked) {
       this.userStatus = 'Workflow is Removed'
     } else {
@@ -416,7 +418,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionModel.isWithoutWorkflow = this.requisitionForm.getRawValue().isWithoutWorkflow;
     this.requisitionModel.requestId = this.requestRequisitionMaster?.id || this.requisitionModel?.requestId;
     this.requisitionModel.requisitionLines = this.requisitionForm.getRawValue().requisitionLines;
-  };
+  }
 
   // open business partner dialog
   openBusinessPartnerDialog() {

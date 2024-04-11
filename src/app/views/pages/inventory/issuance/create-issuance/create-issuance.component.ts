@@ -128,7 +128,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       ])
     });
 
-    this.productService.getProductsDropdown().subscribe((res: any) => {
+    this.productService.getProductsDropdown().subscribe({
+      next: (res: any) => {
         this.productList = res.result;
         this.activatedRoute.queryParams.subscribe((param) => {
           const id = param.q;
@@ -147,9 +148,11 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
             this.cdRef.detectChanges()
           }
         });
-    },
-    () => {
-      this.isLoading = false;
+      },
+      error: () => {},
+      complete: () => {
+        this.isLoading = false;
+      }
     })
 
     //this.issuanceForm.get('issuanceLines')['controls'][0].controls.fixedAssetId.disable();

@@ -85,9 +85,8 @@
             <div class="col-lg-12 text-right">
               <div>
                 <ag-grid-angular class="ag-theme-alpine" style="width: 100%; height: 500px;"
-                  (firstDataRendered)="onFirstDataRendered($event)" [columnDefs]="columnDefs"
+                  [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
                   [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" [animateRows]="true"
-                  (gridReady)="onGridReady($event)" (rowSelected)="onEmployeeRowClicked($event)"
                    [overlayLoadingTemplate]="overlayLoadingTemplate"
                   [pagination]="true" [rowData]="employeeList" [rowMultiSelectWithClick]="true"
                   [rowSelection]="'multiple'" [tooltipShowDelay]="5">

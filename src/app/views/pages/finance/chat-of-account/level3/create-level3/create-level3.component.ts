@@ -128,7 +128,6 @@ export class CreateLevel3Component extends AppComponentBase implements OnInit {
   }
 
   mapFormValuesToInvoiceModel() {
-    console.log(this.level3Form.value);
     this.level3Model.name = this.level3Form.value.name;
     this.level3Model.level2_id = this.level3Model.level2_id || this.level3Form.value.level2;
   }

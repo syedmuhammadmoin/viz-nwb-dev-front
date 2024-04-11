@@ -38,7 +38,7 @@ $print_logo : var(--print_logo);
 }
 
 .sbbu .print-logo{
-  background-image: $print_logo;;
+  background-image: $print_logo;
   background-repeat: no-repeat, repeat;
   background-position: center;
   background-size: contain;
@@ -69,7 +69,7 @@ $print_logo : var(--print_logo);
   }
 
 .vizalys .print-logo{
-  background-image: $print_logo;;
+  background-image: $print_logo;
   background-repeat: no-repeat, repeat;
   background-position: center;
   background-size: contain;

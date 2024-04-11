@@ -41,7 +41,6 @@ import {NgxMatSelectSearchModule} from "ngx-mat-select-search";
 import {DropdownComponent} from "../components/dropdown/dropdown.component";
 import {GroupDropdownComponent} from "../components/group-dropdown/group-dropdown.component";
 import {ConfirmationDialogComponent} from "../components/confirmation-dialog/confirmation-dialog.component";
-import {FormConfirmationGuard} from "../route-guards/form-confirmation.guard";
 import {NgxPrintModule} from "ngx-print";
 import {BusyDirective} from "../directive/busy.directive";
 import {ToastrModule} from "ngx-toastr";
@@ -62,7 +61,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchPipe } from '../pipes/search/search.pipe';
 
 
-// @ts-ignore
 @NgModule({
   declarations: [
     CustomTooltipComponent,

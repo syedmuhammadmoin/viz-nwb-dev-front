@@ -3,12 +3,10 @@ import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angula
 import {
   NavigationCancel,
   NavigationEnd,
-  NavigationError,
   NavigationStart,
   RouteConfigLoadEnd,
   RouteConfigLoadStart,
-  Router,
-  RouterEvent
+  Router
 } from '@angular/router';
 // Loading bar
 import { LoadingBarService } from '@ngx-loading-bar/core';

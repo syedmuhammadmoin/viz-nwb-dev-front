@@ -24,7 +24,6 @@ function sumFunc(params) {
 function debitSum(params) {
   let debitSum = 0;
   params.values.forEach((value) => {
-    // console.log(+value);
     if (value) {
       debitSum += +value;
     }
@@ -68,7 +67,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   currentClient : any = {};
 
 
-  // gridOptions: any;;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -87,7 +86,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   generalLedgerForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: any;;
+  gridOptions: any;
   rowData: IGeneralLedger[] = [];
 
   // Declaring Model

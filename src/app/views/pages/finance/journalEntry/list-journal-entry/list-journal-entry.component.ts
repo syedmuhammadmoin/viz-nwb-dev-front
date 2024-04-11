@@ -19,7 +19,7 @@ import { isEmpty } from 'lodash';
 export class ListJournalEntryComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   journalEntryList: IJournalEntry[];
   
   tooltipData: string = "double click to view detail"

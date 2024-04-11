@@ -125,8 +125,7 @@ export class CreateDomicileComponent extends AppComponentBase implements OnInit 
       name: ADepartment.name,
       district: ADepartment.districtId
     });
-
-  };
+  }
 
   onSubmit() {
 

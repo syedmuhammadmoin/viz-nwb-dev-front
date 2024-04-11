@@ -149,8 +149,6 @@ export class UserProfile4Component extends AppComponentBase implements OnInit {
 
     if(name === 'sbbu') {
 
-      console.log('sbbu')
-
       this.sbbutheming = {
         bg_gradient_color_one : "#1a6b85",
         bg_gradient_color_two : '#4a8a9e',
@@ -226,8 +224,6 @@ export class UserProfile4Component extends AppComponentBase implements OnInit {
     }
 
     else if(name === 'vizalys') {
-
-      console.log('vizalys')
 
       this.vizalystheming = {
         bg_gradient_color_one : "#2988bc",

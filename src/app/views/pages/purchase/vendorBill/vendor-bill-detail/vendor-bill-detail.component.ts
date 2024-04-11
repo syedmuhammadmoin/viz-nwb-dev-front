@@ -45,7 +45,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   isLoading: boolean;
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: any;
 
   //need for routing
@@ -264,7 +264,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     this.transactionReconModel.amount = this.bpUnReconPaymentList[index].amount > this.pendingAmount
       ? this.pendingAmount
       : this.bpUnReconPaymentList[index].amount;
-  };
+  }
 
   //Get Remarks From User
   remarksDialog(action: any): void {

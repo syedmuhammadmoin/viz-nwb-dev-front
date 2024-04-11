@@ -21,7 +21,7 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
   rowData: any = [];
 
   // 
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   gridApi: GridApi;
   gridColumnApi: any;

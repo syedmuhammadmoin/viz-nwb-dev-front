@@ -28,7 +28,7 @@ export class RequestRequisitionDetailsComponent extends AppComponentBase impleme
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public REQUEST_REQUISITION = REQUEST_REQUISITION;

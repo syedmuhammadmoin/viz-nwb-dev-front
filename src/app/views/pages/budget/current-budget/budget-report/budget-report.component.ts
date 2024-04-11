@@ -27,7 +27,7 @@ export class BudgetReportComponent extends AppComponentBase implements OnInit {
   budgetReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef
   rowData: IBudgetReport[] = [];
 

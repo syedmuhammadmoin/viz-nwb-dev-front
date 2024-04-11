@@ -133,7 +133,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       },
     },
     getDetailRowData: function (params) {
-      console.log(params)
       params.successCallback(params.data.quotationLines);
     }
   }
@@ -213,7 +212,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   //Patch Quotation Comparative Lines Quotation Comparative Master Data
   patchQuotationComparativeLines(quotations: any) {
     this.gridApi.forEachNode(node => {
-      let isSelect = quotations.some((x: any) => x.id === node.data.id);
+      const isSelect = quotations.some((x: any) => x.id === node.data.id);
 
       if(isSelect){
         node.setSelected(true)
@@ -235,7 +234,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
 
     this.isLoading = true;
     this.mapFormValuesToQuotationComparativeModel();
-    console.log(this.quotationComparativeModel)
     if (this.quotationComparativeModel.id) {
       this.quotationComparativeService.updateQuotationComparative(this.quotationComparativeModel)
       .pipe(
@@ -273,7 +271,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     this.quotationComparativeModel.quotationComparativeDate = this.transformDate(this.quotationComparativeForm.value.quotationComparativeDate, 'yyyy-MM-dd');
     this.quotationComparativeModel.quotationComparativeLines = [];
     this.quotationList.forEach((res: any) => {
-      let val = this.gridApi?.getSelectedRows().includes(res);
+      const val = this.gridApi?.getSelectedRows().includes(res);
       this.quotationComparativeModel.quotationComparativeLines.push({ quotationId: res.id , isSelected: ((val) ? true : false)})
     })
   }

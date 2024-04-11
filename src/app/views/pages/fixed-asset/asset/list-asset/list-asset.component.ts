@@ -20,7 +20,7 @@ import { CreateAssetComponent } from '../create-asset/create-asset.component';
 export class ListAssetComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   assetList: IAsset[];
   
   tooltipData: string = "double click to view detail"

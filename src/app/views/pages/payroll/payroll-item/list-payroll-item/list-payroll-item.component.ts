@@ -21,7 +21,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
   payrollItemList: IPayrollItem[];
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to edit"
   components: any;
   public permissions = Permissions

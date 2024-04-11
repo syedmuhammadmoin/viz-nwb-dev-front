@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -62,7 +61,7 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   isLoading: boolean;
   filterControl: FormControl = new FormControl();
   filteredOptionList: ReplaySubject<[]> = new ReplaySubject<[]>(1);
-  private options: any[] = [];
+  private options: any = [];
   private selectedOptions = []
 
   get control() {
@@ -97,13 +96,11 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
           if (this.options.length > 0 || res?.isSuccess) {
             this.isLoading = false;
           }
-          // @ts-ignore
           this.filteredOptionList.next(this.options.slice());
         }
       })
     } else {
       this.options = this.callBackFunction ? this.optionList.flatMap(this.callBackFunction) : this.optionList;
-      // @ts-ignore
       this.filteredOptionList.next(this.options?.slice());
     }
 
@@ -121,7 +118,6 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
     // get the search keyword
     let search = this.filterControl.value;
     if (!search) {
-      // @ts-ignore
       this.filteredOptionList.next(this.options.slice());
       return;
     } else {
@@ -129,7 +125,6 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
     }
     // filter the banks
     this.filteredOptionList.next(
-      // @ts-ignore
       this.options.filter(option => option[this.propertyName].toString().toLowerCase().indexOf(search) > -1)
     );
   }

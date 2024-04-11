@@ -14,7 +14,7 @@ import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
-  selector: 'app-balance-sheet',
+  selector: 'kt-balance-sheet',
   templateUrl: './balance-sheet.component.html',
   styleUrls: ['./balance-sheet.component.scss']
 })
@@ -25,7 +25,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   public currentClient : any ={}
   rowData: any[] = [];
   columnDefs: any;
-  gridOptions: any;;
+  gridOptions: any;
   gridApi: any;
   gridColumnApi: any;
   defaultColDef;
@@ -163,7 +163,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 
 
   calculateNetProfit(res: any[]) {
-    console.table(res);
     this.asset = res.filter(x => x.nature.toLowerCase() === 'assets').reduce((a, b) => {
       return Number(a) + Number(b.balance)
     }, 0).toLocaleString(undefined, {maximumFractionDigits: 2, minimumFractionDigits: 2});
@@ -179,7 +178,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         minimumFractionDigits: 2
       })})`
       : ((equity) + (liablity)).toLocaleString(undefined, {maximumFractionDigits: 2, minimumFractionDigits: 2});
-    console.log((equity) + (liablity));
   }
 
   reset() {

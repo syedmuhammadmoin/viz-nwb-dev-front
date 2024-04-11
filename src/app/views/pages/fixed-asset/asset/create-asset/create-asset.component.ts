@@ -267,7 +267,6 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       this.patchGrnData(this.data?.grnData, this.data?.grnLine);
     }
 
-    // console.log(this.data, "this is data");
     // for status is equal to Draft
     if (this.data?.id) {
       this.title = 'Edit Asset'
@@ -299,7 +298,6 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
     }
 
     // this.activatedRoute.params.subscribe((param) => {
-    //   console.log(param)
     //   const id = param.id;
 
     //   if (id) {
@@ -387,11 +385,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       .subscribe((res) => {
         this.assetModel = res.result;
         this.assetApproveModel = res.result;
-        console.log(res.result, 'this is result');
         this.patchAsset(res.result);
         this.getCost(res.result.cost)
         this.depApplicabilityToggle = res.result.depreciationApplicability;
-        console.log(res.result)
       });
 
   }
@@ -457,9 +453,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
   //Submit Form Function
   onSubmit(): void {
-    console.log(this.assetForm)
     if (this.assetForm.invalid) {
-      console.log('form is invalid');
       return;
     }
 
@@ -470,7 +464,6 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
 
 
     if (this.data?.id && this.data.status === 2) {
-      console.log('If Condition Working')
       this.assetService.updateApprovalAsset(this.assetApproveModel)
         .pipe(
           take(1),
@@ -486,7 +479,6 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
           this.router.navigate(['/' + ASSET.LIST])
         })
     } else if (this.data?.id) {
-      console.log('else If Condition Working')
       // this.onChangeDepApplicability(this.data.assetData.depreciationApplicability)
       this.assetService.updateAsset(this.assetModel)
         .pipe(
@@ -505,9 +497,7 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
         })
 
     } else {
-      console.log('else Condition Working')
       delete this.assetModel.id;
-      console.log('create')
       this.assetService.createAsset(this.assetModel)
         .pipe(
           take(1),
@@ -550,12 +540,9 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
   }
 
   getModelType(e) {
-    console.log(e)
     if (e) {
-      console.log(e + 'true')
       this.isModelType = true;
     } else {
-      console.log(e + 'false')
       this.isModelType = false;
       this.assetForm.get('decLiningRate').setValue(0)
     }
@@ -736,15 +723,12 @@ export class CreateAssetComponent extends AppComponentBase implements OnInit {
       this.perProductCost = (this.assetForm.get('cost').value);
       this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
-      console.log('first')
     } else if ((this.assetForm.get('cost').value)) {
       this.perProductCost = (this.assetForm.get('cost').value)
       this.assetForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.assetForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
-      console.log('second')
     } else {
       this.perProductCost = 0;
-      console.log('third')
     }
   }
 

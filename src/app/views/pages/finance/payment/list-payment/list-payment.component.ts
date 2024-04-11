@@ -29,7 +29,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   selectedDocumentType: number;
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   gridApi: GridApi;

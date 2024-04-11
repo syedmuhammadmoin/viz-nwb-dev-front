@@ -35,7 +35,7 @@ export class DebitNoteDetailComponent extends AppComponentBase implements OnInit
   isLoading: boolean;
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: any;
 
   //need for routing

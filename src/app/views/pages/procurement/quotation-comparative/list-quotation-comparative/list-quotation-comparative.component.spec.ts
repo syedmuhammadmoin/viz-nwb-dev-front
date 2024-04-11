@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListQuotationComparativeComponent } from './list-quotation-comparative.component';
 
@@ -6,7 +6,7 @@ describe('ListQuotationComparativeComponent', () => {
   let component: ListQuotationComparativeComponent;
   let fixture: ComponentFixture<ListQuotationComparativeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListQuotationComparativeComponent ]
     })

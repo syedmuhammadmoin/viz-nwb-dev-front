@@ -36,7 +36,7 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: ICourse[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

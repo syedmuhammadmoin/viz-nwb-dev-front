@@ -160,17 +160,14 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
     }
   }
 
-  loadAssetList($event : MatRadioButton | any, id : number = null){
+  loadAssetList($event : MatRadioButton | any){
 
     // this.categoryForm.patchValue({
     //   isFixedAsset : id
     // })
 
-    console.log($event.value);
-
     if($event.value === 0){
       this.chartOfAccountService.getOtherAccounts().subscribe((res : any) =>{
-        console.log(res);
         this.assetAccountList.next(res.result || [])
         this.showDepreciation = false
         this.categoryForm.get('depreciationModelId').clearValidators()
@@ -179,7 +176,6 @@ export class CreateCategoryComponent extends AppComponentBase implements OnInit 
       })
     } else{
       this.chartOfAccountService.getAssetAccounts().subscribe((res : any) =>{
-        console.log(res);
         this.assetAccountList.next(res.result || [])
         this.showDepreciation = true
         this.categoryForm.get('depreciationModelId').setValidators([Validators.required])

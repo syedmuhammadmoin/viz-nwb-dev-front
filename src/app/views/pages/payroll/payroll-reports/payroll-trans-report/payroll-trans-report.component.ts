@@ -82,7 +82,6 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
       suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (parmas) => {
-        console.log({parmas});
         return this.months.find(x => x.value === parmas.value).name
       }
     },
@@ -159,7 +158,7 @@ export class PayrollTransReportComponent extends AppComponentBase implements OnI
 
   rowData: any = [];
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData = 'double click to view details'
   defaultColDef: any
 

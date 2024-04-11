@@ -12,9 +12,9 @@ import { BudgetReappropriationService } from '../service/budget-reappropriation.
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 
 @Component({
-  selector: 'kt-create-budget-Reappropriation',
-  templateUrl: './create-budget-Reappropriation.component.html',
-  styleUrls: ['./create-budget-Reappropriation.component.scss']
+  selector: 'kt-create-budget-reappropriation',
+  templateUrl: './create-budget-reappropriation.component.html',
+  styleUrls: ['./create-budget-reappropriation.component.scss']
 })
 export class CreateBudgetReappropriationComponent extends AppComponentBase implements OnInit {
 
@@ -84,7 +84,6 @@ export class CreateBudgetReappropriationComponent extends AppComponentBase imple
     })
     this.activatedRoute.params.subscribe((res: Params) => {
       if (res && res.id) {
-        console.log(res.id)
         this.isLoading = true;
         this.title = 'Edit Budget Reappropriation'
         this.getBudgetReapproMaster(res.id);

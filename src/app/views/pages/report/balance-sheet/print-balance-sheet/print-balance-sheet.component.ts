@@ -41,7 +41,6 @@ export class PrintBalanceSheetComponent extends AppComponentBase implements OnIn
     this.balanceSheetService.currentBalanceSheetPrintData.subscribe((res) => {
       if (res.length > 0) {
         this.rowData = this.groupBy(res, item => item.nature);
-        console.log('map: ', this.rowData);
         this.isLoading = false;
       }
     });

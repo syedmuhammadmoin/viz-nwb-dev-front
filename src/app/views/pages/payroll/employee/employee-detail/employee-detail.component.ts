@@ -25,7 +25,7 @@ export class EmployeeDetailComponent extends AppComponentBase implements OnInit 
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //Loader

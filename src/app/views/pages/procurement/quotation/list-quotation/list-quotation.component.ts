@@ -23,7 +23,7 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
   quotationList: IQuotation[];
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   public permissions = Permissions

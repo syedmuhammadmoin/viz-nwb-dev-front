@@ -27,7 +27,7 @@ import {IDepreciationAdjustment} from '../model/IDepreciationAdjustment';
 export class ListDepreciationAdjustmentComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   DepreciationAdjustmentList: IDepreciationAdjustment[];
   
   tooltipData = 'double click to view detail'

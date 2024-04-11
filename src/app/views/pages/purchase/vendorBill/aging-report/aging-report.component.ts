@@ -22,7 +22,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   public autoGroupColumnDef: ColDef;
   public agingReportList: IVendorBill[];
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
 
   constructor(

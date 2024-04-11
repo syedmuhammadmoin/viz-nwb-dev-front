@@ -21,7 +21,7 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
   issuanceList: IIssuance[];
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   public permissions = Permissions

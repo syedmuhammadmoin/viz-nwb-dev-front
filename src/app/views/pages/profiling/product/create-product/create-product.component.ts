@@ -131,8 +131,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
         (product: IApiResponse<IProduct>) => {
           this.product = product.result;
           this.editProduct(product.result);
-        },
-        (err) => console.log(err)
+        }
       );
   }
 
@@ -157,8 +156,7 @@ export class CreateProductComponent extends AppComponentBase implements OnInit {
     }
   }
 
-  onItemSelected(e){
-    console.log(e);
+  onItemSelected(e: any){
     this.ngxsService.categories$.subscribe(res => {
       this.isFixedAsset = res.find(x => e === x.id)?.isFixedAsset;
     })

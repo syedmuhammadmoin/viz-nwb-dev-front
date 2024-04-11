@@ -37,7 +37,7 @@ export class ListSemesterComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: ISemester[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

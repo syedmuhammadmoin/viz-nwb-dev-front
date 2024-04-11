@@ -26,7 +26,7 @@ export class ListBudgetReappropriationComponent extends AppComponentBase impleme
 
   // For AG Grid..
   budgetList: IBudgetReport[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

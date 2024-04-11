@@ -33,7 +33,7 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
   }
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   ProgramList: IProgram[];
   
   tooltipData = 'double click to view detail'

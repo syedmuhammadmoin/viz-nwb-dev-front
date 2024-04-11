@@ -29,7 +29,7 @@ export class CwipDetailsComponent extends AppComponentBase implements OnInit {
   modelType: any = DepreciationMethod
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //kt busy loading

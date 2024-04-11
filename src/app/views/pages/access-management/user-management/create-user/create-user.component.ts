@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControlOptions, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatCheckboxChange } from '@angular/material/checkbox';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize, take } from 'rxjs/operators';
@@ -109,7 +109,7 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
       confirmPassword: ['']
     }, {
       validator: ConfirmPasswordValidator.MatchPassword
-    });
+    } as FormControlOptions);
 
     if (this.userForm.get('password').hasError('hasSpecialCharacters')) {
       window.scrollTo(0,document.body.scrollHeight);
@@ -154,7 +154,6 @@ export class CreateUserComponent extends AppComponentBase implements OnInit {
   }
 
   patchUser(userModel: IUserModel) {
-    console.log(userModel)
     this.userForm.patchValue({
         employeeId: userModel.employeeId,
         email: userModel.email,

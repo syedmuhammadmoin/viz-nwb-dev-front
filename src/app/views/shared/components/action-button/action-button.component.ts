@@ -16,7 +16,6 @@ export class ActionButtonComponent {
   }
 
   refresh(params?: any): boolean {
-    console.log(params);
     return true;
   }
 

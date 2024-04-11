@@ -37,7 +37,7 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   shiftList: IShift[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

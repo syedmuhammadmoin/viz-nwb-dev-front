@@ -20,7 +20,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PaymentInvoiceComponent implements OnInit, OnDestroy {
 
-  gridOptions: any;;
+  gridOptions: any;
   paymentMaster: any;
   selectedDocumented: any
   documents = AppConst.Documents

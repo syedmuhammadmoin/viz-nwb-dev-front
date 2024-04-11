@@ -36,7 +36,7 @@ export class ListFeeItemComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: IFeeItem[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

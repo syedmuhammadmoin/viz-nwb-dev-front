@@ -401,7 +401,6 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
     this.ngxsService.products$
       .subscribe((res) => {
-        console.log(res);
         this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
       })
 

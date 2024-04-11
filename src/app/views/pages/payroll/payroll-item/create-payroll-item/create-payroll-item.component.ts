@@ -66,7 +66,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   @ViewChild('formDirective') private formDirective: NgForm;
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   components: any;
   gridApi: GridApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Employees Selected !</span>';

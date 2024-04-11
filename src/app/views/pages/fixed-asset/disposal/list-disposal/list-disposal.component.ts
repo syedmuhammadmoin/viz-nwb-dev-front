@@ -24,7 +24,7 @@ import { CreateDisposalComponent } from '../create-disposal/create-disposal.comp
 export class ListDisposalComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   disposalList: IDisposal[];
   
   tooltipData: string = "double click to view detail"

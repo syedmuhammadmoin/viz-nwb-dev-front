@@ -25,7 +25,7 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
   minDate: Date
   dateCondition: boolean
 
-  // gridOptions: any;;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -42,7 +42,7 @@ export class ReportListComponent extends AppComponentBase implements OnInit {
   assetReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: any;;
+  gridOptions: any;
   rowData: IFixedAssetReport[] = [];
   reportModel: IReport = {} as IReport;
 

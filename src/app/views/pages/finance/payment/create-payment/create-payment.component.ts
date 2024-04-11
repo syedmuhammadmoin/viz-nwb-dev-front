@@ -1,5 +1,5 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit, Inject, Optional, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, Inject, Optional, ViewChild, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IPayment} from '../model/IPayment';
 import { PaymentService} from '../service/payment.service';
@@ -24,7 +24,7 @@ import { MatRadioChange } from '@angular/material/radio';
   styleUrls: ['./create-payment.component.scss']
 })
 
-export class CreatePaymentComponent extends AppComponentBase implements OnInit {
+export class CreatePaymentComponent extends AppComponentBase implements OnInit, OnDestroy {
 
   // for permissions 
   public permissions = Permissions;

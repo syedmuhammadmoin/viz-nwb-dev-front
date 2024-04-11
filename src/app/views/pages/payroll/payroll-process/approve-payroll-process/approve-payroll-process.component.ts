@@ -270,7 +270,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       }
     })
     target.employee = 'Total'
-    // console.log(target);
     return target;
   }
 

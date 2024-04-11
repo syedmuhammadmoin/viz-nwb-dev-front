@@ -29,7 +29,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
   productMaster: IProduct | any
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //Loader

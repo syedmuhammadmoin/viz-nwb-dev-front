@@ -38,7 +38,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
   }
 
   // For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   docType = DocType

@@ -127,7 +127,6 @@ export class CreateDepreciationAdjustmentComponent extends AppComponentBase impl
     const debit = (debitControl.value) !== null ? debitControl.value : null;
     const credit = (creditControl.value) !== null ? creditControl.value : null;
 
-    console.log(`credit: ${credit}, debit: ${debit}`)
     if (debit) {
       creditControl.setValue(0);
       creditControl.clearValidators();

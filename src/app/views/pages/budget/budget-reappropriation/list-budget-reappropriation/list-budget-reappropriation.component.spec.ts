@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListBudgetReappropriationComponent } from './list-budget-reappropriation.component';
 
@@ -6,7 +6,7 @@ describe('ListBudgetReappropriationComponent', () => {
   let component: ListBudgetReappropriationComponent;
   let fixture: ComponentFixture<ListBudgetReappropriationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListBudgetReappropriationComponent ]
     })

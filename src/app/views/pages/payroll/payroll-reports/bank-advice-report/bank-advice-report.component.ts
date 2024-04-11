@@ -70,7 +70,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
     ];
   }
 
-  // gridOptions: any;;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -92,7 +92,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
   bankAdviceReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: any;;
+  gridOptions: any;
   rowData: any[] = [];
 
   // Declaring Model

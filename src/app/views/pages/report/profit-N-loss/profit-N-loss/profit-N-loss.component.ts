@@ -13,7 +13,7 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
-  selector: 'app-profit-N-loss',
+  selector: 'kt-profit-n-loss',
   templateUrl: './profit-N-loss.component.html',
   styleUrls: ['./profit-N-loss.component.scss']
 })
@@ -159,14 +159,12 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
           this.cdRef.detectChanges();
          }),
         map((x: any) => {
-          console.log(x.result)
           return x.result.map((item: any) => {
             return item;
           })
         })
       )
       .subscribe((res: any) => {
-        console.log(res);
         this.rowData = res;
         this.recordsData = res;
         // for PDF
@@ -189,7 +187,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   }
 
   calculateNetProfit(res: any[]) {
-    console.table(res);
     const revenue = res.filter(x => x.nature.toLowerCase() === 'income').reduce((a, b) => {
       return Number(a) + Number(b.balance)
     }, 0);
@@ -197,7 +194,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
       return Number(a) + Number(b.balance)
     }, 0);
     this.netProfit = `(${Math.abs((revenue) - (expense)).toLocaleString()})`
-    console.log((revenue) - (expense));
   }
 
   reset() {
@@ -222,4 +218,4 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
         }
       })
   }
-};
+}

@@ -13,7 +13,6 @@ export class AgGridButtonCellRendrerComponent implements ICellRendererAngularCom
 
   agInit(params: ICellRendererParams) {
     this.params = params;
-    console.log(params.data)
   }
 
   refresh(params: any): boolean {

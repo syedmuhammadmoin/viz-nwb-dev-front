@@ -18,7 +18,7 @@ import { isEmpty } from 'lodash';
 export class ListVendorBillComponent extends AppComponentBase implements OnInit {
 
   vendorBillList: any;
-  gridOptions: any;;
+  gridOptions: any;
   
   defaultColDef: any;
   tooltipData: string = "double click to view detail"

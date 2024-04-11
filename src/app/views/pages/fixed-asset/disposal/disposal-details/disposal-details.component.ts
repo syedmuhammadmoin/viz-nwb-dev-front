@@ -34,7 +34,7 @@ export class DisposalDetailsComponent extends AppComponentBase implements OnInit
   docStatus = DocumentStatus
 
   // For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   // kt busy loading

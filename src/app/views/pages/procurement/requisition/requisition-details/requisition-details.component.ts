@@ -29,7 +29,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public REQUISITION = REQUISITION;

@@ -37,7 +37,7 @@ export class ListStateComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: IState[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

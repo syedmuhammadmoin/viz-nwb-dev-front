@@ -196,9 +196,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.ngxsService.getAccountPayableFromState();
     this.ngxsService.getCampusFromState();
     this.ngxsService.getAccountLevel4FromState();
-    console.log(this.ngxsService.payrollItems$, "Items");
-
-
 
     //to show message for information
     // this.toastService.info('Only Account Payable field is editable.', 'Payroll')
@@ -334,7 +331,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         if (!res) {
           return
         }
-        console.log(res, "payroll get response");
 
         this.payrollTransaction = res.result
         this.editPayrollTransaction(this.payrollTransaction)
@@ -364,7 +360,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       religion: payrollTransaction.religion,
       employeeType: payrollTransaction.employeeType,
     });
-    console.log(this.payrollTransactionForm);
 
     // this.onCampusSelected(pettyEntry.campusId)
     this.showMessage = true;
@@ -375,9 +370,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // submit method called on submit button
   onSubmit() {
-    debugger;
-    console.log(this.payrollTransactionForm, "Payroll form submit pr");
-
     if (this.payrollTransactionForm.get('payrollTransactionLines').invalid) {
       this.payrollTransactionForm.get('payrollTransactionLines').markAllAsTouched();
     }

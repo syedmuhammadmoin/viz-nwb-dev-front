@@ -1,5 +1,5 @@
 // Angular
-import { AfterViewInit, Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core';
 import { isEmpty } from 'lodash';
 // RxJS
 import { Subscription } from 'rxjs';
@@ -12,7 +12,7 @@ import { Breadcrumb } from '../../../../core/_base/layout/services/subheader.ser
   templateUrl: './subheader1.component.html',
   styleUrls: ['./subheader1.component.scss']
 })
-export class Subheader1Component implements OnInit, OnDestroy, AfterViewInit {
+export class Subheader1Component implements OnDestroy, AfterViewInit {
   // Public properties
   @Input() fixed = true;
   @Input() clear = false;
@@ -41,12 +41,6 @@ export class Subheader1Component implements OnInit, OnDestroy, AfterViewInit {
   /**
    * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
    */
-
-  /**
-   * On init
-   */
-  ngOnInit() {
-  }
 
   /**
    * After view init

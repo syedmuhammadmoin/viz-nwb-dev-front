@@ -200,7 +200,6 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   }
 
   employeesSelectionToggle(isChecked : boolean) {
-    console.log(isChecked)
     if(isChecked) {
       this.gridApi.forEachNode(node => (node.setSelected(true) , this.employeeSelection = 'Un-Select All'))
     }

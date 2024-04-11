@@ -19,7 +19,7 @@ export class ListBatchTypeComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   BatchTypeList: IBatch[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

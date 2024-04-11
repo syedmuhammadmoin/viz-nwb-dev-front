@@ -49,7 +49,7 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   batchList: IBatch[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   
@@ -191,7 +191,6 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    console.log({event})
     this.router.navigate(['/' + BATCH.ID_BASED_ROUTE('details', event.data.id)]);
   }
 

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrintExecutiveReportComponent } from './print-executive-report.component';
 
@@ -6,7 +6,7 @@ describe('PrintExecutiveReportComponent', () => {
   let component: PrintExecutiveReportComponent;
   let fixture: ComponentFixture<PrintExecutiveReportComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrintExecutiveReportComponent ]
     })

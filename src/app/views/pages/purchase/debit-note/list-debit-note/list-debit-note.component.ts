@@ -21,7 +21,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   debitNoteList: any;
   defaultColDef: any;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   public permissions = Permissions

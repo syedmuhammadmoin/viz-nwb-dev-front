@@ -44,7 +44,6 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
 
   ngOnInit(): void {
     this.fileList = this.data.response.fileUploadList;
-    console.log('fileList : ', this.fileList)
   }
 
   // upload file
@@ -81,14 +80,12 @@ export class CustomUploadFileComponent extends AppComponentBase implements OnIni
   }
 
   download(file: any) {
-    console.log('download called');
     let fileUrl = AppConst.remoteServiceBaseUrl + 'DocumentDownload/' + file.id + `?docType=${file.docType}`
     if (this.data.name === 'Employee') {
       fileUrl = AppConst.remoteServiceBaseUrl + 'employee/download/' + file.id
     }
     this.httpClient.get(fileUrl, { responseType: 'blob' })
       .subscribe((event: any) => {
-        console.log('download event: ', event);
         this.downloadFile(event, file);
       });
   }

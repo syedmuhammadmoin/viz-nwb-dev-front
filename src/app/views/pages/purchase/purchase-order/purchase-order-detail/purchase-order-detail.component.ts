@@ -34,7 +34,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
 
   purchaseOrderMaster: any;
   purchaseOrderLines: any ;
-  gridOptions: any;;
+  gridOptions: any;
 
   totalBeforeTax: number;
   totalTax: number;

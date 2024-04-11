@@ -116,7 +116,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
       vendorName: [{value: '' , disabled: true}, [Validators.required]],
       goodsReturnNoteDate: ['', [Validators.required]],
       contact: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
-      campusId: [{value: '' , disabled: true},, [Validators.required]],
+      campusId: [{value: '' , disabled: true}, [Validators.required]],
       goodsReturnNoteLines: this.fb.array([
         this.addGoodsReturnNoteLines()
       ])

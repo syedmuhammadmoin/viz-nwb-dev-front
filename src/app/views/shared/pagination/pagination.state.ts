@@ -16,7 +16,7 @@ export class PaginationStateModel {
   pageNumber: number;
 }
 
-export abstract class PaginationState<T extends {}>{
+export abstract class PaginationState<T extends object>{
 
   private readonly idKey: string;
   private readonly storePath: string;
@@ -32,7 +32,7 @@ export abstract class PaginationState<T extends {}>{
   }
 
   static get pageNumber(): StateSelector<any> {
-    return createSelector([this], state => {
+    return createSelector([this as any], state => {
       return state.pageNumber;
     });
   }

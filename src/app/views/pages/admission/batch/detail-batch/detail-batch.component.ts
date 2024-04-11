@@ -27,7 +27,7 @@ export class DetailBatchComponent extends AppComponentBase implements OnInit {
   docStatus = DocumentStatus
 
   // For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   transactionReconModel: ITransactionRecon = {} as ITransactionRecon;

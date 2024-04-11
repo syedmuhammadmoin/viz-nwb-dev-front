@@ -21,7 +21,7 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: IFaculty[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   
@@ -140,7 +140,7 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
       this.gridApi.setDatasource(this.dataSource)
       this.cdRef.detectChanges();
     })
-  };
+  }
 
 dataSource = {
   getRows: async (params: any) => {

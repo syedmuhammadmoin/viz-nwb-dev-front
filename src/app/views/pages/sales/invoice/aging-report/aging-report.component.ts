@@ -21,7 +21,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   public autoGroupColumnDef: ColDef;
   public agingReportList: IInvoice[];
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
 
   constructor(
@@ -60,7 +60,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days <= 30) { return this.valueFormatter(params.data.pendingAmount); };
+          if (days <= 30) { return this.valueFormatter(params.data.pendingAmount); }
 
         }
       },
@@ -73,7 +73,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days > 30 && days <= 60) { return this.valueFormatter(params.data.pendingAmount); };
+          if (days > 30 && days <= 60) { return this.valueFormatter(params.data.pendingAmount); }
         }
       }
     },
@@ -85,7 +85,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days > 60 && days <= 90) { return this.valueFormatter(params.data.pendingAmount); };
+          if (days > 60 && days <= 90) { return this.valueFormatter(params.data.pendingAmount); }
         }
       }
     },
@@ -96,7 +96,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days > 90) { return this.valueFormatter(params.data.pendingAmount) };
+          if (days > 90) { return this.valueFormatter(params.data.pendingAmount) }
         }
       }
     },
@@ -149,7 +149,6 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   onGridReady() {
     this.invoiceService.getAgingReport().subscribe((data: IApiResponse<any[]>) => {
       //this.agingReportList = data.result.filter((x: any) => x.state == DocumentStatus.Unpaid || x.state == DocumentStatus.Partial);
-      console.log(data.result)
       this.agingReportList = data.result;
       this.cdRef.detectChanges();
     });

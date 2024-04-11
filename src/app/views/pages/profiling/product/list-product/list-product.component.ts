@@ -21,7 +21,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
 
   productList: IProduct[];
   
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   tooltipData: string = "double click to edit"
   components: any;

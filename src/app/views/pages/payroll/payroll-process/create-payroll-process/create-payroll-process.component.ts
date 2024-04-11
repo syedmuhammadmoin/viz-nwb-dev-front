@@ -282,14 +282,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       });
   }
 
-  onEmployeeRowClicked($event: any) {
-    console.log($event)
-  }
-
-  onFirstDataRendered(params: FirstDataRenderedEvent) {
-    //params.api.sizeColumnsToFit();
-  }
-
   onGridReady(params) {
     this.employeeGridApi = params.api;
   }

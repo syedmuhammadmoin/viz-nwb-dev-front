@@ -20,7 +20,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 export class ListDepreciationComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   depreciationList: IDepreciation[];
   
   tooltipData: string = "double click to view detail"

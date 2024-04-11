@@ -30,7 +30,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
 
   businessPartnerList: IBusinessPartner[];
   
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions
   components: any;

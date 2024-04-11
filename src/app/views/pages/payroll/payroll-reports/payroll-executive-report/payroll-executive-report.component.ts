@@ -73,7 +73,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     ];
   }
 
-  // gridOptions: any;;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -95,7 +95,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   payrollExecutiveForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: any;;
+  gridOptions: any;
   rowData: any[] = [];
 
   // Declaring Model
@@ -149,7 +149,6 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       return;
     }
     this.mapFormValueToModel();
-    console.log(this.payrollExecutiveModel);
     this.isLoading = true;
     this.payrollReportService.getExecutiveSummary(this.payrollExecutiveModel).pipe(
       finalize(() => {

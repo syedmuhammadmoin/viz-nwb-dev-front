@@ -171,7 +171,6 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
           return
         }
         this.requestRequisitionModel = res.result
-        console.log(this.requestRequisitionModel);
         this.editRequestRequisition(this.requestRequisitionModel)
       });
   }
@@ -219,7 +218,6 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     this.mapFormValuesTorequestRequisitionModel();
 
     this.isLoading = true;
-    console.log(this.requestRequisitionModel)
     if (this.requestRequisitionModel.id) {
       this.requestRequisitionService.updateRequestRequisition(this.requestRequisitionModel)
         .pipe(
@@ -258,7 +256,7 @@ export class CreateRequestRequisitionComponent extends AppComponentBase implemen
     this.requestRequisitionModel.requestDate = this.transformDate(this.requestRequisitionForm.value.requestDate, 'yyyy-MM-dd');
     this.requestRequisitionModel.campusId = this.requestRequisitionForm.getRawValue().campusId;
     this.requestRequisitionModel.requestLines = this.requestRequisitionForm.value.requestLines;
-  };
+  }
 
   // open business partner dialog
   openBusinessPartnerDialog() {

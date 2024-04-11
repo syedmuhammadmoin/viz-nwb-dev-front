@@ -25,7 +25,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
   rowData: any = [];
 
   // 
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   gridApi: GridApi;
   gridColumnApi: any;

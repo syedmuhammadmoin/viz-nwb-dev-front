@@ -17,7 +17,7 @@ import {isEmpty} from 'lodash';
 export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   campusList: ICampus[]
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   components: any;
   gridApi: GridApi;

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListCallQuotaionComponent } from './list-call-quotaion.component';
 
@@ -6,7 +6,7 @@ describe('ListCallQuotaionComponent', () => {
   let component: ListCallQuotaionComponent;
   let fixture: ComponentFixture<ListCallQuotaionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListCallQuotaionComponent ]
     })

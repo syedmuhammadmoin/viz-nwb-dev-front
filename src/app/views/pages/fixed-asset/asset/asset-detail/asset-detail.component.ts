@@ -56,7 +56,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   modelType: any = DepreciationMethod
 
   // For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   // kt busy loading
@@ -215,17 +215,11 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     this.organiationEndDate.setMonth(this.organizationStartDate.getMonth() + 12)
     this.organiationEndDate.setDate(this.organizationStartDate.getDate() - 1)
 
-    console.log('dates')
-    console.log(this.organizationStartDate)
-    console.log(this.organiationEndDate)
-    // console.log(this.getTotalDays(this.organizationStartDate , this.organiationEndDate , true))
-
     let firstYearCharge = 0;
 
 
     if (this.isActive) {
       if (this.method === 'straightLine' && (this.sameYear === false)) {
-        console.log('entered in prorata')
         for (let i = 0; i <= this.usefulLife; i++) {
 
           if (i === 0) {
@@ -317,9 +311,7 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
       // if Prorata Basis ON
       if (this.isProrataBasis) {
         if (this.method === 'decliningBalance' && (this.sameYear === false)) {
-          console.log('entered in prorata')
-          // consoling
-          console.log('Year', 'beginingBookValue  this.chargeForTheYear     AccumulatedDepreciation     endingBookValue')
+
           // looping according to functionality
           for (let i = 0; i <= this.usefulLife; i++) {
 
@@ -328,9 +320,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
               this.chargeForTheYear = (this.depreciableValue - this.accumulatedDepreciation);
             } else if (i === 0) {
               this.numOfDays = this.getTotalDays(this.activeDate, this.organiationEndDate, true)
-              console.log('number of days in firs year')
-              console.log(this.numOfDays)
-              console.log(this.totalDaysInYear)
               this.chargeForTheYear = (this.depreciableValue) * this.decliningFactor * (this.numOfDays / this.totalDaysInYear);
             }
             // depreciate values according to declining percentage
@@ -376,9 +365,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
                 // storing values in fixed asset table
                 this.valuesInFixedAssetTable()
               }
-
-              // consoling fixed asset table
-              console.log(this.fixedAssetList)
               return // end operation after 100% charge
             }
 
@@ -387,10 +373,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
             // increment year
             this.year++;
           }
-
-          // consoling fixed asset table
-          console.log('list')
-          console.log(this.fixedAssetList)
         }
       }
     }
@@ -446,9 +428,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
               // storing values in fixed asset table
               this.valuesInFixedAssetTable()
             }
-
-            // consoling fixed asset table
-            console.log(this.fixedAssetList)
             return // end operation after 100% charge
           }
 
@@ -457,10 +436,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
           // increment year
           this.year++;
         }
-
-        // consoling fixed asset table
-        console.log('list')
-        console.log(this.fixedAssetList)
       }
     }
   }
@@ -496,16 +471,10 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   //   this.organiationEndDate.setMonth(this.organizationStartDate.getMonth() + 12)
   //   this.organiationEndDate.setDate(this.organizationStartDate.getDate() - 1)
 
-  //   console.log("dates")
-  //   console.log(this.organizationStartDate)
-  //   console.log(this.organiationEndDate)
-  //   // console.log(this.getTotalDays(this.organizationStartDate , this.organiationEndDate , true))
-
   //   let firstYearCharge = 0;
 
   //   if(this.isActive) {
   //     if(this.method === 'straightLine' && (this.sameYear === false)) {
-  //       console.log("entered in prorata")
   //       for(var i = 0 ; i <= this.usefulLife ; i++) {
   //         if(i === 0) {
   //           if(entries != 0) {
@@ -547,7 +516,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   //        }
 
   //        else if(i > 0 && i < this.usefulLife) {
-  //         console.log(i)
   //            this.chargeForTheYear = (this.depreciableValue / this.usefulLife);
   //        }
 
@@ -574,8 +542,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
   //         this.valuesInFixedAssetTable()
   //         this.year++
   //       }
-
-  //       console.log(this.fixedAssetList)
   //    }
   //   }
   // }
@@ -610,9 +576,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
       if (Difference_In_Days === 0) {
         Difference_In_Days = 1
       }
-      console.log(organizationDate)
-      console.log(activeDate)
-      console.log(Difference_In_Days)
     } else {
       // calculate days for last year
       Difference_In_Days = ((activeDate.getTime() - organizationDate.getTime()) / (1000 * 3600 * 24)) + 1;
@@ -629,7 +592,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
 
     // sending remarks data after dialog closed
     dialogRef.afterClosed().subscribe((res) => {
-      console.log(res);
       if (res) {
         this.heldForDisposal()
       }
@@ -664,7 +626,6 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
         this.cdRef.detectChanges();
         this.router.navigate(['/' + ASSET.LIST])
       })
-    console.log(this.assetMaster.id)
   }
 
   workflow(action: number, remarks: string) {

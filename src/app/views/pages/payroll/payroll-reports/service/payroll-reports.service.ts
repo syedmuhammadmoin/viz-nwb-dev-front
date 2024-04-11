@@ -48,7 +48,7 @@ export class PayrollReportsService {
   }
 
   downloadTransactionDetailReport(model: any):  Observable<any> {
-    let url = AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}&FromDate=${model.fromDate}&ToDate=${model.toDate}`;
+    const url = AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}&FromDate=${model.fromDate}&ToDate=${model.toDate}`;
 
     return this.httpClient.get(url, { responseType: 'arraybuffer' });
   }

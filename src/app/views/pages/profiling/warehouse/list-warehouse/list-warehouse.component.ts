@@ -113,7 +113,6 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
 
   onRowDoubleClicked(event : RowDoubleClickedEvent) {
     this.openDialog(event.data.id)
-    console.log("popup open kro")
   }
 
   openDialog(id?: number): void {

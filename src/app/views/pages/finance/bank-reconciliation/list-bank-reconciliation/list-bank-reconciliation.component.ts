@@ -153,18 +153,17 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     this.paymentGridApi.showLoadingOverlay();
     this.bankAccountId = this.reconForm.value.bankName;
     this.ngxsService.bankAccountService.getBankAccount(this.bankAccountId)
-      .subscribe(
-        (bankAccount: any) => {
-          console.log(bankAccount.result)
+      .subscribe({
+        next: (bankAccount: any) => {
           this.clearingAccountId = bankAccount.result.clearingAccountId;
           this.loadReconciliationGridData();
           this.cdRef.detectChanges();
         },
-        (err: any) => {
+        error: () => {
           this.paymentGridApi.hideOverlay();
           this.statementGridApi.hideOverlay();
         }
-      );
+      });
   }
 
   onBankStatementRowClicked() {
@@ -212,16 +211,18 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       this.paymentGridApi.showLoadingOverlay();
       this.statementGridApi.showLoadingOverlay();
       this.statementGridApi.hideLoading
-      this.bankReconService.reconcileStatement(arrayOfReconData).subscribe((res) => {
+      this.bankReconService.reconcileStatement(arrayOfReconData).subscribe({
+        next: () => {
           this.isloading = true;
           this.loadReconciliationGridData();
           this.cdRef.detectChanges();
           this.toastService.success('Reconciliation Successful', 'Reconciled Successfully')
-        }, (err) => {
+        }, 
+        error: () => {
           this.paymentGridApi.hideOverlay();
           this.statementGridApi.hideOverlay();
         }
-      )
+      })
     }
   }
 

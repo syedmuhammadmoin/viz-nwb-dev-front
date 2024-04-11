@@ -22,7 +22,7 @@ export class ListAcademicDepartmentComponent extends AppComponentBase implements
 
 // For AG Grid..
   DepartmentList: IAcademicDepartment[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   

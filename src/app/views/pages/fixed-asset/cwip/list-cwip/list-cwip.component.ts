@@ -23,7 +23,7 @@ import { CreateCwipComponent } from '../create-cwip/create-cwip.component';
 export class ListCwipComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   cwipList: ICwip[];
   
   tooltipData: string = "double click to view detail"

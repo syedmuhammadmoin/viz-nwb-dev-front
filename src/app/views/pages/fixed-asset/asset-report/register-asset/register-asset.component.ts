@@ -21,7 +21,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   // for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  // gridOptions: any;;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -38,7 +38,7 @@ export class RegisterAssetComponent extends AppComponentBase implements OnInit {
   registerAssetForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: any;;
+  gridOptions: any;
   rowData: IAsset[] | any = [];
   reportModel: IReport = {} as IReport;
 

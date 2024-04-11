@@ -12,7 +12,7 @@ import { isEmpty } from 'lodash';
 
 
 @Component({
-  selector: 'kt-list-cashAccount',
+  selector: 'kt-list-cashaccount',
   templateUrl: './list-cash-account.component.html',
   styleUrls: ['./list-cash-account.component.scss'],
   changeDetection : ChangeDetectionStrategy.OnPush

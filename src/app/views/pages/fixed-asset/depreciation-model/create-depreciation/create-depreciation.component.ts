@@ -148,7 +148,6 @@ export class CreateDepreciationComponent extends AppComponentBase implements OnI
       this.title = 'Edit Depreciation Model'
       this.isLoading = true
       this.depreciationModel = {} as IDepreciation
-      console.log(this._id)
       this.getDepreciation(this._id);
 
     } else {
@@ -212,16 +211,13 @@ export class CreateDepreciationComponent extends AppComponentBase implements OnI
 
   // Submit Form Function
   onSubmit(): void {
-    console.log(this.depreciationForm);
-
-
     if (this.depreciationForm.invalid) {
       return;
     }
 
     this.isLoading = true;
     this.mapFormValuesToDepreciationModel();
-    console.log(this.depreciationModel)
+
     if (this._id) {
       this.depreciationMethodService.updateDepreciation(this.depreciationModel)
         .pipe(
@@ -284,11 +280,9 @@ export class CreateDepreciationComponent extends AppComponentBase implements OnI
 
   methodChange(event: MatRadioChange) {
     if (event.value) {
-      console.log('decliningRate' + event.value);
       this.depreciationForm.get('decliningRate').setValidators([Validators.max(100), Validators.min(1), Validators.required])
       this.isDeclining = true;
     } else {
-      console.log('decliningRate' + event.value);
       this.depreciationForm.get('decliningRate').clearValidators();
       this.depreciationForm.get('decliningRate').updateValueAndValidity();
       this.depreciationForm.get('decliningRate').setValue(0)

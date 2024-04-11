@@ -19,7 +19,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
   grnList: IGRN[];
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   gridApi: GridApi;

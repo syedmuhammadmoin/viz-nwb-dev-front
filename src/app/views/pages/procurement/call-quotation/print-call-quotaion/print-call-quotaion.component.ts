@@ -16,7 +16,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintCallQuotaionComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: any;;
+  gridOptions: any;
   callQuotationMaster: any;
   callQuotationLines: any;
   edinfini : boolean;

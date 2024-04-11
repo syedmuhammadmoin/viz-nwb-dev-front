@@ -108,7 +108,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
 
     /**Spliting every permissions in permissions array to get module name and group permissions module wise */
 
-    let groupByPerms = this.groupBy(this.roleClaims, value => value.value.split('.')[0])
+    const groupByPerms = this.groupBy(this.roleClaims, value => value.value.split('.')[0])
 
     //Passing Group data in buildFileTree function to get tree view
     const data = this.buildFileTree(Object.fromEntries(groupByPerms), 0);
@@ -232,7 +232,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
       return
     }
 
-    let roles = [];
+    const roles = [];
     this.treeControl.dataNodes.map((res) => {
       if (res.level === 1) {
         if (this.checklistSelection.isSelected(res)) {
@@ -290,9 +290,7 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
 
   getClaims() {
     this.accessManagementService.getClaims().subscribe((res) => {
-      console.log(res)
       res.result.forEach(element => {
-        // console.log(element)
         this.roleClaims.push(
           {
             type: 'permission',
@@ -384,7 +382,6 @@ export class CreateRoleComponent extends AppComponentBase implements OnInit {
   /* Get the parent node of a node */
   getParentNode(node: TodoItemFlatNode): TodoItemFlatNode | null {
     const currentLevel = this.getLevel(node);
-  console.log(node,"Waleed get parent node");
   
     if (currentLevel < 1) {
       return null;

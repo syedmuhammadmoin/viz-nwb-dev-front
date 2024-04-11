@@ -27,7 +27,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
   docStatus = DocumentStatus
 
   //For AG Grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //Loader

@@ -21,7 +21,7 @@ export class ListQualificationComponent extends AppComponentBase implements OnIn
   
   // For AG Grid..
     QualificationList: IQualification[];
-    gridOptions: any;;
+    gridOptions: any;
     defaultColDef: ColDef;
     public permissions = Permissions;
     
@@ -139,7 +139,7 @@ export class ListQualificationComponent extends AppComponentBase implements OnIn
         this.gridApi.setDatasource(this.dataSource)
         this.cdRef.detectChanges();
       })
-    };
+    }
   
   dataSource = {
     getRows: async (params: any) => {

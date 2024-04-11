@@ -230,8 +230,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.isLoading.emit(true);
     const selectedTransactions = this.employeeGridApi.getSelectedRows()
     const bodyList = [] //as ICreatePayrollTransLines[]
-    console.log("selcted employees")
-    console.log(selectedTransactions)
+
     selectedTransactions.forEach((x: any) => {
       bodyList.push({
         accountPayableId: x.accountPayableId,
@@ -249,7 +248,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     body.description = this.createPayrollPaymentForm.value.description;
     body.createPayrollTransLines = bodyList;
 
-    console.log(body)
     this.payrollProcessService.createPaymentProcess(body)
     .pipe(
       take(1),
@@ -291,8 +289,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.propertyName = 'cashAccountName';
     } else {
       this.ngxsService.bankAccountService.getBankAccountsDropdown().subscribe((res: IApiResponse<IBankAccount[]>) => {
-        console.log("entered")
-        console.log(res.result)
         this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })

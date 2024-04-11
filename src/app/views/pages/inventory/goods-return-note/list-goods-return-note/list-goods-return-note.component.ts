@@ -19,7 +19,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
   goodsReturnNoteList: IGoodsReturnNote[];
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   gridApi: GridApi;

@@ -15,7 +15,7 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 })
 export class PrintRequestRequisitionComponent implements OnInit {
 
-  gridOptions: any;;
+  gridOptions: any;
   requestRequisitionMaster: IRequestRequisition | any;
   requestRequisitionLines: IRequestRequisitionLines[] | any;
   edinfini : boolean;

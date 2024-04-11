@@ -18,7 +18,7 @@ import { PettyCashService } from '../service/petty-cash.service';
 export class ListPettyCashComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: any;;
+  gridOptions: any;
   pettyEntryList: IPettyCashEntry[];
   
   tooltipData: string = "double click to view detail"

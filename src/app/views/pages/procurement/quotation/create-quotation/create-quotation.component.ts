@@ -152,7 +152,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
+    const arrayControl = this.quotationForm.get('quotationLines') as FormArray;
     if (itemId) {
       const price = this.salesItem.find(i => i.id === itemId).purchasePrice
 

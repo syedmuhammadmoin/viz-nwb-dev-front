@@ -28,7 +28,7 @@ import {isEmpty} from 'lodash';
 export class ListBudgetComponent extends AppComponentBase implements OnInit {
 
   budgetList: IBudgetResponse[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   
   tooltipData: string = 'double click to view detail'

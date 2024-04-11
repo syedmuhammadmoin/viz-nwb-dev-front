@@ -32,7 +32,7 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public INVOICE = INVOICE;
@@ -266,13 +266,12 @@ export class InvoiceDetailsComponent extends AppComponentBase implements OnInit 
   }
 
   mapTransactionReconModel(index: number) {
-    console.log('this.bpUnReconPaymentList[index].paymentledgerId', this.bpUnReconPaymentList[index].paymentledgerId)
     this.transactionReconModel.paymentLedgerId = this.bpUnReconPaymentList[index].paymentLedgerId;
     this.transactionReconModel.documentLedgerId = this.ledgerId;
     this.transactionReconModel.amount = this.bpUnReconPaymentList[index].amount > this.pendingAmount
       ? this.pendingAmount
       : this.bpUnReconPaymentList[index].amount;
-  };
+  }
 
   //Get Remarks From User
   remarksDialog(action: any): void {

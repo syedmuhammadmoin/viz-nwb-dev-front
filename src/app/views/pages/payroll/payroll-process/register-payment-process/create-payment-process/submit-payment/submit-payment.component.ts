@@ -71,8 +71,6 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
       field: 'paymentDate', 
       suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
-        console.log(params.value);
-        console.log(new Date(params.value))
         return this.dateHelperService.transformDate(new Date(params.value), 'dd MMM, yyyy')
       }
     },
@@ -189,7 +187,7 @@ export class SubmitPaymentComponent extends AppComponentBase implements OnInit {
     const selectedTransactions = this.employeeGridApi.getSelectedRows().map(x => {
       return x.id
     })
-    console.log(selectedTransactions);
+
     this.payrollProcessService.submitPaymentProcess(selectedTransactions)
     .pipe(
       take(1),

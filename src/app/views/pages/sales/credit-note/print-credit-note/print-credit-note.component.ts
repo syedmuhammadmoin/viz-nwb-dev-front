@@ -17,7 +17,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintCreditNoteComponent extends AppComponentBase implements OnInit {
 
-    gridOptions: any;;
+    gridOptions: any;
     creditNoteMaster: ICreditNote | any;
     creditNoteLines: ICreditNoteLines | any;
 

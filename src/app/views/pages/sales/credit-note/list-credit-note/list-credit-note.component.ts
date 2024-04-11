@@ -21,7 +21,7 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   creditNoteList: ICreditNote[];
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   public permissions = Permissions

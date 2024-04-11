@@ -26,7 +26,7 @@ export class DetailBudgetReappropriationComponent extends AppComponentBase imple
   statusMaster: any;
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //Loader
@@ -87,7 +87,6 @@ export class DetailBudgetReappropriationComponent extends AppComponentBase imple
   ];
 
   ngOnInit() {
-    // console.log(this.budgetMaster.id , 'getting id')
     this.route.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {

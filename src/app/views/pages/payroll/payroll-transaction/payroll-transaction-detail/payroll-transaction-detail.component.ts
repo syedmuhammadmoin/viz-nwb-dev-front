@@ -28,7 +28,7 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public PAYROLL_TRANSACTION = PAYROLL_TRANSACTION;

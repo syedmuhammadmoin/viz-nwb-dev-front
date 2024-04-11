@@ -74,7 +74,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
 
   rowData: any = [];
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData = 'double click to view details'
   defaultColDef: any
 
@@ -277,7 +277,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
     this.mapFormValueToModel()
 
     this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel).subscribe((data: any) => {
-      let fileName = `Payroll Transaction Detail ${this.transactionDetailModel.fromDate} till ${this.transactionDetailModel.toDate}.xlsx`;
+      const fileName = `Payroll Transaction Detail ${this.transactionDetailModel.fromDate} till ${this.transactionDetailModel.toDate}.xlsx`;
       this.createExcelFile(data, fileName)
     });
   }

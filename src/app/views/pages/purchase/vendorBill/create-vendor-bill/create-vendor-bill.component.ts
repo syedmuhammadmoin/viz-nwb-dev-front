@@ -298,7 +298,6 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
        if (!res) {
          return
        }
-       console.log(res)
        this.grnMaster = res.result;
        this.patchBill(this.grnMaster)
      });
@@ -439,7 +438,7 @@ export class CreateVendorBillComponent extends AppComponentBase implements OnIni
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.vendorBillForm.dirty;
-   };
+  }
 
   // open business partner dialog
   openBusinessPartnerDialog() {

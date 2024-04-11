@@ -23,7 +23,6 @@ export class AuthenticationService {
                 observer.next(true);
             } catch (err) {
                 observer.error(err)
-                console.log(err)
             }
         });
         return signOutObservable

@@ -48,7 +48,7 @@ export class PrintGeneralLedgerComponent extends AppComponentBase implements OnI
     });
 
     this.activatedRoute.queryParamMap.subscribe((param) => {
-      this.businessPartner = param.get('businessPartner');;
+      this.businessPartner = param.get('businessPartner');
       this.account = param.get('account');
       this.from = param.get('from');
       this.to = param.get('to');

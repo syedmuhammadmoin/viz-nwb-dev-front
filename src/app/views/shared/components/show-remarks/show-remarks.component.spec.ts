@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ShowRemarksComponent } from './show-remarks.component';
 
@@ -6,7 +6,7 @@ describe('ShowRemarksComponent', () => {
   let component: ShowRemarksComponent;
   let fixture: ComponentFixture<ShowRemarksComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ShowRemarksComponent ]
     })

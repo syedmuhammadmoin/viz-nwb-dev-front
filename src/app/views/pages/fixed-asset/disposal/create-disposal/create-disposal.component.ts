@@ -216,7 +216,6 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
     this.mapFormValuesTodisposalModel();
 
     if (this.data?.id) {
-      console.log('edit')
       this.disposalService.updateDisposal(this.disposalModel)
         .pipe(
           take(1),
@@ -319,14 +318,10 @@ export class CreateDisposalComponent extends AppComponentBase implements OnInit 
   }
 
   updateBPValidity($event: any) {
-    console.log('updateBPValidity')
     if (this.disposalForm.get('disposalValue').value > 0) {
-      console.log('If')
-      console.log(this.disposalForm.get('disposalValue').value)
       this.isBPRequired = true
       this.disposalForm.get('businessPartnerId').setValidators([Validators.required])
     } else {
-      console.log('Else')
       this.disposalForm.get('businessPartnerId').clearValidators();
       this.disposalForm.updateValueAndValidity();
       this.formErrors.businessPartnerId = ''

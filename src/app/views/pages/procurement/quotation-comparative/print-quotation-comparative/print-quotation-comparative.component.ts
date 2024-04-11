@@ -14,7 +14,7 @@ import { QuotationComparativeService } from '../service/quotation-comparative.se
 })
 export class PrintQuotationComparativeComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: any;;
+  gridOptions: any;
   quotComparativeMaster: any;
   quotations: any;
   edinfini : boolean;

@@ -252,10 +252,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     this.table?.renderRows();
   }
 
-  onFileDropped(e: any) {
-    console.log(e)
-  }
-
   //Add Bank Statement Line
   addBanKStatementLines(): FormGroup {
     return this.fb.group({

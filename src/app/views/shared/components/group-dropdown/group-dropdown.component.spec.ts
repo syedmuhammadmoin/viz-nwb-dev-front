@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GroupDropdownComponent } from './group-dropdown.component';
 
@@ -6,7 +6,7 @@ describe('GroupDropdownComponent', () => {
   let component: GroupDropdownComponent;
   let fixture: ComponentFixture<GroupDropdownComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GroupDropdownComponent ]
     })

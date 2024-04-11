@@ -21,7 +21,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     public permissions = Permissions;
     defaultColDef: ColDef;
     
-    gridOptions: any;;
+    gridOptions: any;
     components: any;
     gridApi: GridApi;
     gridColumnApi: ColumnApi;
@@ -118,7 +118,6 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     }
 
     onRowDoubleClicked(event : RowDoubleClickedEvent) {
-      console.log("popup open kro")
       this.openDialog(event.data.id)
     }
   

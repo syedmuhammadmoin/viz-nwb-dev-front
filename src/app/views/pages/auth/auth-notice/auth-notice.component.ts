@@ -11,7 +11,7 @@ import { AuthNotice, AuthNoticeService } from '../../../../core/auth/';
 })
 export class AuthNoticeComponent implements OnInit, OnDestroy {
 	@Output() type: any;
-	@Output() message: any = '';
+	@Output() noticeMessage: any = '';
 
 	// Private properties
 	private subscriptions: Subscription[] = [];
@@ -36,7 +36,7 @@ export class AuthNoticeComponent implements OnInit, OnDestroy {
 		this.subscriptions.push(this.authNoticeService.onNoticeChanged$.subscribe(
 			(notice: AuthNotice) => {
 				notice = Object.assign({}, {message: '', type: ''}, notice);
-				this.message = notice.message;
+				this.noticeMessage = notice.message;
 				this.type = notice.type;
 				this.cdr.markForCheck();
 			}

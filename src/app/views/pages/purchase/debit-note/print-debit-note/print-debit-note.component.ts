@@ -15,7 +15,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintDebitNoteComponent extends AppComponentBase implements OnInit {
 
-    gridOptions: any;;
+    gridOptions: any;
     debitNoteMaster: any;
     debitNoteLines: any
     totalBeforeTax: number;

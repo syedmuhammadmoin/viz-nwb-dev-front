@@ -48,7 +48,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
 
 // For AG Grid..
   admissionCriteriaList: IAdmissionCriteria[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   
@@ -238,7 +238,6 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    console.log({event})
     this.openDialog(event.data.id)
     // this.router.navigate(['/' + BATCH.ID_BASED_ROUTE('details', event.data.id)]);
   }

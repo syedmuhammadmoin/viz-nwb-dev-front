@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
+import { FormBuilder, FormControlOptions, FormGroup, NgForm, Validators} from '@angular/forms';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ConfirmPasswordValidator, CustomValidator} from '../../../auth/register/confirm-password.validator';
 import { AccessManagementService } from '../../service/access-management.service';
@@ -81,7 +81,7 @@ export class ChangePasswordComponent extends AppComponentBase implements OnInit 
       confirmPassword: ['']
     }, {
       validator: ConfirmPasswordValidator.MatchPassword
-    })
+    } as FormControlOptions)
   }
 
   onSubmit() {

@@ -29,7 +29,7 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public CALL_QUOTATION = CALL_QUOTATION;

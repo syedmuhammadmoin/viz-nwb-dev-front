@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GeneralLedgerComponent } from './general-ledger.component';
 
@@ -6,7 +6,7 @@ describe('GeneralLedgerComponent', () => {
   let component: GeneralLedgerComponent;
   let fixture: ComponentFixture<GeneralLedgerComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ GeneralLedgerComponent ]
     })

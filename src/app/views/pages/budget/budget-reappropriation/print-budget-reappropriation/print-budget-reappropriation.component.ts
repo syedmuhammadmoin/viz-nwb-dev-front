@@ -16,7 +16,7 @@ import { BudgetReappropriationService } from '../service/budget-reappropriation.
 })
 export class PrintBudgetReappropriationComponent implements OnInit {
 
-  gridOptions: any;;
+  gridOptions: any;
   budgetReappropriationMaster: IBudget | any;
   budgetReapprolines: IBudgetLines[] | any;
   // calculationType = CalculationType;

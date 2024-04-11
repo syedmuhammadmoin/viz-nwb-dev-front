@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrintIssuanceReturnComponent } from './print-issuance-return.component';
 
@@ -6,7 +6,7 @@ describe('PrintIssuanceReturnComponent', () => {
   let component: PrintIssuanceReturnComponent;
   let fixture: ComponentFixture<PrintIssuanceReturnComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrintIssuanceReturnComponent ]
     })

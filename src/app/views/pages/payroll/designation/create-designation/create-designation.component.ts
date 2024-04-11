@@ -103,9 +103,6 @@ export class CreateDesignationComponent extends AppComponentBase implements OnIn
       Name: designation.name,     
     });
 
-    console.log("idher",this.designationForm);
-
-
     //if user have no permission to edit, so disable all fields
     if(!this.showButtons) {
       this.designationForm.disable();

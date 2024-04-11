@@ -28,7 +28,7 @@ export class QuotationComparativeDetailComponent extends AppComponentBase implem
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: any;;
+  gridOptions: any;
 
   public QUOTATION_COMP = QUOTATION_COMPARATIVE;
 

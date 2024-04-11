@@ -21,7 +21,7 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
   
   // For AG Grid..
     DegreeList: IDegree[];
-    gridOptions: any;;
+    gridOptions: any;
     defaultColDef: ColDef;
     public permissions = Permissions;
     

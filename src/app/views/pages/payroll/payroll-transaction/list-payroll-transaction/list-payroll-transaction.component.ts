@@ -22,7 +22,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
   payrollTransactionList: [];
   defaultColDef: ColDef;
   
-  gridOptions: any;;
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
   components: any;
   public permissions = Permissions

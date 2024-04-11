@@ -381,7 +381,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
           })
       } else {
         delete this.purchaseOrderModel.id;
-        console.log(this.purchaseOrderModel)
         this.poService.createPurchaseOrder(this.purchaseOrderModel)
         .pipe(
           take(1),
@@ -407,7 +406,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.purchaseOrderModel.campusId = this.purchaseOrderForm.value.campusId;
     this.purchaseOrderModel.requisitionId = this.requisitionId || this.purchaseOrderModel.requisitionId;
     this.purchaseOrderModel.purchaseOrderLines = this.purchaseOrderForm.value.purchaseOrderLines;
-  };
+  }
 
    // open business partner dialog
    openBusinessPartnerDialog() {

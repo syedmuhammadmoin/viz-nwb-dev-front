@@ -36,7 +36,7 @@ export class ListCityComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: ICity[];
-  gridOptions: any;;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
   
