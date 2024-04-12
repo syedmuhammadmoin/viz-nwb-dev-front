@@ -6,7 +6,7 @@
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
           <div class="row ">
             <div class="btn_container">
               <div class="col-md-6 col-6">
@@ -14,7 +14,7 @@
                     <button *ngIf="(quotationComparativeMaster?.state === docStatus.Draft || quotationComparativeMaster?.state === docStatus.Rejected)
                         && (permission.isGranted(permissions.QUOTATION_COMPARATIVE_EDIT))"
                       [routerLink]="'/' + QUOTATION_COMP.ID_BASED_ROUTE('edit', quotationComparativeMaster?.id)" [queryParams]="{q: quotationComparativeMaster?.id, 'isQuotationComparative': true}"
-                      type="button"  class="mr-3 btn_public" id="quotation_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                      type="button"  class="me-3 btn_public" id="quotation_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                       Edit
                     </button>
 
@@ -24,7 +24,7 @@
                     </button>
                 </ng-container>
               </div>
-              <div class="col-lg-6 text-right" *ngIf="checkBoxSelection">
+              <div class="col-lg-6 text-end" *ngIf="checkBoxSelection">
                 <button (click)="openDialog()" id="quotation_award" class="btn btn-outline-success font-weight-bold " >Award Vendor</button>
               </div>
             </div>
@@ -47,7 +47,7 @@
           </div>
 
           <div class="row mt-10 quotation-comparitive">
-            <div class="col-lg-12 col-md-12 my-5">
+            <div class="col-lg-12 col-md-12 my-5 ps-4 pe-4">
               <ag-grid-angular
                 style="width: 100%; height: 400px; margin-top: 10px;"
                 class="ag-theme-alpine"

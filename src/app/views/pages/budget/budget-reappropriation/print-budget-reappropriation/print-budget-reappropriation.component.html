@@ -1,16 +1,16 @@
 <div class="container ">
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button printSectionId="main" printTitle="Anticipated Budget" id="anticipated_print"  type="button"
       (click)="printForm()"
-         class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+         class="app-default-btn" mat-raised-button style="margin-bottom: 20px; width: auto;"><i
           class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
 
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
@@ -20,7 +20,7 @@
             </div>
 
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-5 ms-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-two">
                 <h4 class="print-page-items">Date: <span class="float-right"
@@ -54,8 +54,8 @@
                     <td>{{i + 1}}</td>
                     <td>{{line?.level4}}</td>
                     <td>{{line?.description}}</td>
-                    <td class="text-right"><b>{{line?.additionAmount}}</b></td>
-                    <td class="text-right"><b>{{line?.deletionAmount}}</b> </td>
+                    <td class="text-end"><b>{{line?.additionAmount}}</b></td>
+                    <td class="text-end"><b>{{line?.deletionAmount}}</b> </td>
                   </tr>
                 </thead>
               </table>

@@ -92,7 +92,6 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Status',
       field: 'status',
-      tooltipField: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {

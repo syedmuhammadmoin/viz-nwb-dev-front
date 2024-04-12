@@ -3,22 +3,22 @@
       <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Product Detail'">
       </kt-portlet-header>
       <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
           <div class="row ">
             <div class="col-md-12 col-12 pb-3">
               <ng-container ktPortletTools >
                   <button *ngIf="(permission.isGranted(permissions.ASSET_CREATE)) && (productMaster?.productType === 2)"
-                    type="button" class="mr-2 btn_public" (click)="addAsset(false)" >
+                    type="button" class="me-2 btn_public" (click)="addAsset(false)" >
                     <i class="fa fa-edit" ></i> Create Asset
                   </button>
   
                   <button *ngIf="(permission.isGranted(permissions.ASSET_CREATE)) && (productMaster?.productType === 2)"
-                    type="button" class="mr-2 btn_public" (click)="addAsset(true)" >
+                    type="button" class="me-2 btn_public" (click)="addAsset(true)" >
                     <i class="fa fa-edit" ></i> Create WIP
                   </button>
   
                   <button *ngIf="(permission.isGranted(permissions.PRODUCT_EDIT))" (click)="editProduct()"
-                    type="button"  class="mr-3 btn_public" id="product_edit"> <i class="fa fa-edit" ></i>
+                    type="button"  class="me-3 btn_public" id="product_edit"> <i class="fa fa-edit" ></i>
                     Edit
                   </button>  
                   <mat-divider class="mt-5"></mat-divider>

@@ -155,7 +155,6 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       field: 'netSalary',
       cellStyle: { 'text-align': "right" },
       suppressHeaderMenuButton: true,
-      tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
       },

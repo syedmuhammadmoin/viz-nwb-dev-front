@@ -7,7 +7,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row">
           <div class="btn_container">
             <div class="col-md-6 col-6">
@@ -15,42 +15,42 @@
                 <button *ngIf="(requisitionMaster?.state === docStatus.Draft || requisitionMaster?.state === docStatus.Rejected)
                   && (permission.isGranted(permissions.REQUISITION_EDIT))" id="requisition_edit"
                   [routerLink]="'/' + REQUISITION.ID_BASED_ROUTE('edit', requisitionMaster?.id)" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                  type="button" class="mr-3 btn_public">
+                  type="button" class="me-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_CREATE))
                    && (requisitionMaster?.isShowIssuanceButton)" id="requisition_issuance"
                   [routerLink]="'/' + ISSUANCE.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                  type="button" class="mr-3 btn_public">
+                  type="button" class="me-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Issuance
                 </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.PURCHASEORDER_CREATE)) 
                           && (requisitionMaster?.isShowPurchaseOrderButton)" id="requisition_purchase"
                   [routerLink]="'/' + PURCHASE_ORDER.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                  type="button" class="mr-3 btn_public">
+                  type="button" class="me-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Purchase Order
                 </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.CALL_QUOTATION_CREATE)) 
                 && (requisitionMaster?.isShowCFQButton)" id="requisition_call"
                   [routerLink]="'/' + CALL_QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                  type="button" class="mr-3 btn_public">
+                  type="button" class="me-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Call For Quotation
                 </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.QUOTATION_CREATE)) 
                 && (requisitionMaster?.isShowQuotationButton)" id="requisition_quotation"
                   [routerLink]="'/' + QUOTATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                  type="button" class="mr-3 btn_public">
+                  type="button" class="me-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Quotation
                 </button>
 
                 <button *ngIf="(requisitionMaster?.state === docStatus.Unpaid || requisitionMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.BIDEVALUATION_CREATE))
                 && (requisitionMaster?.isShowTenderButton)" id="requisition_bid"
                   [routerLink]="'/' + BIDEVALUATION.CREATE" [queryParams]="{q: requisitionMaster?.id, 'isRequisition': true}"
-                  type="button" class="mr-3 btn_public">
+                  type="button" class="me-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Open Tendor
                 </button>
 
@@ -61,8 +61,8 @@
             </ng-container>
 
             </div>
-            <div class="col-lg-6 text-right" *ngIf="requisitionMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" id="requisition_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+            <div class="col-lg-6 text-end" *ngIf="requisitionMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="requisition_reject" class="me-2 btn btn-outline-danger" >Reject</button>
               <button (click)="remarksDialog(action.Approve)" id="requisition_approve" class="btn btn-outline-success" >Approve</button>
             </div>
           </div>
@@ -102,7 +102,7 @@
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
             
               <tr *ngIf="requisitionMaster?.references?.length > 0">

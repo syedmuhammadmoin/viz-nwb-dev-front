@@ -1,5 +1,5 @@
 <div class="container " >
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button
         id="journal_print"
@@ -9,7 +9,7 @@
         type="button"
         mat-raised-button
         class="app-default-btn"
-         style="margin-bottom: 20px;"
+         style="margin-bottom: 20px; width: auto;"
         ><i class="fas fa-print"></i> Print
       </button>
     </div>
@@ -18,7 +18,7 @@
 
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
@@ -27,7 +27,7 @@
             </div>
 
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-5 ms-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
               margin-bottom: 10px;
@@ -77,16 +77,16 @@
                     <th>Description</th>
                     <th>COA</th>
                     <th>Business Partner</th>
-                    <th class="text-right">Debit</th>
-                    <th class="text-right">Credit</th>
+                    <th class="text-end">Debit</th>
+                    <th class="text-end">Credit</th>
                   </tr>
                   <tr *ngFor="let line of journalEntryLines ; index as i">
                     <td>{{i + 1}}</td>
                     <td  class="description text-left">{{line?.description}}</td>
                     <td> {{line?.accountName}}</td>
                     <td> {{line?.businessPartnerName}}</td>
-                    <td class="text-right"><b>{{valueFormatter(line?.debit)}}</b></td>
-                    <td class="text-right"><b>{{valueFormatter(line?.credit)}}</b></td>
+                    <td class="text-end"><b>{{valueFormatter(line?.debit)}}</b></td>
+                    <td class="text-end"><b>{{valueFormatter(line?.credit)}}</b></td>
                   </tr>
                 </thead>
               </table>
@@ -94,7 +94,7 @@
           </div>
 
 
-          <div class="print-col-5  ml-auto p-s-3">
+          <div class="print-col-5  ms-auto p-s-3">
             <div class="print-box p-s-3-one">
               <h4>Total Debit:
                 <span class="float-right" style="font-weight: 500;">{{valueFormatter(journalEntryMaster?.totalDebit)}}</span>
@@ -108,7 +108,7 @@
           </div>
         </div>
 
-        <div class="row mt-10 ms-10">
+        <div class="row mt-10">
           <div class="print-col-4 p-s-5 text-center">
             ______________________
             <p class="text-center">Authorized Sign</p>

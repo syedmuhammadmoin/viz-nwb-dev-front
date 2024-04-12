@@ -8,7 +8,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row">
           <div class="col-md-12 col-12 pb-3">
             <div class="btn_container">
@@ -24,21 +24,21 @@
                   </button>
 
                   <button [routerLink]="'/' + ESTIMATED_BUDGET.ID_BASED_ROUTE('print', estimatedBudgetMaster?.id)"
-                    id="estimated_print" type="button" class="btn_public mr-3">
+                    id="estimated_print" type="button" class="btn_public me-3">
                     <i class="fa fa-print icon-e-p-a"></i> Print Anticipated Budget
                   </button>
                   <button *ngIf="(estimatedBudgetMaster?.state === docStatus.Partial || estimatedBudgetMaster?.state === docStatus.Unpaid)
                    && (permission.isGranted(permissions.BUDGET_CREATE))"
                     [routerLink]="'/' + BUDGET.CREATE" [queryParams]="{q: estimatedBudgetMaster?.id, isFromEstimatedBudget: true}"
-                    type="button" class="mr-3 btn_public">
+                    type="button" class="me-3 btn_public">
                     <i class="fa fa-edit icon-e-p-a"></i> Create Budget
                   </button>
 
                 </ng-container>
               </div>
-              <div class="col-lg-6 text-right" *ngIf="estimatedBudgetMaster?.isAllowedRole">
+              <div class="col-lg-6 text-end" *ngIf="estimatedBudgetMaster?.isAllowedRole">
                 <button (click)="remarksDialog(action.Reject)" id="estimatedBudget_reject"
-                  class="btn btn-outline-danger font-weight-bold mr-2">Reject</button>
+                  class="btn btn-outline-danger font-weight-bold me-2">Reject</button>
                 <button (click)="remarksDialog(action.Approve)" id="estimatedBudget_approve"
                   class="btn btn-outline-success font-weight-bold ">Approve</button>
               </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="print-box">
               <h4 class="print-box-detail-2"> <br> Budget Name:
-                <span class="float-right"
+                <span class="text-end"
                   style="font-weight: 400;">{{estimatedBudgetMaster?.estimatedBudgetName}}</span>
               </h4>
             </div>

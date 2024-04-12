@@ -3,12 +3,12 @@
 		<div ngbDropdown placement="bottom-right" class="d-inline-block">
 			<button class="btn user-btn btn-heading" id="dropdownBasic2" ngbDropdownToggle >
 				<i class="fa fa-user user-btn-icon"></i> Hi, <b>{{ _user.fullname || 'User'}} </b> 
-				<i class="fa fa-angle-down ml-1 down-arrow"></i></button>
+				<i class="fa fa-angle-down ms-1 down-arrow"></i></button>
 			<div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up" aria-labelledby="dropdownBasic2" style="width: 250px; top: 5px;">
 				<div class="offcanvas-content   " >
 					<div >
 						<div class="">
-							<!-- <div class="symbol symbol-100 mr-5">
+							<!-- <div class="symbol symbol-100 me-5">
 								<div class="symbol-label" [ngStyle]="{'background-image': 'url(./assets/media/users/300_21.png)'}"></div>
 								<i class="symbol-badge bg-success"></i>
 							</div> -->
@@ -27,7 +27,7 @@
 										<!-- <li class="list-group-item">
 											<a href="#" class="navi-item">
 												<span class="navi-link p-0 pb-2">
-													<span class="navi-icon mr-1">
+													<span class="navi-icon me-1">
 														<span class="svg-icon svg-icon-lg svg-icon-primary" [inlineSVG]="'./assets/media/svg/icons/Communication/Mail-notification.svg'"></span>
 													</span>
 													<span class="navi-text text-muted text-hover-primary">
@@ -38,16 +38,16 @@
 										</li> -->
 										<li class="list-group-item dashboard-li">
 											<a (click)="changePassword()" class="dashboard-link">
-												<i class="fa fa-key mr-1 dashboard-icon" aria-hidden="true"></i> Change Password
+												<i class="fa fa-key me-1 dashboard-icon" aria-hidden="true"></i> Change Password
 											</a>
 										</li>
 										<li class="list-group-item dashboard-li">
 											<a (click)="logout()" class="dashboard-link">
-												<i class="fas fa-sign-out-alt mr-1 dashboard-icon"></i> Sign Out
+												<i class="fas fa-sign-out-alt me-1 dashboard-icon"></i> Sign Out
 											</a>
 										</li>
 										<li class="list-group-item dashboard-li" *ngIf="!environment.production">
-											<a class="dashboard-link"><i class="fa fa-paint-brush mr-1 dashboard-icon"></i>color</a>
+											<a class="dashboard-link"><i class="fa fa-paint-brush me-1 dashboard-icon"></i>color</a>
 											<div class="row">
 												<div (click)="changeColor('sbbu')" class="theme-changing-sbbu"><i *ngIf="this.sbbu" class="fa fa-check" aria-hidden="true"></i></div>
 												<div (click)="changeColor('edinfini')" class="theme-changing-edinfini"><i *ngIf="this.edinfini" class="fa fa-check" aria-hidden="true"></i></div>
@@ -59,7 +59,7 @@
 												<div class="col">
 												  <div ngbDropdown class="d-inline-block">
 													<button type="button" class="btn btn-outline-primary primery-color-change" id="dropdownBasic1" ngbDropdownToggle>
-														<i class="fa fa-paint-brush mr-1 dashboard-icon"></i>
+														<i class="fa fa-paint-brush me-1 dashboard-icon"></i>
 														Primary color</button>
 													<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
 													  <button style="background-color:#65c18c;" (click)="changeColor('#65c18c' , '' , 'primary')" ngbDropdownItem></button>

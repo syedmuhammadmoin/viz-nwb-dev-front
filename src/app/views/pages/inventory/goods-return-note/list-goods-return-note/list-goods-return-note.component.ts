@@ -92,7 +92,6 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
     {
       headerName: 'Status',
       field: 'status',
-      tooltipField: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {

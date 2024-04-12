@@ -8,7 +8,7 @@
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
 
-          <div class="col-md-12 col-sm-12 col-lg-12">
+          <div class="col-md-12 col-sm-12 col-lg-12 ps-4 pe-4">
             <div class="row mt-8 mb-5 ">
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="form-group kt-form__group mb-0">
@@ -43,7 +43,7 @@
                         <ng-container matColumnDef="level4Id">
                           <mat-header-cell *matHeaderCellDef class="flex-2"> COA</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                               <kt-simple-dropdown [id]="'budget_account_' + i" [optionList]="ngxsService.budgetAccount$"
                                 [errorMessage]="'Head is required.'" formControlName="level4Id"
                                 matFormFieldClass="mobile-label full-width" placeholder="Select COA Detailed "
@@ -57,7 +57,7 @@
                         <!-- <ng-container matColumnDef="campusId">
                           <mat-header-cell *matHeaderCellDef class="flex-2"> Campus</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                               <kt-simple-dropdown [id]="'budget_account_' + i" [optionList]="ngxsService.campuses$"
                                 [errorMessage]="'Campus is required.'" formControlName="campusId"
                                 matFormFieldClass="mobile-label full-width" placeholder="Select Campus Detailed"
@@ -71,7 +71,7 @@
                         <ng-container matColumnDef="description">
                           <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                               <kt-input-field type="text" matFormFieldClass="mobile-label full-width"
                                 formControlName="description" [errorMessage]="[{ condition : budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.description.errors?.required &&
                                 budgetReappropriationForm.get('budgetReappropriationLines')['controls'][i].controls.description.touched , 
@@ -85,7 +85,7 @@
                         <ng-container matColumnDef="additionAmount">
                           <mat-header-cell *matHeaderCellDef class="flex-2"> Addition</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                               <mat-form-field appearance="outline" class="full-width">
                                 <input matInput formControlName="additionAmount" placeholder="Addition" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"   
                                 [id]="'reappro_addition_' + i" type="number" (blurEvent)="logValidationErrors(budgetReappropriationForm, formErrors, validationMessages)">
@@ -104,7 +104,7 @@
                         <ng-container matColumnDef="deletionAmount">
                           <mat-header-cell *matHeaderCellDef class="flex-2"> Deletion</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                               <mat-form-field appearance="outline" class="full-width">
                                 <input matInput formControlName="deletionAmount" placeholder="Deletion" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"   
                                 [id]="'reappro_deletion_' + i" type="number" (blurEvent)="logValidationErrors(budgetReappropriationForm, formErrors, validationMessages)">
@@ -150,7 +150,7 @@
               </div>
             </div>
             <div class="row">
-              <div class="col-md-4 col-lg-4  ml-auto mt-3">
+              <div class="col-md-4 col-lg-4  ms-auto mt-3">
                 <div class="print-box">
                   <h4>Total Addition: <span class="float-right" >{{totalAddition.toLocaleString(undefined,
                     { maximumFractionDigits: 2 })}}</span></h4>
@@ -171,9 +171,9 @@
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row">
-            <div class="col-lg-12 text-right">
-              <button class="mr-2 app-reset-btn" id="budget_reset" type="button" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
-              <button class="mr-2 app-reset-btn" mat-raised-button type="submit" id="budget_save"
+            <div class="col-lg-12 text-end">
+              <button class="me-2 app-reset-btn" id="budget_reset" type="button" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
+              <button class="me-2 app-reset-btn" mat-raised-button type="submit" id="budget_save"
                   (click)="logValidationErrors(budgetReappropriationForm, formErrors, validationMessages); isSubmit(0)"><i  class="far fa-save"></i> Save</button>
               <button class="app-default-btn" mat-raised-button type="submit" id="budget_submit"
                   (click)="logValidationErrors(budgetReappropriationForm, formErrors, validationMessages); isSubmit(1)"><i class="far fa-save"></i> Submit</button>

@@ -9,7 +9,7 @@
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
           <div class="row ">
             <div class="btn_container">
               <div class="col-md-6 col-6">
@@ -20,18 +20,18 @@
                   </button>
                   <button *ngIf="(disposalMaster?.state === docStatus.Draft || disposalMaster?.state === docStatus.Rejected)
                   && (permission.isGranted(permissions.DISPOSAL_EDIT))"
-                    type="button" class="mr-2 btn_public" id="disposal_edit" (click)="editDisposal(disposalMaster?.id)" >
+                    type="button" class="me-2 btn_public" id="disposal_edit" (click)="editDisposal(disposalMaster?.id)" >
                     <i class="fa fa-edit" ></i> Edit
                  </button>
                   <button *ngIf="(disposalMaster?.state === docStatus.Unpaid)
                   && (permission.isGranted(permissions.RECEIPT_CREATE))"
-                          type="button" class="mr-2 btn_public" id="register_payment" (click)="registerPayment(disposalMaster?.id)" >
+                          type="button" class="me-2 btn_public" id="register_payment" (click)="registerPayment(disposalMaster?.id)" >
                     <i class="fa fa-edit" ></i> Register Payment
                   </button>
                 </ng-container>
               </div>
-              <div class="col-lg-6 text-right" *ngIf="disposalMaster?.isAllowedRole">
-                <button (click)="remarksDialog(action.Reject)" id="request_reject" class="mr-2 btn btn-outline-danger">Reject</button>
+              <div class="col-lg-6 text-end" *ngIf="disposalMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="request_reject" class="me-2 btn btn-outline-danger">Reject</button>
                 <button (click)="remarksDialog(action.Approve)" id="request_approve" class="btn btn-outline-success">Approve</button>
               </div>
             </div>
@@ -114,8 +114,8 @@
       <!-- <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
-            <div class="col-lg-12 text-right" *ngIf="disposalMaster?.isAllowedRole">
-              <button (click)="workflow(action.Reject)" id="invoice_reject" class="mr-5 btn btn-outline-danger" mat-raised-button>Reject</button>
+            <div class="col-lg-12 text-end" *ngIf="disposalMaster?.isAllowedRole">
+              <button (click)="workflow(action.Reject)" id="invoice_reject" class="me-5 btn btn-outline-danger" mat-raised-button>Reject</button>
               <button (click)="workflow(action.Approve)" id="invoice_approve" class="btn btn-outline-success" mat-raised-button>Approve</button>
             </div>
           </div>

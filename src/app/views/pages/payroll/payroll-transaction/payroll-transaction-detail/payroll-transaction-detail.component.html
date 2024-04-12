@@ -7,25 +7,25 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row ">
           <div class="btn_container">
             <div class="col-md-6 col-6">
               <ng-container ktPortletTools >
                 <button *ngIf="(payrollMaster?.state === docStatus.Partial || payrollMaster?.state === docStatus.Unpaid)
                     && (payrollMaster?.ledgerId) && (permission.isGranted(permissions.PAYROLL_PAYMENT_CREATE))"
-                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                  type="button" class="me-3 btn_public" (click)="openDialog()" >
                   <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
                   <button *ngIf="(payrollMaster?.state === docStatus.Draft || payrollMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"
                     [routerLink]="'/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('edit', payrollMaster?.id)" [queryParams]="{q: payrollMaster?.id, 'isPayroll': true}"
-                    type="button"  class="mr-3 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                    type="button"  class="me-3 btn_public" id="payroll_trans_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                     Edit
                   </button>
 
-                  <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public mr-3"
+                  <button *ngIf="(permission.isGranted(permissions.PAYROLL_TRANSACTION_EDIT))"  class="btn_public me-3"
                   (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                   </button>
 
@@ -36,14 +36,14 @@
               </ng-container>
 
             </div>
-            <div class="col-lg-6 text-right" *ngIf="payrollMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" id="payroll_trans_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+            <div class="col-lg-6 text-end" *ngIf="payrollMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="payroll_trans_reject" class="me-2 btn btn-outline-danger" >Reject</button>
               <button (click)="remarksDialog(action.Approve)" id="payroll_trans_approve" class="btn btn-outline-success" >Approve</button>
             </div>
           </div>
 
 
-          <div class="col-md-4 col-lg-4  mt-3">
+          <div class="col-md-4 col-lg-4 mt-3">
             <div class="print-box">
                 <h4 class="print-box-detail-1"><b>Doc No:</b>
                     <span class="float-right" style="font-weight: 400;">{{payrollMaster?.docNo}}</span></h4>
@@ -71,7 +71,7 @@
             </div>
           </div>
 
-          <div class="col-md-4 col-lg-4 ml-auto mt-3">
+          <div class="col-md-4 col-lg-4 ms-auto mt-3">
             <div class="print-box">
                 <h4 class="print-box-detail-1"><b>Account:</b>
                     <span class="float-right" style="font-weight: 400;">{{payrollMaster?.accountPayable || 'N/A'}}</span></h4>
@@ -110,37 +110,37 @@
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
               <tr>
                 <td class="text-left" style="width: 70%;">Basic Salary :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(payrollMaster?.basicSalary || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left" style="width: 70%;">Total Allowances :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(payrollMaster?.totalAllowances || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left" style="width: 70%;">Gross Pay :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(payrollMaster?.grossPay || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left" style="width: 70%;">Total Deduction :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(payrollMaster?.totalDeductions || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left" style="width: 70%;">Tax Deduction :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(payrollMaster?.taxDeduction || 0)}}</td>
               </tr>
               <tr class="grand-total">
                 <th class="text-left"
                   >Net Salary :</th>
-                <th class="text-right" >
+                <th class="text-end" >
                   {{valueFormatter(payrollMaster?.netSalary || 0)}}</th>
               </tr>
 
@@ -178,9 +178,9 @@
               </tr>
 
               <tr *ngIf="(pendingAmount)">
-                <th class="text-right pending-amount">Pending Amount :
+                <th class="text-end pending-amount">Pending Amount :
                 </th>
-                <td class="text-right" style="background-color: #f2f2f2; font-weight: bold;">
+                <td class="text-end" style="background-color: #f2f2f2; font-weight: bold;">
                   {{valueFormatter(pendingAmount || 0)}}</td>
               </tr>
             </table>

@@ -98,7 +98,6 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
     { 
       headerName: 'Store', 
       field: 'warehouseName', 
-      tooltipField: 'itemName',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {

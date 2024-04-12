@@ -6,7 +6,7 @@
         <div class="kt-portlet__body">
           <div class="kt-form__section kt-form__section--first">
   
-            <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class="col-md-12 col-sm-12 col-lg-12 ps-4 pe-4">
               <div class="row mt-1 mb-0">
                 <div class="col-lg-4 col-sm-4 col-md-4">
                   <div class="form-group kt-form__group mb-0">
@@ -84,7 +84,7 @@
                           <ng-container matColumnDef="itemId">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <div class="col-lg-12 col-sm-12 mt-2">
+                              <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                 <kt-simple-dropdown
                                       placeholder="Select Item"
                                       [id]="'goodsReturnNote_item_' + i"
@@ -103,7 +103,7 @@
                           <ng-container matColumnDef="description">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <div class="col-lg-12 col-sm-12 mt-2">
+                              <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                 <kt-input-field
                                 [id]="'goodsReturnNote_description_' + i"
                                       formControlName="description"
@@ -121,7 +121,7 @@
                           <ng-container matColumnDef="quantity">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <div class="col-lg-12 col-sm-12 mt-2">
+                              <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                 <kt-input-field
                                 [id]="'goodsReturnNote_quantity_' + i"
                                       formControlName="quantity"
@@ -150,7 +150,7 @@
                           <ng-container matColumnDef="cost">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Cost</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <div class="col-lg-12 col-sm-12 mt-2">
+                              <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                 <kt-input-field
                                       formControlName="cost"
                                       [id]="'goodsReturnNote_cost_' + i"
@@ -176,7 +176,7 @@
                           <ng-container matColumnDef="tax">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Tax%</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <div class="col-lg-12 col-sm-12 mt-2">
+                              <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                 <kt-input-field
                                 [id]="'goodsReturnNote_tax_' + i"
                                       formControlName="tax"
@@ -200,7 +200,7 @@
                           <ng-container matColumnDef="subTotal">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> SubTotal </mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <div class="col-lg-12 col-sm-12 mt-2">
+                              <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                 <kt-input-field formControlName="subTotal" [id]="'goodsReturnNote_subtotal_' + i"
                                   matFormFieldClass="mobile-label full-width" placeholder="Subtotal">
                                 </kt-input-field>
@@ -211,7 +211,7 @@
                           <ng-container matColumnDef="warehouseId">
                             <mat-header-cell *matHeaderCellDef class="flex-1"> Store</mat-header-cell>
                             <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                              <div class="col-lg-12 col-sm-12 mt-2">
+                              <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                 <kt-simple-dropdown 
                                 [id]="'goodsReturnNote_store_' + i"
                                       placeholder="Select Store" 
@@ -253,8 +253,8 @@
         <div class="kt-portlet__foot p-5">
           <div class="kt-form__actions kt-form__actions mb-0">
             <div class="row">
-              <div class="col-lg-12 text-right">
-                <button class="mr-2 app-save-btn" mat-raised-button type="submit" id="goodsReturnNote_save"
+              <div class="col-lg-12 text-end">
+                <button class="me-2 app-save-btn" mat-raised-button type="submit" id="goodsReturnNote_save"
                   (click)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i> Save</button>
                 <button class="app-default-btn " mat-raised-button type="submit" id="goodsReturnNote_submit"
                   (click)="logValidationErrors(this.goodsReturnNoteForm, this.formErrors, this.validationMessages); isSubmit(1)">

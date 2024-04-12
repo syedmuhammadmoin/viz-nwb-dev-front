@@ -1,8 +1,8 @@
 <div class="container">
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button printSectionId="main" id="ledger_print" printTitle="General Ledger" (click)="printForm()" type="button"
-         class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+         class="app-default-btn" mat-raised-button style="margin-bottom: 20px; width: auto;"><i
           class="fas fa-print"></i> Print
       </button>
     </div>
@@ -10,7 +10,7 @@
 
   <div class="col-lg-10 mx-auto" id="main">
     <div [ktBusy]="isLoading" [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
 
         <div class="print_header_area s-p-1">
           <div class="print-col-6 s-p-1-one">
@@ -61,9 +61,9 @@
                         <td>{{docType[ledger.docType]}}</td>
                         <td>{{dateHelperService.transformDate(ledger.docDate, ' MMM d, y')}}</td>
                         <td class="text-left">{{ledger.description}}</td>
-                        <td class="text-right">{{valueFormatter(ledger.debit || 0, '+ve')}}</td>
-                        <td class="text-right">{{valueFormatter(ledger.credit || 0, '-ve')}}</td>
-                        <td class="text-right">{{valueFormatter(ledger.balance || 0)}}</td>
+                        <td class="text-end">{{valueFormatter(ledger.debit || 0, '+ve')}}</td>
+                        <td class="text-end">{{valueFormatter(ledger.credit || 0, '-ve')}}</td>
+                        <td class="text-end">{{valueFormatter(ledger.balance || 0)}}</td>
                       </tr>
                     </ng-container>
                     <tr class="ledgre-three">

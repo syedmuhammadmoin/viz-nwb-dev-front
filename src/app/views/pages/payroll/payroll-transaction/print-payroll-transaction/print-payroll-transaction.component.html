@@ -1,5 +1,5 @@
 <div class="container " >
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button
         printSectionId="main"
@@ -8,13 +8,13 @@
         (click)="printForm()"
         type="button"        
         class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        style="margin-bottom: 20px; width: auto;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
 
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
@@ -24,7 +24,7 @@
             </div>
             
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-5 ms-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one">
                 <h4 style="font-size: 16px;letter-spacing: 3px;font-weight: 600;color: #fff;">Doc No: <span class="float-right" style="font-weight: 400;">{{payrollTransactionMaster?.docNo}}</span></h4>
@@ -60,7 +60,7 @@
                     <td>{{i + 1}}</td>
                     <td>{{line?.payrollItem || '---'}}</td>
                     <td>{{line?.account}}</td>
-                    <td class="text-right"><b>{{valueFormatter(line?.amount || 0)}}</b></td>
+                    <td class="text-end"><b>{{valueFormatter(line?.amount || 0)}}</b></td>
                   </tr>
                 </thead>
               </table>
@@ -68,7 +68,7 @@
           </div>
 
 
-          <div class="print-col-5 ml-auto p-s-3">
+          <div class="print-col-5 ms-auto p-s-3">
             <div class="print-box p-s-3-one">
               <h4>Basic Salary:
                 <span class="float-right">{{valueFormatter(payrollTransactionMaster?.basicSalary || 0)}}</span>
@@ -95,7 +95,7 @@
               </h4>
             </div>
     
-            <div class="print-box p-s-3-four">
+            <div class="print-box p-s-3-two">
               <h4>Net Salary:
                 <span class="float-right">{{valueFormatter(payrollTransactionMaster?.netSalary || 0)}}</span>
               </h4>

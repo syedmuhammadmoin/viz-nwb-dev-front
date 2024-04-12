@@ -8,7 +8,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row">
           <div class="col-md-12 col-12 pb-3">
             <div class="btn_container">
@@ -17,7 +17,7 @@
                 <ng-container ktPortletTools>
                   <button *ngIf="(permission.isGranted(permissions.BUDGET_EDIT))"
                     [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('edit', budgetMaster?.id)"
-                    [queryParams]="{q: budgetMaster?.id, 'isBudget': true}" type="button" class="btn_public mr-3">
+                    [queryParams]="{q: budgetMaster?.id, 'isBudget': true}" type="button" class="btn_public me-3">
                     <i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
                   <button [routerLink]="'/' + BUDGET.ID_BASED_ROUTE('print', budgetMaster?.id)" id="budget_print"
@@ -26,9 +26,9 @@
                   </button>
                 </ng-container>
               </div>
-              <div class="col-lg-6 text-right" *ngIf="budgetMaster?.isAllowedRole">
+              <div class="col-lg-6 text-end" *ngIf="budgetMaster?.isAllowedRole">
                 <button (click)="remarksDialog(action.Reject)" id="budget_reject"
-                  class="btn btn-outline-danger font-weight-bold mr-2">Reject</button>
+                  class="btn btn-outline-danger font-weight-bold me-2">Reject</button>
                 <button (click)="remarksDialog(action.Approve)" id="budget_approve"
                   class="btn btn-outline-success font-weight-bold ">Approve</button>
               </div>
@@ -65,15 +65,15 @@
         </div>
 
         <div class="row mt-5">
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
               <tr class="grand-total">
                 <th class="text-left">Total Amount :</th>
-                <th class="text-right">{{valueFormatter(totalAmount || 0)}}</th>
+                <th class="text-end">{{valueFormatter(totalAmount || 0)}}</th>
               </tr>
               <tr>
                 <th class="text-left">Total Revised Budget :</th>
-                <th class="text-right">{{valueFormatter(totalRevisedAmount || 0)}}</th>
+                <th class="text-end">{{valueFormatter(totalRevisedAmount || 0)}}</th>
               </tr>
             </table>
           </div>

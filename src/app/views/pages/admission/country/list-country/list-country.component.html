@@ -1,5 +1,5 @@
 <div class="row mb-4">
-  <div class="col-md-12 text-right">
+  <div class="col-md-12 text-end">
     <button (click)="openDialog()" class="app-default-btn" id="add__Country" mat-raised-button
             matTooltip="Add Course">Add Country
     </button>
@@ -12,7 +12,7 @@
       <kt-portlet-header [class]="'card-head-lg'" [sticky]="false" [title]="'Country'">
       </kt-portlet-header>
       <kt-portlet-body>
-        <div class="col-lg-12 col-md-12 my-5">
+        <div class="col-lg-12 col-md-12 my-5 ps-4 pe-4">
           <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)"
                            (gridReady)="onGridReady($event)"
                            (paginationChanged)="paginationHelper.onPaginationChanged('CountryPageName', gridApi, $event)"

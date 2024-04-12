@@ -1,5 +1,5 @@
 <div class="container " >
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button
         printSectionId="main"
@@ -8,13 +8,13 @@
         type="button"
         (click)="printForm()"
         class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        style="margin-bottom: 20px; width: auto;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
     <div class="col-lg-10 mx-auto" id="main">
       <div [class]="className">
-        <div class="bg-whitee">
+        <div class="print-bg-white">
   
           <div class="print_header_area p-s-1">
             <div class="print-col-6 p-s-1-one">
@@ -23,7 +23,7 @@
                 <span class="top-heading">Goods Return Note</span>
               </div>
             </div>
-            <div class="print-col-5 ml-auto p-s-1-two">
+            <div class="print-col-5 ms-auto p-s-1-two">
               <div class="id_num">
                 <div class="print-box-one">
                   <h4>Document No: <span class="float-right" style="font-weight: 400;">{{goodsReturnNoteMaster?.docNo}}</span></h4>
@@ -67,7 +67,7 @@
                       <td>{{valueFormatter(detail?.cost)}}</td>
                       <td>{{detail?.tax + '%'}}</td>
                       <td>{{detail?.warehouse}}</td>
-                      <td class="text-right"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
+                      <td class="text-end"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                     </tr>
                       
                   <tr *ngFor="let detail of goodsReturnNoteLines ; index as i">
@@ -78,7 +78,7 @@
                     <td>{{valueFormatter(detail?.cost)}}</td>
                     <td>{{detail?.tax + '%'}}</td>
                     <td>{{detail?.warehouse}}</td>
-                    <td class="text-right"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
+                    <td class="text-end"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                   </tr>
                 </thead>
               </table>

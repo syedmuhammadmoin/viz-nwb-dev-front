@@ -3,7 +3,7 @@
     <form (ngSubmit)="onSubmit()" [formGroup]="approvePayrollProcessForm" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
-          <div class="col-md-12 col-sm-12 col-lg-12">
+          <div class="col-md-12 col-sm-12 col-lg-12 ps-4 pe-4">
             <!-- region First Row -->
             <div class="row mt-1 mb-0">
               <div class="col-lg-4">
@@ -82,9 +82,9 @@
             </div>
 
             <div class="row">
-              <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mb-5">
+              <div class="col-lg-12 text-end justify-content-end align-items-center d-flex mb-5">
                 <div class="form-group kt-form__group mb-0">
-                  <button class="mr-2 app-reset-btn" mat-raised-button id="approve_process_reset" type="button" (click)="resetForm()"><i class="fas fa-undo"></i> Reset</button>
+                  <button class="me-2 app-reset-btn" mat-raised-button id="approve_process_reset" type="button" (click)="resetForm()"><i class="fas fa-undo"></i> Reset</button>
                   <button class="app-default-btn" mat-raised-button id="approve_process_fetch" type="submit">Fetch Records</button>
                 </div>
               </div>
@@ -92,7 +92,7 @@
 
             <!-- endregion -->
             <div class="row" style="padding-top: 10px;">
-              <div class="col-lg-12 text-right">
+              <div class="col-lg-12 text-end">
                 <div>
                   <ag-grid-angular 
                   class="ag-theme-alpine"
@@ -120,10 +120,10 @@
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row">
-            <div class="col-lg-12 text-right">
+            <div class="col-lg-12 text-end">
              
               <ng-container *ngIf="payrollTransactions && payrollTransactions.length > 0">
-                <button (click)="submitOrApproveProcess(actions.Reject)" type="button" id="approve_process_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">
+                <button (click)="submitOrApproveProcess(actions.Reject)" type="button" id="approve_process_reject" class="btn btn-outline-danger font-weight-bold me-2 ">
                   Reject
                 </button>
                 <button (click)="submitOrApproveProcess(actions.Approve)" type="button" id="process_approve" class="btn btn-outline-success font-weight-bold ">Approve

@@ -3,12 +3,12 @@
         <div class="kt-portlet__head-caption">
             <div class="kt-portlet__head-title">
                 <h3 class="kt-portlet__head-text modal-header"> {{title}} 
-                    <span (click)="onCloseDialog()" id="assign_employee_close" class="dialog-cross" ><i class="fa fa-times float-right"></i></span>
+                    <span (click)="onCloseDialog()" id="assign_employee_close" class="dialog-cross" ><i class="fa fa-times text-end"></i></span>
                 </h3>
             </div>
         </div>
     </div>
-    <div class="col-md-12 col-lg-12 col-sm-12 my-5">
+    <div class="col-md-12 col-lg-12 col-sm-12 ps-4 pe-4 my-5">
       <mat-checkbox id="assign_employee_select" (change)="employeesSelectionToggle($event.checked)">{{employeeSelection}}</mat-checkbox>
         <ag-grid-angular 
           style="width: 100%; height: 440px; margin-top: 10px;"
@@ -28,7 +28,7 @@
     <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row">
-            <div class="col-lg-12 text-right">
+            <div class="col-lg-12 text-end">
               <button class="app-default-btn" mat-raised-button  type="submit" id="assign_employee_submit" (click)="onSubmit()"><i class="far fa-save"></i> Submit</button>
             </div>
           </div>

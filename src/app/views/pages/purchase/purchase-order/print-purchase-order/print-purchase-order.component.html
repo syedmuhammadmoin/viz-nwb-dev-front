@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button
         printSectionId="main"
@@ -8,13 +8,13 @@
         (click)="printForm()"
         type="button"        
         class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        style="margin-bottom: 20px; width: auto;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
 
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
@@ -23,7 +23,7 @@
               <span class="top-heading">Purchase Order</span>
             </div>
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-5 ms-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one">
                 <h4>Document No: <span class="float-right" style="font-weight: 400;">{{purchaseOrderMaster?.docNo}}</span></h4>
@@ -77,14 +77,14 @@
                     <td *ngIf="showReceived" class="text-center" >{{detail?.receivedQuantity}}</td>
                     <td>{{valueFormatter(detail?.cost)}}</td>
                     <td> {{detail?.tax + '%'}}</td>
-                    <td class="text-right"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
+                    <td class="text-end"><b>{{valueFormatter(detail?.subTotal)}}</b></td>
                   </tr>
                 </thead>
               </table>
             </div>
           </div>
 
-          <div class="print-col-5  ml-auto p-s-3">
+          <div class="print-col-5 ms-auto p-s-3">
             <div class="print-box p-s-3-one">
               <h4>Total Before Tax:
                 <span class="float-right">{{valueFormatter(purchaseOrderMaster?.totalBeforeTax)}}</span>
@@ -95,7 +95,7 @@
                 <span class="float-right">{{valueFormatter(purchaseOrderMaster?.totalTax)}}</span>
               </h4>
             </div>
-            <div class="print-box p-s-3-four">
+            <div class="print-box p-s-3-two">
               <h4>Grand Total:
                 <span class="float-right">{{valueFormatter(purchaseOrderMaster?.totalAmount)}}</span>
               </h4>

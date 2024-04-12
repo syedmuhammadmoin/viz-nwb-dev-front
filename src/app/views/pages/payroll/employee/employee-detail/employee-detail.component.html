@@ -3,19 +3,19 @@
     <kt-portlet-header [sticky]="false" [title]="'Employee Detail'" [class]="'card-head-lg'">
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row ">
           <div class="col-md-12 col-12 pb-3">
             <ng-container ktPortletTools >
                 <button *ngIf="(permission.isGranted(permissions.EMPLOYEE_EDIT))" id="journal_edit"
-                  (click)="openEmployeeDialog()" type="button"  class="btn_public mr-3">
+                  (click)="openEmployeeDialog()" type="button"  class="btn_public me-3">
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
                 <mat-divider class="mt-5"></mat-divider>
             </ng-container>
         </div>
 
-          <div class="col-md-4 col-lg-4  mt-3">
+          <div class="col-md-4 col-lg-4 mt-3">
             <div class="print-box">
               <h4 ><b>Employee Name: </b>
                 <span class="float-right" >{{employeeMaster?.name || 'N/A'}}</span>
@@ -131,7 +131,7 @@
         </div>
 
         <div class="row mt-5">
-            <div class="col-md-4 col-lg-4  ml-auto mt-3" >
+            <div class="col-md-4 col-lg-4  ms-auto mt-3" >
               <div class="print-box">
                 <h4 >Basic Pay :
                   <span class="float-right" style="font-weight: 400;">{{valueFormatter(employeeMaster?.totalBasicPay || 0)}}</span>
