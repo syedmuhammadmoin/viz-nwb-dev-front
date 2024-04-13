@@ -11,7 +11,7 @@
     "moduleResolution": "node",
     "importHelpers": true,
     // "emitDecoratorMetadata": true,
-    "target": "ES2021", // es5
+    "target": "ES2022", // es5
     // "typeRoots": [
     //   "node_modules/@types"
     // ],
