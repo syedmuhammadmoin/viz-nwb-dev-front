@@ -1,7 +1,7 @@
 import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -26,7 +26,6 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
   components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -157,7 +156,6 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -173,6 +171,6 @@ export class ListCreditNoteComponent extends AppComponentBase implements OnInit 
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 }

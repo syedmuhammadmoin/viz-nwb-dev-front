@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
@@ -34,7 +33,6 @@ export class ListRequisitionComponent extends AppComponentBase implements OnInit
   components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -154,7 +152,6 @@ export class ListRequisitionComponent extends AppComponentBase implements OnInit
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -170,6 +167,6 @@ export class ListRequisitionComponent extends AppComponentBase implements OnInit
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 }

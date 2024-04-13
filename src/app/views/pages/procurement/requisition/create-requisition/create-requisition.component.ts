@@ -8,7 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -517,7 +517,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.isFixedAsset = this.productList.find(x => itemId === x.id)?.isFixedAsset;
 
     if (this.isFixedAsset) {
-      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise();
+      const response = await firstValueFrom(this.ngxsService.assetService.getAssetsProductDropdownById(itemId));
       fixedAsset?.enable();
       fixedAsset?.setValidators([Validators.required]);
       fixedAsset?.updateValueAndValidity();

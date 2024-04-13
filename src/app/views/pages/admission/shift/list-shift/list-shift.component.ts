@@ -9,6 +9,7 @@ import {Permissions} from '../../../../shared/AppEnum';
 import {isEmpty} from 'lodash';
 import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {ShiftService} from '../service/shift.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-shift',
@@ -144,7 +145,7 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
   }
 
   async getShift(params: any): Promise<IPaginationResponse<IShift[]>> {
-    const result = await this.shiftService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.shiftService.getRecords(params));
     return result
   }
 }

@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -10,6 +10,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IPayrollTransaction } from '../model/IPayrollTransaction';
 import { PayrollTransactionService } from '../service/payroll-transaction.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-payroll-transaction',
@@ -27,7 +28,6 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
   components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -239,12 +239,11 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getPayrollTransactions(params: any): Promise<IPaginationResponse<IPayrollTransaction[]>> {
-    const result = await this.payrollTransactionService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.payrollTransactionService.getRecords(params));
     return result
   }
 }

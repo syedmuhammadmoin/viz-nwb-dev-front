@@ -8,6 +8,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { PayrollItemService } from '../service/payroll-item.service';
 import { EmployeeService } from '../../employee/service/employee.service'
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-assign-employee',
@@ -195,7 +196,7 @@ export class AssignEmployeeComponent extends AppComponentBase implements OnInit 
   }
 
   async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.employeeService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.employeeService.getRecords(params));
     return result
   }
 

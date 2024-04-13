@@ -43,6 +43,6 @@ export class PortletComponent {
 	 * @param layoutConfigService: LayoutConfigService
 	 */
 	constructor(public loader: LoadingBarService) {
-		this.loader.complete();
+		this.loader.useRef().complete();
 	}
 }

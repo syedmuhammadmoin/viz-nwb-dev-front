@@ -1,7 +1,6 @@
 import { BILL } from '../../../../shared/AppRoutes';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { VendorBillService } from '../services/vendor-bill.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from "../../../../shared/app-component-base";
@@ -25,7 +24,6 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -171,9 +169,7 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
   }
 
   onGridReady(params: GridReadyEvent) {
-
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
         var dataSource = {
           getRows: (params: any) => {
@@ -189,6 +185,6 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
           });
           },
        };
-    params.api.setDatasource(dataSource)
+       params.api.setGridOption('datasource', dataSource);
   }
 }

@@ -20,7 +20,6 @@ export class ListOrganizationComponent extends AppComponentBase implements OnIni
   organizationList : IOrganization[];
   gridOptions : GridOptions;
   defaultColDef : ColDef;
-  tooltipData : string = "double click to edit"
 
   constructor(
                public dialog: MatDialog,

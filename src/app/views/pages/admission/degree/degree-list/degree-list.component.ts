@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { CellStyle, ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { CellStyle, ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -8,6 +8,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CreateDegreeComponent } from '../create-degree/create-degree.component';
 import { IDegree } from '../model/IDegree';
 import { DegreeService } from '../service/degree.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-degree-list',
@@ -28,7 +29,6 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
     tooltipData = 'double click to view detail'
     components: any;
     gridApi: GridApi;
-    gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
   
   // Injecting Dependencies
@@ -138,7 +138,7 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
       
       //Getting Updated Data
       dialogRef.afterClosed().subscribe(() => {
-        this.gridApi.setDatasource(this.dataSource)
+        this.gridApi.setGridOption('datasource', this.dataSource);
         this.cdRef.detectChanges();
       })
     }
@@ -159,12 +159,11 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
   
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
   
   async getDegree(params: any): Promise<IPaginationResponse<IDegree[]>> {
-    const result = await this.degreeService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.degreeService.getRecords(params));
     return result
   }
   

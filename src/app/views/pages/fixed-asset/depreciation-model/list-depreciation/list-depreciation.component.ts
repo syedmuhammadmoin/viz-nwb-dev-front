@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog'
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { DepreciationMethodService } from '../service/depreciation-method.servic
 import { CreateDepreciationComponent } from '../create-depreciation/create-depreciation.component';
 import { isEmpty } from 'lodash';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-depreciation',
@@ -27,7 +28,6 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   public permissions = Permissions
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   // Injecting dependencies
@@ -140,7 +140,7 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
     });
     // Recalling getBankAccounts function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -162,18 +162,16 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getAssetCategories(params: any): Promise<IPaginationResponse<IDepreciation[]>> {
-    const result = await this.depreciationService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.depreciationService.getRecords(params));
     return result
   }
 
   // onGridReady(params: GridReadyEvent) {
   //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
 
   //   // var dataSource = {
   //   //   getRows: (params: any) => {
@@ -189,13 +187,12 @@ export class ListDepreciationComponent extends AppComponentBase implements OnIni
   //   //     });
   //   //   },
   //   // };
-  //   // params.api.setDatasource(dataSource);
+  //   // params.api.setGridOption('datasource', dataSource);
   // }
 
   // onGridReady(params: GridReadyEvent) {
   //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
+  //   params.api.setGridOption('datasource', this.dataSource);
   // }
 
   // async getJournalEntries(params: any): Promise<IPaginationResponse<IJournalEntry[]>> {

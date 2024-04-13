@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {isEmpty} from 'lodash';
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {CreateCountryComponent} from '../../country/create-country/create-country.component';
@@ -9,6 +9,7 @@ import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {StateService} from '../services/state.service';
 import {IState} from '../models/IState';
 import {CreateStateComponent} from '../create-state/create-state.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-state',
@@ -155,7 +156,7 @@ export class ListStateComponent extends AppComponentBase implements OnInit {
   }
 
   async getState(params: any): Promise<IPaginationResponse<IState[]>> {
-    const result = await this.stateService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.stateService.getRecords(params));
     return result
   }
 }

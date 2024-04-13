@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {isEmpty} from 'lodash';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -8,6 +8,7 @@ import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';
 import {CreateSubjectComponent} from '../create-subject/create-subject.component';
 import {ISubject} from '../model/ISubject';
 import {SubjectService} from '../service/subject.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-subject',
@@ -43,7 +44,6 @@ export class ListSubjectComponent extends AppComponentBase implements OnInit {
   tooltipData = 'double click to view detail'
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
@@ -142,18 +142,17 @@ export class ListSubjectComponent extends AppComponentBase implements OnInit {
 
     // Getting Updated Data
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     })
   }
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getSubject(params: any): Promise<IPaginationResponse<ISubject[]>> {
-    const result = await this.subjectService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.subjectService.getRecords(params));
     return result
   }
 

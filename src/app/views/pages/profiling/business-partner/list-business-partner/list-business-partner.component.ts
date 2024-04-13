@@ -2,7 +2,6 @@ import {NgxsCustomService} from '../../../../shared/services/ngxs-service/ngxs-c
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
@@ -19,6 +18,7 @@ import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';
 import {BusinessPartnerType, Permissions} from 'src/app/views/shared/AppEnum';
 import {isEmpty} from 'lodash';
 import {APP_ROUTES} from 'src/app/views/shared/AppRoutes';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-business-partner',
@@ -35,7 +35,6 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
   public permissions = Permissions
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -160,7 +159,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     });
     // Recalling getBusinessPartners function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -181,12 +180,11 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
-    const result = await this.ngxsService.businessPartnerService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.ngxsService.businessPartnerService.getRecords(params));
     return result
   }
 

@@ -8,6 +8,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import {CreateFacultyComponent} from '../create-faculty/create-faculty.component';
 import {IFaculty} from '../model/IFaculty';
 import { FacultyService } from '../service/faculty.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-faculty',
@@ -156,7 +157,7 @@ export class ListFacultyComponent extends AppComponentBase implements OnInit {
   }
 
   async getFaculty(params: any): Promise<IPaginationResponse<IFaculty[]>> {
-    const result = await this.facultyService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.facultyService.getRecords(params));
     return result
   }
 }

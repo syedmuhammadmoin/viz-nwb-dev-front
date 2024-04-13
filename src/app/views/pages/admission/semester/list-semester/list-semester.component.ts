@@ -9,6 +9,7 @@ import {ISemester} from '../model/ISemester';
 import {SemesterService} from '../services/semester.service';
 import {CreateSemesterComponent} from '../create-semester/create-semester.component';
 import {Season} from '../../../../shared/AppEnum';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-semester',
@@ -201,7 +202,7 @@ export class ListSemesterComponent extends AppComponentBase implements OnInit {
   }
 
   async getSemester(params: any): Promise<IPaginationResponse<ISemester[]>> {
-    const result = await this.semesterService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.semesterService.getRecords(params));
     return result
   }
 }

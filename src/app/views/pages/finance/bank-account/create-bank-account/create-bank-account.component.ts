@@ -139,8 +139,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
           this.isLoading = false;
           this.editBankAccount(bankAccount.result);
           this.bankAccount = bankAccount.result;
-        },
-        (err) => console.log(err)
+        }
       );
   }
 

@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -8,6 +8,7 @@ import {CreateAcademicDepartmentComponent} from '../create-academic-department/c
 import {IAcademicDepartment} from '../model/IAcademicDepartment';
 import { AcademicDepartmentService } from '../service/academic-department.service';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-academic-department',
@@ -153,7 +154,7 @@ onGridReady(params: GridReadyEvent) {
 }
 
 async getAcademicDepartment(params: any): Promise<IPaginationResponse<IAcademicDepartment[]>> {
-  const result = await this.academicDepartmentService.getRecords(params).toPromise()
+  const result = await firstValueFrom(this.academicDepartmentService.getRecords(params));
   return result
 }
 }

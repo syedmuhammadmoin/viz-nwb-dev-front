@@ -26,7 +26,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
   columnDefs: any;
   gridOptions: any;
   gridApi: any;
-  gridColumnApi: any;
   defaultColDef;
   autoGroupColumnDef: any;
   profitNLossForm: FormGroup;
@@ -142,7 +141,6 @@ export class ProfitNLossComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
   }
 
   onSubmit() {

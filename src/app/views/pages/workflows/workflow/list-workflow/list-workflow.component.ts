@@ -1,8 +1,7 @@
 import { WORKFLOW } from './../../../../shared/AppRoutes';
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
+import { GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { WorkflowService } from '../service/workflow.service';
@@ -11,6 +10,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IWorkflow } from '../model/IWorkflow';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-workflow',
@@ -28,7 +28,6 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
   components: any;
   public permissions = Permissions;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   columnDefs = [
@@ -143,12 +142,11 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getWorkflows(params: any): Promise<IPaginationResponse<IWorkflow[]>> {
-    const result = await this.workflowService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.workflowService.getRecords(params));
     return result
   }
 }

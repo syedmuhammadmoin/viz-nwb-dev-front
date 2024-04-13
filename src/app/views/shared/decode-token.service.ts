@@ -29,7 +29,7 @@ export class DecodeTokenService {
         return this.tokenToReturn;
       }
     } catch (e) {
-      console.error('token error', e);
+      throw e;
     }
   }
 

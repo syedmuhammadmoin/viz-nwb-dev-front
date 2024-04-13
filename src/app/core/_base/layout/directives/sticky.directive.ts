@@ -216,7 +216,7 @@ private determineStatus(originalVals: StickyPositions,
                         enabled: boolean): StickyStatus {
     const stickyElementHeight = this.getComputedStyle(this.stickyElement.nativeElement).height;
     const reachedLowerEdge = this.boundaryElement &&
-      window.pageYOffset + stickyElementHeight + marginBottom >= (originalVals.bottomBoundary - marginTop);
+      window.scrollY + stickyElementHeight + marginBottom >= (originalVals.bottomBoundary - marginTop);
     return {
       isSticky: enabled && pageYOffset > originalVals.offsetY,
       reachedLowerEdge,

@@ -27,7 +27,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   columnDefs: any;
   gridOptions: any;
   gridApi: any;
-  gridColumnApi: any;
   defaultColDef;
   autoGroupColumnDef: any;
   balanceSheetForm: FormGroup;
@@ -123,7 +122,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
   }
 // called when form is submit by clicking on submit button
   onSubmit() {

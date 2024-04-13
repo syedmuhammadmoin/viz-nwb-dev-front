@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 import { IBudgetReport } from '../../current-budget/model/IBudgetReport';
 import { AppComponentBase } from '../../../../shared/app-component-base';
@@ -12,6 +12,7 @@ import { BudgetReappropriationService } from '../service/budget-reappropriation.
 import { IBudget } from '../model/Ibudget';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-budget-reappropriation',
@@ -33,7 +34,6 @@ export class ListBudgetReappropriationComponent extends AppComponentBase impleme
   tooltipData: string = "double click to view detail"
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   //Injecting Dependencies
@@ -163,12 +163,11 @@ export class ListBudgetReappropriationComponent extends AppComponentBase impleme
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getBudgetReappropriation(params: any): Promise<IPaginationResponse<IBudget[]>> {
-    const result = await this.budgetReappropriation.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.budgetReappropriation.getRecords(params));
     return result
   }
 

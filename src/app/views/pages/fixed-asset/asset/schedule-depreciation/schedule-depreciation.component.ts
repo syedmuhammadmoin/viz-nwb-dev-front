@@ -9,6 +9,7 @@ import { isEmpty } from 'lodash';
 import { AssetService } from '../service/asset.service';
 import { IAsset } from '../model/IAsset';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -28,7 +29,6 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
   gridOptions: any;
   defaultColDef: ColDef;
   gridApi: GridApi;
-  gridColumnApi: any;
   components: any;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
@@ -139,7 +139,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
   }
 
   async getDepSchedule(): Promise<IApiResponse<any[]>> {
-    const result = await this.assetService.getDepreciationSchedule(this._id).toPromise()
+    const result = await firstValueFrom(this.assetService.getDepreciationSchedule(this._id));
     return result
   }
 }

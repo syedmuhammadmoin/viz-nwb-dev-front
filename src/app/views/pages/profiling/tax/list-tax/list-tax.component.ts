@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog'
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions, TaxType } from 'src/app/views/shared/AppEnum';
@@ -9,6 +9,7 @@ import { ITax } from '../model/ITax';
 import { TaxService } from '../service/tax.service';
 import { CreateTaxComponent } from '../create-tax/create-tax.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-tax',
@@ -21,11 +22,9 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
   taxList : ITax[]
   gridOptions : GridOptions;
   defaultColDef : ColDef;
-  tooltipData : string = "double click to edit"
   components: any;
   public permissions = Permissions
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
+  gridApi: GridApi; 
   overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';
 
   // constructor
@@ -131,7 +130,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
     });
     //Get Updated Tax Data
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -152,12 +151,11 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getTaxes(params: any): Promise<IPaginationResponse<ITax[]>> {
-    const result = await this.taxService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.taxService.getRecords(params));
     return result
   }
 }

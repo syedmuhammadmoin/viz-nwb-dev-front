@@ -24,7 +24,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   columnDefs: any;
   gridOptions: any;
   gridApi: any;
-  gridColumnApi: any;
   defaultColDef;
   autoGroupColumnDef: any;
   trialBalanceForm: FormGroup;
@@ -41,6 +40,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
   debitOB: number = 0;
   creditCB: number = 0;
   debitCB: number = 0;
+  pinnedBottomRowData: any = [];
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -198,7 +198,6 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
   }
 
   onSubmit() {
@@ -231,7 +230,8 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
       this.cdRef.detectChanges();
       setTimeout(() => {
         const pinnedBottomData = this.generatePinnedBottomData();
-        this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+        this.pinnedBottomRowData = [pinnedBottomData];
+        this.cdRef.detectChanges();
       }, 500)
     });
   }
@@ -248,7 +248,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     // generate a row-data with null values
     const result = {};
 
-    this.gridColumnApi.getAllGridColumns().forEach(item => {
+    this.gridApi.getAllGridColumns().forEach(item => {
       result[item.colId] = null;
     });
     return this.calculatePinnedBottomData(result);
@@ -297,6 +297,7 @@ export class TrialBalanceComponent extends AppComponentBase implements OnInit {
     this.recordsData = [];
     this.rowData = [];
     this.isLoading = false;
+    this.pinnedBottomRowData = [];
     //for PDF
     this.disability = true;
   }

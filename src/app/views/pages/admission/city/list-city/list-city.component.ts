@@ -8,6 +8,7 @@ import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {CityService} from '../services/city.service';
 import {CreateCityComponent} from '../create-city/create-city.component';
 import {ICity} from '../models/ICity';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-city',
@@ -164,7 +165,7 @@ export class ListCityComponent extends AppComponentBase implements OnInit {
   }
 
   async getCity(params: any): Promise<IPaginationResponse<ICity[]>> {
-    const result = await this.cityService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.cityService.getRecords(params));
     return result
   }
 }

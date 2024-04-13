@@ -13,6 +13,7 @@ import { IQuotationComparative } from '../model/IQuotationComparative';
 import { QuotationComparativeService } from '../service/quotation-comparative.service';
 import { ColDef, GridApi, GridReadyEvent, IsRowMaster , ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import { QuotationService } from '../../quotation/service/quotation.service';
+import { firstValueFrom } from 'rxjs';
 
 
 
@@ -279,7 +280,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   //Get Quotations by requisition Id
   async getQuotations(reqId: number): Promise<IApiResponse<any[]>> {
     this.isLoading = true;
-    const res = await this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: this.quotationCompId}).toPromise()
+    const res = await firstValueFrom(this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: this.quotationCompId}));
     this.quotationList = res.result;
     this.isLoading = false;
     this.cdRef.detectChanges()

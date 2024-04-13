@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { WarehouseService} from '../services/warehouse.service';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
 import { MatDialog} from "@angular/material/dialog";
 import { CreateWarehouseComponent} from "../create-warehouse/create-warehouse.component";
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
@@ -9,6 +9,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-warehouse',
@@ -21,11 +22,9 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
   warehouseList : IWarehouse[];
   gridOptions : GridOptions;
   defaultColDef : ColDef;
-  tooltipData : string = "double click to edit"
   components: any;
   public permissions = Permissions
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
+  gridApi: GridApi; 
   overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';
 
   constructor( private warehouseService: WarehouseService,
@@ -122,7 +121,7 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
     });
     //Getting Updated Warehouse
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -143,12 +142,11 @@ export class ListWarehouseComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getWarehouses(params: any): Promise<IPaginationResponse<IWarehouse[]>> {
-    const result = await this.warehouseService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.warehouseService.getRecords(params));
     return result
   }
 }

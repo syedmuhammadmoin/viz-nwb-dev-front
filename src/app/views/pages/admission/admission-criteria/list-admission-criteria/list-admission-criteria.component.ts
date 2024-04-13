@@ -16,6 +16,7 @@ import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {AdmissionCriteriaService} from '../services/admission-criteria.service';
 import {IAdmissionCriteria} from '../model/IAdmissionCriteria';
 import {CreateAdmissionCriteriaComponent} from '../create-admission-criteria/create-admission-criteria.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-admission-criteria',
@@ -252,7 +253,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
   }
 
   async getAdmissionCriteria(params: any): Promise<IPaginationResponse<IAdmissionCriteria[]>> {
-    const result = await this.admissionCriteriaService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.admissionCriteriaService.getRecords(params));
     return result
   }
 }

@@ -25,6 +25,7 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AuthSingletonService } from '../auth/service/auth-singleton.service';
 import { PermissionService } from '../auth/service/permission.service';
+import { firstValueFrom } from 'rxjs';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -134,7 +135,7 @@ export class DashboardComponent implements OnInit {
     this.getballanceSheetSummary(); 
     /// Bar Chart Show Grid             
     /// Line or Pie Chart ////
-    this.dashboardService.getSummaryforLast12Month().toPromise().then((res: IApiResponse<any>) => {
+    firstValueFrom(this.dashboardService.getSummaryforLast12Month()).then((res: IApiResponse<any>) => {
       this.expense = res.result.filter(x => x.nature === "Expenses").map(i => i.balance);
       this.revenue = res.result.filter(x => x.nature === "Revenue").map(i => i.balance);
       this.ref.detectChanges();
@@ -383,7 +384,7 @@ export class DashboardComponent implements OnInit {
 
 
   getballanceSheetSummary(){
-    this.dashboardService.getSummary().toPromise().then((res: IApiResponse<any>) => {
+    firstValueFrom(this.dashboardService.getSummary()).then((res: IApiResponse<any>) => {
       
       // Filter on level2 and sum ballance ammount of each category to show on dashboard top 
       this.currentAsset = res.result.filter(x => x.level1Name === "Assets" && x.level2Name === "Current Assets").reduce((sum, item) => sum + item.balance, 0);

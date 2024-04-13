@@ -17,8 +17,8 @@
           <div [id]="'child'+ node.id" class="circle-dropdown">
             <button [id]="'child'+ node.name" mat-icon-button disabled></button>
             {{node.name}}
-            <button *ngIf="(permission.isGranted(permissions.LEVEL4_CREATE))" [id]="'add_' + node.name" mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 3" (click)="addNewItem(node)" class="btn__add ms-3"> <i class="fa fa-plus"></i></button>
-            <button *ngIf="(permission.isGranted(permissions.LEVEL4_EDIT))" [id]="'edit_' + node.name" mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 2 || node.accountType === 0" (click)="editItem(node)" class="btn__edit ms-3"> <i class="fa fa-edit"></i></button>
+            <button *ngIf="(permission.isGranted(permissions.LEVEL4_CREATE))" [id]="'add_' + node.name" mat-icon-button [hidden]="node.level === 0 || node.level === 1 || node.level === 3" (click)="addNewItem(node)" class="btn__add ms-3"> <i class="fa fa-plus"></i></button>
+            <button *ngIf="(permission.isGranted(permissions.LEVEL4_EDIT))" [id]="'edit_' + node.name" mat-icon-button [hidden]="node.level === 0 || node.level === 1 || node.level === 2 || node.accountType === 0" (click)="editItem(node)" class="btn__edit ms-3"> <i class="fa fa-edit"></i></button>
           </div>
         </mat-tree-node>
         <!-- This is the tree node template for expandable nodes -->
@@ -30,8 +30,8 @@
               </mat-icon>
             </button>
             {{node.name}}
-            <button *ngIf="(permission.isGranted(permissions.LEVEL4_CREATE))" [id]="'add_' + node.name" class="btn__add ms-3" mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 3" (click)="addNewItem(node)"> <i class="fa fa-plus"></i></button>
-            <button *ngIf="(permission.isGranted(permissions.LEVEL4_EDIT))" [id]="'edit_' + node.name" class="btn__edit ms-3" mat-icon-button [hidden]="node.level == 0 || node.level == 1 || node.level == 2 || node.accountType === 0" (click)="editItem(node)"><i class="fa fa-edit"></i></button>
+            <button *ngIf="(permission.isGranted(permissions.LEVEL4_CREATE))" [id]="'add_' + node.name" class="btn__add ms-3" mat-icon-button [hidden]="node.level === 0 || node.level === 1 || node.level === 3" (click)="addNewItem(node)"> <i class="fa fa-plus"></i></button>
+            <button *ngIf="(permission.isGranted(permissions.LEVEL4_EDIT))" [id]="'edit_' + node.name" class="btn__edit ms-3" mat-icon-button [hidden]="node.level === 0 || node.level === 1 || node.level === 2 || node.accountType === 0" (click)="editItem(node)"><i class="fa fa-edit"></i></button>
           </div>
         </mat-tree-node>
       </mat-tree>

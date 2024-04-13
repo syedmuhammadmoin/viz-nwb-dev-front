@@ -26,13 +26,13 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   approvePayrollProcessForm: FormGroup;
   defaultColDef: any;
   gridOptions: any;
-  gridColumnApi: any
   isLoading: boolean;
   payrollTransactions: any[] = [];
   overlayLoadingTemplate: any;
   isDisabled: any;
   rowSelection = 'multiple';
   departmentsList: any = new BehaviorSubject<any>([])
+  pinnedBottomRowData: any = [];
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -188,7 +188,8 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
         this.payrollTransactions = res
         setTimeout(() => {
           const pinnedBottomData = this.generatePinnedBottomData();
-          this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+          this.pinnedBottomRowData = [pinnedBottomData];
+          this.cdRef.detectChanges();
         }, 500)
       })
   }
@@ -201,7 +202,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 // methd called on grid ready
   onGridReady(params) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
   }
 
 // approve the process or submit the process
@@ -243,15 +243,15 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
   resetForm() {
     this.formDirective.resetForm();
-    this.payrollTransactions = []
-    this.gridApi.setPinnedBottomRowData([])
+    this.payrollTransactions = [];
+    this.pinnedBottomRowData = [];
   }
 
   generatePinnedBottomData() {
     // generate a row-data with null values
     const result = {};
 
-    this.gridColumnApi.getAllGridColumns().forEach(item => {
+    this.gridApi.getAllGridColumns().forEach(item => {
       result[item.colId] = null;
     });
     return this.calculatePinnedBottomData(result);

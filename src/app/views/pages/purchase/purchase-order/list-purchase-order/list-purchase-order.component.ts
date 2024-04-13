@@ -1,6 +1,6 @@
 import { PURCHASE_ORDER } from '../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from "ag-grid-community";
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from "ag-grid-community";
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
 import { PurchaseOrderService } from "../service/purchase-order.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -26,7 +26,6 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -171,7 +170,6 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -187,6 +185,6 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 }

@@ -53,8 +53,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationStart) {
         // set page progress bar loading to start on NavigationStart event router
-        this.loader.start();
-        
+        this.loader.useRef().start(1);
       }
       if (event instanceof RouteConfigLoadStart) {
        // this.loader.increment(35);
@@ -62,20 +61,16 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
       
       if (event instanceof RouteConfigLoadEnd) {
-        this.loader.increment(75);
+        this.loader.useRef().increment(75);
        
       }
       
       if (event instanceof NavigationEnd || event instanceof NavigationCancel) {
         // set page progress bar loading to end on NavigationEnd event router
-       this.loader.complete();
+       this.loader.useRef().complete();
        
       }
     });
-      
-    
-  
-    
   }
 
   /**

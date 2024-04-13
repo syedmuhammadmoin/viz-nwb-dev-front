@@ -7,6 +7,7 @@ import {CampusService} from '../service/campus.service';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {Permissions} from 'src/app/views/shared/AppEnum';
 import {isEmpty} from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-campus',
@@ -21,7 +22,6 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   components: any;
   gridApi: GridApi;
-  gridColumnApi: any;
   public permissions = Permissions
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
@@ -126,12 +126,11 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getCampuses(params: any): Promise<IPaginationResponse<ICampus[]>> {
-    const result = await this.campusService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.campusService.getRecords(params));
     return result
   }
 }

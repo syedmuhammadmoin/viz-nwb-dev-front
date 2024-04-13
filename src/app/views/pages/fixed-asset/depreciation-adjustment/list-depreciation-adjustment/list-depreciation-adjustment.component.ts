@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
@@ -34,7 +33,6 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
   public permissions = Permissions
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   // Injecting Dependencies
@@ -174,9 +172,8 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
-    let dataSource = {
+    const dataSource = {
       getRows: (params: any) => {
         this.depreciationAdjustmentService.getRecords(params).subscribe((data) => {
           if (isEmpty(data.result)) {
@@ -190,6 +187,6 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 }

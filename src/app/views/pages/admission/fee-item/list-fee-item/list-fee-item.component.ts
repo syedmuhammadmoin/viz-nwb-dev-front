@@ -1,13 +1,14 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {isEmpty} from 'lodash';
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {FeeItemService} from '../services/fee-item.service';
 import {CreateFeeItemComponent} from '../create-fee-item/create-fee-item.component';
 import {IFeeItem} from '../models/IFeeItem';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-fee-item',
@@ -43,7 +44,6 @@ export class ListFeeItemComponent extends AppComponentBase implements OnInit {
   tooltipData = 'double click to view detail'
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
@@ -157,19 +157,18 @@ export class ListFeeItemComponent extends AppComponentBase implements OnInit {
     });
     // Getting Updated Warehouse
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getFeeItem(params: any): Promise<IPaginationResponse<IFeeItem[]>> {
-    const result = await this.feeItemService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.feeItemService.getRecords(params));
     return result
   }
 

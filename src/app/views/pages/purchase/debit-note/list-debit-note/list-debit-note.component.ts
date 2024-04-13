@@ -1,12 +1,9 @@
 import { DEBIT_NOTE } from '../../../../shared/AppRoutes';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { DebitNoteService } from '../service/debit-note.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
-import { IDebitNote } from '../model/IDebitNote';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
 
@@ -26,7 +23,6 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -156,9 +152,7 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
   }
 
   onGridReady(params: GridReadyEvent) {
-
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -174,6 +168,6 @@ export class ListDebitNoteComponent extends AppComponentBase implements OnInit {
         });
       },
     };
-    params.api.setDatasource(dataSource)
+    params.api.setGridOption('datasource', dataSource);
   }
 }

@@ -18,6 +18,7 @@ import {IShift} from '../../shift/model/IShift';
 import {isEmpty} from 'lodash';
 import {BatchService} from '../service/batch.service';
 import {BATCH} from '../../../../shared/AppRoutes';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-batch',
@@ -197,7 +198,7 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
   }
 
   async getBatch(params: any): Promise<IPaginationResponse<IShift[]>> {
-    const result = await this.batchService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.batchService.getRecords(params));
     return result
   }
 }

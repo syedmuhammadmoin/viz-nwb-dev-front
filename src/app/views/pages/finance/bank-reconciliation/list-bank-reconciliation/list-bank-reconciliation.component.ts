@@ -34,6 +34,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   rowSelectionBankStatement: string | any = 'multiple';
   private paymentColumnApi: any;
   private statementColumnApi: any;
+  statementPinnedBottomRowData: any = [];
+  paymentPinnedBottomRowData: any = [];
 
   //Loader
   isloading: boolean;
@@ -235,7 +237,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       this.cdRef.detectChanges();
       setTimeout(() => {
         const pinnedBottomData = this.footerHelper.generatePinnedBottomData(this.statementColumnApi, this.statementGridApi, 'docNo', ['unreconciledAmount']);
-        this.statementGridApi.setPinnedBottomRowData([pinnedBottomData]);
+        this.statementPinnedBottomRowData = [pinnedBottomData];
+        this.cdRef.detectChanges();
       }, 500)
     });
     this.bankReconService.paymentList.subscribe((res) => {
@@ -243,7 +246,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       this.cdRef.detectChanges();
       setTimeout(() => {
         const pinnedBottomData = this.footerHelper.generatePinnedBottomData(this.paymentColumnApi, this.paymentGridApi, 'docNo', ['unreconciledAmount']);
-        this.paymentGridApi.setPinnedBottomRowData([pinnedBottomData]);
+        this.paymentPinnedBottomRowData = [pinnedBottomData];
+        this.cdRef.detectChanges();
       }, 500)
     })
   }

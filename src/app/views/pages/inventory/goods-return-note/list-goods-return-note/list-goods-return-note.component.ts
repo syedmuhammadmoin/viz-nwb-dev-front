@@ -1,6 +1,6 @@
 import { GOODS_RETURN_NOTE } from './../../../../shared/AppRoutes';
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams }            from "ag-grid-community";
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams }            from "ag-grid-community";
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
 import { ActivatedRoute, Router } from "@angular/router";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -23,7 +23,6 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
   tooltipData: string = "double click to view detail"
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -150,7 +149,6 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -166,6 +164,6 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 }

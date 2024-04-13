@@ -8,6 +8,7 @@ import {ICourse} from '../model/ICourse';
 import {isEmpty} from 'lodash';
 import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {CourseService} from '../service/course.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-course',
@@ -142,18 +143,18 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
     });
     // Getting Updated Warehouse
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getCourses(params: any): Promise<IPaginationResponse<ICourse[]>> {
-    const result = await this.courseService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.courseService.getRecords(params));
     return result
   }
 }

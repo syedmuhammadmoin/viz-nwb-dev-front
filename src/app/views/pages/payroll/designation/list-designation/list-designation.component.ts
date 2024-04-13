@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -8,6 +8,7 @@ import { DesignationService } from '../service/designation.service';
 import { CreateDesignationComponent } from '../create-designation/create-designation.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { firstValueFrom } from 'rxjs';
   
 @Component({
   selector: 'kt-list-designation',
@@ -24,7 +25,6 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     gridOptions: any;
     components: any;
     gridApi: GridApi;
-    gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
  
   
@@ -108,12 +108,11 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
   
     onGridReady(params: GridReadyEvent) {
       this.gridApi = params.api;
-      this.gridColumnApi = params.columnApi;
-      params.api.setDatasource(this.dataSource);
+      params.api.setGridOption('datasource', this.dataSource);
     }
   
     async getDesignations(params: any): Promise<IPaginationResponse<[]>> {
-      const result = await this.designationService.getRecords(params).toPromise()
+      const result = await firstValueFrom(this.designationService.getRecords(params));
       return result
     }
 
@@ -128,7 +127,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
       });
       //Getting Updated Warehouse
       dialogRef.afterClosed().subscribe(() => {
-        this.gridApi.setDatasource(this.dataSource)
+        this.gridApi.setGridOption('datasource', this.dataSource);
         this.cdRef.detectChanges();
       });
   }

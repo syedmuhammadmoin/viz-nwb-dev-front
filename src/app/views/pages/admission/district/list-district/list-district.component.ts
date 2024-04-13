@@ -9,6 +9,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CreateDistrictComponent } from '../create-district/create-district.component';
 import { IDistrict } from '../model/IDistrict';
 import { DistrictService } from '../service/district.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-district',
@@ -152,7 +153,7 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
   }
 
   async getDistricts(params: any): Promise<IPaginationResponse<IDistrict[]>> {
-    const result = await this.districtService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.districtService.getRecords(params));
     return result
   }
 }

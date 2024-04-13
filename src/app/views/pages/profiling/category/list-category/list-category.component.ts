@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { CategoryService } from '../service/category.service';
 import { MatDialog } from '@angular/material/dialog'
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateCategoryComponent } from '../create-category/create-category.component';
 import { ICategory } from '../model/ICategory';
@@ -9,6 +9,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-category',
@@ -21,11 +22,9 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
   categoryList : ICategory[]
   gridOptions : GridOptions;
   defaultColDef : ColDef;
-  tooltipData : string = "double click to edit"
   components: any;
   public permissions = Permissions
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
+  gridApi: GridApi; 
   overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';
 
   // constructor
@@ -126,7 +125,7 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     });
     // Recalling getCategories function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -147,12 +146,11 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getCategories(params: any): Promise<IPaginationResponse<ICategory[]>> {
-    const result = await this.categoryService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.categoryService.getRecords(params));
     return result
   }
 }

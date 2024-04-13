@@ -24,7 +24,6 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
   gridOptions: any;
   defaultColDef: ColDef;
   gridApi: GridApi;
-  gridColumnApi: any;
   components: any;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 

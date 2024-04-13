@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { EMPLOYEE } from 'src/app/views/shared/AppRoutes';
@@ -8,6 +8,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { EmployeeService } from '../service/employee.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-employee',
@@ -24,7 +25,6 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
   tooltipData: string = "double click to view detail"
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -180,12 +180,11 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.employeeService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.employeeService.getRecords(params));
     return result
   }
 }
