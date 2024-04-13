@@ -66,7 +66,6 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
         headerName: 'Degree',
         field: 'name',
         tooltipField: 'name',
-        cellRenderer: 'loadingCellRenderer',
         filter: 'agTextColumnFilter',
         menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -85,10 +84,9 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
         pagination: true,
         rowHeight: 30,
         headerHeight: 35,
+        paginationPageSizeSelector: false,
         context: 'double click to view detail',
       };
-  
-      
   
       this.defaultColDef = {
         tooltipComponent: 'customTooltip',
@@ -103,6 +101,7 @@ export class DegreeListComponent extends AppComponentBase implements OnInit {
       }
   
       this.components = {
+        customTooltip: CustomTooltipComponent,
         loadingCellRenderer (params: any) {
           if (params.value !== undefined) {
             return params.value;

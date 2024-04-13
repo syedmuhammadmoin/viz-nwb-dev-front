@@ -46,7 +46,6 @@ export class ListDomicileComponent extends AppComponentBase implements OnInit {
       headerName: 'District',
       field: 'district',
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -79,10 +78,9 @@ export class ListDomicileComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: "double click to edit",
+      paginationPageSizeSelector: false,
+      context: "double click to view detail",
     };
-
-    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',

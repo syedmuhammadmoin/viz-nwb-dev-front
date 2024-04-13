@@ -85,10 +85,9 @@ export class ListQualificationComponent extends AppComponentBase implements OnIn
         pagination: true,
         rowHeight: 30,
         headerHeight: 35,
+        paginationPageSizeSelector: false,
         context: 'double click to view detail',
       };
-  
-      
   
       this.defaultColDef = {
         tooltipComponent: 'customTooltip',
@@ -100,6 +99,7 @@ export class ListQualificationComponent extends AppComponentBase implements OnIn
       }
   
       this.components = {
+        customTooltip: CustomTooltipComponent,
         loadingCellRenderer (params: any) {
           if (params.value !== undefined) {
             return params.value;

@@ -3,7 +3,6 @@ import {AppComponentBase} from '../../../../shared/app-component-base';
 import {MatDialog} from '@angular/material/dialog';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions, GridReadyEvent,
@@ -13,11 +12,9 @@ import {
 import {Permissions} from '../../../../shared/AppEnum';
 import {isEmpty} from 'lodash';
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
-import {ADMISSION_CRITERIA, BATCH} from '../../../../shared/AppRoutes';
 import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {AdmissionCriteriaService} from '../services/admission-criteria.service';
 import {IAdmissionCriteria} from '../model/IAdmissionCriteria';
-import {CreateFeeItemComponent} from '../../fee-item/create-fee-item/create-fee-item.component';
 import {CreateAdmissionCriteriaComponent} from '../create-admission-criteria/create-admission-criteria.component';
 
 @Component({
@@ -52,10 +49,8 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
   defaultColDef: ColDef;
   public permissions = Permissions;
   
-  tooltipData = 'double click to view detail'
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
@@ -65,7 +60,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Program',
       field: 'program',
-      tooltipField: 'name',
+      tooltipField: 'program',
       cellRenderer: 'loadingCellRenderer',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -77,7 +72,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Description',
       field: 'description',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -88,7 +83,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Qualification',
       field: 'qualification',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -99,7 +94,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Subject',
       field: 'subject',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -110,7 +105,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Required Marks',
       field: 'qualificationRequriedMarks',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -121,7 +116,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Entry Test Required',
       field: 'isEntryTestRequired',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -133,7 +128,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Entry Test Required Marks',
       field: 'entryTestRequriedMarks',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -144,7 +139,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Entry Test Date',
       field: 'entryTestDate',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -158,7 +153,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Interview Required',
       field: 'isInterviewRequired',
-      tooltipField: 'name',
+      tooltipField: 'program',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -170,7 +165,6 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     {
       headerName: 'Interview Date',
       field: 'interviewDate',
-      tooltipField: 'name',
       filter: 'agDateColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -207,10 +201,8 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
       rowHeight: 30,
       headerHeight: 35,
       paginationPageSizeSelector: false,
-      context: 'double click to view detail'
+      context: 'double click to edit'
     };
-
-    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -222,6 +214,7 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -230,7 +223,6 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
         }
       },
     };
-
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -249,20 +241,18 @@ export class ListAdmissionCriteriaComponent extends AppComponentBase implements 
     });
     // Getting Updated Warehouse
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getAdmissionCriteria(params: any): Promise<IPaginationResponse<IAdmissionCriteria[]>> {
     const result = await this.admissionCriteriaService.getRecords(params).toPromise()
     return result
   }
-
 }

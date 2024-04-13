@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -20,13 +19,11 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
 
   gridOptions: any;
   defaultColDef: any;
-  tooltipData: string = "double click to edit"
   districtList: IDistrict[] = [];
   
   components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   columnDefs = [
@@ -46,7 +43,6 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
       headerName: 'City',
       field: 'city',
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -79,10 +75,9 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: "double click to edit",
+      paginationPageSizeSelector: false,
+      context: "double click to view detail",
     };
-
-    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -132,7 +127,7 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
 
     //Getting Updated Data
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     })
   }
@@ -153,8 +148,7 @@ export class ListDistrictComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getDistricts(params: any): Promise<IPaginationResponse<IDistrict[]>> {

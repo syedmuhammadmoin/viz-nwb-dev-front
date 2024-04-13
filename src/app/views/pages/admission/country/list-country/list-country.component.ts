@@ -53,6 +53,7 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sr.No',
       field: 'index',
+      tooltipField: 'name',
       cellRenderer: 'loadingCellRenderer',
       suppressHeaderMenuButton: true,
     },
@@ -94,10 +95,8 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
       rowHeight: 30,
       headerHeight: 35,
       paginationPageSizeSelector: false,
-      context: 'double click to view detail'
+      context: 'double click to edit'
     };
-
-    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -109,6 +108,7 @@ export class ListCountryComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;

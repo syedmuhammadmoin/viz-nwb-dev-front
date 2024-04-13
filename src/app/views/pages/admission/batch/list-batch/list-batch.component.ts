@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
@@ -13,13 +12,12 @@ import {
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {IBatch} from '../../batch-type/model/IBatch';
-import {CreateBatchComponent} from '../create-batch/create-batch.component';
 import {Permissions} from '../../../../shared/AppEnum';
 import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {IShift} from '../../shift/model/IShift';
 import {isEmpty} from 'lodash';
 import {BatchService} from '../service/batch.service';
-import {BATCH, INVOICE} from '../../../../shared/AppRoutes';
+import {BATCH} from '../../../../shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-batch',
@@ -53,10 +51,8 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   public permissions = Permissions;
   
-  tooltipData = 'double click to view detail'
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
@@ -125,7 +121,6 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Admission Open',
       field: 'isAdmissionOpen',
-      tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -163,8 +158,6 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
       context: 'double click to view detail'
     };
 
-    
-
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
@@ -175,6 +168,7 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -183,7 +177,6 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
         }
       },
     };
-
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -200,13 +193,11 @@ export class ListBatchComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getBatch(params: any): Promise<IPaginationResponse<IShift[]>> {
     const result = await this.batchService.getRecords(params).toPromise()
     return result
   }
-
 }

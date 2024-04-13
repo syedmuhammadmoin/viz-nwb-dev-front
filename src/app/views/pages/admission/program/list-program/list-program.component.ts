@@ -82,7 +82,6 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Total Semesters',
       field: 'totalSemesters',
-      tooltipField: 'name',
       filter: 'agNumberColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -122,8 +121,6 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
       context: 'double click to view detail'
     };
 
-    
-
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
@@ -134,6 +131,7 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;

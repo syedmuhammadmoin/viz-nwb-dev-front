@@ -26,10 +26,8 @@ export class ListAcademicDepartmentComponent extends AppComponentBase implements
   defaultColDef: ColDef;
   public permissions = Permissions;
   
-  tooltipData = 'double click to view detail'
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 // Injecting Dependencies
@@ -90,8 +88,6 @@ export class ListAcademicDepartmentComponent extends AppComponentBase implements
       context: 'double click to view detail'
     };
 
-    
-
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
@@ -102,6 +98,7 @@ export class ListAcademicDepartmentComponent extends AppComponentBase implements
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -131,7 +128,7 @@ export class ListAcademicDepartmentComponent extends AppComponentBase implements
 
     //Getting Updated Data
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource)
       this.cdRef.detectChanges();
     })
   }
@@ -152,13 +149,11 @@ dataSource = {
 
 onGridReady(params: GridReadyEvent) {
   this.gridApi = params.api;
-  this.gridColumnApi = params.columnApi;
-  params.api.setDatasource(this.dataSource);
+  params.api.setGridOption('datasource', this.dataSource);
 }
 
 async getAcademicDepartment(params: any): Promise<IPaginationResponse<IAcademicDepartment[]>> {
   const result = await this.academicDepartmentService.getRecords(params).toPromise()
   return result
 }
-
 }

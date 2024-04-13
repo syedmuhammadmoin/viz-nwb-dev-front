@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {CreateCourseComponent} from '../create-course/create-course.component';
@@ -40,12 +40,9 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   public permissions = Permissions;
   
-  tooltipData = 'double click to view detail'
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
-
 
 // Defining AG Grid Columns
 
@@ -53,13 +50,14 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sr.No',
       field: 'index',
+      tooltipField: 'name',
       cellRenderer: 'loadingCellRenderer',
       suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Course',
       field: 'name',
-      tooltipField: 'course',
+      tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -70,7 +68,6 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Passing Marks',
       field: 'passingMarks',
-      tooltipField: 'course',
       filter: 'agNumberColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -105,10 +102,8 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
       rowHeight: 30,
       headerHeight: 35,
       paginationPageSizeSelector: false,
-      context: 'double click to view detail'
+      context: 'double click to edit'
     };
-
-    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -120,6 +115,7 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -153,7 +149,6 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
     params.api.setDatasource(this.dataSource);
   }
 
@@ -161,5 +156,4 @@ export class ListCourseComponent extends AppComponentBase implements OnInit {
     const result = await this.courseService.getRecords(params).toPromise()
     return result
   }
-
 }

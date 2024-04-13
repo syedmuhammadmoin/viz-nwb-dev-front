@@ -1,6 +1,6 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {CreateShiftComponent} from '../create-shift/create-shift.component';
@@ -41,10 +41,8 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   public permissions = Permissions;
   
-  tooltipData = 'double click to view detail'
   components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
@@ -54,13 +52,14 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sr.No',
       field: 'index',
+      tooltipField: 'name',
       cellRenderer: 'loadingCellRenderer',
       suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Shift',
       field: 'name',
-      tooltipField: 'shift',
+      tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -95,10 +94,8 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
       rowHeight: 30,
       headerHeight: 35,
       paginationPageSizeSelector: false,
-      context: 'double click to view detail'
+      context: 'double click to edit'
     };
-
-    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -110,6 +107,7 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -118,7 +116,6 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
         }
       },
     };
-
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -136,15 +133,14 @@ export class ListShiftComponent extends AppComponentBase implements OnInit {
     });
     // Getting Updated Warehouse
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getShift(params: any): Promise<IPaginationResponse<IShift[]>> {
