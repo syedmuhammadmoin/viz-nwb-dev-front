@@ -12,7 +12,8 @@ import {
   ApexTitleSubtitle,
   ChartComponent,
   ApexNonAxisChartSeries,
-  ApexResponsive, ApexLegend, ApexFill, ApexTooltip, ApexPlotOptions
+  ApexResponsive, ApexLegend, ApexFill, ApexTooltip, ApexPlotOptions,
+  ApexYAxis
 } from 'ng-apexcharts';
 import { DynamicColorChangeService } from '../../shared/services/dynamic-color/dynamic-color-change.service';
 import { DashboardService } from './service/dashboard.service';
@@ -31,6 +32,7 @@ export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
   stroke: ApexStroke;
@@ -183,6 +185,9 @@ export class DashboardComponent implements OnInit {
                 colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
                 opacity: 0.5
               }
+            },
+            yaxis: {
+              tickAmount: 5
             },
             xaxis: {
               categories: [

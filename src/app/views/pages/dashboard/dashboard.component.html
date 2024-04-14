@@ -69,6 +69,7 @@
       <div id="chart" class="card" style="box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
         <ng-container *ngIf="showChart[1]">
           <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+            [yaxis]="chartOptions.yaxis"
             [dataLabels]="chartOptions.dataLabels" [grid]="chartOptions.grid" [stroke]="chartOptions.stroke"
             [title]="chartOptions.title"></apx-chart>
         </ng-container>
@@ -153,13 +154,13 @@
           </div>
         </div>
 
-        <div class="col-md-3">
+        <div class="col-md-3" *ngIf="level3NonCurrentlibilities?.length > 0">
           <div class="custom-card">
             <div class="card-body dashboard-card-body">
-              <div class="">
+              <div>
                 <h5 class="card-title">Non-Current Liability </h5>
               </div>
-              <div class="row" *ngFor="let item of level3Currentlibilities let i = index">
+              <div class="row" *ngFor="let item of level3NonCurrentlibilities let i = index">
                 <div>
                   <span>{{i+1}}.</span>
                 </div>
@@ -178,8 +179,7 @@
   </div>
 </div>
 
-<div class="row" 
-*ngIf="!checkingPermission">
+<div class="row" *ngIf="!checkingPermission">
   <div class="col-md-3 col-sm-6 mb-5">
     <div class="card" style="height: 150px; box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;">
       <div class="row mx-auto my-auto">
