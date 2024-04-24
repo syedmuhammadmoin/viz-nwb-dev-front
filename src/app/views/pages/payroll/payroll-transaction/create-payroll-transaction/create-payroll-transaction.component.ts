@@ -330,7 +330,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     payrollEntryLine.markAsDirty();
     payrollEntryLine.markAsTouched();
     this.table.renderRows();
-    // this.totalCalculation();
+     this.CalculateBasicPay();
   }
 
 
@@ -350,7 +350,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     return formArray
   }
   // for salary calculation
-  calculateSalary(employee: any) {
+  calculateSalary(employee?: any) {
     const workingDays = this.payrollTransactionForm.value.workingDays || 1
     const presentDays = this.payrollTransactionForm.value.presentDays || 1
     const tax = this.payrollTransactionForm.value.tax || 0
@@ -467,6 +467,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   mapPayrollTransactionValuesToPayrollModel() {
+    debugger;
     this.payrollTransaction.id = this.payrollId;   
     this.payrollTransaction.employeeId = this.payrollTransactionForm.getRawValue().employeeId;    
     this.payrollTransaction.transDate = this.dateHelperService.transformDate(this.payrollTransactionForm.getRawValue().transDate, 'yyyy-MM-dd');
@@ -480,6 +481,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.payrollTransaction.netIncrement = this.payrollTransactionForm.value.netIncrement;
     this.payrollTransaction.taxDeduction = this.payrollTransactionForm.value.taxDeduction;
     this.payrollTransaction.basicSalary = this.payrollTransactionForm.value.basicSalary;
+    this.payrollTransaction.netSalary = this.payrollTransactionForm.value.netSalary;
+    this.payrollTransaction.grossPay = this.payrollTransactionForm.value.grossPay;   
     this.payrollTransaction.religion = this.payrollTransactionForm.value.religion;
     this.payrollTransaction.employeeType = this.payrollTransactionForm.value.employeeType;
     this.payrollTransaction.EmployeeCNIC = this.payrollTransactionForm.value.EmployeeCNIC;
@@ -541,6 +544,10 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     console.log(this.totalDeductions , "Total deductions");
     
     var pay = this.payrollTransactionForm.get('basicSalary').value;
+    var gPay = this.payrollTransactionForm.get('grossPay').value;
+    gPay = this.totalAllowances + Number(pay)
+    console.log(gPay,'form gross pay');
+    
     this.grossSalary = this.totalAllowances + Number(pay)    
     this.netSalary = this.grossSalary - this.totalDeductions;
     console.log(this.netSalary,"Net Salary");
