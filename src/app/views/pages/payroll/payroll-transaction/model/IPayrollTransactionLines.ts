@@ -4,5 +4,5 @@ export class IPayrollTransactionLines {
     payrollType:number;
     amount:number;
     accountId:number;   
-    
+    value:number;
 }

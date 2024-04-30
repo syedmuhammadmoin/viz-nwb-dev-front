@@ -26,9 +26,9 @@ import { PayrollItemService } from '../../payroll-item/service/payroll-item.serv
 
 export class CreatePayrollTransactionComponent extends AppComponentBase implements OnInit {
 
- basicSal : number;
- totalDeductions : number;
- totalAllowances : number;
+  basicSal: number;
+  totalDeductions: number;
+  totalAllowances: number;
   // For Table Columns
   displayedColumns = ['accountId', 'payrollItemId', 'payrollType', 'amount', 'action']
   // for bisic salary
@@ -66,7 +66,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   //store working days
   workingDays: number = 0
 
-  PayrollItems:any;
+  PayrollItems: any;
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -77,7 +77,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   //show toast mesasge of on campus select
   showMessage: boolean = false;
 
-  EmployeeId:number;
+  EmployeeId: number;
   butDisabled: boolean = true;
 
 
@@ -117,7 +117,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     netSalary: {
       required: 'Net Salary is Required.'
     },
-    grossPay: {
+    grossSalary: {
       required: 'Gross Pay is Required.'
     },
     departmentId: {
@@ -142,13 +142,13 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     campusId: '',
     totalAllowances: '',
     netSalary: '',
-    grossPay: '',
+    grossSalary: '',
     departmentId: '',
     designationId: '',
     taxDeduction: '',
     netIncrement: '',
-    
-    
+
+
   };
 
   // constructor
@@ -157,7 +157,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     private activatedRoute: ActivatedRoute,
     private payrollTransactionService: PayrollTransactionService,
     private employeeService: EmployeeService,
-    private payrollItemService : PayrollItemService,
+    private payrollItemService: PayrollItemService,
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
     @Optional() public dialogRef: MatDialogRef<CreatePayrollTransactionComponent>,
@@ -190,7 +190,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       campusId: ['', Validators.required],
       totalAllowances: ['', Validators.required],
       netSalary: ['', Validators.required],
-      grossPay: ['', Validators.required],
+      grossSalary: ['', Validators.required],
       month: ['', Validators.required],
       year: ['', Validators.required],
       workingDays: [0, Validators.required],
@@ -210,11 +210,11 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
     // From Route Params
     this.activatedRoute.params.subscribe((params) => {
-      if (params.id) {       
-        
+      if (params.id) {
+
         this.isLoading = true;
         this.payrollId = params.id;
-        this.EmployeeId = params.id;        
+        this.EmployeeId = params.id;
         this.title = 'Edit Payroll';
         this.getPayroll(params.id);
       }
@@ -225,7 +225,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       this.payrollId = this._id;
       this.title = 'Edit Payroll';
       this.getPayroll(this._id);
-    }   
+    }
     // this.getLatestEmployeeData();
 
 
@@ -237,7 +237,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.ngxsService.getCampusFromState();
     this.ngxsService.getAccountLevel4FromState();
     // this.ngxsService.getPayrollItemsFromState();
-    
+
 
 
 
@@ -258,9 +258,9 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   // patch paroll transition
   patchPayroll(payrollTransaction) {
-    this.basicSal =  payrollTransaction.basicSalary
+    this.basicSal = payrollTransaction.basicSalary
     console.log(this.grossSalary);
-    
+
     this.payrollTransactionForm.patchValue({
       employeeId: payrollTransaction.employeeId,
       month: payrollTransaction.month,
@@ -271,7 +271,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       transDate: payrollTransaction.transDate,
       religion: payrollTransaction.religion,
       campusId: payrollTransaction.campusId,
-      grossPay: payrollTransaction.grossPay,
+      grossPay: payrollTransaction.grossSalary,
       netSalary: payrollTransaction.netSalary,
       totalAllowances: payrollTransaction.totalAllowances,
       totalDeductions: payrollTransaction.totalDeductions,
@@ -281,7 +281,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       departmentId: payrollTransaction.departmentId,
       designationId: payrollTransaction.designationId,
       EmployeeCNIC: payrollTransaction.cnic,
-      
+
     })
 
 
@@ -290,7 +290,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
     this.disableFields(this.payrollTransactionForm,
       "employeeId", "month", "year", "workingDays", "presentDays",
-      "leaveDays", "transDate", "basicPay","grossPay","netSalary","totalAllowances","totalDeductions")
+      "leaveDays", "transDate", "basicPay", "grossSalary", "netSalary", "totalAllowances", "totalDeductions")
   }
 
   checkSelected(employee) {
@@ -303,8 +303,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.calculateSalary(employee);
     this.cdRef.detectChanges();
   }
-
-
 
   // Add petty cash Entry Line
   addPayrollTransactionLine(): void {
@@ -319,6 +317,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       payrollItemId: [0, Validators.required],
       payrollType: ['', Validators.required],
       amount: [0, [Validators.required, Validators.min(1)]],
+      value:[0]
     });
   }
 
@@ -330,7 +329,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     payrollEntryLine.markAsDirty();
     payrollEntryLine.markAsTouched();
     this.table.renderRows();
-     this.CalculateBasicPay();
+    this.CalculateBasicPay();
   }
 
 
@@ -344,11 +343,14 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         payrollItemId: [line.payrollItemId, [Validators.required]],
         amount: [line.amount, [Validators.required, Validators.min(0)]],
         accountId: [line.accountId, [Validators.required]],
+        value:[line.value]
 
       }))
     })
     return formArray
   }
+
+  
   // for salary calculation
   calculateSalary(employee?: any) {
     const workingDays = this.payrollTransactionForm.value.workingDays || 1
@@ -381,8 +383,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         }
         console.log(res, "payroll get response");
         this.patchPayroll(res.result)
-         this.getPayrollByEmployeeId(res.result.employeeId);
-        this.payrollTransaction = res.result       
+        this.getPayrollByEmployeeId(res.result.employeeId);
+        this.payrollTransaction = res.result
         this.editPayrollTransaction(this.payrollTransaction)
       });
   }
@@ -404,7 +406,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       totalDeductions: payrollTransaction.totalDeductions,
       netIncrement: payrollTransaction.netIncrement,
       taxDeduction: payrollTransaction.taxDeduction,
-      grossPay: payrollTransaction.grossPay,
+      grossPay: payrollTransaction.grossSalary,
       netSalary: payrollTransaction.netSalary,
       basicSalary: payrollTransaction.basicSalary,
       religion: payrollTransaction.religion,
@@ -421,8 +423,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   // submit method called on submit button
-  Transactions :any[] = [];
-  onSubmit() {    
+  Transactions: any[] = [];
+  async onSubmit() {
     console.log(this.payrollTransactionForm, "Payroll form submit pr");
 
     if (this.payrollTransactionForm.get('payrollTransactionLines').invalid) {
@@ -440,11 +442,11 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       return;
     }
 
-  
+
 
     this.isLoading = true;
     this.mapPayrollTransactionValuesToPayrollModel()
-    if (this.payrollId) {      
+    if (this.payrollId) {
       this.payrollTransactionService.UpdateTransaction(this.payrollTransaction)
         .pipe(
           take(1),
@@ -463,13 +465,19 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
               this.dialogRef.close();
             }
           })
+
+      // await this.payrollTransactionService.UpdateTransaction(this.payrollTransaction).toPromise().then(res => {
+      //   this._id ? this.dialogRef.close() : this.router.navigate(['/' + PAYROLL_TRANSACTION.ID_BASED_ROUTE('details', this.payrollTransaction.id)]);
+      // });
+
+      this.isLoading = false;
+      this.cdRef.detectChanges();
     }
   }
 
   mapPayrollTransactionValuesToPayrollModel() {
-    debugger;
-    this.payrollTransaction.id = this.payrollId;   
-    this.payrollTransaction.employeeId = this.payrollTransactionForm.getRawValue().employeeId;    
+    this.payrollTransaction.id = this.payrollId;
+    this.payrollTransaction.employeeId = this.payrollTransactionForm.getRawValue().employeeId;
     this.payrollTransaction.transDate = this.dateHelperService.transformDate(this.payrollTransactionForm.getRawValue().transDate, 'yyyy-MM-dd');
     this.payrollTransaction.isSubmit = this.payrollTransaction.isSubmit;
     this.payrollTransaction.designationId = this.payrollTransactionForm.value.designationId;
@@ -481,12 +489,14 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.payrollTransaction.netIncrement = this.payrollTransactionForm.value.netIncrement;
     this.payrollTransaction.taxDeduction = this.payrollTransactionForm.value.taxDeduction;
     this.payrollTransaction.basicSalary = this.payrollTransactionForm.value.basicSalary;
-    this.payrollTransaction.netSalary = this.payrollTransactionForm.value.netSalary;
-    this.payrollTransaction.grossPay = this.payrollTransactionForm.value.grossPay;   
+    this.payrollTransaction.netSalary = this.payrollTransactionForm.value.netSalary || this.netSalary;
+    this.payrollTransaction.grossSalary = this.payrollTransactionForm.value.grossPay || this.grossSalary;
     this.payrollTransaction.religion = this.payrollTransactionForm.value.religion;
     this.payrollTransaction.employeeType = this.payrollTransactionForm.value.employeeType;
     this.payrollTransaction.EmployeeCNIC = this.payrollTransactionForm.value.EmployeeCNIC;
     this.payrollTransaction.payrollTransactionLines = this.payrollTransactionForm.getRawValue().payrollTransactionLines;
+    console.log(this.payrollTransactionForm,"After mapping form");
+    
   }
 
   //for save or submit
@@ -504,22 +514,22 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   getLatestEmployeeData() {
     this.ngxsService.store.dispatch(new IsReloadRequired(EmployeeState, true))
   }
-  getPayrollByEmployeeId(id :number){
+  getPayrollByEmployeeId(id: number) {
     this.payrollItemService.getPayrollItemsDropdown(id).subscribe(res => {
       this.PayrollItems = res.result
-      console.log(res.result,"dropdownresult");
-      
+      console.log(res.result, "dropdownresult");
+
     })
   }
 
-  onChange(l:any){
+  onChange(l: any) {
     // var pay = this.payrollTransactionForm.get('basicSalary').value;
     // console.log(pay,"baiscasjasfbkj");
     // console.log(l.target.value,"basic pay");    
     this.CalculateBasicPay()
   }
   //onChangeEvent to set debit or credit zero '0'
-  onChangeEvent(_:unknown, index: number) {
+  onChangeEvent(_: unknown, index: number) {
     const arrayControl = this.payrollTransactionForm.get('payrollTransactionLines') as FormArray;
     const debitControl = arrayControl.at(index).get('payrollType');
     const creditControl = arrayControl.at(index).get('amount');
@@ -527,33 +537,25 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     this.CalculateBasicPay();
   }
 
-  CalculateBasicPay() {           
-    this.totalAllowances = 0;  
-    this.totalDeductions = 0;    
-    const arrayControl = this.payrollTransactionForm.get('payrollTransactionLines') as FormArray;   
-    arrayControl.controls.forEach((_:unknown, index: number) => {
+  CalculateBasicPay() {
+    this.totalAllowances = 0;
+    this.totalDeductions = 0;
+    const arrayControl = this.payrollTransactionForm.get('payrollTransactionLines') as FormArray;
+    arrayControl.controls.forEach((_: unknown, index: number) => {
       const amount = arrayControl.at(index).get('amount').value;
-      const type = arrayControl.at(index).get('payrollType').value;    
-      if(type === 3){
-        this.totalAllowances += amount;                
+      const type = arrayControl.at(index).get('payrollType').value;
+      if (type === 3) {
+        this.totalAllowances += amount;
       }
-      else if(type === 2 || type === 5 ){
+      else if (type === 2 || type === 5) {
         this.totalDeductions += amount;
-      }                               
-    });  
-    console.log(this.totalDeductions , "Total deductions");
-    
+      }
+    });
+
     var pay = this.payrollTransactionForm.get('basicSalary').value;
-    var gPay = this.payrollTransactionForm.get('grossPay').value;
-    gPay = this.totalAllowances + Number(pay)
-    console.log(gPay,'form gross pay');
-    
-    this.grossSalary = this.totalAllowances + Number(pay)    
+    this.grossSalary = this.totalAllowances + Number(pay)
     this.netSalary = this.grossSalary - this.totalDeductions;
-    console.log(this.netSalary,"Net Salary");
-    
-     console.log(this.totalAllowances,"totalAllowances"); 
-    console.log(this.grossSalary,"Grosssalary");
-    
-  }  
+
+
+  }
 }

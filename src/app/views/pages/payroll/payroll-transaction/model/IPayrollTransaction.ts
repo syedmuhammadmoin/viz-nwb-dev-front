@@ -19,7 +19,7 @@ export class IPayrollTransaction {
     totalDeductions:number;
     netIncrement:number;
     taxDeduction:number;
-    grossPay:number;
+    grossSalary:number;
     netSalary:number;
     basicSalary:number;
     religion : string;
