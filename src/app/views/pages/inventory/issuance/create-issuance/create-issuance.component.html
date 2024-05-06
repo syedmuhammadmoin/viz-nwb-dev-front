@@ -96,7 +96,7 @@
                               <kt-simple-dropdown 
                               propertyValue="id" 
                               propertyName="productName"                               
-                              [optionList]="ngxsService.products$"
+                              [optionList]="productList"
                               [id]="'issuance_item_' + i"
                               formControlName="itemId"
                               (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
@@ -121,6 +121,7 @@
                               [optionList]="fixedAssetsDropdown[i]"
                               [id]="'issuance_fixedasset_' + i"
                               formControlName="fixedAssetId"
+                              (selectionChange)="onAssetSelected(i)"
                               (blurEvent)="logValidationErrors(issuanceForm, formErrors, validationMessages)"
                               [errorMessage]="'Fixed Asset is required.'"
                               clickEventButtonName="Add New Item"

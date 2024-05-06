@@ -14,6 +14,7 @@ import { ICreditNoteLines } from '../model/ICreditNoteLines';
 import { finalize, take } from 'rxjs/operators';
 import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 @Component({
@@ -65,7 +66,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
 
   //Showing Remarks
   remarksList: string[] = [];
-
+  currentClient : any = {};
   // Defining columns for ag grid
   columnDefs = [
     {
@@ -148,7 +149,7 @@ export class CreditNoteDetailComponent extends AppComponentBase implements OnIni
   ];
 
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.activatedRoute.paramMap.subscribe((params: Params) => {
       const id = +params.get('id');
       if (id) {

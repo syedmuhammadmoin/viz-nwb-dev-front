@@ -40,7 +40,13 @@ export class InterceptService implements HttpInterceptor {
           let title = 'Internal Server Error';
           switch (error.status) {
             case 400:
-              message = error?.error?.message ?? 'Please verify form fields are correct, if issue presists please contact System Administrator'
+              //This was the code before showing exact domain fields
+             // message = error?.errors?.message ?? 'Please verify form fields are correct, if issue presists please contact System Administrator'
+            message = error.error.errors.map((error: any) => {             
+              return `${error.error}\n`;
+            });
+             console.log("Checking 400 Error", message);
+              
               title = 'Bad Request'
               break;
             case 401:
@@ -59,7 +65,7 @@ export class InterceptService implements HttpInterceptor {
               message = error?.error?.message ?? 'Requested resource not found.'
               title = 'Resource Not Found'
              // window.location.href = '/error/404'
-              this.route.navigateByUrl('/error/404')
+              //this.route.navigateByUrl('/error/404')
               break;
             case 408:
               message = error?.error?.message ?? 'Requested resource timed out.'
@@ -75,7 +81,7 @@ export class InterceptService implements HttpInterceptor {
               title = 'General Processing Error'
               break;
           }
-          this.toastService.error(message, title);
+          this.toastService.error(`${message}\n  ${title}`);
           // http response status code
           // console.log('----response----');
           // console.error('status code:');

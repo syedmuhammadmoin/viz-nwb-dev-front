@@ -75,5 +75,8 @@ export class PrintAssetReportComponent extends AppComponentBase implements OnIni
     })
 
   }
+  printForm(){
+    window.print();
+  }
 
 }

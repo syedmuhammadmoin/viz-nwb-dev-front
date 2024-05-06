@@ -46,4 +46,10 @@ export class PayrollReportsService {
   getBankAdviceReport(data: any): Observable<IPaginationResponse<any>> {
     return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'PayrollTransaction/BankAdviceReport', {params: data});
   }
+
+  downloadTransactionDetailReport(model: any):  Observable<any> {
+    let url = AppConst.remoteServiceBaseUrl + `PayrollTransaction/ExportPayrollDetailedReport?Year=${model.year}&FromDate=${model.fromDate}&ToDate=${model.toDate}`;
+
+    return this.httpClient.get(url, { responseType: 'arraybuffer' });
+  }
 }

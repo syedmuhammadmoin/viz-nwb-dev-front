@@ -87,6 +87,9 @@ export class PrintEstimatedBudgetComponent implements OnInit {
         this.cdRef.markForCheck();
       })
   }
+  printForm(){
+    window.print();
+  }
 }
 
 

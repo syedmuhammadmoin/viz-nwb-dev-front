@@ -94,6 +94,12 @@ export class PrintCreditNoteComponent extends AppComponentBase implements OnInit
         this.cdRef.detectChanges()
         })
     }
+    
+    printForm(){
+      window.print();
+    }
+
+    
 }
   
 

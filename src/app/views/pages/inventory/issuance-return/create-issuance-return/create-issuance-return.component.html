@@ -138,6 +138,7 @@
                                 secondaryPropertyName="assetCode"                  
                                 [optionList]="fixedAssetsDropdown[i]"
                                 [id]="'issuance_fixedasset_' + i"
+                                (selectionChange)="onAssetSelected(i)"
                                 formControlName="fixedAssetId"
                                 (blurEvent)="logValidationErrors(issuanceReturnForm, formErrors, validationMessages)"
                                 [errorMessage]="'Fixed Asset is required.'"

@@ -31,6 +31,8 @@ export class AppInitializer {
         AppConst.appBaseUrl = res.appBaseUrl;
         AppConst.apiKey = res.apiKey;
         AppConst.remoteServiceBaseUrl = res.remoteServiceBaseUrl;
+        AppConst.clientId =  res.clientId;
+        AppConst.ClientConfig = res.clients.find(client => client.clientId === AppConst.clientId);
         callback();
       })
   }

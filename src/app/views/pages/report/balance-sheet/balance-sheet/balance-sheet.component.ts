@@ -12,7 +12,7 @@ import { IBalanceSheet} from "../model/IBalanceSheet";
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { Router } from '@angular/router';
-
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'app-balance-sheet',
@@ -23,7 +23,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 
  // for permissions
   public permissions = Permissions;
-
+  public currentClient : any ={}
   rowData: any[] = [];
   columnDefs: any;
   gridOptions: GridOptions;
@@ -54,6 +54,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   formErrors = {
     docDate: '',
   }
+
 
   constructor(
     injector: Injector,
@@ -87,6 +88,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   }
 // ng oninit
   ngOnInit() {
+    this.currentClient = AppConst.ClientConfig.config
     //creating balance sheet form
     this.balanceSheetForm = this.fb.group({
       docDate: ['', [Validators.required]],

@@ -18,6 +18,7 @@ export const APP_ROUTES = {
   CHART_OF_ACCOUNT: 'chart-of-account',
   JOURNAL_ENTRY: 'journal-entry',
   PAYMENT: 'payment',
+  PETTY_CASH:'petty-cash',
 
   //INVENTORY
   GOODS_RECEIVED_NOTE: 'goods-received-note',
@@ -376,6 +377,20 @@ export const JOURNAL_ENTRY = {
   }
 }
 
+export const PETTY_CASH = {
+  LIST: APP_ROUTES.PETTY_CASH + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.PETTY_CASH + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.PETTY_CASH + '/edit/',          //
+  DETAIL: APP_ROUTES.PETTY_CASH + '/detail/',      //  PETTY_CASH_ENTRY.EDIT + this.pettyEntry.id
+  PRINT: APP_ROUTES.PETTY_CASH + '/print/',        //
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {               //PETTY_CASH_ENTRY.ID_BASED_ROUTE('edit' , this.pettyEntry.id)
+    return APP_ROUTES.PETTY_CASH + '/' + route + '/' + id
+  }
+}
+
 export const PAYMENT = {
   LIST: APP_ROUTES.PAYMENT + '/voucher/' + CRUD_ROUTES.LIST,
   ID_BASED_ROUTE(route: string, id: number) {
@@ -566,6 +581,8 @@ export const ASSET_REPORT = {
   PRINT: APP_ROUTES.ASSET_REPORT + '/print',
   MONTHLY: APP_ROUTES.ASSET_REPORT + '/monthly',
   MONTHLY_PRINT: APP_ROUTES.ASSET_REPORT + '/monthly/print',
+  REGISTER_ASSET: APP_ROUTES.ASSET_REPORT + '/register',
+  REGISTER_ASSET_PRINT: APP_ROUTES.ASSET_REPORT + '/register/print',
   ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.ASSET_REPORT + '/' + route + '/' + id
   }

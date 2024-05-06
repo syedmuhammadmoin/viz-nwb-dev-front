@@ -83,6 +83,10 @@ export class PrintBusinessPartnerComponent extends AppComponentBase implements O
         this.cdRef.markForCheck();
       })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

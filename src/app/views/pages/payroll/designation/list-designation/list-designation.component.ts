@@ -1,9 +1,13 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
+import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { DesignationService } from '../service/designation.service';
+import { CreateDesignationComponent } from '../create-designation/create-designation.component';
+import { MatDialog } from '@angular/material/dialog';
+import { AppConst } from 'src/app/views/shared/AppConst';
   
 @Component({
   selector: 'kt-list-designation',
@@ -14,6 +18,7 @@ import { DesignationService } from '../service/designation.service';
 export class ListDesignationComponent extends AppComponentBase implements OnInit {
   
     designationList: [];
+    public permissions = Permissions;
     defaultColDef: ColDef;
     frameworkComponents: {[p: string]: unknown};
     gridOptions: GridOptions;
@@ -21,10 +26,12 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     gridApi: GridApi;
     gridColumnApi: ColumnApi;
     overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+ 
   
     constructor(
       private designationService: DesignationService,
       private cdRef: ChangeDetectorRef,
+      public dialog: MatDialog,
       injector: Injector
     ) {
       super(injector)
@@ -34,7 +41,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
         }
       );
     }
-  
+    public currentClient : any ={};
     columnDefs = [
       { 
         headerName: 'Name', 
@@ -50,7 +57,7 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
     ];
   
     ngOnInit() {
-      
+      this.currentClient = AppConst.ClientConfig.config     
       this.gridOptions = {
         cacheBlockSize: 20,
         rowModelType: "infinite",
@@ -107,12 +114,28 @@ export class ListDesignationComponent extends AppComponentBase implements OnInit
       const result = await this.designationService.getRecords(params).toPromise()
       return result
     }
+
+    onRowDoubleClicked(event : RowDoubleClickedEvent) {
+      console.log("popup open kro")
+      this.openDialog(event.data.id)
+    }
+  
+    openDialog(id?: number): void {
+      const dialogRef = this.dialog.open(CreateDesignationComponent, {
+        width: '800px',
+        data: id
+      });
+      //Getting Updated Warehouse
+      dialogRef.afterClosed().subscribe(() => {
+        this.gridApi.setDatasource(this.dataSource)
+        this.cdRef.detectChanges();
+      });
   }
   
   
   
   
-  
+}
   
   
 

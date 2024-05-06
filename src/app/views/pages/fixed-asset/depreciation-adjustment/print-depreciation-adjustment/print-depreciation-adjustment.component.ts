@@ -129,5 +129,9 @@ export class PrintDepreciationAdjustmentComponent extends AppComponentBase imple
         this.cdRef.markForCheck();
       })
   }
+  
 
+  printForm(){
+    window.print();
+  }
 }

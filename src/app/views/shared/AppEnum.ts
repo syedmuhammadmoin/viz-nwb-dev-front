@@ -242,6 +242,15 @@ export class Permissions {
   static JOURNALENTRY_REVIEW = 'Finance.JournalEntry.Review';
   static JOURNALENTRY_APPROVE = 'Finance.JournalEntry.Approve';
 
+    // Petty Cash Entry Permissions
+    static PETTYCASH_VIEW = 'Finance.PettyCash.VW';
+    static PETTYCASH_CREATE = 'Finance.PettyCash.CR';
+    static PETTYCASH_EDIT = 'Finance.PettyCash.ED';
+    static PETTYCASH_DELETE = 'Finance.PettyCash.DL';
+    static PETTYCASH_REVIEW = 'Finance.PettyCash.Review';
+    static PETTYCASH_APPROVE = 'Finance.PettyCash.Approve';
+  
+
   // Auth Permissions
   static AUTH_VIEW = 'AccessManagement.Auth.VW';
   static AUTH_CREATE = 'AccessManagement.Auth.CR';
@@ -476,6 +485,10 @@ export class Permissions {
   static ADMISSION_CRITERIA_EDIT = 'Admission.AdmissionCriteria.ED';
   static ADMISSION_CRITERIA_DELETE = 'Admission.AdmissionCriteria.DL';
 
+  static DASHBOARD_PROFITLOSSSUMMARY_VIEW = 'Dashboard.ProfitLossSummary.VW';
+  static DASHBOARD_BALANCESHEETSUMMARY_VIEW = 'Dashboard.BalanceSheetSummary.VW';
+  static DASHBOARD_BANKBALANCESUMMARY_VIEW = 'Dashboard.BankBalance.VW'
+
 }
 
 export enum ActionButton {
@@ -515,7 +528,8 @@ export enum DocType {
   BudgetReappropriation,
   DepreciationAdjustment,
   EstimatedBudget,
-  Budget
+  Budget,
+  PettyCash
 }
 
 export enum Criteria{

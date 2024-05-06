@@ -11,6 +11,7 @@ import { isEmpty} from 'lodash';
 import { Router } from '@angular/router';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 
 function sumFunc(params) {
@@ -65,6 +66,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   maxDate: Date = new Date();
   minDate: Date
   dateCondition: boolean
+  currentClient : any = {};
 
 
   // gridOptions: GridOptions;
@@ -139,7 +141,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           const date = params?.data?.docDate != null ? params?.data?.docDate : null;
           return date == null ? null : this.transformDate(date, 'MMM d, y');
         }
-      },
+      },     
       {
         headerName: 'Document No',
         field: 'docNo',
@@ -196,6 +198,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     // AG Grid Options
+    this.currentClient = AppConst.ClientConfig.config
     this.gridOptions = ({} as GridOptions);
     this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;
@@ -268,7 +271,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
               const date = params?.data?.docDate != null ? params?.data?.docDate : null;
               return date == null ? null : this.transformDate(date, 'MMM d, y');
             }
-          },
+          },         
           {
             headerName: 'Document No',
             field: 'docNo',

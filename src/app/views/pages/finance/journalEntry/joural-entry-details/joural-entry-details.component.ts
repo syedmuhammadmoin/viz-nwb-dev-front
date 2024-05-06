@@ -13,6 +13,7 @@ import { finalize, take } from 'rxjs/operators';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-joural-entry-details',
@@ -32,7 +33,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
 
   // need for routing
   journalEntryId: number;
-
+  currentClient : any = {};
   public journalEntryRoute = JOURNAL_ENTRY
 
   // For ag grid
@@ -118,7 +119,7 @@ export class JouralEntryDetailsComponent extends AppComponentBase implements OnI
   ];
 
   ngOnInit(): void {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.gridOptions.rowStyle = { color: 'black' };
     this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;

@@ -1,42 +1,39 @@
 <div [ktBusy]="isLoading">
-    <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
-      <!--begin::Form-->
-  
-      <form [formGroup]="payrollTransactionForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
-        <div class="kt-portlet__body">
-          <div class="kt-form__section kt-form__section--first">
-  
-            <div class="col-md-12 col-sm-12 col-lg-12">
-              <div class=" row mt-8 mb-0">
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Employee:</label>
-                    <kt-simple-dropdown
-                      id="payroll_trans_employee"
-                      [optionList]="ngxsService.employees$"
-                      formControlName="employeeId" 
-                      matFormFieldClass="full-width"
-                      placeholder="Select Employee"
-                      propertyName="name"
-                      propertyValue="id">
-                    </kt-simple-dropdown>
-                  </div>
-                </div>
-  
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Designation:</label>
-                    <kt-input-field 
-                      id="payroll_trans_designation"
-                      formControlName="designation" 
-                      matFormFieldClass="full-width" 
-                      placeholder="Designation">
-                    </kt-input-field>
-                  </div>
-                </div>
+  <kt-portlet>
+    <kt-portlet-header [sticky]="false" [title]="title" [class]="'card-head-lg'"></kt-portlet-header>
+    <!--begin::Form-->
 
-                <div class="col-lg-3 col-sm-3 col-md-3">
+    <form [formGroup]="payrollTransactionForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right"
+      #formDirective="ngForm">
+      <div class="kt-portlet__body">
+        <div class="kt-form__section kt-form__section--first">
+
+          <div class="col-md-12 col-sm-12 col-lg-12">
+            <div class=" row mt-8 mb-0">
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Employee:</label>
+                  <kt-simple-dropdown id="payroll_trans_employee" [disabled]="butDisabled" [optionList]="ngxsService.employees$"
+                    formControlName="employeeId" matFormFieldClass="full-width" placeholder="Select Employee"
+                    propertyName="name" propertyValue="id">
+                  </kt-simple-dropdown>
+
+
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Present Days:</label>
+                  <kt-input-field id="payroll_trans_present" [disabled]="butDisabled" formControlName="presentDays"
+                    placeholder="Enter Present Days" type="number">
+                  </kt-input-field>
+                </div>
+              </div>
+              
+
+
+              <!-- <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Department:</label>
                     <kt-input-field 
@@ -46,37 +43,118 @@
                       placeholder="Department">
                     </kt-input-field>
                   </div>
-                </div>
-
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Basic Pay:</label>
-                    <kt-input-field 
-                      id="payroll_trans_basic"
-                      formControlName="basicPay" 
-                      matFormFieldClass="full-width" 
-                      placeholder="Basic Pay">
-                    </kt-input-field>
-                  </div>
+                </div> -->
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Working Days:</label>
+                  <kt-input-field id="payroll_trans_working" [disabled]="butDisabled" formControlName="workingDays"
+                    placeholder="Enter Working Days" type="number" min="0">
+                  </kt-input-field>
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Month:</label>
-                    <kt-simple-dropdown
-                    id="payroll_trans_month"
-                    [optionList]="months"
-                    formControlName="month"
-                    matFormFieldClass="full-width"
-                    placeholder="Select Month" propertyName="name"
-                    propertyValue="value">
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Month:</label>
+                  <kt-simple-dropdown id="payroll_trans_month" [disabled]="butDisabled" [optionList]="months" formControlName="month"
+                    matFormFieldClass="full-width" placeholder="Select Month" propertyName="name" propertyValue="value">
                   </kt-simple-dropdown>
-                  </div>
                 </div>
+              </div>
 
-                <div class="col-lg-3 col-sm-3 col-md-3">
+              <!-- <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Year:</label>
+                    <kt-simple-dropdown
+                      id="payroll_trans_year"
+                      [optionList]="generateArrayOfYears()"
+                      formControlName="year"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Year" propertyName="value"
+                      propertyValue="value">
+                    </kt-simple-dropdown>
+                  </div>
+                </div> -->
+
+
+
+
+            </div>
+
+            <div class=" row mt-1 mb-0">
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Leave Days:</label>
+                  <kt-input-field id="payroll_trans_leave" readonly="true" formControlName="leaveDays" [disabled]="true" placeholder="Enter Leave Days"
+                    type="number">
+                  </kt-input-field>
+                </div>
+              </div>
+
+
+
+
+              <!-- <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Department:</label>
+                    <kt-input-field 
+                      id="payroll_trans_department"
+                      formControlName="department" 
+                      matFormFieldClass="full-width" 
+                      placeholder="Department">
+                    </kt-input-field>
+                  </div>
+                </div> -->
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Designation:</label>
+                  <kt-simple-dropdown id="payroll_trans_department"  [optionList]="ngxsService.designations$"
+                    formControlName="designationId" matFormFieldClass="full-width" propertyName="name"
+                    (blurEvent)="logValidationErrors(payrollTransactionForm, this.formErrors, this.validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.departmentId , error : formErrors.departmentId }]" 
+                    propertyValue="id" placeholder="Select Department">
+                  </kt-simple-dropdown>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Religion:</label>
+                  <kt-simple-dropdown id="payroll_trans_month" [optionList]="religion" formControlName="religion"
+                    matFormFieldClass="full-width" placeholder="Select Religion" propertyName="name"
+                    propertyValue="name">
+                  </kt-simple-dropdown>
+                </div>
+              </div>
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Department:</label>
+                  <kt-simple-dropdown id="payroll_trans_department" [optionList]="ngxsService.departments$"
+                    formControlName="departmentId" matFormFieldClass="full-width" propertyName="name" propertyValue="id"
+                    placeholder="Select Department">
+                  </kt-simple-dropdown>
+                </div>
+              </div>
+              <!-- <div class="col-lg-3 col-sm-3 col-md-3">
+                  <div class="form-group kt-form__group mb-0">
+                    <label class="col-form-label pt-0">Year:</label>
+                    <kt-simple-dropdown
+                      id="payroll_trans_year"
+                      [optionList]="generateArrayOfYears()"
+                      formControlName="year"
+                      matFormFieldClass="full-width"
+                      placeholder="Select Year" propertyName="value"
+                      propertyValue="value">
+                    </kt-simple-dropdown>
+                  </div>
+                </div> -->
+
+
+
+              <div class="row">
+
+
+                <!--<div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Year:</label>
                     <kt-simple-dropdown
@@ -116,10 +194,10 @@
                     </kt-simple-dropdown> 
                   </div>
                 </div>
-              </div>
+              </div> -->
 
 
-              <div class="row">
+                <!-- <div class="row">
                 <div class="col-lg-3 col-sm-3 col-md-3">
                   <div class="form-group kt-form__group mb-0">
                     <label class="col-form-label pt-0">Working Days:</label>
@@ -131,134 +209,223 @@
                         type="number" min="0">
                       </kt-input-field>
                   </div>
-                </div>
+                </div>-->
 
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Present Days:</label>
-                    <kt-input-field
-                      id="payroll_trans_present"
-                      formControlName="presentDays"
-                      placeholder="Enter Present Days"
-                      type="number">
-                    </kt-input-field>  
-                  </div>
-                </div>
 
-                <div class="col-lg-3 col-sm-3 col-md-3">
-                  <div class="form-group kt-form__group mb-0">
-                    <label class="col-form-label pt-0">Leave Days:</label>
-                    <kt-input-field
-                      id="payroll_trans_leave"
-                      formControlName="leaveDays"
-                      placeholder="Enter Leave Days"
-                      type="number">
-                    </kt-input-field>  
-                  </div>
+              </div>
+            </div>
+            <div class=" row mt-1 mb-0">
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Campus:</label>
+                  <kt-simple-dropdown id="payroll_trans_month" [optionList]="ngxsService.campuses$"
+                    formControlName="campusId" matFormFieldClass="full-width" placeholder="Select Campus"
+                    propertyName="name" readonly="true" propertyValue="id">
+                  </kt-simple-dropdown>
                 </div>
               </div>
-  
-              <div class="row mt-5">
-                <div class="col-lg-12 col-md-12 col-sm-12">
-                  <ag-grid-angular
-                   class="ag-theme-alpine" #rowClass
-                   style="width: 100%; height: 200px;"
-                   (firstDataRendered)="onFirstDataRendered($event)"
-                   [columnDefs]="columnDef"
-                   [rowData]="payrollItems">
-                  </ag-grid-angular>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Gross Pay:</label>
+                  <kt-input-field id="payroll_trans_basic" [disabled]="butDisabled" formControlName="grossSalary" [(ngModel)]="grossSalary" name="grossSalary" matFormFieldClass="full-width"
+                    placeholder="Gross Pay">
+                  </kt-input-field>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Net Salary:</label>
+                  <kt-input-field id="payroll_trans_basic" [disabled]="butDisabled" formControlName="netSalary" [(ngModel)]="netSalary" matFormFieldClass="full-width"
+                    placeholder="Net Salary">
+                  </kt-input-field>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Total Allowances:</label>
+                  <kt-input-field id="payroll_trans_basic" [disabled]="butDisabled" formControlName="totalAllowances"
+                  [(ngModel)]="totalAllowances"
+                    matFormFieldClass="full-width" placeholder="Total Allowances">
+                  </kt-input-field>
+                </div>
+              </div>
+
+
+            </div>
+
+            <div class=" row mt-1 mb-0">
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Deductions:</label>
+                  <kt-input-field id="payroll_trans_basic" [disabled]="butDisabled" formControlName="totalDeductions"
+                  [(ngModel)]="totalDeductions"
+                    matFormFieldClass="full-width" placeholder="Total Deduction">
+                  </kt-input-field>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Net Increment:</label>
+                  <kt-input-field id="payroll_trans_basic" formControlName="netIncrement" matFormFieldClass="full-width"
+                    placeholder="Net Increment">
+                  </kt-input-field>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Tax Deductions:</label>
+                  <kt-input-field id="payroll_trans_basic" formControlName="taxDeduction" [disabled]="butDisabled" [(ngModel)]="totalTaxDeduction" matFormFieldClass="full-width"
+                    placeholder="Tax Deduction">
+                  </kt-input-field>
+                </div>
+              </div>
+
+              <div class="col-lg-3 col-sm-3 col-md-3">
+                <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Basic Pay:</label>
+                  <kt-input-field id="payroll_trans_basic"  (input)="onChange($event)" formControlName="basicSalary" matFormFieldClass="full-width"
+                    placeholder="Basic Salary">
+                  </kt-input-field>
                 </div>
               </div>
             </div>
+
+            <div class="row mt-5">
+              <div class="col-lg-12 col-md-12 col-sm-12">
+                <div>
+                  <ng-container formArrayName="payrollTransactionLines">
+                    <mat-table #table [dataSource]="payrollTransactionForm.get('payrollTransactionLines')['controls']">
+                      <!-- Account Column -->
+                      <ng-container matColumnDef="accountId">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Account Head</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
+                              formControlName="accountId" matFormFieldClass="full-width" [id]="'journal_coa_' + i"
+                              [errorMessage]="'Account is required.'" [optionList]="ngxsService.accountsLevel4$">
+                            </kt-simple-dropdown>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <!--Payroll Item Column-->
+                      <ng-container matColumnDef="payrollItemId">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Payroll Item</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <kt-simple-dropdown placeholder="Select Payroll Item" propertyValue="id" propertyName="name"                            
+                              formControlName="payrollItemId" matFormFieldClass="full-width"
+                              errorMessage="Payroll Item is required." [id]="'journal_partner_' + i"
+                              [optionList]="PayrollItems">
+                            </kt-simple-dropdown>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <!-- payrollType Column -->
+                      <ng-container matColumnDef="payrollType">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Payroll Type</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <!-- <kt-simple-dropdown formControlName="payrollType" matFormFieldClass="full-width"
+                              placeholder="Enter Payroll Type" [id]="'journal_description_' + i"
+                              propertyValue="id" propertyName="name"
+                              (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : payrollTransactionForm.get('payrollTransactionLines')['controls'][i].controls.payrollType.errors?.required &&                    
+                              payrollTransactionForm.get('payrollTransactionLines')['controls'][i].controls.payrollType.touched , 
+                                                    error : 'Payroll Type is required.' }]"
+                              [optionList]="payrollTypes">
+                            </kt-simple-dropdown> -->
+                            <kt-simple-dropdown 
+                      id="payroll_type" 
+                      formControlName="payrollType"
+                      (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)" 
+                      matFormFieldClass="full-width"
+                      (blurEvent)="logValidationErrors(this.payrollTransactionForm, formErrors, validationMessages)"
+                              [errorMessage]="[{ condition : payrollTransactionForm.get('payrollTransactionLines')['controls'][i].controls.payrollType.errors?.required &&                    
+                              payrollTransactionForm.get('payrollTransactionLines')['controls'][i].controls.payrollType.touched , 
+                                                    error : 'Payroll Type is required.' }]"
+                      propertyName="value"                      
+                      propertyValue="id"                      
+                      [optionList]="payrollTypes"
+                      placeholder="Select Payroll Type">
+                    </kt-simple-dropdown>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+                      <!-- Amount Column -->
+                      <ng-container matColumnDef="amount">
+                        <mat-header-cell *matHeaderCellDef class="flex-2"> Amount</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
+                          <div class="col-lg-12 col-sm-12 mt-2">
+                            <mat-form-field appearance="outline" class="full-width">
+                              <input matInput formControlName="amount"  (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)" placeholder="Enter Amount"
+                                [id]="'journal_debit_' + i" type="number"
+                                (blur)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages)">
+                              <mat-error
+                                *ngIf="element.controls.amount.errors?.required && element.controls.amount.touched">
+                                <strong>Amount is required.</strong>
+                              </mat-error>
+                              <mat-error *ngIf="element.controls.amount.errors?.min && element.controls.amount.touched">
+                                <strong>Minimum value should be greater then 0.</strong>
+                              </mat-error>
+                            </mat-form-field>
+                          </div>
+                        </mat-cell>
+                      </ng-container>
+
+
+                      <!-- Action Column -->
+                      <ng-container matColumnDef="action">
+                        <mat-header-cell *matHeaderCellDef class="flex-1">Action</mat-header-cell>
+                        <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
+                          <button class=" app-remove-btn" type="button" [id]="'journal_remove_' + i"
+                            (click)="removePayrollTransactionEntryLine(i);">
+                            <i class="fas fa-trash" aria-hidden="true"></i>
+                          </button>
+                        </mat-cell>
+                      </ng-container>
+                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                  </ng-container>
+                  <ng-container>
+                    <div class="row">
+                      <div class="col-md-8 col-sm-8">
+                        <button class=" app-add-new-line-btn" type="button" id="journal_add_line"
+                          (click)="addPayrollTransactionLine()">
+                          <i class="fas fa-plus" aria-hidden="true"> </i> Add New Line
+                        </button>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+
+
           </div>
         </div>
-  
-        <mat-divider class="mt-10"></mat-divider>
-  
-        <div class="kt-portlet__foot p-5">
-          <div class="kt-form__actions kt-form__actions mb-0">
-            <div class="row">
-              <div class="col-lg-12 text-right">
-                <button class="app-default-btn" mat-raised-button type="submit" id="payroll_trans_submit"
-                  (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(1)"><i class="far fa-save"></i> Submit
-                </button>
-              </div>
+      </div>
+
+      <mat-divider class="mt-10"></mat-divider>
+
+      <div class="kt-portlet__foot p-5">
+        <div class="kt-form__actions kt-form__actions mb-0">
+          <div class="row">
+            <div class="col-lg-12 text-right">
+              <button class="app-default-btn" mat-raised-button type="submit" id="payroll_trans_submit"
+                (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(1)"><i
+                  class="far fa-save"></i> Submit
+              </button>
             </div>
           </div>
         </div>
-      </form>
-      <!--end::Form-->
-    </kt-portlet>
-  </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-  
-               
-  
-                
-  
-        
-  
-                
-  
-            
-  
-          
+      </div>
+    </form>
+    <!--end::Form-->
+  </kt-portlet>
+</div>

@@ -17,6 +17,7 @@ $site-logo :var(--site_logo);
 $dashboard_hight : var(--dashboard_hight);
 $dashboard_logo_width : var(--dashboard_logo_width);
 $dashboard_logo_hight : var(--dashboard_logo_hight);
+$print_logo : var(--print_logo);
 
 
 
@@ -30,7 +31,7 @@ $dashboard_logo_hight : var(--dashboard_logo_hight);
 }
 
 .print-logo{
-  background-image: $site-logo;
+  background-image: $print_logo;
   background-repeat: no-repeat, repeat;
   background-position: center;
   background-size: contain;

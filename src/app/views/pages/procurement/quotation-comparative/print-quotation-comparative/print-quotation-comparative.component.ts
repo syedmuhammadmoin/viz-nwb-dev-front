@@ -83,6 +83,10 @@ export class PrintQuotationComparativeComponent extends AppComponentBase impleme
         this.cdRef.markForCheck();
       })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

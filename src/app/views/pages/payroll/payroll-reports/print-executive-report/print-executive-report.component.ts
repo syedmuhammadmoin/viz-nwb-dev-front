@@ -82,6 +82,10 @@ export class PrintExecutiveReportComponent extends AppComponentBase implements O
       this.cdRef.detectChanges()
     })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

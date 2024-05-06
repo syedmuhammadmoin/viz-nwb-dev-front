@@ -11,6 +11,7 @@ import {CustomUploadFileComponent} from 'src/app/views/shared/components/custom-
 import {MatDialog} from '@angular/material/dialog';
 import {AgGridButtonCellRendrerComponent} from '../../../../shared/components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
 import {CreateAssetComponent} from '../../../fixed-asset/asset/create-asset/create-asset.component';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-grn-detail',
@@ -117,8 +118,9 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     }
   ];
 
-
+  public currentClient : any ={};
   ngOnInit(): void {
+    this.currentClient = AppConst.ClientConfig.config
     this.gridOptions.rowStyle = {color: 'black'};
     this.gridOptions.rowHeight = 30;
     this.gridOptions.headerHeight = 35;

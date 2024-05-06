@@ -4,13 +4,12 @@
       <button
         id="journal_print"
         printSectionId="main"
-        printTitle="Invoice"
-        ngxPrint
+        printTitle="Invoice"       
         type="button"
         mat-raised-button
         class="app-default-btn"
-        [useExistingCss]="true" style="margin-bottom: 20px;"
-      ><i class="fas fa-print"></i> Print
+        (click)="printForm()" 
+        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>

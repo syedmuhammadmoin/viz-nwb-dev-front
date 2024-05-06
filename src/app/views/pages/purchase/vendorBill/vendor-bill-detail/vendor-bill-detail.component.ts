@@ -13,6 +13,7 @@ import { ITransactionRecon } from '../model/ITransactionRecon';
 import { RegisterPaymentComponent } from '../../../sales/invoice/register-payment/register-payment.component';
 import { CustomRemarksComponent } from 'src/app/views/shared/components/custom-remarks/custom-remarks.component';
 import { CustomUploadFileComponent } from 'src/app/views/shared/components/custom-upload-file/custom-upload-file.component';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-vendor-bill-detail',
@@ -30,7 +31,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   public JOURNAL_ENTRY = JOURNAL_ENTRY;
   public GOODS_RECEIVED_NOTE = GOODS_RECEIVED_NOTE
 
-
+  currentClient : any = {};
   docType = DocType
   public permissions = Permissions;
   action = ActionButton
@@ -165,7 +166,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
 
 
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     this.route.paramMap.subscribe(params => {
       const id = +params.get('id');
       if (id) {

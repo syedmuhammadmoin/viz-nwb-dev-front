@@ -88,5 +88,9 @@ export class PrintCallQuotaionComponent extends AppComponentBase implements OnIn
         this.cdRef.markForCheck();
       })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 

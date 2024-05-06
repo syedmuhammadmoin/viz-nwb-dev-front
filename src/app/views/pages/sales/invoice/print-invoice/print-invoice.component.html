@@ -1,7 +1,7 @@
 <div class="container ">
   <div class="col-lg-10 mx-auto text-right">
     <div class="row">
-      <button printSectionId="main" id="invoice_print" printTitle="Invoice" ngxPrint [useExistingCss]="true"
+      <button printSectionId="main" id="invoice_print" printTitle="Invoice"  (click)="printForm()"
         type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
           class="fas fa-print"></i> Print
       </button>
@@ -14,7 +14,7 @@
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
               <div class="print-logo"></div>
-              <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
+              <!-- <span class="top-heading" *ngIf="">SHAHEED BENAZIR BHUTTO UNIVERSITY </span> -->
             </div>
 
           </div>

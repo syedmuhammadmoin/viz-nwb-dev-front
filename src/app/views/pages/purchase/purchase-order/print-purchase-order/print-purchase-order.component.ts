@@ -93,6 +93,10 @@ export class PrintPurchaseOrderComponent extends AppComponentBase implements OnI
           this.cDRef.markForCheck();
         })
     }
+
+    printForm(){
+      window.print();
+    }
   }
 
  

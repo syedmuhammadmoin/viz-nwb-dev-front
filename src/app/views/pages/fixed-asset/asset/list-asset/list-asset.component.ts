@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
-import { MatDialog } from '@angular/material/Dialog'
+import { MatDialog} from '@angular/material/dialog';
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -63,13 +63,24 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Name',
       field: 'name',
       tooltipField: 'name',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
+    },
+    {
+      headerName: 'Employee',
+      field: 'employee',
+      tooltipField: 'name',
+      suppressMenu: true
+      // filter: 'agTextColumnFilter',
+      // menuTabs: ['filterMenuTab'],
+      //   filterParams: {
+      //     filterOptions: ['contains'],
+      //     suppressAndOrCondition: true,
+      //   },
     },
     {
       headerName: 'Acquisition Date',
@@ -89,7 +100,6 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Product',
       field: 'product',
       tooltipField: 'product',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -101,7 +111,6 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Store',
       field: 'warehouse',
       tooltipField: 'warehouse',
-      cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {

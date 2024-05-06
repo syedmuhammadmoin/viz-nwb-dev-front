@@ -54,7 +54,7 @@
                 <h4 class="print-box-detail-2">Request Date:
                 <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.requestDate | date: 'MMM d, y'}}</span></h4>
               </div>
-              <div class="print-box">
+              <div class="print-box" *ngIf="this.currentClient?.isCampus">
                 <h4 class="print-box-detail-2">Campus:
                 <span class="float-right" style="font-weight: 400;">{{requestRequisitionMaster?.campus}}</span></h4>
               </div>

@@ -14,6 +14,7 @@ import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-b
 import { BehaviorSubject, Observable } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
 import { IProduct } from '../../../profiling/product/model/IProduct';
+import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
   selector: 'kt-create-debit-note',
@@ -90,6 +91,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     campusId: ''
   };
 
+
   // Injecting in dependencies in constructor
   constructor(private fb: FormBuilder,
     private debitNoteService: DebitNoteService,
@@ -104,13 +106,14 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
     super(injector);
   }
 
+  public currentClient : any ={}
   ngOnInit() {
-
+    this.currentClient = AppConst.ClientConfig.config
     //Creating Forms
     this.debitNoteForm = this.fb.group({
       vendorName: ['', [Validators.required]],
       noteDate: ['', [Validators.required]],
-      campusId: ['', [Validators.required]],
+      campusId: (AppConst.ClientConfig.config.isCampus) ?  ['',  [Validators.required]] : [null,[Validators.nullValidator]],
       debitNoteLines: this.fb.array([
         this.addDebitNoteLines()
       ])

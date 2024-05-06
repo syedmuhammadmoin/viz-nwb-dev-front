@@ -1,8 +1,10 @@
 <div class="container ">
   <div class="col-lg-10 mx-auto text-right">
     <div class="row">
-      <button printSectionId="main" id="invoice_print" printTitle="Invoice" ngxPrint [useExistingCss]="true"
-        type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+      <button printSectionId="main" id="invoice_print" printTitle="Invoice" 
+        type="button" class="app-default-btn" 
+        (click)="printForm()"
+        style="margin-bottom: 20px;"><i
           class="fas fa-print"></i> Print
       </button>
     </div>
@@ -52,6 +54,10 @@
               <h4 class="font-14"><b>Name: </b><span class="float-right"
                   style="font-weight: 400;">{{assetMaster?.name}}</span></h4>
               <p style="margin-bottom: 0px;"></p>
+            </div>
+            <div class="print-box-two">
+              <h4 class="font-14"><b>Employee:</b> <span class="float-right"
+                  style="font-weight: 400;">{{assetMaster?.employee}}</span></h4>
             </div>
             <div class="print-box-two">
               <h4 class="font-14"><b>Acquisition Date:</b> <span class="float-right"

@@ -78,6 +78,10 @@ export class PrintTrialBalanceComponent extends AppComponentBase implements OnIn
       this.cdRef.detectChanges()
     })
   }
+  printForm(){
+    window.print();
+  }
+ 
 }
 
 

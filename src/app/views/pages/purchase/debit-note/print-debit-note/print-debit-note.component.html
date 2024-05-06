@@ -1,8 +1,8 @@
 <div class="container ">
   <div class="col-lg-10 mx-auto text-right">
     <div class="row">
-      <button printSectionId="main" printTitle="Debit Note" id="debit_note_print" ngxPrint type="button"
-        [useExistingCss]="true" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+      <button printSectionId="main" printTitle="Debit Note" id="debit_note_print" (click)="printForm()" type="button"
+         class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
           class="fas fa-print"></i> Print
       </button>
     </div>

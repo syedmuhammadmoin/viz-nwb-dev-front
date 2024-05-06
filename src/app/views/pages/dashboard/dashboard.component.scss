@@ -7,7 +7,7 @@
 }
 
 #chart {
-  max-width: 650px;
+  // max-width: 650px;
   padding: 15px;
 }
 
@@ -42,4 +42,23 @@
   100% {
     transform:  translateX(100%) scaleX(0.5);
   }
+}
+
+.card-box-header{
+  border: 1px solid black;
+
+}
+
+.custom-card {
+  // position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #ffffff;
+  background-clip: border-box;
+  border: 1px solid #EBEDF3;
+  border-radius: 0.42rem;
+  min-height: 200px;
+  height: auto;
 }

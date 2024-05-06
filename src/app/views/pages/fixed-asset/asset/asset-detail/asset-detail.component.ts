@@ -14,6 +14,8 @@ import {ConfirmationDialogComponent} from 'src/app/views/shared/components/confi
 import {NgxsCustomService} from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import {IsReloadRequired} from '../../../profiling/store/profiling.action';
 import {DisposalDropdownState} from '../store/disposal-dropdown.state';
+import { ScheduleDepreciationComponent } from '../schedule-depreciation/schedule-depreciation.component';
+import { ActivationDetailComponent } from '../activation-detail/activation-detail.component';
 
 
 // fixed asset table interface
@@ -146,7 +148,9 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
         this.cdRef.detectChanges();
       })
   }
-
+  shouldShowDepreciationButton(): boolean {
+    return this.assetMaster?.depreciationApplicability === true;
+  }
   editAsset(id?: number): void {
     this.dialog.open(CreateAssetComponent, {
       width: '800px',
@@ -159,6 +163,23 @@ export class AssetDetailComponent extends AppComponentBase implements OnInit {
     // dialogRef.afterClosed().subscribe(() => {
     //   this.cdRef.detectChanges();
     // });
+  }
+
+  
+  // open modal funtion
+  depreciationSchedule(): void {
+    this.dialog.open(ScheduleDepreciationComponent, {
+      width: '1000px',
+      data: this.assetMaster?.id
+    });
+  }
+
+  // open modal funtion
+  activationDetail(): void {
+    this.dialog.open(ActivationDetailComponent, {
+      width: '1000px',
+      data: this.assetMaster?.fixedAssetlines
+    });
   }
 
 

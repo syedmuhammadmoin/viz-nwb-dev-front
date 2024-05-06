@@ -83,6 +83,10 @@ export class PrintRequestRequisitionComponent implements OnInit {
         this.cdRef.markForCheck();
       })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

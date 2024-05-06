@@ -77,6 +77,10 @@ export class PrintBankAdviceComponent extends AppComponentBase implements OnInit
       this.cdRef.detectChanges()
     })
   }
+
+  printForm(){
+    window.print();
+  }
 }
 
 

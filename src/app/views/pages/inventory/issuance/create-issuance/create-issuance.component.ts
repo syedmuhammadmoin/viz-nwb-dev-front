@@ -2,7 +2,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IProduct } from '../../../profiling/product/model/IProduct';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ProductService } from '../../../profiling/product/service/product.service';
@@ -13,7 +13,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IIssuance } from '../model/IIssuance';
 import { IssuanceService } from '../service/issuance.service';
 import { IIssuanceLines } from '../model/IssuanceLines';
-import { BehaviorSubject, observable, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { RequisitionService } from '../../../procurement/requisition/service/requisition.service';
 import { IRequisition } from '../../../procurement/requisition/model/IRequisition';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
@@ -30,7 +30,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   public permissions = Permissions;
 
   //Loader
-  isLoading: boolean;
+  isLoading: boolean = true;
 
   // Declaring form variable
   issuanceForm: FormGroup;
@@ -42,15 +42,12 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   @ViewChild('table', { static: true }) table: any;
 
   // Issuance Model
-  issuanceModel: IIssuance;
+  issuanceModel: IIssuance = {} as IIssuance;
 
   warehouseList: any = new BehaviorSubject<any>([])
 
   //show toast mesasge of on campus select
   showMessage: boolean = false;
-
-  // For DropDown
-  salesItem: IProduct[];
 
   //param to get requisition
   isRequisition: boolean;
@@ -70,6 +67,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   maxDate: Date = new Date();
   minDate: Date
   dateCondition: boolean
+
+  productList: IProduct[] | any[] = []
 
   title: string = 'Create Issuance'
 
@@ -129,40 +128,38 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       ])
     });
 
-    this.issuanceForm.get('issuanceLines')['controls'][0].controls.fixedAssetId.disable();
+    this.productService.getProductsDropdown().subscribe((res: any) => {
+        this.productList = res.result;
+        this.activatedRoute.queryParams.subscribe((param) => {
+          const id = param.q;
+          this.isIssuance = param.isIssuance;
+          this.isRequisition = param.isRequisition;
+    
+          if (id && this.isIssuance) {
+            this.title = 'Edit Issuance'
+            this.getIssuance(id);
+          }
+          else if (id && this.isRequisition) {
+            this.getRequisition(id);
+          }
+          else {
+            this.isLoading = false;
+            this.cdRef.detectChanges()
+          }
+        });
+    },
+    () => {
+      this.isLoading = false;
+    })
 
-    this.issuanceModel = {
-      id: null,
-      employeeId: null,
-      issuanceDate: null,
-      campusId: null,
-      issuanceLines: []
-    }
+    //this.issuanceForm.get('issuanceLines')['controls'][0].controls.fixedAssetId.disable();
 
     //Get Data from Store
     this.ngxsService.getBusinessPartnerFromState();
     this.ngxsService.getEmployeeFromState();
     this.ngxsService.getWarehouseFromState();
-    this.ngxsService.getProductFromState();
+    //this.ngxsService.getProductFromState();
     this.ngxsService.getCampusFromState();
-
-    this.activatedRoute.queryParams.subscribe((param) => {
-      const id = param.q;
-      this.isIssuance = param.isIssuance;
-      this.isRequisition = param.isRequisition;
-
-      if (id && this.isIssuance) {
-        this.isLoading = true;
-        this.title = 'Edit Issuance'
-        this.getIssuance(id);
-      }
-      else if (id && this.isRequisition) {
-        this.isLoading = true;
-        this.getRequisition(id);
-      }
-    });
-
-    this.productService.getProductsDropdown().subscribe(res => this.salesItem = res.result)
   }
 
   //Form Reset
@@ -186,7 +183,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   addIssuanceLines(): FormGroup {
     return this.fb.group({
       itemId: ['', Validators.required],
-      fixedAssetId: [''],
+      fixedAssetId: [{value: '', disabled: true}],
       description: ['', Validators.required],
       quantity: ['', [Validators.required, Validators.min(1)]],
       warehouseId: ['', Validators.required]
@@ -204,21 +201,19 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
   //Get issuance Data for Edit
   private getIssuance(id: number) {
-    this.issuanceService.getIssuanceById(id)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-        })
-      )
-      .subscribe((res) => {
+    this.issuanceService.getIssuanceById(id).subscribe(
+      (res) => {
         if (!res) return
         this.issuanceModel = res.result
         this.patchIssuance(this.issuanceModel)
-        res.result.issuanceLines.forEach((x, index) => {
-          this.onItemSelected(x.itemId, index)
-        })
+
+        // res.result.issuanceLines.forEach((x, index) => {
+        //   this.onItemSelected(x.itemId, index)
+        // })
+      },
+      () => {
+        this.isLoading = false;
+        this.cdRef.detectChanges();
       });
   }
 
@@ -242,10 +237,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   //Patch Issuance Form through issuance Or sales Order Master Data
   patchIssuance(data: IIssuance | IRequisition | any) {
     this.issuanceForm.patchValue({
-      employeeId: data.employeeId,
       issuanceDate: data.issuanceDate ?? data.requisitionDate
     });
-
     this.showMessage = true;
 
     this.getEmployee(data.employeeId, true)
@@ -260,17 +253,21 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   //Patch Issuance Lines
   patchIssuanceLines(lines: IIssuanceLines[]): FormArray {
     const formArray = new FormArray([]);
-    lines.forEach((line: any) => {
+    lines.forEach((line: any, i:number) => {
       if (line.pendingQuantity != 0 ?? this.isIssuance) {
         formArray.push(this.fb.group({
           id: (this.isRequisition) ? 0 : line.id,
           itemId: [line.itemId, Validators.required],
-          fixedAssetId: [line.fixedAssetId],
+          fixedAssetId: [{value: line.fixedAssetId, disabled: (line.fixedAssetId) ? false : true}],
           description: [line.description, Validators.required],
+          // quantity: (this.isRequisition) ? [line.pendingQuantity, [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
+          //  [line.quantity, [Validators.required, Validators.min(1)]],
           quantity: (this.isRequisition) ? [line.pendingQuantity, [Validators.required, Validators.min(1), Validators.max(line.pendingQuantity)]] :
-            [line.quantity, [Validators.required, Validators.min(1)]],
+           [{value: ((line.fixedAssetId) ? 1: line.quantity) ,disabled: ((line.fixedAssetId) ? true : false)}, [Validators.required, Validators.min(1)]],
           warehouseId: [line.warehouseId, [Validators.required]],
         }))
+
+          this.onItemSelected(line.itemId, i, true)
       }
     })
     return formArray
@@ -314,7 +311,6 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
         )
         .subscribe((res: IApiResponse<IIssuance>) => {
           this.toastService.success('Updated Successfully', 'Issuance')
-          this.cdRef.detectChanges();
           this.router.navigate(['/' + ISSUANCE.ID_BASED_ROUTE('details', this.issuanceModel.id)]);
         })
     } else {
@@ -340,7 +336,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.issuanceModel.issuanceDate = this.transformDate(this.issuanceForm.value.issuanceDate, 'yyyy-MM-dd');
     this.issuanceModel.campusId = this.issuanceForm.getRawValue().campusId;
     this.issuanceModel.requisitionId = (this.requisitionMaster?.id ?? this.issuanceModel?.requisitionId ?? null)
-    this.issuanceModel.issuanceLines = this.issuanceForm.value.issuanceLines;
+    this.issuanceModel.issuanceLines = this.issuanceForm.getRawValue().issuanceLines;
   }
 
   //for save or submit
@@ -351,30 +347,27 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   // getting employee data by id
   // using isEdit here to avoid onCampusSelected(...) method, which sets all stores values to null
   getEmployee(id: number, isEdit: boolean = false) {
+    this.isLoading = true;
     this.employeeService.getEmployeeById(id)
-      .pipe(
-        take(1),
-        finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-        })
-      )
       .subscribe((res) => {
         this.employee = res.result
         this.checkSelected(this.employee, isEdit)
-        this.cdRef.detectChanges()
       })
   }
 
   checkSelected(employee: IIssuance | any, isEdit: boolean = false) {
     this.issuanceForm.patchValue({
+      employeeId: employee.id,
       designation: employee.designationName,
       department: employee.departmentName,
       campusId: employee.campusId
     })
+
     if (!isEdit) {
       this.onCampusSelected(employee.campusId)
+      this.isLoading = false;
     }
+    this.cdRef.detectChanges();
   }
 
   checkEmployee() {
@@ -408,33 +401,41 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
   @ViewChild(DropdownComponent, { static: false }) dropdown: DropdownComponent;
 
-  async onItemSelected(itemId: number, curretIndex?: number) {
+  async onItemSelected(itemId: number, currentIndex?: number, isEdit: boolean = false) {
+    const quantity = this.issuanceForm.get('issuanceLines')?.['controls']?.[currentIndex]?.controls?.quantity
+    const fixedAsset = this.issuanceForm.get('issuanceLines')?.['controls']?.[currentIndex]?.controls?.fixedAssetId;
 
-    this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.disable();
+    if(isEdit === false) {
+      fixedAsset?.setValue('')
+      quantity?.enable();
+    }
 
-    this.ngxsService.products$
-      .subscribe((res) => {
-        console.log(res);
-        this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
-
-
-      })
+    this.isFixedAsset = this.productList.find(x => itemId === x.id)?.isFixedAsset;
 
     if (this.isFixedAsset) {
-      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise()
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.enable();
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
-      this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : []
-      this.cdRef.detectChanges()
+      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise();
+      fixedAsset?.enable();
+      fixedAsset?.setValidators([Validators.required]);
+      fixedAsset?.updateValueAndValidity();
+
+      this.fixedAssetsDropdown[currentIndex] = response.result ? response.result : []
+      this.isLoading = false;
     }
     else {
-      this.fixedAssetsDropdown[curretIndex] = [];
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.setValue('');
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
-      this.issuanceForm.get('issuanceLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
+      this.fixedAssetsDropdown[currentIndex] = [];
+
+      if(fixedAsset?.value !== '') { quantity?.setValue('');}
+      fixedAsset?.disable();
+      fixedAsset?.clearValidators();
+      fixedAsset?.updateValueAndValidity();
+      this.isLoading = false;
     }
 
-
+    this.cdRef.detectChanges()
   }
 
+  onAssetSelected(i: number) {
+    this.issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.setValue(1);
+    this.issuanceForm.get('issuanceLines')['controls'][i].controls.quantity.disable();
+  }
 }

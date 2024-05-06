@@ -1,11 +1,57 @@
 import {Criteria, DocType, Nature} from './AppEnum';
 
+
+
+interface Config {
+  readonly title: string;
+  readonly isCampus: boolean
+  readonly isAdmission: boolean
+  readonly descriptionMessage: string
+  readonly logo: string
+  readonly bgImage: string
+  readonly bg_gradient_color_one: string
+  readonly bg_gradient_color_two: string
+  readonly bg_white: string
+  readonly primary_color: string
+  readonly secondary_color: string
+  readonly input_filed_primary_color: string
+  readonly input_filed_background_color: string
+  readonly input_filed_border_color: string
+  readonly form_border_color: string
+  readonly test_shadow_color: string
+  readonly button_background_color: string
+  readonly light_gray_color: string
+  readonly toggler_arrow_color: string
+  readonly home_logo_bg: string
+  readonly db_dd_t_c: string
+  readonly login_title: string
+  readonly login_cover_image: string
+  readonly site_logo: string
+  readonly dashboard_hight: string
+  readonly dashboard_logo_width: string
+  readonly dashboard_logo_hight: string
+  readonly chart_color: string[]
+  readonly site_title: string
+  readonly fav_icon: string
+  readonly edinfini_true: boolean
+  readonly nawabshah_true: boolean
+  readonly vizalys_true: boolean
+  readonly print_logo : string
+} 
+ 
+interface Client {
+  readonly clientId: number;
+  readonly config: Config;
+}
+
 export class AppConst {
 
   static appBaseUrl: string;
   static remoteServiceBaseUrl: string;
   static appBaseHref: string;
   static apiKey: string;
+  static clientId: number;
+  static ClientConfig: Client;
 
   static ProductType = {
     0: 'Consumable',
@@ -270,6 +316,14 @@ export class AppConst {
     'Finance.JournalEntry.Review': 'Journal Voucher Review',
     'Finance.JournalEntry.Approve': 'Journal Voucher Approve',
 
+    // Journal Voucher
+    'Finance.PettyCash.VW': 'Petty Cash View',
+    'Finance.PettyCash.CR': 'Petty Cash Create',
+    'Finance.PettyCash.ED': 'Petty Cash Update',
+    'Finance.PettyCash.DL': 'Petty Cash Delete',
+    'Finance.PettyCash.Review': 'Petty Cash Review',
+    'Finance.PettyCash.Approve': 'Petty Cash Approve',
+
     // Access Management
     'AccessManagement.Auth.CR': 'Access Management Create',
     'AccessManagement.Auth.VW': 'Access Management View',
@@ -529,6 +583,12 @@ export class AppConst {
     'Admission.AdmissionCriteria.VW': 'Admission Criteria View',
     'Admission.AdmissionCriteria.ED': 'Admission Criteria Edit',
     'Admission.AdmissionCriteria.DL': 'Admission Criteria Delete',
+
+
+    'Dashboard.ProfitLossSummary.VW': 'Dashboard Profit Loss Summary View',
+    'Dashboard.BalanceSheetSummary.VW': 'Dashboard Balance Sheet View',
+    'Dashboard.BankBalance.VW' : 'Dashboard Bank Balance View',
+
   }
 
   static paymentRegisterType = {
@@ -580,7 +640,8 @@ export class AppConst {
     {value: 'Budget Reappropriation', id: DocType.BudgetReappropriation},
     {value: 'Depreciation Adjustment', id: DocType.DepreciationAdjustment},
     {value: 'Anticipated Budget', id: DocType.EstimatedBudget},
-    {value: 'Budget', id: DocType.Budget}
+    {value: 'Budget', id: DocType.Budget},
+    {value: 'Petty Cash', id:DocType.PettyCash},
 
     
     // {value: 'sales Order', id: DocType.SalesOrder},
@@ -677,6 +738,21 @@ export class AppConst {
     {name: 'Dec', value: 12},
   ];
 
+  static Religion = [
+    {name : 'Islam', value : 1},
+    {name : 'Hindu', value : 2},
+    {name : 'Christian', value : 3}
+  ];
+  
+  static PayrollTypes = [
+    {name : 'BasicPay' , value : 0},
+    {name : 'Increment' , value : 1},
+    {name : 'Deduction' , value : 2},
+    {name : 'Allowance' , value : 3},
+    {name : 'AssignmentAllowance' , value : 4},
+    {name : 'TaxDeduction' , value : 5}   
+  ];
+
   static filterStatus = [
     {value: 'Draft', id: 0},
     {value: 'Rejected', id: 1},
@@ -689,4 +765,5 @@ export class AppConst {
     {value: 'Submitted', id: 5},
     {value: 'Reviewed', id: 6},
   ];
+  
 }

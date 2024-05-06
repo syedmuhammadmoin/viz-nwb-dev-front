@@ -9,7 +9,7 @@ import { ISSUANCE_RETURN } from 'src/app/views/shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IssuanceService } from '../../issuance/service/issuance.service';
 import { IIssuance } from '../../issuance/model/IIssuance';
-import { IIssuanceReturn } from '../model/IissuanceReturn';
+import { IIssuanceReturn } from '../model/IIssuanceReturn';
 import { IssuanceReturnService } from '../service/issuance-return.service';
 import { IIssuanceReturnLines } from '../model/IIssuanceReturnLines';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
@@ -409,15 +409,25 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
       const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise()
       this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.enable();
       this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
-      this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : []
+      this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : [];
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.quantity.setValue('');
       this.cdRef.detectChanges()
     }
     else {
       this.fixedAssetsDropdown[curretIndex] = [];
-      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValue('');
-      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.clearValidators();
-      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.updateValueAndValidity();
+      const fixedAsset = this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId
+      if(fixedAsset.value !== '') {
+        this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.quantity.setValue('');
+      }
+      fixedAsset.setValue('');
+      fixedAsset.clearValidators();
+      fixedAsset.updateValueAndValidity();
+      this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.quantity.enable();
     }
+  }
 
+  onAssetSelected(i: number) {
+    this.issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.disable();
+    this.issuanceReturnForm.get('issuanceReturnLines')['controls'][i].controls.quantity.setValue(1);
   }
 }

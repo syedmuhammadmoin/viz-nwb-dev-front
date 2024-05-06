@@ -1,7 +1,7 @@
 <div class="container ">
     <div class="col-lg-10 mx-auto text-right">
       <div class="row">
-        <button printSectionId="main" id="disposal_print" printTitle="disposal" ngxPrint [useExistingCss]="true"
+        <button printSectionId="main" id="disposal_print" printTitle="disposal" (click)="printForm()"
           type="button" class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
             class="fas fa-print"></i> Print
         </button>
