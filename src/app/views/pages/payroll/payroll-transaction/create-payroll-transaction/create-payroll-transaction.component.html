@@ -259,7 +259,7 @@
             <div class=" row mt-1 mb-0">
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Total Deductions:</label>
+                  <label class="col-form-label pt-0">Deductions:</label>
                   <kt-input-field id="payroll_trans_basic" [disabled]="butDisabled" formControlName="totalDeductions"
                   [(ngModel)]="totalDeductions"
                     matFormFieldClass="full-width" placeholder="Total Deduction">
@@ -278,8 +278,8 @@
 
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Tax Deduction:</label>
-                  <kt-input-field id="payroll_trans_basic" formControlName="taxDeduction" [(ngModel)]="totalTaxDeduction" matFormFieldClass="full-width"
+                  <label class="col-form-label pt-0">Tax Deductions:</label>
+                  <kt-input-field id="payroll_trans_basic" formControlName="taxDeduction" [disabled]="butDisabled" [(ngModel)]="totalTaxDeduction" matFormFieldClass="full-width"
                     placeholder="Tax Deduction">
                   </kt-input-field>
                 </div>

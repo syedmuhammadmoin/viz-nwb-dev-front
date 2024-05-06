@@ -291,7 +291,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
     this.disableFields(this.payrollTransactionForm,
       "employeeId", "month", "year", "workingDays", "presentDays",
-      "leaveDays", "transDate", "basicPay", "grossSalary", "netSalary", "totalAllowances", "totalDeductions")
+      "leaveDays", "transDate", "basicPay", "grossSalary", "netSalary", "totalAllowances", "totalDeductions","taxDeduction")
   }
 
   checkSelected(employee) {
