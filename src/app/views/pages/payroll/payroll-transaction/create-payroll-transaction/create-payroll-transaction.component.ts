@@ -28,6 +28,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
 
   basicSal: number;
   totalDeductions: number;
+  totalTaxDeduction: number;
   totalAllowances: number;
   // For Table Columns
   displayedColumns = ['accountId', 'payrollItemId', 'payrollType', 'amount', 'action']
@@ -197,8 +198,8 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       presentDays: [0, [Validators.required]],
       leaveDays: [0, [Validators.required]],
       totalDeductions: ['', Validators.required],
-      netIncrement: ['', Validators.required],
-      taxDeduction: ['', Validators.required],
+      netIncrement: [''],
+      taxDeduction: [''],
       basicSalary: ['', Validators.required],
       departmentId: ['', Validators.required],
       designationId: ['', Validators.required],
@@ -540,6 +541,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   CalculateBasicPay() {
     this.totalAllowances = 0;
     this.totalDeductions = 0;
+    this.totalTaxDeduction = 0;
     const arrayControl = this.payrollTransactionForm.get('payrollTransactionLines') as FormArray;
     arrayControl.controls.forEach((_: unknown, index: number) => {
       const amount = arrayControl.at(index).get('amount').value;
@@ -547,8 +549,11 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       if (type === 3) {
         this.totalAllowances += amount;
       }
-      else if (type === 2 || type === 5) {
+      else if (type === 2) {
         this.totalDeductions += amount;
+      }
+      else if (type === 5) {
+        this.totalTaxDeduction += amount;
       }
     });
 
