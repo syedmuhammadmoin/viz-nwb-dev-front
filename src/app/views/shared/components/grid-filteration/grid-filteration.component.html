@@ -1,0 +1,35 @@
+<form (ngSubmit)="createProcess()" [formGroup]="FilterationForm" class="kt-form kt-form--label-align-right"
+#formDirective="ngForm">
+<div class="row ml-4">
+
+
+   
+    <div class="d-flex flex-row ">
+        <div class="form-group kt-form__group ml-5">
+            <label class="col-form-label">Month:</label>
+            <kt-simple-dropdown id="create_process_month"                
+                [errorMessage]="formErrors.month" [optionList]="months" formControlName="month"
+                matFormFieldClass="full-width" placeholder="Select Month" propertyName="name" propertyValue="value">
+            </kt-simple-dropdown>
+        </div>
+        <div class="form-group kt-form__group mb-0 ml-2">
+            <label class="col-form-label">Year:</label>
+            <kt-simple-dropdown id="create_process_year"
+                 
+                  [errorMessage]="formErrors.year"
+                  [optionList]="[{'value':'2013'},{'value':'2014'},{'value':'2015'},{'value':'2016'},{'value':'2017'},{'value':'2018'},{'value':'2019'},{'value':'2020'},{'value':'2021'},{'value':'2022'},{'value':'2023'},{'value':'2024'},{'value':'2025'},{'value':'2026'},{'value':'2027'}]"
+                  formControlName="year" matFormFieldClass="full-width" placeholder="Select Year" propertyName="value"
+                  propertyValue="value">
+                </kt-simple-dropdown>
+        </div>
+        <div class="form-group kt-form__group mb-0 ml-2" style="margin-top: 3rem !important;">
+            <button class="mr-3 app-reset-btn" mat-raised-button id="create_process_reset" type="button"
+              (click)="resetForm()"><i class="fas fa-undo"></i> Reset</button>
+            <button class="app-default-btn" mat-raised-button id="create_process_fetch" type="submit">Fetch
+              Records</button>
+          </div>
+    </div>
+ 
+   
+</div>
+</form>

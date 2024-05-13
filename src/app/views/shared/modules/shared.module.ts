@@ -65,6 +65,7 @@ import { CreateBankAccountComponent } from '../../pages/finance/bank-account/cre
 import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
 import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
 import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
+import { GridFilterationComponent } from '../components/grid-filteration/grid-filteration.component';
 
 
 // @ts-ignore
@@ -88,6 +89,7 @@ import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cel
     TreeFilter,
     DragDropDirective,
     AgGridButtonCellRendrerComponent,
+    GridFilterationComponent
   ],
   imports: [
     NgxPrintModule,
@@ -200,7 +202,8 @@ import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cel
     CustomUploadFileComponent,
     CustomRemarksComponent,
     TreeFilter,
-    AgGridButtonCellRendrerComponent
+    AgGridButtonCellRendrerComponent,
+    GridFilterationComponent
   ],
   providers: [
     FormConfirmationGuard,
