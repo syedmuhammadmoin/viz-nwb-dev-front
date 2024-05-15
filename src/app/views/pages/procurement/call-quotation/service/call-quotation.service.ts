@@ -50,6 +50,8 @@ export class CallQuotationService extends AppServiceBase {
   }
 
   getRecords(params: any): Observable<any> {
+    console.log(params,"Params");
+    
     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.invoiceDate?.dateFrom, 'MM/d/y')) });
   }
 }

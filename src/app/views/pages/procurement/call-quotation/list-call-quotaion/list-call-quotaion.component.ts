@@ -74,10 +74,10 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
       headerName: 'Description',
       field: 'description',
       tooltipField: 'docNo',
-      filter: 'agDateColumnFilter',
+      filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          filterOptions: ['equals'],
+          filterOptions: ['contains'],
           suppressAndOrCondition: true,
         }
     },

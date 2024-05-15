@@ -36,7 +36,7 @@ export class BidEvaluationService extends AppServiceBase {
     return this.httpClient.put<any>(this.baseUrl + '/' + bidEvaluationModel.id ,  bidEvaluationModel)
   }
 
-  getRecords(params: any): Observable<any> {
+  getRecords(params: any): Observable<any> {             
     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.bidEvaluationDate?.dateFrom, 'MM/d/y'))});
   }
 }
