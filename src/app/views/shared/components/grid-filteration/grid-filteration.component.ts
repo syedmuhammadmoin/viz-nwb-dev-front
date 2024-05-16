@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild , EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { FirstDataRenderedEvent, GridOptions} from 'ag-grid-community';
 import { MatDialog} from "@angular/material/dialog";
@@ -9,6 +9,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
+import { IFilterationModel } from './FilterationModel';
 
 @Component({
   selector: 'kt-grid-filteration',
@@ -16,16 +17,21 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./grid-filteration.component.scss']
 })
 export class GridFilterationComponent implements OnInit {
+      //for resetting form
+  @ViewChild('formDirective') private formDirective: NgForm;
+  @Output() MonthYear:EventEmitter<IFilterationModel> =new EventEmitter<IFilterationModel>();
 
-  months = AppConst.Months
   FilterationForm: FormGroup;
+  months = AppConst.Months;
+  Model: IFilterationModel = {} as IFilterationModel; 
+  year: number;
+  month: number;
 
   formErrors = { 
     month: '',
     year: ''
   };
-    //for resetting form
-    @ViewChild('formDirective') private formDirective: NgForm;
+
   constructor(
     private fb: FormBuilder,
   ) {
@@ -39,14 +45,27 @@ export class GridFilterationComponent implements OnInit {
       
     })
   }
-  resetForm(){
-    console.log("Reset Form");
+  resetForm(){    
+    this.formDirective.resetForm();  
+    window.location.reload();
     
   }
-  createProcess() {
-
-    console.log();
+  GetFilteredRecord() {      
+    this.mapFormValuesToFilterationModel() 
+    this.sendData()
     
+  } 
+   //Mapping Form Values To Model 
+   mapFormValuesToFilterationModel() {   
+    this.Model.year = this.FilterationForm.value.year;
+    this.Model.month = this.FilterationForm.value.month;
+    
+  }
+  
+  sendData(){
+    console.log(this.FilterationForm,"FilterationForm");
+    
+    this.MonthYear.emit(this.Model)
   }
   
 }

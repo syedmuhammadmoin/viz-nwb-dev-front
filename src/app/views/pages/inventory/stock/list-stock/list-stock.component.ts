@@ -15,6 +15,7 @@ import { StockService } from '../service/stock.service';
 export class ListStockComponent extends AppComponentBase  implements OnInit {
 
   stockList: IStock[];
+  FilteredData: any[]=[];
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
@@ -155,9 +156,10 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
           if(isEmpty(data.result)) {  
             this.gridApi.showNoRowsOverlay() 
           } else {
+            this.FilteredData = data.result
             this.gridApi.hideOverlay();
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback(this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'stockPageName')
           this.cdRef.detectChanges();
         });
@@ -165,6 +167,27 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
     };
     params.api.setDatasource(dataSource);
   }
+
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.stockService.getRecordByYearMonth(x.month ,x.year )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }
 
 

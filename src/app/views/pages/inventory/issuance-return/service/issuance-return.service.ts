@@ -50,6 +50,10 @@ export class IssuanceReturnService extends AppServiceBase {
      getRecords(params: any): Observable<any> {
       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.issuanceReturnDate?.dateFrom, 'MM/d/y') , params?.filterModel?.employeeName)});
      }
+
+     getRecordByYearMonth(month: any, year: any): Observable<any> {        
+      return this.httpClient.get(AppConst.remoteServiceBaseUrl + "issuanceReturn?month=" + month + '&year=' + year);
+    }
 }
 
 

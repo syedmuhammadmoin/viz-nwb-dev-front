@@ -31,6 +31,8 @@ export abstract class AppServiceBase {
     
     httpParams = httpParams.append('docNo', (params?.filterModel?.docNo?.filter || params?.filterModel?.cnic?.filter) ||'');
     httpParams = httpParams.append('title', (params?.filterModel?.title?.filter || "") || '');
+    httpParams = httpParams.append('year', (params?.filterModel?.year?.filter || "") ||'');
+    httpParams = httpParams.append('month', (params?.filterModel?.month?.filter || "") ||'');
     httpParams = httpParams.append('category', (params?.filterModel?.category?.filter || "") || '');
     httpParams = httpParams.append('description', (params?.filterModel?.description?.filter || "") || '');
     httpParams = httpParams.append('unitOfMeasurement', (params?.filterModel?.unitOfMeasurement?.filter || "") || '');

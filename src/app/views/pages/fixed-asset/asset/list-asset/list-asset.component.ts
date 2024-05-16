@@ -22,6 +22,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   gridOptions: GridOptions;
   assetList: IAsset[];
+  FilteredData: any[]=[];
   frameworkComponents: {[p: string]: unknown};
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
@@ -304,9 +305,10 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
         if(isEmpty(data.result)) {
           this.gridApi.showNoRowsOverlay()
         } else {
+          this.FilteredData = data.result;
           this.gridApi.hideOverlay();
         }
-        params.successCallback(data.result || 0, data.totalRecords);
+        params.successCallback(this.FilteredData || 0, data.totalRecords);
         this.paginationHelper.goToPage(this.gridApi, 'assetPageName')
         this.cdRef.detectChanges();
       });
@@ -349,5 +351,26 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   //    this.cdRef.detectChanges();
   //  },
   // };
+
+  
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.assetService.getRecordByYearMonth(x.month ,x.year )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 
 }
