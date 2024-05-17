@@ -356,7 +356,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.assetService.getRecordByYearMonth(x.month ,x.year )
+        this.assetService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

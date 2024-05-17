@@ -155,11 +155,10 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
         this.stockService.getRecords(params).subscribe((data) => {
           if(isEmpty(data.result)) {  
             this.gridApi.showNoRowsOverlay() 
-          } else {
-            this.FilteredData = data.result
+          } else {           
             this.gridApi.hideOverlay();
           }
-          params.successCallback(this.FilteredData || 0, data.totalRecords);
+          params.successCallback(data.result || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'stockPageName')
           this.cdRef.detectChanges();
         });
@@ -169,25 +168,7 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
   }
 
 
-  fetchData(x: any) {           
-    const dataSource = {
-      getRows: (params: any) => {        
-        this.stockService.getRecordByYearMonth(x.month ,x.year )
-          .subscribe((data) => {
-            if (isEmpty(data.result)) {
-              this.gridApi.showNoRowsOverlay();
-            } else {
-              this.gridApi.hideOverlay();             
-              this.FilteredData = data.result;
-            }
-            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
-            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
-            this.cdRef.detectChanges();
-        });
-      },
-    };
-    this.gridApi.setDatasource(dataSource);
-}
+
 }
 
 

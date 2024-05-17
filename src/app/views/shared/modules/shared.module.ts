@@ -66,6 +66,7 @@ import { DragDropDirective } from '../directive/drag-n-drop/dragDrop.directive';
 import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
 import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
 import { GridFilterationComponent } from '../components/grid-filteration/grid-filteration.component';
+import { FinanceGridFilterationComponent } from '../components/finance-grid-filteration/finance-grid-filteration.component';
 
 
 // @ts-ignore
@@ -89,7 +90,8 @@ import { GridFilterationComponent } from '../components/grid-filteration/grid-fi
     TreeFilter,
     DragDropDirective,
     AgGridButtonCellRendrerComponent,
-    GridFilterationComponent
+    GridFilterationComponent,
+    FinanceGridFilterationComponent
   ],
   imports: [
     NgxPrintModule,
@@ -203,7 +205,8 @@ import { GridFilterationComponent } from '../components/grid-filteration/grid-fi
     CustomRemarksComponent,
     TreeFilter,
     AgGridButtonCellRendrerComponent,
-    GridFilterationComponent
+    GridFilterationComponent,
+    FinanceGridFilterationComponent
   ],
   providers: [
     FormConfirmationGuard,

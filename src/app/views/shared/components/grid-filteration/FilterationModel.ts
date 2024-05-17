@@ -1,4 +1,5 @@
-export interface IFilterationModel{
-    month : string;
-    year  : string;
+export interface IFilterationModel{    
+    startDate : string;
+    endDate : string;
+
 }

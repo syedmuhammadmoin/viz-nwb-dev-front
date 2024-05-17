@@ -53,8 +53,8 @@ export class CallQuotationService extends AppServiceBase {
     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.invoiceDate?.dateFrom, 'MM/d/y')) });
   }
 
-  getRecordByYearMonth(month: any, year: any): Observable<any> {        
-    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "CallForQuotation?month=" + month + '&year=' + year);
+  getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {        
+    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "CallForQuotation?startDate=" + startDate + '&endDate=' + endDate);
   }
 }
 

@@ -56,8 +56,8 @@ export class RequisitionService extends AppServiceBase {
     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.requisitionDate?.dateFrom, 'MM/d/y'))});
   }
 
-  getRecordByYearMonth(month: any, year: any): Observable<any> {        
-    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "requisition?month=" + month + '&year=' + year);
+  getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {        
+    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "requisition?startDate=" + startDate + '&endDate=' + endDate);
   }
 }
 

@@ -173,7 +173,7 @@ export class ListGoodsReturnNoteComponent extends AppComponentBase implements On
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.goodsReturnNoteService.getRecordByYearMonth(x.month ,x.year )
+        this.goodsReturnNoteService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

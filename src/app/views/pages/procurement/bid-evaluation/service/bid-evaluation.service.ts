@@ -40,8 +40,8 @@ export class BidEvaluationService extends AppServiceBase {
     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.bidEvaluationDate?.dateFrom, 'MM/d/y'))});
   }
 
-  getRecordByYearMonth(month: any, year: any): Observable<any> {        
-    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "bidEvaluation?month=" + month + '&year=' + year);
+  getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {        
+    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "bidEvaluation?startDate=" + startDate + '&endDate=' + endDate);
   }
 }
 

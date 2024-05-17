@@ -162,7 +162,7 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this._issuanceReturnService.getRecordByYearMonth(x.month ,x.year )
+        this._issuanceReturnService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

@@ -166,7 +166,7 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.disposalService.getRecordByYearMonth(x.month ,x.year )
+        this.disposalService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

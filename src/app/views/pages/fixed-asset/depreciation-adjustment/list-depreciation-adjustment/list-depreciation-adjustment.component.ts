@@ -195,7 +195,7 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.depreciationAdjustmentService.getRecordByYearMonth(x.month ,x.year )
+        this.depreciationAdjustmentService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

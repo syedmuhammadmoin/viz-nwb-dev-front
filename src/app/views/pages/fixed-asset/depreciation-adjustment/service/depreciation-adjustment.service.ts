@@ -57,7 +57,7 @@ export class DepreciationAdjustmentService extends AppServiceBase {
     return this.httpClient.get(this.baseUrl, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.date?.dateFrom, 'MM/d/y'))})
   }
 
-  getRecordByYearMonth(month: any, year: any): Observable<any> {        
-    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "DepreciaitonAdjustment?month=" + month + '&year=' + year);
+  getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {        
+    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "DepreciaitonAdjustment?startDate=" + startDate + '&endDate=' + endDate);
   }
 }

@@ -62,4 +62,8 @@ export class PaymentService extends AppServiceBase {
     const url = AppConst.remoteServiceBaseUrl + paymentType.replace(/ /g, '');
     return this.httpClient.get(url, {params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.budgetReappropriationDate?.dateFrom, 'MM/d/y'))})
   }
+
+  getRecordByYearMonth(startDate: any, endDate: any,businessPartnerName:any): Observable<any> {        
+    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "payment?startDate=" + startDate + '&endDate=' + endDate + "&businessPartner=" + businessPartnerName);
+  }
 }

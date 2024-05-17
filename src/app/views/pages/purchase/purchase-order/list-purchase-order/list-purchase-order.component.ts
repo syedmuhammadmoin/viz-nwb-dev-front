@@ -197,10 +197,10 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   }
 
 
-  fetchData(x: any) {           
+  fetchData(x: any) {              
     const dataSource = {
       getRows: (params: any) => {        
-        this._purchaseOrderService.getRecordByYearMonth(x.month ,x.year )
+        this._purchaseOrderService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

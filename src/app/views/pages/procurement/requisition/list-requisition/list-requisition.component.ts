@@ -175,7 +175,7 @@ export class ListRequisitionComponent extends AppComponentBase implements OnInit
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.requisitionService.getRecordByYearMonth(x.month ,x.year )
+        this.requisitionService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

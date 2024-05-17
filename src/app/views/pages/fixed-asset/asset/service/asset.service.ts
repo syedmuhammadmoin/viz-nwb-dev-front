@@ -83,7 +83,7 @@ export class AssetService extends AppServiceBase {
         return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, null, params?.filterModel?.bankName?.filter) });
     }
 
-    getRecordByYearMonth(month: any, year: any): Observable<any> {        
-        return this.httpClient.get(AppConst.remoteServiceBaseUrl + "FixedAsset?month=" + month + '&year=' + year);
+    getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {        
+        return this.httpClient.get(AppConst.remoteServiceBaseUrl + "FixedAsset?startDate=" + startDate + '&endDate=' + endDate);
       }
 }

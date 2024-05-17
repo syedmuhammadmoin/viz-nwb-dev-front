@@ -49,8 +49,9 @@ export class PurchaseOrderService extends AppServiceBase {
   getRecords(params: any): Observable<any> {        
     return this.httpClient.get(AppConst.remoteServiceBaseUrl + "purchaseOrder/", { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.poDate?.dateFrom, 'MM/d/y'))});
   }
-  getRecordByYearMonth(month: any, year: any): Observable<any> {        
-    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "purchaseOrder?month=" + month + '&year=' + year);
+  getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {       
+         
+    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "purchaseOrder?startDate=" + startDate + '&endDate=' + endDate);
   }
 }
 

@@ -167,7 +167,7 @@ export class ListIssuanceComponent extends AppComponentBase implements OnInit {
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.issuanceService.getRecordByYearMonth(x.month ,x.year )
+        this.issuanceService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

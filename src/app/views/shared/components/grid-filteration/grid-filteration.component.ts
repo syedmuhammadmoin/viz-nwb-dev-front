@@ -16,33 +16,42 @@ import { IFilterationModel } from './FilterationModel';
   templateUrl: './grid-filteration.component.html',
   styleUrls: ['./grid-filteration.component.scss']
 })
-export class GridFilterationComponent implements OnInit {
+export class GridFilterationComponent extends AppComponentBase implements OnInit {
       //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
   @Output() MonthYear:EventEmitter<IFilterationModel> =new EventEmitter<IFilterationModel>();
 
-  FilterationForm: FormGroup;
-  months = AppConst.Months;
+  FilterationForm: FormGroup; 
   Model: IFilterationModel = {} as IFilterationModel; 
-  year: number;
-  month: number;
+  dateCondition : boolean;
 
-  formErrors = { 
-    month: '',
-    year: ''
+   //Limit Date
+   maxDate: Date = new Date();
+   minDate: Date
+
+  formErrors = {   
+    startDate:'',
+    endDate:'',
+
   };
 
   constructor(
     private fb: FormBuilder,
+    injector: Injector
   ) {
-    
-   }
+    super(injector)
+  }
 
   ngOnInit(): void {
-    this.FilterationForm = this.fb.group({     
-      month: [''],
-      year: [''],
+    this.FilterationForm = this.fb.group({         
+      startDate: [''],
+      endDate: [''],
       
+    })
+     //handling dueDate logic
+     this.FilterationForm.get('startDate').valueChanges.subscribe((value) => {
+      this.minDate = new Date(value);
+      this.dateCondition = this.FilterationForm.get('endDate').value < this.FilterationForm.get('startDate').value
     })
   }
   resetForm(){    
@@ -56,9 +65,9 @@ export class GridFilterationComponent implements OnInit {
     
   } 
    //Mapping Form Values To Model 
-   mapFormValuesToFilterationModel() {   
-    this.Model.year = this.FilterationForm.value.year;
-    this.Model.month = this.FilterationForm.value.month;
+   mapFormValuesToFilterationModel() {       
+    this.Model.startDate =  this.transformDate(this.FilterationForm.value.startDate, 'yyyy-MM-dd');
+    this.Model.endDate = this.transformDate(this.FilterationForm.value.endDate, 'yyyy-MM-dd');
     
   }
   

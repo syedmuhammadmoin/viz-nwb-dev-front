@@ -186,7 +186,7 @@ export class ListBidEvaluationComponent extends AppComponentBase implements OnIn
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.bidEvaluationService.getRecordByYearMonth(x.month ,x.year )
+        this.bidEvaluationService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

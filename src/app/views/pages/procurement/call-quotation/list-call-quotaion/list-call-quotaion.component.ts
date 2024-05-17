@@ -168,7 +168,7 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.callQuotationService.getRecordByYearMonth(x.month ,x.year )
+        this.callQuotationService.getRecordByYearMonth(x.startDate ,x.endDate )
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();
