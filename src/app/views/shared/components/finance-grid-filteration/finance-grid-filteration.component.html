@@ -9,15 +9,17 @@
             <label class="col-form-label">Start Date:</label>          
             <kt-date-input 
              formControlName="startDate" matFormFieldClass="full-width"
-            placeholder="Select Start Date" [maxDate]="maxDate">
+            placeholder="Select Start Date" [maxDate]="maxDate"
+            hintText="Optional">
           </kt-date-input>
         </div>
         <div class="form-group kt-form__group mb-0 ml-2">
             <label class="col-form-label">End Date:</label>          
                 <kt-date-input 
              formControlName="endDate" matFormFieldClass="full-width"
-            placeholder="Select End Date"  [minDate]="minDate"        
-            dateCondition="dateCondition"
+            placeholder="Select End Date"  [minDate]="minDate"   
+            hintText="Optional"     
+            dateCondition="dateCondition"          
             >
           </kt-date-input>
         </div>
@@ -33,6 +35,7 @@
           groupPropertyName="type"
           matFormFieldClass="full-width"
           placeholder="Select Vendor" 
+          hintText="Optional"
           propertyName="name"
           propertyValue="name">
         </kt-group-dropdown>
