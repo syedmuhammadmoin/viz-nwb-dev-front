@@ -9,7 +9,7 @@
       <kt-portlet >
         <kt-portlet-header [sticky]="false" [title]="'Petty Cash Entries'" [class]="'card-head-lg'">
         </kt-portlet-header>
-        <kt-finance-grid-filteration (MonthYear)="fetchData($event)"></kt-finance-grid-filteration>
+        <kt-grid-filteration (MonthYear)="fetchData($event)"></kt-grid-filteration>
         <kt-portlet-body>
             <div class="col-lg-12 col-md-12 my-5">
                 <ag-grid-angular

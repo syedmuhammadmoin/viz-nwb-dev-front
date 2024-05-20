@@ -187,7 +187,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.journalEntryService.getRecordByYearMonth(x.startDate ,x.endDate ,x.businessPartnerName )
+        this.journalEntryService.getRecordByYearMonth(x.startDate ,x.endDate)
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();

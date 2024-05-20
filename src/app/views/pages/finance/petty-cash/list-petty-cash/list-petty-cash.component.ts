@@ -204,7 +204,7 @@ export class ListPettyCashComponent extends AppComponentBase implements OnInit {
   fetchData(x: any) {           
     const dataSource = {
       getRows: (params: any) => {        
-        this.pettyCashEntryService.getRecordByYearMonth(x.startDate ,x.endDate ,x.businessPartnerName )
+        this.pettyCashEntryService.getRecordByYearMonth(x.startDate ,x.endDate)
           .subscribe((data) => {
             if (isEmpty(data.result)) {
               this.gridApi.showNoRowsOverlay();
