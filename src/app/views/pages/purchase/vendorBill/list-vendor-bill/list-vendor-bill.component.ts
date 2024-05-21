@@ -201,6 +201,8 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
             } else {
               this.gridApi.hideOverlay();             
               this.FilteredData = data.result;
+              console.log(this.FilteredData,"FilteredData");
+              
             }
             params.successCallback(this.FilteredData || 0 ,data.totalRecords);
             this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');

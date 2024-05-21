@@ -70,10 +70,11 @@ export class FinanceGridFilterationComponent extends AppComponentBase implements
         
       } 
        //Mapping Form Values To Model 
-       mapFormValuesToFilterationModel() {       
+       mapFormValuesToFilterationModel() {  
+        debugger;     
         this.Model.startDate =  this.transformDate(this.FilterationForm.value.startDate, 'yyyy-MM-dd');
         this.Model.endDate = this.transformDate(this.FilterationForm.value.endDate, 'yyyy-MM-dd');
-        this.Model.businessPartnerName = this.FilterationForm.value.businessPartnerName;
+        this.Model.businessPartnerName = this.FilterationForm.value.businessPartnerName || '';
         
       }
       
