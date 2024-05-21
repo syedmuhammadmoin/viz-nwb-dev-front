@@ -17,6 +17,7 @@ import { IssuanceReturnService } from '../service/issuance-return.service';
 export class ListIssuanceReturnComponent extends AppComponentBase implements OnInit {
 
   issuanceReturnList: IIssuanceReturn[];
+  FilteredData: any[]=[];
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
@@ -146,6 +147,7 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
+            this.FilteredData = data.result
             this.gridApi.hideOverlay();
           }
           params.successCallback(data.result || 0, data.totalRecords);
@@ -156,4 +158,24 @@ export class ListIssuanceReturnComponent extends AppComponentBase implements OnI
     };
     params.api.setDatasource(dataSource);
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this._issuanceReturnService.getRecordByYearMonth(x.startDate ,x.endDate )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

@@ -19,6 +19,7 @@ import { InvoiceService } from '../services/invoice.service';
 export class ListInvoiceComponent extends AppComponentBase implements OnInit {
 
   invoiceList: IInvoice[];
+  FilteredData : any[] = [];
   defaultColDef: ColDef;
   frameworkComponents: {[p: string]: unknown};
   gridOptions: GridOptions;
@@ -180,9 +181,10 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
+            this.FilteredData = data.result;
             this.gridApi.hideOverlay();
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback(this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'invoicePageName')
           this.cdRef.detectChanges();
         });
@@ -190,4 +192,24 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
     };
     params.api.setDatasource(dataSource);
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.invoiceService.getRecordByYearMonth(x.startDate ,x.endDate ,x.businessPartnerName )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

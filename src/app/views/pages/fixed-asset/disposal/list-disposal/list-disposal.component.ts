@@ -26,6 +26,7 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   gridOptions: GridOptions;
   disposalList: IDisposal[];
+  FilteredData: any[]=[];
   frameworkComponents: {[p: string]: unknown};
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
@@ -143,9 +144,10 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
         if(isEmpty(data.result)) {
           this.gridApi.showNoRowsOverlay()
         } else {
+          this.FilteredData = data.result
           this.gridApi.hideOverlay();
         }
-        params.successCallback(data.result || 0, data.totalRecords);
+        params.successCallback(this.FilteredData || 0, data.totalRecords);
         this.paginationHelper.goToPage(this.gridApi, 'disposalPageName')
         this.cdRef.detectChanges();
       });
@@ -159,5 +161,26 @@ export class ListDisposalComponent extends AppComponentBase implements OnInit {
     this.gridColumnApi = params.columnApi;
     params.api.setDatasource(this.dataSource);
   }
+
+  
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.disposalService.getRecordByYearMonth(x.startDate ,x.endDate )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 
 }

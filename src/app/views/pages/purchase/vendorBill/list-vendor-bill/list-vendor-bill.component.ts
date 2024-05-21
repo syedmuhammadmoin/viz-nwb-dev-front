@@ -18,6 +18,7 @@ import { isEmpty } from 'lodash';
 export class ListVendorBillComponent extends AppComponentBase implements OnInit {
 
   vendorBillList: any;
+  FilteredData : any[] = [];
   gridOptions: GridOptions;
   frameworkComponents: any;
   defaultColDef: any;
@@ -178,9 +179,10 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
               if(isEmpty(data.result)) {
                 this.gridApi.showNoRowsOverlay()
               } else {
+                this.FilteredData = data.result
                 this.gridApi.hideOverlay();
               }
-              params.successCallback(data.result || 0, data.totalRecords);
+              params.successCallback(this.FilteredData || 0, data.totalRecords);
               this.paginationHelper.goToPage(this.gridApi, 'billPageName')
               this.cdRef.detectChanges()
           });
@@ -188,4 +190,26 @@ export class ListVendorBillComponent extends AppComponentBase implements OnInit 
        };
     params.api.setDatasource(dataSource)
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.vendorBillService.getRecordByYearMonth(x.startDate ,x.endDate ,x.businessPartnerName )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+              console.log(this.FilteredData,"FilteredData");
+              
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }
