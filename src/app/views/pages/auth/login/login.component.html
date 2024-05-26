@@ -1,18 +1,11 @@
 <div class="col-12">
   <div class="row ">
-    <!-- <div class="col-sm-8 col-md-8 col-lg-8 form-left-div-bg d-flex" style="position: relative;">
+    <div class="col-sm-8 col-md-8 col-lg-8 form-left-div-bg d-flex" style="position: relative;">
       <div class="row ">
-        <div class="col-sm-12 col-md-12 col-lg-12">
+        <div class="col-sm-12 col-md-12 col-lg-12 ">
+            <!-- <p class="login-image-title" *ngIf="vizalys"></p> -->
             <p class="login-image-title" >{{(this.currentClient?.descriptionMessage) ? this.currentClient?.descriptionMessage  : ''}}</p>
-        </div>
-      </div>
-    </div> -->
-    <div class="col-sm-8 col-md-8 col-lg-8 form-left-div-bg d-flex login-left-image">
-      <div class="row ">
-        <div class="col-sm-12 col-md-12 col-lg-12">
-           <!-- <p class="login-image-title" *ngIf="vizalys"></p> -->
-           <p class="login-image-title" >{{(this.currentClient?.descriptionMessage) ? this.currentClient?.descriptionMessage  : ''}}</p>
-           <!-- <p class="login-image-title" *ngIf="edinfini"></p> -->
+            <!-- <p class="login-image-title" *ngIf="edinfini"></p> -->
         </div>
       </div>
     </div>
@@ -50,6 +43,8 @@
             </div>
           </div>
         </div>
+
+       
 
         <div class="row  mb-6">
           <div class="col-md-12 col-lg-12 col-sm-12 ps-4 pe-4" style="position: relative;">
@@ -91,134 +86,5 @@
         </div>
       </form>
     </div>
-  </div>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div class="col-12">
-  <div class="row ">
-          <div class=" col-sm-8 col-md-8 col-lg-8 form-left-div-bg d-flex .login-left-image  ">
-                <div class="row ">
-                  <div class="col-sm-12 col-md-12 col-lg-12 ">
-                     <!-- <p class="login-image-title" *ngIf="vizalys"></p> -->
-                     <p class="login-image-title" >{{(this.currentClient?.descriptionMessage) ? this.currentClient?.descriptionMessage  : ''}}</p>
-                     <!-- <p class="login-image-title" *ngIf="edinfini"></p> -->
-                  </div>
-                </div>
-          </div>
-          <div class="col-sm-4 col-md-4 col-lg-4 form-right-div-bg bg-white">
-              <form [formGroup]="loginForm" autocomplete="off" novalidate="novalidate">
-                    <kt-auth-notice></kt-auth-notice>
-                    <div class="row mb-4">
-                      <div class="col-md-12 col-lg-12">
-                        <!-- <img [src]="'/'+ currentClient.logo" alt="img" class="login-image" > -->
-                        <div class="login-image">
-
-                        </div>
-                        <h1 class="heading__text">Sign in</h1>
-                      </div>
-                    </div>
-                    
-                    <div class="row mb-6">
-                      <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="form-group group__sty" >
-                          <input type="email" formControlName="email" class="form-control input-filed-color" placeholder="Email" />
-                        
-                          <mat-error *ngIf="isControlHasError('email', 'required')">
-                            <p class="text-left error_msg" >
-                              <strong>{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
-                            </p>
-                          </mat-error>
-                          <mat-error *ngIf="isControlHasError('email', 'email')">
-                            <p class="text-left error_msg" >
-                              <strong>{{ "AUTH.VALIDATION.INVALID_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
-                            </p>
-                          </mat-error>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div class="row  mb-6">
-                      <div class="col-md-12 col-lg-12 col-sm-12">
-                        <div class="form-group group__sty">
-                          <input type="password" formControlName="password" class="form-control input-filed-color" autocomplete="off" placeholder="Password"  />
-                            <mat-error *ngIf="isControlHasError('password', 'required')">
-                              <p class="text-left error_msg_pass" >
-                                <strong>{{ "AUTH.VALIDATION.REQUIRED_FIELD" | translate }} <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
-                              </p>
-                            </mat-error>
-                            <mat-error *ngIf="isControlHasError('password', 'minlength')">
-                                <p class="text-left error_msg_pass" >
-                                  <strong>{{ "AUTH.VALIDATION.MIN_LENGTH_FIELD" | translate }} 5 <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
-                                </p>
-                            </mat-error>
-                            <mat-error *ngIf="isControlHasError('password', 'maxlength')">
-                                <p class="text-left error_msg_pass" >
-                                  <strong>{{ "AUTH.VALIDATION.MAX_LENGTH_FIELD" | translate }} 50 <i class="fas fa-exclamation" style="color: #f64e60;"></i></strong>
-                                </p>
-                            </mat-error>
-                        </div>
-                      </div>
-                    </div>
-
-
-                    <div class="row">
-                      <div class="col-md-12 col-lg-12 col-sm-12">
-                          <div class="form-group text-right">
-                            <button class="app-default-btn" id="kt_login_signin_submit" (click)="submit()" 
-                            [ngClass]="{'spinner spinner-right spinner-md spinner-light': loading}" 
-                            class="login-btn mt-2 pr-10 pt-1 pb-1 pl-10" mat-raised-button>{{ "AUTH.LOGIN.BUTTON" | translate }}</button>
-                          </div>
-                      </div>
-                    </div>
-              </form>
-         </div>
   </div>
 </div>
