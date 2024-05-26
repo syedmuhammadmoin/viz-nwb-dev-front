@@ -155,7 +155,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private payrollTransactionService: PayrollTransactionService,
-    private employeeService: EmployeeService,
     private payrollItemService: PayrollItemService,
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
