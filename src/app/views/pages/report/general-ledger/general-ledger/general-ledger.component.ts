@@ -139,7 +139,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           const date = params?.data?.docDate != null ? params?.data?.docDate : null;
           return date == null ? null : this.transformDate(date, 'MMM d, y');
         }
-      },
+      },     
       {
         headerName: 'Document No',
         field: 'docNo',
@@ -270,7 +270,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
               const date = params?.data?.docDate != null ? params?.data?.docDate : null;
               return date == null ? null : this.transformDate(date, 'MMM d, y');
             }
-          },
+          },         
           {
             headerName: 'Document No',
             field: 'docNo',

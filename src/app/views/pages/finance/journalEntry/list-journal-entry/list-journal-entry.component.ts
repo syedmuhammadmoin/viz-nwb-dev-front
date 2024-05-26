@@ -21,7 +21,7 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
   defaultColDef: ColDef;
   gridOptions: any;
   journalEntryList: IJournalEntry[];
-  
+  FilteredData : any[] = [];
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
   components: any;
@@ -172,9 +172,10 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
+            this.FilteredData = data.result;
             this.gridApi.hideOverlay();
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback(this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'journalEntryPageName')
           this.cdRef.detectChanges();
         });
@@ -182,4 +183,24 @@ export class ListJournalEntryComponent extends AppComponentBase implements OnIni
     };
     params.api.setGridOption('datasource', dataSource);
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.journalEntryService.getRecordByYearMonth(x.startDate ,x.endDate)
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

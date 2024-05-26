@@ -9,6 +9,8 @@
       <kt-portlet >
         <kt-portlet-header [sticky]="false" [title]="'Issuances'" [class]="'card-head-lg'">
         </kt-portlet-header>
+
+        <kt-grid-filteration (MonthYear)="fetchData($event)"></kt-grid-filteration>
         <kt-portlet-body>
             <div class="col-lg-12 col-md-12 my-5 ps-4 pe-4">
               <ag-grid-angular
@@ -23,7 +25,9 @@
                 [defaultColDef]="defaultColDef"
                 [overlayNoRowsTemplate]="overlayNoRowsTemplate"
                 [tooltipShowDelay]="5"
-                (gridReady)="onGridReady($event)">
+                (gridReady)="onGridReady($event)"
+                [rowData]="FilteredData"
+                >
               </ag-grid-angular>
             </div>
         </kt-portlet-body>

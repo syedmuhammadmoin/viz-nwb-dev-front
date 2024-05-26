@@ -59,6 +59,8 @@ import { TreeFilter } from '../pipes/tree-filter/tree-filter.pipe';
 import {AgGridButtonCellRendrerComponent} from '../components/ag-grid-button-cell-rendrer/ag-grid-button-cell-rendrer.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { SearchPipe } from '../pipes/search/search.pipe';
+import { GridFilterationComponent } from '../components/grid-filteration/grid-filteration.component';
+import { FinanceGridFilterationComponent } from '../components/finance-grid-filteration/finance-grid-filteration.component';
 
 
 @NgModule({
@@ -80,7 +82,9 @@ import { SearchPipe } from '../pipes/search/search.pipe';
     TreeFilter,
     DragDropDirective,
     AgGridButtonCellRendrerComponent,
-    SearchPipe
+    SearchPipe,
+    GridFilterationComponent,
+    FinanceGridFilterationComponent
   ],
   imports: [
     NgxPrintModule,
@@ -195,7 +199,9 @@ import { SearchPipe } from '../pipes/search/search.pipe';
     TreeFilter,
     NgbModule,
     SearchPipe,
-    AgGridButtonCellRendrerComponent
+    AgGridButtonCellRendrerComponent,
+    GridFilterationComponent,
+    FinanceGridFilterationComponent
   ],
   providers: [
     //FormConfirmationGuard,

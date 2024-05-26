@@ -10,7 +10,7 @@
                 "title": "SBBU",
                 "print_logo": "url('assets/media/logos/logo-wr.png')",
                 "isCampus": true,
-                "isAdmission":false,
+                "isAdmission":true,
                 "descriptionMessage": "Main Campus SBBU Shaheed benazirabad.",
                 "logo": "url('assets/media/logos/logo-wr.png')",
                 "bgImage": "url('assets/media/logos/bg_login.jpg')",

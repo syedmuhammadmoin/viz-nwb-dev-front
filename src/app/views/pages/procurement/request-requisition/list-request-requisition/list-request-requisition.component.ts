@@ -19,6 +19,7 @@ import { RequestRequisitionService } from '../service/request-requisition.servic
 export class ListRequestRequisitionComponent extends AppComponentBase implements OnInit {
 
   requestRequisitionList: IRequestRequisition[];
+  FilteredData: any[]=[];
   defaultColDef: ColDef;
   
   gridOptions: any;
@@ -152,9 +153,10 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
+            this.FilteredData = data.result
             this.gridApi.hideOverlay();
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback( this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'requestRequisitionPageName')
           this.cdRef.detectChanges();
         });
@@ -162,4 +164,23 @@ export class ListRequestRequisitionComponent extends AppComponentBase implements
     };
     params.api.setGridOption('datasource', dataSource);
   }
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.requestRequisitionService.getRecordByYearMonth(x.startDate ,x.endDate )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

@@ -57,12 +57,14 @@ input {
 
 // sidebar css
 #kt_aside_menu_wrapper {
-  background-color: $primary-color !important; /* For browsers that do not support gradients */
+  background-color: $primary-color !important;
+  /* For browsers that do not support gradients */
   background-image: $bg-gradient-color;
 }
 
 #kt_aside_menu {
-  background-color: $primary-color !important; /* For browsers that do not support gradients */
+  background-color: $primary-color !important;
+  /* For browsers that do not support gradients */
   background-image: $bg-gradient-color;
   height: 90vh !important;
   max-height: 100vh;
@@ -70,7 +72,8 @@ input {
 }
 
 .brand-dark .brand {
-  background-color: $bg-white !important; /* For browsers that do not support gradients */
+  background-color: $bg-white !important;
+  /* For browsers that do not support gradients */
 }
 
 // btn-design
@@ -122,11 +125,11 @@ kt-portlet-header {
   letter-spacing: 1px;
 }
 
-.card.card-custom > .card-header {
+.card.card-custom>.card-header {
   min-height: 50px;
 }
 
-.card.card-custom > .card-body {
+.card.card-custom>.card-body {
   padding: 10px;
 }
 
@@ -265,7 +268,9 @@ kt-footer {
     top: 8px;
     height: 64px;
   }
-  50%, 100% {
+
+  50%,
+  100% {
     top: 24px;
     height: 32px;
   }
@@ -327,7 +332,7 @@ kt-footer {
   transition: 0.6s;
   margin-top: -10px;
   box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
-  rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 }
 
 .remove-icon i {
@@ -396,11 +401,6 @@ kt-footer {
   }
 }
 
-
-.small_table_box th, .small_table_box td {
-  // border: 1px solid #2B335C1F !important;
-}
-
 //Approve and Reject Buttons
 .btn btn-outline-success {
   color: #155724;
@@ -425,17 +425,24 @@ kt-footer {
   font-weight: 500;
 }
 
-.overall_statuses.Approved, .overall_statuses.Paid, .overall_statuses.Submitted {
+.overall_statuses.Approved,
+.overall_statuses.Paid,
+.overall_statuses.Submitted {
   background: #7ce1862b;
   color: #7ce186;
 }
 
-.overall_statuses.Draft, .overall_statuses.Reconciled, .overall_statuses.Reviewed, .overall_statuses.In, .overall_statuses.Partial {
+.overall_statuses.Draft,
+.overall_statuses.Reconciled,
+.overall_statuses.Reviewed,
+.overall_statuses.In,
+.overall_statuses.Partial {
   background: #f5c5192e;
   color: #f5c519;
 }
 
-.overall_statuses.Unpaid, .overall_statuses.Rejected {
+.overall_statuses.Unpaid,
+.overall_statuses.Rejected {
   background: #ff6a6a26;
   color: #ff6a6a;
 }
@@ -494,52 +501,63 @@ div.search_sticky {
   padding-top: 10px;
 }
 
-.aside-menu .menu-nav > .menu-item > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item > .menu-link .menu-text {
+.aside-menu .menu-nav>.menu-item>.menu-heading .menu-text,
+.aside-menu .menu-nav>.menu-item>.menu-link .menu-text {
   color: $bg-white;
 }
 
-.aside-menu .menu-nav > .menu-item > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item > .menu-link .menu-icon {
+.aside-menu .menu-nav>.menu-item>.menu-heading .menu-icon,
+.aside-menu .menu-nav>.menu-item>.menu-link .menu-icon {
   color: $secondary-color;
 }
 
-.aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link {
+.aside-menu .menu-nav>.menu-item.menu-item-here>.menu-heading,
+.aside-menu .menu-nav>.menu-item.menu-item-here>.menu-link {
   background-color: #ffffff38 !important;
 }
 
-.aside-menu .menu-nav > .menu-item.menu-item-here > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-icon {
+.aside-menu .menu-nav>.menu-item.menu-item-here>.menu-heading .menu-icon,
+.aside-menu .menu-nav>.menu-item.menu-item-here>.menu-link .menu-icon {
   color: $bg-white;
 }
 
-.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link {
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item.menu-item-active>.menu-heading,
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item.menu-item-active>.menu-link {
   background-color: #ffffff38;
 }
 
-.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+.aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-heading,
+.aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-link {
   background-color: #ffffff38;
 }
 
-.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link {
+.aside-menu .menu-nav>.menu-item.menu-item-open>.menu-heading,
+.aside-menu .menu-nav>.menu-item.menu-item-open>.menu-link {
   background-color: #ffffff38 !important;
 }
 
-.header .header-menu .menu-nav > .menu-item > .menu-link {
+.header .header-menu .menu-nav>.menu-item>.menu-link {
   background-color: $button-background-color !important;
 }
 
-.aside-menu .menu-nav > .menu-item.menu-item-open > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item.menu-item-open > .menu-link .menu-icon {
+.aside-menu .menu-nav>.menu-item.menu-item-open>.menu-heading .menu-icon,
+.aside-menu .menu-nav>.menu-item.menu-item-open>.menu-link .menu-icon {
   color: $bg-white;
 }
 
-.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link {
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-heading,
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-link {
   background-color: #ffffff38;
 }
 
-.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-bullet.menu-bullet-dot > span, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-bullet.menu-bullet-dot > span {
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-heading .menu-bullet.menu-bullet-dot>span,
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-link .menu-bullet.menu-bullet-dot>span {
   color: $primary-color;
   background-color: $primary-color;
 }
 
-.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-text, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-text {
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item>.menu-heading .menu-text,
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item>.menu-link .menu-text {
   color: $bg-white;
 }
 
@@ -547,15 +565,18 @@ div.search_sticky {
   fill: $primary-color;
 }
 
-.aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-heading .menu-icon, .aside-menu .menu-nav > .menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover > .menu-link .menu-icon {
+.aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-heading .menu-icon,
+.aside-menu .menu-nav>.menu-item:not(.menu-item-parent):not(.menu-item-open):not(.menu-item-here):not(.menu-item-active):hover>.menu-link .menu-icon {
   color: $bg-white;
 }
 
-.aside-menu .menu-nav > .menu-item > .menu-heading .menu-arrow, .aside-menu .menu-nav > .menu-item > .menu-link .menu-arrow {
+.aside-menu .menu-nav>.menu-item>.menu-heading .menu-arrow,
+.aside-menu .menu-nav>.menu-item>.menu-link .menu-arrow {
   color: $secondary-color;
 }
 
-.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-heading .menu-bullet.menu-bullet-dot > span, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item > .menu-link .menu-bullet.menu-bullet-dot > span {
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item>.menu-heading .menu-bullet.menu-bullet-dot>span,
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item>.menu-link .menu-bullet.menu-bullet-dot>span {
   background-color: $bg-white;
 }
 
@@ -564,11 +585,13 @@ div.search_sticky {
 }
 
 // top header
-.header .header-menu .menu-nav > .menu-item.menu-item-here > .menu-link, .header .header-menu .menu-nav > .menu-item.menu-item-active > .menu-link {
+.header .header-menu .menu-nav>.menu-item.menu-item-here>.menu-link,
+.header .header-menu .menu-nav>.menu-item.menu-item-active>.menu-link {
   background-color: $button-background-color !important;
 }
 
-.header .header-menu .menu-nav > .menu-item.menu-item-here > .menu-link .menu-text, .header .header-menu .menu-nav > .menu-item.menu-item-active > .menu-link .menu-text {
+.header .header-menu .menu-nav>.menu-item.menu-item-here>.menu-link .menu-text,
+.header .header-menu .menu-nav>.menu-item.menu-item-active>.menu-link .menu-text {
   color: $primary-color !important;
 }
 
@@ -577,26 +600,30 @@ div.search_sticky {
 }
 
 @media (min-width: 992px) {
-  .header .header-menu .menu-nav > .menu-item > .menu-link .menu-text {
+  .header .header-menu .menu-nav>.menu-item>.menu-link .menu-text {
     color: $primary-color;
     font-weight: 500;
   }
-  .header .header-menu .menu-nav > .menu-item:hover:not(.menu-item-here):not(.menu-item-active) > .menu-link .menu-text, .header .header-menu .menu-nav > .menu-item.menu-item-hover:not(.menu-item-here):not(.menu-item-active) > .menu-link .menu-text {
+
+  .header .header-menu .menu-nav>.menu-item:hover:not(.menu-item-here):not(.menu-item-active)>.menu-link .menu-text,
+  .header .header-menu .menu-nav>.menu-item.menu-item-hover:not(.menu-item-here):not(.menu-item-active)>.menu-link .menu-text {
     color: $primary-color;
   }
 }
 
 
-.aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-heading .menu-bullet.menu-bullet-dot > span, .aside-menu .menu-nav > .menu-item .menu-submenu .menu-item.menu-item-active > .menu-link .menu-bullet.menu-bullet-dot > span {
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item.menu-item-active>.menu-heading .menu-bullet.menu-bullet-dot>span,
+.aside-menu .menu-nav>.menu-item .menu-submenu .menu-item.menu-item-active>.menu-link .menu-bullet.menu-bullet-dot>span {
   background-color: $primary-color !important;
 }
 
-.aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-here > .menu-link > .menu-icon, .aside-minimize .aside-menu .menu-nav > .menu-item.menu-item-active > .menu-link > .menu-icon {
+.aside-minimize .aside-menu .menu-nav>.menu-item.menu-item-here>.menu-link>.menu-icon,
+.aside-minimize .aside-menu .menu-nav>.menu-item.menu-item-active>.menu-link>.menu-icon {
   color: $primary-color;
 }
 
 
-.aside-minimize .aside-menu .menu-nav > .menu-item > .menu-link > .menu-icon {
+.aside-minimize .aside-menu .menu-nav>.menu-item>.menu-link>.menu-icon {
   color: $bg-white;
 }
 
@@ -609,14 +636,16 @@ div.search_sticky {
   border-top: 2px solid #227089;
 }
 
-.user-info .lead-text, .user-info .sub-text {
+.user-info .lead-text,
+.user-info .sub-text {
   display: -webkit-flex;
   display: flex;
   -webkit-align-items: center;
   align-items: center;
 }
 
-.user-avatar, [class^=user-avatar]:not([class*=-group]) {
+.user-avatar,
+[class^=user-avatar]:not([class*=-group]) {
   border-radius: 50%;
   height: 40px;
   width: 40px;
@@ -636,7 +665,8 @@ div.search_sticky {
   position: relative;
 }
 
-.user-avatar + .user-info, [class^=user-avatar]:not([class*=-group]) + .user-info {
+.user-avatar+.user-info,
+[class^=user-avatar]:not([class*=-group])+.user-info {
   margin-left: 1rem;
 }
 
@@ -659,7 +689,7 @@ div.search_sticky {
   color: $input-filed-primary-color;
 }
 
-.lead-text + .sub-text {
+.lead-text+.sub-text {
   font-size: 12px;
 }
 
@@ -903,7 +933,7 @@ i.down-arrow {
   color: $primary-color !important;
 }
 
-.aside .aside-menu.ps > .ps__rail-y > .ps__thumb-y {
+.aside .aside-menu.ps>.ps__rail-y>.ps__thumb-y {
   background: $secondary-color !important;
   opacity: 1;
 }
@@ -1060,7 +1090,8 @@ i.down-arrow {
 }
 
 
-table, table a {
+table,
+table a {
   color: $primary-color !important;
 }
 
@@ -1176,7 +1207,8 @@ table, table a {
   pointer-events: none;
 }
 
-.ag-theme-alpine .ag-checkbox-input-wrapper:focus-within, .ag-theme-alpine .ag-checkbox-input-wrapper:active {
+.ag-theme-alpine .ag-checkbox-input-wrapper:focus-within,
+.ag-theme-alpine .ag-checkbox-input-wrapper:active {
   outline: none;
   box-shadow: 0 0 2px 0.1rem rgb(26 107 133 / 40%);
 }
@@ -1248,15 +1280,22 @@ table, table a {
 }
 
 .Submitted,
-.Paid, .Approved {
+.Paid,
+.Approved {
   background-color: #1bc5bd !important;
 }
 
-.Draft, .Reconciled, .Reviewed, .In, .Partial {
+.Draft,
+.Reconciled,
+.Reviewed,
+.In,
+.Partial {
   background-color: #ffa800 !important;
 }
 
-.Unreconciled, .Unpaid, .Rejected {
+.Unreconciled,
+.Unpaid,
+.Rejected {
   background-color: #f64e60 !important;
 }
 

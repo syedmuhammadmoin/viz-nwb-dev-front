@@ -8,6 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPurchaseOrder } from '../model/IPurchaseOrder';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { IFilterationModel } from 'src/app/views/shared/components/grid-filteration/FilterationModel';
 
 
 @Component({
@@ -19,6 +20,9 @@ import { isEmpty } from 'lodash';
 export class ListPurchaseOrderComponent extends AppComponentBase implements OnInit {
 
   purchaseOrderList: IPurchaseOrder[];
+  FilteredData:any[] = [];
+  month:string;
+  year:string;
   defaultColDef: ColDef;
   
   gridOptions: any;
@@ -27,6 +31,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
   public permissions = Permissions
   gridApi: GridApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
+  
 
   constructor(
     private _purchaseOrderService: PurchaseOrderService,
@@ -118,8 +123,7 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
           suppressAndOrCondition: true,
         },
     },
-  ];
-
+  ]; 
   ngOnInit(): void {
 
     this.gridOptions = {
@@ -172,14 +176,19 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     this.gridApi = params.api;
 
     var dataSource = {
-      getRows: (params: any) => {
+      getRows: (params: any) => {        
+        params.month = this.month;
+        params.year = this.year;        
         this._purchaseOrderService.getRecords(params).subscribe((data) => {
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
+          
+            
           } else {
-            this.gridApi.hideOverlay();
+            this.FilteredData = data.result;
+            this.gridApi.hideOverlay();         
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback(this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName')
           this.cdRef.detectChanges();
         });
@@ -187,4 +196,25 @@ export class ListPurchaseOrderComponent extends AppComponentBase implements OnIn
     };
     params.api.setGridOption('datasource', dataSource);
   }
+
+
+  fetchData(x: any) {              
+    const dataSource = {
+      getRows: (params: any) => {        
+        this._purchaseOrderService.getRecordByYearMonth(x.startDate ,x.endDate)
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0, data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

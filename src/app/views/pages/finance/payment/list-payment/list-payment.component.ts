@@ -24,6 +24,7 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
   public permissions = Permissions;
   docType = DocType
   paymentList: IPayment[];
+  FilteredData : any[] = [];
   FormName: string;
   documents = AppConst.Documents;
   selectedDocumentType: number;
@@ -193,9 +194,10 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
      if(isEmpty(res.result)) {
       this.gridApi.showNoRowsOverlay()
     } else {
+      this.FilteredData = res.result;
       this.gridApi.hideOverlay();
     }
-     params.successCallback(res.result || 0, res.totalRecords);
+     params.successCallback( this.FilteredData || 0, res.totalRecords);
      this.paginationHelper.goToPage(this.gridApi, this.docType[this.selectedDocumentType]);
      this.cdRef.detectChanges();
    },
@@ -210,4 +212,24 @@ export class ListPaymentComponent extends AppComponentBase implements OnInit, On
     const result = await firstValueFrom(this.paymentService.getRecords(params, this.documents.find(x => x.id === this.selectedDocumentType).value));
     return result
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.paymentService.getRecordByYearMonth(x.startDate ,x.endDate ,x.businessPartnerName )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

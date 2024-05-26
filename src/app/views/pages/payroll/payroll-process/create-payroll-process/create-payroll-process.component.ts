@@ -252,6 +252,8 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   createProcess() {
+     
+    
     if (this.createPayrollProcessForm.invalid) {
       this.logValidationErrors(this.createPayrollProcessForm, this.formErrors, this.validationMessages)
       return;
@@ -287,6 +289,8 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   }
 
   submitProcess() {
+    debugger;    
+    
     if (this.createPayrollProcessForm.invalid) {
       this.logValidationErrors(this.createPayrollProcessForm, this.formErrors, this.validationMessages)
       return;
@@ -304,6 +308,9 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
 
     // Employee List to post
     const employeeListToPost = this.mapValuesToModel(selectedEmployeeList);
+
+    
+    
 
     // API Call
     this.payrollProcessService.submitPayrollProcess(employeeListToPost)
@@ -323,7 +330,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
 
   mapValuesToModel(listToMap: any): [] {
     // Traverse through selected employee list
-    return listToMap.map(x => {
+    return listToMap.map(x => {           
       return x.id
     })
   }

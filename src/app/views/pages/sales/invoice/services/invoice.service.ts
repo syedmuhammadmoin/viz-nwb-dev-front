@@ -65,6 +65,10 @@ export class InvoiceService extends AppServiceBase {
     getAgingReport(): Observable<any> {
         return this.httpClient.get(`${this.baseUrl}/getAgingReport`);
     } 
+
+    getRecordByYearMonth(startDate: any, endDate: any,businessPartnerName:any): Observable<any> {        
+        return this.httpClient.get(AppConst.remoteServiceBaseUrl + "Invoice?startDate=" + startDate + '&endDate=' + endDate + "&businessPartner=" + businessPartnerName);
+      }
 }
 
 

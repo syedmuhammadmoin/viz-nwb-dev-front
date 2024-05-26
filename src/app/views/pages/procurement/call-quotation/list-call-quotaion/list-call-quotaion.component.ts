@@ -19,6 +19,7 @@ import { CallQuotationService } from '../service/call-quotation.service';
 export class ListCallQuotaionComponent extends AppComponentBase implements OnInit {
 
   quotationList: ICallQuotation[];
+  FilteredData: any[]=[];
   defaultColDef: ColDef;
   
   gridOptions: any;
@@ -73,10 +74,10 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
       headerName: 'Description',
       field: 'description',
       tooltipField: 'docNo',
-      filter: 'agDateColumnFilter',
+      filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
-          filterOptions: ['equals'],
+          filterOptions: ['contains'],
           suppressAndOrCondition: true,
         }
     },
@@ -153,9 +154,10 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
+            this.FilteredData = data.result
             this.gridApi.hideOverlay();
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback(this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'callQuotationPageName')
           this.cdRef.detectChanges();
         });
@@ -163,4 +165,24 @@ export class ListCallQuotaionComponent extends AppComponentBase implements OnIni
     };
     params.api.setGridOption('datasource', dataSource);
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.callQuotationService.getRecordByYearMonth(x.startDate ,x.endDate )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0, data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

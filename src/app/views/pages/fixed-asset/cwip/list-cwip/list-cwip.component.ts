@@ -25,7 +25,7 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   gridOptions: any;
   cwipList: ICwip[];
-  
+  FilteredData: any[]=[];
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
   components: any;
@@ -212,9 +212,10 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
         if(isEmpty(data.result)) {
           this.gridApi.showNoRowsOverlay()
         } else {
+          this.FilteredData = data.result;
           this.gridApi.hideOverlay();
         }
-        params.successCallback(data.result || 0, data.totalRecords);
+        params.successCallback(this.FilteredData || 0, data.totalRecords);
         this.paginationHelper.goToPage(this.gridApi, 'CWIPPageName')
         this.cdRef.detectChanges();
       });
@@ -255,5 +256,26 @@ export class ListCwipComponent extends AppComponentBase implements OnInit {
   //    this.cdRef.detectChanges();
   //  },
   // };
+
+  
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.cwipService.getRecordByYearMonth(x.startDate ,x.endDate )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 
 }

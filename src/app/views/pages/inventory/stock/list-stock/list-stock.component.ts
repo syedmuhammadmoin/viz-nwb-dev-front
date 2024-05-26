@@ -15,6 +15,7 @@ import { StockService } from '../service/stock.service';
 export class ListStockComponent extends AppComponentBase  implements OnInit {
 
   stockList: IStock[];
+  FilteredData: any[]=[];
   defaultColDef: ColDef;
   
   gridOptions: any;
@@ -154,7 +155,7 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
         this.stockService.getRecords(params).subscribe((data) => {
           if(isEmpty(data.result)) {  
             this.gridApi.showNoRowsOverlay() 
-          } else {
+          } else {           
             this.gridApi.hideOverlay();
           }
           params.successCallback(data.result || 0, data.totalRecords);
@@ -165,6 +166,9 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
     };
     params.api.setGridOption('datasource', dataSource);
   }
+
+
+
 }
 
 

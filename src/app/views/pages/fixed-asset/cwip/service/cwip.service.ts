@@ -48,5 +48,9 @@ export class CwipService extends AppServiceBase {
   getRecords(params: any): Observable<any> {
       return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null, params?.filterModel?.bankName?.filter)});
   }
+
+  getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {        
+    return this.httpClient.get(AppConst.remoteServiceBaseUrl + "CWIP?startDate=" + startDate + '&endDate=' + endDate);
+  }
 }
 

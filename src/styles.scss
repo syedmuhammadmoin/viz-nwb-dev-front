@@ -100,7 +100,12 @@ display: none;
     display: none;
   }
 }
+.login-left-image {
+  @media only screen and (max-width: 600px) {
+    display: none !important;
 
+  }
+}
 // Aside themes
 // .aside-dark {
 //   @import "./assets/sass/themes/layout/aside/dark.scss";

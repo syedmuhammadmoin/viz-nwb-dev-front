@@ -64,5 +64,9 @@ export class VendorBillService extends AppServiceBase {
     getAgingReport(): Observable<any> {
       return this.httpClient.get(`${this.baseUrl}/getAgingReport`);
     }
+
+    getRecordByYearMonth(startDate: any, endDate: any,businessPartnerName:string): Observable<any> {        
+      return this.httpClient.get(AppConst.remoteServiceBaseUrl + "bill?startDate=" + startDate + '&endDate=' + endDate + "&businessPartner=" + businessPartnerName);
+    }
 }
 

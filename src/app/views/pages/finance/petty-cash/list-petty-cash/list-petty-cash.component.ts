@@ -20,7 +20,7 @@ export class ListPettyCashComponent extends AppComponentBase implements OnInit {
   defaultColDef: ColDef;
   gridOptions: any;
   pettyEntryList: IPettyCashEntry[];
-  
+  FilteredData : any[] = [];
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
   components: any;
@@ -189,9 +189,10 @@ export class ListPettyCashComponent extends AppComponentBase implements OnInit {
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
+            this.FilteredData = data.result;
             this.gridApi.hideOverlay();
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback(this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'pettyCashEntryPageName')
           this.cdRef.detectChanges();
         });
@@ -199,4 +200,24 @@ export class ListPettyCashComponent extends AppComponentBase implements OnInit {
     };
     params.api.setGridOption('datasource', dataSource);
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.pettyCashEntryService.getRecordByYearMonth(x.startDate ,x.endDate)
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }

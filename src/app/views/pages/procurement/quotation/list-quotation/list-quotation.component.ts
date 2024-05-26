@@ -21,6 +21,7 @@ import { QuotationService } from '../service/quotation.service';
 export class ListQuotationComponent extends AppComponentBase implements OnInit {
 
   quotationList: IQuotation[];
+  FilteredData : any[] = [];
   defaultColDef: ColDef;
   
   gridOptions: any;
@@ -161,9 +162,10 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
+            this.FilteredData = data.result
             this.gridApi.hideOverlay();
           }
-          params.successCallback(data.result || 0, data.totalRecords);
+          params.successCallback(this.FilteredData || 0, data.totalRecords);
           this.paginationHelper.goToPage(this.gridApi, 'quotationPageName')
           this.cdRef.detectChanges();
         });
@@ -171,4 +173,24 @@ export class ListQuotationComponent extends AppComponentBase implements OnInit {
     };
     params.api.setGridOption('datasource', dataSource);
   }
+
+  fetchData(x: any) {           
+    const dataSource = {
+      getRows: (params: any) => {        
+        this.quotationService.getRecordByYearMonth(x.startDate ,x.endDate )
+          .subscribe((data) => {
+            if (isEmpty(data.result)) {
+              this.gridApi.showNoRowsOverlay();
+            } else {
+              this.gridApi.hideOverlay();             
+              this.FilteredData = data.result;
+            }
+            params.successCallback(this.FilteredData || 0,  data.totalRecords);
+            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+            this.cdRef.detectChanges();
+        });
+      },
+    };
+    this.gridApi.setDatasource(dataSource);
+}
 }
