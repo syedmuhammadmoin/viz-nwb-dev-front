@@ -3,7 +3,6 @@ import { AppComponentBase } from '../../app-component-base';
 import { FormBuilder, FormGroup, NgForm } from '@angular/forms';
 import { NgxsCustomService } from '../../services/ngxs-service/ngxs-custom.service';
 import { IFinanceFilteration } from './FinanceFilterationModel';
-import { IFilterationModel } from '../grid-filteration/FilterationModel';
 
 @Component({
   selector: 'kt-finance-grid-filteration',
@@ -14,7 +13,7 @@ export class FinanceGridFilterationComponent extends AppComponentBase implements
 
       //for resetting form
       @ViewChild('formDirective') private formDirective: NgForm;
-      @Output() MonthYear:EventEmitter<IFinanceFilteration> =new EventEmitter<IFinanceFilteration>();
+      @Output() MonthYear:EventEmitter<IFinanceFilteration> = new EventEmitter<IFinanceFilteration>();
     
       FilterationForm: FormGroup; 
       Model: IFinanceFilteration = {} as IFinanceFilteration; 
@@ -23,16 +22,6 @@ export class FinanceGridFilterationComponent extends AppComponentBase implements
        //Limit Date
        maxDate: Date = new Date();
        minDate: Date
-    
-      formErrors = {   
-        startDate:'',
-        endDate:'',
-        businessPartnerName:'',
-    
-      };
-      validationMessages = [
-
-      ]
     
       constructor(
         private fb: FormBuilder,
@@ -47,7 +36,6 @@ export class FinanceGridFilterationComponent extends AppComponentBase implements
           startDate: [''],
           endDate: [''],
           businessPartnerName: [''],
-          
         })
           //Get Data From Store
          this.ngxsService.getAllBusinessPartnerFromState();        
@@ -62,27 +50,21 @@ export class FinanceGridFilterationComponent extends AppComponentBase implements
       resetForm(){    
         this.formDirective.resetForm();  
         window.location.reload();
-        
       }
+
       GetFilteredRecord() {      
         this.mapFormValuesToFilterationModel() 
-        this.sendData()
-        
+        this.sendData();
       } 
        //Mapping Form Values To Model 
-       mapFormValuesToFilterationModel() {  
-        debugger;     
-        this.Model.startDate =  this.transformDate(this.FilterationForm.value.startDate, 'yyyy-MM-dd');
-        this.Model.endDate = this.transformDate(this.FilterationForm.value.endDate, 'yyyy-MM-dd');
+       mapFormValuesToFilterationModel() {    
+        this.Model.startDate =  this.transformDate(this.FilterationForm.value.startDate, 'yyyy-MM-dd') || '';
+        this.Model.endDate = this.transformDate(this.FilterationForm.value.endDate, 'yyyy-MM-dd') || '';
         this.Model.businessPartnerName = this.FilterationForm.value.businessPartnerName || '';
-        
       }
       
       sendData(){
-        console.log(this.FilterationForm,"financeForm");
-        
         this.MonthYear.emit(this.Model)
       }
-      
     }
     

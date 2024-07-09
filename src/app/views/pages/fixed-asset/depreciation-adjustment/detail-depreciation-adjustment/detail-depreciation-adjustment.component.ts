@@ -2,7 +2,7 @@ import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {ActionButton, DocType, DocumentStatus, Permissions} from '../../../../shared/AppEnum';
 import {DEPRECIATION_ADJUSTMENT, JOURNAL_ENTRY} from '../../../../shared/AppRoutes';
-import {ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import {IJournalEntryLines} from '../../../finance/journalEntry/model/IJournalEntryLines';
 import {ActivatedRoute, Params, Router} from '@angular/router';
 import {JournalEntryService} from '../../../finance/journalEntry/services/journal-entry.service';
@@ -37,13 +37,13 @@ export class DetailDepreciationAdjustmentComponent extends AppComponentBase impl
   public depreciationAdjustmentRoute = DEPRECIATION_ADJUSTMENT
 
   // For ag grid
-  gridOptions: GridOptions = ({} as GridOptions);
+  gridOptions: any = ({} as GridOptions);
   defaultColDef: ColDef;
-  frameworkComponents: { [p: string]: unknown };
+  
 
   // Detail Data
   depreciationAdjustmentMaster: IDepreciationAdjustment = {} as IDepreciationAdjustment;
-  depreciationAdjustmentLines: IDepreciationAdjustmentLines[];
+  depreciationAdjustmentLines: IDepreciationAdjustmentLines[] | any;
 
   // Showing Remarks
   remarksList: IRemarksList[] = [];
@@ -61,20 +61,20 @@ export class DetailDepreciationAdjustmentComponent extends AppComponentBase impl
 
   // Defining AG Grid Columns
   columnDefs = [
-    {headerName: 'Fixed Asset', field: 'fixedAsset', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Account', field: 'level4', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Fixed Asset', field: 'fixedAsset', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Account', field: 'level4', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
     {
-      headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}
+      headerName: 'Description', field: 'description', sortable: false, filter: true, cellStyle: {'font-size': '12px'}
     },
     {
-      headerName: 'Debit', field: 'debit', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      headerName: 'Debit', field: 'debit', sortable: false, filter: true, cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
-      headerName: 'Credit', field: 'credit', sortable: true, filter: true, cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      headerName: 'Credit', field: 'credit', sortable: false, filter: true, cellStyle: {'font-size': '12px'},
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },

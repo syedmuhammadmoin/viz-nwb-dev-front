@@ -16,9 +16,9 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintGrnComponent extends AppComponentBase implements OnInit {
 
-    gridOptions: GridOptions;
+    gridOptions: any;
     grnMaster: IGRN | any;
-    grnLines: IGRNLines;
+    grnLines: IGRNLines[] | any;
     edinfini : boolean;
     sbbu : boolean;
     vizalys : boolean;

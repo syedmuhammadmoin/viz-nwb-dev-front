@@ -27,7 +27,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   taxForm: FormGroup;
 
   //tax model 
-  taxModel: ITax = {} as ITax;;
+  taxModel: ITax = {} as ITax;
 
   //get tax data by id
   taxDataByID: ITax | any;
@@ -58,7 +58,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     taxType: '',
     accountId: '',

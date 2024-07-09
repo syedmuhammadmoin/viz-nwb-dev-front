@@ -1,0 +1,102 @@
+<ng-container *ngIf="user as _user">
+	<div class="topbar-item" data-placement="bottom" autoClose="outside" class="dropdown dropdown-fluid mt-3">
+		<div ngbDropdown placement="bottom-right" class="d-inline-block">
+			<button class="btn user-btn btn-heading" id="dropdownBasic2" ngbDropdownToggle >
+				<i class="fa fa-user user-btn-icon"></i> Hi, <b>{{ _user.fullname || 'User'}} </b> 
+				<i class="fa fa-angle-down ms-1 down-arrow"></i></button>
+			<div ngbDropdownMenu class="dropdown-menu p-0 m-0 dropdown-menu-right dropdown-menu-anim-up" aria-labelledby="dropdownBasic2" style="width: 250px; top: 5px;">
+				<div class="offcanvas-content   " >
+					<div >
+						<div class="">
+							<!-- <div class="symbol symbol-100 me-5">
+								<div class="symbol-label" [ngStyle]="{'background-image': 'url(./assets/media/users/300_21.png)'}"></div>
+								<i class="symbol-badge bg-success"></i>
+							</div> -->
+							<div class="" >
+								<div class="user-card sm">
+									<div class="user-avatar">
+										<span>{{ _user.fullname[0] || 'N'}}</span></div>
+										<div class="user-info">
+											<span class="lead-text">{{ _user.fullname || 'User'}}</span>
+											<span class="sub-text">{{ _user.email || 'example@vizalys.com'}}</span>
+										</div>
+									</div>
+
+									<ul class="list-group">
+										
+										<!-- <li class="list-group-item">
+											<a href="#" class="navi-item">
+												<span class="navi-link p-0 pb-2">
+													<span class="navi-icon me-1">
+														<span class="svg-icon svg-icon-lg svg-icon-primary" [inlineSVG]="'./assets/media/svg/icons/Communication/Mail-notification.svg'"></span>
+													</span>
+													<span class="navi-text text-muted text-hover-primary">
+														
+													</span>
+												</span>
+											</a>
+										</li> -->
+										<li class="list-group-item dashboard-li">
+											<a (click)="changePassword()" class="dashboard-link">
+												<i class="fa fa-key me-1 dashboard-icon" aria-hidden="true"></i> Change Password
+											</a>
+										</li>
+										<li class="list-group-item dashboard-li">
+											<a (click)="logout()" class="dashboard-link">
+												<i class="fas fa-sign-out-alt me-1 dashboard-icon"></i> Sign Out
+											</a>
+										</li>
+										<li class="list-group-item dashboard-li" *ngIf="!environment.production">
+											<a class="dashboard-link"><i class="fa fa-paint-brush me-1 dashboard-icon"></i>color</a>
+											<div class="row">
+												<div (click)="changeColor('sbbu')" class="theme-changing-sbbu"><i *ngIf="this.sbbu" class="fa fa-check" aria-hidden="true"></i></div>
+												<div (click)="changeColor('edinfini')" class="theme-changing-edinfini"><i *ngIf="this.edinfini" class="fa fa-check" aria-hidden="true"></i></div>
+												<div (click)="changeColor('vizalys')" class="theme-changing-vizalys"><i *ngIf="this.vizalys" class="fa fa-check" aria-hidden="true"></i></div>
+											</div>
+										</li>
+										<!-- <li class="list-group-item dashboard-li primery-color">
+											<div class="row">
+												<div class="col">
+												  <div ngbDropdown class="d-inline-block">
+													<button type="button" class="btn btn-outline-primary primery-color-change" id="dropdownBasic1" ngbDropdownToggle>
+														<i class="fa fa-paint-brush me-1 dashboard-icon"></i>
+														Primary color</button>
+													<div ngbDropdownMenu aria-labelledby="dropdownBasic1">
+													  <button style="background-color:#65c18c;" (click)="changeColor('#65c18c' , '' , 'primary')" ngbDropdownItem></button>
+													  <button style="background-color:#48899d;" (click)="changeColor('#48899d' , '' , 'primary')" ngbDropdownItem></button>
+													</div>
+												  </div>
+												</div>
+											</div>
+										</li> -->
+									</ul>
+								<!-- <a href="#" class="font-weight-bold font-size-h5 text-dark-75 text-hover-primary" style="display: block;padding: 20px;
+								background-color: #eceefd;border-top: 2px solid #494b74;">
+									<i class="fa fa-user" style="background-color: #494b74;
+									padding: 10px;font-size: 10px;border-radius: 50px;color: white;
+									margin-right: 5px;"></i>	{{ _user.username || 'James Jones'}}
+									<br>
+									<span style="font-size: 12px;
+									color: #65737e;">info@sbbu.edu.pk</span>
+								</a> -->
+								<!-- <div class="text-muted mt-1"></div>
+								<div class="navi mt-2">
+									
+								</div>
+								
+								 -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		  </div>
+
+	</div>
+
+
+	
+</ng-container>
+
+
+

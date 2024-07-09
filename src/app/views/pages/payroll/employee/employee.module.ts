@@ -5,7 +5,6 @@ import { ListEmployeeComponent } from './list-employee/list-employee.component';
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { EmployeeDetailComponent } from './employee-detail/employee-detail.component';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 
 
@@ -19,8 +18,7 @@ import { CreateEmployeeComponent } from './create-employee/create-employee.compo
     SharedModule,
     PartialsModule,
     EmployeeRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [CreateEmployeeComponent]
+    AgGridModule
+  ]
 })
 export class EmployeeModule { }

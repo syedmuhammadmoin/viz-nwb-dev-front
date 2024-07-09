@@ -1,7 +1,7 @@
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute, Params, Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
@@ -9,7 +9,7 @@ import { PayrollItemType, Permissions } from 'src/app/views/shared/AppEnum';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { PayrollItemService } from '../service/payroll-item.service'
 import { IPayrollItem } from '../model/IPayrollItem'
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, RowDoubleClickedEvent} from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AssignEmployeeComponent } from '../assign-employee/assign-employee.component';
@@ -66,11 +66,9 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   @ViewChild('formDirective') private formDirective: NgForm;
 
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
-  components: { loadingCellRenderer (params: any ) : unknown };
+  gridOptions: any;
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Employees Selected !</span>';
 
   // Validation messages..
@@ -98,7 +96,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     itemCode: '',
     name: '',
     payrollType: '',
@@ -114,7 +112,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     public activatedRoute: ActivatedRoute,
     public dialog: MatDialog,
     @Optional() public dialogRef: MatDialogRef<AssignEmployeeComponent>,
-    @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
@@ -172,14 +169,9 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
       context: "click to select Employee",
     };
 
-    this.frameworkComponents = {
-      customTooltip: CustomTooltipComponent,
-      buttonRenderer: ActionButtonComponent
-    };
-
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
-      sortable: true,
+      sortable: false,
       filter: true,
       filterParams: {
         suppressAndOrCondition: true
@@ -187,6 +179,8 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
+      buttonRenderer: ActionButtonComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -206,8 +200,6 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
      this.payrollItemForm.get('payrollItemType').valueChanges.subscribe((value: number) => {
         this.updateValueValidators(value);
       })
-
-      console.log("showbuttons : ",this.showButtons)
   }
 
   updateValueValidators(value: number) {
@@ -263,7 +255,7 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
      {
        headerName: 'Action',
        cellRenderer: 'buttonRenderer',
-       suppressMenu: true,
+       suppressHeaderMenuButton: true,
        sortable: false,
        cellRendererParams: {
         onClick: this.onDelete.bind(this),
@@ -398,12 +390,12 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
     params.api.sizeColumnsToFit();
   }
 
-  onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    //this.router.navigate(['/' + INVOICE.ID_BASED_ROUTE('details', event.data.id)]);
-  }
-
   assignEmployee() {
     this.openDialog()
+  }
+
+  onGridReady(params: GridReadyEvent) {
+    this.gridApi = params.api;
   }
 
 // open modal funtion
@@ -422,14 +414,14 @@ export class CreatePayrollItemComponent extends AppComponentBase implements OnIn
        if(!(this.selectedEmployees.find(x => x.id === employee.id))) this.selectedEmployees.push(employee)
       })
       }
-      this.gridOptions.api.setRowData(this.selectedEmployees)
+      this.gridApi.setGridOption("rowData", this.selectedEmployees);
       this.cdRef.detectChanges();
     });
   }
 
   onDelete(params: Params) {
     this.selectedEmployees.splice(this.selectedEmployees.indexOf(params.rowData), 1);
-    this.gridOptions.api.applyTransaction({ remove: [params.rowData] });
+    this.gridApi.applyTransaction({ remove: [params.rowData] });
     return this.selectedEmployees;
   }
 }

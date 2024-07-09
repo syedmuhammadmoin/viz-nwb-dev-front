@@ -38,7 +38,6 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
    //For ag grid
    gridOptions = ({} as GridOptions);
    defaultColDef: any;
-   frameworkComponents : any;
 
    //Variables for Goods Received Note data
    goodsReturnNoteLines: any;
@@ -59,15 +58,15 @@ export class GoodsReturnNoteDetailComponent extends AppComponentBase implements 
 
   //Defining Goods Return Note Columns
   columnDefs = [
-    {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Cost', field: 'cost', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Tax', field: 'tax', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Item', field: 'item', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Description', field: 'description', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Quantity', field: 'quantity', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Cost', field: 'cost', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Tax', field: 'tax', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
     {
       headerName: 'Store', 
       field: 'warehouse', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {

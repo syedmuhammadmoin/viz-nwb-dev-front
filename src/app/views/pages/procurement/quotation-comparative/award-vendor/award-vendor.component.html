@@ -2,7 +2,7 @@
     <div class="kt-portlet__head">
       <div class="kt-portlet__head-caption">
         <div class="kt-portlet__head-title">
-          <h3 class="kt-portlet__head-text modal-header"> {{title}} <span id="award_close" (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times float-right"></i></span></h3>
+          <h3 class="kt-portlet__head-text modal-header"> {{title}} <span id="award_close" (click)="onCloseDialog()" class="dialog-cross" ><i class="fa fa-times text-end"></i></span></h3>
         </div>
       </div>
     </div>
@@ -10,7 +10,7 @@
     <form [formGroup]="awardVendorForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
       <div class="kt-portlet__body" >
         <div class="kt-form__section kt-form__section--first">
-            <div class="col-md-12 col-lg-12 col-sm-12">
+            <div class="col-md-12 col-lg-12 col-sm-12 ps-4 pe-4">
                 <div class="row mt-1 mb-0">
                   <div class="col-lg-2 col-md-2"></div>
                   <div class="col-lg-8 col-md-8">
@@ -32,7 +32,7 @@
   
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions row">
-          <div class="col-lg-12 text-right">
+          <div class="col-lg-12 text-end">
             <div *ngIf="showButtons" >
               <button class="app-default-btn" mat-raised-button type="submit" id="award_submit"
                       (click)="logValidationErrors(this.awardVendorForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit</button>&nbsp;

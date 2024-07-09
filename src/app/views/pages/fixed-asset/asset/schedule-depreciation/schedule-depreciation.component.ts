@@ -9,6 +9,7 @@ import { isEmpty } from 'lodash';
 import { AssetService } from '../service/asset.service';
 import { IAsset } from '../model/IAsset';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
@@ -24,12 +25,11 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
   title: string = 'Depreciation Schedule'
   rowData: any = [];
 
-  // frameworkComponents: { [p: string]: unknown };
-  gridOptions: GridOptions;
+  // 
+  gridOptions: any;
   defaultColDef: ColDef;
   gridApi: GridApi;
-  gridColumnApi: any;
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -53,7 +53,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
     {
       headerName: '#', 
       valueGetter: 'node.rowIndex + 1', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       width: 100,
       cellRenderer: "loadingCellRenderer",
     },
@@ -61,7 +61,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
       headerName: 'Transaction Date',
       field: 'transectionDate',
       cellStyle: { textAlign: 'left' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: any) => {
         const date = params?.data?.transectionDate != null ? params?.data?.transectionDate : null;
         return date == null ? null : this.transformDate(date, 'MMM d, y');
@@ -73,26 +73,26 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
       field: 'beginingBookValue',
       valueFormatter: (params) => this.valueFormatter(params.value),
       cellStyle: { textAlign: 'left' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Depreciation Amount',
       field: 'depreciationAmount',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => this.valueFormatter(params.value),
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Ending Book Value',
       field: 'endingBookValue',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => this.valueFormatter(params.value),
       cellStyle: { textAlign: 'left' }
     },
     {
       headerName: 'Description',
       field: 'description',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellStyle: { textAlign: 'left' },
       width: 300,
     }
@@ -113,6 +113,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
     this.isLoading = false;
     this.cdRef.detectChanges();
     this.defaultColDef = {
+      sortable: false,
       tooltipComponent: 'customTooltip',
     }
 
@@ -138,7 +139,7 @@ export class ScheduleDepreciationComponent extends AppComponentBase implements O
   }
 
   async getDepSchedule(): Promise<IApiResponse<any[]>> {
-    const result = await this.assetService.getDepreciationSchedule(this._id).toPromise()
+    const result = await firstValueFrom(this.assetService.getDepreciationSchedule(this._id));
     return result
   }
 }

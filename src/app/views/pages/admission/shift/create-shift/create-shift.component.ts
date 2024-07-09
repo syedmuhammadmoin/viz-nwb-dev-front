@@ -47,7 +47,7 @@ export class CreateShiftComponent extends AppComponentBase implements OnInit {
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
   }
 

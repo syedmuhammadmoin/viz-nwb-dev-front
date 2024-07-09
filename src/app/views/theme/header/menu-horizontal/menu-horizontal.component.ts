@@ -1,6 +1,5 @@
 // Angular
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -32,7 +31,7 @@ import { HtmlClassService } from '../../html-class.service';
   styleUrls: ['./menu-horizontal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class MenuHorizontalComponent implements OnInit, AfterViewInit {
+export class MenuHorizontalComponent implements OnInit {
   private offcanvas: any;
   @ViewChild('headerMenuOffcanvas', { static: true }) headerMenuOffcanvas: ElementRef;
 
@@ -98,12 +97,6 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
    */
 
   /**
-   * After view init
-   */
-  ngAfterViewInit(): void {
-  }
-
-  /**
    * On init
    */
   ngOnInit(): void {
@@ -114,7 +107,7 @@ export class MenuHorizontalComponent implements OnInit, AfterViewInit {
     });
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(event => {
+      .subscribe(() => {
         this.currentRouteUrl = this.router.url;
         this.mobileMenuClose();
         this.cdr.markForCheck();

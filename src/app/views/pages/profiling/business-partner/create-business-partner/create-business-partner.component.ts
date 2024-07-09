@@ -75,7 +75,7 @@ export class CreateBusinessPartnerComponent extends AppComponentBase implements 
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     businessPartnerType : '',
     bankAccountNumber: '',

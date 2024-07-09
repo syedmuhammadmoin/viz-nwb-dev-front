@@ -44,7 +44,7 @@ export class CreateStatusComponent extends AppComponentBase implements OnInit {
   }
 
   //Error keys
-  formErrors = {
+  formErrors: any = {
     status: '',
     state: '',
   }

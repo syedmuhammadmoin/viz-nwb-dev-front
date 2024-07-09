@@ -3,10 +3,8 @@ import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
-import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { ISubject } from '../model/ISubject';
 import { SubjectService } from '../service/subject.service';
 
@@ -50,7 +48,7 @@ export class CreateSubjectComponent extends AppComponentBase implements OnInit {
   }
  
   //error keys
-  formErrors = {
+  formErrors: any = {
    subject: '',
    qualification: ''
   }
@@ -125,7 +123,7 @@ export class CreateSubjectComponent extends AppComponentBase implements OnInit {
      qualification: subject.qualificationId,
     });
  
-  };
+  }
  
   onSubmit() {
  
@@ -163,7 +161,6 @@ export class CreateSubjectComponent extends AppComponentBase implements OnInit {
            })
          )
          .subscribe((res) => {
-          console.log(res);
            this.toastService.success('Created Successfully', 'Subject');
            this.onCloseDialog();
          });

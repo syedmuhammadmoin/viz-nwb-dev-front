@@ -8,7 +8,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -101,7 +101,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     }
   }
 
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     requisitionDate: '',
     fixedAssetId: ''
@@ -137,7 +137,8 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     });
 
     //get id by using route
-    this.productService.getProductsDropdown().subscribe((res: any) => {
+    this.productService.getProductsDropdown().subscribe({
+      next: (res: any) => {
       this.productList = res.result;
       this.activatedRoute.queryParams.subscribe((param) => {
        const id = param.q;
@@ -156,10 +157,12 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
         this.cdRef.detectChanges()
        }
        })
-     },
-     () => {
-      this.isLoading = false;
-     })
+      },
+      error: () => {},
+      complete: () => {
+       this.isLoading = false;
+      }
+    })
 
      this.cdRef.detectChanges()
 
@@ -203,7 +206,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
   }
 
   // For Calculating subTotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number, element?: HTMLElement) {
+  onChangeEvent(value: any, index: number, element?: HTMLElement | any) {
     const arrayControl = this.requisitionForm.get('requisitionLines') as FormArray;
     const price = (arrayControl.at(index).get('purchasePrice').value) !== null ? arrayControl.at(index).get('purchasePrice').value : null;
     const quantity = (arrayControl.at(index).get('quantity').value) !== null ? arrayControl.at(index).get('quantity').value : null;
@@ -341,7 +344,6 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
 
   //handle isWithoutWorkflow slide
   onToggle(event) {
-    console.log(event)
     if (event.checked) {
       this.userStatus = 'Workflow is Removed'
     } else {
@@ -416,7 +418,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.requisitionModel.isWithoutWorkflow = this.requisitionForm.getRawValue().isWithoutWorkflow;
     this.requisitionModel.requestId = this.requestRequisitionMaster?.id || this.requisitionModel?.requestId;
     this.requisitionModel.requisitionLines = this.requisitionForm.getRawValue().requisitionLines;
-  };
+  }
 
   // open business partner dialog
   openBusinessPartnerDialog() {
@@ -515,7 +517,7 @@ export class CreateRequisitionComponent extends AppComponentBase implements OnIn
     this.isFixedAsset = this.productList.find(x => itemId === x.id)?.isFixedAsset;
 
     if (this.isFixedAsset) {
-      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise();
+      const response = await firstValueFrom(this.ngxsService.assetService.getAssetsProductDropdownById(itemId));
       fixedAsset?.enable();
       fixedAsset?.setValidators([Validators.required]);
       fixedAsset?.updateValueAndValidity();

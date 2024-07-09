@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListShiftComponent } from './list-shift.component';
 
@@ -6,7 +6,7 @@ describe('ListShiftComponent', () => {
   let component: ListShiftComponent;
   let fixture: ComponentFixture<ListShiftComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListShiftComponent ]
     })

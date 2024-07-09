@@ -1,4 +1,5 @@
 // CRUD
+import { throwError } from 'rxjs';
 import { QueryParamsModel } from './query-models/query-params.model';
 import { QueryResultsModel } from './query-models/query-results.model';
 
@@ -106,7 +107,7 @@ export class HttpExtenstionsModel {
             }
           });
         } catch (ex) {
-          console.log(ex, key, searchText);
+          throw ex;
         }
       }
     });

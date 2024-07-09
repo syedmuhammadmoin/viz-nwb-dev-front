@@ -1,6 +1,7 @@
 //
 // Burger Icon Mixins
 //
+@use 'sass:math' as math;
 
 @mixin burger-icon-build($config) {
 	$space: get($config, thickness) + get($config, space);
@@ -30,7 +31,7 @@
   		position: absolute;
 		@include border-radius(get($config, radius));
 		transition: get($config, transition);
-  		top: (get($config, height) / 2) - (get($config, thickness)) + 1px;
+  		top: (math.div(get($config, height), 2)) - (get($config, thickness)) + 1px;
   		height: get($config, thickness);
   		min-height: get($config, thickness);
   		width: 100%;

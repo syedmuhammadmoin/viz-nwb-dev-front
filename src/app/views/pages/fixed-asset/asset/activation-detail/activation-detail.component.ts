@@ -20,12 +20,11 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
   title: string = 'Activation Detail'
   rowData: any = [];
 
-  // frameworkComponents: { [p: string]: unknown };
-  gridOptions: GridOptions;
+  // 
+  gridOptions: any;
   defaultColDef: ColDef;
   gridApi: GridApi;
-  gridColumnApi: any;
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -49,7 +48,7 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
     {
       headerName: '#', 
       valueGetter: 'node.rowIndex + 1', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       width: 100,
       cellRenderer: "loadingCellRenderer",
     },
@@ -57,7 +56,7 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
       headerName: 'Active Date',
       field: 'activeDate',
       cellStyle: { textAlign: 'left' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: any) => {
         const date = params?.data?.activeDate != null ? params?.data?.activeDate : null;
         return date == null ? 'N/A' : this.transformDate(date, 'MMM d, y');
@@ -67,7 +66,7 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
       headerName: 'In Active Date',
       field: 'inactiveDate',
       cellStyle: { textAlign: 'left' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: any) => {
         const date = params?.data?.inactiveDate != null ? params?.data?.inactiveDate : null;
         return date == null ? 'N/A' : this.transformDate(date, 'MMM d, y');
@@ -76,7 +75,7 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
     {
       headerName: 'Active Days',
       field: 'activeDays',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellStyle: { textAlign: 'left' }
     }
   ];
@@ -93,6 +92,7 @@ export class ActivationDetailComponent extends AppComponentBase implements OnIni
     }
     this.cdRef.detectChanges();
     this.defaultColDef = {
+      sortable: false,
       tooltipComponent: 'customTooltip',
     }
 

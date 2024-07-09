@@ -7,7 +7,6 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { CreditNoteRoutingModule } from './credit-note-routing.module';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
 @NgModule({
@@ -22,7 +21,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SharedModule,
     PartialsModule,
     CreditNoteRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class CreditNoteModule { }

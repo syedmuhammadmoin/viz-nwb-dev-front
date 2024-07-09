@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -10,6 +10,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IPayrollTransaction } from '../model/IPayrollTransaction';
 import { PayrollTransactionService } from '../service/payroll-transaction.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-payroll-transaction',
@@ -21,13 +22,12 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
 
   payrollTransactionList: [];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -72,7 +72,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Month',
       field: 'month',
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: any) => {
         return (params.value) ? AppConst.Months.find(x => x.value === params.value)?.name : 'N/A';
       },
@@ -81,7 +81,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Year',
       field: 'year',
       tooltipField: 'docNo',
-      suppressMenu: true
+      suppressHeaderMenuButton: true
     },
     {
       headerName: 'Designation',
@@ -97,7 +97,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Campus',
       field: 'campus',
-      suppressMenu: true
+      suppressHeaderMenuButton: true
     },
     {
       headerName: 'Department',
@@ -114,7 +114,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Basic Salary',
       field: 'basicSalary',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'employee',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
@@ -124,7 +124,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Allowance',
       field: 'totalAllowances',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
@@ -133,7 +133,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
     {
       headerName: 'Gross Pay',
       field: 'grossPay',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
       valueFormatter: (params: any) => {
@@ -144,7 +144,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Deductions',
       field: 'totalDeductions',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'docNo',
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
@@ -154,8 +154,7 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       headerName: 'Net Pay',
       field: 'netSalary',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
-      tooltipField: 'docNo',
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: any) => {
         return params.value ? this.valueFormatter(params.value) : null;
       },
@@ -185,20 +184,23 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view Detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -237,12 +239,11 @@ export class ListPayrollTransactionComponent extends AppComponentBase implements
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getPayrollTransactions(params: any): Promise<IPaginationResponse<IPayrollTransaction[]>> {
-    const result = await this.payrollTransactionService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.payrollTransactionService.getRecords(params));
     return result
   }
 }

@@ -16,7 +16,7 @@ import { DepreciationMethod } from 'src/app/views/shared/AppEnum';
 })
 export class PrintCwipComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;
   cwipMaster: any;
   edinfini : boolean;
   sbbu : boolean;

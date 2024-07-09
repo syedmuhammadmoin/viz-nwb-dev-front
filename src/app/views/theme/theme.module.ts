@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 // NgBootstrap
-import {  NgbProgressbarModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
+import {  NgbModule, NgbProgressbarModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 // Translation
 import { TranslateModule } from '@ngx-translate/core';
 // Loading bar
@@ -13,12 +13,6 @@ import { LoadingBarModule } from '@ngx-loading-bar/core';
 // NGRX
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-// Ngx DatePicker
-import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
-// Perfect Scrollbar
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
-// SVG inline
-import { InlineSVGModule } from 'ng-inline-svg';
 // Material
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTabsModule } from '@angular/material/tabs';
@@ -96,7 +90,6 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
     PagesModule,
     PartialsModule,
     CoreModule,
-    PerfectScrollbarModule,
     FormsModule,
     MatProgressBarModule,
     MatTabsModule,
@@ -104,12 +97,11 @@ import { PermissionEffects, permissionsReducer, RoleEffects, rolesReducer } from
     MatTooltipModule,
     TranslateModule.forChild(),
     LoadingBarModule,
-    NgxDaterangepickerMd,
-    InlineSVGModule,
 
     // ng-bootstrap modules
     NgbProgressbarModule,
     NgbTooltipModule,
+    NgbModule
   ]
 })
 export class ThemeModule {

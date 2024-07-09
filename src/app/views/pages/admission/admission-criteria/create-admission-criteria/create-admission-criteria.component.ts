@@ -71,7 +71,7 @@ export class CreateAdmissionCriteriaComponent extends AppComponentBase implement
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     programId: '',
     description: '',
     qualificationId: '',

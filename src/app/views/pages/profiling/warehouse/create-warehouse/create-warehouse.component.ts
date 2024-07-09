@@ -52,7 +52,7 @@ export class CreateWarehouseComponent extends AppComponentBase implements OnInit
   }
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     manager: '',
     campusId: ''

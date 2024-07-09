@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -21,13 +21,12 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
   invoiceList: IInvoice[];
   FilteredData : any[] = [];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -102,7 +101,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       headerClass: 'custom_left',
       cellStyle: { 'text-align': "right" },
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || null;
       }
@@ -131,20 +130,23 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -173,7 +175,6 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -190,7 +191,7 @@ export class ListInvoiceComponent extends AppComponentBase implements OnInit {
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 
   fetchData(x: any) {           

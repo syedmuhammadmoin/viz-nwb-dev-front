@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { CallQuotationService } from '../service/call-quotation.service';
@@ -29,7 +29,7 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public CALL_QUOTATION = CALL_QUOTATION;
@@ -60,7 +60,7 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining Call Quotation Columns
@@ -68,15 +68,15 @@ export class CallQuotaionDetailsComponent extends AppComponentBase implements On
     { 
       headerName: 'Item', 
       field: 'itemName', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
      },
-    { headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
-    { headerName: 'Quantity', field: 'quantity', sortable: true, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Description', field: 'description', sortable: false, filter: true, cellStyle: { 'font-size': '12px' } },
+    { headerName: 'Quantity', field: 'quantity', sortable: false, filter: true, cellStyle: { 'font-size': '12px' } },
   ];
 
   ngOnInit() {

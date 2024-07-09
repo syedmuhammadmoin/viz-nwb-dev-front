@@ -73,7 +73,7 @@ export class PortletHeaderComponent implements OnInit, AfterViewInit, OnDestroy 
 	@HostListener('window:scroll', ['$event'])
 	onScroll() {
 		this.updateStickyPosition();
-		const st = window.pageYOffset || document.documentElement.scrollTop;
+		const st = window.scrollY || document.documentElement.scrollTop;
 		this.isScrollDown = st > this.lastScrollTop;
 		this.lastScrollTop = st <= 0 ? 0 : st;
 	}

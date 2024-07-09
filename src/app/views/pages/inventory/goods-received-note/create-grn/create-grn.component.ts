@@ -93,7 +93,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   }
 
   //Error Keys
-  formErrors = {
+  formErrors: any = {
     vendorName: '',
     grnDate: '',
     contact: '',
@@ -171,7 +171,7 @@ export class CreateGrnComponent extends AppComponentBase implements OnInit, Form
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number , element?: HTMLElement) {
+  onChangeEvent(value: any, index: number , element?: HTMLElement | any) {
     const arrayControl = this.grnForm.get('GRNLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;

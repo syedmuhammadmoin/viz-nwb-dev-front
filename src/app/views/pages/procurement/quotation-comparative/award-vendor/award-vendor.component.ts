@@ -38,7 +38,7 @@ export class AwardVendorComponent extends AppComponentBase implements OnInit {
   }
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     remarks: ''
   }
 

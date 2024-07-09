@@ -1,8 +1,7 @@
 import { PURCHASE_ORDER, BILL, GOODS_RECEIVED_NOTE, REQUISITION } from '../../../../shared/AppRoutes';
-import { ChangeDetectionStrategy, Component, Injector, OnInit} from '@angular/core';
+import { Component, Injector, OnInit} from '@angular/core';
 import { PurchaseOrderService} from '../service/purchase-order.service';
-import { ActivatedRoute, Router} from '@angular/router';
-import { LayoutUtilsService } from '../../../../../core/_base/crud';
+import { ActivatedRoute } from '@angular/router';
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { FirstDataRenderedEvent, GridOptions,  ValueFormatterParams} from 'ag-grid-community';
@@ -35,7 +34,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
 
   purchaseOrderMaster: any;
   purchaseOrderLines: any ;
-  gridOptions: GridOptions;
+  gridOptions: any;
 
   totalBeforeTax: number;
   totalTax: number;
@@ -102,7 +101,7 @@ export class PurchaseOrderDetailComponent extends AppComponentBase implements On
       headerName: 'Sub Total', 
       field: 'subTotal', 
       cellStyle: { 'font-size': '12px' },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }

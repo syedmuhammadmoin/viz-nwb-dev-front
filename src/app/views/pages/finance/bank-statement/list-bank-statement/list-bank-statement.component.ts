@@ -1,7 +1,6 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
@@ -17,6 +16,7 @@ import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {IBankStatement} from '../model/IBankStatement';
 import {BankStatementService} from '../service/bank-statement.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-bank-statement',
@@ -27,14 +27,13 @@ import {BankStatementService} from '../service/bank-statement.service';
 export class ListBankStatementComponent extends AppComponentBase implements OnInit {
 
   bankStatementList: IBankStatement[];
-  gridOptions: GridOptions = ({} as GridOptions);
-  frameworkComponents: { [p: string]: unknown };
+  gridOptions: any = ({} as GridOptions);
+  
   defaultColDef: ColDef;
   tooltipData: string = 'double click to edit'
   public permissions = Permissions
-  components: { loadingCellRenderer(params: any): unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   //Injecting Dependencies
@@ -65,13 +64,13 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
         suppressAndOrCondition: true,
       },
     },
-    {headerName: 'Description', field: 'description', suppressMenu: true, tooltipField: 'description'},
+    {headerName: 'Description', field: 'description', suppressHeaderMenuButton: true, tooltipField: 'description'},
     {
       headerName: 'Opening Balance',
       field: 'openingBalance',
       headerClass: 'custom_left',
       cellStyle: {'text-align': 'right'},
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'description',
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || null
@@ -88,20 +87,23 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: 'double click to edit',
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -144,12 +146,11 @@ export class ListBankStatementComponent extends AppComponentBase implements OnIn
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getBankStatements(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.bankStatementService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.bankStatementService.getRecords(params));
     return result
   }
 }

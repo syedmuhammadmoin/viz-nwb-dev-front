@@ -50,7 +50,7 @@ export class CreateDistrictComponent extends AppComponentBase implements OnInit 
   }
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     cityId: ''
   }
@@ -127,8 +127,7 @@ export class CreateDistrictComponent extends AppComponentBase implements OnInit 
       name: ADepartment.name,
       cityId: ADepartment.cityId
     });
-
-  };
+  }
 
   onSubmit() {
 

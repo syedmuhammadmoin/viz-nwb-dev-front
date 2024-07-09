@@ -1,5 +1,5 @@
 <div class="container " >
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button
         id="journal_print"
@@ -9,7 +9,7 @@
         mat-raised-button
         class="app-default-btn"
         (click)="printForm()" 
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        style="margin-bottom: 20px; width: auto;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
@@ -17,7 +17,7 @@
 
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
@@ -26,7 +26,7 @@
             </div>
 
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-5 ms-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
               margin-bottom: 10px;
@@ -68,16 +68,16 @@
                   <th>Description</th>
                   <th>Fixed Asset</th>
                   <th>Account</th>
-                  <th class="text-right">Debit</th>
-                  <th class="text-right">Credit</th>
+                  <th class="text-end">Debit</th>
+                  <th class="text-end">Credit</th>
                 </tr>
                 <tr *ngFor="let line of depreciationAdjustmentLines ; index as i">
                   <td>{{i + 1}}</td>
                   <td  class="description text-left">{{line?.description}}</td>
                   <td> {{line?.fixedAsset}}</td>
                   <td> {{line?.level4}}</td>
-                  <td class="text-right"><b>{{valueFormatter(line?.debit)}}</b></td>
-                  <td class="text-right"><b>{{valueFormatter(line?.credit)}}</b></td>
+                  <td class="text-end"><b>{{valueFormatter(line?.debit)}}</b></td>
+                  <td class="text-end"><b>{{valueFormatter(line?.credit)}}</b></td>
                 </tr>
                 </thead>
               </table>
@@ -85,21 +85,21 @@
           </div>
 
 
-          <!--<div class="print-col-5  ml-auto p-s-3">
+          <!--<div class="print-col-5  ms-auto p-s-3">
             <div class="print-box p-s-3-one">
               <h4>Total Debit:
-                <span class="float-right" style="font-weight: 500;">{{valueFormatter(depreciationAdjustmentMaster?.totalDebit)}}</span>
+                <span class="text-end" style="font-weight: 500;">{{valueFormatter(depreciationAdjustmentMaster?.totalDebit)}}</span>
               </h4>
             </div>
             <div class="print-box p-s-3-one">
               <h4>Total Credit:
-                <span class="float-right" style="font-weight: 500;">{{valueFormatter(depreciationAdjustmentMaster?.totalCredit)}}</span>
+                <span class="text-end" style="font-weight: 500;">{{valueFormatter(depreciationAdjustmentMaster?.totalCredit)}}</span>
               </h4>
             </div>
           </div>-->
         </div>
 
-        <div class="row mt-10 ms-10">
+        <div class="row mt-10">
           <div class="print-col-4 p-s-5 text-center">
             ______________________
             <p class="text-center">Authorized Sign</p>

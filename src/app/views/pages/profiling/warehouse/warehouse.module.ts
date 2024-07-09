@@ -5,7 +5,6 @@ import { PartialsModule} from 'src/app/views/partials/partials.module';
 import { AgGridModule} from 'ag-grid-angular';
 import { ListWarehouseComponent} from './list-warehouse/list-warehouse.component';
 import { CreateWarehouseComponent} from './create-warehouse/create-warehouse.component';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { WarehouseRoutingModule } from './warehouse-routing.module';
 
 @NgModule({
@@ -18,12 +17,7 @@ import { WarehouseRoutingModule } from './warehouse-routing.module';
     SharedModule,
     PartialsModule,
     WarehouseRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-  ],
- 
-  entryComponents: [
-    CreateWarehouseComponent
-  ],
- 
+    AgGridModule
+  ]
 })
 export class WarehouseModule { }

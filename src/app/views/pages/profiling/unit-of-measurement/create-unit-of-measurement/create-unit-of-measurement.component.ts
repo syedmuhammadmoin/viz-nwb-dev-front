@@ -47,7 +47,7 @@ export class CreateUnitOfMeasurementComponent extends AppComponentBase implement
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: ''
   };
 

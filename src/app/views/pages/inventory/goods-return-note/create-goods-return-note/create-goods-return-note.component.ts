@@ -1,16 +1,15 @@
 import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild} from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/forms';
 import { IProduct} from '../../../profiling/product/model/IProduct';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { ProductService} from '../../../profiling/product/service/product.service';
-import { PurchaseOrderService} from '../../../purchase/purchase-order/service/purchase-order.service';
 import { BusinessPartnerService} from '../../../profiling/business-partner/service/businessPartner.service';
 import { CategoryService} from '../../../profiling/category/service/category.service';
 import { WarehouseService} from '../../../profiling/warehouse/services/warehouse.service';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { GOODS_RECEIVED_NOTE, GOODS_RETURN_NOTE } from 'src/app/views/shared/AppRoutes';
+import { GOODS_RETURN_NOTE } from 'src/app/views/shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IPurchaseOrder } from '../../../purchase/purchase-order/model/IPurchaseOrder';
 import { IGoodsReturnNote } from '../model/IGoodsReturnNote';
@@ -89,7 +88,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
   }
 
   // Error Keys
-  formErrors = {
+  formErrors: any = {
     vendorName: '',
     goodsReturnNoteDate: '',
     contact: '',
@@ -117,7 +116,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
       vendorName: [{value: '' , disabled: true}, [Validators.required]],
       goodsReturnNoteDate: ['', [Validators.required]],
       contact: ['', [Validators.minLength(10), Validators.maxLength(15), Validators.pattern("^[0-9]*$")]],
-      campusId: [{value: '' , disabled: true},, [Validators.required]],
+      campusId: [{value: '' , disabled: true}, [Validators.required]],
       goodsReturnNoteLines: this.fb.array([
         this.addGoodsReturnNoteLines()
       ])
@@ -169,7 +168,7 @@ export class CreateGoodsReturnNoteComponent extends AppComponentBase implements 
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number , element?: HTMLElement) {
+  onChangeEvent(value: any, index: number , element?: HTMLElement | any) {
     const arrayControl = this.goodsReturnNoteForm.get('goodsReturnNoteLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;

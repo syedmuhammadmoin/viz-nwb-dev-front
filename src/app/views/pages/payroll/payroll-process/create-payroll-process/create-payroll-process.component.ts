@@ -34,30 +34,30 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'CNIC', field: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Designation', field: 'designation',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Campus',
       field: 'campus',
-      suppressMenu: true
+      suppressHeaderMenuButton: true
     },
     {
       headerName: 'Department',
       field: 'department',
-      suppressMenu: true
+      suppressHeaderMenuButton: true
     },
     {
       headerName: 'Differential Allowance',
       field: 'differential Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -65,7 +65,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Income from Transport / Buses ',
       field: 'income from Transport / Buses',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -73,7 +73,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Employee Income Tax',
       field: 'employee Income Tax',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -81,7 +81,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Adhoc Relief Allowance 2022',
       field: 'adhoc Relief Allowance 2022',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -89,7 +89,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Computer Allowance',
       field: 'computer Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -97,7 +97,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Telecommunication Allowance',
       field: 'telecommunication (Telephone) Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -105,7 +105,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'House Rent Allowance',
       field: 'house Rent Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -113,7 +113,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Conveyance Allowance',
       field: 'conveyance Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -121,7 +121,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Medical Allowance',
       field: 'medical Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -129,7 +129,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Qualification/PHD/Special S&T Allowance',
       field: 'qualification/PhD/Special S&T Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -137,7 +137,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Entertainment Allowance',
       field: 'entertainment Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -145,7 +145,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Charge - Deanship/Chairmanship Allowance',
       field: 'charge Allowance  - Deanship / Chairmanship/Headship Allowance',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -153,7 +153,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Transportation Income From Employees',
       field: 'transportation Income from Employees ',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -161,7 +161,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Gross Salary',
       field: 'grossPay',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -169,7 +169,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     {
       headerName: 'Net Salary',
       field: 'netSalary',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -177,7 +177,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
     
   ];
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     campusId: '',
     accountPayableId: '',
@@ -203,7 +203,7 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
   };
   employeeList: any[] = [];
   employeeGridApi: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   departmentsList: any = new BehaviorSubject<any>([])
@@ -239,6 +239,10 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
       month: ['', Validators.required],
       year: ['', Validators.required],
     })
+
+    this.gridOptions = {
+      paginationPageSizeSelector: false
+    }
 
 
     this.getLatestCampuses();
@@ -278,14 +282,6 @@ export class CreatePayrollProcessComponent extends AppComponentBase implements O
         }
         this.cdRef.detectChanges();
       });
-  }
-
-  onEmployeeRowClicked($event: any) {
-    console.log($event)
-  }
-
-  onFirstDataRendered(params: FirstDataRenderedEvent) {
-    //params.api.sizeColumnsToFit();
   }
 
   onGridReady(params) {

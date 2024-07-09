@@ -5,7 +5,6 @@ import { StateRoutingModule } from './state-routing.module';
 import {SharedModule} from '../../../shared/modules/shared.module';
 import {PartialsModule} from '../../../partials/partials.module';
 import {AgGridModule} from 'ag-grid-angular';
-import {CustomTooltipComponent} from '../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { ListStateComponent } from './list-state/list-state.component';
 import { CreateStateComponent } from './create-state/create-state.component';
 
@@ -17,7 +16,7 @@ import { CreateStateComponent } from './create-state/create-state.component';
     StateRoutingModule,
     SharedModule,
     PartialsModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class StateModule { }

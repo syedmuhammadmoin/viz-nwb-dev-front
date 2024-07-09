@@ -6,7 +6,6 @@ import { CreateWorkflowComponent } from './create-workflow/create-workflow.compo
 import { PartialsModule } from '../../../partials/partials.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from '../../../shared/modules/shared.module';
-import { CustomTooltipComponent } from '../../../shared/components/custom-tooltip/custom-tooltip.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +17,7 @@ import { CustomTooltipComponent } from '../../../shared/components/custom-toolti
     SharedModule,
     PartialsModule,
     WorkFlowRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class WorkflowModule { }

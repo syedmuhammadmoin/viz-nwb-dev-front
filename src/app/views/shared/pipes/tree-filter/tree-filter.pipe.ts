@@ -32,7 +32,7 @@ export class TreeFilter implements PipeTransform {
         return true;
       }
 
-      for (let property in item) {
+      for (const property in item) {
         if (item[property] === null || item[property] == undefined) {
           continue;
         }

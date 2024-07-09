@@ -1,15 +1,15 @@
 <div class="container ">
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button printSectionId="main" printTitle="Debit Note" id="debit_note_print" (click)="printForm()" type="button"
-         class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+         class="app-default-btn" mat-raised-button style="margin-bottom: 20px; width: auto;"><i
           class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
@@ -18,7 +18,7 @@
             </div>
 
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-5 ms-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
               margin-bottom: 10px;
@@ -78,7 +78,7 @@
                     <th>Cost</th>
                     <th>Tax %</th>
                     <th>Other Taxes/FET</th>
-                    <th class="text-right">SubTotal</th>
+                    <th class="text-end">SubTotal</th>
                   </tr>
                   <tr *ngFor="let line of debitNoteLines; index as i">
                     <td>{{i + 1}}</td>
@@ -88,7 +88,7 @@
                     <td>{{line?.cost.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td>{{line?.tax + '%'}}</td>
                     <td>{{valueFormatter(line?.anyOtherTax) || 0}}</td>
-                    <td class="text-right"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2
+                    <td class="text-end"><b>{{line?.subTotal.toLocaleString(undefined, { maximumFractionDigits: 2
                         })}}</b></td>
                   </tr>
                 </thead>
@@ -97,7 +97,7 @@
           </div>
 
 
-          <div class="print-col-5  ml-auto p-s-3">
+          <div class="print-col-5 ms-auto p-s-3">
             <div class="print-box p-s-3-one">
               <h4>Total Before Tax:
                 <span class="float-right">{{valueFormatter(debitNoteMaster?.totalBeforeTax)}}</span>
@@ -119,7 +119,7 @@
               </h4>
             </div>
 
-            <div class="print-box p-s-3-four">
+            <div class="print-box p-s-3-two">
               <h4>Grand Total:
                 <span class="float-right">{{valueFormatter(debitNoteMaster?.totalAmount)}}</span>
               </h4>
@@ -127,7 +127,7 @@
           </div>
         </div>
 
-        <div class="row mt-10 ms-10">
+        <div class="row mt-10">
           <div class="print-col-4 p-s-5 text-center">
             ______________________
             <p class="text-center">Authorized Sign</p>

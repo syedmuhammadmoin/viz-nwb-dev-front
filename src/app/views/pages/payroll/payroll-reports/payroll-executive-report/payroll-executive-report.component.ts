@@ -6,7 +6,6 @@ import { GridOptions } from 'ag-grid-community';
 import { finalize} from 'rxjs/operators';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
-import { Router } from '@angular/router';
 import { APP_ROUTES, PAYROLL_REPORT, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { PayrollReportsService } from '../service/payroll-reports.service';
@@ -66,7 +65,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
         headerName: 'Amount',
         field: 'amount',
         headerClass: 'custom_left',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
         }
@@ -74,7 +73,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
     ];
   }
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -96,7 +95,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   payrollExecutiveForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;
   rowData: any[] = [];
 
   // Declaring Model
@@ -110,7 +109,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     year: ''
   }
 
@@ -122,6 +121,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
 
     this.defaultColDef = {
       filter: true,
+      sortable: false,
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
@@ -149,7 +149,6 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
       return;
     }
     this.mapFormValueToModel();
-    console.log(this.payrollExecutiveModel);
     this.isLoading = true;
     this.payrollReportService.getExecutiveSummary(this.payrollExecutiveModel).pipe(
       finalize(() => {
@@ -170,7 +169,7 @@ export class PayrollExecutiveReportComponent extends AppComponentBase implements
           {
             headerName: 'Amount',
             field: 'amount',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             headerClass: 'custom_left',
             valueFormatter: (params: any) => {
               return this.valueFormatter(params.value)

@@ -6,10 +6,10 @@ import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { IQuotation } from '../model/IQuotation';
 import { QuotationService } from '../service/quotation.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -84,7 +84,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     vendorId: '',
     quotationDate: '',
     timeframe: '',
@@ -152,7 +152,7 @@ export class CreateQuotationComponent extends AppComponentBase implements OnInit
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    let arrayControl = this.quotationForm.get('quotationLines') as FormArray;
+    const arrayControl = this.quotationForm.get('quotationLines') as FormArray;
     if (itemId) {
       const price = this.salesItem.find(i => i.id === itemId).purchasePrice
 

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
-import {MatDialog} from '@angular/material/Dialog'
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {MatDialog} from '@angular/material/dialog'
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {Permissions} from 'src/app/views/shared/AppEnum';
@@ -33,14 +33,13 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
   }
 
   defaultColDef: ColDef;
-  gridOptions: GridOptions;
+  gridOptions: any;
   ProgramList: IProgram[];
-  frameworkComponents: { [p: string]: unknown };
+  
   tooltipData = 'double click to view detail'
   public permissions = Permissions
-  components: { loadingCellRenderer(params: any): unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   // Declaring AgGrid data
@@ -82,7 +81,6 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Total Semesters',
       field: 'totalSemesters',
-      tooltipField: 'name',
       filter: 'agNumberColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -118,20 +116,21 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: 'double click to view detail',
+      paginationPageSizeSelector: false,
+      context: 'double click to view detail'
     };
-
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -157,7 +156,6 @@ export class ListProgramComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 }

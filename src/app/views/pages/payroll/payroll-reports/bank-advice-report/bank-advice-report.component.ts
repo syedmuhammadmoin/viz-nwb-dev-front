@@ -6,7 +6,6 @@ import { GridOptions } from 'ag-grid-community';
 import { finalize} from 'rxjs/operators';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
-import { Router } from '@angular/router';
 import { APP_ROUTES, PAYROLL_REPORT, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { PayrollReportsService } from '../service/payroll-reports.service';
@@ -57,12 +56,12 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
         headerName: 'Account No',
         field: 'accountNumber',
         cellStyle: {textAlign : 'left'},
-        suppressMenu: true
+        suppressHeaderMenuButton: true
       },
       {
         headerName: 'Amount',
         field: 'amount',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         headerClass: 'custom_left',
         valueFormatter: (params: any) => {
           return this.valueFormatter(params.value)
@@ -71,7 +70,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
     ];
   }
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -93,7 +92,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
   bankAdviceReportForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;
   rowData: any[] = [];
 
   // Declaring Model
@@ -113,7 +112,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     campusId: '',
     month: '',
     year: ''
@@ -129,6 +128,7 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
 
     this.defaultColDef = {
       filter: true,
+      sortable: false,
       resizable: true,
       menuTabs: ["filterMenuTab"],
     };
@@ -177,12 +177,12 @@ export class BankAdviceReportComponent extends AppComponentBase implements OnIni
             headerName: 'Account No',
             field: 'accountNumber',
             cellStyle: {textAlign : 'left'},
-            suppressMenu: true
+            suppressHeaderMenuButton: true
           },
           {
             headerName: 'Amount',
             field: 'amount',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             headerClass: 'custom_left',
             valueFormatter: (params: any) => {
               return this.valueFormatter(params.value)

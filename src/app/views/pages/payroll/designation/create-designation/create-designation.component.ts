@@ -45,7 +45,7 @@ export class CreateDesignationComponent extends AppComponentBase implements OnIn
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     Name: '',
   };
 
@@ -102,9 +102,6 @@ export class CreateDesignationComponent extends AppComponentBase implements OnIn
     this.designationForm.patchValue({
       Name: designation.name,     
     });
-
-    console.log("idher",this.designationForm);
-
 
     //if user have no permission to edit, so disable all fields
     if(!this.showButtons) {

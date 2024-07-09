@@ -7,7 +7,6 @@ import {CreateFeeItemComponent} from './create-fee-item/create-fee-item.componen
 import {SharedModule} from '../../../shared/modules/shared.module';
 import {PartialsModule} from '../../../partials/partials.module';
 import {AgGridModule} from 'ag-grid-angular';
-import {CustomTooltipComponent} from '../../../shared/components/custom-tooltip/custom-tooltip.component';
 
 
 @NgModule({
@@ -20,7 +19,7 @@ import {CustomTooltipComponent} from '../../../shared/components/custom-tooltip/
     FeeItemRoutingModule,
     SharedModule,
     PartialsModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class FeeItemModule { }

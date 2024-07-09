@@ -44,9 +44,9 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
   grnId: number;
 
   // For ag grid
-  gridOptions = ({} as GridOptions);
+  gridOptions: any = ({} as GridOptions);
   defaultColDef: any;
-  frameworkComponents: any;
+  
 
   // Variables for Goods Received Note data
   grnLines: any;
@@ -54,6 +54,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
 
   // Showing Remarks
   remarksList: string[] = [];
+  components: any;
 
   // Injecting Dependencies
   constructor(
@@ -69,8 +70,8 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
 
   // Defining GRN Columns
   columnDefs = [
-    {headerName: 'Item', field: 'item', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
-    {headerName: 'Description', field: 'description', sortable: true, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Item', field: 'item', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
+    {headerName: 'Description', field: 'description', sortable: false, filter: true, cellStyle: {'font-size': '12px'}},
     {
       headerName: 'Quantity',
       field: 'quantity',
@@ -100,7 +101,7 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Store',
       field: 'warehouse',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: {'font-size': '12px'},
       valueFormatter: (params: ValueFormatterParams) => {
@@ -133,9 +134,8 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
         this.cdRef.markForCheck();
       }
     });
-    this.frameworkComponents = {
-      agGridButtonCellRenderer: AgGridButtonCellRendrerComponent
-    };
+
+    this.components = { agGridButtonCellRenderer: AgGridButtonCellRendrerComponent };
   }
 
   onFirstDataRendered(params: any) {
@@ -186,7 +186,6 @@ export class GrnDetailComponent extends AppComponentBase implements OnInit {
 
   // Create Asset
   createAsset(grnLine): void {
-    console.log(grnLine)
     const dialogRef = this.dialog.open(CreateAssetComponent, {
       width: '740px',
       data: {

@@ -7,7 +7,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row">
           <div class="btn_container">
             <div class="col-md-6 col-6">
@@ -16,7 +16,7 @@
                   *ngIf="(grnMaster?.state === docStatus.Draft || grnMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GRN_EDIT))"
                   [queryParams]="{q: grnMaster?.id, 'isGRN': true}"
                   [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  class="btn_public mr-3" id="grn_edit" type="button">
+                  class="btn_public me-3" id="grn_edit" type="button">
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
@@ -24,7 +24,7 @@
                   *ngIf="(grnMaster?.state === docStatus.Unpaid) && !(grnMaster?.billReference) && (permission.isGranted(permissions.BILL_CREATE))"
                   [queryParams]="{q: grnMaster?.id, 'isGRN': true}"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  class="btn_public mr-3" id="grn_edit" type="button">
+                  class="btn_public me-3" id="grn_edit" type="button">
                   <i class="fa fa-edit icon-e-p-a"></i> Bill
                 </button>
 
@@ -32,12 +32,12 @@
                   *ngIf="(grnMaster?.state === docStatus.Unpaid || grnMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.GRN_CREATE))"
                   [queryParams]="{q: grnMaster?.id, 'isGRN': true}"
                   [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE('edit',grnMaster?.id)"
-                  class="btn_public mr-3" id="grn_edit" type="button">
+                  class="btn_public me-3" id="grn_edit" type="button">
                   <i class="fa fa-edit icon-e-p-a"></i> Goods Return Note
                 </button>
 
                 <button (click)="openFileUploadDialog()" *ngIf="(permission.isGranted(permissions.GRN_EDIT))"
-                        class="btn_public mr-2" type="button"><i class="fa fa-paperclip"></i> Attachment
+                        class="btn_public me-2" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
                 <button [routerLink]="'/'+ GOODS_RECEIVED_NOTE.ID_BASED_ROUTE ('print',grnMaster?.id)"
@@ -48,8 +48,8 @@
               </ng-container>
 
             </div>
-            <div *ngIf="grnMaster?.isAllowedRole" class="col-lg-6 text-right">
-              <button (click)="remarksDialog(action.Reject)" class="btn btn-outline-danger font-weight-bold mr-2 "
+            <div *ngIf="grnMaster?.isAllowedRole" class="col-lg-6 text-end">
+              <button (click)="remarksDialog(action.Reject)" class="btn btn-outline-danger font-weight-bold me-2 "
                       id="grn_reject">Reject
               </button>
               <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success font-weight-bold "
@@ -84,7 +84,7 @@
           <div class="col-md-12 col-12">
             <ag-grid-angular #rowClass (firstDataRendered)="onFirstDataRendered($event)"
                              [columnDefs]="columnDefs"
-                             [frameworkComponents]="frameworkComponents"
+                             [components]="components"
                              [gridOptions]="gridOptions"
                              [rowData]="grnLines"
                              class="ag-theme-alpine grid-btn"
@@ -99,7 +99,7 @@
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box">
               <tr *ngIf="showReference || grnMaster?.billReference">
                 <td colspan="2">

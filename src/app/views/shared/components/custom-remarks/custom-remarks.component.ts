@@ -22,7 +22,7 @@ export class CustomRemarksComponent extends AppComponentBase implements OnInit {
   }
 
   //error
-  formErrors = {
+  formErrors: any = {
     remarks : ''
   }
 

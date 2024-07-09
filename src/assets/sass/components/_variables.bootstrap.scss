@@ -2,7 +2,7 @@
 // Global variables for Bootstrap customization.
 // To override any Bootstrap variable safely you can use _variables.demo.scss
 //
-
+@use 'sass:math' as math;
 //
 // Color system
 //
@@ -21,7 +21,7 @@ $gray-400: 											#D1D3E0 !default;
 $gray-500: 											#B5B5C3 !default;
 $gray-600: 											#7E8299 !default;
 $gray-700: 											#5E6278 !default;
-$gray-800: 											unset !default;
+$gray-800: 											#ffffff !default;
 $gray-900: 											#181C32 !default;
 
 // Dark colors
@@ -392,7 +392,7 @@ $h4-font-size:                                      $font-size-base * 1.35 !defa
 $h5-font-size:                                      $font-size-base * 1.25 !default;   // 16.25px
 $h6-font-size:                                      $font-size-base * 1.175 !default;  // 15.275px
 
-$headings-margin-bottom:                            $spacer / 2 !default;
+$headings-margin-bottom:                            math.div($spacer, 2) !default;
 $headings-font-family:                              null !default;
 $headings-font-weight:                              500 !default;
 $headings-line-height:                              1.2 !default;
@@ -450,7 +450,7 @@ $transition-input:                                  color 0.15s ease, background
 //
 // Style anchor elements.
 $link-color:                                        $primary !default;
-$link-decoration:                                   none !default;
+$link-decoration:                                   null !default;
 $link-hover-color:                                  darken($primary, 15%) !default;
 $link-hover-decoration:                             underline !default;
 // Darken percentage for links with `.text-*` class (e.g. `.text-success`)
@@ -468,7 +468,7 @@ $input-btn-line-height:                             $line-height-base !default;
 
 $input-btn-focus-width:                             .2rem !default;
 $input-btn-focus-color:                             rgba($component-active-bg, .25) !default;
-$input-btn-focus-box-shadow:                        none !default;
+$input-btn-focus-box-shadow:                        null !default;
 
 $input-btn-padding-y-sm:                            .55rem !default;
 $input-btn-padding-x-sm:                            .75rem !default;
@@ -488,9 +488,9 @@ $input-btn-border-width:                            $border-width !default;
 // For each of Bootstrap's buttons, define text, background, and border color.
 $btn-disabled-opacity:        						.6 !default;
 $btn-transition:              						color .3s ease-in-out, background-color .3s ease-in-out, border-color .3s ease-in-out, box-shadow .3s ease-in-out !default;// Custom variable
-$btn-box-shadow:                                    none !default;
-$btn-focus-box-shadow:                              none !default;
-$btn-active-box-shadow:                             none !default;
+$btn-box-shadow:                                    null !default;
+$btn-focus-box-shadow:                              null !default;
+$btn-active-box-shadow:                             null !default;
 $btn-font-weight:             						normal !default;
 $btn-secondary-color:								$dark-75 !default;
 $btn-secondary-hover-bg-color:						$gray-100 !default;
@@ -506,9 +506,9 @@ $input-placeholder-color:               			$text-muted !default;
 $input-color:                           			$dark-75 !default;
 $input-border-color:								$gray-300 !default;
 $input-border-width:                                $input-btn-border-width !default;
-$input-box-shadow:                                  none !default;
+$input-box-shadow:                                  null !default;
 $input-focus-border-color:							lighten($primary, 10%);
-$input-focus-box-shadow:                            none !default;
+$input-focus-box-shadow:                            null !default;
 $input-height-border:                               $input-border-width * 2 !default;
 
 $input-bg:                                          $white !default;
@@ -695,7 +695,7 @@ $progress-height-sm:                                0.75rem !default; // Custom 
 $progress-height-lg:                                1.5rem !default; // Custom variable
 $progress-bg:                                       $gray-200 !default;
 $progress-border-radius:                            $border-radius !default;
-$progress-box-shadow:                               none !default;
+$progress-box-shadow:                               null !default;
 $progress-bar-color:                                $white !default;
 $progress-bar-bg:                                   $primary !default;
 $progress-bar-animation-timing:                     1s linear infinite !default;
@@ -758,7 +758,7 @@ $pagination-color:                                  $link-color !default;
 $pagination-bg:                                     $white !default;
 $pagination-border-color:                           $gray-300 !default;
 
-$pagination-focus-box-shadow:                       none !default;
+$pagination-focus-box-shadow:                       null !default;
 $pagination-focus-outline:                          0 !default;
 
 $pagination-hover-color:                            $link-hover-color !default;

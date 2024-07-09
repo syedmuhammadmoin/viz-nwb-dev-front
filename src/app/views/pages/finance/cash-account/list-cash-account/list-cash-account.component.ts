@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { CashAccountService } from '../service/cashAccount.service';
@@ -9,10 +9,11 @@ import { ICashAccount } from '../model/ICashAccount';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
-  selector: 'kt-list-cashAccount',
+  selector: 'kt-list-cashaccount',
   templateUrl: './list-cash-account.component.html',
   styleUrls: ['./list-cash-account.component.scss'],
   changeDetection : ChangeDetectionStrategy.OnPush
@@ -23,12 +24,10 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
   cashAccountList: ICashAccount[];
   gridOptions : GridOptions;
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string] : unknown};
   tooltipData : string = "double click to edit"
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
   
   //Injecting Dependencies
@@ -64,7 +63,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Manager / Handler', 
       field: 'handler', 
       tooltipField: 'handler',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) || 'N/A'
       }
@@ -73,7 +72,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Opening Balance', 
       field: 'openingBalance' , 
       tooltipField: 'handler',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value) || 'N/A'
       }
@@ -82,7 +81,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       headerName: 'Campus',
       field: 'campusName',
       tooltipField: 'handler',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
@@ -98,17 +97,19 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -134,7 +135,7 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
     });
     //Get Data from Store
     dialogRef.afterClosed().subscribe( () => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -155,12 +156,11 @@ export class ListCashAccountComponent extends AppComponentBase implements OnInit
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getCashAccounts(params: any): Promise<IPaginationResponse<ICashAccount[]>> {
-    const result = await this.cashAccountService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.cashAccountService.getRecords(params));
     return result
   }
 }

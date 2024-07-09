@@ -66,7 +66,7 @@ export class CreateSemesterComponent extends AppComponentBase implements OnInit 
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     season: '',
     startDate: '',

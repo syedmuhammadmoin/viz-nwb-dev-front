@@ -17,9 +17,9 @@
 
 	.role-timeline-3-item-child {
 		margin-left: 27px;
-		.mat-checkbox:not(.mat-checkbox-disabled).mat-accent
-			.mat-checkbox-ripple
-			.mat-ripple-element {
+		.mat-mdc-checkbox:not(.mat-mdc-checkbox-disabled).mat-mdc-accent
+			.mat-mdc-checkbox-ripple
+			.mat-mdc-ripple-element {
 			background-color: rgba(54, 163, 247, 0.26);
 		}
 	}

@@ -9,7 +9,7 @@
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 mb-5">
+        <div class="col-md-12 col-lg-12 ps-4 pe-4 mb-5">
           <div class="row">
   
             <div class="btn_container">
@@ -18,7 +18,7 @@
                   <button
                     *ngIf="(bidEvaluationMaster?.state === docStatus.Draft) && (permission.isGranted(permissions.BIDEVALUATION_CREATE))"
                     [routerLink]="'/' + BID_EVALUATION.ID_BASED_ROUTE('edit', bidEvaluationMaster?.id)" [queryParams]="{q: bidEvaluationMaster?.id, 'isBidEvaluation': true}"
-                    id="payment_edit" class="mr-3 btn_public" type="button"><i class="fa fa-edit icon-e-p-a"></i> Edit
+                    id="payment_edit" class="me-3 btn_public" type="button"><i class="fa fa-edit icon-e-p-a"></i> Edit
                   </button>
 
                   <button class="btn_public" [routerLink]="'/' + BID_EVALUATION.ID_BASED_ROUTE('print', bidEvaluationMaster?.id)"
@@ -61,7 +61,7 @@
                     <p style="margin-bottom: 0px;"></p>
                   </div>
             </div>
-            <div class="col-lg-5 ml-auto mt-3">
+            <div class="col-lg-5 ms-auto mt-3">
                 <div class="print-box">
                   <h4 class="print-box-detail-2"><b>Procurement Method: </b>
                     <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.methodOfProcurement}}</span>

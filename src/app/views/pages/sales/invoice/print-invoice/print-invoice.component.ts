@@ -16,7 +16,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintInvoiceComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;
   invoiceMaster: any;
   invoiceLines: any;
   edinfini : boolean;

@@ -28,7 +28,7 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public PAYROLL_TRANSACTION = PAYROLL_TRANSACTION;
@@ -61,7 +61,7 @@ export class PayrollTransactionDetailComponent extends AppComponentBase implemen
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining columns for ag grid

@@ -11,7 +11,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row ">
           <div class="btn_container">
             <div class="col-md-6 col-6">
@@ -22,35 +22,35 @@
                 </button>
                 <button (click)="editAsset(assetMaster?.id)"
                         *ngIf="(assetMaster?.state === docStatus.Draft || assetMaster?.state === docStatus.Rejected)
-                  && (permission.isGranted(permissions.ASSET_EDIT))" class="mr-2 btn_public" id="asset_edit" type="button">
+                  && (permission.isGranted(permissions.ASSET_EDIT))" class="me-2 btn_public" id="asset_edit" type="button">
                   <i class="fa fa-edit"></i> Edit
                 </button>
                 <button (click)="editAsset(assetMaster?.id)"
-                        *ngIf="assetMaster?.state === docStatus.Unpaid && permission.isGranted(permissions.ASSET_EDIT)" class="mr-2 btn_public" id="asset_edit" type="button">
+                        *ngIf="assetMaster?.state === docStatus.Unpaid && permission.isGranted(permissions.ASSET_EDIT)" class="me-2 btn_public" id="asset_edit" type="button">
                   <i class="fa fa-edit"></i> Edit
                 </button>
-                <button *ngIf="shouldShowDepreciationButton()" (click)="depreciationSchedule()" class="mr-2 btn_public" id="asset_disposed" type="button">
+                <button *ngIf="shouldShowDepreciationButton()" (click)="depreciationSchedule()" class="me-2 btn_public" id="asset_disposed" type="button">
                   <i class="fa fa-edit"></i> Depreciation Schedule
                 </button>
-                <button (click)="activationDetail()" class="mr-2 btn_public" id="asset_disposed" type="button">
+                <button (click)="activationDetail()" class="me-2 btn_public" id="asset_disposed" type="button">
                   <i class="fa fa-edit"></i> Activation Detail
                 </button>
                 <button (click)="conformationDailog()"
                         *ngIf="(!assetMaster?.isIssued && !assetMaster?.isReserved && !assetMaster?.isHeldforSaleOrDisposal &&  !assetMaster?.isDisposed && assetMaster?.state !== docStatus.Draft)"
-                        class="mr-2 btn_public" id="asset_disposed" type="button">
+                        class="me-2 btn_public" id="asset_disposed" type="button">
                         <i class="fa fa-edit"></i> Held for Disposal
                 </button>
               </ng-container>
             </div>
-            <!--<div class="col-md-6 col-6 text-right">
+            <!--<div class="col-md-6 col-6 text-end">
               <button
                 (click)="conformationDailog()"
                 *ngIf="(!assetMaster?.isIssued && !assetMaster?.isReserved && !assetMaster?.isHeldforSaleOrDisposal &&  !assetMaster?.isDisposed && assetMaster?.state !== docStatus.Draft)" class="app-default-btn" id="asset_disposed" mat-raised-button
                 mat-raised-buttontype="submit"> Held For Disposed
               </button>
             </div>-->
-            <div *ngIf="assetMaster?.isAllowedRole" class="col-lg-6 text-right">
-              <button (click)="remarksDialog(action.Reject)" class="mr-2 btn btn-outline-danger" id="request_reject">
+            <div *ngIf="assetMaster?.isAllowedRole" class="col-lg-6 text-end">
+              <button (click)="remarksDialog(action.Reject)" class="me-2 btn btn-outline-danger" id="request_reject">
                 Reject
               </button>
               <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success" id="request_approve">
@@ -91,8 +91,7 @@
             </div>
             <div class="print-box">
               <h4>Depreciation Applicability:
-                <span
-                  class="float-right">{{assetMaster?.depreciationApplicability ? "Applicable" : 'Not Applicable'}}</span>
+                <span class="float-right">{{assetMaster?.depreciationApplicability ? "Applicable" : 'Not Applicable'}}</span>
               </h4>
             </div>
             <div class="print-box">
@@ -173,8 +172,8 @@
     <!-- <div class="kt-portlet__foot p-5">
       <div class="kt-form__actions kt-form__actions mb-0">
         <div class="row ">
-          <div class="col-lg-12 text-right" *ngIf="assetMaster?.isAllowedRole">
-            <button (click)="workflow(action.Reject)" id="invoice_reject" class="mr-5 btn btn-outline-danger" mat-raised-button>Reject</button>
+          <div class="col-lg-12 text-end" *ngIf="assetMaster?.isAllowedRole">
+            <button (click)="workflow(action.Reject)" id="invoice_reject" class="me-5 btn btn-outline-danger" mat-raised-button>Reject</button>
             <button (click)="workflow(action.Approve)" id="invoice_approve" class="btn btn-outline-success" mat-raised-button>Approve</button>
           </div>
         </div>

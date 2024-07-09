@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
-import { GridOptions } from "ag-grid-community";
 import { DomSanitizer } from "@angular/platform-browser";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BusinessPartnerService } from '../service/businessPartner.service';
@@ -15,7 +14,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintBusinessPartnerComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;
   data: any;
   edinfini : boolean;
   sbbu : boolean;

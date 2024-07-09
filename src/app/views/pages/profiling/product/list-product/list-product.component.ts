@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import { ProductService} from '../service/product.service';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
-import { MatDialog} from '@angular/material/Dialog'
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams} from 'ag-grid-community';
+import { MatDialog} from '@angular/material/dialog'
 import { CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { AppConst} from "src/app/views/shared/AppConst";
 import { CreateProductComponent } from '../create-product/create-product.component';
@@ -10,6 +10,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-product',
@@ -20,14 +21,13 @@ import { isEmpty } from 'lodash';
 export class ListProductComponent extends AppComponentBase implements OnInit {
 
   productList: IProduct[];
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   defaultColDef: ColDef;
   tooltipData: string = "double click to edit"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
+  gridApi: GridApi; 
   overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';
 
   constructor(
@@ -58,13 +58,13 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
     },
-    {headerName: 'Product Type', field: 'productType', suppressMenu: true, tooltipField: 'salesTax',
+    {headerName: 'Product Type', field: 'productType', suppressHeaderMenuButton: true, tooltipField: 'salesTax',
       cellRenderer: (params: ICellRendererParams) => AppConst.ProductType[params.value]},
-    {headerName: 'Category', field: 'categoryName', suppressMenu: true, tooltipField: 'salesTax'},
+    {headerName: 'Category', field: 'categoryName', suppressHeaderMenuButton: true, tooltipField: 'salesTax'},
     {
       headerName: 'Sale Price', 
       field: 'salesPrice', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -73,7 +73,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Purchase Price', 
       field: 'purchasePrice', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value)
@@ -82,7 +82,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sales Tax (%)', 
       field: 'salesTax', 
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'salesTax',
       valueFormatter: (params : ValueFormatterParams) => {
         return this.valueFormatter(params.value) + ' %'
@@ -99,20 +99,23 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -142,7 +145,7 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
     });
     //Getting Update Data
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -163,12 +166,11 @@ export class ListProductComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getProducts(params: any): Promise<IPaginationResponse<IProduct[]>> {
-    const result = await this.productService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.productService.getRecords(params));
     return result
   }
 }

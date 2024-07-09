@@ -1,5 +1,5 @@
 // Angular
-import { AfterViewInit, Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 // Layout
 import { LayoutConfigService, ToggleOptions } from '../../../core/_base/layout';
 import { DynamicColorChangeService } from '../../shared/services/dynamic-color/dynamic-color-change.service';
@@ -10,7 +10,7 @@ import { HtmlClassService } from '../html-class.service';
   selector: 'kt-brand',
   templateUrl: './brand.component.html',
 })
-export class BrandComponent implements OnInit, AfterViewInit {
+export class BrandComponent implements OnInit {
   // Public properties
   headerLogo = '';
   brandClasses = '';
@@ -69,12 +69,6 @@ export class BrandComponent implements OnInit, AfterViewInit {
 
       this.ref.detectChanges()
     })
-  }
-
-  /**
-   * On after view init
-   */
-  ngAfterViewInit(): void {
   }
 
   getAsideLogo() {

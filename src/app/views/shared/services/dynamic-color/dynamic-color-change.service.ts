@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ export class DynamicColorChangeService {
 
 
 
-  public global_color : BehaviorSubject<{}> = new BehaviorSubject<{}> ({
+  public global_color : BehaviorSubject<any> = new BehaviorSubject<any> ({
     bg_gradient_color_one : "#1a6b85",
         bg_gradient_color_two : '#4a8a9e',
         bg_white :'#ffffff',

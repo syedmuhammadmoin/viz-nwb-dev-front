@@ -5,7 +5,6 @@ import {ListSemesterComponent} from './list-semester/list-semester.component';
 import {CreateSemesterComponent} from './create-semester/create-semester.component';
 import {PartialsModule} from '../../../partials/partials.module';
 import {AgGridModule} from 'ag-grid-angular';
-import {CustomTooltipComponent} from '../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {SemesterRoutingModule} from './semester-routing.module';
 
 @NgModule({
@@ -18,11 +17,8 @@ import {SemesterRoutingModule} from './semester-routing.module';
     SharedModule,
     PartialsModule,
     SemesterRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ],
-  entryComponents: [
-    CreateSemesterComponent
-  ]
 })
 export class SemesterModule {
 }

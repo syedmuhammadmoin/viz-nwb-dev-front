@@ -9,8 +9,8 @@
 .wizard.wizard-5 {
     // Aside
     .wizard-aside {
-        @include border-top-left-radius($border-radius);
-        @include border-bottom-left-radius($border-radius);
+        @include border-top-start-radius($border-radius);
+        @include border-bottom-start-radius($border-radius);
 
         // Nav
 	    .wizard-nav {
@@ -141,8 +141,8 @@
     // Content
     .wizard-content {
         background-color: $gray-100;
-        @include border-top-right-radius($border-radius);
-        @include border-bottom-right-radius($border-radius);
+        @include border-top-end-radius($border-radius);
+        @include border-bottom-end-radius($border-radius);
 
         .form-group {
             .fv-help-block {
@@ -158,10 +158,10 @@
     .wizard.wizard-5{
         // Aside
         .wizard-aside {
-            @include border-top-left-radius($border-radius);
-            @include border-top-right-radius($border-radius);
-            @include border-bottom-left-radius(0);
-            @include border-bottom-right-radius(0);
+            @include border-top-start-radius($border-radius);
+            @include border-top-end-radius($border-radius);
+            @include border-bottom-start-radius(0);
+            @include border-bottom-end-radius(0);
 
             // Nav
     	    .wizard-nav {
@@ -184,10 +184,10 @@
 
         // Content
         .wizard-content {
-            @include border-top-left-radius(0);
-            @include border-top-right-radius(0);
-            @include border-bottom-left-radius($border-radius);
-            @include border-bottom-right-radius($border-radius);
+            @include border-top-start-radius(0);
+            @include border-top-end-radius(0);
+            @include border-bottom-start-radius($border-radius);
+            @include border-bottom-end-radius($border-radius);
         }
     }
 }

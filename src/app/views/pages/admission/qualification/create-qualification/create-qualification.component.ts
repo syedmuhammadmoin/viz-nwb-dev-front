@@ -45,7 +45,7 @@ export class CreateQualificationComponent extends AppComponentBase implements On
   }
  
   //error keys
-  formErrors = {
+  formErrors: any = {
     qualification: '',
   }
  

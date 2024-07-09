@@ -265,7 +265,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 	 */
 	ngOnDestroy(): void {
 		this.authNoticeService.setNotice(null);
-		this.unsubscribe.next();
+		this.unsubscribe.next(null);
 		this.unsubscribe.complete();
 		this.loading = false;
 	}
@@ -355,14 +355,4 @@ export class LoginComponent implements OnInit, OnDestroy {
 		const result = control.hasError(validationType) && (control.dirty || control.touched);
 		return result;
 	}
-
-
-
-
-	// changeColor() {
-	// 	debugger;
-	// 	console.log("Neechay",this.currentClient);
-	// 	localStorage.setItem('global_color', JSON.stringify(this.currentClient));
-	// 	this.dynamicColorChanging.global_color.next(this.currentClient);
-	// }
 }

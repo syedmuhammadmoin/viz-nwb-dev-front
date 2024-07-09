@@ -5,7 +5,7 @@
     <form [formGroup]="creditNoteForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
-          <div class="col-md-12 col-sm-12 col-lg-12">
+          <div class="col-md-12 col-sm-12 col-lg-12 ps-4 pe-4">
             <div class="row mt-1 mb-0">
               <div class="col-lg-4 col-sm-4 col-md-4">
                 <div class="form-group kt-form__group mb-0">
@@ -61,12 +61,12 @@
                         <ng-container matColumnDef="itemId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Item</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-simple-dropdown propertyName="productName" propertyValue="id"
                                 matFormFieldClass="mobile-label full-width"
                                 [id]="'credit_note_item_' + i"
                                 [optionList]="ngxsService.products$"                              
-                                isDisabledNone="true"
+                                [isDisabledNone]="true"
                                 [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
                                 clickEventButtonName="Add New Item"
                                 (clickEvent)="addButtonService.openProductDialog()"
@@ -81,7 +81,7 @@
                         <ng-container matColumnDef="description">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-input-field formControlName="description" [id]="'credit_note_description_' + i"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Description"
                                 (blurEvent)="logValidationErrors(this.creditNoteForm, formErrors, validationMessages)"
@@ -96,7 +96,7 @@
                         <ng-container matColumnDef="accountId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> COA</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-simple-dropdown [id]="'credit_note_account_' + i" placeholder="Select Detailed Head" propertyValue="id" propertyName="name"
                                 formControlName="accountId" matFormFieldClass="mobile-label full-width"
                                 errorMessage="Account is required." [optionList]="ngxsService.otherAccounts$">
@@ -108,7 +108,7 @@
                         <ng-container matColumnDef="quantity">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-input-field formControlName="quantity" [id]="'credit_note_quantity_' + i"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Quantity"
                                 #itemName type="number"
@@ -129,7 +129,7 @@
                         <ng-container matColumnDef="price">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Price</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-input-field formControlName="price" [id]="'credit_note_price_' + i"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Price"
                                 #itemName type="number"
@@ -150,7 +150,7 @@
                         <ng-container matColumnDef="tax">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Tax%</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-input-field formControlName="tax"
                                 matFormFieldClass="mobile-label full-width" placeholder="Enter Tax %"
                                 #itemName type="number"
@@ -171,7 +171,7 @@
                         <ng-container matColumnDef="subTotal">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> SubTotal </mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-input-field formControlName="subTotal" [id]="'credit_note_subtotal_' + i"
                                 matFormFieldClass="mobile-label full-width" placeholder="Subtotal">
                               </kt-input-field>
@@ -181,13 +181,13 @@
                         <ng-container matColumnDef="warehouseId">
                           <mat-header-cell *matHeaderCellDef class="flex-1"> Store</mat-header-cell>
                           <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                            <div class="col-lg-12 col-sm-12 mt-2">
+                            <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                               <kt-simple-dropdown 
                                 placeholder="Select Store" 
                                 propertyValue="id" 
                                 [id]="'credit_note_store_' + i"
                                 propertyName="name"
-                                isDisabledNone="true"
+                                [isDisabledNone]="true"
                                 [hintText]="'Optional'"
                                 (click)="checkCampus()"
                                 formControlName="warehouseId" 
@@ -230,15 +230,15 @@
             </div>
 
             <div class="row mt-10">
-              <div  class="col-md-4 col-lg-4  ml-auto mt-3">
+              <div  class="col-md-4 col-lg-4  ms-auto mt-3">
                 <div  class="print-box">
-                  <h4>Total Before Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
+                  <h4>Total Before Tax : <span class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
                 </div>
                 <div  class="print-box">
-                  <h4>Total Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
+                  <h4>Total Tax : <span class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
                 </div>
                 <div  class="print-box">
-                  <h4>Grand Total : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(grandTotal || 0)}}</span></h4>
+                  <h4>Grand Total : <span class="float-right" style="font-weight: 400;">{{valueFormatter(grandTotal || 0)}}</span></h4>
                 </div>
               </div>
             </div>
@@ -251,9 +251,9 @@
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row">
-            <div class="col-lg-12 text-right">
-              <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="credit_note_reset"><i class="fas fa-undo"></i> Reset</button>
-              <button *ngIf="!isInvoice" class="app-reset-btn mr-2" mat-raised-button type="submit" id="credit_note_save"
+            <div class="col-lg-12 text-end">
+              <button class="me-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="credit_note_reset"><i class="fas fa-undo"></i> Reset</button>
+              <button *ngIf="!isInvoice" class="app-reset-btn me-2" mat-raised-button type="submit" id="credit_note_save"
                 (click)="logValidationErrors(this.creditNoteForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i> Save</button>
               <button class="app-default-btn" mat-raised-button type="submit" id="credit_note_submit"
                 (click)="logValidationErrors(this.creditNoteForm, this.formErrors, this.validationMessages); isSubmit(1)">

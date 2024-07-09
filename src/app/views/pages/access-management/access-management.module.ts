@@ -9,7 +9,6 @@ import { PartialsModule } from '../../partials/partials.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { CustomTooltipComponent } from '../../shared/components/custom-tooltip/custom-tooltip.component';
 import { AccessManagementRoutingModule } from './access-management-routing.module';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { ChangePasswordComponent } from './user-management/change-password/change-password.component';
 import { ResetPasswordComponent } from './user-management/reset-password/reset-password.component';
 import { UserAccessLevelComponent } from './role-management/user-access-level/user-access-level.component';
@@ -21,9 +20,8 @@ import { PrintRolePermissionsComponent } from './role-management/print-role-perm
     CommonModule,
     SharedModule,
     PartialsModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-    AccessManagementRoutingModule,
-    Ng2SearchPipeModule
+    AgGridModule,
+    AccessManagementRoutingModule
   ],
   declarations: [
     CreateRoleComponent,
@@ -34,7 +32,6 @@ import { PrintRolePermissionsComponent } from './role-management/print-role-perm
     ResetPasswordComponent,
     UserAccessLevelComponent,
     PrintRolePermissionsComponent
-  ],
-  entryComponents: [ResetPasswordComponent]
+  ]
 })
 export class AccessManagementModule { }

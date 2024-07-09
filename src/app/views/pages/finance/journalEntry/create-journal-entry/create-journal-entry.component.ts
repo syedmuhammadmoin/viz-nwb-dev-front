@@ -75,7 +75,7 @@ export class CreateJournalEntryComponent extends AppComponentBase implements OnI
   }
 
   // Error keys..
-  formErrors = {
+  formErrors: any = {
     date: '',
     description: '',
     campusId: ''

@@ -12,7 +12,8 @@ import {
   ApexTitleSubtitle,
   ChartComponent,
   ApexNonAxisChartSeries,
-  ApexResponsive, ApexLegend, ApexFill, ApexTooltip, ApexPlotOptions
+  ApexResponsive, ApexLegend, ApexFill, ApexTooltip, ApexPlotOptions,
+  ApexYAxis
 } from 'ng-apexcharts';
 import { DynamicColorChangeService } from '../../shared/services/dynamic-color/dynamic-color-change.service';
 import { DashboardService } from './service/dashboard.service';
@@ -24,11 +25,14 @@ import { IApiResponse } from '../../shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AuthSingletonService } from '../auth/service/auth-singleton.service';
+import { PermissionService } from '../auth/service/permission.service';
+import { firstValueFrom } from 'rxjs';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
   xaxis: ApexXAxis;
+  yaxis: ApexYAxis;
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
   stroke: ApexStroke;
@@ -64,7 +68,7 @@ export type BarChartOptions = {
   templateUrl: './dashboard.component.html',
   styleUrls: ['dashboard.component.scss'],
 })
-export class DashboardComponent extends AppComponentBase implements OnInit {
+export class DashboardComponent implements OnInit {
   @ViewChild('pie-chart') pieChart: ChartComponent;
   public pieChartOptions: Partial<PieChartOptions>;
 
@@ -115,33 +119,25 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
     private dashboardService: DashboardService,
     public ngxsService: NgxsCustomService,
     private singletonService: AuthSingletonService,
-    injector: Injector
-
-  ) {
-    super(injector);
-    this.title = this.titleService.getTitle();
-    console.log("Title is " + this.title);
-
-
-
-  }
+    private permission: PermissionService) 
+    {
+      this.title = this.titleService.getTitle();
+    }
 
 
   showChart:boolean[] =[ false,false];
 
   ngOnInit(): void {
     this.LocalPermission = this.singletonService.getCurrentUserPermission();    
- console.log(this.LocalPermission,"local permission check ");
 
- this.checkingPermission = (this.permission.isGranted(this.permissions.DASHBOARD_BALANCESHEETSUMMARY_VIEW && this.permissions.DASHBOARD_PROFITLOSSSUMMARY_VIEW)) ? true : false;
- console.log(this.checkingPermission ,"Permission Check Kar");
+    this.checkingPermission = (this.permission.isGranted(this.permissions.DASHBOARD_BALANCESHEETSUMMARY_VIEW && this.permissions.DASHBOARD_PROFITLOSSSUMMARY_VIEW)) ? true : false;
  
- if(this.checkingPermission){
+    if(this.checkingPermission){
   
-   this.getballanceSheetSummary(); 
+    this.getballanceSheetSummary(); 
     /// Bar Chart Show Grid             
     /// Line or Pie Chart ////
-    this.dashboardService.getSummaryforLast12Month().toPromise().then((res: IApiResponse<any>) => {
+    firstValueFrom(this.dashboardService.getSummaryforLast12Month()).then((res: IApiResponse<any>) => {
       this.expense = res.result.filter(x => x.nature === "Expenses").map(i => i.balance);
       this.revenue = res.result.filter(x => x.nature === "Revenue").map(i => i.balance);
       this.ref.detectChanges();
@@ -150,7 +146,6 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
 
         if (localStorage.getItem('global_color')) {
           this.localsto = JSON.parse(localStorage.getItem('global_color'));
-          console.log(this.localsto);
           this.primarycolor = this.localsto.primary_color;          
           this.chartcolor = this.localsto.chart_color;
 
@@ -190,6 +185,9 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
                 colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
                 opacity: 0.5
               }
+            },
+            yaxis: {
+              tickAmount: 5
             },
             xaxis: {
               categories: [
@@ -391,7 +389,7 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
 
 
   getballanceSheetSummary(){
-    this.dashboardService.getSummary().toPromise().then((res: IApiResponse<any>) => {
+    firstValueFrom(this.dashboardService.getSummary()).then((res: IApiResponse<any>) => {
       
       // Filter on level2 and sum ballance ammount of each category to show on dashboard top 
       this.currentAsset = res.result.filter(x => x.level1Name === "Assets" && x.level2Name === "Current Assets").reduce((sum, item) => sum + item.balance, 0);
@@ -413,8 +411,6 @@ export class DashboardComponent extends AppComponentBase implements OnInit {
       this.level3Currentlibilities.forEach(x => {
           x.balance = Math.abs(x.balance)
          });
-
-console.log(this.level3Currentlibilities + "loging balance");
 
       this.ref.detectChanges();
     });

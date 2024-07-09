@@ -3,7 +3,6 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { ListCategoryComponent } from './list-category/list-category.component';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateCategoryComponent } from './create-category/create-category.component';
 import { CategoryRoutingModule } from './category-routing.module';
 
@@ -18,9 +17,8 @@ import { CategoryRoutingModule } from './category-routing.module';
     SharedModule,
     PartialsModule,
     CategoryRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-  ],
-  entryComponents: [CreateCategoryComponent],
+    AgGridModule
+  ]
 })
 
 export class CategoryModule { }

@@ -9,7 +9,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mb-5">
         <div class="row">
 
           <div class="btn_container">
@@ -18,11 +18,11 @@
                 <button
                   (click)="addPaymentDialog(paymentId)"
                   *ngIf="(paymentMaster?.state === docStatus.Draft  || paymentMaster?.state === docStatus.Rejected) && (showButtons)"
-                  class="mr-3 btn_public" id="payment_edit" type="button"><i
+                  class="me-3 btn_public" id="payment_edit" type="button"><i
                   class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
-                <button (click)="openFileUploadDialog()" *ngIf="(showButtons)" class="btn_public mr-3" type="button"><i
+                <button (click)="openFileUploadDialog()" *ngIf="(showButtons)" class="btn_public me-3" type="button"><i
                   class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
@@ -34,8 +34,8 @@
               </ng-container>
 
             </div>
-            <div *ngIf="paymentMaster?.isAllowedRole" class="col-lg-6 text-right">
-              <button (click)="remarksDialog(action.Reject)" class="mr-2 btn btn-outline-danger"
+            <div *ngIf="paymentMaster?.isAllowedRole" class="col-lg-6 text-end">
+              <button (click)="remarksDialog(action.Reject)" class="me-2 btn btn-outline-danger"
                       id="payment_reject">Reject
               </button>
               <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success"
@@ -53,7 +53,7 @@
               <p class="mb-0">{{paymentMaster?.businessPartnerAddress || 'N/A'}}</p>
             </div>
           </div>
-          <div class="col-lg-5 ml-auto mt-3">
+          <div class="col-lg-5 ms-auto mt-3">
             <div class="print-box">
               <h4 class="print-box-detail-1"><b>Document No:</b>
                 <span class="float-right" style="font-weight: 400;">{{paymentMaster?.docNo}}</span>
@@ -98,14 +98,14 @@
           <div class="col-md-12 mt-10">
             <table class="table">
               <tr class="b-s-2-b-c">
-                <th class="" style="width: 30%;">Account</th>
-                <th class="text-left">Description</th>
-                <th class="text-right" style="width: 15%;">Gross Payment</th>
+                <th style="width: 30%;">Account</th>
+                <th>Description</th>
+                <th class="text-end" style="width: 15%;">Gross Payment</th>
               </tr>
               <tr>
                 <td class="">{{paymentMaster?.accountName}}</td>
-                <td class="text-left">{{paymentMaster?.description}}</td>
-                <td class="text-right">{{valueFormatter(paymentMaster?.grossPayment || 0)}}</td>
+                <td>{{paymentMaster?.description}}</td>
+                <td class="float-right">{{valueFormatter(paymentMaster?.grossPayment || 0)}}</td>
               </tr>
             </table>
           </div>
@@ -116,7 +116,7 @@
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
-          <div class="col-md-4 col-lg-4  ml-auto mt-3">
+          <div class="col-md-4 col-lg-4  ms-auto mt-3">
             <div class="print-box">
               <h4>Sales Tax:
                 <span class="float-right" style="font-weight: 400;">{{valueFormatter(paymentMaster?.salesTaxInAmount ||

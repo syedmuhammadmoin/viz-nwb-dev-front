@@ -7,8 +7,6 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { PayrollTransactionRoutingModule } from './payroll-transaction-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/register-payment.component';
 
 
 @NgModule({
@@ -22,9 +20,8 @@ import { RegisterPaymentComponent } from '../../sales/invoice/register-payment/r
     SharedModule,
     PartialsModule,
     PayrollTransactionRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [RegisterPaymentComponent]
+    AgGridModule
+  ]
 })
 export class PayrollTransactionModule { }
 

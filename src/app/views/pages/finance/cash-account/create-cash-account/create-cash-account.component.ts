@@ -50,7 +50,7 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
     }
   
     //Keys for Validation Messages
-    formErrors = {
+    formErrors: any = {
       cashAccountName: '',
       openingBalance: '',
       OBDate: '',
@@ -96,14 +96,13 @@ export class CreateCashAccountComponent extends AppComponentBase implements OnIn
     // get Cash account by id
     getCashAccount(id: number) {
       this.cashAccountService.getCashAccount(id)
-        .subscribe(
-          (cashAccount: IApiResponse<ICashAccount>) => {
+        .subscribe({
+          next: (cashAccount: IApiResponse<ICashAccount>) => {
             this.isLoading = false;
             this.editCashAccount(cashAccount.result);
             this.cashAccountModel = cashAccount.result;
-          },
-          (err) => console.log(err)
-        );
+          }
+      });
     }
   
     // Edit method

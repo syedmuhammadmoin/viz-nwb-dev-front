@@ -7,7 +7,6 @@ import { CreateDistrictComponent } from './create-district/create-district.compo
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PortletModule } from 'src/app/views/partials/content/general/portlet/portlet.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
 @NgModule({
@@ -17,7 +16,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     DistrictRoutingModule,    
     SharedModule,
     PortletModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class DistrictModule { }

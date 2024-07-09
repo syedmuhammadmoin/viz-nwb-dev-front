@@ -19,10 +19,6 @@ import { DepartmentDetailComponent } from './department-detail/department-detail
     PartialsModule,
     DepartmentRoutingModule,
     AgGridModule
-  ],
-  entryComponents: [
-    CreateDepartmentComponent
-  ],
- 
+  ]
 })
 export class DepartmentModule { }

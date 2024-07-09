@@ -15,7 +15,7 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintBillComponent extends AppComponentBase implements OnInit {
 
-  gridOptions: GridOptions;
+  gridOptions: any;
   masterData: any;
   billLines: any;
   edinfini : boolean;

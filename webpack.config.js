@@ -4,7 +4,7 @@
  */
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const WebpackRTLPlugin = require("webpack-rtl-plugin");
+// const WebpackRTLPlugin = require("webpack-rtl-plugin");
 const WebpackMessages = require("webpack-messages");
 const del = require("del");
 
@@ -48,9 +48,9 @@ const mainConfig = function () {
 			new MiniCssExtractPlugin({
 				filename: "[name].css",
 			}),
-			new WebpackRTLPlugin({
-				filename: "[name].rtl.css",
-			}),
+			// new WebpackRTLPlugin({
+			// 	filename: "[name].rtl.css",
+			// }),
 			{
 				apply: (compiler) => {
 					// hook name

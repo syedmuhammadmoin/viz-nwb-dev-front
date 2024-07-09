@@ -181,7 +181,7 @@ export class SubheaderService {
 
     const search = (haystack) => {
       // tslint:disable-next-line
-      for (let key in haystack) {
+      for (const key in haystack) {
         path.push(key);
         if (haystack[key] === value) {
           found = true;

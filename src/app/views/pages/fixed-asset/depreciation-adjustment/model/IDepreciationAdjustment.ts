@@ -10,7 +10,7 @@ export interface IDepreciationAdjustment {
    isAllowedRole?: boolean;
    isSubmit?: boolean;
    remarksList?: IRemarksList[];
-   depreciationAdjustmentLines?: IDepreciationAdjustmentLines[];
+   depreciationAdjustmentLines?: IDepreciationAdjustmentLines[] | any;
 }
 
 export interface IRemarksList {

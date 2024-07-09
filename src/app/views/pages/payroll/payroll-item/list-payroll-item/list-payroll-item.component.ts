@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { PayrollItemType, PayrollType, Permissions } from 'src/app/views/shared/AppEnum';
@@ -9,6 +9,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IPayrollItem } from '../model/IPayrollItem';
 import { PayrollItemService } from '../service/payroll-item.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-payroll-item',
@@ -20,13 +21,12 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
 
   payrollItemList: IPayrollItem[];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData: string = "double click to edit"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -71,7 +71,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       headerName: 'Payroll Type',
       field: 'payrollType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return PayrollType[params.value];
       }
@@ -80,7 +80,7 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       headerName: 'Item Type',
       field: 'payrollItemType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return PayrollItemType[params.value];
       }
@@ -89,14 +89,14 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       headerName: 'Account',
       field: 'accountName',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Value',
       field: 'value',
       tooltipField: 'name',
       cellStyle: { 'text-align': "right" },
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value);
       }
@@ -126,20 +126,23 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -182,12 +185,11 @@ export class ListPayrollItemComponent extends AppComponentBase implements OnInit
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getPayrollItems(params: any): Promise<IPaginationResponse<IPayrollItem[]>> {
-    const result = await this.payrollItemService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.payrollItemService.getRecords(params));
     return result
   }
 }

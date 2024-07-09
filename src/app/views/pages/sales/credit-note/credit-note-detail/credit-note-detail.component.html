@@ -6,7 +6,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row ">
           <div class="btn_container">
             <div class="col-md-6 col-6">
@@ -15,10 +15,10 @@
                    && (permission.isGranted(permissions.CREDITNOTE_EDIT))"
                   [routerLink]="'/' + CREDIT_NOTE.ID_BASED_ROUTE('edit' , creditNoteMaster?.id)" id="credit_note_edit"
                   [queryParams]="{q: creditNoteMaster?.id, 'isCreditNote': true}" type="button"
-                  class="mr-3 btn_public"><i class="fa fa-edit icon-e-p-a"></i> Edit
+                  class="me-3 btn_public"><i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="btn_public mr-3"
+                <button *ngIf="(permission.isGranted(permissions.CREDITNOTE_EDIT))"  class="btn_public me-3"
                   (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
@@ -29,8 +29,8 @@
 
               </ng-container>
             </div>
-            <div class="col-lg-6 text-right" *ngIf="creditNoteMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" class="btn btn-outline-danger font-weight-bold mr-2 " id="payment_reject" >Reject</button>
+            <div class="col-lg-6 text-end" *ngIf="creditNoteMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" class="btn btn-outline-danger font-weight-bold me-2 " id="payment_reject" >Reject</button>
               <button (click)="remarksDialog(action.Approve)" class="btn btn-outline-success font-weight-bold " id="payment_approve" >Approve</button>
             </div>
           </div>
@@ -70,22 +70,22 @@
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box" >
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(creditNoteMaster?.totalBeforeTax || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Tax :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(creditNoteMaster?.totalTax || 0)}}</td>
               </tr>
               <tr class="grand-total">
                 <th class="text-left"
                   >Grand Total :</th>
-                <th class="text-right" >
+                <th class="text-end" >
                   {{valueFormatter(creditNoteMaster?.totalAmount || 0)}}</th>
               </tr>
 

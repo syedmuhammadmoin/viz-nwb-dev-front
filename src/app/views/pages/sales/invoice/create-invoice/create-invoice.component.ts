@@ -4,10 +4,10 @@ import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/
 import { IProduct } from '../../../profiling/product/model/IProduct';
 import { IInvoice } from '../model/IInvoice';
 import { InvoiceService } from '../services/invoice.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Observable, ReplaySubject, Subscription } from 'rxjs';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { ProductService } from '../../../profiling/product/service/product.service';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -89,7 +89,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     customerName: '',
     invoiceDate: '',
     campusId: '',
@@ -105,7 +105,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     public addButtonService: AddModalButtonService,
     public ngxsService:NgxsCustomService,
     private cdRef: ChangeDetectorRef,
-    injector: Injector,
+    injector: Injector
 
   ) {
     super(injector);
@@ -174,12 +174,11 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
 
   // OnItemSelected
   onItemSelected(itemId: number, index: number) {
-    console.log("yes")
-    let arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
+    const arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
     if (itemId) {
-      let price = this.salesItem.find(i => i.id === itemId).salesPrice
-      let tax = this.salesItem.find(i => i.id === itemId).salesTax
-      let account = this.salesItem.find(i => i.id === itemId).revenueAccountId
+      const price = this.salesItem.find(i => i.id === itemId).salesPrice
+      const tax = this.salesItem.find(i => i.id === itemId).salesTax
+      const account = this.salesItem.find(i => i.id === itemId).revenueAccountId
       // set values for price & tax
       arrayControl.at(index).get('price').setValue(price);
       arrayControl.at(index).get('tax').setValue(tax);
@@ -193,7 +192,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   }
 
   // onChangeEvent for calculating subtotal
-  onChangeEvent(value: unknown, index: number, element?: HTMLElement) {
+  onChangeEvent(value: unknown, index: number, element?: HTMLElement | any) {
 
     const arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
     const price = (arrayControl.at(index).get('price').value) !== null ? arrayControl.at(index).get('price').value : null;
@@ -213,11 +212,11 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
     this.totalTax = 0;
     this.totalBeforeTax = 0;
     this.grandTotal = 0;
-    let arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
+    const arrayControl = this.invoiceForm.get('invoiceLines') as FormArray;
     arrayControl.controls.forEach((element, index) => {
-      let price = arrayControl.at(index).get('price').value;
-      let tax = arrayControl.at(index).get('tax').value;
-      let quantity = arrayControl.at(index).get('quantity').value;
+      const price = arrayControl.at(index).get('price').value;
+      const tax = arrayControl.at(index).get('tax').value;
+      const quantity = arrayControl.at(index).get('quantity').value;
       this.totalTax += ((price * quantity) * tax) / 100
       this.totalBeforeTax += price * quantity;
       this.grandTotal += Number(arrayControl.at(index).get('subTotal').value);
@@ -398,10 +397,7 @@ export class CreateInvoiceComponent extends AppComponentBase implements OnInit, 
   onCampusSelected(campusId : number) {
     this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
       this.warehouseList.next(res.result || [])
-      console.log(res.result)
     })
-
-    console.log(this.invoiceForm.value.invoiceLines)
 
     if(this.invoiceForm.value.invoiceLines.some(line => line.warehouseId)){
       this.toastService.info("Please Reselect Store!" , "Invoice")

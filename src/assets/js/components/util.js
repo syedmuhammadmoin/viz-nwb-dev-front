@@ -1543,9 +1543,6 @@ var KTUtil = function() {
                 } else {
                     KTUtil.css(element, 'overflow', 'hidden');
                     KTUtil.addClass(element, 'scroll');
-
-                    ps = new PerfectScrollbar(element, options);
-
                     KTUtil.data(element).set('ps', ps);
                 }
 

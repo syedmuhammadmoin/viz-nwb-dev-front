@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { MatDialog} from '@angular/material/dialog';
 import { CustomTooltipComponent } from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -20,15 +20,13 @@ import { CreateAssetComponent } from '../create-asset/create-asset.component';
 export class ListAssetComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: GridOptions;
+  gridOptions: any;
   assetList: IAsset[];
   FilteredData: any[]=[];
-  frameworkComponents: {[p: string]: unknown};
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   // Injecting dependencies
@@ -75,7 +73,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       headerName: 'Employee',
       field: 'employee',
       tooltipField: 'name',
-      suppressMenu: true
+      suppressHeaderMenuButton: true
       // filter: 'agTextColumnFilter',
       // menuTabs: ['filterMenuTab'],
       //   filterParams: {
@@ -250,20 +248,23 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -289,7 +290,7 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
     });
     // Recalling getBusinessPartners function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -319,16 +320,14 @@ export class ListAssetComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
 
 
   // onGridReady(params: GridReadyEvent) {
   //   this.gridApi = params.api;
-  //   this.gridColumnApi = params.columnApi;
-  //   params.api.setDatasource(this.dataSource);
+  //   params.api.setGridOption('datasource', this.dataSource);
   // }
 
   // async getJournalEntries(params: any): Promise<IPaginationResponse<IJournalEntry[]>> {

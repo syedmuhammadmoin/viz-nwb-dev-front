@@ -11,8 +11,9 @@ import { QUOTATION_COMPARATIVE } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IQuotationComparative } from '../model/IQuotationComparative';
 import { QuotationComparativeService } from '../service/quotation-comparative.service';
-import { ColDef, GridApi, GridReadyEvent, IsRowMaster , ICellRendererParams} from 'ag-grid-community';
+import { ColDef, GridApi, GridReadyEvent, IsRowMaster , ICellRendererParams, ValueFormatterParams} from 'ag-grid-community';
 import { QuotationService } from '../../quotation/service/quotation.service';
+import { firstValueFrom } from 'rxjs';
 
 
 
@@ -62,7 +63,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     requisitionId: '',
     quotationComparativeDate: ''
   };
@@ -95,18 +96,18 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       cellRenderer: 'agGroupCellRenderer',
       headerCheckboxSelection: true,
       checkboxSelection: true,
-      suppressMenu: true
+      suppressHeaderMenuButton: true
     },
-    { headerName: 'Vendor', field: 'vendorName' , suppressMenu: true},
+    { headerName: 'Vendor', field: 'vendorName' , suppressHeaderMenuButton: true},
     {
       headerName: 'Quotation Date',
       field: 'quotationDate' ,
-      suppressMenu: true,
-      valueFormatter: (params: ICellRendererParams) => {
+      suppressHeaderMenuButton: true,
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y')
       }
     },
-    { headerName: 'Time Frame', field: 'timeframe', suppressMenu: true},
+    { headerName: 'Time Frame', field: 'timeframe', suppressHeaderMenuButton: true},
   ];
 
   public defaultColDef: ColDef = {
@@ -115,13 +116,13 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   public detailCellRendererParams: any = {
     detailGridOptions: {
       columnDefs: [
-        { headerName: 'Item', field: 'itemName', suppressMenu: true },
-        { headerName: 'Description', field: 'description', suppressMenu: true },
-        { headerName: 'Quantity', field: 'quantity', minWidth: 150 , suppressMenu: true},
+        { headerName: 'Item', field: 'itemName', suppressHeaderMenuButton: true },
+        { headerName: 'Description', field: 'description', suppressHeaderMenuButton: true },
+        { headerName: 'Quantity', field: 'quantity', minWidth: 150 , suppressHeaderMenuButton: true},
         { headerName: 'Price',
         field: 'price',
-        suppressMenu: true,
-        valueFormatter: (params: ICellRendererParams) => {
+        suppressHeaderMenuButton: true,
+        valueFormatter: (params: ValueFormatterParams) => {
           return this.valueFormatter(params.value)
         }
       },
@@ -133,7 +134,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
       },
     },
     getDetailRowData: function (params) {
-      console.log(params)
       params.successCallback(params.data.quotationLines);
     }
   }
@@ -213,7 +213,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   //Patch Quotation Comparative Lines Quotation Comparative Master Data
   patchQuotationComparativeLines(quotations: any) {
     this.gridApi.forEachNode(node => {
-      let isSelect = quotations.some((x: any) => x.id === node.data.id);
+      const isSelect = quotations.some((x: any) => x.id === node.data.id);
 
       if(isSelect){
         node.setSelected(true)
@@ -235,7 +235,6 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
 
     this.isLoading = true;
     this.mapFormValuesToQuotationComparativeModel();
-    console.log(this.quotationComparativeModel)
     if (this.quotationComparativeModel.id) {
       this.quotationComparativeService.updateQuotationComparative(this.quotationComparativeModel)
       .pipe(
@@ -273,7 +272,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
     this.quotationComparativeModel.quotationComparativeDate = this.transformDate(this.quotationComparativeForm.value.quotationComparativeDate, 'yyyy-MM-dd');
     this.quotationComparativeModel.quotationComparativeLines = [];
     this.quotationList.forEach((res: any) => {
-      let val = this.gridApi?.getSelectedRows().includes(res);
+      const val = this.gridApi?.getSelectedRows().includes(res);
       this.quotationComparativeModel.quotationComparativeLines.push({ quotationId: res.id , isSelected: ((val) ? true : false)})
     })
   }
@@ -281,7 +280,7 @@ export class CreateQuotationComparativeComponent extends AppComponentBase implem
   //Get Quotations by requisition Id
   async getQuotations(reqId: number): Promise<IApiResponse<any[]>> {
     this.isLoading = true;
-    const res = await this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: this.quotationCompId}).toPromise()
+    const res = await firstValueFrom(this.quotationService.getQuotatationByReqId({RequisitionId: reqId , quotationCompId: this.quotationCompId}));
     this.quotationList = res.result;
     this.isLoading = false;
     this.cdRef.detectChanges()

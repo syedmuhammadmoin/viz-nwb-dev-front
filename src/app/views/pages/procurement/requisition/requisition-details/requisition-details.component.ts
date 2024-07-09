@@ -29,7 +29,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   public REQUISITION = REQUISITION;
@@ -64,7 +64,7 @@ export class RequisitionDetailsComponent extends AppComponentBase implements OnI
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining Requisition Columns

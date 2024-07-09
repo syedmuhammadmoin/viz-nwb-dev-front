@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, GridOptions, ICellRendererParams, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, GridOptions, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { DocumentStatus } from 'src/app/views/shared/AppEnum';
 import { INVOICE } from 'src/app/views/shared/AppRoutes';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -21,8 +20,8 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   public defaultColDef: ColDef;
   public autoGroupColumnDef: ColDef;
   public agingReportList: IInvoice[];
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
 
   constructor(
@@ -32,7 +31,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
     injector: Injector
   ) { super(injector) }
 
-  columnDefs = [
+  columnDefs: any = [
     {
       field: 'customerName',
       rowGroup: true,
@@ -61,7 +60,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days <= 30) { return this.valueFormatter(params.data.pendingAmount); };
+          if (days <= 30) { return this.valueFormatter(params.data.pendingAmount); }
 
         }
       },
@@ -74,7 +73,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days > 30 && days <= 60) { return this.valueFormatter(params.data.pendingAmount); };
+          if (days > 30 && days <= 60) { return this.valueFormatter(params.data.pendingAmount); }
         }
       }
     },
@@ -86,7 +85,7 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days > 60 && days <= 90) { return this.valueFormatter(params.data.pendingAmount); };
+          if (days > 60 && days <= 90) { return this.valueFormatter(params.data.pendingAmount); }
         }
       }
     },
@@ -97,14 +96,14 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       valueGetter: (params: ICellRendererParams) => {
         if (params.data) {
           const days = this.getDays(params.data.invoiceDate);
-          if (days > 90) { return this.valueFormatter(params.data.pendingAmount) };
+          if (days > 90) { return this.valueFormatter(params.data.pendingAmount) }
         }
       }
     },
     {
       headerName: 'Outstanding Amount',
       field: 'pendingAmount',
-      valueFormatter: (params: ICellRendererParams) => { return this.valueFormatter(params.value) },
+      valueFormatter: (params: ValueFormatterParams) => { return this.valueFormatter(params.value) },
       aggFunc: 'sum',
     },
   ];
@@ -115,11 +114,11 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
-      sortable: true,
+      sortable: false,
       resizable: true,
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.gridOptions = {
       context: "double click to view detail",
@@ -150,7 +149,6 @@ export class AgingReportComponent extends AppComponentBase implements OnInit {
   onGridReady() {
     this.invoiceService.getAgingReport().subscribe((data: IApiResponse<any[]>) => {
       //this.agingReportList = data.result.filter((x: any) => x.state == DocumentStatus.Unpaid || x.state == DocumentStatus.Partial);
-      console.log(data.result)
       this.agingReportList = data.result;
       this.cdRef.detectChanges();
     });

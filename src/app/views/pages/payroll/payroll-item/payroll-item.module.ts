@@ -3,10 +3,8 @@ import { CreatePayrollItemComponent } from './create-payroll-item/create-payroll
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { PayrollItemRoutingModule } from './payroll-item-routing.module';
 import { AssignEmployeeComponent } from './assign-employee/assign-employee.component';
-import { ActionButtonComponent } from 'src/app/views/shared/components/action-button/action-button.component';
 import { ListPayrollItemComponent } from './list-payroll-item/list-payroll-item.component';
 
 
@@ -16,9 +14,7 @@ import { ListPayrollItemComponent } from './list-payroll-item/list-payroll-item.
     SharedModule,
     PartialsModule,
     PayrollItemRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  providers: [],
-  entryComponents: [AssignEmployeeComponent, ActionButtonComponent]
+    AgGridModule
+  ]
 })
 export class PayrollItemModule { }

@@ -119,10 +119,10 @@ export abstract class AppComponentBase {
   }
 
   formatDate(date: string) {
-    let d = new Date(date),
-      month = '' + (d.getMonth() + 1),
-      day = '' + d.getDate(),
-      year = d.getFullYear();
+    const d = new Date(date);
+    let month = '' + (d.getMonth() + 1);
+    let day = '' + d.getDate();
+    const year = d.getFullYear();
 
     if (month.length < 2)
       month = '0' + month;
@@ -224,7 +224,6 @@ export abstract class AppComponentBase {
   }
 
   async redirectToDocumentDetail(docType: DocType, documentId) {
-    console.log(this.createNavigationUrl(docType, documentId));
     await this.router.navigateByUrl(this.createNavigationUrl(docType, documentId));
   }
 

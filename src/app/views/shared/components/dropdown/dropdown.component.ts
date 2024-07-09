@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -30,9 +29,10 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
   @ViewChild('customSelect') customSelect: ElementRef
 
-  @Input() formControl: FormControl;
+  @Input() formControl: FormControl<any> | any;
   @Input() formControlName: string;
   @Input() optionList: Observable<any> | any;
+  @Input() readonly: boolean;
   @Input() propertyName: string;
   @Input() propertyValue: string;
   @Input() isRequired = false;
@@ -40,7 +40,7 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   @Input() placeholder: string;
   @Input() searchPlaceholder: string;
   @Input() hintText: string;
-  @Input() errorMessage: string;
+  @Input() errorMessage: string | any;
   @Input() clickEventButtonName: string;
   @Input() buttonPermission: boolean;
   @Input() matFormFieldClass: any | [] | string;
@@ -61,7 +61,7 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   isLoading: boolean;
   filterControl: FormControl = new FormControl();
   filteredOptionList: ReplaySubject<[]> = new ReplaySubject<[]>(1);
-  private options: any[] = [];
+  private options: any = [];
   private selectedOptions = []
 
   get control() {
@@ -96,13 +96,11 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
           if (this.options.length > 0 || res?.isSuccess) {
             this.isLoading = false;
           }
-          // @ts-ignore
           this.filteredOptionList.next(this.options.slice());
         }
       })
     } else {
       this.options = this.callBackFunction ? this.optionList.flatMap(this.callBackFunction) : this.optionList;
-      // @ts-ignore
       this.filteredOptionList.next(this.options?.slice());
     }
 
@@ -120,7 +118,6 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
     // get the search keyword
     let search = this.filterControl.value;
     if (!search) {
-      // @ts-ignore
       this.filteredOptionList.next(this.options.slice());
       return;
     } else {
@@ -128,7 +125,6 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
     }
     // filter the banks
     this.filteredOptionList.next(
-      // @ts-ignore
       this.options.filter(option => option[this.propertyName].toString().toLowerCase().indexOf(search) > -1)
     );
   }

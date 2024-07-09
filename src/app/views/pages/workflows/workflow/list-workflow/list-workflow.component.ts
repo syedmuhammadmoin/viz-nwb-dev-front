@@ -1,8 +1,7 @@
 import { WORKFLOW } from './../../../../shared/AppRoutes';
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
-import { ColumnApi, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
+import { GridApi, GridOptions, GridReadyEvent, ValueFormatterParams } from 'ag-grid-community';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { WorkflowService } from '../service/workflow.service';
@@ -11,6 +10,7 @@ import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IWorkflow } from '../model/IWorkflow';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-workflow',
@@ -21,14 +21,13 @@ import { isEmpty } from 'lodash';
 export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
   workflowList: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   tooltipData: string = "double click to view details"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   columnDefs = [
@@ -48,7 +47,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       headerName: 'Document Type',
       field: 'docType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
       return (params.value || params.value === 0) ? AppConst.Documents.find(x => x.id === params.value).value : null
       }
@@ -57,7 +56,7 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       headerName: 'Active',
       field: 'isActive',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => { return params.value ? 'Yes' : 'No' }
     },
   ];
@@ -71,7 +70,6 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
     super(injector)
 
-    this.defaultColDef = { resizable: true };
     //for tooltip dynamic massage
     this.gridOptions = <GridOptions>(
       {
@@ -88,20 +86,23 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -141,12 +142,11 @@ export class ListWorkflowComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getWorkflows(params: any): Promise<IPaginationResponse<IWorkflow[]>> {
-    const result = await this.workflowService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.workflowService.getRecords(params));
     return result
   }
 }

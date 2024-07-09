@@ -13,12 +13,11 @@ import { IBankAccount } from 'src/app/views/pages/finance/bank-account/model/IBa
 import { MatRadioChange } from '@angular/material/radio';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
-import { DepartmentState } from '../../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { finalize, take } from 'rxjs/operators';
-import { IPayment } from 'src/app/views/pages/finance/payment/model/IPayment';
 import { IPaymentProcess } from '../../../model/IPaymentProcess';
 import { CampusState } from 'src/app/views/pages/profiling/campus/store/campus.state';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'kt-create-payment',
@@ -33,7 +32,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   createPayrollPaymentForm: FormGroup;
   tooltipData = 'click to select employee'
   employeeGridApi: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   transactionList: any[] = [];
@@ -57,49 +56,49 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'CNIC', field: 'cnic',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Designation', field: 'designation',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Campus',
       field: 'campus',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Department',
       field: 'department',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Working Days',
       // editable: true,
       field: 'workingDays',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Present Days',
       // editable: true,
       field: 'presentDays',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Net Salary',
       field: 'netSalary',
       tooltipField: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -107,11 +106,11 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Status',
       field: 'status',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     month: '',
     year: '',
@@ -176,10 +175,15 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       description: ['', Validators.required],
     });
 
+    this.gridOptions = {
+      paginationPageSizeSelector: false
+    }
+
     this.defaultColDef = {
+      sortable: false,
       tooltipComponent: 'customTooltip',
     }
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.loadAccountList({value: 2})
 
@@ -226,8 +230,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     this.isLoading.emit(true);
     const selectedTransactions = this.employeeGridApi.getSelectedRows()
     const bodyList = [] //as ICreatePayrollTransLines[]
-    console.log("selcted employees")
-    console.log(selectedTransactions)
+
     selectedTransactions.forEach((x: any) => {
       bodyList.push({
         accountPayableId: x.accountPayableId,
@@ -245,7 +248,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     body.description = this.createPayrollPaymentForm.value.description;
     body.createPayrollTransLines = bodyList;
 
-    console.log(body)
     this.payrollProcessService.createPaymentProcess(body)
     .pipe(
       take(1),
@@ -287,8 +289,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
       this.propertyName = 'cashAccountName';
     } else {
       this.ngxsService.bankAccountService.getBankAccountsDropdown().subscribe((res: IApiResponse<IBankAccount[]>) => {
-        console.log("entered")
-        console.log(res.result)
         this.bankAccountList.next(res.result)
         this.cdRef.markForCheck();
       })

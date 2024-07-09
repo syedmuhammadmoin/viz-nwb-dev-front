@@ -6,7 +6,7 @@
         </ng-container>
       </kt-portlet-header>
       <kt-portlet-body>
-        <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+        <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
           <div class="row ">
   
             <div class="btn_container">
@@ -15,11 +15,11 @@
                     <button *ngIf="(quotationMaster?.state === docStatus.Draft || quotationMaster?.state === docStatus.Rejected)
                         && (permission.isGranted(permissions.QUOTATION_EDIT))"
                       [routerLink]="'/' + QUOTATION.ID_BASED_ROUTE('edit', quotationMaster?.id)" [queryParams]="{q: quotationMaster?.id, 'isQuotation': true}"
-                      type="button"  class="mr-3 btn_public" id="quotation_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                      type="button"  class="me-3 btn_public" id="quotation_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                       Edit
                     </button>
   
-                    <button *ngIf="(permission.isGranted(permissions.QUOTATION_EDIT))" class="btn_public mr-3" id="quotation_attachment"
+                    <button *ngIf="(permission.isGranted(permissions.QUOTATION_EDIT))" class="btn_public me-3" id="quotation_attachment"
                       (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                     </button>
   
@@ -30,8 +30,8 @@
                 </ng-container>
   
               </div>
-              <div class="col-lg-6 text-right" *ngIf="quotationMaster?.isAllowedRole">
-                <button (click)="remarksDialog(action.Reject)" id="quotation_reject" class="btn btn-outline-danger font-weight-bold mr-2" >Reject</button>
+              <div class="col-lg-6 text-end" *ngIf="quotationMaster?.isAllowedRole">
+                <button (click)="remarksDialog(action.Reject)" id="quotation_reject" class="btn btn-outline-danger font-weight-bold me-2" >Reject</button>
                 <button (click)="remarksDialog(action.Approve)" id="quotation_approve" class="btn btn-outline-success font-weight-bold " >Approve</button>
               </div>
             </div>
@@ -71,7 +71,7 @@
               <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
             </div>
   
-            <div class="col-lg-4 ml-auto">
+            <div class="col-lg-4 ms-auto">
               <table class="table  small_table_box" style="margin: 0px -6px;">
                
                 <tr *ngIf="quotationMaster?.references?.length > 0">

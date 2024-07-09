@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateStatusComponent } from './create-status/create-status.component';
 import { ListStatusComponent } from './list-status/list-status.component';
 import { StatusRoutingModule } from './status-routing.module';
@@ -18,9 +17,8 @@ import { StatusRoutingModule } from './status-routing.module';
     SharedModule,
     PartialsModule,
     StatusRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [CreateStatusComponent]
+    AgGridModule
+  ]
 })
 
 

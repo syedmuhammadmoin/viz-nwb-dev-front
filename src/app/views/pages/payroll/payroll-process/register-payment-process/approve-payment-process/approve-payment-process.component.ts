@@ -9,7 +9,6 @@ import { PayrollProcessService } from '../../service/payroll-process.service';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
-import { DepartmentState } from '../../../department/store/department.store';
 import { isEmpty } from 'lodash';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { finalize, take } from 'rxjs/operators';
@@ -29,7 +28,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
   approvePayrollPaymentForm: FormGroup;
   tooltipData = 'double click to edit'
   employeeGridApi: any;
-  frameworkComponents: any;
+  
   gridOptions: any;
   defaultColDef: any;
   paymentList: any[] = [];
@@ -49,25 +48,25 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
-      headerName: 'Doc #', field: 'docNo', suppressMenu: true,
+      headerName: 'Doc #', field: 'docNo', suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Account Payable',
       field: 'accountName',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Register',
       field: 'paymentRegisterName',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Date',
       field: 'paymentDate',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.dateHelperService.transformDate(new Date(params.value), 'dd MMM, yyyy')
       }
@@ -75,7 +74,7 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Net Payment',
       field: 'netPayment',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -83,11 +82,11 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Status',
       field: 'status',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     campusId: '',
     month: '',
@@ -136,10 +135,15 @@ export class ApprovePaymentProcessComponent extends AppComponentBase implements 
      // bankId: [''],
     });
 
+    this.gridOptions = {
+      paginationPageSizeSelector: false
+    }
+
     this.defaultColDef = {
+      sortable: false,
       tooltipComponent: 'customTooltip'
     }
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.getLatestCampuses();
 

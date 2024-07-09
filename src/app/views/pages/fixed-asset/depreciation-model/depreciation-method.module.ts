@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CreateDepreciationComponent } from './create-depreciation/create-depreciation.component';
 import { ListDepreciationComponent } from './list-depreciation/list-depreciation.component';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { DepreciationRoutingModule } from './depreciation-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
 @NgModule({
@@ -18,8 +16,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SharedModule,
     PartialsModule,
     DepreciationRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
-  ],
-  entryComponents: [CreateDepreciationComponent]
+    AgGridModule
+  ]
 })
 export class DepreciationMethodModule { }

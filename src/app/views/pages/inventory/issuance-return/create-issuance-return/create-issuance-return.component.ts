@@ -4,7 +4,7 @@ import { IProduct} from '../../../profiling/product/model/IProduct';
 import { ActivatedRoute, Router} from '@angular/router';
 import { finalize, take} from 'rxjs/operators';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, firstValueFrom } from 'rxjs';
 import { ISSUANCE_RETURN } from 'src/app/views/shared/AppRoutes';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IssuanceService } from '../../issuance/service/issuance.service';
@@ -96,7 +96,7 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
   }
 
   // Error Keys
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     issuanceReturnDate: '',
     contact: '',
@@ -401,12 +401,11 @@ export class CreateIssuanceReturnComponent extends AppComponentBase implements O
 
     this.ngxsService.products$
       .subscribe((res) => {
-        console.log(res);
         this.isFixedAsset = res.find(x => itemId === x.id)?.isFixedAsset;
       })
 
     if (this.isFixedAsset) {
-      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise()
+      const response = await firstValueFrom(this.ngxsService.assetService.getAssetsProductDropdownById(itemId));
       this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.enable();
       this.issuanceReturnForm.get('issuanceReturnLines')['controls'][curretIndex].controls.fixedAssetId.setValidators([Validators.required]);
       this.fixedAssetsDropdown[curretIndex] = response.result ? response.result : [];

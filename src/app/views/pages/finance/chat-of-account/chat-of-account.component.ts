@@ -87,7 +87,6 @@ export class ChatOfAccountComponent extends AppComponentBase implements OnInit {
     .subscribe((data) => {
      
       this.dataSource.data = data.result;
-      //console.log('this.dataSource.data', this.dataSource.data);
       this.cdRef.detectChanges();
     });
   }

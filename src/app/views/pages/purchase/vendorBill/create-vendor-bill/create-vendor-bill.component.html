@@ -6,7 +6,7 @@
     <form [formGroup]="vendorBillForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
-          <div class="col-lg-12 col-md-12">
+          <div class="col-lg-12 col-md-12 ps-4 pe-4">
             <div class="row mt-1 mb-0">
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
@@ -54,7 +54,7 @@
                       (blurEvent)="logValidationErrors(this.vendorBillForm, formErrors, validationMessages)"
                       [errorMessage]="formErrors.dueDate"
                       [minDate]="minDate"
-                      dateCondition="dateCondition" 
+                      [dateCondition]="dateCondition" 
                       dateMessage="Bill">
                     </kt-date-input>
                 </div>
@@ -89,7 +89,7 @@
                             <ng-container matColumnDef="itemId">
                               <mat-header-cell *matHeaderCellDef  class="flex-1"> Item</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-simple-dropdown
                                     propertyName="productName"
                                     [id]="'bill_item_' + i"
@@ -98,7 +98,7 @@
                                     [buttonPermission]="permission.isGranted(this.permissions.PRODUCT_CREATE)"
                                     clickEventButtonName="Add New Item"
                                     (clickEvent)="addButtonService.openProductDialog()"
-                                    isDisabledNone="true"
+                                    [isDisabledNone]="true"
                                     formControlName="itemId"
                                     placeholder="Select Item"
                                     matFormFieldClass="mobile-label full-width"
@@ -112,7 +112,7 @@
                             <ng-container matColumnDef="description">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> Description</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-input-field
                                     formControlName="description" [id]="'bill_description_' + i"
                                     matFormFieldClass="mobile-label full-width"
@@ -129,7 +129,7 @@
                             <ng-container matColumnDef="accountId">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> COA</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-simple-dropdown
                                   [id]="'bill_coa_' + i"
                                     placeholder="Select Detailed Head"
@@ -147,7 +147,7 @@
                             <ng-container matColumnDef="quantity">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> Quantity</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-input-field
                                     formControlName="quantity" [id]="'bill_quantity_' + i"
                                     matFormFieldClass="mobile-label full-width"
@@ -171,7 +171,7 @@
                             <ng-container matColumnDef="cost">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> Cost</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-input-field
                                   [id]="'bill_cost_' + i"
                                     formControlName="cost"
@@ -196,7 +196,7 @@
                             <ng-container matColumnDef="tax">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> Tax%</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-input-field
                                     formControlName="tax"
                                     [id]="'bill_tax_' + i"
@@ -220,7 +220,7 @@
                             <ng-container matColumnDef="anyOtherTax">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> Other Taxes/FED</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-input-field
                                     formControlName="anyOtherTax"
                                     matFormFieldClass="mobile-label full-width"
@@ -244,7 +244,7 @@
                             <ng-container matColumnDef="subTotal">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> SubTotal </mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-input-field
                                   [id]="'bill_subtotal_' + i"
                                     placeholder="Subtotal"
@@ -257,13 +257,13 @@
                             <ng-container matColumnDef="warehouseId">
                               <mat-header-cell *matHeaderCellDef class="flex-1"> Store</mat-header-cell>
                               <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-1">
-                                <div class="col-lg-12 col-sm-12 mt-2">
+                                <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                                   <kt-simple-dropdown 
                                   [id]="'bill_store_' + i"
                                     placeholder="Select Store" 
                                     propertyValue="id" 
                                     propertyName="name"
-                                    isDisabledNone="true"
+                                    [isDisabledNone]="true"
                                     [hintText]="'Optional'"
                                     (click)="checkCampus()"
                                     formControlName="warehouseId" 
@@ -306,21 +306,21 @@
 
 
             <div class="row mt-10">
-              <div  class="col-md-4 col-lg-4  ml-auto mt-3">
+              <div  class="col-md-4 col-lg-4  ms-auto mt-3">
                 <div  class="print-box">
-                  <h4>Total Before Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
+                  <h4>Total Before Tax : <span class="float-right" style="font-weight: 400;">{{valueFormatter(totalBeforeTax || 0)}}</span></h4>
                 </div>
                 <div  class="print-box">
-                  <h4>Tax : <span  class="float-right" style="font-weight: 400;">{{valueFormatter(taxes || 0)}}</span></h4>
+                  <h4>Tax : <span class="float-right" style="font-weight: 400;">{{valueFormatter(taxes || 0)}}</span></h4>
                 </div>
                 <div  class="print-box">
-                  <h4>Other Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(otherTaxes || 0)}}</span></h4>
+                  <h4>Other Tax :<span class="float-right" style="font-weight: 400;">{{valueFormatter(otherTaxes || 0)}}</span></h4>
                 </div>
                 <div  class="print-box">
-                  <h4>Total Tax :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
+                  <h4>Total Tax :<span class="float-right" style="font-weight: 400;">{{valueFormatter(totalTax || 0)}}</span></h4>
                 </div>
                 <div  class="print-box">
-                  <h4>Grand Total :<span  class="float-right" style="font-weight: 400;">{{valueFormatter(grandTotal || 0)}}</span></h4>
+                  <h4>Grand Total :<span class="float-right" style="font-weight: 400;">{{valueFormatter(grandTotal || 0)}}</span></h4>
                 </div>
               </div>
             </div>
@@ -332,9 +332,9 @@
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
-            <div class="col-lg-12 text-right">
-              <button  class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="bill_reset"><i class="fas fa-undo"></i> Reset</button>
-              <button  class=" mr-2 app-save-btn" mat-raised-button type="submit" id="bill_save"
+            <div class="col-lg-12 text-end">
+              <button  class="me-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="bill_reset"><i class="fas fa-undo"></i> Reset</button>
+              <button  class=" me-2 app-save-btn" mat-raised-button type="submit" id="bill_save"
               (click)="logValidationErrors(this.vendorBillForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i> Save </button>
               <button class="app-default-btn " mat-raised-button type="submit" id="bill_submit"
               (click)="logValidationErrors(this.vendorBillForm, this.formErrors, this.validationMessages); isSubmit(1)">

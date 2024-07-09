@@ -2,7 +2,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 // RxJS
-import {forkJoin, Observable, of} from 'rxjs';
+import { Observable, of, zip} from 'rxjs';
 import {catchError, map, mergeMap} from 'rxjs/operators';
 // Lodash
 import {each, filter, find, some} from 'lodash';
@@ -89,7 +89,7 @@ export class AuthService {
         user.password = undefined;
         return user;
       }),
-      catchError(this.handleError('forgot-password', []))
+      catchError(this.handleError([]))
     );
   }
 
@@ -180,7 +180,7 @@ export class AuthService {
   getRolePermissions(roleId: number): Observable<Permission[]> {
     const allRolesRequest = this.http.get<Permission[]>(API_PERMISSION_URL);
     const roleRequest = roleId ? this.getRoleById(roleId) : of(null);
-    return forkJoin(allRolesRequest, roleRequest).pipe(
+    return zip(allRolesRequest, roleRequest).pipe(
       map(res => {
         const allPermissions: Permission[] = res[0];
         const role: Role = res[1];
@@ -274,11 +274,8 @@ export class AuthService {
     );
   }
 
-  private handleError<T>(operation = 'operation', result?: any) {
-    return (error: any): Observable<any> => {
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
+  private handleError<T>(result?: any) {
+    return (): Observable<any> => {
       // Let the app keep running by returning an empty result.
       return of(result);
     };

@@ -2,8 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 // Layout
 import { HtmlClassService } from '../html-class.service';
-// Object-Path
-import * as objectPath from 'object-path';
 
 @Component({
   selector: 'kt-footer',

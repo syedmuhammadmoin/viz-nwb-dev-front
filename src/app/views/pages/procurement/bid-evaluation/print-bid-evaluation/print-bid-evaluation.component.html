@@ -1,5 +1,5 @@
 <div class="container " >
-    <div class="col-lg-10  mx-auto text-right">
+    <div class="col-lg-10  mx-auto text-end">
       <div class="row">
         <button
           id="bid_print"
@@ -8,13 +8,13 @@
          (click)="printForm()"
           type="button"          
           class="app-default-btn" mat-raised-button
-          style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+          style="margin-bottom: 20px; width: auto;"><i class="fas fa-print"></i> Print
         </button>
       </div>
     </div>
     <div class="col-lg-10 mx-auto" id="main">
       <div [class]="className">
-        <div class="bg-whitee">
+        <div class="print-bg-white">
           <div class="print_header_area p-s-1">
             <div class="print-col-7 p-s-1-one">
               <div class="logo_and_title">
@@ -25,7 +25,7 @@
               </div>
   
             </div>
-            <div class="print-col-5 ml-auto p-s-1-two">
+            <div class="print-col-5 ms-auto p-s-1-two">
               <div class="id_num">
                 <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
                 margin-bottom: 10px;
@@ -67,7 +67,7 @@
               </div>
             </div>
   
-            <div class="print-col-6 p-s-2-one ml-auto" style="margin-top: 3%;">
+            <div class="print-col-6 p-s-2-one ms-auto" style="margin-top: 3%;">
               <div class="print-box-one">
                 <h4 class="font-14"><b>Procurement Method:</b> <span class="float-right" style="font-weight: 400;">{{bidEvaluationMaster?.methodOfProcurement}}</span></h4>
                 <p style="margin-bottom: 0px;"></p>
@@ -97,7 +97,7 @@
                         <th>Technical Obtain</th>
                         <th>Financial Total</th>
                         <th>Financial Obtain</th>
-                        <th class="text-right">Evaluated Cost</th>
+                        <th class="text-end">Evaluated Cost</th>
                         <th>Rule</th>
                       </tr>
                       <tr *ngFor="let line of bidEvaluationLines; index as i">
@@ -107,7 +107,7 @@
                         <td>{{line?.technicalObtain}}</td>
                         <td>{{line?.financialTotal}}</td>
                         <td>{{line?.financialObtain}}</td>
-                        <td class="text-right"><b>{{valueFormatter(line?.evaluatedCost)}}</b></td>
+                        <td class="text-end"><b>{{valueFormatter(line?.evaluatedCost)}}</b></td>
                         <td>{{line?.rule}}</td>
                       </tr>
                     </thead>
@@ -116,7 +116,7 @@
               </div>
             </div>
   
-          <div class="row mt-10 ms-10">
+          <div class="row mt-10">
             <div class="print-col-4 p-s-5 text-center" style="overflow: hidden;">
               ______________________
               <p class="text-center">Authorized Sign</p>

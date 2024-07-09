@@ -10,7 +10,6 @@ import {IApiResponse} from '../../../../shared/IApiResponse';
 import {IsReloadRequired} from '../../../profiling/store/profiling.action';
 import {IState} from '../models/IState';
 import {CountryStateState} from '../store/country-state.state';
-import {CountryState} from '../../country/store/country.state';
 
 @Component({
   selector: 'kt-create-state',
@@ -62,7 +61,7 @@ export class CreateStateComponent extends AppComponentBase implements OnInit {
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     countryId: '',
     courseCode: '',

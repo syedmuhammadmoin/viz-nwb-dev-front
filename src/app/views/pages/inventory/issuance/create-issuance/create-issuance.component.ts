@@ -13,7 +13,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IIssuance } from '../model/IIssuance';
 import { IssuanceService } from '../service/issuance.service';
 import { IIssuanceLines } from '../model/IssuanceLines';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, firstValueFrom } from 'rxjs';
 import { RequisitionService } from '../../../procurement/requisition/service/requisition.service';
 import { IRequisition } from '../../../procurement/requisition/model/IRequisition';
 import { EmployeeService } from '../../../payroll/employee/service/employee.service';
@@ -92,7 +92,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     issuanceDate: '',
     fixedAssetId: ''
@@ -128,7 +128,8 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
       ])
     });
 
-    this.productService.getProductsDropdown().subscribe((res: any) => {
+    this.productService.getProductsDropdown().subscribe({
+      next: (res: any) => {
         this.productList = res.result;
         this.activatedRoute.queryParams.subscribe((param) => {
           const id = param.q;
@@ -147,9 +148,11 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
             this.cdRef.detectChanges()
           }
         });
-    },
-    () => {
-      this.isLoading = false;
+      },
+      error: () => {},
+      complete: () => {
+        this.isLoading = false;
+      }
     })
 
     //this.issuanceForm.get('issuanceLines')['controls'][0].controls.fixedAssetId.disable();
@@ -201,20 +204,23 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
 
   //Get issuance Data for Edit
   private getIssuance(id: number) {
-    this.issuanceService.getIssuanceById(id).subscribe(
-      (res) => {
-        if (!res) return
-        this.issuanceModel = res.result
-        this.patchIssuance(this.issuanceModel)
+    this.issuanceService.getIssuanceById(id).subscribe({
+      next: (res) => {
+        if (!res) {
+          return
+        }
+        this.issuanceModel = res.result;
+        this.patchIssuance(this.issuanceModel);
 
         // res.result.issuanceLines.forEach((x, index) => {
         //   this.onItemSelected(x.itemId, index)
         // })
       },
-      () => {
+      complete: () => {
         this.isLoading = false;
         this.cdRef.detectChanges();
-      });
+      }
+    })
   }
 
   //Get Requisition Data
@@ -413,7 +419,7 @@ export class CreateIssuanceComponent extends AppComponentBase implements OnInit 
     this.isFixedAsset = this.productList.find(x => itemId === x.id)?.isFixedAsset;
 
     if (this.isFixedAsset) {
-      const response = await this.ngxsService.assetService.getAssetsProductDropdownById(itemId).toPromise();
+      const response = await firstValueFrom(this.ngxsService.assetService.getAssetsProductDropdownById(itemId));
       fixedAsset?.enable();
       fixedAsset?.setValidators([Validators.required]);
       fixedAsset?.updateValueAndValidity();

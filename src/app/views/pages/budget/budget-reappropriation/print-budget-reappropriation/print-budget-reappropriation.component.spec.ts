@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrintBudgetReappropriationComponent } from './print-budget-reappropriation.component';
 
@@ -6,7 +6,7 @@ describe('PrintBudgetReappropriationComponent', () => {
   let component: PrintBudgetReappropriationComponent;
   let fixture: ComponentFixture<PrintBudgetReappropriationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrintBudgetReappropriationComponent ]
     })

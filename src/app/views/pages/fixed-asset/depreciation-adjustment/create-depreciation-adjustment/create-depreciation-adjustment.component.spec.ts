@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateDepreciationAdjustmentComponent } from './create-depreciation-adjustment.component';
 
@@ -6,7 +6,7 @@ describe('CreateAssetAdjustmentComponent', () => {
   let component: CreateDepreciationAdjustmentComponent;
   let fixture: ComponentFixture<CreateDepreciationAdjustmentComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateDepreciationAdjustmentComponent ]
     })

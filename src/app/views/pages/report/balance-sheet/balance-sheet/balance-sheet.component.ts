@@ -11,11 +11,10 @@ import { GridOptions } from 'ag-grid-community';
 import { IBalanceSheet} from "../model/IBalanceSheet";
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
-import { Router } from '@angular/router';
 import { AppConst } from 'src/app/views/shared/AppConst';
 
 @Component({
-  selector: 'app-balance-sheet',
+  selector: 'kt-balance-sheet',
   templateUrl: './balance-sheet.component.html',
   styleUrls: ['./balance-sheet.component.scss']
 })
@@ -26,12 +25,12 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   public currentClient : any ={}
   rowData: any[] = [];
   columnDefs: any;
-  gridOptions: GridOptions;
+  gridOptions: any;
   gridApi: any;
-  gridColumnApi: any;
   defaultColDef;
   autoGroupColumnDef: any;
   balanceSheetForm: FormGroup;
+  groupDisplayType: any = 'multipleColumns';
   equityNLiability = '0';
   asset = '0';
 
@@ -51,7 +50,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     docDate: '',
   }
 
@@ -79,7 +78,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         headerName: 'Total',
         field: 'balance',
         aggFunc: 'sum',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (param) => {
           return this.valueFormatter(param.value)
         }
@@ -107,6 +106,7 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       filter: true,
       resizable: true,
+      sortable: false,
       menuTabs: ["filterMenuTab"],
     };
 
@@ -122,7 +122,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
   }
 // called when form is submit by clicking on submit button
   onSubmit() {
@@ -162,7 +161,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
 
 
   calculateNetProfit(res: any[]) {
-    console.table(res);
     this.asset = res.filter(x => x.nature.toLowerCase() === 'assets').reduce((a, b) => {
       return Number(a) + Number(b.balance)
     }, 0).toLocaleString(undefined, {maximumFractionDigits: 2, minimumFractionDigits: 2});
@@ -178,7 +176,6 @@ export class BalanceSheetComponent extends AppComponentBase implements OnInit {
         minimumFractionDigits: 2
       })})`
       : ((equity) + (liablity)).toLocaleString(undefined, {maximumFractionDigits: 2, minimumFractionDigits: 2});
-    console.log((equity) + (liablity));
   }
 
   reset() {

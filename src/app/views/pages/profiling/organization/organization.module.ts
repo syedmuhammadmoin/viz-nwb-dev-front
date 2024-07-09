@@ -5,7 +5,6 @@ import { ListOrganizationComponent } from './list-organization/list-organization
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module'
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { OrganizationRoutingModule } from './organization-routing.module';
 
 @NgModule({
@@ -18,10 +17,8 @@ import { OrganizationRoutingModule } from './organization-routing.module';
     PartialsModule,
     SharedModule,
     OrganizationRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent]),
-  ],
- 
-  entryComponents: [CreateOrganizationComponent]
+    AgGridModule
+  ]
 })
 
 export class OrganizationModule { }

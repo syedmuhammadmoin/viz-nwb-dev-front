@@ -1,8 +1,6 @@
 import {Injectable,} from '@angular/core';
-import {Select, Store} from '@ngxs/store';
-import {Observable} from 'rxjs';
+import {Store} from '@ngxs/store';
 import {AccountLevel4State} from 'src/app/views/pages/finance/chat-of-account/store/account-level4.state';
-import {BudgetAccountState} from 'src/app/core/shared-state/account-state/store/budget-account.state';
 
 import {BudgetService} from 'src/app/views/pages/budget/current-budget/service/budget.service';
 import {BudgetState} from 'src/app/views/pages/budget/current-budget/store/budget.state';
@@ -57,12 +55,12 @@ import {GetLiabilityAccountsState} from 'src/app/views/pages/finance/chat-of-acc
 import {AssetService} from 'src/app/views/pages/fixed-asset/asset/service/asset.service';
 import {AssetState} from '../../../pages/fixed-asset/store/asset.state';
 import {DisposalDropdownState} from 'src/app/views/pages/fixed-asset/asset/store/disposal-dropdown.state';
-import { FacultyState } from 'src/app/views/pages/admission/faculty/store/faculty.state';
-import { FacultyService } from 'src/app/views/pages/admission/faculty/service/faculty.service';
-import { DegreeService } from 'src/app/views/pages/admission/degree/service/degree.service';
-import { DegreeState } from 'src/app/views/pages/admission/degree/store/degree.state';
-import { QualificationState } from 'src/app/views/pages/admission/qualification/store/qualification.state';
-import { QualificationService } from 'src/app/views/pages/admission/qualification/service/qualification.service';
+import {FacultyState } from 'src/app/views/pages/admission/faculty/store/faculty.state';
+import {FacultyService } from 'src/app/views/pages/admission/faculty/service/faculty.service';
+import {DegreeService } from 'src/app/views/pages/admission/degree/service/degree.service';
+import {DegreeState } from 'src/app/views/pages/admission/degree/store/degree.state';
+import {QualificationState } from 'src/app/views/pages/admission/qualification/store/qualification.state';
+import {QualificationService } from 'src/app/views/pages/admission/qualification/service/qualification.service';
 import {CourseService} from '../../../pages/admission/course/service/course.service';
 import {CourseState} from '../../../pages/admission/course/store/course.state';
 import {SemesterService} from '../../../pages/admission/semester/services/semester.service';
@@ -75,10 +73,10 @@ import {CityService} from '../../../pages/admission/city/services/city.service';
 import {CityState} from '../../../pages/admission/city/store/city.state';
 import {FeeItemService} from '../../../pages/admission/fee-item/services/fee-item.service';
 import {FeeItemState} from '../../../pages/admission/fee-item/store/fee-item.state';
-import { DomicileState } from 'src/app/views/pages/admission/domicile/store/domicile.state';
-import { DomicileService } from 'src/app/views/pages/admission/domicile/service/domicile.service';
-import { DistrictState } from 'src/app/views/pages/admission/district/store/district.state';
-import { DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
+import {DomicileState } from 'src/app/views/pages/admission/domicile/store/domicile.state';
+import {DomicileService } from 'src/app/views/pages/admission/domicile/service/domicile.service';
+import {DistrictState } from 'src/app/views/pages/admission/district/store/district.state';
+import {DistrictService } from 'src/app/views/pages/admission/district/service/district.service';
 import {AcademicDepartmentState} from '../../../pages/admission/academic-department/store/academic-department.state';
 import {AcademicDepartmentService} from '../../../pages/admission/academic-department/service/academic-department.service';
 import {ShiftService} from '../../../pages/admission/shift/service/shift.service';
@@ -90,6 +88,7 @@ import {BatchState} from '../../../pages/admission/batch/store/batch.state';
 import {AdmissionCriteriaService} from '../../../pages/admission/admission-criteria/services/admission-criteria.service';
 import {SubjectService} from '../../../pages/admission/subject/service/subject.service';
 import {SubjectState} from '../../../pages/admission/subject/store/subject.state';
+import {BudgetAccountState } from 'src/app/views/pages/budget/current-budget/store/budget-account.state';
 
 @Injectable({
   providedIn: 'root'
@@ -97,9 +96,252 @@ import {SubjectState} from '../../../pages/admission/subject/store/subject.state
 
 export class NgxsCustomService {
 
-  // constructor
+  /** Subject */
+  subjects$: any;
+  subjectFetchCompleted$: any;
+  subjectIsLoading$: any;
+
+  /** Batch */
+  batches$: any;
+  batchFetchCompleted$: any;
+  batchIsLoading$: any;
+
+  /** Program */
+  programs$: any;
+  programsFetchCompleted$: any;
+  programsIsLoading$: any;
+
+  /** Shift */
+  shifts$: any;
+  shiftsFetchCompleted$: any;
+  shiftsIsLoading$: any;
+
+  /** Academic Department */
+  academicDepartments$: any;
+  academicDepartmentsFetchCompleted$: any;
+  academicDepartmentsIsLoading$: any;
+
+  /** Fee Item */
+  feeItems$: any;
+  feeItemsFetchCompleted$: any;
+  feeItemsIsLoading$: any;
+
+  /** City */
+  cities$: any;
+  citiesFetchCompleted$: any;
+  citiesIsLoading$: any;
+
+  /** State */
+  countryStates$: any;
+  countryStateFetchCompleted$: any;
+  countryStateIsLoading$: any;
+
+  /** Country */
+  countries$: any;
+  countriesFetchCompleted$: any;
+  countryIsLoading$: any;
+
+  /** Semester */
+  semesters$: any;
+  semesterFetchCompleted$: any;
+  semesterIsLoading$: any;
+
+  /** Course */
+  courses$: any;
+  courseFetchCompleted$: any;
+  courseIsLoading$: any;
+
+  /** Business Partner */
+  businessPartners$: any;
+  businessPartnerFetchCompleted$: any;
+  businessPartnerIsLoading$: any;
+
+  /** Fixed Asset */
+  assets$: any;
+  assetsFetchCompleted$: any;
+  assetsIsLoading$: any;
+
+  /** Faculty */
+  faculty$: any;
+  facultyFetchCompleted$: any;
+  facultyIsLoading$: any;
+
+  /** Domicile */
+  domicile$: any;
+  domicileFetchCompleted$: any;
+  domicileIsLoading$: any;
+
+  /** District */
+  district$: any;
+  districtFetchCompleted$: any;
+  districtIsLoading$: any;
+
+  /** Degree */
+  degree$: any;
+  degreeFetchCompleted$: any;
+  degreeIsLoading$: any;
+
+  /** Qualification */
+  qualification$: any;
+  qualificationFetchCompleted$: any;
+  qualificationIsLoading$: any;
+
+  /** All Business Partner with Employees */
+  allBusinessPartners$: any;
+  allBusinessPartnerFetchCompleted$: any;
+  allBusinessPartnerIsLoading$: any;
+
+  /** Campus */
+  campuses$: any;
+  campusFetchCompleted$: any;
+  campusIsLoading$: any;
+
+  /** Level 4 Accounts */
+  accountsLevel4$: any;
+  accountLevel4FetchCompleted$: any;
+  accountLevel4IsLoading$: any;
+
+  /** Account Payable */
+  accountsPayable$: any;
+  accountPayableFetchCompleted$: any;
+  accountPayableIsLoading$: any;
+
+  /** Account Receivable */
+  accountsReceivable$: any;
+  accountReceivableFetchCompleted$: any;
+  accountReceivableIsLoading$: any;
+
+  /** Fixed Asset Account */
+  assetAccount$: any;
+  assetAccountFetchCompleted$: any;
+  assetAccountIsLoading$: any;
+
+  /** Fixed Asset Account */
+  disposalDropdown$: any;
+  disposalDropdownFetchCompleted$: any;
+  disposalDropdownIsLoading$: any;
+
+  /** Other Accounts */
+  otherAccounts$: any;
+  otherAccountsFetchCompleted$: any;
+  otherAccountsIsLoading$: any;
+
+  /** Budget Accounts */
+  budgetAccount$: any;
+  budgetAccountFetchCompleted$: any;
+  budgetAccountIsLoading$: any;
+
+  /** Expense Accounts */
+  expenseAccount$: any;
+  expenseAccountFetchCompleted$: any;
+  expenseAccountIsLoading$: any;
+
+  /** Liability Accounts */
+  getLiabilityAccounts$: any;
+  getLiabilityAccountsFetchCompleted$: any;
+  getLiabilityAccountsIsLoading$: any;
+
+  /** Category */
+  categories$: any;
+  categoryFetchCompleted$: any;
+  categoryIsLoading$: any;
+
+  /** Category Asset */
+  categoriesAsset$: any;
+  categoriesAssetFetchCompleted$: any;
+  categoriesAssetIsLoading$: any;
+
+  /** Product */
+  products$: any;
+  productFetchCompleted$: any;
+  productIsLoading$: any;
+
+  /** Budget */
+  budgets$: any;
+  budgetFetchCompleted$: any;
+  budgetIsLoading$: any;
+
+  /** Warehouse */
+  warehouses$: any;
+  warehouseFetchCompleted$: any;
+  warehouseIsLoading$: any;
+
+  /** Bank Account */
+  bankAccounts$: any;
+  bankAccountFetchCompleted$: any;
+  bankAccountIsLoading$: any;
+
+  /** Cash Account */
+  cashAccounts$: any;
+  cashAccountFetchCompleted$: any;
+  cashAccountIsLoading$: any;
+
+  /** Department */
+  departments$: any;
+  departmentFetchCompleted$: any;
+  departmentIsLoading$: any;
+
+  /** Designation */
+  designations$: any;
+  designationFetchCompleted$: any;
+  designationIsLoading$: any;
+
+  /** Employee */
+  employees$: any;
+  employeeFetchCompleted$: any;
+  employeeIsLoading$: any;
+
+  /** Employee Payments */
+  employeePayments$: any;
+  employeePaymentsFetchCompleted$: any;
+  employeePaymentsIsLoading$: any;
+
+  /** Status */
+  statuses$: any;
+  statusFetchCompleted$: any;
+  statusIsLoading$: any;
+
+  /** Payroll Items */
+  payrollItems$: any;
+  payrollItemsFetchCompleted$: any;
+  payrollItemsIsLoading$: any;
+
+  /** Basic Payroll Items */
+  basicPayrollItems$: any;
+  basicPayrollItemsFetchCompleted$: any;
+  basicPayrollItemsIsLoading$: any;
+
+  /** Increments Payroll Items */
+  incrementPayrollItems$: any;
+  incrementPayrollItemsFetchCompleted$: any;
+  incrementPayrollItemsIsLoading$: any;
+
+  /** Deduction Payroll Items */
+  deductionPayrollItems$: any;
+  deductionPayrollItemsFetchCompleted$: any;
+  deductionPayrollItemsIsLoading$: any;
+
+  /** Roles */
+  roles$: any;
+  rolesFetchCompleted$: any;
+  rolesIsLoading$: any;
+
+  /** Unit of Measurement */
+  units$: any;
+  unitsFetchCompleted$: any;
+  unitsIsLoading$: any;
+
+  /** Depreciation Model */
+  depreciationModels$: any;
+  depreciationModelsFetchCompleted$: any;
+  depreciationModelsIsLoading$: any;
+
+  /** Requisition */
+  requisitions$: any;
+  requisitionsFetchCompleted$: any;
+  requisitionsIsLoading$: any;
+
   constructor(
-    // services
     public businessPartnerService: BusinessPartnerService,
     public campusService: CampusService,
     public categoryService: CategoryService,
@@ -139,269 +381,257 @@ export class NgxsCustomService {
     public subjectService: SubjectService,
     public store: Store,
   ) {
+
+    /** Subject */
+    this.subjects$ = this.store.select(SubjectState.entities);
+    this.subjectFetchCompleted$ = this.store.select(SubjectState.isFetchCompleted);
+    this.subjectIsLoading$ = this.store.select(SubjectState.isLoading);
+
+    /** Batch */
+    this.batches$ = this.store.select(BatchState.entities);
+    this.batchFetchCompleted$ = this.store.select(BatchState.isFetchCompleted);
+    this.batchIsLoading$ = this.store.select(BatchState.isLoading);
+
+    /** Program */
+    this.programs$ = this.store.select(ProgramState.entities);
+    this.programsFetchCompleted$ = this.store.select(ProgramState.isFetchCompleted);
+    this.programsIsLoading$ = this.store.select(ProgramState.isLoading);
+
+    /** Shift */
+    this.shifts$ = this.store.select(ShiftState.entities);
+    this.shiftsFetchCompleted$ = this.store.select(ShiftState.isFetchCompleted);
+    this.shiftsIsLoading$ = this.store.select(ShiftState.isLoading);
+
+    /** Academic Department */
+    this.academicDepartments$ = this.store.select(AcademicDepartmentState.entities);
+    this.academicDepartmentsFetchCompleted$ = this.store.select(AcademicDepartmentState.isFetchCompleted);
+    this.academicDepartmentsIsLoading$ = this.store.select(AcademicDepartmentState.isLoading);
+
+    /** Fee Item */
+    this.feeItems$ = this.store.select(FeeItemState.entities);
+    this.feeItemsFetchCompleted$ = this.store.select(FeeItemState.isFetchCompleted);
+    this.feeItemsIsLoading$ = this.store.select(FeeItemState.isLoading);
+
+    /** City */
+    this.cities$ = this.store.select(CityState.entities);
+    this.citiesFetchCompleted$ = this.store.select(CityState.isFetchCompleted);
+    this.citiesIsLoading$ = this.store.select(CityState.isLoading);
+
+    /** State */
+    this.countryStates$ = this.store.select(CountryStateState.entities);
+    this.countryStateFetchCompleted$ = this.store.select(CountryStateState.isFetchCompleted);
+    this.countryStateIsLoading$ = this.store.select(CountryStateState.isLoading);
+
+    /** Country */
+    this.countries$ = this.store.select(CountryState.entities);
+    this.countriesFetchCompleted$ = this.store.select(CountryState.isFetchCompleted);
+    this.countryIsLoading$ = this.store.select(CountryState.isLoading);
+
+    /** Semester */
+    this.semesters$ = this.store.select(SemesterState.entities);
+    this.semesterFetchCompleted$ = this.store.select(SemesterState.isFetchCompleted);
+    this.semesterIsLoading$ = this.store.select(SemesterState.isLoading);
+
+    /** Course */
+    this.courses$ = this.store.select(CourseState.entities);
+    this.courseFetchCompleted$ = this.store.select(CourseState.isFetchCompleted);
+    this.courseIsLoading$ = this.store.select(CourseState.isLoading);
+
+    /** Business Partner */
+    this.businessPartners$ = this.store.select(BusinessPartnerState.entities);
+    this.businessPartnerFetchCompleted$ = this.store.select(BusinessPartnerState.isFetchCompleted);
+    this.businessPartnerIsLoading$ = this.store.select(BusinessPartnerState.isLoading);
+
+    /** Fixed Asset */
+    this.assets$ = this.store.select(AssetState.entities);
+    this.assetsFetchCompleted$ = this.store.select(AssetState.isFetchCompleted);
+    this.assetsIsLoading$ = this.store.select(AssetState.isLoading);
+
+    /** Faculty */
+    this.faculty$ = this.store.select(FacultyState.entities);
+    this.facultyFetchCompleted$ = this.store.select(FacultyState.isFetchCompleted);
+    this.facultyIsLoading$ = this.store.select(FacultyState.isLoading);
+
+    /** Domicile */
+    this.domicile$ = this.store.select(DomicileState.entities);
+    this.domicileFetchCompleted$ = this.store.select(DomicileState.isFetchCompleted);
+    this.domicileIsLoading$ = this.store.select(DomicileState.isLoading);
+
+    /** District */
+    this.district$ = this.store.select(DistrictState.entities);
+    this.districtFetchCompleted$ = this.store.select(DistrictState.isFetchCompleted);
+    this.districtIsLoading$ = this.store.select(DistrictState.isLoading);
+
+    /** Degree */
+    this.degree$ = this.store.select(DegreeState.entities);
+    this.degreeFetchCompleted$ = this.store.select(DegreeState.isFetchCompleted);
+    this.degreeIsLoading$ = this.store.select(DegreeState.isLoading);
+
+    /** Qualification */
+    this.qualification$ = this.store.select(QualificationState.entities);
+    this.qualificationFetchCompleted$ = this.store.select(QualificationState.isFetchCompleted);
+    this.qualificationIsLoading$ = this.store.select(QualificationState.isLoading);
+
+    /** All Business Partner with Employees */
+    this.allBusinessPartners$ = this.store.select(AllBusinessPartnerState.entities);
+    this.allBusinessPartnerFetchCompleted$ = this.store.select(AllBusinessPartnerState.isFetchCompleted);
+    this.allBusinessPartnerIsLoading$ = this.store.select(AllBusinessPartnerState.isLoading);
+
+    /** Campus */
+    this.campuses$ = this.store.select(CampusState.entities);
+    this.campusFetchCompleted$ = this.store.select(CampusState.isFetchCompleted);
+    this.campusIsLoading$ = this.store.select(CampusState.isLoading);
+
+    /** Level 4 Accounts */
+    this.accountsLevel4$ = this.store.select(AccountLevel4State.entities);
+    this.accountLevel4FetchCompleted$ = this.store.select(AccountLevel4State.isFetchCompleted);
+    this.accountLevel4IsLoading$ = this.store.select(AccountLevel4State.isLoading);
+
+    /** Account Payable */
+    this.accountsPayable$ = this.store.select(AccountPayableState.entities);
+    this.accountPayableFetchCompleted$ = this.store.select(AccountPayableState.isFetchCompleted);
+    this.accountPayableIsLoading$ = this.store.select(AccountPayableState.isLoading);
+
+    /** Account Receivable */
+    this.accountsReceivable$ = this.store.select(AccountReceivableState.entities);
+    this.accountReceivableFetchCompleted$ = this.store.select(AccountReceivableState.isFetchCompleted);
+    this.accountReceivableIsLoading$ = this.store.select(AccountReceivableState.isLoading);
+
+    /** Fixed Asset Account */
+    this.assetAccount$ = this.store.select(AssetAccountState.entities);
+    this.assetAccountFetchCompleted$ = this.store.select(AssetAccountState.isFetchCompleted);
+    this.assetAccountIsLoading$ = this.store.select(AssetAccountState.isLoading);
+
+    /** Fixed Asset Account */
+    this.disposalDropdown$ = this.store.select(DisposalDropdownState.entities);
+    this.disposalDropdownFetchCompleted$ = this.store.select(DisposalDropdownState.isFetchCompleted);
+    this.disposalDropdownIsLoading$ = this.store.select(DisposalDropdownState.isLoading);
+
+    /** Other Accounts */
+    this.otherAccounts$ = this.store.select(OtherAccountState.entities);
+    this.otherAccountsFetchCompleted$ = this.store.select(OtherAccountState.isFetchCompleted);
+    this.otherAccountsIsLoading$ = this.store.select(OtherAccountState.isLoading);
+
+    /** Budget Accounts */
+    this.budgetAccount$ = this.store.select(BudgetAccountState.entities);
+    this.budgetAccountFetchCompleted$ = this.store.select(BudgetAccountState.isFetchCompleted);
+    this.budgetAccountIsLoading$ = this.store.select(BudgetAccountState.isLoading);
+
+    /** Expense Accounts */
+    this.expenseAccount$ = this.store.select(ExpenseAccountState.entities);
+    this.expenseAccountFetchCompleted$ = this.store.select(ExpenseAccountState.isFetchCompleted);
+    this.expenseAccountIsLoading$ = this.store.select(ExpenseAccountState.isLoading);
+
+    /** Liability Accounts */
+    this.getLiabilityAccounts$ = this.store.select(GetLiabilityAccountsState.entities);
+    this.getLiabilityAccountsFetchCompleted$ = this.store.select(GetLiabilityAccountsState.isFetchCompleted);
+    this.getLiabilityAccountsIsLoading$ = this.store.select(GetLiabilityAccountsState.isLoading);
+
+    /** Category */
+    this.categories$ = this.store.select(CategoryState.entities);
+    this.categoryFetchCompleted$ = this.store.select(CategoryState.isFetchCompleted);
+    this.categoryIsLoading$ = this.store.select(CategoryState.isLoading);
+
+    /** Category Asset */
+    this.categoriesAsset$ = this.store.select(CategoryAssetState.entities);
+    this.categoriesAssetFetchCompleted$ = this.store.select(CategoryAssetState.isFetchCompleted);
+    this.categoriesAssetIsLoading$ = this.store.select(CategoryAssetState.isLoading);
+
+    /** Product */
+    this.products$ = this.store.select(ProductState.entities);
+    this.productFetchCompleted$ = this.store.select(ProductState.isFetchCompleted);
+    this.productIsLoading$ = this.store.select(ProductState.isLoading);
+
+    /** Budget */
+    this.budgets$ = this.store.select(BudgetState.entities);
+    this.budgetFetchCompleted$ = this.store.select(BudgetState.isFetchCompleted);
+    this.budgetIsLoading$ = this.store.select(BudgetState.isLoading);
+
+    /** Warehouse */
+    this.warehouses$ = this.store.select(WarehouseState.entities);
+    this.warehouseFetchCompleted$ = this.store.select(WarehouseState.isFetchCompleted);
+    this.warehouseIsLoading$ = this.store.select(WarehouseState.isLoading);
+
+    /** Bank Account */
+    this.bankAccounts$ = this.store.select(BankAccountState.entities);
+    this.bankAccountFetchCompleted$ = this.store.select(BankAccountState.isFetchCompleted);
+    this.bankAccountIsLoading$ = this.store.select(BankAccountState.isLoading);
+
+    /** Cash Account */
+    this.cashAccounts$ = this.store.select(CashAccountState.entities);
+    this.cashAccountFetchCompleted$ = this.store.select(CashAccountState.isFetchCompleted);
+    this.cashAccountIsLoading$ = this.store.select(CashAccountState.isLoading);
+
+    /** Department */
+    this.departments$ = this.store.select(DepartmentState.entities);
+    this.departmentFetchCompleted$ = this.store.select(DepartmentState.isFetchCompleted);
+    this.departmentIsLoading$ = this.store.select(DepartmentState.isLoading);
+
+    /** Designation */
+    this.designations$ = this.store.select(DesignationState.entities);
+    this.designationFetchCompleted$ = this.store.select(DesignationState.isFetchCompleted);
+    this.designationIsLoading$ = this.store.select(DesignationState.isLoading);
+
+    /** Employee */
+    this.employees$ = this.store.select(EmployeeState.entities);
+    this.employeeFetchCompleted$ = this.store.select(EmployeeState.isFetchCompleted);
+    this.employeeIsLoading$ = this.store.select(EmployeeState.isLoading);
+
+    /** Employee Payments */
+    this.employeePayments$ = this.store.select(EmployeePaymentState.entities);
+    this.employeePaymentsFetchCompleted$ = this.store.select(EmployeePaymentState.isFetchCompleted);
+    this.employeePaymentsIsLoading$ = this.store.select(EmployeePaymentState.isLoading);
+
+    /** Status */
+    this.statuses$ = this.store.select(StatusState.entities);
+    this.statusFetchCompleted$ = this.store.select(StatusState.isFetchCompleted);
+    this.statusIsLoading$ = this.store.select(StatusState.isLoading);
+
+    /** Payroll Items */
+    this.payrollItems$ = this.store.select(PayrollItemState.entities);
+    this.payrollItemsFetchCompleted$ = this.store.select(PayrollItemState.isFetchCompleted);
+    this.payrollItemsIsLoading$ = this.store.select(PayrollItemState.isLoading);
+
+    /** Basic Payroll Items */
+    this.basicPayrollItems$ = this.store.select(BasicPayState.entities);
+    this.basicPayrollItemsFetchCompleted$ = this.store.select(BasicPayState.isFetchCompleted);
+    this.basicPayrollItemsIsLoading$ = this.store.select(BasicPayState.isLoading);
+
+    /** Increments Payroll Items */
+    this.incrementPayrollItems$ = this.store.select(IncrementState.entities);
+    this.incrementPayrollItemsFetchCompleted$ = this.store.select(IncrementState.isFetchCompleted);
+    this.incrementPayrollItemsIsLoading$ = this.store.select(IncrementState.isLoading);
+
+    /** Deduction Payroll Items */
+    this.deductionPayrollItems$ = this.store.select(DeductionState.entities);
+    this.deductionPayrollItemsFetchCompleted$ = this.store.select(DeductionState.isFetchCompleted);
+    this.deductionPayrollItemsIsLoading$ = this.store.select(DeductionState.isLoading);
+
+    /** Roles */
+    this.roles$ = this.store.select(RoleState.entities);
+    this.rolesFetchCompleted$ = this.store.select(RoleState.isFetchCompleted);
+    this.rolesIsLoading$ = this.store.select(RoleState.isLoading);
+
+    /** Unit of Measurement */
+    this.units$ = this.store.select(UnitOfMeasurementState.entities);
+    this.unitsFetchCompleted$ = this.store.select(UnitOfMeasurementState.isFetchCompleted);
+    this.unitsIsLoading$ = this.store.select(UnitOfMeasurementState.isLoading);
+
+    /** Depreciation Model */
+    this.depreciationModels$ = this.store.select(DepreciationModelState.entities);
+    this.depreciationModelsFetchCompleted$ = this.store.select(DepreciationModelState.isFetchCompleted);
+    this.depreciationModelsIsLoading$ = this.store.select(DepreciationModelState.isLoading);
+
+    /** Requisition */
+    this.requisitions$ = this.store.select(RequisitionState.entities);
+    this.requisitionsFetchCompleted$ = this.store.select(RequisitionState.isFetchCompleted);
+    this.requisitionsIsLoading$ = this.store.select(RequisitionState.isLoading); 
   }
 
-  // selector region start
-
-  // Admission
-
-  // Subject
-  @Select(SubjectState.entities) subjects$: Observable<any>;
-  @Select(SubjectState.isFetchCompleted) subjectFetchCompleted$: Observable<any>;
-  @Select(SubjectState.isLoading) subjectIsLoading$: Observable<any>;
-
-  // Batch
-  @Select(BatchState.entities) batches$: Observable<any>;
-  @Select(BatchState.isFetchCompleted) batchFetchCompleted$: Observable<any>;
-  @Select(BatchState.isLoading) batchIsLoading$: Observable<any>;
-
-  // Program
-  @Select(ProgramState.entities) programs$: Observable<any>;
-  @Select(ProgramState.isFetchCompleted) programsFetchCompleted$: Observable<any>;
-  @Select(ProgramState.isLoading) programsIsLoading$: Observable<any>;
-
-  // Shift
-  @Select(ShiftState.entities) shifts$: Observable<any>;
-  @Select(ShiftState.isFetchCompleted) shiftsFetchCompleted$: Observable<any>;
-  @Select(ShiftState.isLoading) shiftsIsLoading$: Observable<any>;
-
-  // Academic Department
-  @Select(AcademicDepartmentState.entities) academicDepartments$: Observable<any>;
-  @Select(AcademicDepartmentState.isFetchCompleted) academicDepartmentsFetchCompleted$: Observable<any>;
-  @Select(AcademicDepartmentState.isLoading) academicDepartmentsIsLoading$: Observable<any>;
-
-  // Fee Item
-  @Select(FeeItemState.entities) feeItems$: Observable<any>;
-  @Select(FeeItemState.isFetchCompleted) feeItemsFetchCompleted$: Observable<any>;
-  @Select(FeeItemState.isLoading) feeItemsIsLoading$: Observable<any>;
-
-  // State
-  @Select(CityState.entities) cities$: Observable<any>;
-  @Select(CityState.isFetchCompleted) citiesFetchCompleted$: Observable<any>;
-  @Select(CityState.isLoading) citiesIsLoading$: Observable<any>;
-
-  // State
-  @Select(CountryStateState.entities) countryStates$: Observable<any>;
-  @Select(CountryStateState.isFetchCompleted) countryStateFetchCompleted$: Observable<any>;
-  @Select(CountryStateState.isLoading) countryStateIsLoading$: Observable<any>;
-
-  // Country
-  @Select(CountryState.entities) countries$: Observable<any>;
-  @Select(CountryState.isFetchCompleted) countriesFetchCompleted$: Observable<any>;
-  @Select(CountryState.isLoading) countryIsLoading$: Observable<any>;
-
-  // Semester
-  @Select(SemesterState.entities) semesters$: Observable<any>;
-  @Select(SemesterState.isFetchCompleted) semesterFetchCompleted$: Observable<any>;
-  @Select(SemesterState.isLoading) semesterIsLoading$: Observable<any>;
-
-  // Course
-  @Select(CourseState.entities) courses$: Observable<any>;
-  @Select(CourseState.isFetchCompleted) courseFetchCompleted$: Observable<any>;
-  @Select(CourseState.isLoading) courseIsLoading$: Observable<any>;
-
-
-  // Business Partner
-  @Select(BusinessPartnerState.entities) businessPartners$: Observable<any>;
-  @Select(BusinessPartnerState.isFetchCompleted) businessPartnerFetchCompleted$: Observable<any>;
-  @Select(BusinessPartnerState.isLoading) businessPartnerIsLoading$: Observable<any>;
-
-  // Fixed Asset
-  @Select(AssetState.entities) assets$: Observable<any>;
-  @Select(AssetState.isFetchCompleted) assetsFetchCompleted$: Observable<any>;
-  @Select(AssetState.isLoading) assetsIsLoading$: Observable<any>;
-
-  // Faculty
-  @Select(FacultyState.entities) faculty$: Observable<any>;
-  @Select(FacultyState.isFetchCompleted) facultyFetchCompleted$: Observable<any>;
-  @Select(FacultyState.isLoading) facultyIsLoading$: Observable<any>;
-
-
-  // domicile
-  @Select(DomicileState.entities) domicile$: Observable<any>;
-  @Select(DomicileState.isFetchCompleted) domicileFetchCompleted$: Observable<any>;
-  @Select(DomicileState.isLoading) domicileIsLoading$: Observable<any>;
-
-  // district
-  @Select(DistrictState.entities) district$: Observable<any>;
-  @Select(DistrictState.isFetchCompleted) districtFetchCompleted$: Observable<any>;
-  @Select(DistrictState.isLoading) districtIsLoading$: Observable<any>;
-
-  // Degree
-  @Select(DegreeState.entities) degree$: Observable<any>;
-  @Select(DegreeState.isFetchCompleted) degreeFetchCompleted$: Observable<any>;
-  @Select(DegreeState.isLoading) degreeIsLoading$: Observable<any>;
-
-  // Qualification
-  @Select(QualificationState.entities) qualification$: Observable<any>;
-  @Select(QualificationState.isFetchCompleted) qualificationFetchCompleted$: Observable<any>;
-  @Select(QualificationState.isLoading) qualificationIsLoading$: Observable<any>;
-
-  // All Business Partner with Employees
-  @Select(AllBusinessPartnerState.entities) allBusinessPartners$: Observable<any>;
-  @Select(AllBusinessPartnerState.isFetchCompleted) allBusinessPartnerFetchCompleted$: Observable<any>;
-  @Select(AllBusinessPartnerState.isLoading) allBusinessPartnerIsLoading$: Observable<any>;
-
-  // Campus
-  @Select(CampusState.entities) campuses$: Observable<any>;
-  @Select(CampusState.isFetchCompleted) campusFetchCompleted$: Observable<any>;
-  @Select(CampusState.isLoading) campusIsLoading$: Observable<any>;
-
-  // Level 4 Accounts
-  @Select(AccountLevel4State.entities) accountsLevel4$: Observable<any>;
-  @Select(AccountLevel4State.isFetchCompleted) accountLevel4FetchCompleted$: Observable<any>;
-  @Select(AccountLevel4State.isLoading) accountLevel4IsLoading$: Observable<any>;
-
-  // Account Payable
-  @Select(AccountPayableState.entities) accountsPayable$: Observable<any>;
-  @Select(AccountPayableState.isFetchCompleted) accountPayableFetchCompleted$: Observable<any>;
-  @Select(AccountPayableState.isLoading) accountPayableIsLoading$: Observable<any>;
-
-  // Account Receivable
-  @Select(AccountReceivableState.entities) accountsReceivable$: Observable<any>;
-  @Select(AccountReceivableState.isFetchCompleted) accountReceivableFetchCompleted$: Observable<any>;
-  @Select(AccountReceivableState.isLoading) accountReceivableIsLoading$: Observable<any>;
-
-  // Fixed Asset Account
-  @Select(AssetAccountState.entities) assetAccount$: Observable<any>;
-  @Select(AssetAccountState.isFetchCompleted) assetAccountFetchCompleted$: Observable<any>;
-  @Select(AssetAccountState.isLoading) assetAccountIsLoading$: Observable<any>;
-
-  // Disposal Dropdown
-  @Select(DisposalDropdownState.entities) disposalDropdown$: Observable<any>;
-  @Select(DisposalDropdownState.isFetchCompleted) disposalDropdownFetchCompleted$: Observable<any>;
-  @Select(DisposalDropdownState.isLoading) disposalDropdownIsLoading$: Observable<any>;
-
-  // Other Accounts
-  @Select(OtherAccountState.entities) otherAccounts$: Observable<any>;
-  @Select(OtherAccountState.isFetchCompleted) otherAccountsFetchCompleted$: Observable<any>;
-  @Select(OtherAccountState.isLoading) otherAccountsIsLoading$: Observable<any>;
-
-  // Budget Accounts
-  @Select(BudgetAccountState.entities) budgetAccount$: Observable<any>;
-  @Select(BudgetAccountState.isFetchCompleted) budgetAccountFetchCompleted$: Observable<any>;
-  @Select(BudgetAccountState.isLoading) budgetAccountIsLoading$: Observable<any>;
-
-  // Expense Accounts
-  @Select(ExpenseAccountState.entities) expenseAccount$: Observable<any>;
-  @Select(ExpenseAccountState.isFetchCompleted) expenseAccountFetchCompleted$: Observable<any>;
-  @Select(ExpenseAccountState.isLoading) expenseAccountIsLoading$: Observable<any>;
-
-  // Liability Accounts
-  @Select(GetLiabilityAccountsState.entities) getLiabilityAccounts$: Observable<any>;
-  @Select(GetLiabilityAccountsState.isFetchCompleted) getLiabilityAccountsFetchCompleted$: Observable<any>;
-  @Select(GetLiabilityAccountsState.isLoading) getLiabilityAccountsIsLoading$: Observable<any>;
-
-
-  // Category
-  @Select(CategoryState.entities) categories$: Observable<any>;
-  @Select(CategoryState.isFetchCompleted) categoryFetchCompleted$: Observable<any>;
-  @Select(CategoryState.isLoading) categoryIsLoading$: Observable<any>;
-
-  // Category Asset
-  @Select(CategoryAssetState.entities) categoriesAsset$: Observable<any>;
-  @Select(CategoryAssetState.isFetchCompleted) categoriesAssetFetchCompleted$: Observable<any>;
-  @Select(CategoryAssetState.isLoading) categoriesAssetIsLoading$: Observable<any>;
-
-  // Product
-  @Select(ProductState.entities) products$: Observable<any>;
-  @Select(ProductState.isFetchCompleted) productFetchCompleted$: Observable<any>;
-  @Select(ProductState.isLoading) productIsLoading$: Observable<any>;
-
-  // Budget
-  @Select(BudgetState.entities) budgets$: Observable<any>;
-  @Select(BudgetState.isFetchCompleted) budgetFetchCompleted$: Observable<any>;
-  @Select(BudgetState.isLoading) budgetIsLoading$: Observable<any>;
-
-  // Product
-  @Select(WarehouseState.entities) warehouses$: Observable<any>;
-  @Select(WarehouseState.isFetchCompleted) warehouseFetchCompleted$: Observable<any>;
-  @Select(WarehouseState.isLoading) warehouseIsLoading$: Observable<any>;
-  // selector region end
-
-  // finance module selectors
-  // Bank Account
-  @Select(BankAccountState.entities) bankAccounts$: Observable<any>;
-  @Select(BankAccountState.isFetchCompleted) bankAccountFetchCompleted$: Observable<any>;
-  @Select(BankAccountState.isLoading) bankAccountIsLoading$: Observable<any>;
-
-  // Cash Account
-  @Select(CashAccountState.entities) cashAccounts$: Observable<any>;
-  @Select(CashAccountState.isFetchCompleted) cashAccountFetchCompleted$: Observable<any>;
-  @Select(CashAccountState.isLoading) cashAccountIsLoading$: Observable<any>;
-
-  // Department
-  @Select(DepartmentState.entities) departments$: Observable<any>;
-  @Select(DepartmentState.isFetchCompleted) departmentFetchCompleted$: Observable<any>;
-  @Select(DepartmentState.isLoading) departmentIsLoading$: Observable<any>;
-
-  // Designation
-  @Select(DesignationState.entities) designations$: Observable<any>;
-  @Select(DesignationState.isFetchCompleted) designationFetchCompleted$: Observable<any>;
-  @Select(DesignationState.isLoading) designationIsLoading$: Observable<any>;
-
-  // Employee
-  @Select(EmployeeState.entities) employees$: Observable<any>;
-  @Select(EmployeeState.isFetchCompleted) employeeFetchCompleted$: Observable<any>;
-  @Select(EmployeeState.isLoading) employeeIsLoading$: Observable<any>;
-
-  // Employee Payments
-  @Select(EmployeePaymentState.entities) employeePayments$: Observable<any>;
-  @Select(EmployeePaymentState.isFetchCompleted) employeePaymentsFetchCompleted$: Observable<any>;
-  @Select(EmployeePaymentState.isLoading) employeePaymentsIsLoading$: Observable<any>;
-
-  // Status
-  @Select(StatusState.entities) statuses$: Observable<any>;
-  @Select(StatusState.isFetchCompleted) statusFetchCompleted$: Observable<any>;
-  @Select(StatusState.isLoading) statusIsLoading$: Observable<any>;
-
-  // Payroll Items
-  @Select(PayrollItemState.entities) payrollItems$: Observable<any>;
-  @Select(PayrollItemState.isFetchCompleted) payrollItemsFetchCompleted$: Observable<any>;
-  @Select(PayrollItemState.isLoading) payrollItemsIsLoading$: Observable<any>;
-
-  // Basic Payroll Items
-  @Select(BasicPayState.entities) basicPayrollItems$: Observable<any>;
-  @Select(BasicPayState.isFetchCompleted) basicPayrollItemsFetchCompleted$: Observable<any>;
-  @Select(BasicPayState.isLoading) basicPayrollItemsIsLoading$: Observable<any>;
-
-  // Increments Payroll Items
-  @Select(IncrementState.entities) incrementPayrollItems$: Observable<any>;
-  @Select(IncrementState.isFetchCompleted) incrementPayrollItemsFetchCompleted$: Observable<any>;
-  @Select(IncrementState.isLoading) incrementPayrollItemsIsLoading$: Observable<any>;
-
-  // Deduction Payroll Items
-  @Select(DeductionState.entities) deductionPayrollItems$: Observable<any>;
-  @Select(DeductionState.isFetchCompleted) deductionPayrollItemsFetchCompleted$: Observable<any>;
-  @Select(DeductionState.isLoading) deductionPayrollItemsIsLoading$: Observable<any>;
-
-  // Roles
-  @Select(RoleState.entities) roles$: Observable<any>;
-  @Select(RoleState.isFetchCompleted) rolesFetchCompleted$: Observable<any>;
-  @Select(RoleState.isLoading) rolesIsLoading$: Observable<any>;
-
-  // Roles
-  @Select(UnitOfMeasurementState.entities) units$: Observable<any>;
-  @Select(UnitOfMeasurementState.isFetchCompleted) unitsFetchCompleted$: Observable<any>;
-  @Select(UnitOfMeasurementState.isLoading) unitsIsLoading$: Observable<any>;
-
-  // Depreciation Model
-  @Select(DepreciationModelState.entities) depreciationModels$: Observable<any>;
-  @Select(DepreciationModelState.isFetchCompleted) depreciationModelsFetchCompleted$: Observable<any>;
-  @Select(DepreciationModelState.isLoading) depreciationModelsIsLoading$: Observable<any>;
-
-  // Requisition
-  @Select(RequisitionState.entities) requisitions$: Observable<any>;
-  @Select(RequisitionState.isFetchCompleted) requisitionsFetchCompleted$: Observable<any>;
-  @Select(RequisitionState.isLoading) requisitionsIsLoading$: Observable<any>;
-
-
-  //region State Management
 
   // Get Business Partner From Store if available else fetch from the server and cache.
   getBusinessPartnerFromState() {
     this.businessPartnerFetchCompleted$.subscribe((res) => {
-      // console.log('Business Partner State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BusinessPartnerState, {
           serviceClass: this.businessPartnerService,
@@ -428,7 +658,6 @@ export class NgxsCustomService {
   // Get Campus From Store if available else fetch from the server and cache.
   getCampusFromState() {
     this.campusFetchCompleted$.subscribe((res) => {
-      // console.log('Campus State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CampusState, {
           serviceClass: this.campusService,
@@ -442,7 +671,6 @@ export class NgxsCustomService {
   // Get Budgets From Store if available else fetch from the server and cache.
   getBudgetsFromState() {
     this.budgetFetchCompleted$.subscribe((res) => {
-      // console.log('Budget State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BudgetState, {
           serviceClass: this.budgetService,
@@ -456,7 +684,6 @@ export class NgxsCustomService {
   // Get Status From Store if available else fetch from the server and cache.
   getStatusesFromState() {
     this.statusFetchCompleted$.subscribe((res) => {
-      // console.log('Status State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(StatusState, {
           serviceClass: this.statusService,
@@ -470,7 +697,6 @@ export class NgxsCustomService {
   // Get All Level 4 Accounts State From Store if available else fetch from the server and cache.
   getAccountLevel4FromState() {
     this.accountLevel4FetchCompleted$.subscribe((res) => {
-      // console.log('Account level 4 FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AccountLevel4State, {
           serviceClass: this.chartOfAccountService,
@@ -523,7 +749,6 @@ export class NgxsCustomService {
   // Get All Payable Accounts State From Store if available else fetch from the server and cache.
   getAccountPayableFromState() {
     this.accountPayableFetchCompleted$.subscribe((res) => {
-      // console.log('Account Payable FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AccountPayableState, {
           serviceClass: this.chartOfAccountService,
@@ -537,7 +762,6 @@ export class NgxsCustomService {
   // Get All Receivable Accounts State From Store if available else fetch from the server and cache.
   getAccountReceivableFromState() {
     this.accountReceivableFetchCompleted$.subscribe((res) => {
-      // console.log('Account Receivable FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AccountReceivableState, {
           serviceClass: this.chartOfAccountService,
@@ -551,7 +775,6 @@ export class NgxsCustomService {
   // Get All Other Accounts State From Store if available else fetch from the server and cache.
   getOtherAccountsFromState() {
     this.otherAccountsFetchCompleted$.subscribe((res) => {
-      // console.log('Other Account FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(OtherAccountState, {
           serviceClass: this.chartOfAccountService,
@@ -565,7 +788,6 @@ export class NgxsCustomService {
   // Get Expense Accounts State From Store if available else fetch from the server and cache.
   getExpenseAccountsFromState() {
     this.expenseAccountFetchCompleted$.subscribe((res) => {
-      // console.log('Other Account FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(ExpenseAccountState, {
           serviceClass: this.chartOfAccountService,
@@ -579,7 +801,6 @@ export class NgxsCustomService {
   // Get All Other Accounts State From Store if available else fetch from the server and cache.
   getLiabilityAccountsFromState() {
     this.getLiabilityAccountsFetchCompleted$.subscribe((res) => {
-      // console.log('Other Account FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(GetLiabilityAccountsState, {
           serviceClass: this.chartOfAccountService,
@@ -593,7 +814,6 @@ export class NgxsCustomService {
   // Get All Budget Accounts State From Store if available else fetch from the server and cache.
   getBudgetAccountsFromState() {
     this.budgetAccountFetchCompleted$.subscribe((res) => {
-      // console.log('Budget Accounts FetchCompleted: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BudgetAccountState, {
           serviceClass: this.chartOfAccountService,
@@ -607,7 +827,6 @@ export class NgxsCustomService {
   // Get Category From Store if available else fetch from the server and cache.
   getCategoryFromState() {
     this.categoryFetchCompleted$.subscribe((res) => {
-      // console.log('Category State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CategoryState, {
           serviceClass: this.categoryService,
@@ -621,7 +840,6 @@ export class NgxsCustomService {
   // Get Department From Store if available else fetch from the server and cache.
   getDepartmentFromState() {
     this.departmentFetchCompleted$.subscribe((res) => {
-      console.log('Department State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DepartmentState, {
           serviceClass: this.departmentService,
@@ -635,7 +853,6 @@ export class NgxsCustomService {
   // Get Designation From Store if available else fetch from the server and cache.
   getDesignationFromState() {
     this.designationFetchCompleted$.subscribe((res) => {
-      console.log('Designation State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DesignationState, {
           serviceClass: this.designationService,
@@ -649,7 +866,6 @@ export class NgxsCustomService {
   // Get Employee From Store if available else fetch from the server and cache.
   getEmployeeFromState() {
     this.employeeFetchCompleted$.subscribe((res) => {
-      console.log('Employee State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(EmployeeState, {
           serviceClass: this.employeeService,
@@ -663,7 +879,6 @@ export class NgxsCustomService {
   // Get Employee Payments From Store if available else fetch from the server and cache.
   getEmployeePaymentsFromState() {
     this.employeePaymentsFetchCompleted$.subscribe((res) => {
-      console.log('Employee Payment State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(EmployeePaymentState, {
           serviceClass: this.employeeService,
@@ -676,7 +891,6 @@ export class NgxsCustomService {
 
   getPayrollItemsFromState() {
     this.payrollItemsFetchCompleted$.subscribe((res) => {
-      // console.log('payrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(PayrollItemState, {
           serviceClass: this.payrollItemService,
@@ -689,7 +903,6 @@ export class NgxsCustomService {
 
   getBasicPayFromState() {
     this.basicPayrollItemsFetchCompleted$.subscribe((res) => {
-      // console.log('basicPayrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BasicPayState, {
           serviceClass: this.payrollItemService,
@@ -702,7 +915,6 @@ export class NgxsCustomService {
 
   getIncrementsFromState() {
     this.incrementPayrollItemsFetchCompleted$.subscribe((res) => {
-      // console.log('incrementPayrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(IncrementState, {
           serviceClass: this.payrollItemService,
@@ -715,7 +927,6 @@ export class NgxsCustomService {
 
   getDeductionFromState() {
     this.deductionPayrollItemsFetchCompleted$.subscribe((res) => {
-      //  console.log('otherPayrollItemsFetchCompleted$: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DeductionState, {
           serviceClass: this.payrollItemService,
@@ -730,7 +941,6 @@ export class NgxsCustomService {
   // Get Product From Store if available else fetch from the server and cache.
   getProductFromState() {
     this.productFetchCompleted$.subscribe((res) => {
-      // console.log('Product State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(ProductState, {
           serviceClass: this.productService,
@@ -744,7 +954,6 @@ export class NgxsCustomService {
   // Get Warehouse From Store if available else fetch from the server and cache.
   getWarehouseFromState() {
     this.warehouseFetchCompleted$.subscribe((res) => {
-      // console.log('Warehouse State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(WarehouseState, {
           serviceClass: this.warehouseService,
@@ -758,7 +967,6 @@ export class NgxsCustomService {
   // Get roles From Store if available else fetch from the server and cache.
   getUnitsFromState() {
     this.unitsFetchCompleted$.subscribe((res) => {
-      // console.log('Role State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(UnitOfMeasurementState, {
           serviceClass: this.unitOfMeasurementService,
@@ -772,7 +980,6 @@ export class NgxsCustomService {
   // Get Units From Store if available else fetch from the server and cache.
   getRolesFromState() {
     this.unitsFetchCompleted$.subscribe((res) => {
-      // console.log('Unit State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(RoleState, {
           serviceClass: this.accessManagementService,
@@ -783,11 +990,9 @@ export class NgxsCustomService {
     })
   }
 
-  // finance module selector methods
   // Get Bank Account State From Store if available else fetch from the server and cache.
   getBankAccountFromState() {
     this.bankAccountFetchCompleted$.subscribe((res) => {
-      // console.log('Bank Account State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BankAccountState, {
           serviceClass: this.bankAccountService,
@@ -801,7 +1006,6 @@ export class NgxsCustomService {
   // Get Bank Account State From Store if available else fetch from the server and cache.
   getAssetsFromState() {
     this.assetsFetchCompleted$.subscribe((res) => {
-      // console.log('Bank Account State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AssetState, {
           serviceClass: this.assetService,
@@ -815,7 +1019,6 @@ export class NgxsCustomService {
   // getFacultyFromState State From Store if available else fetch from the server and cache.
   getFacultyFromState() {
     this.facultyFetchCompleted$.subscribe((res) => {
-      // console.log('Faculty State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(FacultyState, {
           serviceClass: this.facultyService,
@@ -830,7 +1033,6 @@ export class NgxsCustomService {
   // getFacultyFromState State From Store if available else fetch from the server and cache.
   getDomicileFromState() {
     this.domicileFetchCompleted$.subscribe((res) => {
-      console.log('Domicile State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DomicileState, {
           serviceClass: this.domicileService,
@@ -846,7 +1048,6 @@ export class NgxsCustomService {
 
   getDistrictFromState() {
     this.districtFetchCompleted$.subscribe((res) => {
-      console.log('District State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DistrictState, {
           serviceClass: this.districtService,
@@ -861,7 +1062,6 @@ export class NgxsCustomService {
   // getDegreeFromState From Store if available else fetch from the server and cache.
   getDegreeFromState() {
     this.degreeFetchCompleted$.subscribe((res) => {
-      console.log('Degree State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DegreeState, {
           serviceClass: this.degreeService,
@@ -875,7 +1075,6 @@ export class NgxsCustomService {
   // Get QualificationFromState From Store if available else fetch from the server and cache.
   getQualificationFromState() {
     this.qualificationFetchCompleted$.subscribe((res) => {
-      console.log('Qualification State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(QualificationState, {
           serviceClass: this.qualificationService,
@@ -889,7 +1088,6 @@ export class NgxsCustomService {
   // Get Cash Account State From Store if available else fetch from the server and cache.
   getCashAccountFromState() {
     this.cashAccountFetchCompleted$.subscribe((res) => {
-      // console.log('Cash Account State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CashAccountState, {
           serviceClass: this.bankAccountService,
@@ -903,7 +1101,6 @@ export class NgxsCustomService {
   // Get Depreciation Model State From Store if available else fetch from the server and cache.
   getDepreciationModelFromState() {
     this.depreciationModelsFetchCompleted$.subscribe((res) => {
-      // console.log('Depreciation Model State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(DepreciationModelState, {
           serviceClass: this.depreciationModelService,
@@ -917,7 +1114,6 @@ export class NgxsCustomService {
   // Get Requisition From Store if available else fetch from the server and cache.
   getRequisitionFromState() {
     this.requisitionsFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(RequisitionState, {
           serviceClass: this.requisitionService,
@@ -931,7 +1127,6 @@ export class NgxsCustomService {
   // Get Country From Store if available else fetch from the server and cache.
   getCountryFromState() {
     this.countriesFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CountryState, {
           serviceClass: this.countryService,
@@ -945,7 +1140,6 @@ export class NgxsCustomService {
   // Get City From Store if available else fetch from the server and cache.
   getCityFromState() {
     this.citiesFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CityState, {
           serviceClass: this.cityService,
@@ -959,7 +1153,6 @@ export class NgxsCustomService {
   // Get City From Store if available else fetch from the server and cache.
   getCountryStateFromState() {
     this.countryStateFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CountryStateState, {
           serviceClass: this.stateService,
@@ -972,7 +1165,6 @@ export class NgxsCustomService {
   // Get City From Store if available else fetch from the server and cache.
   getFeeItemsFromState() {
     this.feeItemsFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(FeeItemState, {
           serviceClass: this.feeItemService,
@@ -985,7 +1177,6 @@ export class NgxsCustomService {
 
   getAcademicDepartmentsFromState() {
     this.academicDepartmentsFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(AcademicDepartmentState, {
           serviceClass: this.academicDepartmentService,
@@ -998,7 +1189,6 @@ export class NgxsCustomService {
 
   getCoursesFromState() {
     this.courseFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(CourseState, {
           serviceClass: this.courseService,
@@ -1011,7 +1201,6 @@ export class NgxsCustomService {
 
   getProgramsFromState() {
     this.programsFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(ProgramState, {
           serviceClass: this.programService,
@@ -1023,7 +1212,6 @@ export class NgxsCustomService {
   }
   getShiftsFromState() {
     this.shiftsFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(ShiftState, {
           serviceClass: this.shiftService,
@@ -1035,7 +1223,6 @@ export class NgxsCustomService {
   }
   getSemestersFromState() {
     this.semesterFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(SemesterState, {
           serviceClass: this.semesterService,
@@ -1048,7 +1235,6 @@ export class NgxsCustomService {
 
   getBatchFromState() {
     this.batchFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(BatchState, {
           serviceClass: this.batchService,
@@ -1061,7 +1247,6 @@ export class NgxsCustomService {
 
   getSubjectFromState() {
     this.subjectFetchCompleted$.subscribe((res) => {
-      // console.log('Requisition State fetch completed: ', res);
       if (!res) {
         this.store.dispatch(new GetList(SubjectState, {
           serviceClass: this.subjectService,
@@ -1071,6 +1256,4 @@ export class NgxsCustomService {
       }
     })
   }
-
-  // end state region
 }

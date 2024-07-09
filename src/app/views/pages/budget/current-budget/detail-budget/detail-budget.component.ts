@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BUDGET } from 'src/app/views/shared/AppRoutes';
@@ -27,7 +27,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   docStatus = DocumentStatus
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //Loader
@@ -55,7 +55,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining columns of AG Grid
@@ -66,7 +66,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
       field: 'amount',
       filter: true,
       cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -75,7 +75,7 @@ export class DetailBudgetComponent extends AppComponentBase implements OnInit {
       field: 'revisedAmount',
       filter: true,
       cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },

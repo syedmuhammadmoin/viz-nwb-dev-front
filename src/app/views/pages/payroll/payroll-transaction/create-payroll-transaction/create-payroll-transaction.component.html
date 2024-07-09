@@ -8,7 +8,7 @@
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
 
-          <div class="col-md-12 col-sm-12 col-lg-12">
+          <div class="col-md-12 col-sm-12 col-lg-12 ps-4 pe-4">
             <div class=" row mt-8 mb-0">
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
@@ -48,7 +48,7 @@
                 <div class="form-group kt-form__group mb-0">
                   <label class="col-form-label pt-0">Working Days:</label>
                   <kt-input-field id="payroll_trans_working" [disabled]="butDisabled" formControlName="workingDays"
-                    placeholder="Enter Working Days" type="number" min="0">
+                    placeholder="Enter Working Days" type="number" [min]="0">
                   </kt-input-field>
                 </div>
               </div>
@@ -220,7 +220,7 @@
                   <label class="col-form-label pt-0">Campus:</label>
                   <kt-simple-dropdown id="payroll_trans_month" [optionList]="ngxsService.campuses$"
                     formControlName="campusId" matFormFieldClass="full-width" placeholder="Select Campus"
-                    propertyName="name" readonly="true" propertyValue="id">
+                    propertyName="name" [readonly]="true" propertyValue="id">
                   </kt-simple-dropdown>
                 </div>
               </div>
@@ -304,7 +304,7 @@
                       <ng-container matColumnDef="accountId">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Account Head</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                             <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
                               formControlName="accountId" matFormFieldClass="full-width" [id]="'journal_coa_' + i"
                               [errorMessage]="'Account is required.'" [optionList]="ngxsService.accountsLevel4$">
@@ -316,7 +316,7 @@
                       <ng-container matColumnDef="payrollItemId">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Payroll Item</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                             <kt-simple-dropdown placeholder="Select Payroll Item" propertyValue="id" propertyName="name"                            
                               formControlName="payrollItemId" matFormFieldClass="full-width"
                               errorMessage="Payroll Item is required." [id]="'journal_partner_' + i"
@@ -329,7 +329,7 @@
                       <ng-container matColumnDef="payrollType">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Payroll Type</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                             <!-- <kt-simple-dropdown formControlName="payrollType" matFormFieldClass="full-width"
                               placeholder="Enter Payroll Type" [id]="'journal_description_' + i"
                               propertyValue="id" propertyName="name"
@@ -360,7 +360,7 @@
                       <ng-container matColumnDef="amount">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Amount</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-4 pe-4 mt-2">
                             <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="amount"  (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)" placeholder="Enter Amount"
                                 [id]="'journal_debit_' + i" type="number"
@@ -416,7 +416,7 @@
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row">
-            <div class="col-lg-12 text-right">
+            <div class="col-lg-12 text-end">
               <button class="app-default-btn" mat-raised-button type="submit" id="payroll_trans_submit"
                 (click)="logValidationErrors(this.payrollTransactionForm, this.formErrors, this.validationMessages); isSubmit(1)"><i
                   class="far fa-save"></i> Submit

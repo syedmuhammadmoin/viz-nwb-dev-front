@@ -1,8 +1,8 @@
-:host ::ng-deep .mat-radio-outer-circle{
+:host ::ng-deep .mat-mdc-radio-outer-circle{
     border-radius:2px;
     border-color:#65c18c !important ;
 }
-:host ::ng-deep .mat-radio-inner-circle{
+:host ::ng-deep .mat-mdc-radio-inner-circle{
     border-radius:2px;
     background-color: transparent!important;
     border-bottom: 4px solid white;
@@ -12,15 +12,15 @@
     margin-top: -8px;
     margin-left: 3px;
 }
-:host ::ng-deep .mat-radio-checked .mat-radio-outer-circle{
+:host ::ng-deep .mat-mdc-radio-checked .mat-mdc-radio-outer-circle{
     background-color: #65c18c;
     background-image: linear-gradient(to right, #65c18c, #4a8a9e);
 }
-:host ::ng-deep .mat-radio-checked .mat-radio-inner-circle{
+:host ::ng-deep .mat-mdc-radio-checked .mat-mdc-radio-inner-circle{
     transform: rotate(45deg) scale(0.5);
 }
 
-:host ::ng-deep .mat-radio-button .mat-radio-ripple{
+:host ::ng-deep .mat-mdc-radio-button .mat-mdc-radio-ripple{
     height: 20px; /*double of your required circle radius*/
     width: 20px;  /*double of your required circle radius*/
     left: calc(50% - 10px); /*'10px'-same as your required circle radius*/

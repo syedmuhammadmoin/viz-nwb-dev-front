@@ -7,7 +7,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row ">
           <div class="btn_container">
             <div class="col-md-6 col-6">
@@ -15,13 +15,13 @@
                 <button *ngIf="(issuanceMaster?.state === docStatus.Draft || issuanceMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.ISSUANCE_EDIT))"
                   [routerLink]="'/' + ISSUANCE.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
-                  type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                  type="button"  class="me-3 btn_public" id="issuance_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                   Edit
                 </button>
 
                 <button *ngIf="(issuanceMaster?.state === docStatus.Unpaid || issuanceMaster?.state === docStatus.Partial) && (permission.isGranted(permissions.ISSUANCE_RETURN_CREATE))"
                   [routerLink]="'/' + ISSUANCE_RETURN.ID_BASED_ROUTE('edit', issuanceMaster?.id)" [queryParams]="{q: issuanceMaster?.id, 'isIssuance': true}"
-                  type="button"  class="mr-3 btn_public" id="issuance_edit"> <i class="fa fa-edit icon-e-p-a"></i>
+                  type="button"  class="me-3 btn_public" id="issuance_edit"> <i class="fa fa-edit icon-e-p-a"></i>
                   Return Issuance
                 </button>
 
@@ -32,8 +32,8 @@
               </ng-container>
 
             </div>
-            <div class="col-lg-6 text-right" *ngIf="issuanceMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" id="issuance_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+            <div class="col-lg-6 text-end" *ngIf="issuanceMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="issuance_reject" class="me-2 btn btn-outline-danger" >Reject</button>
               <button (click)="remarksDialog(action.Approve)" id="issuance_approve" class="btn btn-outline-success" >Approve</button>
             </div>
           </div>
@@ -74,7 +74,7 @@
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
 
               <tr *ngIf="(showReference && issuanceMaster?.requisitionId) || (issuanceMaster?.references)">

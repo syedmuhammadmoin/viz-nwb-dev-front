@@ -1,34 +1,41 @@
-<form (ngSubmit)="GetFilteredRecord()" [formGroup]="FilterationForm" class="kt-form kt-form--label-align-right"
-#formDirective="ngForm">
-<div class="row ml-4">
-
-
-   
-    <div class="d-flex flex-row ">
-        <div class="form-group kt-form__group ml-5">
-            <label class="col-form-label">Start Date:</label>          
-            <kt-date-input 
-             formControlName="startDate" matFormFieldClass="full-width"
-            placeholder="Select Start Date" [maxDate]="maxDate">
-          </kt-date-input>
-        </div>
-        <div class="form-group kt-form__group mb-0 ml-2">
-            <label class="col-form-label">End Date:</label>          
-                <kt-date-input 
-             formControlName="endDate" matFormFieldClass="full-width"
-            placeholder="Select End Date"  [minDate]="minDate"        
-            dateCondition="dateCondition"
-            >
-          </kt-date-input>
-        </div>
-        <div class="form-group kt-form__group mb-0 ml-2" style="margin-top: 3rem !important;">
-            <button class="mr-3 app-reset-btn" mat-raised-button id="create_process_reset" type="button"
-              (click)="resetForm()"><i class="fas fa-undo"></i> Reset</button>
-            <button class="app-default-btn" mat-raised-button id="create_process_fetch" type="submit">Fetch
-              Records</button>
-          </div>
+<form (ngSubmit)="GetFilteredRecord()" [formGroup]="FilterationForm" 
+class="kt-form kt-form--label-align-right" #formDirective="ngForm">
+<div class="row mt-1 mb-0 ms-4">
+  <div class="col-lg-3">
+    <div class="form-group kt-form__group mb-0">
+      <label class="col-form-label">Start Date:</label>          
+      <kt-date-input 
+        formControlName="startDate" matFormFieldClass="full-width"
+        placeholder="Select Start Date" [maxDate]="maxDate"
+        hintText="Optional">
+      </kt-date-input>
     </div>
- 
-   
+  </div>
+
+  <div class="col-lg-3">
+    <div class="form-group kt-form__group mb-0">
+      <label class="col-form-label">End Date:</label>          
+      <kt-date-input 
+        formControlName="endDate" matFormFieldClass="full-width"
+        placeholder="Select End Date"  [minDate]="minDate"   
+        hintText="Optional"     
+        dateCondition="dateCondition">
+      </kt-date-input>
+    </div>
+  </div>
+
+  <div class="col-lg-3">
+    <div class="form-group kt-form__group mb-0">
+      <div class="form-group kt-form__group mb-0" style="margin-top: 3rem !important;">
+        <button class="me-2 app-reset-btn" mat-raised-button id="filter_reset" type="button"
+          (click)="resetForm()"><i class="fas fa-undo"></i> 
+          Reset
+        </button>
+        <button class="app-default-btn" mat-raised-button id="filter_fetch" type="submit">
+          Fetch Records
+        </button>
+      </div>
+    </div>
+  </div>
 </div>
 </form>

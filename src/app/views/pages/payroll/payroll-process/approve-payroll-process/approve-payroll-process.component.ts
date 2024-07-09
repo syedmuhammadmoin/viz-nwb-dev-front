@@ -26,13 +26,13 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
   approvePayrollProcessForm: FormGroup;
   defaultColDef: any;
   gridOptions: any;
-  gridColumnApi: any
   isLoading: boolean;
   payrollTransactions: any[] = [];
   overlayLoadingTemplate: any;
   isDisabled: any;
   rowSelection = 'multiple';
   departmentsList: any = new BehaviorSubject<any>([])
+  pinnedBottomRowData: any = [];
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -45,12 +45,12 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       headerCheckboxSelection: true,
       headerCheckboxSelectionFilteredOnly: true,
       checkboxSelection: true,
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Transaction Date',
       field: 'transDate',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params) => {
         return this.dateHelperService.transformDate(params.value, 'MMM d, y');
       }
@@ -58,42 +58,42 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     {
       headerName: 'CNIC',
       field: 'cnic',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Designation',
       field: 'designation',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Campus',
       field: 'campus',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Department',
       field: 'department',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Working Days',
       field: 'workingDays',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Present Days',
       field: 'presentDays',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Absent Days',
       field: 'absentDays',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Net Salary',
       field: 'netSalary',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params) => {
         return this.valueFormatter(params.value)
       }
@@ -101,7 +101,7 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     {
       headerName: 'Status',
       field: 'status',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
   ];
 
@@ -120,7 +120,7 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
     }
   };
 
-  formErrors = {
+  formErrors: any = {
     departmentId: '',
     campusId: '',
     month: '',
@@ -146,6 +146,10 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       month: ['', Validators.required],
       year: ['', Validators.required]
     })
+
+    this.gridOptions = {
+      paginationPageSizeSelector: false
+    }
 
     this.getLatestCampuses();
     this.ngxsService.getDepartmentFromState();
@@ -184,7 +188,8 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
         this.payrollTransactions = res
         setTimeout(() => {
           const pinnedBottomData = this.generatePinnedBottomData();
-          this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+          this.pinnedBottomRowData = [pinnedBottomData];
+          this.cdRef.detectChanges();
         }, 500)
       })
   }
@@ -197,7 +202,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 // methd called on grid ready
   onGridReady(params) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
   }
 
 // approve the process or submit the process
@@ -239,15 +243,15 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
 
   resetForm() {
     this.formDirective.resetForm();
-    this.payrollTransactions = []
-    this.gridApi.setPinnedBottomRowData([])
+    this.payrollTransactions = [];
+    this.pinnedBottomRowData = [];
   }
 
   generatePinnedBottomData() {
     // generate a row-data with null values
     const result = {};
 
-    this.gridColumnApi.getAllGridColumns().forEach(item => {
+    this.gridApi.getAllGridColumns().forEach(item => {
       result[item.colId] = null;
     });
     return this.calculatePinnedBottomData(result);
@@ -266,7 +270,6 @@ export class ApprovePayrollProcessComponent extends AppComponentBase implements 
       }
     })
     target.employee = 'Total'
-    // console.log(target);
     return target;
   }
 

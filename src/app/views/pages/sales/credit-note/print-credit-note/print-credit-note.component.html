@@ -1,17 +1,17 @@
 <div class="container ">
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button printSectionId="main" printTitle="Credit Note" id="credit_note_print"  type="button"
         mat-raised-button 
         (click)="printForm()"
-         class="app-default-btn" mat-raised-button style="margin-bottom: 20px;"><i
+         class="app-default-btn" mat-raised-button style="margin-bottom: 20px; width: auto;"><i
           class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
@@ -19,7 +19,7 @@
               <span class="top-heading">SHAHEED BENAZIR BHUTTO UNIVERSITY </span>
             </div>
           </div>
-          <div class="print-col-5 ml-auto p-s-1-two">
+          <div class="print-col-5 ms-auto p-s-1-two">
             <div class="id_num">
               <div class="print-box-one border-bottom-1px" style="border-bottom: 1px solid;
               margin-bottom: 10px;
@@ -75,7 +75,7 @@
                     <th>Quantity</th>
                     <th>Price</th>
                     <th>Tax %</th>
-                    <th class="text-right">SubTotal</th>
+                    <th class="text-end">SubTotal</th>
                   </tr>
                   <tr *ngFor="let line of creditNoteLines; index as i">
                     <td>{{i + 1}}</td>
@@ -84,14 +84,14 @@
                     <td>{{line?.quantity.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</td>
                     <td>{{valueFormatter(line?.price)}}</td>
                     <td>{{line?.tax + '%'}}</td>
-                    <td class="text-right"><b>{{valueFormatter(line?.subTotal)}}</b></td>
+                    <td class="text-end"><b>{{valueFormatter(line?.subTotal)}}</b></td>
                   </tr>
                 </thead>
               </table>
             </div>
           </div>
 
-          <div class="print-col-5 ml-auto p-s-3">
+          <div class="print-col-5 ms-auto p-s-3">
             <div class="print-box p-s-3-one">
               <h4>Total Before Tax:
                 <span class="float-right">{{valueFormatter(totalBeforeTax)}}</span>
@@ -109,7 +109,7 @@
             </div>
           </div>
         </div>
-        <div class="row mt-10 ms-10">
+        <div class="row mt-10">
           <div class="print-col-4 p-s-5 text-center">
             ______________________
             <p class="text-center">Authorized Sign</p>

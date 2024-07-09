@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {MatDialog} from '@angular/material/dialog';
-import {ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
+import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent} from 'ag-grid-community';
 import {isEmpty} from 'lodash';
 import {CustomTooltipComponent} from '../../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {CreateCountryComponent} from '../../country/create-country/create-country.component';
@@ -9,6 +9,7 @@ import {IPaginationResponse} from '../../../../shared/IPaginationResponse';
 import {StateService} from '../services/state.service';
 import {IState} from '../models/IState';
 import {CreateStateComponent} from '../create-state/create-state.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-state',
@@ -37,14 +38,12 @@ export class ListStateComponent extends AppComponentBase implements OnInit {
 
 // For AG Grid..
   FacultyList: IState[];
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
-  frameworkComponents: { [p: string]: unknown };
-  tooltipData = 'double click to view detail'
-  components: { loadingCellRenderer(params: any): unknown };
+
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
 
@@ -54,8 +53,9 @@ export class ListStateComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Sr.No',
       field: 'index',
+      tooltipField: 'name',
       cellRenderer: 'loadingCellRenderer',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'State',
@@ -71,7 +71,6 @@ export class ListStateComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Country',
       field: 'country',
-      tooltipField: 'name',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
@@ -105,20 +104,21 @@ export class ListStateComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: 'double click to view detail',
+      paginationPageSizeSelector: false,
+      context: 'double click to edit'
     };
-
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -145,20 +145,18 @@ export class ListStateComponent extends AppComponentBase implements OnInit {
     });
     // Getting Updated Warehouse
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getState(params: any): Promise<IPaginationResponse<IState[]>> {
-    const result = await this.stateService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.stateService.getRecords(params));
     return result
   }
-
 }

@@ -123,7 +123,7 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     dateOfAcquisition: '',
     name: '',
     cwipAccountId: '',
@@ -262,7 +262,6 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
     this.mapFormValuesTocwipModel();
 
     if (this.data?.id) {
-      console.log('edit')
       this.cwipService.updateCwip(this.cwipModel)
         .pipe(
           take(1),
@@ -395,15 +394,12 @@ export class CreateCwipComponent extends AppComponentBase implements OnInit {
       this.perProductCost = (this.cwipForm.get('cost').value) / (this.cwipForm.get('quantity').value)
       this.cwipForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.cwipForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
-      console.log('first')
     } else if ((this.cwipForm.get('cost').value)) {
       this.perProductCost = (this.cwipForm.get('cost').value)
       this.cwipForm.get('salvageValue').setValidators(Validators.max(this.perProductCost))
       this.cwipForm.get('salvageValue').updateValueAndValidity({onlySelf: true, emitEvent: true});
-      console.log('second')
     } else {
       this.perProductCost = 0;
-      console.log('third')
     }
   }
 

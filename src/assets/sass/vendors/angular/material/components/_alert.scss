@@ -2,14 +2,14 @@
 // Alert
 //
 
-.mat-alert {
+.mat-mdc-alert {
     display: flex;
     align-items: center;
     padding: 10px 10px 10px 20px;
     border-radius: 3px;
     margin: 0 0 20px 0;
 
-    .mat-alert-icon {
+    .mat-mdc-alert-icon {
         display: flex;
         align-items: center;
         padding: 0 15px 0 0;
@@ -20,14 +20,14 @@
         }
     }
 
-    .mat-alert-text {
+    .mat-mdc-alert-text {
         display: flex;
         align-items: center;
         flex-grow: 1;
         color: #fff;
     }
 
-    .mat-alert-close {
+    .mat-mdc-alert-close {
         padding: 0 0 0 10px;
         display: flex;
         align-items: center;
@@ -46,20 +46,20 @@
     }
 
     // States
-    &.mat-alert-warn {
+    &.mat-mdc-alert-warn {
         background: lighten($danger, 8%);
     }
 
-    &.mat-alert-primary {
+    &.mat-mdc-alert-primary {
         background: lighten($primary, 8%);
     }
 
-    &.mat-alert-accent {
+    &.mat-mdc-alert-accent {
         background: lighten($success, 8%);
     }
 
     // Marginless
-    &.mat-alert-marginless {
+    &.mat-mdc-alert-marginless {
         margin: 0;
     }
 }

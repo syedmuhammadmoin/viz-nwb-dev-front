@@ -7,18 +7,18 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row">
           <div class="btn_container">
             <div class="col-md-6 col-6">
               <ng-container ktPortletTools >
                 <button *ngIf="(goodsReturnNoteMaster?.state === docStatus.Draft || goodsReturnNoteMaster?.state === docStatus.Rejected) && (permission.isGranted(permissions.GOODS_RETURN_NOTE_EDIT))"
                  id="grn_edit" [routerLink]="'/'+ GOODS_RETURN_NOTE.ID_BASED_ROUTE ('edit', goodsReturnNoteMaster?.id)"
-                  [queryParams]="{q: goodsReturnNoteMaster?.id, 'isGoodsReturnNote': true}" type="button" class="btn_public mr-3">
+                  [queryParams]="{q: goodsReturnNoteMaster?.id, 'isGoodsReturnNote': true}" type="button" class="btn_public me-3">
                   <i class="fa fa-edit icon-e-p-a"></i>  Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.GOODS_RETURN_NOTE_EDIT))"  class="btn_public mr-3"
+                <button *ngIf="(permission.isGranted(permissions.GOODS_RETURN_NOTE_EDIT))"  class="btn_public me-3"
                 (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
@@ -28,8 +28,8 @@
               </ng-container>
             </div>
 
-            <div class="col-lg-6 text-right" *ngIf="goodsReturnNoteMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" id="grn_reject" class="mr-2 btn btn-outline-danger" >Reject</button>
+            <div class="col-lg-6 text-end" *ngIf="goodsReturnNoteMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="grn_reject" class="me-2 btn btn-outline-danger" >Reject</button>
               <button (click)="remarksDialog(action.Approve)" id="grn_approve" class="btn btn-outline-success" >Approve</button>
             </div>
           </div>
@@ -71,7 +71,7 @@
             <kt-show-remarks [remarksList]="remarksList"></kt-show-remarks>
           </div>
 
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box" style="margin: 0px -6px;">
               <tr *ngIf="showReference">
                 <td colspan="2">

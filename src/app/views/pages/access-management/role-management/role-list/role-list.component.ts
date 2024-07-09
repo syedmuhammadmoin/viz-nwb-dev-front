@@ -17,7 +17,7 @@ import {CreateRoleComponent} from '../create-role/create-role.component';
 export class RoleListComponent extends AppComponentBase implements OnInit {
 
   gridOptions: any;
-  frameworkComponents: any;
+  components: any;
   defaultColDef: any;
   permissions = Permissions
   roleList: any;
@@ -31,7 +31,7 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
       headerName: 'S.No',
       field: 'index',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Role Name',
@@ -68,15 +68,15 @@ export class RoleListComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       resizable: true,
+      sortable: false,
       filter: 'agSetColumnFilter'
     }
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    this.components = { customTooltip: CustomTooltipComponent }
 
     if (!this.permission.isGranted(this.permissions.AUTH_EDIT)) {
       this.gridOptions.context = 'double click to view detail'
     }
-
   }
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {

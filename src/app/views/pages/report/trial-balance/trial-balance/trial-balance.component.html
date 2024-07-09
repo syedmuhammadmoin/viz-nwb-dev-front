@@ -3,7 +3,7 @@
   <form [formGroup]="trialBalanceForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
     <div class="kt-portlet__body">
       <div class="kt-form__section kt-form__section--first">
-        <div class="col-md-12 col-sm-12 col-lg-12">
+        <div class="col-md-12 col-sm-12 col-lg-12 ps-4 pe-4">
           <!-- region First Row -->
           <div class="row mt-1 mb-0">
             <div class="col-lg-4">
@@ -22,7 +22,7 @@
                 <kt-date-input formControlName="docDate2" placeholder="Select End Date" matFormFieldClass="full-width"
                   (blurEvent)="logValidationErrors(this.trialBalanceForm, formErrors, validationMessages)"
                   [errorMessage]="formErrors.docDate2" [minDate]="minDate"
-                  dateCondition="dateCondition" 
+                  [dateCondition]="dateCondition" 
                   dateMessage="Start">
                 </kt-date-input>
               </div>
@@ -30,7 +30,7 @@
             <div class="col-lg-4">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">COA:</label>
-                <kt-simple-dropdown id="trial_account" formControlName="accountId" matFormFieldClass="full-width" isDisabledNone="true"
+                <kt-simple-dropdown id="trial_account" formControlName="accountId" matFormFieldClass="full-width" [isDisabledNone]="true"
                   placeholder="Select Detailed Head" [optionList]="ngxsService.accountsLevel4$" hintText="Optional"
                   propertyName="name"></kt-simple-dropdown>
               </div>
@@ -40,7 +40,7 @@
             <div class="col-lg-4" *ngIf="this.currentClient?.isCampus">
               <div class="form-group kt-form__group mb-0">
                 <label class="col-form-label">Campus:</label>
-                <kt-simple-dropdown id="trial_campus" formControlName="campusId" matFormFieldClass="full-width" isDisabledNone="true"
+                <kt-simple-dropdown id="trial_campus" formControlName="campusId" matFormFieldClass="full-width" [isDisabledNone]="true"
                   placeholder="Select Campus" [optionList]="ngxsService.campuses$" hintText="Optional"
                   propertyName="name"></kt-simple-dropdown>
               </div>
@@ -49,10 +49,10 @@
           <!-- endregion -->
           <!-- region Second Row -->
           <div class="row">
-            <div class="col-lg-12 text-right justify-content-end align-items-center d-flex mb-3">
+            <div class="col-lg-12 text-end justify-content-end align-items-center d-flex mb-3">
               <div class="form-group kt-form__group mb-0">
-                <button class="mr-2 app-reset-btn"  type="button" id="trial_reset" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
-                <button *ngIf="!disability" class="mr-2 app-default-btn" mat-raised-button (click)="printTrialBalance(rowData)" 
+                <button class="me-2 app-reset-btn"  type="button" id="trial_reset" (click)="reset()" mat-raised-button><i class="fas fa-undo"></i> Reset</button>
+                <button *ngIf="!disability" class="me-2 app-default-btn" mat-raised-button (click)="printTrialBalance(rowData)" 
                      id="trial_print" type="button"><i class="fa fa-print"></i> Print</button>
                 <button class="app-default-btn" mat-raised-button type="submit" id="trial_fetch">Fetch Records</button>
               </div>
@@ -62,9 +62,10 @@
           <!-- region Action Row -->
           <!-- endregion -->
           <div class="row" style="padding-top: 10px;">
-            <div class="col-lg-12 text-right">
+            <div class="col-lg-12 text-end">
               <div [ktBusy]="isLoading">
-              <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)" (gridReady)="onGridReady($event)" [autoGroupColumnDef]="autoGroupColumnDef"
+              <ag-grid-angular (firstDataRendered)="onFirstDataRendered($event)" [pinnedBottomRowData]="pinnedBottomRowData"
+                    (gridReady)="onGridReady($event)" [autoGroupColumnDef]="autoGroupColumnDef"
                     [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" [gridOptions]="gridOptions" [animateRows]="true"
                     [rowData]="rowData" [suppressAggFuncInHeader]="true" class="ag-theme-alpine" (firstDataRendered)="onFirstDataRendered($event)"
                     style="width: 100%; height: 500px;">

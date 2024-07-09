@@ -5,7 +5,7 @@
     <form [formGroup]="pettyCashForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
       <div class="kt-portlet__body">
         <div class="kt-form__section kt-form__section--first">
-          <div class="col-lg-12 col-md-12 col-sm-12">
+          <div class="col-lg-12 col-md-12 col-sm-12 ps-4 pe-4">
             <div class="row mt-1 mb-0">
               <div class="col-lg-3 col-sm-3 col-md-3">
                 <div class="form-group kt-form__group mb-0">
@@ -100,7 +100,7 @@
                       <ng-container matColumnDef="accountId">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Account Head</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                             <kt-simple-dropdown placeholder="Select Account" propertyValue="id" propertyName="name"
                               formControlName="accountId" matFormFieldClass="full-width" [id]="'journal_coa_' + i"
                               [errorMessage]="'Account is required.'" [optionList]="ngxsService.accountsLevel4$">
@@ -112,7 +112,7 @@
                       <ng-container matColumnDef="businessPartnerId">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Partner</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                             <kt-simple-dropdown placeholder="Select Partner" propertyValue="id" propertyName="name"
                               formControlName="businessPartnerId" matFormFieldClass="full-width"
                               errorMessage="Partner is required." [id]="'journal_partner_' + i"
@@ -128,7 +128,7 @@
                       <ng-container matColumnDef="description">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Description</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                             <kt-input-field formControlName="description" matFormFieldClass="full-width"
                               placeholder="Enter Description" [id]="'journal_description_' + i"
                               (blurEvent)="logValidationErrors(this.pettyCashForm, formErrors, validationMessages)"
@@ -143,7 +143,7 @@
                       <ng-container matColumnDef="debit">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Debit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                             <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="debit" placeholder="Enter Debit" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"   
                               [id]="'journal_debit_' + i" type="number" (blur)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)">
@@ -161,7 +161,7 @@
                       <ng-container matColumnDef="credit">
                         <mat-header-cell *matHeaderCellDef class="flex-2"> Credit</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                             <mat-form-field appearance="outline" class="full-width">
                               <input matInput formControlName="credit" placeholder="Enter Credit" (change)="onChangeEvent($event , i)" (keyup)="onChangeEvent($event , i)"
                               [id]="'journal_credit_' + i" type="number" (blur)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages)">
@@ -169,7 +169,7 @@
                                 <strong>Credit is required.</strong>
                               </mat-error>
                               <mat-error *ngIf="element.controls.credit.errors?.min && element.controls.credit.touched">
-                                <strong>Minimum should be greater then value is 0.</strong>
+                                <strong>Minimum value should be greater then 0.</strong>
                               </mat-error>
                             </mat-form-field>
                           </div>
@@ -180,11 +180,10 @@
                       <ng-container matColumnDef="date">
                         <mat-header-cell *matHeaderCellDef [ngClass]="'width'" class="flex-2"> Date</mat-header-cell>
                         <mat-cell *matCellDef="let element;  let i = index" [formGroup]="element" class="flex-2" [ngClass]="'width'">
-                          <div class="col-lg-12 col-sm-12 mt-2">
+                          <div class="col-lg-12 col-sm-12 ps-2 pe-2 mt-2">
                             <kt-date-input
                               formControlName="date"
                               matFormFieldClass="full-width"
-                              [maxDate]="maxDate"
                               placeholder="Select Date"
                               (blur)="logValidationErrors(this.pettyCashForm, formErrors, validationMessages)"
                               [errorMessage]="element.controls.date.errors?.required &&
@@ -220,7 +219,7 @@
             </div>
 
             <div class="row">
-              <div class="col-md-4 col-lg-4  ml-auto mt-3">
+              <div class="col-md-4 col-lg-4  ms-auto mt-3">
                 <div class="print-box">
                   <h4>Total Debit: <span class="float-right" >{{debitTotal.toLocaleString(undefined,
                     { maximumFractionDigits: 2 })}}</span></h4>
@@ -243,9 +242,9 @@
       <div class="kt-portlet__foot p-5">
         <div class="kt-form__actions kt-form__actions mb-0">
           <div class="row ">
-            <div class="col-lg-12 text-right">
-              <button class="mr-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="journal_reset"><i class="fas fa-undo"></i> Reset</button>
-              <button class=" mr-2 app-save-btn" mat-raised-button type="submit" id="journal_save"
+            <div class="col-lg-12 text-end">
+              <button class="me-2 app-reset-btn" type="button" (click)="reset()" mat-raised-button id="journal_reset"><i class="fas fa-undo"></i> Reset</button>
+              <button class=" me-2 app-save-btn" mat-raised-button type="submit" id="journal_save"
                 (click)="logValidationErrors(this.pettyCashForm, this.formErrors, this.validationMessages); isSubmit(0)"><i class="far fa-save"></i>
                 Save
               </button>

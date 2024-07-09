@@ -1,5 +1,5 @@
 <div class="container " >
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button
         printSectionId="main"
@@ -8,13 +8,13 @@
         (click)="printForm()"
         type="button"       
         class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        style="margin-bottom: 20px; width: auto;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
         <div class="print_header_area p-s-1">
           <div class="print-col-6 p-s-1-one">
             <div class="logo_and_title">
@@ -23,7 +23,7 @@
             </div>
             
           </div>
-          <div class="print-col-5 ml-auto p-s-1-one">
+          <div class="print-col-5 ms-auto p-s-1-one">
             <div class="id_num">
               <div class="print-box-one">
                 <h4>From Date: <span class="float-right" style="font-weight: 400;">{{budgetMaster?.from | date: 'MMM d, y'}}</span></h4>
@@ -59,7 +59,7 @@
                   <tr *ngFor="let line of budgetLines; index as i">
                     <td>{{i + 1}}</td>
                     <td>{{line?.accountName || '---'}}</td>
-                    <td class="text-right"><b>{{valueFormatter(line?.amount)}}</b></td>
+                    <td class="text-end"><b>{{valueFormatter(line?.amount)}}</b></td>
                   </tr>
                 </thead>
               </table>
@@ -67,7 +67,7 @@
           </div>
 
 
-          <div class="print-col-5  ml-auto p-s-3">
+          <div class="print-col-5  ms-auto p-s-3">
             <div class="print-box p-s-3-two">
               <h4>Total Amount:
                 <span class="float-right">{{totalAmount?.toLocaleString(undefined, { maximumFractionDigits: 2 })}}</span>

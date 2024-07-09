@@ -28,11 +28,14 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   defaultColDef: any
   bankStatementList = [];
   paymentList = [];
+  gridOptions: any;
   overlayLoadingTemplate: any;
-  rowSelectionPayment = 'multiple';
-  rowSelectionBankStatement = 'multiple';
+  rowSelectionPayment: string | any = 'multiple';
+  rowSelectionBankStatement: string | any = 'multiple';
   private paymentColumnApi: any;
   private statementColumnApi: any;
+  statementPinnedBottomRowData: any = [];
+  paymentPinnedBottomRowData: any = [];
 
   //Loader
   isloading: boolean;
@@ -45,7 +48,7 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
   }
 
   //Keys for validations messages
-  formErrors = {
+  formErrors: any = {
     bankName: '',
   }
 
@@ -128,9 +131,14 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       bankName: ['', [Validators.required]],
     });
 
+    this.gridOptions = {
+      paginationPageSizeSelector: false,
+    }
+
     this.defaultColDef = {
       filter: true,
-      resizable: true,
+      sortable: false,
+      resizable: true
     };
 
     //Get Data from Store
@@ -147,18 +155,17 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
     this.paymentGridApi.showLoadingOverlay();
     this.bankAccountId = this.reconForm.value.bankName;
     this.ngxsService.bankAccountService.getBankAccount(this.bankAccountId)
-      .subscribe(
-        (bankAccount: any) => {
-          console.log(bankAccount.result)
+      .subscribe({
+        next: (bankAccount: any) => {
           this.clearingAccountId = bankAccount.result.clearingAccountId;
           this.loadReconciliationGridData();
           this.cdRef.detectChanges();
         },
-        (err: any) => {
+        error: () => {
           this.paymentGridApi.hideOverlay();
           this.statementGridApi.hideOverlay();
         }
-      );
+      });
   }
 
   onBankStatementRowClicked() {
@@ -206,16 +213,18 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       this.paymentGridApi.showLoadingOverlay();
       this.statementGridApi.showLoadingOverlay();
       this.statementGridApi.hideLoading
-      this.bankReconService.reconcileStatement(arrayOfReconData).subscribe((res) => {
+      this.bankReconService.reconcileStatement(arrayOfReconData).subscribe({
+        next: () => {
           this.isloading = true;
           this.loadReconciliationGridData();
           this.cdRef.detectChanges();
           this.toastService.success('Reconciliation Successful', 'Reconciled Successfully')
-        }, (err) => {
+        }, 
+        error: () => {
           this.paymentGridApi.hideOverlay();
           this.statementGridApi.hideOverlay();
         }
-      )
+      })
     }
   }
 
@@ -228,7 +237,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       this.cdRef.detectChanges();
       setTimeout(() => {
         const pinnedBottomData = this.footerHelper.generatePinnedBottomData(this.statementColumnApi, this.statementGridApi, 'docNo', ['unreconciledAmount']);
-        this.statementGridApi.setPinnedBottomRowData([pinnedBottomData]);
+        this.statementPinnedBottomRowData = [pinnedBottomData];
+        this.cdRef.detectChanges();
       }, 500)
     });
     this.bankReconService.paymentList.subscribe((res) => {
@@ -236,7 +246,8 @@ export class ListBankReconciliationComponent extends AppComponentBase implements
       this.cdRef.detectChanges();
       setTimeout(() => {
         const pinnedBottomData = this.footerHelper.generatePinnedBottomData(this.paymentColumnApi, this.paymentGridApi, 'docNo', ['unreconciledAmount']);
-        this.paymentGridApi.setPinnedBottomRowData([pinnedBottomData]);
+        this.paymentPinnedBottomRowData = [pinnedBottomData];
+        this.cdRef.detectChanges();
       }, 500)
     })
   }

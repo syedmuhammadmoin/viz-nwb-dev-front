@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -10,6 +10,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { CreateStatusComponent } from '../create-status/create-status.component';
 import { IStatus } from '../model/IStatus';
 import { StatusService } from '../service/status.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-status',
@@ -23,11 +24,10 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
   defaultColDef: any;
   tooltipData: string = "double click to edit"
   statusList: IStatus[] = [];
-  frameworkComponents: any;
-  components: { loadingCellRenderer (params: any ) : unknown };
+  
+  components: any;
   public permissions = Permissions
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   columnDefs = [
@@ -46,7 +46,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'State',
       field: 'state',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       tooltipField: 'status',
       valueFormatter: (params: ValueFormatterParams) => { 
         return (params.value) ? AppConst.DocStatus[params.value].viewValue : null
@@ -77,16 +77,18 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
       cellStyle: (params: ICellRendererParams) => {
         return (params?.data?.state === 1 || params?.data?.state === 5) ? {'pointer-events': 'none', 'color': '#87837e'} : null;
@@ -94,6 +96,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -134,7 +137,7 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
     });
     //Getting Updated Data
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     })
   }
@@ -155,12 +158,11 @@ export class ListStatusComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getStatuses(params: any): Promise<IPaginationResponse<IStatus[]>> {
-    const result = await this.statusService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.statusService.getRecords(params));
     return result
   }
 }

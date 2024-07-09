@@ -5,7 +5,6 @@ import { CountryRoutingModule } from './country-routing.module';
 import {SharedModule} from '../../../shared/modules/shared.module';
 import {PartialsModule} from '../../../partials/partials.module';
 import {AgGridModule} from 'ag-grid-angular';
-import {CustomTooltipComponent} from '../../../shared/components/custom-tooltip/custom-tooltip.component';
 import {ListCountryComponent} from './list-country/list-country.component';
 import {CreateCountryComponent} from './create-country/create-country.component';
 
@@ -20,7 +19,7 @@ import {CreateCountryComponent} from './create-country/create-country.component'
     CountryRoutingModule,
     SharedModule,
     PartialsModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class CountryModule { }

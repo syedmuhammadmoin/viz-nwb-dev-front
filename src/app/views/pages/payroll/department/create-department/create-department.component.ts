@@ -1,10 +1,9 @@
 import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild} from '@angular/core';
-import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AppComponentBase} from 'src/app/views/shared/app-component-base';
 import { MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import { finalize, take} from "rxjs/operators";
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IdepartmentInterface } from '../model/idepartment-interface';
@@ -47,7 +46,7 @@ export class CreateDepartmentComponent extends AppComponentBase implements OnIni
   };
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     campusId: '',
   };

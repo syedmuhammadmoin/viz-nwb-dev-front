@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrintRolePermissionsComponent } from './print-role-permissions.component';
 
@@ -6,7 +6,7 @@ describe('PrintRolePermissionsComponent', () => {
   let component: PrintRolePermissionsComponent;
   let fixture: ComponentFixture<PrintRolePermissionsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrintRolePermissionsComponent ]
     })

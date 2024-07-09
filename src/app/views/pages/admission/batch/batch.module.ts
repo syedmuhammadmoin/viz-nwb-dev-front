@@ -7,7 +7,6 @@ import { CreateBatchComponent } from './create-batch/create-batch.component';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PortletModule } from 'src/app/views/partials/content/general/portlet/portlet.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { DetailBatchComponent } from './detail-batch/detail-batch.component';
 
 
@@ -18,7 +17,7 @@ import { DetailBatchComponent } from './detail-batch/detail-batch.component';
     BatchRoutingModule,
     SharedModule,
     PortletModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class BatchModule { }

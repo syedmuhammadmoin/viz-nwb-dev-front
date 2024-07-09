@@ -78,7 +78,7 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   }
 
   //keys for validation
-  formErrors = {
+  formErrors: any = {
     bankAccountId: '',
     openingBalance: '',
     description: ''
@@ -252,10 +252,6 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     this.table?.renderRows();
   }
 
-  onFileDropped(e: any) {
-    console.log(e)
-  }
-
   //Add Bank Statement Line
   addBanKStatementLines(): FormGroup {
     return this.fb.group({
@@ -318,6 +314,10 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
     }
     this.table?.renderRows();
   }
+  
+  setOpeningBalance(event: any) {
+    this.cumulativeBalances[0] = this.openingBalance = event?.target?.value;
+  }
 
   calculateRunningTotal(openingBalance?: number) {
     const arrayControl = this.bankStatementForm.get('bankStmtLines') as FormArray;
@@ -347,7 +347,8 @@ export class CreateBankStatementComponent extends AppComponentBase implements On
   }
 
   //Upload file
-  uploadFile(files: File[]) {
+  uploadFile(event: any) {
+    const files = event?.target?.files;
     this.showLines = false;
     this.body.files = files[0] as File;
     if (files) {

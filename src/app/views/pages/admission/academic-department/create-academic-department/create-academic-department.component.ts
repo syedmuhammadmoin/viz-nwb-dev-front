@@ -8,7 +8,6 @@ import {AcademicDepartmentService} from '../service/academic-department.service'
 import {finalize, take} from 'rxjs/operators';
 import {ICreateAcademicDepartment} from '../model/ICreateAcademicDepartment';
 import {IsReloadRequired} from '../../../profiling/store/profiling.action';
-import {FeeItemState} from '../../fee-item/store/fee-item.state';
 import {AcademicDepartmentState} from '../store/academic-department.state';
 
 @Component({
@@ -50,7 +49,7 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
   }
 
   //error keys
-  formErrors = {
+  formErrors: any = {
     facultyId: '',
     AcademicDepartment: ''
   }
@@ -73,9 +72,6 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
       facultyId: ['', [Validators.required]],
       AcademicDepartment: ['', [Validators.required]],
     });
-
-    console.log(this.editAcademicDepartment);
-
 
     if (this._id) {
       this.isEditButtonShow = true;
@@ -116,7 +112,6 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
         (res) => {
           this.editAcademicDepartment(res.result),
             this.AcademicDepartment = res.result;
-          console.log(res, 'this is getDrpartment');
         }
       );
   }
@@ -129,7 +124,7 @@ export class CreateAcademicDepartmentComponent extends AppComponentBase implemen
       AcademicDepartment: ADepartment.name
     });
 
-  };
+  }
 
   onSubmit() {
 

@@ -6,19 +6,19 @@ import { Observable } from 'rxjs';
 import { OffcanvasOptions } from '../../../../core/_base/layout';
 import { AppState } from '../../../../core/reducers';
 import { currentUser, Logout, User } from '../../../../core/auth';
-import {DecodeTokenService} from '../../../shared/decode-token.service';
+import { DecodeTokenService} from '../../../shared/decode-token.service';
 import { environment } from '../../../../../environments/environment';
-import {AuthenticationService} from 'src/app/views/pages/auth/service/authentication.service';
+import { AuthenticationService} from 'src/app/views/pages/auth/service/authentication.service';
 import { Router } from '@angular/router';
-import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ACCESS_MANAGEMENT, APP_ROUTES } from 'src/app/views/shared/AppRoutes';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'kt-quick-user-panel',
   templateUrl: './quick-user-panel.component.html',
   styleUrls: ['./quick-user-panel.component.scss']
 })
-export class QuickUserPanelComponent extends AppComponentBase implements OnInit {
+export class QuickUserPanelComponent implements OnInit {
   user$: Observable<User>;
   user: User;
   // Public properties
@@ -34,11 +34,9 @@ export class QuickUserPanelComponent extends AppComponentBase implements OnInit 
    
     private decodeService: DecodeTokenService,
     private authService: AuthenticationService,
-    public router: Router,
-    private injector: Injector
-  ) {
-      super(injector)
-  }
+    private toastService: ToastrService,
+    public router: Router
+  ) { }
 
   /**
    * On init

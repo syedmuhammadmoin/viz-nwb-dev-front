@@ -1,6 +1,6 @@
 <div class="row mb-4">
-  <div class="col-md-12 text-right">
-    <button (click)="agingReport()" id="aging_report mr-2" class="app-default-btn mr-2" mat-raised-button  matTooltip="Aging Report">Aging Report</button>
+  <div class="col-md-12 text-end">
+    <button (click)="agingReport()" id="aging_report me-2" class="app-default-btn me-2" mat-raised-button  matTooltip="Aging Report">Aging Report</button>
     <button  class="app-default-btn" mat-raised-button *ngIf="(permission.isGranted(permissions.BILL_CREATE))" id="add_bill"  matTooltip="Add Vendor Bill" (click)='addVendorBill()' >Add Bill</button>
   </div>
 </div>
@@ -12,7 +12,7 @@
       </kt-portlet-header>
       <kt-finance-grid-filteration (MonthYear)="fetchData($event)"></kt-finance-grid-filteration>
       <kt-portlet-body>
-          <div class="col-lg-12 col-md-12 my-5">
+          <div class="col-lg-12 col-md-12 my-5 ps-4 pe-4">
             <ag-grid-angular
               style="width: 100%; height: 400px; margin-top: 10px;"
               class="ag-theme-alpine"
@@ -21,8 +21,7 @@
               (rowDoubleClicked)="onRowDoubleClicked($event)"
               (firstDataRendered)="onFirstDataRendered($event)"
               (paginationChanged)="paginationHelper.onPaginationChanged('billPageName', gridApi, $event)"
-              [gridOptions]="gridOptions"
-              [frameworkComponents]="frameworkComponents"
+              [gridOptions]="gridOptions"             
               [defaultColDef]="defaultColDef"
               [overlayNoRowsTemplate]="overlayNoRowsTemplate"
               [tooltipShowDelay]="5"

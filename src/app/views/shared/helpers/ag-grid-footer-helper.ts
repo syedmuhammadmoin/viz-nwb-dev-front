@@ -7,8 +7,6 @@ import { Injectable } from "@angular/core";
 
 export class AgGridFooterHelperService {
   generatePinnedBottomData(customGridApi, gridApi, columnName, ...columns) {
-    console.log('customGridApi: ', customGridApi);
-    console.log('gridApi: ', gridApi);
     // generate a row-data with null values
     const result = {};
 
@@ -20,14 +18,11 @@ export class AgGridFooterHelperService {
 
   calculatePinnedBottomData(gridAPI, target: any, columnName, ...columns) {
 
-    // console.log(target);
     // **list of columns fo aggregation**
     const columnsWithAggregation = [...columns]
     columnsWithAggregation.forEach(element => {
-      console.log('element', element);
       gridAPI.forEachNodeAfterFilter(
         (rowNode: RowNode) => {
-          console.log('RowNode: ', rowNode);
           if (rowNode.data[element]) {
             target[element] += Number(rowNode.data[element].toFixed(2));
           }
@@ -40,7 +35,6 @@ export class AgGridFooterHelperService {
     for (var key in target) {
       target[key] = target[key] ? target[key] : ''
     }
-    console.log(target);
     return target;
   }
 }

@@ -37,10 +37,10 @@ const route : Routes = [
       {
         path: CRUD_ROUTES.REGISTER_PAYMENT,
         children: [
-          {
-            path: '',
-            redirectTo: CRUD_ROUTES.CREATE_PAYMENT
-          },
+          // {
+          //   path: '',
+          //   redirectTo: CRUD_ROUTES.CREATE_PAYMENT
+          // },
           {
             path: CRUD_ROUTES.CREATE_PAYMENT,
             component: PaymentProcessComponent,

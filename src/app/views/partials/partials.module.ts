@@ -5,67 +5,20 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
 // NgBootstrap
-import { NgbDropdownModule, NgbTabsetModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
-// Perfect Scrollbar
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { NgbDropdownModule, NgbNavModule, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 // Core module
 import { CoreModule } from '../../core/core.module';
-// CRUD Partials
-import {
-  ActionNotificationComponent,
-  AlertComponent,
-  DeleteEntityDialogComponent,
-  FetchEntityDialogComponent,
-  UpdateStatusDialogComponent,
-} from './content/crud';
 // Layout partials
 import {
-  ContextMenu2Component,
-  ContextMenuComponent,
-  LanguageSelectorComponent,
-  NotificationComponent,
-  QuickActionComponent,
-  QuickPanelComponent,
   QuickUserPanelComponent,
-  ScrollTopComponent,
-  SearchDefaultComponent,
-  SearchDropdownComponent,
-  SearchResultComponent,
   SplashScreenComponent,
-  StickyToolbarComponent,
   Subheader1Component,
-  Subheader2Component,
-  Subheader3Component,
-  SubheaderSearchComponent,
-  UserProfile2Component,
-  UserProfile3Component,
-  UserProfileComponent,
-  UserProfile4Component
+  UserProfile4Component,
+  ScrollTopComponent
 } from './layout';
-import {
-  Widget1SalesStatComponent,
-  Widget9RecentActivitiesComponent,
-  Widget12NewUsersComponent,
-  Widget7WeeklySalesComponent,
-  Widget1TasksOverviewComponent,
-  Widget2NewArrivalsComponent,
-  Widget3NewArrivalsAuthorsComponent,
-  Widget4TodoComponent,
-  Widget8TrendsComponent,
-  Dropdown1Component,
-  Dropdown2Component,
-  Dropdown3Component,
-  Dropdown4Component,
-  Dropdown5Component
-} from './content/dashboard-widgets';
 // General
 import { NoticeComponent } from './content/general/notice/notice.component';
 import { PortletModule } from './content/general/portlet/portlet.module';
-// Extra module
-import { WidgetModule } from './content/widgets/widget.module';
-// SVG inline
-import { InlineSVGModule } from 'ng-inline-svg';
-import { CartComponent } from './layout/topbar/cart/cart.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatInputModule } from '@angular/material/input';
@@ -86,87 +39,38 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
+import { InlineSvgDirective } from '../shared/directive/inline-svg/inline-svg.directive';
+import { ActionNotificationComponent } from './content/action-notification/action-notification.component';
 
 @NgModule({
   declarations: [
-    ScrollTopComponent,
     NoticeComponent,
     ActionNotificationComponent,
-    DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
-    AlertComponent,
-
-    // topbar components
-    ContextMenu2Component,
-    ContextMenuComponent,
-    QuickPanelComponent,
     QuickUserPanelComponent,
-    ScrollTopComponent,
-    SearchResultComponent,
     SplashScreenComponent,
-    StickyToolbarComponent,
     Subheader1Component,
-    Subheader2Component,
-    Subheader3Component,
-    SubheaderSearchComponent,
-    LanguageSelectorComponent,
-    NotificationComponent,
-    QuickActionComponent,
-    SearchDefaultComponent,
-    SearchDropdownComponent,
-    UserProfileComponent,
-    UserProfile2Component,
-    UserProfile3Component,
     UserProfile4Component,
-    CartComponent,
+    ScrollTopComponent,
+    InlineSvgDirective
   ],
   exports: [
-    WidgetModule,
     PortletModule,
-
-    ScrollTopComponent,
     NoticeComponent,
     ActionNotificationComponent,
-    DeleteEntityDialogComponent,
-    FetchEntityDialogComponent,
-    UpdateStatusDialogComponent,
-    AlertComponent,
-
-    // topbar components
-    ContextMenu2Component,
-    ContextMenuComponent,
-    QuickPanelComponent,
+    InlineSvgDirective,
     QuickUserPanelComponent,
-    ScrollTopComponent,
-    SearchResultComponent,
     SplashScreenComponent,
-    StickyToolbarComponent,
     Subheader1Component,
-    Subheader2Component,
-    Subheader3Component,
-    SubheaderSearchComponent,
-    LanguageSelectorComponent,
-    NotificationComponent,
-    QuickActionComponent,
-    SearchDefaultComponent,
-    SearchDropdownComponent,
-    UserProfileComponent,
-    UserProfile2Component,
-    UserProfile3Component,
     UserProfile4Component,
-    CartComponent,
+    ScrollTopComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    PerfectScrollbarModule,
-    InlineSVGModule,
     CoreModule,
     PortletModule,
-    WidgetModule,
     NgApexchartsModule,
     // angular material modules
     MatButtonModule,
@@ -189,10 +93,9 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatTabsModule,
     MatTooltipModule,
     MatDialogModule,
-
     // ng-bootstrap modules
     NgbDropdownModule,
-    NgbTabsetModule,
+    NgbNavModule,
     NgbTooltipModule,
   ],
 })

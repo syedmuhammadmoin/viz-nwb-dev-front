@@ -2,7 +2,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions, CalculationType } from 'src/app/views/shared/AppEnum';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { BUDGET, ESTIMATED_BUDGET } from 'src/app/views/shared/AppRoutes';
@@ -27,7 +27,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
   docStatus = DocumentStatus
 
   //For AG Grid
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //Loader
@@ -51,7 +51,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining AG Grid Columns
@@ -62,7 +62,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
       field: 'amount',
       filter: true,
       cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -71,7 +71,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
       field: 'calculationType',
       filter: true,
       cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return CalculationType[params.value]
       }
     },
@@ -80,7 +80,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
       field: 'value',
       filter: true,
       cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -89,7 +89,7 @@ export class DetailEstimatedBudgetComponent extends AppComponentBase  implements
       field: 'estimatedValue',
       filter: true,
       cellStyle: {'font-size': '12px'},
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },

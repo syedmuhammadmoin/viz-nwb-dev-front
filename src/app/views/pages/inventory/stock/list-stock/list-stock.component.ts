@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from "ag-grid-community";
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ICellRendererParams, ValueFormatterParams } from "ag-grid-community";
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { isEmpty } from 'lodash';
@@ -17,12 +17,11 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
   stockList: IStock[];
   FilteredData: any[]=[];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -39,7 +38,7 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
   }
 
   //Defining Stock Columns
-  columnDefs = [
+  columnDefs: any = [
     { 
       headerName: 'Item', 
       field: 'itemName', 
@@ -89,7 +88,7 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
       headerName: 'Reserved Quantity', 
       field: 'reservedQuantity', 
       tooltipField: 'itemName',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueGetter: (params: ICellRendererParams) => {
         if(params.data){
          return params.data.reservedQuantity + params.data.reservedRequisitionQuantity
@@ -99,7 +98,6 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
     { 
       headerName: 'Store', 
       field: 'warehouseName', 
-      tooltipField: 'itemName',
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -118,20 +116,23 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "Inventory Record",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -148,7 +149,6 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -164,7 +164,7 @@ export class ListStockComponent extends AppComponentBase  implements OnInit {
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 
 

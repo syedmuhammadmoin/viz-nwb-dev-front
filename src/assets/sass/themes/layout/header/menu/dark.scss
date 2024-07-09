@@ -18,8 +18,5 @@ $menu-scroll-color: #637099;
 @include media-breakpoint-down(md) {
 	.header-menu-wrapper {
         background-color: get($layout-themes, dark);
-
-    	// Scrollbar
-    	@include perfect-scrollbar-theme($menu-scroll-color);
 	}
 }

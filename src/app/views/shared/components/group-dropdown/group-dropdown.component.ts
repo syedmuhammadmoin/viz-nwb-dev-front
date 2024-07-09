@@ -17,7 +17,7 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
   @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
   @ViewChild('customGroupSelect') customSelect: ElementRef
 
-  @Input() formControl: FormControl;
+  @Input() formControl: FormControl<any> | any;
   @Input() formControlName: string;
   @Input() optionList: Observable<any> | [];
   @Input() propertyName: string;
@@ -28,13 +28,14 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
   @Input() placeholder: string;
   @Input() searchPlaceholder: string;
   @Input() hintText: string;
-  @Input() errorMessage: string;
+  @Input() errorMessage: string | any;
   @Input() groupPropertyName: string;
   @Input() groupChildrenName: string;
   @Input() clickEventButtonName: string;
   @Input() matSelectClass: any | [] | string
   @Input() matFormFieldClass: any | [] | string
-  @Input() isDisabled: boolean
+  @Input() isDisabled: boolean;
+  @Input() isDisabledNone: boolean = false;
 
   @Output() selectionChangeEvent = new EventEmitter<any>()
   @Output() clickEvent = new EventEmitter<any>();
@@ -44,7 +45,7 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
   isLoading: boolean
   filterControl: FormControl = new FormControl();
   filteredOptionList: ReplaySubject<[]> = new ReplaySubject<[]>(1);
-  private options: [] = [];
+  private options: any = [];
 
   get control() {
     return this.formControl || this.controlContainer.control.get(this.formControlName);
@@ -62,12 +63,10 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
       this.optionList.subscribe((res) => {
         this.options = (res.result) ? res.result : res;
         this.isLoading = false;
-        // @ts-ignore
         this.filteredOptionList.next(this.options.slice());
       });
     } else {
       this.options = this.optionList;
-      // @ts-ignore
       this.filteredOptionList.next(this.options.slice());
     }
 
@@ -84,9 +83,8 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
     }
     // get the search keyword
     let search = this.filterControl.value;
-    const optionGroupsCopy = this.copyBankGroups(this.options);
+    const optionGroupsCopy: any = this.copyBankGroups(this.options);
     if (!search) {
-      // @ts-ignore
       this.filteredOptionList.next(optionGroupsCopy);
       return;
     } else {
@@ -94,10 +92,8 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
     }
     // filter the banks
     this.filteredOptionList.next(
-      // @ts-ignore
       optionGroupsCopy.filter(optionGroup => {
         const showOptionGroup = optionGroup[this.groupPropertyName].toLowerCase().indexOf(search) > -1;
-        console.log(showOptionGroup)
         if (!showOptionGroup) {
           optionGroup[this.groupChildrenName] = optionGroup[this.groupChildrenName]
             .filter(child => child[this.propertyName].toLowerCase().indexOf(search) > -1);
@@ -112,7 +108,7 @@ export class GroupDropdownComponent implements OnInit, ControlValueAccessor {
     optionGroups.forEach(optionGroup => {
       optionGroupsCopy.push({
         [this.groupPropertyName]: optionGroup[this.groupPropertyName],
-        // @ts-ignore
+        // @ts-expect-error ...
         [this.groupChildrenName]: optionGroup[this.groupChildrenName].slice()
       });
     });

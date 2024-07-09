@@ -17,9 +17,9 @@ import { DynamicColorChangeService } from 'src/app/views/shared/services/dynamic
 
 export class PrintBudgetComponent extends AppComponentBase implements OnInit {
  
-  gridOptions: GridOptions;
+  gridOptions: any;
   budgetMaster: IBudgetResponse;
-  budgetLines: IBudgetLines[];
+  budgetLines: IBudgetLines[] | any;
   totalAmount: number = 0;
   edinfini : boolean;
   sbbu : boolean;

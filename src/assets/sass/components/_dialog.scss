@@ -1,6 +1,7 @@
 //
 // Loading
 //
+@use 'sass:math' as math;
 
 .dialog {
     $width: 130px;
@@ -19,10 +20,10 @@
         display: flex;
         top: -100px;
         left: 50%;
-        margin-left: -($width / 2);
+        margin-left: -(math.div($width, 2));
         transition: top 0.6s ease;
-        @include border-top-left-radius(0);
-        @include border-top-right-radius(0);
+        @include border-top-start-radius(0);
+        @include border-top-end-radius(0);
 
         &.dialog-shown {
             top: 0px;

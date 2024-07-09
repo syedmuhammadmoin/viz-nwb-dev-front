@@ -41,7 +41,7 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
     },
   };
 
-  formErrors = {
+  formErrors: any = {
     'name': '',
     'website': '',
     'startDate': '',
@@ -113,8 +113,7 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
           this.isLoading = false;
           this.editOrganization(organization.result)
           this.organization = organization.result
-        },
-        (err) => console.log(err)
+        }
       );
   }
 
@@ -153,8 +152,7 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
             this.toastService.success('Updated Successfully', 'Campus')
             this.onCloseDialog();
-          },
-          (err) => this.toastService.error('Something went wrong', 'Organization')
+          }
         )
     } else {
       delete this.organization['id'];
@@ -166,8 +164,7 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
             this.toastService.success('Created Successfully', 'Campus')
             this.onCloseDialog();
-          },
-          (err) => this.toastService.error('Something went wrong', 'Organization')
+          }
         );
     }
   }

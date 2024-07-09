@@ -1,3 +1,4 @@
+import { Injectable } from "@angular/core";
 import {defaultEntityState, ProfilingState, ProfilingStateModel} from "../../store/profiling.state";
 import {State} from "@ngxs/store";
 
@@ -5,6 +6,7 @@ import {State} from "@ngxs/store";
   name: 'Category',
   defaults: defaultEntityState()
 })
+@Injectable()
 export class CategoryState extends ProfilingState<any> {
   constructor() {
     super(CategoryState, 'Category');

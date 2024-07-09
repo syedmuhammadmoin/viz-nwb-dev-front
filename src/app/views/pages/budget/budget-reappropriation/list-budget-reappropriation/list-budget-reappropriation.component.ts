@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { DateHelperService } from 'src/app/views/shared/helpers/date-helper';
 import { IBudgetReport } from '../../current-budget/model/IBudgetReport';
 import { AppComponentBase } from '../../../../shared/app-component-base';
@@ -12,6 +12,7 @@ import { BudgetReappropriationService } from '../service/budget-reappropriation.
 import { IBudget } from '../model/Ibudget';
 import { MatDialog } from '@angular/material/dialog';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-budget-reappropriation',
@@ -26,14 +27,13 @@ export class ListBudgetReappropriationComponent extends AppComponentBase impleme
 
   // For AG Grid..
   budgetList: IBudgetReport[];
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions;
-  frameworkComponents: { [p: string]: unknown };
+  
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer(params: any): unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   //Injecting Dependencies
@@ -107,20 +107,23 @@ export class ListBudgetReappropriationComponent extends AppComponentBase impleme
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = { customTooltip: CustomTooltipComponent };
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -160,12 +163,11 @@ export class ListBudgetReappropriationComponent extends AppComponentBase impleme
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getBudgetReappropriation(params: any): Promise<IPaginationResponse<IBudget[]>> {
-    const result = await this.budgetReappropriation.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.budgetReappropriation.getRecords(params));
     return result
   }
 

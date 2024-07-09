@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { CategoryService } from '../service/category.service';
-import { MatDialog } from '@angular/material/Dialog'
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IServerSideDatasource, IServerSideGetRowsParams, IServerSideGetRowsRequest, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { MatDialog } from '@angular/material/dialog'
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreateCategoryComponent } from '../create-category/create-category.component';
 import { ICategory } from '../model/ICategory';
@@ -9,6 +9,7 @@ import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-category',
@@ -19,14 +20,11 @@ import { isEmpty } from 'lodash';
 export class ListCategoryComponent extends AppComponentBase implements OnInit {
 
   categoryList : ICategory[]
-  frameworkComponents : {[p: string]: unknown};
   gridOptions : GridOptions;
   defaultColDef : ColDef;
-  tooltipData : string = "double click to edit"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   public permissions = Permissions
-  gridApi: GridApi;
-  gridColumnApi: ColumnApi;
+  gridApi: GridApi; 
   overlayNoRowsTemplate = '<span style="padding: 8px; border-radius: 5px; border: 1px solid #D3D3D3; background: white;">No Rows !</span>';
 
   // constructor
@@ -54,10 +52,10 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
      },
-    { headerName: 'Asset Account', field: 'inventoryAccount', suppressMenu: true, tooltipField: 'name' },
-    { headerName: 'Revenue Account', field: 'revenueAccount', suppressMenu: true, tooltipField: 'name' },
-    { headerName: 'Cost Account', field: 'costAccount', suppressMenu: true },
-    { headerName: 'Fixed Asset', field: 'isFixedAsset', suppressMenu: true,
+    { headerName: 'Asset Account', field: 'inventoryAccount', suppressHeaderMenuButton: true, tooltipField: 'name' },
+    { headerName: 'Revenue Account', field: 'revenueAccount', suppressHeaderMenuButton: true, tooltipField: 'name' },
+    { headerName: 'Cost Account', field: 'costAccount', suppressHeaderMenuButton: true },
+    { headerName: 'Fixed Asset', field: 'isFixedAsset', suppressHeaderMenuButton: true,
      valueFormatter: (params: ValueFormatterParams) => {
       if(params.value){
         return 'Yes'
@@ -79,20 +77,23 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to edit",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -124,7 +125,7 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
     });
     // Recalling getCategories function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -145,12 +146,11 @@ export class ListCategoryComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getCategories(params: any): Promise<IPaginationResponse<ICategory[]>> {
-    const result = await this.categoryService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.categoryService.getRecords(params));
     return result
   }
 }

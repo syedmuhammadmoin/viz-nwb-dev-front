@@ -4,7 +4,7 @@ import { ChangeDetectorRef, Component, Injector, OnInit, ViewChild } from '@angu
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { IDebitNote } from '../model/IDebitNote';
 import { DebitNoteService } from '../service/debit-note.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { finalize, take } from 'rxjs/operators';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { ProductService } from '../../../profiling/product/service/product.service';
@@ -85,7 +85,7 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     vendorName: '',
     noteDate: '',
     campusId: ''
@@ -169,13 +169,12 @@ export class CreateDebitNoteComponent extends AppComponentBase implements OnInit
       //Calculating subtotal
       var quantity = arrayControl.at(index).get('quantity').value;
       var subTotal = (cost * quantity) + ((cost * quantity) * (tax / 100))
-      //console.log('Subtotal', subTotal);
       arrayControl.at(index).get('subTotal').setValue(subTotal);
     }
   }
 
   //For Calculating subtotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number, element?: HTMLElement) {
+  onChangeEvent(value: any, index: number, element?: HTMLElement | any) {
 
     const arrayControl = this.debitNoteForm.get('debitNoteLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;

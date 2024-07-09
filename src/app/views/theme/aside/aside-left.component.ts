@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
@@ -26,7 +25,7 @@ import { AppConst } from '../../shared/AppConst';
   styleUrls: ['./aside-left.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AsideLeftComponent extends AppComponentBase implements OnInit, AfterViewInit {
+export class AsideLeftComponent extends AppComponentBase implements OnInit {
   private offcanvas: any;
 
   @ViewChild('asideMenuOffcanvas', { static: true }) asideMenuOffcanvas: ElementRef;
@@ -117,17 +116,13 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
     this.permissionsService.loadPermissions(this.authSingleton.getCurrentUserPermission() ?? []);
   }
 
-  ngAfterViewInit(): void {
-  }
-
   ngOnInit() {
-    console.log(this.menuAsideService.menuList$, 'Menue Items');
 
     this.currentRouteUrl = this.router.url.split(/[?#]/)[0];
 
     this.router.events
       .pipe(filter(event => event instanceof NavigationEnd))
-      .subscribe(event => {
+      .subscribe(() => {
         this.currentRouteUrl = this.router.url.split(/[?#]/)[0];
         //  this.mobileMenuClose();
         this.cdr.markForCheck();
@@ -197,7 +192,7 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
    * Use for fixed left aside menu, to show menu on mouseenter event.
    * @param e Event
    */
-  mouseEnter(e: Event) {
+  mouseEnter() {
     // check if the left aside menu is fixed
     if (document.body.classList.contains('aside-fixed')) {
       if (this.outsideTm) {
@@ -220,7 +215,7 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
    * Use for fixed left aside menu, to show menu on mouseenter event.
    * @param e Event
    */
-  mouseLeave(e: Event) {
+  mouseLeave() {
     if (document.body.classList.contains('aside-fixed')) {
       if (this.insideTm) {
         clearTimeout(this.insideTm);
@@ -291,7 +286,6 @@ export class AsideLeftComponent extends AppComponentBase implements OnInit, Afte
   }
 
   showMenuItem(permissions: any): boolean {
-    console.log('aside permission :', permissions);
     if (permissions) {
       return permissions.filter(item => this.permission.isGranted(item)).length > 0 ? true : false;
     }

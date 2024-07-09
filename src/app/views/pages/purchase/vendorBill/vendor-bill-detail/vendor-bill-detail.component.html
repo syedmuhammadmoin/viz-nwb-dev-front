@@ -6,8 +6,7 @@
       </ng-container>
     </kt-portlet-header>
     <kt-portlet-body>
-      <div class="col-md-12 col-lg-12 mx-auto  mb-5">
-
+      <div class="col-md-12 col-lg-12 ps-4 pe-4 mx-auto mb-5">
         <div class="row ">
           <div class="btn_container">
             <div class="col-md-6 col-6">
@@ -15,25 +14,25 @@
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid)
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.PAYMENT_CREATE))"
                   [ngClass]="!(permission.isGranted(permissions.PAYMENT_CREATE)) ? 'disable' : '' "
-                  type="button" class="mr-3 btn_public" (click)="openDialog()" >
+                  type="button" class="me-3 btn_public" (click)="openDialog()" >
                   <i class="fa fa-edit icon-e-p-a"></i> Register Payment
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Partial || billMaster?.state === docStatus.Unpaid)
                    && (billMaster?.ledgerId) && (permission.isGranted(permissions.DEBITNOTE_CREATE))"
                   [routerLink]="'/' + DEBIT_NOTE.CREATE" [queryParams]="{q: billMaster?.id, isBill: true}"
-                  type="button" class="mr-3 btn_public">
+                  type="button" class="me-3 btn_public">
                   <i class="fa fa-edit icon-e-p-a"></i> Debit Note
                 </button>
 
                 <button *ngIf="(billMaster?.state === docStatus.Draft || billMaster?.state === docStatus.Rejected)
                     && (permission.isGranted(permissions.BILL_EDIT))" id="bill_edit"
                   [routerLink]="'/'+ BILL.ID_BASED_ROUTE ('edit', billMaster?.id)" [queryParams]="{q: billMaster?.id, 'isBill': true}"
-                  type="button" class="mr-3 btn_public" >
+                  type="button" class="me-3 btn_public" >
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
                 </button>
 
-                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))" class="btn_public mr-3"
+                <button *ngIf="(permission.isGranted(permissions.BILL_EDIT))" class="btn_public me-3"
                   (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
 
@@ -44,8 +43,8 @@
 
             </ng-container>
             </div>
-            <div class="col-lg-6 text-right" *ngIf="billMaster?.isAllowedRole">
-              <button (click)="remarksDialog(action.Reject)" id="bill_reject" class="btn btn-outline-danger font-weight-bold mr-2 ">Reject</button>
+            <div class="col-lg-6 text-end" *ngIf="billMaster?.isAllowedRole">
+              <button (click)="remarksDialog(action.Reject)" id="bill_reject" class="btn btn-outline-danger font-weight-bold me-2 ">Reject</button>
               <button (click)="remarksDialog(action.Approve)" id="bill_approve" class="btn btn-outline-success font-weight-bold ">Approve</button>
             </div>
           </div>
@@ -117,33 +116,33 @@
           </div>
 
 
-          <div class="col-lg-4 ml-auto">
+          <div class="col-lg-4 ms-auto">
             <table class="table  small_table_box">
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Before Tax :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(billMaster?.totalBeforeTax || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Tax :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(billMaster?.tax || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Other Tax :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(billMaster?.otherTax || 0)}}</td>
               </tr>
               <tr>
                 <td class="text-left Total-Before-Tax-heading">Total Tax :</td>
-                <td class="text-right" >
+                <td class="text-end" >
                   {{valueFormatter(billMaster?.totalTax || 0)}}</td>
               </tr>
               <tr class="grand-total">
                 <th class="text-left"
                   >Total Amount :
                 </th>
-                <th class="text-right" >
+                <th class="text-end" >
                   {{valueFormatter(billMaster?.totalAmount || 0)}}</th>
               </tr>
               <tr *ngIf="paidAmountList.length > 0">
@@ -202,9 +201,9 @@
               </tr>
 
               <tr *ngIf="(pendingAmount)">
-                <th class="text-right pending-amount">Pending Amount :
+                <th class="text-end pending-amount">Pending Amount :
                 </th>
-                <td class="text-right Total-Before-Tax">
+                <td class="text-end Total-Before-Tax">
                   {{valueFormatter(pendingAmount || 0)}}</td>
               </tr>
             </table>

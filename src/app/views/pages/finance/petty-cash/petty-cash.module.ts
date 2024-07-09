@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { CreatePettyCashComponent } from './create-petty-cash/create-petty-cash.component';
 import { ListPettyCashComponent } from './list-petty-cash/list-petty-cash.component';
 import { PettyCashDetailsComponent } from './petty-cash-details/petty-cash-details.component';
@@ -25,7 +24,7 @@ import { PrintPettyCashComponent } from './print-petty-cash/print-petty-cash.com
     SharedModule,
     PartialsModule,
     PettyCashRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class PettyCashModule { }

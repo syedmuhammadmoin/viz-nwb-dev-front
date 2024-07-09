@@ -22,7 +22,7 @@ export class ProfilingStateModel<T> {
   isLoading: boolean;
 }
 
-export abstract class ProfilingState<T extends {}> {
+export abstract class ProfilingState<T extends object> {
 
   private readonly idKey: string;
   private readonly storePath: string;
@@ -38,19 +38,19 @@ export abstract class ProfilingState<T extends {}> {
   }
 
   static get entities(): StateSelector<any> {
-    return createSelector([this], state => {
+    return createSelector([this as any], state => {
       return state.modelList;
     });
   }
 
   static get isFetchCompleted(): StateSelector<any> {
-    return createSelector([this], state => {
+    return createSelector([this as any], state => {
       return state.isFetchCompleted;
     });
   }
 
   static get isLoading(): StateSelector<any> {
-    return createSelector([this], state => {
+    return createSelector([this as any], state => {
       return state.isLoading;
     })
   }
@@ -72,8 +72,8 @@ export abstract class ProfilingState<T extends {}> {
     }
   }
 
-  reload({setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
-    setState(getRecords(payload))
+  reload({setState}: StateContext<ProfilingStateModel<T>>) {
+    setState(getRecords())
   }
 
   addEntity({setState}: StateContext<ProfilingStateModel<T>>, payload: any) {
@@ -82,7 +82,7 @@ export abstract class ProfilingState<T extends {}> {
 
     serviceClass[methodName](payload.payload.entity).subscribe((res) => {
       setState(
-        // @ts-ignore
+        // eslint-disable
         patch({
           modelList: insertItem(res, 0),
           isLoading: false
@@ -135,7 +135,7 @@ export function setLoading<T>(payload: any): StateOperator<ProfilingStateModel<T
   }
 }
 
-export function getRecords<T>(payload: { serviceClassName: any, methodName: any, context: any }): StateOperator<ProfilingStateModel<T>> {
+export function getRecords<T>(): StateOperator<ProfilingStateModel<T>> {
   return (state: ProfilingStateModel<T>) => {
     const entities = [];
     return {

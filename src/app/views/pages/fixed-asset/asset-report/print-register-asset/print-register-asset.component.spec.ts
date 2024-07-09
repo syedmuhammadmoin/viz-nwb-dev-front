@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrintRegisterAssetComponent } from './print-register-asset.component';
 
@@ -6,7 +6,7 @@ describe('PrintRegisterAssetComponent', () => {
   let component: PrintRegisterAssetComponent;
   let fixture: ComponentFixture<PrintRegisterAssetComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrintRegisterAssetComponent ]
     })

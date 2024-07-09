@@ -16,7 +16,7 @@ export class FormConfirmationGuard implements FormsCanDeactivate {
   constructor(readonly matDialog: MatDialog) {
   }
 
-  // @ts-ignore
+  // @ts-expect-error ...
   canDeactivate(component: FormsCanDeactivate): boolean | Observable<boolean> {
     return component.canDeactivate() ||
       this.matDialog.open<ConfirmationDialogComponent, void, boolean>(ConfirmationDialogComponent, {

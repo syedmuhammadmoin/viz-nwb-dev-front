@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
-import {MatDialog} from '@angular/material/Dialog'
+import {MatDialog} from '@angular/material/dialog'
 import {ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, ValueFormatterParams} from 'ag-grid-community';
 import {ICampus} from '../model/ICampus';
 import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';
@@ -7,6 +7,7 @@ import {CampusService} from '../service/campus.service';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
 import {Permissions} from 'src/app/views/shared/AppEnum';
 import {isEmpty} from 'lodash';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-campus',
@@ -17,11 +18,10 @@ import {isEmpty} from 'lodash';
 export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   campusList: ICampus[]
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
   components: any;
   gridApi: GridApi;
-  gridColumnApi: any;
   public permissions = Permissions
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
@@ -46,7 +46,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       headerName: 'Sr.No',
       field: 'index',
       cellRenderer: 'loadingCellRenderer',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Name',
@@ -61,7 +61,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Active',
       field: 'isActive',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return (params.value) ? 'Yes' : 'No';
       }
@@ -76,6 +76,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: 'double click to edit',
     };
 
@@ -84,6 +85,7 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
@@ -124,12 +126,11 @@ export class ListCampusComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getCampuses(params: any): Promise<IPaginationResponse<ICampus[]>> {
-    const result = await this.campusService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.campusService.getRecords(params));
     return result
   }
 }

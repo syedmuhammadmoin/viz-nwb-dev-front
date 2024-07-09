@@ -1,5 +1,5 @@
 <div class="row mb-4">
-  <div class="col-md-12 text-right">
+  <div class="col-md-12 text-end">
     <button *ngIf="(permission.isGranted(permissions.BANK_RECON_CREATE))" id="reconcile" type="button" matTooltip="Reconcile" class="app-default-btn" mat-raised-button (click)="onSubmit()">Reconcile</button>
   </div>
 </div>
@@ -43,7 +43,9 @@
                     [columnDefs]="columnBankStatement"
                     [overlayLoadingTemplate]="overlayLoadingTemplate"
                     [pagination]="true"
+                    [gridOptions]="gridOptions"
                     [animateRows]="true"
+                    [pinnedBottomRowData]="statementPinnedBottomRowData"
                     [rowSelection]="rowSelectionBankStatement"
                     [rowMultiSelectWithClick]="true"
                     (gridReady)="onStatementGridReady($event)"
@@ -57,8 +59,10 @@
                     class="ag-theme-alpine grid_measurement"
                     [rowData]="paymentList"
                     [columnDefs]="columnPayment"
+                    [gridOptions]="gridOptions"
                     [pagination]="true"
                     [animateRows]="true"
+                    [pinnedBottomRowData]="paymentPinnedBottomRowData"
                     [rowSelection]="rowSelectionPayment"
                     (rowSelected)="onPaymentRowClicked()"
                     [overlayLoadingTemplate]="overlayLoadingTemplate"

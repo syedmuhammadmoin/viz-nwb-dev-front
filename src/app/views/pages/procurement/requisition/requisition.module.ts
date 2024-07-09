@@ -7,7 +7,6 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { RequisitionRoutingModule } from './requisition-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 
 
 @NgModule({
@@ -21,7 +20,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
     SharedModule,
     PartialsModule,
     RequisitionRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class RequisitionModule { }

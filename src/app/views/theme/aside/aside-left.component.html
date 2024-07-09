@@ -7,9 +7,8 @@
 
 	<!-- BEGIN: Aside Menu -->
 	<div class="aside-menu-wrapper flex-column-fluid" id="kt_aside_menu_wrapper">
-		<div #asideMenu ktMenu [options]="menuOptions"
-			[perfectScrollbar]="{wheelPropagation: false, suppressScrollX: false}" id="kt_aside_menu"
-			class="aside-menu scroll" (mouseenter)="mouseEnter($event)" (mouseleave)="mouseLeave($event)"
+		<div #asideMenu ktMenu [options]="menuOptions" id="kt_aside_menu"
+			class="aside-menu scroll" (mouseenter)="mouseEnter()" (mouseleave)="mouseLeave()"
 			[ngClass]="htmlClassService.getClasses('aside_menu', true)">
 			<ul class="menu-nav" [ngClass]="htmlClassService.getClasses('aside_menu_nav', true)">
 				<ng-container [ngTemplateOutlet]="menuListTemplate"></ng-container>

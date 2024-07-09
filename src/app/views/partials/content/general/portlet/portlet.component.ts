@@ -1,5 +1,5 @@
 // Angular
-import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, ViewChild } from '@angular/core';
 // Loading bar
 import { LoadingBarService } from '@ngx-loading-bar/core';
 // RxJS
@@ -8,8 +8,6 @@ import { Observable } from 'rxjs';
 import { PortletBodyComponent } from './portlet-body.component';
 import { PortletHeaderComponent } from './portlet-header.component';
 import { PortletFooterComponent } from './portlet-footer.component';
-// Layout
-import { LayoutConfigService } from '../../../../../core/_base/layout';
 
 export interface PortletOptions {
 	test?: any;
@@ -20,7 +18,7 @@ export interface PortletOptions {
 	templateUrl: './portlet.component.html',
 	exportAs: 'ktPortlet'
 })
-export class PortletComponent implements OnInit, AfterViewInit {
+export class PortletComponent {
 	// Public properties
 	@Input() loading$: Observable<boolean>;
 	// portlet extra options
@@ -44,25 +42,7 @@ export class PortletComponent implements OnInit, AfterViewInit {
 	 * @param loader: LoadingBarService
 	 * @param layoutConfigService: LayoutConfigService
 	 */
-	constructor(private el: ElementRef, public loader: LoadingBarService,
-	            private layoutConfigService: LayoutConfigService) {
-		this.loader.complete();
+	constructor(public loader: LoadingBarService) {
+		this.loader.useRef().complete();
 	}
-
-	/**
-	 * @ Lifecycle sequences => https://angular.io/guide/lifecycle-hooks
-	 */
-
-	/**
-	 * On init
-	 */
-	ngOnInit() {
-	}
-
-	/**
-	 * After view init
-	 */
-	ngAfterViewInit() {
-	}
-
 }

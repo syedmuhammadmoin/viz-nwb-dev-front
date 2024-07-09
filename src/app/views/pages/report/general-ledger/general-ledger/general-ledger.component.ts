@@ -8,7 +8,6 @@ import { IGeneralLedger} from '../model/IGeneralLedger';
 import { finalize} from 'rxjs/operators';
 import { DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty} from 'lodash';
-import { Router } from '@angular/router';
 import { APP_ROUTES, REPORT } from 'src/app/views/shared/AppRoutes';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
@@ -25,7 +24,6 @@ function sumFunc(params) {
 function debitSum(params) {
   let debitSum = 0;
   params.values.forEach((value) => {
-    // console.log(+value);
     if (value) {
       debitSum += +value;
     }
@@ -69,7 +67,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   currentClient : any = {};
 
 
-  // gridOptions: GridOptions;
+  // gridOptions: any;
 
   autoGroupColumnDef;
   openingBalance = 0;
@@ -88,7 +86,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   generalLedgerForm: FormGroup;
 
   // For AG Grid..
-  gridOptions: GridOptions;
+  gridOptions: any;
   rowData: IGeneralLedger[] = [];
 
   // Declaring Model
@@ -105,7 +103,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys for validation messages
-  formErrors = {
+  formErrors: any = {
     docDate: '',
     docDate2: ''
   }
@@ -150,7 +148,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       {
         headerName: 'Document Type',
         field: 'docType',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         cellStyle: {textAlign : 'left'},
         valueFormatter: (params: ValueFormatterParams) => {
           return DocType[params.value]
@@ -160,12 +158,12 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         headerName: 'Description',
         field: 'description',
         cellStyle: {textAlign : 'left'},
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
       },
       {
         headerName: 'Debit',
         field: 'debit',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         aggFunc: debitSum.bind(this),
         valueFormatter: (params) => {
           return this.valueFormatter(params.value, '+ve')
@@ -174,7 +172,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
       {
         headerName: 'Credit',
         field: 'credit',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         aggFunc: creditSum.bind(this),
         valueFormatter: (params) => {
           return this.valueFormatter(params.value, '-ve')
@@ -185,7 +183,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
         field: 'balance',
         aggFunc: sumFunc.bind(this),
         colId: 'balance',
-        suppressMenu: true,
+        suppressHeaderMenuButton: true,
         valueFormatter: (params) => {
           return this.valueFormatter(params.value)
         }
@@ -207,6 +205,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       filter: true,
       resizable: true,
+      sortable: false,
       menuTabs: ["filterMenuTab"],
     };
 
@@ -280,7 +279,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Document Type',
             field: 'docType',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             cellStyle: {textAlign : 'left'},
             valueFormatter: (params: ValueFormatterParams) => {
               return DocType[params.value]
@@ -288,11 +287,11 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           },
 
           // },
-          {headerName: 'Description', field: 'description', suppressMenu: true, cellStyle: {textAlign : 'left'}},
+          {headerName: 'Description', field: 'description', suppressHeaderMenuButton: true, cellStyle: {textAlign : 'left'}},
           {
             headerName: 'Debit',
             field: 'debit',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             aggFunc: debitSum.bind(this),
             valueFormatter: (params) => {
               return this.valueFormatter(params.value, '+ve')
@@ -301,7 +300,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
           {
             headerName: 'Credit',
             field: 'credit',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             aggFunc: creditSum.bind(this),
             valueFormatter: (params) => {
               return this.valueFormatter(params.value, '-ve')
@@ -312,7 +311,7 @@ export class GeneralLedgerComponent extends AppComponentBase implements OnInit {
             field: 'balance',
             aggFunc: sumFunc.bind(this),
             colId: 'balance',
-            suppressMenu: true,
+            suppressHeaderMenuButton: true,
             valueFormatter: (params) => {
               return this.valueFormatter(params.value)
             }

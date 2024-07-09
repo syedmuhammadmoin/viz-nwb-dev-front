@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PrintRequestRequisitionComponent } from './print-request-requisition.component';
 
@@ -6,7 +6,7 @@ describe('PrintRequestRequisitionComponent', () => {
   let component: PrintRequestRequisitionComponent;
   let fixture: ComponentFixture<PrintRequestRequisitionComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PrintRequestRequisitionComponent ]
     })

@@ -3,7 +3,7 @@ import { Component, Injector, OnInit } from '@angular/core';
 import { ChangeDetectorRef } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, } from '@angular/router';
-import { FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { VendorBillService } from '../services/vendor-bill.service';
 import { finalize, take } from 'rxjs/operators';
 import { ActionButton, DocumentStatus, DocType } from 'src/app/views/shared/AppEnum';
@@ -45,7 +45,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   isLoading: boolean;
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: any;
 
   //need for routing
@@ -75,7 +75,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   //Defining Bill Columns
@@ -83,10 +83,10 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     { 
       headerName: 'Item', 
       field: 'itemName', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
      },
@@ -115,7 +115,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -148,17 +148,17 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     { 
       headerName: 'Store', 
       field: 'warehouseName', 
-      sortable: true, 
+      sortable: false, 
       filter: true, 
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return params.value || 'N/A'
       }
      },
@@ -264,7 +264,7 @@ export class VendorBillDetailComponent extends AppComponentBase implements OnIni
     this.transactionReconModel.amount = this.bpUnReconPaymentList[index].amount > this.pendingAmount
       ? this.pendingAmount
       : this.bpUnReconPaymentList[index].amount;
-  };
+  }
 
   //Get Remarks From User
   remarksDialog(action: any): void {

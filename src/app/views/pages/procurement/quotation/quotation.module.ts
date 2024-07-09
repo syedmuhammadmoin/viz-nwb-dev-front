@@ -7,7 +7,6 @@ import { QuotationDetailsComponent } from './quotation-details/quotation-details
 import { ListQuotationComponent } from './list-quotation/list-quotation.component';
 import { PrintQuotationComponent } from './print-quotation/print-quotation.component';
 import { QuotaionRoutingModule } from './quotaion-routing.module';
-import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import 'ag-grid-enterprise';
 
 
@@ -21,7 +20,7 @@ import 'ag-grid-enterprise';
     PartialsModule,
     SharedModule,
     QuotaionRoutingModule,
-    AgGridModule.withComponents([CustomTooltipComponent])
+    AgGridModule
   ]
 })
 export class QuotationModule { }

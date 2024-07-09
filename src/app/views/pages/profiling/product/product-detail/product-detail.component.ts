@@ -29,7 +29,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
   productMaster: IProduct | any
 
   //For ag grid
-  gridOptions: GridOptions;
+  gridOptions: any;
   defaultColDef: ColDef;
 
   //Loader
@@ -44,7 +44,7 @@ export class ProductDetailComponent extends AppComponentBase implements OnInit  
   ) {
     super(injector)
     this.gridOptions = ({} as GridOptions);
-    this.defaultColDef = { resizable: true };
+    this.defaultColDef = { resizable: true, sortable: false };
   }
 
   ngOnInit() {

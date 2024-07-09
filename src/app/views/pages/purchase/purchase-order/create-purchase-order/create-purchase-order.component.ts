@@ -5,7 +5,7 @@ import { FormArray, FormBuilder, FormGroup, NgForm, Validators} from '@angular/f
 import { IPurchaseOrder} from '../model/IPurchaseOrder';
 import { PurchaseOrderService} from '../service/purchase-order.service';
 import { finalize, map, take} from 'rxjs/operators';
-import { ActivatedRoute, Router} from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
@@ -94,7 +94,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     }
   }
 
-  formErrors = {
+  formErrors: any = {
     vendorName: '',
     PODate: '',
     dueDate: '',
@@ -194,7 +194,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
   }
 
   // For Calculating subtotal and Quantity to Ton and vice versa Conversion
-  onChangeEvent(value: any, index: number , element?: HTMLElement) {
+  onChangeEvent(value: any, index: number , element?: HTMLElement | any) {
     const arrayControl = this.purchaseOrderForm.get('purchaseOrderLines') as FormArray;
     const cost = (arrayControl.at(index).get('cost').value) !== null ? arrayControl.at(index).get('cost').value : null;
     const salesTax = (arrayControl.at(index).get('tax').value) !== null ? arrayControl.at(index).get('tax').value : null;
@@ -314,7 +314,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.showMessage = true;
 
     //only fetch those lines of requisition which require reserve quantity
-    let requisitionLines = purchaseOrder?.requisitionLines?.filter((x => ((x.quantity) - (x.reserveQuantity) - (x.issuedQuantity)) !== 0));
+    const requisitionLines = purchaseOrder?.requisitionLines?.filter((x => ((x.quantity) - (x.reserveQuantity) - (x.issuedQuantity)) !== 0));
 
     this.purchaseOrderForm.setControl('purchaseOrderLines', this.editPurchaseOrderLines(purchaseOrder.purchaseOrderLines ?? requisitionLines));
     this.totalCalculation();
@@ -381,7 +381,6 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
           })
       } else {
         delete this.purchaseOrderModel.id;
-        console.log(this.purchaseOrderModel)
         this.poService.createPurchaseOrder(this.purchaseOrderModel)
         .pipe(
           take(1),
@@ -407,7 +406,7 @@ export class CreatePurchaseOrderComponent extends AppComponentBase implements On
     this.purchaseOrderModel.campusId = this.purchaseOrderForm.value.campusId;
     this.purchaseOrderModel.requisitionId = this.requisitionId || this.purchaseOrderModel.requisitionId;
     this.purchaseOrderModel.purchaseOrderLines = this.purchaseOrderForm.value.purchaseOrderLines;
-  };
+  }
 
    // open business partner dialog
    openBusinessPartnerDialog() {

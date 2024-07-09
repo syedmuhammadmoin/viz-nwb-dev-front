@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
@@ -8,6 +8,7 @@ import { DepartmentService } from '../service/department.service';
 import { CreateDepartmentComponent } from '../create-department/create-department.component';
 import { MatDialog } from '@angular/material/dialog';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { firstValueFrom } from 'rxjs';
 @Component({
   selector: 'kt-list-department',
   templateUrl: './list-department.component.html',
@@ -18,11 +19,10 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
   public permissions = Permissions;
   departmentList: [];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
+  
   gridOptions: GridOptions;
   components: { loadingCellRenderer (params: any ) : unknown };
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -55,7 +55,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
      { 
       headerName: 'Campus', 
       field: 'campusName',
-      suppressMenu: true
+      suppressHeaderMenuButton: true
      }
   ];
   public currentClient : any ={};
@@ -65,6 +65,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
       cacheBlockSize: 20,
       rowModelType: "infinite",
       paginationPageSize: 10,
+      paginationPageSizeSelector: false,
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
@@ -74,6 +75,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
@@ -108,12 +110,11 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getDepartments(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.departmentService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.departmentService.getRecords(params));
     return result
   }
 
@@ -129,7 +130,7 @@ export class ListDepartmentComponent extends AppComponentBase implements OnInit 
     });
     //Getting Updated Department
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }

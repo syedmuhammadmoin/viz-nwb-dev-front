@@ -47,7 +47,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     }
   };
   // error keys..
-  formErrors = {
+  formErrors: any = {
     transactionalAccount: '',
     level3: '',
     code: '',

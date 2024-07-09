@@ -10,9 +10,7 @@ import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ng
 import { IsReloadRequired } from '../../../profiling/store/profiling.action';
 import { BankAccountState } from '../store/bank-account.state';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { BankAccountConfig } from 'src/webvalidationconfig';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { Config } from 'protractor';
 
 
 @Component({
@@ -75,7 +73,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   }
 
   //Error keys
-  formErrors = {
+  formErrors: any = {
     accountNumber: '',
     bankName: '',
     openingBalance: '',
@@ -89,7 +87,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
   //Injecting Dependencies
   constructor(
     private fb: FormBuilder,
-    @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
+    @Optional() @Inject(MAT_DIALOG_DATA) public _id: number,
     public dialogRef: MatDialogRef<CreateBankAccountComponent>,
     public ngxsService: NgxsCustomService,
     private bankAccountService: BankAccountService,
@@ -141,8 +139,7 @@ export class CreateBankAccountComponent extends AppComponentBase implements OnIn
           this.isLoading = false;
           this.editBankAccount(bankAccount.result);
           this.bankAccount = bankAccount.result;
-        },
-        (err) => console.log(err)
+        }
       );
   }
 

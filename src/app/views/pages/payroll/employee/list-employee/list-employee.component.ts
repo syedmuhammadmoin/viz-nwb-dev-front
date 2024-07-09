@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { EMPLOYEE } from 'src/app/views/shared/AppRoutes';
@@ -8,6 +8,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { EmployeeService } from '../service/employee.service';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-employee',
@@ -19,12 +20,11 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
 
   employeeList: [];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -101,8 +101,8 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
           return (params.value) ?? "N/A"
         }
     },
-    { headerName: 'Faculty', field: 'faculty', suppressMenu: true, tooltipField: 'name' },
-    { headerName: 'Shift', field: 'dutyShift', suppressMenu: true, tooltipField: 'name' },
+    { headerName: 'Faculty', field: 'faculty', suppressHeaderMenuButton: true, tooltipField: 'name' },
+    { headerName: 'Shift', field: 'dutyShift', suppressHeaderMenuButton: true, tooltipField: 'name' },
     {
       headerName: 'Active',
       field: 'isActive',
@@ -130,19 +130,22 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
       rowHeight: 30,
       headerHeight: 35,
       context: "double click to view detail",
+      paginationPageSizeSelector: false
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
-      resizable: true,
+      sortable: false,
+      resizable: true
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -177,12 +180,11 @@ export class ListEmployeeComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getEmployees(params: any): Promise<IPaginationResponse<[]>> {
-    const result = await this.employeeService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.employeeService.getRecords(params));
     return result
   }
 }

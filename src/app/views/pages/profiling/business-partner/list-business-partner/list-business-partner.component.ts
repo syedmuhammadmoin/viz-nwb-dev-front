@@ -2,7 +2,6 @@ import {NgxsCustomService} from '../../../../shared/services/ngxs-service/ngxs-c
 import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
@@ -10,7 +9,7 @@ import {
   ICellRendererParams,
   RowDoubleClickedEvent
 } from 'ag-grid-community';
-import {MatDialog} from '@angular/material/Dialog'
+import {MatDialog} from '@angular/material/dialog'
 import {CustomTooltipComponent} from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import {CreateBusinessPartnerComponent} from '../create-business-partner/create-business-partner.component';
 import {AppComponentBase} from 'src/app/views/shared/app-component-base';
@@ -19,6 +18,7 @@ import {IPaginationResponse} from 'src/app/views/shared/IPaginationResponse';
 import {BusinessPartnerType, Permissions} from 'src/app/views/shared/AppEnum';
 import {isEmpty} from 'lodash';
 import {APP_ROUTES} from 'src/app/views/shared/AppRoutes';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-business-partner',
@@ -29,13 +29,12 @@ import {APP_ROUTES} from 'src/app/views/shared/AppRoutes';
 export class ListBusinessPartnerComponent extends AppComponentBase implements OnInit {
 
   businessPartnerList: IBusinessPartner[];
-  frameworkComponents: { [p: string]: unknown };
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   defaultColDef: ColDef;
   public permissions = Permissions
-  components: { loadingCellRenderer(params: any): unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -70,7 +69,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Business Partner Type',
       field: 'businessPartnerType',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return BusinessPartnerType[params.value]
       }
@@ -79,7 +78,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Phone Number',
       field: 'phone',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value : 'N/A'
       }
@@ -89,7 +88,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Bank Account Title',
       field: 'bankAccountTitle',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value : 'N/A'
       }
@@ -98,7 +97,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       headerName: 'Bank Account Number',
       field: 'bankAccountNumber',
       tooltipField: 'name',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       cellRenderer: (params: ICellRendererParams) => {
         return params.value ? params.value : 'N/A'
       }
@@ -114,20 +113,23 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: 'double click to edit',
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -157,7 +159,7 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
     });
     // Recalling getBusinessPartners function on dialog close
     dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setDatasource(this.dataSource)
+      this.gridApi.setGridOption('datasource', this.dataSource);
       this.cdRef.detectChanges();
     });
   }
@@ -178,12 +180,11 @@ export class ListBusinessPartnerComponent extends AppComponentBase implements On
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-    params.api.setDatasource(this.dataSource);
+    params.api.setGridOption('datasource', this.dataSource);
   }
 
   async getBusinessPartners(params: any): Promise<IPaginationResponse<IBusinessPartner[]>> {
-    const result = await this.ngxsService.businessPartnerService.getRecords(params).toPromise()
+    const result = await firstValueFrom(this.ngxsService.businessPartnerService.getRecords(params));
     return result
   }
 

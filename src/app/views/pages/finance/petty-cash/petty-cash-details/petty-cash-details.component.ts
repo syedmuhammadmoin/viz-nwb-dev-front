@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
-import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridOptions, ICellRendererParams, ValueFormatterParams } from 'ag-grid-community';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { LayoutUtilsService } from 'src/app/core/_base/crud';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -37,13 +37,13 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
   public pettyEntryRoute = PETTY_CASH  
   currentClient : any = {};
   // For ag grid
-  gridOptions: GridOptions = ({} as GridOptions);
+  gridOptions: any = ({} as GridOptions);
   defaultColDef: ColDef;
-  frameworkComponents: { [p: string]: unknown };
+  
 
   // Detail Data  
   pettyEntryMaster: any; 
-  pettycashEntryLines: IPettyCashEntryLines[]; 
+  pettycashEntryLines: IPettyCashEntryLines[] | any; 
 
   // Showing Remarks
   remarksList: string[] = [];
@@ -91,7 +91,7 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
@@ -102,17 +102,17 @@ export class PettyCashDetailsComponent extends AppComponentBase implements OnIni
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       }, cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
     },
     {
       headerName: 'Date',
       field: 'date',
-      sortable: true,
+      sortable: false,
       filter: true,
       cellStyle: { 'font-size': '12px' },
-      valueFormatter: (params: ICellRendererParams) => {
+      valueFormatter: (params: ValueFormatterParams) => {
         return this.transformDate(params.value, 'MMM d, y') || null;
       }
     },

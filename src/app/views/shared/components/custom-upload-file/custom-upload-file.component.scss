@@ -119,7 +119,7 @@ label[for="et_pb_contact_brand_file_request_0"] {
 }
 
 
-.mat-card {
+.mat-mdc-card {
 	padding: 8px 50px;
 	width: 100%;
 	//background: #595e791c;
@@ -131,11 +131,11 @@ label[for="et_pb_contact_brand_file_request_0"] {
 	
 	cursor: pointer;
 }
-.mat-card header span {
+.mat-mdc-card header span {
 	margin: 0px 8px;
 	
 }
-.mat-card header h3 {
+.mat-mdc-card header h3 {
 	margin:5px 8px;
 	color: #2b335a;
 	text-shadow: #00000020 0 0 2px;
@@ -145,7 +145,7 @@ label[for="et_pb_contact_brand_file_request_0"] {
 	width: 100%;
 	position: relative;
 }
-.mat-card header h3 img {
+.mat-mdc-card header h3 img {
 	position: absolute;
     left: -7%;
     font-size: 25px;

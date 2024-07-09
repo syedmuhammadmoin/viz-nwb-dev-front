@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateBatchTypeComponent } from './create-batch-type.component';
 
@@ -6,7 +6,7 @@ describe('CreateBatchTypeComponent', () => {
   let component: CreateBatchTypeComponent;
   let fixture: ComponentFixture<CreateBatchTypeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ CreateBatchTypeComponent ]
     })

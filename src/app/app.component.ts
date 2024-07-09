@@ -17,7 +17,6 @@ import { DynamicColorChangeService } from './views/shared/services/dynamic-color
 import { AppConst } from './views/shared/AppConst';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'body[kt-root]',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
@@ -75,7 +74,6 @@ export class AppComponent implements OnInit, OnDestroy {
   public currentClient: any = {}
   ngOnInit(): void {
     this.currentClient = AppConst.ClientConfig.config
-		console.log("Ooper",this.currentClient);
     this.changeColor();
     // this.globalStyle.textcolor;
     // enable/disable loader
@@ -246,7 +244,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   changeColor() {
-		console.log("Neechay",this.currentClient);
 		localStorage.setItem('global_color', JSON.stringify(this.currentClient));
 		this.dynamicColorChanging.global_color.next(this.currentClient);
 	}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild} from '@angular/core';
 import { ControlContainer, FormControl, FormControlDirective, NG_VALUE_ACCESSOR, Validators } from '@angular/forms';
 
 @Component({
@@ -11,16 +11,16 @@ import { ControlContainer, FormControl, FormControlDirective, NG_VALUE_ACCESSOR,
     multi: true
   }]
 })
-export class DateInputComponent implements OnInit, Validators {
+export class DateInputComponent implements Validators {
 
   @ViewChild(FormControlDirective, {static: true}) formControlDirective: FormControlDirective;
 
-  @Input() formControl: FormControl;
+  @Input() formControl: FormControl<any> | any;
   @Input() formControlName: string;
   @Input() placeholder: string;
   @Input() hintText: string;
   @Input() readonly: boolean;
-  @Input() errorMessage: string;
+  @Input() errorMessage: string | any;
   @Input() maxDate: Date;
   @Input() minDate: Date;
   @Input() dateMessage: string;
@@ -33,8 +33,6 @@ export class DateInputComponent implements OnInit, Validators {
   @Output() blurEvent = new EventEmitter<any>();
 
   constructor ( private controlContainer: ControlContainer ) { }
-
-  ngOnInit(): void { }
 
   get control() {
     return this.formControl || this.controlContainer.control.get(this.formControlName);

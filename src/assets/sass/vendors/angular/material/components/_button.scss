@@ -1,10 +1,10 @@
 // Buttons
-.mat-fab,
-.mat-mini-fab,
-.mat-button,
-.mat-raised-button,
-.mat-stroked-button,
-.mat-icon-button {
+.mat-mdc-fab,
+.mat-mdc-mini-fab,
+.mat-mdc-button,
+.mat-mdc-raised-button,
+.mat-mdc-stroked-button,
+.mat-mdc-icon-button {
     outline: none !important;
 }
 
@@ -13,5 +13,5 @@ mat-radio-button {
 }
 
 mat-radio-button {
-	.mat-radio-label { margin-bottom: 4px; }
+	.mat-mdc-radio-label { margin-bottom: 4px; }
 }

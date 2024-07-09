@@ -1,15 +1,13 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IPayrollTransaction } from '../model/IPayrollTransaction';
 import { PayrollTransactionService } from '../service/payroll-transaction.service';
-import { AbstractControl, FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { IPayrollItem } from '../../payroll-item/model/IPayrollItem';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { finalize, take } from 'rxjs/operators';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { Permissions } from 'src/app/views/shared/AppEnum';
-import { EmployeeService } from '../../employee/service/employee.service';
 import { FirstDataRenderedEvent } from 'ag-grid-community';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { PAYROLL_TRANSACTION } from 'src/app/views/shared/AppRoutes';
@@ -131,7 +129,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   };
 
   // error keys..
-  formErrors = {
+  formErrors: any = {
     employeeId: '',
     month: '',
     year: '',
@@ -157,7 +155,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
     private fb: FormBuilder,
     private activatedRoute: ActivatedRoute,
     private payrollTransactionService: PayrollTransactionService,
-    private employeeService: EmployeeService,
     private payrollItemService: PayrollItemService,
     private cdRef: ChangeDetectorRef,
     public ngxsService: NgxsCustomService,
@@ -382,6 +379,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
         if (!res) {
           return
         }
+
         console.log(res, "payroll get response");
         this.patchPayroll(res.result)
         this.getPayrollByEmployeeId(res.result.employeeId);
@@ -414,7 +412,6 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
       employeeType: payrollTransaction.employeeType,
       cnic: payrollTransaction.EmployeeCNIC,
     });
-    console.log(this.payrollTransactionForm);
 
     // this.onCampusSelected(pettyEntry.campusId)
     this.showMessage = true;
@@ -424,10 +421,7 @@ export class CreatePayrollTransactionComponent extends AppComponentBase implemen
   }
 
   // submit method called on submit button
-  Transactions: any[] = [];
-  async onSubmit() {
-    console.log(this.payrollTransactionForm, "Payroll form submit pr");
-
+  onSubmit() {
     if (this.payrollTransactionForm.get('payrollTransactionLines').invalid) {
       this.payrollTransactionForm.get('payrollTransactionLines').markAllAsTouched();
     }

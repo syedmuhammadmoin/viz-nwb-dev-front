@@ -101,7 +101,7 @@ export {
 
 // GUARDS
 export { AuthGuard } from './_guards/auth.guard';
-export { ModuleGuard } from './_guards/module.guard';
+// export { ModuleGuard } from './_guards/module.guard';
 
 // MODELS
 export { User } from './_models/user.model';

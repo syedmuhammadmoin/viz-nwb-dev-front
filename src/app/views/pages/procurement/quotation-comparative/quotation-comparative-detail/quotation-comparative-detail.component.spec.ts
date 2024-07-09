@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { QuotationComparativeDetailComponent } from './quotation-comparative-detail.component';
 
@@ -6,7 +6,7 @@ describe('QuotationComparativeDetailComponent', () => {
   let component: QuotationComparativeDetailComponent;
   let fixture: ComponentFixture<QuotationComparativeDetailComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ QuotationComparativeDetailComponent ]
     })

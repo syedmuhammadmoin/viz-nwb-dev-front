@@ -43,7 +43,7 @@ export class PrintDepreciationAdjustmentComponent extends AppComponentBase imple
 
   // Detail Data
   depreciationAdjustmentMaster: IDepreciationAdjustment = {} as IDepreciationAdjustment;
-  depreciationAdjustmentLines: IDepreciationAdjustmentLines[];
+  depreciationAdjustmentLines: IDepreciationAdjustmentLines[] | any;
 
   // Showing Remarks
   remarksList: IRemarksList[] = [];

@@ -1,39 +1,37 @@
 // Angular
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit, inject } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 // RxJS
-import { filter, mergeMap, tap, withLatestFrom } from 'rxjs/operators';
-import { defer, Observable, of } from 'rxjs';
+import { tap } from 'rxjs/operators';
 // NGRX
-import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Action, select, Store } from '@ngrx/store';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
 // Auth actions
-import { AuthActionTypes, Login, Logout, Register, UserLoaded, UserRequested } from '../_actions/auth.actions';
-import { AuthService } from '../_services/index';
-import { AppState } from '../../reducers';
+import { AuthActionTypes } from '../_actions/auth.actions';
 import { environment } from '../../../../environments/environment';
-import { isUserLoaded } from '../_selectors/auth.selectors';
-import { DecodeTokenService } from 'src/app/views/shared/decode-token.service';
 
 @Injectable()
-export class AuthEffects {
-  @Effect({ dispatch: false })
-  login$ = this.actions$.pipe(
-    ofType<Login>(AuthActionTypes.Login),
-    tap(action => {
-      localStorage.setItem(environment.authTokenKey, action.payload.authToken);
-      //this.store.dispatch(new UserRequested());
-    }),
-  );
+export class AuthEffects implements OnInit {
 
-  @Effect({ dispatch: false })
-  logout$ = this.actions$.pipe(
-    ofType<Logout>(AuthActionTypes.Logout),
-    tap(() => {
-      localStorage.removeItem(environment.authTokenKey);
-      this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.returnUrl } });
-      document.location.reload();
-    })
+  login$ = createEffect(() => 
+    inject(Actions).pipe( 
+      ofType(AuthActionTypes.Login),
+      tap((action: any) => {
+        localStorage.setItem(environment.authTokenKey, action.payload.authToken);
+      }),
+    ),
+    { dispatch: false }
+  );
+  
+  logout$ = createEffect(() => 
+    inject(Actions).pipe( 
+      ofType(AuthActionTypes.Logout),
+      tap(() => {
+        localStorage.removeItem(environment.authTokenKey);
+        this.router.navigate(['/auth/login'], { queryParams: { returnUrl: this.returnUrl } });
+        window.location.reload(); // Use window.location.reload() for consistency
+      }),
+    ),
+    { dispatch: false }
   );
 
   // @Effect({ dispatch: false })
@@ -74,14 +72,10 @@ export class AuthEffects {
 
   private returnUrl: string;
 
-  constructor(
-    private actions$: Actions,
-    private router: Router,
-    // private auth: AuthService,
-    // private store: Store<AppState>,
-    // public decodeTokenService: DecodeTokenService
-  ) {
-    this.router.events.subscribe(event => {
+  constructor(private router: Router) {}
+
+  ngOnInit() {
+    this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         this.returnUrl = event.url;
       }

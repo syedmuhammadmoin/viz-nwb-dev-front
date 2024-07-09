@@ -1,6 +1,6 @@
 import { GOODS_RECEIVED_NOTE } from './../../../../shared/AppRoutes';
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
-import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams }            from "ag-grid-community";
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams }            from "ag-grid-community";
 import { CustomTooltipComponent } from "../../../../shared/components/custom-tooltip/custom-tooltip.component";
 import { GrnService }   from "../service/grn.service";
 import { ActivatedRoute, Router } from "@angular/router";
@@ -19,12 +19,11 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
   grnList: IGRN[];
   FilteredData: any[]=[];
   defaultColDef: ColDef;
-  frameworkComponents: {[p: string]: unknown};
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData: string = "double click to view detail"
-  components: { loadingCellRenderer (params: any ) : unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   constructor(
@@ -85,7 +84,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
       field: 'totalAmount',
       cellStyle: { 'text-align': "right" },
       tooltipField: 'status',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -93,7 +92,6 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
     {
       headerName: 'Status',
       field: 'status',
-      tooltipField: 'status',
       filter: 'agSetColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -115,20 +113,23 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
+      paginationPageSizeSelector: false,
       context: "double click to view detail",
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -149,7 +150,6 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
     var dataSource = {
       getRows: (params: any) => {
@@ -166,7 +166,7 @@ export class ListGrnComponent extends AppComponentBase implements OnInit {
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
 
   

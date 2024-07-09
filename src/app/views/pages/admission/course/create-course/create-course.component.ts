@@ -58,7 +58,7 @@ export class CreateCourseComponent extends AppComponentBase implements OnInit {
   }
 
   // error keys
-  formErrors = {
+  formErrors: any = {
     name: '',
     courseCode: '',
     creditHour: '',

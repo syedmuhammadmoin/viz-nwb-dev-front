@@ -2,7 +2,6 @@ import {ChangeDetectorRef, Component, Injector, OnInit} from '@angular/core';
 import {AppComponentBase} from '../../../../shared/app-component-base';
 import {
   ColDef,
-  ColumnApi,
   FirstDataRenderedEvent,
   GridApi,
   GridOptions,
@@ -27,15 +26,13 @@ import {IDepreciationAdjustment} from '../model/IDepreciationAdjustment';
 export class ListDepreciationAdjustmentComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
-  gridOptions: GridOptions;
+  gridOptions: any;
   DepreciationAdjustmentList: IDepreciationAdjustment[];
   FilteredData: any[]=[];
-  frameworkComponents: { [p: string]: unknown };
   tooltipData = 'double click to view detail'
   public permissions = Permissions
-  components: { loadingCellRenderer(params: any): unknown };
+  components: any;
   gridApi: GridApi;
-  gridColumnApi: ColumnApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   // Injecting Dependencies
@@ -85,7 +82,7 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
       headerName: 'Description',
       field: 'description',
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
     },
     /*{
       headerName: 'Debit',
@@ -93,7 +90,7 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
       headerClass: 'custom_left',
       cellStyle: {'text-align': 'right'},
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -104,7 +101,7 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
       headerClass: 'custom_left',
       cellStyle: {'text-align': 'right'},
       tooltipField: 'docNo',
-      suppressMenu: true,
+      suppressHeaderMenuButton: true,
       valueFormatter: (params: ValueFormatterParams) => {
         return this.valueFormatter(params.value)
       }
@@ -134,20 +131,23 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
       pagination: true,
       rowHeight: 30,
       headerHeight: 35,
-      context: 'double click to view detail',
+      paginationPageSizeSelector: false,
+      context: 'double click to view detail'
     };
 
-    this.frameworkComponents = {customTooltip: CustomTooltipComponent};
+    
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
       minWidth: 150,
       filter: 'agSetColumnFilter',
+      sortable: false,
       resizable: true,
     }
 
     this.components = {
+      customTooltip: CustomTooltipComponent,
       loadingCellRenderer(params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -172,9 +172,8 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
 
-    let dataSource = {
+    const dataSource = {
       getRows: (params: any) => {
         this.depreciationAdjustmentService.getRecords(params).subscribe((data) => {
           if (isEmpty(data.result)) {
@@ -189,7 +188,7 @@ export class ListDepreciationAdjustmentComponent extends AppComponentBase implem
         });
       },
     };
-    params.api.setDatasource(dataSource);
+    params.api.setGridOption('datasource', dataSource);
   }
     
   fetchData(x: any) {           

@@ -1,5 +1,5 @@
 import { NgxsCustomService } from '../../../../shared/services/ngxs-service/ngxs-custom.service';
-import { ChangeDetectorRef, Component, Injector, OnInit, Inject, Optional, ViewChild} from '@angular/core';
+import { ChangeDetectorRef, Component, Injector, OnInit, Inject, Optional, ViewChild, OnDestroy} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, NgForm} from '@angular/forms';
 import { IPayment} from '../model/IPayment';
 import { PaymentService} from '../service/payment.service';
@@ -17,7 +17,6 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { ICashAccount } from '../../cash-account/model/ICashAccount';
 import { IBankAccount } from '../../bank-account/model/IBankAccount';
 import { MatRadioChange } from '@angular/material/radio';
-import { BankAccountConfig } from 'src/webvalidationconfig';
 
 @Component({
   selector: 'kt-create-payment',
@@ -25,7 +24,7 @@ import { BankAccountConfig } from 'src/webvalidationconfig';
   styleUrls: ['./create-payment.component.scss']
 })
 
-export class CreatePaymentComponent extends AppComponentBase implements OnInit {
+export class CreatePaymentComponent extends AppComponentBase implements OnInit, OnDestroy {
 
   // for permissions 
   public permissions = Permissions;
@@ -113,7 +112,7 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   }
 
   // Error keys
-  formErrors = {
+  formErrors: any = {
     date: '',
     description: '',
     businessPartner: '',
@@ -142,8 +141,6 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
     private cdRef: ChangeDetectorRef,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     public dialogRef: MatDialogRef<CreatePaymentComponent>,
-    public validationConfig : BankAccountConfig,
-
     injector: Injector
   ) {
     super(injector)
@@ -200,8 +197,8 @@ export class CreatePaymentComponent extends AppComponentBase implements OnInit {
   }
 
   //Update deduction account validation
-  updateValueValidators(value: number) {
-    console.log(value)
+  updateValueValidators(event: any) {
+    const value = event?.target?.value;
     if(value > 0) {
       this.paymentForm.get('deductionAccountId').setValidators([Validators.required])
       this.paymentForm.get('deductionAccountId').updateValueAndValidity();

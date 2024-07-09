@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { waitForAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ListIssuanceReturnComponent } from './list-issuance-return.component';
 
@@ -6,7 +6,7 @@ describe('ListIssuanceReturnComponent', () => {
   let component: ListIssuanceReturnComponent;
   let fixture: ComponentFixture<ListIssuanceReturnComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ListIssuanceReturnComponent ]
     })

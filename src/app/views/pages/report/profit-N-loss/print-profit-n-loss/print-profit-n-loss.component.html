@@ -1,5 +1,5 @@
 <div class="container" >
-  <div class="col-lg-10 mx-auto text-right">
+  <div class="col-lg-10 mx-auto text-end">
     <div class="row">
       <button
         printSectionId="main"
@@ -8,13 +8,13 @@
         type="button"
         (click)="printForm()"
         class="app-default-btn" mat-raised-button
-        style="margin-bottom: 20px;"><i class="fas fa-print"></i> Print
+        style="margin-bottom: 20px; width: auto;"><i class="fas fa-print"></i> Print
       </button>
     </div>
   </div>
   <div class="col-lg-10 mx-auto" id="main">
     <div [ktBusy]="isLoading" [class]="className">
-      <div class="bg-whitee">
+      <div class="print-bg-white">
 
         <div class="print_header_area s-p-1">
           <div class="print-col-6">
@@ -53,15 +53,15 @@
               <table class="table">
                 <tr>
                   <th >Account</th>
-                  <th  class="text-right">Balance</th>
+                  <th  class="text-end">Balance</th>
                 </tr>
                 <tr *ngFor="let summaryHead of rowData.get(key)">
                   <td>{{summaryHead.transactional}}</td>
-                  <td class="text-right">{{valueFormatter(summaryHead.balance)}}</td>
+                  <td class="text-end">{{valueFormatter(summaryHead.balance)}}</td>
                 </tr>
                 <tr>
                   <th >Total</th>
-                  <th class="text-right" >{{valueFormatter(calculateTotal(rowData.get(key), 'balance').balance)}}</th>
+                  <th class="text-end" >{{valueFormatter(calculateTotal(rowData.get(key), 'balance').balance)}}</th>
                 </tr>
               </table>
             </div>

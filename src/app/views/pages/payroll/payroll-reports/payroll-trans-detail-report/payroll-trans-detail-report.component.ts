@@ -33,9 +33,9 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
   disability = true
   totals = {};
   gridApi: GridApi
-  gridColumnApi: any;
   columnsWithAggregation: any = [];
   allowExport: boolean = false;
+  pinnedBottomRowData: any = [];
 
   // Limit Date
   maxDate = new Date();
@@ -55,7 +55,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
     }
 };
  // error keys..
-  formErrors = {
+  formErrors: any = {
     fromDate: '',
     toDate: '',
     year: '',
@@ -66,15 +66,15 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
 
   // ag grid
   columnDefs = [
-    { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
-    { headerName: 'Campus ', field: 'campus', menuTabs: ["filterMenuTab"], suppressMenu: true, tooltipField: 'employee' },
+    { headerName: 'Employee Name ', field: 'employee', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Department ', field: 'department', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Designation ', field: 'designation', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
+    { headerName: 'Campus ', field: 'campus', menuTabs: ["filterMenuTab"], suppressHeaderMenuButton: true, tooltipField: 'employee' },
   ];
 
   rowData: any = [];
-  frameworkComponents: any;
-  gridOptions: GridOptions;
+  
+  gridOptions: any;
   tooltipData = 'double click to view details'
   defaultColDef: any
 
@@ -95,7 +95,6 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
 
   onGridReady(params) {
     this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
   }
 
   ngOnInit(): void {
@@ -104,6 +103,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
     this.gridOptions.headerHeight = 35;
 
     this.defaultColDef = {
+      sortable: false,
       resizable: true,
     }
 
@@ -155,7 +155,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
   reset() {
     this.rowData = [];
     this.allowExport = false;
-    this.gridApi.setPinnedBottomRowData([]);
+    this.pinnedBottomRowData = [];
     // for PDF
     this.disability = true;
   }
@@ -178,6 +178,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
        })
      ).subscribe((res) => {
       let newColumnDef = [];
+      this.columnsWithAggregation = [];
       this.rowData = res.result || [];
 
       if (isEmpty(res.result)) {
@@ -209,7 +210,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
           }
         })
       newColumnDef = [...this.columnDefs, ...newColumnDef];
-      this.gridApi.setColumnDefs(newColumnDef);
+      this.gridApi.setGridOption('columnDefs', newColumnDef);
       }
 
       // for PDF
@@ -217,8 +218,9 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
       this.cdRef.detectChanges()
 
       setTimeout(() => {
-        const pinnedBottomData = this.generatePinnedBottomData();
-        this.gridApi.setPinnedBottomRowData([pinnedBottomData]);
+        const pinnedBottomData = this.generatePinnedBottomData()
+        this.pinnedBottomRowData = [pinnedBottomData];
+        this.cdRef.detectChanges();
       }, 500)
     });
   }
@@ -227,7 +229,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
     // generate a row-data with null values
     const result = {};
 
-    this.gridColumnApi.getAllGridColumns().forEach(item => {
+    this.gridApi.getAllGridColumns().forEach((item: any) => {
       if (["employee", "department", "campus", "designation"].includes(item.colId) == false) {
         result[item.colId] = null;
       }
@@ -276,7 +278,7 @@ export class PayrollTransDetailReportComponent extends AppComponentBase implemen
     this.mapFormValueToModel()
 
     this.payrollReportService.downloadTransactionDetailReport(this.transactionDetailModel).subscribe((data: any) => {
-      let fileName = `Payroll Transaction Detail ${this.transactionDetailModel.fromDate} till ${this.transactionDetailModel.toDate}.xlsx`;
+      const fileName = `Payroll Transaction Detail ${this.transactionDetailModel.fromDate} till ${this.transactionDetailModel.toDate}.xlsx`;
       this.createExcelFile(data, fileName)
     });
   }

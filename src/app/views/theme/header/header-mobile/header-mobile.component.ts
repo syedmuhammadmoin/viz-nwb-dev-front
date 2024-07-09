@@ -21,7 +21,7 @@ export class HeaderMobileComponent implements OnInit {
   vizalys : boolean;
   localsto : any ;
 
-  public showThis: Boolean = false;
+  public showThis: boolean = false;
 
   toggleOptions: ToggleOptions = {
   target: KTUtil.getBody(),
