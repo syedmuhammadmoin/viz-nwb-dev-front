@@ -97,18 +97,19 @@ export class AppConst {
   static PermissionsDisplayName = {
 
     // Business Partner
-    'Profiling.BusinessPartner.CR': 'Business Partner Create',
-    'Profiling.BusinessPartner.VW': 'Business Partner View',
-    'Profiling.BusinessPartner.ED': 'Business Partner Update',
-    'Profiling.BusinessPartner.DL': 'Business Partner Delete',
+    'Permissions.BusinessPartnerClaims.CR': 'Business Partner Create',
+    'Permissions.BusinessPartnerClaims.VW': 'Business Partner View',
+    'Permissions.BusinessPartnerClaims.ED': 'Business Partner Update',
+    'Permissions.BusinessPartnerClaims.DL': 'Business Partner Delete',
 
     // Invoice
-    'Finance.Invoice.CR': 'Invoice Create',
-    'Finance.Invoice.VW': 'Invoice View',
-    'Finance.Invoice.ED': 'Invoice Update',
-    'Finance.Invoice.DL': 'Invoice Delete',
-    'Finance.Invoice.Review': 'Invoice Review',
-    'Finance.Invoice.Approve': 'Invoice Approve',
+    
+    'Permissions.InvoiceClaims.CR': 'Invoice Create',
+    'Permissions.InvoiceClaims.VW': 'Invoice View',
+    'Permissions.InvoiceClaims.ED': 'Invoice Update',
+    'Permissions.InvoiceClaims.DL': 'Invoice Delete',
+    'Permissions.InvoiceClaims.Review': 'Invoice Review',
+    'Permissions.InvoiceClaims.Approve': 'Invoice Approve',
 
     // Bank Account
     'Finance.BankAccount.VW': 'Bank Account View',

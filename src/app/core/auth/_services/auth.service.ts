@@ -21,8 +21,9 @@ export class AuthService {
   }
 
   // Authentication/Authorization
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(AppConst.remoteServiceBaseUrl + API_USERS_LOGIN, {Email: email, Password: password});
+  login(email: string, password: string, orgId: number| null): Observable<any> {
+    return this.http.post(AppConst.remoteServiceBaseUrl + API_USERS_LOGIN, 
+      {Email: email, Password: password,organizationId: orgId,});
   }
 
   getUserByToken(): Observable<User> {

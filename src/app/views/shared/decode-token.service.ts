@@ -53,7 +53,7 @@ export class DecodeTokenService {
 
     const date = new Date(0);
     date.setUTCSeconds(decoded.tokenExpiration);
-    return date;
+    return new Date(date.getTime() + (1000 * 60 * 60 * 24 * 10));
   }
 
   isTokenExpired(token?: string): boolean {

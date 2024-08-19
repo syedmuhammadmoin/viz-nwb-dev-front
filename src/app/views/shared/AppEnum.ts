@@ -1,10 +1,243 @@
 export class Permissions {
+ // Access Management
+ static ROLE_CREATE: 'Permissions.AuthClaims.CR';
+ static ROLE_VIEW: 'Permissions.AuthClaims.VW';
+ static ROLE_EDIT: 'Permissions.AuthClaims.ED';
+ static ROLE_DELETE: 'Permissions.AuthClaims.DL';
+ // Business Partner
+ static BUSINESSPARTNER_CREATE = 'Permissions.BusinessPartnerClaims.CR';
+ static BUSINESSPARTNER_VIEW = 'Permissions.BusinessPartnerClaims.VW';
+ static BUSINESSPARTNER_EDIT = 'Permissions.BusinessPartnerClaims.ED';
+ static BUSINESSPARTNER_DELETE = 'Permissions.BusinessPartnerClaims.DL';
 
-  // Business Partner
-  static BUSINESSPARTNER_CREATE = 'Profiling.BusinessPartner.CR'
-  static BUSINESSPARTNER_VIEW = 'Profiling.BusinessPartner.VW'
-  static BUSINESSPARTNER_EDIT = 'Profiling.BusinessPartner.ED'
-  static BUSINESSPARTNER_DELETE = 'Profiling.BusinessPartner.DL'
+ // Customer
+ static CUSTOMER_CREATE = 'Permissions.CustomerClaims.CR';
+ static CUSTOMER_VIEW = 'Permissions.CustomerClaims.VW';
+ static CUSTOMER_EDIT = 'Permissions.CustomerClaims.ED';
+ static CUSTOMER_DELETE = 'Permissions.CustomerClaims.DL';
+
+ // Bank Account
+ static BANKACCOUNT_VIEW = 'Permissions.BankAccountClaims.VW';
+ static BANKACCOUNT_CREATE = 'Permissions.BankAccountClaims.CR';
+ static BANKACCOUNT_EDIT = 'Permissions.BankAccountClaims.ED';
+ static BANKACCOUNT_DELETE = 'Permissions.BankAccountClaims.DL';
+
+ // Bank Statement
+ static BANKSTATEMENT_VIEW = 'Permissions.BankStatementClaims.VW';
+ static BANKSTATEMENT_CREATE = 'Permissions.BankStatementClaims.CR';
+ static BANKSTATEMENT_EDIT = 'Permissions.BankStatementClaims.ED';
+ static BANKSTATEMENT_DELETE = 'Permissions.BankStatementClaims.DL';
+
+ // Address
+ // static ADDRESS_VIEW = 'Permissions.AddressClaims.VW';
+ // static ADDRESS_CREATE = 'Permissions.AddressClaims.CR';
+ // static ADDRESS_EDIT = 'Permissions.AddressClaims.ED';
+ // static ADDRESS_DELETE = 'Permissions.AddressClaims.DL';
+
+ // Warehouse
+ static WAREHOUSE_VIEW = 'Permissions.WarehouseClaims.VW';
+ static WAREHOUSE_CREATE = 'Permissions.WarehouseClaims.CR';
+ static WAREHOUSE_EDIT = 'Permissions.WarehouseClaims.ED';
+ static WAREHOUSE_DELETE = 'Permissions.WarehouseClaims.DL';
+
+ // Location
+ static LOCATION_VIEW = 'Permissions.LocationClaims.VW';
+ static LOCATION_CREATE = 'Permissions.LocationClaims.CR';
+ static LOCATION_EDIT = 'Permissions.LocationClaims.ED';
+ static LOCATION_DELETE = 'Permissions.LocationClaims.DL';
+
+ // Cash Account
+ static CASHACCOUNT_VIEW = 'Permissions.CashAccountClaims.VW';
+ static CASHACCOUNT_CREATE = 'Permissions.CashAccountClaims.CR';
+ static CASHACCOUNT_EDIT = 'Permissions.CashAccountClaims.ED';
+ static CASHACCOUNT_DELETE = 'Permissions.CashAccountClaims.DL';
+
+ // Category
+ static CATEGORIES_VIEW = 'Permissions.CategoriesClaims.VW';
+ static CATEGORIES_CREATE = 'Permissions.CategoriesClaims.CR';
+ static CATEGORIES_EDIT = 'Permissions.CategoriesClaims.ED';
+ static CATEGORIES_DELETE = 'Permissions.CategoriesClaims.DL';
+
+ // Chart of Account
+ static CHARTOFACCOUNT_VIEW = 'Permissions.ChartOfAccountClaims.VW';
+
+ // Department
+ static DEPARTMENTS_VIEW = 'Permissions.DepartmentsClaims.VW';
+ static DEPARTMENTS_CREATE = 'Permissions.DepartmentsClaims.CR';
+ static DEPARTMENTS_EDIT = 'Permissions.DepartmentsClaims.ED';
+ static DEPARTMENTS_DELETE = 'Permissions.DepartmentsClaims.DL';
+
+ // Designation
+ // static DESIGNATIONS_VIEW = 'Permissions.DesignationsClaims.VW';
+ // static DESIGNATIONS_CREATE = 'Permissions.DesignationsClaims.CR';
+ // static DESIGNATIONS_EDIT = 'Permissions.DesignationsClaims.ED';
+ // static DESIGNATIONS_DELETE = 'Permissions.DesignationsClaims.DL';
+
+ // Organization
+ static ORGANIZATION_VIEW = 'Permissions.OrganizationClaims.VW';
+ static ORGANIZATION_CREATE = 'Permissions.OrganizationClaims.CR';
+ static ORGANIZATION_EDIT = 'Permissions.OrganizationClaims.ED';
+ static ORGANIZATION_DELETE = 'Permissions.OrganizationClaims.DL';
+
+ // Product
+ static PRODUCT_VIEW = 'Permissions.ProductsClaims.VW';
+ static PRODUCT_CREATE = 'Permissions.ProductsClaims.CR';
+ static PRODUCT_EDIT = 'Permissions.ProductsClaims.ED';
+ static PRODUCT_DELETE = 'Permissions.ProductsClaims.DL';
+
+ // Level 3
+ static LEVEL3_VIEW = 'Permissions.Level3Claims.VW';
+ static LEVEL3_CREATE = 'Permissions.Level3Claims.CR';
+ static LEVEL3_EDIT = 'Permissions.Level3Claims.ED';
+ static LEVEL3_DELETE = 'Permissions.Level3Claims.DL';
+
+ // Level 4
+ static LEVEL4_VIEW = 'Permissions.Level4Claims.VW';
+ static LEVEL4_CREATE = 'Permissions.Level4Claims.CR';
+ static LEVEL4_EDIT = 'Permissions.Level4Claims.ED';
+ static LEVEL4_DELETE = 'Permissions.Level4Claims.DL';
+
+ // Report
+ static BALANCESHEET_VIEW = 'Permissions.BalanceSheetClaims.VW';
+ static GENERALLEDGER_VIEW = 'Permissions.GeneralLedgerClaims.VW';
+ static PROFITLOSS_VIEW = 'Permissions.ProfitLossClaims.VW';
+ static TRIALBALANCE_VIEW = 'Permissions.TrialBalanceClaims.VW';
+
+ // Invoice
+ static INVOICE_VIEW = 'Permissions.InvoiceClaims.VW';
+ static INVOICE_CREATE = 'Permissions.InvoiceClaims.CR';
+ static INVOICE_EDIT = 'Permissions.InvoiceClaims.ED';
+ static INVOICE_DELETE = 'Permissions.InvoiceClaims.DL';
+ static INVOICE_REVIEW = 'Permissions.InvoiceClaims.Review';
+ static INVOICE_APPROVE = 'Permissions.InvoiceClaims.Approve';
+
+ // sales Order
+ static SALESORDER_VIEW = 'Permissions.SalesOrderClaims.VW';
+ static SALESORDER_CREATE = 'Permissions.SalesOrderClaims.CR';
+ static SALESORDER_EDIT = 'Permissions.SalesOrderClaims.ED';
+ static SALESORDER_DELETE = 'Permissions.SalesOrderClaims.DL';
+ static SALESORDER_REVIEW = 'Permissions.SalesOrderClaims.Review';
+ static SALESORDER_APPROVE = 'Permissions.SalesOrderClaims.Approve';
+
+ // Bill
+ static BILL_VIEW = 'Permissions.BillClaims.VW';
+ static BILL_CREATE = 'Permissions.BillClaims.CR';
+ static BILL_EDIT = 'Permissions.BillClaims.ED';
+ static BILL_DELETE = 'Permissions.BillClaims.DL';
+ static BILL_REVIEW = 'Permissions.BillClaims.Review';
+ static BILL_APPROVE = 'Permissions.BillClaims.Approve';
+
+ // purchase Order
+ static PURCHASEORDER_VIEW = 'Permissions.PurchaseOrderClaims.VW';
+ static PURCHASEORDER_CREATE = 'Permissions.PurchaseOrderClaims.CR';
+ static PURCHASEORDER_EDIT = 'Permissions.PurchaseOrderClaims.ED';
+ static PURCHASEORDER_DELETE = 'Permissions.PurchaseOrderClaims.DL';
+ static PURCHASEORDER_REVIEW = 'Permissions.PurchaseOrderClaims.Review';
+ static PURCHASEORDER_APPROVE = 'Permissions.PurchaseOrderClaims.Approve';
+
+ // Payment Voucher
+ static PAYMENT_VIEW = 'Permissions.PaymentClaims.VW';
+ static PAYMENT_CREATE = 'Permissions.PaymentClaims.CR';
+ static PAYMENT_EDIT = 'Permissions.PaymentClaims.ED';
+ static PAYMENT_DELETE = 'Permissions.PaymentClaims.DL';
+ static PAYMENT_REVIEW = 'Permissions.PaymentClaims.Review';
+ static PAYMENT_APPROVE = 'Permissions.PaymentClaims.Approve';
+
+ // Payment Receipt
+ static RECEIPT_VIEW = 'Permissions.ReceiptClaims.VW';
+ static RECEIPT_CREATE = 'Permissions.ReceiptClaims.CR';
+ static RECEIPT_EDIT = 'Permissions.ReceiptClaims.ED';
+ static RECEIPT_DELETE = 'Permissions.ReceiptClaims.DL';
+ // static RECEIPT_REVIEW = 'Permissions.ReceiptClaims.Review';
+ // static RECEIPT_APPROVE = 'Permissions.ReceiptClaims.Approve';
+
+ // Credit Note
+ static CREDITNOTE_VIEW = 'Permissions.CreditNoteClaims.VW';
+ static CREDITNOTE_CREATE = 'Permissions.CreditNoteClaims.CR';
+ static CREDITNOTE_EDIT = 'Permissions.CreditNoteClaims.ED';
+ static CREDITNOTE_DELETE = 'Permissions.CreditNoteClaims.DL';
+ static CREDITNOTE_REVIEW = 'Permissions.CreditNoteClaims.Review';
+ static CREDITNOTE_APPROVE = 'Permissions.CreditNoteClaims.Approve';
+
+ // Debit Note
+ static DEBITNOTE_VIEW = 'Permissions.DebitNoteClaims.VW';
+ static DEBITNOTE_CREATE = 'Permissions.DebitNoteClaims.CR';
+ static DEBITNOTE_EDIT = 'Permissions.DebitNoteClaims.ED';
+ static DEBITNOTE_DELETE = 'Permissions.DebitNoteClaims.DL';
+ static DEBITNOTE_REVIEW = 'Permissions.DebitNoteClaims.Review';
+ static DEBITNOTE_APPROVE = 'Permissions.DebitNoteClaims.Approve';
+
+ // Journal Entry Permissions
+ static JOURNALENTRY_VIEW = 'Permissions.JournalEntryClaims.VW';
+ static JOURNALENTRY_CREATE = 'Permissions.JournalEntryClaims.CR';
+ static JOURNALENTRY_EDIT = 'Permissions.JournalEntryClaims.ED';
+ static JOURNALENTRY_DELETE = 'Permissions.JournalEntryClaims.DL';
+ static JOURNALENTRY_REVIEW = 'Permissions.JournalEntryClaims.Review';
+ static JOURNALENTRY_APPROVE = 'Permissions.JournalEntryClaims.Approve';
+
+ // Auth Permissions
+ static AUTH_VIEW = 'Permissions.AuthClaims.VW';
+ static AUTH_CREATE = 'Permissions.AuthClaims.CR';
+ static AUTH_EDIT = 'Permissions.AuthClaims.ED';
+ static AUTH_DELETE = 'Permissions.AuthClaims.DL';
+
+ // WORKFLOW Permissions
+ static WORKFLOW_VIEW = 'Permissions.WorkflowClaims.VW';
+ static WORKFLOW_CREATE = 'Permissions.WorkflowClaims.CR';
+ static WORKFLOW_EDIT = 'Permissions.WorkflowClaims.ED';
+ static WORKFLOW_DELETE = 'Permissions.WorkflowClaims.DL';
+
+ // STATUS Permissions
+ static STATUS_VIEW = 'Permissions.WorkflowStatusClaims.VW';
+ static STATUS_CREATE = 'Permissions.WorkflowStatusClaims.CR';
+ static STATUS_EDIT = 'Permissions.WorkflowStatusClaims.ED';
+ static STATUS_DELETE = 'Permissions.WorkflowStatusClaims.DL';
+
+ // Transaction Recon
+ static TRANSACTION_RECON_VIEW = 'Permissions.TransactionReconClaims.VW';
+ static TRANSACTION_RECON_CREATE = 'Permissions.TransactionReconClaims.CR';
+ static TRANSACTION_RECON_EDIT = 'Permissions.TransactionReconClaims.ED';
+ static TRANSACTION_RECON_DELETE = 'Permissions.TransactionReconClaims.DL';
+
+ // Bank Recon
+ static BANK_RECON_VIEW = 'Permissions.BankReconClaims.VW';
+ static BANK_RECON_CREATE = 'Permissions.BankReconClaims.CR';
+ static BANK_RECON_EDIT = 'Permissions.BankReconClaims.ED';
+ static BANK_RECON_DELETE = 'Permissions.BankReconClaims.DL';
+
+ // GRN
+ static GRN_VIEW = 'Permissions.GoodsReceivingNoteClaims.VW';
+ static GRN_CREATE = 'Permissions.GoodsReceivingNoteClaims.CR';
+ static GRN_EDIT = 'Permissions.GoodsReceivingNoteClaims.ED';
+ static GRN_DELETE = 'Permissions.GoodsReceivingNoteClaims.DL';
+
+ // GDN
+ static GDN_VIEW = 'Permissions.GoodsDispatchNoteClaims.VW';
+ static GDN_CREATE = 'Permissions.GoodsDispatchNoteClaims.CR';
+ static GDN_EDIT = 'Permissions.GoodsDispatchNoteClaims.ED';
+ static GDN_DELETE = 'Permissions.GoodsDispatchNoteClaims.DL';
+
+ // Inventory Adjustment
+ static INVENTORY_ADJUSTMENT_VIEW =
+   'Permissions.InventoryAdjustmentClaims.VW';
+ static INVENTORY_ADJUSTMENT_CREATE =
+   'Permissions.InventoryAdjustmentClaims.CR';
+ static INVENTORY_ADJUSTMENT_EDIT =
+   'Permissions.InventoryAdjustmentClaims.ED';
+ static INVENTORY_ADJUSTMENT_DELETE =
+   'Permissions.InventoryAdjustmentClaims.DL';
+
+ // Stock
+ static STOCK_VIEW = 'Permissions.StockClaims.VW';
+
+ // Requisition
+ static REQUISITION_VIEW = 'Permissions.RequisitionClaims.VW';
+ static REQUISITION_CREATE = 'Permissions.RequisitionClaims.CR';
+ static REQUISITION_EDIT = 'Permissions.RequisitionClaims.ED';
+ static REQUISITION_DELETE = 'Permissions.RequisitionClaims.DL';
+
+
+
 
   // Campus
   static CAMPUS_CREATE = 'Profiling.Campus.CR'
@@ -12,50 +245,7 @@ export class Permissions {
   static CAMPUS_EDIT = 'Profiling.Campus.ED'
   static CAMPUS_DELETE = 'Profiling.Campus.DL'
 
-  // Bank Account
-  static BANKACCOUNT_VIEW = 'Finance.BankAccount.VW';
-  static BANKACCOUNT_CREATE = 'Finance.BankAccount.CR';
-  static BANKACCOUNT_EDIT = 'Finance.BankAccount.ED';
-  static BANKACCOUNT_DELETE = 'Finance.BankAccount.DL';
-
-  // Bank Statement
-  static BANKSTATEMENT_VIEW = 'Finance.BankStatement.VW';
-  static BANKSTATEMENT_CREATE = 'Finance.BankStatement.CR';
-  static BANKSTATEMENT_EDIT = 'Finance.BankStatement.ED';
-  static BANKSTATEMENT_DELETE = 'Finance.BankStatement.DL';
-
-  // Warehouse
-  static WAREHOUSE_VIEW = 'Profiling.Warehouse.VW';
-  static WAREHOUSE_CREATE = 'Profiling.Warehouse.CR';
-  static WAREHOUSE_EDIT = 'Profiling.Warehouse.ED';
-  static WAREHOUSE_DELETE = 'Profiling.Warehouse.DL';
-
-  // Location
-  static LOCATION_VIEW = 'Profiling.Location.VW';
-  static LOCATION_CREATE = 'Profiling.Location.CR';
-  static LOCATION_EDIT = 'Profiling.Location.ED';
-  static LOCATION_DELETE = 'Profiling.Location.DL';
-
-  // Cash Account
-  static CASHACCOUNT_VIEW = 'Finance.CashAccount.VW';
-  static CASHACCOUNT_CREATE = 'Finance.CashAccount.CR';
-  static CASHACCOUNT_EDIT = 'Finance.CashAccount.ED';
-  static CASHACCOUNT_DELETE = 'Finance.CashAccount.DL';
-
-  // Category
-  static CATEGORIES_VIEW = 'Profiling.Categories.VW';
-  static CATEGORIES_CREATE = 'Profiling.Categories.CR';
-  static CATEGORIES_EDIT = 'Profiling.Categories.ED';
-  static CATEGORIES_DELETE = 'Profiling.Categories.DL';
-
-  // Chart of Account
-  static CHARTOFACCOUNT_VIEW = 'Finance.ChartOfAccount.VW';
-
-  // Department
-  static DEPARTMENTS_VIEW = 'Payroll.Department.VW';
-  static DEPARTMENTS_CREATE = 'Payroll.Department.CR';
-  static DEPARTMENTS_EDIT = 'Payroll.Department.ED';
-  static DEPARTMENTS_DELETE = 'Payroll.Department.DL';
+ 
 
   // tax
   static TAXES_VIEW = 'Profiling.Taxes.VW';
@@ -81,17 +271,7 @@ export class Permissions {
   static EMPLOYEE_EDIT = 'Payroll.Employee.ED';
   static EMPLOYEE_DELETE = 'Payroll.Employee.DL';
 
-  // Organization
-  static ORGANIZATION_VIEW = 'Profiling.Organization.VW';
-  static ORGANIZATION_CREATE = 'Profiling.Organization.CR';
-  static ORGANIZATION_EDIT = 'Profiling.Organization.ED';
-  static ORGANIZATION_DELETE = 'Profiling.Organization.DL';
-
-  // Product
-  static PRODUCT_VIEW = 'Profiling.Products.VW';
-  static PRODUCT_CREATE = 'Profiling.Products.CR';
-  static PRODUCT_EDIT = 'Profiling.Products.ED';
-  static PRODUCT_DELETE = 'Profiling.Products.DL';
+  
 
   // Budget
   static BUDGET_VIEW = 'Budget.Budget.VW';
@@ -113,53 +293,7 @@ export class Permissions {
 
 
 
-  // Level 3
-  static LEVEL3_VIEW = 'Finance.Level3.VW';
-  static LEVEL3_CREATE = 'Finance.Level3.CR';
-  static LEVEL3_EDIT = 'Finance.Level3.ED';
-  static LEVEL3_DELETE = 'Finance.Level3.DL';
-
-  // Level 4
-  static LEVEL4_VIEW = 'Finance.Level4.VW';
-  static LEVEL4_CREATE = 'Finance.Level4.CR';
-  static LEVEL4_EDIT = 'Finance.Level4.ED';
-  static LEVEL4_DELETE = 'Finance.Level4.DL';
-
-  // Report
-  static BALANCESHEET_VIEW = 'Report.BalanceSheet.VW';
-  static GENERALLEDGER_VIEW = 'Report.GeneralLedger.VW';
-  static PROFITLOSS_VIEW = 'Report.ProfitLoss.VW';
-  static TRIALBALANCE_VIEW = 'Report.TrialBalance.VW';
-
-  // Invoice
-  static INVOICE_VIEW = 'Finance.Invoice.VW';
-  static INVOICE_CREATE = 'Finance.Invoice.CR';
-  static INVOICE_EDIT = 'Finance.Invoice.ED';
-  static INVOICE_DELETE = 'Finance.Invoice.DL';
-  static INVOICE_REVIEW = 'Finance.Invoice.Review';
-  static INVOICE_APPROVE = 'Finance.Invoice.Approve';
-
-  // Bill
-  static BILL_VIEW = 'Finance.Bill.VW';
-  static BILL_CREATE = 'Finance.Bill.CR';
-  static BILL_EDIT = 'Finance.Bill.ED';
-  static BILL_DELETE = 'Finance.Bill.DL';
-  static BILL_REVIEW = 'Finance.Bill.Review';
-  static BILL_APPROVE = 'Finance.Bill.Approve';
-
-  // purchase Order
-  static PURCHASEORDER_VIEW = 'Procurement.PurchaseOrder.VW';
-  static PURCHASEORDER_CREATE = 'Procurement.PurchaseOrder.CR';
-  static PURCHASEORDER_EDIT = 'Procurement.PurchaseOrder.ED';
-  static PURCHASEORDER_DELETE = 'Procurement.PurchaseOrder.DL';
-  static PURCHASEORDER_REVIEW = 'Procurement.PurchaseOrder.Review';
-  static PURCHASEORDER_APPROVE = 'Procurement.PurchaseOrder.Approve';
-
-  // Requisition
-  static REQUISITION_VIEW = 'Procurement.Requisition.VW';
-  static REQUISITION_CREATE = 'Procurement.Requisition.CR';
-  static REQUISITION_EDIT = 'Procurement.Requisition.ED';
-  static REQUISITION_DELETE = 'Procurement.Requisition.DL';
+ 
   static REQUISITION_REVIEW = 'Procurement.Requisition.Review';
   static REQUISITION_APPROVE = 'Procurement.Requisition.Approve';
 
@@ -197,19 +331,7 @@ export class Permissions {
   static BIDEVALUATION_EDIT = 'Procurement.BidEvaluation.ED';
   static BIDEVALUATION_DELETE = 'Procurement.BidEvaluation.DL';
 
-  // Payment
-  static PAYMENT_VIEW = 'Finance.Payment.VW';
-  static PAYMENT_CREATE = 'Finance.Payment.CR';
-  static PAYMENT_EDIT = 'Finance.Payment.ED';
-  static PAYMENT_DELETE = 'Finance.Payment.DL';
-  static PAYMENT_REVIEW = 'Finance.Payment.Review';
-  static PAYMENT_APPROVE = 'Finance.Payment.Approve';
-
-  // Internal Recipt
-  static RECEIPT_VIEW = 'Finance.Receipt.VW';
-  static RECEIPT_CREATE = 'Finance.Receipt.CR';
-  static RECEIPT_EDIT = 'Finance.Receipt.ED';
-  static RECEIPT_DELETE = 'Finance.Receipt.DL';
+  
   static RECEIPT_REVIEW = 'Finance.Receipt.Review';
   static RECEIPT_APPROVE = 'Finance.Receipt.Approve';
 
@@ -218,29 +340,11 @@ export class Permissions {
   static PAYROLL_PAYMENT_EDIT = 'Payroll.PayrollPayment.ED';
   static PAYROLL_PAYMENT_DELETE = 'Payroll.PayrollPayment.DL';
 
-  // Credit Note
-  static CREDITNOTE_VIEW = 'Finance.CreditNote.VW';
-  static CREDITNOTE_CREATE = 'Finance.CreditNote.CR';
-  static CREDITNOTE_EDIT = 'Finance.CreditNote.ED';
-  static CREDITNOTE_DELETE = 'Finance.CreditNote.DL';
-  static CREDITNOTE_REVIEW = 'Finance.CreditNote.Review';
-  static CREDITNOTE_APPROVE = 'Finance.CreditNote.Approve';
+  
 
-  // Debit Note
-  static DEBITNOTE_VIEW = 'Finance.DebitNote.VW';
-  static DEBITNOTE_CREATE = 'Finance.DebitNote.CR';
-  static DEBITNOTE_EDIT = 'Finance.DebitNote.ED';
-  static DEBITNOTE_DELETE = 'Finance.DebitNote.DL';
-  static DEBITNOTE_REVIEW = 'Finance.DebitNote.Review';
-  static DEBITNOTE_APPROVE = 'Finance.DebitNote.Approve';
 
-  // Journal Entry Permissions
-  static JOURNALENTRY_VIEW = 'Finance.JournalEntry.VW';
-  static JOURNALENTRY_CREATE = 'Finance.JournalEntry.CR';
-  static JOURNALENTRY_EDIT = 'Finance.JournalEntry.ED';
-  static JOURNALENTRY_DELETE = 'Finance.JournalEntry.DL';
-  static JOURNALENTRY_REVIEW = 'Finance.JournalEntry.Review';
-  static JOURNALENTRY_APPROVE = 'Finance.JournalEntry.Approve';
+
+  
 
     // Petty Cash Entry Permissions
     static PETTYCASH_VIEW = 'Finance.PettyCash.VW';
@@ -251,41 +355,7 @@ export class Permissions {
     static PETTYCASH_APPROVE = 'Finance.PettyCash.Approve';
   
 
-  // Auth Permissions
-  static AUTH_VIEW = 'AccessManagement.Auth.VW';
-  static AUTH_CREATE = 'AccessManagement.Auth.CR';
-  static AUTH_EDIT = 'AccessManagement.Auth.ED';
-  static AUTH_DELETE = 'AccessManagement.Auth.DL';
-
-  // WORKFLOW Permissions
-  static WORKFLOW_VIEW = 'Workflow.Workflow.VW';
-  static WORKFLOW_CREATE = 'Workflow.Workflow.CR';
-  static WORKFLOW_EDIT = 'Workflow.Workflow.ED';
-  static WORKFLOW_DELETE = 'Workflow.Workflow.DL';
-
-  // STATUS Permissions
-  static STATUS_VIEW = 'Workflow.WorkflowStatus.VW';
-  static STATUS_CREATE = 'Workflow.WorkflowStatus.CR';
-  static STATUS_EDIT = 'Workflow.WorkflowStatus.ED';
-  static STATUS_DELETE = 'Workflow.WorkflowStatus.DL';
-
-  // Transaction Recon
-  static TRANSACTION_RECON_VIEW = 'Finance.TransactionRecon.VW';
-  static TRANSACTION_RECON_CREATE = 'Finance.TransactionRecon.CR';
-  static TRANSACTION_RECON_EDIT = 'Finance.TransactionRecon.ED';
-  static TRANSACTION_RECON_DELETE = 'Finance.TransactionRecon.DL';
-
-  // Bank Recon
-  static BANK_RECON_VIEW = 'Finance.BankRecon.VW';
-  static BANK_RECON_CREATE = 'Finance.BankRecon.CR';
-  static BANK_RECON_EDIT = 'Finance.BankRecon.ED';
-  static BANK_RECON_DELETE = 'Finance.BankRecon.DL';
-
-  // GRN
-  static GRN_VIEW = 'Procurement.GRN.VW';
-  static GRN_CREATE = 'Procurement.GRN.CR';
-  static GRN_EDIT = 'Procurement.GRN.ED';
-  static GRN_DELETE = 'Procurement.GRN.DL';
+ 
 
   // GRN
   static GOODS_RETURN_NOTE_VIEW = 'Procurement.GoodsReturnNote.VW';
@@ -371,8 +441,6 @@ export class Permissions {
   // allowance
   static ALLOWANCE_VIEW = 'AllowanceReport.VW';
 
-  // Stock
-  static STOCK_VIEW = 'Procurement.Stock.VW';
 
 
   // ADMISSION

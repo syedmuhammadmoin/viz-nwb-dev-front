@@ -1,8 +1,8 @@
 {
-    "remoteServiceBaseUrl": "http://stage-api-sbbu.stageratech.com/api/",
+    "remoteServiceBaseUrl": "https://localhost:7237/api/",
     "apiKey": "b4!V47w^e3QhItW_XY:jHgWQp%$&93nMS|h)Bj~R0&Q#J1m%lI^;b4C,&]Gf2(H_fu]5&X@1Oy~",
     "appBaseUrl": "http://localhost:4200",
-    "clientId": 32,
+    "clientId": 34,
     "clients": [
         {
             "clientId": 32,
@@ -92,6 +92,7 @@
         {
             "clientId": 34,
             "config": {
+                "title": "Vizalys",
                 "isCampus": false,
                 "isFormShow":true,
                 "bg_gradient_color_one": "#2988bc",
@@ -109,8 +110,7 @@
                 "toggler_arrow_color": "#fff",
                 "home_logo_bg": "#2988bc",
                 "db_dd_t_c": "#2988bc",
-                "title": "",
-                "login_title": "Main Campus SBBU Shaheed benazirabad.",
+                "login_title": "Vizalys Login",
                 "login_cover_image": "url('assets/media/logos/vizalys-login.jpg')",
                 "site_logo": "url('assets/media/logos/vizalys-logo.png')",
                 "dashboard_hight": "65px",

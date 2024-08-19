@@ -33,7 +33,8 @@ export class InterceptService implements HttpInterceptor {
     return next.handle(request).pipe(
       tap(
         event => {
-          if (event instanceof HttpResponse) { }
+          if (event instanceof HttpResponse) {
+           }
         },
         error => {
           let message = 'Something went wrong, Please try again later.'
@@ -42,7 +43,7 @@ export class InterceptService implements HttpInterceptor {
             case 400:
               //This was the code before showing exact domain fields
              // message = error?.errors?.message ?? 'Please verify form fields are correct, if issue presists please contact System Administrator'
-            message = error.error.errors.map((error: any) => {             
+            message = error?.error?.errors?.map((error: any) => {             
               return `${error.error}\n`;
             });
              console.log("Checking 400 Error", message);

@@ -320,12 +320,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 			password: controls.password.value
 		};
 		this.auth
-			.login(authData.email, authData.password)
+			.login(authData.email, authData.password,null)
 			.pipe(
 				tap(async res => {
 					if (res.isSuccess) {
-						this.store.dispatch(new Login({ authToken: res.message }));
-						const decodedToken = await this.decodeService.decode(res.message);
+						this.store.dispatch(new Login({ authToken: res.result.token }));
+						const decodedToken = await this.decodeService.decode(res.result.token);
 						this.store.dispatch(new UserLoaded({ user: this.decodeService.setUser(decodedToken) }));
 						await this.router.navigateByUrl(this.returnUrl); // Main page
 					}
