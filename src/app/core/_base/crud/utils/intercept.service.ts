@@ -75,7 +75,7 @@ export class InterceptService implements HttpInterceptor {
             case 500:
               message = error?.error?.message ?? 'Something went wrong, Please try again later.'
               title = 'Internal Server Error'
-              this.route.navigateByUrl('/error/500')
+             // this.route.navigateByUrl('/error/500')
               break;
             default:
               message = error?.error?.message ?? 'Please try again later, If issue presists please contact System Administrator';

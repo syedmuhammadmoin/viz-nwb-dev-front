@@ -16,6 +16,7 @@ export const APP_ROUTES = {
   BANK_STATEMENT: 'bank-statement',
   CASH_ACCOUNT: 'cash-account',
   CHART_OF_ACCOUNT: 'chart-of-account',
+  JOURNAL: 'journal',
   JOURNAL_ENTRY: 'journal-entry',
   PAYMENT: 'payment',
   PETTY_CASH:'petty-cash',
@@ -363,6 +364,19 @@ export const CHART_OF_ACCOUNT = {
   LIST: APP_ROUTES.CHART_OF_ACCOUNT + '/' + CRUD_ROUTES.LIST,
 }
 
+export const JOURNAL = {
+  LIST: APP_ROUTES.JOURNAL + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.JOURNAL + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.JOURNAL + '/edit/',          
+  DETAIL: APP_ROUTES.JOURNAL + '/detail/',      
+  PRINT: APP_ROUTES.JOURNAL + '/print/',        
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {               
+    return APP_ROUTES.JOURNAL + '/' + route + '/' + id
+  }
+}
 export const JOURNAL_ENTRY = {
   LIST: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.CREATE,

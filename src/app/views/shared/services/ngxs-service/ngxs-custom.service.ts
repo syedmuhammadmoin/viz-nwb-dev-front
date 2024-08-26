@@ -89,6 +89,7 @@ import {AdmissionCriteriaService} from '../../../pages/admission/admission-crite
 import {SubjectService} from '../../../pages/admission/subject/service/subject.service';
 import {SubjectState} from '../../../pages/admission/subject/store/subject.state';
 import {BudgetAccountState } from 'src/app/views/pages/budget/current-budget/store/budget-account.state';
+import { DefaultAccountState } from 'src/app/views/pages/finance/journal/store/journal.state';
 
 @Injectable({
   providedIn: 'root'
@@ -270,6 +271,12 @@ export class NgxsCustomService {
   bankAccounts$: any;
   bankAccountFetchCompleted$: any;
   bankAccountIsLoading$: any;
+
+
+  /** Default Account */
+  defaultAccounts$: any;
+  defaultAccountFetchCompleted$: any;
+  defaultAccountIsLoading$: any;
 
   /** Cash Account */
   cashAccounts$: any;
@@ -556,6 +563,12 @@ export class NgxsCustomService {
     this.bankAccounts$ = this.store.select(BankAccountState.entities);
     this.bankAccountFetchCompleted$ = this.store.select(BankAccountState.isFetchCompleted);
     this.bankAccountIsLoading$ = this.store.select(BankAccountState.isLoading);
+
+
+    /** Default Account */
+    this.defaultAccounts$ = this.store.select(DefaultAccountState.entities);
+    this.defaultAccountFetchCompleted$ = this.store.select(DefaultAccountState.isFetchCompleted);
+    this.defaultAccountIsLoading$ = this.store.select(DefaultAccountState.isLoading);
 
     /** Cash Account */
     this.cashAccounts$ = this.store.select(CashAccountState.entities);
@@ -997,6 +1010,18 @@ export class NgxsCustomService {
         this.store.dispatch(new GetList(BankAccountState, {
           serviceClass: this.bankAccountService,
           methodName: 'getBankAccountsDropdown',
+          context: this
+        }))
+      }
+    })
+  }
+
+  geAccountFromState() {
+    this.bankAccountFetchCompleted$.subscribe((res) => {
+      if (!res) {
+        this.store.dispatch(new GetList(BankAccountState, {
+          serviceClass: this.bankAccountService,
+          methodName: 'getDefaultAccountsDropdown',
           context: this
         }))
       }

@@ -175,6 +175,14 @@ export class Permissions {
  static JOURNALENTRY_REVIEW = 'Permissions.JournalEntryClaims.Review';
  static JOURNALENTRY_APPROVE = 'Permissions.JournalEntryClaims.Approve';
 
+  // Journal  Permissions
+  static JOURNAL_VIEW = 'Permissions.JournalClaims.VW';
+  static JOURNAL_CREATE = 'Permissions.JournalClaims.CR';
+  static JOURNAL_EDIT = 'Permissions.JournalClaims.ED';
+  static JOURNAL_DELETE = 'Permissions.JournalClaims.DL';
+  static JOURNAL_REVIEW = 'Permissions.JournalClaims.Review';
+  static JOURNAL_APPROVE = 'Permissions.JournalClaims.Approve';
+
  // Auth Permissions
  static AUTH_VIEW = 'Permissions.AuthClaims.VW';
  static AUTH_CREATE = 'Permissions.AuthClaims.CR';
@@ -597,7 +605,8 @@ export enum DocType {
   DepreciationAdjustment,
   EstimatedBudget,
   Budget,
-  PettyCash
+  PettyCash,
+  Journal
 }
 
 export enum Criteria{
@@ -696,4 +705,12 @@ export enum Season
   Fall,
   Spring,
   Summer,
+}
+export enum JournalType
+{
+  Sales=0,
+  Purchase=1,
+  Bank=2,
+  Cash=3,
+  Miscellaneous=4
 }

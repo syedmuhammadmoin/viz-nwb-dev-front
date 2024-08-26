@@ -310,6 +310,14 @@ export class AppConst {
     'Finance.DebitNote.Approve': 'Debit Note Approve',
 
     // Journal Voucher
+    'Finance.Journal.VW': 'Journal View',
+    'Finance.Journal.CR': 'Journal Create',
+    'Finance.Journal.ED': 'Journal Update',
+    'Finance.Journal.DL': 'Journal Delete',
+    'Finance.Journal.Review': 'Journal Review',
+    'Finance.Journal.Approve': 'Journal Approve',
+
+    // Journal Voucher
     'Finance.JournalEntry.VW': 'Journal Voucher View',
     'Finance.JournalEntry.CR': 'Journal Voucher Create',
     'Finance.JournalEntry.ED': 'Journal Voucher Update',
@@ -317,7 +325,7 @@ export class AppConst {
     'Finance.JournalEntry.Review': 'Journal Voucher Review',
     'Finance.JournalEntry.Approve': 'Journal Voucher Approve',
 
-    // Journal Voucher
+    // Petty Cash
     'Finance.PettyCash.VW': 'Petty Cash View',
     'Finance.PettyCash.CR': 'Petty Cash Create',
     'Finance.PettyCash.ED': 'Petty Cash Update',
@@ -620,6 +628,7 @@ export class AppConst {
     {value: 'Invoice', id: DocType.Invoice},
     {value: 'Bill', id: DocType.Bill},
     {value: 'Journal Entry', id: DocType.JournalEntry},
+    {value: 'Journal ', id: DocType.Journal},
     {value: 'Bank Account', id: DocType.BankAccount},
     {value: 'Cash Account', id: DocType.CashAccount},
     {value: 'Purchase Order', id: DocType.PurchaseOrder},
@@ -687,7 +696,8 @@ export class AppConst {
     17: 'PayrollPayment',
     18: 'Issuance',
     19: 'GoodsReturnNote',
-    20: 'IssuanceReturn'
+    20: 'IssuanceReturn',
+    21: 'Journal'
   }
 
   static Criteria = {

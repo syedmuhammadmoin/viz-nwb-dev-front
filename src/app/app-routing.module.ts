@@ -196,6 +196,15 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard] // <= Page component registration
       },
+       // Lazy Load JOURNAL  Module
+       {
+        path: APP_ROUTES.JOURNAL, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/finance/journal/journal.module').then(
+            (m) => m.JournalModule
+          ),
+        canActivateChild: [AuthGuard] // <= Page component registration
+      },
       // Lazy Load PETTY CASH ENTRY Module
       {
         path: APP_ROUTES.PETTY_CASH, // <= Page URL

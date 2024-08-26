@@ -18,7 +18,8 @@ import {
   PAYROLL_TRANSACTION,
   PURCHASE_ORDER,
   RECEIPT,
-  PETTY_CASH
+  PETTY_CASH,
+  JOURNAL
 } from './AppRoutes';
 import { Router } from '@angular/router';
 
@@ -190,6 +191,8 @@ export abstract class AppComponentBase {
         return BILL.ID_BASED_ROUTE('details', documentId);
       case DocType.JournalEntry:
         return JOURNAL_ENTRY.ID_BASED_ROUTE('details', documentId);
+        case DocType.Journal:
+        return JOURNAL.ID_BASED_ROUTE('details', documentId);
         case DocType.PettyCash:
           return PETTY_CASH.ID_BASED_ROUTE('details', documentId);
       /*case DocType.EmployeeBill:
