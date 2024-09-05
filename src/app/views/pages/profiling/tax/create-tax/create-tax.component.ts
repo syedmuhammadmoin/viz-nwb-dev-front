@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ITax } from '../model/ITax';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { finalize, take} from "rxjs/operators";
+import { finalize, take } from "rxjs/operators";
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { Permissions } from 'src/app/views/shared/AppEnum';
@@ -37,7 +37,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   permissions = Permissions
 
   //show Buttons
-  showButtons: boolean = true;
+  // showButtons: boolean = true;
 
   taxTypeList = AppConst.taxType
 
@@ -66,7 +66,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   constructor(private fb: FormBuilder,
     public taxService: TaxService,
-    public ngxsService:NgxsCustomService,
+    public ngxsService: NgxsCustomService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
@@ -78,17 +78,17 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     this.taxForm = this.fb.group({
-      name: ['' , [Validators.required]],
-      taxType: [{value: 0 , disabled: true}, [Validators.required]],
+      name: ['', [Validators.required]],
+      taxType: [{ value: 0 }, [Validators.required]],
       accountId: ['', [Validators.required]]
     });
 
     if (this._id) {
-      this.showButtons = (this.permission.isGranted(this.permissions.TAXES_EDIT)) ? true : false;
+      //this.showButtons = (this.permission.isGranted(this.permissions.TAXES_EDIT)) ? true : false;
       this.title = 'Edit tax'
       this.isLoading = true
       this.getTax(this._id);
-    } 
+    }
 
     //Get Data From Store
     this.ngxsService.getOtherAccountsFromState();
@@ -97,13 +97,13 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   // Getting tax values for update
   getTax(id: number) {
     this.taxService.getTax(id)
-    .pipe(
-      take(1),
-       finalize(() => {
-        this.isLoading = false;
-        this.cdRef.detectChanges();
-       })
-     )
+      .pipe(
+        take(1),
+        finalize(() => {
+          this.isLoading = false;
+          this.cdRef.detectChanges();
+        })
+      )
       .subscribe(
         (tax: IApiResponse<ITax>) => {
           this.editTax(tax.result);
@@ -120,10 +120,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       accountId: (tax.accountId === '00000000-0000-0000-0000-000000000000') ? null : tax.accountId,
     });
 
-    //if user have no permission to edit, so disable all fields
-    if(!this.showButtons) {
-      this.taxForm.disable();
-    }
+    // //if user have no permission to edit, so disable all fields
+    // if(!this.showButtons) {
+    //   this.taxForm.disable();
+    // }
   }
 
   onSubmit() {
@@ -132,27 +132,45 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     }
     this.isLoading = true;
     this.mapFormValueToTaxModel();
-    if (this.taxDataByID.id) {
+    if (this.taxDataByID?.id) {
       this.taxService.updateTax(this.taxModel)
-      .pipe(
-        take(1),
-         finalize(() => {
-          this.isLoading = false;
-          this.cdRef.detectChanges();
-         })
-       )
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
         .subscribe(() => {
-            this.toastService.success('Updated Successfully', 'Tax')
-            this.onCloseDialog();
-          }
-      );
+          this.toastService.success('Updated Successfully', 'Tax')
+          this.onCloseDialog();
+        }
+        );
+    } else {
+
+      this.taxService.add(this.taxModel)
+        .pipe(
+          take(1),
+          finalize(() => {
+            this.isLoading = false;
+            this.cdRef.detectChanges();
+          })
+        )
+        .subscribe(() => {
+          this.toastService.success('Create Successfully', 'Tax')
+          this.onCloseDialog();
+        }
+        );
+
     }
   }
 
   // Mapping values from tax form to tax model
   mapFormValueToTaxModel() {
-    this.taxModel.id = this.taxDataByID.id;
+    this.taxModel.id = this.taxDataByID?.id;
     this.taxModel.accountId = this.taxForm.value.accountId;
+    this.taxModel.name = this.taxForm.value.name;
+    this.taxModel.taxType = this.taxForm.value.taxType;
   }
 
   reset() {

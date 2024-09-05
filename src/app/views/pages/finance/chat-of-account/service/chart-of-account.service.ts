@@ -95,5 +95,12 @@ export class ChartOfAccountService {
   getIncomeAccounts(): Observable<any> {
     return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/IncomeAccounts');
   }
+  getCurrentAssetAccounts(): Observable<any> {
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/CurrentAssetAccounts');
+  }
+  getCashBankAccounts(): Observable<any> {
+    return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/CashBankAccounts');
+  }
+  
 }
 

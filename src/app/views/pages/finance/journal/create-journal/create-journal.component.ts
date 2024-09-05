@@ -4,21 +4,22 @@ import { FormBuilder, FormGroup, Validators, FormArray, NgForm } from '@angular/
 import { CategoryService } from '../../../profiling/category/service/category.service';
 import { IJournal } from '../model/IJournal';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { finalize, take } from 'rxjs/operators';
+import { finalize, take, takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { JournalService } from '../services/journal.service';
 import { BusinessPartnerService } from '../../../profiling/business-partner/service/businessPartner.service';
 import { WarehouseService } from '../../../profiling/warehouse/services/warehouse.service';
 import { JournalType, Permissions } from 'src/app/views/shared/AppEnum';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { FormsCanDeactivate } from 'src/app/views/shared/route-guards/form-confirmation.guard';
-import { JOURNAL_ENTRY } from 'src/app/views/shared/AppRoutes';
+import { JOURNAL } from 'src/app/views/shared/AppRoutes';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IJournalLines } from '../model/IJournalLines';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { ChartOfAccountService } from '../../chat-of-account/service/chart-of-account.service';
 import { MatRadioButton } from '@angular/material/radio';
+import { BankAccountService } from '../../bank-account/service/bankAccount.service';
 
 @Component({
   selector: 'kt-create-journal',
@@ -29,45 +30,28 @@ import { MatRadioButton } from '@angular/material/radio';
 
 export class CreateJournalComponent extends AppComponentBase implements OnInit, FormsCanDeactivate {
   public permissions = Permissions;
-
   //Loader
   isLoading: boolean;
 
   // Declaring form variable
   form: FormGroup;
 
-  // For Table Columns
-  displayedColumns = ['accountId', 'businessPartnerId', 'description', 'debit', 'credit', 'warehouseId', 'action']
-
-  // typeList = [
-  //   {id: 0 , name: 'Sales'},
-  //   {id: 1 , name: 'Purchase'},
-  //   {id: 2 , name: 'Cash'},
-  //   {id: 3 , name: 'Bank'},
-  //   {id: 4 , name: 'Miscellaneous'}
-  // ]
-
-
-  // Getting Table by id
-  @ViewChild('table', { static: true }) table: any;
-
-  dateLimit: Date = new Date()
-
-  // JournaL Entry Model
+  // Journal  Model
   JournalModel: IJournal = {} as IJournal;
 
   isJournal: boolean;
-
-  //variable for debit and credit sum
-  debitTotal: number = 0;
-  creditTotal: number = 0;
-
   title: string = 'Create Journal'
+  defaultAccountLabel: string = 'Default Account'
+  IsShowSuspenseAccountId: boolean = false;
+  IsShowProfitAccountId: boolean = false;
+  IsShowLossAccountId: boolean = false;
+  IsShowBankAcountId: boolean = false;
 
+  private destroy$ = new Subject<void>();
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
 
-  warehouseList: any = new BehaviorSubject<any>([])
+  // warehouseList: any = new BehaviorSubject<any>([])
 
   //show toast mesasge of on campus select
   showMessage: boolean = false;
@@ -80,24 +64,54 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
     type: {
       required: 'Type is required.',
     },
-    DefaultAccountId: {
+    defaultAccountId: {
       required: 'Acount is required.',
     },
     campusId: {
       required: 'Campus is required.',
     },
+    bankAcountId: {
+      required: 'Bank Account is required.',
+    },
+    suspenseAccountId: {
+      required: 'Suspense Account is required.',
+    },
+    profitAccountId: {
+      required: 'Profit Account is required.',
+    },
+    lossAccountId: {
+      required: 'Campus is required.',
+    },
+    cashAccountId: {
+      required: 'Campus is required.',
+    },
   }
 
   // Error keys..
-  formErrors: any = {
-    date: '',
+  formErrors: { [key: string]: string } = {
+    id: '',
+    name: '',
+    defaultAccountId: '',
     description: '',
-    campusId: ''
+    campusId: '',
+    type: '',
+    bankAcountId: '',
+    bankAccountNumber: '',
+    suspenseAccountId: '',
+    profitAccountId: '',
+    lossAccountId: '',
+    cashAccountId: ''
   }
 
 
   defaultAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
+  suspenseAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
+  profitAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
+  lossAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
+  cashAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
+  bankAccountList: BehaviorSubject<any[] | []> = new BehaviorSubject<any[] | []>([]);
 
+  // Journal Type List from enum
   typeList = Object.keys(JournalType).filter(key => isNaN(Number(key)))
     .map(key => ({ value: JournalType[key as any], label: key }));
 
@@ -108,6 +122,7 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
     public activatedRoute: ActivatedRoute,
     public addButtonService: AddModalButtonService,
     public chartOfAccountService: ChartOfAccountService,
+    public bankAccountService: BankAccountService,
     public categoryService: CategoryService,
     public businessPartnerService: BusinessPartnerService,
     public warehouseService: WarehouseService,
@@ -124,9 +139,16 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
     this.currentClient = AppConst.ClientConfig.config
 
     this.form = this.fb.group({
+      id: null,
       name: ['', [Validators.required]],
       type: ['', [Validators.required]],
-      DefaultAccountId: ['', [Validators.required]],
+      defaultAccountId: ['', [Validators.required]],
+      suspenseAccountId: '',
+      profitAccountId: '',
+      lossAccountId: '',
+      bankAcountId: '',
+      bankAccountNumber: '',
+      cashAccountId: '',
       campusId: (AppConst.ClientConfig.config.isCampus) ? ['', [Validators.required]] : [null, [Validators.nullValidator]],
     });
 
@@ -139,130 +161,163 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
       }
     })
 
+
+
     //Get Data from Store
-    this.ngxsService.getBusinessPartnerFromState();
-    this.ngxsService.getAccountLevel4FromState();
-    this.ngxsService.getWarehouseFromState();
+    // this.ngxsService.getBusinessPartnerFromState();
+    // this.ngxsService.getAccountLevel4FromState();
+    // this.ngxsService.getWarehouseFromState();
     this.ngxsService.getCampusFromState()
+
+    this.form.get('type')?.valueChanges
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(value => {
+        this.setValidation(value);
+        this.changeLabel(value);
+        this.hideControls(value);
+      });
+
+  }
+  hideControls(type: number) {
+    const showControls = type === JournalType.Cash || type === JournalType.Bank;
+    this.IsShowLossAccountId = showControls;
+    this.IsShowProfitAccountId = showControls;
+    this.IsShowSuspenseAccountId = showControls;
+
+    const ShowforBank = type === JournalType.Bank;
+    this.IsShowBankAcountId = ShowforBank;
+  }
+  changeLabel(journalType: number) {
+    if (journalType == JournalType.Cash) {
+      this.defaultAccountLabel = "Cash Account"
+    } else if (journalType == JournalType.Bank) {
+      this.defaultAccountLabel = "Bank Account"
+    }
+    else if (journalType == JournalType.Sales) {
+      this.defaultAccountLabel = "Default Income Account"
+    }
+    else if (journalType == JournalType.Purchase) {
+      this.defaultAccountLabel = "Default Expense Account"
+    }
+    else if (journalType == JournalType.Miscellaneous) {
+      this.defaultAccountLabel = "Default Account"
+    } else {
+      this.defaultAccountLabel = "Default Account"
+    }
+  }
+  setValidation(journalType: number) {
+    const controls = [
+      { control: this.form.get('suspenseAccountId'), requiredTypes: [JournalType.Cash, JournalType.Bank] },
+      { control: this.form.get('profitAccountId'), requiredTypes: [JournalType.Cash, JournalType.Bank] },
+      { control: this.form.get('lossAccountId'), requiredTypes: [JournalType.Cash, JournalType.Bank] }
+    ];
+
+    controls.forEach(({ control, requiredTypes }) => {
+      if (requiredTypes.includes(journalType)) {
+        control?.setValidators([Validators.required]);
+      } else {
+        control?.clearValidators();
+      }
+      control?.updateValueAndValidity();
+    });
   }
 
   loadAccountList($event: MatRadioButton | any) {
 
-    if ($event.value === JournalType.Sales) {
-      this.chartOfAccountService.getIncomeAccounts().subscribe((res: any) => {
-        this.defaultAccountList.next(res.result || [])
-        // this.form.get('depreciationModelId').clearValidators()
-        // this.form.get('depreciationModelId').updateValueAndValidity();
-        this.cdRef.markForCheck();
-      })
+    let type = $event.value;
+    this.loadingList(type);
 
-    } else if ($event.value === JournalType.Purchase) {
-      this.chartOfAccountService.getExpenseAccounts().subscribe((res: any) => {
-        this.defaultAccountList.next(res.result || [])
-        // this.form.get('depreciationModelId').clearValidators()
-        // this.form.get('depreciationModelId').updateValueAndValidity();
-        this.cdRef.markForCheck();
-      })
 
-    }
-    else if ($event.value === JournalType.Cash) {
-      this.chartOfAccountService.getOtherAccounts().subscribe((res: any) => {
-        this.defaultAccountList.next(res.result || [])
-        // this.form.get('depreciationModelId').clearValidators()
-        // this.form.get('depreciationModelId').updateValueAndValidity();
-        this.cdRef.markForCheck();
-      })
+  }
 
-    }
-    else if ($event.value === JournalType.Bank) {
-      this.chartOfAccountService.getOtherAccounts().subscribe((res: any) => {
-        this.defaultAccountList.next(res.result || [])
-        // this.form.get('depreciationModelId').clearValidators()
-        // this.form.get('depreciationModelId').updateValueAndValidity();
-        this.cdRef.markForCheck();
-      })
 
-    }
-    else if ($event.value === JournalType.Miscellaneous) {
-      this.chartOfAccountService.getOtherAccounts().subscribe((res: any) => {
-        this.defaultAccountList.next(res.result || [])
-        // this.form.get('depreciationModelId').clearValidators()
-        // this.form.get('depreciationModelId').updateValueAndValidity();
-        this.cdRef.markForCheck();
-      })
+  loadingList(type: any) {
+    if (type === JournalType.Sales) {
+      this.chartOfAccountService.getIncomeAccounts()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: any) => {
+          this.defaultAccountList.next(res.result || []);
+          this.cdRef.markForCheck();
+        });
 
+    } else if (type === JournalType.Purchase) {
+      this.chartOfAccountService.getExpenseAccounts()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: any) => {
+          this.defaultAccountList.next(res.result || []);
+          this.cdRef.markForCheck();
+        });
+
+    } else if (type === JournalType.Cash || type === JournalType.Bank) {
+
+      this.chartOfAccountService.getCashBankAccounts()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: any) => {
+          this.defaultAccountList.next(res.result || []);
+          this.cdRef.markForCheck();
+        });
+
+      this.chartOfAccountService.getIncomeAccounts()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: any) => {
+          this.profitAccountList.next(res.result || []);
+          this.cdRef.markForCheck();
+        });
+      this.chartOfAccountService.getExpenseAccounts()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: any) => {
+          this.lossAccountList.next(res.result || []);
+          this.cdRef.markForCheck();
+        });
+      this.chartOfAccountService.getCurrentAssetAccounts()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: any) => {
+          this.suspenseAccountList.next(res.result || []);
+          this.cdRef.markForCheck();
+        });
+
+      if (type === JournalType.Bank) {
+        this.bankAccountService.getBankAccounts()
+          .pipe(takeUntil(this.destroy$))
+          .subscribe((res: any) => {
+            this.bankAccountList.next(res.result || []);
+            this.cdRef.markForCheck();
+          });
+
+
+      }
+
+
+    } else if (type === JournalType.Miscellaneous) {
+      this.chartOfAccountService.getLevel4Accounts()
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((res: any) => {
+          this.defaultAccountList.next(res.result || []);
+          this.cdRef.markForCheck();
+        });
     }
   }
+
   //onChangeEvent to set debit or credit zero '0'
   onChangeEvent(_: unknown, index: number) {
-    const arrayControl = this.form.get('JournalLines') as FormArray;
-    const debitControl = arrayControl.at(index).get('debit');
-    const creditControl = arrayControl.at(index).get('credit');
-    const debit = (debitControl.value) !== null ? debitControl.value : null;
-    const credit = (creditControl.value) !== null ? creditControl.value : null;
 
-    if (debit) {
-      creditControl.setValue(0);
-      creditControl.disable();
-    }
-    else if (credit) {
-      debitControl.setValue(0);
-      debitControl.disable();
-    }
-    else if (!debit || !credit) {
-      creditControl.enable();
-      debitControl.enable();
-    }
-    this.totalCalculation();
+
   }
 
-  totalCalculation() {
-    this.debitTotal = 0;
-    this.creditTotal = 0;
-    const arrayControl = this.form.get('JournalLines') as FormArray;
-    arrayControl.controls.forEach((_: unknown, index: number) => {
-      const debit = arrayControl.at(index).get('debit').value;
-      const credit = arrayControl.at(index).get('credit').value;
-      this.debitTotal += Number(debit);
-      this.creditTotal += Number(credit);
-    });
-  }
+
 
 
   // Form Reset
   reset() {
     this.formDirective.resetForm();
     this.showMessage = false;
-    this.table.renderRows();
+
   }
 
-  // Add journal Entry Line
-  addJournalLineClick(): void {
-    const controls = this.form.controls.JournalLines as FormArray;
-    controls.push(this.addJournalLines());
-    this.table.renderRows();
-  }
 
-  addJournalLines(): FormGroup {
-    return this.fb.group({
-      accountId: ['', Validators.required],
-      businessPartnerId: [],
-      description: ['', Validators.required],
-      debit: [0, [Validators.required, Validators.min(0)]],
-      credit: [0, [Validators.required, Validators.min(0)]],
-      warehouseId: [],
-    });
-  }
 
-  //Remove Journal Line
-  removeJournalLineClick(JournalLineIndex: number): void {
-    const JournalLineArray = this.form.get('JournalLines') as FormArray;
-    JournalLineArray.removeAt(JournalLineIndex);
-    JournalLineArray.markAsDirty();
-    JournalLineArray.markAsTouched();
-    this.table.renderRows();
-    this.totalCalculation();
-  }
+
+
 
   //Get Journal Data for Edit
   private getJournal(id: number) {
@@ -280,41 +335,50 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
           return
         }
         this.JournalModel = res.result
-        this.editJournal(this.JournalModel)
+        this.loadingList(this.JournalModel.type);
+        this.editJournal(this.JournalModel);
       });
   }
 
   //Edit Journal
   editJournal(Journal: IJournal) {
     this.form.patchValue({
+      name: Journal.name,
+      type: Journal.type,
+      defaultAccountId: Journal.defaultAccountId,
+      suspenseAccountId: Journal.suspenseAccountId,
+      profitAccountId: Journal.profitAccountId,
+      lossAccountId: Journal.lossAccountId,
+      bankAcountId: Journal.bankAcountId,
+      bankAccountNumber: Journal.bankAccountNumber,
+      cashAccountId: Journal.cashAccountId,
+      campusId: (AppConst.ClientConfig.config.isCampus) ? ['', [Validators.required]] : [null, [Validators.nullValidator]],
 
-      campusId: Journal.campusId
+
+      // campusId: Journal.campusId
     });
 
-    this.onCampusSelected(Journal.campusId)
+    // this.onCampusSelected(Journal.campusId)
     this.showMessage = true;
 
-   
-    this.totalCalculation();
+
+
   }
 
-  
+
 
   // Submit Form Function
   onSubmit(): void {
-  
 
-    
+
+
 
     if (this.form.invalid) {
       this.toastService.error("Please fill all required fields!", "Journal")
       return;
     }
 
-    if (this.debitTotal !== this.creditTotal) {
-      this.toastService.error('Sum of Debit and Credit is not Equal', 'Journal')
-      return
-    }
+
 
     this.isLoading = true;
     this.mapFormValuesToJournalModel();
@@ -331,7 +395,7 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
           (res: IApiResponse<IJournal>) => {
             this.toastService.success('Updated Successfully', 'Journal')
             this.cdRef.detectChanges();
-            this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details', this.JournalModel.id)]);
+            this.router.navigate(['/' + JOURNAL.LIST]);
           })
     } else {
       delete this.JournalModel.id;
@@ -346,22 +410,25 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
         .subscribe(
           (res: IApiResponse<IJournal>) => {
             this.toastService.success('Created Successfully', 'Journal')
-            this.router.navigate(['/' + JOURNAL_ENTRY.ID_BASED_ROUTE('details', res.result.id)]);
+            this.router.navigate(['/' + JOURNAL.LIST]);
           });
     }
   }
 
   //Mapping Form Values To Model
   mapFormValuesToJournalModel() {
-
     this.JournalModel.campusId = this.form.value.campusId;
-    this.JournalModel.JournalLines = this.form.getRawValue().JournalLines;
+    this.JournalModel.name = this.form.value.name;
+    this.JournalModel.type = this.form.value.type;
+    this.JournalModel.defaultAccountId = this.form.value.defaultAccountId;
+    this.JournalModel.suspenseAccountId = this.form.value.suspenseAccountId;
+    this.JournalModel.profitAccountId = this.form.value.profitAccountId;
+    this.JournalModel.lossAccountId = this.form.value.lossAccountId;
+    this.JournalModel.bankAccountNumber = this.form.value.bankAccountNumber;
+    this.JournalModel.bankAcountId = this.form.value.bankAcountId;
+    this.JournalModel.cashAccountId = this.form.value.cashAccountId;
   }
 
-  //for save or submit
-  isSubmit(val: number) {
-    this.JournalModel.isSubmit = (val === 0) ? false : true;
-  }
 
   canDeactivate(): boolean | Observable<boolean> {
     return !this.form.dirty;
@@ -374,16 +441,11 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
     }
   }
 
-  onCampusSelected(campusId: number) {
-    this.ngxsService.warehouseService.getWarehouseByCampusId(campusId).subscribe(res => {
-      this.warehouseList.next(res.result || [])
-    })
 
-    if (this.form.value.JournalLines.some(line => line.warehouseId)) {
-      this.toastService.info("Please Reselect Store!", "Journal")
-    }
 
-    this.form.get('JournalLines')['controls'].map((line: any) => line.controls.warehouseId.setValue(null))
-    this.cdRef.detectChanges()
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
+
 }

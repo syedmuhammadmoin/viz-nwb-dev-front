@@ -5,7 +5,7 @@ import { JournalService } from '../services/journal.service';
 import { ActionButton, DocumentStatus, DocType, Permissions } from 'src/app/views/shared/AppEnum';
 import { LayoutUtilsService } from 'src/app/core/_base/crud';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { JOURNAL_ENTRY } from 'src/app/views/shared/AppRoutes';
+import { JOURNAL } from 'src/app/views/shared/AppRoutes';
 import { IJournal } from '../model/IJournal';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { IJournalLines } from '../model/IJournalLines';
@@ -34,7 +34,7 @@ export class JournalDetailsComponent extends AppComponentBase implements OnInit 
   // need for routing
   JournalId: number;
   currentClient : any = {};
-  public JournalRoute = JOURNAL_ENTRY
+  public JournalRoute = JOURNAL
 
   // For ag grid
   gridOptions: any = ({} as GridOptions);
@@ -133,7 +133,7 @@ export class JournalDetailsComponent extends AppComponentBase implements OnInit 
         this.cdRef.markForCheck();
       } else {
         this.layoutUtilService.showActionNotification('Cannot find record with out id parameter', null, 5000, true, false)
-        this.router.navigate(['/' + JOURNAL_ENTRY.LIST])
+        this.router.navigate(['/' + JOURNAL.LIST])
       }
     });
   }
@@ -153,7 +153,7 @@ export class JournalDetailsComponent extends AppComponentBase implements OnInit 
       )
       .subscribe((res: IApiResponse<IJournal>) => {
         this.JournalMaster = res.result;
-        this.JournalLines = res.result.JournalLines;
+       
         this.remarksList = this.JournalMaster.remarksList ?? []
         this.cdRef.markForCheck();
       })
@@ -164,7 +164,7 @@ export class JournalDetailsComponent extends AppComponentBase implements OnInit 
     const dialogRef = this.dialog.open(CustomRemarksComponent, {
       width: '740px'
     });
-    // Getting Updated Journal Entry Data
+    // Getting Updated Journal Data
     dialogRef.afterClosed().subscribe((res) => {
       if (res) {
         this.workflow(action, res.data)
@@ -185,7 +185,7 @@ export class JournalDetailsComponent extends AppComponentBase implements OnInit 
       .subscribe((res) => {
         this.getJournalData(this.JournalId);
         this.cdRef.detectChanges();
-        this.toastService.success('' + res.message, 'Journal Entry');
+        this.toastService.success('' + res.message, 'Journal');
       })
   }
 
@@ -197,7 +197,7 @@ export class JournalDetailsComponent extends AppComponentBase implements OnInit 
         response: this.JournalMaster,
         serviceClass: this.JournalService,
         functionName: 'uploadFile',
-        name: 'Journal Entry'
+        name: 'Journal'
       },
     }).afterClosed().subscribe(() => {
       this.getJournalData(this.JournalId)

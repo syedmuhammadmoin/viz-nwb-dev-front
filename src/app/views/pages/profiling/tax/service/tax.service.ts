@@ -24,7 +24,13 @@ export class TaxService extends AppServiceBase {
     getTax(id: number): Observable<IApiResponse<ITax>> {
         return this.httpClient.get<IApiResponse<ITax>>(`${this.baseUrl}/${id}`)
     }
-    
+    add(tax: ITax): Observable<ITax> {
+        return this.httpClient.post<ITax>(this.baseUrl , tax, {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json'
+            })
+        })
+    }
     updateTax(tax: ITax): Observable<void> {
         return this.httpClient.put<void>(`${this.baseUrl}/${tax.id}`, tax, {
             headers: new HttpHeaders({

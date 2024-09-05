@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { JOURNAL } from 'src/app/views/shared/AppRoutes';
 import { IJournal } from '../model/IJournal';
-import { Permissions } from 'src/app/views/shared/AppEnum';
+import { JournalType, Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
 
 @Component({
@@ -47,8 +47,8 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
   columnDefs = [
     {
       headerName: 'JRN #',
-      field: 'docNo',
-      tooltipField: 'docNo',
+      field: 'id',
+      tooltipField: 'id',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
@@ -69,6 +69,7 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
       field: 'type',
       tooltipField: 'type',
       suppressHeaderMenuButton: true,
+      valueFormatter: params => this.getJournalTypeText(params.value)
     },
     {
       headerName: 'Default Account',
@@ -124,8 +125,12 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
   }
 
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.router.navigate(['/' + JOURNAL.ID_BASED_ROUTE('details' , event.data.id)]);
+    this.router.navigate(
+      ['/' + JOURNAL.ID_BASED_ROUTE('edit', event.data.id)], 
+      { queryParams: { q: event.data.id, isJournal: true } }
+    );
   }
+  
 
   onGridReady(params: GridReadyEvent) {
     this.gridApi = params.api;
@@ -167,5 +172,21 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
       },
     };
     this.gridApi.setDatasource(dataSource);
+}
+ getJournalTypeText(value: number): string {
+  switch (value) {
+    case JournalType.Sales:
+      return 'Sales';
+    case JournalType.Purchase:
+      return 'Purchase';
+    case JournalType.Cash:
+      return 'Cash';
+    case JournalType.Bank:
+      return 'Bank';
+    case JournalType.Miscellaneous:
+      return 'Miscellaneous';
+    default:
+      return 'Unknown';
+  }
 }
 }

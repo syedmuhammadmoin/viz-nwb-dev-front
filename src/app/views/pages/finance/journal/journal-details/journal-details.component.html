@@ -2,7 +2,7 @@
   <kt-portlet>
     <span class="kt-portlet__head-icon kt-hide"> <i class="la la-gear"></i> </span>
 
-    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Journal Entry Detail'">
+    <kt-portlet-header [class]="'card-head-lg ribbon ribbon-clip ribbon-right'" [sticky]="false"  [title]="'Journal Detail'">
       <ng-container class="" ktPortletTools>
         <div class="ribbon-target " ><span class="ribbon-inner {{docStatus[JournalMaster?.state]}}"></span> {{JournalMaster?.status}}</div>
       </ng-container>
@@ -14,8 +14,7 @@
           <div class="btn_container">
             <div class="col-md-6 col-6">
               <ng-container ktPortletTools >
-                <button  *ngIf="(JournalMaster?.state === docStatus.Draft || JournalMaster?.state === docStatus.Rejected) &&
-                  (permission.isGranted(permissions.JOURNAL_EDIT))" id="journal_edit"
+                <button  *ngIf="(permission.isGranted(permissions.JOURNAL_EDIT))" id="journal_edit"
                   [routerLink]="'/' + JournalRoute.ID_BASED_ROUTE('edit' , JournalMaster?.id)"
                   [queryParams]="{q: JournalMaster?.id, 'isJournal': true}" type="button"  class="btn_public me-3">
                   <i class="fa fa-edit icon-e-p-a"></i> Edit
@@ -24,7 +23,7 @@
                 (click)="openFileUploadDialog()" type="button"><i class="fas fa-file-upload icon-e-p-a"></i> Attachment
                 </button>
                 <button  id="journal_print" [routerLink]="'/' + JournalRoute.ID_BASED_ROUTE('print' , JournalMaster?.id)" class="btn_public"
-                matTooltip="Add Bank Account"><i class="fa fa-print icon-e-p-a"></i> Print Journal Entry</button>
+                matTooltip="Add Bank Account"><i class="fa fa-print icon-e-p-a"></i> Print Journal</button>
             </ng-container>
             </div>
 

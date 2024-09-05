@@ -85,7 +85,6 @@ export class PrintJournalComponent extends AppComponentBase implements OnInit {
   getJournalMasterData(id: number){
     this.JournalService.getJournalById(id).subscribe((res: IApiResponse<IJournal>) =>{
         this.JournalMaster = res.result;
-        this.JournalLines = res.result.JournalLines;
         this.cDRef.markForCheck();
       })
   }

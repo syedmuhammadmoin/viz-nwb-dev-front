@@ -70,7 +70,7 @@ import {
 } from 'src/app/views/shared/AppRoutes';
 
 
-import {Permissions} from '../../views/shared/AppEnum'
+import { Permissions } from '../../views/shared/AppEnum'
 
 export class MenuConfig {
   public defaults: any = {
@@ -478,254 +478,254 @@ export class MenuConfig {
         //     },
         //   ]
         // },
-      //  // ADMISSION Portion
-      //   {
-      //     title: 'Admission',
-      //     bullet: 'dot',
-      //     icon: 'flaticon2-analytics',
-      //     permission: [
-      //       Permissions.ADMISSION_CRITERIA_VIEW,
-      //       Permissions.ADMISSION_CRITERIA_CREATE,
-      //       Permissions.ADMISSION_CRITERIA_EDIT,
-      //       Permissions.ADMISSION_CRITERIA_DELETE,
-      //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_VIEW,
-      //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_CREATE,
-      //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_EDIT,
-      //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_DELETE,
-      //       Permissions.ADMISSION_FACULTY_VIEW,
-      //       Permissions.ADMISSION_FACULTY_CREATE,
-      //       Permissions.ADMISSION_FACULTY_EDIT,
-      //       Permissions.ADMISSION_FACULTY_DELETE,
-      //       Permissions.ADMISSION_SHIFT_VIEW,
-      //       Permissions.ADMISSION_SHIFT_CREATE,
-      //       Permissions.ADMISSION_SHIFT_EDIT,
-      //       Permissions.ADMISSION_SHIFT_DELETE,
-      //       Permissions.ADMISSION_BATCH_VIEW,
-      //       Permissions.ADMISSION_BATCH_CREATE,
-      //       Permissions.ADMISSION_BATCH_EDIT,
-      //       Permissions.ADMISSION_BATCH_DELETE,
-      //       Permissions.ADMISSION_COURSE_VIEW,
-      //       Permissions.ADMISSION_COURSE_CREATE,
-      //       Permissions.ADMISSION_COURSE_EDIT,
-      //       Permissions.ADMISSION_COURSE_DELETE,
-      //       Permissions.ADMISSION_SEMESTER_VIEW,
-      //       Permissions.ADMISSION_SEMESTER_CREATE,
-      //       Permissions.ADMISSION_SEMESTER_EDIT,
-      //       Permissions.ADMISSION_SEMESTER_DELETE,
-      //       Permissions.ADMISSION_COUNTRY_VIEW,
-      //       Permissions.ADMISSION_COUNTRY_CREATE,
-      //       Permissions.ADMISSION_COUNTRY_EDIT,
-      //       Permissions.ADMISSION_COUNTRY_DELETE,
-      //       Permissions.ADMISSION_STATE_VIEW,
-      //       Permissions.ADMISSION_STATE_CREATE,
-      //       Permissions.ADMISSION_STATE_EDIT,
-      //       Permissions.ADMISSION_STATE_DELETE,
-      //       Permissions.ADMISSION_CITY_VIEW,
-      //       Permissions.ADMISSION_CITY_CREATE,
-      //       Permissions.ADMISSION_CITY_EDIT,
-      //       Permissions.ADMISSION_CITY_DELETE,
-      //       Permissions.ADMISSION_DISTRICT_VIEW,
-      //       Permissions.ADMISSION_DISTRICT_CREATE,
-      //       Permissions.ADMISSION_DISTRICT_EDIT,
-      //       Permissions.ADMISSION_DISTRICT_DELETE,
-      //       Permissions.ADMISSION_DOMICILE_VIEW,
-      //       Permissions.ADMISSION_DOMICILE_CREATE,
-      //       Permissions.ADMISSION_DOMICILE_EDIT,
-      //       Permissions.ADMISSION_DOMICILE_DELETE,
-      //       Permissions.ADMISSION_DEGREE_VIEW,
-      //       Permissions.ADMISSION_DEGREE_CREATE,
-      //       Permissions.ADMISSION_DEGREE_EDIT,
-      //       Permissions.ADMISSION_DEGREE_DELETE,
-      //       Permissions.ADMISSION_FEEITEM_VIEW,
-      //       Permissions.ADMISSION_FEEITEM_CREATE,
-      //       Permissions.ADMISSION_FEEITEM_EDIT,
-      //       Permissions.ADMISSION_FEEITEM_DELETE,
-      //       Permissions.ADMISSION_PROGRAM_VIEW,
-      //       Permissions.ADMISSION_PROGRAM_CREATE,
-      //       Permissions.ADMISSION_PROGRAM_EDIT,
-      //       Permissions.ADMISSION_PROGRAM_DELETE,
-      //       Permissions.ADMISSION_QUALIFICATION_VIEW,
-      //       Permissions.ADMISSION_QUALIFICATION_CREATE,
-      //       Permissions.ADMISSION_QUALIFICATION_EDIT,
-      //       Permissions.ADMISSION_QUALIFICATION_DELETE,
-      //       Permissions.ADMISSION_SUBJECT_VIEW,
-      //       Permissions.ADMISSION_SUBJECT_CREATE,
-      //       Permissions.ADMISSION_SUBJECT_EDIT,
-      //       Permissions.ADMISSION_SUBJECT_DELETE
-      //     ],
-      //     submenu: [
-      //       {
-      //         title: 'Admission Criteria',
-      //         page: '/' + ADMISSION_CRITERIA.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_CRITERIA_VIEW,
-      //           Permissions.ADMISSION_CRITERIA_CREATE,
-      //           Permissions.ADMISSION_CRITERIA_EDIT,
-      //           Permissions.ADMISSION_CRITERIA_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Academic Department',
-      //         page: '/' + ACADEMIC_DEPARTMENT.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_VIEW,
-      //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_CREATE,
-      //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_EDIT,
-      //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Faculty',
-      //         page: '/' + FACULTY.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_FACULTY_VIEW,
-      //           Permissions.ADMISSION_FACULTY_CREATE,
-      //           Permissions.ADMISSION_FACULTY_EDIT,
-      //           Permissions.ADMISSION_FACULTY_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Shift',
-      //         page: '/' + SHIFT.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_SHIFT_VIEW,
-      //           Permissions.ADMISSION_SHIFT_CREATE,
-      //           Permissions.ADMISSION_SHIFT_EDIT,
-      //           Permissions.ADMISSION_SHIFT_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Batch',
-      //         page: '/' + BATCH.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_BATCH_VIEW,
-      //           Permissions.ADMISSION_BATCH_CREATE,
-      //           Permissions.ADMISSION_BATCH_EDIT,
-      //           Permissions.ADMISSION_BATCH_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Course',
-      //         page: '/' + COURSE.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_COURSE_VIEW,
-      //           Permissions.ADMISSION_COURSE_CREATE,
-      //           Permissions.ADMISSION_COURSE_EDIT,
-      //           Permissions.ADMISSION_COURSE_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Semester',
-      //         page: '/' + SEMESTER.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_SEMESTER_VIEW,
-      //           Permissions.ADMISSION_SEMESTER_CREATE,
-      //           Permissions.ADMISSION_SEMESTER_EDIT,
-      //           Permissions.ADMISSION_SEMESTER_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Country',
-      //         page: '/' + COUNTRY.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_COUNTRY_VIEW,
-      //           Permissions.ADMISSION_COUNTRY_CREATE,
-      //           Permissions.ADMISSION_COUNTRY_EDIT,
-      //           Permissions.ADMISSION_COUNTRY_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'State',
-      //         page: '/' + STATE.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_STATE_VIEW,
-      //           Permissions.ADMISSION_STATE_CREATE,
-      //           Permissions.ADMISSION_STATE_EDIT,
-      //           Permissions.ADMISSION_STATE_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'City',
-      //         page: '/' + CITY.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_CITY_VIEW,
-      //           Permissions.ADMISSION_CITY_CREATE,
-      //           Permissions.ADMISSION_CITY_EDIT,
-      //           Permissions.ADMISSION_CITY_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'District',
-      //         page: '/' + DISTRICT.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_DISTRICT_VIEW,
-      //           Permissions.ADMISSION_DISTRICT_CREATE,
-      //           Permissions.ADMISSION_DISTRICT_EDIT,
-      //           Permissions.ADMISSION_DISTRICT_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Domicile',
-      //         page: '/' + DOMICILE.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_DOMICILE_VIEW,
-      //           Permissions.ADMISSION_DOMICILE_CREATE,
-      //           Permissions.ADMISSION_DOMICILE_EDIT,
-      //           Permissions.ADMISSION_DOMICILE_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Degree',
-      //         page: '/' + DEGREE.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_DEGREE_VIEW,
-      //           Permissions.ADMISSION_DEGREE_CREATE,
-      //           Permissions.ADMISSION_DEGREE_EDIT,
-      //           Permissions.ADMISSION_DEGREE_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Fee Item',
-      //         page: '/' + FEE_ITEM.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_FEEITEM_VIEW,
-      //           Permissions.ADMISSION_FEEITEM_CREATE,
-      //           Permissions.ADMISSION_FEEITEM_EDIT,
-      //           Permissions.ADMISSION_FEEITEM_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Program',
-      //         page: '/' + PROGRAM.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_PROGRAM_VIEW,
-      //           Permissions.ADMISSION_PROGRAM_CREATE,
-      //           Permissions.ADMISSION_PROGRAM_EDIT,
-      //           Permissions.ADMISSION_PROGRAM_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Qualification',
-      //         page: '/' + QUALIFICATION.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_QUALIFICATION_VIEW,
-      //           Permissions.ADMISSION_QUALIFICATION_CREATE,
-      //           Permissions.ADMISSION_QUALIFICATION_EDIT,
-      //           Permissions.ADMISSION_QUALIFICATION_DELETE
-      //         ]
-      //       },
-      //       {
-      //         title: 'Subject',
-      //         page: '/' + SUBJECT.LIST,
-      //         permission: [
-      //           Permissions.ADMISSION_SUBJECT_VIEW,
-      //           Permissions.ADMISSION_SUBJECT_CREATE,
-      //           Permissions.ADMISSION_SUBJECT_EDIT,
-      //           Permissions.ADMISSION_SUBJECT_DELETE
-      //         ]
-      //       },
-      //     ]
-      //   },
+        //  // ADMISSION Portion
+        //   {
+        //     title: 'Admission',
+        //     bullet: 'dot',
+        //     icon: 'flaticon2-analytics',
+        //     permission: [
+        //       Permissions.ADMISSION_CRITERIA_VIEW,
+        //       Permissions.ADMISSION_CRITERIA_CREATE,
+        //       Permissions.ADMISSION_CRITERIA_EDIT,
+        //       Permissions.ADMISSION_CRITERIA_DELETE,
+        //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_VIEW,
+        //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_CREATE,
+        //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_EDIT,
+        //       Permissions.ADMISSION_ACADEMIC_DEPARTMENT_DELETE,
+        //       Permissions.ADMISSION_FACULTY_VIEW,
+        //       Permissions.ADMISSION_FACULTY_CREATE,
+        //       Permissions.ADMISSION_FACULTY_EDIT,
+        //       Permissions.ADMISSION_FACULTY_DELETE,
+        //       Permissions.ADMISSION_SHIFT_VIEW,
+        //       Permissions.ADMISSION_SHIFT_CREATE,
+        //       Permissions.ADMISSION_SHIFT_EDIT,
+        //       Permissions.ADMISSION_SHIFT_DELETE,
+        //       Permissions.ADMISSION_BATCH_VIEW,
+        //       Permissions.ADMISSION_BATCH_CREATE,
+        //       Permissions.ADMISSION_BATCH_EDIT,
+        //       Permissions.ADMISSION_BATCH_DELETE,
+        //       Permissions.ADMISSION_COURSE_VIEW,
+        //       Permissions.ADMISSION_COURSE_CREATE,
+        //       Permissions.ADMISSION_COURSE_EDIT,
+        //       Permissions.ADMISSION_COURSE_DELETE,
+        //       Permissions.ADMISSION_SEMESTER_VIEW,
+        //       Permissions.ADMISSION_SEMESTER_CREATE,
+        //       Permissions.ADMISSION_SEMESTER_EDIT,
+        //       Permissions.ADMISSION_SEMESTER_DELETE,
+        //       Permissions.ADMISSION_COUNTRY_VIEW,
+        //       Permissions.ADMISSION_COUNTRY_CREATE,
+        //       Permissions.ADMISSION_COUNTRY_EDIT,
+        //       Permissions.ADMISSION_COUNTRY_DELETE,
+        //       Permissions.ADMISSION_STATE_VIEW,
+        //       Permissions.ADMISSION_STATE_CREATE,
+        //       Permissions.ADMISSION_STATE_EDIT,
+        //       Permissions.ADMISSION_STATE_DELETE,
+        //       Permissions.ADMISSION_CITY_VIEW,
+        //       Permissions.ADMISSION_CITY_CREATE,
+        //       Permissions.ADMISSION_CITY_EDIT,
+        //       Permissions.ADMISSION_CITY_DELETE,
+        //       Permissions.ADMISSION_DISTRICT_VIEW,
+        //       Permissions.ADMISSION_DISTRICT_CREATE,
+        //       Permissions.ADMISSION_DISTRICT_EDIT,
+        //       Permissions.ADMISSION_DISTRICT_DELETE,
+        //       Permissions.ADMISSION_DOMICILE_VIEW,
+        //       Permissions.ADMISSION_DOMICILE_CREATE,
+        //       Permissions.ADMISSION_DOMICILE_EDIT,
+        //       Permissions.ADMISSION_DOMICILE_DELETE,
+        //       Permissions.ADMISSION_DEGREE_VIEW,
+        //       Permissions.ADMISSION_DEGREE_CREATE,
+        //       Permissions.ADMISSION_DEGREE_EDIT,
+        //       Permissions.ADMISSION_DEGREE_DELETE,
+        //       Permissions.ADMISSION_FEEITEM_VIEW,
+        //       Permissions.ADMISSION_FEEITEM_CREATE,
+        //       Permissions.ADMISSION_FEEITEM_EDIT,
+        //       Permissions.ADMISSION_FEEITEM_DELETE,
+        //       Permissions.ADMISSION_PROGRAM_VIEW,
+        //       Permissions.ADMISSION_PROGRAM_CREATE,
+        //       Permissions.ADMISSION_PROGRAM_EDIT,
+        //       Permissions.ADMISSION_PROGRAM_DELETE,
+        //       Permissions.ADMISSION_QUALIFICATION_VIEW,
+        //       Permissions.ADMISSION_QUALIFICATION_CREATE,
+        //       Permissions.ADMISSION_QUALIFICATION_EDIT,
+        //       Permissions.ADMISSION_QUALIFICATION_DELETE,
+        //       Permissions.ADMISSION_SUBJECT_VIEW,
+        //       Permissions.ADMISSION_SUBJECT_CREATE,
+        //       Permissions.ADMISSION_SUBJECT_EDIT,
+        //       Permissions.ADMISSION_SUBJECT_DELETE
+        //     ],
+        //     submenu: [
+        //       {
+        //         title: 'Admission Criteria',
+        //         page: '/' + ADMISSION_CRITERIA.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_CRITERIA_VIEW,
+        //           Permissions.ADMISSION_CRITERIA_CREATE,
+        //           Permissions.ADMISSION_CRITERIA_EDIT,
+        //           Permissions.ADMISSION_CRITERIA_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Academic Department',
+        //         page: '/' + ACADEMIC_DEPARTMENT.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_VIEW,
+        //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_CREATE,
+        //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_EDIT,
+        //           Permissions.ADMISSION_ACADEMIC_DEPARTMENT_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Faculty',
+        //         page: '/' + FACULTY.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_FACULTY_VIEW,
+        //           Permissions.ADMISSION_FACULTY_CREATE,
+        //           Permissions.ADMISSION_FACULTY_EDIT,
+        //           Permissions.ADMISSION_FACULTY_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Shift',
+        //         page: '/' + SHIFT.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_SHIFT_VIEW,
+        //           Permissions.ADMISSION_SHIFT_CREATE,
+        //           Permissions.ADMISSION_SHIFT_EDIT,
+        //           Permissions.ADMISSION_SHIFT_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Batch',
+        //         page: '/' + BATCH.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_BATCH_VIEW,
+        //           Permissions.ADMISSION_BATCH_CREATE,
+        //           Permissions.ADMISSION_BATCH_EDIT,
+        //           Permissions.ADMISSION_BATCH_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Course',
+        //         page: '/' + COURSE.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_COURSE_VIEW,
+        //           Permissions.ADMISSION_COURSE_CREATE,
+        //           Permissions.ADMISSION_COURSE_EDIT,
+        //           Permissions.ADMISSION_COURSE_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Semester',
+        //         page: '/' + SEMESTER.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_SEMESTER_VIEW,
+        //           Permissions.ADMISSION_SEMESTER_CREATE,
+        //           Permissions.ADMISSION_SEMESTER_EDIT,
+        //           Permissions.ADMISSION_SEMESTER_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Country',
+        //         page: '/' + COUNTRY.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_COUNTRY_VIEW,
+        //           Permissions.ADMISSION_COUNTRY_CREATE,
+        //           Permissions.ADMISSION_COUNTRY_EDIT,
+        //           Permissions.ADMISSION_COUNTRY_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'State',
+        //         page: '/' + STATE.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_STATE_VIEW,
+        //           Permissions.ADMISSION_STATE_CREATE,
+        //           Permissions.ADMISSION_STATE_EDIT,
+        //           Permissions.ADMISSION_STATE_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'City',
+        //         page: '/' + CITY.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_CITY_VIEW,
+        //           Permissions.ADMISSION_CITY_CREATE,
+        //           Permissions.ADMISSION_CITY_EDIT,
+        //           Permissions.ADMISSION_CITY_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'District',
+        //         page: '/' + DISTRICT.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_DISTRICT_VIEW,
+        //           Permissions.ADMISSION_DISTRICT_CREATE,
+        //           Permissions.ADMISSION_DISTRICT_EDIT,
+        //           Permissions.ADMISSION_DISTRICT_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Domicile',
+        //         page: '/' + DOMICILE.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_DOMICILE_VIEW,
+        //           Permissions.ADMISSION_DOMICILE_CREATE,
+        //           Permissions.ADMISSION_DOMICILE_EDIT,
+        //           Permissions.ADMISSION_DOMICILE_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Degree',
+        //         page: '/' + DEGREE.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_DEGREE_VIEW,
+        //           Permissions.ADMISSION_DEGREE_CREATE,
+        //           Permissions.ADMISSION_DEGREE_EDIT,
+        //           Permissions.ADMISSION_DEGREE_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Fee Item',
+        //         page: '/' + FEE_ITEM.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_FEEITEM_VIEW,
+        //           Permissions.ADMISSION_FEEITEM_CREATE,
+        //           Permissions.ADMISSION_FEEITEM_EDIT,
+        //           Permissions.ADMISSION_FEEITEM_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Program',
+        //         page: '/' + PROGRAM.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_PROGRAM_VIEW,
+        //           Permissions.ADMISSION_PROGRAM_CREATE,
+        //           Permissions.ADMISSION_PROGRAM_EDIT,
+        //           Permissions.ADMISSION_PROGRAM_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Qualification',
+        //         page: '/' + QUALIFICATION.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_QUALIFICATION_VIEW,
+        //           Permissions.ADMISSION_QUALIFICATION_CREATE,
+        //           Permissions.ADMISSION_QUALIFICATION_EDIT,
+        //           Permissions.ADMISSION_QUALIFICATION_DELETE
+        //         ]
+        //       },
+        //       {
+        //         title: 'Subject',
+        //         page: '/' + SUBJECT.LIST,
+        //         permission: [
+        //           Permissions.ADMISSION_SUBJECT_VIEW,
+        //           Permissions.ADMISSION_SUBJECT_CREATE,
+        //           Permissions.ADMISSION_SUBJECT_EDIT,
+        //           Permissions.ADMISSION_SUBJECT_DELETE
+        //         ]
+        //       },
+        //     ]
+        //   },
         //Fixed Asset Section
         // {
         //   title: 'Fixed Asset',
@@ -1383,48 +1383,131 @@ export class MenuConfig {
         //   ]
         // },
         {
-          title: 'Customer',
+          title: 'Customers',
           bullet: 'dot',
           icon: 'flaticon-customer',
-          
+
           submenu: [
             {
-              title: 'journal',
-              page: '/' + JOURNAL.LIST,
+              title: 'Customers',
+              page: '/' + BUSINESS_PARTNER.LIST,
               permission: [
-                Permissions.JOURNAL_CREATE,
-                Permissions.JOURNAL_VIEW,
-                Permissions.JOURNAL_EDIT,
-                Permissions.JOURNAL_DELETE,
+                Permissions.BUSINESSPARTNER_VIEW,
+                Permissions.BUSINESSPARTNER_CREATE,
+                Permissions.BUSINESSPARTNER_EDIT,
+                Permissions.BUSINESSPARTNER_DELETE
               ]
             },
-           
+            {
+              title: 'Invoices',
+              page: '/' + INVOICE.LIST,
+              permission: [
+                Permissions.INVOICE_VIEW,
+                Permissions.INVOICE_CREATE,
+                Permissions.INVOICE_EDIT,
+                Permissions.INVOICE_DELETE,
+                Permissions.INVOICE_REVIEW,
+                Permissions.INVOICE_APPROVE,
+              ]
+            },
+            {
+              title: 'Credit Note',
+              // page: '/' + BUSINESS_PARTNER.LIST,
+              // permission: [
+              //   Permissions.BUSINESSPARTNER_VIEW,
+              //   Permissions.BUSINESSPARTNER_CREATE,
+              //   Permissions.BUSINESSPARTNER_EDIT,
+              //   Permissions.BUSINESSPARTNER_DELETE
+              // ]
+            },
+            {
+              title: 'Payments',
+              // page: '/' + BUSINESS_PARTNER.LIST,
+              // permission: [
+              //   Permissions.BUSINESSPARTNER_VIEW,
+              //   Permissions.BUSINESSPARTNER_CREATE,
+              //   Permissions.BUSINESSPARTNER_EDIT,
+              //   Permissions.BUSINESSPARTNER_DELETE
+              // ]
+            },
+            {
+              title: 'Products',
+              // page: '/' + BUSINESS_PARTNER.LIST,
+              // permission: [
+              //   Permissions.BUSINESSPARTNER_VIEW,
+              //   Permissions.BUSINESSPARTNER_CREATE,
+              //   Permissions.BUSINESSPARTNER_EDIT,
+              //   Permissions.BUSINESSPARTNER_DELETE
+              // ]
+            },
+
+
           ]
         },
         {
           title: 'Vendor',
           bullet: 'dot',
           icon: 'flaticon-user-ok',
-          
+
           submenu: [
             {
-              title: 'journal',
-              page: '/' + JOURNAL.LIST,
+              title: 'Vendors',
+              page: '/' + BUSINESS_PARTNER.LIST,
               permission: [
-                Permissions.JOURNAL_CREATE,
-                Permissions.JOURNAL_VIEW,
-                Permissions.JOURNAL_EDIT,
-                Permissions.JOURNAL_DELETE,
+                Permissions.BUSINESSPARTNER_VIEW,
+                Permissions.BUSINESSPARTNER_CREATE,
+                Permissions.BUSINESSPARTNER_EDIT,
+                Permissions.BUSINESSPARTNER_DELETE
               ]
             },
-           
+            {
+              title: 'Biils',
+              // page: '/' + BUSINESS_PARTNER.LIST,
+              // permission: [
+              //   Permissions.BUSINESSPARTNER_VIEW,
+              //   Permissions.BUSINESSPARTNER_CREATE,
+              //   Permissions.BUSINESSPARTNER_EDIT,
+              //   Permissions.BUSINESSPARTNER_DELETE
+              // ]
+            },
+            {
+              title: 'Refunds',
+              // page: '/' + BUSINESS_PARTNER.LIST,
+              // permission: [
+              //   Permissions.BUSINESSPARTNER_VIEW,
+              //   Permissions.BUSINESSPARTNER_CREATE,
+              //   Permissions.BUSINESSPARTNER_EDIT,
+              //   Permissions.BUSINESSPARTNER_DELETE
+              // ]
+            },
+            {
+              title: 'Payment',
+              // page: '/' + BUSINESS_PARTNER.LIST,
+              // permission: [
+              //   Permissions.BUSINESSPARTNER_VIEW,
+              //   Permissions.BUSINESSPARTNER_CREATE,
+              //   Permissions.BUSINESSPARTNER_EDIT,
+              //   Permissions.BUSINESSPARTNER_DELETE
+              // ]
+            },
+            {
+              title: 'Product',
+              // page: '/' + BUSINESS_PARTNER.LIST,
+              // permission: [
+              //   Permissions.BUSINESSPARTNER_VIEW,
+              //   Permissions.BUSINESSPARTNER_CREATE,
+              //   Permissions.BUSINESSPARTNER_EDIT,
+              //   Permissions.BUSINESSPARTNER_DELETE
+              // ]
+            },
+
           ]
         },
         {
           title: 'Accouting',
           bullet: 'dot',
           icon: 'flaticon-analytics',
-          
+
           submenu: [
             {
               title: 'journal',
@@ -1436,14 +1519,14 @@ export class MenuConfig {
                 Permissions.JOURNAL_DELETE,
               ]
             },
-           
+
           ]
         },
         {
           title: 'Reporting',
           bullet: 'dot',
           icon: 'flaticon2-document',
-          
+
           submenu: [
             {
               title: 'Reports',
@@ -1455,15 +1538,45 @@ export class MenuConfig {
                 Permissions.JOURNAL_DELETE,
               ]
             },
-           
+
           ]
         },
         {
           title: 'Configuration',
           bullet: 'dot',
           icon: 'flaticon-settings',
-          
+
           submenu: [
+            {
+              title: 'Settings',
+              // page: '/' + CHART_OF_ACCOUNT.LIST,
+              // permission: [
+              //   Permissions.LEVEL3_VIEW,
+              //   Permissions.LEVEL3_CREATE,
+              //   Permissions.LEVEL3_EDIT,
+              //   Permissions.LEVEL3_DELETE,
+              //   Permissions.LEVEL4_VIEW,
+              //   Permissions.LEVEL4_CREATE,
+              //   Permissions.LEVEL4_EDIT,
+              //   Permissions.LEVEL4_DELETE,
+              //   Permissions.CHARTOFACCOUNT_VIEW
+              // ]
+            },
+            {
+              title: 'Chart Of Account',
+              page: '/' + CHART_OF_ACCOUNT.LIST,
+              permission: [
+                Permissions.LEVEL3_VIEW,
+                Permissions.LEVEL3_CREATE,
+                Permissions.LEVEL3_EDIT,
+                Permissions.LEVEL3_DELETE,
+                Permissions.LEVEL4_VIEW,
+                Permissions.LEVEL4_CREATE,
+                Permissions.LEVEL4_EDIT,
+                Permissions.LEVEL4_DELETE,
+                Permissions.CHARTOFACCOUNT_VIEW
+              ]
+            },
             {
               title: 'journal',
               page: '/' + JOURNAL.LIST,
@@ -1474,7 +1587,17 @@ export class MenuConfig {
                 Permissions.JOURNAL_DELETE,
               ]
             },
-           
+            {
+              title: 'Tax',
+              page: '/' + TAX.LIST,
+              permission: [
+                Permissions.TAXES_VIEW,
+                Permissions.TAXES_CREATE,
+                Permissions.TAXES_EDIT,
+                Permissions.TAXES_DELETE,
+              ]
+            },
+
           ]
         },
         //endregion

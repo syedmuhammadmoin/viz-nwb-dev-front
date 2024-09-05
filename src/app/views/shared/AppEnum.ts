@@ -245,6 +245,12 @@ export class Permissions {
  static REQUISITION_DELETE = 'Permissions.RequisitionClaims.DL';
 
 
+   // tax
+   static TAXES_VIEW = 'Permissions.TaxesClaims.VW';
+   static TAXES_CREATE = 'Permissions.TaxesClaims.CR';
+   static TAXES_EDIT = 'Permissions.TaxesClaims.ED';
+   static TAXES_DELETE = 'Permissions.TaxesClaims.DL';
+
 
 
   // Campus
@@ -255,11 +261,7 @@ export class Permissions {
 
  
 
-  // tax
-  static TAXES_VIEW = 'Profiling.Taxes.VW';
-  static TAXES_CREATE = 'Profiling.Taxes.CR';
-  static TAXES_EDIT = 'Profiling.Taxes.ED';
-  static TAXES_DELETE = 'Profiling.Taxes.DL';
+  
 
   // unit of measurement
   static UNIT_OF_MEASUREMENT_VIEW = 'Profiling.UnitOfMeasurement.VW';

@@ -717,12 +717,9 @@ export class AppConst {
   }
 
   static taxType = [
-    {id: 0, type: 'Sales Tax Asset'},
-    {id: 1, type: 'Sales Tax Liability'},
-    {id: 2, type: 'Income Tax Asset'},
-    {id: 3, type: 'Income Tax Liability'},
-    {id: 4, type: 'SRBTaxAsset'},
-    {id: 5, type: 'SRBTaxLiability'}
+    {id: 0, type: 'Sales'},
+    {id: 1, type: 'Purchase'},
+    {id: 2, type: 'None'},
   ]
 
   static PayrollType = [
