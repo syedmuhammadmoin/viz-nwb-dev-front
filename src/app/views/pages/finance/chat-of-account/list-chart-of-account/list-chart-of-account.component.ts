@@ -4,7 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { take, finalize, } from 'rxjs';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CreateLevel4Component } from '../level4/create-level4/create-level4.component';
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { isEmpty } from 'lodash';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { ChatOfAccountModule } from '../chat-of-account.module';
@@ -22,6 +22,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   //fields
   isLoading: boolean = false;
+  
   dataSource: any;
 
   //Aggrid fields
@@ -31,12 +32,14 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
   components: any;
-  gridApi: GridApi;
+  //gridApi: GridApi;
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
 
   public filterModel: Level4Filter = new Level4Filter(); // Initialize with default values
 
   public rowData: any[] = [];
+  public dropdownData: any = []; 
+  public selectedDropdownId: number | null = null;
   //Defining AG Grid Columns
   columnDefs = [
     {
@@ -50,34 +53,39 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       },
+      editable: true,
+      flex: 1 // Make this column editable
     },
-
     {
       headerName: 'Name',
       field: 'editableName',
       tooltipField: 'name',
-      //suppressHeaderMenuButton: true,
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       },
+      editable: true,
+      flex: 1
     },
-    {
+ {
       headerName: 'Type',
       field: 'level3Name',
       tooltipField: 'Type',
-     // suppressHeaderMenuButton: true,
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
       filterParams: {
         filterOptions: ['contains'],
         suppressAndOrCondition: true,
       },
-
-    },
-
+      editable: true,
+      cellEditor: 'agSelectCellEditor', // Use AG Grid's built-in select cell editor
+      cellEditorParams: {
+        values: [] // Dropdown options will be set here dynamically
+      },
+      flex: 1
+    }
   ];
 
 
@@ -103,32 +111,32 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     };
 
   }
-  onGridReady(params: any): void {
-    this.loadGridData();
-  }
+  // onGridReady(params: any): void {
+  //   this.loadGridData();
+  // }
 
-  addNewItem() {
+  // addNewItem() {
 
-    const dialogRef = this.dialog.open(CreateLevel4Component, {
-      width: '800px',
-      data: { parentId: 0 }
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.chartOfAccService.getChartOfAccount()
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-          })
-        )
-        .subscribe((res) => {
-          this.dataSource.data = res.result;
-          this.cdRef.detectChanges();
-        })
-    });
+  //   const dialogRef = this.dialog.open(CreateLevel4Component, {
+  //     width: '800px',
+  //     data: { parentId: 0 }
+  //   });
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.chartOfAccService.getChartOfAccount()
+  //       .pipe(
+  //         take(1),
+  //         finalize(() => {
+  //           this.isLoading = false;
+  //           this.cdRef.detectChanges();
+  //         })
+  //       )
+  //       .subscribe((res) => {
+  //         this.dataSource.data = res.result;
+  //         this.cdRef.detectChanges();
+  //       })
+  //   });
 
-  }
+  // }
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
@@ -147,29 +155,30 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     // Use the filterModel with default or updated values to request data from the server
     this.chartOfAccService.getLevel4Accounts(this.filterModel).subscribe((data) => {
       this.rowData = data.result;
+      this.gridApi.setRowData(this.rowData);
       this.cdRef.detectChanges();
     });
   }
-  onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    const dialogRef = this.dialog.open(CreateLevel4Component, {
-      width: '800px',
-      data: { modelId: event.data.id }
-    });
-    dialogRef.afterClosed().subscribe(() => {
-      this.chartOfAccService.getChartOfAccount()
-        .pipe(
-          take(1),
-          finalize(() => {
-            this.isLoading = false;
-            this.cdRef.detectChanges();
-          })
-        )
-        .subscribe((res) => {
-          //this.dataSource.data = res.result;
-          this.cdRef.detectChanges();
-        })
-    });
-  }
+  // onRowDoubleClicked(event: RowDoubleClickedEvent) {
+  //   const dialogRef = this.dialog.open(CreateLevel4Component, {
+  //     width: '800px',
+  //     data: { modelId: event.data.id }
+  //   });
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.chartOfAccService.getChartOfAccount()
+  //       .pipe(
+  //         take(1),
+  //         finalize(() => {
+  //           this.isLoading = false;
+  //           this.cdRef.detectChanges();
+  //         })
+  //       )
+  //       .subscribe((res) => {
+  //         //this.dataSource.data = res.result;
+  //         this.cdRef.detectChanges();
+  //       })
+  //   });
+  // }
 
   editItem(node) {
     if (node.level === 3 && node.id) {
@@ -236,6 +245,72 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     };
 
     this.isLoading = true;
-    
+    this.loadGridData();
+    this.getLevel3Accounts();
+
+  }
+
+  private gridApi!: GridApi;
+  private columnApi!: ColumnApi;
+  private editedRows: any[] = [];
+
+
+  // rowData = [
+  //   { make: 'Toyota', model: 'Celica', price: 35000 },
+  //   { make: 'Ford', model: 'Mondeo', price: 32000 },
+  //   { make: 'Porsche', model: 'Boxster', price: 72000 }
+  // ];
+
+  onGridReady(params: any) {
+    this.gridApi = params.api;
+    this.columnApi = params.columnApi;
+  }
+
+  addNewRow() {
+    const newRow = {
+      code: '00000',
+      editableName: 'Test Account',
+      level3Name: 'Test Account'
+    };
+    this.gridApi.applyTransaction({ add: [newRow], addIndex: 0 });
+    this.editedRows.push(newRow); 
+  }
+
+  saveChanges() {
+    // This function can be expanded to save changes to a backend server or local storage
+    console.log('Changes saved:', this.editedRows);
+    this.editedRows = []; // Clear the edited rows after saving
+  }
+
+  onCellEditingStopped(event: any) {
+    const rowNode = event.node;
+    if (this.editedRows.indexOf(rowNode.data) === -1) {
+      this.editedRows.push(rowNode.data);
+    }
+  }
+
+  onCellValueChanged(event: any) {
+    // Handle cell value changes
+    console.log('Cell value changed:', event.data);
+    this.onCellEditingStopped(event);
+  }
+
+  getLevel3Accounts(): void {
+    this.chartOfAccService.getLevel3AccountsDropdown().subscribe(data => {
+      this.dropdownData = data.result;
+      console.log('Dropdown Data:', this.dropdownData);
+      this.updateColumnDefs();
+      this.cdRef.detectChanges(); // Trigger change detection
+    });
+  }
+
+  updateColumnDefs() {
+    const typeColDef = this.columnDefs.find(col => col.field === 'level3Name');
+    if (typeColDef) {
+      typeColDef.cellEditorParams = {
+        values: this.dropdownData.map((item: any) => item.name) // Populate dropdown values
+      };
+      //this.columnApi.applyColumnState({ state: this.columnDefs, applyOrder: true });
+    }
   }
 }
