@@ -9,12 +9,14 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { AgGridModule} from 'ag-grid-angular';
 import { ChartOfAccountRoutingModule } from './chart-of-account-routing.module';
 import 'ag-grid-enterprise';
+import { ListChartOfAccountComponent } from './list-chart-of-account/list-chart-of-account.component';
 
 @NgModule({
   declarations: [
     ChatOfAccountComponent,
     CreateLevel3Component,
     CreateLevel4Component,
+    ListChartOfAccountComponent
   ],
   imports: [
     SharedModule,

@@ -5,7 +5,7 @@ import { Optional } from 'ag-grid-community';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AppComponentBase } from '../../../../../shared/app-component-base';
 import { ChartOfAccountService } from '../../service/chart-of-account.service';
-import { finalize, take } from 'rxjs/operators';
+import { finalize, map, take } from 'rxjs/operators';
 import { AccountLevel4State } from '../../store/account-level4.state';
 import { IsReloadRequired } from 'src/app/views/pages/profiling/store/profiling.action';
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
@@ -31,8 +31,38 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
   // Level4 Model
   level4Model: ILevel4;
-  level3List:ILevel3;
-
+  level3List:any;
+  level3List2 = [
+    {
+      category: 'Category 1',
+      subCategory: [
+        {
+          subHeading: 'Subcategory 1.1',
+          items: [
+            { id: 1, name: 'Item 1.1.1' },
+            { id: 2, name: 'Item 1.1.2' }
+          ]
+        },
+        {
+          subHeading: 'Subcategory 1.2',
+          items: [
+            { id: 3, name: 'Item 1.2.1' }
+          ]
+        }
+      ]
+    },
+    {
+      category: 'Category 2',
+      subCategory: [
+        {
+          subHeading: 'Subcategory 2.1',
+          items: [
+            { id: 4, name: 'Item 2.1.1' }
+          ]
+        }
+      ]
+    }
+  ];
   // Validation messages..
   validationMessages = {
     transactionalAccount: {
@@ -80,10 +110,16 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
       editableName: null,
       level3_id: null,
     }
-    this.chartOfAccountService.getLevel3AccountsDropdown()
-      .subscribe((res: any) => {
-        this.level3List = res.result;
-      })
+    // this.chartOfAccountService.getAccountsTypeDropdown()
+    //   .subscribe((res: any) => {
+    //     this.level3List = res.result; 
+        
+    //   })
+
+    this.level3List = this.chartOfAccountService.getAccountsTypeDropdown().pipe(
+      map((res: any) => res.result)
+    );
+
     // getting data
     if (this.data.modelId) {
       this.isLoading = true;

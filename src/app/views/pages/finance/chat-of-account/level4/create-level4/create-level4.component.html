@@ -10,7 +10,7 @@
   </div>
   <!-- form start -->
   <form [formGroup]="level4Form" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right">
-    <div class="kt-portlet__body" >
+    <div class="kt-portlet__body">
       <div class="kt-form__section kt-form__section--first">
         <!-- first row start -->
         <div class="col-md-12 col-lg-12 col-sm-12 ps-4 pe-4">
@@ -18,11 +18,9 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
               <label class="col-form-label">Code:</label>
               <div class="form-group kt-form__group mb-0">
-                <kt-input-field
-                 formControlName="code"
-                 placeholder="Enter Code"
-                 (blurEvent)="logValidationErrors(this.level4Form, formErrors, validationMessages)"
-                 [errorMessage]="[{ condition : formErrors.code , error : formErrors.code }]">
+                <kt-input-field formControlName="code" placeholder="Enter Code"
+                  (blurEvent)="logValidationErrors(this.level4Form, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.code , error : formErrors.code }]">
                 </kt-input-field>
               </div>
             </div>
@@ -30,44 +28,61 @@
             <div class="col-lg-4 col-md-4 col-sm-4">
               <label class="col-form-label">Transactional Account Name:</label>
               <div class="form-group kt-form__group mb-0">
-                <kt-input-field
-                 formControlName="transactionalAccount"
-                 placeholder="Enter Account Name"
-                 (blurEvent)="logValidationErrors(this.level4Form, formErrors, validationMessages)"
-                 [errorMessage]="[{ condition : formErrors.transactionalAccount , error : formErrors.transactionalAccount }]">
+                <kt-input-field formControlName="transactionalAccount" placeholder="Enter Account Name"
+                  (blurEvent)="logValidationErrors(this.level4Form, formErrors, validationMessages)"
+                  [errorMessage]="[{ condition : formErrors.transactionalAccount , error : formErrors.transactionalAccount }]">
                 </kt-input-field>
               </div>
             </div>
 
-            <div class="col-lg-4 col-md-4 col-sm-4">
+            <!-- <div class="col-lg-4 col-md-4 col-sm-4">
               <label class="col-form-label">Head Account:</label>
               <div class="form-group kt-form__group mb-0">
-                <kt-simple-dropdown
-                  formControlName="level3"
+                <kt-simple-dropdown formControlName="level3"
                   (blurEvent)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)"
-                  [errorMessage]="formErrors.level3"
-                  placeholder="Select Head Account"
-                  [optionList]="level3List"
-                  propertyValue="id"
-                  matFormFieldClass="full-width"
-                  propertyName="name">
+                  [errorMessage]="formErrors.level3" placeholder="Select Head Account" [optionList]="level3List"
+                  propertyValue="id" matFormFieldClass="full-width" propertyName="name">
                 </kt-simple-dropdown>
               </div>
+            </div> -->
+
+           
+            <div  class="col-sm-4">
+              <div class="form-group kt-form__group mb-0">
+                  <label class="col-form-label pt-0">Head Account :</label>
+                  <kt-group-dropdown
+                id="level3Ctrl"
+                (blurEvent)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)"
+                [errorMessage]="formErrors.level3" 
+                [optionList]="level3List"
+                formControlName="level3"
+                groupChildrenName="children"
+                groupPropertyName="level1Name"
+                matFormFieldClass="full-width"
+                placeholder="Select Head Account" 
+                propertyName="name"
+                propertyValue="id">
+              </kt-group-dropdown>
+              </div>
             </div>
+            
+
+
           </div>
         </div>
       </div>
     </div>
 
     <mat-divider></mat-divider>
-    <div class="kt-portlet__foot p-5" >
+    <div class="kt-portlet__foot p-5">
       <div class="kt-form__actions row">
         <div class="col-lg-12">
           <div class="text-end">
-            <button class=" me-2 app-reset-btn"  type="reset" mat-raised-button (click)="onCloseLevel4Dialog()"><i  class="fas fa-undo"></i> Cancel</button>
-            <button class="app-default-btn" mat-raised-button
-                    type="submit"
-                    (click)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)"><i  class="far fa-save"></i> Submit
+            <button class=" me-2 app-reset-btn" type="reset" mat-raised-button (click)="onCloseLevel4Dialog()"><i
+                class="fas fa-undo"></i> Cancel</button>
+            <button class="app-default-btn" mat-raised-button type="submit"
+              (click)="logValidationErrors(this.level4Form, this.formErrors, this.validationMessages)"><i
+                class="far fa-save"></i> Submit
             </button>&nbsp;
           </div>
         </div>
@@ -76,6 +91,3 @@
   </form>
   <!-- form ends -->
 </div>
-
-
-

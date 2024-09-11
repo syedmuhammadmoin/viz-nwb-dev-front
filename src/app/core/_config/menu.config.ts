@@ -1519,6 +1519,7 @@ export class MenuConfig {
                 Permissions.JOURNAL_DELETE,
               ]
             },
+            
 
           ]
         },
@@ -1565,6 +1566,21 @@ export class MenuConfig {
             {
               title: 'Chart Of Account',
               page: '/' + CHART_OF_ACCOUNT.LIST,
+              permission: [
+                Permissions.LEVEL3_VIEW,
+                Permissions.LEVEL3_CREATE,
+                Permissions.LEVEL3_EDIT,
+                Permissions.LEVEL3_DELETE,
+                Permissions.LEVEL4_VIEW,
+                Permissions.LEVEL4_CREATE,
+                Permissions.LEVEL4_EDIT,
+                Permissions.LEVEL4_DELETE,
+                Permissions.CHARTOFACCOUNT_VIEW
+              ]
+            },
+            {
+              title: 'Chart Of Account 2',
+              page: '/chart-of-account/list2',
               permission: [
                 Permissions.LEVEL3_VIEW,
                 Permissions.LEVEL3_CREATE,

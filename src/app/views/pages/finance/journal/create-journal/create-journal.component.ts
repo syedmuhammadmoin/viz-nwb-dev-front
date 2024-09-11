@@ -289,7 +289,7 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
 
 
     } else if (type === JournalType.Miscellaneous) {
-      this.chartOfAccountService.getLevel4Accounts()
+      this.chartOfAccountService.getLevel4Accounts(null)
         .pipe(takeUntil(this.destroy$))
         .subscribe((res: any) => {
           this.defaultAccountList.next(res.result || []);

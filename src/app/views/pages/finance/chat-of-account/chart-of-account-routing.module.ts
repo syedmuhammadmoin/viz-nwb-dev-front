@@ -4,6 +4,7 @@ import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatOfAccountComponent } from './chat-of-account.component';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
+import { ListChartOfAccountComponent } from './list-chart-of-account/list-chart-of-account.component';
 
 const routes : Routes = [
   {
@@ -12,6 +13,19 @@ const routes : Routes = [
       {
         path: CRUD_ROUTES.LIST,
         component: ChatOfAccountComponent,
+        data: {
+          array: [
+            { permission: Permissions.CHARTOFACCOUNT_VIEW },
+            { permission: Permissions.LEVEL4_CREATE },
+            { permission: Permissions.LEVEL4_VIEW },
+            { permission: Permissions.LEVEL4_EDIT },
+          ]
+        },
+        canActivate: [PermissionGuard],
+      },
+      {
+        path: 'list2',
+        component: ListChartOfAccountComponent,
         data: {
           array: [
             { permission: Permissions.CHARTOFACCOUNT_VIEW },
