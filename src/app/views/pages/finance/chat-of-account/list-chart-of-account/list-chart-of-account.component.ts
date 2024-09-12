@@ -227,16 +227,14 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   saveChanges() {
     if (this.lastAddedRow) {   
-      console.log('Changes saved:', this.editedRows);
       this.editedRows = []; 
     
-      this.showDiscardButton = false;
+      this.showDiscardButton = true;
     }
   }
 
 
  onCellValueChanged(event: any) {
-  debugger;
   const isRowNew = this.editedRows.some(row => row === event.data);
 
   // If the column is 'level3Name' (which stores the ID), log the ID for both new and existing rows
@@ -246,20 +244,17 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   // Create a model object for new or existing row updates
  
-
-  // For new rows, check if all fields are filled, then log the data and create the new row
-  const model = { ...event.data, Level3_id: event.data.level3Name }; // Rename 'level3Name' to 'Level3_id'
+  const model = { ...event.data, Level3_id: event.data.level3Name }; 
   if (isRowNew && model.code && model.editableName && model.Level3_id) {
     delete model.level3Name; 
     this.chartOfAccService.createLevel4Account(model).subscribe(res => {
-      console.log('Created Response:', res);
+      this.showDiscardButton = false
       this.toast.success("Created Successfully","Chart of Account")
     });
-    console.log('New row model:', model);
-    console.log('New row updated with all fields, including Level 3 Account ID:', model.Level3_id);
   }
   if (!isRowNew) {
     delete model.Level3_id; 
+    this.showDiscardButton = false
     this.chartOfAccService.updateLevel4Account(model).subscribe(res => {    
       this.toast.success("Updated Successfully","Chart of Account")  
     });  
@@ -277,16 +272,15 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   updateColumnDefs() {
     const typeColDef = this.columnDefs.find(col => col.field === 'level3Name');
     if (typeColDef) {
-      // Use ID for the dropdown values and display the corresponding name
       typeColDef.cellEditorParams = {
-        values: this.dropdownData.map((item: any) => item.id), // Use ID for selection
+        values: this.dropdownData.map((item: any) => item.id), 
       };        
       typeColDef.valueFormatter = (params: any) => {
         const selectedItem = this.dropdownData.find((item: any) => item.id === params.value);
-        return selectedItem ? selectedItem.name : params.value; // Display name in the cell
+        return selectedItem ? selectedItem.name : params.value; 
       };
   
-      this.columnDefs = [...this.columnDefs]; // Update the column definitions
+      this.columnDefs = [...this.columnDefs]; 
     }
 }
 }
