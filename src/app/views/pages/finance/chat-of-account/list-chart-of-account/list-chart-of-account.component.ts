@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Injector, OnInit } from '@angular/core';
 import { ChartOfAccountService } from '../service/chart-of-account.service';
 import { MatDialog } from '@angular/material/dialog';
-import { take, finalize, } from 'rxjs';
+import { take, finalize, map, } from 'rxjs';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { CreateLevel4Component } from '../level4/create-level4/create-level4.component';
 import { ColDef, ColumnApi, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
@@ -10,6 +10,8 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { ChatOfAccountModule } from '../chat-of-account.module';
 import { Permissions } from 'src/app/views/shared/AppEnum';
 import { Level4Filter } from '../model/Level4Filter';
+import { ILevel4 } from '../level4/model/ILevel4';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -24,11 +26,18 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   isLoading: boolean = false;
   
   dataSource: any;
+  model : ILevel4;
+  private gridApi!: GridApi;
+  private columnApi!: ColumnApi;
+  private editedRows: any[] = [];
+  private lastAddedRow: any = null; 
+  public showDiscardButton: boolean = false;
 
   //Aggrid fields
   defaultColDef: ColDef;
   gridOptions: any;
   FilteredData: any[] = [];
+  level3List:Level3Dropdown[];
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
   components: any;
@@ -54,7 +63,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         suppressAndOrCondition: true,
       },
       editable: true,
-      flex: 1 // Make this column editable
+      flex: 1
     },
     {
       headerName: 'Name',
@@ -69,7 +78,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       editable: true,
       flex: 1
     },
- {
+    {
       headerName: 'Type',
       field: 'level3Name',
       tooltipField: 'Type',
@@ -80,11 +89,15 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         suppressAndOrCondition: true,
       },
       editable: true,
-      cellEditor: 'agSelectCellEditor', // Use AG Grid's built-in select cell editor
+      cellEditor: 'agSelectCellEditor', 
       cellEditorParams: {
         values: [] // Dropdown options will be set here dynamically
       },
-      flex: 1
+      flex: 1,
+      valueFormatter: (params: any) => {
+        const selectedItem = this.dropdownData.find((item: any) => item.id === params.value);
+        return selectedItem ? selectedItem.name : params.value; 
+      }
     }
   ];
 
@@ -93,6 +106,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   constructor(
     private chartOfAccService: ChartOfAccountService,
     public dialog: MatDialog,
+    public toast : ToastrService,
     private cdRef: ChangeDetectorRef,
     injector: Injector
   ) {
@@ -111,32 +125,6 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     };
 
   }
-  // onGridReady(params: any): void {
-  //   this.loadGridData();
-  // }
-
-  // addNewItem() {
-
-  //   const dialogRef = this.dialog.open(CreateLevel4Component, {
-  //     width: '800px',
-  //     data: { parentId: 0 }
-  //   });
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.chartOfAccService.getChartOfAccount()
-  //       .pipe(
-  //         take(1),
-  //         finalize(() => {
-  //           this.isLoading = false;
-  //           this.cdRef.detectChanges();
-  //         })
-  //       )
-  //       .subscribe((res) => {
-  //         this.dataSource.data = res.result;
-  //         this.cdRef.detectChanges();
-  //       })
-  //   });
-
-  // }
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
@@ -159,26 +147,6 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       this.cdRef.detectChanges();
     });
   }
-  // onRowDoubleClicked(event: RowDoubleClickedEvent) {
-  //   const dialogRef = this.dialog.open(CreateLevel4Component, {
-  //     width: '800px',
-  //     data: { modelId: event.data.id }
-  //   });
-  //   dialogRef.afterClosed().subscribe(() => {
-  //     this.chartOfAccService.getChartOfAccount()
-  //       .pipe(
-  //         take(1),
-  //         finalize(() => {
-  //           this.isLoading = false;
-  //           this.cdRef.detectChanges();
-  //         })
-  //       )
-  //       .subscribe((res) => {
-  //         //this.dataSource.data = res.result;
-  //         this.cdRef.detectChanges();
-  //       })
-  //   });
-  // }
 
   editItem(node) {
     if (node.level === 3 && node.id) {
@@ -187,42 +155,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   }
 
 
-  // onGridReady(params: GridReadyEvent) {
-  //   this.gridApi = params.api;
-
-  //   var dataSource = {
-  //     getRows: (params: any) => {
-  //       this.chartOfAccService.getLevel4Accounts().subscribe((data) => {
-  //         if (isEmpty(data.result)) {
-  //           this.gridApi.showNoRowsOverlay()
-  //         } else {
-  //           this.FilteredData = data.result;
-  //           this.gridApi.hideOverlay();
-  //         }
-  //         params.successCallback(this.FilteredData || 0, data.totalRecords);
-  //         //TODO: make enum for "journalPageName"
-  //         this.paginationHelper.goToPage(this.gridApi, 'CoAPageName')
-  //         this.cdRef.detectChanges();
-  //       });
-  //     },
-  //   };
-  //   params.api.setGridOption('datasource', dataSource);
-  // }
-
   ngOnInit(): void {
-
-    // this.gridOptions = {
-    //   cacheBlockSize: 100,
-    //   rowModelType: "infinite",
-    //   paginationPageSize: 100,
-    //   pagination: false,
-    //   rowHeight: 30,
-    //   headerHeight: 35,
-    //   paginationPageSizeSelector: false,
-    //   context: "double click to view detail",
-    // };
-
-
 
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
@@ -243,23 +176,23 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         }
       },
     };
+    const typeColDef = this.columnDefs.find(col => col.field === 'level3Name');
+    if (typeColDef) {
+      typeColDef.tooltipField = 'level3Name'; // This enables the tooltip
+      typeColDef.cellEditorParams = {
+        values: this.dropdownData.map((item: any) => item.name),
+      };
+  }
+
 
     this.isLoading = true;
-    this.loadGridData();
+    this.loadGridData();       
     this.getLevel3Accounts();
 
   }
-
-  private gridApi!: GridApi;
-  private columnApi!: ColumnApi;
-  private editedRows: any[] = [];
+ 
 
 
-  // rowData = [
-  //   { make: 'Toyota', model: 'Celica', price: 35000 },
-  //   { make: 'Ford', model: 'Mondeo', price: 32000 },
-  //   { make: 'Porsche', model: 'Boxster', price: 72000 }
-  // ];
 
   onGridReady(params: any) {
     this.gridApi = params.api;
@@ -268,49 +201,105 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   addNewRow() {
     const newRow = {
-      code: '00000',
-      editableName: 'Test Account',
-      level3Name: 'Test Account'
+      code: ' ', // Blank values for new row
+      editableName: ' ',
+      level3Name: ''
     };
+    
     this.gridApi.applyTransaction({ add: [newRow], addIndex: 0 });
-    this.editedRows.push(newRow); 
+    this.editedRows.push(newRow); // Track the new row
+    this.lastAddedRow = newRow;
+    this.showDiscardButton = true; // Show the discard button
+    this.editedRows.push(newRow);
+        
+    //this.onCellValueChanged({ data: newRow });
   }
-
-  saveChanges() {
-    // This function can be expanded to save changes to a backend server or local storage
-    console.log('Changes saved:', this.editedRows);
-    this.editedRows = []; // Clear the edited rows after saving
-  }
-
-  onCellEditingStopped(event: any) {
-    const rowNode = event.node;
-    if (this.editedRows.indexOf(rowNode.data) === -1) {
-      this.editedRows.push(rowNode.data);
+  discardLastRow() {
+    if (this.lastAddedRow) {
+      // Remove the last added row from the grid
+      this.gridApi.applyTransaction({ remove: [this.lastAddedRow] });
+      
+      // Reset the last added row and hide the discard button
+      this.lastAddedRow = null;
+      this.showDiscardButton = false;
     }
   }
 
-  onCellValueChanged(event: any) {
-    // Handle cell value changes
-    console.log('Cell value changed:', event.data);
-    this.onCellEditingStopped(event);
+  saveChanges() {
+    if (this.lastAddedRow) {   
+      console.log('Changes saved:', this.editedRows);
+      this.editedRows = []; 
+    
+      this.showDiscardButton = false;
+    }
   }
 
-  getLevel3Accounts(): void {
-    this.chartOfAccService.getLevel3AccountsDropdown().subscribe(data => {
-      this.dropdownData = data.result;
-      console.log('Dropdown Data:', this.dropdownData);
-      this.updateColumnDefs();
-      this.cdRef.detectChanges(); // Trigger change detection
+
+ onCellValueChanged(event: any) {
+  debugger;
+  const isRowNew = this.editedRows.some(row => row === event.data);
+
+  // If the column is 'level3Name' (which stores the ID), log the ID for both new and existing rows
+  if (event.colDef.field === 'level3Name') {
+    console.log('Selected Level 3 Account ID:', event.data.level3Name); // This logs the ID
+  }
+
+  // Create a model object for new or existing row updates
+  const model = { ...event.data, Level3_id: event.data.level3Name }; // Rename 'level3Name' to 'Level3_id'
+  delete model.level3Name; 
+
+  // For new rows, check if all fields are filled, then log the data and create the new row
+  if (isRowNew && model.code && model.editableName && model.Level3_id) {
+    this.chartOfAccService.createLevel4Account(model).subscribe(res => {
+      console.log('Created Response:', res);
+      this.toast.success("Created Successfully","Chart of Account")
     });
+    console.log('New row model:', model);
+    console.log('New row updated with all fields, including Level 3 Account ID:', model.Level3_id);
+  }
+  if (!isRowNew) {
+    this.chartOfAccService.updateLevel4Account(model).subscribe(res => {    
+      this.toast.success("Updated Successfully","Chart of Account")  
+    });  
+  }
+}
+
+  getLevel3Accounts(): void {
+     this.chartOfAccService.getLevel3AccountsDropdown().subscribe(res => {
+      this.dropdownData = res.result;
+      console.log(this.dropdownData,"DropdownData");
+      this.updateColumnDefs();
+     })
   }
 
   updateColumnDefs() {
     const typeColDef = this.columnDefs.find(col => col.field === 'level3Name');
     if (typeColDef) {
+      // Use ID for the dropdown values and display the corresponding name
       typeColDef.cellEditorParams = {
-        values: this.dropdownData.map((item: any) => item.name) // Populate dropdown values
+        values: this.dropdownData.map((item: any) => item.id), // Use ID for selection
+      };        
+      typeColDef.valueFormatter = (params: any) => {
+        const selectedItem = this.dropdownData.find((item: any) => item.id === params.value);
+        return selectedItem ? selectedItem.name : params.value; // Display name in the cell
       };
-      //this.columnApi.applyColumnState({ state: this.columnDefs, applyOrder: true });
+  
+      this.columnDefs = [...this.columnDefs]; // Update the column definitions
     }
-  }
+}
+}
+
+
+
+export interface Level3Dropdown{
+  id : number;
+  name : string;
+  children : Level3Children[]
+}
+export interface Level3Children{
+  id : number;
+  name : string;
+  code : string;
+  editableName : string;
+  accountType : number;
 }
