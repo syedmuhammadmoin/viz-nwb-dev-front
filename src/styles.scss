@@ -114,3 +114,10 @@ display: none;
 // .aside-light {
 //   @import "./assets/sass/themes/layout/aside/light.scss";
 // }
+.content{
+  padding: 0px !important;
+}
+kt-base {
+  overflow-y: auto;
+  margin-top: 67px;
+}
