@@ -1,14 +1,9 @@
 body{
-    overflow-y: hidden !important;
+    overflow-x: hidden !important;
 }
-.make-ag-grid-header-sticky .ag-header {
+.ag-header {
     position: sticky;
-    top: 0px;
-    z-index: 5;
-}
-
-.make-ag-grid-header-sticky .ag-root-wrapper,
-.make-ag-grid-header-sticky .ag-root-wrapper-body,
-.make-ag-grid-header-sticky .ag-root {
-    display: unset;
-}
+    top: 0;
+    z-index: 10; 
+    background-color: rgb(238, 27, 27); 
+  }
