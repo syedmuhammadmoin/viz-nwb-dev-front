@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   headerMenuClasses = '';
   headerLogo = '';
   headerAttributes = {};
+  showCustomer : boolean = false;
   headerMenuSelfDisplay = true;
   //showOverlay=true;
 
@@ -112,5 +113,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
     }
     return `./assets/media/logos/${result}`;
+  }
+  showCustomerDropdown(){
+    this.showCustomer = !this.showCustomer
   }
 }

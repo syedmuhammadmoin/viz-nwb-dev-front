@@ -9,13 +9,14 @@
 </div>
 <div class="row p-0">
   <div class="col-md-12 p-0">
-    <kt-portlet>    
-      <kt-portlet-body class="p-0">
+    <kt-portlet class="make-ag-grid-header-sticky">    
+      <kt-portlet-body class="p-3">
         <div class="col-lg-12 col-md-12">             
           <ag-grid-angular
-          style="width: 100%; height: 650px;" 
+          style="width: auto; height: fit-content;" 
           class="ag-theme-alpine" 
           [rowData]="rowData"
+          [domLayout]="domLayout"
           [columnDefs]="columnDefs"
           (gridReady)="onGridReady($event)"
           [overlayNoRowsTemplate]="overlayNoRowsTemplate"          

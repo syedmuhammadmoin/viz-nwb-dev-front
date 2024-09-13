@@ -35,6 +35,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   //Aggrid fields
   defaultColDef: ColDef;
+  domLayout : any;
   gridOptions: any;
   FilteredData: any[] = [];
   level3List:Level3Dropdown[];
@@ -156,7 +157,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
 
   ngOnInit(): void {
-
+    this.domLayout = "autoHeight";
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
