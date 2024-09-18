@@ -184,11 +184,6 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         values: this.dropdownData.map((item: any) => item.name),
       };
   }
-
-this.chartOfAccService.getAccountsTypeDropdown().subscribe(res => {
-  console.log(res.result);
-  
-})
     this.isLoading = true;
     this.loadGridData();       
     this.getLevel3Accounts();
@@ -241,23 +236,29 @@ this.chartOfAccService.getAccountsTypeDropdown().subscribe(res => {
  onCellValueChanged(event: any) {
   const isRowNew = this.editedRows.some(row => row === event.data);
 
-  // If the column is 'level3Name' (which stores the ID), log the ID for both new and existing rows
-  if (event.colDef.field === 'level3Name') {
-    console.log('Selected Level 3 Account ID:', event.data.level3Name); // This logs the ID
-  }
 
   // Create a model object for new or existing row updates
  
   const model = { ...event.data, Level3_id: event.data.level3Name }; 
-  if (isRowNew && model.code && model.editableName && model.Level3_id) {
+  if(isRowNew || model.code == null || model.editableName == null){
+    this.toast.warning("Created Successfully","Chart of Account")
+    return;
+  }
+  if (isRowNew && model.code && model.editableName && model.Level3_id) {    
     delete model.level3Name; 
     this.chartOfAccService.createLevel4Account(model).subscribe(res => {
-      this.showDiscardButton = false
-      console.log(this.showDiscardButton)
-      this.toast.success("Created Successfully","Chart of Account")
+      this.showDiscardButton = false  
+   
     });
   }
   if (!isRowNew) {
+    if(model.editableName == null || model.code == null){
+      console.log("Waleed Null bhej rah ahai",model);
+      this.toast.warning("Please Fill All Fields","Chart of Account")
+      return;
+    }
+ 
+      
     delete model.Level3_id; 
     this.showDiscardButton = false
     this.chartOfAccService.updateLevel4Account(model).subscribe(res => {    
@@ -269,7 +270,6 @@ this.chartOfAccService.getAccountsTypeDropdown().subscribe(res => {
   getLevel3Accounts(): void {
      this.chartOfAccService.getLevel3AccountsDropdown().subscribe(res => {
       this.dropdownData = res.result;
-      console.log(this.dropdownData,"DropdownData");
       this.updateColumnDefs();
      })
   }
