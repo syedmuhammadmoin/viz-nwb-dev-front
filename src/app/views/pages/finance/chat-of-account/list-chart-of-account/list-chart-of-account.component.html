@@ -1,13 +1,13 @@
-<div class="row mb-4">
-  <div class="col-md-12 d-flex">
+<div class="row mb-5">
+  <div class="col-md-12 d-flex btn-class">
     <button class="app-default-btn"
     mat-raised-button matTooltip="Add Account" (click)="addNewRow()">Add Account</button> 
-    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button *ngIf="showDiscardButton" (click)="discardLastRow()">Discard Row</button>
+    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button [class.d-none]="!showDiscardButton" (click)="discardLastRow()">Discard Row</button>
     <h5 class="p-2">Chart of Account</h5>
   </div>
   
 </div>
-<div class="row p-0">
+<div class="row p-0" style="margin-top: 5rem !important;">
   <div class="col-md-12 p-0">
     <kt-portlet class="make-ag-grid-header-sticky">    
       <kt-portlet-body class="p-3">

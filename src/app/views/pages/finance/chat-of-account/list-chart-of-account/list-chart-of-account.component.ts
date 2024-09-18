@@ -185,7 +185,10 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       };
   }
 
-
+this.chartOfAccService.getAccountsTypeDropdown().subscribe(res => {
+  console.log(res.result);
+  
+})
     this.isLoading = true;
     this.loadGridData();       
     this.getLevel3Accounts();
@@ -230,7 +233,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     if (this.lastAddedRow) {   
       this.editedRows = []; 
     
-      this.showDiscardButton = true;
+      this.showDiscardButton = false;
     }
   }
 
@@ -250,6 +253,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     delete model.level3Name; 
     this.chartOfAccService.createLevel4Account(model).subscribe(res => {
       this.showDiscardButton = false
+      console.log(this.showDiscardButton)
       this.toast.success("Created Successfully","Chart of Account")
     });
   }
