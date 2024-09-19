@@ -12,6 +12,8 @@ import { Permissions } from 'src/app/views/shared/AppEnum';
 import { Level4Filter } from '../model/Level4Filter';
 import { ILevel4 } from '../level4/model/ILevel4';
 import { ToastrService } from 'ngx-toastr';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
+import { GroupDropdownCellEditorComponent } from '../group-drop-down-cell-editor/group-drop-down-cell-editor.component';
 
 
 @Component({
@@ -24,21 +26,21 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   //fields
   isLoading: boolean = false;
-  
+  form: FormGroup;
   dataSource: any;
-  model : ILevel4;
+  model: ILevel4;
   private gridApi!: GridApi;
   private columnApi!: ColumnApi;
   private editedRows: any[] = [];
-  private lastAddedRow: any = null; 
+  private lastAddedRow: any = null;
   public showDiscardButton: boolean = false;
 
   //Aggrid fields
   defaultColDef: ColDef;
-  domLayout : any;
-  gridOptions: any;
+  domLayout: any;
+  gridOptions: GridOptions;
   FilteredData: any[] = [];
-  level3List:Level3Dropdown[];
+  level3List: Level3Dropdown[];
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
   components: any;
@@ -48,7 +50,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   public filterModel: Level4Filter = new Level4Filter(); // Initialize with default values
 
   public rowData: any[] = [];
-  public dropdownData: any = []; 
+  public dropdownData: any = [];
   public selectedDropdownId: number | null = null;
   //Defining AG Grid Columns
   columnDefs = [
@@ -90,14 +92,14 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         suppressAndOrCondition: true,
       },
       editable: true,
-      cellEditor: 'agSelectCellEditor', 
+      cellEditor: GroupDropdownCellEditorComponent,
       cellEditorParams: {
         values: [] // Dropdown options will be set here dynamically
       },
       flex: 1,
       valueFormatter: (params: any) => {
         const selectedItem = this.dropdownData.find((item: any) => item.id === params.value);
-        return selectedItem ? selectedItem.name : params.value; 
+        return selectedItem ? selectedItem.name : params.value;
       }
     }
   ];
@@ -107,24 +109,46 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   constructor(
     private chartOfAccService: ChartOfAccountService,
     public dialog: MatDialog,
-    public toast : ToastrService,
+    public toast: ToastrService,
     private cdRef: ChangeDetectorRef,
-    injector: Injector
+    injector: Injector,
+    private fb: FormBuilder
   ) {
     super(injector)
-    this.gridOptions = <GridOptions>(
-      {
-        context: { componentParent: this }
-      }
-    );
+    this.form = this.fb.group({
+      level3Ctrl: [''],  // Add the control you're binding to
+      level3Name: ['']  // Add the control you're binding to
+    });
 
-    this.gridOptions = {
-      defaultColDef: {
-        filter: true, // Enable filtering
-      },
-      onGridReady: this.onGridReady.bind(this),
+    this.components = {
+      groupDropdownCellEditor: GroupDropdownCellEditorComponent
     };
 
+
+
+    this.gridOptions = {
+      context: {
+        chartOfAccountService: this.chartOfAccService // Pass the service via context
+      },
+
+      components: {
+        groupDropdownCellEditor: GroupDropdownCellEditorComponent,
+        customTooltip: CustomTooltipComponent,
+        loadingCellRenderer: function (params: any) {
+          if (params.value !== undefined) {
+            return params.value;
+          } else {
+            return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+          }
+        },
+      },
+      defaultColDef: {
+        editable: true,
+        filter: true, // Enable filtering
+      },
+      onGridReady: this.onGridReady.bind(this)
+
+    }
   }
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
@@ -144,11 +168,13 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     // Use the filterModel with default or updated values to request data from the server
     this.chartOfAccService.getLevel4Accounts(this.filterModel).subscribe((data) => {
       this.rowData = data.result;
-      this.gridApi.setRowData(this.rowData);
+      this.gridApi.setGridOption('rowData', this.rowData)
       this.cdRef.detectChanges();
     });
   }
 
+
+  
   editItem(node) {
     if (node.level === 3 && node.id) {
 
@@ -183,16 +209,48 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       typeColDef.cellEditorParams = {
         values: this.dropdownData.map((item: any) => item.name),
       };
-  }
+    }
 
 
     this.isLoading = true;
-    this.loadGridData();       
+    this.loadGridData();
     this.getLevel3Accounts();
 
-  }
- 
 
+     // Create a form with a FormArray for rows
+     this.form = this.fb.group({
+      rows: this.fb.array(this.rowData.map(data => this.createRowFormGroup(data)))
+    });
+
+    this.form.get('level3Ctrl')?.valueChanges.subscribe(value => {
+      console.log('Value from level3Ctrl component:', value);
+    });
+
+    this.form.get('level3Name')?.valueChanges.subscribe(value => {
+      console.log('Value from level3Name component:', value);
+    });
+
+    
+
+
+  }
+
+  createRowFormGroup(data: any): FormGroup {
+    var form = this.fb.group({
+     level3Name: [data.level3Name],
+   });
+
+   console.log('Exp. form', form)
+   return form;
+   
+ }
+ get rowsFormArray(): FormArray {
+   return this.form.get('rows') as FormArray;
+ }
+
+ onSubmit() {
+   console.log(this.form.value);
+ }
 
 
   onGridReady(params: any) {
@@ -206,20 +264,20 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       editableName: ' ',
       level3Name: ''
     };
-    
+
     this.gridApi.applyTransaction({ add: [newRow], addIndex: 0 });
     this.editedRows.push(newRow); // Track the new row
     this.lastAddedRow = newRow;
     this.showDiscardButton = true; // Show the discard button
     this.editedRows.push(newRow);
-        
+
     //this.onCellValueChanged({ data: newRow });
   }
   discardLastRow() {
     if (this.lastAddedRow) {
       // Remove the last added row from the grid
       this.gridApi.applyTransaction({ remove: [this.lastAddedRow] });
-      
+
       // Reset the last added row and hide the discard button
       this.lastAddedRow = null;
       this.showDiscardButton = false;
@@ -227,76 +285,78 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   }
 
   saveChanges() {
-    if (this.lastAddedRow) {   
-      this.editedRows = []; 
-    
+    if (this.lastAddedRow) {
+      this.editedRows = [];
+
       this.showDiscardButton = true;
     }
   }
 
 
- onCellValueChanged(event: any) {
-  const isRowNew = this.editedRows.some(row => row === event.data);
+  onCellValueChanged(event: any) {
+    console.log('Selected Level 3 Account ID'); 
 
-  // If the column is 'level3Name' (which stores the ID), log the ID for both new and existing rows
-  if (event.colDef.field === 'level3Name') {
-    console.log('Selected Level 3 Account ID:', event.data.level3Name); // This logs the ID
-  }
+    const isRowNew = this.editedRows.some(row => row === event.data);
 
-  // Create a model object for new or existing row updates
- 
-  const model = { ...event.data, Level3_id: event.data.level3Name }; 
-  if (isRowNew && model.code && model.editableName && model.Level3_id) {
-    delete model.level3Name; 
-    this.chartOfAccService.createLevel4Account(model).subscribe(res => {
+    // If the column is 'level3Name' (which stores the ID), log the ID for both new and existing rows
+    if (event.colDef.field === 'level3Name') {
+      console.log('Selected Level 3 Account ID:', event.value); // This logs the ID
+    }
+
+    // Create a model object for new or existing row updates
+
+    const model = { ...event.data, level3_id: event.value };
+    if (isRowNew && model.code && model.editableName && model.level3_id) {
+      delete model.level3Name;
+      this.chartOfAccService.createLevel4Account(model).subscribe(res => {
+        this.showDiscardButton = false
+        this.toast.success("Created Successfully", "Chart of Account")
+      });
+    }
+    if (!isRowNew) {
+     // delete model.level3_id;
       this.showDiscardButton = false
-      this.toast.success("Created Successfully","Chart of Account")
-    });
+      this.chartOfAccService.updateLevel4Account(model).subscribe(res => {
+        this.toast.success("Updated Successfully", "Chart of Account")
+      });
+    }
   }
-  if (!isRowNew) {
-    delete model.Level3_id; 
-    this.showDiscardButton = false
-    this.chartOfAccService.updateLevel4Account(model).subscribe(res => {    
-      this.toast.success("Updated Successfully","Chart of Account")  
-    });  
-  }
-}
 
   getLevel3Accounts(): void {
-     this.chartOfAccService.getLevel3AccountsDropdown().subscribe(res => {
+    this.chartOfAccService.getLevel3AccountsDropdown().subscribe(res => {
       this.dropdownData = res.result;
-      console.log(this.dropdownData,"DropdownData");
+      console.log(this.dropdownData, "DropdownData");
       this.updateColumnDefs();
-     })
+    })
   }
 
   updateColumnDefs() {
     const typeColDef = this.columnDefs.find(col => col.field === 'level3Name');
     if (typeColDef) {
       typeColDef.cellEditorParams = {
-        values: this.dropdownData.map((item: any) => item.id), 
-      };        
+        values: this.dropdownData.map((item: any) => item.id),
+      };
       typeColDef.valueFormatter = (params: any) => {
         const selectedItem = this.dropdownData.find((item: any) => item.id === params.value);
-        return selectedItem ? selectedItem.name : params.value; 
+        return selectedItem ? selectedItem.name : params.value;
       };
-  
-      this.columnDefs = [...this.columnDefs]; 
+
+      this.columnDefs = [...this.columnDefs];
     }
-}
+  }
 }
 
 
 
-export interface Level3Dropdown{
-  id : number;
-  name : string;
-  children : Level3Children[]
+export interface Level3Dropdown {
+  id: number;
+  name: string;
+  children: Level3Children[]
 }
-export interface Level3Children{
-  id : number;
-  name : string;
-  code : string;
-  editableName : string;
-  accountType : number;
+export interface Level3Children {
+  id: number;
+  name: string;
+  code: string;
+  editableName: string;
+  accountType: number;
 }
