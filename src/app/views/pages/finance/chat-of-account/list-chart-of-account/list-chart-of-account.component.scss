@@ -1,9 +1,26 @@
-body{
+body {
     overflow-x: hidden !important;
 }
+
 .ag-header {
     position: sticky;
     top: 0;
-    z-index: 10; 
-    background-color: rgb(238, 27, 27); 
+    z-index: 10;
+    background-color: rgb(238, 27, 27);
+}
+
+  .btn-class{
+    width: 99%;
+    position: fixed;
+    margin-bottom: 1rem;
+    z-index: 2;
+    background-color: white;
   }
+::ng-deep .ag-header {
+    height: 36px !important;
+    min-height: 31px !important;
+    position: fixed !important;
+    z-index: 1 !important;
+    top: 103px !important;
+    width: auto !important;
+}

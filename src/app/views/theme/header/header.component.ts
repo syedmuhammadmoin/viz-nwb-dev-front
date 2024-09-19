@@ -99,7 +99,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // keep header element in the service
-    this.layoutRefService.addElement('header', this.ktHeader.nativeElement);
+    this.layoutRefService.addElement('header', this.ktHeader?.nativeElement);
   }
 
   getLogo() {
