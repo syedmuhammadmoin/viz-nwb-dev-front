@@ -1,34 +1,34 @@
 <div class="row mb-5">
   <div class="col-md-12 d-flex btn-class">
-    <button class="app-default-btn"
-    mat-raised-button matTooltip="Add Account" (click)="addNewRow()">Add Account</button> 
-    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button [class.d-none]="!showDiscardButton" (click)="discardLastRow()">Discard Row</button>
+    <button class="app-default-btn" mat-raised-button matTooltip="Add Account" *ngIf="!isNewRowAdded"
+      (click)="addNewRow()">Add Account</button>
+    <!-- <button class="app-default-btn" mat-raised-button matTooltip="Save Changes" *ngIf="isNewRowAdded"
+      (click)="saveChanges()">Save Changes</button> -->
+    <button class="app-default-btn ml-1" style="margin-left: 10px !important;" mat-raised-button
+      [class.d-none]="!showDiscardButton" (click)="discardLastRow()">Discard Row</button>
     <h5 class="p-2">Chart of Account</h5>
   </div>
-  
+
 </div>
-<div class="row p-0" style="margin-top: 5rem !important;">
+<div class="row p-0" style="margin-top: 3rem !important;">
   <div class="col-md-12 p-0">
-    <kt-portlet class="make-ag-grid-header-sticky">    
+    <kt-portlet class="make-ag-grid-header-sticky">
       <kt-portlet-body class="p-3">
-        <div class="col-lg-12 col-md-12">             
+        <div class="col-lg-12 col-md-12">
           <form [formGroup]="form">
-          <ag-grid-angular
-          style="width: auto; height: fit-content;" 
-          class="ag-theme-alpine" 
-          [gridOptions]="gridOptions"
-          [components]="components" 
-          [editType]="'fullRow'"
-          [rowData]="rowData"
-          [domLayout]="domLayout"
-          [columnDefs]="columnDefs"
-          (gridReady)="onGridReady($event)"
-          [overlayNoRowsTemplate]="overlayNoRowsTemplate"          
-          (cellValueChanged)="onCellValueChanged($event)"
-          (gridReady)="onGridReady($event)"
-          >
-        </ag-grid-angular>
-      </form>
+            <ag-grid-angular class="ag-theme-alpine"
+            style="width: 100%; height: 100vh;"
+              [gridOptions]="gridOptions" [editType]="'fullRow'" [components]="components" [rowData]="rowData" [domLayout]="domLayout"
+              [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
+              [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
+              (gridReady)="onGridReady($event)"
+              (rowValueChanged)="onRowValueChanged($event)" 
+          (cellValueChanged)="onCellValueChanged($event)">
+            </ag-grid-angular>
+          </form>
+          <!-- (rowValueChanged)="onRowValueChanged($event)" -->
+          <!-- (cellValueChanged)="onCellValueChanged($event)" -->
+          <!-- [editType]="'fullRow'" -->
         </div>
       </kt-portlet-body>
     </kt-portlet>

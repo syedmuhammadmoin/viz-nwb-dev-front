@@ -1,6 +1,16 @@
 body {
     overflow-x: hidden !important;
 }
+//Edit Mode 
+.mdc-text-field--outlined .mdc-notched-outline , .ag-input-field-input {
+  background-color: #ffffa694 !important;
+}
+.cell-error {
+  background-color: #ffcccc; /* Light red */
+}
+.cell-editing {
+  background-color: #ffff99 !important; /* Light yellow background */
+}
 
 .ag-header {
     position: sticky;

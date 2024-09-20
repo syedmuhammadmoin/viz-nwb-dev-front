@@ -4,7 +4,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } fr
 // RxJS
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import {environment} from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -16,7 +16,7 @@ export class InterceptService implements HttpInterceptor {
 
   router: Router;
 
-  constructor(private toastService: ToastrService, injector: Injector , private route : Router) { }
+  constructor(private toastService: ToastrService, injector: Injector, private route: Router) { }
   // intercept request and add token
   intercept(
     request: HttpRequest<any>,
@@ -34,21 +34,26 @@ export class InterceptService implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) {
-           }
+          }
         },
         error => {
           let message = 'Something went wrong, Please try again later.'
           let title = 'Internal Server Error';
           switch (error.status) {
             case 400:
-              //This was the code before showing exact domain fields
-             // message = error?.errors?.message ?? 'Please verify form fields are correct, if issue presists please contact System Administrator'
-            message = error?.error?.errors?.map((error: any) => {             
-              return `${error.error}\n`;
-            });
-             console.log("Checking 400 Error", message);
-              
-              title = 'Bad Request'
+              title = 'Bad Request';
+
+              // Check for nested error object or array of errors
+              if (error?.error?.errors && Array.isArray(error.error.errors)) {
+                message = error.error.errors.map((err: any) => {
+                  return `${err.error ?? 'Unknown error'}\n`;
+                }).join('');
+              } else if (error?.error?.message) {
+                // Fallback to single message if errors array is not present
+                message = error.error.message;
+              } else {
+                message = 'Please verify form fields are correct. If the issue persists, contact the System Administrator.';
+              }
               break;
             case 401:
               message = error?.error?.message ?? 'Unauhtorised access, Please login again.'
@@ -65,7 +70,7 @@ export class InterceptService implements HttpInterceptor {
             case 404:
               message = error?.error?.message ?? 'Requested resource not found.'
               title = 'Resource Not Found'
-             // window.location.href = '/error/404'
+              // window.location.href = '/error/404'
               //this.route.navigateByUrl('/error/404')
               break;
             case 408:
@@ -75,7 +80,7 @@ export class InterceptService implements HttpInterceptor {
             case 500:
               message = error?.error?.message ?? 'Something went wrong, Please try again later.'
               title = 'Internal Server Error'
-             // this.route.navigateByUrl('/error/500')
+              // this.route.navigateByUrl('/error/500')
               break;
             default:
               message = error?.error?.message ?? 'Please try again later, If issue presists please contact System Administrator';

@@ -11,7 +11,7 @@ import { ControlContainer, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR 
     <kt-group-dropdown
       id="level3Ctrl"
        [formControl]="internalControl"
-      [optionList]="level3List"
+      [optionList]="optionList"
       [groupChildrenName]="'children'"
       [groupPropertyName]="'level1Name'"
       [matFormFieldClass]="'full-width'"
@@ -28,7 +28,7 @@ import { ControlContainer, ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR 
   }]
 })
 export class GroupDropdownCellEditorComponent implements ControlValueAccessor, OnInit, ICellEditorAngularComp {
-  public level3List: Observable<any> | any;
+  public optionList: Observable<any> | any;
   public selectedValue: any;
   internalControl = new FormControl(); // Internal control
 
@@ -50,11 +50,16 @@ export class GroupDropdownCellEditorComponent implements ControlValueAccessor, O
   }
 
   agInit(params: any): void {
-    const chartOfAccountService: ChartOfAccountService = params.context.chartOfAccountService;
-    this.level3List = chartOfAccountService.getAccountsTypeDropdown().pipe(
-      map((res: any) => res.result)
-    );
-    this.selectedValue = params.value; // Set the initial value
+    // // Set optionList with values from params
+     this.optionList = params.values || [];
+    
+    // const chartOfAccountService: ChartOfAccountService = params.context.chartOfAccountService;
+    // this.optionList = chartOfAccountService.getAccountsTypeDropdown().pipe(
+    //   map((res: any) => res.result)
+    // );
+
+     
+    this.selectedValue = params.data.level3_id; // Set the initial value
     this.internalControl.setValue(this.selectedValue, { emitEvent: false }); // Set value in form control without triggering valueChanges
   }
 

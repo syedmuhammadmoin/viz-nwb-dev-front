@@ -120,6 +120,7 @@ display: none;
 kt-base {
   overflow-y: auto;
   margin-top: 64px;
+  overflow-x: hidden
 }
 
 .aside-enabled .header.header-fixed {
@@ -130,4 +131,29 @@ kt-base {
     overflow-y: auto;
     margin-top: 0px;
   }
+}
+
+
+
+/* Override the default toastr styles */
+.toastr {
+  background-color: rgba(255, 99, 71, 0.9); /* Light red (Tomato) */
+  color: #fff; /* White text */
+}
+
+/* Optional: Style for success, error, info, warning notifications */
+.toastr-success {
+  background-color: rgba(76, 175, 80, 0.9); /* Example: Green for success */
+}
+
+.toastr-error {
+  background-color: rgba(255, 99, 71, 0.9); /* Light red */
+}
+
+.toastr-info {
+  background-color: rgba(33, 150, 243, 0.9); /* Example: Blue for info */
+}
+
+.toastr-warning {
+  background-color: rgba(255, 152, 0, 0.9); /* Example: Orange for warning */
 }
