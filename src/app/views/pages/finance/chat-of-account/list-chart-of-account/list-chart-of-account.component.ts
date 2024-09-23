@@ -60,7 +60,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   // Event when cell editing starts
   onCellEditingStarted(event: any) {
-    console.log('Editing started on:', event);
+    // console.log('Editing started on:', event);
     if (event.data) {
       this.originalRowData = { ...event.data }; // Deep clone the row data
     }
@@ -70,7 +70,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   // Event when cell editing stops
   onCellEditingStopped(event: any) {
-    console.log('Editing stopped on:', event);
+    // console.log('Editing stopped on:', event);
     this.editingRowId = null;
     this.gridApi.refreshCells({ force: true });
   }
@@ -98,7 +98,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
     this.gridOptions = {
 
-   
+
       singleClickEdit: true,  // Enables single-click to edit mode
       onRowClicked: this.onRowClicked.bind(this),
       rowClassRules: {
@@ -163,7 +163,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
           suppressAndOrCondition: true,
         },
 
-        flex:1,
+        flex: 1,
         editable: (params) => this.isRowEditable(params.data.id), // Conditional editability
         cellClassRules: {
           'cell-error': (params: any) => this.hasError(params.data.id, 'code')
@@ -179,9 +179,9 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
-        flex:3,
+        flex: 3,
         editable: (params) => this.isRowEditable(params.data.id),
-        
+
         cellClassRules: {
           'cell-error': (params: any) => this.hasError(params.data.id, 'editableName')
         }
@@ -196,16 +196,16 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
         },
-        flex:2,
+        flex: 2,
         editable: (params) => this.isRowEditable(params.data.id),
         cellEditor: GroupDropdownCellEditorComponent,
         cellEditorParams: {
           values: this.dropdownData // Pass the dropdown data to the cell editor
         },
-       
+
         cellClassRules: {
           'cell-error': (params: any) => this.hasError(params.data.id, 'level3_id')
-          
+
         },
         valueFormatter: (params: any) => {
 
@@ -347,7 +347,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   onGridReady(params: any) {
     this.gridApi = params.api;
-   // this.gridApi.sizeColumnsToFit(); // Optional: Automatically fit columns to the grid width
+    // this.gridApi.sizeColumnsToFit(); // Optional: Automatically fit columns to the grid width
     // this.columnApi = params.columnApi;
   }
 
@@ -375,7 +375,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
     // Check if the row already exists
     if (this.isRowDuplicate(newRow, existingRows)) {
-      console.warn('Row already exists, not adding duplicate.');
+       console.warn('Row already exists, not adding duplicate.');
       return; // Exit if row is a duplicate
     }
 
@@ -440,7 +440,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     return item ? item.level3Name : '';
   }
   onRowValueChanged(event: any) {
-    console.log('Row editing stopped. Data:', event.data);
+     console.log('Row editing stopped. Data:', event.data);
 
     const model: Level4AccountModel = this.mapToLevel4AccountModel(event.data);
 
@@ -456,7 +456,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
       // Check if the data has changed compared to the original data
       if (!this.hasDataChanged(event.data)) {
-        console.log('Data not changed, skipping the service call.');
+         console.log('Data not changed, skipping the service call.');
         return; // Skip the service call if no data has changed
       }
 
@@ -550,7 +550,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   // }
 
   mapToLevel4AccountModel(eventData: any): Level4AccountModel {
-    console.log('mapToLevel4AccountModel: eventData', eventData)
+    //  console.log('mapToLevel4AccountModel: eventData', eventData)
     return {
       id: eventData.id,
       editableName: eventData.editableName,

@@ -1,8 +1,9 @@
 body {
-    overflow-x: hidden !important;
+  overflow-x: hidden !important;
 }
-//Edit Mode 
-.mdc-text-field--outlined .mdc-notched-outline , .ag-input-field-input {
+//Edit Mode
+.mdc-text-field--outlined .mdc-notched-outline,
+.ag-input-field-input {
   background-color: #ffffa694 !important;
 }
 .cell-error {
@@ -12,25 +13,18 @@ body {
   background-color: #ffff99 !important; /* Light yellow background */
 }
 
-.ag-header {
-    position: sticky;
-    top: 0;
-    z-index: 10;
-    background-color: rgb(238, 27, 27);
+.btn-class {
+  width: 99%;
+  position: fixed;
+  margin-bottom: 5.5rem;
+  z-index: 2;
+  background-color: white;
 }
-
-  .btn-class{
-    width: 99%;
-    position: fixed;
-    margin-bottom: 1rem;
-    z-index: 2;
-    background-color: white;
-  }
-::ng-deep .ag-header {
-    height: 36px !important;
-    min-height: 31px !important;
-    position: fixed !important;
-    z-index: 1 !important;
-    top: 103px !important;
-    width: auto !important;
+ .ag-header {
+  height: 36px !important;
+  min-height: 31px !important;
+  position: fixed !important;
+  z-index: 1 !important;
+  top: 109px !important;
+  width: auto !important;
 }
