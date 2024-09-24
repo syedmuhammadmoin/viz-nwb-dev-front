@@ -11,6 +11,8 @@ import { ToastrService } from 'ngx-toastr';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { GroupDropdownCellEditorComponent } from '../group-drop-down-cell-editor/group-drop-down-cell-editor.component';
 import { Level4AccountModel } from '../model/Level4AccountModel';
+import { lastValueFrom } from 'rxjs';
+import { CheckboxSelectionComponent } from 'ag-grid-enterprise';
 
 
 @Component({
@@ -33,6 +35,8 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   private lastAddedRow: any = null;
   public showDiscardButton: boolean = false;
   public isNewRowAdded: boolean = false;
+  public settingBtn :boolean = false;
+  selectedRowCount : number[] = []
 
 
   //Aggrid fields
@@ -97,9 +101,8 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
 
     this.gridOptions = {
-
-
-      singleClickEdit: true,  // Enables single-click to edit mode
+      rowSelection: 'multiple',
+      singleClickEdit: true,  
       onRowClicked: this.onRowClicked.bind(this),
       rowClassRules: {
         'row-editing': params => {
@@ -129,8 +132,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         editable: true,
         filter: true, // Enable filtering
       },
-      onGridReady: this.onGridReady.bind(this)
-
+      onGridReady: this.onGridReady.bind(this),  
     }
   }
   // Method to handle row click
@@ -151,6 +153,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   initializeColumnDefs() {
 
     this.columnDefs = [
+      { width: 50, checkboxSelection: true },
       {
         headerName: 'Code',
         field: 'code',
@@ -230,7 +233,8 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
           params.data.level3Name = selectedItem ? selectedItem.name : params.value;
           return selectedItem ? selectedItem.name : params.value;
         }
-      }
+      },
+    
     ];
 
 
@@ -256,7 +260,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     // Use the filterModel with default or updated values to request data from the server
     this.chartOfAccService.getLevel4Accounts(this.filterModel).subscribe((data) => {
       this.rowData = data.result;
-      this.gridApi.setGridOption('rowData', this.rowData)
+      this.gridApi?.setGridOption('rowData', this.rowData)
       this.cdRef.detectChanges();
     });
   }
@@ -565,7 +569,29 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       colKey: colKey,
     });
   }
+  onRowSelected(event: any) {  
+    const selectedRows = event.api.getSelectedRows();
+    this.selectedRowCount = selectedRows.length
+    this.settingBtn = selectedRows.length > 0;
+    
+  }
 
+  DeselectRows(){
+    this.gridApi.deselectAll();
+  }
+  DeleteRows (){
+    const selectedRows = this.gridApi.getSelectedRows();
+    const selectedIds = selectedRows.map(row => row.id);
+   lastValueFrom(this.chartOfAccService.deleteCOA(selectedIds)).then(res => {
+    if(res){
+      this.gridApi.deselectAll();
+      this.toastService.success("Deleted Successfully");
+    }
+    
+   })
+    
+    // Yahan aap selectedRows ko process kar sakte hain
+};
 }
 
 

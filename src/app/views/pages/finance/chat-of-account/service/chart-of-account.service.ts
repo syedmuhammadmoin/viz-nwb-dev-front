@@ -113,6 +113,10 @@ export class ChartOfAccountService extends AppServiceBase {
   getCashBankAccounts(): Observable<any> {
     return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/CashBankAccounts');
   }
-  
+  deleteCOA(id : string[]):Observable<any>{
+    return this.httpClient.delete(`${AppConst.remoteServiceBaseUrl + "level4"}`,{
+      body : id
+    })
+  }
 }
 
