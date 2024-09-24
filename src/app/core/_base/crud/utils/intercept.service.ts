@@ -59,7 +59,7 @@ export class InterceptService implements HttpInterceptor {
               message = error?.error?.message ?? 'Unauhtorised access, Please login again.'
               title = 'Unauthorised'
               //window.location.href = '/login'
-              this.route.navigateByUrl('/login')
+              this.route.navigateByUrl('/auth/login')
               break;
             case 403:
               message = error?.error?.message ?? 'You don\'\t have permission to access this resource'

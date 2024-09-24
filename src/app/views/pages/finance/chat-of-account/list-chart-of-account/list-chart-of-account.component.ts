@@ -201,7 +201,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   initializeColumnDefs() {
 
     this.columnDefs = [
-      { width: 50, checkboxSelection: true },
+      { width: 50, checkboxSelection: true , headerCheckboxSelection: true, },
       {
         headerName: 'Code',
         field: 'code',
@@ -430,7 +430,11 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     return item ? item.level3Name : '';
   }
   onRowValueChanged(event: any) {
-    console.log('Row editing stopped. Data:', event.data);
+    debugger;
+     console.log('Row editing stopped. Data:', event.data);
+     if(this.checkCode(event.data.code) == false){
+      return;
+    }
 
     const model: Level4AccountModel = this.mapToLevel4AccountModel(event.data);
 
@@ -496,7 +500,13 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
 
   onCellValueChanged(event: any) {
+    debugger;
     const rowData = event.data;
+   
+    if(this.checkCode(event.data.code) == false){
+      return;
+    }
+    
     const rowId = rowData.id || rowData.tempId; // You can use id or create a tempId for new rows
     const model: Level4AccountModel = this.mapToLevel4AccountModel(rowData);
 
@@ -552,19 +562,27 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   DeselectRows() {
     this.gridApi.deselectAll();
   }
-  DeleteRows() {
+  DeleteRows(){
     const selectedRows = this.gridApi.getSelectedRows();
     const selectedIds = selectedRows.map(row => row.id);
-    lastValueFrom(this.chartOfAccService.deleteCOA(selectedIds)).then(res => {
-      if (res) {
-        this.gridApi.deselectAll();
-        this.toastService.success("Deleted Successfully");
-      }
-
-    })
-
-    // Yahan aap selectedRows ko process kar sakte hain
-  };
+   lastValueFrom(this.chartOfAccService.deleteCOA(selectedIds)).then(res => {
+    if(res){
+      this.gridApi.deselectAll();
+      this.rowData = this.rowData.filter(row => !selectedRows.includes(row));
+      this.gridApi.setGridOption('rowData',this.rowData); 
+      this.toastService.success("Deleted Successfully");
+    }
+    
+   })       
+};
+checkCode(code: string) : any {
+  const regex = /[A-Za-z!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  if (regex.test(code)) {
+    this.toastService.error("Code Cannot Contain Alphabets or Special Characters.");
+    return false;
+}
+return true;
+}
 }
 
 
