@@ -153,7 +153,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   initializeColumnDefs() {
 
     this.columnDefs = [
-      { width: 50, checkboxSelection: true },
+      { width: 50, checkboxSelection: true , headerCheckboxSelection: true, },
       {
         headerName: 'Code',
         field: 'code',
@@ -445,6 +445,9 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   }
   onRowValueChanged(event: any) {
      console.log('Row editing stopped. Data:', event.data);
+     if(this.checkCode(event.data.code)){
+      return;
+    }
 
     const model: Level4AccountModel = this.mapToLevel4AccountModel(event.data);
 
@@ -511,6 +514,11 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   onCellValueChanged(event: any) {
     const rowData = event.data;
+   
+    if(this.checkCode(event.data.code)){
+      return;
+    }
+    
     const rowId = rowData.id || rowData.tempId; // You can use id or create a tempId for new rows
     const model: Level4AccountModel = this.mapToLevel4AccountModel(rowData);
 
@@ -585,13 +593,19 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
    lastValueFrom(this.chartOfAccService.deleteCOA(selectedIds)).then(res => {
     if(res){
       this.gridApi.deselectAll();
+      this.rowData = this.rowData.filter(row => !selectedRows.includes(row));
+      this.gridApi.setGridOption('rowData',this.rowData); 
       this.toastService.success("Deleted Successfully");
     }
     
-   })
-    
-    // Yahan aap selectedRows ko process kar sakte hain
+   })       
 };
+checkCode(code: string) : any {
+  if (/[A-Za-z]/.test(code)) {
+      this.toastService.error("Code Cannot Contain Alphabets.");
+      return false;
+  }
+}
 }
 
 
