@@ -35,8 +35,8 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   private lastAddedRow: any = null;
   public showDiscardButton: boolean = false;
   public isNewRowAdded: boolean = false;
-  public settingBtn :boolean = false;
-  selectedRowCount : number[] = []
+  public settingBtn: boolean = false;
+  selectedRowCount: number[] = []
 
 
   //Aggrid fields
@@ -62,22 +62,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   public rowValidationErrors: { [rowId: string]: { [field: string]: boolean } } = {};
 
 
-  // Event when cell editing starts
-  onCellEditingStarted(event: any) {
-    // console.log('Editing started on:', event);
-    if (event.data) {
-      this.originalRowData = { ...event.data }; // Deep clone the row data
-    }
-    this.editingRowId = event.data.id;
-    this.gridApi.refreshCells({ force: true });
-  }
 
-  // Event when cell editing stops
-  onCellEditingStopped(event: any) {
-    // console.log('Editing stopped on:', event);
-    this.editingRowId = null;
-    this.gridApi.refreshCells({ force: true });
-  }
 
 
   constructor(
@@ -102,7 +87,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
     this.gridOptions = {
       rowSelection: 'multiple',
-      singleClickEdit: true,  
+      singleClickEdit: true,
       onRowClicked: this.onRowClicked.bind(this),
       rowClassRules: {
         'row-editing': params => {
@@ -132,8 +117,71 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         editable: true,
         filter: true, // Enable filtering
       },
-      onGridReady: this.onGridReady.bind(this),  
+      onGridReady: this.onGridReady.bind(this),
     }
+  }
+  ngOnInit(): void {
+    this.domLayout = "autoHeight";
+    this.defaultColDef = {
+      tooltipComponent: 'customTooltip',
+      flex: 1,
+      minWidth: 150,
+      filter: 'agSetColumnFilter',
+      sortable: false,
+      resizable: true,
+    }
+
+    this.components = {
+      customTooltip: CustomTooltipComponent,
+      loadingCellRenderer: function (params: any) {
+        if (params.value !== undefined) {
+          return params.value;
+        } else {
+          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
+        }
+      },
+    };
+
+
+
+
+    this.isLoading = true;
+    this.getLevel3Accounts();
+    this.loadGridData();
+
+
+    // Create a form with a FormArray for rows
+    this.form = this.fb.group({
+      rows: this.fb.array(this.rowData.map(data => this.createRowFormGroup(data)))
+    });
+
+    // this.form.get('level3Ctrl')?.valueChanges.subscribe(value => {
+
+    // });
+
+    // this.form.get('level3Name')?.valueChanges.subscribe(value => {
+
+    // });
+
+
+
+
+  }
+  // Event when cell editing starts
+  onCellEditingStarted(event: any) {
+    // console.log('Editing started on:', event);
+    if (event.data) {
+      this.originalRowData = { ...event.data }; // Deep clone the row data
+    }
+    this.editingRowId = event.data.id;
+    this.gridApi.refreshCells({ force: true });
+  }
+
+  // Event when cell editing stops
+  onCellEditingStopped(event: any) {
+    // console.log('Editing stopped on:', event);
+    this.editingRowId = null;
+    this.gridApi.refreshCells({ force: true });
   }
   // Method to handle row click
   onRowClicked(event: any) {
@@ -211,11 +259,12 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
         },
         valueFormatter: (params: any) => {
-
-          // Recursive function to find item by level3_id
+          console.log('params', params);
+          //Recursive function to find item by level3_id
           function findItemByLevel3Id(data: any[], level3Id: string): any {
             for (const item of data) {
               if (item.id === level3Id) {
+                console.log('item', item);
                 return item;
               }
               if (item.children && item.children.length) {
@@ -230,11 +279,12 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
           // Use the recursive function to find the item
           const selectedItem = findItemByLevel3Id(this.dropdownData, params.value);
-          params.data.level3Name = selectedItem ? selectedItem.name : params.value;
+          params.data.level3Name =  params.value;
           return selectedItem ? selectedItem.name : params.value;
+          //return params.value;
         }
       },
-    
+
     ];
 
 
@@ -266,69 +316,6 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   }
 
 
-
-  editItem(node) {
-    if (node.level === 3 && node.id) {
-
-    }
-  }
-
-
-  ngOnInit(): void {
-    this.domLayout = "autoHeight";
-    this.defaultColDef = {
-      tooltipComponent: 'customTooltip',
-      flex: 1,
-      minWidth: 150,
-      filter: 'agSetColumnFilter',
-      sortable: false,
-      resizable: true,
-    }
-
-    this.components = {
-      customTooltip: CustomTooltipComponent,
-      loadingCellRenderer: function (params: any) {
-        if (params.value !== undefined) {
-          return params.value;
-        } else {
-          return '<img src="https://www.ag-grid.com/example-assets/loading.gif">';
-        }
-      },
-    };
-
-    // comment by kashif
-    // const typeColDef = this.columnDefs.find(col => col.field === 'level3Name');
-    // if (typeColDef) {
-    //   typeColDef.tooltipField = 'level3Name'; // This enables the tooltip
-    //   typeColDef.cellEditorParams = {
-    //     values: this.dropdownData.map((item: any) => item.name),
-    //   };
-    // }
-
-
-    this.isLoading = true;
-    this.getLevel3Accounts();
-    this.loadGridData();
-
-
-    // Create a form with a FormArray for rows
-    this.form = this.fb.group({
-      rows: this.fb.array(this.rowData.map(data => this.createRowFormGroup(data)))
-    });
-
-    this.form.get('level3Ctrl')?.valueChanges.subscribe(value => {
-
-    });
-
-    this.form.get('level3Name')?.valueChanges.subscribe(value => {
-
-    });
-
-
-
-
-  }
-
   hasError(rowId: string, field: string): boolean {
     return this.rowValidationErrors[rowId] && this.rowValidationErrors[rowId][field];
   }
@@ -351,8 +338,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   onGridReady(params: any) {
     this.gridApi = params.api;
-    // this.gridApi.sizeColumnsToFit(); // Optional: Automatically fit columns to the grid width
-    // this.columnApi = params.columnApi;
+
   }
 
   // Method to check if a row already exists based on its unique ID
@@ -379,7 +365,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
     // Check if the row already exists
     if (this.isRowDuplicate(newRow, existingRows)) {
-       console.warn('Row already exists, not adding duplicate.');
+      console.warn('Row already exists, not adding duplicate.');
       return; // Exit if row is a duplicate
     }
 
@@ -444,7 +430,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     return item ? item.level3Name : '';
   }
   onRowValueChanged(event: any) {
-     console.log('Row editing stopped. Data:', event.data);
+    console.log('Row editing stopped. Data:', event.data);
 
     const model: Level4AccountModel = this.mapToLevel4AccountModel(event.data);
 
@@ -460,7 +446,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
       // Check if the data has changed compared to the original data
       if (!this.hasDataChanged(event.data)) {
-         console.log('Data not changed, skipping the service call.');
+        console.log('Data not changed, skipping the service call.');
         return; // Skip the service call if no data has changed
       }
 
@@ -538,20 +524,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     })
   }
 
-  // updateColumnDefs() {
-  //   const typeColDef = this.columnDefs.find(col => col.field === 'level3Name');
-  //   if (typeColDef) {
-  //     typeColDef.cellEditorParams = {
-  //       values: this.dropdownData.map((item: any) => item.id),
-  //     };
-  //     typeColDef.valueFormatter = (params: any) => {
-  //       const selectedItem = this.dropdownData.find((item: any) => item.id === params.value);
-  //       return selectedItem ? selectedItem.name : params.value;
-  //     };
 
-  //     this.columnDefs = [...this.columnDefs];
-  //   }
-  // }
 
   mapToLevel4AccountModel(eventData: any): Level4AccountModel {
     //  console.log('mapToLevel4AccountModel: eventData', eventData)
@@ -569,29 +542,29 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       colKey: colKey,
     });
   }
-  onRowSelected(event: any) {  
+  onRowSelected(event: any) {
     const selectedRows = event.api.getSelectedRows();
     this.selectedRowCount = selectedRows.length
     this.settingBtn = selectedRows.length > 0;
-    
+
   }
 
-  DeselectRows(){
+  DeselectRows() {
     this.gridApi.deselectAll();
   }
-  DeleteRows (){
+  DeleteRows() {
     const selectedRows = this.gridApi.getSelectedRows();
     const selectedIds = selectedRows.map(row => row.id);
-   lastValueFrom(this.chartOfAccService.deleteCOA(selectedIds)).then(res => {
-    if(res){
-      this.gridApi.deselectAll();
-      this.toastService.success("Deleted Successfully");
-    }
-    
-   })
-    
+    lastValueFrom(this.chartOfAccService.deleteCOA(selectedIds)).then(res => {
+      if (res) {
+        this.gridApi.deselectAll();
+        this.toastService.success("Deleted Successfully");
+      }
+
+    })
+
     // Yahan aap selectedRows ko process kar sakte hain
-};
+  };
 }
 
 

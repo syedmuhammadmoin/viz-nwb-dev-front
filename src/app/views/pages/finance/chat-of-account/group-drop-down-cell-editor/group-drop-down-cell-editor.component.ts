@@ -53,13 +53,10 @@ export class GroupDropdownCellEditorComponent implements ControlValueAccessor, O
     // // Set optionList with values from params
      this.optionList = params.values || [];
     
-    // const chartOfAccountService: ChartOfAccountService = params.context.chartOfAccountService;
-    // this.optionList = chartOfAccountService.getAccountsTypeDropdown().pipe(
-    //   map((res: any) => res.result)
-    // );
+   console.log('agInit',params);
 
      
-    this.selectedValue = params.data.level3_id; // Set the initial value
+    this.selectedValue = params.data.level3Name; // Set the initial value
     this.internalControl.setValue(this.selectedValue, { emitEvent: false }); // Set value in form control without triggering valueChanges
   }
 
@@ -68,6 +65,7 @@ export class GroupDropdownCellEditorComponent implements ControlValueAccessor, O
     return this.selectedValue;
   }
   writeValue(value: any): void {
+    console.log('writeValue',value);
     this.internalControl.setValue(value, { emitEvent: false }); // Set initial value
   }
 
