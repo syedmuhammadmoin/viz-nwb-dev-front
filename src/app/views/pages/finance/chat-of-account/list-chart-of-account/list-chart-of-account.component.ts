@@ -444,8 +444,9 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     return item ? item.level3Name : '';
   }
   onRowValueChanged(event: any) {
+    debugger;
      console.log('Row editing stopped. Data:', event.data);
-     if(this.checkCode(event.data.code)){
+     if(this.checkCode(event.data.code) == false){
       return;
     }
 
@@ -513,9 +514,10 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
 
   onCellValueChanged(event: any) {
+    debugger;
     const rowData = event.data;
    
-    if(this.checkCode(event.data.code)){
+    if(this.checkCode(event.data.code) == false){
       return;
     }
     
@@ -587,7 +589,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   DeselectRows(){
     this.gridApi.deselectAll();
   }
-  DeleteRows (){
+  DeleteRows(){
     const selectedRows = this.gridApi.getSelectedRows();
     const selectedIds = selectedRows.map(row => row.id);
    lastValueFrom(this.chartOfAccService.deleteCOA(selectedIds)).then(res => {
@@ -601,10 +603,12 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
    })       
 };
 checkCode(code: string) : any {
-  if (/[A-Za-z]/.test(code)) {
-      this.toastService.error("Code Cannot Contain Alphabets.");
-      return false;
-  }
+  const regex = /[A-Za-z!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/;
+  if (regex.test(code)) {
+    this.toastService.error("Code Cannot Contain Alphabets or Special Characters.");
+    return false;
+}
+return true;
 }
 }
 
