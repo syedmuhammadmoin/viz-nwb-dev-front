@@ -53,11 +53,16 @@ export class JournalService extends AppServiceBase {
     return this.httpClient.post<any>(this.baseUrl + '/workflow', workflow);
   }
 
-  getRecords(params: any): Observable<any> {
+  getRecords(params?: any): Observable<any> {
     return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params, this.dateHelperService.transformDate(params?.filterModel?.date?.dateFrom, 'MM/d/y'))})
   }
 
   getRecordByYearMonth(startDate: any, endDate: any): Observable<any> {        
     return this.httpClient.get(AppConst.remoteServiceBaseUrl + "Journal?startDate=" + startDate + '&endDate=' + endDate);
+  }
+  deleteJournals(id : string[]):Observable<any>{
+    return this.httpClient.delete(`${AppConst.remoteServiceBaseUrl + "journal"}`,{
+      body : id
+    })
   }
 }

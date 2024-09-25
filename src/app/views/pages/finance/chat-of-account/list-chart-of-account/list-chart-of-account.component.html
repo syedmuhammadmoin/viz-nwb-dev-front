@@ -2,8 +2,10 @@
   <div class="col-md-12 d-flex btn-class">
     <button class="app-default-btn" mat-raised-button matTooltip="Add Account" *ngIf="!isNewRowAdded"
       (click)="addNewRow()">Add Account</button>
-      <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Selected Rows" *ngIf="settingBtn" > {{selectedRowCount}} selected 
-        <span (click)="DeselectRows()" class="dialog-cross" ><i class="fa fa-times text-end text-light" style="font-size: 14px;margin-left: 10px;"></i></span> </button>
+    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Selected Rows"
+      *ngIf="settingBtn"> {{selectedRowCount}} selected
+      <span (click)="DeselectRows()" class="dialog-cross"><i class="fa fa-times text-end text-light"
+          style="font-size: 14px;margin-left: 10px;"></i></span> </button>
     <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Delete Rows"
       *ngIf="settingBtn" (click)="DeleteRows()">Delete Rows</button>
     <!-- <button class="app-default-btn" mat-raised-button matTooltip="Save Changes" *ngIf="isNewRowAdded"
@@ -21,13 +23,26 @@
       <kt-portlet-body class="p-3">
         <div class="col-lg-12 col-md-12">
           <form [formGroup]="form">
-            <ag-grid-angular class="ag-theme-alpine" style="width: 100%; height: 100vh;" [gridOptions]="gridOptions"
-              [editType]="'fullRow'" [components]="components" [rowData]="rowData" [domLayout]="domLayout"
-              [columnDefs]="columnDefs" (gridReady)="onGridReady($event)"
-              [overlayNoRowsTemplate]="overlayNoRowsTemplate" (gridReady)="onGridReady($event)"
-              (rowValueChanged)="onRowValueChanged($event)" (cellValueChanged)="onCellValueChanged($event)"
-              rowSelection="multiple"
-              (rowSelected)="onRowSelected($event)"
+            <ag-grid-angular 
+            class="ag-theme-alpine" 
+            style="width: 100%; height: auto;" 
+            [gridOptions]="gridOptions"              
+            [editType]="'fullRow'" 
+            [components]="components" 
+            [rowData]="rowData" 
+            [domLayout]="domLayout"
+              
+            [columnDefs]="columnDefs" 
+            (gridReady)="onGridReady($event)"
+              
+            [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
+            (gridReady)="onGridReady($event)"
+              
+            (rowValueChanged)="onRowValueChanged($event)" 
+            (cellValueChanged)="onCellValueChanged($event)"
+              
+              rowSelection="multiple" 
+              (rowSelected)="onRowSelected($event)" 
               [suppressRowClickSelection]="true">
             </ag-grid-angular>
           </form>

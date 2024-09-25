@@ -9,6 +9,7 @@ import { JOURNAL } from 'src/app/views/shared/AppRoutes';
 import { IJournal } from '../model/IJournal';
 import { JournalType, Permissions } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'kt-list-journal',
@@ -20,8 +21,12 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
 
   defaultColDef: ColDef;
   gridOptions: any;
+  selectedRowCount : number;
+  deleteBtn : boolean;
+  domLayout: any;
   JournalList: IJournal[];
-  FilteredData : any[] = [];
+  public rowData : any[] = [];
+  params: GridReadyEvent
   tooltipData: string = "double click to view detail"
   public permissions = Permissions
   components: any;
@@ -45,11 +50,13 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
 
   //Defining AG Grid Columns
   columnDefs = [
+    { width: 20, checkboxSelection: true , headerCheckboxSelection: true },
     {
       headerName: 'JRN #',
       field: 'id',
       tooltipField: 'id',
       cellRenderer: "loadingCellRenderer",
+      flex: 3,
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
         filterParams: {
@@ -62,18 +69,21 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
       headerName: 'Name',
       field: 'name',
       tooltipField: 'name',
+      flex: 3,
       suppressHeaderMenuButton: true,
     },
     {
       headerName: 'Type',
       field: 'type',
       tooltipField: 'type',
+      flex: 3,
       suppressHeaderMenuButton: true,
       valueFormatter: params => this.getJournalTypeText(params.value)
     },
     {
       headerName: 'Default Account',
       field: 'defaultAccount',
+      flex: 5,
       tooltipField: 'Default Account',
       suppressHeaderMenuButton: true,
     },
@@ -81,16 +91,18 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
 
 
   ngOnInit() {
-
+    this.domLayout = "autoHeight";
     this.gridOptions = {
-      cacheBlockSize: 20,
-      rowModelType: "infinite",
-      paginationPageSize: 10,
-      pagination: true,
-      rowHeight: 30,
-      headerHeight: 35,
-      paginationPageSizeSelector: false,
+      rowSelection: 'multiple',    
+      //rowModelType: "infinite",           
+      // rowHeight: 30,
+      // headerHeight: 35,      
       context: "double click to view detail",
+      defaultColDef: {
+        editable: true,
+        filter: true, // Enable filtering
+      },
+      onGridReady: this.onGridReady.bind(this),
     };
 
     
@@ -98,7 +110,7 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
-      minWidth: 150,
+      minWidth: 20,
       filter: 'agSetColumnFilter',
       sortable: false,
       resizable: true,
@@ -114,10 +126,19 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
         }
       },
     };
+    this.loadGridData();
   }
-
+  loadGridData(): void {   
+    lastValueFrom(this.journalService.getRecords()).then(res => {
+      if(res){
+        this.rowData = res.result;
+      this.gridApi?.setGridOption('rowData', this.rowData)
+      this.cdRef.detectChanges();
+      }
+    })
+  }
   onFirstDataRendered(params: FirstDataRenderedEvent) {
-    params.api.sizeColumnsToFit();
+    // params.api.sizeColumnsToFit();
   }
 
   addJournal() {
@@ -141,10 +162,10 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
           if(isEmpty(data.result)) {
             this.gridApi.showNoRowsOverlay()
           } else {
-            this.FilteredData = data.result;
+            this.rowData = data.result;
             this.gridApi.hideOverlay();
           }
-          params.successCallback(this.FilteredData || 0, data.totalRecords);
+          params.successCallback(this.rowData || 0, data.totalRecords);
           //TODO: make enum for "journalPageName"
           this.paginationHelper.goToPage(this.gridApi, 'journalPageName')
           this.cdRef.detectChanges();
@@ -154,25 +175,25 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
     params.api.setGridOption('datasource', dataSource);
   }
 
-  fetchData(x: any) {           
-    const dataSource = {
-      getRows: (params: any) => {        
-        this.journalService.getRecordByYearMonth(x.startDate ,x.endDate)
-          .subscribe((data) => {
-            if (isEmpty(data.result)) {
-              this.gridApi.showNoRowsOverlay();
-            } else {
-              this.gridApi.hideOverlay();             
-              this.FilteredData = data.result;
-            }
-            params.successCallback(this.FilteredData || 0 ,data.totalRecords);
-            this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
-            this.cdRef.detectChanges();
-        });
-      },
-    };
-    this.gridApi.setDatasource(dataSource);
-}
+//   fetchData(x: any) {           
+//     const dataSource = {
+//       getRows: (params: any) => {        
+//         this.journalService.getRecordByYearMonth(x.startDate ,x.endDate)
+//           .subscribe((data) => {
+//             if (isEmpty(data.result)) {
+//               this.gridApi.showNoRowsOverlay();
+//             } else {
+//               this.gridApi.hideOverlay();             
+//               this.rowData = data.result;
+//             }
+//             params.successCallback(this.rowData || 0 ,data.totalRecords);
+//             this.paginationHelper.goToPage(this.gridApi, 'purchaseOrderPageName');
+//             this.cdRef.detectChanges();
+//         });
+//       },
+//     };
+//     this.gridApi.setDatasource(dataSource);
+// }
  getJournalTypeText(value: number): string {
   switch (value) {
     case JournalType.Sales:
@@ -189,4 +210,29 @@ export class ListJournalComponent extends AppComponentBase implements OnInit {
       return 'Unknown';
   }
 }
+
+onRowSelected(event: any) {
+  const selectedRows = event.api.getSelectedRows();
+  this.selectedRowCount = selectedRows.length;
+  this.deleteBtn = selectedRows.length > 0;
+
 }
+
+DeleteRows(){
+  const selectedRows = this.gridApi.getSelectedRows();
+  const selectedIds = selectedRows.map(row => row.id);   
+ lastValueFrom(this.journalService.deleteJournals(selectedIds)).then(res => {
+  if(res){
+    this.gridApi.deselectAll();
+    this.rowData = this.rowData.filter(row => !selectedRows.includes(row));
+    this.gridApi.setGridOption('rowData',this.rowData); 
+    this.toastService.success("Deleted Successfully");
+  }
+  
+ })       
+};
+DeselectRows() {
+  this.gridApi.deselectAll();
+}
+}
+
