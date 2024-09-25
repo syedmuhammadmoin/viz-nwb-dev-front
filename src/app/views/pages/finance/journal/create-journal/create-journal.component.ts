@@ -441,6 +441,13 @@ export class CreateJournalComponent extends AppComponentBase implements OnInit, 
     }
   }
 
+  checkType() {
+    this.showMessage = true;
+    if (this.form.value.type === '') {
+      this.toastService.info("Please Select Type First!", "Journal")
+    }
+  }
+
 
 
   ngOnDestroy() {
