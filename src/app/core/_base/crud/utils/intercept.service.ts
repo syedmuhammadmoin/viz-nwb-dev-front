@@ -2,11 +2,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 // RxJS
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { environment } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/views/pages/auth/service/authentication.service';
+import { isLoggedOut } from 'src/app/core/auth';
 
 /**
  * More information there => https://medium.com/@MetonymyQT/angular-http-interceptors-what-are-they-and-how-to-use-them-52e060321088
@@ -16,7 +18,7 @@ export class InterceptService implements HttpInterceptor {
 
   router: Router;
 
-  constructor(private toastService: ToastrService, injector: Injector, private route: Router) { }
+  constructor(private toastService: ToastrService,private authService : AuthenticationService,injector: Injector, private route: Router) { }
   // intercept request and add token
   intercept(
     request: HttpRequest<any>,
@@ -58,9 +60,16 @@ export class InterceptService implements HttpInterceptor {
             case 401:
               message = error?.error?.message ?? 'Unauhtorised access, Please login again.'
               title = 'Unauthorised'
+            lastValueFrom(  this.authService.signOut()).then(res => {
+              if(isLoggedOut){                
+                this.route.navigateByUrl('/auth/login')             
+              }else{              
+                  this.toastService.error('Something went wrong, we\'re\ working on it. We will notify you when it\'s\ done', 'Error')   ;             
+              }
+            })
               //window.location.href = '/login'
-              this.route.navigateByUrl('/auth/login')
               break;
+             
             case 403:
               message = error?.error?.message ?? 'You don\'\t have permission to access this resource'
               title = 'Forbidden'
