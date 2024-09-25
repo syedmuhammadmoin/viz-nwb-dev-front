@@ -221,6 +221,7 @@ onRowSelected(event: any) {
 DeleteRows(){
   const selectedRows = this.gridApi.getSelectedRows();
   const selectedIds = selectedRows.map(row => row.id);   
+  this.toastService.info("Deleting Records ,Please Wait!")
  lastValueFrom(this.journalService.deleteJournals(selectedIds)).then(res => {
   if(res){
     this.gridApi.deselectAll();
