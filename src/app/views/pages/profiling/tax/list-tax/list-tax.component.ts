@@ -10,6 +10,7 @@ import { TaxService } from '../service/tax.service';
 import { CreateTaxComponent } from '../create-tax/create-tax.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { firstValueFrom } from 'rxjs';
+import { TAX } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-tax',
@@ -29,8 +30,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
   // constructor
   constructor( 
-               private taxService: TaxService,
-               public dialog: MatDialog,
+               private taxService: TaxService,               
                private cdRef: ChangeDetectorRef,
                injector: Injector
              ) {
@@ -116,24 +116,31 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
-
+ CreateTax(){
+  console.log("Waleed ");
+  
+  this.router.navigate(['/' + TAX.CREATE]);
+ }
 // called when double clicked on record
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.openDialog(event.data.id)
+    this.router.navigate(
+      ['/' + TAX.ID_BASED_ROUTE('edit', event.data.id)], 
+      { queryParams: { q: event.data.id, istax: true } }
+    );
   }
 
 // open modal funtion
-  openDialog(id?: number): void {
-    const dialogRef = this.dialog.open(CreateTaxComponent, {
-      width: '800px',
-      data: id
-    });
-    //Get Updated Tax Data
-    dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setGridOption('datasource', this.dataSource);
-      this.cdRef.detectChanges();
-    });
-  }
+  // openDialog(id?: number): void {
+  //   const dialogRef = this.dialog.open(CreateTaxComponent, {
+  //     width: '800px',
+  //     data: id
+  //   });
+  //   //Get Updated Tax Data
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.gridApi.setGridOption('datasource', this.dataSource);
+  //     this.cdRef.detectChanges();
+  //   });
+  // }
 
   dataSource = {
     getRows: async (params: any) => {

@@ -6,6 +6,9 @@ import { SharedModule } from 'src/app/views/shared/modules/shared.module';
 import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { TaxRoutingModule } from './tax-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
+import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -15,9 +18,14 @@ import { AgGridModule } from 'ag-grid-angular';
   ],
   imports: [
     CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+    NgSelectComponent,
     SharedModule,
     PartialsModule,
     TaxRoutingModule,
+    NgSelectModule,
+    NgbNavModule,
     AgGridModule
   ]
 })

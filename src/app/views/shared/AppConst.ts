@@ -721,6 +721,20 @@ export class AppConst {
     {id: 1, type: 'Purchase'},
     {id: 2, type: 'None'},
   ]
+static taxBase = [
+  { id: 0, value: 'base' },
+  { id: 1, value: 'of tax' },
+]
+  static taxComputation = [
+    {id: 0, type: 'Fixed'},
+    {id: 1, type: 'Percentage'},
+    {id: 2, type: 'Percentage Tax Included'},
+  ]
+
+  static taxScope = [
+    {id: 0, type: 'Services'},
+    {id: 1, type: 'Goods'},
+  ]
 
   static PayrollType = [
     {value: 'Basic Pay'},

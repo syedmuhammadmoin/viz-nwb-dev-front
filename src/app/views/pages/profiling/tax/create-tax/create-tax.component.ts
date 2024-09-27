@@ -1,15 +1,17 @@
 import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
+import { ActivatedRoute, Params } from '@angular/router';
 import { ITax } from '../model/ITax';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { finalize, take } from "rxjs/operators";
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
-import { Permissions } from 'src/app/views/shared/AppEnum';
+import { Permissions, TaxComputation } from 'src/app/views/shared/AppEnum';
 import { TaxService } from '../service/tax.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
+import { lastValueFrom } from 'rxjs';
+import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service';
 
 
 @Component({
@@ -22,6 +24,9 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   //Loader
   isLoading: boolean
+  istax: boolean;
+  public selectedAccount: String;
+  otherAccountsList: any;
 
   // tax form declaration
   taxForm: FormGroup;
@@ -33,13 +38,17 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   taxDataByID: ITax | any;
 
   title: string = 'Create Tax'
+  taxComputation = AppConst.taxComputation
 
   permissions = Permissions
 
   //show Buttons
   // showButtons: boolean = true;
 
-  taxTypeList = AppConst.taxType
+
+  taxTypeList = AppConst.taxType;
+  taxComputationList = AppConst.taxComputation;
+  taxScopeList = AppConst.taxScope;
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -56,7 +65,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       required: 'Account is required.',
     }
   };
-
+  taxBaseList = AppConst.taxBase
   //error keys
   formErrors: any = {
     name: '',
@@ -69,31 +78,93 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     public ngxsService: NgxsCustomService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
+    private accountService: ChartOfAccountService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
-    public dialogRef: MatDialogRef<CreateTaxComponent>,
+    // public dialogRef: MatDialogRef<CreateTaxComponent>,
     injector: Injector
   ) {
     super(injector);
+  }
+  active = 1;
+
+  temp(): void { 
+    this.addInvoiceLine();
+    this.addRefundine();
   }
 
   ngOnInit() {
     this.taxForm = this.fb.group({
       name: ['', [Validators.required]],
       taxType: [{ value: 0 }, [Validators.required]],
-      accountId: ['', [Validators.required]]
+      accountId: ['', [Validators.required]],
+      taxComputation: [''],
+      taxInvoiceslines: this.fb.array([]),
+      taxRefundlines: this.fb.array([])
     });
 
-    if (this._id) {
-      //this.showButtons = (this.permission.isGranted(this.permissions.TAXES_EDIT)) ? true : false;
-      this.title = 'Edit tax'
-      this.isLoading = true
-      this.getTax(this._id);
-    }
+    this.route.queryParams.subscribe((param: Params) => {
+      const id = param.q;
+      this.istax = param.istax;
+      if (id && this.istax) {
+        this.title = 'Edit Tax'
+        this.getTax(id);
+      }
+    })
+
+    // if (this._id) {
+    //   //this.showButtons = (this.permission.isGranted(this.permissions.TAXES_EDIT)) ? true : false;
+    //   this.title = 'Edit tax'
+    //   this.isLoading = true
+    //   this.getTax(this._id);
+    // }
 
     //Get Data From Store
     this.ngxsService.getOtherAccountsFromState();
+    lastValueFrom(this.accountService.getOtherAccounts()).then(res => {
+      this.otherAccountsList = res.result
+      console.log(this.otherAccountsList);
+
+    })
+
+
+     this.addInvoiceLine();
+     this.addRefundine();
+  }
+  get taxInvoiceslines(): FormArray {
+    return this.taxForm.get('taxInvoiceslines') as FormArray;
+  }
+  get taxRefundlines(): FormArray {
+    return this.taxForm.get('taxRefundlines') as FormArray;
   }
 
+  addInvoiceLine(): void {
+    const detail = this.fb.group({
+      percent:[''],
+      taxBase: ['', Validators.required],
+      Level4_ID: [, [Validators.required, Validators.min(0)]]
+    })
+    console.log("Waleed add line");
+
+    this.taxInvoiceslines.push(detail)
+  }
+
+  addRefundine(): void {
+    const detail = this.fb.group({
+      percent:[''],
+      taxBase: ['', Validators.required],
+      refundAccountId: [, [Validators.required, Validators.min(0)]]
+    })
+    console.log("Waleed add line");
+
+    this.taxRefundlines.push(detail)
+  }
+
+  removeInvoiceDetail(index: number): void {
+    this.taxInvoiceslines.removeAt(index);
+  }
+  removeRefundDetail(index: number): void {
+    this.taxRefundlines.removeAt(index);
+  }
   // Getting tax values for update
   getTax(id: number) {
     this.taxService.getTax(id)
@@ -127,6 +198,8 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
 
   onSubmit() {
+    console.log(this.taxForm.value,"Tax Form");
+    
     if (this.taxForm.invalid) {
       return;
     }
@@ -171,6 +244,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.taxModel.accountId = this.taxForm.value.accountId;
     this.taxModel.name = this.taxForm.value.name;
     this.taxModel.taxType = this.taxForm.value.taxType;
+    this.taxModel.taxComputation = this.taxForm.value.taxComputation
   }
 
   reset() {
@@ -179,7 +253,18 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   // Dialogue close function
   onCloseDialog() {
-    this.dialogRef.close();
+    //this.dialogRef.close();
+  }
+  OnChange(event: any) {
+
+    console.log(event, "event", this.selectedAccount);
+
+  }
+
+  onNavChange(event) {
+    if (event.nextId === 1) {
+      this.cdRef.detectChanges();
+    }
   }
 }
 

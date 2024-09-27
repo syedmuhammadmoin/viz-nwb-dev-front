@@ -1,6 +1,6 @@
 <div class="row mb-4">
   <div class="col-md-12 text-end">
-    <button (click)="openDialog()" id="add_tax" *ngIf="(permission.isGranted(permissions.TAXES_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Category">Add Tax</button>
+    <button (click)="CreateTax()" id="add_tax" *ngIf="(permission.isGranted(permissions.TAXES_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Category">Add Tax</button>
   </div>
 </div>
 <div class="row">

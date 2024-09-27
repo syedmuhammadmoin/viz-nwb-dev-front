@@ -691,6 +691,12 @@ export enum TaxType {
   SRBTaxLiability
 }
 
+export enum TaxComputation{
+  Fixed,
+  Percentage,
+  PercentageTaxIncluded
+}
+
  export enum bankAccountType {
     Current,
     Saving

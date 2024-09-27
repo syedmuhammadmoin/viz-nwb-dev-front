@@ -546,7 +546,15 @@ export const WAREHOUSE = {
 }
 
 export const TAX = {
-  LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST
+  LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.TAX + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.TAX + '/edit/',
+
+    //OR
+    ID_BASED_ROUTE(route: string, id: number) {               
+      return APP_ROUTES.TAX + '/' + route + '/' + id
+    }
 }
 
 export const UNIT_OF_MEASUREMENT = {
