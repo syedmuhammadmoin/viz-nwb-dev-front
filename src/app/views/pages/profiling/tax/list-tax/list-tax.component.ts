@@ -9,7 +9,7 @@ import { ITax } from '../model/ITax';
 import { TaxService } from '../service/tax.service';
 import { CreateTaxComponent } from '../create-tax/create-tax.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { TAX } from 'src/app/views/shared/AppRoutes';
 
 @Component({
@@ -22,7 +22,11 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
   taxList : ITax[]
   gridOptions : GridOptions;
+  public rowData : any[] = [];
   defaultColDef : ColDef;
+  selectedRowCount : number;
+  deleteBtn : boolean;
+  domLayout: any;
   components: any;
   public permissions = Permissions
   gridApi: GridApi; 
@@ -40,6 +44,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
   //Defining Tax Columns
   columnDefs = [
+    { width: 20, checkboxSelection: true , headerCheckboxSelection: true },
     { 
       headerName: 'Name', 
       field: 'name', 
@@ -74,16 +79,17 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
 
   ngOnInit() { 
-   
+    this.domLayout = "autoHeight";
     this.gridOptions = {
-      cacheBlockSize: 20,
-      rowModelType: "infinite",
-      paginationPageSize: 10,
-      pagination: true,
-      rowHeight: 30,
-      headerHeight: 35,
-      paginationPageSizeSelector: false,
-      context: "double click to edit",
+      rowSelection: 'multiple',    
+      //rowModelType: "infinite",           
+      // rowHeight: 30,
+      // headerHeight: 35,      
+      context: "double click to view detail",
+      defaultColDef: {
+        editable: true,
+        filter: true, // Enable filtering
+      },
     };
 
     
@@ -91,7 +97,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
-      minWidth: 150,
+      minWidth: 20,
       filter: 'agSetColumnFilter',
       sortable: false,
       resizable: true,
@@ -111,6 +117,17 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
     if(!this.permission.isGranted(this.permissions.TAXES_EDIT)) {
       this.gridOptions.context = 'double click to view detail'
     }
+    this.loadGridData();
+  }
+
+  loadGridData(): void {   
+    lastValueFrom(this.taxService.getTaxes()).then(res => {
+      if(res){
+        this.rowData = res.result;
+      this.gridApi?.setGridOption('rowData', this.rowData)
+      this.cdRef.detectChanges();
+      }
+    })
   }
 // data rendering on first
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -148,9 +165,10 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       if(isEmpty(res.result)) {  
         this.gridApi.showNoRowsOverlay() 
       } else {
+        this.rowData = res.result;
         this.gridApi.hideOverlay();
       }
-      params.successCallback(res.result || 0, res.totalRecords);
+      params.successCallback(this.rowData || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'taxPageName');
       this.cdRef.detectChanges();
     },
@@ -164,6 +182,30 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
   async getTaxes(params: any): Promise<IPaginationResponse<ITax[]>> {
     const result = await firstValueFrom(this.taxService.getRecords(params));
     return result
+  }
+  onRowSelected(event: any) {
+    const selectedRows = event.api.getSelectedRows();
+    this.selectedRowCount = selectedRows.length;
+    this.deleteBtn = selectedRows.length > 0;
+  
+  }
+  
+  DeleteRows(){
+    const selectedRows = this.gridApi.getSelectedRows();
+    const selectedIds = selectedRows.map(row => row.id);   
+    this.toastService.info("Deleting Records ,Please Wait!")
+   lastValueFrom(this.taxService.deleteTaxes(selectedIds)).then(res => {
+    if(res){
+      this.gridApi.deselectAll();
+      this.rowData = this.rowData.filter(row => !selectedRows.includes(row));
+      this.gridApi.setGridOption('rowData',this.rowData); 
+      this.toastService.success("Deleted Successfully");
+    }
+    
+   })       
+  };
+  DeselectRows() {
+    this.gridApi.deselectAll();
   }
 }
 

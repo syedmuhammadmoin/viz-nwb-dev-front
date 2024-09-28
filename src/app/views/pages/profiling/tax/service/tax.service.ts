@@ -42,6 +42,12 @@ export class TaxService extends AppServiceBase {
     getRecords(params: any): Observable<any> {
         return this.httpClient.get(this.baseUrl, { params: this.getfilterParams(params , null)});
      }
+
+     deleteTaxes(id : string[]):Observable<any>{
+        return this.httpClient.delete(`${AppConst.remoteServiceBaseUrl + "tax"}`,{
+          body : id
+        })
+      }
 }
 
 

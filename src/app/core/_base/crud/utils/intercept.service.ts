@@ -58,6 +58,7 @@ export class InterceptService implements HttpInterceptor {
               }
               break;
             case 401:
+              localStorage.clear();
               message = error?.error?.message ?? 'Unauhtorised access, Please login again.'
               title = 'Unauthorised'
             lastValueFrom(  this.authService.signOut()).then(res => {

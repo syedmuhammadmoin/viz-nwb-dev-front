@@ -85,21 +85,24 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   ) {
     super(injector);
   }
-  active = 1;
-
-  temp(): void { 
-    this.addInvoiceLine();
-    this.addRefundine();
-  }
 
   ngOnInit() {
     this.taxForm = this.fb.group({
+      id:[],
       name: ['', [Validators.required]],
-      taxType: [{ value: 0 }, [Validators.required]],
-      accountId: ['', [Validators.required]],
+      taxType: [''],
+      accountId: [null],
       taxComputation: [''],
-      taxInvoiceslines: this.fb.array([]),
-      taxRefundlines: this.fb.array([])
+      amount: ['', [Validators.required]],
+      description: [''],
+      legalNotes: [''],
+      taxScope: [''],
+      taxInvoiceslines: this.fb.array([
+        
+      ]),
+      taxRefundlines: this.fb.array([
+       
+      ])
     });
 
     this.route.queryParams.subscribe((param: Params) => {
@@ -122,13 +125,13 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.ngxsService.getOtherAccountsFromState();
     lastValueFrom(this.accountService.getOtherAccounts()).then(res => {
       this.otherAccountsList = res.result
-      console.log(this.otherAccountsList);
+      //console.log(this.otherAccountsList);
 
     })
 
 
-     this.addInvoiceLine();
-     this.addRefundine();
+    this.addInvoiceLine();
+    this.addRefundine();
   }
   get taxInvoiceslines(): FormArray {
     return this.taxForm.get('taxInvoiceslines') as FormArray;
@@ -139,9 +142,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   addInvoiceLine(): void {
     const detail = this.fb.group({
-      percent:[''],
-      taxBase: ['', Validators.required],
-      Level4_ID: [, [Validators.required, Validators.min(0)]]
+      percent: [''],
+      taxBase: ['base', Validators.required],
+      accountId: [, [Validators.required, Validators.min(0)]],
+      
     })
     console.log("Waleed add line");
 
@@ -150,9 +154,9 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   addRefundine(): void {
     const detail = this.fb.group({
-      percent:[''],
-      taxBase: ['', Validators.required],
-      refundAccountId: [, [Validators.required, Validators.min(0)]]
+      percent: [''],
+      taxBase: ['base', Validators.required],
+      accountId: [, [Validators.required, Validators.min(0)]]
     })
     console.log("Waleed add line");
 
@@ -179,32 +183,79 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         (tax: IApiResponse<ITax>) => {
           this.editTax(tax.result);
           this.taxDataByID = tax.result;
+          this.taxModel = tax.result
+          console.log(this.taxModel,"Model");
+          
         }
       );
   }
 
   // Patching values to tax form
-  editTax(tax: ITax | any) {
+  editTax(tax: any) {    
     this.taxForm.patchValue({
+      id:tax.id,
       name: tax.name,
       taxType: tax.taxType,
       accountId: (tax.accountId === '00000000-0000-0000-0000-000000000000') ? null : tax.accountId,
-    });
-
-    // //if user have no permission to edit, so disable all fields
-    // if(!this.showButtons) {
-    //   this.taxForm.disable();
-    // }
+      taxComputation: tax.taxComputation,
+      amount: tax.amount,
+      description:tax.description,
+      legalNotes: tax.legalNotes,
+      taxScope: tax.taxScope,
+      });       
+    this.taxForm.setControl('taxInvoiceslines', this.PatchInvoiceslines(tax.taxInvoicesLines))
+    this.taxForm.setControl('taxRefundlines', this.PatchtaxRefundlines(tax.taxRefundLines)) 
   }
 
-  onSubmit() {
-    console.log(this.taxForm.value,"Tax Form");
+  PatchInvoiceslines(lines: any[]): FormArray {
+    console.log(lines,"inv lines");
+    const formArray = new FormArray([]);
+    lines.forEach((line: any) => {
+      formArray.push(this.fb.group({
+        percent: line.percent,
+        taxBase: [line.taxBase],
+        accountId: [line.accountId ],      
+      }))
+    })
+    return formArray
+  }
+  PatchtaxRefundlines(lines: any[]): FormArray {
+    console.log(lines,"fund lines");
     
+    const formArray = new FormArray([]);
+    lines.forEach((line: any) => {
+      formArray.push(this.fb.group({
+        percent: line.percent,
+        taxBase: [line.taxBase],
+        accountId: [line.accountId ],      
+      }))
+    })
+    return formArray
+  }
+  onSubmit() {
+    console.log(this.taxForm.value, "Tax Form");
+    const InvLines = this.taxForm.get('taxInvoiceslines') as FormArray;
+    const RefLines = this.taxForm.get('taxRefundlines') as FormArray;
+
+    const hasTypeBaseInInv = InvLines.controls.some(line => line.get('taxBase')?.value === 0);
+    const hasTypeBaseInRef = RefLines.controls.some(line => line.get('taxBase')?.value === 0);
+    if (InvLines.length !== RefLines.length) {
+      this.toastService.info("Invoice & Refund Lines Should be Equal");
+      return;
+    }
+    if (!hasTypeBaseInInv || !hasTypeBaseInRef) {
+      this.toastService.info("At Least One Record of base type is Required.");
+      return;
+    }
+    this.taxModel = this.taxForm.value;
+    console.log(this.taxModel, "Model");
+   
+
     if (this.taxForm.invalid) {
       return;
     }
     this.isLoading = true;
-    this.mapFormValueToTaxModel();
+    //this.mapFormValueToTaxModel();
     if (this.taxDataByID?.id) {
       this.taxService.updateTax(this.taxModel)
         .pipe(
@@ -215,6 +266,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
           })
         )
         .subscribe(() => {
+          this.router.navigateByUrl('tax/list');
           this.toastService.success('Updated Successfully', 'Tax')
           this.onCloseDialog();
         }
@@ -230,6 +282,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
           })
         )
         .subscribe(() => {
+          this.router.navigateByUrl('tax/list');
           this.toastService.success('Create Successfully', 'Tax')
           this.onCloseDialog();
         }
@@ -264,6 +317,18 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   onNavChange(event) {
     if (event.nextId === 1) {
       this.cdRef.detectChanges();
+    }
+  }
+
+  onTaxComputationChange(value: string): void {
+    if (value === 'fixed') {
+      this.taxForm.get('percent')?.setValue(''); // clear percent if fixed
+      this.taxForm.get('percent')?.disable(); // disable percent field
+      this.taxForm.get('amount')?.enable(); // enable amount field
+    } else {
+      this.taxForm.get('amount')?.setValue(''); // clear amount if percent or something else
+      this.taxForm.get('amount')?.disable(); // disable amount field
+      this.taxForm.get('percent')?.enable(); // enable percent field
     }
   }
 }
