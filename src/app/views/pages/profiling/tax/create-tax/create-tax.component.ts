@@ -25,6 +25,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   //Loader
   isLoading: boolean
   istax: boolean;
+  selectedType : string;
   public selectedAccount: String;
   otherAccountsList: any;
 
@@ -320,16 +321,12 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     }
   }
 
-  onTaxComputationChange(value: string): void {
-    if (value === 'fixed') {
-      this.taxForm.get('percent')?.setValue(''); // clear percent if fixed
-      this.taxForm.get('percent')?.disable(); // disable percent field
-      this.taxForm.get('amount')?.enable(); // enable amount field
-    } else {
-      this.taxForm.get('amount')?.setValue(''); // clear amount if percent or something else
-      this.taxForm.get('amount')?.disable(); // disable amount field
-      this.taxForm.get('percent')?.enable(); // enable percent field
-    }
+  onTypeChange(type: string) {
+    this.selectedType = type;
+    console.log(type,"type");
+    
+    // this.taxForm.controls.fixedAmount.reset();
+    // this.amountForm.controls.percentage.reset();
   }
 }
 

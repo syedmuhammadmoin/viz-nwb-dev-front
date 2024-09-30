@@ -75,7 +75,7 @@
                                     <label class="cus_lbl" >Tax Computation </label>
                                 </div>
                                 <div>
-                                    <select class="custom-select" formControlName="taxComputation">
+                                    <select class="custom-select" formControlName="taxComputation" (change)="onTypeChange($event.target.value)">
                                         <option *ngFor="let item of taxComputationList" [value]="item.id">
                                           {{ item.type }}
                                         </option>
@@ -113,9 +113,26 @@
                                 </div> -->
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label class="cus_lbl" for="name">Amount</label>
-                                <input class="cus_inp" type="text" formControlName="amount" name="tName" id="tName" placeholder="0.00">
+                                <!-- <label class="cus_lbl" for="name">Amount</label>
+                                <input class="cus_inp" type="text" formControlName="amount" name="tName" id="tName" placeholder="0.00"> -->
+                                <div *ngIf="selectedType == '0'">
+                                    <label class="cus_lbl" for="fixedAmount"> Amount:</label>
+                                    <input class="cus_inp" id="fixedAmount" formControlName="amount" type="number" />
+                                    <div *ngIf="taxForm.get('amount').invalid && (taxForm.get('amount').touched || taxForm.get('amount').dirty)">
+                                      <small *ngIf="taxForm.get('amount').errors?.required">Fixed amount is required.</small>
+                                      <small *ngIf="taxForm.get('amount').errors?.min">Amount must be greater than 0.</small>
+                                    </div>
+                                  </div>
                                 
+                                  <div *ngIf="selectedType !== '0'">
+                                    <label class="cus_lbl" for="percentage">Percentage:</label>
+                                    <input class="cus_inp" id="percentage" formControlName="amount" type="number" />
+                                    <!-- <div *ngIf="taxForm.get('percentage').invalid && (taxForm.get('percentage').touched || taxForm.get('percentage').dirty)">
+                                      <small *ngIf="taxForm.get('percentage').errors?.required">Percentage is required.</small>
+                                      <small *ngIf="taxForm.get('percentage').errors?.min">Percentage must be greater than 0.</small>
+                                      <small *ngIf="taxForm.get('percentage').errors?.max">Percentage cannot be more than 100.</small>
+                                    </div> -->
+                                  </div>
                                 <!-- <div class="form-group kt-form__group mb-0">
                                     <label class="col-form-label pt-0">Amount:</label>
                                     <kt-input-field id="tax_name" placeholder="Enter Amount"
@@ -158,7 +175,7 @@
                                     <ng-select [items]="taxBaseList" bindLabel="value"
                                      [virtualScroll]="true"
                                     formControlName="taxBase"
-                                    bindValue="id" appendTo="body" placeholder="Select city"
+                                    bindValue="id" appendTo="body"
                                     >
                                 </ng-select>
                                   </div>
@@ -168,7 +185,7 @@
                                     <ng-select [items]="otherAccountsList" bindLabel="name"
                                     [virtualScroll]="true"
                                     formControlName="accountId"
-                                    bindValue="id" appendTo="body" placeholder="Select city"
+                                    bindValue="id" appendTo="body"
                                     >
                                 </ng-select>
                                   </div>
