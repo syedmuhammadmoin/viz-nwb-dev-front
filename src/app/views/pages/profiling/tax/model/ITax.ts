@@ -10,6 +10,7 @@ export interface ITax {
     description:string;
     amount:string;
     taxComputation : TaxComputation;
+    ChildrenTaxes : ITax[];
     taxRefundlines : TaxInvoicesLines[];
     taxInvoicelines : TaxRefundLines[]
 }
@@ -17,6 +18,12 @@ export interface ITax {
 export interface TaxInvoicesLines{
     taxBase : number;
     accountId : string
+}
+export interface ChildrenList{
+    taxId:number;
+    name :string;
+    taxComputation: string;
+    amount : number;
 }
 export interface TaxRefundLines{
     taxBase : number;

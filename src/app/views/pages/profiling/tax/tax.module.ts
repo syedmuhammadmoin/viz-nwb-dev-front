@@ -9,12 +9,14 @@ import { AgGridModule } from 'ag-grid-angular';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectTaxListComponent } from './select-tax-list/select-tax-list.component';
 
 
 @NgModule({
   declarations: [
     ListTaxComponent, 
-    CreateTaxComponent
+    CreateTaxComponent,
+    SelectTaxListComponent
   ],
   imports: [
     CommonModule,

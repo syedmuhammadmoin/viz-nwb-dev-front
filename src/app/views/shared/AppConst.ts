@@ -726,9 +726,10 @@ static taxBase = [
   { id: 1, value: 'of tax' },
 ]
   static taxComputation = [
-    {id: 0, type: 'Fixed'},
-    {id: 1, type: 'Percentage'},
-    {id: 2, type: 'Percentage Tax Included'},
+    {id : 0 , type: 'Group of Taxes'},
+    {id: 1, type: 'Fixed'},
+    {id: 2, type: 'Percentage'},
+    {id: 3, type: 'Percentage Tax Included'},
   ]
 
   static taxScope = [

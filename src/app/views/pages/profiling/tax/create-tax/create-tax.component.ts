@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewC
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { ITax } from '../model/ITax';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { finalize, take } from "rxjs/operators";
 import { NgxsCustomService } from 'src/app/views/shared/services/ngxs-service/ngxs-custom.service';
@@ -12,6 +12,8 @@ import { TaxService } from '../service/tax.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { lastValueFrom } from 'rxjs';
 import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service';
+import { ListTaxComponent } from '../list-tax/list-tax.component';
+import { SelectTaxListComponent } from '../select-tax-list/select-tax-list.component';
 
 
 @Component({
@@ -25,15 +27,16 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   //Loader
   isLoading: boolean
   istax: boolean;
-  selectedType : string;
+  selectedType : string = '1';
   public selectedAccount: String;
   otherAccountsList: any;
 
   // tax form declaration
   taxForm: FormGroup;
+  ChildrenList :any[]=[];
 
   //tax model 
-  taxModel: ITax = {} as ITax;
+  taxModel: any = {} as any;
 
   //get tax data by id
   taxDataByID: ITax | any;
@@ -80,6 +83,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
     private accountService: ChartOfAccountService,
+    public dialog: MatDialog,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     // public dialogRef: MatDialogRef<CreateTaxComponent>,
     injector: Injector
@@ -98,12 +102,9 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       description: [''],
       legalNotes: [''],
       taxScope: [''],
-      taxInvoiceslines: this.fb.array([
-        
-      ]),
-      taxRefundlines: this.fb.array([
-       
-      ])
+      childrentaxes: this.fb.array([]),
+      taxInvoiceslines: this.fb.array([]),
+      taxRefundlines: this.fb.array([])
     });
 
     this.route.queryParams.subscribe((param: Params) => {
@@ -115,19 +116,11 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       }
     })
 
-    // if (this._id) {
-    //   //this.showButtons = (this.permission.isGranted(this.permissions.TAXES_EDIT)) ? true : false;
-    //   this.title = 'Edit tax'
-    //   this.isLoading = true
-    //   this.getTax(this._id);
-    // }
 
     //Get Data From Store
     this.ngxsService.getOtherAccountsFromState();
     lastValueFrom(this.accountService.getOtherAccounts()).then(res => {
-      this.otherAccountsList = res.result
-      //console.log(this.otherAccountsList);
-
+      this.otherAccountsList = res.result   
     })
 
 
@@ -148,8 +141,6 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       accountId: [, [Validators.required, Validators.min(0)]],
       
     })
-    console.log("Waleed add line");
-
     this.taxInvoiceslines.push(detail)
   }
 
@@ -159,8 +150,6 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       taxBase: ['base', Validators.required],
       accountId: [, [Validators.required, Validators.min(0)]]
     })
-    console.log("Waleed add line");
-
     this.taxRefundlines.push(detail)
   }
 
@@ -183,10 +172,8 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       .subscribe(
         (tax: IApiResponse<ITax>) => {
           this.editTax(tax.result);
-          this.taxDataByID = tax.result;
-          this.taxModel = tax.result
-          console.log(this.taxModel,"Model");
-          
+          this.taxDataByID = tax.result;        
+          this.taxModel = tax.result                
         }
       );
   }
@@ -206,6 +193,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       });       
     this.taxForm.setControl('taxInvoiceslines', this.PatchInvoiceslines(tax.taxInvoicesLines))
     this.taxForm.setControl('taxRefundlines', this.PatchtaxRefundlines(tax.taxRefundLines)) 
+    this.ChildrenList = tax.childrenTaxes
   }
 
   PatchInvoiceslines(lines: any[]): FormArray {
@@ -235,26 +223,34 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
   onSubmit() {
     console.log(this.taxForm.value, "Tax Form");
+      // if (this.taxForm.invalid) {
+      //   return;
+      // }
     const InvLines = this.taxForm.get('taxInvoiceslines') as FormArray;
     const RefLines = this.taxForm.get('taxRefundlines') as FormArray;
+    const taxComp = this.taxForm.get('taxComputation')
+    if(taxComp.value != 0){
+      const hasTypeBaseInInv = InvLines.controls.some(line => line.get('taxBase')?.value === 0);
+      const hasTypeBaseInRef = RefLines.controls.some(line => line.get('taxBase')?.value === 0);
+      if (InvLines.length !== RefLines.length) {
+        this.toastService.info("Invoice & Refund Lines Should be Equal");
+        return;
+      }
+      if (!hasTypeBaseInInv || !hasTypeBaseInRef) {
+        this.toastService.info("At Least One Record of base type is Required.");
+        return;
+      }
+    }    
 
-    const hasTypeBaseInInv = InvLines.controls.some(line => line.get('taxBase')?.value === 0);
-    const hasTypeBaseInRef = RefLines.controls.some(line => line.get('taxBase')?.value === 0);
-    if (InvLines.length !== RefLines.length) {
-      this.toastService.info("Invoice & Refund Lines Should be Equal");
-      return;
-    }
-    if (!hasTypeBaseInInv || !hasTypeBaseInRef) {
-      this.toastService.info("At Least One Record of base type is Required.");
-      return;
-    }
-    this.taxModel = this.taxForm.value;
-    console.log(this.taxModel, "Model");
-   
-
-    if (this.taxForm.invalid) {
-      return;
-    }
+ 
+    this.taxModel = this.taxForm.value;     
+    this.taxModel.ChildrenTaxes = this.ChildrenList.map(child => ({
+      taxId: child.id,
+      name: child.name,
+      taxComputation: child.taxComputation,
+      amount: child.amount 
+  }));
+  
     this.isLoading = true;
     //this.mapFormValueToTaxModel();
     if (this.taxDataByID?.id) {
@@ -310,9 +306,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     //this.dialogRef.close();
   }
   OnChange(event: any) {
-
     console.log(event, "event", this.selectedAccount);
-
   }
 
   onNavChange(event) {
@@ -322,11 +316,23 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
 
   onTypeChange(type: string) {
-    this.selectedType = type;
-    console.log(type,"type");
-    
-    // this.taxForm.controls.fixedAmount.reset();
-    // this.amountForm.controls.percentage.reset();
+    this.selectedType = type;   
+    this.cdRef.detectChanges();
+    console.log(this.selectedType,"type");
+        
+  }
+
+  OpenModal(){
+    const dialogRef = this.dialog.open(SelectTaxListComponent, {
+      width: '800px',
+      height : '500px',
+    }).afterClosed().subscribe(res => {
+       lastValueFrom(this.taxService.getTaxesByIds(res)).then(res => {
+        this.ChildrenList.push(res?.result)
+        this.cdRef.detectChanges(); 
+        this.onNavChange({ event: { nextId: 1 } });              
+     })           
+    });  
   }
 }
 

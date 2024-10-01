@@ -682,6 +682,10 @@ export enum BusinessPartnerType {
   ServiceProvider =7,
 }
 
+export enum ScopeList{
+  Services = 0,
+  Goods = 1
+}
 export enum TaxType {
   SalesTaxAsset,
   SalesTaxLiability,

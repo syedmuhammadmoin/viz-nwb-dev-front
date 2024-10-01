@@ -115,7 +115,7 @@
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <!-- <label class="cus_lbl" for="name">Amount</label>
                                 <input class="cus_inp" type="text" formControlName="amount" name="tName" id="tName" placeholder="0.00"> -->
-                                <div *ngIf="selectedType == '0'">
+                                <div *ngIf="selectedType == '1'">
                                     <label class="cus_lbl" for="fixedAmount"> Amount:</label>
                                     <input class="cus_inp" id="fixedAmount" formControlName="amount" type="number" />
                                     <div *ngIf="taxForm.get('amount').invalid && (taxForm.get('amount').touched || taxForm.get('amount').dirty)">
@@ -124,7 +124,7 @@
                                     </div>
                                   </div>
                                 
-                                  <div *ngIf="selectedType !== '0'">
+                                  <div *ngIf="selectedType !== '1'">
                                     <label class="cus_lbl" for="percentage">Percentage:</label>
                                     <input class="cus_inp" id="percentage" formControlName="amount" type="number" />
                                     <!-- <div *ngIf="taxForm.get('percentage').invalid && (taxForm.get('percentage').touched || taxForm.get('percentage').dirty)">
@@ -144,40 +144,61 @@
                                     <input id="percent" type="number" formControlName="percent" [disabled]="taxForm.get('percent').disabled" /> -->
                                 <!-- </div> -->
                             </div>
+                        
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>         
            
             <ul ngbNav #nav="ngbNav" class="nav-tabs"  (navChange)="onNavChange($event)">
                 <li [ngbNavItem]="1">
                   <a ngbNavLink>Definition</a>
-                  <ng-template ngbNavContent>
+                  <ng-template *ngIf="taxForm.get('taxComputation')?.value == '0'"  ngbNavContent>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <td>Tax Name</td>
+                                <td>Tax Computation</td>
+                                <td>Amount</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let line of ChildrenList">
+                                <td>{{line.name}} Waleed</td>
+                                <td>{{line.taxComputation}}</td>
+                                <td>{{line.amount}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <a (click)="OpenModal()">add Line</a>
+                  </ng-template>
+
+                  <ng-template *ngIf="taxForm.get('taxComputation')?.value !== '0'" ngbNavContent> 
                     <!-- Form for Invoice Lines -->
-                    <div formArrayName="taxInvoiceslines">
+                     <div formArrayName="taxInvoiceslines">
                         <h6 class="mt-1 text-sm">DISTRIBUTION FOR INVOICES</h6>
                         <mat-divider></mat-divider>
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <!-- <th scope="col" class="text-end">%</th> -->
-                                    <th scope="col">Based On</th>
+                                <tr> 
+                                     <th scope="col" class="text-end">%</th> 
+                                     <th scope="col">Based On</th>
                                     <th scope="col">Account</th>
                                 </tr>
                             </thead>
                     <tbody>
-                        <tr *ngFor="let line of taxInvoiceslines.controls; let i=index" [formGroupName]="i">   
-                                    <!-- <td>
+                        <tr *ngFor="let line of taxInvoiceslines.controls; let i=index" [formGroupName]="i">    
+                                     <td>
                                         <input type="text" formControlName="percent" class="form-control">
-                                    </td> -->
+                                    </td> 
                             <td>
                                 <div class="form-group">                                  
                                     <ng-select [items]="taxBaseList" bindLabel="value"
                                      [virtualScroll]="true"
                                     formControlName="taxBase"
                                     bindValue="id" appendTo="body"
-                                    >
-                                </ng-select>
+                                    > 
+                                 </ng-select>
                                   </div>
                             </td>
                             <td>
@@ -222,18 +243,18 @@
                         <mat-divider></mat-divider>
                         <table class="table">
                             <thead>
-                                <tr>
-                                    <!-- <th scope="col" class="text-end">%</th> -->
-                                    <th scope="col">Based On</th>
+                                <tr> 
+                                     <th scope="col" class="text-end">%</th>
+                                     <th scope="col">Based On</th>
                                     <th scope="col">Account</th>
                                 </tr>
                             </thead>
                     <tbody>
                         <tr *ngFor="let line of taxRefundlines.controls; let i=index" [formGroupName]="i">   
-                                    <!-- <td>
+                                    <td>
                                         <input type="text" formControlName="percent" class="form-control">
-                                    </td> -->
-                            <td>
+                                    </td>
+                             <td>
                                 <div class="form-group">                                  
                                     <ng-select [items]="taxBaseList" bindLabel="value"
                                     [virtualScroll]="true"
@@ -269,20 +290,11 @@
                     </tbody>
                     </table>
                     </div> 
-                  </ng-template>
+                  </ng-template> 
+                
                 </li>
             
-                <!-- <li [ngbNavItem]="2">
-                  <a ngbNavLink>Advanced Options</a>
-                  <ng-template ngbNavContent>
-                    Other Details form content here
-                    <div class="form-group">
-                      <label for="otherDetails">Other Details</label>
-                      <input formControlName="otherDetails" class="form-control" placeholder="Enter other details" />
-                    </div>
-                    <h2>No Options For Now!</h2>
-                  </ng-template>
-                </li> -->
+           
               </ul>
               <div [ngbNavOutlet]="nav"></div> 
               
@@ -309,3 +321,5 @@
         </div>
     </form>
     <div>
+
+     

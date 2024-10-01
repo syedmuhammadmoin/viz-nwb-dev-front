@@ -48,6 +48,10 @@ export class TaxService extends AppServiceBase {
           body : id
         })
       }
+
+      getTaxesByIds(ids: number[]): Observable<any> {
+        return this.httpClient.post(`${AppConst.remoteServiceBaseUrl + "tax/gettaxesbyids"}`, ids);
+    }
 }
 
 
