@@ -24,12 +24,6 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
     injector: Injector,
     public dialogRef: MatDialogRef<SelectTaxListComponent>
   ) {super(injector) }
-  // columnDefs: [
-  //   { width: 20, checkboxSelection: true, headerCheckboxSelection: true },
-  //   { field: "make" },
-  //   { field: "model" },
-  //   { field: "price" },
-  // ]
   columnDefs = [
     { width: 20, checkboxSelection: true , headerCheckboxSelection: true },
     { headerName: 'Name', field: 'name'},
@@ -40,22 +34,13 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
      },
     { headerName: 'Description', field: 'desciption' , flex: 3 }
   ];
-
-  // rowData = [
-  //   { make: 'Toyota', model: 'Celica', price: 35000 },
-  //   { make: 'Ford', model: 'Mondeo', price: 32000 },
-  //   { make: 'Porsche', model: 'Boxster', price: 72000 }
-  // ];
   ngOnInit(): void {
     this.gridOptions = {
-      rowSelection: 'multiple',    
-      //rowModelType: "infinite",           
-      // rowHeight: 30,
-      // headerHeight: 35,      
+      rowSelection: 'multiple',             
       context: "double click to view detail",
       defaultColDef: {
         editable: true,
-        filter: true, // Enable filtering
+        filter: true, 
       },
     }
     lastValueFrom(this.taxService.getTaxes()).then(res => {
@@ -66,20 +51,21 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
    
   }
   onRowSelected(event: any) {
-    const selectedRowId = event.node.data.id; // Assume 'id' is the identifier for your rows
+    const selectedRowId = event.node.data.id;
 
     if (event.node.isSelected()) {  
       this.selectedIds.push(selectedRowId);
     } else {
       this.selectedIds = this.selectedIds.filter(id => id !== selectedRowId);
     }
-
-    console.log(this.selectedIds);   
   }
 
   getList(){
-   console.log(this.selectedIds,"IDS")
    this.dialogRef.close(this.selectedIds);
-   
   }
+  closeDialog(): void {
+    this.selectedIds = []
+    this.dialogRef.close(this.selectedIds);
+  }
+
 }

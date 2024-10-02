@@ -328,9 +328,17 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       height : '500px',
     }).afterClosed().subscribe(res => {
        lastValueFrom(this.taxService.getTaxesByIds(res)).then(res => {
-        this.ChildrenList = res.result
-        this.cdRef.detectChanges(); 
-        this.onNavChange({ event: { nextId: 1 } });              
+        console.log(res);
+        
+        if(res != false){
+          console.log(res,"close res");
+          
+          this.ChildrenList = res.result
+          this.cdRef.detectChanges(); 
+          this.onNavChange({ event: { nextId: 1 } });    
+        }
+console.log(res,"clos");
+
      })           
     });  
   }
