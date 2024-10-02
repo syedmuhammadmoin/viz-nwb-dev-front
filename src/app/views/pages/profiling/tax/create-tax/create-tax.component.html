@@ -124,7 +124,7 @@
                                     </div>
                                   </div>
                                 
-                                  <div *ngIf="selectedType !== '1'">
+                                  <div *ngIf="selectedType !== '0' && selectedType !== '1'">
                                     <label class="cus_lbl" for="percentage">Percentage:</label>
                                     <input class="cus_inp" id="percentage" formControlName="amount" type="number" />
                                     <!-- <div *ngIf="taxForm.get('percentage').invalid && (taxForm.get('percentage').touched || taxForm.get('percentage').dirty)">
