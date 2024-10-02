@@ -18,7 +18,7 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
   gridOptions : GridOptions;
 
   rowData: any[] = []
-  selectedIds : number[] = []
+  selectedIds : number[] = [];
   constructor(
     private taxService: TaxService,
     injector: Injector,
@@ -66,13 +66,15 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
    
   }
   onRowSelected(event: any) {
-    this.selectedIds.push(event.data?.id)
-    // console.log(event.data);
-    // console.log(this.selectedIds,"Ids");
-    // lastValueFrom(this.taxService.getTaxesByIds(this.selectedIds)).then(res => {
-    //   console.log(res);      
-    //   this.dialogRef.close(res.result);
-    // })        
+    const selectedRowId = event.node.data.id; // Assume 'id' is the identifier for your rows
+
+    if (event.node.isSelected()) {  
+      this.selectedIds.push(selectedRowId);
+    } else {
+      this.selectedIds = this.selectedIds.filter(id => id !== selectedRowId);
+    }
+
+    console.log(this.selectedIds);   
   }
 
   getList(){

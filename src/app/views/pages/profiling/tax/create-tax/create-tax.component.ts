@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, Inject, Injector, OnInit, Optional, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, NgForm, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
-import { ITax } from '../model/ITax';
+import { ChildrenList, ITax } from '../model/ITax';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { finalize, take } from "rxjs/operators";
@@ -33,7 +33,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   // tax form declaration
   taxForm: FormGroup;
-  ChildrenList :any[]=[];
+  ChildrenList :ChildrenList[];
 
   //tax model 
   taxModel: any = {} as any;
@@ -98,7 +98,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       taxType: [''],
       accountId: [null],
       taxComputation: [''],
-      amount: ['', [Validators.required]],
+      amount: [''],
       description: [''],
       legalNotes: [''],
       taxScope: [''],
@@ -328,12 +328,34 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       height : '500px',
     }).afterClosed().subscribe(res => {
        lastValueFrom(this.taxService.getTaxesByIds(res)).then(res => {
-        this.ChildrenList.push(res?.result)
+        this.ChildrenList = res.result
         this.cdRef.detectChanges(); 
         this.onNavChange({ event: { nextId: 1 } });              
      })           
     });  
   }
+  removegrpLine(lineToRemove : any){
+    console.log(lineToRemove,"grp line");
+    this.ChildrenList = this.ChildrenList.filter(line => line !== lineToRemove);
+    console.log(this.ChildrenList,"new list");      
+  }
+
+
+
+  getTaxComputationDisplay(value: TaxComputation): string {
+    switch (value) {
+        case TaxComputation.GroupOfTaxes:
+            return 'Group of Taxes';
+        case TaxComputation.Fixed:
+            return 'Fixed';
+        case TaxComputation.Percentage:
+            return 'Percentage';
+        case TaxComputation.PercentageTaxIncluded:
+            return 'Percentage Tax Included';
+        default:
+            return 'Unknown';
+    }
+}
 }
 
 

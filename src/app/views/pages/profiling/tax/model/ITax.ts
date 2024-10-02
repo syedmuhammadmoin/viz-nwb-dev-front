@@ -20,9 +20,10 @@ export interface TaxInvoicesLines{
     accountId : string
 }
 export interface ChildrenList{
+    id : number;
     taxId:number;
     name :string;
-    taxComputation: string;
+    taxComputation: TaxComputation;
     amount : number;
 }
 export interface TaxRefundLines{

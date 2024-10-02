@@ -696,9 +696,10 @@ export enum TaxType {
 }
 
 export enum TaxComputation{
-  Fixed,
-  Percentage,
-  PercentageTaxIncluded
+  GroupOfTaxes = 0,
+  Fixed = 1,
+  Percentage = 2,
+  PercentageTaxIncluded = 3,
 }
 
  export enum bankAccountType {
