@@ -1,4 +1,4 @@
-<div class=" card w-75">
+<div>
 
     <form [formGroup]="taxForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right"
         #formDirective="ngForm">
@@ -70,7 +70,7 @@
                                     <label class="col-form-label pt-0">Amount:</label>
                                     <kt-input-field id="tax_name" placeholder="Enter Amount"
                                     formControlName="amount"
-                                        (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
+                                    (blurEvent)="onAmountBlur(taxForm.get('amount')?.value)"                                       
                                         >
                                     </kt-input-field> 
                                  </div>
@@ -78,7 +78,7 @@
                                     <label class="col-form-label pt-0">Percentage:</label>
                                     <kt-input-field id="tax_name" placeholder="Enter Percentage"
                                     formControlName="percent"
-                                        (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
+                                    (blurEvent)="onPercentageBlur(taxForm.get('percent')?.value)"
                                         >
                                     </kt-input-field> 
 

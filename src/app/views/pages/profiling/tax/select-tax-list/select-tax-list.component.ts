@@ -24,6 +24,8 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
     injector: Injector,
     public dialogRef: MatDialogRef<SelectTaxListComponent>
   ) {super(injector) }
+
+
   columnDefs = [
     { width: 20, checkboxSelection: true , headerCheckboxSelection: true },
     { headerName: 'Name', field: 'name'},
@@ -33,6 +35,8 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
       }
      },
     { headerName: 'Description', field: 'desciption' , flex: 3 }
+
+
   ];
   ngOnInit(): void {
     this.gridOptions = {
@@ -63,9 +67,9 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
   getList(){
    this.dialogRef.close(this.selectedIds);
   }
+
   closeDialog(): void {
     this.selectedIds = []
     this.dialogRef.close(this.selectedIds);
   }
-
 }

@@ -1,4 +1,4 @@
-import { TaxComputation, TaxType } from "src/app/views/shared/AppEnum";
+import { TaxComputation, TaxIncluded, TaxType } from "src/app/views/shared/AppEnum";
 
 export interface ITax {
     id: number;
@@ -8,7 +8,11 @@ export interface ITax {
     legalNotes:string;
     taxScope:string;
     description:string;
-    amount:string;
+    percent:string;
+    labelOninv :string; 
+    company : string;
+    includedPrice : TaxIncluded;
+    sabsequentTaxes:boolean;
     taxComputation : TaxComputation;
     ChildrenTaxes : ITax[];
     taxRefundlines : TaxInvoicesLines[];

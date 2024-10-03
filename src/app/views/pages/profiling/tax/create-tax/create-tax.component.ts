@@ -100,6 +100,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       taxComputation: [''],
       amount: [''],
       percent:[''],
+      labelOninv:[''],
+      company:[''],
+      includedPrice:[''],
+      sabsequentTaxes:[''],
       description: [''],
       legalNotes: [''],
       taxScope: [''],
@@ -189,6 +193,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       taxComputation: tax.taxComputation,
       amount: tax.amount,
       percent:tax.percent,
+      labelOninv: tax.labelOninv,
+      company:tax.company,
+      includedPrice : tax.includedPrice,
+      sabsequentTaxes : tax.sabsequentTaxes,
       description:tax.description,
       legalNotes: tax.legalNotes,
       taxScope: tax.taxScope,
@@ -288,6 +296,34 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         }
         );
 
+    }
+  }
+
+  onAmountBlur(value: string): void {
+    if (value) {  
+      let formattedValue = value.replace(/[^0-9.]/g, '');
+      const [integer, decimal] = formattedValue.split('.');
+      if (decimal && decimal.length > 2) {
+        formattedValue = `${integer}.${decimal.slice(0, 2)}`;
+      }
+      if (!formattedValue.includes('.')) {
+        formattedValue = `${formattedValue}.00`;
+      }
+      this.taxForm.get('amount')?.setValue(formattedValue, { emitEvent: false });
+    }
+  }
+
+  onPercentageBlur(value: string): void {
+    if (value) {  
+      let formattedValue = value.replace(/[^0-9.]/g, '');
+      const [integer, decimal] = formattedValue.split('.');
+      if (decimal && decimal.length > 2) {
+        formattedValue = `${integer}.${decimal.slice(0, 2)}`;
+      }
+      if (!formattedValue.includes('.')) {
+        formattedValue = `${formattedValue}.00`;
+      }
+      this.taxForm.get('percent')?.setValue(formattedValue, { emitEvent: false });
     }
   }
 

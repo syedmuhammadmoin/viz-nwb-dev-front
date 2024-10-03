@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog'
 import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions, TaxType } from 'src/app/views/shared/AppEnum';
+import { Permissions, TaxScope, TaxType } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
 import { ITax } from '../model/ITax';
 import { TaxService } from '../service/tax.service';
@@ -64,6 +64,16 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
         return TaxType[params.value]
+      }
+
+    },
+    { 
+      headerName: 'Tax Scope', 
+      field: 'taxScope', 
+      suppressHeaderMenuButton: true, 
+      tooltipField: 'name',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return TaxScope[params.value]
       }
 
     },

@@ -694,6 +694,15 @@ export enum TaxType {
   SRBTaxAsset,
   SRBTaxLiability
 }
+export enum TaxIncluded{
+  Default,
+  TaxIncluded,
+  TaxExcluded,
+}
+export enum TaxScope{
+  Services,
+  Goods
+}
 
 export enum TaxComputation{
   GroupOfTaxes = 0,
