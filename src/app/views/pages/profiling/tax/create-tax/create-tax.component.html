@@ -16,37 +16,21 @@
             <div class="kt-portlet__body">
                 <div class="kt-form__section kt-form__section--first">
                     <!-- first row starts -->
-                    <div class="col-md-8 col-lg-8 col-sm-12 ps-4 pe-4">
+                    <div class="col-md-12 col-lg-12 col-sm-12 ps-4 pe-4">
                         <div class="row mt-1 mb-0">
-                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                <label class="cus_lbl" for="name">Tax Name</label>
-                                <input class="cus_inp" type="text" formControlName="name" name="tName" id="tName" placeholder="Sales Tax">
-                                <div *ngIf="taxForm.get('name').invalid && taxForm.get('name').touched">
-                                    <small class="text-danger" *ngIf="taxForm.get('name').errors?.['required']">Tax Name is required.</small>                       
-                                  </div>
-                                <!-- <div class="form-group kt-form__group mb-0">
+                            <div class="col-lg-6 col-md-6 col-sm-6">                             
+                                <div class="form-group kt-form__group mb-0">
                                     <label class="col-form-label pt-0">Tax Name:</label>
                                     <kt-input-field id="tax_name" formControlName="name" placeholder="Enter Tax Name"
                                         (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
                                         [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
                                     </kt-input-field>
-                                </div> -->
+                                </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 d-flex">
-                                <div>
-
-                                    <label class="cus_lbl" >Tax Type </label>
-                                </div>
-                                <div>
-                                    <select class="custom-select" formControlName="taxType">
-                                        <option *ngFor="let item of taxTypeList" [value]="item.id">
-                                          {{ item.type }}
-                                        </option>
-                                      </select>
-                                </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">                           
                              
-                                <!-- <div class="form-group kt-form__group mb-0">
+                                <div class="form-group kt-form__group mb-0">
                                     <label class="col-form-label pt-0">Tax Type:</label>
                                     <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
                                         placeholder="Select Tax Type" formControlName="taxType"
@@ -54,95 +38,51 @@
                                         [errorMessage]="formErrors.taxType"
                                         (blurEvent)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">
                                     </kt-simple-dropdown>
-                                </div> -->
+                                </div>
                             </div>
+                   
 
-                            <!-- <div class="col-lg-4 col-md-4 col-sm-4">
+                            <div class="col-lg-6 col-md-6 col-sm-6">                    
                                 <div class="form-group kt-form__group mb-0">
-                                    <label class="col-form-label pt-0">Account:</label>
-                                    <kt-simple-dropdown id="tax_account" propertyValue="id" propertyName="name"
-                                        placeholder="Select Account" formControlName="accountId"
-                                        class="custom-select" [optionList]="ngxsService.otherAccounts$"
-                                        [errorMessage]="formErrors.accountId"
-                                        (blurEvent)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">
-                                    </kt-simple-dropdown>
-                                </div>
-                            </div> -->
-
-                            <div class="col-lg-6 col-md-6 col-sm-6 d-flex">
-                                <div>
-
-                                    <label class="cus_lbl" >Tax Computation </label>
-                                </div>
-                                <div>
-                                    <select class="custom-select" formControlName="taxComputation" (change)="onTypeChange($event.target.value)">
-                                        <option *ngFor="let item of taxComputationList" [value]="item.id">
-                                          {{ item.type }}
-                                        </option>
-                                      </select>
-                                </div>
-                                <!-- <div class="form-group kt-form__group mb-0">
                                     <label class="col-form-label pt-0">Tax Computation Type:</label>
                                     <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
-                                       
+                                       (selectionChange)="onTypeChange($event.value)"                                     
                                         placeholder="Select Tax Computation" formControlName="taxComputation"
                                         matFormFieldClass="full-width" [optionList]="taxComputationList">
                                     </kt-simple-dropdown>
-                                </div> -->
+                                </div>
                             </div>
 
-                            <div class="col-lg-6 col-md-6 col-sm-6 d-flex">
-
-                                <div>
-
-                                    <label class="cus_lbl" >Tax Scope </label>
-                                </div>
-                                <div>
-                                    <select class="custom-select" formControlName="taxScope">
-                                        <option *ngFor="let item of taxScopeList" [value]="item.id">
-                                          {{ item.type }}
-                                        </option>
-                                      </select>
-                                </div>
-                                <!-- <div class="form-group kt-form__group mb-0">
+                            <div class="col-lg-6 col-md-6 col-sm-6">                       
+                                <div class="form-group kt-form__group mb-0">
                                     <label class="col-form-label pt-0">Tax Scope:</label>
                                     <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
                                         placeholder="Select Tax Computation" formControlName="taxScope"
                                         matFormFieldClass="full-width" [optionList]="taxScopeList">
                                     </kt-simple-dropdown>
-                                </div> -->
+                                </div>
                             </div>
                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                <!-- <label class="cus_lbl" for="name">Amount</label>
-                                <input class="cus_inp" type="text" formControlName="amount" name="tName" id="tName" placeholder="0.00"> -->
-                                <div *ngIf="selectedType == '1'">
-                                    <label class="cus_lbl" for="fixedAmount"> Amount:</label>
-                                    <input class="cus_inp" id="fixedAmount" formControlName="amount" type="number" />
-                                    <div *ngIf="taxForm.get('amount').invalid && (taxForm.get('amount').touched || taxForm.get('amount').dirty)">
-                                      <small *ngIf="taxForm.get('amount').errors?.required">Fixed amount is required.</small>
-                                      <small *ngIf="taxForm.get('amount').errors?.min">Amount must be greater than 0.</small>
-                                    </div>
-                                  </div>
+                              
                                 
-                                  <div *ngIf="selectedType !== '0' && selectedType !== '1'">
-                                    <label class="cus_lbl" for="percentage">Percentage:</label>
-                                    <input class="cus_inp" id="percentage" formControlName="amount" type="number" />
-                                    <!-- <div *ngIf="taxForm.get('percentage').invalid && (taxForm.get('percentage').touched || taxForm.get('percentage').dirty)">
-                                      <small *ngIf="taxForm.get('percentage').errors?.required">Percentage is required.</small>
-                                      <small *ngIf="taxForm.get('percentage').errors?.min">Percentage must be greater than 0.</small>
-                                      <small *ngIf="taxForm.get('percentage').errors?.max">Percentage cannot be more than 100.</small>
-                                    </div> -->
-                                  </div>
-                                <!-- <div class="form-group kt-form__group mb-0">
+                               
+                                <div class="form-group kt-form__group mb-0" *ngIf="selectedType == '1'">
                                     <label class="col-form-label pt-0">Amount:</label>
                                     <kt-input-field id="tax_name" placeholder="Enter Amount"
                                     formControlName="amount"
                                         (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
                                         >
-                                    </kt-input-field> -->
-                                    <!-- <input id="amount" type="number" formControlName="amount" [disabled]="taxForm.get('amount').disabled" />
-                                    <input id="percent" type="number" formControlName="percent" [disabled]="taxForm.get('percent').disabled" /> -->
-                                <!-- </div> -->
+                                    </kt-input-field> 
+                                 </div>
+                                 <div class="form-group kt-form__group mb-0" *ngIf="+selectedType !== 0 && +selectedType !== 1">
+                                    <label class="col-form-label pt-0">Percentage:</label>
+                                    <kt-input-field id="tax_name" placeholder="Enter Percentage"
+                                    formControlName="percent"
+                                        (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
+                                        >
+                                    </kt-input-field> 
+
+                                 </div>
                             </div>
                         
                         </div>
@@ -185,16 +125,16 @@
                         <table class="table">
                             <thead>
                                 <tr> 
-                                     <th scope="col" class="text-end">%</th> 
+                                     <!-- <th scope="col" class="text-end">%</th>  -->
                                      <th scope="col">Based On</th>
                                     <th scope="col">Account</th>
                                 </tr>
                             </thead>
                     <tbody>
                         <tr *ngFor="let line of taxInvoiceslines.controls; let i=index" [formGroupName]="i">    
-                                     <td>
+                                     <!-- <td>
                                         <input type="text" formControlName="percent" class="form-control">
-                                    </td> 
+                                    </td>  -->
                             <td>
                                 <div class="form-group">                                  
                                     <ng-select [items]="taxBaseList" bindLabel="value"
@@ -248,16 +188,16 @@
                         <table class="table">
                             <thead>
                                 <tr> 
-                                     <th scope="col" class="text-end">%</th>
+                                     <!-- <th scope="col" class="text-end">%</th> -->
                                      <th scope="col">Based On</th>
                                     <th scope="col">Account</th>
                                 </tr>
                             </thead>
                     <tbody>
                         <tr *ngFor="let line of taxRefundlines.controls; let i=index" [formGroupName]="i">   
-                                    <td>
+                                    <!-- <td>
                                         <input type="text" formControlName="percent" class="form-control">
-                                    </td>
+                                    </td> -->
                              <td>
                                 <div class="form-group">                                  
                                     <ng-select [items]="taxBaseList" bindLabel="value"

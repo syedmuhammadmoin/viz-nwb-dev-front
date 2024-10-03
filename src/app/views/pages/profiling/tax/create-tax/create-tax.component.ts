@@ -99,6 +99,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       accountId: [null],
       taxComputation: [''],
       amount: [''],
+      percent:[''],
       description: [''],
       legalNotes: [''],
       taxScope: [''],
@@ -187,6 +188,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       accountId: (tax.accountId === '00000000-0000-0000-0000-000000000000') ? null : tax.accountId,
       taxComputation: tax.taxComputation,
       amount: tax.amount,
+      percent:tax.percent,
       description:tax.description,
       legalNotes: tax.legalNotes,
       taxScope: tax.taxScope,
@@ -196,8 +198,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.ChildrenList = tax.childrenTaxes
   }
 
-  PatchInvoiceslines(lines: any[]): FormArray {
-    console.log(lines,"inv lines");
+  PatchInvoiceslines(lines: any[]): FormArray {  
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
@@ -208,9 +209,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     })
     return formArray
   }
-  PatchtaxRefundlines(lines: any[]): FormArray {
-    console.log(lines,"fund lines");
-    
+  PatchtaxRefundlines(lines: any[]): FormArray { 
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
@@ -241,16 +240,19 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         return;
       }
     }    
-
  
-    this.taxModel = this.taxForm.value;     
-    this.taxModel.ChildrenTaxes = this.ChildrenList.map(child => ({
-      taxId: child.id,
-      name: child.name,
-      taxComputation: child.taxComputation,
-      amount: child.amount 
-  }));
-  
+    if(this.ChildrenList != undefined || this.ChildrenList != null){
+      this.taxModel = this.taxForm.value;     
+      this.taxModel.ChildrenTaxes = this.ChildrenList.map(child => ({
+        taxId: child.id,
+        name: child.name,
+        taxComputation: child.taxComputation,
+        amount: child.amount 
+    }));
+    }
+ 
+
+    this.taxModel = this.taxForm.value;  
     this.isLoading = true;
     //this.mapFormValueToTaxModel();
     if (this.taxDataByID?.id) {
