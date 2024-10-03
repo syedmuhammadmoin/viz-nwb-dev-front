@@ -239,6 +239,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         this.toastService.info("At Least One Record of base type is Required.");
         return;
       }
+      this.taxModel = this.taxForm.value;  
     }    
  
     if(this.ChildrenList != undefined || this.ChildrenList != null){
@@ -252,7 +253,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     }
  
 
-    this.taxModel = this.taxForm.value;  
+    
     this.isLoading = true;
     //this.mapFormValueToTaxModel();
     if (this.taxDataByID?.id) {
