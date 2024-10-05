@@ -9,6 +9,7 @@ export const APP_ROUTES = {
 
   //ACCESS MANAGEMENT
   ACCESS_MANAGEMENT: 'access-management',
+  TAX_GROUP : 'tax-group',
 
   //FINANCE
   BANK_ACCOUNT: 'bank-account',

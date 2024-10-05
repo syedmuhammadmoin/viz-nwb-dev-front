@@ -251,6 +251,13 @@ export class Permissions {
    static TAXES_EDIT = 'Permissions.TaxesClaims.ED';
    static TAXES_DELETE = 'Permissions.TaxesClaims.DL';
 
+   static TAXES_GROUP_VIEW = 'Permissions.TaxGroupClaims.VW';
+   static TAXES_GROUP_CREATE = 'Permissions.TaxGroupClaims.CR';
+   static TAXES_GROUP_EDIT = 'Permissions.TaxGroupClaims.ED';
+   static TAXES_GROUP_DELETE = 'Permissions.TaxGroupClaims.DL';
+
+
+
 
 
   // Campus

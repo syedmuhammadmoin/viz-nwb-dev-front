@@ -698,6 +698,15 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+
+      {
+        path: APP_ROUTES.TAX_GROUP, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/profiling/tax-group/tax-group.module').then(
+            (m) => m.TaxGroupModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       // Lazy Load DISPOSAL Module
       {
         path: APP_ROUTES.DISPOSAL, // <= Page URL

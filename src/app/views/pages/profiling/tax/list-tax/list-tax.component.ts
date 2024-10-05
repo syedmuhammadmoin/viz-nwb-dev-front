@@ -52,6 +52,20 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
       menuTabs: ['filterMenuTab'],
+      flex: 2,
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
+     { 
+      headerName: 'Description', 
+      field: 'description', 
+      tooltipField: 'description',
+      //cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      flex : 3,
+      menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
           suppressAndOrCondition: true,
@@ -62,14 +76,17 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       field: 'taxType', 
       suppressHeaderMenuButton: true, 
       tooltipField: 'name',
+      flex: 2,
       valueFormatter: (params : ValueFormatterParams) => {
         return TaxType[params.value]
       }
 
     },
+  
     { 
       headerName: 'Tax Scope', 
       field: 'taxScope', 
+      flex : 2,
       suppressHeaderMenuButton: true, 
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
@@ -77,8 +94,35 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       }
 
     },
+    { 
+      headerName: 'Label On Invoices', 
+      field: 'labelOnInv', 
+      tooltipField: 'labelOninv',
+      flex : 3,
+     // cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
+    { 
+      headerName: 'Company', 
+      field: 'company', 
+      tooltipField: 'company',
+      flex: 3,
+      //cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
     { headerName: 'Account', 
       field: 'accountName', 
+      flex: 3,
       suppressHeaderMenuButton: true, 
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {

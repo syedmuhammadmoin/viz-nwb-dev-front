@@ -13,6 +13,7 @@ export interface ITax {
     company : string;
     includedPrice : TaxIncluded;
     sabsequentTaxes:boolean;
+    groupId : string;
     taxComputation : TaxComputation;
     ChildrenTaxes : ITax[];
     taxRefundlines : TaxInvoicesLines[];

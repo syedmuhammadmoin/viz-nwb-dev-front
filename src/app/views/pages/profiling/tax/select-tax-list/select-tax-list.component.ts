@@ -34,7 +34,7 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
         return ScopeList[params.value]
       }
      },
-    { headerName: 'Description', field: 'desciption' , flex: 3 }
+    { headerName: 'Description', field: 'description' , flex: 3 }
 
 
   ];

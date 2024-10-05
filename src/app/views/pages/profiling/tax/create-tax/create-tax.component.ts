@@ -14,6 +14,10 @@ import { lastValueFrom } from 'rxjs';
 import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service';
 import { ListTaxComponent } from '../list-tax/list-tax.component';
 import { SelectTaxListComponent } from '../select-tax-list/select-tax-list.component';
+import { ListTaxGroupComponent } from '../../tax-group/list-tax-group/list-tax-group.component';
+import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
+import { TaxGroupService } from '../../tax-group/service/tax-group.service';
+import { ITaxGroupModel } from '../../tax-group/model/ITaxGroupModel';
 
 
 @Component({
@@ -53,6 +57,9 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   taxTypeList = AppConst.taxType;
   taxComputationList = AppConst.taxComputation;
   taxScopeList = AppConst.taxScope;
+  taxGroupList = AppConst.taxGroup
+  taxInculsion = AppConst.taxInculsion
+  TaxGrpList : ITaxGroupModel[];
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -82,8 +89,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     public ngxsService: NgxsCustomService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
+    public taxGrpService : TaxGroupService,
     private accountService: ChartOfAccountService,
     public dialog: MatDialog,
+    public addButtonService: AddModalButtonService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
     // public dialogRef: MatDialogRef<CreateTaxComponent>,
     injector: Injector
@@ -102,8 +111,9 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       percent:[''],
       labelOninv:[''],
       company:[''],
+      groupId :[''],
       includedPrice:[''],
-      sabsequentTaxes:[''],
+      sabsequentTaxes:[false],
       description: [''],
       legalNotes: [''],
       taxScope: [''],
@@ -124,13 +134,21 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
     //Get Data From Store
     this.ngxsService.getOtherAccountsFromState();
+     this.ngxsService.getBusinessPartnerFromState();
+     this.ngxsService.getAllBusinessPartnerFromState();
+     this.ngxsService.getEmployeePaymentsFromState();
     lastValueFrom(this.accountService.getOtherAccounts()).then(res => {
       this.otherAccountsList = res.result   
     })
 
-
+    this.getTaxGroup();
     this.addInvoiceLine();
     this.addRefundine();
+  }
+  getTaxGroup(){
+    lastValueFrom(this.taxGrpService.getAll()).then(res => {
+      this.TaxGrpList = res.result      
+    })
   }
   get taxInvoiceslines(): FormArray {
     return this.taxForm.get('taxInvoiceslines') as FormArray;
@@ -193,13 +211,14 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       taxComputation: tax.taxComputation,
       amount: tax.amount,
       percent:tax.percent,
-      labelOninv: tax.labelOninv,
+      labelOninv: tax.labelOnInv,
       company:tax.company,
       includedPrice : tax.includedPrice,
       sabsequentTaxes : tax.sabsequentTaxes,
       description:tax.description,
       legalNotes: tax.legalNotes,
       taxScope: tax.taxScope,
+      groupId:tax.groupId
       });       
     this.taxForm.setControl('taxInvoiceslines', this.PatchInvoiceslines(tax.taxInvoicesLines))
     this.taxForm.setControl('taxRefundlines', this.PatchtaxRefundlines(tax.taxRefundLines)) 
@@ -230,9 +249,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
   onSubmit() {
     console.log(this.taxForm.value, "Tax Form");
-      // if (this.taxForm.invalid) {
-      //   return;
-      // }
+      if (this.taxForm.invalid) {
+        this.taxForm.markAsUntouched();
+        return;
+      }
     const InvLines = this.taxForm.get('taxInvoiceslines') as FormArray;
     const RefLines = this.taxForm.get('taxRefundlines') as FormArray;
     const taxComp = this.taxForm.get('taxComputation')
@@ -402,6 +422,10 @@ console.log(res,"clos");
         default:
             return 'Unknown';
     }
+}
+
+openTaxGroupListDialog(){
+  this.addButtonService.openTaxGroupListDialog();
 }
 }
 

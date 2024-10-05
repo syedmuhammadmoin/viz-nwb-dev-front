@@ -227,6 +227,11 @@ export class AppConst {
     'Profiling.Taxes.ED': 'Tax Update',
     'Profiling.Taxes.DL': 'Tax Delete',
 
+    'Profiling.TaxGroup.VW': 'Tax Group View',
+    'Profiling.TaxGroup.CR': 'Tax Group Create',
+    'Profiling.TaxGroup.ED': 'Tax Group Update',
+    'Profiling.TaxGroup.DL': 'Tax Group Delete',
+
     // Unit Of Measurement
     'Profiling.UnitOfMeasurement.VW': 'Unit Of Measurement View',
     'Profiling.UnitOfMeasurement.CR': 'Unit Of Measurement Create',
@@ -592,6 +597,7 @@ export class AppConst {
     'Admission.AdmissionCriteria.VW': 'Admission Criteria View',
     'Admission.AdmissionCriteria.ED': 'Admission Criteria Edit',
     'Admission.AdmissionCriteria.DL': 'Admission Criteria Delete',
+    
 
 
     'Dashboard.ProfitLossSummary.VW': 'Dashboard Profit Loss Summary View',
@@ -735,6 +741,14 @@ static taxBase = [
   static taxScope = [
     {id: 0, type: 'Services'},
     {id: 1, type: 'Goods'},
+  ]
+  static taxInculsion = [
+    {id : 0 , type : 'Default'},
+    {id : 1 , type : 'Tax Included'},
+    {id : 2 , type : 'Tax Excluded'}
+  ]
+  static taxGroup = [
+    {id : 0 , type : '15%'},
   ]
 
   static PayrollType = [

@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-12 d-flex">
-    <button (click)="CreateTax()" id="add_tax" *ngIf="(permission.isGranted(permissions.TAXES_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Category">Add Tax</button>
+    <button (click)="CreateTax()" id="add_tax" *ngIf="(permission.isGranted(permissions.TAXES_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Tax">Add Tax</button>
     <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Selected Rows"
     *ngIf="deleteBtn"> {{selectedRowCount}} selected
     <span (click)="DeselectRows()" class="dialog-cross"><i class="fa fa-times text-end text-light"

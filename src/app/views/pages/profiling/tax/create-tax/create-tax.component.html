@@ -5,8 +5,9 @@
         <div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
             <div class="kt-portlet__head">
                 <div class="kt-portlet__head-caption">
-                    <div class="kt-portlet__head-title">
-                        <h3 class="kt-portlet__head-text modal-header"> {{title}}
+                    <div class="kt-portlet__head-title">                   
+                        <h3 class="kt-portlet__head-text modal-header">                     
+                            <a routerLink="/tax/list" matTooltip="Back to List" style="color: #2988bc;">Taxes</a>                          
                         </h3>
                     </div>
                 </div>
@@ -237,8 +238,67 @@
                   </ng-template> 
                 
                 </li>
-            
-           
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink>Advanced Options</a>
+                    <ng-template ngbNavContent>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group kt-form__group mb-0" *ngIf="taxForm.get('taxComputation')?.value != '0'" >
+                                    <label class="col-form-label pt-0">Label On Invoices:</label>
+                                    <kt-input-field id="tax_lbl" formControlName="labelOninv" placeholder="Enter Label">
+                                    </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Description:</label>
+                                    <kt-input-field id="tax_des" formControlName="description" placeholder="Enter Description">
+                                    </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Tax Group:</label>
+                                    <kt-simple-dropdown
+                                    id="payment_partner"                                     
+                                    [optionList]="TaxGrpList"
+                                    [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                                    clickEventButtonName="Select Group"
+                                    (clickEvent)="addButtonService.openTaxGroupListDialog()" 
+                                    formControlName="groupId"
+                                  
+                                    matFormFieldClass="full-width"
+                                    placeholder="Select Group" 
+                                    propertyName="name"
+                                    propertyValue="id">
+                                  </kt-simple-dropdown>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Company:</label>
+                                    <kt-input-field id="tax_com" formControlName="company" placeholder="Enter Company">
+                                    </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Legal Notes:</label>
+                                    <kt-input-field id="tax_notes" formControlName="legalNotes" placeholder="Enter Legal Notes">
+                                    </kt-input-field>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group kt-form__group mb-0" *ngIf="taxForm.get('taxComputation')?.value != '0'" >
+                                    <label class="col-form-label pt-0">Included In Price:</label>
+                                    <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
+                                        placeholder="Select Tax Price" formControlName="includedPrice"
+                                         [optionList]="taxInculsion">
+                                    </kt-simple-dropdown>
+                                </div>
+
+                                <div class="form-group kt-form__group mb-0" *ngIf="taxForm.get('taxComputation')?.value != '0'" >
+                                    <label class="col-form-label pt-0">
+                                        Affect Base of Subsequent Taxes:                                                                           
+                                      </label>
+                                      <input type="checkbox" formControlName="sabsequentTaxes" />
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
               </ul>
               <div [ngbNavOutlet]="nav"></div> 
               
