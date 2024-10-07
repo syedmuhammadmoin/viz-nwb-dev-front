@@ -1,0 +1,41 @@
+<div class="row">
+    <div class="col-md-12 d-flex">
+      <button (click)="CreateCurrency()" id="add_tax" *ngIf="(permission.isGranted(permissions.CURRENCY_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Category">Add Currency</button>
+      <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Selected Rows"
+      *ngIf="deleteBtn"> {{selectedRowCount}} selected
+      <span (click)="DeselectRows()" class="dialog-cross"><i class="fa fa-times text-end text-light"
+          style="font-size: 14px;margin-left: 10px;"></i></span> </button>
+    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Delete Rows"
+      *ngIf="deleteBtn" (click)="DeleteRows()">Delete Rows</button> 
+    <h4 class="p-2">Currency</h4>
+    </div>
+  </div>
+  <div class="row">
+      <div class="col-md-12 p-0">
+        <kt-portlet >     
+          <kt-portlet-body>
+              <div class="col-lg-12 col-md-12">
+                <ag-grid-angular
+                  style="width: 100%; height: auto;"
+                  class="ag-theme-alpine"
+                  [components]="components"
+                  [columnDefs]="columnDefs"
+                  (rowDoubleClicked)="onRowDoubleClicked($event)"
+                  (firstDataRendered)="onFirstDataRendered($event)"              
+                  [gridOptions]="gridOptions"
+                  [defaultColDef]="defaultColDef"
+                  [overlayNoRowsTemplate]="overlayNoRowsTemplate"
+                  [tooltipShowDelay]="5"
+                  (gridReady)="onGridReady($event)"
+                  [rowData]="rowData"
+                  [domLayout]="domLayout"
+                      rowSelection="multiple"
+                      (rowSelected)="onRowSelected($event)"
+                      [suppressRowClickSelection]="true">
+                </ag-grid-angular>
+              </div>
+          </kt-portlet-body>
+        </kt-portlet>
+      </div>
+    </div>
+  

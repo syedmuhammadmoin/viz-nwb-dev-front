@@ -63,7 +63,7 @@ export class InterceptService implements HttpInterceptor {
               title = 'Unauthorised'
             lastValueFrom(  this.authService.signOut()).then(res => {
               console.log('lastValueFrom>then');
-              if(isLoggedOut){                
+              if(res){                
                 this.route.navigateByUrl('/auth/login')             
               }else{              
                   this.toastService.error('Something went wrong, we\'re\ working on it. We will notify you when it\'s\ done', 'Error')   ;             
