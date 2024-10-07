@@ -41,6 +41,7 @@ export class ListTaxGroupComponent extends AppComponentBase implements OnInit{
     this.gridOptions = {     
       onRowClicked :  this.onRowClicked.bind(this),            
       context: "double click to view detail",
+      //pagination:true,
       defaultColDef: {
         editable: false,
         filter: true, 
@@ -58,11 +59,10 @@ export class ListTaxGroupComponent extends AppComponentBase implements OnInit{
     })
   }
   closeDialog(){
-
+this.dialogRef.close();
   }
-
   onRowClicked(event:any):any{
-console.log(event.data,"ev");
+this.dialogRef.close(event.data.id)
 
   }
 }

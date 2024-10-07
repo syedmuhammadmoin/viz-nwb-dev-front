@@ -49,14 +49,14 @@ export class CreateTaxGroupComponent extends AppComponentBase implements OnInit 
   ngOnInit() {
   this.form = this.fb.group({
     id:[0],
-    name:['',[Validators.required]],
-    countryId : [''],
-    company : [''],
-    sequence : [''],
-    payableAccountid : ['']  ,
-    receivableAccountid : [''],
-    advanceAccountid : [''],
-    preceedingTtl : ['']
+    name:[null,[Validators.required]],
+    countryId : [1],
+    company : ['Demo Company'],
+    sequence : [10],
+    payableAccountid : [null]  ,
+    receivableAccountid : [null],
+    advanceAccountid : [null],
+    preceedingTtl : [null]
   })
 
 

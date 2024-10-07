@@ -41,7 +41,7 @@
                             </div>
                             <div class="form-group kt-form__group mb-0 pt-2 pb-0">
                                 <label class="col-form-label pt-0">Sequence:</label>
-                                <kt-input-field formControlName="sequence" id="Course_name" placeholder="Enter Company">
+                                <kt-input-field formControlName="sequence" id="Course_name" placeholder="0.0000">
                                 </kt-input-field>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                                 <kt-simple-dropdown id="taxGrp_country" formControlName="payableAccountid"
                                     matFormFieldClass="full-width" propertyName="name" propertyValue="id"
                                     [optionList]="ngxsService.otherAccounts$" clickEventButtonName="Add New Country"
-                                    (clickEvent)="CreateCountyModal()" placeholder="Select Country">
+                                    (clickEvent)="CreateCountyModal()" placeholder="Select Payable Account">
                                 </kt-simple-dropdown>
                             </div>
                             <div class="form-group kt-form__group mb-0 pt-2 pb-0">
@@ -60,7 +60,7 @@
                                 <kt-simple-dropdown id="taxGrp_country" formControlName="receivableAccountid"
                                     matFormFieldClass="full-width" propertyName="name" propertyValue="id"
                                     [optionList]="this.ngxsService.otherAccounts$" clickEventButtonName="Add New Country"
-                                    (clickEvent)="CreateCountyModal()" placeholder="Select Country">
+                                    (clickEvent)="CreateCountyModal()" placeholder="Select Receivable Account">
                                 </kt-simple-dropdown>
                             </div>
                             <div class="form-group kt-form__group mb-0 pt-2 pb-0">
@@ -68,14 +68,14 @@
                                 <kt-simple-dropdown id="taxGrp_country" formControlName="advanceAccountid"
                                     matFormFieldClass="full-width" propertyName="name" propertyValue="id"
                                     [optionList]="ngxsService.otherAccounts$" clickEventButtonName="Add New Country"
-                                    (clickEvent)="CreateCountyModal()" placeholder="Select Country"
+                                    (clickEvent)="CreateCountyModal()" placeholder="Select Advance Account"
                                    >
                                 </kt-simple-dropdown>
                             </div>
 
                             <div class="form-group kt-form__group mb-0 pt-2 pb-0">
                                 <label class="col-form-label pt-0">Preceding Subtotal:</label>
-                                <kt-input-field formControlName="preceedingTtl" id="Course_name" placeholder="Enter Preceding Sub Total">
+                                <kt-input-field formControlName="preceedingTtl" id="Course_name" placeholder="0.0000">
                                 </kt-input-field>
                             </div>
                         </div>

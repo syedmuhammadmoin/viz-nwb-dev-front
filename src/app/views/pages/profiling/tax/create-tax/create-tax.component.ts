@@ -31,16 +31,17 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   //Loader
   isLoading: boolean
   istax: boolean;
-  selectedType : string = '1';
+  selectedType: string = '1';
   public selectedAccount: String;
   otherAccountsList: any;
 
   // tax form declaration
   taxForm: FormGroup;
-  ChildrenList :ChildrenList[];
+  ChildrenList: ChildrenList[];
 
   //tax model 
   taxModel: any = {} as any;
+  public groupId = 1;
 
   //get tax data by id
   taxDataByID: ITax | any;
@@ -59,7 +60,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   taxScopeList = AppConst.taxScope;
   taxGroupList = AppConst.taxGroup
   taxInculsion = AppConst.taxInculsion
-  TaxGrpList : ITaxGroupModel[];
+  TaxGrpList: ITaxGroupModel[];
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
@@ -89,7 +90,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     public ngxsService: NgxsCustomService,
     public route: ActivatedRoute,
     private cdRef: ChangeDetectorRef,
-    public taxGrpService : TaxGroupService,
+    public taxGrpService: TaxGroupService,
     private accountService: ChartOfAccountService,
     public dialog: MatDialog,
     public addButtonService: AddModalButtonService,
@@ -102,18 +103,18 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   ngOnInit() {
     this.taxForm = this.fb.group({
-      id:[],
+      id: [],
       name: ['', [Validators.required]],
       taxType: [''],
       accountId: [null],
       taxComputation: [''],
       amount: [''],
-      percent:[''],
-      labelOninv:[''],
-      company:[''],
-      groupId :[''],
-      includedPrice:[''],
-      sabsequentTaxes:[false],
+      percent: [''],
+      labelOninv: [''],
+      company: [''],
+      groupId: [''],
+      includedPrice: [''],
+      sabsequentTaxes: [false],
       description: [''],
       legalNotes: [''],
       taxScope: [''],
@@ -134,21 +135,22 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
     //Get Data From Store
     this.ngxsService.getOtherAccountsFromState();
-     this.ngxsService.getBusinessPartnerFromState();
-     this.ngxsService.getAllBusinessPartnerFromState();
-     this.ngxsService.getEmployeePaymentsFromState();
+    this.ngxsService.getBusinessPartnerFromState();
+    this.ngxsService.getAllBusinessPartnerFromState();
+    this.ngxsService.getEmployeePaymentsFromState();
     lastValueFrom(this.accountService.getOtherAccounts()).then(res => {
-      this.otherAccountsList = res.result   
+      this.otherAccountsList = res.result
     })
 
     this.getTaxGroup();
     this.addInvoiceLine();
     this.addRefundine();
   }
-  getTaxGroup(){
-    lastValueFrom(this.taxGrpService.getAll()).then(res => {
-      this.TaxGrpList = res.result      
-    })
+  getTaxGroup() {
+    this.taxGrpService.getAll().subscribe(res =>{
+      this.TaxGrpList = res.result
+      this.cdRef.detectChanges();
+    }) 
   }
   get taxInvoiceslines(): FormArray {
     return this.taxForm.get('taxInvoiceslines') as FormArray;
@@ -162,7 +164,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       percent: [''],
       taxBase: ['base', Validators.required],
       accountId: [, [Validators.required, Validators.min(0)]],
-      
+
     })
     this.taxInvoiceslines.push(detail)
   }
@@ -195,68 +197,68 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       .subscribe(
         (tax: IApiResponse<ITax>) => {
           this.editTax(tax.result);
-          this.taxDataByID = tax.result;        
-          this.taxModel = tax.result                
+          this.taxDataByID = tax.result;
+          this.taxModel = tax.result
         }
       );
   }
 
   // Patching values to tax form
-  editTax(tax: any) {    
+  editTax(tax: any) {
     this.taxForm.patchValue({
-      id:tax.id,
+      id: tax.id,
       name: tax.name,
       taxType: tax.taxType,
       accountId: (tax.accountId === '00000000-0000-0000-0000-000000000000') ? null : tax.accountId,
       taxComputation: tax.taxComputation,
       amount: tax.amount,
-      percent:tax.percent,
+      percent: tax.percent,
       labelOninv: tax.labelOnInv,
-      company:tax.company,
-      includedPrice : tax.includedPrice,
-      sabsequentTaxes : tax.sabsequentTaxes,
-      description:tax.description,
+      company: tax.company,
+      includedPrice: tax.includedPrice,
+      sabsequentTaxes: tax.sabsequentTaxes,
+      description: tax.description,
       legalNotes: tax.legalNotes,
       taxScope: tax.taxScope,
-      groupId:tax.groupId
-      });       
+      groupId: tax.groupId
+    });
     this.taxForm.setControl('taxInvoiceslines', this.PatchInvoiceslines(tax.taxInvoicesLines))
-    this.taxForm.setControl('taxRefundlines', this.PatchtaxRefundlines(tax.taxRefundLines)) 
+    this.taxForm.setControl('taxRefundlines', this.PatchtaxRefundlines(tax.taxRefundLines))
     this.ChildrenList = tax.childrenTaxes
   }
 
-  PatchInvoiceslines(lines: any[]): FormArray {  
+  PatchInvoiceslines(lines: any[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
         percent: line.percent,
         taxBase: [line.taxBase],
-        accountId: [line.accountId ],      
+        accountId: [line.accountId],
       }))
     })
     return formArray
   }
-  PatchtaxRefundlines(lines: any[]): FormArray { 
+  PatchtaxRefundlines(lines: any[]): FormArray {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
         percent: line.percent,
         taxBase: [line.taxBase],
-        accountId: [line.accountId ],      
+        accountId: [line.accountId],
       }))
     })
     return formArray
   }
   onSubmit() {
     console.log(this.taxForm.value, "Tax Form");
-      if (this.taxForm.invalid) {
-        this.taxForm.markAsUntouched();
-        return;
-      }
+    if (this.taxForm.invalid) {
+      this.taxForm.markAsUntouched();
+      return;
+    }
     const InvLines = this.taxForm.get('taxInvoiceslines') as FormArray;
     const RefLines = this.taxForm.get('taxRefundlines') as FormArray;
     const taxComp = this.taxForm.get('taxComputation')
-    if(taxComp.value != 0){
+    if (taxComp.value != 0) {
       const hasTypeBaseInInv = InvLines.controls.some(line => line.get('taxBase')?.value === 0);
       const hasTypeBaseInRef = RefLines.controls.some(line => line.get('taxBase')?.value === 0);
       if (InvLines.length !== RefLines.length) {
@@ -267,21 +269,21 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         this.toastService.info("At Least One Record of base type is Required.");
         return;
       }
-      this.taxModel = this.taxForm.value;  
-    }    
- 
-    if(this.ChildrenList != undefined || this.ChildrenList != null){
-      this.taxModel = this.taxForm.value;     
+      this.taxModel = this.taxForm.value;
+    }
+
+    if (this.ChildrenList != undefined || this.ChildrenList != null) {
+      this.taxModel = this.taxForm.value;
       this.taxModel.ChildrenTaxes = this.ChildrenList.map(child => ({
         taxId: child.id,
         name: child.name,
         taxComputation: child.taxComputation,
-        amount: child.amount 
-    }));
+        amount: child.amount
+      }));
     }
- 
 
-    
+
+
     this.isLoading = true;
     //this.mapFormValueToTaxModel();
     if (this.taxDataByID?.id) {
@@ -320,7 +322,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
 
   onAmountBlur(value: string): void {
-    if (value) {  
+    if (value) {
       let formattedValue = value.replace(/[^0-9.]/g, '');
       const [integer, decimal] = formattedValue.split('.');
       if (decimal && decimal.length > 2) {
@@ -334,7 +336,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
 
   onPercentageBlur(value: string): void {
-    if (value) {  
+    if (value) {
       let formattedValue = value.replace(/[^0-9.]/g, '');
       const [integer, decimal] = formattedValue.split('.');
       if (decimal && decimal.length > 2) {
@@ -375,58 +377,59 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   }
 
   onTypeChange(type: string) {
-    this.selectedType = type;   
+    this.selectedType = type;
     this.cdRef.detectChanges();
-    console.log(this.selectedType,"type");
-        
   }
 
-  OpenModal(){
+  OpenModal() {
     const dialogRef = this.dialog.open(SelectTaxListComponent, {
       width: '800px',
-      height : '500px',
+      height: '500px',
     }).afterClosed().subscribe(res => {
-       lastValueFrom(this.taxService.getTaxesByIds(res)).then(res => {
-        console.log(res);
-        
-        if(res != false){
-          console.log(res,"close res");
-          
-          this.ChildrenList = res.result
-          this.cdRef.detectChanges(); 
-          this.onNavChange({ event: { nextId: 1 } });    
-        }
-console.log(res,"clos");
+      lastValueFrom(this.taxService.getTaxesByIds(res)).then(res => { 
 
-     })           
-    });  
+        if (res != false) {
+          this.ChildrenList = res.result
+          this.cdRef.detectChanges();
+          this.onNavChange({ event: { nextId: 1 } });
+        }
+
+      })
+    });
   }
-  removegrpLine(lineToRemove : any){
-    console.log(lineToRemove,"grp line");
+  removegrpLine(lineToRemove: any) {
     this.ChildrenList = this.ChildrenList.filter(line => line !== lineToRemove);
-    console.log(this.ChildrenList,"new list");      
   }
 
 
 
   getTaxComputationDisplay(value: TaxComputation): string {
     switch (value) {
-        case TaxComputation.GroupOfTaxes:
-            return 'Group of Taxes';
-        case TaxComputation.Fixed:
-            return 'Fixed';
-        case TaxComputation.Percentage:
-            return 'Percentage';
-        case TaxComputation.PercentageTaxIncluded:
-            return 'Percentage Tax Included';
-        default:
-            return 'Unknown';
+      case TaxComputation.GroupOfTaxes:
+        return 'Group of Taxes';
+      case TaxComputation.Fixed:
+        return 'Fixed';
+      case TaxComputation.Percentage:
+        return 'Percentage';
+      case TaxComputation.PercentageTaxIncluded:
+        return 'Percentage Tax Included';
+      default:
+        return 'Unknown';
     }
-}
+  }
 
-openTaxGroupListDialog(){
-  this.addButtonService.openTaxGroupListDialog();
-}
+  openTaxGroupListDialog() {
+    this.dialog.open(ListTaxGroupComponent, {
+      width: '1207px',
+      height: '250px'
+    }).afterClosed().subscribe(res => {
+      if (res) {
+        this.taxForm.patchValue({
+          groupId: res
+        })
+      }
+    });
+  }
 }
 
 
