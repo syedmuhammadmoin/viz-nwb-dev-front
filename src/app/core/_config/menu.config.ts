@@ -66,7 +66,8 @@ import {
   DOMICILE,
   FEE_ITEM,
   PETTY_CASH,
-  JOURNAL
+  JOURNAL,
+  CURRENCY
 } from 'src/app/views/shared/AppRoutes';
 
 
@@ -1611,6 +1612,16 @@ export class MenuConfig {
                 Permissions.TAXES_CREATE,
                 Permissions.TAXES_EDIT,
                 Permissions.TAXES_DELETE,
+              ]
+            },
+            {
+              title: 'Currency',
+              page: '/' + CURRENCY.LIST,
+              permission: [
+                Permissions.CURRENCY_VIEW,
+                Permissions.CURRENCY_CREATE,
+                Permissions.CURRENCY_EDIT,
+                Permissions.CURRENCY_DELETE,
               ]
             },
 

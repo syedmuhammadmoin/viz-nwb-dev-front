@@ -20,9 +20,12 @@ export class AuthenticationService {
         const signOutObservable = new Observable((observer: Observer<boolean>) => {
             try {
                 localStorage.clear();
+                console.log('localStorage.clear() called')
                 observer.next(true);
+                console.log('observer.next(true) called')
             } catch (err) {
                 observer.error(err)
+                console.log('observer.error(err)',err)
             }
         });
         return signOutObservable

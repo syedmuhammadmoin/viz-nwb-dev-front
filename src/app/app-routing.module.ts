@@ -9,6 +9,7 @@ import {AuthGuard} from './core/auth';
 import {APP_ROUTES} from './views/shared/AppRoutes';
 
 const routes: Routes = [
+ 
   {
     path: APP_ROUTES.AUTH,
     loadChildren: () =>
@@ -109,6 +110,15 @@ const routes: Routes = [
         loadChildren: () =>
           import('./views/pages/profiling/tax/tax.module').then(
             (m) => m.TaxModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
+
+      {
+        path: APP_ROUTES.CURRENCY, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/finance/Currency/currency.module').then(
+            (m) => m.CurrencyModule
           ),
         canActivateChild: [AuthGuard]
       },

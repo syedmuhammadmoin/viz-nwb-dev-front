@@ -62,6 +62,7 @@ export class InterceptService implements HttpInterceptor {
               message = error?.error?.message ?? 'Unauhtorised access, Please login again.'
               title = 'Unauthorised'
             lastValueFrom(  this.authService.signOut()).then(res => {
+              console.log('lastValueFrom>then');
               if(isLoggedOut){                
                 this.route.navigateByUrl('/auth/login')             
               }else{              
@@ -88,23 +89,18 @@ export class InterceptService implements HttpInterceptor {
               title = 'Request Timeout'
               break;
             case 500:
-              message = error?.error?.message ?? 'Something went wrong, Please try again later.'
+              message = error?.error?.message ?? 'Something went wrong'+ error?.error?.traceId
               title = 'Internal Server Error'
               // this.route.navigateByUrl('/error/500')
               break;
             default:
-              message = error?.error?.message ?? 'Please try again later, If issue presists please contact System Administrator';
+              message = error?.error?.message ?? 'Check your internet connection or ensure the server is online. If the problem persists, please try again later or contact support.';
               title = 'General Processing Error'
               break;
           }
-          this.toastService.error(`${message}\n  ${title}`);
-          // http response status code
-          // console.log('----response----');
-          // console.error('status code:');
-          // tslint:disable-next-line:no-debugger
-          console.error(error.status);
-          console.error(error.message);
-          // console.log('--- end of response---');
+          this.toastService.error(`${message}<br>${title}`, '', {
+            enableHtml: true
+          });
         }
       )
     );

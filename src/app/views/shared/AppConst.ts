@@ -232,6 +232,12 @@ export class AppConst {
     'Profiling.TaxGroup.ED': 'Tax Group Update',
     'Profiling.TaxGroup.DL': 'Tax Group Delete',
 
+    // Tax
+    'Permissions.CurrencyClaims.VW': 'Currency View',
+    'Permissions.CurrencyClaims.CR': 'Currency Create',
+    'Permissions.CurrencyClaims.ED': 'Currency Update',
+    'Permissions.CurrencyClaims.DL': 'Currency Delete',
+
     // Unit Of Measurement
     'Profiling.UnitOfMeasurement.VW': 'Unit Of Measurement View',
     'Profiling.UnitOfMeasurement.CR': 'Unit Of Measurement Create',
@@ -658,6 +664,7 @@ export class AppConst {
     {value: 'Anticipated Budget', id: DocType.EstimatedBudget},
     {value: 'Budget', id: DocType.Budget},
     {value: 'Petty Cash', id:DocType.PettyCash},
+    {value: 'Currency', id:DocType.Currency},
 
     
     // {value: 'sales Order', id: DocType.SalesOrder},
@@ -802,5 +809,6 @@ static taxBase = [
     {value: 'Submitted', id: 5},
     {value: 'Reviewed', id: 6},
   ];
+  
   
 }

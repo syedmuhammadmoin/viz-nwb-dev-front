@@ -251,6 +251,12 @@ export class Permissions {
    static TAXES_EDIT = 'Permissions.TaxesClaims.ED';
    static TAXES_DELETE = 'Permissions.TaxesClaims.DL';
 
+   // Currency
+   static CURRENCY_VIEW = 'Permissions.CurrencyClaims.VW';
+   static CURRENCY_CREATE = 'Permissions.CurrencyClaims.CR';
+   static CURRENCY_EDIT = 'Permissions.CurrencyClaims.ED';
+   static CURRENCY_DELETE = 'Permissions.CurrencyClaims.DL';
+   
    static TAXES_GROUP_VIEW = 'Permissions.TaxGroupClaims.VW';
    static TAXES_GROUP_CREATE = 'Permissions.TaxGroupClaims.CR';
    static TAXES_GROUP_EDIT = 'Permissions.TaxGroupClaims.ED';
@@ -615,7 +621,8 @@ export enum DocType {
   EstimatedBudget,
   Budget,
   PettyCash,
-  Journal
+  Journal,
+  Currency
 }
 
 export enum Criteria{
@@ -743,3 +750,10 @@ export enum JournalType
   Cash=3,
   Miscellaneous=4
 }
+
+export enum ResponseMessage  {
+  UpdatedSuccess= 'Updated Successfully',
+  CreateSucess= 'Created successfully',
+  }
+
+
