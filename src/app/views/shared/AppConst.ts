@@ -84,6 +84,15 @@ export class AppConst {
     2: 'Paid'
   }
 
+  static Periodicity = [
+    {id : 0 , name : 'annually'},
+    {id : 1 , name : 'semi-annually'},
+    {id : 2 , name : 'every 4 month'},
+    {id : 3 , name : 'quarterly'},
+    {id : 4 , name : 'every 2 month'},
+    {id : 5 , name : 'monthly'},
+  ]
+
   static depreciationMethod = [
     {id: 0, name: 'Straight Line'},
     {id: 1, name: 'Declining Rate'},
@@ -231,6 +240,11 @@ export class AppConst {
     'Profiling.TaxGroup.CR': 'Tax Group Create',
     'Profiling.TaxGroup.ED': 'Tax Group Update',
     'Profiling.TaxGroup.DL': 'Tax Group Delete',
+
+    'Profiling.TaxSetting.VW': 'Tax Setting View',
+    'Profiling.TaxSetting.CR': 'Tax Setting Create',
+    'Profiling.TaxSetting.ED': 'Tax Setting Update',
+    'Profiling.TaxSetting.DL': 'Tax Setting Delete',
 
     // Tax
     'Permissions.CurrencyClaims.VW': 'Currency View',

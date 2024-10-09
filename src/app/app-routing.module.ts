@@ -717,6 +717,14 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+       {
+        path: APP_ROUTES.TAX_SETTING, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/profiling/tax-setting/tax-setting.module').then(
+            (m) => m.TaxSettingModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       // Lazy Load DISPOSAL Module
       {
         path: APP_ROUTES.DISPOSAL, // <= Page URL

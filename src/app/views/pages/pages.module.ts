@@ -20,7 +20,8 @@ import { MatButtonModule } from '@angular/material/button';
         MatButtonModule,
         PartialsModule,
     ],
-    declarations: [],
+    declarations: [
+  ],
 })
 
 export class PagesModule { }
