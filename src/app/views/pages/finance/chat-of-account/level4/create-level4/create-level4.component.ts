@@ -16,6 +16,7 @@ import { AssetAccountState } from '../../store/asset-account.state';
 import { ExpenseAccountState } from '../../store/expense-account.state';
 import { GetLiabilityAccountsState } from '../../store/getLiabilityAccount.state';
 import { ILevel3 } from '../../level3/model/ILevel3';
+import { Level4AccountModel } from '../../model/Level4AccountModel';
 
 @Component({
   selector: 'kt-create-level4',
@@ -30,39 +31,9 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
   level4Form: FormGroup;
 
   // Level4 Model
-  level4Model: ILevel4;
+  level4Model: Level4AccountModel;
   level3List:any;
-  level3List2 = [
-    {
-      category: 'Category 1',
-      subCategory: [
-        {
-          subHeading: 'Subcategory 1.1',
-          items: [
-            { id: 1, name: 'Item 1.1.1' },
-            { id: 2, name: 'Item 1.1.2' }
-          ]
-        },
-        {
-          subHeading: 'Subcategory 1.2',
-          items: [
-            { id: 3, name: 'Item 1.2.1' }
-          ]
-        }
-      ]
-    },
-    {
-      category: 'Category 2',
-      subCategory: [
-        {
-          subHeading: 'Subcategory 2.1',
-          items: [
-            { id: 4, name: 'Item 2.1.1' }
-          ]
-        }
-      ]
-    }
-  ];
+  
   // Validation messages..
   validationMessages = {
     transactionalAccount: {
@@ -105,7 +76,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
     this.level4Model = {
       id: null,
-      name: '',
+      // name: '',
       code: '',
       editableName: null,
       level3_id: null,
@@ -202,7 +173,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
 
   // Mapping value to model
   mapFormValuesToInvoiceModel() {
-    this.level4Model.name = this.level4Form.value.transactionalAccount;
+    this.level4Model.editableName = this.level4Form.value.transactionalAccount;
     this.level4Model.code = this.level4Form.value.code;
     this.level4Model.level3_id = this.level4Form.value.level3 || this.level4Model.level3_id;
   }
@@ -212,7 +183,7 @@ export class CreateLevel4Component extends AppComponentBase implements OnInit {
     this.dialogRef.close();
   }
 
-  private patchLevel4Form(level4Model: ILevel4) {
+  private patchLevel4Form(level4Model: Level4AccountModel) {
     this.level4Form.patchValue({
       transactionalAccount: level4Model.editableName,
       level3: level4Model.level3_id,

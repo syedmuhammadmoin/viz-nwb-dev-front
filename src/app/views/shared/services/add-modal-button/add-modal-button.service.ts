@@ -4,6 +4,8 @@ import { CreateBankAccountComponent } from 'src/app/views/pages/finance/bank-acc
 import { CreateBusinessPartnerComponent } from 'src/app/views/pages/profiling/business-partner/create-business-partner/create-business-partner.component';
 import { CreateCategoryComponent } from 'src/app/views/pages/profiling/category/create-category/create-category.component';
 import { CreateProductComponent } from 'src/app/views/pages/profiling/product/create-product/create-product.component';
+import { CreateTaxGroupComponent } from 'src/app/views/pages/profiling/tax-group/create-tax-group/create-tax-group.component';
+import { ListTaxGroupComponent } from 'src/app/views/pages/profiling/tax-group/list-tax-group/list-tax-group.component';
 import { CreateUnitOfMeasurementComponent } from 'src/app/views/pages/profiling/unit-of-measurement/create-unit-of-measurement/create-unit-of-measurement.component';
 import { CreateWarehouseComponent } from 'src/app/views/pages/profiling/warehouse/create-warehouse/create-warehouse.component';
 
@@ -29,7 +31,12 @@ export class AddModalButtonService {
       width: '800px',
     })
    }
-  
+  openTaxGroupListDialog(){
+    this.dialog.open(ListTaxGroupComponent,{
+      width: '1205px',
+      height : '230px'
+    })
+  }
    //Create Business Partner
    openBusinessPartnerDialog() {
     this.dialog.open(CreateBusinessPartnerComponent, {

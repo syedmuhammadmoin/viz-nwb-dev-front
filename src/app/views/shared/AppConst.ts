@@ -227,6 +227,17 @@ export class AppConst {
     'Profiling.Taxes.ED': 'Tax Update',
     'Profiling.Taxes.DL': 'Tax Delete',
 
+    'Profiling.TaxGroup.VW': 'Tax Group View',
+    'Profiling.TaxGroup.CR': 'Tax Group Create',
+    'Profiling.TaxGroup.ED': 'Tax Group Update',
+    'Profiling.TaxGroup.DL': 'Tax Group Delete',
+
+    // Tax
+    'Permissions.CurrencyClaims.VW': 'Currency View',
+    'Permissions.CurrencyClaims.CR': 'Currency Create',
+    'Permissions.CurrencyClaims.ED': 'Currency Update',
+    'Permissions.CurrencyClaims.DL': 'Currency Delete',
+
     // Unit Of Measurement
     'Profiling.UnitOfMeasurement.VW': 'Unit Of Measurement View',
     'Profiling.UnitOfMeasurement.CR': 'Unit Of Measurement Create',
@@ -592,6 +603,7 @@ export class AppConst {
     'Admission.AdmissionCriteria.VW': 'Admission Criteria View',
     'Admission.AdmissionCriteria.ED': 'Admission Criteria Edit',
     'Admission.AdmissionCriteria.DL': 'Admission Criteria Delete',
+    
 
 
     'Dashboard.ProfitLossSummary.VW': 'Dashboard Profit Loss Summary View',
@@ -652,6 +664,7 @@ export class AppConst {
     {value: 'Anticipated Budget', id: DocType.EstimatedBudget},
     {value: 'Budget', id: DocType.Budget},
     {value: 'Petty Cash', id:DocType.PettyCash},
+    {value: 'Currency', id:DocType.Currency},
 
     
     // {value: 'sales Order', id: DocType.SalesOrder},
@@ -721,6 +734,29 @@ export class AppConst {
     {id: 1, type: 'Purchase'},
     {id: 2, type: 'None'},
   ]
+static taxBase = [
+  { id: 0, value: 'base' },
+  { id: 1, value: 'of tax' },
+]
+  static taxComputation = [
+    {id : 0 , type: 'Group of Taxes'},
+    {id: 1, type: 'Fixed'},
+    {id: 2, type: 'Percentage'},
+    {id: 3, type: 'Percentage Tax Included'},
+  ]
+
+  static taxScope = [
+    {id: 0, type: 'Services'},
+    {id: 1, type: 'Goods'},
+  ]
+  static taxInculsion = [
+    {id : 0 , type : 'Default'},
+    {id : 1 , type : 'Tax Included'},
+    {id : 2 , type : 'Tax Excluded'}
+  ]
+  static taxGroup = [
+    {id : 0 , type : '15%'},
+  ]
 
   static PayrollType = [
     {value: 'Basic Pay'},
@@ -773,5 +809,6 @@ export class AppConst {
     {value: 'Submitted', id: 5},
     {value: 'Reviewed', id: 6},
   ];
+  
   
 }

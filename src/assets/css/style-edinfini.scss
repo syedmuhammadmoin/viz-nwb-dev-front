@@ -173,7 +173,7 @@ body {
 
 kt-base {
   overflow-y: auto;
-  margin-top: 119px;
+  //margin-top: 119px;
 }
 
 .mat-mdc-raised-button .mat-mdc-button-wrapper {
@@ -1820,9 +1820,9 @@ mat-tree-node div[id^='child'] {
     padding-top: 10px !important; 
 }
 
-kt-base {
-  margin-top: 55px;
-}
+// kt-base {
+//   margin-top: 55px;
+// }
 
 .subheader.subheader-solid {
   border-top: 0px solid #EBEDF3;
@@ -2177,4 +2177,14 @@ a {
 
 .dashboard-card-body .card-title {
   margin-bottom: 2rem;
+}
+
+@media only screen and (max-width: 991px){
+  .nav-content{
+    visibility:hidden;
+  }
+  kt-base{
+    overflow-y: auto;
+    margin-top: 0px !important;
+  }
 }

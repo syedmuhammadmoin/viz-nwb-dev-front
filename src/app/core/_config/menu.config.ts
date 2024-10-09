@@ -66,7 +66,8 @@ import {
   DOMICILE,
   FEE_ITEM,
   PETTY_CASH,
-  JOURNAL
+  JOURNAL,
+  CURRENCY
 } from 'src/app/views/shared/AppRoutes';
 
 
@@ -1578,21 +1579,7 @@ export class MenuConfig {
                 Permissions.CHARTOFACCOUNT_VIEW
               ]
             },
-            {
-              title: 'Chart Of Account 2',
-              page: '/chart-of-account/list2',
-              permission: [
-                Permissions.LEVEL3_VIEW,
-                Permissions.LEVEL3_CREATE,
-                Permissions.LEVEL3_EDIT,
-                Permissions.LEVEL3_DELETE,
-                Permissions.LEVEL4_VIEW,
-                Permissions.LEVEL4_CREATE,
-                Permissions.LEVEL4_EDIT,
-                Permissions.LEVEL4_DELETE,
-                Permissions.CHARTOFACCOUNT_VIEW
-              ]
-            },
+           
             {
               title: 'journal',
               page: '/' + JOURNAL.LIST,
@@ -1611,6 +1598,16 @@ export class MenuConfig {
                 Permissions.TAXES_CREATE,
                 Permissions.TAXES_EDIT,
                 Permissions.TAXES_DELETE,
+              ]
+            },
+            {
+              title: 'Currency',
+              page: '/' + CURRENCY.LIST,
+              permission: [
+                Permissions.CURRENCY_VIEW,
+                Permissions.CURRENCY_CREATE,
+                Permissions.CURRENCY_EDIT,
+                Permissions.CURRENCY_DELETE,
               ]
             },
 

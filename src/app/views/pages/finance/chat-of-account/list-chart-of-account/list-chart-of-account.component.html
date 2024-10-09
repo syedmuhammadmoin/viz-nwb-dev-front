@@ -1,49 +1,51 @@
-<div class="row mb-4">
-  <div class="col-md-12 text-end">
-    <button (click)="addNewItem()" *ngIf="(permission.isGranted(permissions.LEVEL4_CREATE))" class="app-default-btn"
-      mat-raised-button matTooltip="Add Account">Add Account</button>
+<div class="row mb-5">
+  <div class="col-md-12 d-flex btn-class">
+    <button class="app-default-btn" mat-raised-button matTooltip="Add Account" *ngIf="!isNewRowAdded"
+      (click)="addNewRow()">Add Account</button>
+    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Selected Rows"
+      *ngIf="settingBtn"> {{selectedRowCount}} selected
+      <span (click)="DeselectRows()" class="dialog-cross"><i class="fa fa-times text-end text-light"
+          style="font-size: 14px;margin-left: 10px;"></i></span> </button>
+    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Delete Rows"
+      *ngIf="settingBtn" (click)="DeleteRows()">Delete Rows</button>
+    <!-- <button class="app-default-btn" mat-raised-button matTooltip="Save Changes" *ngIf="isNewRowAdded"
+      (click)="saveChanges()">Save Changes</button> -->
+    <button class="app-default-btn ml-1" style="margin-left: 10px !important;" mat-raised-button
+      [class.d-none]="!showDiscardButton" (click)="discardLastRow()">Discard Row</button>
+    <h5 class="p-2">Chart of Account</h5>
+
   </div>
+
 </div>
-
-<div class="row">
-  <div class="col-md-12 ">
-    <kt-portlet>
-      <kt-portlet-header [sticky]="false" [title]="'Chart of Account'" [class]="'card-head-lg'">
-      </kt-portlet-header>
-
-      <!-- <kt-grid-filteration (MonthYear)="fetchData($event)"></kt-grid-filteration> -->
-
-      <kt-portlet-body>
-        <div class="col-lg-12 col-md-12 my-5 ps-4 pe-4">
-          <!-- <ag-grid-angular
-                    style="width: 100%; height: 400px; margin-top: 10px;"
-                    class="ag-theme-alpine"
-                    [components]="components"
-                    [columnDefs]="columnDefs"
-                    (rowDoubleClicked)="onRowDoubleClicked($event)"
-                    (firstDataRendered)="onFirstDataRendered($event)"
-                    (paginationChanged)="paginationHelper.onPaginationChanged('CoAPageName', gridApi, $event)"
-                    [gridOptions]="gridOptions"                 
-                    [overlayNoRowsTemplate]="overlayNoRowsTemplate"
-                    [defaultColDef]="defaultColDef"
-                    [tooltipShowDelay]="5"
-                    (gridReady)="onGridReady($event)"
-                    [rowData]="FilteredData"
-                    >
-                </ag-grid-angular> -->
-
-          <ag-grid-angular 
-          style="width: 100%; height: 400px;" 
-          class="ag-theme-alpine" 
-          [gridOptions]="gridOptions"
+<div class="row p-0" style="margin-top: 5rem !important;">
+  <div class="col-md-12 p-0">
+    <kt-portlet class="make-ag-grid-header-sticky">
+      <kt-portlet-body class="p-3">
+        <div class="col-lg-12 col-md-12">
+          <form [formGroup]="form">
+            <ag-grid-angular 
+            class="ag-theme-alpine" 
+            style="width: 100%; height: auto;" 
+            [gridOptions]="gridOptions"              
+            [editType]="'fullRow'" 
+            [components]="components" 
             [rowData]="rowData" 
+            [domLayout]="domLayout"
+              
             [columnDefs]="columnDefs" 
-            (firstDataRendered)="onFirstDataRendered($event)"
-            [overlayNoRowsTemplate]="overlayNoRowsTemplate"
-            (rowDoubleClicked)="onRowDoubleClicked($event)"
-            (filterChanged)="onFilterChanged($event)"
-            (gridReady)="onGridReady($event)">
-          </ag-grid-angular>
+            (gridReady)="onGridReady($event)"
+              
+            [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
+            (gridReady)="onGridReady($event)"
+              
+            (rowValueChanged)="onRowValueChanged($event)" 
+            (cellValueChanged)="onCellValueChanged($event)"
+              
+              rowSelection="multiple" 
+              (rowSelected)="onRowSelected($event)" 
+              [suppressRowClickSelection]="true">
+            </ag-grid-angular>
+          </form>
         </div>
       </kt-portlet-body>
     </kt-portlet>

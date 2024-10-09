@@ -1,5 +1,6 @@
 ///* You can add global styles to this file, and also import other style files */
 //// Global vendors
+ @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "bootstrap/dist/css/bootstrap.css";
 @import "highlight.js/styles/googlecode.css";
 @import '@angular/material/prebuilt-themes/deeppurple-amber.css';
@@ -114,3 +115,46 @@ display: none;
 // .aside-light {
 //   @import "./assets/sass/themes/layout/aside/light.scss";
 // }
+.content{
+  padding: 0px !important;
+}
+kt-base {
+  overflow-y: auto;
+  margin-top: 64px;
+  overflow-x: hidden
+}
+
+.aside-enabled .header.header-fixed {
+   left: 0px; 
+}
+@media only screen and (max-width: 991px){
+  kt-base {
+    overflow-y: auto;
+    margin-top: 0px;
+  }
+}
+
+
+
+/* Override the default toastr styles */
+.toastr {
+  background-color: rgba(255, 99, 71, 0.9); /* Light red (Tomato) */
+  color: #fff; /* White text */
+}
+
+/* Optional: Style for success, error, info, warning notifications */
+.toastr-success {
+  background-color: rgba(76, 175, 80, 0.9); /* Example: Green for success */
+}
+
+.toastr-error {
+  background-color: rgba(255, 99, 71, 0.9); /* Light red */
+}
+
+.toastr-info {
+  background-color: rgba(33, 150, 243, 0.9); /* Example: Blue for info */
+}
+
+.toastr-warning {
+  background-color: rgba(255, 152, 0, 0.9); /* Example: Orange for warning */
+}

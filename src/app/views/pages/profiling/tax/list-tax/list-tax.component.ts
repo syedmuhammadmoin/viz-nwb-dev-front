@@ -3,13 +3,14 @@ import { MatDialog } from '@angular/material/dialog'
 import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, RowDoubleClickedEvent, ValueFormatterParams } from 'ag-grid-community';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
-import { Permissions, TaxType } from 'src/app/views/shared/AppEnum';
+import { Permissions, TaxScope, TaxType } from 'src/app/views/shared/AppEnum';
 import { isEmpty } from 'lodash';
 import { ITax } from '../model/ITax';
 import { TaxService } from '../service/tax.service';
 import { CreateTaxComponent } from '../create-tax/create-tax.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
-import { firstValueFrom } from 'rxjs';
+import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { TAX } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-tax',
@@ -21,7 +22,11 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
   taxList : ITax[]
   gridOptions : GridOptions;
+  public rowData : any[] = [];
   defaultColDef : ColDef;
+  selectedRowCount : number;
+  deleteBtn : boolean;
+  domLayout: any;
   components: any;
   public permissions = Permissions
   gridApi: GridApi; 
@@ -29,8 +34,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
   // constructor
   constructor( 
-               private taxService: TaxService,
-               public dialog: MatDialog,
+               private taxService: TaxService,               
                private cdRef: ChangeDetectorRef,
                injector: Injector
              ) {
@@ -40,12 +44,27 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
   //Defining Tax Columns
   columnDefs = [
+    { width: 20, checkboxSelection: true , headerCheckboxSelection: true },
     { 
       headerName: 'Name', 
       field: 'name', 
       tooltipField: 'name',
       cellRenderer: "loadingCellRenderer",
       filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+      flex: 2,
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
+     { 
+      headerName: 'Description', 
+      field: 'description', 
+      tooltipField: 'description',
+      //cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      flex : 3,
       menuTabs: ['filterMenuTab'],
         filterParams: {
           filterOptions: ['contains'],
@@ -57,13 +76,53 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       field: 'taxType', 
       suppressHeaderMenuButton: true, 
       tooltipField: 'name',
+      flex: 2,
       valueFormatter: (params : ValueFormatterParams) => {
         return TaxType[params.value]
       }
 
     },
+  
+    { 
+      headerName: 'Tax Scope', 
+      field: 'taxScope', 
+      flex : 2,
+      suppressHeaderMenuButton: true, 
+      tooltipField: 'name',
+      valueFormatter: (params : ValueFormatterParams) => {
+        return TaxScope[params.value]
+      }
+
+    },
+    { 
+      headerName: 'Label On Invoices', 
+      field: 'labelOnInv', 
+      tooltipField: 'labelOninv',
+      flex : 3,
+     // cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
+    { 
+      headerName: 'Company', 
+      field: 'company', 
+      tooltipField: 'company',
+      flex: 3,
+      //cellRenderer: "loadingCellRenderer",
+      filter: 'agTextColumnFilter',
+      menuTabs: ['filterMenuTab'],
+        filterParams: {
+          filterOptions: ['contains'],
+          suppressAndOrCondition: true,
+        },
+     },
     { headerName: 'Account', 
       field: 'accountName', 
+      flex: 3,
       suppressHeaderMenuButton: true, 
       tooltipField: 'name',
       valueFormatter: (params : ValueFormatterParams) => {
@@ -74,16 +133,17 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
 
   ngOnInit() { 
-   
+    this.domLayout = "autoHeight";
     this.gridOptions = {
-      cacheBlockSize: 20,
-      rowModelType: "infinite",
-      paginationPageSize: 10,
-      pagination: true,
-      rowHeight: 30,
-      headerHeight: 35,
-      paginationPageSizeSelector: false,
-      context: "double click to edit",
+      rowSelection: 'multiple',    
+      //rowModelType: "infinite",           
+      // rowHeight: 30,
+      // headerHeight: 35,      
+      context: "double click to view detail",
+      defaultColDef: {
+        editable: true,
+        filter: true, // Enable filtering
+      },
     };
 
     
@@ -91,7 +151,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
     this.defaultColDef = {
       tooltipComponent: 'customTooltip',
       flex: 1,
-      minWidth: 150,
+      minWidth: 20,
       filter: 'agSetColumnFilter',
       sortable: false,
       resizable: true,
@@ -111,29 +171,47 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
     if(!this.permission.isGranted(this.permissions.TAXES_EDIT)) {
       this.gridOptions.context = 'double click to view detail'
     }
+    this.loadGridData();
+  }
+
+  loadGridData(): void {   
+    lastValueFrom(this.taxService.getTaxes()).then(res => {
+      if(res){
+        this.rowData = res.result;
+      this.gridApi?.setGridOption('rowData', this.rowData)
+      this.cdRef.detectChanges();
+      }
+    })
   }
 // data rendering on first
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     params.api.sizeColumnsToFit();
   }
-
+ CreateTax(){
+  console.log("Waleed ");
+  
+  this.router.navigate(['/' + TAX.CREATE]);
+ }
 // called when double clicked on record
   onRowDoubleClicked(event: RowDoubleClickedEvent) {
-    this.openDialog(event.data.id)
+    this.router.navigate(
+      ['/' + TAX.ID_BASED_ROUTE('edit', event.data.id)], 
+      { queryParams: { q: event.data.id, istax: true } }
+    );
   }
 
 // open modal funtion
-  openDialog(id?: number): void {
-    const dialogRef = this.dialog.open(CreateTaxComponent, {
-      width: '800px',
-      data: id
-    });
-    //Get Updated Tax Data
-    dialogRef.afterClosed().subscribe(() => {
-      this.gridApi.setGridOption('datasource', this.dataSource);
-      this.cdRef.detectChanges();
-    });
-  }
+  // openDialog(id?: number): void {
+  //   const dialogRef = this.dialog.open(CreateTaxComponent, {
+  //     width: '800px',
+  //     data: id
+  //   });
+  //   //Get Updated Tax Data
+  //   dialogRef.afterClosed().subscribe(() => {
+  //     this.gridApi.setGridOption('datasource', this.dataSource);
+  //     this.cdRef.detectChanges();
+  //   });
+  // }
 
   dataSource = {
     getRows: async (params: any) => {
@@ -141,9 +219,10 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       if(isEmpty(res.result)) {  
         this.gridApi.showNoRowsOverlay() 
       } else {
+        this.rowData = res.result;
         this.gridApi.hideOverlay();
       }
-      params.successCallback(res.result || 0, res.totalRecords);
+      params.successCallback(this.rowData || 0, res.totalRecords);
       this.paginationHelper.goToPage(this.gridApi, 'taxPageName');
       this.cdRef.detectChanges();
     },
@@ -157,6 +236,30 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
   async getTaxes(params: any): Promise<IPaginationResponse<ITax[]>> {
     const result = await firstValueFrom(this.taxService.getRecords(params));
     return result
+  }
+  onRowSelected(event: any) {
+    const selectedRows = event.api.getSelectedRows();
+    this.selectedRowCount = selectedRows.length;
+    this.deleteBtn = selectedRows.length > 0;
+  
+  }
+  
+  DeleteRows(){
+    const selectedRows = this.gridApi.getSelectedRows();
+    const selectedIds = selectedRows.map(row => row.id);   
+    this.toastService.info("Deleting Records ,Please Wait!")
+   lastValueFrom(this.taxService.deleteTaxes(selectedIds)).then(res => {
+    if(res){
+      this.gridApi.deselectAll();
+      this.rowData = this.rowData.filter(row => !selectedRows.includes(row));
+      this.gridApi.setGridOption('rowData',this.rowData); 
+      this.toastService.success("Deleted Successfully");
+    }
+    
+   })       
+  };
+  DeselectRows() {
+    this.gridApi.deselectAll();
   }
 }
 

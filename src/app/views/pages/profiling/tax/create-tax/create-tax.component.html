@@ -1,74 +1,299 @@
-<div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
-    <div class="kt-portlet__head">
-        <div class="kt-portlet__head-caption">
-            <div class="kt-portlet__head-title">
-                <h3 class="kt-portlet__head-text modal-header"> {{title}} 
-                    <span (click)="onCloseDialog()" id="tax_close" class="dialog-cross" ><i class="fa fa-times text-end"></i></span>
-                </h3>
+<div>
+
+    <form [formGroup]="taxForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right"
+        #formDirective="ngForm">
+        <div [ktBusy]="isLoading" class="kt-portlet" style="overflow :hidden;">
+            <div class="kt-portlet__head">
+                <div class="kt-portlet__head-caption">
+                    <div class="kt-portlet__head-title">
+                        <h3 class="kt-portlet__head-text modal-header">
+                            <a routerLink="/tax/list" matTooltip="Back to List" style="color: #2988bc;">Taxes</a>
+                        </h3>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <!-- form start -->
-    <form [formGroup]="taxForm" (ngSubmit)="onSubmit()" class="kt-form kt-form--label-align-right" #formDirective="ngForm">
-        <div class="kt-portlet__body" >
-            <div class="kt-form__section kt-form__section--first">
-                <!-- first row starts -->
-                <div class="col-md-12 col-lg-12 col-sm-12 ps-4 pe-4">
-                    <div class="row mt-1 mb-0">
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Tax Name:</label>
-                                <kt-input-field
-                                id="tax_name"
-                                    formControlName="name"
-                                    placeholder="Enter Tax Name"
-                                    (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
-                                    [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
-                                </kt-input-field>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Tax Type:</label>
-                                <kt-simple-dropdown 
-                                   id="tax_Type"
-                                    propertyValue="id"
-                                    propertyName="type" 
-                                    placeholder="Select Tax Type"
-                                    formControlName="taxType"
-                                    matFormFieldClass="full-width"
-                                    [optionList]="taxTypeList"                                      
-                                    [errorMessage]="formErrors.taxType"
-                                    (blurEvent)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">
-                                </kt-simple-dropdown>
+            <!-- form start -->
+            <div class="kt-portlet__body">
+                <div class="kt-form__section kt-form__section--first">
+                    <!-- first row starts -->
+                    <div class="col-md-12 col-lg-12 col-sm-12 ps-4 pe-4">
+                        <div class="row mt-1 mb-0">
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Tax Name:</label>
+                                    <kt-input-field id="tax_name" formControlName="name" placeholder="Enter Tax Name"
+                                        (blurEvent)="logValidationErrors(this.taxForm, formErrors, validationMessages)"
+                                        [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
+                                    </kt-input-field>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="col-lg-4 col-md-4 col-sm-4">
-                            <div class="form-group kt-form__group mb-0">
-                                <label class="col-form-label pt-0">Account:</label>
-                                <kt-simple-dropdown 
-                                   id="tax_account"
-                                    propertyValue="id"
-                                    propertyName="name" 
-                                    placeholder="Select Account"
-                                    formControlName="accountId"
-                                    matFormFieldClass="full-width"
-                                    [optionList]="ngxsService.otherAccounts$"                                      
-                                    [errorMessage]="formErrors.accountId"
-                                    (blurEvent)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">
-                                </kt-simple-dropdown>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Tax Type:</label>
+                                    <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
+                                        placeholder="Select Tax Type" formControlName="taxType"
+                                        [optionList]="taxTypeList" [errorMessage]="formErrors.taxType"
+                                        (blurEvent)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)">
+                                    </kt-simple-dropdown>
+                                </div>
                             </div>
+
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Tax Computation Type:</label>
+                                    <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
+                                        (selectionChange)="onTypeChange($event.value)"
+                                        placeholder="Select Tax Computation" formControlName="taxComputation"
+                                        matFormFieldClass="full-width" [optionList]="taxComputationList">
+                                    </kt-simple-dropdown>
+                                </div>
+                            </div>
+
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Tax Scope:</label>
+                                    <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
+                                        placeholder="Select Tax Computation" formControlName="taxScope"
+                                        matFormFieldClass="full-width" [optionList]="taxScopeList">
+                                    </kt-simple-dropdown>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6">
+
+
+
+                                <div class="form-group kt-form__group mb-0" *ngIf="selectedType == '1'">
+                                    <label class="col-form-label pt-0">Amount:</label>
+                                    <kt-input-field id="tax_name" placeholder="Enter Amount" formControlName="amount"
+                                        (blurEvent)="onAmountBlur(taxForm.get('amount')?.value)">
+                                    </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0"
+                                    *ngIf="+selectedType !== 0 && +selectedType !== 1">
+                                    <label class="col-form-label pt-0">Percentage:</label>
+                                    <kt-input-field id="tax_name" placeholder="Enter Percentage"
+                                        formControlName="percent"
+                                        (blurEvent)="onPercentageBlur(taxForm.get('percent')?.value)">
+                                    </kt-input-field>
+
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+
+            <ul ngbNav #nav="ngbNav" class="nav-tabs" (navChange)="onNavChange($event)">
+                <li [ngbNavItem]="1">
+                    <a ngbNavLink>Definition</a>
+                    <ng-template *ngIf="taxForm.get('taxComputation')?.value == '0'" ngbNavContent>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <td>Tax Name</td>
+                                    <td>Tax Computation</td>
+                                    <td>Amount</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let line of ChildrenList">
+                                    <td>{{line.name}} Waleed</td>
+                                    <td>{{getTaxComputationDisplay(line.taxComputation)}}</td>
+                                    <td>{{line.amount}}</td>
+                                    <td>
+                                        <i class="fa fa-trash text-danger" style="position: relative; top: 8px;"
+                                            aria-hidden="true" (click)="removegrpLine(line)"></i>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <a (click)="OpenModal()">add Line</a>
+                    </ng-template>
+
+                    <ng-template *ngIf="taxForm.get('taxComputation')?.value !== '0'" ngbNavContent>
+                        <!-- Form for Invoice Lines -->
+                        <div formArrayName="taxInvoiceslines">
+                            <h6 class="mt-1 text-sm">DISTRIBUTION FOR INVOICES</h6>
+                            <mat-divider></mat-divider>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <!-- <th scope="col" class="text-end">%</th>  -->
+                                        <th scope="col">Based On</th>
+                                        <th scope="col">Account</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let line of taxInvoiceslines.controls; let i=index" [formGroupName]="i">
+                                        <!-- <td>
+                                        <input type="text" formControlName="percent" class="form-control">
+                                    </td>  -->
+                                        <td>
+                                            <div class="form-group">
+                                                <ng-select [items]="taxBaseList" bindLabel="value"
+                                                    [virtualScroll]="true" formControlName="taxBase" bindValue="id"
+                                                    appendTo="body">
+                                                </ng-select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <ng-select [items]="otherAccountsList" bindLabel="name"
+                                                    [virtualScroll]="true" formControlName="accountId" bindValue="id"
+                                                    appendTo="body">
+                                                </ng-select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-trash text-danger" style="position: relative; top: 8px;"
+                                                aria-hidden="true" (click)="removeInvoiceDetail(i)"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a (click)="addInvoiceLine()">add Line</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        <div formArrayName="taxRefundlines">
+                            <h6 class="text-sm">DISTRIBUTION FOR REFUNDS</h6>
+                            <mat-divider></mat-divider>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <!-- <th scope="col" class="text-end">%</th> -->
+                                        <th scope="col">Based On</th>
+                                        <th scope="col">Account</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let line of taxRefundlines.controls; let i=index" [formGroupName]="i">
+                                        <!-- <td>
+                                        <input type="text" formControlName="percent" class="form-control">
+                                    </td> -->
+                                        <td>
+                                            <div class="form-group">
+                                                <ng-select [items]="taxBaseList" bindLabel="value"
+                                                    [virtualScroll]="true" formControlName="taxBase" bindValue="id"
+                                                    appendTo="body">
+                                                </ng-select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-group">
+                                                <ng-select [items]="otherAccountsList" bindLabel="name"
+                                                    [virtualScroll]="true" formControlName="accountId" bindValue="id"
+                                                    appendTo="body">
+                                                </ng-select>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <i class="fa fa-trash text-danger" style="position: relative; top: 8px;"
+                                                aria-hidden="true" (click)="removeRefundDetail(i)"></i>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><a (click)="addRefundine()">add Line</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </ng-template>
+
+                </li>
+                <li [ngbNavItem]="2">
+                    <a ngbNavLink>Advanced Options</a>
+                    <ng-template ngbNavContent>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group kt-form__group mb-0"
+                                    *ngIf="taxForm.get('taxComputation')?.value != '0'">
+                                    <label class="col-form-label pt-0">Label On Invoices:</label>
+                                    <kt-input-field id="tax_lbl" formControlName="labelOninv" placeholder="Enter Label">
+                                    </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Description:</label>
+                                    <kt-input-field id="tax_des" formControlName="description"
+                                        placeholder="Enter Description">
+                                    </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Tax Group:</label>
+                                    <kt-simple-dropdown id="payment_partner" [optionList]="TaxGrpList"
+                                        [buttonPermission]="permission.isGranted(this.permissions.BUSINESSPARTNER_CREATE)"
+                                        clickEventButtonName="Select Group" (clickEvent)="openTaxGroupListDialog()"
+                                        formControlName="groupId" matFormFieldClass="full-width"
+                                        placeholder="Select Group" propertyName="name" propertyValue="id">
+                                    </kt-simple-dropdown>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Company:</label>
+                                    <kt-input-field id="tax_com" formControlName="company" placeholder="Enter Company">
+                                    </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0">
+                                    <label class="col-form-label pt-0">Legal Notes:</label>
+                                    <kt-input-field id="tax_notes" formControlName="legalNotes"
+                                        placeholder="Enter Legal Notes">
+                                    </kt-input-field>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="form-group kt-form__group mb-0"
+                                    *ngIf="taxForm.get('taxComputation')?.value != '0'">
+                                    <label class="col-form-label pt-0">Included In Price:</label>
+                                    <kt-simple-dropdown id="tax_Type" propertyValue="id" propertyName="type"
+                                        placeholder="Select Tax Price" formControlName="includedPrice"
+                                        [optionList]="taxInculsion">
+                                    </kt-simple-dropdown>
+                                </div>
+
+                                <div class="form-group kt-form__group mb-0"
+                                    *ngIf="taxForm.get('taxComputation')?.value != '0'">
+                                    <label class="col-form-label pt-0">
+                                        Affect Base of Subsequent Taxes:
+                                    </label>
+                                    <input type="checkbox" formControlName="sabsequentTaxes" />
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </li>
+            </ul>
+            <div [ngbNavOutlet]="nav"></div>
+
+
+
+
         </div>
-        <!-- portlet body ends -->
-        <mat-divider></mat-divider>
-        <!-- portlet footer start -->
-        <div class="kt-portlet__foot p-5" >
+        <div class="kt-portlet__foot p-5">
             <!-- form action starts -->
             <div class="kt-form__actions kt-form__actions mb-0">
                 <div class="row">
@@ -76,7 +301,8 @@
                         <!-- *ngIf="showButtons" -->
                         <div>
                             <button class="app-default-btn" mat-raised-button type="submit" id="tax_submit"
-                            (click)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)"><i class="far fa-save"></i> Submit
+                                (click)="logValidationErrors(this.taxForm, this.formErrors, this.validationMessages)"><i
+                                    class="far fa-save"></i> Submit
                             </button>&nbsp;
 
                         </div>
@@ -85,5 +311,4 @@
             </div>
         </div>
     </form>
-    <!-- form ends -->
-</div>
+    <div>

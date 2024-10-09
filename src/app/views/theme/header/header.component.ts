@@ -28,6 +28,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
   headerMenuClasses = '';
   headerLogo = '';
   headerAttributes = {};
+  showCustomer : boolean = false;
   headerMenuSelfDisplay = true;
   //showOverlay=true;
 
@@ -98,7 +99,7 @@ export class HeaderComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     // keep header element in the service
-    this.layoutRefService.addElement('header', this.ktHeader.nativeElement);
+    this.layoutRefService.addElement('header', this.ktHeader?.nativeElement);
   }
 
   getLogo() {
@@ -112,5 +113,8 @@ export class HeaderComponent implements OnInit, AfterViewInit {
       }
     }
     return `./assets/media/logos/${result}`;
+  }
+  showCustomerDropdown(){
+    this.showCustomer = !this.showCustomer
   }
 }

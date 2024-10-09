@@ -26,8 +26,8 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 const DEMO_PARAMS = {
 	// EMAIL: 'superadmin@vizalys.com',
 	// PASSWORD: 'Admin123!@#'
-	EMAIL: '',
-	PASSWORD: ''
+	EMAIL: 'kashiffrz+1@gmail.com',
+	PASSWORD: 'kas!!@#df334VB'
 };
 
 @Component({

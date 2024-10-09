@@ -9,6 +9,7 @@ export const APP_ROUTES = {
 
   //ACCESS MANAGEMENT
   ACCESS_MANAGEMENT: 'access-management',
+  TAX_GROUP : 'tax-group',
 
   //FINANCE
   BANK_ACCOUNT: 'bank-account',
@@ -19,7 +20,7 @@ export const APP_ROUTES = {
   JOURNAL: 'journal',
   JOURNAL_ENTRY: 'journal-entry',
   PAYMENT: 'payment',
-  PETTY_CASH:'petty-cash',
+  PETTY_CASH: 'petty-cash',
 
   //INVENTORY
   GOODS_RECEIVED_NOTE: 'goods-received-note',
@@ -44,6 +45,7 @@ export const APP_ROUTES = {
   PRODUCT: 'product',
   WAREHOUSE: 'warehouse',
   TAX: 'tax',
+  CURRENCY: 'currency',
   UNIT_OF_MEASUREMENT: 'unit-of-measurement',
 
   //BUDGET
@@ -368,12 +370,12 @@ export const JOURNAL = {
   LIST: APP_ROUTES.JOURNAL + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.JOURNAL + '/' + CRUD_ROUTES.CREATE,
 
-  EDIT: APP_ROUTES.JOURNAL + '/edit/',          
-  DETAIL: APP_ROUTES.JOURNAL + '/detail/',      
-  PRINT: APP_ROUTES.JOURNAL + '/print/',        
+  EDIT: APP_ROUTES.JOURNAL + '/edit/',
+  DETAIL: APP_ROUTES.JOURNAL + '/detail/',
+  PRINT: APP_ROUTES.JOURNAL + '/print/',
 
   //OR
-  ID_BASED_ROUTE(route: string, id: number) {               
+  ID_BASED_ROUTE(route: string, id: number) {
     return APP_ROUTES.JOURNAL + '/' + route + '/' + id
   }
 }
@@ -546,9 +548,27 @@ export const WAREHOUSE = {
 }
 
 export const TAX = {
-  LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST
-}
+  LIST: APP_ROUTES.TAX + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.TAX + '/' + CRUD_ROUTES.CREATE,
 
+  EDIT: APP_ROUTES.TAX + '/edit/',
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.TAX + '/' + route + '/' + id
+  }
+}
+export const CURRENCY = {
+  LIST: APP_ROUTES.CURRENCY + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.CURRENCY + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.CURRENCY + '/edit/',
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.CURRENCY + '/' + route + '/' + id
+  }
+}
 export const UNIT_OF_MEASUREMENT = {
   LIST: APP_ROUTES.UNIT_OF_MEASUREMENT + '/' + CRUD_ROUTES.LIST
 }

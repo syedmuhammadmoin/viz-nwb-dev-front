@@ -1,12 +1,96 @@
 <!-- begin: Header -->
-<div ktHeader #ktHeader class="header " [ngClass]="headerClasses" id="kt_header">
+<div ktHeader class="header" [ngClass]="headerClasses" id="kt_header">
   <!--begin::Container-->
-  <div [ngClass]="headerContainerClasses" class="d-flex align-items-stretch justify-content-between">
+  <div [ngClass]="headerContainerClasses" class="d-flex justify-content-between">
 
-    <ng-container *ngIf="(loader.progress$|async) > 0">
+    <!-- <ng-container *ngIf="(loader.progress$|async) > 0">
       <ngb-progressbar class="loading-bar" [value]="loader.progress$|async" height="3px"></ngb-progressbar>
-    </ng-container>
+    </ng-container> -->
+    <div class="nav">
+      <div class="logo_img">
+        <a href="">
+          <img alt="logo" width="100px"  src="../../../../assets/media/logos/final-logo-new.png"  />
+        </a>      
+      </div>
+      <div>
+        <ul class="nav-content">          
+          <li class="customers_li">Customers
+            <ul class="customerDropdown">
+              <li routerLink="business-partner/list">
+                <a>
+                  Customers
+                </a>
+              </li>
+              <li>Invoices</li>
+              <li>Credit Note</li>
+              <li>Payments</li>
+              <li>Products</li>
+            </ul>
 
+          </li>
+          <li class="vendors_li" >Vendor
+            <ul class="VendorDropdown">
+              <li routerLink="business-partner/list">
+                <a >
+                  Vendor
+                </a>
+              </li>
+              <li>Bills</li>
+              <li>Refunds</li>
+              <li>Payment</li>
+              <li>Product</li>
+            </ul>
+          </li>
+          <li class="account_li">Accounting 
+            <ul class="accountingDropdown">
+              <li routerLink="journal/list">
+                <a >
+                  Journal
+                </a>
+              </li>           
+            </ul>
+          </li>
+          <li class="report_li">Reporting 
+            <ul class="reportingDropdown">
+              <li>
+                <a href="#">
+                  Reports
+                </a>
+              </li>           
+            </ul>
+          </li>
+          <li class="config_li">Configuration
+            <ul class="configDropdown">
+              <li  routerLink="chart-of-account/list">
+                <a>
+                  Chart Of Account
+                </a>
+              </li>  
+              <li>
+                <a routerLink="chart-of-account/list2">
+                  Chart Of Account 2
+                </a>
+              </li>  
+              <li  routerLink="tax/list">
+                <a>
+                  Taxes
+                </a>
+              </li>  
+              <li>
+                <a routerLink="currency/list">
+                  Currency
+                </a>
+              </li>    
+              <li>
+                <a href="#">
+                  Journal
+                </a>
+              </li>      
+            </ul>  
+          </li>
+        </ul>
+      </div>
+    </div>
     <!-- <ng-container >
       <div class="my-overlay" *ngIf="showOverlay">
         <div>
@@ -19,20 +103,20 @@
       </div>
     </ng-container> -->
     <!-- begin: Header Menu -->
-    <ng-container *ngIf="headerMenuSelfDisplay">
+    <!-- <ng-container *ngIf="headerMenuSelfDisplay">
       <kt-menu-horizontal
         [headerLogo]="headerLogo"
         [headerMenuSelfDisplay]="headerMenuSelfDisplay"
         [headerMenuClasses]="headerMenuClasses"
       ></kt-menu-horizontal>
-    </ng-container>
+    </ng-container> -->
     <!-- end: Header Menu -->
 
     <!-- begin:: Header Topbar -->
     <!-- empty div to fix topbar to stay on the right when menu-horizontal is hidden -->
-    <ng-container *ngIf="!headerMenuSelfDisplay">
+    <!-- <ng-container *ngIf="!headerMenuSelfDisplay">
       <div></div>
-    </ng-container>
+    </ng-container> -->
     <!--begin::Topbar-->
     <kt-topbar class="topbar"></kt-topbar>
     <!--end::Topbar-->

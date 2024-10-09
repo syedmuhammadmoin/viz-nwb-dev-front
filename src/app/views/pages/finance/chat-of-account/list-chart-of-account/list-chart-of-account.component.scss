@@ -1,0 +1,30 @@
+body {
+  overflow-x: hidden !important;
+}
+//Edit Mode
+.mdc-text-field--outlined .mdc-notched-outline,
+.ag-input-field-input {
+  background-color: #ffffa694 !important;
+}
+.cell-error {
+  background-color: #ffcccc; /* Light red */
+}
+.cell-editing {
+  background-color: #ffff99 !important; /* Light yellow background */
+}
+
+.btn-class {
+  width: 99%;
+  position: fixed;
+  margin-bottom: 5.5rem;
+  z-index: 2;
+  background-color: white;
+}
+ .ag-header {
+  height: 36px !important;
+  min-height: 31px !important;
+  position: fixed !important;
+  z-index: 1 !important;
+  top: 103px !important;
+  width: auto !important;
+}

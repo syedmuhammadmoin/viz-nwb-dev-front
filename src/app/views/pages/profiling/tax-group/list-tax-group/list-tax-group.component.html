@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Select Tax Group</h2>
+<ag-grid-angular style="width: 100%; height: 400px;" class="ag-theme-alpine" 
+  [gridOptions]="gridOptions"
+  [columnDefs]="columnDefs" 
+  [rowData]="rowData" 
+  (onRowClicked)="onRowClicked($event)"
+
+  >
+</ag-grid-angular>
+<mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="true" (click)="OpenNewModal()" cdkFocusInitial>Create</button>
+  <button mat-button (click)="closeDialog()">Close</button>
+</mat-dialog-actions>

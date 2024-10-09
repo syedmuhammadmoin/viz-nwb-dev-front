@@ -2,11 +2,13 @@
 import { Injectable, Injector } from '@angular/core';
 import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpResponse } from '@angular/common/http';
 // RxJS
-import { Observable } from 'rxjs';
+import { lastValueFrom, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import {environment} from '../../../../../environments/environment';
+import { environment } from '../../../../../environments/environment';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from 'src/app/views/pages/auth/service/authentication.service';
+import { isLoggedOut } from 'src/app/core/auth';
 
 /**
  * More information there => https://medium.com/@MetonymyQT/angular-http-interceptors-what-are-they-and-how-to-use-them-52e060321088
@@ -16,7 +18,7 @@ export class InterceptService implements HttpInterceptor {
 
   router: Router;
 
-  constructor(private toastService: ToastrService, injector: Injector , private route : Router) { }
+  constructor(private toastService: ToastrService,private authService : AuthenticationService,injector: Injector, private route: Router) { }
   // intercept request and add token
   intercept(
     request: HttpRequest<any>,
@@ -34,28 +36,42 @@ export class InterceptService implements HttpInterceptor {
       tap(
         event => {
           if (event instanceof HttpResponse) {
-           }
+          }
         },
         error => {
           let message = 'Something went wrong, Please try again later.'
           let title = 'Internal Server Error';
           switch (error.status) {
             case 400:
-              //This was the code before showing exact domain fields
-             // message = error?.errors?.message ?? 'Please verify form fields are correct, if issue presists please contact System Administrator'
-            message = error?.error?.errors?.map((error: any) => {             
-              return `${error.error}\n`;
-            });
-             console.log("Checking 400 Error", message);
-              
-              title = 'Bad Request'
+              title = 'Bad Request';
+
+              // Check for nested error object or array of errors
+              if (error?.error?.errors && Array.isArray(error.error.errors)) {
+                message = error.error.errors.map((err: any) => {
+                  return `${err.error ?? 'Unknown error'}\n`;
+                }).join('');
+              } else if (error?.error?.message) {
+                // Fallback to single message if errors array is not present
+                message = error.error.message;
+              } else {
+                message = 'Please verify form fields are correct. If the issue persists, contact the System Administrator.';
+              }
               break;
             case 401:
+              localStorage.clear();
               message = error?.error?.message ?? 'Unauhtorised access, Please login again.'
               title = 'Unauthorised'
+            lastValueFrom(  this.authService.signOut()).then(res => {
+              console.log('lastValueFrom>then');
+              if(res){                
+                this.route.navigateByUrl('/auth/login')             
+              }else{              
+                  this.toastService.error('Something went wrong, we\'re\ working on it. We will notify you when it\'s\ done', 'Error')   ;             
+              }
+            })
               //window.location.href = '/login'
-              this.route.navigateByUrl('/login')
               break;
+             
             case 403:
               message = error?.error?.message ?? 'You don\'\t have permission to access this resource'
               title = 'Forbidden'
@@ -65,7 +81,7 @@ export class InterceptService implements HttpInterceptor {
             case 404:
               message = error?.error?.message ?? 'Requested resource not found.'
               title = 'Resource Not Found'
-             // window.location.href = '/error/404'
+              // window.location.href = '/error/404'
               //this.route.navigateByUrl('/error/404')
               break;
             case 408:
@@ -73,23 +89,18 @@ export class InterceptService implements HttpInterceptor {
               title = 'Request Timeout'
               break;
             case 500:
-              message = error?.error?.message ?? 'Something went wrong, Please try again later.'
+              message = error?.error?.message ?? 'Something went wrong'+ error?.error?.traceId
               title = 'Internal Server Error'
-             // this.route.navigateByUrl('/error/500')
+              // this.route.navigateByUrl('/error/500')
               break;
             default:
-              message = error?.error?.message ?? 'Please try again later, If issue presists please contact System Administrator';
+              message = error?.error?.message ?? 'Check your internet connection or ensure the server is online. If the problem persists, please try again later or contact support.';
               title = 'General Processing Error'
               break;
           }
-          this.toastService.error(`${message}\n  ${title}`);
-          // http response status code
-          // console.log('----response----');
-          // console.error('status code:');
-          // tslint:disable-next-line:no-debugger
-          console.error(error.status);
-          console.error(error.message);
-          // console.log('--- end of response---');
+          this.toastService.error(`${message}<br>${title}`, '', {
+            enableHtml: true
+          });
         }
       )
     );

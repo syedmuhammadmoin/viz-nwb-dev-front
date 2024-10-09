@@ -83,7 +83,8 @@
                     errorMessage="Default Account is required." propertyName="name" propertyValue="id"
                     matFormFieldClass="full-width" [optionList]="defaultAccountList"
                     [buttonPermission]="permission.isGranted(this.permissions.BANKACCOUNT_CREATE)"
-                    placeholder="Select Default Account">
+                    placeholder="Select Default Account"
+                    (click)="checkType()">
                   </kt-simple-dropdown>
                 </div>
               </div>

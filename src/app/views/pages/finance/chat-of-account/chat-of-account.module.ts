@@ -10,20 +10,23 @@ import { AgGridModule} from 'ag-grid-angular';
 import { ChartOfAccountRoutingModule } from './chart-of-account-routing.module';
 import 'ag-grid-enterprise';
 import { ListChartOfAccountComponent } from './list-chart-of-account/list-chart-of-account.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { GroupDropdownCellEditorComponent } from './group-drop-down-cell-editor/group-drop-down-cell-editor.component';
 
 @NgModule({
   declarations: [
     ChatOfAccountComponent,
     CreateLevel3Component,
     CreateLevel4Component,
-    ListChartOfAccountComponent
+    ListChartOfAccountComponent,
+    GroupDropdownCellEditorComponent
   ],
   imports: [
     SharedModule,
     CommonModule,
     PartialsModule,
     ChartOfAccountRoutingModule,
-    AgGridModule
+    AgGridModule,
   ],
   providers: [ChartOfAccountService]
 })

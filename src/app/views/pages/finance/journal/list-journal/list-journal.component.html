@@ -1,37 +1,43 @@
-<div class="row mb-4">
-    <div class="col-md-12 text-end">
+<div class="row">
+    <div class="col-md-12 d-flex">
       <button (click)="addJournal()" *ngIf="(permission.isGranted(permissions.JOURNAL_CREATE))" class="app-default-btn" mat-raised-button matTooltip="Add Journal">Add Journal</button>
+      <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Selected Rows"
+      *ngIf="deleteBtn"> {{selectedRowCount}} selected
+      <span (click)="DeselectRows()" class="dialog-cross"><i class="fa fa-times text-end text-light"
+          style="font-size: 14px;margin-left: 10px;"></i></span> </button>
+    <button class="app-default-btn" style="margin-left: 10px !important;" mat-raised-button matTooltip="Delete Rows"
+      *ngIf="deleteBtn" (click)="DeleteRows()">Delete Rows</button> 
+    <h4 class="p-2">Journal</h4>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-12 ">
-      <kt-portlet >
-        <kt-portlet-header [sticky]="false" [title]="'Journal'" [class]="'card-head-lg'">
-        </kt-portlet-header>
-
-        <!-- <kt-grid-filteration (MonthYear)="fetchData($event)"></kt-grid-filteration> -->
-        
-        <kt-portlet-body>
-            <div class="col-lg-12 col-md-12 my-5 ps-4 pe-4">
+    <div class="col-md-12 p-0">
+      <kt-portlet >   
+        <!-- <kt-grid-filteration (MonthYear)="fetchData($event)"></kt-grid-filteration> -->      
+        <!-- <kt-portlet-body> -->
+            <div class="col-lg-12 col-md-12 ">
                 <ag-grid-angular
-                    style="width: 100%; height: 400px; margin-top: 10px;"
                     class="ag-theme-alpine"
+                    style="width: 100%; height: auto;"
                     [components]="components"
                     [columnDefs]="columnDefs"
                     (rowDoubleClicked)="onRowDoubleClicked($event)"
-                    (firstDataRendered)="onFirstDataRendered($event)"
-                    (paginationChanged)="paginationHelper.onPaginationChanged('journalPageName', gridApi, $event)"
+                    (firstDataRendered)="onFirstDataRendered($event)"               
                     [gridOptions]="gridOptions"                 
                     [overlayNoRowsTemplate]="overlayNoRowsTemplate"
                     [defaultColDef]="defaultColDef"
                     [tooltipShowDelay]="5"
                     (gridReady)="onGridReady($event)"
-                    [rowData]="FilteredData"
+                    [rowData]="rowData"
+                    [domLayout]="domLayout"
+                    rowSelection="multiple"
+                    (rowSelected)="onRowSelected($event)"
+                    [suppressRowClickSelection]="true"
                     >
                 </ag-grid-angular>
             </div>
-        </kt-portlet-body>
+        <!-- </kt-portlet-body> -->
       </kt-portlet>
     </div>
   </div>

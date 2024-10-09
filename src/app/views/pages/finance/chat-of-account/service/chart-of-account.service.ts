@@ -9,6 +9,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { AppServiceBase } from 'src/app/views/shared/app-service-base';
 import { Level4Filter } from '../model/Level4Filter';
+import { Level4AccountModel } from '../model/Level4AccountModel';
 
 @Injectable({
   providedIn: 'root'
@@ -50,11 +51,11 @@ export class ChartOfAccountService extends AppServiceBase {
     return this.httpClient.post<ILevel3>(this.baseUrl + 'level3', level3);
   }
 
-  createLevel4Account(level4: ILevel4): Observable<ILevel4> {
+  createLevel4Account(level4: Level4AccountModel): Observable<ILevel4> {
     return this.httpClient.post<ILevel4>(this.baseUrl + 'level4', level4);
   }
 
-  updateLevel4Account(level4: ILevel4): Observable<ILevel4> {
+  updateLevel4Account(level4: Level4AccountModel): Observable<ILevel4> {
     const url = AppConst.remoteServiceBaseUrl + 'level4/' + level4.id
     return this.httpClient.put<ILevel4>(url, level4);
   }
@@ -112,6 +113,10 @@ export class ChartOfAccountService extends AppServiceBase {
   getCashBankAccounts(): Observable<any> {
     return this.httpClient.get<any>(AppConst.remoteServiceBaseUrl + 'level4/CashBankAccounts');
   }
-  
+  deleteCOA(id : string[]):Observable<any>{
+    return this.httpClient.delete(`${AppConst.remoteServiceBaseUrl + "level4"}`,{
+      body : id
+    })
+  }
 }
 
