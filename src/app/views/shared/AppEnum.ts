@@ -251,6 +251,12 @@ export class Permissions {
    static TAXES_EDIT = 'Permissions.TaxesClaims.ED';
    static TAXES_DELETE = 'Permissions.TaxesClaims.DL';
 
+
+   static TAXES_SETTING_VIEW = 'Permissions.TaxesSettingClaims.VW';
+   static TAXES_SETTING_CREATE = 'Permissions.TaxesSettingClaims.CR';
+   static TAXES_SETTING_EDIT = 'Permissions.TaxesSettingClaims.ED';
+   static TAXES_SETTING_DELETE = 'Permissions.TaxesSettingClaims.DL';
+
    // Currency
    static CURRENCY_VIEW = 'Permissions.CurrencyClaims.VW';
    static CURRENCY_CREATE = 'Permissions.CurrencyClaims.CR';
@@ -724,7 +730,14 @@ export enum TaxComputation{
   Percentage = 2,
   PercentageTaxIncluded = 3,
 }
-
+export enum Periodicity{
+  annually = 0,
+  semiannually = 1,
+  every4Month = 2,
+  quarterly = 3,
+  every2Month = 4,
+  monthly = 5
+}
  export enum bankAccountType {
     Current,
     Saving

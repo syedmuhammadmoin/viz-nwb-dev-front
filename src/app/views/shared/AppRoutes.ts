@@ -10,6 +10,7 @@ export const APP_ROUTES = {
   //ACCESS MANAGEMENT
   ACCESS_MANAGEMENT: 'access-management',
   TAX_GROUP : 'tax-group',
+  TAX_SETTING : 'tax-setting',
 
   //FINANCE
   BANK_ACCOUNT: 'bank-account',
@@ -364,6 +365,10 @@ export const CASH_ACCOUNT = {
 
 export const CHART_OF_ACCOUNT = {
   LIST: APP_ROUTES.CHART_OF_ACCOUNT + '/' + CRUD_ROUTES.LIST,
+}
+
+export const TAXSETTING = {
+  CREATE: APP_ROUTES.TAX_SETTING + '/' + CRUD_ROUTES.CREATE,
 }
 
 export const JOURNAL = {

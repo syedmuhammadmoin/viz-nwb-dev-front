@@ -67,7 +67,8 @@ import {
   FEE_ITEM,
   PETTY_CASH,
   JOURNAL,
-  CURRENCY
+  CURRENCY,
+  TAXSETTING
 } from 'src/app/views/shared/AppRoutes';
 
 
@@ -1550,8 +1551,8 @@ export class MenuConfig {
 
           submenu: [
             {
-              title: 'Settings',
-              // page: '/' + CHART_OF_ACCOUNT.LIST,
+              title: 'Setting',
+               page: '/' + TAXSETTING.CREATE,
               // permission: [
               //   Permissions.LEVEL3_VIEW,
               //   Permissions.LEVEL3_CREATE,
