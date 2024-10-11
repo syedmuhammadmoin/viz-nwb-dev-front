@@ -155,6 +155,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.onTypeChange(this.selectedType)
     console.log(this.selectedType,"SelectedType");
     
+    
   }
   getTaxGroup() {
     this.taxGrpService.getAll().subscribe(res =>{
@@ -314,12 +315,12 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
             this.dialog.closeAll();
             console.log(this._id,"id");
             this.cdRef.detectChanges();
-            this.taxService.getTax(this._id).subscribe(res => {
-              this.ChildrenList = [];
+            this.taxService.getTax(this._id).subscribe(res => {            
               //this.ChildrenList = this.ChildrenList.filter(child => child.id !== this._id);  
                
               this.ChildrenList.push(res.result) 
               console.log(this.ChildrenList,"19");
+              this.taxService.updateChildrenList(this.ChildrenList);
               this.cdRef.detectChanges();
               
             })
@@ -427,7 +428,8 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
           return;
         }else{
           console.log("Not Okay",res.result);           
-            this.ChildrenList.push(...res.result)
+            this.ChildrenList.push(...res.result);
+            this.taxService.updateChildrenList(this.ChildrenList);
             this.cdRef.detectChanges();
             this.onNavChange({ event: { nextId: 1 } });                 
         }
