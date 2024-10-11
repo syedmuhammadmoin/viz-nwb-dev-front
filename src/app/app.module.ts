@@ -108,7 +108,6 @@ import {BatchState} from './views/pages/admission/batch/store/batch.state';
 import {SubjectState} from './views/pages/admission/subject/store/subject.state';
 import { MatCommonModule } from '@angular/material/core';
 import { BudgetAccountState } from './views/pages/budget/current-budget/store/budget-account.state';
-import { NgSelectModule } from '@ng-select/ng-select';
 
 export function initializeLayoutConfig(appConfig: LayoutConfigService) {
   // initialize app by loading default demo layout config
@@ -208,7 +207,6 @@ export function getHighlightLanguages() {
     TranslateModule.forRoot(),
     MatProgressSpinnerModule,
     ThemeModule,
-    NgSelectModule,
     SharedModule
   ],
   exports: [],

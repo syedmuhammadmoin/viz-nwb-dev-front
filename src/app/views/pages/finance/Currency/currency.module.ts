@@ -6,7 +6,6 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { CurrencyListComponent } from './Component/currency-list/currency-list.component';
 import { CreateCurrencyComponent } from './Component/create-currency/create-currency.component';
 import { CurrencyRoutingModule } from './currency-routing.module';
-import { NgSelectModule } from '@ng-select/ng-select';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 
 
@@ -20,7 +19,6 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
     SharedModule,
     
     PartialsModule,
-    NgSelectModule,
     NgbNavModule,
     CurrencyRoutingModule,
     AgGridModule

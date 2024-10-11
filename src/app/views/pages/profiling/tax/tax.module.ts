@@ -7,9 +7,9 @@ import { PartialsModule } from 'src/app/views/partials/partials.module';
 import { TaxRoutingModule } from './tax-routing.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgSelectComponent, NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectTaxListComponent } from './select-tax-list/select-tax-list.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 @NgModule({
@@ -24,9 +24,9 @@ import { SelectTaxListComponent } from './select-tax-list/select-tax-list.compon
     ReactiveFormsModule,    
     SharedModule,
     PartialsModule,
-    TaxRoutingModule,
-    NgSelectModule,
+    TaxRoutingModule, 
     NgbNavModule,
+    MatTabsModule,
     AgGridModule
   ]
 })

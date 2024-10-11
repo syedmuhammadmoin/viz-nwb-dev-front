@@ -10,7 +10,7 @@ import { IApiResponse } from 'src/app/views/shared/IApiResponse';
 import { Permissions, TaxComputation } from 'src/app/views/shared/AppEnum';
 import { TaxService } from '../service/tax.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
-import { lastValueFrom } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service';
 import { ListTaxComponent } from '../list-tax/list-tax.component';
 import { SelectTaxListComponent } from '../select-tax-list/select-tax-list.component';
@@ -31,13 +31,14 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   //Loader
   isLoading: boolean
   istax: boolean;
-  selectedType: string = '1';
+  selectedType: string | null = null;
   public selectedAccount: String;
   otherAccountsList: any;
 
   // tax form declaration
   taxForm: FormGroup;
-  ChildrenList: ChildrenList[];
+  ChildrenList: any[] = [];
+  list = new BehaviorSubject<any>(null);
 
   //tax model 
   taxModel: any = {} as any;
@@ -64,6 +65,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   //for resetting form
   @ViewChild('formDirective') private formDirective: NgForm;
+  
 
   // validation messages
   validationMessages = {
@@ -131,6 +133,11 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         this.getTax(id);
       }
     })
+    if(this._id){
+      console.log(this._id,"Loging ud");
+      this.getTax(this._id)
+      
+    }
 
 
     //Get Data From Store
@@ -145,6 +152,9 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.getTaxGroup();
     this.addInvoiceLine();
     this.addRefundine();
+    this.onTypeChange(this.selectedType)
+    console.log(this.selectedType,"SelectedType");
+    
   }
   getTaxGroup() {
     this.taxGrpService.getAll().subscribe(res =>{
@@ -162,8 +172,8 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   addInvoiceLine(): void {
     const detail = this.fb.group({
       percent: [''],
-      taxBase: ['base', Validators.required],
-      accountId: [, [Validators.required, Validators.min(0)]],
+      taxBase: ['base',],
+      accountId: [],
 
     })
     this.taxInvoiceslines.push(detail)
@@ -172,8 +182,8 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
   addRefundine(): void {
     const detail = this.fb.group({
       percent: [''],
-      taxBase: ['base', Validators.required],
-      accountId: [, [Validators.required, Validators.min(0)]]
+      taxBase: ['base'],
+      accountId: []
     })
     this.taxRefundlines.push(detail)
   }
@@ -222,6 +232,8 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       taxScope: tax.taxScope,
       groupId: tax.groupId
     });
+    this.selectedType = tax.taxComputation
+    this.onTypeChange(tax.taxComputation)
     this.taxForm.setControl('taxInvoiceslines', this.PatchInvoiceslines(tax.taxInvoicesLines))
     this.taxForm.setControl('taxRefundlines', this.PatchtaxRefundlines(tax.taxRefundLines))
     this.ChildrenList = tax.childrenTaxes
@@ -296,6 +308,24 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
           })
         )
         .subscribe(() => {
+
+          if(this._id){
+            debugger;
+            this.dialog.closeAll();
+            console.log(this._id,"id");
+            this.cdRef.detectChanges();
+            this.taxService.getTax(this._id).subscribe(res => {
+              this.ChildrenList = [];
+              //this.ChildrenList = this.ChildrenList.filter(child => child.id !== this._id);  
+               
+              this.ChildrenList.push(res.result) 
+              console.log(this.ChildrenList,"19");
+              this.cdRef.detectChanges();
+              
+            })
+            return;
+          }
+
           this.router.navigateByUrl('tax/list');
           this.toastService.success('Updated Successfully', 'Tax')
           this.onCloseDialog();
@@ -326,10 +356,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       let formattedValue = value.replace(/[^0-9.]/g, '');
       const [integer, decimal] = formattedValue.split('.');
       if (decimal && decimal.length > 2) {
-        formattedValue = `${integer}.${decimal.slice(0, 2)}`;
+        formattedValue = `${integer}.${decimal.slice(0, 4)}`;
       }
       if (!formattedValue.includes('.')) {
-        formattedValue = `${formattedValue}.00`;
+        formattedValue = `${formattedValue}.0000`;
       }
       this.taxForm.get('amount')?.setValue(formattedValue, { emitEvent: false });
     }
@@ -340,10 +370,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       let formattedValue = value.replace(/[^0-9.]/g, '');
       const [integer, decimal] = formattedValue.split('.');
       if (decimal && decimal.length > 2) {
-        formattedValue = `${integer}.${decimal.slice(0, 2)}`;
+        formattedValue = `${integer}.${decimal.slice(0, 4)}`;
       }
       if (!formattedValue.includes('.')) {
-        formattedValue = `${formattedValue}.00`;
+        formattedValue = `${formattedValue}.0000`;
       }
       this.taxForm.get('percent')?.setValue(formattedValue, { emitEvent: false });
     }
@@ -386,15 +416,27 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       width: '800px',
       height: '500px',
     }).afterClosed().subscribe(res => {
+      console.log(res,"before hit");
+      if(res === null){
+    return;
+      }
       lastValueFrom(this.taxService.getTaxesByIds(res)).then(res => { 
-
-        if (res != false) {
-          this.ChildrenList = res.result
-          this.cdRef.detectChanges();
-          this.onNavChange({ event: { nextId: 1 } });
+        console.log(res,"closed");
+        if(res == null){
+          console.log("Okay");
+          return;
+        }else{
+          console.log("Not Okay",res.result);           
+            this.ChildrenList.push(...res.result)
+            this.cdRef.detectChanges();
+            this.onNavChange({ event: { nextId: 1 } });                 
         }
 
+        
+      
+
       })
+   
     });
   }
   removegrpLine(lineToRemove: any) {
@@ -429,6 +471,16 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         })
       }
     });
+  }
+
+  OnRowClick(event : any){
+    console.log(event,"click");
+    this.dialog.open(CreateTaxComponent, {
+      width : '800px',
+      height : '700px',
+      data : event.id
+    })
+    
   }
 }
 
