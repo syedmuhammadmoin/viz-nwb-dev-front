@@ -14,6 +14,7 @@ export interface ITax {
     includedPrice : TaxIncluded;
     sabsequentTaxes:boolean;
     groupId : string;
+    isActive : boolean;
     taxComputation : TaxComputation;
     ChildrenTaxes : ITax[];
     taxRefundlines : TaxInvoicesLines[];

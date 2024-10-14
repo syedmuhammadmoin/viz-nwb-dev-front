@@ -123,18 +123,9 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
      },
-    { headerName: 'Account', 
-      field: 'accountName', 
-      flex: 3,
-      suppressHeaderMenuButton: true, 
-      tooltipField: 'name',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return params.value ?? ' - '
-      }
-    },
     {
-      field: "actions",
-      headerName: "Actions",
+      headerName: "Active",
+      field: "isActive",
       cellRenderer: CustomButtonComponent,
     },
   ];

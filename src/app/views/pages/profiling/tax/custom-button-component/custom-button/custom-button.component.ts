@@ -1,24 +1,30 @@
 import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
+import { TaxService } from '../../service/tax.service';
+import { lastValueFrom } from 'rxjs';
 
 @Component({
   selector: 'vl-custom-button',
-  template: `
-    <button (click)="onToggle()">{{ isActive ? 'Deactivate' : 'Activate' }}</button>
-
-    
-  `,
+  templateUrl: './custom-button.component.html',
   styleUrl: './custom-button.component.scss'
 })
 export class CustomButtonComponent implements ICellRendererAngularComp {
+  public isActive: boolean = true;
+  public params: any;
 
+  constructor(
+    private service : TaxService,
+  ){
+
+  }
   refresh(params: ICellRendererParams<any, any, any>): boolean {
-    console.log(params,"custom copo");
+    this.isActive = params.value
+   lastValueFrom(this.service.ChangeTaxStatus(params.data.id,params.value)).then(res => {   
+   })
     return true
   }
-  public params: any;
-  public isActive: boolean = false;
+
 
   agInit(params: any): void {
     this.params = params;
@@ -28,6 +34,5 @@ export class CustomButtonComponent implements ICellRendererAngularComp {
   onToggle() {
     this.isActive = !this.isActive;
     this.params.node.setDataValue(this.params.colDef.field, this.isActive);
-    this.params.context.componentParent.onToggleActive(this.params);
   }
 }

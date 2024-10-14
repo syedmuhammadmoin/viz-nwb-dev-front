@@ -13,6 +13,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CustomButtonComponent } from './custom-button-component/custom-button/custom-button.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatRadioModule } from '@angular/material/radio';
+import { EditTaxComponent } from './edit-tax/edit-tax.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MatRadioModule } from '@angular/material/radio';
     ListTaxComponent, 
     CreateTaxComponent,
     SelectTaxListComponent,
-    CustomButtonComponent
+    CustomButtonComponent,
+    EditTaxComponent
   ],
   imports: [
     CommonModule,

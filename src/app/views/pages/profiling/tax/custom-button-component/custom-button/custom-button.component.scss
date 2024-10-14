@@ -1,0 +1,19 @@
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #49c5b6;
+}
+
+:host ::ng-deep .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #49c5b6;
+}
+
+// ::ng-deep .mat-slide-toggle{
+//     background-color: red;
+// }
+
+.form-check-input {
+    border-color: #0d6efd;
+    &:checked {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+}

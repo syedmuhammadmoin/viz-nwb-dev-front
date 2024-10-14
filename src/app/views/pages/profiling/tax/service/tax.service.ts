@@ -56,6 +56,13 @@ export class TaxService extends AppServiceBase {
       getTaxesByIds(ids: number[]): Observable<any> {
         return this.httpClient.post(`${AppConst.remoteServiceBaseUrl + "tax/gettaxesbyids"}`, ids);
     }
+    ChangeTaxStatus(id: number,status :boolean): Observable<any> {
+      return this.httpClient.post<any>(`${this.baseUrl + '/change-status/'+ id}` , status, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json'
+          })
+      })
+  }
 }
 
 

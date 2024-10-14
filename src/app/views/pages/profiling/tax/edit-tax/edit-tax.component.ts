@@ -12,22 +12,18 @@ import { TaxService } from '../service/tax.service';
 import { AppConst } from 'src/app/views/shared/AppConst';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ChartOfAccountService } from '../../../finance/chat-of-account/service/chart-of-account.service';
-import { ListTaxComponent } from '../list-tax/list-tax.component';
 import { SelectTaxListComponent } from '../select-tax-list/select-tax-list.component';
 import { ListTaxGroupComponent } from '../../tax-group/list-tax-group/list-tax-group.component';
 import { AddModalButtonService } from 'src/app/views/shared/services/add-modal-button/add-modal-button.service';
 import { TaxGroupService } from '../../tax-group/service/tax-group.service';
 import { ITaxGroupModel } from '../../tax-group/model/ITaxGroupModel';
-import { EditTaxComponent } from '../edit-tax/edit-tax.component';
-
 
 @Component({
-  selector: 'kt-create-tax',
-  templateUrl: './create-tax.component.html',
-  styleUrls: ['./create-tax.component.scss']
+  selector: 'vl-edit-tax',
+  templateUrl: './edit-tax.component.html',
+  styleUrl: './edit-tax.component.scss'
 })
-
-export class CreateTaxComponent extends AppComponentBase implements OnInit {
+export class EditTaxComponent extends AppComponentBase implements OnInit {
 
   //Loader
   isLoading: boolean
@@ -98,7 +94,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     public dialog: MatDialog,
     public addButtonService: AddModalButtonService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
-    // public dialogRef: MatDialogRef<CreateTaxComponent>,
+     public dialogRef: MatDialogRef<EditTaxComponent>,
     injector: Injector
   ) {
     super(injector);
@@ -154,7 +150,10 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.getTaxGroup();
     this.addInvoiceLine();
     this.addRefundine();
-    this.onTypeChange(this.selectedType)      
+    this.onTypeChange(this.selectedType)
+    console.log(this.selectedType,"SelectedType");
+    
+    
   }
   getTaxGroup() {
     this.taxGrpService.getAll().subscribe(res =>{
@@ -308,22 +307,14 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
             this.cdRef.detectChanges();
           })
         )
-        .subscribe(() => {
-
+        .subscribe(res => {
+        console.log(res,"Logging response edit form");
+        
           if(this._id){
             debugger;
-            this.dialog.closeAll();
+            this.dialogRef.close(res);
             console.log(this._id,"id");
             this.cdRef.detectChanges();
-            this.taxService.getTax(this._id).subscribe(res => {            
-              //this.ChildrenList = this.ChildrenList.filter(child => child.id !== this._id);  
-               
-              this.ChildrenList.push(res.result) 
-              console.log(this.ChildrenList,"19");
-              this.taxService.updateChildrenList(this.ChildrenList);
-              this.cdRef.detectChanges();
-              
-            })
             return;
           }
 
@@ -417,6 +408,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       width: '800px',
       height: '500px',
     }).afterClosed().subscribe(res => {
+      console.log(res,"before hit");
       if(res === null){
     return;
       }
@@ -425,14 +417,19 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
         if(res == null){
           console.log("Okay");
           return;
-        }else{         
+        }else{
+          console.log("Not Okay",res.result);           
             this.ChildrenList.push(...res.result);
             this.taxService.updateChildrenList(this.ChildrenList);
             this.cdRef.detectChanges();
             this.onNavChange({ event: { nextId: 1 } });                 
         }
 
-      })   
+        
+      
+
+      })
+   
     });
   }
   removegrpLine(lineToRemove: any) {
@@ -475,21 +472,8 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       width : '800px',
       height : '700px',
       data : event.id
-    }).afterClosed().subscribe(res => {
-       this.ChildrenList = this.ChildrenList.filter(line => line !== event);
-      this.ChildrenList.push(res.result)
-      this.cdRef.detectChanges();      
-    })    
+    })
+    
   }
 }
-
-
-
-
-
-
-
-
-
-
 
