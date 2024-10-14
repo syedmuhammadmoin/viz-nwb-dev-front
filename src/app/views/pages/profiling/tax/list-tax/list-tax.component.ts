@@ -13,6 +13,7 @@ import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { TAX } from 'src/app/views/shared/AppRoutes';
 import { ToggleAction } from '@ngrx/store-devtools/src/actions';
 import { AgToggleButton } from 'ag-grid-enterprise';
+import { CustomButtonComponent } from '../custom-button-component/custom-button/custom-button.component';
 
 @Component({
   selector: 'kt-list-tax',
@@ -131,15 +132,11 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
         return params.value ?? ' - '
       }
     },
-    { 
-      headerName: 'Active', 
-      field: 'active', 
-      cellRenderer: 'appToggleButtonRenderer', 
-      editable: true ,
-      cellRendererParams: {
-        onToggleChange: this.onToggleChange.bind(this), // Bind the method
-      },
-    }
+    {
+      field: "actions",
+      headerName: "Actions",
+      cellRenderer: CustomButtonComponent,
+    },
   ];
 
 
@@ -152,7 +149,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       // headerHeight: 35,      
       context: "double click to view detail",
       defaultColDef: {
-        editable: true,
+        editable: false,
         filter: true, // Enable filtering
       },
     };

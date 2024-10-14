@@ -10,13 +10,17 @@ import { NgbNavModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectTaxListComponent } from './select-tax-list/select-tax-list.component';
 import { MatTabsModule } from '@angular/material/tabs';
+import { CustomButtonComponent } from './custom-button-component/custom-button/custom-button.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 @NgModule({
   declarations: [
     ListTaxComponent, 
     CreateTaxComponent,
-    SelectTaxListComponent
+    SelectTaxListComponent,
+    CustomButtonComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,9 @@ import { MatTabsModule } from '@angular/material/tabs';
     TaxRoutingModule, 
     NgbNavModule,
     MatTabsModule,
-    AgGridModule
+    AgGridModule,
+    MatSlideToggleModule,
+    MatRadioModule
   ]
 })
 export class TaxModule { }
