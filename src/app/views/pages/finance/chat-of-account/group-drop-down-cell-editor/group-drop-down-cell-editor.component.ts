@@ -53,10 +53,9 @@ export class GroupDropdownCellEditorComponent implements ControlValueAccessor, O
     // // Set optionList with values from params
      this.optionList = params.values || [];
     
-   console.log('agInit',params);
 
      
-    this.selectedValue = params.data.level3Name; // Set the initial value
+    this.selectedValue = params.data.level3_id?? params.data.level3Name; // Set the initial value
     this.internalControl.setValue(this.selectedValue, { emitEvent: false }); // Set value in form control without triggering valueChanges
   }
 

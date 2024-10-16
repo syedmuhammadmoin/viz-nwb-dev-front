@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, Injector, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, DoCheck, EventEmitter, Injector, NgZone, OnChanges, OnInit, SimpleChanges, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ChartOfAccountService } from '../service/chart-of-account.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
@@ -21,32 +21,31 @@ import { CheckboxSelectionComponent } from 'ag-grid-enterprise';
   templateUrl: './list-chart-of-account.component.html',
   styleUrl: './list-chart-of-account.component.scss',
   encapsulation: ViewEncapsulation.None, // Add this line
+  changeDetection: ChangeDetectionStrategy.Default
 })
 export class ListChartOfAccountComponent extends AppComponentBase implements OnInit {
 
   //fields
   isLoading: boolean = false;
   form: FormGroup;
-  //dataSource: any;
-  //model: ILevel4;
-  private gridApi!: GridApi;
-  // private columnApi!: ColumnApi;
-  // private editedRows: any[] = [];
   private lastAddedRow: any = null;
   public showDiscardButton: boolean = false;
   public isNewRowAdded: boolean = false;
   public settingBtn: boolean = false;
   selectedRowCount: number[] = []
+  public permissions = Permissions
+  public dropdownData: any = [];
+  public selectedDropdownId: number | null = null;
 
-
+  
   //Aggrid fields
+  private gridApi!: GridApi;
+  gridOptions: GridOptions;
   defaultColDef: ColDef;
   domLayout: any;
-  gridOptions: GridOptions;
   FilteredData: any[] = [];
   level3List: Level3Dropdown[];
   tooltipData: string = "double click to view detail"
-  public permissions = Permissions
   components: any;
   public editingRowId: string | null = null; // Initialize it in your class
   overlayNoRowsTemplate = '<span class="ag-noData">No Rows !</span>';
@@ -55,12 +54,10 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   public filterModel: Level4Filter = new Level4Filter(); // Initialize with default values
 
   public rowData: any[] = [];
-  public dropdownData: any = [];
-  public selectedDropdownId: number | null = null;
   columnDefs: any;
+  
   // Error map to track which fields have validation errors
   public rowValidationErrors: { [rowId: string]: { [field: string]: boolean } } = {};
-
 
 
 
@@ -69,14 +66,13 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     private chartOfAccService: ChartOfAccountService,
     public dialog: MatDialog,
     public toast: ToastrService,
-    private cdRef: ChangeDetectorRef,
     injector: Injector,
-    private fb: FormBuilder
+    private fb: FormBuilder,
   ) {
     super(injector)
     this.form = this.fb.group({
-      level3Ctrl: [''],  // Add the control you're binding to
-      level3Name: ['']  // Add the control you're binding to
+      // level3Ctrl: [''],  
+      // level3Name: ['']  
     });
 
     this.components = {
@@ -146,8 +142,10 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
 
     this.isLoading = true;
+
+    
+    this.initializeColumnDefs();
     this.getLevel3Accounts();
-    this.loadGridData();
 
 
     // Create a form with a FormArray for rows
@@ -155,21 +153,15 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       rows: this.fb.array(this.rowData.map(data => this.createRowFormGroup(data)))
     });
 
-    // this.form.get('level3Ctrl')?.valueChanges.subscribe(value => {
-
-    // });
-
-    // this.form.get('level3Name')?.valueChanges.subscribe(value => {
-
-    // });
-
+   
 
 
 
   }
+  
   // Event when cell editing starts
   onCellEditingStarted(event: any) {
-    // console.log('Editing started on:', event);
+    
     if (event.data) {
       this.originalRowData = { ...event.data }; // Deep clone the row data
     }
@@ -179,7 +171,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   // Event when cell editing stops
   onCellEditingStopped(event: any) {
-    // console.log('Editing stopped on:', event);
+   
     this.editingRowId = null;
     this.gridApi.refreshCells({ force: true });
   }
@@ -239,7 +231,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
       },
       {
         headerName: 'Type',
-        field: 'level3Name',
+        field: 'level3_id',
         tooltipField: 'Type',
         filter: 'agTextColumnFilter',
         menuTabs: ['filterMenuTab'],
@@ -259,12 +251,11 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
         },
         valueFormatter: (params: any) => {
-          console.log('params', params);
           //Recursive function to find item by level3_id
           function findItemByLevel3Id(data: any[], level3Id: string): any {
             for (const item of data) {
               if (item.id === level3Id) {
-                console.log('item', item);
+                
                 return item;
               }
               if (item.children && item.children.length) {
@@ -279,15 +270,16 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
           // Use the recursive function to find the item
           const selectedItem = findItemByLevel3Id(this.dropdownData, params.value);
-          params.data.level3Name =  params.value;
-          return selectedItem ? selectedItem.name : params.value;
-          //return params.value;
+         // params.data.level3Name =  params.value;
+          //return selectedItem ? selectedItem.name : params.value;
+          return  selectedItem?.name;
+          
         }
       },
 
     ];
 
-
+    this.loadGridData();
 
   }
   onFirstDataRendered(params: FirstDataRenderedEvent) {
@@ -304,14 +296,16 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
     // Reload the grid with filtered data
     this.loadGridData();
-    this.cdRef.detectChanges();
   }
   loadGridData(): void {
     // Use the filterModel with default or updated values to request data from the server
     this.chartOfAccService.getLevel4Accounts(this.filterModel).subscribe((data) => {
       this.rowData = data.result;
-      this.gridApi?.setGridOption('rowData', this.rowData)
-      this.cdRef.detectChanges();
+     this.gridApi?.setGridOption('rowData', this.rowData)
+   
+     // this.cdRef.detectChanges();
+      
+
     });
   }
 
@@ -338,6 +332,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
   onGridReady(params: any) {
     this.gridApi = params.api;
+    
 
   }
 
@@ -430,7 +425,6 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
     return item ? item.level3Name : '';
   }
   onRowValueChanged(event: any) {
-    debugger;
      console.log('Row editing stopped. Data:', event.data);
      if(this.checkCode(event.data.code) == false){
       return;
@@ -442,9 +436,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
     const isRowNew = !event.data.id; // If id is null/undefined, it's a new row
 
-    // // Check if the row is new or already existing by comparing with the editedRows array
-    // var isRowNew = this.editedRows.some(row => row === event.data);
-
+   
 
     if (event.data) {
 
@@ -479,7 +471,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
           event.data.id = response.result.id; // Assuming the API returns the inserted record's ID
           this.showDiscardButton = false;
           this.isNewRowAdded = false;
-          this.cdRef.markForCheck();
+        //  this.cdRef.markForCheck();
 
           this.toast.success("Created Successfully", "Chart of Account");
         }
@@ -491,7 +483,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
         next: (res) => {
           this.showDiscardButton = false;
           this.isNewRowAdded = false;
-          this.cdRef.markForCheck();
+         // this.cdRef.markForCheck();
           this.toast.success("Updated Successfully", "Chart of Account");
         }
       });
@@ -500,7 +492,7 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
 
 
   onCellValueChanged(event: any) {
-    debugger;
+   
     const rowData = event.data;
    
     if(this.checkCode(event.data.code) == false){
@@ -528,16 +520,13 @@ export class ListChartOfAccountComponent extends AppComponentBase implements OnI
   getLevel3Accounts(): void {
     this.chartOfAccService.getAccountsTypeDropdown().subscribe(res => {
       this.dropdownData = res.result;
-      this.initializeColumnDefs(); // Call this after data is loaded
-
-      //  this.updateColumnDefs();
+        this.updateColumnDefs();
     })
   }
 
 
 
   mapToLevel4AccountModel(eventData: any): Level4AccountModel {
-    //  console.log('mapToLevel4AccountModel: eventData', eventData)
     return {
       id: eventData.id,
       editableName: eventData.editableName,
@@ -583,6 +572,19 @@ checkCode(code: string) : any {
 }
 return true;
 }
+
+updateColumnDefs(): void {
+  const typeColumn = this.columnDefs.find(col => col.field === 'level3_id');
+  if (typeColumn) {
+    typeColumn.cellEditorParams.values = this.dropdownData; // Update the dropdown values in the column definition
+    if (this.gridApi) {
+      // Refresh column definitions
+      this.gridApi.setGridOption('columnDefs',this.columnDefs); // Update column definitions using columnApi
+      this.gridApi.refreshCells(); // Optionally refresh the grid cells to show updated dropdowns
+    }
+  }
+}
+
 }
 
 
