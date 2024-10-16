@@ -1,0 +1,18 @@
+.side-menu{
+    display: flex;
+    flex-direction: column;
+    color: white;
+    height: 90vh;
+    overflow: auto;
+    position: fixed;
+    margin-bottom: 0px;
+    top: 5rem;
+    display: block;
+    width: 21.4rem;
+   // overflow: scroll;
+    background-color: darkcyan;
+    li{
+        list-style: none;
+        cursor: pointer;
+    }
+}

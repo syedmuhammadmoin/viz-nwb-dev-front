@@ -110,7 +110,8 @@ export const APP_ROUTES = {
   CWIP: 'cwip',
   DISPOSAL: 'disposal',
   DEPRECIATION_ADJUSTMENT: 'depreciation-adjustment',
-  ASSET_REPORT: 'assets-report'
+  ASSET_REPORT: 'assets-report',
+  APP_SETTING: 'setting'
 }
 
 export const CRUD_ROUTES = {

@@ -734,6 +734,15 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+
+      {
+        path: APP_ROUTES.APP_SETTING, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/app-setting/appsetting.module').then(
+            (m) => m.AppsettingModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
     ],
