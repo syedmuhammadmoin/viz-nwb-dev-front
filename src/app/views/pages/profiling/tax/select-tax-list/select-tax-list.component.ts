@@ -43,7 +43,7 @@ export class SelectTaxListComponent extends AppComponentBase implements OnInit {
       rowSelection: 'multiple',             
       context: "double click to view detail",
       defaultColDef: {
-        editable: true,
+        editable: false,
         filter: true, 
       },
     }

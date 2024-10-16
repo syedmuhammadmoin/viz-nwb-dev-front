@@ -75,13 +75,12 @@ export class CreateTaxSettingComponent extends AppComponentBase implements OnIni
   onSubmit(){
     this.model = this.form.value;
     lastValueFrom(this.service.add(this.model)).then(res => {
-      console.log(res.result);
-      
+      console.log(res.result);    
     })
     
   }
   reset(){
-
+ 
   }
 
   getTax(id : number){

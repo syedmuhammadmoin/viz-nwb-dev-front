@@ -11,6 +11,9 @@ import { CreateTaxComponent } from '../create-tax/create-tax.component';
 import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-tooltip/custom-tooltip.component';
 import { firstValueFrom, lastValueFrom } from 'rxjs';
 import { TAX } from 'src/app/views/shared/AppRoutes';
+import { ToggleAction } from '@ngrx/store-devtools/src/actions';
+import { AgToggleButton } from 'ag-grid-enterprise';
+import { CustomButtonComponent } from '../custom-button-component/custom-button/custom-button.component';
 
 @Component({
   selector: 'kt-list-tax',
@@ -120,14 +123,10 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
           suppressAndOrCondition: true,
         },
      },
-    { headerName: 'Account', 
-      field: 'accountName', 
-      flex: 3,
-      suppressHeaderMenuButton: true, 
-      tooltipField: 'name',
-      valueFormatter: (params : ValueFormatterParams) => {
-        return params.value ?? ' - '
-      }
+    {
+      headerName: "Active",
+      field: "isActive",
+      cellRenderer: CustomButtonComponent,
     },
   ];
 
@@ -141,7 +140,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
       // headerHeight: 35,      
       context: "double click to view detail",
       defaultColDef: {
-        editable: true,
+        editable: false,
         filter: true, // Enable filtering
       },
     };
@@ -159,6 +158,7 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
 
     this.components = {
       customTooltip: CustomTooltipComponent,
+      appToggleButtonRenderer: AgToggleButton,
       loadingCellRenderer: function (params: any) {
         if (params.value !== undefined) {
           return params.value;
@@ -260,6 +260,17 @@ export class ListTaxComponent extends AppComponentBase implements OnInit {
   };
   DeselectRows() {
     this.gridApi.deselectAll();
+  }
+
+  onToggleChange(event : any): void {
+    console.log(event,"Log");
+    
+    //console.log(`Row ID: ${rowId}, New Value: ${newValue}`,"Waleedeeeed");
+    // Here, you can update the row data or perform any additional actions
+   // const rowNode = this.gridApi.getRowNode(rowId.toString());
+    // if (rowNode) {
+    //   rowNode.setDataValue('active', newValue); // Update the row data
+    // }
   }
 }
 

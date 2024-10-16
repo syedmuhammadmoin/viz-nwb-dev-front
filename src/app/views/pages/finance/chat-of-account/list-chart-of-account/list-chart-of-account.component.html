@@ -21,33 +21,31 @@
   <div class="col-md-12 p-0">
     <kt-portlet class="make-ag-grid-header-sticky">
       <kt-portlet-body class="p-3">
-        <div class="col-lg-12 col-md-12">
-          <form [formGroup]="form">
-            <ag-grid-angular 
-            class="ag-theme-alpine" 
-            style="width: 100%; height: auto;" 
-            [gridOptions]="gridOptions"              
-            [editType]="'fullRow'" 
-            [components]="components" 
-            [rowData]="rowData" 
-            [domLayout]="domLayout"
-              
-            [columnDefs]="columnDefs" 
-            (gridReady)="onGridReady($event)"
-              
-            [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
-            (gridReady)="onGridReady($event)"
-              
-            (rowValueChanged)="onRowValueChanged($event)" 
-            (cellValueChanged)="onCellValueChanged($event)"
-              
-              rowSelection="multiple" 
-              (rowSelected)="onRowSelected($event)" 
-              [suppressRowClickSelection]="true">
-            </ag-grid-angular>
+        <form [formGroup]="form">
+          <ag-grid-angular 
+          class="ag-theme-alpine" 
+          style="width: 100%; height: auto;" 
+          rowSelection="multiple" 
+          [gridOptions]="gridOptions"              
+          [editType]="'fullRow'" 
+          [components]="components" 
+          [rowData]="rowData" 
+          [domLayout]="domLayout"
+          [columnDefs]="columnDefs" 
+          [overlayNoRowsTemplate]="overlayNoRowsTemplate" 
+          [suppressRowClickSelection]="true"
+          (gridReady)="onGridReady($event)"
+          (rowValueChanged)="onRowValueChanged($event)" 
+          (cellValueChanged)="onCellValueChanged($event)"
+            (rowSelected)="onRowSelected($event)"
+            >
+          </ag-grid-angular> 
           </form>
-        </div>
       </kt-portlet-body>
     </kt-portlet>
+    <div class="col-lg-12 col-md-12">
+      
+    
+  </div>
   </div>
 </div>

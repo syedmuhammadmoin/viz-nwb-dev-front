@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Injectable, Injector } from '@angular/core';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IApiResponse } from 'src/app/views/shared/IApiResponse';
@@ -14,13 +14,17 @@ import { AppConst } from 'src/app/views/shared/AppConst';
 export class TaxService extends AppServiceBase {
 
   baseUrl = AppConst.remoteServiceBaseUrl + 'tax';
+  private childrenListSubject = new BehaviorSubject<ITax[]>([]);
+  childrenList$ = this.childrenListSubject.asObservable();
     
     constructor(private httpClient: HttpClient, injector: Injector) { super(injector) }
 
     getTaxes(): Observable<IPaginationResponse<ITax[]>> {
         return this.httpClient.get<IPaginationResponse<ITax[]>>(this.baseUrl)
     }
-
+    updateChildrenList(newList: ITax[]) {
+        this.childrenListSubject.next(newList);
+      }
     getTax(id: number): Observable<IApiResponse<ITax>> {
         return this.httpClient.get<IApiResponse<ITax>>(`${this.baseUrl}/${id}`)
     }
@@ -52,6 +56,13 @@ export class TaxService extends AppServiceBase {
       getTaxesByIds(ids: number[]): Observable<any> {
         return this.httpClient.post(`${AppConst.remoteServiceBaseUrl + "tax/gettaxesbyids"}`, ids);
     }
+    ChangeTaxStatus(id: number,status :boolean): Observable<any> {
+      return this.httpClient.post<any>(`${this.baseUrl + '/change-status/'+ id}` , status, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json'
+          })
+      })
+  }
 }
 
 
