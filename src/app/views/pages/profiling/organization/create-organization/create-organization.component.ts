@@ -52,7 +52,6 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
     private fb: FormBuilder,
     public ngxsService:NgxsCustomService,
     @Optional() @Inject(MAT_DIALOG_DATA) private _id: number,
-    public dialogRef: MatDialogRef<CreateOrganizationComponent>,
     injector: Injector) {
     super(injector);
   }
@@ -151,7 +150,7 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
             this.toastService.success('Updated Successfully', 'Campus')
-            this.onCloseDialog();
+            //this.onCloseDialog();
           }
         )
     } else {
@@ -163,7 +162,7 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
         .subscribe(() => {
             this.ngxsService.store.dispatch(new IsReloadRequired(OrganizationState, true))
             this.toastService.success('Created Successfully', 'Campus')
-            this.onCloseDialog();
+            //this.onCloseDialog();
           }
         );
     }
@@ -186,8 +185,8 @@ export class CreateOrganizationComponent extends AppComponentBase implements OnI
   }
 
   // Dialogue close function
-  onCloseDialog() {
-    this.dialogRef.close();
+  onCloseDialog(){
+    
   }
 }
 

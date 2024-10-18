@@ -743,6 +743,14 @@ const routes: Routes = [
           ),
         canActivateChild: [AuthGuard]
       },
+      {
+        path: APP_ROUTES.FISCAL_YEAR, // <= Page URL
+        loadChildren: () =>
+          import('./views/pages/profiling/fiscal-year/fiscal-year.module').then(
+            (m) => m.FiscalYearModule
+          ),
+        canActivateChild: [AuthGuard]
+      },
       {path: '', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
       {path: '**', redirectTo: APP_ROUTES.DASHBOARD, pathMatch: 'full'},
     ],

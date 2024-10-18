@@ -70,8 +70,7 @@
                                     <b>EU Intra-community Distance Selling</b><br>
                                     <small>Apply VAT of the EU country to which goods and services are delivered.</small>
                                 </div>
-                            </div>
-                         
+                            </div>                         
                         </div>
                         <div class="col-2">                            
                             <div>
@@ -83,6 +82,90 @@
                                 </span>
                             </div>
                         </div>
+
+                        <div class="col-6">
+                            <div>
+                                <input type="checkbox"  name="" id="" formControlName="cashBasis" (click)="ShowCashBasis()"     >
+                                <div class="dyn_box">
+                                    <b>Cash Basis</b><br>
+                                    <small>Allow to configure taxes using cash basis</small>
+                                </div>
+                            </div>
+                        
+                            <div *ngIf="isCashBasisChecked">
+                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                                    <label class="col-form-label pt-0">Tax Cash Basis Journal:</label>
+                                    <kt-simple-dropdown id="ta_country" formControlName="taxCashBasisId"
+                                        matFormFieldClass="full-width" propertyName="name" propertyValue="id"
+                                        [optionList]="ngxsService.otherAccounts$" placeholder="Select Advance Account">
+                                    </kt-simple-dropdown>
+                                </div> 
+
+                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                                    <label class="col-form-label pt-0">Base Tax Received Account:</label>
+                                    <kt-simple-dropdown id="taxGrp_country" formControlName="baseTaxReceivedAccountId"
+                                        matFormFieldClass="full-width" propertyName="name" propertyValue="id"
+                                        [optionList]="ngxsService.otherAccounts$" placeholder="Select Advance Account">
+                                    </kt-simple-dropdown>
+                                </div> 
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div>
+                                <input type="checkbox"  name="" id="" formControlName="isAvatax" (click)="IsShowAvaTax()">
+                                <div class="dyn_box">
+                                    <b>AvaTax</b><br>
+                                    <small>Automatically compute tax rates in the US and Canada.</small>
+                                </div>
+                            </div>
+                            <div *ngIf="ShowAvatax">
+                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                                    <label class="col-form-label pt-0">Environment:</label>
+                                <kt-input-field formControlName="environment" matFormFieldClass="full-width" placeholder="Sandbox/Production"
+                                >
+                              </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                                    <label class="col-form-label pt-0">API ID:</label>
+                                <kt-input-field formControlName="apiId" matFormFieldClass="full-width" placeholder="Sandbox/Production"
+                                >
+                              </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                                    <label class="col-form-label pt-0">API KEY:</label>
+                                <kt-input-field formControlName="apiKey" matFormFieldClass="full-width" placeholder="Sandbox/Production"
+                                >
+                              </kt-input-field>
+                                </div>
+                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                                    <label class="col-form-label pt-0">Company Code:</label>
+                                <kt-input-field formControlName="companyCode" matFormFieldClass="full-width" placeholder="Sandbox/Production"
+                                >
+                              </kt-input-field>
+                                </div>
+
+                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                              <span> Use UPC <input type="checkbox" formControlName="useUPC" name="" id=""></span><br>
+                              <span>Commit Transactions <input type="checkbox" formControlName="commitTransactions" name="" id=""></span><br>
+                              <span>Address Validation  <input type="checkbox" formControlName="addressValidation" name="" id=""></span><br>
+                                </div>
+
+                            </div>
+                         
+                        </div>
+
+                        <div class="col-6">
+                            <div class="form-group kt-form__group mb-0 pt-2 pb-0">
+                                <label class="col-form-label pt-0">Fiscal Country:</label>
+                                <kt-simple-dropdown id="taxGrp_country" formControlName="countryId"
+                                    matFormFieldClass="full-width" propertyName="name" propertyValue="id"
+                                    [optionList]="ngxsService.countries$"
+                                    placeholder="Select Fiscal Country"
+                                   >
+                                </kt-simple-dropdown>
+                            </div>
+                        </div>
+
                     </div>
                     <div class="row mt-1 mb-0">
                         <h5 class="bg-secondary py-1">Currencies</h5>
@@ -91,9 +174,9 @@
                         <small>Domestic country of your accounting</small>
 
                         <div class="form-group kt-form__group mb-0 pt-2 pb-0 col-3">
-                            <kt-simple-dropdown id="taxGrp_country" formControlName="fiscalCountry"
+                            <kt-simple-dropdown id="taxGrp_country" formControlName="currencyId"
                                 matFormFieldClass="full-width" propertyName="name" propertyValue="id"
-                                [optionList]="ngxsService.countries$" placeholder="Select Fiscal Country">
+                                [optionList]="currencyList" placeholder="Select Currency">
                             </kt-simple-dropdown>
                         </div>
                     </div>
@@ -133,18 +216,7 @@
                        
                         
                         </div>   
-                        <div class="col-6">
-                            <input type="checkbox"  name="" id="">
-                            <div>
-                                <div class="form-group kt-form__group mb-0 pt-2 pb-0">
-                                    <label class="col-form-label pt-0">Journal:</label>
-                                    <kt-simple-dropdown id="taxGrp_country" formControlName="journalAccountId"
-                                        matFormFieldClass="full-width" propertyName="name" propertyValue="id"
-                                        [optionList]="ngxsService.otherAccounts$" placeholder="Select Advance Account">
-                                    </kt-simple-dropdown>
-                                </div> 
-                            </div>
-                        </div>                 
+                                       
                         <!-- <div class="col-6">
                             <b>Invoicing Switch Threshold</b><br>
                             <small>The invoices up to this date will not be taken into account as accounting

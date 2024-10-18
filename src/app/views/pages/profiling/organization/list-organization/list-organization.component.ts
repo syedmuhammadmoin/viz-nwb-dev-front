@@ -7,6 +7,7 @@ import { CustomTooltipComponent } from 'src/app/views/shared/components/custom-t
 import { AppComponentBase } from 'src/app/views/shared/app-component-base';
 import { IPaginationResponse } from 'src/app/views/shared/IPaginationResponse';
 import { IOrganization } from '../model/IOrganization';
+import { FISCALYEAR, ORGANIZATION } from 'src/app/views/shared/AppRoutes';
 
 @Component({
   selector: 'kt-list-organization',
@@ -97,7 +98,9 @@ export class ListOrganizationComponent extends AppComponentBase implements OnIni
       this.getOrganizations()
     });
   }
-
+  addOrganization(){
+    this.router.navigate(['/' + ORGANIZATION.CREATE])
+  }
   getOrganizations() : void {
     this.ngxsService.organizationService.getOrganizations().subscribe((res: IPaginationResponse<IOrganization[]>) => {
        this.organizationList = res.result;

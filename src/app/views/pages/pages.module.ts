@@ -9,6 +9,8 @@ import { PartialsModule } from '../partials/partials.module';
 import { CoreModule } from '../../core/core.module';
 import {AgGridModule} from 'ag-grid-angular';
 import { MatButtonModule } from '@angular/material/button';
+import { CreateFiscalYearComponent } from './profiling/fiscal-year/create-fiscal-year/create-fiscal-year.component';
+import { ListFiscalYearsComponent } from './profiling/fiscal-year/list-fiscal-years/list-fiscal-years.component';
 
 @NgModule({
     imports: [
@@ -21,6 +23,7 @@ import { MatButtonModule } from '@angular/material/button';
         PartialsModule,
     ],
     declarations: [
+
   ],
 })
 
