@@ -74,18 +74,18 @@
                         </div>
                         <div class="col-2">                            
                             <div>
-                                    <span> <input type="radio" formControlName="roundPerLine" name="tgl_name"> Round Per Line</span>                        
+                                    <span> <input type="radio" formControlName="roundPerLine" name="roundPerLine" [value]="true"> Round Per Line</span>                        
                             </div>
                             <div>
                                 <span>
-                                    <input type="radio" formControlName="roundGlobally" name="tgl_name"> Round Globaly
+                                    <input type="radio" formControlName="roundGlobally" name="roundGlobally" [value]="true"> Round Globaly
                                 </span>
                             </div>
                         </div>
 
                         <div class="col-6">
                             <div>
-                                <input type="checkbox"  name="" id="" formControlName="cashBasis" (click)="ShowCashBasis()"     >
+                                <input type="checkbox"  name="" id="" formControlName="caseBasis" (click)="ShowCashBasis()"     >
                                 <div class="dyn_box">
                                     <b>Cash Basis</b><br>
                                     <small>Allow to configure taxes using cash basis</small>
