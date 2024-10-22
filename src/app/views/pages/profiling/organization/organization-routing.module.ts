@@ -4,8 +4,9 @@ import { PermissionGuard } from 'src/app/core/auth/_guards/permission.guard';
 import { RouterModule, Routes } from '@angular/router';
 import { ListOrganizationComponent } from './list-organization/list-organization.component';
 import { CRUD_ROUTES } from 'src/app/views/shared/AppRoutes';
+import { CreateOrganizationComponent } from './create-organization/create-organization.component';
 
-const route : Routes = [
+const routes: Routes = [
   {
     path: '',
     children: [
@@ -16,18 +17,39 @@ const route : Routes = [
           array: [
             { permission: Permissions.ORGANIZATION_VIEW },
             { permission: Permissions.ORGANIZATION_CREATE },
-            { permission: Permissions.ORGANIZATION_DELETE },
             { permission: Permissions.ORGANIZATION_EDIT },
           ]
         },
-        canActivate: [PermissionGuard]
+        canActivate: [PermissionGuard] 
       },
+      {
+        path: CRUD_ROUTES.CREATE,
+        component: CreateOrganizationComponent,
+        data: {
+          array: [
+            { permission: Permissions.ORGANIZATION_CREATE },
+            { permission: Permissions.ORGANIZATION_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard] 
+      },
+      {
+        path: CRUD_ROUTES.EDIT,
+        component: CreateOrganizationComponent,
+        data: {
+          array: [
+            { permission: Permissions.ORGANIZATION_EDIT },
+            { permission: Permissions.ORGANIZATION_VIEW },
+          ]
+        },
+        canActivate: [PermissionGuard] 
+      },    
     ]
   }
 ]
 
 @NgModule({
-  imports: [RouterModule.forChild(route)],
+  imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
 export class OrganizationRoutingModule { }

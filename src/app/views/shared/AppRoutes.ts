@@ -110,7 +110,9 @@ export const APP_ROUTES = {
   CWIP: 'cwip',
   DISPOSAL: 'disposal',
   DEPRECIATION_ADJUSTMENT: 'depreciation-adjustment',
-  ASSET_REPORT: 'assets-report'
+  ASSET_REPORT: 'assets-report',
+  APP_SETTING: 'setting',
+  FISCAL_YEAR : 'fiscal-year'
 }
 
 export const CRUD_ROUTES = {
@@ -384,6 +386,20 @@ export const JOURNAL = {
     return APP_ROUTES.JOURNAL + '/' + route + '/' + id
   }
 }
+
+export const FISCALYEAR= {
+  LIST: APP_ROUTES.FISCAL_YEAR + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.FISCAL_YEAR + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.FISCAL_YEAR + '/edit/',
+  DETAIL: APP_ROUTES.FISCAL_YEAR + '/detail/',
+  PRINT: APP_ROUTES.FISCAL_YEAR + '/print/',
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.FISCAL_YEAR + '/' + route + '/' + id
+  }
+}
 export const JOURNAL_ENTRY = {
   LIST: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.LIST,
   CREATE: APP_ROUTES.JOURNAL_ENTRY + '/' + CRUD_ROUTES.CREATE,
@@ -538,7 +554,17 @@ export const CATEGORY = {
 }
 
 export const ORGANIZATION = {
-  LIST: APP_ROUTES.ORGANIZATION + '/' + CRUD_ROUTES.LIST
+  LIST: APP_ROUTES.ORGANIZATION + '/' + CRUD_ROUTES.LIST,
+  CREATE: APP_ROUTES.ORGANIZATION + '/' + CRUD_ROUTES.CREATE,
+
+  EDIT: APP_ROUTES.ORGANIZATION + '/edit/',
+  DETAIL: APP_ROUTES.ORGANIZATION + '/detail/',
+  PRINT: APP_ROUTES.ORGANIZATION + '/print/',
+
+  //OR
+  ID_BASED_ROUTE(route: string, id: number) {
+    return APP_ROUTES.ORGANIZATION + '/' + route + '/' + id
+  }
 }
 
 export const PRODUCT = {
