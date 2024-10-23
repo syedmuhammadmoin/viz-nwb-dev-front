@@ -47,7 +47,7 @@ export class AccountingComponent extends AppComponentBase implements OnInit {
     roundPerLine : [true],
     roundGlobally : [false],
     europeVAT : [false],
-    countryId : [""],   
+    countryId : [null],   
     lastMonth : [12],
     lastDay : [31],
     dynamicReports : [true],

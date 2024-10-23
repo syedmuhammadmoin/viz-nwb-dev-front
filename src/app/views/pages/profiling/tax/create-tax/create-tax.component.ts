@@ -108,9 +108,9 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     this.taxForm = this.fb.group({
       id: [],
       name: [null, [Validators.required]],
-      taxType: [null],
+      taxType: [0],
       accountId: [null],
-      taxComputation: [null],
+      taxComputation: [2],
       amount: [null],
       percent: [null],
       labelOninv: [null],
@@ -126,6 +126,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
       taxInvoiceslines: this.fb.array([]),
       taxRefundlines: this.fb.array([])
     });
+    this.onTypeChange('2')
 
     this.route.queryParams.subscribe((param: Params) => {
       const id = param.q;
