@@ -54,8 +54,8 @@ export class AccountingComponent extends AppComponentBase implements OnInit {
     thresholdDate : [null],
     taxCashBasisId : [""],
     baseTaxReceivedAccountId : [null],  
-    isAvatax:[false],
-    cashBasis : [false],
+    isAvatax:[true],
+    caseBasis : [true],
     environment : [null],
     apiId : [null],
     apiKey : [null],
@@ -63,7 +63,7 @@ export class AccountingComponent extends AppComponentBase implements OnInit {
     useUPC : [false],
     commitTransactions : [false],
     addressValidation : [null],
-    currencyId :[""]
+    currencyId :[null]
    })
    
    this.getTaxes();
@@ -77,7 +77,9 @@ getAccountingSetting(id : number){
 lastValueFrom(this.service.getById(id)).then( res=> {
  this.form.patchValue(res.result);
  this.ShowAvatax = res.isAvatax;
- this.isCashBasisChecked = res.cashBasis
+ this.isCashBasisChecked = res.caseBasis; 
+ this.IsShowAvaTax();
+ this.ShowCashBasis();
  console.log(res.result,"get response");
  
 })
@@ -89,8 +91,9 @@ lastValueFrom(this.service.getById(id)).then( res=> {
     }
 
   onSubmit(){
-    this.model = this.form.value;
-    console.log(this.model,"Log model");
+    this.model = this.form.value; 
+    console.log(this.form.value,"Form");
+    
     lastValueFrom(this.service.add(this.model)).then(res => {
       console.log(res.result);    
     })
@@ -103,9 +106,12 @@ lastValueFrom(this.service.getById(id)).then( res=> {
   }
   ShowCashBasis(){
     this.isCashBasisChecked = !this.isCashBasisChecked
+    console.log(this.isCashBasisChecked,"CheckSCash");
+    
   }
   IsShowAvaTax(){
     this.ShowAvatax = !this.ShowAvatax;
+    console.log(this.ShowAvatax,"CheckSAvtax");
   }
 getCurrencies(){
   lastValueFrom(this.currencyService.getCurrencyes()).then(res => {
@@ -141,5 +147,5 @@ export interface IAccountingSettingModel{
     commitTransactions : boolean;
     addressValidation : boolean;
     currencyId:number;
-    cashBasis : boolean;
+    caseBasis : boolean;
 }
