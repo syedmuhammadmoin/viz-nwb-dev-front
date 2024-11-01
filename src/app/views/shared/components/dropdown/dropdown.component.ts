@@ -49,6 +49,8 @@ export class DropdownComponent implements OnInit, OnChanges, ControlValueAccesso
   @Input() isDisabled: boolean
   @Input() isDisabledNone: boolean = false;
   @Input() id: string;
+  @Input() labelText: string | null;
+
 
   @Output() clickEvent = new EventEmitter<any>();
   @Output() selectionChange = new EventEmitter<any>();

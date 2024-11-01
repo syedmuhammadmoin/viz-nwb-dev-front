@@ -29,9 +29,12 @@
 @import 'node_modules/ag-grid-community/styles/ag-theme-alpine.css';
 
 //@import "./assets/css/style-sbbu.scss";
-@import "./assets/css/style-edinfini.scss";
+
+@import "./assets/css/style-vizalys2024.scss";
+// Before style-vizalys2024, used style-edinfini
+// @import "./assets/css/style-edinfini.scss";
 // @import "./assets/css/print.css";
-@import "./assets/css/style-print-sbbu.scss";
+// @import "./assets/css/style-print-sbbu.scss";
 // @import "./assets/css/style-print-edinfini.scss";
 
 
@@ -106,6 +109,8 @@ display: none;
 
   }
 }
+
+
 // Aside themes
 // .aside-dark {
 //   @import "./assets/sass/themes/layout/aside/dark.scss";
@@ -114,6 +119,8 @@ display: none;
 // .aside-light {
 //   @import "./assets/sass/themes/layout/aside/light.scss";
 // }
+
+
 .content{
   padding: 0px !important;
 }
@@ -134,26 +141,3 @@ kt-base {
 }
 
 
-
-/* Override the default toastr styles */
-.toastr {
-  background-color: rgba(255, 99, 71, 0.9); /* Light red (Tomato) */
-  color: #fff; /* White text */
-}
-
-/* Optional: Style for success, error, info, warning notifications */
-.toastr-success {
-  background-color: rgba(76, 175, 80, 0.9); /* Example: Green for success */
-}
-
-.toastr-error {
-  background-color: rgba(255, 99, 71, 0.9); /* Light red */
-}
-
-.toastr-info {
-  background-color: rgba(33, 150, 243, 0.9); /* Example: Blue for info */
-}
-
-.toastr-warning {
-  background-color: rgba(255, 152, 0, 0.9); /* Example: Orange for warning */
-}

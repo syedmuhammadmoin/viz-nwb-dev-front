@@ -172,7 +172,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   addInvoiceLine(): void {
     const detail = this.fb.group({
-      percent: [''],
+      percentage: [],
       taxBase: ['base',],
       accountId: [],
 
@@ -182,7 +182,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
 
   addRefundine(): void {
     const detail = this.fb.group({
-      percent: [''],
+      percentage: [],
       taxBase: ['base'],
       accountId: []
     })
@@ -245,7 +245,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        percent: line.percent,
+        percentage: line.percentage,
         taxBase: [line.taxBase],
         accountId: [line.accountId],
       }))
@@ -256,7 +256,7 @@ export class CreateTaxComponent extends AppComponentBase implements OnInit {
     const formArray = new FormArray([]);
     lines.forEach((line: any) => {
       formArray.push(this.fb.group({
-        percent: line.percent,
+        percentage: line.percentage,
         taxBase: [line.taxBase],
         accountId: [line.accountId],
       }))
