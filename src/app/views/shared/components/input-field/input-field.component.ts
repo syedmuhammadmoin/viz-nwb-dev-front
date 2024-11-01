@@ -29,6 +29,7 @@ export class InputFieldComponent implements OnInit , ControlValueAccessor, Valid
   @Input() inputClass: any | [] | string;
   @Input() isDisabled: boolean;
   @Input() id: string;
+  @Input() labelText: string | null;
 
   @Input() type: any;
   @Input() min: number;

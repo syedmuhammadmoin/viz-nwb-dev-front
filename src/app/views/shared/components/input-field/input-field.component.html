@@ -1,28 +1,31 @@
-<mat-form-field [ngClass]="matFormFieldClass" appearance="outline" class="full-width">
-  <input  matInput
-         (blur)="blur()"
-         (change)="onChange($event)"
-         (keyup)="onChange($event)"
-         (click)="emitClickEvent()"
-         [formControl]="control"
-         [min]="min"
-         [placeholder]="placeholder"
-         [readonly]="readonly"
-         [value]="value"
-         [max]="max"
-         [id]="id"
-         [type]="type"
-         [defaultValue]="defaultValue"
-         [ngClass]="inputClass">
-  <mat-error *ngFor="let error of errorMessage">
-    <strong *ngIf="error.condition">{{error.error}}</strong>
-  </mat-error>
 
-  <mat-error *ngFor="let error of errorMessage2" [ngClass]="error.condition  ? 'text-danger' : 'text-success'">
-    <i class="material-icons" [ngClass]="error.condition ? 'text-danger' : 'text-success' ">
+<mat-form-field [ngClass]="matFormFieldClass" appearance="outline" class="full-width flex-grow-1">
+  <mat-label>{{labelText}}</mat-label>
+  <input matInput
+  (blur)="blur()"
+  (change)="onChange($event)"
+  (keyup)="onChange($event)"
+  (click)="emitClickEvent()"
+  [formControl]="control"
+  [min]="min"
+  [placeholder]="placeholder"
+  [readonly]="readonly"
+  [value]="value"
+  [max]="max"
+  [id]="id"
+  [type]="type"
+  [defaultValue]="defaultValue"
+  [ngClass]="inputClass">
+  <mat-error *ngFor="let error of errorMessage">
+    <span *ngIf="error.condition">{{error.error}}</span>
+  </mat-error>
+  
+  <mat-error *ngFor="let error of errorMessage2" [ngClass]="error.condition ? 'text-danger' : 'text-success'">
+    <i class="material-icons" [ngClass]="error.condition ? 'text-danger' : 'text-success'">
       {{ error.condition ? 'cancel' : 'check_circle' }}
     </i>
     <strong class="font-size-11">{{error.error}}</strong>
   </mat-error>
   <mat-hint *ngIf="hintText" align="end">{{hintText}}</mat-hint>
 </mat-form-field>
+

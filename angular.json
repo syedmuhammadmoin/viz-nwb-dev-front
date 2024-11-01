@@ -95,12 +95,14 @@
               "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": {
-                "scripts": true,
+                "scripts": false,
                 "styles": false,
                 "hidden": false,
                 "vendor": false
               },
-              "namedChunks": true
+              "namedChunks": true,
+              "aot": false, 
+              "watch": true
             }
           },
           "defaultConfiguration": "production"

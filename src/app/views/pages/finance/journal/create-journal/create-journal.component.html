@@ -7,147 +7,77 @@
         <div class="kt-form__section kt-form__section--first">
           <div class="col-lg-12 col-md-12 col-sm-12 ps-4 pe-4">
             <div class="row mt-1 mb-0">
-
               <div class="col-sm-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Name:</label>
+                <kt-input-field labelText="Name" formControlName="name" matFormFieldClass="full-width"
+                  placeholder="Enter Name" (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)"
+                  [errorMessage]="formErrors.name">
+                </kt-input-field>
 
-                  <kt-input-field formControlName="name" matFormFieldClass="full-width" placeholder="Enter Name"
-                    (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)"
-                    [errorMessage]="formErrors.name">
-                  </kt-input-field>
-                </div>
               </div>
-
               <div class="col-sm-4" *ngIf="this.currentClient?.isCampus">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Campus:</label>
-                  <kt-simple-dropdown id="journal_campus" placeholder="Select Campus" propertyValue="id"
-                    propertyName="name" formControlName="campusId" 
-                    (blurEvent)="logValidationErrors(form, formErrors, validationMessages)"
-                    matFormFieldClass="full-width" [errorMessage]="'Campus is required.'"
-                    [optionList]="ngxsService.campuses$">
-                  </kt-simple-dropdown>
-                </div>
+                <kt-simple-dropdown labelText="Campus" id="journal_campus" placeholder="Select Campus"
+                  propertyValue="id" propertyName="name" formControlName="campusId"
+                  (blurEvent)="logValidationErrors(form, formErrors, validationMessages)" matFormFieldClass="full-width"
+                  [errorMessage]="'Campus is required.'" [optionList]="ngxsService.campuses$">
+                </kt-simple-dropdown>
               </div>
-
               <div class="col-sm-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0"> Type:</label>
-                  <kt-simple-dropdown id="type" placeholder="Select Type" propertyValue="value" propertyName="label"
-                    formControlName="type" (selectionChange)="loadAccountList($event)"
-                    (change)="loadAccountList($event)"
-                    (blurEvent)="logValidationErrors(form, formErrors, validationMessages)"
-                    matFormFieldClass="full-width" [errorMessage]="'Type is required.'" [optionList]="typeList">
-                  </kt-simple-dropdown>
-                </div>
+                <kt-simple-dropdown labelText="Type" placeholder="Select Type" propertyValue="value"
+                  propertyName="label" formControlName="type" (selectionChange)="loadAccountList($event)"
+                  (change)="loadAccountList($event)"
+                  (blurEvent)="logValidationErrors(form, formErrors, validationMessages)" matFormFieldClass="full-width"
+                  [errorMessage]="'Type is required.'" [optionList]="typeList">
+                </kt-simple-dropdown>
               </div>
-
-
-              <!-- <div class="col-lg-6 col-md-6 col-sm-6 my-auto">
-              <div class="form-group kt-form__group mb-0">
-                <div class="kt-radio-list">
-                  <mat-radio-group id="fixedAssetType" (change)="loadAccountList($event)" formControlName="type">
-                    <mat-radio-button *ngFor="let type of typeList" [value]="type.id">
-                      {{ type.label }}
-                    </mat-radio-button>
-                  </mat-radio-group>
-                </div>
-              </div>
-            </div> -->
-
-              <!-- <div class="col-sm-3">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Default Account:</label>
-                  <kt-simple-dropdown 
-                  id="defaultAccount"
-                    formControlName="defaultAccount"
-                    (blurEvent)="logValidationErrors(this.form, this.formErrors, this.validationMessages)"
-                    errorMessage="Default Account is required." 
-                    propertyName="accountTitle" 
-                    propertyValue="id"
-                    matFormFieldClass="full-width"
-                    [optionList]="ngxsService.defaultAccounts$" 
-                    [buttonPermission]="permission.isGranted(this.permissions.BANKACCOUNT_CREATE)"
-                    clickEventButtonName="Add New Account"
-                    (clickEvent)="addButtonService.openBankAccountDialog()"
-                    placeholder="Select Default Account">
-                  </kt-simple-dropdown>
-                </div>
-              </div> -->
               <div class="col-sm-4">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">{{defaultAccountLabel}}</label>
-                  <kt-simple-dropdown id="defaultAccountId" formControlName="defaultAccountId"
+                  <kt-simple-dropdown [labelText]="defaultAccountLabel" id="defaultAccountId" formControlName="defaultAccountId"
                     (blurEvent)="logValidationErrors(this.form, this.formErrors, this.validationMessages)"
                     errorMessage="Default Account is required." propertyName="name" propertyValue="id"
                     matFormFieldClass="full-width" [optionList]="defaultAccountList"
                     [buttonPermission]="permission.isGranted(this.permissions.BANKACCOUNT_CREATE)"
-                    placeholder="Select Default Account"
-                    (click)="checkType()">
+                    placeholder="Select Default Account" (click)="checkType()">
                   </kt-simple-dropdown>
-                </div>
               </div>
             </div>
-            <!-- clickEventButtonName="Add New Account"
-                    (clickEvent)="addButtonService.openBankAccountDialog()" -->
-            <div class="row">
 
+            <div class="row">
               <div class="col-sm-4" *ngIf="IsShowSuspenseAccountId">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Suspense Account:</label>
-                  <kt-simple-dropdown id="suspenseAccountId" formControlName="suspenseAccountId"
+                  <kt-simple-dropdown labelText = "Suspense Account" id="suspenseAccountId" formControlName="suspenseAccountId"
                     (blurEvent)="logValidationErrors(this.form, this.formErrors, this.validationMessages)"
                     errorMessage="Suspense Account is required." propertyName="name" propertyValue="id"
                     matFormFieldClass="full-width" [optionList]="suspenseAccountList"
                     placeholder="Select Suspense Account">
                   </kt-simple-dropdown>
-                </div>
+                
               </div>
 
               <div class="col-sm-4" *ngIf="IsShowProfitAccountId">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Profit Account:</label>
-                  <kt-simple-dropdown id="profitAccountId" formControlName="profitAccountId"
+                  <kt-simple-dropdown labelText="Profit Account" id="profitAccountId" formControlName="profitAccountId"
                     (blurEvent)="logValidationErrors(this.form, this.formErrors, this.validationMessages)"
                     errorMessage="Profit Account is required." propertyName="name" propertyValue="id"
                     matFormFieldClass="full-width" [optionList]="profitAccountList" placeholder="Select Profit Account">
                   </kt-simple-dropdown>
-                </div>
               </div>
 
               <div class="col-sm-4" *ngIf="IsShowLossAccountId">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Loss Account:</label>
-                  <kt-simple-dropdown id="lossAccountId" formControlName="lossAccountId"
+                  <kt-simple-dropdown labelText="Loss Acount" id="lossAccountId" formControlName="lossAccountId"
                     (blurEvent)="logValidationErrors(this.form, this.formErrors, this.validationMessages)"
                     errorMessage="Loss Account is required." propertyName="name" propertyValue="id"
                     matFormFieldClass="full-width" [optionList]="lossAccountList" placeholder="Select Loss Account">
                   </kt-simple-dropdown>
-                </div>
               </div>
 
             </div>
 
             <div class="row">
-
               <div class="col-sm-4" *ngIf="IsShowBankAcountId">
-                <div class="form-group kt-form__group mb-0">
-                  <label class="col-form-label pt-0">Bank Account:</label>
-                  <kt-simple-dropdown id="bankAcountId" formControlName="bankAcountId"
+                  <kt-simple-dropdown labelText="Bank Acount" id="bankAcountId" formControlName="bankAcountId"
                     (blurEvent)="logValidationErrors(this.form, this.formErrors, this.validationMessages)"
                     errorMessage="Bank Account is required." propertyName="name" propertyValue="id"
-                    matFormFieldClass="full-width" [optionList]="bankAccountList"
-                    placeholder="Select Bank Account">
+                    matFormFieldClass="full-width" [optionList]="bankAccountList" placeholder="Select Bank Account">
                   </kt-simple-dropdown>
-                </div>
               </div>
-
-              
-             
-
             </div>
-
           </div>
         </div>
       </div>

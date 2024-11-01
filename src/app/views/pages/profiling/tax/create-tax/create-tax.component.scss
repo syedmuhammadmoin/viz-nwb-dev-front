@@ -1,54 +1,54 @@
-.cus_lbl{
-    padding-right: 16px;
-    font-weight: 600;
-    font-size: 0.95rem;
-}
-.cus_inp{
-    border-bottom: 1px solid gainsboro;
-    border: none;
-}
-.cus_inp:focus{
- //background-color: red;
+// .cus_lbl{
+//     padding-right: 16px;
+//     font-weight: 600;
+//     font-size: 0.95rem;
+// }
+// .cus_inp{
+//     border-bottom: 1px solid gainsboro;
+//     border: none;
+// }
+// .cus_inp:focus{
+//  //background-color: red;
  
- outline: none;
- border-bottom: 1px solid gainsboro;
-}
-.custom-select {
-    border: none !important;     
-    outline: none !important;     
-    box-shadow: none !important; 
-    width: 218px;
-    //background-color: gray; 
-}
-.custom-select:focus{
-    border-bottom: 1px solid gray;
-    border-radius: 0px;
-}
-::ng-deep.ng-select-container {
-    //sborder-bottom: 1px solid red !important;
-    border: none;
-    outline: none;
- }
-// input:focus{
-//     //background-color: red;
+//  outline: none;
+//  border-bottom: 1px solid gainsboro;
+// }
+// .custom-select {
+//     border: none !important;     
+//     outline: none !important;     
+//     box-shadow: none !important; 
+//     width: 218px;
+//     //background-color: gray; 
+// }
+// .custom-select:focus{
+//     border-bottom: 1px solid gray;
+//     border-radius: 0px;
+// }
+// ::ng-deep.ng-select-container {
+//     //sborder-bottom: 1px solid red !important;
+//     border: none;
 //     outline: none;
-//     border-bottom: 1px solid black !important;
+//  }
+// // input:focus{
+// //     //background-color: red;
+// //     outline: none;
+// //     border-bottom: 1px solid black !important;
+// // }
+
+
+// .nav-tabs .nav-link {
+//     color: gray; /* Default color */
 // }
 
+// .nav-tabs .nav-link:hover {
+//     color: gray; /* Hover color */
+// }
 
-.nav-tabs .nav-link {
-    color: gray; /* Default color */
-}
+// .nav-tabs .nav-link.active {
+//     color: gray; /* Active tab text color */
+//     //background-color: #007bff; /* Background color for active tab */
+// }
 
-.nav-tabs .nav-link:hover {
-    color: gray; /* Hover color */
-}
-
-.nav-tabs .nav-link.active {
-    color: gray; /* Active tab text color */
-    //background-color: #007bff; /* Background color for active tab */
-}
-
-.nav-tabs .nav-link:not(.active):hover {
-    background-color: transparent; /* Background color on hover */
-}
+// .nav-tabs .nav-link:not(.active):hover {
+//     background-color: transparent; /* Background color on hover */
+// }

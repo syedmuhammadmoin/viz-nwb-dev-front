@@ -9,41 +9,36 @@
                 <!-- first row starts -->
 
                 <div class="row">
-                    <div class="col-sm-6">
-                        <label>Code:</label>
-                        <kt-input-field formControlName="code" placeholder="Enter Code"
+                    <div class="col-xs-12 col-sm-6">
+                        <kt-input-field labelText="Code" formControlName="code" placeholder="Enter Code"
                             (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)"
                             [errorMessage]="[{ condition : formErrors.code , error : formErrors.code }]">
                         </kt-input-field>
                     </div>
-                    <div class="col-sm-6">
-                        <label>Symbol:</label>
-                        <kt-input-field formControlName="symbol" placeholder="Enter Symbol"
+                    <div class="col-xs-12 col-sm-6">
+                        <kt-input-field labelText="Symbol" formControlName="symbol" placeholder="Enter Symbol"
                             (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)"
                             [errorMessage]="[{ condition : formErrors.symbol , error : formErrors.symbol }]">
                         </kt-input-field>
                     </div>
-                    <div class="col-sm-6">
-                        <label>Name:</label>
-                        <kt-input-field formControlName="name" placeholder="Enter Name"
+                    <div class="col-xs-12 col-sm-6">
+                        <kt-input-field labelText="Name" formControlName="name" placeholder="Enter Name"
                             (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)"
                             [errorMessage]="[{ condition : formErrors.name , error : formErrors.name }]">
                         </kt-input-field>
                     </div>
 
-                    <div class="col-sm-6">
-                        <label>Unit:</label>
-                        <kt-input-field formControlName="unit" placeholder="Enter Unit"
+                    <div class="col-xs-12 col-sm-6">
+                        <kt-input-field labelText="Unit" formControlName="unit" placeholder="Enter Unit"
                             (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)"
                             [errorMessage]="[{ condition : formErrors.unit , error : formErrors.unit }]">
                         </kt-input-field>
 
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-xs-12 col-sm-6">
 
-                        <label>Subunit:</label>
-                        <kt-input-field formControlName="subUnit" placeholder="Enter subunit"
+                        <kt-input-field labelText="Subunit" formControlName="subUnit" placeholder="Enter subunit"
                             (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)"
                             [errorMessage]="[{ condition : formErrors.subUnit , error : formErrors.subUnit }]">
                         </kt-input-field>
@@ -55,7 +50,7 @@
                             <div formArrayName="currencyLines">
 
                                 <mat-divider></mat-divider>
-                                <table class="table">
+                                <table class="table  table-borderless">
                                     <thead>
                                         <tr>
                                             <th>Date</th>
@@ -74,15 +69,15 @@
                                                 </kt-date-input>
                                             </td>
                                             <td>
-                                                <kt-input-field formControlName="usdPerUnit" placeholder="Enter USD per Unit"
-                                                    matFormFieldClass="full-width"
+                                                <kt-input-field formControlName="usdPerUnit"
+                                                    placeholder="Enter USD per Unit" matFormFieldClass="full-width"
                                                     (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)">
                                                     <!-- [errorMessage]="i.date.errors?.required && i.date.touched ? 'Date is required.' : false " -->
                                                 </kt-input-field>
                                             </td>
                                             <td>
-                                                <kt-input-field formControlName="unitPerUSD" placeholder="Enter Unit per USD"
-                                                    matFormFieldClass="full-width"
+                                                <kt-input-field formControlName="unitPerUSD"
+                                                    placeholder="Enter Unit per USD" matFormFieldClass="full-width"
                                                     (blurEvent)="logValidationErrors(this.form, formErrors, validationMessages)">
                                                 </kt-input-field>
                                             </td>
